@@ -445,6 +445,7 @@ save(SpRootItem spItem, FileInfo fi)
       fi.setFilename(filename);
       fi.setHasBeenSaved(true);
       spItem.getEditFSM().reset();
+      OtProps.setSaveShouldPrompt(false);
    } else {
       spItem.getTable().set(".gui.filename.", oldFileName);
    }
