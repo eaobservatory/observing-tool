@@ -307,10 +307,12 @@ processXmlElementContent(String name, String value)
 
    if(name.equals(XML_SEEING)) {
       _previousXmlElement = name;
+      return;
    }
 
    if(name.equals(XML_CSO_TAU)) {
      _previousXmlElement = name;
+     return;
    }
 
 
