@@ -69,7 +69,9 @@ public class SpOR extends SpObsContextItem {
       spItem = (SpItem)children.nextElement();
 
       if(spItem instanceof SpMSB) {
-        elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
+	if ( ((SpMSB)spItem).getNumberRemaining() > 0 ) {
+          elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
+	}
         n++;
       }
 
