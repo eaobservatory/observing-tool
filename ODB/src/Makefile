@@ -92,6 +92,21 @@ endif
 
 	@printf \
 	"\n\
+	\n\
+	\nwhile ($$""#argv != 0)\
+	\n   switch ($$""argv[1])\
+	\n      case -kill_dir:\
+	\n         shift\
+	\n         setenv PRG_HOME $1\
+	\n         shift\
+	\n         breaksw\
+	\n      default:\
+	\n         echo \"No such option\"\
+	\n         exit 1\
+	\n         breaksw\
+	\n   endsw\
+	\nend\
+	\n\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nsetenv CLASSPATH $(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g')\
         \n\
@@ -216,6 +231,21 @@ endif
 
 	@printf \
 	"\n\
+	\n\        
+	\nwhile ($$""#argv != 0)\
+	\n   switch ($$""argv[1])\
+	\n      case -kill_dir:\
+	\n         shift\
+	\n         setenv PRG_HOME $1\
+	\n         shift\
+	\n         breaksw\
+	\n      default:\
+	\n         echo \"No such option\"\
+	\n         exit 1\
+	\n         breaksw\
+	\n   endsw\
+	\nend\
+	\n\
         \nsetenv CLASSPATH $(shell echo $(addprefix "DOLLAR{ODB_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
 	\n\
 	\n" >> $@
