@@ -539,12 +539,15 @@ public class OtWindow extends SpTreeGUI
      * user if the program has been edited.
      */
     protected boolean isOkayToClose()  {
+	// Never prompt to save a library - caveat emptor!
+	if (getItemType().equalsIgnoreCase("library")) {
+	    return true;
+	}
+
 	// If not edited, then it is okay to close this program.
 	if (!isEdited() && !OtProps.isSaveShouldPrompt()) {
 	    return true;
 	}
-	System.out.println("edited? "+isEdited());
-	System.out.println("should save? "+OtProps.isSaveShouldPrompt());
 
 	// The program was edited, so now check whether we should prompt
 	// the user or not.  If not, it is okay to close this program.
