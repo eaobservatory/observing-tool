@@ -27,7 +27,9 @@ import gemini.sp.*;
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 
-// TODO MFO: check whether jcmt needs its own EdCompInstBase.
+// TODO MFO: check whether JCMT/SCUBA needs its own EdCompInstBase, whether it can use the UKIRT EdCompInstBase
+// (in which case it should go into a package that is not instrument specific) or whether it is sufficient just to
+// subclass OtItemEditor (as in EdCompInstHeterodyne).
 import ot.ukirt.inst.editor.EdCompInstBase;
 
 /**
