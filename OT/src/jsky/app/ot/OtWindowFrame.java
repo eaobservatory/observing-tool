@@ -33,6 +33,7 @@ public class OtWindowFrame extends JFrame {
      */
     public OtWindowFrame(final OtWindow editor) {
 	super("Science Program Editor");
+	setTitle(editor.getItem().getTitle());
 	this.editor = editor;
 	editor.setParentFrame(this);
 

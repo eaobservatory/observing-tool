@@ -754,9 +754,9 @@ public class OtWindow extends SpTreeGUI
 	    prefix += "UNKOWN TYPE: ";
 	}
 
-	setTitle(prefix + getFilename());
+	setTitle(prefix + spItem.getTitle());
 	if (parent != null)
-	    parent.setName(getFilename());
+	    parent.setName(spItem.getTitle());
 
 	TelescopePosEditor tpe = TpeManager.get(spItem);
 	if (tpe != null) {

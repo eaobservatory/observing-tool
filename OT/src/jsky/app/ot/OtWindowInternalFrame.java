@@ -34,6 +34,7 @@ public class OtWindowInternalFrame extends JInternalFrame implements CloseableAp
      */
     public OtWindowInternalFrame(OtWindow editor) {
 	super("Science Program Editor");
+	setTitle(editor.getItem().getTitle());
 	this.editor = editor;
 	editor.setParentFrame(this);
 
