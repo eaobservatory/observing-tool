@@ -9,10 +9,13 @@ package jsky.app.ot.editor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import java.awt.Component;
 import java.io.File;
 import java.util.Arrays;
+import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -67,6 +70,7 @@ public final class EdCompTargetList extends OtItemEditor
 
     // Frequently used widgets
     private DropDownListBoxWidgetExt _tag;	// Object ID/Type
+    private DropDownListBoxWidgetExt _type;     // Object type
     private TextBoxWidgetExt         _name;	// Object Name
     private TextBoxWidgetExt         _xaxis;	// RA/Az
     private TextBoxWidgetExt         _yaxis;	// Del/El
@@ -188,6 +192,44 @@ public final class EdCompTargetList extends OtItemEditor
         _w.conicSystemType.addWatcher(this);
         // _w.namedSystemType.addWatcher(this);
         _w.namedTarget.addWatcher(this);
+
+	_type = _w.targetTypeDDList;
+	_type.addChoice("<Select>");
+	for (int i=0; i<_w.targetSystemsTabbedPane.getTabCount(); i++) {
+	    _type.addChoice(_w.targetSystemsTabbedPane.getTitleAt(i));
+	}
+	_type.addWatcher(new DropDownListBoxWidgetWatcher() {
+		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
+		    for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
+			if (tab == i-1) {
+			    _w.targetSystemsTabbedPane.setEnabledAt(tab, true);
+			    _w.targetSystemsTabbedPane.setSelectedIndex(tab);
+			    Component [] component = ((JPanel)_w.targetSystemsTabbedPane.getComponentAt(tab)).getComponents();
+			    for (int count = 0; count < component.length; count++ ) {
+				component[count].setEnabled(true);
+			    }
+			}
+			else {
+			    _w.targetSystemsTabbedPane.setEnabledAt(tab, false);
+			}
+		    }
+		}
+		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
+		    for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
+			if (tab == i-1) {
+			    _w.targetSystemsTabbedPane.setEnabledAt(tab, true);
+			    _w.targetSystemsTabbedPane.setSelectedIndex(tab);
+			    Component [] component = ((JPanel)_w.targetSystemsTabbedPane.getComponentAt(tab)).getComponents();
+			    for (int count = 0; count < component.length; count++ ) {
+				component[count].setEnabled(true);
+			    }
+			}
+			else {
+			    _w.targetSystemsTabbedPane.setEnabledAt(tab, false);
+			}
+		    }
+		}
+	    });
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
@@ -1129,29 +1171,36 @@ public final class EdCompTargetList extends OtItemEditor
 
       if(e.getSource() == _w.targetSystemsTabbedPane) {
 
-	// Changing the target system type ("RA/Dec" v "Orbital Elements" v "Planets, Sun, Moon") results
-	// in some settings being reset. This is because different target system share attributes
-	// (e.g. Minor/Major in named system and conic system)
-	// Most importantly they all share the name attribute. This has to be deleted when the target sytem
-	// type changes because you cannot specify "Uranus" or "Moon" in terms of RA/Dec, say.
-	// Nor can you have "Vega" as a named target.
-	// So warn the user of this and all canceling.
-	int option = JOptionPane.showConfirmDialog(_w,
-			"Changing the system type (\"RA/Dec\", \"Orbital Elements\", \"Planets, Sun, Moon\")\n"      +
-			"     will result in partial loss of the settings for the current system type.\n"            +
-			"E.g. the \"Orbital Elements\" -> Major/Minor/Comets menu will be set to \"Comets\" and\n\n" +
-			"                          THE TARGET NAME WILL BE DELETED.\n\n"                             +
-			"                             Do you want to go ahead anyway?",
-			"Change System Type?",
-			JOptionPane.OK_CANCEL_OPTION);
-
-	if(option == JOptionPane.CANCEL_OPTION) {
-	  _selectTargetSystemTab(_curPos);
-	  return;
-	}
-
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.objectGBW) {
           _curPos.setSystemType(SpTelescopePos.SYSTEM_SPHERICAL);
+	  // See if the user has entered the name of a planet.  If so, warn him that
+	  // spherical coordinates are probably not sensible.  Pop up a warning box
+	  // with cancel and continue options, and handle the response.
+	  String [] targetList = OtCfg.getNamedTargets();
+	  for (int i=0; i<targetList.length; i++) {
+	      if (_name.getValue().equalsIgnoreCase(targetList[i])) {
+		  // We have a winner!
+		  int selected = JOptionPane.showConfirmDialog(null,
+							       "Do you REALLY want to specify the RA and DEC for this object?",
+							       "Name is Planet/Moon/Sun",
+							       JOptionPane.YES_NO_OPTION,
+							       JOptionPane.WARNING_MESSAGE);
+		  if (selected == JOptionPane.NO_OPTION) {
+// 		      _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
+		      // Which pane is the named SystemPanel anyway?
+		      for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
+			  if (_w.targetSystemsTabbedPane.getComponentAt(tab) ==  _w.namedSystemPanel) {
+			      _type.setValue(_w.targetSystemsTabbedPane.getTitleAt(tab));
+			      break;
+			  }
+		      }
+		  }
+		  else {
+		      // Oh well, at least we warned the user.  
+		      // Maybe this will be validated somewhere down the line...
+		  }
+	      }
+	  }
 	}
 
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.conicSystemPanel) {
@@ -1160,6 +1209,49 @@ public final class EdCompTargetList extends OtItemEditor
 
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.namedSystemPanel) {
           _curPos.setSystemType(SpTelescopePos.SYSTEM_NAMED);
+	  // See if the name is one of the predefined ones.  If it is still empty, fine,
+	  // if it matches, set the choice appropriately, if it doesn't, warn the user and
+	  // clear the field if this is what they want to do.
+	  if (_name.getValue().equals("")) {
+	      // OK, carry on
+	  }
+	  else {
+	      boolean targetFound = false;
+	      String [] namedTargets = OtCfg.getNamedTargets();
+	      for (int targetCount=0; targetCount < namedTargets.length; targetCount++) {
+		  if (_name.getValue().equalsIgnoreCase((String)namedTargets[targetCount])) {
+		      // Another winner!
+		      targetFound = true;
+		      _w.namedTarget.setSelectedItem(namedTargets[targetCount]);
+		      break;
+		  }
+	      }
+	      if (targetFound == false) {
+		  // Oops, the name is not in the list.  Warn the user and if he aborts, set
+		  // the selected tab to conic since this is probably what he wanted to do
+		  // anyway.
+		  int status = JOptionPane.showConfirmDialog(null,
+							     "Continuing will remove your named object.\nDo you REALLY want to do this?",
+							     "Name does not match list",
+							     JOptionPane.YES_NO_OPTION,
+							     JOptionPane.WARNING_MESSAGE);
+		  if (status == JOptionPane.YES_OPTION) {
+		      // You were warned...
+		      _curPos.setName("");
+		      _name.setValue("");
+		  }
+		  else {
+// 		      _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
+		      // Which pane is the conicSystemPanel anyway?
+		      for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
+			  if (_w.targetSystemsTabbedPane.getComponentAt(tab) ==  _w.conicSystemPanel) {
+			      _type.setValue(_w.targetSystemsTabbedPane.getTitleAt(tab));
+			      break;
+			  }
+		      }
+		  }
+	      }
+	  }
 	}
 
         _targetSystemsChange = true;
@@ -1174,8 +1266,8 @@ public final class EdCompTargetList extends OtItemEditor
 	  _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
 	}
 
-        _curPos.setName("");
-	_name.setValue("");
+//         _curPos.setName("");
+// 	_name.setValue("");
 
         _curPos.addWatcher(EdCompTargetList.this);
 
@@ -1324,6 +1416,21 @@ public final class EdCompTargetList extends OtItemEditor
 	    _curPos.setName(_w.nameTBW.getText() );
 	    _curPos.setCoordSys(CoordSys.FK5);
 	    _curPos.addWatcher(EdCompTargetList.this);
+
+	    // Added by SdW
+	    if (nameResolver.getEquinox().equalsIgnoreCase("RJ")) {
+		_curPos.setCoordSys(CoordSys.FK5);
+		_w.systemDDLBW.setValue(CoordSys.FK5);
+	    }
+	    else if ( nameResolver.getEquinox().equalsIgnoreCase("RB")) {
+		_curPos.setCoordSys(CoordSys.FK4);
+		_w.systemDDLBW.setValue(CoordSys.FK4);
+	    }
+	    else if (nameResolver.getEquinox().equalsIgnoreCase("GA")) {
+		_curPos.setCoordSys(CoordSys.GAL);
+		_w.systemDDLBW.setValue(CoordSys.GAL);
+	    }
+	    // End of addition
 
             _resetPositionEditor();
 	  }
