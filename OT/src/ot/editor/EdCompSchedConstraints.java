@@ -23,13 +23,18 @@ import jsky.app.ot.editor.OtItemEditor;
 import java.util.Calendar;
 import java.util.Date;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
+
 
 /**
  * This is the editor for Site Quality component.
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdCompSchedConstraints extends OtItemEditor implements TextBoxWidgetWatcher {
+public final class EdCompSchedConstraints extends OtItemEditor implements TextBoxWidgetWatcher,
+									  ActionListener {
 
   private SchedConstraintsGUI _w;       // the GUI layout panel
 
@@ -43,10 +48,19 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
     _presSource  = _w = new SchedConstraintsGUI();
     _description ="Observing constraints set here are used to schedule the telescope.";
 
+    ButtonGroup meridianApproachButtons = new ButtonGroup();
+    meridianApproachButtons.add(_w.meridianApproachRising);
+    meridianApproachButtons.add(_w.meridianApproachSetting);
+    meridianApproachButtons.add(_w.meridianApproachAny);
+
     _w.earliest.addWatcher(this);
     _w.latest.addWatcher(this);
     _w.minElevation.addWatcher(this);
+    _w.maxElevation.addWatcher(this);
     _w.period.addWatcher(this);
+    _w.meridianApproachRising.addActionListener(this);
+    _w.meridianApproachSetting.addActionListener(this);
+    _w.meridianApproachAny.addActionListener(this);
   }
 
   public void setup(SpItem spItem) {
@@ -75,7 +89,20 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       _w.earliest.setValue(_schedConstObsComp.getEarliest());
       _w.latest.setValue(_schedConstObsComp.getLatest());
       _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
+      _w.maxElevation.setValue(_schedConstObsComp.getMaxElevation());
       _w.period.setValue(_schedConstObsComp.getPeriod());
+
+      if(_schedConstObsComp.getMeridianApproach() != null) {
+        if(_schedConstObsComp.getMeridianApproach().equals(SpSchedConstObsComp.SOURCE_RISING)) {
+          _w.meridianApproachRising.setValue(true);
+        }
+	else {
+          _w.meridianApproachSetting.setValue(true);
+        }
+      }
+      else {
+        _w.meridianApproachAny.setValue(true);
+      }
   }
 
   /**
@@ -97,11 +124,15 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       }
 
       if(tbw == _w.minElevation) {
-        _schedConstObsComp.setMinElevation(_w.minElevation.getDoubleValue(0.0));
+        _schedConstObsComp.setMinElevation(_w.minElevation.getValue());
+      }
+
+      if(tbw == _w.maxElevation) {
+        _schedConstObsComp.setMaxElevation(_w.maxElevation.getValue());
       }
 
       if(tbw == _w.period) {
-        _schedConstObsComp.setPeriod(_w.period.getDoubleValue(0.0));
+        _schedConstObsComp.setPeriod(_w.period.getValue());
       }
     }
     catch(Exception e) {
@@ -110,10 +141,28 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
   }
  
   /**
-   * Text box action, ignored.
+   * Text box action.
    */
   public void textBoxAction(TextBoxWidgetExt tbw) {
     _updateWidgets();
   }
 
+  /**
+   * Radio button action.
+   */
+  public void actionPerformed(ActionEvent evt) {
+    Object w = evt.getSource();
+
+    if (w == _w.meridianApproachRising) {
+      _schedConstObsComp.setMeridianApproach(SpSchedConstObsComp.SOURCE_RISING);
+    }
+
+    if (w == _w.meridianApproachSetting) {
+      _schedConstObsComp.setMeridianApproach(SpSchedConstObsComp.SOURCE_SETTING);
+    }
+
+    if (w == _w.meridianApproachAny) {
+      _schedConstObsComp.setMeridianApproach(null);
+    }
+  }
 }
