@@ -19,6 +19,7 @@ import gemini.sp.SpTreeMan;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.swing.event.DocumentListener;
@@ -275,7 +276,12 @@ public class SpInputXML extends DefaultHandler {
   /** Test method. */
   public static void main(String [] args) {
     try {
-      SpItem spItem = (new SpInputXML()).xmlToSpItem(new FileReader(args[0]));
+	FileReader fr = new FileReader(args[0]);
+	SpItem spItem = (new SpInputXML()).xmlToSpItem(fr);
+	fr.close();
+	FileWriter fw = new FileWriter (args[0]);
+	fw.write(spItem.toXML());
+	fw.close();
     }
     catch(Exception e) {
       e.printStackTrace();
