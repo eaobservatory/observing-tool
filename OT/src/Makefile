@@ -59,8 +59,16 @@ $(BIN_DIR):
 
 # The following rule copies the cfg directories into LOCAL_INSTALL_ROOT
 # regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
-$(LOCAL_INSTALL_ROOT)/cfg: ../cfg
+$(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
+	rm -rf $@/*
 	cp -r ../cfg $(LOCAL_INSTALL_ROOT)
+# Hacky solution to adding scema locations to the config files...
+	@ echo "" >> $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
+	@ echo "schemaLocation: $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/jcmt/JCMTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
+	@ echo "" >> $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
+	@ echo "schemaLocation: $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/ukirt/UKIRTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
+
+FORCE:
 
 $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg: jsky/app/ot/cfg
 	rm -rf $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg
@@ -74,7 +82,6 @@ $(LOCAL_INSTALL_ROOT)/classes/ot/images: ot/images
 	rm -rf $(LOCAL_INSTALL_ROOT)/classes/ot/images
 	cp -r ot/images $(LOCAL_INSTALL_ROOT)/classes/ot
 
-	
 
 # default rule 
 $(CLASSES_DIR)/%.class: %.java
