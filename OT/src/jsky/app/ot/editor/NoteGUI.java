@@ -63,20 +63,24 @@ public class NoteGUI extends JPanel {
 		
 		JTextField inputField = new JTextField(50);
 		inputField.setName( observerTags[i] );
+		inputField.setMinimumSize(new Dimension(50, inputField.getMinimumSize().height));
 		
 		JLabel exampleLabel = new JLabel( observerExamples[i] );
 		exampleLabel.setFont(new java.awt.Font("Dialog", 0, 12));
 		exampleLabel.setForeground(Color.black);
 		
 		observerInputPanel.add( label, new GridBagConstraints(0, i, 1, 1, 0.0, 0.0, 
-								      GridBagConstraints.WEST, GridBagConstraints.NONE, 
+								      GridBagConstraints.WEST, 
+								      GridBagConstraints.NONE, 
 								      new Insets(0, 0, 0, 5), 0, 0));
-		observerInputPanel.add( inputField, new GridBagConstraints(1, i, 1, 1, 1.0, 0.0, 
-									   GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, 
+		observerInputPanel.add( inputField, new GridBagConstraints(1, i, 2, 1, 0.0, 0.0, 
+									   GridBagConstraints.WEST, 
+									   GridBagConstraints.NONE, 
 									   new Insets(0, 0, 0, 5), 0, 0));
-		observerInputPanel.add( exampleLabel, new GridBagConstraints(2, i, 1, 1, 0.0, 0.0, 
-									   GridBagConstraints.WEST, GridBagConstraints.NONE, 
-									   new Insets(0, 0, 0, 0), 0, 0));
+		observerInputPanel.add( exampleLabel, new GridBagConstraints(3, i, GridBagConstraints.REMAINDER, 1, 1.0, 0.0, 
+									     GridBagConstraints.WEST, 
+									     GridBagConstraints.NONE, 
+									     new Insets(0, 0, 0, 0), 0, 0));
 	    }
 	}
 

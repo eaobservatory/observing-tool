@@ -36,6 +36,7 @@ public class ObsGUI extends JPanel {
     CheckBoxWidgetExt optional = new CheckBoxWidgetExt();
     CheckBoxWidgetExt standard = new CheckBoxWidgetExt();
     JCheckBox unSuspendCB = new JCheckBox();
+    JLabel jLabel6 = new JLabel();
 
     public ObsGUI() {
         try {
@@ -96,6 +97,10 @@ public class ObsGUI extends JPanel {
 	standard.setText("Flag as Standard");
 	standard.setFont(new java.awt.Font("Dialog", 0, 12));
 
+	jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
+	jLabel6.setForeground(Color.black);
+	jLabel6.setText("(1-highest, 99-lowest)");
+
 	this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
 						 ,GridBagConstraints.EAST, GridBagConstraints.NONE, 
 						 new Insets(0, 5, 5, 5), 0, 0));
@@ -111,6 +116,9 @@ public class ObsGUI extends JPanel {
 	msbPanel.add(jComboBox1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
 							,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 
 							new Insets(5, 5, 5, 0), 0, 0));
+	msbPanel.add(jLabel6, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+							,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, 
+							new Insets(5, 2, 5, 0), 0, 0));
 	msbPanel.add(remainingLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
 							    ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
 							    new Insets(0, 30, 0, 0), 0, 0));

@@ -17,10 +17,13 @@ import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.Container;
 import java.awt.Font;
+import java.awt.Insets;
 
 /**
  * This GUI class is based on the GUI part of the edfreq.FrontEnd class which is not used anymore.
@@ -88,7 +91,8 @@ public class HeterodyneGUI extends JPanel {
       setLayout(new BorderLayout());
 /* Create the choice of frontends */
 
-      fePanel = new JPanel(flowLayoutLeft);
+      fePanel = new JPanel();
+      fePanel.setLayout ( new GridLayout(1, 0, 10, 0) );
       label = new JLabel("Front End");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
@@ -101,10 +105,12 @@ public class HeterodyneGUI extends JPanel {
       lowFreq.setFont(new Font("Dialog", 0, 12));
       lowFreq.setForeground(Color.black);
       lowFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+      lowFreq.setMinimumSize(lowFreq.getPreferredSize());
       highFreq = new JLabel ( "272" );
       highFreq.setFont(new Font("Dialog", 0, 12));
       highFreq.setForeground(Color.black);
       highFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+      highFreq.setMinimumSize(highFreq.getPreferredSize());
 
 //      feChoice.addActionListener ( this );
 
@@ -127,20 +133,42 @@ public class HeterodyneGUI extends JPanel {
 
 /* Create the display */
 
-      displayPanel = new JPanel(flowLayoutLeft);
+      displayPanel = new JPanel(new GridBagLayout());
       label = new JLabel("Low Limit (GHz)");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      displayPanel.add ( label );
-      displayPanel.add ( lowFreq );
-      label = new JLabel("    High Limit (GHz)");
+      label.setMinimumSize ( label.getPreferredSize() );
+      displayPanel.add ( label,  new GridBagConstraints (0 ,0, 1, 1,  1.0, 0.0,
+							 GridBagConstraints.WEST,
+							 GridBagConstraints.NONE,
+							 new Insets (10, 10, 10, 5),
+							 0, 0)
+			 );
+      displayPanel.add ( lowFreq,  new GridBagConstraints (1 ,0, 1, 1,  0.0, 0.0,
+							   GridBagConstraints.WEST,
+							   GridBagConstraints.NONE,
+							   new Insets (10, 0, 10, 10),
+							   0, 0)
+			 );
+      label = new JLabel("High Limit (GHz)");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      displayPanel.add ( label );
-      displayPanel.add ( highFreq );
+      label.setMinimumSize ( label.getPreferredSize() );
+      displayPanel.add ( label ,  new GridBagConstraints (2 ,0, 1, 1,  1.0, 0.0,
+							   GridBagConstraints.WEST,
+							   GridBagConstraints.NONE,
+							   new Insets (10, 10, 10, 5),
+							   0, 0)
+			 );
+      displayPanel.add ( highFreq,  new GridBagConstraints (3 ,0, 1, 1,  0.0, 0.0,
+							   GridBagConstraints.WEST,
+							   GridBagConstraints.NONE,
+							   new Insets (10, 0, 10, 10),
+							   0, 0)
+			 );
 
       // Bandwidth and Overlap
-      overlapBandwidthPanel = new JPanel(flowLayoutLeft);
+      overlapBandwidthPanel = new JPanel(new GridBagLayout());
 
       label = new JLabel("Side Band");
       label.setFont(new Font("Dialog", 0, 12));
@@ -156,60 +184,131 @@ public class HeterodyneGUI extends JPanel {
       label = new JLabel("    Bandwidth");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      overlapBandwidthPanel.add(label);
+      overlapBandwidthPanel.add(label, 
+				new GridBagConstraints (0, 0, 1, 1, 0.0, 0.0, 
+							GridBagConstraints.LINE_START,
+							GridBagConstraints.NONE,
+							new Insets (10, 0, 10, 10),
+							0, 0
+							)
+				);
       
       bandWidthChoice = new JComboBox();
       bandWidthChoice.setFont(new Font("Dialog", 0, 12));
       bandWidthChoice.setForeground(Color.black);
-      overlapBandwidthPanel.add(bandWidthChoice);
+      double height = bandWidthChoice.getPreferredSize().getHeight();
+      bandWidthChoice.setMinimumSize ( new Dimension (1, (int)height) );
+      overlapBandwidthPanel.add(bandWidthChoice,
+				new GridBagConstraints (1, 0, 1, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST,
+							GridBagConstraints.HORIZONTAL,
+							new Insets (10, 10, 10, 10),
+							0, 0
+							)
+				);
 
       label = new JLabel("    Resolution (KHz)");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
+      label.setMinimumSize ( label.getPreferredSize() );
       resolution = new JLabel();
       resolution.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
       resolution.setFont(new Font("Dialog", 0, 12));
       resolution.setForeground(Color.black);
-      displayPanel.add(label);
-      displayPanel.add(resolution);
+      resolution.setMinimumSize( resolution.getPreferredSize() );
+      displayPanel.add(label,  new GridBagConstraints (4 ,0, 1, 1,  1.0, 0.0,
+						       GridBagConstraints.WEST,
+						       GridBagConstraints.NONE,
+						       new Insets (10, 10, 10, 5),
+						       0, 0)
+		       );
+      displayPanel.add(resolution,  new GridBagConstraints (5 ,0, 1, 1,  0.0, 0.0,
+							    GridBagConstraints.WEST,
+							    GridBagConstraints.NONE,
+							    new Insets (10, 0, 10, 10),
+							    0, 0)
+		       );
+
 
       label = new JLabel("    Overlap (MHz)");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      overlapBandwidthPanel.add (label);
+      overlapBandwidthPanel.add (label,
+				 new GridBagConstraints (3, 0, 1, 1, 0.0, 0.0, 
+							 GridBagConstraints.WEST,
+							 GridBagConstraints.NONE,
+							 new Insets (10, 10, 10, 10),
+							 0, 0
+							 )
+				 );
 
       overlap = new JTextField();
       overlap.setColumns(10);
       overlap.setText ( "0.0" );
+      overlap.setMinimumSize ( new Dimension (1, (int)height) );
 //      overlap.addActionListener ( this );
-      overlapBandwidthPanel.add(overlap);
+      overlapBandwidthPanel.add(overlap,
+				new GridBagConstraints (4, 0, 1, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST,
+							GridBagConstraints.HORIZONTAL,
+							new Insets (10, 10, 10, 10),
+							0, 0
+							)
+				);
 
       // Velocity
-      velocityPanel = new JPanel(flowLayoutLeft);
+      velocityPanel = new JPanel( new GridBagLayout() );
 
       label = new JLabel("Velocity (km/s), Redshift");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      velocityPanel.add(label);
+      velocityPanel.add(label, new GridBagConstraints ( 0, 0, 2, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 10, 10, 0),
+							0, 0)
+			);
 
       velocityDefinition = new JComboBox();
       velocityDefinition.setFont(new Font("Dialog", 0, 12));
-      velocityPanel.add(velocityDefinition);
+      velocityPanel.add(velocityDefinition, new GridBagConstraints ( 2, 0, 1, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 5, 10, 0),
+							0, 0)
+			);
 
       velocity = new JTextField();
       velocity.setColumns(10);
       velocity.setText ( "0.0" );
+      velocity.setMinimumSize( velocity.getPreferredSize() );
 //      velocity.addActionListener ( this );
-      velocityPanel.add(velocity);
+      velocityPanel.add(velocity, new GridBagConstraints ( 3, 0, 1, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 5, 10, 10),
+							0, 0)
+			);
 
-      label = new JLabel("    Frame");
+      label = new JLabel("Frame");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      velocityPanel.add(label);
+      velocityPanel.add(label, new GridBagConstraints ( 4, 0, 1, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 10, 10, 0),
+							0, 0)
+			);
 
       velocityFrame = new JComboBox();
       velocityFrame.setFont(new Font("Dialog", 0, 12));
-      velocityPanel.add(velocityFrame);
+      velocityPanel.add(velocityFrame, new GridBagConstraints ( 5, 0, 1, 1, 1.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 5, 10, 10),
+							0, 0)
+			);
+      
 
 //      rangePanel = new JPanel(flowLayoutLeft);
 
@@ -231,14 +330,34 @@ public class HeterodyneGUI extends JPanel {
       moleculeFrequency.setForeground ( Color.red );
 //      moleculeFrequency.addActionListener(this);
 //      bandWidthChoice.addActionListener( this );
-      mol1Panel = new JPanel(flowLayoutLeft);
-      mol1Panel.add ( moleculeChoice );
-      mol1Panel.add ( transitionChoice );
-      mol1Panel.add ( moleculeFrequency );
+      mol1Panel = new JPanel( new GridBagLayout() );
+      mol1Panel.add ( moleculeChoice, new GridBagConstraints ( 0, 0, 1, 1, 0.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 10, 10, 0),
+							0, 0)
+		      );
+      mol1Panel.add ( transitionChoice, new GridBagConstraints ( 1, 0, 1, 1, 0.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 5, 10, 0),
+							0, 0)
+		      );
+      mol1Panel.add ( moleculeFrequency, new GridBagConstraints ( 2, 0, 1, 1, 0.0, 0.0, 
+							GridBagConstraints.WEST, 
+							GridBagConstraints.NONE,
+							new Insets (10, 5, 10, 0),
+							0, 0)
+		      );
       label = new JLabel("GHz");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      mol1Panel.add (label);
+      mol1Panel.add (label, new GridBagConstraints ( 3, 0, 1, 1, 1.0, 0.0, 
+						     GridBagConstraints.WEST, 
+						     GridBagConstraints.NONE,
+						     new Insets (10, 5, 10, 10),
+						     0, 0)
+		     );
 /* Secondary moleculare line choice - displayed just for convenience of
    astronomer */
 
@@ -310,43 +429,18 @@ public class HeterodyneGUI extends JPanel {
 
 /* Assemble the display */
 
-//      rangePanel.add ( linePanel );
 
       northPanel = new JPanel();
       northPanel.setLayout ( new BoxLayout ( northPanel, 
         BoxLayout.Y_AXIS ) );
 
-      Dimension preferredSize = fePanel.getPreferredSize();
-      preferredSize.height += 10;
-      fePanel.setPreferredSize(preferredSize);
-      preferredSize = displayPanel.getPreferredSize();
-      preferredSize.height += 10;
-      displayPanel.setPreferredSize(preferredSize);
-      preferredSize = overlapBandwidthPanel.getPreferredSize();
-      preferredSize.height += 10;
-      overlapBandwidthPanel.setPreferredSize(preferredSize);
-      preferredSize = velocityPanel.getPreferredSize();
-      preferredSize.height += 10;
-//       velocityPanel.setPreferredSize(preferredSize);
-//       preferredSize = mol1Panel.getPreferredSize();
-//       preferredSize.height += 10;
-//       mol1Panel.setPreferredSize(preferredSize);
-
 
       northPanel.add ( fePanel );
       northPanel.add ( displayPanel );
       northPanel.add ( overlapBandwidthPanel );
-//       northPanel.add ( velocityPanel );
-//       northPanel.add ( mol1Panel );
       northPanel.add(specialPanel);
       northPanel.add ( vfPanel );
-//       northPanel.add ( warningPanel );
       add ( northPanel, BorderLayout.NORTH );
-
-//      scrollPanel = new JScrollPane();
-      //scrollPanel.setPreferredSize ( new Dimension ( 600, 150 ) );
-
-//      add ( scrollPanel, BorderLayout.CENTER );
 
 
       southPanel = new JPanel();
@@ -355,5 +449,8 @@ public class HeterodyneGUI extends JPanel {
 
       add(southPanel, BorderLayout.SOUTH);
   }
+
+
+
 }
 
