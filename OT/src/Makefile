@@ -21,7 +21,7 @@ CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_D
 GIF_IMAGES          = $(addprefix $(CLASSES_DIR)/, $(shell find . -name "*.gif"))
 CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
 
-CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(JSKY_RELATED_CP)
+CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(OMP_CP):$(SOAP_CP):$(JSKY_RELATED_CP)
 
 # Should NOT be changed as other packages might rely on the this name!
 JAR_FILE            = ot.jar
