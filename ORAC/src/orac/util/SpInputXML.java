@@ -209,9 +209,7 @@ public class SpInputXML extends DefaultHandler {
     // be added to the attribute _currentElement of the SpAvTable, each of them containing
     // partial Strings.
     if((_currentElement != null) && (_valueArrayElement == null)){
-
       _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-      _characterBuffer = null;
     }
   }
 
