@@ -16,9 +16,10 @@ package gemini.sp;
  */
 public interface SpBasePosObserver
 {
+   // RA,Dec changed to x,y. coordSys added. (MFO, April 12, 2002)
    /**
     * Notification that the base position has changed.
-    * RA and Dec are specified in degrees.
+    * x and y are specified in degrees.
     */
-   public void basePosUpdate(double ra, double dec);
+   public void basePosUpdate(double x, double y, int coordSys);
 }

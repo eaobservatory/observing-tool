@@ -80,7 +80,7 @@ setTable(SpAvTable avTab)
       // Update the base position in the observation data.
       SpTelescopePos tp = getBasePosition();
       SpObsData      od = _spItem.getObsData();
-      if (od != null) od.setBasePos(tp.getXaxis(), tp.getYaxis());
+      if (od != null) od.setBasePos(tp.getXaxis(), tp.getYaxis(), tp.getCoordSys());
    }
 
    _notifyOfReset();
@@ -511,7 +511,7 @@ _changeTag(SpTelescopePos tp, String newTag)
 
    // If we've made tp the new base position, update the SpObsData
    if (tp.isBasePosition()) {
-      _spItem.getObsData().setBasePos(tp.getXaxis(), tp.getYaxis());
+      _spItem.getObsData().setBasePos(tp.getXaxis(), tp.getYaxis(), tp.getCoordSys());
    }
 
    return true;

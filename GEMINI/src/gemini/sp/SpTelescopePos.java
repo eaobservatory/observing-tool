@@ -502,7 +502,7 @@ noNotifySetXY(double xaxis, double yaxis)
 
    if (_tag.equals(BASE_TAG)) {
       SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(xaxis, yaxis);
+      if (od != null) od.setBasePos(xaxis, yaxis, _coordSys);
    }
 }
 
@@ -513,7 +513,6 @@ noNotifySetXY(double xaxis, double yaxis)
 private synchronized void
 _updateXYFromString(String xaxisStr, String yaxisStr)
 {
-/*MFO DEBUG*///System.out.println(xaxisStr + ", " + yaxisStr);
    // Convert from whatever coordinate system to degrees
    try {
       double[] pos = null;
@@ -567,7 +566,7 @@ noNotifySetXYFromString(String xaxisStr, String yaxisStr)
 
    if (_tag.equals(BASE_TAG)) {
       SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(_xaxis, _yaxis);
+      if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
    }
 }
 
@@ -639,18 +638,18 @@ setCoordSys(int i)
       _coordSys = i;
       _avTab.set(_tag, sysString, COORD_SYS_INDEX);
    }
+
+   if (_tag.equals(BASE_TAG)) {
+      SpObsData od = _spItem.getObsData();
+      if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
+   }
+
    _notifyOfGenericUpdate();
 
    // Changing the coordinate system while maintaining the
    // coordinate values (as done in the OT) results in
    // change of location. (MFO, April 09, 2002)
    _notifyOfLocationUpdate();
-
-
-   if (_tag.equals(BASE_TAG)) {
-      SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(_xaxis, _yaxis);
-   }
 }
 
 /**
@@ -671,6 +670,12 @@ setCoordSys(String coordSysString)
       _coordSys = sysInt;
       _avTab.set(_tag, coordSysString, COORD_SYS_INDEX);
    }
+
+   if (_tag.equals(BASE_TAG)) {
+      SpObsData od = _spItem.getObsData();
+      if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
+   }
+
    _notifyOfGenericUpdate();
 
    // Changing the coordinate system while maintaining the

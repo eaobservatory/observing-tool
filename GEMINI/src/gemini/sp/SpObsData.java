@@ -8,6 +8,7 @@ package gemini.sp;
 
 import java.util.Vector;
 
+import gemini.util.CoordSys;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 
@@ -37,9 +38,10 @@ import gemini.sp.obsComp.SpTelescopeObsComp;
  */
 public class SpObsData implements java.io.Serializable
 {
-   private double _ra       = 0.0;
-   private double _dec      = 0.0;
+   private double _x       = 0.0;
+   private double _y      = 0.0;
    private double _posAngle = 0.0;
+   private int    _coordSys = CoordSys.FK5;
 
    private Vector _basePosObservers;
    private Vector _posAngleObservers;
@@ -71,15 +73,25 @@ deleteBasePosObserver(SpBasePosObserver bpo)
    _basePosObservers.removeElement(bpo);  // If not in vector, who cares?
 }
 
-
 /**
  * Set the base position, notifying observers of the change.
  */
 public void
-setBasePos(double ra, double dec)
+setBasePos(double x, double y)
 {
-   _ra  = ra;
-   _dec = dec;
+   setBasePos(x, y, CoordSys.FK5);
+}
+
+// Parameter coordSystem added (MFO, April 11, 2002).
+/**
+ * Set the base position, notifying observers of the change.
+ */
+public void
+setBasePos(double x, double y, int coordSys)
+{
+   _x = x;
+   _y = y;
+   _coordSys = coordSys;
 
    if (_basePosObservers == null) {
       return;
@@ -88,7 +100,7 @@ setBasePos(double ra, double dec)
    for (int i=0; i<_basePosObservers.size(); ++i) {
       SpBasePosObserver bpo;
       bpo = (SpBasePosObserver) _basePosObservers.elementAt(i);
-      bpo.basePosUpdate(ra, dec);
+      bpo.basePosUpdate(x, y, coordSys);
    }
 }
 
@@ -97,9 +109,9 @@ setBasePos(double ra, double dec)
  * Get the RA of the base position.
  */
 public double
-getRA()
+getXaxis()
 {
-   return _ra;
+   return _x;
 }
 
 
@@ -107,9 +119,19 @@ getRA()
  * Get the Dec of the base position.
  */
 public double
-getDec()
+getYaxis()
 {
-   return _dec;
+   return _y;
+}
+
+
+/**
+ * Get the Coordinate system of the base position.
+ */
+public int
+getCoordSys()
+{
+   return _coordSys;
 }
 
 
@@ -188,7 +210,7 @@ completeSpTelescopeObsCompInsertion(SpTelescopeObsComp newItem)
    // Update the parent's base pos
    SpTelescopePosList tpl  = newItem.getPosList();
    SpTelescopePos     tp   = tpl.getBasePosition();
-   parent.getObsData().setBasePos(tp.getXaxis(), tp.getYaxis());
+   parent.getObsData().setBasePos(tp.getXaxis(), tp.getYaxis(), tp.getCoordSys());
 }
 
 //
@@ -225,7 +247,7 @@ completeSpObsContextItemInsertion(SpObsContextItem newOCI)
       SpObsData od = parent.getObsData();
       od.addBasePosObserver(newOCI);
 
-      newOCI.getObsData().setBasePos(od.getRA(), od.getDec());
+      newOCI.getObsData().setBasePos(od.getXaxis(), od.getYaxis(), od.getCoordSys());
    }
 
    // If this component doesn't have an instrument, observe parent's
@@ -258,7 +280,7 @@ prepareSpTelescopeObsCompExtract(SpItem spItem)
    } else {
       SpObsData od = grandp.getObsData();
       od.addBasePosObserver(parent);
-      parent.getObsData().setBasePos(od.getRA(), od.getDec());
+      parent.getObsData().setBasePos(od.getXaxis(), od.getYaxis(), od.getCoordSys());
    }
 }
 
