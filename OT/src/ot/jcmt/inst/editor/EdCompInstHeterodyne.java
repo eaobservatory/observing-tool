@@ -516,13 +516,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
               ( 1.0 + redshift );
             if ( band.equals ( "usb" ) )
             {
-               sideBandDisplay.setLO1 ( obsFrequency - feIF );
+               sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
             }
             else
             {
-               sideBandDisplay.setLO1 ( obsFrequency + feIF );
+               sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
             }
          }
+
+         if(!_ignoreSpItem) {
+            _instHeterodyne.setLO1(sideBandDisplay.getLO1());
+         }
+
+         updateLineDetails(null, 0);
       }
       catch(NumberFormatException e) {
         // ignore
@@ -916,7 +922,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       if(subsystem != 0) {
         _instHeterodyne.setMolecule(lineDetails.name, subsystem);
         _instHeterodyne.setTransition(lineDetails.transition, subsystem);
-        _instHeterodyne.setRestFrequency(lineDetails.frequency, subsystem);
+        _instHeterodyne.setRestFrequency(lineDetails.frequency * 1.0E6, subsystem);
       }
     }
 
