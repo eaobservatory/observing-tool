@@ -81,9 +81,11 @@ public final class EdObservation extends OtItemEditor
           _w.standard.setVisible(false);
 	}
 
-	for(int i = 0; i < 100; i++) {
-	  _w.remaining.addItem("" + (i + 1));
+	for(int i = 0; i <= 100; i++) {
+	  _w.remaining.addItem("" + i);
 	}
+
+	_w.remaining.addItem(SpObs.REMOVED_STRING);
 
 	_w.remaining.addActionListener(this);
 
@@ -170,7 +172,16 @@ public final class EdObservation extends OtItemEditor
 
         // Added for OMP (MFO, 7 August 2001)
 	_w.optional.setValue(((SpObs)_spItem).isOptional()); 
-	_w.remaining.setSelectedIndex(((SpObs)_spItem).getNumberRemaining() - 1);
+
+	int numberRemaining = ((SpObs)_spItem).getNumberRemaining();
+
+	if(numberRemaining == SpObs.REMOVED_CODE) {
+	  _w.remaining.setValue(SpObs.REMOVED_STRING);
+	}
+	else {
+	  _w.remaining.setSelectedIndex(numberRemaining);
+	}
+
 	ignoreActions = false;
 
 	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpObs)_spItem).getElapsedTime(), 1));
@@ -251,7 +262,12 @@ public final class EdObservation extends OtItemEditor
 
 	// Added for OMP (MFO, 7 August 2001)
 	if(w == _w.remaining) {
-            spObs.setNumberRemaining(_w.remaining.getSelectedIndex() + 1);
+	    if(_w.remaining.getSelectedItem().equals(SpObs.REMOVED_STRING)) {
+	        spObs.setNumberRemaining(SpObs.REMOVED_CODE);
+	    }
+	    else {
+                spObs.setNumberRemaining(_w.remaining.getSelectedIndex());
+	    }
 	}
 	 
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())

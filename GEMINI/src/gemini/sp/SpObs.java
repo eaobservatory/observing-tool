@@ -96,7 +96,12 @@ getTitle()
    }
    
    if((System.getProperty("OMP") != null) && (isMSB())) {
-     return title + " (" + getNumberRemaining() + "X)";
+      if(getNumberRemaining() == REMOVED_CODE) {
+         return title + " (" + REMOVED_STRING + ")";
+      }
+      else {
+         return title + " (" + getNumberRemaining() + "X)";
+      }   
    }
    else {
      return title;

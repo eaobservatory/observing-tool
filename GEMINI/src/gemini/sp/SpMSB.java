@@ -51,6 +51,19 @@ public class SpMSB extends SpObsContextItem {
    /** This attribute records the estimated duration of the MSB. */
    public static final String ATTR_ELAPSED_TIME = "estimatedDuration";
 
+  /**
+   * String used to indecate that the MSB has been removed.
+   *
+   * @see #REMOVED_CODE 
+   */
+  public static final String REMOVED_STRING = "REMOVED";
+
+  /**
+   * The databases uses this number to indecate that an MSB has been removed.
+   *
+   * Usage: {@link gemini.sp.SpMSB#setNumberRemaining() (REMOVED_CODE)}
+   */
+  public static final int REMOVED_CODE = -999;
 
   /**
    * Default constructor.
@@ -85,7 +98,13 @@ getTitle()
    if ((title == null) || title.equals("")) {
       title = type().getReadable();
    }
-   return title + " (" + getNumberRemaining() + "X)";
+
+   if(getNumberRemaining() == REMOVED_CODE) {
+      return title + " (" + REMOVED_STRING + ")";
+   }
+   else {
+      return title + " (" + getNumberRemaining() + "X)";
+   }   
 }
 
 

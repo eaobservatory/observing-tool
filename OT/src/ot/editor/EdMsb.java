@@ -53,9 +53,11 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
 
-	for(int i = 0; i < 100; i++) {
-	  _w.remaining.addItem("" + (i + 1));
+	for(int i = 0; i <= 100; i++) {
+	  _w.remaining.addItem("" + i);
 	}
+
+	_w.remaining.addItem(SpMSB.REMOVED_STRING);
 
 	_w.remaining.addActionListener(this);
     }
@@ -91,7 +93,16 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	}
 
 	ignoreActions = true;
-	_w.remaining.setSelectedIndex(((SpMSB)_spItem).getNumberRemaining() - 1);
+
+	int numberRemaining = ((SpMSB)_spItem).getNumberRemaining();
+
+	if(numberRemaining == SpMSB.REMOVED_CODE) {
+	  _w.remaining.setValue(SpMSB.REMOVED_STRING);
+	}
+	else {
+	  _w.remaining.setSelectedIndex(numberRemaining);
+	}
+
 	ignoreActions = false;
 
 	// Note that the elapsed time is re-calculated every time _updateWidgets is called.
@@ -124,7 +135,12 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	SpMSB spMSB = (SpMSB) _spItem;
 
 	if(w == _w.remaining) {
-            spMSB.setNumberRemaining(_w.remaining.getSelectedIndex() + 1);
+	    if(_w.remaining.getSelectedItem().equals(SpMSB.REMOVED_STRING)) {
+	        spMSB.setNumberRemaining(SpMSB.REMOVED_CODE);
+	    }
+	    else {
+                spMSB.setNumberRemaining(_w.remaining.getSelectedIndex());
+	    }
 	}
 
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
