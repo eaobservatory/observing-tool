@@ -210,7 +210,6 @@
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -224,6 +223,7 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -346,8 +346,8 @@
               <cycleReversal>true</cycleReversal>
               <continuousCal>true</continuousCal>
               <switchingMode>Frequency-Fast</switchingMode>
-              <frequencyOffset.rate>0.5</frequencyOffset.rate>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <frequencyOffset.rate>0.5</frequencyOffset.rate>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -456,8 +456,8 @@
               <cycleReversal>true</cycleReversal>
               <continuousCal>true</continuousCal>
               <switchingMode>Frequency-Slow</switchingMode>
-              <frequencyOffset.rate>0.01667</frequencyOffset.rate>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <frequencyOffset.rate>0.01667</frequencyOffset.rate>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -470,7 +470,7 @@
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpSiteQualityObsCompRef idref="9"/>
       <SpInstHeterodyneRef idref="8"/>
-      <title>Beam-switch sample</title>
+      <title>Beam-switch grid</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">60.0</estimatedDuration>
@@ -590,7 +590,7 @@
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpSiteQualityObsCompRef idref="11"/>
       <SpInstHeterodyneRef idref="10"/>
-      <title>Position-switch sample</title>
+      <title>Position-switch grid</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">60.0</estimatedDuration>
@@ -675,7 +675,6 @@
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -689,6 +688,7 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -697,15 +697,24 @@
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <switchingMode>Position</switchingMode>
-                <noOfCycles>0</noOfCycles>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <secsPerCycle>60</secsPerCycle>
-                <integrations>1</integrations>
-                <cycleReversal>true</cycleReversal>
-                <continuousCal>true</continuousCal>
-              </SpIterStareObs>
+                <SpIterStareObs type="ic" subtype="stareObs">
+                  <switchingMode>Position</switchingMode>
+                  <noOfCycles>0</noOfCycles>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <secsPerCycle>60</secsPerCycle>
+                  <integrations>1</integrations>
+                  <cycleReversal>true</cycleReversal>
+                  <continuousCal>true</continuousCal>
+                </SpIterStareObs>
+              </SpIterOffset>
             </SpIterChop>
           </SpIterRepeat>
         </SpIterFolder>
@@ -714,7 +723,7 @@
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpSiteQualityObsCompRef idref="13"/>
       <SpInstHeterodyneRef idref="12"/>
-      <title>Fast Frequency-switch sample</title>
+      <title>Fast Frequency-switch grid</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">60.0</estimatedDuration>
@@ -808,17 +817,26 @@
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <frequencyOffset.throw>8.3</frequencyOffset.throw>
-                <integrations>1</integrations>
-                <secsPerCycle>60</secsPerCycle>
-                <noOfCycles>0</noOfCycles>
-                <cycleReversal>true</cycleReversal>
-                <continuousCal>true</continuousCal>
-                <switchingMode>Frequency-Fast</switchingMode>
-                <frequencyOffset.rate>0.5</frequencyOffset.rate>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-              </SpIterStareObs>
+                <SpIterStareObs type="ic" subtype="stareObs">
+                  <frequencyOffset.throw>8.3</frequencyOffset.throw>
+                  <integrations>1</integrations>
+                  <secsPerCycle>60</secsPerCycle>
+                  <noOfCycles>0</noOfCycles>
+                  <cycleReversal>true</cycleReversal>
+                  <continuousCal>true</continuousCal>
+                  <switchingMode>Frequency-Fast</switchingMode>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <frequencyOffset.rate>0.5</frequencyOffset.rate>
+                </SpIterStareObs>
+              </SpIterOffset>
             </SpIterChop>
           </SpIterRepeat>
         </SpIterFolder>
@@ -827,7 +845,7 @@
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpSiteQualityObsCompRef idref="15"/>
       <SpInstHeterodyneRef idref="14"/>
-      <title>Slow Frequency-switch sample</title>
+      <title>Slow Frequency-switch grid</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">60.0</estimatedDuration>
@@ -921,17 +939,26 @@
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <frequencyOffset.throw>8.3</frequencyOffset.throw>
-                <integrations>1</integrations>
-                <secsPerCycle>60</secsPerCycle>
-                <noOfCycles>0</noOfCycles>
-                <cycleReversal>true</cycleReversal>
-                <continuousCal>true</continuousCal>
-                <switchingMode>Frequency-Slow</switchingMode>
-                <frequencyOffset.rate>0.01667</frequencyOffset.rate>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-              </SpIterStareObs>
+                <SpIterStareObs type="ic" subtype="stareObs">
+                  <frequencyOffset.throw>8.3</frequencyOffset.throw>
+                  <integrations>1</integrations>
+                  <secsPerCycle>60</secsPerCycle>
+                  <noOfCycles>0</noOfCycles>
+                  <cycleReversal>true</cycleReversal>
+                  <continuousCal>true</continuousCal>
+                  <switchingMode>Frequency-Slow</switchingMode>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <frequencyOffset.rate>0.01667</frequencyOffset.rate>
+                </SpIterStareObs>
+              </SpIterOffset>
             </SpIterChop>
           </SpIterRepeat>
         </SpIterFolder>
@@ -944,7 +971,7 @@
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpSiteQualityObsCompRef idref="17"/>
       <SpInstHeterodyneRef idref="16"/>
-      <title>Position-switch sample</title>
+      <title>Position-switch raster</title>
       <meta_gui_collapsed>false</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">60.0</estimatedDuration>
@@ -1029,7 +1056,6 @@
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -1043,6 +1069,7 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
