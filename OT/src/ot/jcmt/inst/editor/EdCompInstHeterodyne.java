@@ -156,9 +156,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
            sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
            sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
-           sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-                                       _instHeterodyne.getTransition(i) + "  " +
-                                       _instHeterodyne.getRestFrequency(i), i);
+
+           if(i > 0) {
+              sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
+                                          _instHeterodyne.getTransition(i) + "  " +
+                                          _instHeterodyne.getRestFrequency(i), i);
+           }
          }
       }
       catch(Exception e) {
@@ -275,9 +278,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
         sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
         sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
-        sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-                                    _instHeterodyne.getTransition(i) + "  " +
-                                    _instHeterodyne.getRestFrequency(i), i);
+
+        if(i > 0) {
+           sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
+                                       _instHeterodyne.getTransition(i) + "  " +
+                                       _instHeterodyne.getRestFrequency(i), i);
+         }
       }
    }
 
@@ -528,7 +534,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             _instHeterodyne.setLO1(sideBandDisplay.getLO1());
          }
 
-         updateLineDetails(null, 0);
+         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
+            updateLineDetails(null, i);
+
+            if(i > 0) {
+               sideBandDisplay.setLineText(NO_LINE, i);
+            }
+         }
       }
       catch(NumberFormatException e) {
         // ignore
@@ -904,7 +916,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     }
   }
 
-  public void updateChannels(double channels, int subsystem) { }
+  public void updateChannels(int channels, int subsystem) {
+    if(!_ignoreSpItem) {
+      _instHeterodyne.setChannels(channels, subsystem);
+    }
+  }
 
   public void updateLineDetails(LineDetails lineDetails, int subsystem) {
     if(_ignoreSpItem) {
