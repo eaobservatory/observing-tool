@@ -1302,5 +1302,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   public void insertUpdate(DocumentEvent e)  { _velocityChanged = true; }
   public void removeUpdate(DocumentEvent e)  { _velocityChanged = true; }
     public void focusGained(FocusEvent e) {}
-    public void focusLost(FocusEvent e) {feVelocityAction(null);}
+//     public void focusLost(FocusEvent e) {feVelocityAction(null);}
+    public void focusLost(FocusEvent e) {}
 }
