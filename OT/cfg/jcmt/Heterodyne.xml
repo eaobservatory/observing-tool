@@ -352,10 +352,8 @@
               <cycleReversal>true</cycleReversal>
               <continuousCal>false</continuousCal>
               <switchingMode>Frequency-Fast</switchingMode>
-              <frequencyOffsetRate>0.5</frequencyOffsetRate>
               <frequencyOffset.rate>0.5</frequencyOffset.rate>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -466,9 +464,7 @@
               <cycleReversal>true</cycleReversal>
               <continuousCal>false</continuousCal>
               <switchingMode>Frequency-Slow</switchingMode>
-              <frequencyOffsetRate>0.01667</frequencyOffsetRate>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -833,10 +829,8 @@
                 <cycleReversal>true</cycleReversal>
                 <continuousCal>false</continuousCal>
                 <switchingMode>Frequency-Fast</switchingMode>
-                <frequencyOffsetRate>0.5</frequencyOffsetRate>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <frequencyOffset.rate>0.5</frequencyOffset.rate>
-                <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
@@ -950,9 +944,7 @@
                 <cycleReversal>true</cycleReversal>
                 <continuousCal>false</continuousCal>
                 <switchingMode>Frequency-Slow</switchingMode>
-                <frequencyOffsetRate>0.01667</frequencyOffsetRate>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
