@@ -307,6 +307,16 @@ public class UkirtSpValidation extends SpValidation {
 	  }
         }
 	*/
+        // Check to mke sure IRPOLs do not contain other IRPOLs
+        if ( currentIterator instanceof SpIterIRPOL ) {
+            Vector irPolChildren = findInstances((SpIterIRPOL)currentIterator, SpIterIRPOL.class);
+            // There should be only 1 element in the array; the current iterator
+            if ( irPolChildren != null && irPolChildren.size() > 1 ) {
+                report.add( new ErrorMessage( ErrorMessage.ERROR,
+                            "IRPOL iterator",
+                            "An IRPOL iterator should not contain another IRPOL iterator"));
+            }
+        }
       }
     }
   }
