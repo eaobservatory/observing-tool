@@ -44,7 +44,6 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    private JComboBox feChoice;
    private JComboBox feBandModeChoice;
    private String currentFE = "";
-   private Hashtable feDetails = new Hashtable();
    private JPanel fePanel;
    private JPanel displayPanel;
    private JPanel rangePanel;
@@ -89,8 +88,22 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    /** Parser for XML input/output. (MFO, 29 November 2001) */
    private XMLReader _xmlReader = null;
 
+   protected static FrequencyEditorCfg cfg = null;
+
    public FrontEnd ( )
    {
+      this(null);
+   }
+
+   public FrontEnd ( InputStream inputStream )
+   {
+      if(inputStream != null) {
+         cfg = FrequencyEditorCfg.getCfg(inputStream);
+      }
+      else {
+         // Use default.
+	 cfg = new FrequencyEditorCfg();
+      }
 
       setLayout(new BorderLayout());
 /* Create the choice of frontends */
@@ -98,8 +111,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       fePanel = new JPanel(flowLayoutLeft);
       fePanel.add ( new JLabel ( "Choose Front End" ) );
 
-      feChoice = new JComboBox ( new String[] { "A3", "B3", "WC", "WD",
-        "HARP-B" } );
+      feChoice = new JComboBox ( cfg.frontEnds );
       lowFreq = new JLabel ( "215" );
       lowFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
       highFreq = new JLabel ( "272" );
@@ -107,13 +119,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
       feChoice.addActionListener ( this );
 
-      feDetails.put ( "A3", new double[] { 215.0E9, 272.0E9 } );
-      feDetails.put ( "B3", new double[] { 322.0E9, 373.0E9 } );
-      feDetails.put ( "WC", new double[] { 430.0E9, 510.0E9 } );
-      feDetails.put ( "WD", new double[] { 630.0E9, 710.0E9 } );
-      feDetails.put ( "HARP-B", new double[] { 325.0E9, 375.0E9 } );
-
-      feMode = new JComboBox ( new String[] { "ssb", "dsb" } );
+      feMode = new JComboBox ( cfg.frontEndModes );
       feBandModeChoice = new JComboBox ( );
       feBandModeChoice.addActionListener ( this );
 
@@ -188,7 +194,10 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
       linePanel = Box.createVerticalBox();
       linePanel.add ( mol1Panel );
-      linePanel.add ( mol2Panel );
+
+      // MFO (May 03, 2002): mol2Panel is currently not used.
+      //linePanel.add ( mol2Panel );
+
       //linePanel.add ( sideBandButton );
 
       //sideBandButton.addActionListener(this);
@@ -485,7 +494,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
       String newFE = (String)feChoice.getSelectedItem();
       currentFE = newFE;
-      r = (Receiver)receiverList.receivers.get ( currentFE );
+      r = (Receiver)cfg.receivers.get ( currentFE );
 
       loMin = r.loMin;
       loMax = r.loMax;
