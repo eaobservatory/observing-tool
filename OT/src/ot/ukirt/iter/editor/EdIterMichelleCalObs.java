@@ -141,7 +141,7 @@ _updateWidgets()
    ddlbw.setValue( ico.getCalTypeString() );
 
    // Observe repetitions
-   _w.repeatComboBox.setValue( ico.getCount() );
+   _w.repeatComboBox.setValue( ico.getCount() - 1);
 
    TextBoxWidgetExt tbw;
 
@@ -267,7 +267,7 @@ public void actionPerformed(ActionEvent evt)
    }
 
    if (w == _w.repeatComboBox) {
-      int i = _w.repeatComboBox.getIntegerValue();
+      int i = _w.repeatComboBox.getIntegerValue() + 1;
       ico.setCount(i);
       return;
    }
