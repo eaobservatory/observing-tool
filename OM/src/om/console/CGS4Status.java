@@ -110,9 +110,9 @@ public final class CGS4Status extends instrumentStatusPanel
 	return;
       }
 
-      if(name.startsWith("NEXP") && !(name.substring(4,5).equals("_")) ) {
-	      st[7].getValu().setText(value);
-	      return;
+      if(name.equals("NEXP")) {
+        st[7].getValu().setText(value);
+        return;
       }
 
       if(name.equals("WL_MAX")) {
@@ -153,12 +153,7 @@ public final class CGS4Status extends instrumentStatusPanel
 	        st[3].getValu().setText(etStr);
 	    }catch (Exception e){}
 	    }catch (NumberFormatException e) {}
-	    // 	st[3].getValu().setText(u.substring(14));
  	    return;
-
-      //       } else if(u.substring(0,13).equals("INST@NEXP_OBS")) {
-      // 	st[7].getValu().setText(u.substring(15));
-      // 	return;
 
       }
 
@@ -168,7 +163,7 @@ public final class CGS4Status extends instrumentStatusPanel
       }
 
       if(name.equals("INT_TOTAL")) {
-	      st[7].getValu().setText(value);
+	      st[9].getValu().setText(value);
 	      return;
       }
 
