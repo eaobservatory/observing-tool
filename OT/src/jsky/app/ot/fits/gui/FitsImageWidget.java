@@ -258,7 +258,9 @@ public class FitsImageWidget extends ViewportImageWidget {
 	double xPix = _imgInfo.baseScreenPos.x - (xOff * ppa);
 	double yPix = _imgInfo.baseScreenPos.y - (yOff * ppa);
 	double posAngleRad = Angle.degreesToRadians(_imgInfo.posAngleDegrees);
-	Point2D.Double pd   = skyRotate(xPix, yPix, posAngleRad);
+	
+// 	Point2D.Double pd   = skyRotate(xPix, yPix, posAngleRad);
+	Point2D.Double pd   = skyRotate(xPix, yPix, 0.0);
 
 	//int x = (int) Math.round(pd.x);
 	// int y = (int) Math.round(pd.y);
