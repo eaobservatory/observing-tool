@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.TreeWalker;
 import org.apache.xerces.dom.ElementImpl;
+import org.apache.xerces.dom.NodeImpl;
 import org.apache.xerces.dom.DocumentImpl;
 import java.util.Vector;
 import java.util.StringTokenizer;
@@ -272,12 +273,6 @@ public class SpAvTableDOM {
               ((Element)nodeList.item(i)).setAttribute(_xmlAttribute, _avTab.get(_avTabAttribute, 0));
 	    }
 
-            // NOTE that only the first entry in the value vector is used and the others are ignored.
-	    if(_xmlTag.equals("PCDATA")) {
-              nodeList.item(i).appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
-	    }
-	
-	  
 	    _treeWalker.setCurrentNode(nodeList.item(i));
 	    return;
 	  }
@@ -294,13 +289,6 @@ public class SpAvTableDOM {
       }
       // Is the final section of the attribute string _avTabAttribute.
       else {
-      
-        if(_xmlTag.equals("PCDATA")) {
-	  // NOTE that only the first entry in the value vector is used and the others are ignored.
-	  child = _treeWalker.getCurrentNode().appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
-	  ((ElementImpl)child).setUserData(_userData);
-	  return;
-        }
 
         Vector v = _avTab.getAll(_avTabAttribute);
           
