@@ -77,7 +77,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     protected SpIterJCMTObs _iterObs;
 
-    private String _noiseToolTip = "";
+    protected String _noiseToolTip = "";
 
     /**
      * The constructor initializes the title, description, and presentation source.
