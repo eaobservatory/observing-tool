@@ -25,6 +25,8 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
    Sampler sampler;
    JScrollBar sideBandGui;
    double pixratio;
+   SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
+   FrontEnd        frontEnd        = null; // Added by MFO (8 January 2002)
 
    public SideBand ( double lowLimit, double highLimit, 
      double subBandWidth, double subBandCentre, 
@@ -95,6 +97,35 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
    public void updateSamplerValues ( double centre, double width, 
    int channels )
    {
+      // If the SideBand is one of the top SideBands then deal with the LO1.
+      if(isTopSideBand()) {
+         String band;
+	 if(frontEnd != null) {
+            band = frontEnd.getFeBand();
+	 }
+	 else {
+            band = "usb";
+	 }
+
+         if ( highLimit < 0.0 )
+	 { 
+	    if ( band.equals("lsb") )
+            {
+               // old value: subBandCentre, new value: -centre
+               sideBandDisplay.setLO1(sideBandDisplay.getLO1() + (subBandCentre + centre));
+	    }   
+         }
+         else
+	 {  
+	    if( band.equals("usb") )
+            {
+               // old value: subBandCentre, new value: centre
+               sideBandDisplay.setLO1(sideBandDisplay.getLO1() + (subBandCentre - centre));
+            }
+	 }   
+      }	 
+      
+   
       int sc;
       int sw;
 
@@ -120,4 +151,12 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
 
    }
 
+   protected void connectTopSideBand(SideBandDisplay sideBandDisplay, FrontEnd frontEnd) {
+      this.sideBandDisplay = sideBandDisplay;
+      this.frontEnd        = frontEnd;
+   }
+
+   protected boolean isTopSideBand() {
+      return (sideBandDisplay != null);
+   }
 }
