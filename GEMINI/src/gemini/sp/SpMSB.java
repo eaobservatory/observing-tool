@@ -196,7 +196,9 @@ public double getElapsedTime()
     spItem = (SpItem)children.nextElement();
 
     if(spItem instanceof SpObs) {
-      elapsedTime += ((SpObs)spItem).getElapsedTime();
+	if ( !(((SpObs)spItem).isOptional()) ) {
+	    elapsedTime += ((SpObs)spItem).getElapsedTime();
+	}
     }
   }
 
