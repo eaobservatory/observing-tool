@@ -495,6 +495,7 @@ public class SpTranslator {
       String previousType;                // Penultimate instruction (set <obstype>)
       String previousInst;                // Previous instruction (do n _observe)
       int start;                          // Char position of start of number
+      int toWait;                         // Sequence steps to "WAIT ALL"
       boolean typeInGroup;                // Frames of supplied type part of
                                           // group?
       String work;                        // Work variable
@@ -622,14 +623,23 @@ public class SpTranslator {
 // The offset command may still be ahead of the "set OBJECT" command,
 // say if no DARK frame is in the observation.  Remove these commands,
 // recording the fact so they can be restored later.  Revise the count
-// of sequence commands.
+// of sequence commands.  The exact number of steps back in the sequence
+// depends on whether or there are OMP headers intervening or not.  This
+// is clunky and needs to be made more robust.
                work = (String) sequence.elementAt( numElements - 3 );
-               offsetCmd = (String) sequence.elementAt( numElements - 4 );
+               if ( work.startsWith( "setHeader MSBID" ) ) {
+                  toWait = 5;
+               } else {
+                  toWait = 3;
+               }
+
+               work = (String) sequence.elementAt( numElements - toWait );
+               offsetCmd = (String) sequence.elementAt( numElements - toWait - 1 );
                if ( work.startsWith( "-WAIT ALL" ) &&
                     offsetCmd.startsWith( "offset" ) ) {
                   moveOffset = true;
-                  sequence.removeElementAt( numElements - 3 );
-                  sequence.removeElementAt( numElements - 4 );
+                  sequence.removeElementAt( numElements - toWait );
+                  sequence.removeElementAt( numElements - toWait - 1 );
                   numElements = sequence.size( );                  
                }
 
