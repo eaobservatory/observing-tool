@@ -9,8 +9,8 @@
 
     <h1>Downloading the JCMT Observing Tool</h1>
 
-    <em>Existing users note: The current version is 20030701. If you are
-    submitting observations for 03B you need to get this, or a newer,
+    <em>Existing users note: The current version is 20031224. If you are
+    submitting observations for 04A you need to get this, or a newer,
     version. <p></em>
 
 
@@ -33,10 +33,18 @@
 
     <h2><a name="jre">Installing the Java Runtime Environment</a></h2>
 
-    <p>The OT requires the Java Runtime Environment v1.3.1 (or newer) and the
-    Java Advanced Imaging extension v1.1.1. They must be installed on your
-    system before attempting to run the OT. There are three ways of obtaining
-    these packages if you don't already have them installed:</p>
+    <p>The OT requires the Java Runtime Environment v1.4.1 (or newer)
+    and the Java Advanced Imaging extension v1.1.1. The OT will run
+    without JAI installed, but the position editor will not be
+    available.</p>
+
+    <blockquote>If you are upgrading from an earlier OT release you
+    may well need to upgrade your Java version. This is the first OT
+    version that <em>requires</em> JRE 1.4.</blockquote>
+
+    They must be installed on your system before attempting to run the
+    OT. There are three ways of obtaining these packages if you don't
+    already have them installed:</p>
 
     <dl>
       <dt><b>From Sun</b></dt>
@@ -44,9 +52,8 @@
       <dd><p>The primary source of Java is from <a
       href="http://java.sun.com">java.sun.com</a>. This site hosts downloads
       for both <a
-      href="http://java.sun.com/j2se/1.3/download.html">JRE1.3.1</a> (or <a
-      href="http://java.sun.com/j2se/1.4/download.html">JRE1.4</a>) and <a
-      href="http://java.sun.com/products/java-media/jai/downloads/download.html">JAI1.1.1</a>. Simply
+      href="http://java.sun.com/j2se/1.4.1/download.html">JRE1.4.1</a> and
+      <a href="http://java.sun.com/products/java-media/jai/downloads/download.html">JAI1.1.1</a>. Simply
       download it and follow the supplied instructions for installation. This
       is the recommended method for obtaining Windows version of Java (JRE and
       JAI).</p></dd>
@@ -56,9 +63,9 @@
       <dd><p>To simplify the difficulties of installing both the JRE and JAI
       we distribute tar files containing the combined JRE and JAI
       packages. Versions are available for both <a
-      href="ftp://ftp.jach.hawaii.edu/pub/jcmt/jcmtot/jdk1_3_ix86_Linux.tar.gz">Linux</a>
+      href="ftp://ftp.jach.hawaii.edu/pub/jcmt/jcmtot/jdk1_4_ix86_Linux.tar.gz">Linux</a>
       and <a
-      href="ftp://ftp.jach.hawaii.edu/pub/jcmt/jcmtot/jdk1_3_sun4_Solaris.tar.gz">Solaris</a>
+      href="ftp://ftp.jach.hawaii.edu/pub/jcmt/jcmtot/jdk1_4_sun4_Solaris.tar.gz">Solaris</a>
       (Windows versions must be obtained from Sun) from the <a
       href="ftp://ftp.jach.hawaii.edu/pub/jcmt/jcmtot">OT FTP area</a>.</p>
 
@@ -66,13 +73,13 @@
 	  untarring it. On Solaris:</p>
 
 	<pre>
-% gunzip -c jdk1_3_sun4_Solaris.tar.gz | tar xvf -
+% gunzip -c jdk1_4_sun4_Solaris.tar.gz | tar xvf -
 	</pre>
 
 	<p>or on Linux:</p>
 
 	<pre>
-% tar zxvf jdk1_3_ix86_Linux.tar.gz
+% tar zxvf jdk1_4_ix86_Linux.tar.gz
 	</pre>
 
 	<p>This will create a directory <tt>jdk</tt> in the current
@@ -82,32 +89,19 @@
 
       <dt><b>From Starlink</b></dt> 
 
-      <dd><p>If you are running an Autumn 2002 <a
-      href="http://www.starlink.rl.ac.uk">Starlink</a> release or newer you
-      already have a JRE installed that is suitable for running the OT. It
-      will be in your path after a Starlink login. Alternatively you can
-      download the Starlink JRE package (which includes JAI) from the <a
+      <dd><p>If you are running an Summer 2003 <a
+      href="http://www.starlink.rl.ac.uk">Starlink</a> release or
+      newer you already have a JRE installed that is suitable for
+      running the OT (and includes JAI). It will be in your path after
+      a Starlink login. Alternatively you can download the Starlink
+      JRE package (which includes JAI) from the <a
       href="http://www.starlink.rl.ac.uk/cgi-store/ftpform1?jre">Starlink
       software store</a>.</p>
-
-	<blockquote><B>IMPORTANT!</B> If you are running a Spring 2002 <a
-	href="http://www.starlink.rl.ac.uk">Starlink</a> distribution you
-	already have JRE1.3.1 installed in
-	<tt>/star/java/jre-1.3.1_02/bin/java</tt> (this will vary depending on
-	where you installed the Starlink software) but the Spring 2002
-	Starlink distribution does <em>not</em> include the JAI extension. You
-	can either download that separately from <a
-	href="http://java.sun.com">Sun</a> (see the previous note) or run the
-	OT without the JAI (the OT will run fine but you will not be able to
-	use the <A href="scuba_example.html#tpe">position
-	editor</a>).</blockquote></dd>
 
       <p>
 
 
     </dl>
-
-    <p>We have tested the OT with JRE1.4.1 and it seems to work fine.</p>
 
     <h2><a name="ot">Installing the OT</a></h2>
 
@@ -135,11 +129,12 @@
 % jcmtot
 </pre>
 <p>
-      If the location of your Java executable is not present in the path then
-	you will need to edit the startup script so that it knows
-      which Java runtime environment to use (this is also useful if you want
-	to force a site wide version). You do this by editing the file
-      <tt>ompot/bin/ot</tt> and changing the line that says:</p>
+      If the location of your Java executable is not present in the
+      path then you will need to edit the startup script so that it
+      knows which Java runtime environment to use (this is also useful
+      if you want to force a site wide version). You do this by
+      editing the file <tt>ompot/bin/ot</tt> and changing the line
+      that says:</p>
 
 <pre>
 set JAVA = `which java`
@@ -150,28 +145,32 @@ set JAVA = `which java`
 set JAVA = /star/java/jre/bin/java
 </pre>
 
-    <p>if you are going to use the Starlink JRE. Note that the value used
-      includes the full path to the Java executable, not a directory specification.</p>
+    <p>if you are going to use the Starlink JRE. Note that the value
+    used includes the full path to the Java executable, not a
+    directory specification.</p>
 
       <p>The OT should now be runnable as described above.</p>
 
 
-    <p>You are now ready for the <a href="index.html">OT Primer</a>.</p>
+    <p>You are now ready for the <a href="otintro.html">OT Primer</a>.</p>
 
 
     <h3>Windows users</h3>
 
-    <p>If you are running the OT on windows, you can just uncompress it using,
-    for example, <a href="http://www.winzip.com">Winzip</a>. Once it has been
-    uncompressed go into the directory <tt>ompot\bin\</tt> and click on the
-    <pre>jcmtot</pre> batch icon. If you have a correctly installed JRE the OT
-    will run without any further ado.</p>
+    <p>If you are running the OT on windows the distribution is
+    available in both <tt>.zip</tt> and <tt>.tar.gz</tt> format, you
+    can just uncompress it using, for example, <a
+    href="http://www.winzip.com">Winzip</a>. Once it has been
+    uncompressed go into the directory <tt>ompot\bin\</tt> and click
+    on the <pre>jcmtot</pre> batch icon. If you have a correctly
+    installed JRE the OT will run without any further ado.</p>
 
-    <p>You can get a desktop shortcut as follows: go into the directory
-    <tt>ompot\bin\</tt>, right click on the <tt>jcmtot</tt> batch icon, and select
-    &quot;copy&quot; from the resulting menu; then right-click on the desktop and select
-    &quot;paste shortcut&quot;. optionally rename the shortcut by right-clicking on it
-    and selecting &quot;rename&quot;.
+    <p>You can get a desktop shortcut as follows: go into the
+    directory <tt>ompot\bin\</tt>, right click on the <tt>jcmtot</tt>
+    batch icon, and select &quot;copy&quot; from the resulting menu;
+    then right-click on the desktop and select &quot;paste
+    shortcut&quot;. optionally rename the shortcut by right-clicking
+    on it and selecting &quot;rename&quot;.
 
     <h2><a name="macosx">Mac OS X Instructions</a></h2>
 
@@ -192,13 +191,13 @@ set JAVA = /star/java/jre/bin/java
       instructions listed in <a href="http://developer.apple.com/technotes/tn2002/tn2099.html">Technical
       Note TN2099</a>.<p>
 
-    <p>You are now ready for the <a href="index.html">OT Primer</a>.</p>
+    <p>You are now ready for the <a href="otintro.html">OT Primer</a>.</p>
 
     <hr>
     <address><a href="mailto:t.jenness@jach.hawaii.edu">Tim Jenness</a>, <a href="mailto:b.cavanagh@jach.hawaii.edu">Brad Cavanagh</a></address>
 <!-- Created: Sat Jul  6 21:49:36 HST 2002 -->
 <!-- hhmts start -->
-Last modified: Mon Nov 17 14:42:30 HST 2003
+Last modified: Tue Dec 23 18:05:30 HST 2003
 <!-- hhmts end -->
   </body>
 </html>
