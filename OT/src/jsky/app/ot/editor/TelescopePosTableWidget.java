@@ -281,7 +281,10 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	setCell((String) v.elementAt(1), 1, index);
 	setCell((String) v.elementAt(2), 2, index);
 	setCell((String) v.elementAt(3), 3, index);
-	setCell((String) v.elementAt(4), 4, index);
+	
+	if(_coordSysInTable) {	
+	    setCell((String) v.elementAt(4), 4, index);
+	}    
     }
 
     /**
