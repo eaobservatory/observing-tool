@@ -78,7 +78,7 @@ public class SpValidation {
 	//         SpInst...
         //         SpSiteQualityObsComp
         //         SptelescopeObsComp
-	checkInheritedComponents(doc, "SpMSB", "SpTelescopeObsComp", "Target Information", report);
+ 	checkInheritedComponents(doc, "SpMSB", "SpTelescopeObsComp", "Target Information", report);
 	checkInheritedComponents(doc, "SpMSB", "SpSiteQualityObsComp", "Site Quality", report);
 	checkInheritedComponents(doc, "SpMSB", "SpInst", "Instrument", report);
 	checkInheritedComponents(doc, "SpObs", "SpTelescopeObsComp", "Target Information", report);
@@ -255,6 +255,14 @@ public class SpValidation {
 		}
 	    }
 	    if (!found) {
+		// Check whether any of the proginy contain an autoTarget flag.  In this case, we have a calibration,
+		// so we are OK
+		NodeList autoTargets = ((Element)thisNode).getElementsByTagName("autoTarget");
+		if (autoTargets != null && autoTargets.getLength() > 0) {
+		    found = true;
+		}
+	    }
+	    if (!found) {
 		// We don't so recuse up the document tree to see if any parents have it
 		while ((thisNode = thisNode.getParentNode()) != null && !found) {
 		    NodeList childList = thisNode.getChildNodes();
@@ -266,6 +274,7 @@ public class SpValidation {
 		    }
 		}
 	    }
+		
 
 	    if (found) {
 		// Check the next one
