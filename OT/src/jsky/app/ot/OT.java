@@ -406,8 +406,8 @@ launchHelp()
 	  OT.helpLauncher.launch();
    }
    else {
-      String[] args={"-helpset", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "help/othelp.hs"};
-      OT.helpLauncher = new JHLauncher(args);
+      URL url = ClassLoader.getSystemClassLoader().getResource("help/othelp.hs");
+      OT.setHelpLauncher(new JHLauncher(url));
       //System.out.println ("Help tool launched");
    }
 }
