@@ -15,7 +15,7 @@ import gemini.sp.SpItem;
  * tree node lives.  This is used by drop targets when an item is being
  * moved or deleted in order to remove dragged objects from their tree.
  */
-final class OtDragDropObject implements Transferable {
+public final class OtDragDropObject implements Transferable {
 
     /** Identifies the object being dragged and dropped */
     public final static DataFlavor dataFlavor = new DataFlavor(OtDragDropObject.class, "OtDragDropObject");
@@ -68,7 +68,7 @@ final class OtDragDropObject implements Transferable {
     }
 
     /** Get the first SpItem. */
-    SpItem getSpItem() {
+    public SpItem getSpItem() {
 	return getSpItem(0);
     }
 
@@ -78,19 +78,21 @@ final class OtDragDropObject implements Transferable {
     }
 
     /** Get the set of SpItems. */
-    SpItem[] getSpItems() {
+    public SpItem[] getSpItems() {
 	return _spItemA;
     }
 
     /** Get the owner, the OtTreeWidget that contains the items being dragged. */
-    OtTreeWidget getOwner() {
+    public OtTreeWidget getOwner() {
 	return _currentOwner;
     }
 
     // Implementation of the Transferable interface
 
     public DataFlavor[] getTransferDataFlavors() {
-	return new DataFlavor[] { dataFlavor };
+        // MFO: DataFlavor.stringFlavor is only added because dropping nodes would not work under Windows (NT) otherwise.
+	//      The same trick is used in the Gemini OT (from ot-0.6, in jsky.app.ot.viewer.SPDragDropObject)
+	return new DataFlavor[] { dataFlavor, DataFlavor.stringFlavor };
     }
 
     public boolean isDataFlavorSupported(DataFlavor fl) {
