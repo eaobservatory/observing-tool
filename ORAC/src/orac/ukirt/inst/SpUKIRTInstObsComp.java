@@ -18,6 +18,7 @@ import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 import gemini.sp.iter.SpIterComp;
 import gemini.sp.iter.SpIterConfigObs;
+import gemini.sp.iter.SpIterConfigBase;
 
 import gemini.util.Angle;
 
@@ -342,7 +343,8 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
           if((attribute != null) && (value != null)) {
             if(attribute.equals(ATTR_EXPOSURE_TIME)) {
               currentExposureTime = Double.valueOf(value).doubleValue();
-	      exposureTimeOverride = true;
+	      if (currentIterStepItem instanceof SpIterConfigBase )
+		  exposureTimeOverride = true;
 	      expTimeFound = true;
             }
 
@@ -388,7 +390,6 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 
         extra_oh = 30.0;
       }
-
       return (((currentNoCoadds * (currentExposureTime + getExposureOverhead())) + _int_oh) + _obs_oh) + extra_oh;
     }
   }
