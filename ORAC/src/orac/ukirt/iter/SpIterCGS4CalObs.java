@@ -450,7 +450,7 @@ getDefaultCvfWavelength()
   SpInstCGS4 inst =  (SpInstCGS4) getInstrumentItem();
   double cwl = inst.getCentralWavelength();
   double cvfoff = inst.getCvfOffset();
-  return cwl+cvfoff;
+  return cvfoff;
 }
 
 /**
