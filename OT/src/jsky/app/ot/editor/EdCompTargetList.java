@@ -74,6 +74,9 @@ public final class EdCompTargetList extends OtItemEditor
     private SpTelescopePos     _curPos;	// Position being edited
     private SpTelescopePosList _tpl;	// List of positions being edited
 
+    // Added by MFO (25 June 2001)
+    private TelescopePosEditor _tpe = null;
+
     /**
      * The constructor initializes the title, description, and presentation source.
      */
@@ -177,7 +180,9 @@ public final class EdCompTargetList extends OtItemEditor
 		    _curPos.setXYFromString(tbwe.getText(), _curPos.getYaxisAsString());
 		    _curPos.addWatcher(EdCompTargetList.this);
 		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
+		public void textBoxAction(TextBoxWidgetExt tbwe) {
+		  _resetPositionEditor();
+		}
 	    });
 
 	_yaxis  = _w.yaxisTBW;
@@ -186,8 +191,11 @@ public final class EdCompTargetList extends OtItemEditor
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 		    _curPos.setXYFromString(_curPos.getXaxisAsString(), tbwe.getText());
 		    _curPos.addWatcher(EdCompTargetList.this);
+
 		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
+		public void textBoxAction(TextBoxWidgetExt tbwe) {
+		  _resetPositionEditor();
+		}
 	    });
 
 	_system = _w.systemDDLBW;
@@ -469,7 +477,13 @@ public final class EdCompTargetList extends OtItemEditor
 	_tpTable.selectPos(seltag); 
 
         // Update table (MFO, 12 June 2001)
-	_curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
+	try {
+	  _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
+	}
+	catch(Exception e) {
+          System.out.println("Exception during _updateWidgets: " + e);
+	  e.printStackTrace();
+	}
 
 	TelescopePosEditor tpe = TpeManager.get(_spItem);
 	if (tpe != null) tpe.reset(_spItem);
@@ -541,6 +555,17 @@ public final class EdCompTargetList extends OtItemEditor
 	showPos(_curPos);
     }
 
+    private void _resetPositionEditor() {
+	// MFO: copied from ot-1.0.1 (18 June 2001)
+	// If this is the base position, update the position editor
+	if (_curPos.isBasePosition()) {
+	    TelescopePosEditor tpe = TpeManager.get(_spItem);
+	    if (tpe != null) {
+	        tpe.loadImage(TelescopePosEditor.ANY_SERVER);
+	    }
+	}
+    }
+
     /**
      * Needed to customize EdCompTargetList for different Telescopes.
      * 
@@ -587,7 +612,13 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
 	if (w == _w.plotButton) {
-	    TelescopePosEditor tpe = TpeManager.open(_spItem);
+	    if(_tpe == null) {
+	      _tpe = TpeManager.open(_spItem);
+	    }
+	    else {
+	      _resetPositionEditor();
+	    }
+
 	    return;
 	}
 
@@ -622,9 +653,22 @@ public final class EdCompTargetList extends OtItemEditor
 	    _w.yaxisTBW.setText(nameResolver.getDec());
 
             _curPos.deleteWatcher(EdCompTargetList.this);
-	    _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
+	    try {
+	      _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
+	    }
+	    // In case an exception is thrown here if the new position is out of view (in the
+	    // position editor)
+	    // The new position will be "in view" after the call _resetPositionEditor.
+	    // But _resetPositionEditor can only be called after _cur has been set to the new
+	    // position. Otherwise. it would not pick up the right position.
+	    catch(Exception exception) {
+              // print stack trace for debugging.
+	      exception.printStackTrace();
+	    }
 	    _curPos.setName(_w.nameTBW.getText() );
 	    _curPos.addWatcher(EdCompTargetList.this);
+
+            _resetPositionEditor();
 	  }
 	  catch(RuntimeException e) {
             if(System.getProperty("DEBUB") != null) {
