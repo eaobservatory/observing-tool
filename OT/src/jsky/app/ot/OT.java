@@ -576,6 +576,28 @@ showNews()
 	boolean ok = true;
 	String filename = null;
 
+	// Check which version of java we are running
+	String jVersion = System.getProperty("java.version");
+	// Just get the first 3 characters, which will be n.m
+	String sVersion = jVersion.substring(0, 3);
+	// Convert this to a float
+	try {
+	    Float jv = new Float(sVersion);
+	    int iValue = (int)(jv.floatValue()*10);
+	    if ( iValue < 14 ) {
+		String message = "The Observing Tool requires at least java 1.4 to work.\n" +
+		    "You seem to currently be running version " + jVersion + "\n" +
+		    "Please Upgrade";
+		JOptionPane.showMessageDialog( null, message, "OT does not support current version of Java", JOptionPane.ERROR_MESSAGE);
+		System.exit(0);
+	    }
+	}
+	catch (NumberFormatException nfe) {
+	    String message = "Unable to confirm which version of java you are running.\n" +
+		"Continuing anyway";
+	    System.err.println(message);
+	}
+
 	for (int i = 0; i < args.length; i++) {
 	    if (args[i].charAt(0) == '-') {
 		String opt = args[i];
