@@ -1047,6 +1047,7 @@ public class SpTranslator {
                chopAngle = targetComponent.getChopAngleAsString();
 
 // Write sequence instructions.
+               sequence.addElement( "-CHOP off" );
                sequence.addElement( "SET_CHOPTHROW " + chopThrow );
                sequence.addElement( "SET_CHOPPA " + chopAngle );
                sequence.addElement( "-DEFINE_BEAMS " + chopAngle + " " + chopThrow );
