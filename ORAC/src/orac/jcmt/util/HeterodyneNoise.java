@@ -28,8 +28,10 @@ public class HeterodyneNoise {
     static Vector trxValues = new Vector();
     static Vector nu_tel    = new Vector();
     static HashMap dasModes = new HashMap();
+    static TreeMap _availableBands = new TreeMap();
 
-    static double kappa = 1.15;
+    static final double kappa = 1.15;
+    static final String cfgDir = System.getProperty("ot.cfgdir");
     private static final String receiverFile = "receiver.info";
     private static boolean initialised = false;
 
@@ -50,8 +52,7 @@ public class HeterodyneNoise {
 	dasModes.put(new Integer(1840), new Double (1513e3/2.) );
 
 	// Read the reciever file - first get its directory and add the file name
-	String fileName = System.getProperty("ot.cfgdir");
-	fileName = fileName + receiverFile;
+	String fileName = cfgDir + "/" + receiverFile;
 	// Open the file ready for reading
 	File rvrFile = new File (fileName);
 	try {
@@ -87,8 +88,31 @@ public class HeterodyneNoise {
 	    System.out.println("Error reading receiver info file");
 	    e.printStackTrace();
 	}
+
+        getAvailableTau();
+
 	initialised = true;
     }
+
+    private static void getAvailableTau() {
+        File dir = new File(cfgDir);
+        if ( dir.isDirectory() ) {
+            String [] files  = dir.list();
+            if ( files == null ) {
+                System.out.println("No files in " + cfgDir);
+                return;
+            }
+            for ( int i=0; i<files.length; i++ ) {
+                if ( files[i].startsWith("tau") && files[i].endsWith(".dat") ) {
+                    // Extract the tau value
+                    String value = "0." + files[i].substring(files[i].indexOf("u")+1, files[i].lastIndexOf("."));
+                    double dtmp = Double.parseDouble(value);
+                    _availableBands.put( new Double(dtmp), files[i] );
+                }
+            }
+        }
+    }
+
 
 
 
@@ -119,8 +143,7 @@ public class HeterodyneNoise {
 		int lastTrxValue = ( (Integer)thisMap.get(new Integer(lastTrxFrequency)) ).intValue();
 		int nextTrxValue = ( (Integer)thisMap.get(new Integer(nextTrxFrequency)) ).intValue();
 		// Now interpolate...
-		double slope = (double)(nextTrxValue - lastTrxValue)/(double)(nextTrxFrequency - lastTrxFrequency);
-		trx = slope*freq + lastTrxValue - slope*lastTrxFrequency;
+                trx = linterp( lastTrxFrequency, lastTrxValue, nextTrxFrequency, nextTrxValue, freq);
 	    }
 	    else {
 		trx = ( (Integer)thisMap.get(thisMap.firstKey()) ).intValue();
@@ -144,8 +167,39 @@ public class HeterodyneNoise {
  	    init ();
 	}
 
+        // Find which tau range contains the required tau, and the
+        // next tau range nearest
+        String tauFile0;
+        String tauFile1;
+        Iterator iter = _availableBands.keySet().iterator();
+        double current=0, next=0;
+        boolean firstLoop = true;
+        while ( iter.hasNext() ) {
+            if ( firstLoop ) {
+                current = ((Double)iter.next()).doubleValue();
+                next    = ((Double)iter.next()).doubleValue();
+                if ( tau <= current ) break;
+                firstLoop = false;
+                continue;
+            }
+            current = next;
+            next = ((Double)iter.next()).doubleValue();
+            if ( tau >= current && tau < next ) {
+                break;
+            }
+        }
+        tauFile0 = (String)_availableBands.get( new Double(current) );
+        tauFile1 = (String)_availableBands.get( new Double(next) );
+
 	// Get the transmission curve curve
 	TreeMap atmTau = getAtmosphereData(tau);
+
+        double tranmission0 = getTransmission(tauFile0, freq);
+        double tranmission1 = getTransmission(tauFile1, freq);
+        double t = linterp( current, tranmission0, next, tranmission1, tau);
+//         System.out.println("tranmission0 = " + tranmission0 );
+//         System.out.println("tranmission1 = " + tranmission1 );
+//         System.out.println("Transmission using new method = " + t);
 
 
 	if ( (index = feNames.indexOf(fe)) != -1) {
@@ -154,20 +208,20 @@ public class HeterodyneNoise {
 
 	// Now do a linear interp across the atmospheric data at the
 	// required frequency
-	Iterator iter = atmTau.keySet().iterator();
-	double lowerF=0.0;
-	double upperF=0.0;
-	double lowerT=0.0;
-	double upperT=0.0;
-	while (iter.hasNext()) {
-	    lowerF=upperF;
-	    upperF= ((Double)iter.next()).doubleValue();
-	    if (freq < upperF && freq >= lowerF) break;
-	}
-	lowerT = ( (Double)atmTau.get(new Double(lowerF)) ).doubleValue();
-	upperT = ( (Double)atmTau.get(new Double(upperF)) ).doubleValue();
-	double slope = (double)(upperT-lowerT)/(upperF-lowerF);
-	double t = slope*freq + lowerT -slope*lowerF;
+// 	iter = atmTau.keySet().iterator();
+// 	double lowerF=0.0;
+// 	double upperF=0.0;
+// 	double lowerT=0.0;
+// 	double upperT=0.0;
+// 	while (iter.hasNext()) {
+// 	    lowerF=upperF;
+// 	    upperF= ((Double)iter.next()).doubleValue();
+// 	    if (freq < upperF && freq >= lowerF) break;
+// 	}
+// 	lowerT = ( (Double)atmTau.get(new Double(lowerF)) ).doubleValue();
+// 	upperT = ( (Double)atmTau.get(new Double(upperF)) ).doubleValue();
+//         double t = linterp( lowerF, lowerT, upperF, upperT, freq);
+//         System.out.println("Transmission using old method = " + t);
 // 	System.out.println("Estimated tau: "+t);
 
 	// Nowe find Tsys
@@ -190,7 +244,7 @@ public class HeterodyneNoise {
     }
 
     private static TreeMap getAtmosphereData (double tau) {
-	double [] availableBands = {0.03, 0.05, 0.065, 0.1, 0.16, 0.2};
+        double [] availableBands = {0.03, 0.05, 0.065, 0.1, 0.16, 0.2};
 	TreeMap tauMap = new TreeMap();
 	int index=0;
 	
@@ -209,7 +263,7 @@ public class HeterodyneNoise {
 	}
 
 	// We now have the index so open the file
-	String fileName = System.getProperty("ot.cfgdir") + "/tau";
+	String fileName = cfgDir + "/tau";
 	String tmp = Double.toString(availableBands[index]);
 	StringTokenizer st = new StringTokenizer(tmp,".");
 	st.nextToken();
@@ -232,6 +286,64 @@ public class HeterodyneNoise {
 	}
 //	System.out.println("Map covers freq range (" + ((Double)tauMap.firstKey()).doubleValue() + ", " + ((Double)tauMap.lastKey()).doubleValue() + ")");
 	return tauMap;
+    }
+
+
+    private static double getTransmission (String filename, double freq) {
+        String path = cfgDir + filename;
+        double rtn = 0.0;
+        BufferedReader rdr = null;
+        try {
+            rdr = new BufferedReader(new FileReader(path));
+            // Read the first line of the file
+            String line = rdr.readLine();
+            double freq1 = 0.0, tran1 = 0.0;
+            double freq2 = 0.0, tran2 = 0.0;
+            if ( line != null ) {
+               StringTokenizer st = new StringTokenizer(line);
+               freq1 = Double.parseDouble(st.nextToken());
+               tran1 = Double.parseDouble(st.nextToken());
+            }
+            // Now loop over all the values til we find the ones we want
+            while ( (line = rdr.readLine()) != null ) {
+                StringTokenizer st = new StringTokenizer(line);
+                freq2 = Double.parseDouble(st.nextToken());
+                tran2 = Double.parseDouble(st.nextToken());
+                // First deal with the case where the freq is below the first value
+                if ( freq < freq1 ) break;
+                // See is the frequency we need is between the two we have
+                if ( freq >= freq1 && freq < freq2 ) break;
+                // Otherwise, keep looping
+                freq1 = freq2;
+                tran1 = tran2;
+            }
+
+            // Once we get here, we should be able to interpolate
+            rtn = linterp( freq1, tran1, freq2, tran2, freq);
+        }
+        catch ( java.io.FileNotFoundException fnf ) {
+            System.out.println("Unable to find file " + path );
+        }
+        catch ( java.io.IOException ioe ) {
+            System.out.println("IO Error while reading file " + path);
+        }
+        finally {
+            if ( rdr != null ) {
+                try {
+                    rdr.close();
+                }
+                catch ( Exception e ) {};
+            }
+        }
+
+        return rtn;
+                       
+    }
+
+    public static double linterp ( double x1, double y1, double x2, double y2, double x ) {
+        double slope = (y2 - y1) / (x2 -x1);
+        double value = slope*x + y1 - slope*x1;
+        return value;
     }
 
     private static double getNoise( SpIterJCMTObs    obs,
