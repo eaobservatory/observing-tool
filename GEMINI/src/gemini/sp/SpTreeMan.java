@@ -683,6 +683,22 @@ findInstrumentInContext(SpItem spItem)
    return ioc;
 }
 
+public static SpNote findObserverNoteInContext(SpItem spItem) {
+    SpNote note   = null;
+    Enumeration e = spItem.children();
+    while (e.hasMoreElements()) {
+	SpItem child = (SpItem) e.nextElement();
+	if (child instanceof SpNote) {
+	    SpNote tmp = (SpNote)child;
+	    if (tmp.isObserveInstruction()) {
+		note = tmp;
+		break;
+	    }
+	}
+    }
+    return note;
+}
+
 
 /**
  * Find the "root" item of the given item.
