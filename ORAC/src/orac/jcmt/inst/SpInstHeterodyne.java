@@ -32,6 +32,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Front end name. */
   public static final String ATTR_FE_NAME = "feName";
 
+    /** Back end name */
+    public static final String ATTR_BE_NAME = "beName";
+
   /** Receiver: Central IF. */
   public static final String ATTR_FE_IF = "feIF";
 
@@ -154,6 +157,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * from the above configuration files.<p>
    */
   public void initialiseValues(
+      String defaultBeName,
       String defaultFeName,
       String defaultMode,
       String defaultBandMode,
@@ -170,6 +174,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       String defaultTransition,
       String defaultRestFrequency) {
 
+    _avTable.noNotifySet(ATTR_BE_NAME,             defaultBeName,             0);
     _avTable.noNotifySet(ATTR_FE_NAME,             defaultFeName,             0);
     _avTable.noNotifySet(ATTR_MODE,                defaultMode,               0);
     _avTable.noNotifySet(ATTR_BAND_MODE,           defaultBandMode,           0);
