@@ -1011,6 +1011,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	if (spMSB.isSuspended()) {
 	    resultComponent.setForeground(Color.red);
 	}
+        if ( spMSB.getElapsedTime() > 2.0 * 3600 ) {
+            resultComponent.setForeground(Color.red);
+        }
       }
 
 
@@ -1029,7 +1032,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
       if((treeNodeWidget != null) && (treeNodeWidget.getItem() instanceof SpNote)) {
 	if(((SpNote)treeNodeWidget.getItem()).isObserveInstruction()) {
-          resultComponent.setForeground(Color.red);
+          resultComponent.setForeground(Color.blue);
 	}
       }
 
