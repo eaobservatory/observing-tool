@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
+  <meta_gui_filename>UIST_library.xml</meta_gui_filename>
   <title>UIST library</title>
-  <meta_gui_filename>uist_templates2.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>UIST template library: imaging</title>
@@ -3187,7 +3187,7 @@ telescope of any special requirements.
       <title>point source, nod along slit</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">3196.0</estimatedDuration>
+      <estimatedDuration units="seconds">3195.0</estimatedDuration>
       <SpNote id="22" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3195,7 +3195,7 @@ telescope of any special requirements.
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">28.0</estimatedDuration>
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3299,22 +3299,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>10.0</expTimeOT>
-            <nreads>6</nreads>
+            <nreads>11</nreads>
             <order>1</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>11.10356938</observationTime>
+            <observationTime>12.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.900611295140122</dutyCycle>
+            <dutyCycle>0.8237258508045202</dutyCycle>
             <focus>2.20</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>10.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -3324,27 +3324,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_3.2mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>1</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>krypton</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
-            <focus>2.20</focus>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>2.55</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -3354,7 +3354,7 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
@@ -3671,7 +3671,7 @@ Be sure you have suitable flat, arc and standard star observations.
       <title>point source, nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">5736.0</estimatedDuration>
+      <estimatedDuration units="seconds">5735.0</estimatedDuration>
       <SpNote id="23" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3679,7 +3679,7 @@ Be sure you have suitable flat, arc and standard star observations.
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">28.0</estimatedDuration>
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3783,22 +3783,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>10.0</expTimeOT>
-            <nreads>6</nreads>
+            <nreads>11</nreads>
             <order>1</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>11.10356938</observationTime>
+            <observationTime>12.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.900611295140122</dutyCycle>
+            <dutyCycle>0.8237258508045202</dutyCycle>
             <focus>2.20</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>10.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -3808,27 +3808,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_3.2mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>1</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>krypton</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
-            <focus>2.20</focus>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>2.55</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -3838,7 +3838,7 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
@@ -4174,7 +4174,7 @@ You can change the offsets to select your own patch of blank sky.</note>
       <title>extended source, nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">5736.0</estimatedDuration>
+      <estimatedDuration units="seconds">5735.0</estimatedDuration>
       <SpNote id="24" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4182,7 +4182,7 @@ You can change the offsets to select your own patch of blank sky.</note>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">28.0</estimatedDuration>
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -4286,22 +4286,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>10.0</expTimeOT>
-            <nreads>6</nreads>
+            <nreads>11</nreads>
             <order>1</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>11.10356938</observationTime>
+            <observationTime>12.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.900611295140122</dutyCycle>
+            <dutyCycle>0.8237258508045202</dutyCycle>
             <focus>2.20</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>10.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -4311,27 +4311,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_3.2mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>1</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>krypton</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
-            <focus>2.20</focus>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>2.55</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -4341,7 +4341,7 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
@@ -4679,7 +4679,7 @@ You may change the offsets to select your own patch of blank sky.</note>
       <title>extended source, infrequent nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">8076.0</estimatedDuration>
+      <estimatedDuration units="seconds">8075.0</estimatedDuration>
       <SpNote id="25" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4689,7 +4689,7 @@ This recipe was originally for the CGS4 echelle and should be used with caution 
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">28.0</estimatedDuration>
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -4793,22 +4793,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>10.0</expTimeOT>
-            <nreads>6</nreads>
+            <nreads>11</nreads>
             <order>1</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>11.10356938</observationTime>
+            <observationTime>12.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.900611295140122</dutyCycle>
+            <dutyCycle>0.8237258508045202</dutyCycle>
             <focus>2.20</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>10.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -4818,27 +4818,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_3.2mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>1</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>krypton</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
-            <focus>2.20</focus>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>2.55</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -4848,7 +4848,7 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
@@ -5963,8 +5963,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -6349,9 +6349,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -6360,12 +6360,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -6562,9 +6562,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -6573,12 +6573,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -6675,8 +6675,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -7070,13 +7070,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Jitter AFTER 4 WP positions</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -7106,8 +7106,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                   <value>67.5</value>
                 </IRPOLIter>
                 <iterConfigList>IRPOLIter</iterConfigList>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <SpIterObserve type="ic" subtype="observe">
                   <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -7284,13 +7284,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Jitter AFTER 4 WP positions</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -7320,8 +7320,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                   <value>67.5</value>
                 </IRPOLIter>
                 <iterConfigList>IRPOLIter</iterConfigList>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <SpIterObserve type="ic" subtype="observe">
                   <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -7397,8 +7397,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -7791,9 +7791,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -7802,12 +7802,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -8004,13 +8004,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Obj-Sky pair at each WP position.</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
             </SpNote>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -8021,8 +8021,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <title>Obj-Sky nod 1</title>
@@ -8173,8 +8173,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -8567,9 +8567,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -8578,12 +8578,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -8780,13 +8780,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Obj-Sky pair at each WP position.</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.
 
 This set is akin to the 3x3 extended observation with 50% overlaps on the target and a jitter on a sky region.</note>
@@ -8799,8 +8799,8 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <title>Obj-Sky nod 1</title>
@@ -9092,7 +9092,7 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
       <title>Pol nod along slit (UIST)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">1286.0</estimatedDuration>
+      <estimatedDuration units="seconds">1285.0</estimatedDuration>
       <SpNote id="37" type="no" subtype="none">
         <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -9109,7 +9109,7 @@ edit in your standard star ID, resolve the name and then alter UIST settings.
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">38.0</estimatedDuration>
+        <estimatedDuration units="seconds">37.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -9213,22 +9213,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>20.0</expTimeOT>
-            <nreads>11</nreads>
+            <nreads>21</nreads>
             <order>2</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>21.10356938</observationTime>
+            <observationTime>22.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9477069797943347</dutyCycle>
+            <dutyCycle>0.9033439433247502</dutyCycle>
             <focus>2.58</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>20.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -9238,27 +9238,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_5.0mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>2</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>argon</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
-            <focus>2.58</focus>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>3.38</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -9268,7 +9268,7 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
@@ -10005,8 +10005,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="41" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords</targetName>
@@ -10327,8 +10327,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="45" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -10583,9 +10583,9 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpNoteRef idref="49"/>
       <title>IFU, nod to blank sky</title>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">6792.0</estimatedDuration>
+      <estimatedDuration units="seconds">6781.0</estimatedDuration>
       <SpNote id="49" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -10593,7 +10593,7 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">28.0</estimatedDuration>
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -10697,22 +10697,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>10.0</expTimeOT>
-            <nreads>6</nreads>
+            <nreads>11</nreads>
             <order>1</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>11.10356938</observationTime>
+            <observationTime>12.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.900611295140122</dutyCycle>
+            <dutyCycle>0.8237258508045202</dutyCycle>
             <focus>4.50</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>10.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -10722,27 +10722,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_3.2mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>1</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>argon</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
+            <dutyCycle>0.8751478305549691</dutyCycle>
             <focus>4.50</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -10752,14 +10752,14 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">624.0</estimatedDuration>
+        <estimatedDuration units="seconds">614.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>standard star</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -10881,28 +10881,45 @@ Be sure the UIST component matches that of your target, and that you have suitab
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <title>Repeat 2X</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset2</meta_gui_selectedOffsetPos>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
                   <DC1>0.0</DC1>
                   <DC2>0.0</DC2>
                 </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
                 <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>20.0</DC2>
+                  <DC1>30.0</DC1>
+                  <DC2>0.0</DC2>
                 </OFFSET>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>20.0</DC2>
-                </OFFSET>
+              </obsArea>
+              <SpIterSky type="ic" subtype="sky">
+                <repeatCount>2</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterSky>
+            </SpIterOffset>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
                 <OFFSET>
                   <DC1>0.0</DC1>
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <title>star, offset to blank sky at 20arcsec</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterObserve type="ic" subtype="observe">
                 <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -11029,7 +11046,7 @@ You may change the offsets to select your own patch of blank sky.</note>
           <ObjectInGroup>true</ObjectInGroup>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
             <repeatCount>20</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -11051,7 +11068,7 @@ You may change the offsets to select your own patch of blank sky.</note>
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -11088,7 +11105,7 @@ You may change the offsets to select your own patch of blank sky.</note>
       <title>IFU, star remains in field, nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>Low</priority>
-      <estimatedDuration units="seconds">5736.0</estimatedDuration>
+      <estimatedDuration units="seconds">5735.0</estimatedDuration>
       <SpNote id="50" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -11096,7 +11113,7 @@ You may change the offsets to select your own patch of blank sky.</note>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">28.0</estimatedDuration>
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>flat and an arc</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -11200,22 +11217,22 @@ Be sure to hit the default button in the flat and arc editors if you change the 
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>10.0</expTimeOT>
-            <nreads>6</nreads>
+            <nreads>11</nreads>
             <order>1</order>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>11.10356938</observationTime>
+            <observationTime>12.13996136</observationTime>
             <arcSource>undefined</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.900611295140122</dutyCycle>
+            <dutyCycle>0.8237258508045202</dutyCycle>
             <focus>2.20</focus>
             <calType>Flat</calType>
-            <nullReads>0</nullReads>
+            <nullReads>1</nullReads>
             <exposureTime>10.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -11225,27 +11242,27 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>BB_3.2mm</flatSource>
           </SpIterUISTCalObs>
           <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
             <expTimeOT>15.0</expTimeOT>
-            <nreads>9</nreads>
+            <nreads>16</nreads>
             <order>1</order>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.10356938</observationTime>
+            <observationTime>17.13996136</observationTime>
             <arcSource>krypton</arcSource>
             <nullExposures>0</nullExposures>
-            <resetDelay>0.05</resetDelay>
+            <resetDelay>0.11</resetDelay>
             <idlePeriod>0.0022</idlePeriod>
             <filter>B2</filter>
-            <dutyCycle>0.9354772471475776</dutyCycle>
-            <focus>2.20</focus>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>2.55</focus>
             <calType>Arc</calType>
-            <nullReads>0</nullReads>
-            <exposureTime>16.0</exposureTime>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
             <chopFrequency>0.0</chopFrequency>
-            <waveform>uist_starev9</waveform>
+            <waveform>uist_starev11</waveform>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <nullCycles>0</nullCycles>
@@ -11255,7 +11272,7 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <chopDelay>0.0</chopDelay>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <readInterval>2.0</readInterval>
+            <readInterval>1.0</readInterval>
             <flatSource>undefined</flatSource>
           </SpIterUISTCalObs>
         </SpIterFolder>
