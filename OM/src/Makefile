@@ -169,7 +169,8 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf Makefile
 	\nset OT_CFG_DIR = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/ot_cfg/\
 	\n\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -DSIMULATE=$$""{tosim} -DENGINEERING=$$""{toeng} -DQUICKLOOK=$$""{toql} \
+	-Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
@@ -362,7 +363,8 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\nset CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/om/$(CFG_DIR_SITE)/$(CFG_DIR_TELESCOPE)\
 	\nset OT_CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/ot/$(CFG_DIR_TELESCOPE)/\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -DSIMULATE=$$""{tosim} -DENGINEERING=$$""{toeng} -DQUICKLOOK=$$""{toql} \
+	-Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
