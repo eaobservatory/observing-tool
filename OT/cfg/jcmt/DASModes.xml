@@ -313,6 +313,18 @@
 </configuration>
 
 <configuration>
+  <name>      NS_OCS_250  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 218.828         </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   1               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.075         </shift>  
+</configuration>
+
+<configuration>
   <name>      NS_SIOSO_125x2  </name>
   <frontEnd>  A3              </frontEnd>
   <frequency> 261.18085       </frequency>
