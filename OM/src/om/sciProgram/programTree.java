@@ -71,6 +71,13 @@ final public class programTree extends JPanel
       edit = new JMenuItem ("Edit Attributes...");
       edit.addActionListener(this);
       popup.add (edit);
+      scale = new JMenuItem ("Scale Exposure Times...");
+      scale.addActionListener(this);
+      popup.add (scale);
+      scaleAgain = new JMenuItem ("Re-do Scale Exposure Times");
+      scaleAgain.addActionListener(this);
+      scaleAgain.setEnabled(false);
+      popup.add (scaleAgain);
       
     }
   
@@ -99,12 +106,45 @@ final public class programTree extends JPanel
         execution();
 	  
       } else if (source == edit) {
-
         editAttributes();
+      } else if (source == scale) {
+        scaleAttributes();
+      } else if (source == scaleAgain) {
+        rescaleAttributes();
         
       }
     }
 
+  /**
+   * private void disableRun()
+   *
+   * Disable the run option whilst other things are happening
+   *
+   **/
+  private void disableRun() {
+    run.setEnabled(false);
+    run.setForeground(Color.white);
+  }
+
+
+  /**
+   * private void enableRun()
+   *
+   * Enable the run option once other things have stopped
+   *
+   **/
+  private void enableRun() {
+    run.setEnabled(true);
+    run.setForeground(Color.black);
+  }
+
+
+  /**
+   * private void editAttributes()
+   *
+   * Invokes the attribute editor on the current item, as long as that
+   * item is an observation.
+   **/
   private void editAttributes() {
       
     SpItem item=findItem(_spItem,path.getLastPathComponent().toString());
@@ -116,34 +156,106 @@ final public class programTree extends JPanel
     // Recheck that this is an observation
     if (item.type()==SpType.OBSERVATION) {
 
-      run.setEnabled(false);
-      run.setForeground(Color.white);
+      disableRun();
 
       SpObs observation = (SpObs) item;
 
-      if(!observation.equals(null)) {
-        
-        //        SpItem inst= (SpItem) SpTreeMan.findInstrument(item);
-
+      if (!observation.equals(null)) {
         new AttributeEditor(observation, new javax.swing.JFrame(), true).show();
-        
-        //        attEd.dispose();
-
-        run.setEnabled(true);
-        run.setForeground(Color.black);		    
-        
-      }else{
+      } else {
         errorBox =new ErrorBox("Your selection: "+item.getTitle()+
-                               " is not an obnservation");
-        run.setEnabled(true);
-        run.setForeground(Color.black);		    
-        return;
-	  
+                               " is not an observation");
       }
-
+      enableRun();
     }
   }
  
+  
+  /**
+   * private void scaleAttributes()
+   *
+   * Invokes the attribute scaler on the current item, as long as that
+   * item is an observation.
+   **/
+  private void scaleAttributes() {
+    SpItem item=findItem(_spItem,path.getLastPathComponent().toString());
+    if (item == null) {
+      return;
+    }
+
+    // Recheck that this is an observation
+    if (item.type()==SpType.OBSERVATION) {
+
+      disableRun();
+
+      SpObs observation = (SpObs) item;
+      if (!observation.equals(null)) {
+	new AttributeEditor(observation, new javax.swing.JFrame(), true,
+			    "EXPTIME",
+			    haveScaled.contains(observation),
+			    lastScaleFactor(),
+			    false).show();
+	double sf = AttributeEditor.scaleFactorUsed();
+	if (sf > 0) {
+	  haveScaled.addElement(observation);
+	  scaleFactors.addElement(new Double(sf));
+	  scaleAgain.setEnabled(true);
+	  scaleAgain.setText("Re-do Scale Exposure Times (x" + sf + ")");
+	}
+      } else {
+        errorBox = new ErrorBox("Your selection: " + item.getTitle() +
+                               " is not an observation");
+      }
+      enableRun();
+    }
+  }
+ 
+  
+  /**
+   * private void rescaleAttributes()
+   *
+   * Reinvokes the attribute scaler on the current item, as long as that
+   * item is an observation.
+   **/
+  private void rescaleAttributes() {
+    SpItem item=findItem(_spItem,path.getLastPathComponent().toString());
+    if (item == null) {
+      return;
+    }
+
+    // Recheck that this is an observation
+    if (item.type()==SpType.OBSERVATION) {
+
+      disableRun();
+
+      SpObs observation = (SpObs) item;
+      if (!observation.equals(null)) {
+	new AttributeEditor(observation, new javax.swing.JFrame(), true,
+			    "EXPTIME",
+			    haveScaled.contains(observation),
+			    lastScaleFactor(),
+			    true).show();
+	double sf = AttributeEditor.scaleFactorUsed();
+	if (sf > 0) {
+	  haveScaled.addElement(observation);
+	  scaleFactors.addElement(new Double(sf));
+	}
+      } else {
+        errorBox = new ErrorBox("Your selection: " + item.getTitle() +
+                               " is not an observation");
+      }
+      enableRun();
+    }
+  }
+
+
+  private Double lastScaleFactor() {
+    if (scaleFactors.size() == 0) {
+      return new Double(AttributeEditor.scaleFactorUsed());
+    } else {
+      return (Double)scaleFactors.elementAt(scaleFactors.size()-1);
+    }
+  }
   
   /**  private void execution() is a private method
        to start a sequence console. The execution is mainly about to start a
@@ -661,7 +773,15 @@ final public class programTree extends JPanel
 
   }
 
-  
+  private boolean confirm(String message) {
+    JFrame frame = new JFrame();
+    JOptionPane dialog = new JOptionPane();
+
+    return (dialog.showConfirmDialog(frame, message, "Confirm",
+				     JOptionPane.YES_NO_OPTION,
+				     JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION);
+  }
+
   public FrameList getFrameList() {return consoleFrames;}
   public JButton getRunButton () {return run;}
   
@@ -672,10 +792,15 @@ final public class programTree extends JPanel
   private DefaultMutableTreeNode root;
   private TreePath path;
   private ErrorBox errorBox;
+  private AlertBox alertBox;
   private FrameList consoleFrames=new FrameList();
   private remoteFrame frame;
   private menuSele menu;
   private JMenuItem edit;
+  private JMenuItem scale;
+  private JMenuItem scaleAgain;
+  private Vector haveScaled   = new Vector(); 
+  private Vector scaleFactors = new Vector(); 
   private JPopupMenu popup;
 }
 
