@@ -168,23 +168,24 @@ public class SpValidation {
     // Check whether there are more than one observe instruction notes.
     Vector notes = SpTreeMan.findAllItems(spMSB, SpNote.class.getName());
 
+    boolean observeNoteFound = false;
     if(notes.size() > 1) {
       int numberOfObserveInstructions = 0;
 
       for(int i = 0; i < notes.size(); i++) {
         if(((SpNote)notes.get(i)).isObserveInstruction()) {
           numberOfObserveInstructions++;
-
+	  observeNoteFound = true;
           if(numberOfObserveInstructions > 1) {
             report.add(new ErrorMessage(ErrorMessage.ERROR,
                                         "Note \"" + ((SpNote)notes.get(i)).getTitle() + "\" in MSB \"" + spMSB.getTitle() + "\"",
                                         "Each MSB can only contain one note that has \"Show to the Observer\" ticked."));
+	    break;
           }
         }
       }
     }
     else {
-	boolean observeNoteFound = false;
 	if (notes.size() == 1 && ((SpNote)(notes.get(0))).isObserveInstruction()) {
 	    observeNoteFound = true;
 	}
@@ -202,13 +203,13 @@ public class SpValidation {
 		}
 	    }
 	}
-	if (!observeNoteFound) {
-	    report.add(new ErrorMessage (ErrorMessage.WARNING,
-					"MSB \"" + spMSB.getTitle() + "\" does not have an observe instruction",
-					 "Recommend MSBs have an observe instruction"));
-	}
     }
 
+    if (!observeNoteFound) {
+	report.add(new ErrorMessage (ErrorMessage.WARNING,
+				     "MSB \"" + spMSB.getTitle() + "\" does not have an observe instruction",
+				     "Recommend MSBs have an observe instruction"));
+    }
 
     if(spMSB instanceof SpObs) {
       checkObservation((SpObs)spMSB, report);
