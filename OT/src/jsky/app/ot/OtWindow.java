@@ -617,6 +617,7 @@ public class OtWindow extends SpTreeGUI
 	    seqDir  = spt.getSequenceDirectory();
         }catch (Exception ex) {
 	    DialogUtil.error(this, "Exception whilst translating:\n "+ex.getMessage());
+	    ex.printStackTrace();
 	    return false;
         }
 
