@@ -391,6 +391,10 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
          xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH_PERIH + ">" + targetPos.getConicSystemEpochPerih()
                                                 + "</" + TX_EPOCH_PERIH + ">");
        }
+       else {
+         xmlBuffer.append("\n        " + indent + "<"  + TX_LORM + ">" + targetPos.getConicSystemLorM()
+                                                + "</" + TX_LORM + ">");
+       }
 
        xmlBuffer.append("\n        " + indent + "<"  + TX_INCLINATION + ">" + targetPos.getConicSystemInclination()
                                               + "</" + TX_INCLINATION + ">");
@@ -402,8 +406,6 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
                                               + "</" + TX_AORQ + ">");
        xmlBuffer.append("\n        " + indent + "<"  + TX_E + ">" + targetPos.getConicSystemE()
                                               + "</" + TX_E + ">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_LORM + ">" + targetPos.getConicSystemLorM()
-                                              + "</" + TX_LORM + ">");
        xmlBuffer.append("\n        " + indent + "<"  + TX_N + ">" + targetPos.getConicSystemDailyMotion()
                                               + "</" + TX_N + ">");
        xmlBuffer.append("\n      " + indent + "</" + TX_CONIC_SYSTEM + ">");
