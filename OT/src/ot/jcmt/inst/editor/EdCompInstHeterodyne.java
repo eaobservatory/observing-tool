@@ -275,6 +275,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          _w.feMixers.setSelectedItem(getObject(_w.feMixers, _instHeterodyne.getMixer()));
          _w.overlap.setText("" + (_instHeterodyne.getOverlap(0) / 1.0E6));
          _w.velocityDefinition.setSelectedItem("" + _instHeterodyne.getVelocityDefinition());
+	 _w.velocityFrame.setSelectedItem(_instHeterodyne.getVelocityFrame());
 
          redshift = _instHeterodyne.getRedshift();
          _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
