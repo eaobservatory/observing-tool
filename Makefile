@@ -43,6 +43,9 @@ install: all install_dir
 
 	mkdir -p $(INSTALL_ROOT)/cfg
 
+	rm -rf $(INSTALL_ROOT)/cfg/odb
+	rm -rf $(INSTALL_ROOT)/cfg/om
+	rm -rf $(INSTALL_ROOT)/cfg/ot
 	cp -r ODB/install/cfg $(INSTALL_ROOT)/cfg/odb
 	cp -r  OM/install/cfg $(INSTALL_ROOT)/cfg/om
 	cp -r  OT/install/cfg $(INSTALL_ROOT)/cfg/ot
