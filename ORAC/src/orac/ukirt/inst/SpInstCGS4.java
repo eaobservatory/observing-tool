@@ -1209,13 +1209,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	this.setPosAngleDegrees(posAngle);
     }
     
-    public double getObserveStepTime() {
-      int sampling_x = Integer.valueOf(getSampling().substring(0, 1)).intValue();
-      int sampling_y = Integer.valueOf(getSampling().substring(2, 3)).intValue();
-	
-      return sampling_x * sampling_y * getExpTime() * getNoCoadds();
-    }
-
 
    /**
     * Overhead in doing an exposure in seconds.
