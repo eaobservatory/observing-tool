@@ -83,7 +83,8 @@ public class SpTranslator {
 /**
  * Insert BREAK instructions into a sequence.
  *
- * @param String the instrument (so far only CGS4, IRCAM3 and UFTI supported).
+ * @param String the instrument (so far only CGS4, IRCAM3, MICHELLE
+ *        and UFTI supported).
  * @param Vector the sequence instructions (this is updated).
  */
    public void insertBreaks( String instrument, Vector sequence ) {
@@ -92,6 +93,7 @@ public class SpTranslator {
       int i;                              // Loop counter
 
       if ( instrument.equalsIgnoreCase( "CGS4" ) ||
+           instrument.equalsIgnoreCase( "MICHELLE" ) ||
            instrument.equalsIgnoreCase( "UFTI" ) ||
            instrument.equalsIgnoreCase( "IRCAM3" ) ) {
 
@@ -555,7 +557,8 @@ public class SpTranslator {
 // The types are the same, but there is another instruction (offset or
 // loadConfig) offset between.  So set the type and observe in the
 // sequence, but not change the recipe or group-membership headers.
-// Is the repeated set <type> (usually an object) necessary?
+// Is the repeated set <type> (usually an object) necessary?  Yes to
+// demarcate when counting observations.
          } else {
             sequence.addElement( "set " + type.toUpperCase() );
             sequence.addElement( "do 1 _observe" );
