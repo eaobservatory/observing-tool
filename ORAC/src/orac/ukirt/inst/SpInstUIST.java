@@ -158,9 +158,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static LookUpTable SPECMAGS;
     public static String[] MASKS1;
     public static String[] MASKS2;
+    public static String[] MASKS3;
+    public static String[] MASKS4;
     public static LookUpTable MASKS;
     public static String DEFAULT_MASK1;
     public static String DEFAULT_MASK2;
+    public static String DEFAULT_MASK3;
+    public static String DEFAULT_MASK4;
     public static String PUPIL_SCALE;
     public static String PUPIL_FOV;
     public static double DEFAULT_SPECT_POS_ANGLE;
@@ -617,12 +621,20 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     MASKS1 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks2")) {
                     MASKS2 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks3")) {
+                    MASKS3 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks4")) {
+                    MASKS4 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks")) {
                     MASKS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask1")) {
                     DEFAULT_MASK1 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask2")) {
                     DEFAULT_MASK2 = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask3")) {
+                    DEFAULT_MASK3 = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask4")) {
+                    DEFAULT_MASK4 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "IFU_mask")) {
                     IFU_MASK = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "chops")) {
@@ -1302,8 +1314,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
             maskSet = 
               Integer.valueOf((String)DISPERSERS.elementAt(getDisperserIndex(),4)).intValue();
 	}catch (Exception ex) {
-            System.out.println("getMaskSet> failed to get maskSet - defaults to 4");
-	    maskSet = 4;
+            System.out.println("getMaskSet> failed to get maskSet - defaults to 1");
+	    maskSet = 1;
 	}
 	return maskSet;
     }
@@ -1332,10 +1344,20 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                 String maskList[] = new String[1];
                 maskList[0] = IFU_MASK;
                 return maskList;
-	    } else if (getMaskSet() == 1) {
-                return MASKS1;
-	    } else {
-                return MASKS2;
+            } else {
+                int maskSet = getMaskSet();
+                if (maskSet == 1) {
+                   return MASKS1;
+		} else if (maskSet == 2) {
+                   return MASKS2;
+		} else if (maskSet == 3) {
+                   return MASKS3;
+		} else if (maskSet == 4) {
+                   return MASKS4;
+		} else {
+		   // Should not happen
+                   return MASKS1;
+		}
 	    }
 	}
     }
@@ -1400,8 +1422,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     int maskSet = getMaskSet();
                     if (maskSet==1) {
                         mask = DEFAULT_MASK1;
-                    } else {
+                    } else if (maskSet==2) {
                         mask = DEFAULT_MASK2;
+                    } else if (maskSet==3) {
+                        mask = DEFAULT_MASK3;
+                    } else if (maskSet==4) {
+                        mask = DEFAULT_MASK4;
                     }
 	        }
 	    }
