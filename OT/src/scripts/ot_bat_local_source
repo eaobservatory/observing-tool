@@ -34,8 +34,8 @@ rem Variable is reset if one of the following command line options is
 rem used: -internalframes, -nointernalframes.
 set INTERNAL_FRAMES=-internalframes
 
-rem OMP_FALG=-DOMP    (OMP mode)
-rem OMP_FALG=         (No OMP features)
+rem OMP_FLAG=-DOMP    (OMP mode)
+rem OMP_FLAG=         (No OMP features)
 rem Variable is reset if one of the following command line options is
 rem used: -omp, -noomp.
 set OMP_FLAG=
@@ -48,8 +48,8 @@ set TELESCOPE=ukirt
 IF (%1)==(-h)                 GOTO USAGE
 IF (%1)==(-internalframes)    set INTERNAL_FRAMES=-internalframes
 IF (%1)==(-nointernalframes)  set INTERNAL_FRAMES=-nointernalframes
-IF (%1)==(-omp)               set OMP_FALG=-DOMP
-IF (%1)==(-noomp)             set OMP_FALG=
+IF (%1)==(-omp)               set OMP_FLAG=-DOMP
+IF (%1)==(-noomp)             set OMP_FLAG=
 IF (%1)==(-server)            set SERVER=%2
 IF (%1)==(-server)            SHIFT
 IF (%1)==(ukirt)              set TELESCOPE=ukirt
@@ -63,8 +63,8 @@ IF NOT EXIST %CFG_DIRS%\%TELESCOPE% GOTO USAGE
 echo Settings:
                                             echo   Telescope:       %TELESCOPE%
 					    echo   Server:          %SERVER%
-IF (%OMP_FALG%)==(-DOMP)                    echo   Database:        OMP/XML 
-iF (%OMP_FALG%)==()                         echo   Database:        RMI/SGML 
+IF (%OMP_FLAG%)==(-DOMP)                    echo   Database:        OMP/XML 
+iF (%OMP_FLAG%)==()                         echo   Database:        RMI/SGML 
 IF (%INTERNAL_FRAMES%)==(-internalframes)   echo   Internal Frames: Yes
 IF (%INTERNAL_FRAMES%)==(-nointernalframes) echo   Internal Frames: No
 echo "Use ot -h for information on how to change these settings."
@@ -72,7 +72,7 @@ echo "Use ot -h for information on how to change these settings."
 set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
 
 echo on
-%JAVA% -ms5m -mx50m -DSERVER=%SERVER% -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
+%JAVA% -ms5m -mx50m %OMP_FLAG% -DSERVER=%SERVER% -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
 echo off
 
 GOTO END
