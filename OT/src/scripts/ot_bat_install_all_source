@@ -1,0 +1,87 @@
+echo off
+rem /*==============================================================*/
+rem /*                                                              */
+rem /*                UK Astronomy Technology Centre                */
+rem /*                 Royal Observatory, Edinburgh                 */
+rem /*                 Joint Astronomy Centre, Hilo                 */
+rem /*                   Copyright (c) PPARC 2001                   */
+rem /*                                                              */
+rem /*==============================================================*/
+rem $Id$
+
+rem This file could be overwritten by gmake in which case modifications would be lost.
+rem For editing this script and keeping the modifications make a copy of this script in
+rem this directory and edit the copy.
+
+rem For the default CLASSPATH settings to work the script has to be in its usual location in an
+rem CVS orac3 checkout or export directory tree (e.g. SOME_CVS_CHECKOUT_DIR/orac3/OT/install/bin)
+rem and it has to be started from within its own directory or by double click.
+set CLASSPATH=..\tools\jhtools.jar;..\tools\jhall.jar;..\tools\diva.jar;..\tools\graph.jar;..\tools\jacl.jar;..\tools\jdom-b4.jar;..\tools\jsky.jar;..\tools\junit.jar;..\tools\tcljava.jar;..\tools\xerces.jar;..\lib\gemini.jar;..\lib\orac.jar;..\lib\odb.jar;..\lib\ot.jar
+
+rem The directory containing the telescope specific configuration directories (CFG_DIRS\ukirt, CFG_DIRS\jcmt)
+set CFG_DIRS=..\cfg\ot
+
+rem If there is no appropriate jdk1.3 java in your PATH (with JAI 1.0.2 installed)
+rem then set one here.
+set JAVA=java 
+
+rem Allowed values: ATC, HILO, HOME, DEPLOYED
+set SERVER=ATC 
+
+rem INTERNAL_FRAMES=-internalframes      (One big OT frame with internal frames for Science Programmes) 
+rem INTERNAL_FRAMES=-nointernalframes    (Individual frame for each Science Programme)
+rem Variable is reset if one of the following command line options is
+rem used: -internalframes, -nointernalframes.
+set INTERNAL_FRAMES=-internalframes
+
+rem OMP_FLAG=-DOMP    (OMP mode)
+rem OMP_FLAG=         (No OMP features)
+rem Variable is reset if one of the following command line options is
+rem used: -omp, -noomp.
+set OMP_FLAG=
+
+rem Allowed values: ukirt, jcmt
+rem Variable is reset if a command line argument is specified (e.g. ukirt or jcmt)
+set TELESCOPE=ukirt
+
+:LOOP
+IF (%1)==(-h)                 GOTO USAGE
+IF (%1)==(-internalframes)    set INTERNAL_FRAMES=-internalframes
+IF (%1)==(-nointernalframes)  set INTERNAL_FRAMES=-nointernalframes
+IF (%1)==(-omp)               set OMP_FLAG=-DOMP
+IF (%1)==(-noomp)             set OMP_FLAG=
+IF (%1)==(-server)            set SERVER=%2
+IF (%1)==(-server)            SHIFT
+IF (%1)==(ukirt)              set TELESCOPE=ukirt
+IF (%1)==(jcmt)               set TELESCOPE=jcmt
+SHIFT
+IF NOT (%1)==() GOTO LOOP
+
+IF NOT EXIST %CFG_DIRS%\%TELESCOPE% echo Telescope configuration directory %TELESCOPE% not found in %CFG_DIRS%
+IF NOT EXIST %CFG_DIRS%\%TELESCOPE% GOTO USAGE
+
+echo Settings:
+                                            echo   Telescope:       %TELESCOPE%
+					    echo   Server:          %SERVER%
+IF (%OMP_FLAG%)==(-DOMP)                    echo   Database:        OMP/XML 
+iF (%OMP_FLAG%)==()                         echo   Database:        RMI/SGML 
+IF (%INTERNAL_FRAMES%)==(-internalframes)   echo   Internal Frames: Yes
+IF (%INTERNAL_FRAMES%)==(-nointernalframes) echo   Internal Frames: No
+echo "Use ot -h for information on how to change these settings."
+
+set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
+
+echo on
+%JAVA% -ms5m -mx50m %OMP_FLAG% -DSERVER=%SERVER% -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
+echo off
+
+GOTO END
+
+:USAGE
+echo Usage: java ot [-h] [-[no]internalframes] [-[no]omp] ukirt Ý jcmt
+
+:END
+echo OT finished.
+pause
+echo on
+
