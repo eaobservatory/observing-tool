@@ -84,9 +84,11 @@ public final class EdIterOffset extends OtItemEditor
 
 	_xOffTBW = _w.xOffset;
 	_xOffTBW.addWatcher(this);
+	_xOffTBW.setValue("");
 
 	_yOffTBW = _w.yOffset;
 	_yOffTBW.addWatcher(this);
+	_yOffTBW.setValue("");
 
 	_offTW = _w.offsetTable;
 	_offTW.addWatcher(this);
@@ -113,6 +115,7 @@ public final class EdIterOffset extends OtItemEditor
      * setup the widgets to show the current values of the item.
      */
     protected void _updateWidgets() {
+
 	TextBoxWidgetExt tbwe;
 	SpIterOffset sio = (SpIterOffset) _spItem;
 
@@ -125,8 +128,13 @@ public final class EdIterOffset extends OtItemEditor
 	_offTW.reinit(_opl);
 
 	// Select the position that was previously selected.
+	// This has probably never worked (neither Freebongo nor Swing OT)
+	// because the table seems to be reset somehow after _updateWidgets().
+	// And ".gui.selectedOffsetPos" seems to be set to _curPos.getTag()
+	// rather then to the selectedRow. (MFO, 6 December 2001)
 	int selIndex = _avTab.getInt(".gui.selectedOffsetPos", 0);
 	_offTW.selectPos(selIndex);
+    
     }
 
     /**
@@ -280,6 +288,15 @@ public final class EdIterOffset extends OtItemEditor
 
 	_offTW.reinit(_opl);
 	_offTW.selectRowAt(0);
+
+	// Added by MFO, 7 December 2001
+	// I think this is implemented in a different way in Gemini ot-2000B.12.
+	try {
+	  TpeManager.get(_spItem).reset(_spItem);
+	}
+	catch(NullPointerException e) {
+	  // ignore
+	}
     }
 
     /**
@@ -392,7 +409,7 @@ public final class EdIterOffset extends OtItemEditor
       double gridSteps   =  2;
       
       gridSpacing = _w.gridXSpacing.getDoubleValue(gridSpacing);
-      gridSteps   = _w.gridRows.getDoubleValue(gridSteps);
+      gridSteps   = _w.gridCols.getDoubleValue(gridSteps);
 
       gridOffset = (gridSpacing / 2.0) * (gridSteps - 1);
       _w.gridXOffset.setValue(gridOffset);
@@ -403,10 +420,12 @@ public final class EdIterOffset extends OtItemEditor
       gridSteps   =  2;
       
       gridSpacing = _w.gridYSpacing.getDoubleValue(gridSpacing);
-      gridSteps   = _w.gridCols.getDoubleValue(gridSteps);
+      gridSteps   = _w.gridRows.getDoubleValue(gridSteps);
 
       gridOffset = (gridSpacing / 2.0) * (gridSteps - 1);
       _w.gridYOffset.setValue(gridOffset);
+
+      _createGrid();
     }
 }
 
