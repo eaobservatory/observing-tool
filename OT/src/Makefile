@@ -88,7 +88,7 @@ $(BIN_DIR)/$(OT_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\nset TELESCOPE = \"\"\
 	\nset INTERNAL_FRAMES = -internalframes\
 	\nset USAGE = \"Usage: $$""0 [-h] [-[no]internalframes] <telescope>\\\n  where <telescope> is one of: $$""{TELESCOPE_LIST}\\\n\"\
-	\nset CFG_DIRS = $(CFG_DIRS)\
+	\nset CFG_DIRS = $(shell cd $(CFG_DIRS); pwd)\
 	\n\
 	\n##############################\
 	\n#                            #\
