@@ -20,6 +20,7 @@
     <xsd:enumeration value="no"/>
     <xsd:enumeration value="of"/>
     <xsd:enumeration value="if"/>
+    <xsd:enumeration value="sc"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -46,6 +47,7 @@
     <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_selectedOffsetPos"    minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_selectedTelescopePos" minOccurs="0"/>
+    <xsd:element ref="toml:meta_gui_selectedTelObsComp"   minOccurs="0"/>
     <xsd:element ref="toml:meta_unique"                   minOccurs="0"/>
     <xsd:element ref="toml:meta_version"                  minOccurs="0"/>
   </xsd:sequence>
@@ -70,6 +72,7 @@
     <xsd:element ref="toml:SpMSB"/>
     <xsd:element ref="toml:SpObs"/>
     <xsd:element ref="toml:SpNote"/>
+    <xsd:element ref="toml:SpSurveyContainer"/>
     <xsd:element ref="toml:SpSiteQualityObsComp"/>
     <xsd:element ref="toml:SpSchedConstObsComp"/>
     <xsd:element ref="toml:SpTelescopeObsComp"/>
@@ -84,6 +87,7 @@
       <xsd:element ref="toml:SpTelescopeObsComp"/>
       <xsd:element ref="toml:SpSiteQualityObsComp"/>
       <xsd:element ref="toml:SpSchedConstObsComp"/>
+      <xsd:element ref="toml:SpSurveyContainer"/>
     </xsd:choice>
 </xsd:group>
 
@@ -126,5 +130,15 @@
     <xsd:element ref="toml:SpAND"/>
   </xsd:choice>
 </xsd:group>
+
+<xsd:group name="surveyContent">
+  <xsd:choice>
+    <xsd:element ref="toml:SpMSB"/>
+    <xsd:element ref="toml:SpObs"/>
+    <xsd:element ref="toml:SpNote"/>
+    <xsd:element ref="toml:SpSiteQualityObsComp"/>
+  </xsd:choice>
+</xsd:group>
+
 
 </xsd:schema>

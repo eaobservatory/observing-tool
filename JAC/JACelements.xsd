@@ -16,6 +16,7 @@
 <xsd:element name="meta_gui_selectedOffsetPos" type="xsd:string"/>
 <xsd:element name="meta_unique"                type="xsd:boolean"/>
 <xsd:element name="meta_gui_selectedTelescopePos"  type="xsd:string"/>
+<xsd:element name="meta_gui_selectedTelObsComp"  type="xsd:string"/>
 <xsd:element name="meta_version"/>
 
 <xsd:element name="chainedToNext" type="xsd:boolean"/>
