@@ -93,6 +93,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static String DEFAULT_FILTER;
     public static String DEFAULT_FILTER_CAT_TARGET_ACQ;
     public static String DEFAULT_FILTER_TARGET_ACQ;
+    public static int DEFAULT_COADDS_TARGET_ACQ;
     public static String[] CAMERAS;
     public static String DEFAULT_CAMERA;
     public static double N_TO_Q_BOUNDARY;
@@ -381,6 +382,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     DEFAULT_FILTER_CAT_TARGET_ACQ = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_filter_target_acq")) {
                     DEFAULT_FILTER_TARGET_ACQ = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_coadds_target_acq")) {
+                    DEFAULT_COADDS_TARGET_ACQ =  Integer.valueOf(instInfo.getValue()).intValue();
 		} else if (InstCfg.matchAttr (instInfo, "cameras")) {
                     CAMERAS = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "n_to_q_boundary")) {
@@ -2233,6 +2236,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Get the default target acquisition coadds
+     */
+    public int
+    getDefaultTargetAcqCoadds()
+    {
+        return DEFAULT_COADDS_TARGET_ACQ;
+    }
+
+    /**
      * Get the default bias exposure time
      */
     public double getDefaultBiasExpTime() {
@@ -2390,7 +2402,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	} else if (obsType.equalsIgnoreCase("TARGETACQ")) {
             expTime = getTargetAcqExpTime();
             obsTime = getTargetAcqObservationTime();
-	    //	    System.out.println("obsType is " + obsType + " expTime is " + expTime + "obTime is " +obsTime);
+	    //	    System.out.println("SpInstMichelle.updateDAConf called obsType is " + obsType + " expTime is " + expTime + "obTime is " +obsTime);
 	}
         double TDelay = 0.0;
         double actExpTime = 0.0;
