@@ -29,6 +29,7 @@ import gemini.sp.obsComp.SpObsComp;
  *
  * @author Alan Bridger, UKATC
  * @version 1.0
+ * Modified for UIST: 2001-Nov-06 Alan Pickup, UKATC
  *
  */
 public final class SpDRRecipe extends SpObsComp
@@ -51,6 +52,7 @@ public final class SpDRRecipe extends SpObsComp
     public static LookUpTable CGS4;
     public static LookUpTable IRCAM3;
     public static LookUpTable MICHELLE;
+    public static LookUpTable UIST;
     
     public static String UFTI_DARK_RECIPE_DEFAULT = "REDUCE_DARK";
     public static String UFTI_SKY_RECIPE_DEFAULT = "REDUCE_SKY";
@@ -93,6 +95,19 @@ public final class SpDRRecipe extends SpObsComp
     public static String MICHELLE_FLAT_IN_GROUP_DEFAULT = "false";
     public static String MICHELLE_SKY_IN_GROUP_DEFAULT = "false";
     public static String MICHELLE_OBJECT_IN_GROUP_DEFAULT = "false";
+
+    public static String UIST_BIAS_RECIPE_DEFAULT = "REDUCE_BIAS";
+    public static String UIST_DARK_RECIPE_DEFAULT = "REDUCE_DARK";
+    public static String UIST_ARC_RECIPE_DEFAULT = "REDUCE_ARC";
+    public static String UIST_FLAT_RECIPE_DEFAULT = "REDUCE_FLAT";
+    public static String UIST_SKY_RECIPE_DEFAULT = "REDUCE_SKY";
+    public static String UIST_OBJECT_RECIPE_DEFAULT = "QUICK_LOOK";
+    public static String UIST_BIAS_IN_GROUP_DEFAULT = "false";
+    public static String UIST_DARK_IN_GROUP_DEFAULT = "false";
+    public static String UIST_ARC_IN_GROUP_DEFAULT = "false";
+    public static String UIST_FLAT_IN_GROUP_DEFAULT = "false";
+    public static String UIST_SKY_IN_GROUP_DEFAULT = "false";
+    public static String UIST_OBJECT_IN_GROUP_DEFAULT = "false";
     
     public static final SpType SP_TYPE =
 	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "DRRecipe", "DRRecipe");
@@ -225,6 +240,33 @@ public final class SpDRRecipe extends SpObsComp
 		    MICHELLE_SKY_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
 		}else if (InstCfg.matchAttr (instInfo, "michelle_object_in_group_default")) {
 		    MICHELLE_OBJECT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+
+                }else if (InstCfg.matchAttr (instInfo, "uist")) {
+		    UIST = instInfo.getValueAsLUT();
+		}else if (InstCfg.matchAttr (instInfo, "uist_bias_default_recipe")) {
+		    UIST_BIAS_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "uist_dark_default_recipe")) {
+		    UIST_DARK_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "uist_arc_default_recipe")) {
+		    UIST_ARC_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "uist_flat_default_recipe")) {
+		    UIST_FLAT_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "uist_sky_default_recipe")) {
+		    UIST_SKY_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "uist_object_default_recipe")) {
+		    UIST_OBJECT_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "uist_bias_in_group_default")) {
+		    UIST_BIAS_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "uist_dark_in_group_default")) {
+		    UIST_DARK_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "uist_arc_in_group_default")) {
+		    UIST_ARC_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "uist_flat_in_group_default")) {
+		    UIST_FLAT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "uist_sky_in_group_default")) {
+		    UIST_SKY_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "uist_object_in_group_default")) {
+		    UIST_OBJECT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
 		}
 	    }
 	}catch (IOException e) {
@@ -565,6 +607,22 @@ public final class SpDRRecipe extends SpObsComp
 	    _avTable.noNotifySet(ATTR_SKY_IN_GROUP, MICHELLE_SKY_IN_GROUP_DEFAULT, 0);
 	    _avTable.noNotifySet(ATTR_OBJECT_IN_GROUP, MICHELLE_OBJECT_IN_GROUP_DEFAULT, 0);
 	    setTitleAttr(MICHELLE_OBJECT_RECIPE_DEFAULT);
+
+        } else if (instName.equalsIgnoreCase("uist")) {
+	    _avTable.noNotifySet(ATTR_BIAS_RECIPE, UIST_BIAS_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_DARK_RECIPE, UIST_DARK_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_FLAT_RECIPE, UIST_FLAT_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_ARC_RECIPE, UIST_ARC_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_SKY_RECIPE, UIST_SKY_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_OBJECT_RECIPE, UIST_OBJECT_RECIPE_DEFAULT, 0);
+	    
+	    _avTable.noNotifySet(ATTR_BIAS_IN_GROUP, UIST_BIAS_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_DARK_IN_GROUP, UIST_DARK_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_FLAT_IN_GROUP, UIST_FLAT_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_ARC_IN_GROUP, UIST_ARC_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_SKY_IN_GROUP, UIST_SKY_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_OBJECT_IN_GROUP, UIST_OBJECT_IN_GROUP_DEFAULT, 0);
+	    setTitleAttr(UIST_OBJECT_RECIPE_DEFAULT);
 	}  
     }
     
