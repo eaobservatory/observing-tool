@@ -44,6 +44,11 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Radial velocity. */
   public static final String ATTR_VELOCITY = "velocity";
 
+  /** Radial velocity definition: "redshift", "optical", "radio". */
+  public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition";
+
+
+
   /** Band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).  */
   public static final String ATTR_BAND = "band";
 
@@ -85,6 +90,16 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
 
+  /** Radial velocity expressed as redshift. */
+  public static final String RADIAL_VELOCITY_REDSHIFT = "redshift";
+
+  /** Radial velocity defined optically. */
+  public static final String RADIAL_VELOCITY_OPTICAL  = "optical";
+
+  /** Radial velocity, radio defined. */
+  public static final String RADIAL_VELOCITY_RADIO    = "radio";
+
+
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.Heterodyne", "Het Setup" );
 
@@ -106,6 +121,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifySet(ATTR_MODE,             "dsb",                     0);
     _avTable.noNotifySet(ATTR_BAND_MODE,        "1-system",                0);
     _avTable.noNotifySet(ATTR_OVERLAP,          "1.0E8",                   0);
+    _avTable.noNotifySet(ATTR_VELOCITY,         "0.0",                     0);
+    _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, "radio",                0);
     _avTable.noNotifySet(ATTR_BAND,             "usb",                     0);
     _avTable.noNotifySet(ATTR_LO1,              "2.2229E11",               0);
     _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY, "" + 4.0E9,                0);
@@ -223,21 +240,37 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
 
   /**
-   * Get velocity.
+   * Get velocity definition.
+   */
+  public String getVelocityDefinition() {
+    return _avTable.get(ATTR_VELOCITY_DEFINITION);
+  }
+
+  /**
+   * Set velocity definition.
+   */
+  public void setVelocityDefinition(String value) {
+    _avTable.set(ATTR_VELOCITY_DEFINITION, value);
+  }
+
+
+
+  /**
+   * Get velocity (optical definition).
    */
   public double getVelocity() {
     return _avTable.getDouble(ATTR_VELOCITY, 0.0);
   }
 
   /**
-   * Set velocity.
+   * Set velocity (optical definition).
    */
   public void setVelocity(double value) {
     _avTable.set(ATTR_VELOCITY, value);
   }
 
   /**
-   * Set velocity.
+   * Set velocity (optical definition).
    */
   public void setVelocity(String value) {
     setVelocity(Format.toDouble(value));
@@ -245,6 +278,10 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public double getRedshift() {
     return getVelocity() / LIGHTSPEED;
+  }
+
+  public void setVelocityFromRedshift(double redshift) {
+    setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
   }
 
   /**
@@ -497,6 +534,58 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public int getNumSubSystems() {
     return _avTable.size(ATTR_CENTRE_FREQUENCY);
+  }
+
+
+  /**
+   * Converts given redshift to specified radial velocity definition.
+   *
+   * @param velocityDefinition Use {@link #RADIAL_VELOCITY_REDSHIFT},
+   *                               {@link #RADIAL_VELOCITY_OPTICAL},
+   *                               {@link #RADIAL_VELOCITY_RADIO}.
+   */
+  public static double convertRedshiftTo(String velocityDefinition, double redshift) {
+    if(velocityDefinition.equals(RADIAL_VELOCITY_REDSHIFT)) {
+      return redshift;
+    }
+
+    if(velocityDefinition.equals(RADIAL_VELOCITY_OPTICAL)) {
+      return redshift * LIGHTSPEED;
+    }
+
+    if(velocityDefinition.equals(RADIAL_VELOCITY_RADIO)) {
+      return LIGHTSPEED * (1.0 - (1.0 / (1.0 + redshift)));
+    }
+
+    // If the methods has not returned yet then the velocityDefinition is invalid.
+    throw new IllegalArgumentException("EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" +
+                "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO.");
+  }
+
+
+  /**
+   * Converts radial velocity in a given definition to redshift.
+   *  
+   * @param velocityDefinition Use {@link #RADIAL_VELOCITY_REDSHIFT},
+   *                               {@link #RADIAL_VELOCITY_OPTICAL},
+   *                               {@link #RADIAL_VELOCITY_RADIO}.
+   */
+  public static double convertToRedshift(String velocityDefinition, double value) {
+    if(velocityDefinition.equals(RADIAL_VELOCITY_REDSHIFT)) {
+      return value;
+    }
+
+    if(velocityDefinition.equals(RADIAL_VELOCITY_OPTICAL)) {
+      return value / LIGHTSPEED;
+    }
+
+    if(velocityDefinition.equals(RADIAL_VELOCITY_RADIO)) {
+      return (LIGHTSPEED / (LIGHTSPEED - value)) - 1.0;
+    }
+
+    // If the methods has not returned yet then the velocityDefinition is invalid.
+    throw new IllegalArgumentException("EdFreq.convertRedshiftTo: Unrecognised velocity definition found.\n" +
+                "Please use RADIAL_VELOCITY_REDSHIFT, RADIAL_VELOCITY_OPTICAL, RADIAL_VELOCITY_RADIO.");
   }
 
 
