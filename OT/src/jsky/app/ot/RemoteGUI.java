@@ -16,6 +16,7 @@ import jsky.app.ot.gui.ListBoxWidgetExt;
 import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.gui.StopActionWidget;
 import jsky.app.ot.gui.TextBoxWidgetExt;
+import ot.gui.PasswordWidgetExt;
 
 public class RemoteGUI extends JPanel {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
@@ -25,7 +26,7 @@ public class RemoteGUI extends JPanel {
     JLabel jLabel1 = new JLabel();
     JLabel jLabel2 = new JLabel();
     TextBoxWidgetExt loginTextBox = new TextBoxWidgetExt();
-    TextBoxWidgetExt passwordTextBox = new TextBoxWidgetExt();
+    PasswordWidgetExt passwordTextBox = new PasswordWidgetExt();
     OptionWidgetExt phaseIIOption = new OptionWidgetExt();
     OptionWidgetExt activeOption = new OptionWidgetExt();
     CommandButtonWidgetExt loginButton = new CommandButtonWidgetExt();
@@ -33,7 +34,7 @@ public class RemoteGUI extends JPanel {
     GridBagLayout gridBagLayout3 = new GridBagLayout();
     JLabel progListBanner = new JLabel();
     JLabel jLabel4 = new JLabel();
-    TextBoxWidgetExt keyTextBox = new TextBoxWidgetExt();
+    PasswordWidgetExt keyTextBox = new PasswordWidgetExt();
     CommandButtonWidgetExt fetchButton = new CommandButtonWidgetExt();
     JScrollPane jScrollPane1 = new JScrollPane();
     ListBoxWidgetExt progList = new ListBoxWidgetExt();
