@@ -3,11 +3,11 @@
       <av name=.gui.collapsed descr="No Description">
             <val value="false">
       </av>
-      <av name=.gui.filename descr="No Description">
-            <val value="UKIRT-Template.lib">
-      </av>
       <av name=title descr="No Description">
             <val value="UKIRT LIBRARY">
+      </av>
+      <av name=.gui.filename descr="No Description">
+            <val value="UKIRT-Template.lib">
       </av>
       <lf name=new type=lf subtype=none>
          <av name=.gui.collapsed descr="No Description">
@@ -4545,6 +4545,10 @@
                                     <val value="92.0">
                                     <val value="-92.0">
                   </av>
+                  <av name=Offset12 descr="No Description">
+                                    <val value="185.0">
+                                    <val value="-185.0">
+                  </av>
                   <av name=offsetPositions descr="No Description">
                                     <val value="Offset1">
                                     <val value="Offset3">
@@ -4597,10 +4601,6 @@
                                     <val value="Offset48">
                                     <val value="Offset49">
                                     <val value="Offset50">
-                  </av>
-                  <av name=Offset12 descr="No Description">
-                                    <val value="185.0">
-                                    <val value="-185.0">
                   </av>
                   <av name=Offset11 descr="No Description">
                                     <val value="0.0">
@@ -5568,17 +5568,6 @@
          <av name=title descr="No Description">
                   <val value="CGS4 library">
          </av>
-         <no name=new type=no subtype=none>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=note descr="No Description">
-                        <val value="There are a selection of standard CGS4 sequences to use.\n\nSelect the ones you need and copy them to your science programme where you can fill in the details of target co-ordinates and CGS4 setup details.\n\nRemember to include and array_tests to check out the array performance at the start of the night, and also an end_night, to run after you have finished observing.\n\nIf you want to observe in the \"traditional\" CGS4 mode that is nodding the target between two positions on the slit, like a \"quad slide exec\" used to do then use one of the sequences that are called \"nod along slit\".\n\nSequences called \"nod to blank sky\" assume that you really are nodding to blank sky e.g for extended sources.  The data reduction treats the blank sky frames differently\n\n">
-            </av>
-            <av name=title descr="No Description">
-                        <val value="In this folder">
-            </av>
-         </no>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
                         <val value="array tests">
@@ -5600,10 +5589,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="This does 2 bias frames and 4 darks with differing exposure times to checkout the array performance.\n\nYou should always run this once at the start of the night.\n\nCGS4 is set to a default configuration below - the action of the dark/bias observations puts the blanks in.">
+                              <val value="This is the array checkout proceedure. It should be run at the start of each night and if you suspect array problems.  Do not alter this observation.  The DR pipeline will tell you the readnoise and dark current on reducing this.">
                </av>
                <av name=title descr="No Description">
-                              <val value="array tests info">
+                              <val value="Array Tests">
                </av>
             </no>
             <oc name=new type=oc subtype=inst.CGS4>
@@ -5835,6 +5824,17 @@
             <av name=chainedToPrev descr="No Description">
                         <val value="false">
             </av>
+            <no name=new type=no subtype=none>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=note descr="No Description">
+                              <val value="Simply sets to a DARK configuration which is the best place for the filter wheels to be left at the end of the night.">
+               </av>
+               <av name=title descr="No Description">
+                              <val value="End of Night">
+               </av>
+            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -5938,10 +5938,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="This end of night observation does an emissivity check by measuring the sky and the dome flux in the thermal IR.  \n\nThe last step is to blank off the CGS4 array, and take a very short dark.\n\nMake sure you are pointed at blank sky before you start.\n\n">
+                              <val value="Measures the telescope emissivity.\nThe proceedure is as follows:\n\nAsk the TSS to point at a patch of sky at zenith (not tracking or guiding)\nRun this observation.\n- take the flat\n- take the sky frame\n\nat the break after the sky frame, ask the TSS to close the mirror covers and dome.\n\n- press continue, to take the dome frame\n\nFinally the sequence does a DARK, which is the best place to leave the filter wheels at the end of the night.">
                </av>
                <av name=title descr="No Description">
-                              <val value="emissivity check">
+                              <val value="End of Night Echelle Emissivity">
                </av>
             </no>
             <oc name=new type=oc subtype=inst.CGS4>
@@ -6120,266 +6120,6 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="end of night 150 emissivity">
-            </av>
-            <av name=chainedToNext descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=standard descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=chainedToPrev descr="No Description">
-                        <val value="false">
-            </av>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="This end of night observation does an emissivity check by measuring the sky and the dome flux in the thermal IR.  \n\nThe last step is to blank off the CGS4 array, and take a very short dark.\n\nMake sure you are pointed at blank sky before you start.\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="emissivity check">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=DRRecipe>
-               <av name=SkyRecipe descr="No Description">
-                              <val value="EMISSIVITY">
-               </av>
-               <av name=FlatRecipe descr="No Description">
-                              <val value="REDUCE_FLAT">
-               </av>
-               <av name=ArcRecipe descr="No Description">
-                              <val value="REDUCE_ARC">
-               </av>
-               <av name=DarkRecipe descr="No Description">
-                              <val value="REDUCE_DARK">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="EMISSIVITY">
-               </av>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=BiasInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=DarkInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=BiasRecipe descr="No Description">
-                              <val value="REDUCE_BIAS">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=ObjectRecipe descr="No Description">
-                              <val value="EMISSIVITY">
-               </av>
-               <av name=ArcInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=FlatInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=SkyInGroup descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=ObjectInGroup descr="No Description">
-                              <val value="true">
-               </av>
-            </oc>
-            <oc name=new type=oc subtype=inst.CGS4>
-               <av name=order descr="No Description">
-                              <val value="1">
-               </av>
-               <av name=instPort descr="No Description">
-                              <val value="South">
-               </av>
-               <av name=disperser descr="No Description">
-                              <val value="150lpmm">
-               </av>
-               <av name=instAper descr="No Description">
-                              <val value="-0.81">
-                              <val value="12.32">
-                              <val value="0.0">
-                              <val value="3.5">
-               </av>
-               <av name=filter descr="No Description">
-                              <val value="B3">
-               </av>
-               <av name=cvfOffset descr="No Description">
-                              <val value="0.015">
-               </av>
-               <av name=acqMode descr="No Description">
-                              <val value="NDSTARE">
-               </av>
-               <av name=.gui.selected descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=sourceMag descr="No Description">
-                              <val value="none">
-               </av>
-               <av name=exposureTime descr="No Description">
-                              <val value="4.0">
-               </av>
-               <av name=neutralDensity descr="No Description">
-                              <val value="0">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=sampling descr="No Description">
-                              <val value="1x1">
-               </av>
-               <av name=centralWavelength descr="No Description">
-                              <val value="3.5">
-               </av>
-               <av name=coadds descr="No Description">
-                              <val value="3">
-               </av>
-               <av name=mask descr="No Description">
-                              <val value="1pixel">
-               </av>
-               <av name=polariser descr="No Description">
-                              <val value="none">
-               </av>
-               <av name=.version descr="No Description">
-                              <val value="1.0">
-               </av>
-            </oc>
-            <if name=new type=if subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="10">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="3.515">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B3">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Flat">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="true">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Black Body (3.2)">
-                  </av>
-               </ic>
-               <ic name=new type=ic subtype=instCGS4>
-                  <av name=coaddsIter descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=iterConfigList descr="No Description">
-                                    <val value="exposureTimeIter">
-                                    <val value="coaddsIter">
-                  </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=exposureTimeIter descr="No Description">
-                                    <val value="3">
-                  </av>
-               </ic>
-               <ic name=new type=ic subtype=sky>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-               </ic>
-               <ic name=new type=ic subtype=instCGS4>
-                  <av name=coaddsIter descr="No Description">
-                                    <val value="20">
-                  </av>
-                  <av name=iterConfigList descr="No Description">
-                                    <val value="exposureTimeIter">
-                                    <val value="coaddsIter">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=exposureTimeIter descr="No Description">
-                                    <val value="0.4">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="The sequence will pause at this point so you can point at the dome.">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Now point at the dome">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=observe>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="DOME">
-                  </av>
-               </ic>
-               <ic name=new type=ic subtype=darkObs>
-                  <av name=coadds descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-               </ic>
-            </if>
-         </ob>
-         <ob name=new type=ob subtype=none>
-            <av name=title descr="No Description">
                         <val value="flat and an arc">
             </av>
             <av name=chainedToNext descr="No Description">
@@ -6399,21 +6139,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="This observation does just a flat and an arc.\n">
+                              <val value="Simply takes a flat field and an arc lamp frame.\n\nBe sure the CGS4 config matches that of your standard and target.\n\nBe sure to hit the default button in the flat and arc editors if you change the configuration.">
                </av>
                <av name=title descr="No Description">
-                              <val value="about this observation">
-               </av>
-            </no>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
+                              <val value="Flat and Arc">
                </av>
             </no>
             <oc name=new type=oc subtype=inst.CGS4>
@@ -6478,17 +6207,6 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The item below specifies the standard reduction recipe for flats and arcs.  This will ensure that the reduced flat and arc is available to ORACDR for reduction of your source data.">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR recipe">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
                               <val value="REDUCE_SKY">
@@ -6537,17 +6255,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \nto get sensible default values for the flat lamp and its aperture, the order sorting filter and the exposure time, based on the settings in the CGS4 component above.\n\nThese may all be changed if you wish.  To get the default values back, click on default again.\n\nTo get a single higher signal to noise flat increase the number of coadds\n\nTo take several flats for later addition increase the number next to \"observe\"">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="flat - how to use">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=CGS4calUnitObs>
                   <av name=flatSampling descr="No Description">
                                     <val value="1x1">
@@ -6583,17 +6290,6 @@
                                     <val value="Black Body (1.3)">
                   </av>
                </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \nto get sensible default values for the arc lamp, the order sorting filter and the exposure time, based on the CGS4 component above.\n\nThese may all be changed if you wish.  To get the default values back, click on default again.\n\nNote that for wavelengths longer than 2.8um the default blocking filter is set so that arcs are obtained in a x 2 higher order.  (the glass of the\nlamps does not transmit thermal lines).\n\nTo get a single higher signal to noise arc increase the number of coadds\n\nTo take several arcs for later addition increase the number next to \"observe\"\n\nto do two or more arcs using different arc lamps :\nMove the yellow highlight to the observe eye labelled Arc below. Under \"edit\" at the top of the component click on \"copy\". Then click on \"paste\" to add extra arc observations as many times as you need.  Go into each arc component - click on default to get a sensible order sorting filter, then select a different arc lamp or other item.\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="arc - how to use">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=CGS4calUnitObs>
                   <av name=flatSampling descr="No Description">
                                     <val value="1x1">
@@ -6652,21 +6348,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="This observation includes a flat, an arc and a\nstandard star\n\nThe standard is flagged as a standard in the observation component above.\n\nORAC-DR uses this flag to idnetify standards during reduction so that they may be used with subsequent observations">
+                              <val value="Takes a flat field and an arc lamp frame, followed by a standard star observation.\n\nBe sure the CGS4 config matches that of your target.\n\nBe sure to hit the default button in the flat and arc editors if you change the configuration.">
                </av>
                <av name=title descr="No Description">
-                              <val value="about this observation">
-               </av>
-            </no>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="Enter your standard star (or target) co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\nIF YOU WANT TO SELECT YOUR STANDARD STAR BY HAVING THE TSS SEARCH WITH THE TELESCOPE \"NEARSTAR\" IN REAL TIME THEN ENTER YOUR TARGET CO-ORDINATES HERE, AND DO NOT SPECIFY A GUIDE STAR.  AFTER THESE ARE SENT TO THE TELESCOPE THERE WILL BE\nA PAUSE FOR THE TSS TO SLEW TO THE CHOSEN NEARBY STAR.\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="standard co-ordinates information">
+                              <val value="Flat, Arc and std">
                </av>
             </no>
             <oc name=new type=oc subtype=targetList>
@@ -6687,17 +6372,6 @@
                               <val value="Base">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -6760,17 +6434,6 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe for speed.  (This is a good idea if your exposure time short.)\n\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
                               <val value="REDUCE_SKY">
@@ -6825,17 +6488,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \nto get sensible defaul values for the flat lamp and its aperture, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nTo get a single higher signal to noise flat increase the number of coadds\n\nTo take several flats for later addition increase the number next to \"observe\"">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="flat - how to use">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=CGS4calUnitObs>
                   <av name=flatSampling descr="No Description">
                                     <val value="1x1">
@@ -6871,17 +6523,6 @@
                                     <val value="Black Body (1.3)">
                   </av>
                </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \nto get sensible default values for the arc lamp, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nNote that for wavelengths longer than 3.?um the default blocking filter is set so that arcs are obtained in a x 2 higher order.  (the glass of the\nlamps does not transmit thermal lines).\n\nTo get a single higher signal to noise arc increase the number of coadds\n\nTo take several arcs for later addition increase the number next to \"observe\"\n\nto do two or more arcs using different arc lamps :\nMove the yellow highlight to the observe eye labelled Arc below. Under \"edit\" at the top of the component click on \"copy\". Then click on \"paste\" to add extra arc observations as many times as you need.  Go into each arc component - click on default to get a sensible order sorting filter, then select a different arc lamp or other item.\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="arc - how to use">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=CGS4calUnitObs>
                   <av name=flatSampling descr="No Description">
                                     <val value="1x1">
@@ -6917,17 +6558,6 @@
                                     <val value="Argon Arc">
                   </av>
                </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your standard star, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=repeat>
                   <av name=repeatCount descr="No Description">
                                     <val value="2">
@@ -6938,20 +6568,9 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 2X">
                   </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit.\n\nOffsets are enetered in the co-ordinate frame of the slit.\n\np = along the slit\nq = perpendicular to the slit">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
                   <ic name=new type=ic subtype=offset>
                      <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset3">
+                                          <val value="Offset0">
                      </av>
                      <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
@@ -7011,21 +6630,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="This observation is flagged as a standard star. ORAC-DR uses this information to identify standards.  \n\nIf you want to turn the flag off move the yellow highlight to the \"standard star\" line above and click on the \"flag as standard\" box.">
+                              <val value="Takes a standard star observation.\n\nBe sure the CGS4 component matches that of your target, and that you have suitable flat and arc frames.\n">
                </av>
                <av name=title descr="No Description">
-                              <val value="Usage">
-               </av>
-            </no>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="Enter your standard star (or target) co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\nIF YOU WANT TO SELECT YOUR STANDARD STAR BY HAVING THE TSS SEARCH WITH THE TELESCOPE \"NEARSTAR\" IN REAL TIME THEN ENTER YOUR TARGET CO-ORDINATES HERE, AND DO NOT SPECIFY A GUIDE STAR.  AFTER THESE ARE SENT TO THE TELESCOPE THERE WILL BE\nA PAUSE FOR THE TSS TO SLEW TO THE CHOSEN NEARBY STAR.\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="standard co-ordinates information">
+                              <val value="Standard Star">
                </av>
             </no>
             <oc name=new type=oc subtype=targetList>
@@ -7046,17 +6654,6 @@
                               <val value="Base">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -7119,17 +6716,6 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe for speed.  (This is a good idea if your exposure time short.)\n\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
                               <val value="REDUCE_SKY">
@@ -7184,17 +6770,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your standard star, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=repeat>
                   <av name=repeatCount descr="No Description">
                                     <val value="2">
@@ -7205,20 +6780,9 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 2X">
                   </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit.\n\nOffsets are enetered in the co-ordinate frame of the slit.\n\np = along the slit\nq = perpendicular to the slit">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
                   <ic name=new type=ic subtype=offset>
                      <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset2">
+                                          <val value="Offset0">
                      </av>
                      <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
@@ -7259,7 +6823,7 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="target, nod along slit">
+                        <val value="point source, nod along slit">
             </av>
             <av name=chainedToNext descr="No Description">
                         <val value="false">
@@ -7278,10 +6842,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".">
+                              <val value="The default CGS4 observing sequence.\n\nBe sure you have suitable flat, arc and standard star observations.\n\nYou will need to update the offset according to the pixel scale when using the echelle grating.">
                </av>
                <av name=title descr="No Description">
-                              <val value="target information">
+                              <val value="Point source, nod along slit">
                </av>
             </no>
             <oc name=new type=oc subtype=targetList>
@@ -7302,17 +6866,6 @@
                               <val value="Base">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your arcs and flats as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range -7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -7375,17 +6928,6 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe for speed.  (This is a good idea if your exposure time short.)\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
                               <val value="REDUCE_SKY">
@@ -7400,7 +6942,7 @@
                               <val value="REDUCE_DARK">
                </av>
                <av name=title descr="No Description">
-                              <val value="SOURCE_PAIRS_ON_SLIT">
+                              <val value="POINT_SOURCE">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -7418,7 +6960,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="SOURCE_PAIRS_ON_SLIT">
+                              <val value="POINT_SOURCE">
                </av>
                <av name=DRRecipe descr="No Description">
                               <val value="JITTER_SELF_FLAT">
@@ -7440,17 +6982,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="how to do more than one 5-point jitter">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=repeat>
                   <av name=repeatCount descr="No Description">
                                     <val value="10">
@@ -7461,20 +6992,9 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 10X">
                   </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
                   <ic name=new type=ic subtype=offset>
                      <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset2">
+                                          <val value="Offset0">
                      </av>
                      <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
@@ -7515,7 +7035,7 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="target, nod to blank sky">
+                        <val value="point source, nod to blank sky">
             </av>
             <av name=chainedToNext descr="No Description">
                         <val value="false">
@@ -7534,10 +7054,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\n">
+                              <val value="For point sources in crowded flields.\n\nBe sure you have suitable flat, arc and standard star observations.\n\nYou can change the offsets to select your own patch of blank sky.">
                </av>
                <av name=title descr="No Description">
-                              <val value="target co-ordinate entry">
+                              <val value="Point source, nod to blank sky">
                </av>
             </no>
             <oc name=new type=oc subtype=targetList>
@@ -7558,17 +7078,6 @@
                               <val value="Base">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -7631,20 +7140,9 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe.\n\nOthers suitable for \"quads\" type data are listed in the DRrecipe component below.\n\n\nAlthough this is a nod to blank sky, it is done in a quads pattern : obj, sky sky obj with data reduced by subracting in pairs.  It can therefore be reduced using the standard quads recipe for reduction.\n\nOther recipes for nodding to sky less often will also be available soon.">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
-                              <val value="SOURCE_PAIRS_TO_SKY">
+                              <val value="POINT_SOURCE">
                </av>
                <av name=FlatRecipe descr="No Description">
                               <val value="REDUCE_FLAT">
@@ -7656,7 +7154,7 @@
                               <val value="REDUCE_DARK">
                </av>
                <av name=title descr="No Description">
-                              <val value="SOURCE_PAIRS_TO_SKY">
+                              <val value="POINT_SOURCE">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -7674,7 +7172,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="SOURCE_PAIRS_TO_SKY">
+                              <val value="POINT_SOURCE">
                </av>
                <av name=DRRecipe descr="No Description">
                               <val value="JITTER_SELF_FLAT">
@@ -7696,17 +7194,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=repeat>
                   <av name=repeatCount descr="No Description">
                                     <val value="20">
@@ -7717,17 +7204,6 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 20X">
                   </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this offsets 60 arc sec perpendicular to the slit to take you to blank sky.\n\nThe sky obsrvations are specified as sky by the \"sky observe eye\" instead of the \"observe eye\" this ensures that blank sky frames are properly labelled in their headers.\n\nIf you want to offset further, edit the offset value for q in the 2nd and third offset items below.  \n\nNote that offsets are entered in the co-ordinate frame of THE SLIT.\n\n">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
                   <ic name=new type=ic subtype=offset>
                      <av name=.gui.selectedOffsetPos descr="No Description">
                                           <val value="Offset0">
@@ -7802,7 +7278,7 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="target, infrequent nod to blank sky">
+                        <val value="extended source, nod to blank sky">
             </av>
             <av name=chainedToNext descr="No Description">
                         <val value="false">
@@ -7821,10 +7297,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\n">
+                              <val value="The default for observing large extended objects.\n\nIf your target is only marginally extended, you should consider using the point source sequence.  You should discuss this with your support scientist.\n\nIf your target is moderately (i.e. a few tens of arcsecs) extended, consider nodding along the slit with a suitably large nod distance.  You should discuss this with your support scientist.\n\nYou may change the offsets to select your own patch of blank sky.">
                </av>
                <av name=title descr="No Description">
-                              <val value="target co-ordinate entry">
+                              <val value="Exteded source, nod to blank sky">
                </av>
             </no>
             <oc name=new type=oc subtype=targetList>
@@ -7845,17 +7321,6 @@
                               <val value="Base">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -7918,20 +7383,9 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe.\n\nOthers suitable for \"quads\" type data are listed in the DRrecipe component below.\n\n\nAlthough this is a nod to blank sky, it is done in a quads pattern : obj, sky sky obj with data reduced by subracting in pairs.  It can therefore be reduced using the standard quads recipe for reduction.\n\nOther recipes for nodding to sky less often will also be available soon.">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
-                              <val value="REDUCE_SKY">
+                              <val value="EXTENDED_SOURCE">
                </av>
                <av name=FlatRecipe descr="No Description">
                               <val value="REDUCE_FLAT">
@@ -7943,7 +7397,7 @@
                               <val value="REDUCE_DARK">
                </av>
                <av name=title descr="No Description">
-                              <val value="SOURCE_WITH_NOD_TO_BLANK_SKY">
+                              <val value="EXTENDED_SOURCE">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -7961,630 +7415,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="SOURCE_WITH_NOD_TO_BLANK_SKY">
-               </av>
-               <av name=DRRecipe descr="No Description">
-                              <val value="JITTER_SELF_FLAT">
-               </av>
-               <av name=ArcInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=FlatInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=SkyInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=ObjectInGroup descr="No Description">
-                              <val value="true">
-               </av>
-            </oc>
-            <if name=new type=if subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=repeat>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="20">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Repeat 20X">
-                  </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this offsets 60 arc sec perpendicular to the slit to take you to blank sky.\n\nThe sky obsrvations are specified as sky by the \"sky observe eye\" instead of the \"observe eye\" this ensures that blank sky frames are properly labelled in their headers.\n\nIf you want to offset further, edit the offset value for q in the 2nd and third offset items below.  \n\nNote that offsets are entered in the co-ordinate frame of THE SLIT.\n\n">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
-                  <ic name=new type=ic subtype=offset>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset0">
-                     </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="60.0">
-                                          <val value="0.0">
-                     </av>
-                     <av name=offsetPositions descr="No Description">
-                                          <val value="Offset0">
-                     </av>
-                     <ic name=new type=ic subtype=sky>
-                        <av name=repeatCount descr="No Description">
-                                                <val value="1">
-                        </av>
-                        <av name=.gui.collapsed descr="No Description">
-                                                <val value="false">
-                        </av>
-                     </ic>
-                  </ic>
-                  <ic name=new type=ic subtype=offset>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset0">
-                     </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
-                     </av>
-                     <av name=offsetPositions descr="No Description">
-                                          <val value="Offset0">
-                     </av>
-                     <ic name=new type=ic subtype=observe>
-                        <av name=repeatCount descr="No Description">
-                                                <val value="5">
-                        </av>
-                        <av name=.gui.collapsed descr="No Description">
-                                                <val value="false">
-                        </av>
-                     </ic>
-                  </ic>
-               </ic>
-            </if>
-         </ob>
-         <ob name=new type=ob subtype=none>
-            <av name=title descr="No Description">
-                        <val value="flat, arc, target nod along slit">
-            </av>
-            <av name=chainedToNext descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
-            <av name=standard descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=chainedToPrev descr="No Description">
-                        <val value="false">
-            </av>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="This observation does a flat and an arc as well as\nyour target.  \n\nIf you dont want to do the flat and arc you can\nskip over them when the sequence is running,\n\nAlternatively you can remove them from the sequence, or chose to start from the library sequence that is called target,nod along slit">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="Usage">
-               </av>
-            </no>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="target co-ordinate entry">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=targetList>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=Base descr="No Description">
-                              <val value="Base">
-                              <val value="Object Name">
-                              <val value="0:00:00">
-                              <val value="0:00:00">
-                              <val value="FK5 (J2000)">
-               </av>
-               <av name=.gui.selectedTelescopePos descr="No Description">
-                              <val value="Base">
-               </av>
-            </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=inst.CGS4>
-               <av name=order descr="No Description">
-                              <val value="1">
-               </av>
-               <av name=instPort descr="No Description">
-                              <val value="South">
-               </av>
-               <av name=disperser descr="No Description">
-                              <val value="40lpmm">
-               </av>
-               <av name=instAper descr="No Description">
-                              <val value="-0.81">
-                              <val value="12.32">
-                              <val value="0.0">
-                              <val value="2.1">
-               </av>
-               <av name=filter descr="No Description">
-                              <val value="B2">
-               </av>
-               <av name=cvfOffset descr="No Description">
-                              <val value="0.0">
-               </av>
-               <av name=acqMode descr="No Description">
-                              <val value="NDSTARE">
-               </av>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=sourceMag descr="No Description">
-                              <val value="7-8">
-               </av>
-               <av name=exposureTime descr="No Description">
-                              <val value="14.0">
-               </av>
-               <av name=posAngle descr="No Description">
-                              <val value="0.0">
-               </av>
-               <av name=neutralDensity descr="No Description">
-                              <val value="0">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=sampling descr="No Description">
-                              <val value="2x2">
-               </av>
-               <av name=centralWavelength descr="No Description">
-                              <val value="2.1">
-               </av>
-               <av name=coadds descr="No Description">
-                              <val value="1">
-               </av>
-               <av name=mask descr="No Description">
-                              <val value="1pixel">
-               </av>
-               <av name=polariser descr="No Description">
-                              <val value="none">
-               </av>
-               <av name=.version descr="No Description">
-                              <val value="1.0">
-               </av>
-            </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe.\n\nOthers suitable for \"quads\" type data are listed in the DRrecipe component below.\n\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=DRRecipe>
-               <av name=SkyRecipe descr="No Description">
-                              <val value="REDUCE_SKY">
-               </av>
-               <av name=FlatRecipe descr="No Description">
-                              <val value="REDUCE_FLAT">
-               </av>
-               <av name=ArcRecipe descr="No Description">
-                              <val value="REDUCE_ARC">
-               </av>
-               <av name=DarkRecipe descr="No Description">
-                              <val value="REDUCE_DARK">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="SOURCE_PAIRS_ON_SLIT">
-               </av>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=BiasInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=DarkInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=BiasRecipe descr="No Description">
-                              <val value="REDUCE_BIAS">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=ObjectRecipe descr="No Description">
-                              <val value="SOURCE_PAIRS_ON_SLIT">
-               </av>
-               <av name=DRRecipe descr="No Description">
-                              <val value="JITTER_SELF_FLAT">
-               </av>
-               <av name=ArcInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=FlatInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=SkyInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=ObjectInGroup descr="No Description">
-                              <val value="true">
-               </av>
-            </oc>
-            <if name=new type=if subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \n\nto get sensible default values for the flat lamp and its aperture, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nTo get a single higher signal to noise flat increase the number of coadds\n\nTo take several flats for later addition increase the number next to \"observe\"">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="flat - how to use">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="2.1">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B2">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="0.25">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Flat">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Black Body (1.3)">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \n\nto get sensible default values for the arc lamp, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nNote that for wavelengths longer than 3.?um the default blocking filter is set so that arcs are obtained in a x 2 higher order.  (the glass of the\nlamps does not transmit thermal lines).\n\nTo get a single higher signal to noise arc increase the number of coadds\n\nTo take several arcs for later addition increase the number next to \"observe\"\n\nto do two or more arcs using different arc lamps :\nMove the yellow highlight to the observe eye labelled Arc below. Under \"edit\" at the top of the component click on \"copy\". Then click on \"paste\" to add extra arc observations as many times as you need.  Go into each arc component - click on default to get a sensible order sorting filter, then select a different arc lamp or other item.\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="arc - how to use">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="2.1">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B2">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="0.5">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Arc">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Argon Arc">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=repeat>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="20">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Repeat 20X">
-                  </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit.\n\nNote that offsets are entered here in the co-ordinate frame of the slit.">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
-                  <ic name=new type=ic subtype=offset>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset2">
-                     </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=Offset3 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
-                     </av>
-                     <av name=Offset2 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="11.74">
-                     </av>
-                     <av name=Offset1 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="11.74">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
-                     </av>
-                     <av name=offsetPositions descr="No Description">
-                                          <val value="Offset0">
-                                          <val value="Offset1">
-                                          <val value="Offset2">
-                                          <val value="Offset3">
-                     </av>
-                     <ic name=new type=ic subtype=observe>
-                        <av name=repeatCount descr="No Description">
-                                                <val value="1">
-                        </av>
-                        <av name=.gui.collapsed descr="No Description">
-                                                <val value="false">
-                        </av>
-                     </ic>
-                  </ic>
-               </ic>
-            </if>
-         </ob>
-         <ob name=new type=ob subtype=none>
-            <av name=title descr="No Description">
-                        <val value="flat, arc, target, nod to blank sky">
-            </av>
-            <av name=chainedToNext descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
-            <av name=standard descr="No Description">
-                        <val value="false">
-            </av>
-            <av name=chainedToPrev descr="No Description">
-                        <val value="false">
-            </av>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="target co-ordinate entry">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=targetList>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=Base descr="No Description">
-                              <val value="Base">
-                              <val value="Object Name">
-                              <val value="0:00:00">
-                              <val value="0:00:00">
-                              <val value="FK5 (J2000)">
-               </av>
-               <av name=.gui.selectedTelescopePos descr="No Description">
-                              <val value="Base">
-               </av>
-            </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=inst.CGS4>
-               <av name=order descr="No Description">
-                              <val value="1">
-               </av>
-               <av name=instPort descr="No Description">
-                              <val value="South">
-               </av>
-               <av name=disperser descr="No Description">
-                              <val value="40lpmm">
-               </av>
-               <av name=instAper descr="No Description">
-                              <val value="-0.81">
-                              <val value="12.32">
-                              <val value="0.0">
-                              <val value="2.1">
-               </av>
-               <av name=filter descr="No Description">
-                              <val value="B2">
-               </av>
-               <av name=cvfOffset descr="No Description">
-                              <val value="0.0">
-               </av>
-               <av name=acqMode descr="No Description">
-                              <val value="NDSTARE">
-               </av>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=sourceMag descr="No Description">
-                              <val value="7-8">
-               </av>
-               <av name=exposureTime descr="No Description">
-                              <val value="14.0">
-               </av>
-               <av name=posAngle descr="No Description">
-                              <val value="0">
-               </av>
-               <av name=neutralDensity descr="No Description">
-                              <val value="0">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=sampling descr="No Description">
-                              <val value="2x2">
-               </av>
-               <av name=centralWavelength descr="No Description">
-                              <val value="2.1">
-               </av>
-               <av name=coadds descr="No Description">
-                              <val value="1">
-               </av>
-               <av name=mask descr="No Description">
-                              <val value="1pixel">
-               </av>
-               <av name=polariser descr="No Description">
-                              <val value="none">
-               </av>
-               <av name=.version descr="No Description">
-                              <val value="1.0">
-               </av>
-            </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe.\n\nOthers suitable for \"quads\" type data are listed in the DRrecipe component below.\n\nAlthough this is a nod to sky type observation it is done in a \"quads pattern\" : obj, sky, sky, obj, and so can be reduced using the standard quads recipe.  \n\nOther reduction recipes will soon be available for nodding to sky less frequently than in quads.\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
-            <oc name=new type=oc subtype=DRRecipe>
-               <av name=SkyRecipe descr="No Description">
-                              <val value="SOURCE_PAIRS_TO_SKY">
-               </av>
-               <av name=FlatRecipe descr="No Description">
-                              <val value="REDUCE_FLAT">
-               </av>
-               <av name=ArcRecipe descr="No Description">
-                              <val value="REDUCE_ARC">
-               </av>
-               <av name=DarkRecipe descr="No Description">
-                              <val value="REDUCE_DARK">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="SOURCE_PAIRS_TO_SKY">
-               </av>
-               <av name=.unique descr="No Description">
-                              <val value="true">
-               </av>
-               <av name=BiasInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=DarkInGroup descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=BiasRecipe descr="No Description">
-                              <val value="REDUCE_BIAS">
-               </av>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=ObjectRecipe descr="No Description">
-                              <val value="SOURCE_PAIRS_TO_SKY">
+                              <val value="EXTENDED_SOURCE">
                </av>
                <av name=DRRecipe descr="No Description">
                               <val value="JITTER_SELF_FLAT">
@@ -8606,109 +7437,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \n\nto get sensible default values for the flat lamp and its aperture, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nTo get a single higher signal to noise flat increase the number of coadds\n\nTo take several flats for later addition increase the number next to \"observe\"">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="flat - how to use">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="2.1">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B2">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="0.25">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Flat">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Black Body (1.3)">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \n\nto get sensible default values for the arc lamp, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nNote that for wavelengths longer than 3.?um the default blocking filter is set so that arcs are obtained in a x 2 higher order.  (the glass of the\nlamps does not transmit thermal lines).\n\nTo get a single higher signal to noise arc increase the number of coadds\n\nTo take several arcs for later addition increase the number next to \"observe\"\n\nto do two or more arcs using different arc lamps :\nMove the yellow highlight to the observe eye labelled Arc below. Under \"edit\" at the top of the component click on \"copy\". Then click on \"paste\" to add extra arc observations as many times as you need.  Go into each arc component - click on default to get a sensible order sorting filter, then select a different arc lamp or other item.\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="arc - how to use">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="2.1">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B2">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="0.5">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Arc">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Argon Arc">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=repeat>
                   <av name=repeatCount descr="No Description">
                                     <val value="20">
@@ -8719,17 +7447,6 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 20X">
                   </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this offsets 60 arc sec perpendicular to the slit to take you to blank sky.\n\nThe sky obsrvations are specified as sky by the \"sky observe eye\" instead of the \"observe eye\" this ensures that blank sky frames are properly labelled in their headers.\n\nIf you want to offset further, edit the offset value for p in the 2nd and third offset items below.  \n\nNote that offsets are entered in the co-ordinate frame of THE SLIT.\n\n">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
                   <ic name=new type=ic subtype=offset>
                      <av name=.gui.selectedOffsetPos descr="No Description">
                                           <val value="Offset0">
@@ -8804,7 +7521,7 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="flat, arc, target, infrequent nod to blank sky">
+                        <val value="extended source, infrequent nod to blank sky">
             </av>
             <av name=chainedToNext descr="No Description">
                         <val value="false">
@@ -8823,10 +7540,10 @@
                               <val value="false">
                </av>
                <av name=note descr="No Description">
-                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".\n\n">
+                              <val value="This is only for use when:\na) the sky background is stable,\nb) your target is extended, and\nc) you cannot afford to spend 50% of your time observing blank sky;\n\ni.e. faint, extended, echelle targets.\n\nThe sequence is that you start with a SKY frame, and then take several OBJECT frames.  The DR will subtract the SKY from each of the following OBJECT frames.  You can repeat this as many times as you like.\n\nYou can change the sky offset to your own patch of blank sky.">
                </av>
                <av name=title descr="No Description">
-                              <val value="target co-ordinate entry">
+                              <val value="Extended source with infrequent nod to blank sky">
                </av>
             </no>
             <oc name=new type=oc subtype=targetList>
@@ -8847,17 +7564,6 @@
                               <val value="Base">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="For detailed advice about CGS4 see the web page at\nhttp://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/handbook.html\n\nEnter your desired CGS4 setup into the component below.  Make sure you choose the same settings for grating, wavelength, order, slit width and position angle for your STANDARD STAR as for your sources.\n\nNote that if you enter a central wavelength and choose a grating the order will be automatically\nselected. You may over-ride this if you wish, but seek advice on non-optimum orders from your support scientist.\n\nThere is feedback showing what the wavelength range and spectral resolution with the 1-pixel wide slit would be.\n\nEnter the slit width in pixels that you want to use.  Slit widths wider than 1-pixel may result in lower spectral resolution, depending on the seeing.  \n\nSlit position angles on the sky should fall in \nthe range 7 to -173 degrees EAST of NORTH\n\nIf you select a source magnitude range the tool will enter a recommended exposure time and number of coadds at each sampling position.  You may enter your own value instead if you prefer. If the exposure time is short (less than 1sec) consider using STARE mode instead.\n\nSampling is specified as \"Oversampling factor\" x\n\"number of pixels\" the spectrum is stepped over. So 2 x 2 sampling is Nyquist sampling stepped over 2 pixels giving a total of 4 independant measurements of the spectrum, 2 at each data point in the final spectrum.\n\n ">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="cgs4 setup">
-               </av>
-            </no>
             <oc name=new type=oc subtype=inst.CGS4>
                <av name=order descr="No Description">
                               <val value="1">
@@ -8893,7 +7599,7 @@
                               <val value="14.0">
                </av>
                <av name=posAngle descr="No Description">
-                              <val value="0">
+                              <val value="0.0">
                </av>
                <av name=neutralDensity descr="No Description">
                               <val value="0">
@@ -8920,17 +7626,6 @@
                               <val value="1.0">
                </av>
             </oc>
-            <no name=new type=no subtype=none>
-               <av name=.gui.collapsed descr="No Description">
-                              <val value="false">
-               </av>
-               <av name=note descr="No Description">
-                              <val value="The data-reduction recipe specified below uses the most basic data-reduction recipe.\n\nOthers suitable for \"quads\" type data are listed in the DRrecipe component below.\n\nAlthough this is a nod to sky type observation it is done in a \"quads pattern\" : obj, sky, sky, obj, and so can be reduced using the standard quads recipe.  \n\nOther reduction recipes will soon be available for nodding to sky less frequently than in quads.\n">
-               </av>
-               <av name=title descr="No Description">
-                              <val value="DR Recipe Selection">
-               </av>
-            </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
                               <val value="REDUCE_SKY">
@@ -8945,7 +7640,7 @@
                               <val value="REDUCE_DARK">
                </av>
                <av name=title descr="No Description">
-                              <val value="SOURCE_WITH_NOD_TO_BLANK_SKY">
+                              <val value="EXTENDED_SOURCE_WITH_SEPARATE_SKY">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -8963,7 +7658,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="SOURCE_WITH_NOD_TO_BLANK_SKY">
+                              <val value="EXTENDED_SOURCE_WITH_SEPARATE_SKY">
                </av>
                <av name=DRRecipe descr="No Description">
                               <val value="JITTER_SELF_FLAT">
@@ -8985,109 +7680,6 @@
                <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \n\nto get sensible default values for the flat lamp and its aperture, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nTo get a single higher signal to noise flat increase the number of coadds\n\nTo take several flats for later addition increase the number next to \"observe\"">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="flat - how to use">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="2.1">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B2">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="0.25">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Flat">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Black Body (1.3)">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="CLICK ON THE \"DEFAULT\" BUTTON \n\nto get sensible default values for the arc lamp, the order sorting filter and the exposure time.  These may all be changed if you wish.  To get the default values back, click on default again.\n\nNote that for wavelengths longer than 3.?um the default blocking filter is set so that arcs are obtained in a x 2 higher order.  (the glass of the\nlamps does not transmit thermal lines).\n\nTo get a single higher signal to noise arc increase the number of coadds\n\nTo take several arcs for later addition increase the number next to \"observe\"\n\nto do two or more arcs using different arc lamps :\nMove the yellow highlight to the observe eye labelled Arc below. Under \"edit\" at the top of the component click on \"copy\". Then click on \"paste\" to add extra arc observations as many times as you need.  Go into each arc component - click on default to get a sensible order sorting filter, then select a different arc lamp or other item.\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="arc - how to use">
-                  </av>
-               </no>
-               <ic name=new type=ic subtype=CGS4calUnitObs>
-                  <av name=flatSampling descr="No Description">
-                                    <val value="1x1">
-                  </av>
-                  <av name=coadds descr="No Description">
-                                    <val value="5">
-                  </av>
-                  <av name=cvfWavelength descr="No Description">
-                                    <val value="2.1">
-                  </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
-                  </av>
-                  <av name=filter descr="No Description">
-                                    <val value="B2">
-                  </av>
-                  <av name=exposureTime descr="No Description">
-                                    <val value="0.5">
-                  </av>
-                  <av name=calType descr="No Description">
-                                    <val value="Arc">
-                  </av>
-                  <av name=acqMode descr="No Description">
-                                    <val value="NDSTARE">
-                  </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=neutralDensity descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=lamp descr="No Description">
-                                    <val value="Argon Arc">
-                  </av>
-               </ic>
-               <no name=new type=no subtype=none>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
-                  <av name=note descr="No Description">
-                                    <val value="To repeat the quads more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
-                  </av>
-                  <av name=title descr="No Description">
-                                    <val value="Set the number of repeats">
-                  </av>
-               </no>
                <ic name=new type=ic subtype=repeat>
                   <av name=repeatCount descr="No Description">
                                     <val value="20">
@@ -9098,17 +7690,6 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 20X">
                   </av>
-                  <no name=new type=no subtype=none>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
-                     <av name=note descr="No Description">
-                                          <val value="this offsets 60 arc sec perpendicular to the slit to take you to blank sky.\n\nThe sky obsrvations are specified as sky by the \"sky observe eye\" instead of the \"observe eye\" this ensures that blank sky frames are properly labelled in their headers.\n\nIf you want to offset further, edit the offset value for p in the 2nd and third offset items below.  \n\nNote that offsets are entered in the co-ordinate frame of THE SLIT.\n\n">
-                     </av>
-                     <av name=title descr="No Description">
-                                          <val value="offset info">
-                     </av>
-                  </no>
                   <ic name=new type=ic subtype=offset>
                      <av name=.gui.selectedOffsetPos descr="No Description">
                                           <val value="Offset0">
@@ -9180,13 +7761,13 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -9337,7 +7918,7 @@
                                     <val value="REDUCE_BIAS">
                   </av>
                   <av name=title descr="No Description">
-                                    <val value="ARRARY_TESTS">
+                                    <val value="ARRAY_TESTS">
                   </av>
                   <av name=.unique descr="No Description">
                                     <val value="true">
@@ -9355,7 +7936,7 @@
                                     <val value="false">
                   </av>
                   <av name=ObjectRecipe descr="No Description">
-                                    <val value="ARRARY_TESTS">
+                                    <val value="ARRAY_TESTS">
                   </av>
                   <av name=ArcInGroup descr="No Description">
                                     <val value="false">
@@ -9439,10 +8020,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -9738,13 +8319,13 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -9895,7 +8476,7 @@
                                     <val value="REDUCE_BIAS">
                   </av>
                   <av name=title descr="No Description">
-                                    <val value="ARRARY_TESTS">
+                                    <val value="ARRAY_TESTS">
                   </av>
                   <av name=.unique descr="No Description">
                                     <val value="true">
@@ -9913,7 +8494,7 @@
                                     <val value="false">
                   </av>
                   <av name=ObjectRecipe descr="No Description">
-                                    <val value="ARRARY_TESTS">
+                                    <val value="ARRAY_TESTS">
                   </av>
                   <av name=ArcInGroup descr="No Description">
                                     <val value="false">
@@ -9997,13 +8578,13 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -10351,10 +8932,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -10630,10 +9211,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -11057,10 +9638,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -11336,10 +9917,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -11763,10 +10344,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -12042,10 +10623,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -12469,10 +11050,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -12748,10 +11329,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -13195,11 +11776,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -13233,10 +11814,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -13420,10 +12001,10 @@
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
+                  <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
+                  <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=filterIter descr="No Description">
@@ -13706,11 +12287,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -13899,14 +12480,14 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <ic name=new type=ic subtype=instIRPOL>
                      <av name=IRPOLIter descr="No Description">
@@ -13918,20 +12499,20 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
                                                 <val value="E-W jitter at each WP position.">
                         </av>
-                        <av name=.gui.selected descr="No Description">
+                        <av name=.gui.collapsed descr="No Description">
                                                 <val value="false">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
+                        <av name=.gui.selected descr="No Description">
                                                 <val value="false">
                         </av>
                         <av name=note descr="No Description">
@@ -14022,11 +12603,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -14060,10 +12641,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -14247,10 +12828,10 @@
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
+                  <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
+                  <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=filterIter descr="No Description">
@@ -14473,11 +13054,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -14666,23 +13247,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Jitter AFTER 4 WP positions">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -14726,10 +13307,10 @@
                         <av name=iterConfigList descr="No Description">
                                                 <val value="IRPOLIter">
                         </av>
-                        <av name=.gui.selected descr="No Description">
+                        <av name=.gui.collapsed descr="No Description">
                                                 <val value="false">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
+                        <av name=.gui.selected descr="No Description">
                                                 <val value="false">
                         </av>
                         <ic name=new type=ic subtype=observe>
@@ -14789,11 +13370,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -14982,23 +13563,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Obj-Sky pair at each WP position.">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -15015,10 +13596,10 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
@@ -15190,11 +13771,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -15228,10 +13809,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -15621,11 +14202,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -15659,10 +14240,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -16112,11 +14693,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -16299,14 +14880,14 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <ic name=new type=ic subtype=instIRPOL>
                      <av name=IRPOLIter descr="No Description">
@@ -16318,20 +14899,20 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
                                                 <val value="E-W jitter at each WP position.">
                         </av>
-                        <av name=.gui.selected descr="No Description">
+                        <av name=.gui.collapsed descr="No Description">
                                                 <val value="false">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
+                        <av name=.gui.selected descr="No Description">
                                                 <val value="false">
                         </av>
                         <av name=note descr="No Description">
@@ -16419,11 +15000,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -16606,23 +15187,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Jitter AFTER 4 WP positions">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -16723,11 +15304,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -16910,23 +15491,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Obj-Sky pair at each WP position.">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -16943,10 +15524,10 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
@@ -17118,11 +15699,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -17539,10 +16120,10 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
+            <av name=:msb descr="No Description">
                         <val value="true">
             </av>
-            <av name=:msb descr="No Description">
+            <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
             <av name=standard descr="No Description">
@@ -17907,14 +16488,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -18270,14 +16851,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -18633,14 +17214,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -18996,14 +17577,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -21157,11 +19738,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -23243,6 +21824,10 @@
                                     <val value="30.0">
                                     <val value="-30.0">
                   </av>
+                  <av name=Offset12 descr="No Description">
+                                    <val value="-128.0">
+                                    <val value="123.0">
+                  </av>
                   <av name=offsetPositions descr="No Description">
                                     <val value="Offset1">
                                     <val value="Offset3">
@@ -23295,10 +21880,6 @@
                                     <val value="Offset48">
                                     <val value="Offset49">
                                     <val value="Offset50">
-                  </av>
-                  <av name=Offset12 descr="No Description">
-                                    <val value="-128.0">
-                                    <val value="123.0">
                   </av>
                   <av name=Offset11 descr="No Description">
                                     <val value="0.0">
@@ -23883,11 +22464,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -24049,11 +22630,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
                   <av name=FPZ descr="No Description">
                                     <val value="-700">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-200">
@@ -24079,11 +22660,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -24117,10 +22698,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -24291,11 +22872,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-284">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-284">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
@@ -24321,11 +22902,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-284">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -24361,11 +22942,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-484">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -24504,11 +23085,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -24654,10 +23235,10 @@
                   <av name=title descr="No Description">
                                     <val value="FPX=0, FPY=-800">
                   </av>
-                  <av name=.gui.selected descr="No Description">
+                  <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
+                  <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=note descr="No Description">
@@ -24706,14 +23287,14 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
+                  <av name=FPZ descr="No Description">
+                                    <val value="0">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="0">
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-800">
@@ -24725,7 +23306,7 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=FPZ descr="No Description">
@@ -24750,7 +23331,7 @@
                                           <val value="-500">
                                           <val value="-450">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=observe>
@@ -24772,11 +23353,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -24974,14 +23555,14 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
+                  <av name=FPZ descr="No Description">
+                                    <val value="0">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="0">
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="0">
@@ -24993,7 +23574,7 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=FPZ descr="No Description">
@@ -25018,7 +23599,7 @@
                                           <val value="-500">
                                           <val value="-450">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=observe>
@@ -25040,11 +23621,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -25209,14 +23790,14 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
+                  <av name=FPZ descr="No Description">
+                                    <val value="0">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="0">
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-300">
@@ -25239,7 +23820,7 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=FPZ descr="No Description">
@@ -25259,7 +23840,7 @@
                                           <val value="-450">
                                           <val value="-400">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=observe>
@@ -25487,11 +24068,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-630">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-630">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-80">
@@ -25517,11 +24098,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-500">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25577,11 +24158,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-430">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25754,11 +24335,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -25963,11 +24544,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-630">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-630">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
@@ -26049,14 +24630,14 @@
                         <av name=iterConfigList descr="No Description">
                                                 <val value="FPZ">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
-                                                <val value="false">
-                        </av>
                         <av name=FPZ descr="No Description">
                                                 <val value="-284">
                                                 <val value="-484">
                                                 <val value="-284">
                                                 <val value="-84">
+                        </av>
+                        <av name=.gui.collapsed descr="No Description">
+                                                <val value="false">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -26104,11 +24685,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -26313,11 +24894,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-264">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-264">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
@@ -26376,11 +24957,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26442,11 +25023,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26656,11 +25237,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26722,11 +25303,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26936,11 +25517,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -27002,11 +25583,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -27216,11 +25797,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -27282,11 +25863,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -27496,11 +26077,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -27562,11 +26143,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -27989,11 +26570,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-630">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-630">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
