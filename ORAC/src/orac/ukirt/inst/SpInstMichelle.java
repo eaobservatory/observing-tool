@@ -47,8 +47,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static String ATTR_SAMPLING           = "sampling";
     public static String ATTR_CENTRAL_WAVELENGTH = "centralWavelength";
     public static String ATTR_FILTER             = "filter";
+    public static String ATTR_FILTER_CATEGORY    = "filterCategory";
+    public static String ATTR_FILTER_OT          = "filterOT";
     public static String ATTR_SCIENCE_AREA       = "scienceArea";
     public static String ATTR_SPECTRAL_COVERAGE  = "spectralCoverage";
+    public static String ATTR_PIXEL_FOV          = "pixelFOV";
     public static String ATTR_DARKFILTER         = "darkFilter";
     public static String ATTR_WAVEPLATE          = "waveplate";
     public static String ATTR_FLAT_SAMPLING      = "flatSampling";
@@ -67,6 +70,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static String ATTR_NULL_READS         = "nullReads";
     public static String ATTR_DUTY_CYCLE         = "dutyCycle";
     public static String ATTR_OBSERVATION_TIME   = "observationTime";
+    public static String ATTR_OBSTIME_OT         = "obsTimeOT";
     public static String NO_VALUE                = "none";
     public static final int CAMERA_IMAGING       = 0;
     public static final int CAMERA_SPECTROSCOPY  = 1;
@@ -136,6 +140,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static double KSKY;
     public static double KIM;
     public static double KBAND;
+    public static double KWELL;
     public static double TEXPBASE;
     public static double TEXPMIN;
     public static double TEXPMAX;
@@ -154,13 +159,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static double DEFBIASEXPTIME;
     public static int DEFBIASCOADDS;
     // Instance variables of the class
-    String filter_category = null;
-    String filter_ot;
-    double observationTime;
-    double darkObservationTime;
     double flatObservationTime;
-    double flatExposureTime;
     double arcObservationTime;
+    double flatExposureTime;
     double arcExposureTime;
     // Data acquisition - dark
     // Data acquisition - flat & arcs
@@ -255,6 +256,9 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         attr  = ATTR_SCIENCE_AREA;
         _avTable.noNotifySet(attr, "0.0 x 0.0", 0);
 
+        attr  = ATTR_PIXEL_FOV;
+        _avTable.noNotifySet(attr, "0.0 x 0.0", 0);
+
         attr  = ATTR_MODE;
         value = DEFAULT_MODE;
         _avTable.noNotifySet(attr, value, 0);
@@ -309,6 +313,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         _avTable.noNotifySet(attr, "0.0", 0);
 
         attr  = ATTR_OBSERVATION_TIME;
+        value = Double.toString(DEFAULT_TOBS);
+        _avTable.noNotifySet(attr, value, 0);
+
+        attr  = ATTR_OBSTIME_OT;
         value = Double.toString(DEFAULT_TOBS);
         _avTable.noNotifySet(attr, value, 0);
 
@@ -520,6 +528,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     KIM = Double.valueOf(instInfo.getValue()).doubleValue();
 		} else if (InstCfg.matchAttr (instInfo, "kband")) {
                     KBAND = Double.valueOf(instInfo.getValue()).doubleValue();
+		} else if (InstCfg.matchAttr (instInfo, "kwell")) {
+                    KWELL = Double.valueOf(instInfo.getValue()).doubleValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_mode")) {
                     DEFAULT_MODE = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "exptimings")) {
@@ -582,6 +592,48 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Set the pixel field of view
+     */
+    public void
+    setPixelFOV(String pixelFOV)
+    {
+        _avTable.set(ATTR_PIXEL_FOV, pixelFOV);
+    }
+
+    /**
+     * Return the pixel field of view
+     */
+    public double[]
+    getPixelFOV()
+    {
+         double pfov[] = new double[2];
+         if (isImaging()) {
+	     pfov[0] = IMAGING_PIXEL_SCALE;
+             pfov[1] = IMAGING_PIXEL_SCALE;
+	 } else {
+             double ma = getMaskAngle() * Math.PI/180.0;
+             pfov[0] = SPECT_PIXEL_SCALE / Math.cos(ma);
+             pfov[1] = SPECT_PIXEL_SCALE * Math.cos(ma);
+	 }
+         return pfov;
+    }
+
+    /**
+     * Get the pixel field of view as a string
+     */
+    public String
+    getPixelFOVString()
+    {
+        double pfov[];
+        pfov = getPixelFOV();
+        double w = MathUtil.round(pfov[0], 2);
+        double h = MathUtil.round(pfov[1], 2);
+        String pfovs = w + " x " + h;
+        setPixelFOV(pfovs);
+        return pfovs;
+    }
+
+    /**
      * Set the science area
      */
     public void
@@ -611,7 +663,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
-     * Get the science area as a string
+     * Get the science area as a string (also updates pixel field of view)
      */
     public String
     getScienceAreaString()
@@ -622,6 +674,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         double h = MathUtil.round(fov[1], 2);
         String fovs = w + " x " + h;
         setScienceArea(fovs);
+        /* Update the pixel field of view too */
+        String pfovs = getPixelFOVString();
         return fovs;
     }
 
@@ -652,11 +706,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     initInstance()
     {
         // Initialise instance variables and initial config
-        filter_category = null;
-        filter_ot = null;
         flat_source = null;
-        observationTime = DEFAULT_TOBS;
-        darkObservationTime = DEFAULT_TOBS;
         flatObservationTime = DEFAULT_TOBS;
         arcObservationTime = DEFAULT_TOBS;
         useDefaultAcquisition();
@@ -947,8 +997,28 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     setFilterCategory(String filterCategory)
     {
-        filter_category = filterCategory;
+        _avTable.set(ATTR_FILTER_CATEGORY, filterCategory);
         useDefaultFilterOT();
+    }
+
+    /**
+     * Forget the OT name of the filter category
+     */
+    public void
+    useDefaultFilterCategory()
+    {
+        _avTable.rm(ATTR_FILTER_CATEGORY);
+        useDefaultFilterOT();
+    }
+
+    /**
+     * Get the default filter category
+     */
+    public String
+    getDefaultFilterCategory()
+    {
+        String filterCategory = (String)FILTERS.elementAt(0,0);
+        return filterCategory;
     }
 
     /**
@@ -957,11 +1027,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getFilterCategory()
     {
-        if (filter_category == null) {
-            String filterCategory = (String)FILTERS.elementAt(0,0);
+        String filterCategory = _avTable.get(ATTR_FILTER_CATEGORY);
+        if (filterCategory == null) {
+            filterCategory = getDefaultFilterCategory();
             setFilterCategory(filterCategory);
 	}
-        return filter_category;
+        return filterCategory;
     }
 
     /**
@@ -1010,12 +1081,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
-     * Forget the OT name of the filter.
+     * Forget the OT name of the filter OT
      */
     public void
     useDefaultFilterOT()
     {
-        filter_ot = null;
+        _avTable.rm(ATTR_FILTER_OT);
     }
 
     /**
@@ -1024,7 +1095,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     setFilterOT(String filterOT)
     {
-        filter_ot = filterOT;
+        _avTable.set(ATTR_FILTER_OT, filterOT);
     }
 
     /**
@@ -1035,7 +1106,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     {
         LookUpTable flut = getFilterLUT();
         String filterOT = (String)flut.elementAt(0,0);
-        setFilterOT(filterOT);
         return filterOT;
     }
 
@@ -1045,11 +1115,11 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getFilterOT()
     {
-        String filterOT = filter_ot;
+        String filterOT = _avTable.get(ATTR_FILTER_OT);
         if (filterOT == null) {
             filterOT = getDefaultFilterOT();
             setFilterOT(filterOT);
-        }
+	}
         return filterOT;
     }
 
@@ -1449,7 +1519,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     setFlatSource(String flatSource)
     {
-        System.out.println("SIM setFlatSource> set to "+flatSource);
         flat_source = flatSource;
     }
 
@@ -1681,8 +1750,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double
     getChopDelay()
     {
+        int i;
+        int iMax = CHOPS.getNumRows() - 1;
+        double cMax = Double.valueOf((String)CHOPS.elementAt(iMax,0)).doubleValue();
         double cfd = Double.valueOf(getChopFreq()).doubleValue();
-        int i = CHOPS.rangeInColumn(cfd,0);
+        if (cfd >= cMax) {
+            i = iMax-1;
+	} else {
+            i = CHOPS.rangeInColumn(cfd,0);
+	}
         double cd = Double.valueOf((String)CHOPS.elementAt(i,1)).doubleValue();
         return cd;
     }
@@ -1729,9 +1805,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
      * Use default observation time
      */
     public void
-    useDefaultObservationTime()
-    {
-        observationTime = DEFAULT_TOBS;
+    useDefaultObservationTime()    {
+        _avTable.set(ATTR_OBSTIME_OT, DEFAULT_TOBS);
     }
 
     /**
@@ -1749,7 +1824,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     setObservationTime(double obsTime)
     {
-        observationTime = obsTime;
+        _avTable.set(ATTR_OBSTIME_OT, obsTime);
     }
 
     /**
@@ -1758,25 +1833,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double
     getObservationTime()
     {
-        return observationTime;
-    }
-
-    /**
-     * Set the dark observation time in seconds
-     */
-    public void
-    setDarkObservationTime(double darkObsTime)
-    {
-        darkObservationTime = darkObsTime;
-    }
-
-    /**
-     * Get the dark observation time in seconds
-     */
-    public double
-    getDarkObservationTime()
-    {
-        return darkObservationTime;
+        double obsTime = _avTable.getDouble(ATTR_OBSTIME_OT, 0.0);
+        return obsTime;
     }
 
     /**
@@ -1862,7 +1920,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	timeAsStr = seconds;
 	if (timeAsStr == null) {
 	    // No action on null string
-            System.out.println("setExpTime> null string");
 	} else {
             setExposureTime (timeAsStr);
 	}
@@ -1878,6 +1935,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         if (isPolarimetry()) set = KPOL * set;
         if (isImaging()) set = KIM * set;
         if (getCentralWavelength() < 15.0) set = KBAND * set;
+        set = set * KWELL;
         return set;
     }
 
@@ -1919,9 +1977,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     getDefaultFlatExpTime()
     {
         double fet = getDefaultSkyExpTime();
-        System.out.println("SIM getDefaultFlatExpTime> fet = "+fet);
-        System.out.println("SIM getDefaultFlatExpTime> flatSource = "+
-            getFlatSource());
         if (getFlatSource().equalsIgnoreCase("mirror")) fet = fet/KSKY;
         fet = limitExpTime(fet);
         return fet;
@@ -2044,7 +2099,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	} else if (obsType.equalsIgnoreCase("DARK")) {
             /* Exposure time must be same as for object */
             expTime = getExpTime();
-            obsTime = getDarkObservationTime();
+            obsTime = getObservationTime();
 	} else if (obsType.equalsIgnoreCase("FLAT")) {
             expTime = getFlatExpTime();
             obsTime = getFlatObservationTime();

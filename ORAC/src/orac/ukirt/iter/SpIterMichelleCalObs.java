@@ -8,10 +8,6 @@
 /*==============================================================*/
 
 // author: Alan Pickup = dap@roe.ac.uk         2001 Feb
-// modified for Swing OT by
-//         Martin Folger = M.Folger@roe.ac.uk  2001 Apr
-//
-// $Id$
 
 package orac.ukirt.iter;
 
@@ -59,7 +55,7 @@ _thisFirstElement()
 {
 
    SpIterMichelleCalObs ico = (SpIterMichelleCalObs) _iterComp;
-   _values = new SpIterValue[20];
+   _values = new SpIterValue[21];
 
    ico.updateDAConf();
    _values[0] = new SpIterValue(SpMichelleCalConstants.ATTR_FILTER,
@@ -102,6 +98,8 @@ _thisFirstElement()
       ico.getSampling());
    _values[19] = new SpIterValue(SpMichelleCalConstants.ATTR_OBSERVATION_TIME,
       String.valueOf(ico.W_obsTime));
+   _values[20] = new SpIterValue(SpMichelleCalConstants.ATTR_OBSTIME_OT,
+      ico.getObservationTime());
 
    return _thisNextElement();
 }
@@ -129,7 +127,6 @@ public class SpIterMichelleCalObs extends SpIterObserveBase
 
    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "MichelleCalObs", "Michelle Cal Observe");
-   String observationTime = "undefined";
    public String W_mode;
    public String W_waveform;
    public int W_nreads;
@@ -181,6 +178,7 @@ public SpIterMichelleCalObs()
    _avTable.noNotifySet(SpMichelleCalConstants.ATTR_FLAT_SOURCE,null,0);
    _avTable.noNotifySet(SpMichelleCalConstants.ATTR_SAMPLING,null,0);
    _avTable.noNotifySet(SpMichelleCalConstants.ATTR_OBSERVATION_TIME,null,0);
+   _avTable.noNotifySet(SpMichelleCalConstants.ATTR_OBSTIME_OT,null,0);
 
 }
 
@@ -262,7 +260,7 @@ setExpTime(String expTime)
 public void
 setObservationTime(String obsTime)
 {
-   observationTime = obsTime;
+   _avTable.set(SpMichelleCalConstants.ATTR_OBSTIME_OT, obsTime);
 }
 
 /**
@@ -271,14 +269,22 @@ setObservationTime(String obsTime)
 public String
 getObservationTime()
 {
-  if (observationTime.equals("undefined")) {
+   String obsTime = _avTable.get(SpMichelleCalConstants.ATTR_OBSTIME_OT);
+   if (obsTime == null) {
       if (getCalType() == FLAT) {
+          obsTime = SpMichelleCalConstants.DEFAULT_FLAT_OBSERVATION_TIME;
+      } else if (getCalType() == ARC) {
+          obsTime = SpMichelleCalConstants.DEFAULT_ARC_OBSERVATION_TIME;
+      }
+      setObservationTime(obsTime);
+      /*      if (getCalType() == FLAT) {
           setObservationTime(SpMichelleCalConstants.DEFAULT_FLAT_OBSERVATION_TIME);
       } else if (getCalType() == ARC) {
           setObservationTime(SpMichelleCalConstants.DEFAULT_ARC_OBSERVATION_TIME);
       }
+      */
   }
-  return observationTime; 
+  return obsTime; 
 }
 
 /**
@@ -378,6 +384,7 @@ getFlatSource()
    if (fs == null) {
        /* The default is the first available choice */
        fs = getFlatSourceChoices()[0];
+       setFlatSource(fs);
    }
    return fs;
 }
@@ -471,7 +478,11 @@ useDefaults()
    _avTable.rm(SpMichelleCalConstants.ATTR_FLAT_SOURCE);
    _avTable.rm(SpMichelleCalConstants.ATTR_SAMPLING);
    _avTable.rm(SpMichelleCalConstants.ATTR_OBSERVATION_TIME);
-   observationTime = "undefined";
+   if (getCalType() == FLAT) {
+          setObservationTime(SpMichelleCalConstants.DEFAULT_FLAT_OBSERVATION_TIME);
+      } else if (getCalType() == ARC) {
+          setObservationTime(SpMichelleCalConstants.DEFAULT_ARC_OBSERVATION_TIME);
+      }
 }
 
 /**

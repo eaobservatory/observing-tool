@@ -1,10 +1,10 @@
 <spDocument>
    <lb name=new type=lb subtype=none>
-      <av name=.gui.filename descr="No Description">
-            <val value="UFTI-Standards.lib">
-      </av>
       <av name=title descr="No Description">
             <val value="UFTI standard-star library">
+      </av>
+      <av name=.gui.filename descr="No Description">
+            <val value="UFTI-Standards.lib">
       </av>
       <no name=new type=no subtype=none>
          <av name=title descr="No Description">
@@ -29344,7 +29344,7 @@
                                     <val value="1">
                   </av>
                   <av name=exposureTime descr="No Description">
-                                    <val value="15.0">
+                                    <val value="10.0">
                   </av>
                </ic>
                <ic name=new type=ic subtype=repeat>
@@ -29550,7 +29550,7 @@
                                     <val value="1">
                   </av>
                   <av name=exposureTime descr="No Description">
-                                    <val value="10.0">
+                                    <val value="5.0">
                   </av>
                </ic>
                <ic name=new type=ic subtype=repeat>
@@ -39105,15 +39105,15 @@
                                           <val value="-10.0">
                                           <val value="12.0">
                      </av>
-                     <av name=Offset2 descr="No Description">
-                                          <val value="1.0">
-                                          <val value="11.0">
+                     <av name=.gui.selectedOffsetPos descr="No Description">
+                                          <val value="Offset8">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="jitter_9_10as">
                      </av>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset8">
+                     <av name=Offset2 descr="No Description">
+                                          <val value="1.0">
+                                          <val value="11.0">
                      </av>
                      <av name=Offset1 descr="No Description">
                                           <val value="11.0">

@@ -29,6 +29,7 @@ public interface SpMichelleCalConstants
    public static final String ATTR_SAMPLING      = "sampling";
    public static final String ATTR_FLAT_SOURCE   = "flatSource";
    public static final String ATTR_OBSERVATION_TIME = "observationTime";
+   public static final String ATTR_OBSTIME_OT    = "obsTimeOT";
    public static final String DEFAULT_FLAT_OBSERVATION_TIME = "20.0";
    public static final String DEFAULT_ARC_OBSERVATION_TIME  = "20.0";
 
