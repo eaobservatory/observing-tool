@@ -219,7 +219,8 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	v.addElement(tp.getTag());
 	v.addElement(tp.getName());
 	
-	if(tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
+	if(tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ||
+           tp.getTag().equals("REFERENCE") ) {
 	    if(tp.isOffsetPosition()) {
 	        v.addElement("" + tp.getXaxisAsString() + " (\u2206)");
 	        v.addElement("" + tp.getYaxisAsString() + " (\u2206)");
@@ -234,7 +235,10 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	    v.addElement("  - - -");
 	}
 
-	if(_coordSysInTable) {
+	if ( tp.getTag().equals("REFERENCE") ) {
+	    v.addElement( tp.getCoordSysAsString() );
+	}
+	else if (_coordSysInTable) {
 	    switch(tp.getSystemType()) {
 		case SpTelescopePos.SYSTEM_CONIC:
 		    v.addElement("Orb. Elem.");

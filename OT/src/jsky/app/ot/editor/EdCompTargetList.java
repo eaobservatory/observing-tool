@@ -8,6 +8,7 @@ package jsky.app.ot.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
@@ -1020,6 +1021,29 @@ public final class EdCompTargetList extends OtItemEditor
     private void _selectTargetSystemTab(SpTelescopePos tp) {
       _w.targetSystemsTabbedPane.removeChangeListener(this);
 
+      // Added by SdW 
+      // When base is a named system or orbital elements, and the user selects
+      // REFERENCE - then we need to to display the RA/DEC tab, but with the
+      // offset checkbox selected and disabled to stop users putting in
+      // absolute positions
+      SpTelescopePos base = null;
+      if ( _tpl != null ) {
+	  base = _tpl.getBasePosition();
+      }
+      if ( tp.getTag().equals("REFERENCE") &&
+	   base.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL ) {
+	   tp.setOffsetPosition(true);
+	   _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
+	   _w.targetTypeDDList.setSelectedIndex(0);
+	   _w.offsetCheckBox.setEnabled(false);
+           _w.targetSystemsTabbedPane.addChangeListener(this);
+	   _w.offsetCheckBox.setValue(true);
+	   return;
+      }
+      else {
+	  _w.offsetCheckBox.setEnabled(true);
+      }
+      
       switch(tp.getSystemType()) {
         case SpTelescopePos.SYSTEM_CONIC:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
@@ -1082,7 +1106,7 @@ public final class EdCompTargetList extends OtItemEditor
 
 
             if(OtCfg.telescopeUtil.isOffsetTarget(tp.getTag())) {
-                 _w.offsetCheckBox.setValue(false);
+                 _w.offsetCheckBox.setValue(tp.isOffsetPosition());
                  _w.offsetCheckBox.setVisible(true);
             }
 	    else {
