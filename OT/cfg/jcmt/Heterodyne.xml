@@ -28,8 +28,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -147,8 +147,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -214,6 +214,7 @@
               </spherSystem>
             </target>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -227,7 +228,6 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -270,8 +270,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -322,7 +322,7 @@
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <title>Science target</title>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
         <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -345,15 +345,16 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
+              <frequencyOffset.throw>8.3</frequencyOffset.throw>
               <integrations>1</integrations>
               <secsPerCycle>60</secsPerCycle>
               <noOfCycles>0</noOfCycles>
               <cycleReversal>true</cycleReversal>
-              <continuousCal>true</continuousCal>
+              <continuousCal>false</continuousCal>
               <switchingMode>Frequency-Fast</switchingMode>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <frequencyOffsetRate>0.5</frequencyOffsetRate>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -382,8 +383,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -457,15 +458,16 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
+              <frequencyOffset.throw>8.3</frequencyOffset.throw>
               <integrations>1</integrations>
               <secsPerCycle>60</secsPerCycle>
               <noOfCycles>0</noOfCycles>
               <cycleReversal>true</cycleReversal>
-              <continuousCal>true</continuousCal>
+              <continuousCal>false</continuousCal>
               <switchingMode>Frequency-Slow</switchingMode>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <frequencyOffsetRate>0.01667</frequencyOffsetRate>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -498,8 +500,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -620,8 +622,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -687,6 +689,7 @@
               </spherSystem>
             </target>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -700,7 +703,6 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -755,8 +757,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -807,7 +809,7 @@
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <title>Science target</title>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -840,15 +842,17 @@
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterStareObs type="ic" subtype="stareObs">
-                  <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
+                  <frequencyOffset.throw>8.3</frequencyOffset.throw>
                   <integrations>1</integrations>
                   <secsPerCycle>60</secsPerCycle>
                   <noOfCycles>0</noOfCycles>
                   <cycleReversal>true</cycleReversal>
-                  <continuousCal>true</continuousCal>
+                  <continuousCal>false</continuousCal>
                   <switchingMode>Frequency-Fast</switchingMode>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
                   <frequencyOffsetRate>0.5</frequencyOffsetRate>
+                  <frequencyOffset.rate>0.5</frequencyOffset.rate>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
                 </SpIterStareObs>
               </SpIterOffset>
             </SpIterChop>
@@ -879,8 +883,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -931,7 +935,7 @@
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <title>Science target</title>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -964,15 +968,16 @@
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterStareObs type="ic" subtype="stareObs">
-                  <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
+                  <frequencyOffset.throw>8.3</frequencyOffset.throw>
                   <integrations>1</integrations>
                   <secsPerCycle>60</secsPerCycle>
                   <noOfCycles>0</noOfCycles>
                   <cycleReversal>true</cycleReversal>
-                  <continuousCal>true</continuousCal>
+                  <continuousCal>false</continuousCal>
                   <switchingMode>Frequency-Slow</switchingMode>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
                   <frequencyOffsetRate>0.01667</frequencyOffsetRate>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
                 </SpIterStareObs>
               </SpIterOffset>
             </SpIterChop>
@@ -988,7 +993,7 @@
       <SpSiteQualityObsCompRef idref="17"/>
       <SpInstHeterodyneRef idref="16"/>
       <title>Position-switch raster</title>
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">60.0</estimatedDuration>
       <SpInstHeterodyne id="16" type="oc" subtype="inst.Heterodyne">
@@ -1007,8 +1012,8 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
-        <beName>das</beName>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -1074,6 +1079,7 @@
               </spherSystem>
             </target>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -1087,7 +1093,6 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
