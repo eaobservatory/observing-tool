@@ -11,6 +11,10 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ February 28th 2003
+
+  - Added Proxy setup to config file for site wide installations
+
 +++ February 18th 2003
 
   - Added calculation of heterodyne noise
