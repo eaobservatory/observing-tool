@@ -345,7 +345,7 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <frequencyOffset.throw>8.3</frequencyOffset.throw>
+              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
               <integrations>1</integrations>
               <secsPerCycle>60</secsPerCycle>
               <noOfCycles>0</noOfCycles>
@@ -353,7 +353,7 @@
               <continuousCal>true</continuousCal>
               <switchingMode>Frequency-Fast</switchingMode>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <frequencyOffset.rate>0.5</frequencyOffset.rate>
+              <frequencyOffsetRate>0.5</frequencyOffsetRate>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -457,7 +457,7 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <frequencyOffset.throw>8.3</frequencyOffset.throw>
+              <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
               <integrations>1</integrations>
               <secsPerCycle>60</secsPerCycle>
               <noOfCycles>0</noOfCycles>
@@ -465,7 +465,7 @@
               <continuousCal>true</continuousCal>
               <switchingMode>Frequency-Slow</switchingMode>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <frequencyOffset.rate>0.01667</frequencyOffset.rate>
+              <frequencyOffsetRate>0.01667</frequencyOffsetRate>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -840,7 +840,7 @@
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterStareObs type="ic" subtype="stareObs">
-                  <frequencyOffset.throw>8.3</frequencyOffset.throw>
+                  <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
                   <integrations>1</integrations>
                   <secsPerCycle>60</secsPerCycle>
                   <noOfCycles>0</noOfCycles>
@@ -848,7 +848,7 @@
                   <continuousCal>true</continuousCal>
                   <switchingMode>Frequency-Fast</switchingMode>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <frequencyOffset.rate>0.5</frequencyOffset.rate>
+                  <frequencyOffsetRate>0.5</frequencyOffsetRate>
                 </SpIterStareObs>
               </SpIterOffset>
             </SpIterChop>
@@ -964,7 +964,7 @@
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterStareObs type="ic" subtype="stareObs">
-                  <frequencyOffset.throw>8.3</frequencyOffset.throw>
+                  <frequencyOffsetThrow>8.3</frequencyOffsetThrow>
                   <integrations>1</integrations>
                   <secsPerCycle>60</secsPerCycle>
                   <noOfCycles>0</noOfCycles>
@@ -972,7 +972,7 @@
                   <continuousCal>true</continuousCal>
                   <switchingMode>Frequency-Slow</switchingMode>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <frequencyOffset.rate>0.01667</frequencyOffset.rate>
+                  <frequencyOffsetRate>0.01667</frequencyOffsetRate>
                 </SpIterStareObs>
               </SpIterOffset>
             </SpIterChop>
