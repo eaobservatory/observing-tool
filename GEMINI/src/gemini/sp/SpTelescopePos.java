@@ -1283,10 +1283,10 @@ toString()
    * @return TT in YYYY MM DD.ddd format.
    */
   public static String convertMJD(double mjdDays) {
-    double fullDays  = Math.rint(mjdDays);
+    double fullDays  = Math.floor(mjdDays);
     double remainder = mjdDays - fullDays;
 
-    remainder = Math.rint(remainder * 1000.0) / 1000.0;
+    remainder = Math.rint(remainder * 1E7) / 1E7;
 
     GregorianCalendar calendar = new GregorianCalendar(MJD_0_YEAR, MJD_0_MONTH, MJD_0_DAY);
     calendar.add(Calendar.DAY_OF_MONTH, (int)fullDays);
@@ -1381,7 +1381,7 @@ toString()
 
     resultInDays += day;
 
-    resultInDays = Math.rint(resultInDays * 1000.0) / 1000.0;
+    resultInDays = Math.rint(resultInDays * 1E7) / 1E7;
 
     return resultInDays;
   }
