@@ -36,8 +36,8 @@ PACKAGES = $(shell echo \
 
 all:
 	$(shell find . -name versionFile -exec rm {} \;)
-	$(shell echo `date '+%Y-%m-%d'` > OT/cfg/jcmt/versionFile)
-	$(shell echo `date '+%Y-%m-%d'` > OT/cfg/ukirt/versionFile)
+	$(shell echo `date '+%Y%m%d'` > OT/cfg/jcmt/versionFile)
+	$(shell echo `date '+%Y%m%d'` > OT/cfg/ukirt/versionFile)
 	(cd GEMINI/src; gmake)
 	(cd ORAC/src;   gmake)
 	(cd ODB/src;    gmake)
