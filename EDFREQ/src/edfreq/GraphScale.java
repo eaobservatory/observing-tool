@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -345,7 +345,13 @@ public class GraphScale extends JPanel implements ChangeListener
          xSize = axisRect.width;
          ySize = axisRect.height; 
          buffer = createImage ( xSize, ySize );
-         ig = buffer.getGraphics();
+
+	 // added by MFO, 16 November 2001
+	 if(buffer == null) {
+            return;
+	 }
+
+	 ig = buffer.getGraphics();
       }
 
       ig.setColor ( getBackground() );
