@@ -14,25 +14,28 @@ import gemini.sp.SpAvTable;
 import gemini.sp.SpObsData;
 import gemini.sp.SpType;
 import gemini.sp.obsComp.SpInstObsComp;
-
+import gemini.sp.iter.SpIterStep;
+import gemini.sp.iter.SpIterValue;
 import gemini.util.Angle;
+
+import orac.jcmt.SpJCMTConstants;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
 /**
- * A base class for UKIRT instrument observation component items. This extends
- * gemini.sp.obsComp.SpInstObsComp and adds UKIRT-specific features.
+ * A base class for JCMT instrument observation component items. This extends
+ * gemini.sp.obsComp.SpInstObsComp and adds JCMT-specific features.
  *
- * @author Alan Bridger, UKATC
+ * @author Martin Folger (M.Folger@roe.ac.uk), based on Alan Bridger, UKATC
  * @version 1.0
  *
  * @see gemini.sp.SpObsData
  * @see gemini.sp.SpObsContextItem
  * @see gemini.sp.obsComp.SpInstObsComp
  */
-public abstract class SpJCMTInstObsComp extends SpInstObsComp
+public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTConstants
 {
     
     public static final int XAP_INDEX = 0;      // Location of inst aper X value
@@ -57,13 +60,13 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp
     {
 	super(spType);
 	
-	_avTable.noNotifySet(ATTR_VERSION, "1.0", 0);
-	_avTable.noNotifySet(ATTR_INSTRUMENT_PORT, "Centre", 0);
-	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", XAP_INDEX);
-	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", YAP_INDEX);
-	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", ZAP_INDEX);
-	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", LAP_INDEX);
-	_avTable.noNotifySet(ATTR_EXPOSURE_TIME, "0", 0);
+//	_avTable.noNotifySet(ATTR_VERSION, "1.0", 0);
+//	_avTable.noNotifySet(ATTR_INSTRUMENT_PORT, "Centre", 0);
+//	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", XAP_INDEX);
+//	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", YAP_INDEX);
+//	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", ZAP_INDEX);
+//	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", LAP_INDEX);
+//	_avTable.noNotifySet(ATTR_EXPOSURE_TIME, "0", 0);
 	
     }
     
@@ -233,5 +236,52 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp
 	return 50;
     }
     
-    
+  /**
+   * Generic IterationTracker for JCMT.
+   *
+   * @see gemini.sp.obsComp.SpInstObsComp
+   */
+  private class IterTrackerJCMT extends IterationTracker {
+    double currentSecsPerIntegration = 0.0;;
+
+    // Number of Integrations
+    int currentIntegrations = 1;
+
+    public void update(SpIterStep spIterStep) {
+      SpIterValue spIterValue = null;
+
+      try {
+        String attribute = null;
+        String value     = null;
+
+        for(int i = 0; i < spIterStep.values.length; i++) {
+          // SpIterStep.values     is an array of SpIterValue
+          // SpIterValue.values    is an array of String the first of which contains
+          attribute = spIterStep.values[i].attribute;
+	  value     = spIterStep.values[i].values[0];
+	
+          if(attribute.equals(ATTR_SECS_PER_INTEGRATION)) {
+            currentSecsPerIntegration = Double.valueOf(value).doubleValue();
+          }
+
+          if(attribute.equals(ATTR_INTEGRATIONS)) {
+            currentIntegrations = Integer.valueOf(value).intValue();
+          }
+	}  
+      }
+      catch(Exception e) {
+        System.out.println("Could not process iteration step "
+	                 + spIterStep + " for time estimation.");
+      }
+    }
+
+    public double getObserveStepTime () {
+      return currentIntegrations * currentSecsPerIntegration;
+    }
+  }
+
+  public IterationTracker createIterationTracker() {
+    return new IterTrackerJCMT();
+  }
+
 }

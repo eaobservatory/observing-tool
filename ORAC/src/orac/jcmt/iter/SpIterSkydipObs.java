@@ -26,176 +26,54 @@ import gemini.sp.obsComp.SpStareCapability;
 
 import java.util.Enumeration;
 
-import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 /**
- * Enumerater for the elements of the Observe iterator.
+ * Skydip Iterator for JCMT.
+ *
+ * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-class SpIterSkydipObsEnumeration extends SpIterEnumeration
-{
-   private int _curCount = 0;
-   private int _maxCount;
-   private SpIterValue[] _values;
+public class SpIterSkydipObs extends SpIterJCMTObs {
 
-SpIterSkydipObsEnumeration(SpIterSkydipObs iterObserve)
-{
-   super(iterObserve);
-   _maxCount    = iterObserve.getCount();
-}
+  public static String [] START_POSITIONS = { "Zenith", "Horizon", "Automatic" };
 
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curCount < _maxCount);
-}
-
-protected SpIterStep
-_thisFirstElement()
-{
-   SpIterSkydipObs ibo   = (SpIterSkydipObs) _iterComp;
-   String expTimeValue = String.valueOf(ibo.getExposureTime());
-   String coaddsValue  = String.valueOf(ibo.getCoadds());
-
-   _values = new SpIterValue[2];
-   _values[0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, expTimeValue);
-   _values[1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
-
-   return _thisNextElement();
-}
-
-protected SpIterStep
-_thisNextElement()
-{
-   return new SpIterStep("skydip", _curCount++, _iterComp, _values);
-}
-   
-}
-
-/**
- * modified for JCMT by Martin Folger (M.Folger@roe.ac.uk)
- */
-public class SpIterSkydipObs extends SpIterObserveBase
-{
-   public static final SpType SP_TYPE =
+  public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "skydipObs", "Skydip");
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterSkydipObs());
-}
+  // Register the prototype.
+  static {
+    SpFactory.registerPrototype(new SpIterSkydipObs());
+  }
 
 
-/**
- * Default constructor.
- */
-public SpIterSkydipObs()
-{
-   super(SP_TYPE);
-}
+  /**
+   * Default constructor.
+   */
+  public SpIterSkydipObs() {
+    super(SP_TYPE);
 
-/**
- * Override getTitle to return the observe count.
- */
-public String
-getTitle()
-{
-   if (getTitleAttr() != null) {
-      return super.getTitle();
-   }
+    _avTable.noNotifySet(ATTR_POSITIONS,      "1", 0);
+    _avTable.noNotifySet(ATTR_START_POSITION, START_POSITIONS[0], 0);
+  }
 
-   return "Skydip (" + getCount() + "X)";
-}
+  public int getPositions() {
+    return _avTable.getInt(ATTR_POSITIONS, 0);
+  }
 
-/**
- */
-public SpIterEnumeration
-elements()
-{
-   return new SpIterSkydipObsEnumeration(this);
-}
+  public void setPositions(int positions) {
+    _avTable.set(ATTR_POSITIONS, positions);
+  }
 
-/**
- * Override getExposureTime. Get the value from the instrument in
- * scope.
- */
-public double
-getExposureTime()
-{
-   SpItem _baseItem = parent();
-//MFO JCMT//   SpUKIRTInstObsComp spi = (SpUKIRTInstObsComp) SpTreeMan.findInstrument(_baseItem);
-//MFO JCMT//   return spi.getDefaultSkydipExpTime();
-/*MFO JCMT*/   return 0;
-}
+  public void setPositions(String positionsStr) {
+    _avTable.set(ATTR_POSITIONS, toInt(positionsStr));
+  }
 
-/**
- * Override setExposureTime to ignore what is passed in.
- */
-public void
-setExposureTime(double expTime)
-{
-   // Do nothing
-}
- 
-/**
- * Override setExposureTime to ignore what is passed in.
- */
-public void
-setExposureTime(String expTime)
-{
-   
-}
-/**
- * Override setCoadds to ignore what is passed in.
- */
-public void
-setCoadds(int coadds)
-{
-   // Do nothing
-}
- 
-/**
- * Override setCoadds to ignore what is passed in.
- */
-public void
-setCoadds(String coadds)
-{
-   
-}
+  public String getStartPosition() {
+    return _avTable.get(ATTR_START_POSITION, 0);
+  }
 
-/**
- * Override getting the coadds.so as to not inherit unless necessary.
- */
-public int
-getCoadds()
-{
-   // If the coadds has been set, use it.
-   if (_avTable.exists(ATTR_COADDS)) {
-      return _avTable.getInt(ATTR_COADDS, 1);
-   }
-
-   SpItem _baseItem = parent();
-//MFO JCMT//   SpUKIRTInstObsComp spi = (SpUKIRTInstObsComp) SpTreeMan.findInstrument(_baseItem);
-
-//MFO JCMT//   return spi.getDefaultSkydipCoadds();
-/*MFO JCMT*/   return 0;
-
-   // The following is the code for inheriting the coadds from the
-   // instrument. We don't do this on UKIRT. The coadds is defaulted,
-   // changeable by the instrument scientist only, in the instrument componet,
-   // like the xposure time.
-//    SpStareCapability stareCap;
-//    String name = SpStareCapability.CAPABILITY_NAME;
-//    int coadds = 1;
-//    stareCap = (SpStareCapability) spi.getCapability(name);
-//    if (stareCap != null) {
-//      coadds = stareCap.getCoadds();
-//    }
-//    return coadds;
-
-}
-
-
-
+  public void setStartPosition(String startPositionStr) {
+    _avTable.set(ATTR_START_POSITION, startPositionStr);
+  }
 }
 
 

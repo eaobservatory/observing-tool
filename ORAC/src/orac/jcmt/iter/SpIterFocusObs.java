@@ -26,176 +26,70 @@ import gemini.sp.obsComp.SpStareCapability;
 
 import java.util.Enumeration;
 
-import orac.ukirt.inst.SpUKIRTInstObsComp;
+import orac.jcmt.SpJCMTConstants;
+
 
 /**
- * Enumerater for the elements of the Observe iterator.
+ * Focus Iterator for JCMT.
  *
- * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
+ * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-class SpIterFocusObsEnumeration extends SpIterEnumeration
+public class SpIterFocusObs extends SpIterJCMTObs
 {
-   private int _curCount = 0;
-   private int _maxCount;
-   private SpIterValue[] _values;
+  public static String [] AXES = { "x", "y", "z" };
 
-SpIterFocusObsEnumeration(SpIterFocusObs iterObserve)
-{
-   super(iterObserve);
-   _maxCount    = iterObserve.getCount();
-}
-
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curCount < _maxCount);
-}
-
-protected SpIterStep
-_thisFirstElement()
-{
-   SpIterFocusObs ibo   = (SpIterFocusObs) _iterComp;
-   String expTimeValue = String.valueOf(ibo.getExposureTime());
-   String coaddsValue  = String.valueOf(ibo.getCoadds());
-
-   _values = new SpIterValue[2];
-   _values[0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, expTimeValue);
-   _values[1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
-
-   return _thisNextElement();
-}
-
-protected SpIterStep
-_thisNextElement()
-{
-   return new SpIterStep("focus", _curCount++, _iterComp, _values);
-}
-   
-}
-
-
-public class SpIterFocusObs extends SpIterObserveBase
-{
-   public static final SpType SP_TYPE =
+  public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "focusObs", "Focus");
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterFocusObs());
-}
+  // Register the prototype.
+  static {
+    SpFactory.registerPrototype(new SpIterFocusObs());
+  }
 
 
-/**
- * Default constructor.
- */
-public SpIterFocusObs()
-{
-   super(SP_TYPE);
-}
+  /**
+   * Default constructor.
+   */
+  public SpIterFocusObs() {
+    super(SP_TYPE);
 
-/**
- * Override getTitle to return the observe count.
- */
-public String
-getTitle()
-{
-   if (getTitleAttr() != null) {
-      return super.getTitle();
-   }
-
-   return "Focus (" + getCount() + "X)";
-}
-
-/**
- */
-public SpIterEnumeration
-elements()
-{
-   return new SpIterFocusObsEnumeration(this);
-}
-
-/**
- * Override getExposureTime. Get the value from the instrument in
- * scope.
- */
-public double
-getExposureTime()
-{
-   SpItem _baseItem = parent();
-//MFO JCMT//   SpUKIRTInstObsComp spi = (SpUKIRTInstObsComp) SpTreeMan.findInstrument(_baseItem);
-//MFO JCMT//   return spi.getDefaultFocusExpTime();
-/*MFO JCMT*/   return 0;
-}
-
-/**
- * Override setExposureTime to ignore what is passed in.
- */
-public void
-setExposureTime(double expTime)
-{
-   // Do nothing
-}
- 
-/**
- * Override setExposureTime to ignore what is passed in.
- */
-public void
-setExposureTime(String expTime)
-{
-   
-}
-/**
- * Override setCoadds to ignore what is passed in.
- */
-public void
-setCoadds(int coadds)
-{
-   // Do nothing
-}
- 
-/**
- * Override setCoadds to ignore what is passed in.
- */
-public void
-setCoadds(String coadds)
-{
-   
-}
-
-/**
- * Override getting the coadds.so as to not inherit unless necessary.
- */
-public int
-getCoadds()
-{
-   // If the coadds has been set, use it.
-   if (_avTable.exists(ATTR_COADDS)) {
-      return _avTable.getInt(ATTR_COADDS, 1);
-   }
-
-   SpItem _baseItem = parent();
-//MFO JCMT//   SpUKIRTInstObsComp spi = (SpUKIRTInstObsComp) SpTreeMan.findInstrument(_baseItem);
-
-//MFO JCMT//   return spi.getDefaultFocusCoadds();
-/*MFO JCMT*/   return 0;
-
-   // The following is the code for inheriting the coadds from the
-   // instrument. We don't do this on UKIRT. The coadds is defaulted,
-   // changeable by the instrument scientist only, in the instrument componet,
-   // like the xposure time.
-//    SpStareCapability stareCap;
-//    String name = SpStareCapability.CAPABILITY_NAME;
-//    int coadds = 1;
-//    stareCap = (SpStareCapability) spi.getCapability(name);
-//    if (stareCap != null) {
-//      coadds = stareCap.getCoadds();
-//    }
-//    return coadds;
-
-}
+    _avTable.noNotifySet(ATTR_AXIS,         AXES[0], 0);
+    _avTable.noNotifySet(ATTR_STEPS,        "0.0", 0);
+    _avTable.noNotifySet(ATTR_FOCUS_POINTS, "0", 0);
+  }
 
 
+  public String getAxis() {
+    return _avTable.get(ATTR_AXIS);
+  }
 
+  public void setAxis(String axis) {
+    _avTable.set(ATTR_AXIS, axis);
+  }
+
+  public double getSteps() {
+    return _avTable.getDouble(ATTR_STEPS, 0.0);
+  }
+
+  public void setSteps(double steps) {
+    _avTable.set(ATTR_STEPS, steps);
+  }
+  
+  public void setSteps(String stepsStr) {
+    _avTable.set(ATTR_STEPS, toDouble(stepsStr));
+  }
+
+  public int getFocusPoints() {
+    return _avTable.getInt(ATTR_FOCUS_POINTS, 0);
+  }
+
+  public void setFocusPoints(int focusPoints) {
+    _avTable.set(ATTR_FOCUS_POINTS, focusPoints);
+  }
+
+  public void setFocusPoints(String focusPointsStr) {
+    _avTable.set(ATTR_FOCUS_POINTS, toInt(focusPointsStr));
+  }
 }
 
 
