@@ -355,7 +355,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     int    currentNoCoadds         = 1;
     SpIterComp currentIterStepItem = null;
     boolean exposureTimeOverride   = false;
-    boolean coaddsFound            = false;
+    boolean coaddsOverride         = false;
 
     IterTrackerUKIRT() {
       if(_avTable.exists(ATTR_COADDS)) {
@@ -385,34 +385,37 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	  }
 
           if((attribute != null) && (value != null)) {
-            if(attribute.equals(ATTR_EXPOSURE_TIME)) {
-              currentExposureTime = Double.valueOf(value).doubleValue();
-	      if (currentIterStepItem instanceof SpIterConfigBase )
-		  exposureTimeOverride = true;
-	      expTimeFound = true;
-            }
-
-            if(attribute.equals(ATTR_COADDS) && !coaddsFound) {
-              currentNoCoadds = Integer.valueOf(value).intValue();
-	      coaddsFound = true;
-            }
-	  }
-
-	  if (!expTimeFound && !exposureTimeOverride) {
-	      // See if we can get an exposure time from the instrument
-	      SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
-	      if (instrument != null) {
-		  currentExposureTime = instrument.getExposureTime();
+	      if(attribute.equals(ATTR_EXPOSURE_TIME)) {
+		  currentExposureTime = Double.valueOf(value).doubleValue();
+		  if (currentIterStepItem instanceof SpIterConfigBase )
+		      exposureTimeOverride = true;
+		  expTimeFound = true;
 	      }
 	  }
-	  if (!coaddsFound) {
-	      SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
-	      if (instrument != null) {
-		  currentNoCoadds = instrument.getCoadds();
-	      }		  
+
+	  if(attribute.equals(ATTR_COADDS)) {
+	      currentNoCoadds = Integer.valueOf(value).intValue();
+	      if  ( currentIterStepItem instanceof SpIterConfigBase ) {
+		  coaddsOverride = true;
+	      }
+	      coaddsFound = true;
 	  }
-	}  
-      }
+	}
+
+	if (!expTimeFound && !exposureTimeOverride) {
+	    // See if we can get an exposure time from the instrument
+	    SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
+	    if (instrument != null) {
+		currentExposureTime = instrument.getExposureTime();
+	    }
+	}
+	if (!coaddsFound && !coaddsOverride ) {
+	    SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
+	    if (instrument != null) {
+		currentNoCoadds = instrument.getCoadds();
+	    }		  
+	}
+      }  
       catch(Exception e) {
         System.out.println("Could not process iteration step "
 	                 + spIterStep.title + " for time estimation:\n\n" + e);
