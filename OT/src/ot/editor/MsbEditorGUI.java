@@ -78,7 +78,7 @@ public class MsbEditorGUI extends JPanel {
 	priorityLow.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel4.setForeground(Color.black);
-	jLabel4.setText("Estimated Time (w/o calibrations)");
+	jLabel4.setText("Estimated Time (w/o optionals)");
 	estimatedTime.setEditable(false);
 	jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel7.setForeground(Color.black);
