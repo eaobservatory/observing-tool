@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 
 import java.util.Enumeration;
+import java.util.TreeSet;
 import java.util.Vector;
 
 import jsky.app.ot.editor.OtItemEditor;
@@ -87,7 +88,8 @@ _updateWidgets()
    _patternVector.add(SpIterMicroStep.NO_PATTERN);
    
    if((inst != null) && (inst instanceof SpMicroStepUser)) {
-     _patternVector.addAll(((SpMicroStepUser)inst).getMicroStepPatterns().keySet());
+       TreeSet ts = new TreeSet( ((SpMicroStepUser)inst).getMicroStepPatterns().keySet() );
+     _patternVector.addAll(ts);
    }
    
    _w.microStepPattern.setChoices(_patternVector);
