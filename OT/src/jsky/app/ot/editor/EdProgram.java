@@ -108,6 +108,7 @@ public final class EdProgram extends OtItemEditor
 	_showPropKind(_avTab.get(KIND));
 
 	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpProg)_spItem).getElapsedTime(), 1));
+	_w.totalTime.setText(OracUtilities.secsToHHMMSS( ((SpProg)_spItem).getTotalTime(), 1));
     }
 
     /**

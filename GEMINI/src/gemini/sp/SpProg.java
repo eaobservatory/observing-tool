@@ -145,6 +145,7 @@ setProjectID(String projectID)
    _avTable.set(ATTR_PROJECT_ID, projectID);
 }
 
+
 /**
  * Set timestamp.
  *
@@ -154,6 +155,37 @@ public void
 setTimestamp(int timestamp)
 {
    _avTable.set(ATTR_TIMESTAMP, timestamp);
+}
+
+/**
+ * Calculates the duration of this Science Program.
+ */
+public double getTotalTime()
+{
+  double elapsedTime = 0.0;
+  Enumeration children = children();
+  SpItem spItem = null;
+
+  while(children.hasMoreElements()) {
+    spItem = (SpItem)children.nextElement();
+
+    if(spItem instanceof SpMSB) {
+	if ( ((SpMSB)spItem).getNumberRemaining() >= 0 ) {
+	    elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
+	}
+    }
+
+
+    if(spItem instanceof SpAND) {
+      elapsedTime += ((SpAND)spItem).getTotalTime();
+    }
+
+    if(spItem instanceof SpOR) {
+      elapsedTime += ((SpOR)spItem).getTotalTime();
+    }
+  }
+
+  return elapsedTime;
 }
 
 /**

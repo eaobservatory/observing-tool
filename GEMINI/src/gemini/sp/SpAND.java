@@ -29,6 +29,25 @@ public class SpAND extends SpObsContextItem {
   /**
    * Calculates the duration of this AND folder.
    */
+  public double getTotalTime() {
+    double elapsedTime = 0.0;
+    Enumeration children = children();
+    SpItem spItem = null;
+
+    while(children.hasMoreElements()) {
+      spItem = (SpItem)children.nextElement();
+
+      if(spItem instanceof SpMSB) {
+        elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
+      }
+    }
+
+    return elapsedTime;
+  }
+
+  /**
+   * Calculates the duration of this AND folder.
+   */
   public double getElapsedTime() {
     double elapsedTime = 0.0;
     Enumeration children = children();

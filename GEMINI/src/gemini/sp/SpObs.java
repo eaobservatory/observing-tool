@@ -290,6 +290,9 @@ updateMsbAttributes()
 
     // If this SpObs is not and MSB then it does not have a priority. Remove the priority.
     _avTable.rm(SpObs.ATTR_PRIORITY);    
+
+    // If this Obs is not an MSB then remove the total time estimate
+    _avTable.rm(ATTR_TOTAL_TIME);
   }
   else {
     _avTable.set(ATTR_MSB, "true");

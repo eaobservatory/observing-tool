@@ -72,7 +72,7 @@ public class ObsGUI extends JPanel {
 
 	estimatedTimeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
 	estimatedTimeLabel.setForeground(Color.black);
-	estimatedTimeLabel.setText("Estimated Time");
+	estimatedTimeLabel.setText("Estimated Time (w/o calibration)");
 	estimatedTime.setEditable(false);
 
 	remainingLabel.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -137,10 +137,10 @@ public class ObsGUI extends JPanel {
 	this.add(obsState, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
 						  ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
 						  new Insets(10, 5, 0, 0), 0, 0));
-	this.add(optional, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0
+	this.add(optional, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0
 						  ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
 						  new Insets(5, 5, 5, 5), 0, 0));
-	this.add(standard, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
+	this.add(standard, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0
 						  ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
 						  new Insets(5, 5, 5, 5), 0, 0));
 	this.add(estimatedTimeLabel, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0

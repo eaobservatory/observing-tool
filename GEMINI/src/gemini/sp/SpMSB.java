@@ -59,6 +59,9 @@ public class SpMSB extends SpObsContextItem {
    /** This attribute records the estimated duration of the MSB. */
    public static final String ATTR_ELAPSED_TIME = "estimatedDuration";
 
+   /** This attribute records the estimated total duration of the MSB. */
+   public static final String ATTR_TOTAL_TIME = "totalDuration";
+
   /**
    * String used to indecate that the MSB has been removed.
    *
@@ -244,6 +247,38 @@ public void unSuspend() {
  * {@link #updateElapsedTime()} and {@link #ATTR_ELAPSED_TIME} are only
  * used in order to get the estimated time written to the XML output.
  */
+public double getTotalTime()
+{
+  double elapsedTime = 0.0;
+  Enumeration children = children();
+  SpItem spItem = null;
+
+  while(children.hasMoreElements()) {
+    spItem = (SpItem)children.nextElement();
+
+    if(spItem instanceof SpObs) {
+        elapsedTime += ((SpObs)spItem).getElapsedTime();
+    }
+  }
+
+  SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(this);
+
+  if(spInstObsComp != null) {
+    return elapsedTime + spInstObsComp.getSlewTime();
+  }
+  else {
+    return elapsedTime;
+  }  
+}
+
+/**
+ * Calculates the duration of this MSB.
+ *
+ * Note that this method does <B>not</B> return ATTR_ELAPSED_TIME.
+ * The return value is re-calculated whenever the method is called.
+ * {@link #updateElapsedTime()} and {@link #ATTR_ELAPSED_TIME} are only
+ * used in order to get the estimated time written to the XML output.
+ */
 public double getElapsedTime()
 {
   double elapsedTime = 0.0;
@@ -271,6 +306,16 @@ public double getElapsedTime()
 }
 
 /**
+ * Sets the ATTR_TOTAL_TIME attribute.
+ * 
+ * I.e. "saves" total time to the SpAvTable of this item.
+ */
+public void saveTotalTime() {
+  _avTable.set(ATTR_TOTAL_TIME, getTotalTime());
+//  _avTable.set(ATTR_TOTAL_TIME + ":units", "seconds");
+}
+
+/**
  * Sets the ATTR_ELAPSED_TIME attribute.
  * 
  * I.e. "saves" elapsed time to the SpAvTable of this item.
@@ -283,6 +328,13 @@ public void saveElapsedTime() {
 protected void
 processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
 {
+
+   if(avAttr.equals(ATTR_TOTAL_TIME)) {
+      xmlBuffer.append("\n  "   + indent + "<"  + ATTR_TOTAL_TIME + " units=\"seconds\">" + getTotalTime() +
+                                           "</" + ATTR_TOTAL_TIME + ">");
+
+      return;
+   }
 
    if(avAttr.equals(ATTR_ELAPSED_TIME)) {
       xmlBuffer.append("\n  "   + indent + "<"  + ATTR_ELAPSED_TIME + " units=\"seconds\">" + getElapsedTime() +

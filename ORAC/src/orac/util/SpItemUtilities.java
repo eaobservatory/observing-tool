@@ -86,6 +86,7 @@ public class SpItemUtilities {
   public static void saveElapsedTimes(SpItem spItem) {
     if(spItem instanceof SpMSB) {
       ((SpMSB)spItem).saveElapsedTime();
+      ((SpMSB)spItem).saveTotalTime();
     }
 
     if(spItem instanceof SpObsContextItem) {

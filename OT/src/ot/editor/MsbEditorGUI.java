@@ -39,6 +39,8 @@ public class MsbEditorGUI extends JPanel {
     DropDownListBoxWidgetExt remaining = new DropDownListBoxWidgetExt();
     JLabel jLabel5 = new JLabel();
     JLabel jLabel6 = new JLabel();
+    JLabel jLabel7 = new JLabel();
+    TextBoxWidgetExt totalTime = new TextBoxWidgetExt();
 
     // Added by SdW
     JCheckBox unSuspendCB = new JCheckBox();
@@ -76,8 +78,12 @@ public class MsbEditorGUI extends JPanel {
 	priorityLow.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel4.setForeground(Color.black);
-	jLabel4.setText("Estimated Time");
+	jLabel4.setText("Estimated Time (w/o calibrations)");
 	estimatedTime.setEditable(false);
+	jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+	jLabel7.setForeground(Color.black);
+	jLabel7.setText("Estimated Total Time");
+	totalTime.setEditable(false);
 	jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel5.setForeground(Color.black);
 	jLabel5.setText("X");
@@ -113,6 +119,12 @@ public class MsbEditorGUI extends JPanel {
 						 ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
 	this.add(estimatedTime, new GridBagConstraints(1, 3, 3, 1, 0.0, 0.0
 						       ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(15, 5, 5, 5), 0, 0));
+	this.add(jLabel7, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.EAST, GridBagConstraints.NONE,
+		    new Insets(10, 0, 0, 0), 0, 0));
+	this.add(totalTime, new GridBagConstraints(1, 4, 3, 1, 0.0, 0.0,
+		    GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+		    new Insets(15, 5, 5, 5), 0, 0));
 	this.add(remaining, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
 						   ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 	this.add(jLabel5, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0

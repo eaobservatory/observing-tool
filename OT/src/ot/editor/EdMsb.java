@@ -114,6 +114,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	// is saved to disk or stored to database.
 	// Then OracUtilities.set
 	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpMSB)_spItem).getElapsedTime(), 1));
+	_w.totalTime.setText(OracUtilities.secsToHHMMSS(((SpMSB)_spItem).getTotalTime(), 1));
     }
 
     /**

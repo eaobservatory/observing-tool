@@ -29,6 +29,8 @@ public class ProgramGUI extends JPanel {
   TextBoxWidgetExt projectIdBox = new TextBoxWidgetExt();
   JLabel jLabel5 = new JLabel();
   TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt();
+  JLabel jLabel6 = new JLabel();
+  TextBoxWidgetExt totalTime = new TextBoxWidgetExt();
 
     public ProgramGUI() {
         try {
@@ -69,8 +71,11 @@ public class ProgramGUI extends JPanel {
     jLabel3.setText("Project ID");
     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel5.setForeground(Color.black);
-    jLabel5.setText("Estimated Time");
+    jLabel5.setText("Estimated Time (w/o calibration)");
     estimatedTime.setEditable(false);
+    jLabel6.setText("Estimated Total Time");
+    jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
+    totalTime.setEditable(false);
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 5), 0, 0));
         this.add(titleBox, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0
@@ -99,6 +104,12 @@ public class ProgramGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
     this.add(estimatedTime, new GridBagConstraints(1, 4, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-        this.setPreferredSize(new Dimension(282, 260));
+    this.add(jLabel6, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0,
+		GridBagConstraints.CENTER, GridBagConstraints.NONE,
+		new Insets(10, 5, 0, 5), 0, 0));
+    this.add(totalTime, new GridBagConstraints(1, 5, 2, 1, 0.0, 0.0,
+		GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+		new Insets(0, 0, 0, 0), 0, 0));
+    this.setPreferredSize(new Dimension(282, 260));
     }
 }
