@@ -958,6 +958,7 @@
   <xsd:complexType>
     <xsd:all>
       <xsd:element ref="integrations"/>
+      <xsd:element name="widePhotometry"  type="xsd:boolean" minOccurs="0"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
 <!-- The following are required for heterodyne observations -->
       <xsd:element ref="switchingMode" minOccurs="0"/>
