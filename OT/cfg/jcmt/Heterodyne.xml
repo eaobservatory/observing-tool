@@ -6,6 +6,7 @@
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Samples</title>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="1"/>
       <SpInstHeterodyneRef idref="0"/>
       <title>Beam-switch sample</title>
@@ -126,6 +127,7 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="3"/>
       <SpInstHeterodyneRef idref="2"/>
       <title>Position-switch sample</title>
@@ -250,6 +252,7 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="5"/>
       <SpInstHeterodyneRef idref="4"/>
       <title>Fast Frequency-switch sample</title>
@@ -363,6 +366,7 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="7"/>
       <SpInstHeterodyneRef idref="6"/>
       <title>Slow Frequency-switch sample</title>
@@ -479,6 +483,7 @@
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Grids</title>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="9"/>
       <SpInstHeterodyneRef idref="8"/>
       <title>Beam-switch grid</title>
@@ -602,6 +607,7 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="11"/>
       <SpInstHeterodyneRef idref="10"/>
       <title>Position-switch grid</title>
@@ -729,6 +735,7 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="13"/>
       <SpInstHeterodyneRef idref="12"/>
       <title>Fast Frequency-switch grid</title>
@@ -845,6 +852,7 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="15"/>
       <SpInstHeterodyneRef idref="14"/>
       <title>Slow Frequency-switch grid</title>
@@ -964,6 +972,7 @@
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Raster</title>
     <SpMSB remaining="1" type="og" subtype="msb">
+      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="17"/>
       <SpInstHeterodyneRef idref="16"/>
       <title>Position-switch raster</title>
