@@ -2510,7 +2510,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
       // In the future a Michelle specific observation overhead
       // might be added, possibly replacing _obs_oh.
 
-      return (sampling_x * sampling_y * getActualObservationTime()) + int_oh +  + _obs_oh extra_oh;
+      return (sampling_x * sampling_y * getActualObservationTime()) + int_oh + _obs_oh + extra_oh;
     }
   }
 
