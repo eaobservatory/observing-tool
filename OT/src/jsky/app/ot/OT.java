@@ -83,8 +83,8 @@ public class OT extends JFrame {
 
 	makeLayout();
 
-	// Clean up on exit
-	addWindowListener(new BasicWindowMonitor());
+	// Clean up on exit (Commented out by MFO, 22 August 2001, other WindowListener is used.)
+	//addWindowListener(new BasicWindowMonitor());
     }
     
     /** Return the desktop, if using internal frames, otherwise null. */
@@ -250,9 +250,11 @@ public class OT extends JFrame {
       }
 
       if ((spItem != null) && (spItem instanceof SpLibrary)) {
-	Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) spItem));
-	desktop.add(c, JLayeredPane.DEFAULT_LAYER);
-	desktop.moveToFront(c);
+	// Changed by MFO, 22 August 2201
+	OtWindow.create(spItem, new FileInfo());
+	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) spItem));
+	//desktop.add(c, JLayeredPane.DEFAULT_LAYER);
+	//desktop.moveToFront(c);
       }
     }
 
