@@ -61,8 +61,19 @@ public class PolygonD implements Cloneable
          _awtPolygon = new Polygon(new int[npoints], new int[npoints], npoints);
       }
       for (int i=0; i<npoints; ++i) {
-         _awtPolygon.xpoints[i] = (int) (xpoints[i] + 0.5);
-         _awtPolygon.ypoints[i] = (int) (ypoints[i] + 0.5);
+         if(_awtPolygon.xpoints[i] < 0.0) {
+            _awtPolygon.xpoints[i] = (int) (xpoints[i] - 0.5);
+         }
+         else {
+            _awtPolygon.xpoints[i] = (int) (xpoints[i] + 0.5);
+         }
+
+         if(_awtPolygon.ypoints[i] < 0.0) {
+	    _awtPolygon.ypoints[i] = (int) (ypoints[i] - 0.5);
+         }
+	 else {
+	    _awtPolygon.ypoints[i] = (int) (ypoints[i] + 0.5);
+         }
       }
       return _awtPolygon;
    }
