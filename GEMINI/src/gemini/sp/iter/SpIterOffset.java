@@ -171,6 +171,19 @@ public void setPosAngle(double pa)
    getCurrentPosList().setPosAngle(pa);
 
    _posAngleObsData.setPosAngle(pa);
+
+   // SdW - Look for children which implement implement SpPosAngleObserver
+   Enumeration e = children();
+   while ( e.hasMoreElements() ) {
+       SpItem child = (SpItem)e.nextElement();
+       Class [] interfaces = child.getClass().getInterfaces();
+       for (int i=0; i < interfaces.length; i++) {
+	   if (interfaces[i].getName().indexOf("SpPosAngleObserver") != -1) {
+	       ((SpPosAngleObserver)child).posAngleUpdate(pa);
+	   }
+       }
+   }
+   // END
 }
 
 
