@@ -182,7 +182,7 @@ getChopThrowAsString()
 public double
 getChopThrow()
 {
-   return Double.parseDouble(getChopThrowAsString());
+   return Double.valueOf(getChopThrowAsString()).doubleValue();
 }
 
 /**
@@ -222,7 +222,7 @@ getChopAngleAsString()
 public double
 getChopAngle()
 {
-   return Double.parseDouble(getChopAngleAsString());
+   return Double.valueOf(getChopAngleAsString()).doubleValue();
 }
 
 /**
