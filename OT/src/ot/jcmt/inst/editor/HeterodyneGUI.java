@@ -229,7 +229,7 @@ public class HeterodyneGUI extends JPanel {
       mol1Panel.add ( moleculeChoice );
       mol1Panel.add ( transitionChoice );
       mol1Panel.add ( moleculeFrequency );
-      label = new JLabel("MHz");
+      label = new JLabel("GHz");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
       mol1Panel.add (label);

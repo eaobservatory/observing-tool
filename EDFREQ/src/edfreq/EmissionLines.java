@@ -189,7 +189,7 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
          if((i >= 0) && (i < lineStore.length) && (lineStore[i] != null)) {
             item = new JMenuItem ( lineStore[i].name       + "  " +
                                    lineStore[i].transition + "  " +
-                                   lineStore[i].frequency);
+                                   lineStore[i].frequency/1.0e3);
 
 	    popupLineTable.put(item, lineStore[i]);
 	    popupLinePosTable.put(item, new int[]{ i });

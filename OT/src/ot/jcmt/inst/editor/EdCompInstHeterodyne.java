@@ -315,7 +315,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          // be added so that the transition String matches the format of the transition Strings in the
          // LineCatalog.
          _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
-         _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
+         _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E9));
 	 if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) {
 	     _w.resolution.setText("" + (2*sideBandDisplay.getResolution(0)));
 	 }
@@ -612,7 +612,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       if ( transition != null )
       {
 
-         _w.moleculeFrequency.setText ( "" + transition.frequency/1.0E6 );
+         _w.moleculeFrequency.setText ( "" + transition.frequency/1.0E9 );
          String band = (String)_w.feBand.getSelectedItem();
 
          if ( sideBandDisplay != null )
@@ -736,7 +736,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       if ( transition != null )
       {
 
-         _w.moleculeFrequency2.setText ( "" + transition.frequency/1.0E6 );
+         _w.moleculeFrequency2.setText ( "" + transition.frequency/1.0E9 );
 
          if ( sideBandDisplay != null )
          {
@@ -752,7 +752,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    public void moleculeFrequencyChanged()
    {
       try {
-         double frequency = Double.parseDouble(_w.moleculeFrequency.getText()) * 1.0E6;
+         double frequency = Double.parseDouble(_w.moleculeFrequency.getText()) * 1.0E9;
 
 	 String band = (String)_w.feBand.getSelectedItem();
 
@@ -790,7 +790,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    public void moleculeFrequency2Changed()
    {
       try {
-         double frequency = Double.parseDouble(_w.moleculeFrequency2.getText()) * 1.0E6;
+         double frequency = Double.parseDouble(_w.moleculeFrequency2.getText()) * 1.0E9;
       
          if ( sideBandDisplay != null )
          {
@@ -1311,7 +1311,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _ignoreEvents = true;
       _w.moleculeChoice.setSelectedItem(NO_LINE);
       _w.transitionChoice.setSelectedItem(NO_LINE + " ");
-      _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E6));
+      _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E9));
       _ignoreEvents = false;
     }
 
@@ -1321,7 +1321,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     _ignoreEvents = true;
     _w.moleculeChoice.setSelectedItem(NO_LINE);
     _w.transitionChoice.setSelectedItem(NO_LINE + " ");
-    _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E6));
+    _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E9));
     _ignoreEvents = false;
 
     for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
