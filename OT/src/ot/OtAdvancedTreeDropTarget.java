@@ -1,3 +1,13 @@
+/*==============================================================*/
+/*                                                              */
+/*                UK Astronomy Technology Centre                */
+/*                 Royal Observatory, Edinburgh                 */
+/*                 Joint Astronomy Centre, Hilo                 */
+/*                   Copyright (c) PPARC 2001                   */
+/*                                                              */
+/*==============================================================*/
+// $Id$
+
 package ot;
 
 import java.awt.Point;
@@ -85,13 +95,17 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
   protected Point previousLocation = new Point();
   protected Point location         = new Point();
 
-  public OtAdvancedTreeDropTarget(OtTreeWidget treeWidget) {
+  protected OtAdvancedTreeDragSource dragSource;
+
+  public OtAdvancedTreeDropTarget(OtTreeWidget treeWidget, OtAdvancedTreeDragSource source) {
     super(treeWidget);
 
     insertImage[INSERT_INSIDE] = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_INSIDE_GIF))).getImage();
     insertImage[INSERT_AFTER]  = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_AFTER_GIF ))).getImage();
     insertImage[INSERT_NO]     = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_NO_GIF    ))).getImage();
-  
+
+    dragSource = source;
+
     tree.addKeyListener(this);
   }
 
@@ -148,6 +162,8 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
     previousLocation.x = location.x;
     previousLocation.y = location.y;
 
+    dragSource.overTreeNode(dtde);
+    
     super.dragOver(dtde);
   }
 
