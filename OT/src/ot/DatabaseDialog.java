@@ -224,6 +224,7 @@ public class DatabaseDialog implements ActionListener {
       spItem = SpClient.fetchProgram(projectID, password);
     }
     catch(Exception e) {
+	e.printStackTrace();
       JOptionPane.showMessageDialog(_dialogComponent, "Could not fetch Science Program.\n" + e.getMessage(),
                                     "Database Error", JOptionPane.ERROR_MESSAGE);
       _stopAction.actionsFinished();
