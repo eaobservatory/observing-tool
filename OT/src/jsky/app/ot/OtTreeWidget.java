@@ -25,6 +25,7 @@ import gemini.sp.obsComp.SpObsComp;
 import jsky.app.ot.util.Assert;
 import jsky.app.ot.util.ClipboardHelper;
 import jsky.util.gui.DialogUtil;
+import ot.OtAdvancedTreeDropTarget;
 
 /**
  * A helper class used when an attempt to place an observation component in
@@ -80,7 +81,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      */
     public OtTreeWidget() {
 	// Add a drop target to the FileTree
-	OtTreeDropTarget target = new OtTreeDropTarget(this);
+	OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget(this);
 
 	// Add a drag source to the FileTree
 	OtTreeDragSource source = new OtTreeDragSource(this);
