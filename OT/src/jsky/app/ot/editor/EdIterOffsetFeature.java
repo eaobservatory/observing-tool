@@ -13,6 +13,7 @@ import java.awt.Polygon;
 import java.awt.geom.Point2D;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
@@ -38,13 +39,16 @@ import jsky.app.ot.util.PropertyWatcher;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosList;
 import gemini.util.TelescopePosSelWatcher;
-
+import orac.util.SpMapItem;
 
 /**
  * A TpeImageFeature extension to draw and manipulate offset positions on
  * the graphical position editor.  This feature will be displayed whenever
  * the SpIterOffset item is selected in the hierarchy view with the position
  * editor open.
+ *
+ * @author modified for JCMT (position angle, scan area display)
+ *         by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class EdIterOffsetFeature extends TpeImageFeature
     implements TpeDraggableFeature, TpeEraseableFeature,
@@ -82,6 +86,8 @@ public class EdIterOffsetFeature extends TpeImageFeature
 
     private FitsPosMapEntry _dragObject;
 
+    private Vector          _mapItems = new Vector();
+
     static {
 	// Initialize the properties supported by the Offset feature.
 	_props = new BasicPropertyList();
@@ -116,7 +122,9 @@ public class EdIterOffsetFeature extends TpeImageFeature
 	Assert.notFalse(iw.getBaseItem() instanceof SpIterOffset);
 
 	_iterOffset = (SpIterOffset) iw.getBaseItem();
-	_opl        = _iterOffset.getPosList();
+	_opl        = _iterOffset.getRotatedPosList(); // changed by MFO, 15 February 2002
+	_mapItems.clear();
+	findMapItems(_iterOffset, _mapItems);
 
 	if (_selWatcher == null) {
 	    // Watch for selections of offset positions.  When one is selected,
@@ -261,6 +269,15 @@ public class EdIterOffsetFeature extends TpeImageFeature
 		    break;
 		}
 	    }
+
+            if(_mapItems != null) {
+	      for(int j = 0; j < _mapItems.size(); j++) {
+                g.drawPolygon(getPolygon((double) p.x,
+		                         (double) p.y,
+					 (SpMapItem)_mapItems.get(j),
+					 fii));
+	      }
+	    }
 	}
     }
 
@@ -356,6 +373,66 @@ public class EdIterOffsetFeature extends TpeImageFeature
     public boolean create(FitsMouseEvent fme, FitsImageInfo fii, String label) {
 	_opl.createPosition(fme.xOffset, fme.yOffset);
 	return true;
+    }
+
+    /**
+     *
+     */
+    private static void findMapItems(SpItem spItem, Vector mapItemVector) {
+      Enumeration children = spItem.children();
+      SpItem  child        = null;
+
+      while(children.hasMoreElements()) {
+        child = (SpItem)children.nextElement();
+
+        if(child instanceof SpMapItem) {
+          mapItemVector.add(child);
+	}
+      
+        findMapItems(child, mapItemVector);
+      }
+    }
+
+    private static Polygon getPolygon(double x, double y, SpMapItem spMapItem, FitsImageInfo fii) {
+      Polygon polygon = new Polygon();
+      double corner_x, corner_y, corner_x_rotated, corner_y_rotated;
+      double w        =  spMapItem.getWidth();
+      double h        =  spMapItem.getHeight();
+      double posAngle = (spMapItem.getPosAngle() * Math.PI) / 180.0;
+
+      // Upper right corner
+      corner_x         =  (w / 2.0) * fii.pixelsPerArcsec;
+      corner_y         =  (h / 2.0) * fii.pixelsPerArcsec;
+      corner_x_rotated = (corner_x *   Math.cos(posAngle))  + (corner_y * Math.sin(posAngle));
+      corner_y_rotated = (corner_x * (-Math.sin(posAngle))) + (corner_y * Math.cos(posAngle));
+
+      polygon.addPoint((int)(corner_x_rotated + x), (int)(corner_y_rotated + y));
+
+      // Upper left corner
+      corner_x         = -(w / 2.0) * fii.pixelsPerArcsec;
+      corner_y         =  (h / 2.0) * fii.pixelsPerArcsec;
+      corner_x_rotated = (corner_x *   Math.cos(posAngle))  + (corner_y * Math.sin(posAngle));
+      corner_y_rotated = (corner_x * (-Math.sin(posAngle))) + (corner_y * Math.cos(posAngle));
+
+      polygon.addPoint((int)(corner_x_rotated + x), (int)(corner_y_rotated + y));
+
+      // Lower left corner
+      corner_x         = -(w / 2.0) * fii.pixelsPerArcsec;
+      corner_y         = -(h / 2.0) * fii.pixelsPerArcsec;
+      corner_x_rotated = (corner_x *   Math.cos(posAngle))  + (corner_y * Math.sin(posAngle));
+      corner_y_rotated = (corner_x * (-Math.sin(posAngle))) + (corner_y * Math.cos(posAngle));
+
+      polygon.addPoint((int)(corner_x_rotated + x), (int)(corner_y_rotated + y));
+
+      // Lower right corner
+      corner_x         =  (w / 2) * fii.pixelsPerArcsec;
+      corner_y         = -(h / 2) * fii.pixelsPerArcsec;
+      corner_x_rotated = (corner_x *   Math.cos(posAngle))  + (corner_y * Math.sin(posAngle));
+      corner_y_rotated = (corner_x * (-Math.sin(posAngle))) + (corner_y * Math.cos(posAngle));
+
+      polygon.addPoint((int)(corner_x_rotated + x), (int)(corner_y_rotated + y));
+
+      return polygon;
     }
 }
 
