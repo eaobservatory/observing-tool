@@ -56,8 +56,10 @@ public class SpSiteQualityObsComp extends SpObsComp
       "photometric", "spectroscopic", "ignore"
    };
 
+   public static final String SUBTYPE = "schedInfo";
+
    public static final SpType SP_TYPE =
-   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo", "Site Quality");
+   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Site Quality");
 
    // Register the prototype.
    static {
