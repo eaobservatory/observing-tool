@@ -130,7 +130,7 @@ public class SpType implements java.io.Serializable
 
    /** The "target list" observation component. */
    public static final SpType OBSERVATION_COMPONENT_TARGET_LIST =
-	SpType.create(OBSERVATION_COMPONENT_TYPE, "targetList", "Target List");
+	SpType.create(OBSERVATION_COMPONENT_TYPE, "targetList", "Target Information");
 
 
    // Some Specific Iterator Components
