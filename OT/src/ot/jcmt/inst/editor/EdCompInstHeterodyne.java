@@ -519,8 +519,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	      try {
 		  _instHeterodyne.removeNamedConfiguration();
 		  updateSideBandDisplay();
-//  		  Exception e = new Exception();
-//  		  e.printStackTrace();
 	      }
 	      catch (Exception e) {
 		  // The named configuration item did not exist
@@ -609,21 +607,24 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
 
-      for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-        sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
-        sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
-
-        if(i > 0) {
-           sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-                                       _instHeterodyne.getTransition(i) + "  " +
-                                       _instHeterodyne.getRestFrequency(i), i);
-         }
+      if ( _instHeterodyne != null ) {
+	  for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
+	      sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
+	      sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
+	      
+	      if(i > 0) {
+		  sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
+					      _instHeterodyne.getTransition(i) + "  " +
+					      _instHeterodyne.getRestFrequency(i), i);
+	      }
+	  }
       }
    }
 
     public void feMixersAction (ActionEvent ae) {
 	_instHeterodyne.setMixer((String)_w.feMixers.getSelectedItem());
-	updateSideBandDisplay();
+	if ( _instHeterodyne.getNamedConfiguration() == null )
+	    updateSideBandDisplay();
 	_updateWidgets();
     }
 
@@ -738,96 +739,102 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _resetAdditionalSubSystems();
    }
 
-   private void _resetTransition()
-   {
+    private void _resetTransition()
+    {
+	boolean isTransition = true;
+	Transition transition = null;
 
-      if(!(_w.transitionChoice.getSelectedItem() instanceof Transition)) {
-         return;
-      }
+	if(!(_w.transitionChoice.getSelectedItem() instanceof Transition)) {
+	    isTransition = false;
+	}
+	else {
+	    transition = (Transition)_w.transitionChoice.getSelectedItem();
+	    if ( transition == null ) return;
+	}
+	
+	if ( isTransition ) {
+	    _w.moleculeFrequency.setText ( "" + transition.frequency/1.0E9 );
+	}
 
-      Transition transition = (Transition)_w.transitionChoice.getSelectedItem();
+	String band = (String)_w.feBand.getSelectedItem();
 
-      if ( transition != null )
-      {
+	if ( sideBandDisplay != null )
+	    {
+		double obsFrequency;
+		if ( isTransition ) {
+		    sideBandDisplay.setMainLine ( transition.frequency );
+		    obsFrequency = transition.frequency / ( 1.0 + redshift );
+		}
+		else {
+		    double mainLineFreq = Double.parseDouble( _w.moleculeFrequency.getText() ) * 1.0e9;
+		    sideBandDisplay.setMainLine ( mainLineFreq );
+		    obsFrequency = mainLineFreq / ( 1.0 + redshift );
+		}
 
-         _w.moleculeFrequency.setText ( "" + transition.frequency/1.0E9 );
-         String band = (String)_w.feBand.getSelectedItem();
+		// Adjust the LO1. If this would mean exceeding the LO range then
+		// swap sidebands.
+		if ( band.equals ( "usb" ) || band.equals("best") )
+		    {
+			if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
 
-         if ( sideBandDisplay != null )
-         {
+			    if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
+				JOptionPane.showMessageDialog(_w, "Using lower sideband in order to reach line.",
+							      "Changing sideband", JOptionPane.WARNING_MESSAGE);
+			    }
 
-            sideBandDisplay.setMainLine ( transition.frequency );
+			    _w.feBand.setSelectedItem("lsb");
+			    sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
+			}
+			else {
+			    sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
+			}
+		    }
+		else
+		    {
+			if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
 
+			    if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
+				JOptionPane.showMessageDialog(_w, "Using upper sideband in order to reach line.",
+							      "Changing sideband", JOptionPane.WARNING_MESSAGE);
+			    }
 
-            double obsFrequency = transition.frequency / 
-              ( 1.0 + redshift );
+			    _w.feBand.setSelectedItem("best");
+			    sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
+			}
+			else {
+			    sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
+			}
+		    }
 
-
-            // Adjust the LO1. If this would mean exceeding the LO range then
-            // swap sidebands.
-            if ( band.equals ( "usb" ) || band.equals("best") )
-            {
-	       if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
-
-                  if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
-                     JOptionPane.showMessageDialog(_w, "Using lower sideband in order to reach line.",
-                     "Changing sideband", JOptionPane.WARNING_MESSAGE);
-                  }
-
-                  _w.feBand.setSelectedItem("lsb");
-                  sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
-	       }
-	       else {
-                  sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
-               }
-            }
-            else
-            {
-	       if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
-
-                  if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
-                     JOptionPane.showMessageDialog(_w, "Using upper sideband in order to reach line.",
-                     "Changing sideband", JOptionPane.WARNING_MESSAGE);
-                  }
-
-                  _w.feBand.setSelectedItem("best");
-                  sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
-	       }
-	       else {
-                  sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
-               }
-            }
-
-            // If the LO range would still be exceeded then adjust the centre frequency of the top system.
-            // Set band to the new value as it might have been swapped above.
-            band = (String)_w.feBand.getSelectedItem();
-            boolean stillOutOfRange = false;
+		// If the LO range would still be exceeded then adjust the centre frequency of the top system.
+		// Set band to the new value as it might have been swapped above.
+		band = (String)_w.feBand.getSelectedItem();
+		boolean stillOutOfRange = false;
 
 
-            if ( band.equals ( "lsb" ) )
-            {
-	       if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
-                  sideBandDisplay.setCentreFrequency(Math.abs(obsFrequency - sideBandDisplay.getLO1()), 0);
-               }
-            }
-            else
-            {
-	       if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
-                  sideBandDisplay.setCentreFrequency(Math.abs(obsFrequency - sideBandDisplay.getLO1()), 0);
-	       }
-            }
+		if ( band.equals ( "lsb" ) )
+		    {
+			if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
+			    sideBandDisplay.setCentreFrequency(Math.abs(obsFrequency - sideBandDisplay.getLO1()), 0);
+			}
+		    }
+		else
+		    {
+			if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
+			    sideBandDisplay.setCentreFrequency(Math.abs(obsFrequency - sideBandDisplay.getLO1()), 0);
+			}
+		    }
 
-            sideBandDisplay.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
+		sideBandDisplay.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
 
-            if(!_ignoreSpItem) {
-               _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), 0);
-               _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
-               _instHeterodyne.setRestFrequency(transition.frequency, 0);
-               _instHeterodyne.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
-            }
-         }
-      }
-   }
+		if(!_ignoreSpItem && isTransition ) {
+		    _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), 0);
+		    _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
+		    _instHeterodyne.setRestFrequency(transition.frequency, 0);
+		    _instHeterodyne.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
+		}
+	    }
+    }
 
    /**
     * Sets the centre frequencies of the remaining subsystems to that of the top subsystem.
@@ -980,7 +987,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 //         _w.overlap.setEnabled(false);
 //      }
 
-      updateSideBandDisplay();
+      if ( !_ignoreSpItem && _instHeterodyne.getNamedConfiguration() == null )
+	  updateSideBandDisplay();
 
       if(!_ignoreSpItem) {
 
@@ -1103,7 +1111,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
       _ignoreEvents = false;
 
-//       feTransitionAction(null);
+//        feTransitionAction(null);
    }
 
 
@@ -1200,7 +1208,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 
 /* Update display of sidebands and subbands */
-      updateSideBandDisplay();
+      if ( !_ignoreSpItem && _instHeterodyne.getNamedConfiguration() == null )
+	  updateSideBandDisplay();
 
       if(!_ignoreSpItem) {
          _instHeterodyne.setFrontEnd(newFE);
@@ -1304,6 +1313,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          _instHeterodyne.setVelocityFromRedshift(redshift);
 	 _instHeterodyne.setRefFrameVelocity(dvalue);
       }
+
+      if ( _instHeterodyne != null && _instHeterodyne.getNamedConfiguration() != null) {
+	  _w.specialConfigurations.setSelectedItem( _instHeterodyne.getNamedConfiguration() );
+      }
    }
 
    public void feVelocityDefinitionAction ( ActionEvent ae ) {
@@ -1343,7 +1356,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       _updateBandWidthChoice(currentBandSpec.getBandWidths(feOverlap));
 
-      updateSideBandDisplay();
+      if ( _instHeterodyne.getNamedConfiguration() == null )
+	  updateSideBandDisplay();
 
       bandWidthChoiceAction(null);
    }

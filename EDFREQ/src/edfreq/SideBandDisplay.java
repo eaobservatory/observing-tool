@@ -69,6 +69,16 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
    {
 
       setTitle ( "Frequency editor: front end = " + feName );
+//       System.out.println("Updating sideband display with parametrs");
+//       System.out.println("feName = "+feName);
+//       System.out.println("lRangeLimit = "+lRangeLimit);
+//       System.out.println("uRangeLimit = "+uRangeLimit);
+//       System.out.println("feIF = "+feIF);
+//       System.out.println("feBandWidth = "+feBandWidth);
+//       System.out.println("nMixers = "+nMixers);
+//       System.out.println("redshift = "+redshift);
+//       Exception e = new Exception ();
+//       e.printStackTrace();
 
       int j;
 
@@ -279,46 +289,68 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       this.redshift = redshift;
 
       if(el != null) {
+	  System.out.println("Setting emmission line redshift");
          el.setRedshift ( redshift );
       }
 
       if(targetScale != null) {
+	  System.out.println("Setting target scale redshift");
          targetScale.setRedshift ( redshift );
       }
    }
 
 
    public double getTopSubSystemCentreFrequency() {
-      return ((Sampler)jt.getSamplers()[0]).getCentreFrequency();
+       if ( jt == null ) {
+	   return 0.0;
+       }
+       else {
+	   return ((Sampler)jt.getSamplers()[0]).getCentreFrequency();
+       }
    }
 
    public int getResolution(int subsystem) {
-      return ((Sampler)jt.getSamplers()[subsystem]).getResolution();
+       if ( jt == null ) {
+	   return 0;
+       }
+       else {
+	   return ((Sampler)jt.getSamplers()[subsystem]).getResolution();
+       }
    }
 
    public int getNumSubSystems() {
-      return jt.getSamplers().length;
+       if ( jt == null ) {
+	   return 0;
+       }
+       else {
+	   return jt.getSamplers().length;
+       }
    }
 
    public void setCentreFrequency(double centre, int subsystem) {
+       if ( jt == null) return;
       jt.getSamplers()[subsystem].setCentreFrequency(centre);
    }
 
    public void setBandWidth(double width, int subsystem) {
+       if ( jt == null) return;
       jt.getSamplers()[subsystem].setBandWidth(width);
    }
 
    public void setLineText(String lineText, int subsystem) {
+       if ( jt == null) return;
       jt.setLineText(lineText, subsystem);
    }
 
    public void resetModeAndBand(String mode, String band)
    {
+       if ( jt == null) return;
       jt.resetModeAndBand(mode, band);
    }
 
     public void moveSlider( String band, double newPos, int subsystem ) {
 	double deltaF = 4.0e9 - newPos;
+       if ( jt == null) return;
 	jt.moveSlider(band, deltaF, subsystem);
     }
 
