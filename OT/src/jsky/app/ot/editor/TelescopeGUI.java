@@ -126,6 +126,9 @@ public class TelescopeGUI extends JPanel {
   JLabel xUnitsLabel = new JLabel();
   JLabel yUnitsLabel = new JLabel();
 
+  JLabel targetType = new JLabel();
+  DropDownListBoxWidgetExt targetTypeDDList = new DropDownListBoxWidgetExt();
+
     public TelescopeGUI() {
         try {
             jbInit();
@@ -159,6 +162,9 @@ public class TelescopeGUI extends JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel1.setForeground(Color.black);
         jLabel1.setText("Name");
+        targetType.setFont(new java.awt.Font("Dialog", 0, 12));
+        targetType.setForeground(Color.black);
+        targetType.setText("TargetType");
 	nameResolversDDLBW.setFont(new java.awt.Font("Dialog", 0, 10)); // MFO
 	resolveButton.setText("Resolve Name"); //MFO
         setBaseButton.setMargin(new Insets(2, 2, 2, 2));
@@ -171,6 +177,7 @@ public class TelescopeGUI extends JPanel {
         removeButton.setText("Remove");
         this.setPreferredSize(new Dimension(360, 400));
         tagDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
+	targetTypeDDList.setFont(new java.awt.Font("Dialog", 0, 12));
         systemDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel17.setFont(new java.awt.Font("Dialog", 0, 10));
         jLabel17.setForeground(Color.black);
@@ -333,6 +340,8 @@ public class TelescopeGUI extends JPanel {
     nameTagPanel.add(nameTBW, null);
     nameTagPanel.add(jLabel2, null);
     nameTagPanel.add(tagDDLBW, null);
+    nameTagPanel.add(targetType, null);
+    nameTagPanel.add(targetTypeDDList, null);
     this.add(targetSystemsTabbedPane, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
@@ -429,6 +438,13 @@ public class TelescopeGUI extends JPanel {
     namedSystemPanel.add(namedTarget, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 
+    for (int i=0; i<targetSystemsTabbedPane.getTabCount(); i++) {
+	targetSystemsTabbedPane.setEnabledAt(i, false);
+	Component [] component = ((JPanel)targetSystemsTabbedPane.getComponentAt(i)).getComponents();
+	for (int j=0; j<component.length; j++) {
+	    component[j].setEnabled(false);
+	}
+    }
 
     // chop mode added by MFO (3 August 2001)
     chopPW.add(jLabel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
