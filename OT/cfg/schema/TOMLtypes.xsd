@@ -44,7 +44,7 @@
 
 <xsd:simpleType name="nameType">
   <xsd:restriction base="xsd:string">
-    <xsd:pattern value="[A-za-z0-9_\+\- ]*"/>
+    <xsd:pattern value="[A-Za-z0-9_\+\- \.]*"/>
   </xsd:restriction>
 </xsd:simpleType>
 
