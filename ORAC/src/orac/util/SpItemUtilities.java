@@ -24,6 +24,7 @@ import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpObs;
+import gemini.sp.SpNote;
 import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -177,6 +178,7 @@ public class SpItemUtilities {
 	_insertReferenceIDsFor(findSiteQuality(spItem), spItem);
 	_insertReferenceIDsFor(findSchedConstraint(spItem), spItem);
 	_insertReferenceIDsFor(findDRRecipe(spItem), spItem);
+	_insertReferenceIDsFor(findNote(spItem), spItem);
       }
       else {
         SpItem child = spItem.child();
@@ -189,25 +191,38 @@ public class SpItemUtilities {
     }  
   }
 
+  /**
+   * @param spObsCompVector
+   *                  This vector used to contain only items of type SpObsComp
+   *                  but it can now contain any items of type SpItem
+   *                  in order to allow top level SpNotes to be inherited
+   *                  by MSBs that are further down in the tree. This is the
+   *                  same kind of inheritance that applies to SpObsComp items
+   *                  such as instrument components, site quality components etc.
+   */
   protected void _insertReferenceIDsFor(Vector spObsCompVector, SpItem spItem) {
     if(spObsCompVector == null) {
       return;
     }
 
     for(int i = 0; i < spObsCompVector.size(); i++) {
-      _insertReferenceIDsFor((SpObsComp)spObsCompVector.get(i), spItem);
+      _insertReferenceIDsFor((SpItem)spObsCompVector.get(i), spItem);
     }
   }
 
   /**
-   *
+   * @param spObsComp This argument used to be of type SpObsComp but it has been changed to
+   *                  SpItem in order to allow top level SpNotes to be inherited
+   *                  by MSBs that are further down in the tree. This is the
+   *                  same kind of inheritance that applies to SpObsComp items
+   *                  such as instrument components, site quality components etc.
    */
-  protected void _insertReferenceIDsFor(SpObsComp spObsComp, SpItem spItem) {
+  protected void _insertReferenceIDsFor(SpItem spObsComp, SpItem spItem) {
     if((spObsComp == null) || (spItem == null)) {
       return;
     }
 
-    // See whether the SpTelescopeObsComp (target list) has an id already.
+    // See whether the spObsComp (e.g. observation component or SpNote) has an id already.
     // If so use it for idref of the SpMSB.
     String idString = spObsComp.getTable().get(ATTR_ID);
     if(idString != null) {
@@ -215,7 +230,8 @@ public class SpItemUtilities {
         spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
 	idString, 0);
     }
-    // No id yet. Use _idCounter for both SpTelescopeObsComp (target list) and SpMSB. 
+    // No id yet. Use _idCounter for both spObsComp (e.g. observation component or SpNote)
+    // and spItem (e.g. SpMSB/SpObs). 
     else {
        spObsComp.getTable().noNotifySet(ATTR_ID, "" + _idCounter, 0);
        spItem.getTable().noNotifySet(
@@ -280,6 +296,25 @@ findDRRecipeInContext(SpItem spItem)
       }
    }
    return drr;
+}
+
+/**
+ * Find the SpNote assoicated with this context, if any.  Only
+ * searches the given scope.  It does not navigate the tree hierarchy.
+ */
+public static SpNote
+findNoteInContext(SpItem spItem)
+{
+   SpNote note = null;
+   Enumeration e = spItem.children();
+   while (e.hasMoreElements()) {
+      SpItem child = (SpItem) e.nextElement();
+      if (child instanceof SpNote) {
+         note = (SpNote) child;
+         break;
+      }
+   }
+   return note;
 }
 
 /**
@@ -373,6 +408,43 @@ findDRRecipe(SpItem spItem)
       return findDRRecipe(parent);
    }
    return drr;
+}
+
+/**
+ * Find the SpNote associated with the scope of the given item.
+ *
+ * The idea of note covering a scope rather than just being
+ * associated with an item is new. It was introduced in connection
+ * with SpMSB folders. Having notes that cover a scope allows
+ * notes that are added to a top level folder (AND, OR, Science Program)
+ * to be accessible to all MSBs in the scope. This is useful
+ * when the Science Program tree is disassembled into MSBs (e.g. in the OMP)
+ *
+ * @param spItem the SpItem defining the scope to search
+ */
+public static SpNote
+findNote(SpItem spItem)
+{
+   if (spItem instanceof SpNote) {
+      return (SpNote) spItem;
+   }
+
+   SpItem parent = spItem.parent();
+
+   SpNote note;
+   if (!(spItem instanceof SpObsContextItem)) {
+      if (parent == null) {
+         return null;
+      }
+      note = findNoteInContext(parent);
+   } else {
+      note = findNoteInContext(spItem);
+   }
+
+   if ((note == null) && (parent != null)) {
+      return findNote(parent);
+   }
+   return note;
 }
 
 }
