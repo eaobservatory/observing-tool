@@ -142,6 +142,11 @@ _updateWidgets()
 
    // Show the lamp
    _updateLampChoices();
+
+   // Make sure _ignoreActionEvents is set to true again after having been set to
+   // false at the end of _updateLampChoices()
+   _ignoreActionEvents = true;
+   
    String lamp = ico.getLamp();
    _w.lamp.setValue( lamp );
    ico.setLamp(lamp);
@@ -188,6 +193,7 @@ _updateWidgets()
          ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "FLAT");
    
          _w.flatSampling.setChoices( ico.getFlatSamplingChoices());
+         _w.flatSampling.setValue( ico.getFlatSampling() );
       }else{
          // MFO: "EMPTY" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
          ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "EMPTY");
