@@ -15,6 +15,7 @@ import jsky.app.ot.fits.gui.FitsPosMapEntry;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
 
 import gemini.sp.SpTelescopePos;
+import gemini.util.CoordSys;
 
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.tpe.TpeImageWidget;
@@ -99,6 +100,11 @@ public class TpeBasePosFeature extends TpePositionFeature {
 	FitsPosMapEntry pme = pm.getPositionMapEntry( SpTelescopePos.BASE_TAG );
 	if (positionIsClose( pme, fme.xWidget, fme.yWidget )) {
 	    _dragObject = pme;
+
+	    SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
+	    tp.setOffsetPosition(false);
+	    tp.setCoordSys(CoordSys.FK5);
+
 	    return true;
 	}
 	return false;
