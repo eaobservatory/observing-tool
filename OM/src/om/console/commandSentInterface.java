@@ -11,7 +11,6 @@ import javax.swing.*;
 */
 public interface commandSentInterface extends Remote
 {
-  public void sendCommand() throws RemoteException;
   public void setInit (int i) throws RemoteException;
   public void setStart () throws RemoteException;
   public void setMonitorOn () throws RemoteException;

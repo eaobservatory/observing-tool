@@ -259,7 +259,7 @@ final public class messageServer extends UnicastRemoteObject implements messageS
 	    if(completionMessage.action.equals("target")) {
 
 	      if(consoleList.getConnectedInstrument().equals("NONE")) {
-	        uPanel.getTCSconnection().setText("Connected!!");
+	        uPanel.getTCSconnection().setText("Connected");
 	        consoleList.setConnectedInstrument(instName);
 	      }
 	      return;
@@ -272,7 +272,7 @@ final public class messageServer extends UnicastRemoteObject implements messageS
 	      for(int i=0;i<consoleList.getList().size();i++) {
 	        temp = (sequenceFrame)consoleList.getList().elementAt(i);
 	        if(temp.getInstrument().equals(consoleList.getConnectedInstrument())) {
-	          temp.getUpperPanel().getTCSconnection().setText("disconnected");
+	          temp.getUpperPanel().getTCSconnection().setText("Disconnected");
 	          break;
 	        }
 	      }

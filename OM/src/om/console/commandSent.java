@@ -43,7 +43,7 @@ final public class commandSent extends UnicastRemoteObject
     }
 
   /**
-     public synchronized void sendCommand ()
+     private synchronized void sendCommand (String dramaCommand)
      sends a command/string to the socket.
      Please note this is synchronized
      
@@ -51,16 +51,16 @@ final public class commandSent extends UnicastRemoteObject
      @return none
      @throws RemoteException
   */
-  public synchronized void sendCommand () throws RemoteException
+  private synchronized void sendCommand (String dramaCommand) throws RemoteException
     {
       
       // Check command before sending
-      if (command != null) {
+      if (dramaCommand != null) {
 	if (ssocket.getSocket()!=null) {
 	  try {
 	    OutputStream os=ssocket.getSocket().getOutputStream();
 	    
-	    OutputThread ot =new OutputThread(os,command);
+	    OutputThread ot =new OutputThread(os, dramaCommand);
 	    ot.start();
 	    
 	    try {
@@ -79,7 +79,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**
      public void setInit (int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action init in a drama task OOS_****
      
      @param int tag
@@ -97,7 +97,7 @@ final public class commandSent extends UnicastRemoteObject
 	("Dobey OOS_"+instName+" init ");
 
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -105,7 +105,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**
      public void setLink (String task)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action LINK in a drama task MONITOR_****
      
      @param String
@@ -115,9 +115,8 @@ final public class commandSent extends UnicastRemoteObject
   public void setLink (String task) throws RemoteException
     {
       command= new String ("Dobeyw MONITOR_"+instName+" LINK Argument1="+task);
-
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -138,7 +137,7 @@ final public class commandSent extends UnicastRemoteObject
       command = new String("Dobey MONITOR_"+instName+" START ");
 
       try {
-        sendCommand();
+        sendCommand (command);
       } catch (RemoteException re) {
         System.out.println ("Exception in sendCommand:"+re);
       }
@@ -148,7 +147,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**
      public void setStart ()
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action setHeader in a drama task DHSPOOL three times
      it also will run an action GETP in a drama task MONITOR_****
      
@@ -163,7 +162,7 @@ final public class commandSent extends UnicastRemoteObject
 	 System.getProperty("loginUserId")+"\" ");
 
       try {
-      sendCommand();
+      sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -173,7 +172,7 @@ final public class commandSent extends UnicastRemoteObject
 	 System.getProperty("observingType")+"\" ");
 
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -182,7 +181,7 @@ final public class commandSent extends UnicastRemoteObject
       //new requirement from Alan Bridger on 1st May 2000
       command=new String("Dobey MONITOR_"+instName+" GETP ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -191,7 +190,7 @@ final public class commandSent extends UnicastRemoteObject
 	("Dobey DHSPOOL_"+instName+" setHeader Argument1=OBSERVER Argument2=\""+
 	 System.getProperty("observerNames")+"\" ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -200,7 +199,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**  
        public void setLoad (String filename,int tag)
-       sets up command content and calls sendCommand()
+       sets up command content and calls sendCommand (command)
        it will run an action load in a drama task OOS_****
        
        @param String filename,int tag
@@ -227,7 +226,7 @@ final public class commandSent extends UnicastRemoteObject
       command = new String("Dobey OOS_"+instName+" load Argument1="+temp+" ");
 
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -236,7 +235,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**
      public void setExit (int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will close a lot of THINGs and exit the system
      
      @param int tag
@@ -266,7 +265,7 @@ final public class commandSent extends UnicastRemoteObject
 	    command=new String("Dobey SOCK_"+instName+" EXIT ");
 	  }
 	  try {
-	    sendCommand();
+	    sendCommand (command);
           } catch (RemoteException re) {
 	    System.out.println ("Exception in sendCommand:"+re);
 	  }
@@ -333,7 +332,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**
      public void setClear(int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action clear in a drama task OOS_***
      
      @param int tag
@@ -350,7 +349,7 @@ final public class commandSent extends UnicastRemoteObject
       
       command=new String("Dobey OOS_"+instName+" clear ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -358,7 +357,7 @@ final public class commandSent extends UnicastRemoteObject
   
   /**
      public void setBreakPoint (int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action breakPoint in a drama task OOS_***
      
      
@@ -375,7 +374,7 @@ final public class commandSent extends UnicastRemoteObject
 
       command=new String("Dobey OOS_"+instName+" breakPoint ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -383,7 +382,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /** 
       public void setCancelBreak(int tag)
-      sets up command content and calls sendCommand()
+      sets up command content and calls sendCommand (command)
       it will run an action cancelStop in a drama task OOS_***
       
       @param int tag
@@ -399,7 +398,7 @@ final public class commandSent extends UnicastRemoteObject
       
       command=new String("Dobey OOS_"+instName+" cancelStop ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -407,7 +406,7 @@ final public class commandSent extends UnicastRemoteObject
   
  /**
     public void setRun (int tag)
-    sets up command content and calls sendCommand()
+    sets up command content and calls sendCommand (command)
     it will run an action run in a drama task OOS_***
     
     @param int tag
@@ -423,7 +422,7 @@ final public class commandSent extends UnicastRemoteObject
 
       command=new String("Dobey OOS_"+instName+" run ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -432,7 +431,7 @@ final public class commandSent extends UnicastRemoteObject
 
 /**  
      public void setMovie (int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will show a movie frame
      
      @param int tag
@@ -448,7 +447,7 @@ final public class commandSent extends UnicastRemoteObject
   
   /**
      public void setRunSpecial (int temp, int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action run from a point in a drama task OOS_***
      
      @param int temp, int tag
@@ -465,14 +464,14 @@ final public class commandSent extends UnicastRemoteObject
       command=new String("Dobey OOS_"+instName+" run Argument1="+temp+" ");
 
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
     }
   
   /**public void setPause (int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action pause in a drama task OOS_***
      
      @param int tag
@@ -488,7 +487,7 @@ final public class commandSent extends UnicastRemoteObject
 
       command=new String("Dobey OOS_"+instName+" pause ");
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -496,7 +495,7 @@ final public class commandSent extends UnicastRemoteObject
   
  /** 
      public void  startMovie(int sec)
-     starts up a movie and calls sendCommand()
+     starts up a movie and calls sendCommand (command)
      
      @param int sec
      @return none
@@ -515,7 +514,7 @@ final public class commandSent extends UnicastRemoteObject
       }
       // And send it
       try {
-	sendCommand();
+	sendCommand (command);
       }   catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -530,7 +529,7 @@ final public class commandSent extends UnicastRemoteObject
       }
       
       try {
-	sendCommand();
+	sendCommand (command);
       }   catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }    
@@ -545,7 +544,7 @@ final public class commandSent extends UnicastRemoteObject
       }
       
       try {
-	sendCommand();
+	sendCommand (command);
       }   catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }    
@@ -560,7 +559,7 @@ final public class commandSent extends UnicastRemoteObject
       }
       
       try {
-	sendCommand();
+	sendCommand (command);
       }   catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }    
@@ -575,7 +574,7 @@ final public class commandSent extends UnicastRemoteObject
       }
       
       try {
-	sendCommand();
+	sendCommand (command);
       }   catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }    
@@ -615,7 +614,7 @@ final public class commandSent extends UnicastRemoteObject
       }
 
       try {
-        sendCommand();
+        sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -643,7 +642,7 @@ final public class commandSent extends UnicastRemoteObject
       }
 
       try {
-        sendCommand();
+        sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -657,7 +656,7 @@ final public class commandSent extends UnicastRemoteObject
       command=new String ("Dobey "+"QL_"+instName+" SWITCH_MODE Argument1="+mode+" ");
       System.out.println("Sending command \"" + command + "\".");
       try {
-        sendCommand();
+        sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -666,7 +665,7 @@ final public class commandSent extends UnicastRemoteObject
   
   /**
      public void  stopMovie()
-     stop a movie and calls sendCommand()
+     stop a movie and calls sendCommand (command)
      
      @param none
      @return none
@@ -686,7 +685,7 @@ final public class commandSent extends UnicastRemoteObject
 
       // And send it
       try {
-	sendCommand();
+	sendCommand (command);
       }   catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -694,7 +693,7 @@ final public class commandSent extends UnicastRemoteObject
 
   /**
      public void setResume (int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action continue in a drama task OOS_***
      
      @param int tag
@@ -710,7 +709,7 @@ final public class commandSent extends UnicastRemoteObject
       command=new String("Dobey OOS_"+instName+" continue ");
       
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -718,7 +717,7 @@ final public class commandSent extends UnicastRemoteObject
   
  /**
     public void setAbort (int tag)
-    sets up command content and calls sendCommand()
+    sets up command content and calls sendCommand (command)
     it will run an action abort in a drama task OOS_***
     
     @param int tag
@@ -735,7 +734,7 @@ final public class commandSent extends UnicastRemoteObject
       command=new String("Dobey OOS_"+instName+" abort ");
       
       try {
-	sendCommand();
+	sendCommand (command);
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
@@ -744,7 +743,7 @@ final public class commandSent extends UnicastRemoteObject
 
  /**
     public void setStop (int tag)
-    sets up command content and calls sendCommand()
+    sets up command content and calls sendCommand (command)
     it will run an action stop in a drama task OOS_***
     
     @param int tag
@@ -761,7 +760,7 @@ final public class commandSent extends UnicastRemoteObject
     command=new String("Dobey OOS_"+instName+" stop ");
 
     try {
-      sendCommand();
+      sendCommand (command);
     }   catch (RemoteException re) {
       System.out.println ("Exception in sendCommand:"+re);
     }
@@ -769,7 +768,7 @@ final public class commandSent extends UnicastRemoteObject
   
   /**
      public void setComment (String s, int tag)
-     sets up command content and calls sendCommand()
+     sets up command content and calls sendCommand (command)
      it will run an action log in a drama task DHSPOOL
      
      @param String, int
@@ -779,7 +778,7 @@ final public class commandSent extends UnicastRemoteObject
   public void setComment (String s, int tag) throws RemoteException
     {
       command=new String("Dobey DHSPOOL_"+instName+" log Argument1=\""+s+"\" ");
-      sendCommand();
+      sendCommand (command);
     }
   
   /** public void setTag (int i)
@@ -834,12 +833,12 @@ final public class commandSent extends UnicastRemoteObject
       if (listFrames.getConnectedInstrument().equals("NONE")) {
 	command = new String
 	  ("Dobey OOS_"+instName+" target Argument1=Tel Argument2=enable ");
-	sendCommand();
+	sendCommand (command);
       } else {
 	command = new String
 	  ("Dobey OOS_"+listFrames.getConnectedInstrument()+
 	   " target Argument1=Tel Argument2=disable ");
-	sendCommand();
+	sendCommand (command);
       }
     }
 
@@ -855,7 +854,7 @@ final public class commandSent extends UnicastRemoteObject
     new AlertBox (instName + " is going to be disconnected from the TCS");
     command = new String
       ("Dobey OOS_"+instName+" target Argument1=Tel Argument2=disable ");
-    sendCommand();
+    sendCommand (command);
   }
 
   private movie _movie;
