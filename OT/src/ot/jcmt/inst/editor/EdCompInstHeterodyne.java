@@ -499,8 +499,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else if (ae.getSource() == _w.acceptVF) {
 	  if (_frequencyChanged)
 	      moleculeFrequencyChanged();
-	  if (_velocityChanged)
-	      feVelocityAction ( ae );
+	  if (_velocityChanged) {
+	      if ( !_updateFromSpecial && _instHeterodyne != null && _instHeterodyne.getNamedConfiguration() != null) {
+		  _updateFromSpecial = true;
+		  feVelocityAction ( ae );
+		  _updateFromSpecial = false;
+	      }
+	      else {
+		  feVelocityAction ( ae );
+	      }
+	  }
 	  _velocityChanged  = false;
 	  _frequencyChanged = false;
 	  _w.acceptVF.setEnabled(false);
@@ -511,8 +519,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	      try {
 		  _instHeterodyne.removeNamedConfiguration();
 		  updateSideBandDisplay();
-// 		  Exception e = new Exception();
-// 		  e.printStackTrace();
+//  		  Exception e = new Exception();
+//  		  e.printStackTrace();
 	      }
 	      catch (Exception e) {
 		  // The named configuration item did not exist
