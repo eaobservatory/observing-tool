@@ -846,7 +846,6 @@
       <xsd:element name="positions" type="xsd:nonNegativeInteger"/>
       <xsd:element name="useCurrentAz" type="xsd:boolean" minOccurs="0"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element name="useCurrentAz" type="xsd:boolean"/>
 <!-- The following are required for heterodyne observations -->
       <xsd:element ref="switchingMode" minOccurs="0"/>
     </xsd:all>
