@@ -805,12 +805,22 @@ updateDAConf()
       W_chopFrequency,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CHOP_DELAY,
       Double.toString(W_chopDelay),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_EXPOSURE_TIME,
-      Double.toString(W_actExpTime),0);
+   // The exposure time may have been over-ridden by the QT.  Only
+   // do an update if it hasn't
+   if ( !_avTable.exists("override_"+ATTR_EXPOSURE_TIME) ||
+	!_avTable.getBool("override_"+ATTR_EXPOSURE_TIME) ) {
+       _avTable.noNotifySet(SpUISTCalConstants.ATTR_EXPOSURE_TIME,
+			    Double.toString(W_actExpTime),0);
+   }
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_OBSERVATION_TIME,
       Double.toString(W_obsTime),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_COADDS,
-      Integer.toString(W_coadds),0);
+   // The coadds may have been over-ridden by the QT.  Only
+   // do an update if it hasn't
+   if ( !_avTable.exists("override_"+ATTR_COADDS) ||
+	!_avTable.getBool("override_"+ATTR_COADDS) ) {
+       _avTable.noNotifySet(SpUISTCalConstants.ATTR_COADDS,
+			    Integer.toString(W_coadds),0);
+   }
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_FLAT_SOURCE,
       getFlatSource(),0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_ARC_SOURCE,
