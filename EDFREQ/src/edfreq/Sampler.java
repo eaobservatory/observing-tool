@@ -78,11 +78,25 @@ public class Sampler implements ItemListener
     */
    public void setBandWidthAndGui( String bandWidthStr )
    {
-      setBandWidth(Double.parseDouble(bandWidthStr) * 1.0E9);
-
       bandWidthChoice.removeItemListener(this);
-      bandWidthChoice.setSelectedItem(bandWidthStr);
+
+      if(bandWidthStr.indexOf('E') >= 0) {
+         bandWidthChoice.setSelectedItem("" + (Double.parseDouble(bandWidthStr) * 1.0E-9));
+      }
+      else {
+         bandWidthChoice.setSelectedItem(bandWidthStr);
+      }
+
       bandWidthChoice.addItemListener(this);
+
+      channels = channelsArray[bandWidthChoice.getSelectedIndex()];
+
+      if(bandWidthStr.indexOf('E') >= 0) {
+         setBandWidth(Double.parseDouble(bandWidthStr));
+      }
+      else {
+         setBandWidth(Double.parseDouble(bandWidthStr) * 1.0E9);
+      }
    }
 
    /**
