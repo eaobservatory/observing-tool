@@ -105,6 +105,13 @@ public class TelescopeGUI extends JPanel {
   TextBoxWidgetExt dm = new TextBoxWidgetExt();
   JLabel l_or_mLabel = new JLabel();
   JLabel dmLabel = new JLabel();
+  JLabel jLabel20 = new JLabel();
+  JLabel jLabel22 = new JLabel();
+  JLabel jLabel23 = new JLabel();
+  JLabel jLabel24 = new JLabel();
+  JLabel jLabel25 = new JLabel();
+  JLabel l_or_mUnitsLabel = new JLabel();
+  JLabel dmUnitsLabel = new JLabel();
 
     public TelescopeGUI() {
         try {
@@ -246,7 +253,7 @@ public class TelescopeGUI extends JPanel {
     eLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     eLabel.setForeground(Color.black);
     eLabel.setText("e");
-    perih.setColumns(10);
+    perih.setColumns(8);
     jLabel28.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel28.setForeground(Color.black);
     jLabel28.setText("Type");
@@ -261,6 +268,28 @@ public class TelescopeGUI extends JPanel {
     dmLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     dmLabel.setForeground(Color.black);
     dmLabel.setText("n");
+    jLabel20.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel20.setForeground(Color.black);
+    jLabel20.setText("(MJD, TT)");
+    jLabel22.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel22.setForeground(Color.black);
+    jLabel22.setText("(deg)");
+    jLabel23.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel23.setForeground(Color.black);
+    jLabel23.setText("(deg)");
+    jLabel24.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel24.setForeground(Color.black);
+    jLabel24.setText("(deg)");
+    jLabel25.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel25.setForeground(Color.black);
+    jLabel25.setText("(AU)");
+    l_or_mUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    l_or_mUnitsLabel.setForeground(Color.black);
+    l_or_mUnitsLabel.setText("(deg)");
+    dmUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    dmUnitsLabel.setForeground(Color.black);
+    dmUnitsLabel.setText("(deg)");
+    epoch.setColumns(8);
     this.add(nameTagPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
     nameTagPanel.add(jLabel1, null);
@@ -294,41 +323,55 @@ public class TelescopeGUI extends JPanel {
     targetSystemsTabbedPane.add(objectGBW,            "RA/Dec");
     targetSystemsTabbedPane.add(conicSystemPanel, "Orbital Elements");
     conicSystemPanel.add(epoch, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
     conicSystemPanel.add(orbinc, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
     conicSystemPanel.add(anode, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
     conicSystemPanel.add(epochLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     conicSystemPanel.add(orbincLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     conicSystemPanel.add(anodeLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(perihLabel, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 30, 0, 0), 0, 0));
-    conicSystemPanel.add(aorqLabel, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(perihLabel, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(eLabel, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(aorqLabel, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(perih, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    conicSystemPanel.add(aorq, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    conicSystemPanel.add(e, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    conicSystemPanel.add(eLabel, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(perih, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
+    conicSystemPanel.add(aorq, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
+    conicSystemPanel.add(e, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
     conicSystemPanel.add(jLabel28, new GridBagConstraints(0, 3, 1, 2, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
     conicSystemPanel.add(conicSystemType, new GridBagConstraints(1, 3, 1, 2, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(20, 5, 5, 5), 0, 0));
-    conicSystemPanel.add(l_or_m, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
-    conicSystemPanel.add(dm, new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    conicSystemPanel.add(l_or_mLabel, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(l_or_m, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(dm, new GridBagConstraints(4, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
+    conicSystemPanel.add(l_or_mLabel, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(dmLabel, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(dmLabel, new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel20, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 20), 0, 0));
+    conicSystemPanel.add(jLabel22, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel23, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel24, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel25, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(l_or_mUnitsLabel, new GridBagConstraints(5, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(dmUnitsLabel, new GridBagConstraints(5, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     targetSystemsTabbedPane.add(namedSystemPanel,     "Planets, Sun, Moon");
     namedSystemPanel.add(jLabel21, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
