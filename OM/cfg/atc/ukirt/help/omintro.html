@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--
+ *         Copyright (C) 1998  Sun Microsystems, Inc
+ *                    All rights reserved.
+ *          Notice of copyright on this source code 
+ *          product does not indicate publication. 
+ * 
+ * RESTRICTED RIGHTS LEGEND: Use, duplication, or disclosure by 
+ * the U.S. Government is subject to restrictions as set forth 
+ * in subparagraph (c)(1)(ii) of the Rights in Technical Data
+ * and Computer Software Clause at DFARS 252.227-7013 (Oct. 1988) 
+ * and FAR 52.227-19 (c) (June 1987).
+ *
+ *    Sun Microsystems, Inc., 2550 Garcia Avenue,
+ *    Mountain View, California 94043.
+ *
+-->
+<HTML>
+<HEAD>
+<TITLE>
+Introduction to using ORAC for Observing
+</TITLE>
+</HEAD>
+<body TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000FF" VLINK="#000080">
+
+
+<H1>Introduction to using ORAC for Observing</H1>
+
+Follow the links or the index to find detailed help about each stage of the ORAC-OM. The
+following is a quick over-view of how it is used, and there is a one 
+page <A HREF="crib.html">"crib sheet" </A> here.
+
+<p>
+The ORAC observing system is designed to use Science Programs which have been
+pre-prepared using the ORAC-OT, and submitted to the UKIRT database. These 
+Science Programs contain all the information needed to obtain your data - 
+such as
+instrument configuration and co-ordinates.
+<p>
+Normally you will have created one Science Program for your PATT run, which 
+contains many observations (one or more for each target). You 
+can add definitions for new observations during observing by using the OT at 
+the summit and submitting them to the database.
+<p>
+The ORAC-OM controls the login procedure and ensures that only you
+(and your collegues) have access to your program and the co-ordinates
+and observing plans therein. Once you have gone through the startup 
+procedure, it will display a listing of programs you have stored in the 
+database.
+(You may have programs for more than one PATT run for example).  You chose the
+one for the current observing run and then the OM will display 
+all the Observations you have
+defined for your program. When you select which observation you want to 
+carry out, the selected observation is passed to the Observation
+Sequencer for execution. The observation sequencer has a
+console which allows you to stop and start the sequence, take
+"movies" to check out the instrument configuration, etc.  When you have 
+finished a given Observation you simply
+choose the next one from the list on the ORAC-OM window.
+
+<p>
+To Start-up ORAC for observing, log into the observing control
+workstation and type the command <font color="#00A5C6"><b> orac_om </b>
+</font>
+to start up the  ORAC Observing Manager (ORAC-OM).  Here is a link to the
+step by step 
+guide to<A HREF="omuse.html"> running
+using the 
+ ORAC Observing Manager  
+</A> which can also be found from the help file index.
+
+
+<p>
+<p>
+<b>ORAC Credits</b>
+<p>Can be found <A HREF="credits.html">here</A>
+
+
+<spacer type=vertical size=35>
+<ADDRESS>Last Modification Date 1999/10/20 - Last Modification Author: Gillian Wright </ADDRESS>
+
+</body>
+</HTML>

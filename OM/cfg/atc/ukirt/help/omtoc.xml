@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+<toc version="1.0">
+  <tocitem text="ORAC-OM Help">
+    <tocitem text="Introduction to using ORAC for observing" target="top"/>
+     <tocitem text="ORAC Observing Crib Sheet" target="crib"/>
+    <tocitem text="Running and using the ORAC Observing Manager" target="omuse"/>
+    <tocitem text="Using the ORAC Observation Sequencer Console" target="osuse"/>
+    <tocitem text="How to start the next Observation" target="nextobs"/>
+    <tocitem text="How to create a new Observation" target="newobs"/>
+    <tocitem text="Troubleshooting Guide" target="trouble"/>
+    <tocitem text="Credits" target="credits"/>
+  </tocitem>
+</toc>

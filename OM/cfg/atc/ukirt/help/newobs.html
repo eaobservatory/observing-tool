@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!--
+ *         Copyright (C) 1998  Sun Microsystems, Inc
+ *                    All rights reserved.
+ *          Notice of copyright on this source code 
+ *          product does not indicate publication. 
+ * 
+ * RESTRICTED RIGHTS LEGEND: Use, duplication, or disclosure by 
+ * the U.S. Government is subject to restrictions as set forth 
+ * in subparagraph (c)(1)(ii) of the Rights in Technical Data
+ * and Computer Software Clause at DFARS 252.227-7013 (Oct. 1988) 
+ * and FAR 52.227-19 (c) (June 1987).
+ *
+ *    Sun Microsystems, Inc., 2550 Garcia Avenue,
+ *    Mountain View, California 94043.
+ *
+-->
+<HTML>
+<HEAD>
+<TITLE>
+Creating a New Observation
+</TITLE>
+</HEAD>
+<body TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000FF" VLINK="#000080">
+
+
+<H1>How to Make and Use a New Observation</H1>
+
+<p>
+
+Sometimes, even if you have pre-prepared carefully for observing, it becomes
+apparent during the night that you need to carry out some different 
+observations, which you have not planned for.  If you need to add new 
+observations to the program you submitted to the UKIRT database you can
+do so at any time as follows :
+
+<p>
+
+There is a workstation in the observers area for you to run 
+the ORAC-OT on.  Startup the ORAC-OT on this machine, by logging-in and 
+then typing ORAC-OT.
+
+<p>
+
+On the Menu Bar at the top of the Observing Tool select "Observing Database"
+and then "Fetch Program".  This will give you a login in screen to allow you
+to connect to the database at UKIRT :
+<img src="odb.gif" align=left vspace=20>
+<spacer type=vertical size=50> 
+<br clear=left>
+Enter your user-id and password, and when you have done so the OT will display
+a list of the Science Programs for your user-id.  If this the first observing
+run for which you have used the OT to prepare observations there will only
+be one Science Program in the database for you - however if you have prepared
+for previous or forthcoming PATT runs using the same user-id then these will
+be available too.
+<img src="odb_fetch.gif" align=left vspace=20>
+<spacer type=vertical size=50> 
+<br clear=left>
+Move the cursor to the one you want, and enter the key value of 0.  Then click
+on fetch.  Your program will be fetched from the database and displayed in
+the OT ready for editing as normal.
+<p>
+
+Add a new Observation to your Science Program and complete it either by
+copying the items you need from the Library, or by copying from one
+of your existing Observations and changing the values as needed.  If you
+need help with using the ORAC-OT you can access the help files by 
+selecting "help" in the top right corner.  
+
+<p>
+
+When you have finished adding the new Observation to your Science Program,
+click on the "database" item on the menu bar of the Science Program editing 
+window :
+
+<img src="odb_store.gif" align=left vspace=20>
+<spacer type=vertical size=50> 
+<br clear=left>
+Select "Store to Telescope Site" to send the modified Science Program back
+to the database.
+
+<p>
+
+To use the newly created Observation, go back to the main ORAC-OM screen:
+<img src="om2.gif" align=left vspace=20>
+<br clear=left>
+Use <font color="lime"> fetch </font> to fetch the updated version of your
+Program from the database to the ORAC-OM. 
+<p>
+The updated list of observations will appear in the Fetched Science Program 
+list on the right.
+<p>
+Move the cursor until it is over the newly created Observation. Use the 
+send for execution button to send it to the sequencer console
+ready for execution .
+
+<p>
+The new Observation will be translated and will appear on the 
+sequencer console, replacing the previous sequence.
+
+<p>
+Use the <font color="lime"> Run </font> button to start executing the
+sequence for your next  Observation.
+
+<p>
+
+<spacer type=vertical size=35>
+<ADDRESS>Last Modification Date 1999/10/20 - Last Modification Author: Gillian W
+right </ADDRESS>
+
+
+
+</body>
+</HTML>
