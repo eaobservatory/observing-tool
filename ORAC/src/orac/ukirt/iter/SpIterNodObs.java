@@ -83,7 +83,7 @@ public class SpIterNodObs extends SpIterObserveBase
 
    public static String[][] NOD_PATTERNS = {
       {CHOP_BEAM_A, CHOP_BEAM_B},
-      {CHOP_BEAM_A, CHOP_BEAM_B, CHOP_BEAM_A, CHOP_BEAM_B}
+      {CHOP_BEAM_A, CHOP_BEAM_B, CHOP_BEAM_B, CHOP_BEAM_A}
    };
 
    public static final SpType SP_TYPE =
