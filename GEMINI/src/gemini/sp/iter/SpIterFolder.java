@@ -138,11 +138,13 @@ printSummary()
     IterationTracker iterationTracker = instrument.createIterationTracker();
     double elapsedTime = 0.0;
 
+    int nPol = 0;
     for(int i = 0; i < iterStepVector.size(); i++) {
       iterStepSubVector = (Vector)iterStepVector.get(i);
 
       for(int j = 0; j < iterStepSubVector.size(); j++) {
         spIterStep = (SpIterStep)iterStepSubVector.get(j);
+	if (spIterStep.item.getClass().getName().endsWith("SpIterPOL")) nPol++;
         iterationTracker.update(spIterStep);
 
         if(spIterStep.item instanceof SpIterObserveBase) {
@@ -158,6 +160,13 @@ printSummary()
         }
       }
     }
+    if (nPol > 1) {
+	if (instrument.getClass().getName().endsWith("SCUBA")) {
+	    // Take off some of the extra overhead
+	    elapsedTime -= (nPol-1)*40.0;
+	}
+    }
+
   
     return elapsedTime;
   }
