@@ -221,8 +221,8 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	
 	if(tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
 	    if(tp.isOffsetPosition()) {
-	        v.addElement("" + tp.getXaxis() + " (\u2206)");
-	        v.addElement("" + tp.getYaxis() + " (\u2206)");
+	        v.addElement("" + tp.getXaxisAsString() + " (\u2206)");
+	        v.addElement("" + tp.getYaxisAsString() + " (\u2206)");
 	    }
 	    else {
 	        v.addElement(tp.getXaxisAsString());
