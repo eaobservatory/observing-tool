@@ -11,6 +11,7 @@
 package ot;
 
 import jsky.app.ot.OtProps;
+import jsky.app.ot.OtCfg;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -99,6 +100,9 @@ public class OtPreferencesDialog implements ActionListener {
 	boolean saveShouldPrompt = OtProps.isSaveShouldPrompt();
 	_w.closePromptOption.setSelected(saveShouldPrompt);
 	_w.closeNoSaveOption.setSelected(!saveShouldPrompt);
+
+	_w.proxyServerField.setText(System.getProperty(PROXY_HOST));
+	_w.proxyPortField.setText(System.getProperty(PROXY_PORT));
     
 	if(_preferencesDialogFrame == null) {
 	    _preferencesDialogFrame = new JFrame("OT Preferences");
