@@ -29,10 +29,14 @@ import orac.ukirt.inst.*;
  */
 public class TpeIrpolFeature extends TpeImageFeature
 {
-   public static final double FOV_WIDTHL  = 129.63;
-   public static final double FOV_WIDTHR  = 129.63;
-   public static final double FOV_HEIGHTU = 127.65;
-   public static final double FOV_HEIGHTL = 126.45;
+   public static final double FOV_WIDTHL  = 150.00;
+   public static final double FOV_WIDTHR  = 150.00;
+   public static final double FOV_HEIGHTU = 220.00;
+   public static final double FOV_HEIGHTL = 220.00;
+//    public static final double FOV_WIDTHL  = 129.63;
+//    public static final double FOV_WIDTHR  = 129.63;
+//    public static final double FOV_HEIGHTU = 127.65;
+//    public static final double FOV_HEIGHTL = 126.45;
 
    public static final double OOBT_CENTRE = 142.9;    // arcsec
    public static final double OOBT_WIDTH = 471.6;      // arcsec
@@ -41,9 +45,13 @@ public class TpeIrpolFeature extends TpeImageFeature
    public static final double OOBB_WIDTH = 471.6;      // arcsec
    public static final double OOBB_HEIGHT = 17.39;     // arcsec
 
+    public static final double INNER_RADIUS = 70;     // arcsecs
+
    private PolygonD _fovAreaPD;
    private PolygonD _oobtArea;
    private PolygonD _oobbArea;
+    private int [] circleOriginXY = null;
+    private int circleRadius = 0;
    private boolean  _valid = false;
 
 /**
@@ -155,21 +163,21 @@ _calc(FitsImageInfo fii)
    SpInstObsComp _inst = _iw.getInstrumentItem();
    if (_inst != null) {
       if (_inst instanceof SpInstCGS4) {
-       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(90.0));
-       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(90.0));
-       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(90.0));
+       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));
       }else if (_inst instanceof SpInstUFTI) {
-       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(180.0));
-       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(180.0));
-       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(180.0));
+       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));
       }else if (_inst instanceof SpInstMichelle) {
-       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(-90.0));
-       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(-90.0));
-       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(-90.0));
+       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));
       }else if (_inst instanceof SpInstUIST) {
-       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(-90.0));
-       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(-90.0));
-       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(-90.0));
+       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));
       }else {
       }
 
@@ -187,6 +195,14 @@ _calc(FitsImageInfo fii)
       }
 */
    }
+
+   if (circleOriginXY ==  null) {
+       circleOriginXY = new int [2];
+   }
+   circleOriginXY[0] = (int)Math.rint(x - (fii.pixelsPerArcsec * INNER_RADIUS)/2.0);
+   circleOriginXY[1] = (int)Math.rint(y - (fii.pixelsPerArcsec * INNER_RADIUS)/2.0);
+   circleRadius      = (int)Math.rint(fii.pixelsPerArcsec * INNER_RADIUS);
+
    _valid = true;
 }
 
@@ -200,7 +216,8 @@ draw(Graphics g, FitsImageInfo fii)
       _calc(fii);
    }
 
-   g.setColor(Color.green);
+   g.setColor(Color.yellow);
+   g.drawOval(circleOriginXY[0], circleOriginXY[1], circleRadius, circleRadius);
    g.drawPolygon(_fovAreaPD.getAWTPolygon());
    g.fillPolygon(_oobtArea.getAWTPolygon());
    g.fillPolygon(_oobbArea.getAWTPolygon());
