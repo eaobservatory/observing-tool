@@ -105,7 +105,7 @@ _initTextBox()
 
    // XXX MFO I don't think rich text can be displayed in a swing JTextArea.
    //_rt.appendStyle("Gemini Observing Tool Release Notes", Font.BOLD + Font.ITALIC, Color.black);
-   _rt.append("Gemini Observing Tool Release Notes");
+   _rt.append("JAC Observing Tool Release Notes");
    _rt.append("\n\n");
    _rt.append("This page will be updated frequently as new features are " +
    "incorporated and bugs are fixed.");
