@@ -209,8 +209,22 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	Vector v = new Vector(4);
 	v.addElement(tp.getTag());
 	v.addElement(tp.getName());
-	v.addElement(tp.getXaxisAsString());
-	v.addElement(tp.getYaxisAsString());
+	
+	if(tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
+	    if(tp.isOffsetPosition()) {
+	        v.addElement("" + tp.getXaxis());
+	        v.addElement("" + tp.getYaxis());
+	    }
+	    else {
+	        v.addElement(tp.getXaxisAsString());
+	        v.addElement(tp.getYaxisAsString());
+	    }
+	}
+	else {
+	    v.addElement("  - - -");
+	    v.addElement("  - - -");
+	}
+
 	return v;
     }
 
