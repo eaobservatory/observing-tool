@@ -47,8 +47,8 @@ public class SpMSB extends SpObsContextItem {
    /** This attribute records the number of remaining MSBs. */
    public static final String ATTR_REMAINING = ":remaining";
 
-   /** This attribute records the number of remaining MSBs. */
-   public static final String ATTR_ELAPSED_TIME = "elapsedTime";
+   /** This attribute records the estimated duration of the MSB. */
+   public static final String ATTR_ELAPSED_TIME = "estimatedDuration";
 
 
   /**
@@ -190,6 +190,7 @@ public double getElapsedTime()
  */
 public void saveElapsedTime() {
   _avTable.set(ATTR_ELAPSED_TIME, getElapsedTime());
+  _avTable.set(ATTR_ELAPSED_TIME + ":units", "seconds");
 }
 
 }
