@@ -7,6 +7,7 @@ import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
+import gemini.sp.SpTelescopePos;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import org.apache.xerces.dom.ElementImpl;
 import org.apache.xerces.dom.TextImpl;
@@ -41,12 +42,6 @@ public class SpItemDOM {
 
   public static final String [] UKIRT_TARGET_TAGS = { "Base",    "GUIDE" };
   public static final String [] TCS_TARGET_TYPES  = { "science", "guide" };
-
-  public static final int TARGET_TAGS_INDEX   = 0;
-  public static final int TARGET_NAME_INDEX   = 1;
-  public static final int TARGET_RA_INDEX     = 2;
-  public static final int TARGET_DEC_INDEX    = 3;
-  public static final int TARGET_SYSTEM_INDEX = 4;
 
   /**
    * The root of the DOM sub tree that represents the SpItem of this class.
@@ -472,34 +467,61 @@ public class SpItemDOM {
 
           // Add targetName element with text node containing the target name.
           child = (ElementImpl)child.appendChild(document.createElement("targetName"));
-          child.appendChild(document.createTextNode(valueList.item(TARGET_NAME_INDEX).getFirstChild().getNodeValue()));
+          child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.NAME_INDEX).getFirstChild().getNodeValue()));
 
           // Set child to target element again.
           child = (ElementImpl)child.getParentNode();
 
           // Add hmsdegSystem element and add type attribute.
           child = (ElementImpl)child.appendChild(document.createElement("hmsdegSystem"));
-          String system = valueList.item(TARGET_SYSTEM_INDEX).getFirstChild().getNodeValue();
+          String system = valueList.item(SpTelescopePos.COORD_SYS_INDEX).getFirstChild().getNodeValue();
 	  if(system.equals("FK4 (B1950)")) system = "B1950";
 	  if(system.equals("FK5 (J2000)")) system = "J2000";
 	  child.setAttribute("type", system);
 
           // Add c1 target with text node containing RA.
           child = (ElementImpl)child.appendChild(document.createElement("c1"));
-          child.appendChild(document.createTextNode(valueList.item(TARGET_RA_INDEX).getFirstChild().getNodeValue()));
+          child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.XAXIS_INDEX).getFirstChild().getNodeValue()));
 
           // Set child to hmsdegSystem element again.
           child = (ElementImpl)child.getParentNode();
 
           // Add c2 target with text node containing Dec.
           child = (ElementImpl)child.appendChild(document.createElement("c2"));
-          child.appendChild(document.createTextNode(valueList.item(TARGET_DEC_INDEX).getFirstChild().getNodeValue()));
+          child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.YAXIS_INDEX).getFirstChild().getNodeValue()));
     
           // Replace old target list element (UKIRT/Sp style value array)
           // with new base element (TCS XML)
           element.replaceChild(baseElement, targetListElement);
         }	
       }
+
+      // Deal with chop parameters
+      if(element.getElementsByTagName("chopping").item(0).getFirstChild().getNodeValue().equals("true")) {
+        ElementImpl chopElement = (ElementImpl)document.createElement("chop");
+
+        child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopAngle").item(0));
+        child.setAttribute("units", "degrees");
+        chopElement.appendChild(child);
+
+        child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopThrow").item(0));
+        child.setAttribute("units", "arcseconds");
+        chopElement.appendChild(child);
+
+        // Currently not needed
+//        child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+//        chopElement.appendChild(child);
+
+        element.appendChild(chopElement);
+      }
+      else {
+        element.removeChild(element.getElementsByTagName("chopAngle").item(0));
+        element.removeChild(element.getElementsByTagName("chopThrow").item(0));
+	// Currently not needed
+	//element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+      }
+
+      element.removeChild(element.getElementsByTagName("chopping").item(0));
     }
     // Make sure RuntimeExceptions are not ignored.
     catch(Exception e) {
@@ -605,6 +627,41 @@ public class SpItemDOM {
       // Add UKIRT / Sp "Base" and "GUIDE" (if there is one) element.
       for(int i = 0; i < targetElementVector.size(); i++) {
         element.appendChild((ElementImpl)targetElementVector.get(i));
+      }
+
+      // Deal with chop parameters
+      ElementImpl chopElement;
+      ElementImpl child;
+
+      if(element.getElementsByTagName("chop").getLength() > 0) {
+        chopElement = (ElementImpl)element.getElementsByTagName("chop").item(0);
+	
+	child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopAngle").item(0));
+        child.removeAttribute("units");
+        element.appendChild(child);
+
+	child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopThrow").item(0));
+        child.removeAttribute("units");
+        element.appendChild(child);
+
+        // Currently not needed
+//        child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopSystem").item(0));
+//        element.appendChild(child);
+
+        child = (ElementImpl)element.appendChild(document.createElement("chopping"));
+	child.appendChild(document.createTextNode("true"));
+      }
+      else {
+        child = (ElementImpl)element.appendChild(document.createElement("chopping"));
+	child.appendChild(document.createTextNode("false"));
+        child = (ElementImpl)element.appendChild(document.createElement("chopAngle"));
+	child.appendChild(document.createTextNode(""));
+        child = (ElementImpl)element.appendChild(document.createElement("chopThrow"));
+	child.appendChild(document.createTextNode(""));
+
+	// Currently not needed
+//	child = (ElementImpl)element.appendChild(document.createElement("chopSystem"));
+//	child.appendChild(document.createTextNode(""));
       }
     }
     // Make sure RuntimeExceptions are not ignored.
