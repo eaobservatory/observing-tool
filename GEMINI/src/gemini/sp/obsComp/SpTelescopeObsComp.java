@@ -585,6 +585,7 @@ processXmlElementContent(String name, String value)
    // Offset, coordinate 1
    if(name.equals(TX_DC1)) {
       try {
+	  _currentPosition.setOffsetPosition(true);
          double dc1 = Double.parseDouble(value);
          _currentPosition.setXY(dc1, _currentPosition.getYaxis());
       }
@@ -598,6 +599,7 @@ processXmlElementContent(String name, String value)
    // Offset, coordinate 2
    if(name.equals(TX_DC2)) {
       try {
+	  _currentPosition.setOffsetPosition(true);
          double dc2 = Double.parseDouble(value);
          _currentPosition.setXY(_currentPosition.getXaxis(), dc2);
       }
@@ -639,7 +641,7 @@ processXmlElementEnd(String name)
       getAvEditFSM().save();
 
       return;
-   }   
+   }  
 
    super.processXmlElementEnd(name);
 }
