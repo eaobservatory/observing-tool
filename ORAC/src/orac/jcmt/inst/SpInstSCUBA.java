@@ -42,8 +42,6 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
 
   private static String [][] _filters            = null;
   private static Hashtable   _filterTable        = new Hashtable();
-  private static Vector      _longBolometers;
-  private static Vector      _shortBolometers;
   private static String [][] _jigglePatterns     = null;
   private static Hashtable   _jigglePatternTable = new Hashtable();
 
@@ -62,7 +60,6 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     // Read in the instrument config file
     String baseDir = System.getProperty("ot.cfgdir");
     _readCfgFile(baseDir + "scuba.cfg");
-    _readFlatFieldFile(baseDir + "flat.dat");
 
 
     for(int i = 0; i < (_filters.length - 1); i += 2) {
@@ -79,10 +76,6 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
 
     try {
       _avTable.noNotifySet(ATTR_FILTER,                 _filters[0][0], 0);
-      _avTable.noNotifySet(ATTR_PRIMARY_SUB_INSTRUMENT, _filters[1][0], 0);
-      _avTable.noNotifySet(ATTR_SUB_INSTRUMENT,         _filters[1][0], 0);
-
-      // By default no explicit bolometer.
     }
     catch(Exception e) {
       System.out.println("Could not set SCUBA instrument component to values.");
@@ -117,49 +110,6 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     }
   }
 
-  /**
-   *  Read the instrument configuration file.
-   */
-  private static void _readFlatFieldFile( String filename ) {
-    _longBolometers  = new Vector();
-    _shortBolometers = new Vector();
-
-    try {
-      LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(filename));
-      String line;
-      String name;
-      String type;
-      StringTokenizer stringTokenizer;
-      
-      while(true) {
-        line = lineNumberReader.readLine();
-        if(line == null) {
-          break;
-        }
-
-      
-        if(line.trim().startsWith("SETBOL")) {
-          stringTokenizer = new StringTokenizer(line, " ");
-	  stringTokenizer.nextToken();
-
-	  name = stringTokenizer.nextToken();
-	  type = stringTokenizer.nextToken();
-
-          if(type.toLowerCase().equals("long")) {
-            _longBolometers.add(name);
-	  }
-
-          if(type.toLowerCase().equals("short")) {
-            _shortBolometers.add(name);
-	  }	  
-	}  
-      }
-    }
-    catch (IOException e) {
-      System.out.println ("Error reading SCUBA flat field file \"" + filename + "\"");
-    }
-  }
-
 
   public static Enumeration filters() {
     return _filterTable.keys();
@@ -171,27 +121,10 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    *
    * @param filter is case sensitive. 
    *
-   * @return String array of sub-instruments or null if the specified filter does not exist.
+   * @return String array of bolometer or null if the specified filter does not exist.
    */
-  public static String [] getSubInstrumentsFor(String filter) {
+  public static String [] getBolometersFor(String filter) {
     return (String[])_filterTable.get(filter);
-  }
-
-
-  public static Vector getBolometersFor(String subInstrument) {
-    if(subInstrument == null) {
-      return null;
-    }
-
-    if(subInstrument.toLowerCase().equals("long")) {
-      return _longBolometers;
-    }
-
-    if(subInstrument.toLowerCase().equals("short")) {
-      return _shortBolometers;
-    }
-    
-    return null;
   }
 
 
@@ -210,7 +143,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    * @return String array of jiggle pattern options.
    */
   public String [] getJigglePatterns() {
-    return (String[])_jigglePatternTable.get(getPrimarySubInstrument());
+    return (String[])_jigglePatternTable.get(getPrimaryBolometer());
   }
 
 
@@ -222,66 +155,27 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     _avTable.set(ATTR_FILTER, filter);
   }
 
-  public String [] getSubInstruments() {
-    Enumeration subInstNames  = _avTable.attributes(ATTR_SUB_INSTRUMENT);
-    Vector      subInstVector = new Vector();
-    String []   result = null;
-
-    while(subInstNames.hasMoreElements()) {
-      subInstVector.add(_avTable.get((String)subInstNames.nextElement()));
-    }
-
-    result = new String[subInstVector.size()];
-    subInstVector.toArray(result);
-    
-    return result;
+  public Vector getBolometers() {
+    return _avTable.getAll(ATTR_BOLOMETERS);
   }
 
 
   /**
    * @param subInstrument Object[] rather then String[] is used to simplify GUI.
    */
-  public void setSubInstruments(Object [] subInstruments) {
-    
-    // Remove all existing sub-instruments from table.
-    Enumeration subInstNames  = _avTable.attributes(ATTR_SUB_INSTRUMENT);
-    while(subInstNames.hasMoreElements()) {
-      _avTable.rm((String)subInstNames.nextElement());
-    }
-
-    // Add new sub-instruments.
-    for(int i = 0; i < subInstruments.length; i++) {
-      _avTable.set(ATTR_SUB_INSTRUMENT + "#" + i, (String)subInstruments[i]);
-    }
+  public void setBolometers(Vector bolometers) {
+    _avTable.setAll(ATTR_BOLOMETERS, bolometers);
   }
 
 
-  public String getPrimarySubInstrument() {
-    return _avTable.get(ATTR_PRIMARY_SUB_INSTRUMENT);
+  public String getPrimaryBolometer() {
+    return _avTable.get(ATTR_PRIMARY_BOLOMETER);
   }
 
-  public void setPrimarySubInstrument(String primarySubInstrument) {
-    _avTable.set(ATTR_PRIMARY_SUB_INSTRUMENT, primarySubInstrument);
+  public void setPrimaryBolometer(String primaryBolometer) {
+    _avTable.set(ATTR_PRIMARY_BOLOMETER, primaryBolometer);
   }
 
-  /**
-   * @return Explict bolometer (A1, A2 etc) or null if no specific bolometer is set.
-   */
-  public String getBolometer() {
-    return _avTable.get(ATTR_BOLOMETER);
-  }
-
-  /**
-   * @param bolometer Explict bolometer (A1, A2 etc) or null if no specific bolometer should be used.
-   */
-  public void setBolometer(String bolometer) {
-    if(bolometer == null) {
-      _avTable.rm(ATTR_BOLOMETER);
-    }
-    else {
-      _avTable.set(ATTR_BOLOMETER, bolometer);
-    }  
-  }
 
   /**
    * @return Radius of circular SCUBA science area in arcsecs
