@@ -41,7 +41,7 @@ all: classes $(RMI_GENERATED_CLASSES) cfg script
 
 classes: $(CLASSES_DIR) $(CLASS_FILES)
 
-cfg: $(CFG_DIR) $(LOCAL_INSTALL_ROOT)/ot_cfg $(GIF_IMAGES) $(CFG_FILES)
+cfg: $(LOCAL_INSTALL_ROOT)/cfg $(LOCAL_INSTALL_ROOT)/ot_cfg $(GIF_IMAGES) $(CFG_FILES)
 
 script: $(BIN_DIR)/$(OM_SCRIPT)
 
