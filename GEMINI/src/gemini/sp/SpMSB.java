@@ -12,6 +12,7 @@ package gemini.sp;
 
 import gemini.sp.obsComp.SpInstObsComp;
 import java.util.Enumeration;
+import java.lang.Integer;
 
 /**
  * OMP class.
@@ -27,23 +28,25 @@ public class SpMSB extends SpObsContextItem {
     * High observation priority, relative to the other observations in
     * the science program.
     */
-   public static final int PRIORITY_HIGH   = 0;
+   public static final int PRIORITY_HIGH   = 1;
 
    /**
     * Medium observation priority, relative to the other observations in
     * the science program.
     */
-   public static final int PRIORITY_MEDIUM = 1;
+   public static final int PRIORITY_MEDIUM = 49;
 
    /**
     * Low observation priority, relative to the other observations in
     * the science program.
     */
-   public static final int PRIORITY_LOW    = 2;
+   public static final int PRIORITY_LOW    = 99;
 
    public static String[] PRIORITIES = {
       "High", "Medium", "Low"
    };
+
+    private static final int numPriorities = 99;
 
    /** This attribute records the number of remaining MSBs. */
    public static final String ATTR_REMAINING = ":remaining";
@@ -71,7 +74,7 @@ public class SpMSB extends SpObsContextItem {
   protected SpMSB() {
     super(SpType.MSB_FOLDER);
     _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
-    _avTable.noNotifySet(ATTR_PRIORITY, PRIORITIES[PRIORITY_LOW], 0);
+    _avTable.noNotifySet(ATTR_PRIORITY, "99", 0);
   }
 
   /**
@@ -119,25 +122,27 @@ getPriority()
       return PRIORITY_LOW;
    }
 
-   for (int i=0; i<PRIORITIES.length; ++i) {
-      if (str.equals(PRIORITIES[i])) {
-         return i;
-      }
-   }
-   return PRIORITY_LOW;
+   return ((new Integer(str)).intValue());
+
+//     for (int i=0; i<PRIORITIES.length; ++i) {
+//       if (str.equals(PRIORITIES[i])) {
+//          return i;
+//       }
+//    }
+//    return PRIORITY_LOW;
 }
 
 /**
  * Get the observation priority as a human readable String.
  */
-public String
+public int
 getPriorityString()
 {
    String str = _avTable.get(ATTR_PRIORITY);
    if (str == null) {
-      return PRIORITIES[0];
+      return PRIORITY_LOW;
    }
-   return str;
+   return ((new Integer(str)).intValue());
 }
  
 /**
@@ -146,11 +151,12 @@ getPriorityString()
 public void
 setPriority(int priority)
 {
-   if ((priority < 0) || (priority > PRIORITIES.length)) {
+//    if ((priority < 0) || (priority > PRIORITIES.length)) {
+   if ((priority < 0) || (priority > numPriorities)) {
       return;
    }
  
-   _avTable.set(ATTR_PRIORITY, PRIORITIES[priority]);
+   _avTable.set(ATTR_PRIORITY, priority );
 }
 
 
