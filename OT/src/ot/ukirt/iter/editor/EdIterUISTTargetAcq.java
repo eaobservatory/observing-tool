@@ -94,7 +94,6 @@ setup(SpItem spItem)
 {
    _ita = (SpIterUISTTargetAcq) spItem;
 
-   haveInitialised = false;
    super.setup(spItem);
 }
 
@@ -130,6 +129,9 @@ _updateWidgets()
 
    // Coadds
    _w.coadds.setValue( _ita.getCoadds() );
+   // Hacky fix for a bug whereby sometimes the coadds does not get written
+   // out in the xml
+   _ita.setCoadds( _w.coadds.getValue() );
 
    // Disperser
    _w.disperser.setValue( _ita.getDisperser() );
