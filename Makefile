@@ -6,14 +6,33 @@
 CONF_HOME           = conf
 include $(CONF_HOME)/make.conf
 
-# Needed for target doc
-SOURCE_FILES          = $(shell find GEMINI/src -name "*.java") \
-                        $(shell find ORAC/src   -name "*.java") \
-                        $(shell find ODB/src    -name "*.java") \
-                        $(shell find OMP/src    -name "*.java") \
-                        $(shell find EDFREQ/src -name "*.java") \
-                        $(shell find OT/src     -name "*.java") \
-                        $(shell find OM/src     -name "*.java")
+# Variables for javadoc
+SOURCE_FILES          = $(shell cd GEMINI/src; find . -name "*.java") \
+                        $(shell cd ORAC/src;   find . -name "*.java") \
+                        $(shell cd ODB/src;    find . -name "*.java") \
+                        $(shell cd OMP/src;    find . -name "*.java") \
+                        $(shell cd EDFREQ/src; find . -name "*.java") \
+                        $(shell cd OT/src;     find . -name "*.java") \
+                        $(shell cd OM/src;     find . -name "*.java")
+
+
+SOURCEPATH = GEMINI/src:ORAC/src:ODB/src:OMP/src:EDFREQ/src:OT/src:OM/src
+CLASSPATH  = GEMINI/classes/install:ORAC/classes/install:ODB/classes/installsrc:OMP/classes/install:EDFREQ/classes/install:OT/classes/install:OM/classes/install:$(shell echo $(EXTERNAL_JAR_FILES) | tr " " ":")
+
+
+# Get packages.
+# Start with a list of each directory containing a source file.
+# Get rid of multiple entries of the same directory by using sort.
+# Remove "./", replace '/' with '.' and remove ". "
+PACKAGES = $(shell echo \
+              $(shell echo \
+	        $(shell echo \
+		  $(sort \
+		    $(foreach sourcFile,$(SOURCE_FILES),$(shell dirname $(sourcFile)))) \
+               | sed -e 's/\.\///g') \
+              | tr "/" ".") \
+	    | sed -e 's/\. //g')
+
 
 all:
 	(cd GEMINI/src; gmake)
@@ -112,7 +131,7 @@ _jar: $(JAR_DIR)
 
 
 _doc: $(DOC_DIR)
-	$(JAVADOC) -J-mx50m -sourcepath $(SOURCEPATH) -classpath $(CLASSPATH) -d $(DOC_DIR) $(SOURCE_FILES)
+	$(JAVADOC) -J-mx50m -classpath $(CLASSPATH) -sourcepath $(SOURCEPATH) -d $(DOC_DIR) $(PACKAGES)
 
 
 $(JAR_DIR):
