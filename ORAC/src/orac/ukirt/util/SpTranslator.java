@@ -1291,6 +1291,17 @@ public class SpTranslator {
 // Write the set-target instruction to the sequence.
                   sequence.addElement( targetRecord.toString() );
 
+// For UFTI, CGS4, and UIST sequences, add a hidden command to set the CHOPBEAM to MIDDLE.
+// For Michelle, make the command visible.
+		  if ( instrument.equalsIgnoreCase( "UFTI" ) ||
+		       instrument.equalsIgnoreCase( "CGS4" ) ||
+		       instrument.equalsIgnoreCase( "UIST" )
+		       ) {
+		      sequence.addElement( "-SET_CHOPBEAM MIDDLE" );
+		  } else if (instrument.equalsIgnoreCase( "MICHELLE" )) {
+		      sequence.addElement( "SET_CHOPBEAM MIDDLE" );
+		  }
+
 // Write the slew and guiding instructions.
 // ========================================
 
