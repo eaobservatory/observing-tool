@@ -282,6 +282,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         int mi = IMAGERS.indexInColumn(DEFAULT_IMAGER,0);
         String mask = (String) IMAGERS.elementAt(mi,4);
         _avTable.noNotifySet(attr, mask, 0);
+        updateInstAper();
 
         attr  = ATTR_MASK_WIDTH;
         _avTable.noNotifySet(attr, "0.0", 0);
@@ -491,12 +492,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     CONFIG_TYPE = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "version")) {
                     VERSION = instInfo.getValue();
-		} else if (InstCfg.matchAttr (instInfo, "instrument_aper")) {
-                    INSTRUMENT_APER = instInfo.getValueAsArray();
-		    setInstApX (INSTRUMENT_APER[XAP_INDEX]);
-		    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
-		    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
-		    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
 		} else if (InstCfg.matchAttr (instInfo, "detangle")) {
                     DETANGLE = Double.valueOf(instInfo.getValue()).doubleValue();
 		} else if (InstCfg.matchAttr (instInfo, "pixpitch")) {
@@ -914,7 +909,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     setCamera(String camera)
     {
         _avTable.set(ATTR_CAMERA, camera);
-        setInstAper();
         useDefaultImager();
         useDefaultDisperser();
         useDefaultSourceMag();
@@ -1174,7 +1168,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         useDefaultFilterCategory();
         useDefaultResolution();
         useDefaultSourceMag();
-        setInstAper();
         updateDispersion();
     }
 
@@ -1374,6 +1367,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     {
         _avTable.set(ATTR_MASK, mask);
         updateResolution();
+        updateInstAper();
     }
 
     /**
@@ -2143,28 +2137,15 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     }
 
     /**
-     * Set the instrument aperture
+     * Update the instrument aperture
      */
-    public void setInstAper()
+    public void updateInstAper()
     {
-        if (isImaging()) {
-	    setInstApX (INSTRUMENT_APER[XAP_INDEX]);
-	    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
-	    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
-	    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
-	} else
-	{
-            int di = getDisperserIndex();
-            // Fix as for imaging 
-	    //setInstApX ((String) DISPERSERS.elementAt(di,6));
-	    //setInstApY ((String) DISPERSERS.elementAt(di,7));
-	    //setInstApZ ((String) DISPERSERS.elementAt(di,8));
-	    //setInstApL ((String) DISPERSERS.elementAt(di,9));
-	    setInstApX (INSTRUMENT_APER[XAP_INDEX]);
-	    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
-	    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
-	    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
-	}
+        int maskIndex = MASKS.indexInColumn (getMask(),0);
+        setInstApX ((String) MASKS.elementAt(maskIndex,4));
+        setInstApY ((String) MASKS.elementAt(maskIndex,5));
+        setInstApZ ((String) MASKS.elementAt(maskIndex,6));
+        setInstApL ((String) MASKS.elementAt(maskIndex,7));
     }
 
     /**
