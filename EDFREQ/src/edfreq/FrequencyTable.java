@@ -178,7 +178,7 @@ public class FrequencyTable extends JPanel implements ActionListener
            bandWidths[0], nMixers );
 	 Vector bandWidthItems = new Vector();
 	 for(int k = 0; k < bandWidths.length; k++) {
-            bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6) / 1000.0));
+            bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6) ));
 	 }
          widthChoice = new JComboBox ( bandWidthItems );
 	 widthChoice.addItemListener(new NumberedBandWidthListener(j));

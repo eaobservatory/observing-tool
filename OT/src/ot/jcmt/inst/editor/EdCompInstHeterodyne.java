@@ -288,8 +288,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
            if(i == 0) {
 	      boolean tmpIgnoreEvents = _ignoreEvents;
 	      _ignoreEvents = true;
-              _w.bandWidthChoice.setSelectedItem(getObject(_w.bandWidthChoice, "" + (_instHeterodyne.getBandWidth(0) / 1.0E9)));
-	      if ( ((String)_w.bandWidthChoice.getSelectedItem()).equals("1.84") ) {
+              _w.bandWidthChoice.setSelectedItem(getObject(_w.bandWidthChoice, "" + (_instHeterodyne.getBandWidth(0) / 1.0E6)));
+	      if ( ((String)_w.bandWidthChoice.getSelectedItem()).equals("1840") ) {
 		  _w.feMixers.setEnabled(false);
 	      }
 	      else {
@@ -422,10 +422,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    public void bandWidthChoiceAction ( ActionEvent ae ) {
       for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
          if(!_ignoreSpItem) {
-            _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E9, i);
+            _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E6, i);
 	 }
 	 // Special check for wideband mode
-	 if (((String)_w.bandWidthChoice.getSelectedItem()).equals("1.84")) {
+	 if (((String)_w.bandWidthChoice.getSelectedItem()).equals("1840")) {
 	     _w.feMixers.setSelectedIndex(0);
 	     _w.feMixers.setEnabled(false);
 	 }
@@ -1180,7 +1180,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.bandWidthChoice.removeAllItems();
 
       for(int i = 0; i < values.length; i++) {
-         _w.bandWidthChoice.addItem("" + (Math.rint(values[i] * 1.0E-6) / 1000.0));
+         _w.bandWidthChoice.addItem("" + (Math.rint(values[i] * 1.0E-6) ) );
       }
 
       if(selectedIndex > -1) {
@@ -1263,7 +1263,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
     if(subsystem == 0) {
       _ignoreEvents = true;
-      _w.bandWidthChoice.setSelectedItem("" + Math.rint(width * 1.0E-6) / 1000.0);
+      _w.bandWidthChoice.setSelectedItem("" + Math.rint(width * 1.0E-6) );
 
       // Re-centre band on line
       _resetTransition();

@@ -154,7 +154,7 @@ public class Sampler implements ItemListener
 //      }
 
       bandWidthChoice.removeItemListener(this);
-      bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6) / 1000.0));
+      bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6) ));
       bandWidthChoice.addItemListener(this);
    }
 
@@ -193,6 +193,6 @@ public class Sampler implements ItemListener
 
    public void itemStateChanged ( ItemEvent ev )
    {
-      setBandWidth(Double.parseDouble((String)bandWidthChoice.getSelectedItem()) * 1.0E9);
+      setBandWidth(Double.parseDouble((String)bandWidthChoice.getSelectedItem()) * 1.0E6);
    }
 }
