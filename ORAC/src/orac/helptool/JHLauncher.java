@@ -528,12 +528,6 @@ final public class JHLauncher implements java.io.Serializable {
      * -hsURL "URL to helpset" Where to look for the HelpSet.
      */
     public JHLauncher(String args[]) {
-	String version = System.getProperty("java.version");
-        if (!(version.startsWith("1.2")) &&
-	    !(version.startsWith("1.1."))) {
-            System.out.println("!!!WARNING: JavaHelp & Swing must be run" +
-                               "with JDK 1.1.2 or higher version VM!!!");
-        }
 
 	// Code to activate to try out our EditorKit
 	//
