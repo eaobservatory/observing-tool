@@ -24,6 +24,46 @@ import gemini.util.CoordSys;
  */
 public class SpTelescopeObsComp extends SpObsComp
 {
+   /** TCS XML constants. */
+   private static final String TX_BASE                 = "BASE";
+   private static final String TX_TYPE                 = "TYPE";
+   private static final String TX_TARGET               = "target";
+   private static final String TX_TARGET_NAME          = "targetName";
+   private static final String TX_SPHERICAL_SYSTEM     = "spherSystem";
+   private static final String TX_CONIC_SYSTEM         = "conicSystem";
+   private static final String TX_NAMED_SYSTEM         = "namedSystem";
+   private static final String TX_SYSTEM               = "SYSTEM";
+   private static final String TX_CONIC_NAMED_TYPE     = "type";
+   private static final String TX_C1                   = "c1";
+   private static final String TX_C2                   = "c2";
+   private static final String TX_OFFSET               = "OFFSET";
+   private static final String TX_DC1                  = "DC1";
+   private static final String TX_DC2                  = "DC2";
+
+   /** TCS XML constants: Orbital elements. */
+   private static final String TX_EPOCH                = "epoch";
+   private static final String TX_INCLINATION          = "inclination";
+   private static final String TX_ANODE                = "anode";
+   private static final String TX_PERIHELION           = "perihelion";
+   private static final String TX_AORQ                 = "aorq";
+   private static final String TX_E                    = "e";
+   private static final String TX_LORM                 = "LorM";
+   private static final String TX_N                    = "n";
+   
+   /** TCS XML constant: proper motion, x axis. */
+   private static final String TX_PM1                  = "pm1";
+
+   /** TCS XML constant: proper motion, y axis. */
+   private static final String TX_PM2                  = "pm2";
+
+   /** TCS XML constant: Radial Velocity. */
+   private static final String TX_RV                   = "rv";
+   
+   private static final String TX_PARALAX              = "parallax";
+
+   private static final String TX_TYPE_SCIENCE         = "SCIENCE";
+   private static final String TX_J2000                = "J2000";
+   private static final String TX_B1950                = "B1950";
 
    // CHOP MODE parameters (added by MFO, 6 August 2001)
    public static final String ATTR_CHOPPING	= "chopping";
@@ -271,135 +311,315 @@ setChopSystem(String chopSystem)
    //_notifyOfGenericUpdate();
 }
 
-
+/**
+ * This method creates JAC TCS XML from those attributes of the
+ * SpAvTable that equal a target tag such as BASE, SCIENCE, GUIDE, REFERENCE.
+ *
+ * For the processing of all other SpAvTable attributes the processAvAttribute
+ * method of the super class is used.
+ */
 protected void
 processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
 {
    SpTelescopePos tp = null;
-   
+
+   // Check whether avAttr is a telescope position.
    if(avAttr != null) {
-     tp = (SpTelescopePos)_posList.getPosition(avAttr);
+     tp = (SpTelescopePos)getPosList().getPosition(avAttr);
    }  
 
+   // If avAttr is not a telescope position then let the
+   // super class deal with it and return.
    if(tp == null) {
      super.processAvAttribute(avAttr, indent, xmlBuffer);
      return;
    }
 
-   String system = _avTable.get(avAttr, SpTelescopePos.COORD_SYS_INDEX);
+   xmlBuffer.append("\n  " + indent + "<" + TX_BASE + " " + TX_TYPE + "=\"" + avAttr + "\">");
+   xmlBuffer.append("\n    " + indent + "<" + TX_TARGET + ">");
+   xmlBuffer.append("\n      " + indent + "<" + TX_TARGET_NAME + ">" + tp.getName() + "</" + TX_TARGET_NAME + ">");
+
+   // If the telescope position currently written to XML (tp) is an offset position then
+   // targetPos is set to the base postion (OT speak) aka SCIENCE target (TCS XML speak).
+   // Otherwise targetPos is just set to  telescope position currently written to XML (tp).
+   SpTelescopePos targetPos = tp;
+   if(tp.isOffsetPosition()) {
+     targetPos = getPosList().getBasePosition();
+   }
+
+   String system = targetPos.getCoordSysAsString();
 
    if(system.equals(CoordSys.COORD_SYS[CoordSys.FK5])) {
-     system = "J2000";
+     system = TX_J2000;
    }
 
    if(system.equals(CoordSys.COORD_SYS[CoordSys.FK4])) {
-     system = "B1950";
+     system = TX_B1950;
    }
-
-   xmlBuffer.append("\n  " + indent + "<BASE TYPE=\"" + avAttr + "\">");
-   xmlBuffer.append("\n    " + indent + "<target>");
 
    // Check whether it is a spherical system. Only the spherical systems are saved using
    // there tag name as attribute name for the av table.
-   if(_avTable.exists(avAttr)) {
-     xmlBuffer.append("\n      " + indent + "<targetName>" + _avTable.get(avAttr, SpTelescopePos.NAME_INDEX) + "</targetName>");
-     xmlBuffer.append("\n      " + indent + "<spherSystem SYSTEM=\"" + system + "\">");
-     xmlBuffer.append("\n        " + indent + "<c1>" + _avTable.get(avAttr, SpTelescopePos.XAXIS_INDEX) + "</c1>");
-     xmlBuffer.append("\n        " + indent + "<c2>" + _avTable.get(avAttr, SpTelescopePos.YAXIS_INDEX) + "</c2>");
+   switch(targetPos.getSystemType()) {
+     // Conic system (orbital elements)
+     case SpTelescopePos.SYSTEM_CONIC:
+       xmlBuffer.append("\n      " + indent + "<" + TX_CONIC_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\""
+                                                  + targetPos.getConicOrNamedType() + "\">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH + " units=\"years\">" + targetPos.getConicSystemEpoch()
+                                              + "</" + TX_EPOCH + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_INCLINATION + " units=\"degrees\">" + targetPos.getConicSystemInclination()
+                                              + "</" + TX_INCLINATION + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_ANODE + " units=\"degrees\">" + targetPos.getConicSystemAnode()
+                                              + "</" + TX_ANODE + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_PERIHELION + " units=\"degrees\">" + targetPos.getConicSystemPerihelion()
+                                              + "</" + TX_PERIHELION + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_AORQ + " units=\"au\">" + targetPos.getConicSystemAorQ()
+                                              + "</" + TX_AORQ + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_E + ">" + targetPos.getConicSystemE()
+                                              + "</" + TX_E + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_LORM + " units=\"degrees\">" + targetPos.getConicSystemLorM()
+                                              + "</" + TX_LORM + ">");
+       xmlBuffer.append("\n        " + indent + "<"  + TX_N + " units=\"degrees/day\">" + targetPos.getConicSystemDailyMotion()
+                                              + "</" + TX_N + ">");
+       xmlBuffer.append("\n      " + indent + "</" + TX_CONIC_SYSTEM + ">");
+       break;
 
-     double pm1 = 0.0;
-     double pm2 = 0.0;
+     // Named system (planet, sun, moon etc.)
+     case SpTelescopePos.SYSTEM_NAMED:
+       xmlBuffer.append("\n      " + indent + "<" + TX_NAMED_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\""
+                                                  + targetPos.getConicOrNamedType() + "\"/>");
+       break;
 
-     try {
-       pm1 = Double.parseDouble(tp.getPropMotionRA())  / 1000.0;
-     }
-     catch(Exception e) {
-       e.printStackTrace();
-     }
+     // Default: Sperical system (HMSDEG or DEGDEG: RA/Dec, Az/El etc.)
+     default:
+     
+       xmlBuffer.append("\n      " + indent + "<" + TX_SPHERICAL_SYSTEM + " " + TX_SYSTEM + "=\"" + system + "\">");
+       xmlBuffer.append("\n        " + indent + "<" + TX_C1 + ">" + targetPos.getXaxisAsString() + "</" + TX_C1 + ">");
+       xmlBuffer.append("\n        " + indent + "<" + TX_C2 + ">" + targetPos.getYaxisAsString() + "</" + TX_C2 + ">");
 
-     try {
-       pm2 = Double.parseDouble(tp.getPropMotionDec()) / 1000.0;
-     }
-     catch(Exception e) {
-       e.printStackTrace();
-     }       
+       double pm1 = 0.0;
+       double pm2 = 0.0;
 
-     if((pm1 != 0.0) || (pm2 != 0.0)) {
-       xmlBuffer.append("\n        " + indent + "<pm1 units=\"arcsecs/year\">" + pm1 + "</pm1>");
-       xmlBuffer.append("\n        " + indent + "<pm2 units=\"arcsecs/year\">" + pm2 + "</pm2>");
-     }
-
-     try {
-       double rv = Double.parseDouble(tp.getTrackingRadialVelocity());
-
-       if(rv != 0.0) {
-         xmlBuffer.append("\n        " + indent + "<rv units=\"km/sec\">" + rv + "</rv>");
+       try {
+         pm1 = Double.parseDouble(targetPos.getPropMotionRA())  / 1000.0;
        }
-     } 
-     catch(Exception e) {
-       e.printStackTrace();
+       catch(Exception e) {
+         // ignore
+       }
+
+       try {
+         pm2 = Double.parseDouble(targetPos.getPropMotionDec()) / 1000.0;
+       }
+       catch(Exception e) {
+         // ignore
+       }       
+
+       if((pm1 != 0.0) || (pm2 != 0.0)) {
+         xmlBuffer.append("\n        " + indent + "<" + TX_PM1 + " units=\"arcsecs/year\">" + pm1 + "</" + TX_PM1 + ">");
+         xmlBuffer.append("\n        " + indent + "<" + TX_PM2 + " units=\"arcsecs/year\">" + pm2 + "</" + TX_PM2 + ">");
+       }
+
+       try {
+         double rv = Double.parseDouble(targetPos.getTrackingRadialVelocity());
+
+         if(rv != 0.0) {
+           xmlBuffer.append("\n        " + indent + "<" + TX_RV + " units=\"km/sec\">" + rv + "</rv>");
+         }
+       } 
+       catch(Exception e) {
+         // ignore
+       }
+
+       xmlBuffer.append("\n      " + indent + "</" + TX_SPHERICAL_SYSTEM + ">");
+       break;
+   }  
+   
+   xmlBuffer.append("\n    " + indent + "</" + TX_TARGET + ">");
+
+   if(tp.isOffsetPosition()) {
+
+     String offsetSystem = tp.getCoordSysAsString();
+
+     if(offsetSystem.equals(CoordSys.COORD_SYS[CoordSys.FK5])) {
+       offsetSystem = TX_J2000;
      }
 
-     xmlBuffer.append("\n      " + indent + "</spherSystem>");
+     if(offsetSystem.equals(CoordSys.COORD_SYS[CoordSys.FK4])) {
+       offsetSystem = TX_B1950;
+     }
+
+     xmlBuffer.append("\n    " + indent + "<" + TX_OFFSET + " " + TX_SYSTEM + "=\"" + offsetSystem + "\">");
+     xmlBuffer.append("\n      " + indent + "<" + TX_DC1 + ">" + tp.getXaxisAsString() + "</" + TX_DC1 + ">");
+     xmlBuffer.append("\n      " + indent + "<" + TX_DC2 + ">" + tp.getYaxisAsString() + "</" + TX_DC2 + ">");
+     xmlBuffer.append("\n    " + indent + "</" + TX_OFFSET + ">");
    }
    
-   xmlBuffer.append("\n    " + indent + "</target>");
-   xmlBuffer.append("\n  " + indent + "</BASE>");
+   xmlBuffer.append("\n  " + indent + "</" + TX_BASE + ">");
 }
 
-
+/**
+ * Parses JAC TCS XML.
+ */
 public void
 processXmlElementContent(String name, String value)
 {
+
+   // All the hard wired strings are taken from the JAC TCS XML.
+   // They are left hard wired as they are unlikely to be needed outside this class.
 
    if(_currentPosition == null) {
       super.processXmlElementContent(name, value);
       return;
    }
 
-   if(name.equals("BASE") || name.equals("target")) {
+   if(name.equals(TX_BASE) || name.equals(TX_TARGET)) {
       return;
    }
 
-   if(name.equals("targetName")) {
+   if(name.equals(TX_TARGET_NAME)) {
       _currentPosition.setName(value);
       return;
    }
 
-   if(name.equals("spherSystem")) {
-      _currentPosition.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG);
+   if(name.equals(TX_SPHERICAL_SYSTEM)) {
+      _currentPosition.setSystemType(SpTelescopePos.SYSTEM_SPHERICAL);
       return;
    }
 
-   if(name.equals("conicSystem")) {
-      _currentPosition.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_CONIC);
+   if(name.equals(TX_CONIC_SYSTEM)) {
+      _currentPosition.setSystemType(SpTelescopePos.SYSTEM_CONIC);
       return;
    }
 
-   if(name.equals("namedSystem")) {
-      _currentPosition.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_NAMED);
+   if(name.equals(TX_NAMED_SYSTEM)) {
+      // Ignore here and set system type in processXmlAttribute.
+      // processXmlAttribute might not be called because the
+      // XML element TX_NAMED_SYSTEM does not contain PCDATA.
       return;
    }
 
-   if(name.equals("c1")) {
+
+// ---- Sperical System --------------------------------------------------------
+
+   // Coordinate 1 (x axis)
+   if(name.equals(TX_C1)) {
       _currentPosition.setXYFromString(value, _currentPosition.getYaxisAsString());
       return;
    }
 
-   if(name.equals("c2")) {
+   // Coordinate 2 (y axis)
+   if(name.equals(TX_C2)) {
       _currentPosition.setXYFromString(_currentPosition.getXaxisAsString(), value);
       return;
    }
 
-   super.processXmlElementContent(name, value);
 
-// } catch(Exception e) { e.printStackTrace(); print(); }
+// ---- Conic System (Orbital Elements) ----------------------------------------
+
+   if(name.equals(TX_EPOCH)) {
+      _currentPosition.setConicSystemEpoch(value);
+      return;
+   }
+
+   if(name.equals(TX_INCLINATION)) {
+      _currentPosition.setConicSystemInclination(value);
+      return;
+   }
+
+   if(name.equals(TX_ANODE)) {
+      _currentPosition.setConicSystemAnode(value);
+      return;
+   }
+
+   if(name.equals(TX_PERIHELION)) {
+      _currentPosition.setConicSystemPerihelion(value);
+      return;
+   }
+
+   if(name.equals(TX_AORQ)) {
+      _currentPosition.setConicSystemAorQ(value);
+      return;
+   }
+
+   if(name.equals(TX_E)) {
+      _currentPosition.setConicSystemE(value);
+      return;
+   }
+
+   if(name.equals(TX_LORM)) {
+      _currentPosition.setConicSystemLorM(value);
+      return;
+   }
+
+   if(name.equals(TX_N)) {
+      _currentPosition.setConicSystemDailyMotion(value);
+      return;
+   }
+
+
+// ---- Named System -----------------------------------------------------------
+
+   // A named system only has a name (see top of this method)
+   // and a type (see method processXmlAttribute).
+
+
+// ---- Offset -----------------------------------------------------------------
+
+   if(name.equals(TX_OFFSET)) {
+      _currentPosition.setOffsetPosition(true);
+      return;
+   }
+
+   // Offset, coordinate 1
+   if(name.equals(TX_DC1)) {
+      try {
+         double dc1 = Double.parseDouble(value);
+         _currentPosition.setXY(dc1, _currentPosition.getYaxis());
+      }
+      catch(Exception e) {
+         // ignore
+      }
+
+      return;
+   }
+
+   // Offset, coordinate 2
+   if(name.equals(TX_DC2)) {
+      try {
+         double dc2 = Double.parseDouble(value);
+         _currentPosition.setXY(_currentPosition.getXaxis(), dc2);
+      }
+      catch(Exception e) {
+         // ignore
+      }
+
+      return;
+   }
+
+
+// ---- Details ----------------------------------------------------------------
+
+   // Radial Velocity
+   if(name.equals(TX_RV)) {
+      _currentPosition.setTrackingRadialVelocity(value);
+      return;
+   }
+
+   // Paralax
+   if(name.equals(TX_PARALAX)) {
+      _currentPosition.setTrackingParallax(value);
+      return;
+   }
+
+   super.processXmlElementContent(name, value);
 }
 
+/**
+ * Parses JAC TCS XML.
+ */
 public void
 processXmlElementEnd(String name)
 {
-   if(name.equals("BASE")) {
+   if(name.equals(TX_BASE)) {
       _currentPosition = null;
 
       // save() just means reset() in this context.
@@ -411,14 +631,16 @@ processXmlElementEnd(String name)
    super.processXmlElementEnd(name);
 }
 
-
+/**
+ * Parses JAC TCS XML.
+ */
 public void
 processXmlAttribute(String elementName, String attributeName, String value)
 {
-   if(elementName.equals("BASE") && attributeName.equals("TYPE")) {
+   if(elementName.equals(TX_BASE) && attributeName.equals(TX_TYPE)) {
       // TCS XML element SCIENCE is the SpTelescopePos BASE_TAG
       // TCS XML element BASE is something else.
-      if(value.equals("SCIENCE")) {
+      if(value.equals(TX_TYPE_SCIENCE)) {
          SpTelescopePos.createDefaultBasePosition(_avTable);
          _currentPosition = getPosList().getBasePosition();
       }
@@ -429,18 +651,42 @@ processXmlAttribute(String elementName, String attributeName, String value)
       return;
    }
 
-   if(elementName.equals("spherSystem") && attributeName.equals("SYSTEM")) {
-      if(value.equals("J2000")) {
+   if((elementName.equals(TX_SPHERICAL_SYSTEM) || elementName.equals(TX_OFFSET)) && attributeName.equals(TX_SYSTEM)) {
+      if(value.equals(TX_J2000)) {
          _currentPosition.setCoordSys(CoordSys.COORD_SYS[CoordSys.FK5]);
 	 return;
       }
 
-      if(value.equals("B1950")) {
+      if(value.equals(TX_B1950)) {
          _currentPosition.setCoordSys(CoordSys.COORD_SYS[CoordSys.FK4]);
 	 return;
       }
 
       _currentPosition.setCoordSys(value);
+      return;
+   }
+
+   // Type of conic or name system (comet, major, minor etc.)
+   if((elementName.equals(TX_CONIC_SYSTEM) || elementName.equals(TX_NAMED_SYSTEM)) && attributeName.equals(TX_CONIC_NAMED_TYPE)) {
+      _currentPosition.setConicOrNamedType(value);
+
+      if(elementName.equals(TX_NAMED_SYSTEM)) {
+         _currentPosition.setSystemType(SpTelescopePos.SYSTEM_NAMED);
+      }
+      
+      return;
+   }
+
+   if(elementName.equals(TX_EPOCH)       ||
+      elementName.equals(TX_INCLINATION) ||
+      elementName.equals(TX_ANODE)       ||
+      elementName.equals(TX_PERIHELION)  ||
+      elementName.equals(TX_AORQ)        ||
+      elementName.equals(TX_E)           ||
+      elementName.equals(TX_LORM)        ||
+      elementName.equals(TX_N)) {
+
+      // ignore
       return;
    }
 
