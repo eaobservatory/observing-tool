@@ -46,6 +46,28 @@ public interface SpJCMTConstants {
     */
    public static final String ATTR_SECS_PER_INTEGRATION = "secsPerIntegration";
 
+   
+   // Generic JCMT iterator. Many of the attribute are actually only used for the
+   // Heterodyne instrument.
+
+   /** Switching mode (Nod, Chop, Frequency, None). */
+   public static final String ATTR_SWITCHING_MODE          = "switchingMode";
+
+   /** Reference offset, x. */
+   public static final String ATTR_REFERENCE_OFFSET_X      = "referenceOffset.x";
+
+   /** Reference offset, y. */
+   public static final String ATTR_REFERENCE_OFFSET_Y      = "referenceOffset.y";
+
+   /** Reference offset, system. */
+   public static final String ATTR_REFERENCE_OFFSET_SYSTEM = "referenceOffset.system";
+
+   /** Frequency offset, throw. */
+   public static final String ATTR_FREQUENCY_OFFSET_THROW  = "frequencyOffset.throw";
+
+   /** Frequency offset, rate. */
+   public static final String ATTR_FREQUENCY_OFFSET_RATE   = "frequencyOffset.rate";
+
 
    // Scan Iterator
 
@@ -67,10 +89,37 @@ public interface SpJCMTConstants {
    public static final String ATTR_COORD_FRAME     = "coordFrame";
    public static final String ATTR_POS_ANGLE       = "posAngle";
 
+   public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
+   public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
+   public static final String ATTR_CYCLE_REVERSAL      = "cycleReversal";
+   public static final String ATTR_JIGGLE_PATTERN      = "jigglePattern";
+   public static final String ATTR_STEP_SIZE           = "stepSize";
+   public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference";
+   public static final String ATTR_SAMPLE_TIME         = "sampleTime";
+   public static final String ATTR_JIGGLES_PER_CYCLE   = "jigglePerCycle";
+
+
    /** Focus Iterator. */
-   public static final String ATTR_AXIS            = "axis";
-   public static final String ATTR_STEPS           = "steps";
-   public static final String ATTR_FOCUS_POINTS    = "focusPoints";
+   public static final String ATTR_AXIS                = "axis";
+   public static final String ATTR_STEPS               = "steps";
+   public static final String ATTR_FOCUS_POINTS        = "focusPoints";
+
+   /** Pointing Iterator */
+   public static final String ATTR_SPECTRAL_MODE       = "spectralMode";
+   public static final String SPECTRAL_MODE_CONTINUUM  = "continuum";
+   public static final String SPECTRAL_MODE_SPECTRAL_LINE = "spectralLine";
+   public static final String ATTR_POINTING_PIXEL      = "pointingPixel";
+   public static final String POINTING_PIXEL_AUTOMATIC = "Automatic";
+   public static final String POINTING_PIXEL_MANUAL    = "Manual";
+
+   /** Raster Iterator */
+   public static final String ATTR_RASTER_MODE         = "rasterMode";
+   public static final String RASTER_MODE_ALONG_ROW    = "alongRow";
+   public static final String RASTER_MODE_INTERLEAVED  = "interleaved";
+   public static final String ATTR_ROW_REVERSAL        = "rowReversal";
+   public static final String ATTR_ROWS_PER_CAL        = "rowsPerCal";
+   public static final String ATTR_ROWS_PER_REF        = "rowsPerRef";
+
 
    /**
     * Skydip Iterator.
