@@ -40,6 +40,7 @@ import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJCMTObs;
 import orac.jcmt.obsComp.SpSiteQualityObsComp;
 import orac.jcmt.util.ScubaNoise;
+import orac.util.DrUtil;
 import orac.util.SpItemUtilities;
 
 
@@ -72,6 +73,8 @@ public class EdIterJCMTGeneric extends OtItemEditor
   protected static int SWITCHING_MODE_CHOP = 1;
 
   private SpIterJCMTObs _iterObs;
+
+  private String _noiseToolTip = "";
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -128,6 +131,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
       _iterObs.setIntegrations(val);
 
       _w.noiseTextBox.setValue(calculateNoise());
+      _w.noiseTextBox.setToolTipText(_noiseToolTip);
 
       return;
     }
@@ -208,7 +212,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
     _w.sampleTime.setValue(_iterObs.getSampleTime());
     _w.automaticTarget.setValue(_iterObs.getAutomaticTarget());
     _w.noiseTextBox.setValue(calculateNoise());
-    _w.noiseTextBox.setToolTipText(_w.noiseTextBox.getValue());
+    _w.noiseTextBox.setToolTipText(_noiseToolTip);
   }
 
   /**
@@ -241,16 +245,19 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     SpTelescopeObsComp telescopeObsComp = (SpTelescopeObsComp)SpTreeMan.findTargetList(_iterObs);
     if(telescopeObsComp == null) {
+      _noiseToolTip = "No target";
       return "No target";
     }
 
     SpJCMTInstObsComp instObsComp       = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
     if(instObsComp == null) {
+      _noiseToolTip = "No instruments";
       return "No instrument";
     }
 
     SpSiteQualityObsComp siteQualityObsComp = (SpSiteQualityObsComp)SpItemUtilities.findSiteQuality(_iterObs);
     if(siteQualityObsComp == null) {
+      _noiseToolTip = "No site quality";
       return "No site quality";
     }
 
@@ -258,31 +265,42 @@ public class EdIterJCMTGeneric extends OtItemEditor
       int [] status     = { 0 };
       double noise      = 0.0;
       int integrations  = _iterObs.getIntegrations();
-      double decRadians = Angle.degreesToRadians(telescopeObsComp.getPosList().getBasePosition().getYaxis());
-      double latRadians = Angle.degreesToRadians(DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
+      double airmass    = DrUtil.airmass(telescopeObsComp.getPosList().getBasePosition().getYaxis(),
+					 DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
       double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
       double wavelength;
+      double transmission;
+      double nefd;
 
       if(((((SpInstSCUBA)instObsComp).getFilter() != null) &&
           (((SpInstSCUBA)instObsComp).getFilter().toUpperCase().endsWith("PHOT")))) {
 
 	if(((SpInstSCUBA)instObsComp).getPrimaryBolometer() == null) {
+	  _noiseToolTip = "No wavelength";
 	  return "No wavelength";
 	}
 
 	wavelength = Double.parseDouble(((SpInstSCUBA)instObsComp).getPrimaryBolometer().substring(1));
-	noise = calculateNoise(integrations, wavelength, decRadians, latRadians, csoTau, status);
+	nefd       = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
+	noise      = calculateNoise(integrations, wavelength, nefd, status);
 
 	if(status[0] == 0) {
+	  _noiseToolTip = "airmass = " + (Math.rint(airmass * 10) / 10) +
+			  ", nefd = "  + (Math.rint(nefd    * 10) / 10) +
+			  ", noise = " + (Math.rint(noise   * 10) / 10);
+
 	  return "" + (Math.rint(noise * 10) / 10);
 	}
       }
       else {
 	String noise450Str;
 
-	double noise450 = calculateNoise(integrations, 450.0, decRadians, latRadians, csoTau, status);
+	wavelength      = 450.0;
+	double nefd450  = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
+	double noise450 = calculateNoise(integrations, wavelength, nefd450, status);
 
 	if(status[0] == NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED) {
+	  _noiseToolTip = "Not implemented";
 	  return "Not implemented.";
 	}
 
@@ -295,7 +313,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
 	String noise850Str;
 
-	double noise850 = calculateNoise(integrations, 850.0, decRadians, latRadians, csoTau, status);
+	wavelength      = 850.0;
+	double nefd850  = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
+	double noise850 = calculateNoise(integrations, wavelength, nefd850, status);
 
 	if(status[0] == 0) {
 	  noise850Str = "" + (Math.rint(noise850 * 10) / 10);
@@ -303,6 +323,12 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	else {
 	  noise850Str = "error " + status[0];
 	}
+
+	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
+			", nefd(450) = "  + (Math.rint(nefd450  * 10) / 10) +
+			", noise(450) = " + (Math.rint(noise450 * 10) / 10) +
+			", nefd(850) = "  + (Math.rint(nefd850  * 10) / 10) +
+			", noise(850) = " + (Math.rint(noise850 * 10) / 10);
 
 	return "" + noise450Str + " (450), " + noise850Str + " (850)";
       }
@@ -317,8 +343,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
    * This method should be implemented by subclasses taking into accound the
    * observe mode and whether length and width are needed (SCAN more only).
    */
-  protected double calculateNoise(int integrations, double wavelength,
-				  double decRadians, double latRadians, double csoTau, int [] status) {
+  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
 
     status[0] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED;
 
