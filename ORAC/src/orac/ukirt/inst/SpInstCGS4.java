@@ -68,6 +68,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public static String[] MODES;
     public static String[] SAMPLINGS;
     public static LookUpTable MASKS;
+    public static LookUpTable MASKSECH;
     public static String[] POLARISERS;
     public static String[] SRCMAGS;
     public static String[] FILTERS;
@@ -206,6 +207,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		    SAMPLINGS = instInfo.getValueAsArray();
 		}else if (InstCfg.matchAttr (instInfo, "masks")) {
 		    MASKS = instInfo.getValueAsLUT();
+		}else if (InstCfg.matchAttr (instInfo, "masksech")) {
+		    MASKSECH = instInfo.getValueAsLUT();
 		}else if (InstCfg.matchAttr (instInfo, "polarisers")) {
 		    POLARISERS = instInfo.getValueAsArray();
 		}else if (InstCfg.matchAttr (instInfo, "magnitudes")) {
@@ -806,7 +809,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     // gratings but the coverage per unit wavelength for the
     // echelle.
           int di = getDisperserIndex();
-          String disp = (String) DISPERSERS.elementAt( di, 0 );
+          String disp = getDisperser();
           double cw = getCentralWavelength();
           double coverage = ( Double.valueOf( (String)DISPERSERS.elementAt( di, 9 ) ) ).doubleValue();
           double wr;
@@ -842,8 +845,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
         } else {
 
     // Obtain the disperser name.
-           int di = getDisperserIndex();
-           String disp = (String) DISPERSERS.elementAt( di, 0 );
+           String disp = getDisperser();
            double sw = getMaskWidth();
 
     // Ordinary gratings
@@ -928,7 +930,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	}
 	return mask;
     }
-    
+
     /**
      * Set the mask.
      */
@@ -955,6 +957,24 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	    mask = 0;
 	}
 	return mask;
+    }
+
+    /**
+     * Get the mask menu for the current disperser.
+     */
+    public Vector
+        getMaskMenu()
+    {
+       String disp = getDisperser();
+
+    // The default menu of masks
+       Vector maskMenu = MASKS.getColumn( 0 );
+
+    // The menu of masks for the echelle
+       if ( disp.toLowerCase().startsWith( "echelle" ) ) {
+          maskMenu = MASKSECH.getColumn( 0 );
+       }
+       return maskMenu;
     }
     
     /**
