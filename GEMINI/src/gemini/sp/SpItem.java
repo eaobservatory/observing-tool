@@ -61,7 +61,7 @@ public Object nextElement()
  * <ul>Writing XML
  *   <li>{@link #toXML()}
  *   <li>{@link #toXML(java.lang.String,java.lang.StringBuffer)}
- *   <li>{@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer))}
+ *   <li>{@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer)}
  *   <li>{@link #avToXml(java.lang.String,java.lang.String)}
  * </ul>
  * <ul>Reading XML (These methods are called from an external XML Parser,
