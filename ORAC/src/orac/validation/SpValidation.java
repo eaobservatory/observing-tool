@@ -13,9 +13,12 @@ import gemini.sp.obsComp.SpSiteQualityObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.util.SpItemUtilities;
-
 import org.apache.xerces.parsers.SAXParser;
-// import org.w3c.dom.Document;
+import org.apache.xerces.parsers.DOMParser;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.SAXNotRecognizedException;
@@ -50,7 +53,64 @@ public class SpValidation {
       report = new Vector();
     }
 
+    // Change the SpProg to a document, since this is more easily checked
+    String xmlStr = spProg.toXML();
+    DOMParser parser = new DOMParser();
+    Document doc = null;
+    try {
+	// Turn off validation
+	parser.setFeature("http://xml.org/sax/features/validation", false);
+	parser.parse(new InputSource (new StringReader(xmlStr)));
+	doc = parser.getDocument();
+    }
+    catch (IOException e) {
+	System.out.println("Unable to read string");
+    }
+    catch (SAXException e) {
+	System.out.println("Unable to create document: "+e.getMessage());
+    }
+
     checkSciProgramRecursively(spProg, report);
+    if (doc != null) {
+	// I use one method for each 'rule'
+	// Rule 1: Each SpObs and MSB must either contain the following
+	//         or inherit it from higher up:
+	//         SpInst...
+        //         SpSiteQualityObsComp
+        //         SptelescopeObsComp
+	checkInheritedComponents(doc, "SpMSB", "SpTelescopeObsComp", "Target Information", report);
+	checkInheritedComponents(doc, "SpMSB", "SpSiteQualityObsComp", "Site Quality", report);
+	checkInheritedComponents(doc, "SpMSB", "SpInst", "Instrument", report);
+	checkInheritedComponents(doc, "SpObs", "SpTelescopeObsComp", "Target Information", report);
+	checkInheritedComponents(doc, "SpObs", "SpSiteQualityObsComp", "Site Quality", report);
+	checkInheritedComponents(doc, "SpObs", "SpInst", "Instrument", report);
+
+	// Rule2: Each iterator must contain either another iterator or an observe eye
+	//        Exception: For UKIRT, the offset iterator does not have this requirement
+	checkIterator(doc, "SpIterFolder", "Sequence Iterator",report);
+	checkIterator(doc, "SpIterChop", "Chop Iterator", report);
+	checkIterator(doc, "SpIterPOL", "POL Iterator", report);
+        checkIterator(doc, "SpIterRepeat", "Repeat Iterator", report);
+	checkIterator(doc, "SpIterOffset", "Offset Iterator",report);
+	checkIterator(doc, "SpIterFrequency", "Frequency Iterator", report);
+
+	// Other rules:
+	//    SpAND must contain an SpObs or SpMSB but NOT and SpOR
+	//    SpOR must contain and SpObs, SpMSB or SpOR
+	//    SpMSB must contain an SpObs
+	//    SpObs must contain only 1 sequence
+	Vector mandatoryChildren = new Vector();
+	Vector excludedChildren  = new Vector();
+	mandatoryChildren.add("SpObs");
+	mandatoryChildren.add("SpMSB");
+	excludedChildren.add("SpOR");
+	checkForChildren(doc, "SpAND", mandatoryChildren, excludedChildren, report);
+	mandatoryChildren.add("SpOR");
+	checkForChildren(doc, "SpOR", mandatoryChildren, null, report);
+	mandatoryChildren.clear();
+	mandatoryChildren.add("SpObs");
+	checkForChildren(doc, "SpMSB", mandatoryChildren, null, report);
+    }
   }
 
   protected void checkSciProgramRecursively(SpItem spItem, Vector report) {
@@ -74,11 +134,11 @@ public class SpValidation {
     // Check for observation components (target information, instrument,
     // site quality, scheduling constraints
 
-    if(SpTreeMan.findTargetList(spMSB) == null) {
-      report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                  "MSB \"" + spMSB.getTitle() + "\"",
-                                  "Target information is missing.")); 
-    }
+//     if(SpTreeMan.findTargetList(spMSB) == null) {
+//       report.add(new ErrorMessage(ErrorMessage.ERROR,
+//                                   "MSB \"" + spMSB.getTitle() + "\"",
+//                                   "Target information is missing.")); 
+//     }
 
     checkMSBgeneric(spMSB, report);
   }
@@ -171,6 +231,153 @@ public class SpValidation {
     }
   }
 
+    private void checkInheritedComponents(Document doc, 
+					  String folderName,
+					  String componentName,
+					  String description,
+					  Vector report) {
+	// Check all the children of the top level element
+	Element root = doc.getDocumentElement();
+	// Each MSB and SpObs must contain an SpTelescopeObsComp, or inherit it from a parent.
+	// Check each one for this
+	NodeList nl = root.getElementsByTagName(folderName);
+	boolean  found = false;
+	for (int i=0; i<nl.getLength(); i++) {
+	    Node thisNode = nl.item(i);
+	    // For each MSB check if we have the required info.
+	    NodeList requiredTag = ((Element)thisNode).getElementsByTagName("*");
+	    if (requiredTag != null) {
+		for (int j=0; j<requiredTag.getLength(); j++) {
+		    if (requiredTag.item(j).getNodeName().startsWith(componentName)) {
+			found = true;
+			break;
+		    }
+		}
+	    }
+	    if (!found) {
+		// We don't so recuse up the document tree to see if any parents have it
+		while ((thisNode = thisNode.getParentNode()) != null && !found) {
+		    NodeList childList = thisNode.getChildNodes();
+		    for (int child=0; child<childList.getLength(); child++) {
+			if ( childList.item(child).getNodeName().startsWith(componentName)) {
+			    found = true;
+			    break;
+			}
+		    }
+		}
+	    }
+
+	    if (found) {
+		// Check the next one
+		found = false;
+		continue;
+	    }
+	    else {
+		report.add(new ErrorMessage (ErrorMessage.ERROR,
+					     "MSB or Observation",
+					     "An MSB or Observation does not contain or inherit a "+description));
+		break;
+	    }
+	}
+    }
+
+    private void checkIterator(Document doc, String iteratorType, String description, Vector report) {
+	boolean found=false;
+	// Get the root element
+	Element root = doc.getDocumentElement();
+	// Get all the nodes which we are going to check
+	NodeList nl = root.getElementsByTagName(iteratorType);
+	// For each of these, get all of its children
+	for (int i=0; i<nl.getLength(); i++) {
+	    NodeList children = nl.item(i).getChildNodes();
+	    // Check each child looking for another SpIter...
+	    for (int j=0; j<children.getLength(); j++) {
+		if (children.item(j).getNodeName().startsWith("SpIter")) {
+		    found = true;
+		    break;
+		}
+	    }
+	    if (found) {
+		found = false;
+		continue;
+	    }
+	    else {
+		report.add (new ErrorMessage(ErrorMessage.ERROR,
+					    description,
+					    "A "+description+" does not contain another iterator or observe"));
+		break;
+	    }
+	}
+    }
+
+    private void checkForChildren (Document  doc,
+				   String    component, // Tag name of child to check
+				   Vector    mandatory, // The tag must have at least one of these types
+				   Vector    excluded,  // List of children that are prohibited from appearing in the tag
+				   Vector    report     // Errors returned through this
+				   ) {
+	boolean mandatoryElementFound = false;
+	boolean excludedElementFound  = false;
+
+	Element root = doc.getDocumentElement();
+	// Het all of the required components
+	NodeList nl = root.getElementsByTagName(component);
+	// For each of these, make sure we have at least one mandatory tag
+	// as a direct child, and that the exclusion does not appear
+	for (int i=0; i<nl.getLength(); i++) {
+	    NodeList children = nl.item(i).getChildNodes();
+	    for (int j=0; j<children.getLength(); j++) {
+		// Check if this is a madatory tag
+		if (mandatory != null) {
+		    for (int tag=0; tag<mandatory.size(); tag++) {
+			if (children.item(j).getNodeName().equals((String)mandatory.elementAt(tag))) {
+			    mandatoryElementFound = true;
+			    break;
+			}
+		    }
+		}
+		if (excluded != null) {
+		    for (int tag=0; tag<excluded.size(); tag++) {
+			if (children.item(j).getNodeName().equals((String)excluded.elementAt(tag))) {
+			    excludedElementFound = true;
+			}
+		    }
+		}
+	    }
+	    if (mandatoryElementFound && !excludedElementFound) {
+		// This is OK, so reset and go to the next in the list
+		mandatoryElementFound = false;
+		excludedElementFound  = false;
+		continue;
+	    }
+	    else {
+		// Something is wrong
+		if (!mandatoryElementFound) {
+		    String message = component.substring(2)+" does not contain at least one of { ";
+		    for (int tag=0; tag<mandatory.size(); tag++) {
+			message = message + ((String)mandatory.elementAt(tag)).substring(2)+" ";
+		    }
+		    message = message + "}";
+		    report.add(new ErrorMessage(ErrorMessage.ERROR,
+						component,
+						message));
+		    break;
+		}
+		else {
+		    String message = component.substring(2)+" contains one of { ";
+		    for (int tag=0; tag<excluded.size(); tag++) {
+			message = message + ((String)excluded.elementAt(tag)).substring(2)+" ";
+		    }
+		    message = message + "} which is not allowed";
+		    report.add(new ErrorMessage(ErrorMessage.ERROR,
+						component,
+						message));
+		    break;
+		}
+	    }
+	}
+    }
+
     /**
      * Perform validation against a schema.  The SpItem class already writes out
      * a part of the default namesapce in its toXML method.  In this class we
@@ -180,13 +387,14 @@ public class SpValidation {
      * @param schema     Fully qualified file name for the schema.
      * @return           A vector of strings containing the validation errors
      */
-    public Vector schemaValidate(String xmlString, String schema) {
+    public void schemaValidate(String xmlString, String schema, Vector report) {
 	// Make sure the schema exists
 	File schemaFile = new File(schema);
 	if (! schemaFile.exists()) {
-	    Vector v = new Vector();
-	    v.add("Specified schema file "+schema+" does not exist.  No schema validation performed.");
-	    return v;
+	    report.add( new ErrorMessage(ErrorMessage.WARNING,
+					 "Schema Validation not performed",
+					 schema+" does not exist."));
+	    return;
 	}
 	SAXParser parser = new SAXParser();
 	SchemaErrorHandler handler = new SchemaErrorHandler();
@@ -214,7 +422,14 @@ public class SpValidation {
 	catch (SAXException e) {
 	    System.out.println("Unable to create document: "+e.getMessage());
 	}
-	return handler.getErrors();
+
+	Vector schemaErrors = handler.getErrors();
+	for (int i=0; i<schemaErrors.size(); i++) {
+	    report.add (new ErrorMessage (ErrorMessage.ERROR,
+					  "Schema validation error",
+					  (String)schemaErrors.get(i)));
+	}
+	return;
     }
 
     public class SchemaErrorHandler implements ErrorHandler {
