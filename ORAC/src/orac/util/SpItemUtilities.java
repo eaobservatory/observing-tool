@@ -12,6 +12,8 @@ package orac.util;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpMSB;
+import gemini.sp.SpAND;
+import gemini.sp.SpOR;
 import gemini.sp.SpObsContextItem;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpRootItem;
@@ -180,6 +182,7 @@ public class SpItemUtilities {
 	_insertReferenceIDsFor(findSchedConstraint(spItem), spItem);
 	_insertReferenceIDsFor(findDRRecipe(spItem), spItem);
 	_insertReferenceIDsFor(findProgramNotes(spItem.getRootItem(), new Vector()), spItem);
+	_insertReferenceIDsFor(findParentNotes (spItem, new Vector()), spItem);
 // 	_insertReferenceIDsFor(findNote(spItem), spItem);
       }
       else {
@@ -228,9 +231,17 @@ public class SpItemUtilities {
     // If so use it for idref of the SpMSB.
     String idString = spObsComp.getTable().get(ATTR_ID);
     if(idString != null) {
-      spItem.getTable().noNotifySet(
-        spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
-	idString, 0);
+	if ( spObsComp.getClass().getName().indexOf("SpNote") == -1 ) {
+	    spItem.getTable().noNotifySet(
+					  spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
+					  idString, 0);
+	}
+	else {
+	   // This is a note
+	   spItem.getTable().noNotifySet(
+					 spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX + idString,
+					 idString, 0);
+       }
     }
     // No id yet. Use _idCounter for both spObsComp (e.g. observation component or SpNote)
     // and spItem (e.g. SpMSB/SpObs). 
@@ -475,9 +486,23 @@ public static Vector findProgramNotes(SpItem spItem, Vector notes) {
 		notes.add(child);
 	    }
 	}
-	else if ( child instanceof gemini.sp.SpAND || child instanceof gemini.sp.SpOR ) {
-	    notes = findProgramNotes (child, notes);
+    }
+    return notes;
+}
+
+public static Vector findParentNotes(SpItem spItem, Vector notes) {
+    SpItem parent = spItem.parent();
+    while ( ! (parent instanceof SpRootItem) ) {
+	if ( parent instanceof SpAND || parent instanceof SpOR) {
+	    Enumeration e = parent.children();
+	    while ( e.hasMoreElements() ) {
+		SpItem child = (SpItem)e.nextElement();
+		if ( child instanceof SpNote && ((SpNote)child).isObserveInstruction() ) {
+		    notes.add(child);
+		}
+	    }
 	}
+	parent = parent.parent();
     }
     return notes;
 }
