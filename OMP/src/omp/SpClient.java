@@ -3,7 +3,7 @@ package omp;
 import java.io.*;
 import java.net.*;
 import gemini.sp.SpItem;
-//import gemini.sp.SpRootItem;
+import gemini.sp.SpProg;
 import orac.util.SpItemDOM;
 
 
@@ -57,7 +57,8 @@ public class SpClient extends SoapClient {
 	    }
 	    
 	    System.out.println("Storing " + spXml + "\n...");
-	    spClient.storeProgram(spXml, "abc");
+	    String databaseSummary = spClient.storeProgram(spXml, "abc").summary;
+	    System.out.println("Database Summary: " + databaseSummary);
 	 }
 	 catch(IOException e) {
 	    System.err.println("Problem reading from stdin: " + e);
@@ -75,7 +76,7 @@ public class SpClient extends SoapClient {
 	 else {
 	    // "abc" used for as arbitrary password for testing.
 	    try {
-	       System.out.println(spClient.fetchProgram(args[0], "abc").toString());
+	       System.out.println(spClient.fetchProgramString(args[0], "abc").toString());
 	    }
 	    catch(Exception e) {
                e.printStackTrace();
@@ -85,27 +86,101 @@ public class SpClient extends SoapClient {
    }
 
 
-   public SpItem fetchProgram(String id, String pass) throws Exception {
+   public SpProg fetchProgram(String id, String pass) throws Exception {
+      addParameter("projectid", String.class, id);
+      addParameter("password", String.class, pass);
+
+      String spXML = (String)doCall(url, "fetchProgram");
+      
+      SpItem spItem = (new SpItemDOM(new StringReader(spXML))).getSpItem();
+
+      if(spItem instanceof SpProg) {
+         return (SpProg)spItem;
+      }
+      else {
+         return null;
+      }  
+   }
+
+   /**
+    * Test method.
+    */
+   public String fetchProgramString(String id, String pass) throws Exception {
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
       
-      String spXML = doCall(url, "fetchProgram");
-      
-      return (new SpItemDOM(new StringReader(spXML))).getSpItem();
+      return (String)doCall(url, "fetchProgram");
    }
 
-   public String storeProgram(SpItem spItem, String pass) throws Exception {
-      String sp = (new SpItemDOM(spItem)).toString();
+
+   public SpStoreResult storeProgram(SpProg spProg, String pass) throws Exception {
+      String sp = (new SpItemDOM(spProg)).toString();
    
       addParameter("sp", String.class, sp);
       addParameter("password", String.class, pass);
-      return doCall(url, "storeProgram");
+
+      return new SpStoreResult(doCall(url, "storeProgram"));
    }
 
-   public String storeProgram(String sp, String pass) throws Exception {
+   public SpStoreResult storeProgram(String sp, String pass) throws Exception {
       addParameter("sp", String.class, sp);
       addParameter("password", String.class, pass);
-      return doCall(url, "storeProgram");
+
+      return new SpStoreResult(doCall(url, "storeProgram"));
    }
    
+
+   /**
+    * Structure that is returned by SpClient.fetchProgram.
+    *
+    * It holds the transaction summary and a timestamp.
+    *
+    * @author Martin Folger (M.Folger@roe.ac.uk)
+    */
+   public class SpStoreResult {
+      public String summary   = "";
+      public int    timestamp = 0;
+
+      private  StringBuffer instantiationErrors = new StringBuffer();
+
+      public SpStoreResult() { }
+
+      public SpStoreResult(Object resultObject) throws InstantiationException {
+         SpStoreResult result      = new SpStoreResult();
+         Object []     resultArray = null;
+
+         // Convert to array.
+         if(resultObject instanceof Object[]) {
+            resultArray = (Object[])resultObject;
+         }
+         else {
+            resultArray = new Object[1];
+	    resultArray[0] = resultObject;
+
+	    instantiationErrors.append("WARNING. storeProgram: no timestamp.\n");
+         }
+
+         // Fill SpStoreResult object.
+	 try {
+	    summary = (String)resultArray[0];
+         }
+	 catch(Exception e) {
+            instantiationErrors.append("storeProgram: could not read summary: " + e + "\n");
+	 }
+
+         if(resultArray.length > 1) {
+	    try {
+	       timestamp = ((Integer)resultArray[1]).intValue();
+            }
+	    catch(Exception e) {
+               instantiationErrors.append("storeProgram: could not read timestamp: " + e + "\n");
+	    }
+	 }   
+
+	 if(instantiationErrors.length() > 0) {
+            throw new InstantiationException(instantiationErrors.toString());
+	 }
+      }
+   }
 }
+
