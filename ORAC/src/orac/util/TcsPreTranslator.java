@@ -196,7 +196,13 @@ public abstract class TcsPreTranslator implements PreTranslator {
         else {
           element.removeChild(element.getElementsByTagName("chopAngle").item(0));
           element.removeChild(element.getElementsByTagName("chopThrow").item(0));
-	  element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+	  
+	  try {
+	    element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+	  }
+	  catch(Exception e) {
+	    // Throws a NullPointerException if there is no chopSystem. Ignore.
+	  }
         }
 
         element.removeChild(element.getElementsByTagName("chopping").item(0));
@@ -336,8 +342,13 @@ public abstract class TcsPreTranslator implements PreTranslator {
         child.removeAttribute("units");
         element.appendChild(child);
 
-        child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopSystem").item(0));
-        element.appendChild(child);
+	try {
+	  child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopSystem").item(0));
+	  element.appendChild(child);
+	}
+	catch(Exception e) {
+	  // Throws a NullPointerException if there is no chopSystem. Ignore.
+	}
 
         child = (ElementImpl)element.appendChild(document.createElement("chopping"));
 	child.appendChild(document.createTextNode("true"));
