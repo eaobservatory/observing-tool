@@ -72,6 +72,11 @@ class ODBServer extends UnicastRemoteObject implements ODBServerMethods
     spItem = new SpIterFP();
     spItem = new SpIterIRPOL();
     spItem = new SpIterNod();
+    spItem = new SpIterIterObserve();
+    spItem = new SpIterIterSky();
+    spItem = new SpMSB();
+    spItem = new SpAND();
+    spItem = new SpOR();
   }
 
 
