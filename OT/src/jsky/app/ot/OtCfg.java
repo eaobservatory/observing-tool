@@ -331,7 +331,7 @@ public final class OtCfg
 	// MSB Folder (MFO, 09 July 2001)
 	tnw        = new OtObsContainerTreeNodeWidget();
 	tnw.setBothImageSrc("ot/images/msbFolder.gif");
-	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdTitle");
+	clientData = new OtClientData(tnw, "ot.editor.EdMsb");
 	SpFactory.MSB_FOLDER.setClientData(clientData);
 
 	// AND Folder (MFO, 09 July 2001)
