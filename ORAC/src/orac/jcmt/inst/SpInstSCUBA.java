@@ -39,10 +39,12 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    */
   public static final double SCIENCE_AREA_RADIUS = 2.3; 
 
-  private static String [][] _filters = null;
-  private static Hashtable _filterTable = new Hashtable();
-  private static Vector _longBolometers;
-  private static Vector _shortBolometers;
+  private static String [][] _filters            = null;
+  private static Hashtable   _filterTable        = new Hashtable();
+  private static Vector      _longBolometers;
+  private static Vector      _shortBolometers;
+  private static String [][] _jigglePatterns     = null;
+  private static Hashtable   _jigglePatternTable = new Hashtable();
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.SCUBA", "SCUBA" );
@@ -68,6 +70,11 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
       _filterTable.put(_filters[i][0], _filters[i + 1]);
     }
 
+    for(int i = 0; i < (_jigglePatterns.length - 1); i += 2) {
+      // Use lower case keywords for filter table to allow for
+      // case insensitive look-up later.
+      _jigglePatternTable.put(_jigglePatterns[i][0], _jigglePatterns[i + 1]);
+    }
 
     try {
       _avTable.noNotifySet(ATTR_FILTER,         _filters[0][0], 0);
@@ -97,6 +104,10 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
         if ( InstCfg.matchAttr( instInfo, "FILTERS" ) ) {
           _filters = instInfo.getValueAs2DArray();
         }
+	
+	if ( InstCfg.matchAttr( instInfo, "JIGGLE_PATTERNS" )) {
+          _jigglePatterns = instInfo.getValueAs2DArray();
+	}
       }
     }
     catch (IOException e) {
@@ -179,6 +190,25 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     }
     
     return null;
+  }
+
+
+  /**
+   * Get jiggle pattern options for a given sub-instrument.
+   *
+   * @return String array of jiggle pattern options or null if the specified sub-instrument does not exist.
+   */
+  public static String [] getJigglePatternsForSubInstrument(String subInstrument) {
+    return (String[])_jigglePatternTable.get(subInstrument);
+  }
+
+  /**
+   * Get jiggle pattern options for the current sub-instrument.
+   *
+   * @return String array of jiggle pattern options.
+   */
+  public String [] getJigglePatterns() {
+    return (String[])_jigglePatternTable.get(getSubInstrument());
   }
 
 
