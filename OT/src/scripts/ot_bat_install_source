@@ -50,6 +50,8 @@ IF (%1)==(-internalframes)    set INTERNAL_FRAMES=-internalframes
 IF (%1)==(-nointernalframes)  set INTERNAL_FRAMES=-nointernalframes
 IF (%1)==(-omp)               set OMP_FALG=-DOMP
 IF (%1)==(-noomp)             set OMP_FALG=
+IF (%1)==(-server)            set SERVER=%2
+IF (%1)==(-server)            SHIFT
 IF (%1)==(ukirt)              set TELESCOPE=ukirt
 IF (%1)==(jcmt)               set TELESCOPE=jcmt
 SHIFT
@@ -60,6 +62,7 @@ IF NOT EXIST %CFG_DIRS%\%TELESCOPE% GOTO USAGE
 
 echo Settings:
                                             echo   Telescope:       %TELESCOPE%
+					    echo   Server:          %SERVER%
 IF (%OMP_FALG%)==(-DOMP)                    echo   Database:        OMP/XML 
 iF (%OMP_FALG%)==()                         echo   Database:        RMI/SGML 
 IF (%INTERNAL_FRAMES%)==(-internalframes)   echo   Internal Frames: Yes

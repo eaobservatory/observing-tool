@@ -18,32 +18,36 @@ set SERVER = ATC
 set TELESCOPE = "" 
 set INTERNAL_FRAMES = -internalframes 
 set OMP_FLAG = "" 
-set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-[no]omp] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n" 
+set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-[no]omp] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
  
 ############################## 
 #                            # 
 # Parsing arguments          # 
 #                            # 
 # ############################ 
-foreach arg ($*) 
-  if("${arg}" == "-h") then 
+while ("$1" != "")
+  if("$1" == "-h") then 
     printf "${USAGE}" 
     exit 
-  else if("${arg}" == "-internalframes") then 
+  else if("$1" == "-internalframes") then 
     set INTERNAL_FRAMES = -internalframes 
-  else if("${arg}" == "-nointernalframes") then 
+  else if("$1" == "-nointernalframes") then 
     set INTERNAL_FRAMES = -nointernalframes 
-  else if("${arg}" == "-omp") then 
+  else if("$1" == "-omp") then 
     set OMP_FLAG = -DOMP 
-  else if("${arg}" == "-noomp") then 
+  else if("$1" == "-noomp") then 
     set OMP_FLAG = "" 
-  else if(-d ${CFG_DIRS}/"${arg}") then 
-    set TELESCOPE = ${arg} 
+  else if("$1" == "-server") then
+    shift
+    set SERVER = $1
+  else if(-d ${CFG_DIRS}/"$1") then 
+    set TELESCOPE = $1 
   else 
-    echo Telescope configuration directory ${arg} not found in ${CFG_DIRS} 
+    echo Telescope configuration directory $1 not found in ${CFG_DIRS} 
     printf "${USAGE}" 
     exit 
   endif 
+  shift
 end 
  
 if("${TELESCOPE}" == "") then 
@@ -54,6 +58,7 @@ endif
 echo Settings:
 
 echo "  Telescope:       ${TELESCOPE}"
+echo "  Server:          ${SERVER}"
 
 if("${OMP_FLAG}" == "-DOMP") then
   echo "  Database:        OMP/XML"
