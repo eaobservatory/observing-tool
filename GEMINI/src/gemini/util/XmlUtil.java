@@ -33,6 +33,10 @@ import java.util.StringTokenizer;
 public class XmlUtil  {
 
   public static String asciiToXml(String ascii) {
+    if(ascii == null) {
+      return "";
+    }
+
     StringBuffer result = new StringBuffer();
 
     for(int i = 0; i < ascii.length(); i++) {
