@@ -82,9 +82,9 @@ public final class EdCompTargetList extends OtItemEditor
      * The constructor initializes the title, description, and presentation source.
      */
     public EdCompTargetList() {
-	_title       = "Telescope Targets";
+	_title       = "Target Information";
 	_presSource  = _w = new TelescopeGUI();
-	_description = "Use this editor to enter the base position and targets.";
+	_description = "Use this editor to enter the target information.";
 
         // Init name resolver drop down (MFO, May29, 2001)
 	String [] catalogs = OtCfg.getNameResolvers();
