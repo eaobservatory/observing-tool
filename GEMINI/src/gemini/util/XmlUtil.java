@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package orac.util;
+package gemini.util;
 
 /**
  * Simple utility to convert special characters.
