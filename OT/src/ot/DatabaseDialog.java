@@ -45,6 +45,19 @@ import gemini.sp.SpProg;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class DatabaseDialog implements ActionListener {
+
+  /**
+   * Message of Server.SpChangedOnDisk Exception.
+   *
+   * The Server.SpChangedOnDisk Exception thrown by the server (SOAP connection)
+   * arrives in java as a java.lang.Exception. It can only be identified by its
+   * message String.<P>
+   *
+   * If the server software is changed SP_CHANGED_ON_DISK_EXCEPTION_MESSAGE will have
+   * the be changed accordingly.
+   */
+  public static final String SP_CHANGED_ON_DISK_EXCEPTION_MESSAGE = "Science Program has changed on disk";
+
   /**
    * This is a subclass of JPanel so it can be used for internal as well as other frames.
    */
@@ -238,9 +251,13 @@ public class DatabaseDialog implements ActionListener {
   }
 
   protected void storeProgram(String password) {
+    storeProgram(password, false);
+  }
+
+  protected void storeProgram(String password, boolean force) {
 
     try {
-      SpClient.SpStoreResult result = (new SpClient()).storeProgram((SpProg)_spItemToBeSaved, password);
+      SpClient.SpStoreResult result = (new SpClient()).storeProgram((SpProg)_spItemToBeSaved, password, force);
 
       ((SpProg)_spItemToBeSaved).setTimestamp(result.timestamp);
 
@@ -250,9 +267,25 @@ public class DatabaseDialog implements ActionListener {
       new FormattedStringBox(dialogString, "Database Message");
     }
     catch(Exception e) {
-      JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      // The Server.SpChangedOnDisk Exception thrown by the server
+      // arrives here as a java.lang.Exception. It has to be identified by its
+      // message String.
+      if(e.getMessage().equalsIgnoreCase(SP_CHANGED_ON_DISK_EXCEPTION_MESSAGE)) {
+        if(JOptionPane.showConfirmDialog(_w, e.getMessage() + "\n\n            Store anyway?", "Database Message",
+	                                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+          
+	  // Call storeProgram and force storing despite inconsistent time stamp.
+	  // (Unless the current call had the force flag set already. This should not happen.)
+	  if(!force) {
+	    storeProgram(password, true);
+	  }  
+	}
+      }
+      else {
+        JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      }
+
       _stopAction.actionsFinished();
-      return;
     }
   }
 
