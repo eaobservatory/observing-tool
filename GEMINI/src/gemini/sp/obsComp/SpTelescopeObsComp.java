@@ -67,6 +67,7 @@ public class SpTelescopeObsComp extends SpObsComp
    private static final String TX_TYPE_SCIENCE         = "SCIENCE";
    private static final String TX_J2000                = "J2000";
    private static final String TX_B1950                = "B1950";
+   private static final String TX_AZEL                 = "AZEL";
 
    // CHOP MODE parameters (added by MFO, 6 August 2001)
    public static final String ATTR_CHOPPING	= "chopping";
@@ -375,6 +376,10 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
 
    if(system.equals(CoordSys.COORD_SYS[CoordSys.FK4])) {
      system = TX_B1950;
+   }
+
+   if ( system.equals(CoordSys.COORD_SYS[CoordSys.AZ_EL]) ) {
+       system = TX_AZEL;
    }
 
    // Check whether it is a spherical system. Only the spherical systems are saved using
