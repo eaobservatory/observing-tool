@@ -57,6 +57,13 @@ public class SoapClient {
 	 else {
 	    Fault fault = resp.getFault ();
 	    
+	    // Check for "SOAP-ENV:Server.SpChangedOnDisk" fault code does not seem to work at the
+	    // moment. Check for SpChangedOnDisk substring in fault.toString() instead. (MFO)
+	    // if(fault.getFaultCode().equals("SOAP-ENV:Server.SpChangedOnDisk")) {
+	    if(fault.toString().indexOf("SpChangedOnDisk") >= 0) {
+	       throw new SpChangedOnDiskException(fault.getFaultString());
+	    }
+
 	    // proper Exceptions will be implemented later.
 	    throw new Exception(fault.getFaultString());
 	    //System.err.println (methodName + " generated fault: ");
