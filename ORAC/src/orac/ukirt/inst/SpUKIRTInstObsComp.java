@@ -258,10 +258,6 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     int    currentNoCoadds     = 1;
 
     public void update(SpIterStep spIterStep) {
-      // If the iteration step is not a config step then do nothing.
-      if(!spIterStep.title.equals("config")) {
-        return;
-      }
 
       SpIterValue spIterValue = null;
 
@@ -273,16 +269,20 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
           // SpIterStep.values     is an array of SpIterValue
           // SpIterValue.values    is an array of String the first of which contains
           attribute = spIterStep.values[i].attribute;
-	  value     = spIterStep.values[i].values[0];
 
+	  if((spIterStep.values[i].values != null) && (spIterStep.values[i].values.length > 0)) {
+	    value     = spIterStep.values[i].values[0];
+	  }
 
-          if(attribute.equals(ATTR_EXPOSURE_TIME)) {
-            currentExposureTime = Double.valueOf(value).doubleValue();
-          }
+          if((attribute != null) && (value != null)) {
+            if(attribute.equals(ATTR_EXPOSURE_TIME)) {
+              currentExposureTime = Double.valueOf(value).doubleValue();
+            }
 
-          if(attribute.equals(ATTR_COADDS)) {
-            currentNoCoadds = Integer.valueOf(value).intValue();
-          }
+            if(attribute.equals(ATTR_COADDS)) {
+              currentNoCoadds = Integer.valueOf(value).intValue();
+            }
+	  }  
 	}  
       }
       catch(Exception e) {
