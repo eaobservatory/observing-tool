@@ -122,7 +122,7 @@ public class BandSpec
       double [] result = new double[bandWidths.length];
 
       for(int i = 0; i < bandWidths.length; i++) {
-	 result[i] = bandWidths[i] - ((numHybridSubBands[i] - 1) * defaultOverlaps[i]);
+	 result[i] = bandWidths[i] - (numHybridSubBands[i] * defaultOverlaps[i]);
       }
 
       return result;
@@ -140,7 +140,7 @@ public class BandSpec
 
       for(int i = 0; i < channels.length; i++) {
 	 channelOverlap = (int)(channels[i] * (overlap / bandWidths[i]));
-	 result[i] = channels[i] - ((numHybridSubBands[i] - 1) * channelOverlap);
+	 result[i] = channels[i] - (numHybridSubBands[i] * channelOverlap);
       }
 
       return result;
