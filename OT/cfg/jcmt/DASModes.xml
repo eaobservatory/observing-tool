@@ -23,7 +23,7 @@
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      DSB             </mode>
-  <systems>   1               </systems>
+  <systems>   2               </systems>
   <bandwidth> 125.0           </bandwidth>
   <shift>     0.12625         </shift>
   <shift>     -0.12625        </shift>
@@ -77,9 +77,8 @@
   <sideband>  USB             </sideband>
   <mixers>    2               </mixers>
   <mode>      DSB             </mode>
-  <systems>   2               </systems>
+  <systems>   1               </systems>
   <bandwidth> 125.0           </bandwidth>
-  <shift>     0.355          </shift>
   <shift>     0.355          </shift>
 </configuration>
 
@@ -90,7 +89,7 @@
   <sideband>  USB             </sideband>
   <mixers>    1               </mixers>
   <mode>      DSB             </mode>
-  <systems>   1               </systems>
+  <systems>   2               </systems>
   <bandwidth> 125.0           </bandwidth>
   <shift>     0.355          </shift>
 </configuration>
@@ -114,9 +113,8 @@
   <sideband>  USB             </sideband>
   <mixers>    2               </mixers>
   <mode>      DSB             </mode>
-  <systems>   2               </systems>
+  <systems>   1               </systems>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.355          </shift>
   <shift>     0.355          </shift>
 </configuration>
 
@@ -151,9 +149,8 @@
   <sideband>  USB             </sideband>
   <mixers>    2               </mixers>
   <mode>      DSB             </mode>
-  <systems>   2               </systems>
+  <systems>   1               </systems>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.0625          </shift>
   <shift>     0.0625          </shift>
 </configuration>
 
@@ -188,9 +185,8 @@
   <sideband>  USB             </sideband>
   <mixers>    2               </mixers>
   <mode>      DSB             </mode>
-  <systems>   2               </systems>
+  <systems>   1               </systems>
   <bandwidth> 125.0           </bandwidth>
-  <shift>     -0.23         </shift>
   <shift>     -0.23         </shift>
 </configuration>
 

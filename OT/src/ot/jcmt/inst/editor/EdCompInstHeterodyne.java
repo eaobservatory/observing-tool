@@ -539,8 +539,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	  _w.bandWidthChoice.setSelectedItem(ci.$bandWidth);
 	  switch ( ci.$subSystems.intValue() ) {
 	  case 1:
-	  case 2:
 	  default:
+	      updateSideBandDisplay(1, ci.$shifts);
+	      break;
+	  case 2:
 	      updateSideBandDisplay(2, ci.$shifts);
 	      break;
 	  case 4:
