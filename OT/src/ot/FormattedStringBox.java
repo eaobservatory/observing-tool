@@ -47,6 +47,7 @@ public class FormattedStringBox extends ReportBox {
     _textArea.setFont(new Font("Monospaced", 0, 10));
 
     _printButton.setVisible(false);
+    _saveButton.setVisible(false);
 
     getContentPane().remove(_textPane);
     getContentPane().add(_textArea);
