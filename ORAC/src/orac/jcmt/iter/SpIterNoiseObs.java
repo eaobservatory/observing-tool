@@ -22,6 +22,9 @@ import orac.jcmt.SpJCMTConstants;
  */
 public class SpIterNoiseObs extends SpIterJCMTObs {
 
+  /** Default number of integrations for Noise Iterator. */
+  private static final int NOISE_INTEGRATIONS_DEF = 64;
+
   public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "noiseObs", "Noise");
 
@@ -38,6 +41,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
     super(SP_TYPE);
 
     _avTable.noNotifySet(ATTR_NOISE_SOURCE, NOISE_SOURCES[0], 0);
+    _avTable.noNotifySet(ATTR_INTEGRATIONS, String.valueOf(NOISE_INTEGRATIONS_DEF), 0);
   }
 
   /** Get the noise source. */
