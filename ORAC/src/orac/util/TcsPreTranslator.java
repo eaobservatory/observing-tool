@@ -426,18 +426,20 @@ public abstract class TcsPreTranslator implements PreTranslator {
 
         sp_OffsetN = (ElementImpl)element.getElementsByTagName("Offset" + i).item(0);
 
-        sp_OffsetN_values = sp_OffsetN.getElementsByTagName("value");
+        if(sp_OffsetN != null) {
+	  sp_OffsetN_values = sp_OffsetN.getElementsByTagName("value");
 
-        tcs_offset.appendChild(document.createElement("dc1")).appendChild(document.createTextNode(
-          sp_OffsetN_values.item(0).getFirstChild().getNodeValue()
-	));
+          tcs_offset.appendChild(document.createElement("dc1")).appendChild(document.createTextNode(
+            sp_OffsetN_values.item(0).getFirstChild().getNodeValue()
+	  ));
 
-        tcs_offset.appendChild(document.createElement("dc2")).appendChild(document.createTextNode(
-          sp_OffsetN_values.item(1).getFirstChild().getNodeValue()
-	));
+          tcs_offset.appendChild(document.createElement("dc2")).appendChild(document.createTextNode(
+            sp_OffsetN_values.item(1).getFirstChild().getNodeValue()
+	  ));
 
-        // Remove sp_OffsetN <OffsetN>.
-	element.removeChild(sp_OffsetN);
+          // Remove sp_OffsetN <OffsetN>.
+	  element.removeChild(sp_OffsetN);
+	}  
       }
 
       // Remove sp_offsetPositions <offsetPositions>.

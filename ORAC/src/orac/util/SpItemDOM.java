@@ -330,6 +330,7 @@ public class SpItemDOM {
 
 
     NodeList nodeList = element.getChildNodes();
+    setNumbers(nodeList);
     ElementImpl childElement = null;
     Vector childV = new Vector();
     
