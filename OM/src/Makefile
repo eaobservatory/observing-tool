@@ -203,6 +203,7 @@ $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf M
 	\nset tosim = \"nosim\"\
 	\nset toql = \"ql\"\
 	\nset toeng = \"noeng\"\
+	\nset inst = \"\"\
 	\n\
 	\nwhile ($$""#argv != 0)\
 	\n   switch ($$""argv[1])\
@@ -247,13 +248,18 @@ $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf M
 	\n        shift\
 	\n        breaksw\
 	\n      default:\
-	\n        echo \"No such option\"\
-	\n        exit 1\
+	\n        set inst = $$""argv[1]\
+	\n        echo \"Instrument: $$""inst\"\
+	\n        shift\
 	\n        breaksw\
 	\n   endsw\
 	\n\
 	\nend\
 	\n\
+	\nif (\"$$""inst\" == \"\") then \
+	\n   echo Fatal error: No instrument specified!\
+	\n   exit 1\
+	\nendif\
 	\n\
 	\nset CFG_DIR = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg/$(CFG_DIR_SITE)/$(CFG_DIR_TELESCOPE)\
 	\nset OT_CFG_DIR = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/ot_cfg/\
@@ -262,7 +268,7 @@ $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf M
 	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -DSIMULATE=$$""{tosim} -DENGINEERING=$$""{toeng} -DQUICKLOOK=$$""{toql} \
 	-Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
-	om.console.sequenceConsole $$""{CFG_DIR}/om.cfg\
+	om.console.sequenceConsole $$""{CFG_DIR}/om.cfg $$""inst\
 	\n\
 	\n" > $(LOCAL_INSTALL_ROOT)/bin/os
 
@@ -530,6 +536,7 @@ $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\nset tosim = \"nosim\"\
 	\nset toql = \"ql\"\
 	\nset toeng = \"noeng\"\
+	\nset inst = \"\"\
 	\n\
 	\nwhile ($$""#argv != 0)\
 	\n   switch ($$""argv[1])\
@@ -574,12 +581,18 @@ $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n        shift\
 	\n        breaksw\
 	\n      default:\
-	\n        echo \"No such option\"\
-	\n        exit 1\
+	\n        set inst = $$""argv[1]\
+	\n        echo \"Instrument: $$""inst\"\
+	\n        shift\
 	\n        breaksw\
 	\n   endsw\
 	\n\
 	\nend\
+	\n\
+	\nif (\"$$""inst\" == \"\") then \
+	\n   echo Fatal error: No instrument specified!\
+	\n   exit 1\
+	\nendif\
 	\n\
 	\nset CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/om/$(CFG_DIR_SITE)/$(CFG_DIR_TELESCOPE)\
 	\nset OT_CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/ot/$(CFG_DIR_TELESCOPE)/\
@@ -587,7 +600,7 @@ $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -DSIMULATE=$$""{tosim} -DENGINEERING=$$""{toeng} -DQUICKLOOK=$$""{toql} \
 	-Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
-	om.console.sequenceConsole $$""{CFG_DIR}/om.cfg\
+	om.console.sequenceConsole $$""{CFG_DIR}/om.cfg $$""inst\
 	\n\
 	\n" > $(INSTALL_ROOT)/bin/os
 
