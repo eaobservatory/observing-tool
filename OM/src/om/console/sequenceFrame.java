@@ -45,6 +45,8 @@ final public class sequenceFrame extends JFrame
       setSize(720,900);
     } else if(instrument.equals("Michelle")) {
       setSize(775, 900);
+    } else if(instrument.equals("UIST")) {
+      setSize(775, 900);
     } else {
       setSize(720,760);
     }
@@ -116,13 +118,14 @@ final public class sequenceFrame extends JFrame
     comPanel=new commandPanel(comSent);
     contentPane.add(comPanel,"West");
 
-    _movie=new movie(comSent, instrument.equalsIgnoreCase("Michelle"));
+    _movie=new movie(comSent, (instrument.equalsIgnoreCase("Michelle") || 
+                               instrument.equalsIgnoreCase("UIST")));
     comSent.linkSequencePanel(sDisplay);
     comSent.linkMovieFrame(_movie);
 
-    // Disable the movie button if inst. is not UFTI or Michelle
-    if (!instrument.equals("UFTI") && !instrument.equalsIgnoreCase("Michelle")) {
-      System.out.println ("Not UFTI or Michelle, disabling movie");
+    // Disable the movie button if inst. is IRCAM3 or CGS4
+    if (instrument.equals("CGS4") || instrument.equalsIgnoreCase("IRCAM3")) {
+      System.out.println ("Disabling movie");
       comPanel.getButton(6).setVisible(false);
       menus.getMenuItem(6).setVisible(false);
     }
@@ -156,7 +159,7 @@ final public class sequenceFrame extends JFrame
     } else if (inst.equals("Michelle")) {
       setSize(775, 900);
     } else {
-      setSize(720,760);
+      setSize(720,900);
     }
 
     setLocation(200,200);
@@ -230,13 +233,14 @@ final public class sequenceFrame extends JFrame
     comPanel=new commandPanel(comSent);
     contentPane.add(comPanel,"West");
     
-    _movie=new movie(comSent, inst.equalsIgnoreCase("Michelle"));
+    _movie=new movie(comSent, (inst.equalsIgnoreCase("Michelle") ||
+                               inst.equalsIgnoreCase("UIST")));
     comSent.linkSequencePanel(sDisplay);
     comSent.linkMovieFrame(_movie);
 
-    // Disable the movie button if inst. is not UFTI or Michelle
-    if (!inst.equals("UFTI") && !inst.equalsIgnoreCase("Michelle")) {
-      System.out.println ("Not UFTI or Michelle, disabling movie");
+    // Disable the movie button if inst. is CGS4 or IRCAM3
+    if (inst.equals("CGS4") || inst.equalsIgnoreCase("IRCAM3")) {
+      System.out.println ("Disabling movie");
       comPanel.getButton(6).setVisible(false);
       menus.getMenuItem(6).setVisible(false);
     }
