@@ -42,6 +42,24 @@ public class SiteQualityGUI extends JPanel {
     OptionWidgetExt skySpectroscopic = new OptionWidgetExt();
     OptionWidgetExt skyPhotometric = new OptionWidgetExt();
 
+    // Widgets for OMP mode (added by MFO, 8 August 2001)
+    GridBagLayout gridBagLayout1omp = new GridBagLayout();
+    JPanel jPanel1omp = new JPanel();
+    JPanel jPanel2omp = new JPanel();
+    TitledBorder titledBorder1omp;
+    Border border1omp;
+    TitledBorder titledBorder2omp;
+    TitledBorder titledBorder3omp;
+    TitledBorder titledBorder4omp;
+    GridBagLayout gridBagLayout2omp = new GridBagLayout();
+    GridBagLayout gridBagLayout3omp = new GridBagLayout();
+    OptionWidgetExt tauBand1 = new OptionWidgetExt();
+    OptionWidgetExt tauBand2 = new OptionWidgetExt();
+    OptionWidgetExt seeing1 = new OptionWidgetExt();
+    OptionWidgetExt seeing2 = new OptionWidgetExt();
+    OptionWidgetExt seeing3 = new OptionWidgetExt();
+
+
     public SiteQualityGUI() {
         try {
             jbInit();
@@ -52,6 +70,46 @@ public class SiteQualityGUI extends JPanel {
     }
 
     void jbInit() throws Exception {
+      // OMP (MFO, 8 August 2001)
+      // Layout GUI depending on whether in OMP mode or not.
+      if(System.getProperty("OMP") != null) {
+        titledBorder1omp = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(142, 142, 142)),"\u03C4 Band");
+        border1omp = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(142, 142, 142));
+        titledBorder2omp = new TitledBorder(border1omp,"Seeing");
+        this.setMinimumSize(new Dimension(279, 276));
+        this.setPreferredSize(new Dimension(279, 276));
+        this.setLayout(gridBagLayout1omp);
+        jPanel1omp.setBorder(titledBorder1omp);
+        jPanel1omp.setLayout(gridBagLayout2omp);
+        jPanel2omp.setBorder(titledBorder2omp);
+        jPanel2omp.setLayout(gridBagLayout3omp);
+        tauBand1.setText("low  (\u03C4 < 0.09)");
+        tauBand1.setFont(new java.awt.Font("Monospaced", 0, 12));
+        tauBand2.setText("high (\u03C4 > 0.09)");
+        tauBand2.setFont(new java.awt.Font("Monospaced", 0, 12));
+        seeing1.setText("1 (< 0.4)");
+        seeing1.setFont(new java.awt.Font("Monospaced", 0, 12));
+        seeing2.setText("2 (0.4 .. 0.8)");
+        seeing2.setFont(new java.awt.Font("Monospaced", 0, 12));
+        seeing3.setText("3 (> 0.8)");
+        seeing3.setFont(new java.awt.Font("Monospaced", 0, 12));
+
+        this.add(jPanel1omp, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+        jPanel1omp.add(tauBand1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        jPanel1omp.add(tauBand2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        this.add(jPanel2omp, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+        jPanel2omp.add(seeing1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        jPanel2omp.add(seeing2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        jPanel2omp.add(seeing3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+      }
+      else {
         titledBorder1 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(142, 142, 142)),"Image Quality");
         border1 = new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(142, 142, 142));
         titledBorder2 = new TitledBorder(border1,"IR Background");
@@ -124,5 +182,6 @@ public class SiteQualityGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         jPanel4.add(skyPhotometric, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+      }
     }
 }
