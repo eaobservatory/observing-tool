@@ -33,6 +33,7 @@ import orac.ukirt.inst.SpInstUFTI;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
 //import ot_ukirt.util.InstApertures;
 //import ot_ukirt.util.InstConfig;
+import orac.util.SpItemDOM;
 import java.io.*;
 import java.text.BreakIterator;
 import java.text.DecimalFormat;
@@ -830,6 +831,7 @@ public class SpTranslator {
       Vector v;                           // Work Vector
       String value;                       // Attribute value
 
+
 // Check if this is an Observation.
       if ( !( spObs.type().equals( SpType.OBSERVATION ) ) ) {
          spObs = findSpObs( spObs );
@@ -1144,11 +1146,11 @@ public class SpTranslator {
                chopAngle = targetComponent.getChopAngleAsString();
 
 // Write sequence instructions.
-               sequence.addElement( "-CHOP off" );
+               sequence.addElement( "-CHOP ChopOff" );
                sequence.addElement( "SET_CHOPTHROW " + chopThrow );
                sequence.addElement( "SET_CHOPPA " + chopAngle );
                sequence.addElement( "-DEFINE_BEAMS " + chopAngle + " " + chopThrow );
-               sequence.addElement( "-CHOP on" );
+               sequence.addElement( "-CHOP ChopOn" );
                sequence.addElement( "-CHOP_EXTERNAL" );
                sequence.addElement( "SET_CHOPBEAM A" );
             }
@@ -1666,7 +1668,7 @@ public class SpTranslator {
 
 // Switch off chopping and return the beam to the middle.
             if ( chopping ) {
-               sequence.addElement( "-CHOP off" );
+               sequence.addElement( "-CHOP ChopOff" );
                sequence.addElement( "SET_CHOPBEAM MIDDLE" );
             }
 
