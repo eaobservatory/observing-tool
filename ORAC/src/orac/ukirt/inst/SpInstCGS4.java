@@ -25,6 +25,11 @@ import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpChopCapability;
 import gemini.sp.obsComp.SpStareCapability;
 import gemini.sp.iter.SpIterStep;
+import gemini.sp.iter.SpIterConfigObs;
+import orac.ukirt.iter.SpIterBiasObs;
+import orac.ukirt.iter.SpIterDarkObs;
+import orac.ukirt.iter.SpIterCGS4CalObs;
+
 
 /**
  * The CGS4 instrument Observation Component.
@@ -1212,6 +1217,28 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     }
 
 
+   /**
+    * Overhead in doing an exposure in seconds.
+    *
+    * 0.32 seconds for acquisition mode NDSTARE<br>
+    * 0.12 seconds for acquisition modes STARE and CHOP.
+    */
+   public double getExposureOverhead() {
+      if(getMode().toUpperCase().indexOf("NDSTARE") > -1) {
+         return 0.32;
+      }
+      
+      return 0.12;
+   }
+
+   /**
+    * Returns a time estimate in seconds for slewing the telescope for spectroscopy: 8 minutes.
+    */
+   public double getSlewTime() {
+      return 8.0 * 60.0;
+   }
+
+
   /**
    * Iteration Tracker for CGS4.
    *
@@ -1220,10 +1247,24 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
   private class IterTrackerCGS4 extends IterTrackerUKIRT {
 
     public double getObserveStepTime () {
+      // extra_oh is a constant overheads related to certain observe iterators:
+      // 30 seconds for dark, arc, flat or bias (in addition to the times to do
+      // their respective eye), and 30 secs each time an instrument iterator changes a filter.  
+      double extra_oh = 0.0;
+
+      if((currentIterStepItem != null) &&
+         ((currentIterStepItem instanceof SpIterBiasObs) ||
+          (currentIterStepItem instanceof SpIterDarkObs) ||
+          (currentIterStepItem instanceof SpIterCGS4CalObs) ||
+	  (currentIterStepItem instanceof SpIterConfigObs))) {
+
+        extra_oh = 30.0;
+      }
+
       int sampling_x = Integer.valueOf(getSampling().substring(0, 1)).intValue();
       int sampling_y = Integer.valueOf(getSampling().substring(2, 3)).intValue();
     
-      return sampling_x * sampling_y * currentNoCoadds * currentExposureTime;
+      return (sampling_x * sampling_y * currentNoCoadds * currentExposureTime) + extra_oh;
     }
   }
 
