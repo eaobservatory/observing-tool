@@ -616,6 +616,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     */
    private void _resetAdditionalSubSystems()
    {
+      if(!(_w.transitionChoice.getSelectedItem() instanceof Transition)) {
+         return;
+      }
+
       Transition transition = (Transition)_w.transitionChoice.getSelectedItem();
 
       for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
