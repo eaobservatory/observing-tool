@@ -235,10 +235,10 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer {
 	// Added for OMP (MFO, 7 August 2001)
 	if(spItem instanceof SpObs) {
           if(spItem.parent() instanceof SpMSB) {
-            ((EdObservation)ed).hideMsbParameters();
+            ((EdObservation)ed).setMsbDisplay(false);
 	  }
 	  else {
-            ((EdObservation)ed).showMsbParameters();
+            ((EdObservation)ed).setMsbDisplay(true);
 	  }
 	}
     }
