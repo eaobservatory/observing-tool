@@ -15,6 +15,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import javax.swing.text.*;
 
 /**
  *
@@ -194,6 +195,7 @@ public class AttributeEditor extends JDialog
     scrollPane  = new JScrollPane(editorTable);
     initColumnSizes();
     editorTable.setPreferredScrollableViewportSize(editorTable.getPreferredSize());
+    editorTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
@@ -362,6 +364,30 @@ public class AttributeEditor extends JDialog
     }
   }
   
+
+  /**
+   * private void flushChanges()
+   *
+   * Look at the editorTable to see if there are any changes which
+   * have not been notified to the model. This can come about if the
+   * user has typed some changes into one of the editable cells in the
+   * table and pressed OK without explicitely blurring the cell. So
+   * check to see if there is a cell editor associated with the table,
+   * and if there is then wheek the value out of the editor and into
+   * the model.
+   *
+   * @author Too ashamed to admit it
+   **/
+  private void flushChanges() {
+    JTextComponent comp = (JTextComponent) editorTable.getEditorComponent();
+
+    if (comp != null) {	// There is some editing going on
+      model.setValueAt((String)comp.getText(),
+		       editorTable.getEditingRow(),
+		       editorTable.getEditingColumn());
+    }
+  }
+
   
   /**
    * private boolean makeChanges()
@@ -375,8 +401,13 @@ public class AttributeEditor extends JDialog
       ErrorBox eb;
       try {
 	_scaleFactorUsed = Double.valueOf(scaleFactor.getText()).doubleValue();
-	if (_scaleFactorUsed <= 1e-3) {
-	  eb = new ErrorBox("Negative or Zero scale factor (" + scaleFactor.getText() + ").");
+	if (Math.abs(_scaleFactorUsed) < 1e-6) {
+	  eb = new ErrorBox("Zero (or very small) scale factor (" +
+			    scaleFactor.getText() + ").");
+	  return false;
+	} else if (_scaleFactorUsed < 0) {
+	  eb = new ErrorBox("Negative scale factor (" +
+			    scaleFactor.getText() + ").");
 	  return false;
 	} else {
 	  model.scaleValuesBy(_scaleFactorUsed);
@@ -385,6 +416,8 @@ public class AttributeEditor extends JDialog
 	eb = new ErrorBox("Invalid scale factor (" + scaleFactor.getText() + ").");
 	return false;
       }
+    } else {
+      flushChanges();
     }
     
     boolean doneSome = false;

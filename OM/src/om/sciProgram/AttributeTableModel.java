@@ -204,7 +204,7 @@ public class AttributeTableModel extends javax.swing.table.AbstractTableModel {
   }    
 
   /**
-   * public void _resetValueAt(int row, int col)
+   * private void _resetValueAt(int row, int col)
    *
    * This is for whan an update fails due to data checking
    * failing. Simply update the display without updating the model.
@@ -219,5 +219,6 @@ public class AttributeTableModel extends javax.swing.table.AbstractTableModel {
 			       " attribute.");
     fireTableCellUpdated(row, col);
   }    
+
 
 }
