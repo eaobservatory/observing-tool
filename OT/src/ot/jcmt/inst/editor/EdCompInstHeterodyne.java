@@ -165,30 +165,30 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       Receiver receiver     = (Receiver)cfg.receivers.get(frontEndName);
       BandSpec bandSpec     = (BandSpec)(receiver.bandspecs.get(0));
 
-      // Get hold of a line in the upper sideband that. Make sure it is not to close to
+      // Get hold of the lines in the upper sideband that. Make sure it is not to close to
       // the edge of the range so that the IF can default to the frontend IF.
-      LineDetails [] lineDetailsArray = new LineDetails[1];
-      lineCatalog.returnLines(receiver.loMin + receiver.feIF + receiver.bandWidth,
-                              receiver.loMax                 - receiver.bandWidth,
-                              lineDetailsArray.length, lineDetailsArray);
+      // One of the lines should be a CO transition. Find it it use it as default line.
+      Vector moleculeVector = lineCatalog.returnSpecies(receiver.loMin + receiver.feIF + receiver.bandWidth,
+                                                        receiver.loMax                 - receiver.bandWidth);
+      String molecule       = "CO";
+      String transitionName = "";
+      String frequency      = "";
 
-      String molecule;
-      String transition;
-      String frequency;
+      Transition transition = null;
 
-      if((lineDetailsArray != null) && (lineDetailsArray.length > 0)) {
-         molecule   = lineDetailsArray[0].name;
+      for(int i = 0; i < moleculeVector.size(); i++) {
+         if(moleculeVector.get(i).toString().trim().equals(molecule)) {
+            transition = (Transition)((SelectionList)moleculeVector.get(i)).objectList.get(0);
+         }
+      }
+
+      if(transition != null) {
 
          // Whenever a trinsition is taken from the LineCatalog and consequently saved to
          // it has to be trimmed in order to remove the trailing white space that each transition
          // in the LineCatalog has.
-         transition = lineDetailsArray[0].transition.trim();
-         frequency  = "" + lineDetailsArray[0].frequency;
-      }
-      else {
-         molecule   = "";
-         transition = "";
-         frequency  = "";
+         transitionName = transition.name.trim();
+         frequency      = "" + transition.frequency;
       }
  
       _instHeterodyne.initialiseValues(
@@ -203,7 +203,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          "" + bandSpec.getDefaultOverlapBandWidths()[0],	// bandwidth
          "" + bandSpec.channels[0],				// channels
          molecule,						// molecule
-         transition,						// transition
+         transitionName,					// transition
          frequency						// rest frequency
       );
    }
@@ -262,13 +262,27 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
            }
          }
 
-         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
+
+         String molecule = _instHeterodyne.getMolecule(0);
+         if((molecule == null) && (molecule.trim().equals(""))) {
+            molecule = NO_LINE;
+	 }
+
+         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, molecule));
+
+
+         String transition = _instHeterodyne.getTransition(0);
+         if((transition == null) && (transition.trim().equals(""))) {
+            transition = NO_LINE;
+	 }
 
          // Whenever a transition is obtained from via _instHeterodyne.getTransition(int) a white space must
          // be added so that the transition String matches the format of the transition Strings in the
          // LineCatalog.
-         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
+         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, transition + " "));
          _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
+
+         _w.resolution.setText("" + sideBandDisplay.getResolution(0));
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -760,7 +774,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             //_instHeterodyne.setBandWidth(currentBandSpec.getBandWidths(feOverlap)[0], i);
             //_instHeterodyne.setChannels(currentBandSpec.getChannels(feOverlap)[0], i);
             _instHeterodyne.setBandWidth(currentBandSpec.getDefaultOverlapBandWidths()[0], i);
-            _instHeterodyne.setBandWidth(currentBandSpec.getDefaultOverlapChannels()[0], i);
+            _instHeterodyne.setChannels(currentBandSpec.getDefaultOverlapChannels()[0], i);
 	    _instHeterodyne.setRestFrequency(getRestFrequency(i), i);
             _instHeterodyne.setOverlap(feOverlap, i); 
 
@@ -949,6 +963,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
         new DefaultComboBoxModel ( 
         lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
           obsmax*(1.0+redshift) ) ) );
+
+      if(((DefaultComboBoxModel)_w.moleculeChoice.getModel()).getIndexOf(NO_LINE) == -1) {
+         _w.moleculeChoice.addItem(NO_LINE);
+      }
+
       _w.moleculeChoice2.setModel ( 
         new DefaultComboBoxModel ( 
         lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
@@ -1103,7 +1122,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
    // See edfreq.HeterodyneEditor for documentation
    public double getRestFrequency(int subsystem) {
-      return EdFreq.getRestFrequency(_instHeterodyne.getLO1(),
+      return EdFreq.getRestFrequency(sideBandDisplay.getLO1(),
                                      _instHeterodyne.getCentreFrequency(subsystem),
                                      _instHeterodyne.getRedshift(),
                                      _instHeterodyne.getBand());
@@ -1111,7 +1130,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
    // See edfreq.HeterodyneEditor for documentation
    public double getObsFrequency(int subsystem) {
-      return EdFreq.getObsFrequency(_instHeterodyne.getLO1(),
+      return EdFreq.getObsFrequency(sideBandDisplay.getLO1(),
                                     _instHeterodyne.getCentreFrequency(subsystem),
                                     _instHeterodyne.getBand());
    }
@@ -1215,9 +1234,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
       _instHeterodyne.setMolecule("", i);
       _instHeterodyne.setTransition("", i);
+      _instHeterodyne.setRestFrequency(getRestFrequency(i), i);
     }
 
-    _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
+    sideBandDisplay.setMainLine(getRestFrequency(0));
   }
 
 
