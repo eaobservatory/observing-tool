@@ -137,6 +137,8 @@ public interface SpJCMTConstants {
 
     public static final String ATTR_WIDE_PHOTOMETRY    = "widePhotometry";
 
+   public static final String ATTR_SAMPLES_PER_REVOLUTION = "samplesPerRevolution";
+
 
    /** Focus Iterator. */
    public static final String ATTR_AXIS                = "axis";
