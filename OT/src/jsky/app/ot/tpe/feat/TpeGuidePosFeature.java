@@ -15,6 +15,7 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
 import jsky.app.ot.fits.gui.FitsPosMapEntry;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.tpe.TpeCreateableFeature;
 import jsky.app.ot.tpe.TpeImageWidget;
 import jsky.app.ot.tpe.TpePositionMap;
@@ -309,6 +310,19 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	}
 
 	_dragObject = null;
+    }
+
+
+    /**
+     * Get the feature's name.
+     */
+    public String getName() {
+        try {
+            return OtCfg.telescopeUtil.getAdditionalTarget();
+	}
+	catch(Exception e) {
+            return super.getName();
+	}
     }
 }
 

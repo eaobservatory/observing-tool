@@ -28,6 +28,7 @@ import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.tpe.feat.TpeCatalogFeature;
 import jsky.app.ot.util.BasicPropertyList;
 import jsky.app.ot.util.DDMMSS;
@@ -97,9 +98,11 @@ public class TelescopePosEditor extends JSkyCat
 
     static {
 	// Register the standard target list features.
+
 	registerTargetListFeature("jsky.app.ot.tpe.feat.TpeBasePosFeature");
-	registerTargetListFeature("jsky.app.ot.tpe.feat.TpeGuidePosFeature");
-	registerTargetListFeature("jsky.app.ot.tpe.feat.TpeTargetPosFeature");
+	// MFO, 23 January 2002
+	registerTargetListFeature(OtCfg.telescopeUtil.getAdditionalTargetFeatClass());
+	//registerTargetListFeature("jsky.app.ot.tpe.feat.TpeTargetPosFeature");
 	registerInstrumentFeature("jsky.app.ot.tpe.feat.TpeSciAreaFeature");
 	registerFeature("jsky.app.ot.tpe.feat.TpeCatalogFeature");
 
@@ -140,12 +143,20 @@ public class TelescopePosEditor extends JSkyCat
 	_iw.addMouseObserver(this);
 	_featureMan = new TpeFeatureManager(this, _iw);
 
+
+
 	// Target list features
 	_targetListFeatures = _createFeatures(_targetListFeatureClasses);
 	for (int i=0; i<_targetListFeatures.size(); ++i) {
 	    _addFeature((TpeImageFeature) _targetListFeatures.elementAt(i));
 	}
-	BASE_FEATURE = (TpeImageFeature) _targetListFeatures.firstElement();
+	
+	if(_targetListFeatures.firstElement() != null) {
+	    BASE_FEATURE = (TpeImageFeature) _targetListFeatures.firstElement();
+	}
+	else {
+	    DialogUtil.error("No base/science feature found.");
+	}
 
 	// Instrument features
 	_instrumentFeatures = _createFeatures(_instrumentFeatureClasses);

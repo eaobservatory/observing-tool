@@ -13,6 +13,7 @@ import java.awt.event.*;
 import jsky.util.gui.LabelJPanel;
 import jsky.app.ot.gui.ToggleButtonWidgetPanel;
 import jsky.app.ot.gui.ToggleButtonWidget;
+import jsky.app.ot.OtCfg;
 
 
 /**
@@ -72,8 +73,9 @@ public class TelescopePosEditorToolBar extends JToolBar {
 				// "GUIDE" referres to the UKIRT tag for guide stars as specified in the configuration
 				// file ot.cfg. If the tag in ot.cfg is changed "GUIDE" has to be changed here too.
 				// (case sensitive)
-				else if (s.equals("PWFS1") || s.equals("PWFS2") || s.equals("OIWFS") || s.equals("GUIDE")) {
-				    ToggleButtonWidget b = viewToggleButtonPanel.getButton("Guide");
+				else if (s.equals("PWFS1") || s.equals("PWFS2") || s.equals("OIWFS") ||
+				         s.equals(OtCfg.telescopeUtil.getAdditionalTarget())) {
+				    ToggleButtonWidget b = viewToggleButtonPanel.getButton(OtCfg.telescopeUtil.getAdditionalTarget());
 				    if (b != null)
 					b.setSelected(true);
 				}

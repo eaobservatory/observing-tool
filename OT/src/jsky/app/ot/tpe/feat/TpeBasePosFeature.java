@@ -16,6 +16,7 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
 
 import gemini.sp.SpTelescopePos;
 
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.tpe.TpeImageWidget;
 import jsky.app.ot.tpe.TpePositionMap;
 import java.awt.geom.Point2D;
@@ -113,6 +114,19 @@ public class TpeBasePosFeature extends TpePositionFeature {
 	    SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
 	    //tp.noNotifySetXY(fme.ra, fme.dec);
 	    tp.setXY(fme.ra, fme.dec);
+	}
+    }
+
+
+    /**
+     * Get the feature's name.
+     */
+    public String getName() {
+	try {
+	    return OtCfg.telescopeUtil.getBaseTag();
+	}
+	catch(Exception e) {
+            return super.getName();
 	}
     }
 }

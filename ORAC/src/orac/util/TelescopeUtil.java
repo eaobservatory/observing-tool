@@ -65,7 +65,21 @@ public interface TelescopeUtil {
    *
    * For example "GUIDE" for UKIRT and "Reference" for JCMT.
    */
-  public String    getAdditionalTarget();
+  public String getAdditionalTarget();
+
+  /**
+   * Gets full class name of GUIDE/Reference feature.
+   *
+   * <pre>
+     Example:
+
+       <b>Telescope	Additional Target	Feature class</b>
+       
+       UKIRT		GUIDE			{@link jsky.app.ot.tpe.feat.TpeGuidePosFeature}
+       JCMT		Reference		{@link ot.jcmt.tpe.TpeReferencePosFeature}
+   * </pre> 
+   */
+  public String getAdditionalTargetFeatClass();
 
   public boolean supports(int feature);
 

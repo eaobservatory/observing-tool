@@ -26,6 +26,7 @@ public class UkirtUtil implements TelescopeUtil {
 
   private UkirtSpValidation _ukirtSpValidation = new UkirtSpValidation();
 
+
   public SpValidation getValidationTool() {
     return _ukirtSpValidation;
   }
@@ -52,6 +53,10 @@ public class UkirtUtil implements TelescopeUtil {
 
   public String getAdditionalTarget() {
     return SpTelescopePos.GUIDE_TAGS[0];
+  }
+
+  public String getAdditionalTargetFeatClass() {
+    return "jsky.app.ot.tpe.feat.TpeGuidePosFeature";
   }
 
   public boolean supports(int feature) {

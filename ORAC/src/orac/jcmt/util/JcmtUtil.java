@@ -27,6 +27,7 @@ public class JcmtUtil implements TelescopeUtil {
   private SpValidation _spValidation =  new SpValidation();
   private String []    _targetTags = { "Science", "Reference" };
 
+
   public SpValidation getValidationTool() {
     return _spValidation;
   }
@@ -41,6 +42,10 @@ public class JcmtUtil implements TelescopeUtil {
 
   public String getAdditionalTarget() {
     return _targetTags[1];
+  }
+
+  public String getAdditionalTargetFeatClass() {
+    return "ot.jcmt.tpe.TpeReferencePosFeature";
   }
 
   public boolean supports(int feature) {

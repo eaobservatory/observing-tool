@@ -107,6 +107,16 @@ public abstract class TpeImageFeature {
     }
 
     /**
+     * Set the feature's name.
+     *
+     * This allows to set a telescope specific name.
+     * Added by MFO (22 January 2002).
+     */
+    public void setName(String name) {
+	_name = name;
+    }
+
+    /**
      * Get the feature's description.
      */
     public String getDescription() {
