@@ -8,9 +8,12 @@ package jsky.app.ot;
 
 //import jsky.app.ot.gui.FileBox;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.JOptionPane;
 //import jsky.app.ot.gui.util.AlertBox;
 //import jsky.app.ot.gui.util.ErrorBox;
+
+import java.io.PrintStream;
 
 import gemini.sp.SpInputSGML;
 import gemini.sp.SpItem;
@@ -33,6 +36,8 @@ import java.io.Reader;
 import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtWindow;
 
+import orac.util.SpItemDOM;
+
 
 /**
  * This is a utility class used for reading and writing science programs.
@@ -44,6 +49,67 @@ import jsky.app.ot.OtWindow;
 public class OtFileIO
 {
    private static String _lastDir;
+
+   public static final String []  xmlExtension = { ".xml" };
+   public static final String [] sgmlExtension = { ".sgml", ".ot", ".sp" };
+
+   public static final String  xmlDescription = "Science Program XML (*.xml)";
+   public static final String sgmlDescription = "Science Program SGML (*.sgml, *.ot, *.sp)";
+
+   private static boolean _io_xml = false;
+   
+   public static FileFilter xmlFilter = new FileFilter() {
+     public boolean accept(File file) {
+       if(file.isDirectory()) {
+         //_io_xml = true;
+	 
+         return true;
+       }
+
+       for(int i = 0; i < xmlExtension.length; i++) {
+         if(file.getName().endsWith(xmlExtension[i])) {
+           _io_xml = true;
+	 
+           return true;
+         }
+       }
+       
+       //_io_xml = false;
+       
+       return false;
+     }
+      
+     public String getDescription() {
+       return xmlDescription;
+     }
+   };
+
+   public static FileFilter sgmlFilter = new FileFilter() {
+     public boolean accept(File file) {
+       if(file.isDirectory()) {
+         //_io_xml = false;
+	 
+         return true;
+       }
+
+       for(int i = 0; i < sgmlExtension.length; i++) {
+         if(file.getName().endsWith(sgmlExtension[i])) {
+           _io_xml = false;
+	 
+           return true;
+         }
+       }
+       
+       //_io_xml = true;
+       
+       return false;
+     }
+      
+     public String getDescription() {
+       return sgmlDescription;
+     }
+   };
+
 
 /**
  * Store the Science Program rooted at the given SpItem into the file
@@ -69,7 +135,12 @@ storeSp(SpRootItem spItem, File f)
       FileOutputStream fis = new FileOutputStream(f);
       OutputStream os = new BufferedOutputStream(fis);
 
-      spItem.printDocument(os);
+      if(_io_xml) {
+        (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
+      }
+      else {
+        spItem.printDocument(os);
+      }
 
       os.flush();
       os.close();
@@ -141,21 +212,26 @@ fetchSp(String dir, String filename)
 public static SpRootItem
 fetchSp(Reader rdr)
 {
-   SpInputSGML inSGML = new SpInputSGML( rdr );
+  if(_io_xml) {
+    return (new SpItemDOM(rdr)).getSpItem();
+  }
+  else {
+    SpInputSGML inSGML = new SpInputSGML( rdr );
 
-   // Read the science program
-   SpRootItem newItem = inSGML.parseDocument();
-   if (newItem == null) {
+    // Read the science program
+    SpRootItem newItem = inSGML.parseDocument();
+    if (newItem == null) {
       JOptionPane.showMessageDialog(null, inSGML.getProblemDescr(), "Error", JOptionPane.ERROR_MESSAGE);
       return null;
-   }
+    }
 
-   // If this is a Phase1 document, generate a science program
-   if (newItem instanceof SpPhase1) {
+    // If this is a Phase1 document, generate a science program
+    if (newItem instanceof SpPhase1) {
       newItem = ((SpPhase1) newItem).createProgram();
-   }
+    }
 
-   return newItem;
+    return newItem;
+  }
 }
 
 /**
@@ -165,6 +241,8 @@ public static void
 open()
 {
    JFileChooser fd = new JFileChooser(_lastDir); //FileBox.getFileDialog(FileDialog.LOAD);
+   fd.addChoosableFileFilter(xmlFilter);
+   fd.addChoosableFileFilter(sgmlFilter);
    //if (_lastDir != null) {
    //   fd.setDirectory(_lastDir);
    //}
@@ -222,6 +300,8 @@ save(SpRootItem spItem, FileInfo fi)
    //System.out.println("*** WRITE TO FILE ***");
 
    JFileChooser fd = new JFileChooser(fi.dir); //FileBox.getFileDialog(FileDialog.SAVE);
+   fd.addChoosableFileFilter(xmlFilter);
+   fd.addChoosableFileFilter(sgmlFilter);
    fd.showOpenDialog(null);
    //System.out.println("*** Default Dir.: " + fi.dir);
    //System.out.println("*** Default File: " + fi.filename);
@@ -339,6 +419,7 @@ revertToSaved(FileInfo fi)
    
    return fetchSp(fi.dir, fi.filename);
 }
+
 
 }
 
