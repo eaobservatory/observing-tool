@@ -280,6 +280,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
 	    _w.switchingMode.setVisible(true);
 	    _w.switchingModeLabel.setVisible(true);
+	    _w.jLabel2.setText("K");
 
 	    if(_w.switchingMode.getValue() != null && 
 	       (_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
@@ -291,6 +292,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	    }
 	}
 	else {
+	    _w.jLabel2.setText("mJy");
 	    _w.switchingMode.setVisible(false);
 	    _w.switchingModeLabel.setVisible(false);
 	    _w.frequencyPanel.setVisible(false);    
