@@ -2098,7 +2098,7 @@ public class SpTranslator {
 // End of commented by RDK
 
 // Added by RDK
-      SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_kkmmssSSS");
+      SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
       return df.format(new Date()) ;
 // End of added by RDK
 
