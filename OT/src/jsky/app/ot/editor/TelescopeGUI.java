@@ -109,7 +109,8 @@ public class TelescopeGUI extends JPanel {
   TextBoxWidgetExt aorq = new TextBoxWidgetExt();
   TextBoxWidgetExt e = new TextBoxWidgetExt();
   DropDownListBoxWidgetExt conicSystemType = new DropDownListBoxWidgetExt();
-  FlowLayout flowLayout1 = new FlowLayout();
+//   FlowLayout flowLayout1 = new FlowLayout();
+  GridLayout gridLayout1 = new GridLayout();
   TextBoxWidgetExt l_or_m = new TextBoxWidgetExt();
   TextBoxWidgetExt dm = new TextBoxWidgetExt();
   JLabel l_or_mLabel = new JLabel();
@@ -156,15 +157,18 @@ public class TelescopeGUI extends JPanel {
         jLabel3.setText("System");
         jLabel3.setForeground(Color.black);
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel2.setText("        Tag");
+        jLabel2.setText("   Tag");
         jLabel2.setForeground(Color.black);
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+	jLabel2.setLabelFor(tagDDLBW);
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel1.setForeground(Color.black);
         jLabel1.setText("Name");
+	jLabel1.setLabelFor(nameTBW);
         targetType.setFont(new java.awt.Font("Dialog", 0, 12));
         targetType.setForeground(Color.black);
-        targetType.setText("TargetType");
+        targetType.setText("   TargetType");
+	targetType.setLabelFor(targetTypeDDList);
 	nameResolversDDLBW.setFont(new java.awt.Font("Dialog", 0, 10)); // MFO
 	resolveButton.setText("Resolve Name"); //MFO
         setBaseButton.setMargin(new Insets(2, 2, 2, 2));
@@ -280,8 +284,9 @@ public class TelescopeGUI extends JPanel {
     eLabel.setText("e");
     perih.setColumns(6);
     nameTBW.setColumns(10);
-    nameTagPanel.setLayout(flowLayout1);
-    flowLayout1.setAlignment(FlowLayout.LEFT);
+    gridLayout1.setHgap(20);
+    nameTagPanel.setLayout(gridLayout1);
+//     flowLayout1.setAlignment(FlowLayout.LEFT);
     conicSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
     //namedSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
     namedTarget.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -430,7 +435,7 @@ public class TelescopeGUI extends JPanel {
     conicSystemPanel.add(epochPerihUnitsLabel, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
 
-    targetSystemsTabbedPane.add(namedSystemPanel,     "Planets, Sun, Moon");
+    targetSystemsTabbedPane.add(namedSystemPanel,     "Named Planets");
     //namedSystemPanel.add(jLabel21, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
     //        ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     //namedSystemPanel.add(namedSystemType, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
@@ -511,6 +516,9 @@ public class TelescopeGUI extends JPanel {
         this.add(jScrollPane1, new GridBagConstraints(0, 3, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 5, 0), 0, 0));
         jScrollPane1.getViewport().add(positionTable, null);
+	gridLayout1.setHgap(25);
+	buttonPanel.setLayout(gridLayout1);
+	setBaseButton.setToolTipText(setBaseButton.getText());
         this.add(buttonPanel, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHEAST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         buttonPanel.add(plotButton, null);
