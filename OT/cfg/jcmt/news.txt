@@ -8,10 +8,34 @@ The JCMT-OT home page is at http://www.jach.hawaii.edu/JAC/software/jcmtot
 If you have feedback or any questions on the JCMT-OT please email
 jcmtot@jach.hawaii.edu
 
-OMP modifications Copyright 2001-2002 Particle Physics and Astronomy Research
+OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ January 16th 2003
+
+  [Semester 03A release]
+
+  - Higher granularity MSB priorities
+
+  - MSB replication from catalogue file
+
+  - Choice of skydip azimuth at current or next position
+
+  - Improved time estimates
+
+  - Extended validation functionality
+
+  - Improved support for moving objects
+
+  - SCUBA Library updates for 03A
+
+  - Bug fixes
+
+  - Additional documentation             
+
 +++ July 8th 2002
+
+  [Semester 02B release]
 
   - First release of the JCMT-OT to the public.
 
