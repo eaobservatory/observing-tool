@@ -305,6 +305,7 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	  // See also revisions 1.7, 1.8, 1.9 of orac3/OT/src/ot/OtAdvancedTreeDropTarget.java
 	  try { 
 	    _spTree.resetProg((SpRootItem)_spTree.getProg().deepCopy());
+	  }
 	  catch(Exception e) {
 	    _spTree.updateNodeExpansions();
 	  }

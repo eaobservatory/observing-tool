@@ -236,6 +236,7 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	  // See also revisions 1.6 of orac3/OT/src/jsky/app/ot/OtTreeDropTarget.java
 	  try { 
 	    _spTree.resetProg((SpRootItem)_spTree.getProg().deepCopy());
+	  }
 	  catch(Exception e) {
 	    _spTree.updateNodeExpansions();
 	  }
