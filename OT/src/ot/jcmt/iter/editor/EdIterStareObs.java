@@ -57,6 +57,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 	if ( _iterObs != null && ((SpIterStareObs)_iterObs).getWidePhotom() ) {
 	    _w.widePhotom.setSelected(true);
 	}
+	else {
+	    _w.widePhotom.setSelected(false);
+	}
 	super._updateWidgets();
     }
     
