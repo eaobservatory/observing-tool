@@ -40,10 +40,47 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    */
   public static final double SCIENCE_AREA_RADIUS = 2.3; 
 
+  /** Used in scuba.cfg. "FILTERS" */
+  public static final String FILTERS_TAG         = "FILTERS";
+
+  /** Used in scuba.cfg. "JIGGLE_PATTERNS" */
+  public static final String JIGGLE_PATTERNS_TAG = "JIGGLE_PATTERNS";
+
+  /** Used in scuba.cfg. "CHOP_FREQUENCY" */
+  public static final String CHOP_FREQUENCY_TAG  = "CHOP_FREQUENCY";
+
+  /** Used in scuba.cfg. "DEFAULT_SCAN_DX" */
+  public static final String DEFAULT_SCAN_DX_TAG = "DEFAULT_SCAN_DX";
+
+  /** Used in scuba.cfg. "DEFAULT_SCAN_DY" */
+  public static final String DEFAULT_SCAN_DY_TAG = "DEFAULT_SCAN_DY";
+
+
+  /**
+   * SCUBA chop frequency (8Hz).
+   *
+   * This can be overridden by the entry CHOP_FREQUENCY in the scuba.cfg file.
+   *
+   * @see #getChopFrequency()
+   */
+  private static double _chopFrequency = 8.0;
+
+  /**
+   * @see #getDefaultScanDx()
+   */
+  private static double _defaultScanDx = 3.0;
+
+  /**
+   * @see #getDefaultScanDy
+   */
+  private static double _defaultScanDy = 60.0;
+
+
   private static String [][] _filters            = null;
   private static Hashtable   _filterTable        = new Hashtable();
   private static String [][] _jigglePatterns     = null;
   private static Hashtable   _jigglePatternTable = new Hashtable();
+  private static String [] _defaultJigglePattern = { "DEFAULT" };
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.SCUBA", "SCUBA" );
@@ -65,13 +102,13 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     for(int i = 0; i < (_filters.length - 1); i += 2) {
       // Use lower case keywords for filter table to allow for
       // case insensitive look-up later.
-      _filterTable.put(_filters[i][0], _filters[i + 1]);
+      _filterTable.put(_filters[i][0].toUpperCase(), _filters[i + 1]);
     }
 
     for(int i = 0; i < (_jigglePatterns.length - 1); i += 2) {
       // Use lower case keywords for filter table to allow for
       // case insensitive look-up later.
-      _jigglePatternTable.put(_jigglePatterns[i][0], _jigglePatterns[i + 1]);
+      _jigglePatternTable.put(_jigglePatterns[i][0].toUpperCase(), _jigglePatterns[i + 1]);
     }
 
     try {
@@ -96,12 +133,42 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     try {
       while ( ( block = instCfg.readBlock() ) != null ) {
         instInfo = new InstCfg( block );
-        if ( InstCfg.matchAttr( instInfo, "FILTERS" ) ) {
+        if ( InstCfg.matchAttr( instInfo, FILTERS_TAG ) ) {
           _filters = instInfo.getValueAs2DArray();
         }
 	
-	if ( InstCfg.matchAttr( instInfo, "JIGGLE_PATTERNS" )) {
+	if ( InstCfg.matchAttr( instInfo, JIGGLE_PATTERNS_TAG )) {
           _jigglePatterns = instInfo.getValueAs2DArray();
+	}
+
+	if ( InstCfg.matchAttr( instInfo, CHOP_FREQUENCY_TAG )) {
+          try {
+	    _chopFrequency = Double.parseDouble(instInfo.getValue());
+	  }
+	  catch(Exception e) {
+            System.out.println("Error reading SCUBA chop frequency from scuba cfg file.\n" +
+	                       "Using default chop frequency " + _chopFrequency);
+	  }
+	}
+
+	if ( InstCfg.matchAttr( instInfo, DEFAULT_SCAN_DX_TAG )) {
+          try {
+	    _defaultScanDx = Double.parseDouble(instInfo.getValue());
+	  }
+	  catch(Exception e) {
+            System.out.println("Error reading SCUBA default scan dx from scuba cfg file.\n" +
+	                       "Using default scan dx " + _defaultScanDx);
+	  }
+	}
+
+	if ( InstCfg.matchAttr( instInfo, DEFAULT_SCAN_DY_TAG )) {
+          try {
+	    _defaultScanDy = Double.parseDouble(instInfo.getValue());
+	  }
+	  catch(Exception e) {
+            System.out.println("Error reading SCUBA default scan dy from scuba cfg file.\n" +
+	                       "Using default scan dy " + _defaultScanDy);
+	  }
 	}
       }
     }
@@ -124,7 +191,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    * @return String array of bolometer or null if the specified filter does not exist.
    */
   public static String [] getBolometersFor(String filter) {
-    return (String[])_filterTable.get(filter);
+    return (String[])_filterTable.get(filter.toUpperCase());
   }
 
 
@@ -134,7 +201,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    * @return String array of jiggle pattern options or null if the specified sub-instrument does not exist.
    */
   public static String [] getJigglePatternsForSubInstrument(String subInstrument) {
-    return (String[])_jigglePatternTable.get(subInstrument);
+    return (String[])_jigglePatternTable.get(subInstrument.toUpperCase());
   }
 
   /**
@@ -143,7 +210,19 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    * @return String array of jiggle pattern options.
    */
   public String [] getJigglePatterns() {
-    return (String[])_jigglePatternTable.get(getPrimaryBolometer());
+    String [] result = _defaultJigglePattern;
+
+    if(getPrimaryBolometer() != null) {
+      result = (String[])_jigglePatternTable.get(getPrimaryBolometer().toUpperCase());
+    }
+
+    if(result == null) {
+      return _defaultJigglePattern;
+    }
+    // Note that result will be null if getPrimaryBolometer() == null.
+    else {
+      return result;
+    }
   }
 
 
@@ -185,5 +264,36 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    */
   public double[] getScienceArea() {
     return new double[] { 2.3 * 60.0 }; 
+  }
+
+  /**
+   * SCUBA chop frequency.
+   *
+   * @return 8Hz unless a different value is specified in the scuba.cfg file
+   */
+  public double getChopFrequency() {
+    return _chopFrequency;
+  }
+
+  /**
+   * Default scan dx for SCUBA.
+   *
+   * Used for SCUBA SCANs.
+   *
+   * The default value is 3.0. This can be changed in the scuba.cfg file.
+   */
+  public double getDefaultScanDx() {
+    return _defaultScanDx;
+  }
+
+  /**
+   * Default scan dy for SCUBA.
+   *
+   * Used for SCUBA SCANs.
+   *
+   * The default value is 60.0. This can be changed in the scuba.cfg file.
+   */
+  public double getDefaultScanDy() {
+      return _defaultScanDy;
   }
 }
