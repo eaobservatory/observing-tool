@@ -17,8 +17,10 @@ import java.io.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import java.util.Vector;
+
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class FrequencyTable extends JPanel
 {
@@ -29,6 +31,8 @@ public class FrequencyTable extends JPanel
    private double uHighLimit;
    Object[] samplers;
    Object[][] data;
+
+   private Vector widgetVector  = new Vector();
 
 
    public FrequencyTable ( double feIF, double feBandWidth,
@@ -122,17 +126,21 @@ public class FrequencyTable extends JPanel
            (int)( gigToPix * lLowLimit ) + 20, 
            (int)( gigToPix * lHighLimit ) - 20 );
          lowBar.setUnitIncrement ( 1 );
+	 widgetVector.add(lowBar);
+
          highBar = new JScrollBar ( JScrollBar.HORIZONTAL,
            (int)( gigToPix * (feIF-0.5*loBandWidth) ), 
            (int)( gigToPix * loBandWidth), 
            (int)( gigToPix * uLowLimit ) + 20, 
            (int)( gigToPix * uHighLimit ) - 20 );
          highBar.setUnitIncrement ( 1 );
+	 widgetVector.add(highBar);
 
          samplerDisplay = new SamplerDisplay ( String.valueOf ( feIF ) );
          resolutionDisplay = new ResolutionDisplay ( loChannels,
            loBandWidth );
          widthButton = new JToggleButton ( "" + ( loBandWidth * 1.0E-9 ) );
+	 widgetVector.add(widthButton);
          samplers[j] = new Sampler ( feIF, loBandWidth, hiBandWidth, 
            loChannels, hiChannels, widthButton );
 
@@ -188,5 +196,41 @@ public class FrequencyTable extends JPanel
       out.println ( "  </bandSystem>" );
    }
 
+
+   public String toXML()
+   {
+      StringBuffer stringBuffer = new StringBuffer();
+   
+      int j;
+
+      stringBuffer.append ( "  <bandSystem" );
+
+      stringBuffer.append ( " count=\"" + samplers.length + "\">\n");
+
+      for ( j=0; j<samplers.length; j++ )
+      {
+         stringBuffer.append ( "    <subSystem" );
+
+         stringBuffer.append ( " bandNum=\"" + j + "\"");
+         stringBuffer.append ( " centreFrequency=\"" +
+           ((Sampler)samplers[j]).getCentreFrequency() + "\"");
+         stringBuffer.append ( " bandWidth=\"" + 
+           ((Sampler)samplers[j]).getBandWidth() + "\"");
+         stringBuffer.append ( " channels=\"" + 
+           ((Sampler)samplers[j]).getChannels() + "\"/>\n" );
+      }
+      stringBuffer.append ( "  </bandSystem>" );
+   
+      return stringBuffer.toString();
+   }
+
+   /**
+    * Returns vector with all low scroll bars.
+    *
+    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
+    */
+   public Vector getAllWidgets() {
+     return widgetVector;
+   }
 
 }

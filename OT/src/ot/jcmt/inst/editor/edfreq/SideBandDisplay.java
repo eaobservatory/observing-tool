@@ -20,7 +20,7 @@ import java.util.*;
 import java.io.*;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class SideBandDisplay extends JFrame
 {
@@ -235,6 +235,10 @@ public class SideBandDisplay extends JFrame
    }
 
 
+   public String toXML()
+   {
+      return jt.toXML();
+   }   
 
 
    public static void main(String args[]) 
@@ -245,5 +249,13 @@ public class SideBandDisplay extends JFrame
       sbt.setVisible(true);
    }
 
+   public Vector getAllWidgets() {
+     Vector result = jt.getAllWidgets();
 
+     if(slider != null) {
+       result.add(slider);
+     }
+
+     return result;
+   }
 }
