@@ -1092,4 +1092,9 @@ public class TelescopePosEditor extends JSkyCat
       super.repaint();
       _iw.updateImage();
     }
+
+    public void open(String fileOrUrl) {
+	super.open(fileOrUrl);
+	_iw.updateImage();
+    }
 }
