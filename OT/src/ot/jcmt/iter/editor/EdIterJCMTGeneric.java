@@ -27,6 +27,9 @@ import gemini.sp.SpItem;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpTreeMan;
+import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.iter.SpIterJCMTObs;
+
 
 /**
  * This is the generic editor for JCMT iterator components.
@@ -77,7 +80,12 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
 	_w.noOfIntegrations.addWatcher(new DropDownListBoxWidgetWatcher() {
 	  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-            ((SpIterObserveBase)_spItem).setCount(val);
+            //try { 
+	    ((SpIterJCMTObs)_spItem).setIntegrations(val);
+	    //}
+	    //catch(Exception e) {
+	    //  ((SpIterObserveBase)_spItem).setCount(val);
+	    //}
 	  }
 
 	  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
@@ -85,17 +93,36 @@ public class EdIterJCMTGeneric extends OtItemEditor
     }
 
 
-    public void textBoxKeyPress(TextBoxWidgetExt e) { }
-    public void textBoxAction(TextBoxWidgetExt e) { }
-    public void _updateWidgets() {
+    public void textBoxKeyPress(TextBoxWidgetExt tbwe) { }
+    public void textBoxAction(TextBoxWidgetExt tbwe) { }
+
+    protected void _updateWidgets() {
       setInstrument(SpTreeMan.findInstrument(_spItem));
+
+      //try {
+      _w.noOfIntegrations.setValue(((SpIterJCMTObs)_spItem).getIntegrations() - 1);
+      //}
+      //catch(Exception e) {
+      //  _w.noOfIntegrations.setValue(((SpIterObserveBase)_spItem).getCount() - 1);
+      //}
     }
 
     /**
      * This method should be overwritten by sub classes representing iterators whose appearance
      * is different for different instruments.
      */
-    public void setInstrument(SpInstObsComp spInstObsComp) { }
+    public void setInstrument(SpInstObsComp spInstObsComp) {
+      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+	_w.switchingMode.setVisible(false);
+        _w.switchingModeLabel.setVisible(false);
+        _w.switchingModePanel.setVisible(false);
+      }
+      else {
+	_w.switchingMode.setVisible(true);
+        _w.switchingModeLabel.setVisible(true);      
+        _w.switchingModePanel.setVisible(true);
+      }
+    }
 
 }
 

@@ -26,9 +26,10 @@ import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
+import ot.util.DialogUtil;
 
 /**
- * This is the editor for Stare Observe Mode iterator component.
+ * This is the editor for the Stare Observe Mode iterator component (ACSIS).
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
@@ -46,9 +47,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric
     public EdIterStareObs() {
 	super(new IterStareObsGUI());
 
-	_title       ="Stare Iterator";
+	_title       ="Stare Iterator (Heterodyne)";
 	_presSource  = _w = (IterStareObsGUI)super._w;
-	_description ="Stare Observation Mode";
+	_description ="Stare Observation Mode (Heterodyne)";
     }
 
     public void actionPerformed(ActionEvent e) { }
@@ -57,14 +58,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric
 
     public void setInstrument(SpInstObsComp spInstObsComp) {
       if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-        _w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	_w.switchingMode.setEnabled(false);
-        _w.acsisPanel.setVisible(false);
-      }
-      else {
-        _w.switchingMode.setEnabled(true);
-        _w.acsisPanel.setVisible(true);
+	DialogUtil.error(_w, "Stare Iterator cannot be used with SCUBA.\nUse Photom Iterator instead.");
       }
     }
 }

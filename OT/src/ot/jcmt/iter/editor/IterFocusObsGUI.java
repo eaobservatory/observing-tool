@@ -33,7 +33,7 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
   TextBoxWidgetExt steps = new TextBoxWidgetExt();
   JLabel jLabel5 = new JLabel();
   JLabel jLabel6 = new JLabel();
-  TextBoxWidgetExt textBoxWidgetExt1 = new TextBoxWidgetExt();
+  TextBoxWidgetExt focusPoints = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
   GridBagLayout gridBagLayout2 = new GridBagLayout();
   JPanel acsisPanel = new JPanel();
@@ -76,11 +76,12 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
     jLabel1.setText("Secs per Cycle");
+    axis.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(scubaAcsisPanel, BorderLayout.CENTER);
     scubaAcsisPanel.add(jLabel3, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     scubaAcsisPanel.add(axis, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
     scubaAcsisPanel.add(jLabel4, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
     scubaAcsisPanel.add(steps, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
@@ -89,7 +90,7 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     scubaAcsisPanel.add(jLabel6, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    scubaAcsisPanel.add(textBoxWidgetExt1, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(focusPoints, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     this.add(acsisPanel, BorderLayout.SOUTH);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0

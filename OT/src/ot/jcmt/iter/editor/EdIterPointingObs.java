@@ -56,14 +56,16 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     public void textBoxAction(TextBoxWidgetExt e) { }
 
     public void setInstrument(SpInstObsComp spInstObsComp) {
+      super.setInstrument(spInstObsComp);
+
       if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-        _w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	_w.switchingMode.setEnabled(false);
+        //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+	//((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+	//_w.switchingMode.setEnabled(false);
         _w.acsisPanel.setVisible(false);
       }
       else {
-        _w.switchingMode.setEnabled(true);
+        //_w.switchingMode.setEnabled(true);
         _w.acsisPanel.setVisible(true);
       }
     }

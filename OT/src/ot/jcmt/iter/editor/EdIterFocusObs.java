@@ -21,10 +21,13 @@ import jsky.app.ot.editor.OtItemEditor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
+import orac.jcmt.iter.SpIterFocusObs;
 import orac.jcmt.inst.SpInstSCUBA;
 
 /**
@@ -33,39 +36,71 @@ import orac.jcmt.inst.SpInstSCUBA;
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
 public final class EdIterFocusObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, ActionListener {
+    implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher {
 
-    private IterFocusObsGUI _w;       // the GUI layout panel
+  private IterFocusObsGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+  // If true, ignore action events
+  //private boolean ignoreActions = false;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterFocusObs() {
-	super(new IterFocusObsGUI());
+  private SpIterFocusObs _iterObs;
 
-	_title       ="Focus Iterator";
-	_presSource  = _w = (IterFocusObsGUI)super._w;
-	_description ="Focus Observation Mode";
+
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdIterFocusObs() {
+    super(new IterFocusObsGUI());
+
+    _title       ="Focus Iterator";
+    _presSource  = _w = (IterFocusObsGUI)super._w;
+    _description ="Focus Observation Mode";
+
+    _w.axis.setChoices(SpIterFocusObs.AXES);
+
+    _w.axis.addWatcher(this);
+    _w.steps.addWatcher(this);
+    _w.focusPoints.addWatcher(this);
+  }
+
+  /**
+   * Override setup to store away a reference to the Focus Iterator.
+   */
+  public void setup(SpItem spItem) {
+    _iterObs = (SpIterFocusObs) spItem;
+    super.setup(spItem);
+  }
+
+  protected void _updateWidgets() {
+    _w.axis.setValue(_iterObs.getAxis());
+    _w.steps.setValue(_iterObs.getSteps());
+    _w.focusPoints.setValue(_iterObs.getFocusPoints());
+
+    super._updateWidgets();
+  }
+
+  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+    if (tbwe == _w.steps)       { _iterObs.setSteps(_w.steps.getValue()); }
+    if (tbwe == _w.focusPoints) { _iterObs.setFocusPoints(_w.focusPoints.getValue()); }
+  }
+
+  public void textBoxAction(TextBoxWidgetExt tbwe) { }
+
+  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
+    if (ddlbwe == _w.axis) { _iterObs.setAxis(SpIterFocusObs.AXES[index]); }
+  }
+    
+  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
+
+  public void setInstrument(SpInstObsComp spInstObsComp) {
+    super.setInstrument(spInstObsComp);
+
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+      _w.acsisPanel.setVisible(false);
     }
-
-    public void actionPerformed(ActionEvent e) { }
-    public void textBoxKeyPress(TextBoxWidgetExt e) { }
-    public void textBoxAction(TextBoxWidgetExt e) { }
-
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-        _w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	_w.switchingMode.setEnabled(false);
-        _w.acsisPanel.setVisible(false);
-      }
-      else {
-        _w.switchingMode.setEnabled(true);
-        _w.acsisPanel.setVisible(true);
-      }
+    else {
+      _w.acsisPanel.setVisible(true);
     }
+  }
 }
 

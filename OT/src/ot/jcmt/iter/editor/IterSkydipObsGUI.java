@@ -28,7 +28,7 @@ public class IterSkydipObsGUI extends IterJCMTGenericGUI {
   JPanel acsisPanel = new JPanel();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JLabel jLabel1 = new JLabel();
-  TextBoxWidgetExt noOfPositions = new TextBoxWidgetExt();
+  TextBoxWidgetExt positions = new TextBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
   DropDownListBoxWidgetExt startPosition = new DropDownListBoxWidgetExt();
 
@@ -49,10 +49,11 @@ public class IterSkydipObsGUI extends IterJCMTGenericGUI {
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
     jLabel2.setText("Start Position");
+    startPosition.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    acsisPanel.add(noOfPositions, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+    acsisPanel.add(positions, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));

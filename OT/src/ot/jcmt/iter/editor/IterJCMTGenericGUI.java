@@ -26,7 +26,7 @@ public class IterJCMTGenericGUI extends JPanel {
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JLabel jLabel1 = new JLabel();
   DropDownListBoxWidgetExt noOfIntegrations = new DropDownListBoxWidgetExt();
-  JLabel jLabel2 = new JLabel();
+  JLabel switchingModeLabel = new JLabel();
   DropDownListBoxWidgetExt switchingMode = new DropDownListBoxWidgetExt();
   JPanel switchingModePanel = new JPanel();
   CardLayout cardLayout1 = new CardLayout();
@@ -76,9 +76,9 @@ public class IterJCMTGenericGUI extends JPanel {
     jLabel1.setText("No of Integrations");
     this.setLayout(borderLayout1);
     jPanel1.setLayout(gridBagLayout1);
-    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel2.setForeground(Color.black);
-    jLabel2.setText("Switching Mode");
+    switchingModeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    switchingModeLabel.setForeground(Color.black);
+    switchingModeLabel.setText("Switching Mode");
     switchingModePanel.setLayout(cardLayout1);
     nodPanel.setLayout(gridBagLayout2);
     nodPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Reference Offset"));
@@ -137,7 +137,7 @@ public class IterJCMTGenericGUI extends JPanel {
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 5, 0, 0), 0, 0));
     jPanel1.add(noOfIntegrations, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
-    jPanel1.add(jLabel2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+    jPanel1.add(switchingModeLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     jPanel1.add(switchingMode, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));

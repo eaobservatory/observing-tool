@@ -27,15 +27,10 @@ import javax.swing.border.*;
 
 public class IterRasterObsGUI extends IterJCMTGenericGUI {
 
-  public static final String SCUBA      = "Scuba";
-  public static final String HETERODYNE = "Heterodyne";
-
-  JPanel cardPanel = new JPanel();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JPanel acsisPanel = new JPanel();
   CardLayout cardLayout1 = new CardLayout();
   JPanel scubaAcsisPanel = new JPanel();
-  JPanel scubaPanel = new JPanel();
   GridBagLayout gridBagLayout2 = new GridBagLayout();
   TitledBorder titledBorder1;
   JLabel jLabel1 = new JLabel();
@@ -67,15 +62,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   TextBoxWidgetExt secsBetweenCals = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
   TitledBorder titledBorder2;
-  GridBagLayout gridBagLayout3 = new GridBagLayout();
-  JLabel jLabel14 = new JLabel();
-  JLabel jLabel15 = new JLabel();
-  JLabel jLabel16 = new JLabel();
-  TextBoxWidgetExt deltaX = new TextBoxWidgetExt();
-  TextBoxWidgetExt deltaY = new TextBoxWidgetExt();
-  DropDownListBoxWidgetExt coordFrame = new DropDownListBoxWidgetExt();
-  JLabel jLabel17 = new JLabel();
-  TextBoxWidgetExt posAngle = new TextBoxWidgetExt();
 
   public IterRasterObsGUI() {
     try {
@@ -90,7 +76,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     titledBorder1 = new TitledBorder("");
     titledBorder2 = new TitledBorder("");
     acsisPanel.setLayout(gridBagLayout1);
-    cardPanel.setLayout(cardLayout1);
     scubaAcsisPanel.setLayout(gridBagLayout2);
     scubaAcsisPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Map Size and Angle"));
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -143,22 +128,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     secsBetweenRefs.setEditable(false);
     secsBetweenCals.setEditable(false);
     secsPerObservation.setEditable(false);
-    scubaPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Map Size and Angle"));
-    scubaPanel.setLayout(gridBagLayout3);
-    jLabel14.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel14.setForeground(Color.black);
-    jLabel14.setText("\u0394 x");
-    jLabel15.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel15.setForeground(Color.black);
-    jLabel15.setText("\u0394 y");
-    jLabel16.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel16.setForeground(Color.black);
-    jLabel16.setText("Coord Frame");
-    jLabel17.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel17.setForeground(Color.black);
-    jLabel17.setText("Position Angle");
-    this.add(cardPanel, BorderLayout.CENTER);
-    cardPanel.add(acsisPanel, HETERODYNE);
+    this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(alongRow, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
     acsisPanel.add(interleafed, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
@@ -196,23 +166,6 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     acsisPanel.add(secsBetweenCals, new GridBagConstraints(1, 8, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(secsPerObservation, new GridBagConstraints(1, 9, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    cardPanel.add(scubaPanel, SCUBA);
-    scubaPanel.add(jLabel14, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    scubaPanel.add(jLabel15, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    scubaPanel.add(jLabel16, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    scubaPanel.add(deltaX, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaPanel.add(deltaY, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaPanel.add(coordFrame, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaPanel.add(jLabel17, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    scubaPanel.add(posAngle, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     this.add(scubaAcsisPanel, BorderLayout.WEST);
     scubaAcsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
