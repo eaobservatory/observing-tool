@@ -145,19 +145,12 @@ setProjectID(String projectID)
 /**
  * Set timestamp.
  *
- * Note that calling this method does not effect the state machine of this
- * Science Program item.
- * This is because a call to setTimestamp() is not the result editing the item.
- * It is called after a program has been stored to database to set the timestamp
- * of the Science Program to the timestamp that is returned when omp.SpClient.storeProgram
- * is called.
- *
  * Added for OMP (MFO, 12 November 2001)
  */
 public void
 setTimestamp(int timestamp)
 {
-   _avTable.noNotifySet(ATTR_TIMESTAMP, "" + timestamp, 0);
+   _avTable.set(ATTR_TIMESTAMP, timestamp);
 }
 
 
