@@ -24,8 +24,10 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
+import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpJCMTInstObsComp;
+import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterJiggleObs;
 
 /**
@@ -39,17 +41,19 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
 
   private SpIterJiggleObs _iterObs;
 
+  private String [] _noJigglePatterns = { "No Instrument in scope." };
+
   /**
    * The constructor initializes the title, description, and presentation source.
    */
   public EdIterJiggleObs() {
     super(new IterJiggleObsGUI());
 
-    _title       ="Jiggle Iterator";
+    _title       ="Jiggle";
     _presSource  = _w = (IterJiggleObsGUI)super._w;
     _description ="Jiggle Observation Mode";
 
-    _w.jigglePattern.setChoices(SpIterJiggleObs.JIGGLE_PATTERNS);
+    //_w.jigglePattern.setChoices(SpIterJiggleObs.JIGGLE_PATTERNS);
 
     _w.jigglePattern.addWatcher(this);
   }
@@ -63,12 +67,21 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
   }
 
   protected void _updateWidgets() {
-    _w.jigglePattern.setValue(_iterObs.getJigglePattern());
+    SpJCMTInstObsComp instObsComp = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
+
+    if(instObsComp != null) {
+      _w.jigglePattern.setChoices(instObsComp.getJigglePatterns());
+      _w.jigglePattern.setValue(_iterObs.getJigglePattern());
+    }
+    else {
+      _w.jigglePattern.setChoices(_noJigglePatterns);
+    }
 
     super._updateWidgets();
   }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
+/*MFO DEBUG*/System.out.println("in dropDownListBoxAction");
     if(ddlbwe == _w.jigglePattern) {
       _iterObs.setJigglePattern(val);
       return;
@@ -80,15 +93,15 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);
 
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
       //((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
       //_w.switchingMode.setEnabled(false);
-      _w.acsisPanel.setVisible(false);
+      _w.acsisPanel.setVisible(true);
     }
     else {
       //_w.switchingMode.setEnabled(true);
-      _w.acsisPanel.setVisible(true);
+      _w.acsisPanel.setVisible(false);
     }
   }
 }
