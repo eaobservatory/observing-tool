@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <title>SCUBA Libraries</title>
   <meta_gui_filename>SCUBA.xml</meta_gui_filename>
+  <title>SCUBA Libraries</title>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
@@ -166,6 +166,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -349,6 +357,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -528,6 +544,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -700,6 +724,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -877,6 +909,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -1071,6 +1111,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -1252,6 +1300,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -1430,6 +1486,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -1608,6 +1672,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -1616,9 +1688,9 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
               <repeatCount>1</repeatCount>
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterChop type="ic" subtype="chop">
-                <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SECONDARY>
                   <CHOP SYSTEM="AZEL">
                     <THROW>120.0</THROW>
@@ -1793,6 +1865,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -1978,6 +2058,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -2163,6 +2251,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -2371,6 +2467,14 @@ and "Don't Care" for maps.
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -2599,6 +2703,14 @@ and "Don't Care" for maps.
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -2828,6 +2940,14 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -2888,11 +3008,21 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA miscellaneous observations</title>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <title>SCUBA instrument test</title>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <priority>Low</priority>
-      <standard>false</standard>
+      <SpInstSCUBARef idref="30"/>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <title>SCUBA instrument test</title>
+      <priority>Low</priority>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <standard>false</standard>
+      <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
+        <primaryBolometer>LONG</primaryBolometer>
+        <bolometers>
+          <value>SHORT</value>
+          <value>LONG</value>
+        </bolometers>
+        <meta_unique>true</meta_unique>
+        <filter>450W:850W</filter>
+      </SpInstSCUBA>
       <SpIterFolder type="if" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <SpIterNoiseObs type="ic" subtype="noiseObs">
@@ -2914,13 +3044,13 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="30"/>
+      <SpInstSCUBARef idref="31"/>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <title>SCUBA telescope set up (850/450)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>true</standard>
-      <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="31" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -2933,7 +3063,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
       <SpIterFolder type="if" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <SpIterChop type="ic" subtype="chop">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <SECONDARY>
             <CHOP SYSTEM="AZEL">
               <THROW>60.0</THROW>
@@ -2980,9 +3110,9 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="32"/>
+      <SpInstSCUBARef idref="33"/>
       <estimatedDuration units="seconds">1472.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="31"/>
+      <SpTelescopeObsCompRef idref="32"/>
       <title>850 um photometry: instrumental polarization calibration</title>
       <priority>Medium</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2992,7 +3122,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
         <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
         <title>Instrumental polarization observation notes</title>
       </SpNote>
-      <SpTelescopeObsComp id="31" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
@@ -3003,7 +3133,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstSCUBA id="32" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="33" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>H7</primaryBolometer>
         <bolometers>H7</bolometers>
         <meta_unique>true</meta_unique>
@@ -3080,9 +3210,9 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="34"/>
+      <SpInstSCUBARef idref="35"/>
       <estimatedDuration units="seconds">1472.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="33"/>
+      <SpTelescopeObsCompRef idref="34"/>
       <title>450 um photometry: instrumental polarization calibration</title>
       <priority>Medium</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3092,7 +3222,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
         <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
         <title>Instrumental polarization observation notes</title>
       </SpNote>
-      <SpTelescopeObsComp id="33" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
@@ -3103,7 +3233,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstSCUBA id="34" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="35" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>C14</primaryBolometer>
         <bolometers>C14</bolometers>
         <meta_unique>true</meta_unique>
@@ -3180,10 +3310,10 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpSiteQualityObsCompRef idref="37"/>
-      <SpInstSCUBARef idref="36"/>
+      <SpSiteQualityObsCompRef idref="38"/>
+      <SpInstSCUBARef idref="37"/>
       <estimatedDuration units="seconds">1232.5</estimatedDuration>
-      <SpTelescopeObsCompRef idref="35"/>
+      <SpTelescopeObsCompRef idref="36"/>
       <title>450/850 um scan map flatfield</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3245,7 +3375,7 @@ and "Don't Care" for maps.
 </note>
         <title>Site Quality</title>
       </SpNote>
-      <SpSiteQualityObsComp id="37" type="oc" subtype="schedInfo">
+      <SpSiteQualityObsComp id="38" type="oc" subtype="schedInfo">
         <seeing>
           <min>0.0</min>
           <max>0.5</max>
@@ -3255,7 +3385,7 @@ and "Don't Care" for maps.
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <min>0.0</min>
       </SpSiteQualityObsComp>
-      <SpInstSCUBA id="36" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="37" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -3265,12 +3395,12 @@ and "Don't Care" for maps.
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <filter>450W:850W</filter>
       </SpInstSCUBA>
-      <SpTelescopeObsComp id="35" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
           <target>
-            <targetName></targetName>
+            <targetName>Uranus</targetName>
             <namedSystem type="major"/>
           </target>
         </BASE>
@@ -3278,6 +3408,11 @@ and "Don't Care" for maps.
       </SpTelescopeObsComp>
       <SpIterFolder type="if" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <SpIterPointingObs type="ic" subtype="pointingObs">
+          <integrations>1</integrations>
+          <pointingPixel>Automatic</pointingPixel>
+          <autoTarget>true</autoTarget>
+        </SpIterPointingObs>
         <SpIterChop type="ic" subtype="chop">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SECONDARY>
@@ -3320,8 +3455,8 @@ The 450um IPs are uncertain. Please talk to your support scientist before attemp
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: photometry mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="39"/>
-        <SpInstSCUBARef idref="38"/>
+        <SpSiteQualityObsCompRef idref="40"/>
+        <SpInstSCUBARef idref="39"/>
         <title>850/450 um photometry polarimetry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
@@ -3374,7 +3509,7 @@ and "Don't Care" for maps.
 </note>
           <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="39" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="40" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -3384,7 +3519,7 @@ and "Don't Care" for maps.
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="38" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>C14</value>
@@ -3469,6 +3604,14 @@ and "Don't Care" for maps.
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -3518,8 +3661,8 @@ and "Don't Care" for maps.
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="41"/>
-        <SpInstSCUBARef idref="40"/>
+        <SpSiteQualityObsCompRef idref="42"/>
+        <SpInstSCUBARef idref="41"/>
         <title>1350um photometry polarimetry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
@@ -3572,12 +3715,12 @@ and "Don't Care" for maps.
 </note>
           <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="41" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="42" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="40" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="41" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -3673,6 +3816,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -3726,8 +3877,8 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: jiggle map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="43"/>
-        <SpInstSCUBARef idref="42"/>
+        <SpSiteQualityObsCompRef idref="44"/>
+        <SpInstSCUBARef idref="43"/>
         <title>850 um pol jiggle map (fully sampled 850, under-sampled 450um)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
@@ -3780,7 +3931,7 @@ and "Don't Care" for maps.
 </note>
           <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="43" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="44" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -3790,7 +3941,7 @@ and "Don't Care" for maps.
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="42" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="43" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -3894,6 +4045,14 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -3944,8 +4103,8 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="45"/>
-        <SpInstSCUBARef idref="44"/>
+        <SpSiteQualityObsCompRef idref="46"/>
+        <SpInstSCUBARef idref="45"/>
         <title>1350um pol jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
@@ -3998,7 +4157,7 @@ and "Don't Care" for maps.
 </note>
           <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="45" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="46" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -4008,7 +4167,7 @@ and "Don't Care" for maps.
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="44" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -4097,6 +4256,14 @@ and "Don't Care" for maps.
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -4151,8 +4318,8 @@ and "Don't Care" for maps.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: scan map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="47"/>
-        <SpInstSCUBARef idref="46"/>
+        <SpSiteQualityObsCompRef idref="48"/>
+        <SpInstSCUBARef idref="47"/>
         <title>850 um fast scan map polarimetry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
@@ -4205,7 +4372,7 @@ and "Don't Care" for maps.
 </note>
           <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="47" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="48" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -4215,7 +4382,7 @@ and "Don't Care" for maps.
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="46" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="47" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -4329,6 +4496,14 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
