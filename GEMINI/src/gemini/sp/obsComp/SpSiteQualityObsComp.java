@@ -28,14 +28,14 @@ public class SpSiteQualityObsComp extends SpObsComp
 
    public static final double [][] SEEING_RANGES = {
       {0.0, 0.4},
-      {0.4, 0.6},
-      {0.6, 0.8}
+      {0.0, 0.6},
+      {0.0, 0.8}
    };
 
-   public static final int CSO_TAO_VERY_DRY = 0;
-   public static final int CSO_TAO_ANY      = 1;
+   public static final int CSO_TAU_VERY_DRY = 0;
+   public static final int CSO_TAU_ANY      = 1;
 
-   public static final double [][] CSO_TAO_RANGES = {
+   public static final double [][] CSO_TAU_RANGES = {
       {0.0, 0.09}
    };
 
@@ -137,39 +137,39 @@ getSeeingRange()
 /**
  * Set CSO Tau index.
  *
- * @param csoTau One of {@link #CSO_TAO_VERY_DRY}, {@link #CSO_TAO_ANY}.
+ * @param csoTau One of {@link #CSO_TAU_VERY_DRY}, {@link #CSO_TAU_ANY}.
  */
 public void
 setCsoTau(int csoTau)
 {
-   if ((csoTau < 0) || (csoTau >= (CSO_TAO_RANGES.length) || (csoTau == CSO_TAO_ANY))) {
+   if ((csoTau < 0) || (csoTau >= (CSO_TAU_RANGES.length) || (csoTau == CSO_TAU_ANY))) {
       _avTable.rm(ATTR_CSO_TAU_MIN);
       _avTable.rm(ATTR_CSO_TAU_MAX);
    }
    else {
-      _avTable.set(ATTR_CSO_TAU_MIN, CSO_TAO_RANGES[csoTau][0]);
-      _avTable.set(ATTR_CSO_TAU_MAX, CSO_TAO_RANGES[csoTau][1]);
+      _avTable.set(ATTR_CSO_TAU_MIN, CSO_TAU_RANGES[csoTau][0]);
+      _avTable.set(ATTR_CSO_TAU_MAX, CSO_TAU_RANGES[csoTau][1]);
    }
 }
 
 /**
  * Get CSO Tau index.
  *
- * @return One of {@link #CSO_TAO_VERY_DRY}, {@link #CSO_TAO_ANY}.
+ * @return One of {@link #CSO_TAU_VERY_DRY}, {@link #CSO_TAU_ANY}.
  */
 public int
 getCsoTau()
 {
    if(_avTable.get(ATTR_CSO_TAU_MIN) == null) {
-      return CSO_TAO_ANY;
+      return CSO_TAU_ANY;
    }
 
-   // Default -1.0 ensure that no range minimum matches and CSO_TAO_ANY is returned.
+   // Default -1.0 ensure that no range minimum matches and CSO_TAU_ANY is returned.
    double min = _avTable.getDouble(ATTR_SEEING_MIN, -1.0);
 
-   if(min == CSO_TAO_RANGES[CSO_TAO_VERY_DRY][0]) return CSO_TAO_VERY_DRY;
+   if(min == CSO_TAU_RANGES[CSO_TAU_VERY_DRY][0]) return CSO_TAU_VERY_DRY;
    
-   return CSO_TAO_ANY;
+   return CSO_TAU_ANY;
 }
 
 /**
