@@ -102,6 +102,15 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	_avTable.set(ATTR_INSTRUMENT_APER, l, LAP_INDEX);
     }
     
+  /**
+   * Set the instrument apertures. It should be called whenever something
+   * changes that causes a change in instrument aperture. 
+   * Each instrument should provide its own implementation.
+   */
+   public void setInstAper() {
+
+   }
+
     /**
      * Get the instrument aperture X value
      */
