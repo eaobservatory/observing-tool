@@ -311,7 +311,13 @@ findNoteInContext(SpItem spItem)
       SpItem child = (SpItem) e.nextElement();
       if (child instanceof SpNote) {
          note = (SpNote) child;
-         break;
+	 if (note.isObserveInstruction()) {
+	     break;
+	 }
+	 else {
+	     note = null;
+	     continue;
+	 }
       }
    }
    return note;
