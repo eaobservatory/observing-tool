@@ -1,4 +1,4 @@
-package orac.ukirt.util;
+package ot_ukirt.util;
 
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpObsComp;
@@ -121,6 +121,61 @@ public class SpTranslator {
    }
 
 /**
+ * Insert a loadConfig instruction before the first set OBJECT in a
+ * sequence, unless there are no preceeding "set <obstype>" commands.
+ * 
+ *
+ * @param String the instrument (so far only CGS4, IRCAM3 and UFTI supported).
+ * @param Vector the sequence instructions (this is updated).
+ */
+   public void insertObjectConfig( Vector sequence ) {
+
+      boolean firstConfig = false;        // First "loadConfig" encountered?
+      boolean firstObject = false;        // First "set OBJECT" encountered?
+      boolean firstSet = false;           // First "set x" encountered?
+      int i;                              // Loop counter
+      String instruction = " ";           // Sequence instruction
+
+// Traverse the sequence.
+      for ( i = 0; i < sequence.size(); ++i ) {
+
+// Look for the first "loadConfig" instruction.
+         if ( ( (String) sequence.elementAt( i ) ).startsWith( "loadConfig" ) &&
+              ! firstConfig ) {
+
+// It's found, so record the fact and the instruction.
+            firstConfig = true;
+            instruction = (String) sequence.elementAt( i );
+         }
+
+// Look for first "set OBJECT".
+         if ( ( (String) sequence.elementAt( i ) ).equals( "set OBJECT" ) &&
+              ! firstObject ) {
+
+// It's found, so record the fact.
+            firstObject = true;
+
+// We only need the extra loadConfig if there's no preceding "set <obstype>".
+// There should always be a loadConfig, but check just in case.
+            if ( firstSet && firstConfig ) {
+
+// Add the additional loadConfig instruction immediately before the current
+// "set OBJECT" line.
+               sequence.insertElementAt( instruction, i );
+            }
+
+// Look for first "set <obstype>", where <obstype> is not OBJECT.
+         } else if ( ( (String) sequence.elementAt( i ) ).startsWith( "set " ) &&
+                     ! firstSet ) {
+
+// It's found, so record the fact.
+            firstSet = true;
+         
+         }
+      }
+   }
+
+/**
  * Insert peakup instructions into a CGS4 sequence containing a sky
  * observe before the first object observe.  This should be invoked
  * before the insertBreaks method.
@@ -169,7 +224,6 @@ public class SpTranslator {
          }   
       }
    }
-
 
 /**
  * Count the number of offsets associated with the scope of the given
@@ -1173,10 +1227,15 @@ public class SpTranslator {
 
 // Store the attribute and value in the current InstConfig.
 // Inherit existing values for blank entries in the iterator.
+// Note that the dark uses the object's attributes.
                                     if ( title.equalsIgnoreCase( "Flat" ) ) {
                                        currConfig.put( "type", "flat" );
                                     } else if ( title.equalsIgnoreCase( "Arc" ) ) {
                                        currConfig.put( "type", "arc" );
+                                    } else if ( title.equalsIgnoreCase( "Bias" ) ) {
+                                       currConfig.put( "type", "bias" );
+                                    } else if ( title.equalsIgnoreCase( "Dark" ) ) {
+                                       currConfig.put( "type", "object" );
                                     }
                                     if ( ! siv.values[ 0 ].equals( "" ) ) {
                                        currConfig.put( key, siv.values[ 0 ] );
@@ -1215,8 +1274,6 @@ public class SpTranslator {
                                                 prevSeqIns.startsWith( setInst ) ||
                                                 prevSeqIns.startsWith( setRot );
                                  removeIndex = 1;
-                                 System.out.println( "1. prev = " + prevSeqIns + 
-                                                     " remove = " + removeConfig );
                               }
 
 // There is the case of the base config followed by a DR Recipe followed by a
@@ -1229,8 +1286,6 @@ public class SpTranslator {
                                                 prevSeqIns.startsWith( setInst ) ||
                                                 prevSeqIns.startsWith( setRot );
                                  removeIndex = 2;
-                                 System.out.println( "2. prev = " + prevSeqIns + 
-                                                     " remove = " + removeConfig );
 
 // There is the case of the base config followed by the offset header followed by a
 // config that needs to be tested, so the superfluous base config can be
@@ -1245,8 +1300,6 @@ public class SpTranslator {
                                                 prevSeqIns.startsWith( setInst ) ||
                                                 prevSeqIns.startsWith( setRot );
                                  removeIndex = 2;
-                                 System.out.println( "3. prev = " + prevSeqIns +
-                                                     " remove = " + removeConfig );
                               }
                            }
 
@@ -1467,6 +1520,10 @@ public class SpTranslator {
 // Remove duplicated define_inst lines.
             removeDupInstAper( sequence );
 
+// Insert a loadConfig before the first "set OBJECT", where there is a 
+// preceding "set <obstype>".
+            insertObjectConfig( sequence );
+
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
                sequence.addElement( "set DARK" );
@@ -1628,7 +1685,7 @@ public class SpTranslator {
 // Obtain the polariser. "none" means there is no polariser in place.
                polariser = (String) workConfig.get( "polariser" );
             } else {
-               nd = Boolean.valueOf( "false");
+               nd = Boolean.valueOf( "false" );
                polariser = "none";
             }
 
@@ -1642,7 +1699,7 @@ public class SpTranslator {
                filter = filter.trim() + "+ND";
 
             } else if ( polariser.equalsIgnoreCase( "prism" ) ) {  
-              filter = filter.trim() + "+pol";
+               filter = filter.trim() + "+pol";
 
             }
 
@@ -1780,7 +1837,15 @@ public class SpTranslator {
                                    "idlePeriod" );
                   _writeAttribute( conpw, workConfig, "arcobsTime",
                                    "observationTime" );
-   	       }
+
+               } else if ( workConfig.get( "type" ).equals( "bias" ) ) {
+                  _writeAttribute( conpw, workConfig, "configType" );
+                  _writeAttribute( conpw, workConfig, "type" );
+                  _writeAttribute( conpw, workConfig, "biasExpTime",
+                                   "exposureTime" );
+                  _writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
+                  _writeAttribute( conpw, workConfig, "biasSavedInt", "nreads" );
+               }
 
    	    } else {
                // Throw exception
