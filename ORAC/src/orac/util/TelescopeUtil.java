@@ -108,6 +108,13 @@ public interface TelescopeUtil {
   public void installPreTranslator() throws Exception;
 
   /**
+   * Returns an array of default coordinates.
+   *
+   * To be used to target information component.
+   */
+  public String [] getCoordSys();
+
+  /**
    * Returns an array of coordinate system for a given purpose.
    *
    * @param purpose E.g. Chop, Jiggle, Offset etc.

@@ -10,6 +10,7 @@
 
 package orac.jcmt.util;
 
+import gemini.util.CoordSys;
 import orac.util.TelescopeUtil;
 import orac.util.PreTranslator;
 import orac.util.SpItemDOM;
@@ -29,7 +30,6 @@ public class JcmtUtil implements TelescopeUtil {
   // Use the Generic class instead.
   private SpValidation _spValidation =  new SpValidation();
   private String []    _targetTags = { "SCIENCE", "REFERENCE" };
-
 
   public SpValidation getValidationTool() {
     return _spValidation;
@@ -81,6 +81,10 @@ public class JcmtUtil implements TelescopeUtil {
    */
   public void installPreTranslator() throws Exception {
     SpItemDOM.setPreTranslator(new JcmtPreTranslator(getBaseTag(), getAdditionalTarget()));
+  }
+
+  public String [] getCoordSys() {
+    return CoordSys.COORD_SYS;
   }
 
   public String [] getCoordSysFor(String purpose) {

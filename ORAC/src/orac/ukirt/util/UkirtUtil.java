@@ -25,7 +25,11 @@ import orac.ukirt.validation.UkirtSpValidation;
  */
 public class UkirtUtil implements TelescopeUtil {
 
-  public static String [] CHOP_SYSTEM = { CoordSys.COORD_SYS[CoordSys.FK5] };
+  private static final String [] COORD_SYS_FK5_FK4 = { CoordSys.COORD_SYS[CoordSys.FK5],
+                                                       CoordSys.COORD_SYS[CoordSys.FK4]};
+
+
+  private static final String [] CHOP_SYSTEM = { CoordSys.COORD_SYS[CoordSys.FK5] };
 
   private UkirtSpValidation _ukirtSpValidation = new UkirtSpValidation();
 
@@ -87,6 +91,10 @@ public class UkirtUtil implements TelescopeUtil {
    */
   public void installPreTranslator() throws Exception {
     SpItemDOM.setPreTranslator(new UkirtPreTranslator(getBaseTag(), getAdditionalTarget()));
+  }
+
+  public String [] getCoordSys() {
+    return COORD_SYS_FK5_FK4;
   }
 
   public String [] getCoordSysFor(String purpose) {
