@@ -306,17 +306,6 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    super.processAvAttribute(avAttr, indent, xmlBuffer);
 }
 
-public void
-processXmlElementStart(String name)
-{
-   // Sort AV table to ensure that the offset positions are in the right order.
-   if(name.equals("obsArea")) {
-      _avTable.sort();
-   }
-
-   super.processXmlElementStart(name);
-}
-
 
 public void
 processXmlElementContent(String name, String value)
