@@ -88,4 +88,13 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
    */
   public abstract String [] getJigglePatterns();
 
+  /**
+   * Returns instrument specific default value for scan dx.
+   */
+  public abstract double getDefaultScanVelocity();
+
+  /**
+   * Returns instrument specific default value for scan dx.
+   */
+  public abstract double getDefaultScanDy();
 }

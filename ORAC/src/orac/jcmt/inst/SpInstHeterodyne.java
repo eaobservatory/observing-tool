@@ -86,6 +86,16 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   public String [] getJigglePatterns() {
     return JIGGLE_PATTERNS;
   }
+
+  /** Not properly implemented yet. Returns 0.0. */
+  public double getDefaultScanVelocity() {
+    return 0.0;
+  }
+
+  /** Not properly implemented yet. Returns 0.0. */
+  public double getDefaultScanDy() {
+    return 0.0;
+  }
 }
 
 
