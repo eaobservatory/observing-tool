@@ -613,6 +613,7 @@ public class OtWindowMenuBar extends JMenuBar {
 	menu.add(editor.getPasteAction());
 	menu.addSeparator();
 	menu.add(createEditItemTitleMenuItem());
+	menu.add(createReplicationMenuItem());
 	return menu;
     }
 
@@ -649,6 +650,16 @@ public class OtWindowMenuBar extends JMenuBar {
         menuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent ae) {
 		    editor.editItemTitle();
+		}
+	    });
+	return menuItem;
+    }
+
+    protected JMenuItem createReplicationMenuItem() {
+	JMenuItem menuItem = new JMenuItem("Replicate from Catalog");
+        menuItem.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent ae) {
+		    editor.replicateSp();
 		}
 	    });
 	return menuItem;
