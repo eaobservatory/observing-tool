@@ -107,6 +107,10 @@ public class OTMenuBar extends JMenuBar {
 		ot.newPlan();
 	    }
 	});
+
+	// MFO 23 May 2001: "New Plan" menu item disabled.
+	menuItem.setEnabled(false);
+	
 	return menuItem;
     }
 
