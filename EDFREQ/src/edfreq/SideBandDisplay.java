@@ -117,7 +117,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       slider.setMinorTickSpacing ( (int)( 1.0E9 / EdFreq.SLIDERSCALE ) );
       slider.setMajorTickSpacing ( (int)( 10.0E9 / EdFreq.SLIDERSCALE ) );
       slider.setPaintTicks ( true );
-      slider.setPaintLabels ( true );
+      slider.setPaintLabels( true );
 
 /* Create labels for slider at 10GHz intervals */
 
@@ -316,6 +316,11 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
    {
       jt.resetModeAndBand(mode, band);
    }
+
+    public void moveSlider( String band, double newPos, int subsystem ) {
+	double deltaF = 4.0e9 - newPos;
+	jt.moveSlider(band, deltaF, subsystem);
+    }
 
 
    public static void main(String args[]) 

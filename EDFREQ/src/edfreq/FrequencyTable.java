@@ -42,6 +42,9 @@ public class FrequencyTable extends JPanel implements ActionListener
    private EmissionLines emissionLines;
 
    private boolean _notifyHeterodyneEditor = true;
+    double gigToPix;
+    Vector lowBars = new Vector();
+    Vector highBars = new Vector();
 
    public FrequencyTable ( double feIF, double feBandWidth,
 			   double [] bandWidths, int [] channels, 
@@ -62,12 +65,11 @@ public class FrequencyTable extends JPanel implements ActionListener
 
       int j;
       int i;
-      SideBandScrollBar lowBar;
-      SideBandScrollBar highBar;
       JComboBox widthChoice;
       SamplerDisplay samplerDisplay;
       ResolutionDisplay resolutionDisplay;
-      double gigToPix;
+      SideBandScrollBar lowBar;
+      SideBandScrollBar highBar;
 
 
       lLowLimit = -feIF - ( feBandWidth * 0.5 );
@@ -137,6 +139,8 @@ public class FrequencyTable extends JPanel implements ActionListener
       lineButtons = new JButton[samplerCount];
       lineDetails = new LineDetails[samplerCount];
 
+      lowBars.clear();
+      highBars.clear();
       for ( j=0; j<samplerCount; j++ )
       {
          lowBar = new SideBandScrollBar ( JScrollBar.HORIZONTAL, 
@@ -145,6 +149,7 @@ public class FrequencyTable extends JPanel implements ActionListener
            (int)( gigToPix * lLowLimit ),
            (int)( gigToPix * lHighLimit ));
          lowBar.setUnitIncrement ( 1 );
+	 lowBars.add(lowBar);
 
          highBar = new SideBandScrollBar ( JScrollBar.HORIZONTAL,
            (int)( gigToPix * (feIF-0.5*bandWidths[0]) ), 
@@ -152,6 +157,7 @@ public class FrequencyTable extends JPanel implements ActionListener
            (int)( gigToPix * uLowLimit ),
            (int)( gigToPix * uHighLimit ));
          highBar.setUnitIncrement ( 1 );
+	 highBars.add(highBar);
 
          // Line display added by MFO (October 16, 2002)
          if(j == 0) {
@@ -345,6 +351,58 @@ public class FrequencyTable extends JPanel implements ActionListener
       }
    }
 
+    public void moveSlider( String band, double newPos, int subsystem ) {
+	if ( band.equals("best") || band.equals("usb") ) {
+	    SideBandScrollBar bar = (SideBandScrollBar) highBars.elementAt(subsystem);
+	    AdjustmentListener [] listeners = (AdjustmentListener [])((SideBandScrollBar) highBars.elementAt(subsystem)).getListeners(AdjustmentListener.class);
+	    // Disable the event liteners and move the USB sliders
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) highBars.elementAt(subsystem)).removeAdjustmentListener( listeners[i] );
+	    }
+	    int newValue = (int) ((double)bar.getDefaultValue() - newPos*gigToPix);
+	    ((SideBandScrollBar)highBars.elementAt(subsystem)).setValue(newValue);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) highBars.elementAt(subsystem)).addAdjustmentListener( listeners[i] );
+	    }
+	    // Now move the LSB scroller in the complimentary direction
+	    listeners = (AdjustmentListener [])((SideBandScrollBar) lowBars.elementAt(subsystem)).getListeners(AdjustmentListener.class);
+	    bar = (SideBandScrollBar) lowBars.elementAt(subsystem);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) lowBars.elementAt(subsystem)).removeAdjustmentListener( listeners[i] );
+	    }
+	    newValue = (int) ((double)bar.getDefaultValue() + newPos*gigToPix);
+	    ((SideBandScrollBar)lowBars.elementAt(subsystem)).setValue(newValue);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) lowBars.elementAt(subsystem)).addAdjustmentListener( listeners[i] );
+	    }
+	    
+	}
+	else {
+	    SideBandScrollBar bar = (SideBandScrollBar) lowBars.elementAt(subsystem);
+	    // Disable the event liteners and move the LSB sliders
+	    AdjustmentListener [] listeners = (AdjustmentListener [])((SideBandScrollBar) lowBars.elementAt(subsystem)).getListeners(AdjustmentListener.class);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) lowBars.elementAt(subsystem)).removeAdjustmentListener( listeners[i] );
+	    }
+	    int newValue = (int) ((double)bar.getDefaultValue() - newPos*gigToPix);
+	    ((SideBandScrollBar)lowBars.elementAt(subsystem)).setValue(newValue);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) lowBars.elementAt(subsystem)).addAdjustmentListener( listeners[i] );
+	    }
+	    // Now move the LSB scroller in the complimentary direction
+	    bar = (SideBandScrollBar) highBars.elementAt(subsystem);
+	    listeners = (AdjustmentListener [])((SideBandScrollBar) highBars.elementAt(subsystem)).getListeners(AdjustmentListener.class);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) highBars.elementAt(subsystem)).removeAdjustmentListener( listeners[i] );
+	    }
+	    newValue = (int) ((double)bar.getDefaultValue() + newPos*gigToPix);
+	    ((SideBandScrollBar)highBars.elementAt(subsystem)).setValue(newValue);
+	    for (int i=0; i< listeners.length; i++) {
+		((SideBandScrollBar) highBars.elementAt(subsystem)).addAdjustmentListener( listeners[i] );
+	    }
+	}
+    }
+
    /**
     * A listener for bandwidth JComboBoxes that has knowledge of the number of the
     * SideBand whose bandwidth its JComboBox controls.
@@ -437,11 +495,17 @@ public class FrequencyTable extends JPanel implements ActionListener
     * preferred width has been set to 0.
     */
    class SideBandScrollBar extends JScrollBar {
+       int _defaultPos;
 
       public SideBandScrollBar(int orientation, int value, int extent, int min, int max) {
          super(orientation, value, extent, min, max);
+	 _defaultPos = value;
          setUI(new SideBandUI());
       }
+
+       public int getDefaultValue () {
+	   return _defaultPos;
+       }
 
       /**
        * MetalScrollBarUI subclass that returns increase/decrease buttons

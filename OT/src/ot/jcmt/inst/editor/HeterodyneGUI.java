@@ -77,6 +77,11 @@ public class HeterodyneGUI extends JPanel {
 
     JComboBox   feMixers;
 
+    // ADDED by SDW to allow for Special DAS configurations
+    JPanel    specialPanel;
+    JLabel    specialConfigurationLabel;
+    JComboBox specialConfigurations;
+
 
   public HeterodyneGUI() {
 
@@ -287,15 +292,21 @@ public class HeterodyneGUI extends JPanel {
       label.setForeground(Color.red);
       warningPanel.add(label);
 
-//      linePanel = Box.createVerticalBox();
-//      linePanel.add ( mol1Panel );
+      // ADDED BY SDW to allow for special DAS modes
+      specialPanel = new JPanel(flowLayoutLeft); // Just use standard flow layout
+      specialConfigurationLabel = new JLabel();
 
-      // MFO (May 03, 2002): mol2Panel is currently not used.
-      //linePanel.add ( mol2Panel );
+      specialConfigurationLabel.setFont(new Font("Dialog", 0, 12));
+      specialConfigurationLabel.setForeground(Color.black);
+      specialConfigurationLabel.setText ("Special Configurations");
 
-      //linePanel.add ( sideBandButton );
+      specialConfigurations = new JComboBox();
+      specialConfigurations.setFont(new Font("Dialog", 0, 12));
+      specialConfigurations.setForeground(Color.black);
 
-      //sideBandButton.addActionListener(this);
+      specialPanel.add(specialConfigurationLabel);
+      specialPanel.add(specialConfigurations);
+      
 
 /* Assemble the display */
 
@@ -327,6 +338,7 @@ public class HeterodyneGUI extends JPanel {
       northPanel.add ( overlapBandwidthPanel );
 //       northPanel.add ( velocityPanel );
 //       northPanel.add ( mol1Panel );
+      northPanel.add(specialPanel);
       northPanel.add ( vfPanel );
 //       northPanel.add ( warningPanel );
       add ( northPanel, BorderLayout.NORTH );

@@ -35,6 +35,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     /** Back end name */
     public static final String ATTR_BE_NAME = "beName";
 
+    /** Special configuration identifier */
+    public static final String ATTR_NAMED_CONFIGURATION = "configuration";
+
   /** Receiver: Central IF. */
   public static final String ATTR_FE_IF = "feIF";
 
@@ -257,6 +260,14 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   public void setFrontEnd(String value) {
     _avTable.set(ATTR_FE_NAME, value);
   }
+
+    /** Get the back end name */
+    public String getBackEnd() {
+      if (_avTable.get(ATTR_BE_NAME) == null || _avTable.get(ATTR_BE_NAME).equals("")) {
+	  _avTable.noNotifySet(ATTR_BE_NAME, "das", 0);
+      }
+      return _avTable.get(ATTR_BE_NAME);
+    }
 
 
   /**
@@ -629,6 +640,18 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     return _avTable.size(ATTR_CENTRE_FREQUENCY);
   }
 
+    public void setNamedConfiguration (String name) {
+	_avTable.set(ATTR_NAMED_CONFIGURATION, name, 0);
+    }
+
+    public String getNamedConfiguration() {
+	return _avTable.get(ATTR_NAMED_CONFIGURATION);
+    }
+
+    public void removeNamedConfiguration() {
+	_avTable.rm(ATTR_NAMED_CONFIGURATION);
+    }
+
 
   /**
    * Converts given redshift to specified radial velocity definition.
@@ -818,6 +841,53 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    */
   protected void toXML(String indent, StringBuffer xmlBuffer) {
+      if ( getBackEnd().equals("das") ) {
+	  // Special case where there we use special configurations of the das
+	  // We need to remove the extra values for the following parameters
+	  //   restFrequency
+	  //   transition
+          //   molecule
+	  //   overlap
+	  //   centreFrequency
+	  //   channels
+	  //   bandWidth
+	  int size;
+	  if ( (size = _avTable.size(ATTR_REST_FREQUENCY)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_REST_FREQUENCY, i);
+	      }
+	  }
+	  if ( (size = _avTable.size(ATTR_TRANSITION)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_TRANSITION, i);
+	      }
+	  }
+	  if ( (size = _avTable.size(ATTR_MOLECULE)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_MOLECULE, i);
+	      }
+	  }
+	  if ( (size = _avTable.size(ATTR_OVERLAP)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_OVERLAP, i);
+	      }
+	  }
+	  if ( (size = _avTable.size(ATTR_CENTRE_FREQUENCY)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_CENTRE_FREQUENCY, i);
+	      }
+	  }
+	  if ( (size = _avTable.size(ATTR_CHANNELS)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_CHANNELS, i);
+	      }
+	  }
+	  if ( (size = _avTable.size(ATTR_BANDWIDTH)) > 1 ) {
+	      for (int i=1; i<size; i++) {
+		  _avTable.rm ( ATTR_BANDWIDTH, i);
+	      }
+	  }
+      }
     super.toXML(indent, xmlBuffer);
 
     int offset = xmlBuffer.length() - (indent.length() + _className.length() + 4);

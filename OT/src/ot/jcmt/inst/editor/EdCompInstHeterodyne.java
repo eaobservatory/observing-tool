@@ -31,6 +31,16 @@ import orac.jcmt.inst.SpInstHeterodyne;
 import edfreq.*;
 import jsky.app.ot.editor.OtItemEditor;
 
+import org.apache.xerces.parsers.DOMParser;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+
 //------- NOTES -------------
 //
 // Transition Strings is GUI and SpInstHeterodyne
@@ -80,11 +90,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   /** Do not use _instHeterodyne if this is true, as it will still be null. */
   private boolean _ignoreSpItem = false;
-
   private boolean _updatingWidgets = false;
-
   private boolean _changingFrontEnd = false;
   private boolean _changingBandMode = false;
+    private boolean _settingUp = false;
 
   /**
    * Flag indicating that the text in the velocity box has been changed but
@@ -92,6 +101,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    */
   private boolean _velocityChanged = false;
   private boolean _frequencyChanged = false;
+  private boolean _updateFromSpecial = false;
+  private boolean specialInitialised = false;
 
   /**
    * A static configuration object which can used by classes throughout this
@@ -102,6 +113,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   private SpInstHeterodyne _instHeterodyne;
 
   private HeterodyneGUI _w;		// the GUI layout
+
+    private Document doc = null;
 
   private String [] _radialVelocityDefinitions = {
     SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT,
@@ -120,6 +133,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       if(sideBandDisplay == null) {
          sideBandDisplay = new SideBandDisplay(this);
       }
+
+      _w.specialConfigurations.setModel ( getSpecialConfigsModel() );
+      specialInitialised = true;
 
       _w.feChoice.setModel(new DefaultComboBoxModel(cfg.frontEnds));
       _w.feChoice.addActionListener ( this );
@@ -191,15 +207,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		      _w.acceptVF.doClick();
 		  }
 	      }
-	  });
-      
-   
+	  });   
+
+
       // MFO trigger additional initialising.
       feChoiceAction(null);
       updateSideBandDisplay();
       //feMolecule2Action(null);
       feMoleculeAction(null);
       feTransitionAction(null);
+
+      _w.specialConfigurations.addActionListener(this);
 
       _ignoreSpItem = false;
    }
@@ -241,9 +259,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       String beName = System.getProperty("FREQ_EDITOR_CFG");
       if (beName.indexOf("das") != -1) {
 	  beName = "das";
+	  _w.specialPanel.setVisible(true);
+	  _w.feBandModeChoice.removeActionListener(this);
       }
       else {
 	  beName = "acsis";
+	  _w.specialPanel.setVisible(false);
+	  _w.feBandModeChoice.addActionListener(this);
       }
  
       _instHeterodyne.initialiseValues(
@@ -272,9 +294,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    * Override setup to store away a reference to the SpInstCGS4 item.
    */
   public void setup(SpItem spItem) {
+      _settingUp = true;
     _instHeterodyne = (SpInstHeterodyne)spItem;
 
     super.setup(spItem);
+    _settingUp = false;
   }
 
 
@@ -291,13 +315,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
 
       try {
+	  _w.specialConfigurations.removeActionListener(this);
          _w.feChoice.setSelectedItem(_instHeterodyne.getFrontEnd());
          _w.feMode.setSelectedItem(_instHeterodyne.getMode());
          _w.feBandModeChoice.setSelectedItem(getObject(_w.feBandModeChoice, _instHeterodyne.getBandMode()));
          _w.feMixers.setSelectedItem(getObject(_w.feMixers, _instHeterodyne.getMixer()));
          _w.overlap.setText("" + (_instHeterodyne.getOverlap(0) / 1.0E6));
          _w.velocityDefinition.setSelectedItem("" + _instHeterodyne.getVelocityDefinition());
-	 _w.velocityFrame.setSelectedItem(_instHeterodyne.getVelocityFrame());
+	 _w.velocityFrame.setSelectedItem(_instHeterodyne.getVelocityFrame());	     
 
          redshift = _instHeterodyne.getRedshift();
          _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
@@ -345,6 +370,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	     _w.resolution.setText("" + sideBandDisplay.getResolution(0));
 	 }
 	 
+	 if ( _instHeterodyne.getNamedConfiguration() == null || _instHeterodyne.getNamedConfiguration().equals("")) {
+// 	     System.out.println("Setting special configuration to none since it does not exist");
+	     _w.specialConfigurations.setSelectedIndex(0);
+	 }
+	 else {
+// 	     System.out.println("Setting special configuration to "+ _instHeterodyne.getNamedConfiguration());
+	     _w.specialConfigurations.setSelectedItem( _instHeterodyne.getNamedConfiguration() );
+	 }
+	  _w.specialConfigurations.addActionListener(this);
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -375,38 +409,47 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       if ( ae.getSource() == _w.feBand )
       {
          feBandAction ( ae );
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
+	 
       }
       else if ( ae.getSource() == _w.moleculeChoice )
       {
          feMoleculeAction ( ae );
-	  _w.acceptVF.setEnabled(true);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
+	 _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.transitionChoice )
       {
          feTransitionAction ( ae );
-	  _w.acceptVF.setEnabled(true);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
+	 _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.moleculeChoice2 )
       {
          feMolecule2Action ( ae );
-	  _w.acceptVF.setEnabled(true);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
+	 _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.transitionChoice2 )
       {
          feTransition2Action ( ae );
-	  _w.acceptVF.setEnabled(true);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
+	 _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.feChoice )
       {
          feChoiceAction ( ae );
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if ( ae.getSource() == _w.feBandModeChoice )
       {
          feBandModeChoiceAction ( ae );
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if ( ae.getSource() == _w.feMixers )
       {
          feMixersAction ( ae );
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if (ae.getSource() == _w.velocityFrame) {
 	  velocityFrameAction(ae);
@@ -415,7 +458,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else if ( ae.getSource() == _w.velocity )
       {
          feVelocityAction ( ae );
-	  _w.acceptVF.setEnabled(true);
+	 _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.velocityDefinition )
       {
@@ -425,20 +468,24 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else if ( ae.getSource() == _w.overlap )
       {
          feOverlapAction ( ae );
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if ( ae.getSource() == _w.moleculeFrequency )
       {
          moleculeFrequencyChanged();
 	  _w.acceptVF.setEnabled(true);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if ( ae.getSource() == _w.moleculeFrequency2 )
       {
          moleculeFrequency2Changed();
 	  _w.acceptVF.setEnabled(true);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if ( ae.getSource() == _w.bandWidthChoice )
       {
          bandWidthChoiceAction(ae);
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if ( ae.getSource() == _w.feMode )
       {
@@ -447,16 +494,55 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	 }
 
          sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
+	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
       }
       else if (ae.getSource() == _w.acceptVF) {
 	  if (_frequencyChanged)
 	      moleculeFrequencyChanged();
 	  if (_velocityChanged)
 	      feVelocityAction ( ae );
-	  _velocityChanged = false;
+	  _velocityChanged  = false;
 	  _frequencyChanged = false;
-
 	  _w.acceptVF.setEnabled(false);
+      }
+      else if ( ae.getSource() == _w.specialConfigurations ) {
+	  // Get all of the confiruation information, then update all the widgets
+	  if ( _w.specialConfigurations.getSelectedIndex() == 0) {
+	      try {
+		  _instHeterodyne.removeNamedConfiguration();
+		  updateSideBandDisplay();
+// 		  Exception e = new Exception();
+// 		  e.printStackTrace();
+	      }
+	      catch (Exception e) {
+		  // The named configuration item did not exist
+	      }
+	      return;
+	  }
+	  
+	  _instHeterodyne.setNamedConfiguration( (String)_w.specialConfigurations.getSelectedItem() );
+	  ConfigurationInformation ci = getConfigFor((String)_w.specialConfigurations.getSelectedItem());
+	  // Now update everything with these new values...
+	  _updateFromSpecial = true;
+	  _w.feChoice.setSelectedItem( ci.$feName );
+	  _w.feMode.setSelectedItem(ci.$mode.toLowerCase());
+	  _w.feMixers.setSelectedIndex( ci.$mixers.intValue() - 1);
+	  _w.feBand.setSelectedItem( ci.$sideBand.toLowerCase());
+	  _w.bandWidthChoice.setSelectedItem(ci.$bandWidth);
+	  switch ( ci.$subSystems.intValue() ) {
+	  case 1:
+	  case 2:
+	  default:
+	      updateSideBandDisplay(2, ci.$shifts);
+	      break;
+	  case 4:
+	      updateSideBandDisplay(4, ci.$shifts);
+	      break;
+	  }
+	  _w.moleculeFrequency.setText(""+ci.$freq.doubleValue());
+	  _frequencyChanged = true;
+	  _w.acceptVF.doClick();
+	  _updateFromSpecial = false;
       }
    }
 
@@ -859,7 +945,18 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
       _ignoreEvents = false;
 
-      BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+      BandSpec currentBandSpec;
+      if ( _instHeterodyne != null ) {
+	  if ( _instHeterodyne.getBackEnd().equals("das") ) {
+	      currentBandSpec = (BandSpec)_w.feBandModeChoice.getItemAt(0);
+	  }
+	  else {
+	      currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+	  }
+      }
+      else {
+	  currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+      }
       _updateBandWidthChoice(currentBandSpec.getDefaultOverlapBandWidths());
 
       feOverlap = currentBandSpec.defaultOverlaps[_w.bandWidthChoice.getSelectedIndex()];
@@ -922,7 +1019,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       // subBandCount and numBands refers to the number of subsystem, not to the number
       // of multiple subbands in one subsystem.
-      subBandCount = currentBandSpec.numBands;
+      if (_instHeterodyne != null &&_instHeterodyne.getBackEnd() != null && _instHeterodyne.getBackEnd().equals("das")) {
+	  subBandCount = 1;
+      }
+      else {
+	  subBandCount = currentBandSpec.numBands;
+      }
       subBandWidth = currentBandSpec.getDefaultOverlapBandWidths()[0]; //getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
 
       if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) mixerCount = 2;
@@ -939,6 +1041,59 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _ignoreEvents = false;
 
       feTransitionAction(null);
+   }
+
+
+   public void updateSideBandDisplay(int nSubBands, Vector shifts) {
+      double loRange[];
+      double mid;
+      int subBandCount;
+      int mixerCount = 1;
+      
+      BandSpec currentBandSpec;
+      if ( _instHeterodyne.getBackEnd().equals("das") ) {
+	  currentBandSpec = (BandSpec)_w.feBandModeChoice.getItemAt(0);
+      }
+      else {
+	  currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+      }
+
+      if(currentBandSpec == null) {
+         _w.feBandModeChoice.setSelectedIndex(0);
+	 currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+      }
+
+
+/* Update display of sidebands and subbands */
+      Point sideBandDisplayLocation = new Point(100, 100);
+
+      mid = 0.5 * ( loMin + loMax );
+
+      // subBandCount and numBands refers to the number of subsystem, not to the number
+      // of multiple subbands in one subsystem.
+      subBandCount = nSubBands;
+      subBandWidth = currentBandSpec.getDefaultOverlapBandWidths()[0]; //getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
+
+      if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) mixerCount = 2;
+
+      sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
+				      feIF, feBandWidth, mixerCount,
+				      redshift,
+				      currentBandSpec.getDefaultOverlapBandWidths(), //getBandWidths(feOverlap),
+				      currentBandSpec.getDefaultOverlapChannels(),   //getChannels(  feOverlap),
+				      subBandCount );
+
+      _ignoreEvents = true;
+      sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
+      for ( int i=0; i < sideBandDisplay.getNumSubSystems(); i++) {
+	  sideBandDisplay.setBandWidth( _instHeterodyne.getBandWidth(0), i);
+      }
+      for ( int i=0; i<shifts.size(); i++) {
+	  sideBandDisplay.moveSlider(_instHeterodyne.getBand(), 4.0e9 + ( ((Double)shifts.elementAt(i)).doubleValue() * 1.0e9), i);
+      }
+      _ignoreEvents = false;
+
+//       feTransitionAction(null);
    }
 
 
@@ -1132,7 +1287,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       if ( sideBandDisplay != null )
       {
-         sideBandDisplay.setRedshift ( redshift );
+          sideBandDisplay.setRedshift ( redshift );
       }
 
       if(!_ignoreSpItem) {
@@ -1186,7 +1341,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
    private Object getObject(JComboBox comboBox, String name) {
      for(int i = 0; i < comboBox.getItemCount(); i++) {
-       if(comboBox.getItemAt(i).toString().equals(name)) {
+       if(comboBox.getItemAt(i).toString().equalsIgnoreCase(name)) {
          return comboBox.getItemAt(i);
        }
      }
@@ -1376,9 +1531,137 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   }
 
 
+    private DefaultComboBoxModel getSpecialConfigsModel () {
+	// The configuration information is defined in the file DASmodes.xml
+	// In this method, we just extract the name of each mode and add it
+	// to the model.
+	final String fileName = "/DASModes.xml";
+	DefaultComboBoxModel model = new DefaultComboBoxModel();
+	model.addElement("None");
+	
+	// Get a handle on the file.
+	File modesFile = new File (System.getProperty("ot.cfgdir")+fileName);
+	if ( !modesFile.exists() ) {
+	    System.out.println( "Error reading DAS modes config file " +modesFile.getName());
+	    return model;
+	}
+	
+	// Construct a document out of the information
+	try {
+	    FileReader reader = new FileReader(modesFile);
+	    char []    buffer = new char [(int)modesFile.length()];
+	    reader.read(buffer);
+	    String buffer_z = new String(buffer);
+	    DOMParser parser = new DOMParser();
+	    parser.setFeature("http://xml.org/sax/features/validation", false);
+	    parser.setFeature("http://apache.org/xml/features/dom/include-ignorable-whitespace", false);
+	    parser.parse(new InputSource(new StringReader(buffer_z)));
+	    doc = parser.getDocument();
+	}
+	catch (SAXNotRecognizedException snre) {
+	    System.out.println ("Unable to ignore white-space text.");
+	}
+	catch (SAXNotSupportedException snse) {
+	    System.out.println ("Unable to ignore white-space text.");
+	}
+	catch (SAXException sex) {
+	    System.out.println ("SAX Exception on parse.");
+	}
+	catch (IOException ioe) {
+	    System.out.println ("IO Exception on parse.");
+	}
+
+	if (doc != null) {
+	    NodeList nl = doc.getElementsByTagName("name");
+	    for ( int j=0; j<nl.getLength(); j++) {
+		String name = nl.item(j).getFirstChild().getNodeValue().trim();
+		model.addElement(name);
+	    }
+	}
+	return model;
+    }
+
+    private ConfigurationInformation getConfigFor (String name) {
+	if ( doc == null) return null;
+	
+	ConfigurationInformation ci = new ConfigurationInformation();
+	// Get the correct config item from the document
+	Node nodeToUse = null;
+	NodeList nl = doc.getElementsByTagName("configuration");
+	for ( int i=0; i< nl.getLength(); i++ ) {
+	    // 
+	    nodeToUse = nl.item(i);
+	    // Get the name associated with this
+	    NodeList children = nodeToUse.getChildNodes();
+	    String nodeName = "none";
+	    for ( int j=0; j< children.getLength(); j++) {
+		Node child = children.item(j);
+		if ( child.getNodeName().equals("name") ) {
+		    nodeName = child.getFirstChild().getNodeValue().trim();
+		    break;
+		}
+	    }
+	    if ( nodeName.equals(name)) {
+		break;
+	    }
+	}
+	// We now have the correct node hopefully, so fill in the ci structure
+	ci.$shifts.clear();
+	if ( nodeToUse != null) {
+	    NodeList children = nodeToUse.getChildNodes();
+	    for (int i=0; i<children.getLength(); i++) {
+		String childName = children.item(i).getNodeName();
+		if ( childName.equals("name") )
+		    ci.$name = children.item(i).getFirstChild().getNodeValue().trim();
+		if ( childName.equals("frontEnd") )
+		    ci.$feName = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
+		if ( childName.equals("sideband") )
+		    ci.$sideBand = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
+		if ( childName.equals("mode") )
+		    ci.$mode = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
+		if ( childName.equals("frequency") )
+		    ci.$freq = new Double ( children.item(i).getFirstChild().getNodeValue().trim() );
+		if ( childName.equals("mixers") )
+		    ci.$mixers = new Integer( children.item(i).getFirstChild().getNodeValue().trim() );
+		if ( childName.equals("systems") )
+		    ci.$subSystems = new Integer (children.item(i).getFirstChild().getNodeValue().trim() );
+		if ( childName.equals("bandwidth") )
+		    ci.$bandWidth = children.item(i).getFirstChild().getNodeValue().trim();
+		if ( childName.equals("shift") )
+		    ci.$shifts.add( new Double ( children.item(i).getFirstChild().getNodeValue().trim() ) );
+	    }
+	}
+	return ci;
+    }
+
+
   public void changedUpdate(DocumentEvent e) { _velocityChanged = true; }
   public void insertUpdate(DocumentEvent e)  { _velocityChanged = true; }
   public void removeUpdate(DocumentEvent e)  { _velocityChanged = true; }
     public void focusGained(FocusEvent e) {}
     public void focusLost(FocusEvent e) {}
+
+
+    class ConfigurationInformation {
+	public String  $name;
+	public String  $feName;
+	public Double  $freq;
+	public String  $sideBand;
+	public String  $mode;
+	public Integer $mixers;
+	public Integer $subSystems;
+	public String  $bandWidth;
+	public Vector  $shifts = new Vector();
+
+	public void print() {
+	    System.out.println( "name       = "+$name);
+	    System.out.println( "feName     = "+$feName);
+	    System.out.println( "frequency  = "+$freq.doubleValue());
+	    System.out.println( "sideBand   = "+$sideBand);
+	    System.out.println( "mode       = "+$mode);
+	    System.out.println( "mixers     = "+$mixers);
+	    System.out.println( "subSystems = "+$subSystems);
+	    System.out.println( "bandwidth  = "+$subSystems);
+	}
+    }
 }
