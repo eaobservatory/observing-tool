@@ -147,7 +147,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.velocityFrame.setModel(new DefaultComboBoxModel(cfg.velocityFrames));
       _w.velocityFrame.addActionListener ( this );
 
-      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "usb", "lsb" } ));
+      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "usb", "lsb", "best" } ));
       _w.feBand.addActionListener ( this );
 
 /* Main molecular line choice - used to set front-end LO1 to put the line
@@ -236,7 +236,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          "0.0",							// velocity
          SpInstHeterodyne.RADIAL_VELOCITY_RADIO,		// velocity definitio
 	 SpInstHeterodyne.LSR_VELOCITY_FRAME,                   // velocity frame
-         "usb",							// band
+         "best",						// band
          "" + receiver.feIF,					// centre frequency
          "" + bandSpec.getDefaultOverlapBandWidths()[0],	// bandwidth
          "" + bandSpec.channels[0],				// channels
@@ -620,7 +620,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
             // Adjust the LO1. If this would mean exceeding the LO range then
             // swap sidebands.
-            if ( band.equals ( "usb" ) )
+            if ( band.equals ( "usb" ) || band.equals("best") )
             {
 	       if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
 
@@ -645,7 +645,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
                      "Changing sideband", JOptionPane.WARNING_MESSAGE);
                   }
 
-                  _w.feBand.setSelectedItem("usb");
+                  _w.feBand.setSelectedItem("best");
                   sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
 	       }
 	       else {
@@ -756,7 +756,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
             double obsFrequency = frequency / 
               ( 1.0 + redshift );
-            if ( band.equals ( "usb" ) )
+            if ( band.equals ( "usb" ) || band.equals("best") )
             {
                sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
             }

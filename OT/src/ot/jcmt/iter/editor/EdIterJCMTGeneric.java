@@ -281,8 +281,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	    _w.switchingMode.setVisible(true);
 	    _w.switchingModeLabel.setVisible(true);
 
-	    if(_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
-	       _w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_F)) {
+	    if(_w.switchingMode.getValue() != null && 
+	       (_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
+	       _w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_F))) {
 		_w.frequencyPanel.setVisible(true);
 	    }
 	    else {
