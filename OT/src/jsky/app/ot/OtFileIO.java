@@ -109,11 +109,11 @@ storeSp(SpRootItem spItem, File f)
 	  // SpObs components that are MSBs.
 	  SpItemUtilities.saveElapsedTimes(spItem);
 
-          (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
+          (new PrintStream(os)).print((new SpItemDOM(spItem)).toXML());
 	}
 	catch(Exception e) {
 	  e.printStackTrace();
-          JOptionPane.showMessageDialog(null, e.getMessage(), "Could not open " + f.getName(), JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null, e.getMessage(), "Problem storing Science Program", JOptionPane.ERROR_MESSAGE);
 	  return false;
 	}
       }

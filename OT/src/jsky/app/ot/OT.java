@@ -557,7 +557,15 @@ showNews()
 	    System.exit(1);
 	}
 
-	OtCfg.init();
+	try {
+	  OtCfg.init();
+	}
+	catch(Exception e) {
+	  JOptionPane.showMessageDialog(null, e.getMessage(), "Problem with OT configuration.",
+	                                JOptionPane.ERROR_MESSAGE);
+	  e.printStackTrace();
+	}
+
 
         selectServer();
 
