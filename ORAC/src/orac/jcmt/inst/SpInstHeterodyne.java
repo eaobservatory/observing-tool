@@ -50,6 +50,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Radial velocity definition: "redshift", "optical", "radio". */
   public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition";
 
+    public static final String ATTR_VELOCITY_FRAME = "velocityFrame";
+
 
 
   /** Band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).  */
@@ -98,6 +100,11 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /** Radial velocity, radio defined. */
   public static final String RADIAL_VELOCITY_RADIO    = "radio";
+
+    /** Velocity frames */
+    public static final String LSR_VELOCITY_FRAME          = "LSR";
+    public static final String GEOCENTRIC_VELOCITY_FRAME   = "Geocentric";
+    public static final String HELIOCENTRIC_VELOCITY_FRAME = "Heliocentric";
 
   /**
    * Set to true when method initialiseValues() is called.
@@ -154,6 +161,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       String defaultOverlap,
       String defaultVelocity,
       String defaultVelocityDefinition,
+      String defaultVelocityFrame,
       String defaultBand,
       String defaultCentreFrequency,
       String defaultBandwidth,
@@ -169,6 +177,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifySet(ATTR_OVERLAP,             defaultOverlap,            0);
     _avTable.noNotifySet(ATTR_VELOCITY,            defaultVelocity,           0);
     _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, defaultVelocityDefinition, 0);
+    _avTable.noNotifySet(ATTR_VELOCITY_FRAME,      defaultVelocityFrame,      0);
     _avTable.noNotifySet(ATTR_BAND,                defaultBand,               0);
     _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY,    defaultCentreFrequency,    0);
     _avTable.noNotifySet(ATTR_BANDWIDTH,           defaultBandwidth,          0);
@@ -332,6 +341,14 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   public void setVelocityDefinition(String value) {
     _avTable.set(ATTR_VELOCITY_DEFINITION, value);
   }
+
+    public void setVelocityFrame(String value) {
+	_avTable.set(ATTR_VELOCITY_FRAME, value);
+    }
+    
+    public String getVelocityFrame() {
+	return _avTable.get(ATTR_VELOCITY_FRAME);
+    }
 
 
 
@@ -664,7 +681,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
         indent + "    <sideband value=\"" + sideband + "\"/>\n" +
         indent + "    <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" +
         indent + "    <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" +
-        indent + "    <dopple_tracking value=\"ON\"/>\n" +	// Options are ON | OFF. Default to ON for now.
+        indent + "    <doppler_tracking value=\"ON\"/>\n" +	// Options are ON | OFF. Default to ON for now.
         indent + "    <optimize value=\"DISABLE\"/>\n"		// Options are ENABLE | DISABLE. Default to DIABLE for now.
     );
 
