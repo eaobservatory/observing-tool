@@ -994,7 +994,9 @@ public void
 setConicSystemEpoch(String value)
 {
    try {
-      _avTab.set(_tag, Double.parseDouble(value), CONIC_SYSTEM_EPOCH);
+       double mjd = Double.parseDouble(value);
+       if (mjd > 2400000.5 ) mjd-=2400000.5 ;
+      _avTab.set(_tag, mjd, CONIC_SYSTEM_EPOCH);
    }
    catch(NumberFormatException e) {
       _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH);
@@ -1033,7 +1035,9 @@ public void
 setConicSystemEpochPerih(String value)
 {
    try {
-      _avTab.set(_tag, Double.parseDouble(value), CONIC_SYSTEM_EPOCH_PERIH);
+       double mjd = Double.parseDouble(value);
+       if (mjd > 2400000.5 ) mjd-=2400000.5 ;
+      _avTab.set(_tag, mjd, CONIC_SYSTEM_EPOCH_PERIH);
    }
    catch(NumberFormatException e) {
       _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH_PERIH);
