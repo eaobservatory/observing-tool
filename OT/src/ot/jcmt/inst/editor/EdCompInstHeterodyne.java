@@ -12,7 +12,8 @@ package ot.jcmt.inst.editor;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.BoxLayout;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,7 +38,8 @@ import jsky.app.ot.editor.OtItemEditor;
  *
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener, HeterodyneEditor {
+public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener,
+    DocumentListener, HeterodyneEditor {
 
   private String currentFE = "";
   private SideBandDisplay sideBandDisplay = new SideBandDisplay(this);
@@ -58,6 +60,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   /** Do not use _instHeterodyne if this is true, as it will still be null. */
   private boolean _ignoreSpItem = false;
 
+  /**
+   * Flag indicating that the text in the velocity box has been changed but
+   * the respective fields in this and other classes have not yet been updated accordingly.
+   */
+  private boolean _velocityChanged = false;
 
   /**
    * A static configuration object which can used by classes throughout this
@@ -68,6 +75,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   private SpInstHeterodyne _instHeterodyne;
 
   private HeterodyneGUI _w;		// the GUI layout
+
+  private String [] _radialVelocityDefinitions = {
+    SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT,
+    SpInstHeterodyne.RADIAL_VELOCITY_OPTICAL,
+    SpInstHeterodyne.RADIAL_VELOCITY_RADIO
+  };
+
 
   public EdCompInstHeterodyne() {
     _title       ="JCMT Heterodyne";
@@ -93,10 +107,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       _w.velocity.setText ( "0.0" );
       _w.velocity.addActionListener ( this );
+      _w.velocity.getDocument().addDocumentListener( this );
 
-      _w.velocityDefinition.setModel(new DefaultComboBoxModel(new String[]{ "Velocity, optical",
-									    "Velocity, radio",
-									    "Redshift, z" }));
+      _w.velocityDefinition.setModel(new DefaultComboBoxModel(_radialVelocityDefinitions));
       _w.velocityDefinition.addActionListener ( this );
 
       _w.velocityFrame.setModel(new DefaultComboBoxModel(cfg.velocityFrames));
@@ -122,6 +135,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.moleculeFrequency2.setText ( "0.0000" );
       _w.moleculeFrequency2.addActionListener(this);
 
+
+      _w.velocityDefinition.addActionListener(this);
 
       _w.freqEditorButton.addActionListener(this);
       _w.hideFreqEditorButton.addActionListener(this);
@@ -159,7 +174,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          _w.feMode.setSelectedItem(_instHeterodyne.getMode());
          _w.feBandModeChoice.setSelectedItem(getObject(_w.feBandModeChoice, _instHeterodyne.getBandMode()));
          _w.overlap.setText("" + (_instHeterodyne.getOverlap(0) / 1.0E6));
-         _w.velocity.setText("" + _instHeterodyne.getVelocity());
+         _w.velocityDefinition.setSelectedItem("" + _instHeterodyne.getVelocityDefinition());
+
+         redshift = _instHeterodyne.getRedshift();
+         _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
+
          _w.feBand.setSelectedItem(getObject(_w.feBand, _instHeterodyne.getBand()));
          _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
          _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0)));
@@ -241,6 +260,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else if ( ae.getSource() == _w.velocity )
       {
          feVelocityAction ( ae );
+      }
+      else if ( ae.getSource() == _w.velocityDefinition )
+      {
+         feVelocityDefinitionAction ( ae );
       }
       else if ( ae.getSource() == _w.overlap )
       {
@@ -791,10 +814,27 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       svalue = _w.velocity.getText();
       dvalue = (Double.valueOf(svalue)).doubleValue();
-      redshift = dvalue / EdFreq.LIGHTSPEED;
+
+      String velocityDefinition = _instHeterodyne.getVelocityDefinition();
+
+      redshift = SpInstHeterodyne.convertToRedshift(velocityDefinition, dvalue);
 
       obsmin = loMin - feIF - ( feBandWidth * 0.5 );
       obsmax = loMax + feIF + ( feBandWidth * 0.5 );
+
+
+      if(((Vector)lineCatalog.returnSpecies(obsmin*(1.0+redshift), obsmax*(1.0+redshift))).size() < 1) {
+         JOptionPane.showMessageDialog(_w, "This velocity/redshift would results frequency range that exceeds the line catalog.",
+                                       "Invalid velocity/redshift", JOptionPane.WARNING_MESSAGE);
+
+         // Reset redshift and value in velocity text field to last valid value.
+	 redshift = _instHeterodyne.getRedshift();
+         _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
+
+         return;
+      }
+
+      _velocityChanged = false;
 
 /* Update choice of molecules */
 
@@ -842,7 +882,24 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
 
       if(!_ignoreSpItem) {
-         _instHeterodyne.setVelocity(dvalue);
+         _instHeterodyne.setVelocityFromRedshift(redshift);
+      }
+   }
+
+   public void feVelocityDefinitionAction ( ActionEvent ae ) {
+      // The call to feVelocityAction() ensures that the current value in
+      // the _w.velocity text field is registered even if the user
+      // has never hit return (i.e. causing an ActionEvent) in the _w.velocity text field.
+
+      if(_velocityChanged) {
+         feVelocityAction( null );
+      }
+
+      // After the feVelocityAction() call this.redshift is updated.
+      _updateVelocityTextField((String)_w.velocityDefinition.getSelectedItem());
+
+      if(!_ignoreSpItem) {
+         _instHeterodyne.setVelocityDefinition((String)_w.velocityDefinition.getSelectedItem());
       }
    }
 
@@ -918,6 +975,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
 
       _w.bandWidthChoice.addActionListener(this);
+   }
+
+   public void _updateVelocityTextField(String velocityDefinition) {
+      double velocityOrRedshift = SpInstHeterodyne.convertRedshiftTo(velocityDefinition, redshift);
+
+      if(velocityDefinition.equals(SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT)) {
+         _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E9) / 1.0E9));
+      }
+      else {
+         _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E3) / 1.0E3));
+      }
+
+      _w.velocity.setCaretPosition(0);
    }
 
    public double getRedshift() {
@@ -1032,4 +1102,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
     _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
   }
+
+
+  public void changedUpdate(DocumentEvent e) { _velocityChanged = true; }
+  public void insertUpdate(DocumentEvent e)  { _velocityChanged = true; }
+  public void removeUpdate(DocumentEvent e)  { _velocityChanged = true; }
 }
