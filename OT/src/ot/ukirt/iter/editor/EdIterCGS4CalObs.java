@@ -228,11 +228,11 @@ textBoxKeyPress(TextBoxWidgetExt tbwe)
 {
    SpIterCGS4CalObs ico = (SpIterCGS4CalObs) _spItem;
    
-   if (tbwe.getName().equals("exposureTime")) {
+   if (tbwe == _w.exposureTime) {
       ico.setExposureTime( tbwe.getText() );
-   } else if (tbwe.getName().equals("coadds")) {
+   } else if (tbwe == _w.coadds) {
       ico.setCoadds( tbwe.getText() );
-   } else if (tbwe.getName().equals("cvfWavelength")) {
+   } else if (tbwe == _w.cvfWavelength) {
       ico.setCvfWavelength( tbwe.getText() );
    }
 }
