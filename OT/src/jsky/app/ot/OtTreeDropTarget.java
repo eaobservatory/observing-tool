@@ -296,7 +296,11 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	    newItems = _spTree.addItems( spID );
 	  }
           // force redrawing of the tree
-	  _spTree.resetProg(_spTree.getProg());
+	  // use updateNodeExpansions instead of resetProg to avoid gaps-between-tree-nodes bug
+	  // (aka collapse/expand bug). See also revisions 1.7, 1.8, 1.9 of
+	  // orac3/OT/src/ot/OtAdvancedTreeDropTarget.java
+	  //_spTree.resetProg(_spTree.getProg());
+	  _spTree.updateNodeExpansions();
 	}
 	catch(Exception e) {
           DialogUtil.error(ownerTW, e);
