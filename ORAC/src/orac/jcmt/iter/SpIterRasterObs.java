@@ -46,6 +46,18 @@ import java.util.Enumeration;
  */
 public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver, SpMapItem {
 
+  /** TCS XML constants. */
+  private static final String TX_OBS_AREA      = "obsArea";
+  private static final String TX_SCAN_AREA     = "SCAN_AREA";
+  private static final String TX_AREA          = "AREA";
+  private static final String TX_SCAN          = "SCAN";
+  private static final String TX_PA            = "PA";
+  private static final String TX_HEIGHT        = "HEIGHT";
+  private static final String TX_WIDTH         = "WIDTH";
+  private static final String TX_SCAN_VELOCITY = "VELOCITY";
+  private static final String TX_SCAN_DY       = "DY";
+
+
   public static final SpType SP_TYPE =
     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "rasterObs", "Scan/Raster");
 
@@ -334,6 +346,105 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     // calling posAngleUpdate(posAngle) which would then call posAngleUpdate(posAngle)
     // again an so on causing an infinite loop.
     _avTable.set(ATTR_SCANAREA_PA, posAngle);
+  }
+
+
+  /** Creates JAC TCS XML. */
+  protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
+    // ATTR_SCANAREA_HEIGHT is an AV attribute that occurs once in a SpIterOffset's AV table
+    // When processAvAttribute is called with ATTR_SCANAREA_HEIGHT as avAttr then append the entire
+    // TCS XML representation of this item to the xmlBuffer.
+    // For all other calls to processAvAttribute ignore the AV attributes, except meta attribues
+    // such as ".gui.collapsed" which are delegated to the super class.
+    if(avAttr.equals(ATTR_SCANAREA_HEIGHT)) {
+      // Append <obsArea> element.
+      xmlBuffer.append("\n" + indent + "  <" + TX_OBS_AREA + ">");
+      xmlBuffer.append("\n" + indent + "    <" + TX_PA + ">" + getPosAngle() + "</" + TX_PA + ">");
+
+      xmlBuffer.append("\n" + indent + "    <" + TX_SCAN_AREA + ">");
+      xmlBuffer.append("\n" + indent + "      <" + TX_AREA + " " + TX_HEIGHT + "=\"" + getHeight() +
+                                                 "\" " + TX_WIDTH + "=\"" + getWidth()  + "\"/>");
+      xmlBuffer.append("\n" + indent + "      <" + TX_SCAN + " " + TX_SCAN_DY + "=\"" + getScanDy() +
+	                                     "\" " + TX_SCAN_VELOCITY + "=\"" + getScanVelocity() + "\"/>");
+      xmlBuffer.append("\n" + indent + "    </" + TX_SCAN_AREA + ">");
+
+      xmlBuffer.append("\n" + indent + "  </" + TX_OBS_AREA + ">");
+
+      return;
+    }
+
+
+    if(avAttr.startsWith(TX_SCAN_AREA)) {
+      // Ignore. Dealt with in <obsArea> element (see above).
+      return;
+    }
+
+    super.processAvAttribute(avAttr, indent, xmlBuffer);
+  }
+
+  /** JAC TCS XML parsing. */
+  public void processXmlElementContent(String name, String value) {
+
+    // Ignore XML elements whose do not contain characters themselves but only
+    // XML attributes or XML child elements.
+    if(name.equals(TX_OBS_AREA) ||
+       name.equals(TX_SCAN_AREA) ||
+       name.equals(TX_AREA) ||
+       name.equals(TX_SCAN)) {
+
+      // ignore
+      return;
+    }
+
+    if(name.equals(TX_PA)) {
+      setPosAngle(value);
+
+      return;
+    }
+
+    super.processXmlElementContent(name, value);
+  }
+
+  /** JAC TCS XML parsing. */
+  public void processXmlElementEnd(String name) {
+
+    if(name.equals(TX_OBS_AREA)) {
+      // save() just means reset() in this context.
+      getAvEditFSM().save();
+
+      return;
+    }
+
+    super.processXmlElementEnd(name);
+  }
+
+  /** JAC TCS XML parsing. */
+  public void processXmlAttribute(String elementName, String attributeName, String value) {
+    if(elementName.equals(TX_AREA)) {
+      if(attributeName.equals(TX_HEIGHT)) {
+        setHeight(value);
+	return;
+      }
+
+      if(attributeName.equals(TX_WIDTH)) {
+        setWidth(value);
+	return;
+      }
+    }
+
+    if(elementName.equals(TX_SCAN)) {
+      if(attributeName.equals(TX_SCAN_DY)) {
+        setScanDy(value);
+	return;
+      }
+
+      if(attributeName.equals(TX_SCAN_VELOCITY)) {
+        setScanVelocity(value);
+	return;
+      }
+    }
+
+    super.processXmlAttribute(elementName, attributeName, value);
   }
 }
 
