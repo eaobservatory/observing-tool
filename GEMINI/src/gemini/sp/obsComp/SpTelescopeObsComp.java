@@ -353,6 +353,7 @@ processXmlElementContent(String name, String value)
 {
 
    if(_currentPosition == null) {
+      super.processXmlElementContent(name, value);
       return;
    }
 
