@@ -1133,6 +1133,18 @@ public class SpTranslator {
          targetComponent = (SpTelescopeObsComp) SpTreeMan.findTargetList( spObs );
          if ( ! ( targetComponent == null ) ) {
             targetPresent = true;
+	    
+	    // See if we can dump out the XML for this...
+	    String ocsTelFile = configDirName + "/" + getPrefix() + timeTag + ".xml";
+	    try {
+		FileWriter fw = new FileWriter(ocsTelFile);
+		fw.write(targetComponent.writeTCSXML());
+		fw.close();
+	    }
+	    catch (IOException ioe) {
+		System.err.println("Error generating xml dump");
+	    }
+	    
 
 // Obtain the target attribute-value list.
             tavl = (SpAvTable) targetComponent.getTable();
@@ -1245,10 +1257,11 @@ public class SpTranslator {
 // first.  Note the different command for a guide star.
                   targetRecord = new StringBuffer( 100 );
                   if ( isGuideTarget ) {
-                     targetRecord.append( "SET_GUIDE ");
+                     // targetRecord.append( "SET_GUIDE ");
                   } else {
-                     targetRecord.append( "SET_TARGET ");
+                     targetRecord.append( "telConfig " + ocsTelFile.substring( ocsTelFile.lastIndexOf("/") + 1) + " " + targetName );
                   }
+		  /*
                   targetRecord.append( targetName ).append( " " );
                   targetRecord.append( equinox ).append( " " );
 
@@ -1261,6 +1274,7 @@ public class SpTranslator {
                      targetRecord.append( " " ).append( pmRA );
                      targetRecord.append( " " ).append( pmDec );
                   }
+		  */
 
 // Write the set-target instruction to the sequence.
                   sequence.addElement( targetRecord.toString() );
@@ -2074,7 +2088,7 @@ public class SpTranslator {
 // End of commented by RDK
 
 // Added by RDK
-      SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_kkmmss");
+      SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_kkmmssSSS");
       return df.format(new Date()) ;
 // End of added by RDK
 
