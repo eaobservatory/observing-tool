@@ -72,7 +72,7 @@ public class ObsGUI extends JPanel {
 
 	estimatedTimeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
 	estimatedTimeLabel.setForeground(Color.black);
-	estimatedTimeLabel.setText("Estimated Time (w/o calibration)");
+	estimatedTimeLabel.setText("Estimated Time (w/o optionals)");
 	estimatedTime.setEditable(false);
 
 	remainingLabel.setFont(new java.awt.Font("Dialog", 0, 12));
