@@ -253,8 +253,13 @@ public class EdIterOffsetFeature extends TpeImageFeature
 	    // Rotate this point based on the current pos angle off the science area
 	    SpInstObsComp myInst = (SpInstObsComp) _iw.getInstrumentItem();
 	    if ( myInst instanceof SpInstUIST ) {
-		// Add a 90 degree rotation - not sure why, but it seem to work...
-		p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians + Math.PI/2.);
+		if ( ((SpInstUIST)myInst).isIFU() ) {
+		    p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians - Math.PI/4. );
+		}
+		else {
+		    // Add a 90 degree rotation - not sure why, but it seem to work...
+		    p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians + Math.PI/2.);
+		}
 	    }
 	    else {
 		p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians);
