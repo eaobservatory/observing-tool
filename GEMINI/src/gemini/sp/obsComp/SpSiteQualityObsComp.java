@@ -415,11 +415,25 @@ processXmlElementContent(String name, String value)
    }
 
    if(name.equals(XML_MOON)) {
+       // We are dealing with an old style program
+       if ( value.equals("0") ) {
+           _avTable.noNotifySet(ATTR_MOON, Integer.toString(MOON_DARK), 0);
+       }
+       else if ( value.equals("1") ) {
+           _avTable.noNotifySet(ATTR_MOON, Integer.toString(MOON_GREY), 0);
+       }
      _previousXmlElement = name;
      return;
    }
 
    if(name.equals(XML_CLOUD)) {
+       // We are dealing with an old style program
+       if ( value.equals("0") ) {
+           _avTable.noNotifySet(ATTR_CLOUD, Integer.toString(CLOUD_PHOTOMETRIC), 0);
+       }
+       else if ( value.equals("1") ) {
+           _avTable.noNotifySet(ATTR_CLOUD, Integer.toString(CLOUD_THIN_CIRRUS), 0);
+       }
      _previousXmlElement = name;
      return;
    }
