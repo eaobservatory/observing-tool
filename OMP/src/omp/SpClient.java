@@ -2,6 +2,7 @@ package omp;
 
 import java.io.*;
 import java.net.*;
+import java.util.Properties;
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
 import orac.util.SpInputXML;
@@ -19,27 +20,65 @@ import orac.util.SpItemUtilities;
  */
 public class SpClient extends SoapClient {
 
-   public SpClient () {
+   /**
+    * Configuration file for soap connection.
+    *
+    * The file soap.cfg which must be in the classpath is used as soap configuration file.
+    */
+   private static final String CFG_FILE           = "soap.cfg";
 
-      // default url
-      endpoint = "http://www.jach.hawaii.edu/JAClocal/cgi-bin/spsrv.pl";
-      soapAction = "urn:OMP::SpServer";
-      
-      // reset to specified url if there is one
-      if(System.getProperty("SP_URL") != null) {
-         endpoint = System.getProperty("SP_URL");
+   /**
+    * Sp Server Property.
+    *
+    * The property "spServer" specified in the "soap.cfg" file.
+    */
+   private static final String SP_SERVER_PROPERTY = "spServer";
+
+   /** Default URL. */
+   private static final String DEFAULT_SP_SERVER  = "http://www.jach.hawaii.edu/JAClocal/cgi-bin/spsrv.pl";
+
+   /** SOAP action. */
+   private static final String SOAP_ACTION        = "urn:OMP::SpServer";
+
+   /** Used to read in properties from file.  */
+   private static Properties _cfgProperties = new Properties();
+
+   /**
+    * Gets Sp Server URL from cfg file.
+    *
+    * @see #CFG_FILE
+    */
+   private static URL getURL() throws Exception {
+      URL url = null;
+
+      try { 
+         _cfgProperties.load(ClassLoader.getSystemResourceAsStream(CFG_FILE));
+
+         String spServerProperty = _cfgProperties.getProperty(SP_SERVER_PROPERTY);
+
+         if(spServerProperty != null) {
+            url = new URL(spServerProperty);
+            System.out.println("Connecting to \"" + spServerProperty + "\".");
+         }
+         else {
+            url = new URL(DEFAULT_SP_SERVER);
+            System.out.println("Property \"" + SP_SERVER_PROPERTY + "\" not found in config file \"" +
+                               CFG_FILE + "\".\n" +
+                               "Using default Sp Server URL \"" + DEFAULT_SP_SERVER + "\"");
+         }
+      }
+      catch(Exception e) {
+         url = new URL(DEFAULT_SP_SERVER);
+         e.printStackTrace();
+         System.out.println("Problems while trying to read config file \"" + CFG_FILE + "\".\n" +
+                            "Using default Sp Server URL \"" + DEFAULT_SP_SERVER + "\"");
       }
 
-      try {
-	 url = new URL(endpoint);
-      }catch(Exception e) {
-	 e.printStackTrace();
-      }
+      return url;
    }
 
-
+   /** Test method. */
    public static void main(String[] args) {
-      SpClient spClient = new SpClient();
       if(args.length == 0) {
 	 try {
 	    
@@ -58,7 +97,7 @@ public class SpClient extends SoapClient {
 	    }
 	    
 	    System.out.println("Storing " + spXml + "\n...");
-	    String databaseSummary = spClient.storeProgram(spXml, "abc", false).summary;
+	    String databaseSummary = storeProgram(spXml, "abc", false).summary;
 	    System.out.println("Database Summary: " + databaseSummary);
 	 }
 	 catch(IOException e) {
@@ -77,7 +116,7 @@ public class SpClient extends SoapClient {
 	 else {
 	    // "abc" used for as arbitrary password for testing.
 	    try {
-	       System.out.println(spClient.fetchProgramString(args[0], "abc").toString());
+	       System.out.println(fetchProgramString(args[0], "abc").toString());
 	    }
 	    catch(Exception e) {
                e.printStackTrace();
@@ -95,11 +134,11 @@ public class SpClient extends SoapClient {
     *
     * @return Science Program item.
     */
-   public SpProg fetchProgram(String id, String pass) throws Exception {
+   public static SpProg fetchProgram(String id, String pass) throws Exception {
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
 
-      String spXML = new String((byte[])doCall(url, "fetchProgram"));
+      String spXML = new String((byte[])doCall(getURL(), SOAP_ACTION, "fetchProgram"));
       
       SpItem spItem = (new SpInputXML()).xmlToSpItem(spXML);
 
@@ -119,11 +158,11 @@ public class SpClient extends SoapClient {
     *
     * @return Science Program as XML String.
     */
-   public String fetchProgramString(String id, String pass) throws Exception {
+   public static String fetchProgramString(String id, String pass) throws Exception {
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
       
-      return (String)doCall(url, "fetchProgram");
+      return (String)doCall(getURL(), SOAP_ACTION, "fetchProgram");
    }
 
 
@@ -134,7 +173,7 @@ public class SpClient extends SoapClient {
     * @param pass   Password
     * @param force  Force to override database entry even if there are (timestamp) inconsistencies.
     */
-   public SpStoreResult storeProgram(SpProg spProg, String pass, boolean force) throws Exception {
+   public static SpStoreResult storeProgram(SpProg spProg, String pass, boolean force) throws Exception {
 
       SpItemUtilities.removeReferenceIDs(spProg);
       (new SpItemUtilities()).setReferenceIDs(spProg);
@@ -157,7 +196,7 @@ public class SpClient extends SoapClient {
       addParameter("password", byte[].class, pass.getBytes());
       addParameter("force", byte[].class, forceString.getBytes());
 
-      return new SpStoreResult(doCall(url, "storeProgram"));
+      return new SpStoreResult(doCall(getURL(), SOAP_ACTION, "storeProgram"));
    }
 
 
@@ -168,7 +207,7 @@ public class SpClient extends SoapClient {
     * @param pass   Password
     * @param force  Force to override database entry even if there are (timestamp) inconsistencies.
     */
-   public SpStoreResult storeProgram(String sp, String pass, boolean force) throws Exception {
+   public static SpStoreResult storeProgram(String sp, String pass, boolean force) throws Exception {
       String forceString;
       if(force) {
         forceString = "1";
@@ -181,7 +220,7 @@ public class SpClient extends SoapClient {
       addParameter("password", String.class, pass);
       addParameter("force", String.class, forceString);
 
-      return new SpStoreResult(doCall(url, "storeProgram"));
+      return new SpStoreResult(doCall(getURL(), SOAP_ACTION, "storeProgram"));
    }
    
 
@@ -192,7 +231,7 @@ public class SpClient extends SoapClient {
     *
     * @author Martin Folger (M.Folger@roe.ac.uk)
     */
-   public class SpStoreResult {
+   public static class SpStoreResult {
       public String summary   = "";
       public int    timestamp = 0;
 
