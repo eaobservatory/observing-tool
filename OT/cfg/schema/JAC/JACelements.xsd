@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 
@@ -21,32 +21,32 @@
 
 
 <!-- Substituted JAC elements -->
-<xsd:element name="ot_version"      type="xsd:string"   substitutionGroup="atx:version"/>
-<xsd:element name="library_version" type="xsd:string"   substitutionGroup="atx:version"/>
-<xsd:element name="standard"        type="xsd:boolean"  substitutionGroup="atx:standardStar"/>
-<xsd:element name="earliest"        type="xsd:dateTime" substitutionGroup="atx:earliestScheduleDate"/>
-<xsd:element name="latest"          type="xsd:dateTime" substitutionGroup="atx:latestScheduleDate"/>
-<xsd:element name="maxEl"           type="atx:elevationLimits" substitutionGroup="atx:maxElevation"/>
-<xsd:element name="minEl"           type="atx:elevationLimits" substitutionGroup="atx:minElevation"/>
-<xsd:element name="period"          type="atx:nonNegativeDecimal" substitutionGroup="atx:schedPeriodicity"/>
-<xsd:element name="csoTau"          type="atx:tauType"  substitutionGroup="atx:tau"/>
+<xsd:element name="ot_version"      type="xsd:string"   substitutionGroup="toml:version"/>
+<xsd:element name="library_version" type="xsd:string"   substitutionGroup="toml:version"/>
+<xsd:element name="standard"        type="xsd:boolean"  substitutionGroup="toml:standardStar"/>
+<xsd:element name="earliest"        type="xsd:dateTime" substitutionGroup="toml:earliestScheduleDate"/>
+<xsd:element name="latest"          type="xsd:dateTime" substitutionGroup="toml:latestScheduleDate"/>
+<xsd:element name="maxEl"           type="toml:elevationLimits" substitutionGroup="toml:maxElevation"/>
+<xsd:element name="minEl"           type="toml:elevationLimits" substitutionGroup="toml:minElevation"/>
+<xsd:element name="period"          type="toml:nonNegativeDecimal" substitutionGroup="toml:schedPeriodicity"/>
+<xsd:element name="csoTau"          type="toml:tauType"  substitutionGroup="toml:tau"/>
 
 <!-- General Reference types instrumented at JAC -->
-<xsd:element name="SpSiteQualityObsCompRef" type="atx:compRefType" substitutionGroup="atx:componentRef"/>
-<xsd:element name="SpSchedConstObsCompRef"  type="atx:compRefType" substitutionGroup="atx:componentRef"/>
-<xsd:element name="SpTelescopeObsCompRef"   type="atx:compRefType" substitutionGroup="atx:componentRef"/>
-<xsd:element name="SpNoteRef"               type="atx:compRefType" substitutionGroup="atx:componentRef"/>
-<xsd:element name="SpDRRecipeRef"           type="atx:compRefType" substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpSiteQualityObsCompRef" type="toml:compRefType" substitutionGroup="toml:componentRef"/>
+<xsd:element name="SpSchedConstObsCompRef"  type="toml:compRefType" substitutionGroup="toml:componentRef"/>
+<xsd:element name="SpTelescopeObsCompRef"   type="toml:compRefType" substitutionGroup="toml:componentRef"/>
+<xsd:element name="SpNoteRef"               type="toml:compRefType" substitutionGroup="toml:componentRef"/>
+<xsd:element name="SpDRRecipeRef"           type="toml:compRefType" substitutionGroup="toml:componentRef"/>
 <!-- End of reference type definitions -->
 
 
 <xsd:element name="BASE">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element name="target" type="atx:targetDefinition"/>
-      <xsd:element ref="atx:OFFSET" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="target" type="toml:targetDefinition"/>
+      <xsd:element ref="toml:OFFSET" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
-    <xsd:attribute name="TYPE" type="atx:targetTypeList"/>
+    <xsd:attribute name="TYPE" type="toml:targetTypeList"/>
   </xsd:complexType>
 </xsd:element>
 
@@ -56,10 +56,10 @@
       <xsd:element name="CHOP" minOccurs="1" maxOccurs="unbounded">
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="THROW" type="atx:chopThrowLimits"/>
-            <xsd:element name="PA"    type="atx:chopAngleLimits"/>
+            <xsd:element name="THROW" type="toml:chopThrowLimits"/>
+            <xsd:element name="PA"    type="toml:chopAngleLimits"/>
           </xsd:sequence>
-          <xsd:attribute name="SYSTEM" type="atx:chopSystem"/>
+          <xsd:attribute name="SYSTEM" type="toml:chopSystem"/>
         </xsd:complexType>
       </xsd:element>
     </xsd:sequence>
@@ -69,10 +69,10 @@
 <xsd:element name="OFFSET">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element name="DC1" type="atx:offsetLimit"/>
-      <xsd:element name="DC2" type="atx:offsetLimit"/>
+      <xsd:element name="DC1" type="toml:offsetLimit"/>
+      <xsd:element name="DC2" type="toml:offsetLimit"/>
     </xsd:sequence>
-  <xsd:attribute name="SYSTEM" type="atx:sphericalSystemList" use="optional"/>
+  <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList" use="optional"/>
   </xsd:complexType>
 </xsd:element>
 
