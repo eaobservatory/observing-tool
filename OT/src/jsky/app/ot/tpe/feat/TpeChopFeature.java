@@ -259,9 +259,11 @@ draw(Graphics g, FitsImageInfo fii)
      }
    }
 
-   // Draw the actual chop position (at the centre of the science area) as a small box.
-   // This box is used for dragging the position with the mouse.
+   // Draw the actual chop positions (at the centre of the science areas) as a small boxes.
+   // The box at position (_chopX, _chopY), i.e. the one with the label,
+   // is used for dragging the position with the mouse.
    g.drawRect((int)_chopX - 2, (int)_chopY - 2, 4, 4);
+   g.drawRect((int)_baseX - 2, (int)_baseY - 2, 4, 4);
 
 //   g.setFont(FONT);
    g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")", (int)_chopX + 3, (int)_chopY + 2);
