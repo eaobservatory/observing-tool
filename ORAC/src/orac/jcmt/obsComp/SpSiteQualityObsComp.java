@@ -63,6 +63,7 @@ public SpSiteQualityObsComp()
 {
    _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "true", 0);
    _avTable.noNotifySet(ATTR_SEEING,   "" + SEEING_ANY,  0);
+   _avTable.noNotifySet(ATTR_NOISE_CALCULATION_TAU, "0.08",  0);
 }
 
 
