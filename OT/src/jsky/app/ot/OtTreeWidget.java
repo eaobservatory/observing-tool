@@ -30,7 +30,10 @@ import gemini.sp.SpMSB;
 import gemini.sp.SpNote;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpObsComp;
+import gemini.sp.obsComp.SpInstObsComp;
 import orac.util.SpItemUtilities;
+import orac.jcmt.inst.*;
+import orac.jcmt.iter.*;
 import jsky.app.ot.util.Assert;
 import jsky.app.ot.util.ClipboardHelper;
 import ot.util.DialogUtil;
@@ -282,6 +285,69 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	SpItem[] newItems = { newItem };
 	newItems = addItems(newItems);
 	if (newItems == null) return null;
+	// The following is used specifically to handle JCMT
+	// Hetrodyne observations.
+	/*
+	 * If we are adding a JCMT instrument, we need to check all of
+	 * the observations in scope and update then correctly for the
+	 * type of instrument.
+	 */
+	if (newItem instanceof orac.jcmt.inst.SpInstSCUBA || 
+	    newItem instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	    SpItem newItemsRoot = SpTreeMan.findRootItem(newItem);
+	    // Get all of the SpIterObs components below this
+	    Vector obsVector    = SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterFocusObs");
+	    obsVector.addAll(SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterJiggleObs"));
+	    obsVector.addAll(SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterNoiseObs"));
+	    obsVector.addAll(SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterPointingObs"));
+	    obsVector.addAll(SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterRasterObs"));
+	    obsVector.addAll(SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterSkydipObs"));
+	    obsVector.addAll(SpTreeMan.findAllItems(newItemsRoot,"orac.jcmt.iter.SpIterStareObs"));
+	    for (int i=0; i<obsVector.size(); i++) {
+		// Make sure that the observation is associated with the new item and not
+		// some other existing component
+		SpItem obsContext     = SpTreeMan.findObsContext(((SpIterJCMTObs)obsVector.get(i)));
+		SpInstObsComp obsComp = SpTreeMan.findInstrumentInContext(obsContext);
+		while (obsComp == null) {
+		    obsContext     = obsContext.parent();
+		    if (obsContext == null) break;
+		    obsComp = SpTreeMan.findInstrumentInContext(obsContext);
+		}
+		if ( obsComp != null && obsComp.equals(newItem)) {
+		    if (newItem instanceof SpInstHeterodyne) {
+			((SpIterJCMTObs)obsVector.get(i)).setupForHeterodyne();
+		    }
+		    else {
+			((SpIterJCMTObs)obsVector.get(i)).setupForSCUBA();
+		    }
+		}
+	    }
+	}
+
+	/*
+	 * If we are adding an observe "eye" find out what instrument
+	 * is being used.  If it is a JCMT instrument, update its
+	 * attributes accordingly.
+	 */
+	if (newItem instanceof SpIterJCMTObs) {
+	    // Find out what instrument is asscociated with this observation
+	    SpItem obsContext     = SpTreeMan.findObsContext(newItem);
+	    SpInstObsComp obsComp = SpTreeMan.findInstrumentInContext(obsContext);
+	    while (obsComp == null) {
+		obsContext     = obsContext.parent();
+		if (obsContext == null) break;
+		obsComp = SpTreeMan.findInstrumentInContext(obsContext);
+	    }
+	    if ( obsComp != null ) {
+		if ( obsComp instanceof SpInstHeterodyne ) {
+		    ((SpIterJCMTObs)newItem).setupForHeterodyne();
+		}
+		else {
+		    ((SpIterJCMTObs)newItem).setupForSCUBA();
+		}
+	    }
+	}
+	// END OF ADDITIONAL CODE
 	return newItems[0];
     }
 
