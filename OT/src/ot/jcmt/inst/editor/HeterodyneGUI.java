@@ -162,20 +162,20 @@ public class HeterodyneGUI extends JPanel {
       // Velocity
       velocityPanel = new JPanel(flowLayoutLeft);
 
-      label = new JLabel("Velocity");
+      label = new JLabel("Velocity (km/s), Redshift");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
       velocityPanel.add(label);
+
+      velocityDefinition = new JComboBox();
+      velocityDefinition.setFont(new Font("Dialog", 0, 12));
+      velocityPanel.add(velocityDefinition);
 
       velocity = new JTextField();
       velocity.setColumns(10);
       velocity.setText ( "0.0" );
 //      velocity.addActionListener ( this );
       velocityPanel.add(velocity);
-
-      velocityDefinition = new JComboBox();
-      velocityDefinition.setFont(new Font("Dialog", 0, 12));
-      velocityPanel.add(velocityDefinition);
 
       label = new JLabel("    Frame");
       label.setFont(new Font("Dialog", 0, 12));
