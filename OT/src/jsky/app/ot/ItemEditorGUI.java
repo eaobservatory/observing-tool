@@ -92,7 +92,10 @@ public class ItemEditorGUI extends JPanel {
 	_closeButton = new CommandButtonWidgetExt("Close");
 	panel2.add(_showEditPencil);
 	panel2.add(_undoButton);
-	panel2.add(_closeButton);
+	
+	// Removed by MFO (30 July 2001). Leave the button in the code. Just do not add it to layout.
+	// It might be added at another part of the layout at some statge.
+	//panel2.add(_closeButton);
 	
 	panel.add("East", panel2);
 	return panel;
