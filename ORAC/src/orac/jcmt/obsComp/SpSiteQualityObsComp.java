@@ -19,7 +19,7 @@ import gemini.util.Format;
 /**
  * Site Quality observation component.
  */
-public class SpSiteQualityObsComp extends SpObsComp
+public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
 {
 
    public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated";
@@ -46,25 +46,11 @@ public class SpSiteQualityObsComp extends SpObsComp
    /** Used for XML parsing. @see #processXmlElementContent(java.lang.String,java.lang.String) */
    private String _previousXmlElement = "";
    
-
-   public static final String SUBTYPE = "schedInfo";
-
-   public static final SpType SP_TYPE =
-   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Site Quality");
-
-   // Register the prototype.
-   static {
-     SpFactory.registerPrototype(new SpSiteQualityObsComp());
-   }
-
-
 /**
  * Default constructor.  Initialize the component type.
  */
 public SpSiteQualityObsComp()
 {
-   super(SP_TYPE);
-
    _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "true", 0);
    _avTable.noNotifySet(ATTR_SEEING,   "" + SEEING_ANY,  0);
 }
