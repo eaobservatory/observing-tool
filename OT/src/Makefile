@@ -170,6 +170,7 @@ install-jars:
 	(cd ../../ODB/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../OMP/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../OT/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
+	(cd ../../EDFREQ/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 
 
 
