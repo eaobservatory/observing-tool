@@ -22,13 +22,14 @@ import java.net.MalformedURLException;
 import javax.swing.JDesktopPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import gemini.sp.SpFactory;
 import gemini.sp.SpLibrary;
 import gemini.sp.SpPlan;
@@ -43,6 +44,7 @@ import jsky.util.gui.DialogUtil;
 import jsky.util.gui.LookAndFeelMenu;
 
 import ot.News;
+import ot.OtPreferencesDialog;
 import orac.helptool.JHLauncher;
 
 public class OT extends JFrame {
@@ -52,6 +54,10 @@ public class OT extends JFrame {
 
     /** Splash screen displayed on startup */
     private static SplashScreen _splash;
+
+    /** Preferences Dialog */
+    private OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog();
+
 
 
     /**
@@ -77,7 +83,9 @@ public class OT extends JFrame {
 
 	// Add a LayeredPane object for the Internal frames
 	desktop = new JDesktopPane();
-	desktop.setBackground(Color.black);
+
+        // MFO: set desktop background
+	setDesktopBackground();
 
         //Make dragging faster:
         desktop.putClientProperty("JDesktopPane.dragMode", "outline");
@@ -225,7 +233,7 @@ public class OT extends JFrame {
      * Display a preferences dialog.
      */
     public void preferences() {
-	// XXX allan Palette.instance().setVisible(true);
+      _preferencesDialog.show(desktop);
     }
 
     /** 
@@ -301,9 +309,8 @@ public class OT extends JFrame {
 public void
 launchHelp()
 {
-  String[] args={"-helpset", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "help/othelp.hs"};
+  String[] args={"-hsURL", ClassLoader.getSystemClassLoader().getResource("help/othelp.hs").toString()};
   JHLauncher jhl = new JHLauncher(args);
-  //System.out.println ("Help tool launched");
 }
 
 
@@ -315,7 +322,7 @@ showNews()
 {
    URL url;
    try {
-      url = new URL("file", "localhost", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "news.txt");
+      url = new URL("file", "localhost", System.getProperty("ot.cfgdir") + "news.txt");
    } catch (MalformedURLException ex) {
       return;
    }
@@ -323,7 +330,31 @@ showNews()
    News.showNews(url);
 }
 
-
+    /**
+     * Method sets background.
+     * Sets to background image to CFG_DIR/images/background.gif if there is one.
+     * The background area not covered by the image (or the whole background if there is no image)
+     * is set to light blue.
+     * 
+     * @author Martin Folger (M.Folger@roe.ac.uk)
+     */
+    protected void setDesktopBackground() {
+        //MFO
+	// set background to light blue.
+	desktop.setBackground(new Color(210, 225, 255));
+        // set desktop background
+        
+	try {
+	  ImageIcon icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("images/background.gif"));
+          JLabel label = new JLabel(icon);
+          label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+	  desktop.add(label, new Integer(Integer.MIN_VALUE));
+	}
+	catch(Exception e) {
+          // An exception is thrown if no background image is found in images/background.gif. Ignore.
+          // Background has been set to light blue anyway.
+	}
+    }
 
 // From ATC OT.java end
 
