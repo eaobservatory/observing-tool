@@ -243,7 +243,7 @@
     <xsd:element ref="toml:perihelion"/>
     <xsd:element ref="toml:aorq"/>
     <xsd:element ref="toml:e"/>
-    <xsd:element ref="toml:LorM"/>
+    <xsd:element ref="toml:LorM" minOccurs="0"/>
     <xsd:element ref="toml:n"/>
   </xsd:all>
   <xsd:attribute name="TYPE" type="toml:conicSystemBodyList"/>
