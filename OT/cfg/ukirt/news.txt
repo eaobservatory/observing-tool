@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ January 28th 2003
+
+ - improve UIST time estimates
+
 +++ January 16th 2003
 
  - First external release to observers

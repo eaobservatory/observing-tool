@@ -11,6 +11,12 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ January 28th 2003
+
+  - Fix schema validation in distribution
+
+  - Improved heterodyne support
+
 +++ January 16th 2003
 
   [Semester 03A release]
