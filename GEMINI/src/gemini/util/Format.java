@@ -551,4 +551,39 @@ public class Format
    private boolean show_space;
    private boolean left_align;
    private char fmt; // one of cdeEfgGiosxXos
+
+  // Added by Martin Folger (26 February 2002)
+  /**
+   * Helper method.
+   *
+   * @return double value of doubleStr if it can be parsed to double, 0.0 otherwise.
+   */
+  public static double toDouble(String doubleStr) {
+    double result = 0.0;
+
+    try {
+      result = Double.valueOf(doubleStr).doubleValue();
+    }
+    catch (Exception ex) { }
+
+    return result;
+  }
+
+  // Added by Martin Folger (26 February 2002)
+  /**
+   * Helper method.
+   *
+   * @return int value of intStr if it can be parsed to int, 0 otherwise.
+   */
+  public static int toInt(String intStr) {
+    int result = 0;
+
+    try {
+      result = Integer.valueOf(intStr).intValue();
+    }
+    catch (Exception ex) { }
+
+    return result;
+  }
 }
+
