@@ -55,46 +55,34 @@
         <edfreq.BandSpec alias-ID="23"
          numBands="1">
           <java.lang.String alias-ID="24" obj-name="name" valueOf="1-system"/>
-          <ArrayOf-double alias-ID="25" obj-name="bandWidths" length="5"
-           a0="1.25E8"
-           a1="2.5E8"
-           a2="5.0E8"
-           a3="7.6E8"
-           a4="9.2E8"/>
-          <ArrayOf-double alias-ID="100" obj-name="defaultOverlaps" length="5"
-           a0="0.0"
-           a1="0.0"
-           a2="0.0"
-           a3="0.0"
-           a4="0.0"/>
-          <ArrayOf-int alias-ID="26" obj-name="channels" length="5"
-           a0="78"
-           a1="156"
-           a2="313"
-           a3="625"
-           a4="625"/>
-          <ArrayOf-int alias-ID="87" obj-name="numHybridSubBands" length="5"
+          <ArrayOf-double alias-ID="25" obj-name="bandWidths" length="6"
+           a0="160.0E6"
+           a1="320.0E6"
+           a2="640.0E6"
+           a3="1280.0E6"
+           a4="1280.0E6"
+           a5="2560.0E6"/>
+          <ArrayOf-double alias-ID="100" obj-name="defaultOverlaps" length="6"
+           a0="35.0E6"
+           a1="70.0E6"
+           a2="140.0E6"
+           a3="520.0E6"
+           a4="360.0E6"
+           a5="720.0E6"/>
+          <ArrayOf-int alias-ID="26" obj-name="channels" length="6"
+           a0="2048"
+           a1="2048"
+           a2="2048"
+           a3="2048"
+           a4="2048"
+	   a5="2048"/>
+          <ArrayOf-int alias-ID="87" obj-name="numHybridSubBands" length="6"
            a0="1"
            a1="1"
            a2="1"
            a3="1"
-           a4="1"/>
-        </edfreq.BandSpec>
-        <edfreq.BandSpec alias-ID="15"
-         numBands="2">
-          <java.lang.String alias-ID="16" obj-name="name" valueOf="2-system"/>
-          <ArrayOf-double alias-ID="17" obj-name="bandWidths" length="2"
-           a0="1.5E9"
-           a1="1.8E9"/>
-          <ArrayOf-double alias-ID="115" obj-name="defaultOverlaps" length="2"
-           a0="0.0"
-           a1="0.0"/>
-          <ArrayOf-int alias-ID="18" obj-name="channels" length="2"
-           a0="1250"
-           a1="1250"/>
-          <ArrayOf-int alias-ID="88" obj-name="numHybridSubBands" length="2"
-           a0="1"
-           a1="1"/>
+           a4="1"
+           a5="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
@@ -110,46 +98,34 @@
         <edfreq.BandSpec alias-ID="31"
          numBands="1">
           <java.lang.String alias-ID="32" obj-name="name" valueOf="1-system"/>
-          <ArrayOf-double alias-ID="33" obj-name="bandWidths" length="5"
-           a0="1.25E8"
-           a1="2.5E8"
-           a2="5.0E8"
-           a3="7.6E8"
-           a4="9.2E8"/>
-          <ArrayOf-double alias-ID="116" obj-name="defaultOverlaps" length="5"
-           a0="0.0"
-           a1="0.0"
-           a2="0.0"
-           a3="0.0"
-           a4="0.0"/>
-          <ArrayOf-int alias-ID="34" obj-name="channels" length="5"
-           a0="78"
-           a1="156"
-           a2="313"
-           a3="625"
-           a4="625"/>
-          <ArrayOf-int alias-ID="89" obj-name="numHybridSubBands" length="5"
+          <ArrayOf-double alias-ID="33" obj-name="bandWidths" length="6"
+           a0="160.0E6"
+           a1="320.0E6"
+           a2="640.0E6"
+           a3="1280.0E6"
+           a4="1280.0E6"
+           a5="2560.0E6"/>
+          <ArrayOf-double alias-ID="116" obj-name="defaultOverlaps" length="6"
+           a0="35.0E6"
+           a1="70.0E6"
+           a2="140.0E6"
+           a3="520.0E6"
+           a4="360.0E6"
+           a5="720.0E6"/>
+           <ArrayOf-int alias-ID="34" obj-name="channels" length="6"
+           a0="2048"
+           a1="2048"
+           a2="2048"
+           a3="2048"
+           a4="2048"
+           a5="2048"/>
+          <ArrayOf-int alias-ID="89" obj-name="numHybridSubBands" length="6"
            a0="1"
            a1="1"
            a2="1"
            a3="1"
-           a4="1"/>
-        </edfreq.BandSpec>
-        <edfreq.BandSpec alias-ID="35"
-         numBands="2">
-          <java.lang.String alias-ID="36" obj-name="name" valueOf="2-system"/>
-          <ArrayOf-double alias-ID="37" obj-name="bandWidths" length="2"
-           a0="1.5E9"
-           a1="1.8E9"/>
-          <ArrayOf-double alias-ID="117" obj-name="defaultOverlaps" length="2"
-           a0="0.0"
-           a1="0.0"/>
-          <ArrayOf-int alias-ID="38" obj-name="channels" length="2"
-           a0="1250"
-           a1="1250"/>
-          <ArrayOf-int alias-ID="90" obj-name="numHybridSubBands" length="2"
-           a0="1"
-           a1="1"/>
+           a4="1"
+           a5="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
@@ -165,48 +141,36 @@
         <edfreq.BandSpec alias-ID="47"
          numBands="1">
           <java.lang.String alias-ID="48" obj-name="name" valueOf="1-system"/>
-          <ArrayOf-double alias-ID="49" obj-name="bandWidths" length="5"
-           a0="1.25E8"
-           a1="2.5E8"
-           a2="5.0E8"
-           a3="7.6E8"
-           a4="9.2E8"/>
-          <ArrayOf-double alias-ID="118" obj-name="defaultOverlaps" length="5"
-           a0="0.0"
-           a1="0.0"
-           a2="0.0"
-           a3="0.0"
-           a4="0.0"/>
-          <ArrayOf-int alias-ID="50" obj-name="channels" length="5"
-           a0="78"
-           a1="156"
-           a2="313"
-           a3="625"
-           a4="625"/>
-          <ArrayOf-int alias-ID="91" obj-name="numHybridSubBands" length="5"
+          <ArrayOf-double alias-ID="49" obj-name="bandWidths" length="6"
+           a0="160.0E6"
+           a1="320.0E6"
+           a2="640.0E6"
+           a3="1280.0E6"
+           a4="1280.0E6"
+           a5="2560.0E6"/>
+          <ArrayOf-double alias-ID="118" obj-name="defaultOverlaps" length="6"
+           a0="35.0E6"
+           a1="70.0E6"
+           a2="140.0E6"
+           a3="520.0E6"
+           a4="360.0E6"
+           a5="720.0E6"/>
+          <ArrayOf-int alias-ID="50" obj-name="channels" length="6"
+           a0="2048"
+           a1="2048"
+           a2="2048"
+           a3="2048"
+           a4="2048"
+           a5="2048"/>
+          <ArrayOf-int alias-ID="91" obj-name="numHybridSubBands" length="6"
            a0="1"
            a1="1"
            a2="1"
            a3="1"
-           a4="1"/>
+           a4="1"
+           a5="1"/>
         </edfreq.BandSpec>
-        <edfreq.BandSpec alias-ID="51"
-         numBands="2">
-          <java.lang.String alias-ID="52" obj-name="name" valueOf="2-system"/>
-          <ArrayOf-double alias-ID="53" obj-name="bandWidths" length="2"
-           a0="1.5E9"
-           a1="1.8E9"/>
-          <ArrayOf-double alias-ID="119" obj-name="defaultOverlaps" length="2"
-           a0="0.0"
-           a1="0.0"/>
-          <ArrayOf-int alias-ID="54" obj-name="channels" length="2"
-           a0="1250"
-           a1="1250"/>
-          <ArrayOf-int alias-ID="92" obj-name="numHybridSubBands" length="2"
-           a0="1"
-           a1="1"/>
-        </edfreq.BandSpec>
-      </java.util.Vector>
+       </java.util.Vector>
     </edfreq.Receiver>
 
     <java.lang.String alias-ID="75" valueOf="WC"/>
@@ -220,46 +184,34 @@
         <edfreq.BandSpec alias-ID="79"
          numBands="1">
           <java.lang.String alias-ID="80" obj-name="name" valueOf="1-system"/>
-          <ArrayOf-double alias-ID="81" obj-name="bandWidths" length="5"
-           a0="1.25E8"
-           a1="2.5E8"
-           a2="5.0E8"
-           a3="7.6E8"
-           a4="9.2E8"/>
-          <ArrayOf-double alias-ID="120" obj-name="defaultOverlaps" length="5"
-           a0="0.0"
-           a1="0.0"
-           a2="0.0"
-           a3="0.0"
-           a4="0.0"/>
-          <ArrayOf-int alias-ID="82" obj-name="channels" length="5"
-           a0="78"
-           a1="156"
-           a2="313"
-           a3="625"
-           a4="625"/>
-          <ArrayOf-int alias-ID="93" obj-name="numHybridSubBands" length="5"
+          <ArrayOf-double alias-ID="81" obj-name="bandWidths" length="6"
+           a0="160.0E6"
+           a1="320.0E6"
+           a2="640.0E6"
+           a3="1280.0E6"
+           a4="1280.0E6"
+           a5="2560.0E6"/>
+          <ArrayOf-double alias-ID="120" obj-name="defaultOverlaps" length="6"
+           a0="35.0E6"
+           a1="70.0E6"
+           a2="140.0E6"
+           a3="520.0E6"
+           a4="360.0E6"
+           a5="720.0E6"/>
+           <ArrayOf-int alias-ID="82" obj-name="channels" length="6"
+           a0="2048"
+           a1="2048"
+           a2="2048"
+           a3="2048"
+           a4="2048"
+           a5="2048"/>
+          <ArrayOf-int alias-ID="93" obj-name="numHybridSubBands" length="6"
            a0="1"
            a1="1"
            a2="1"
            a3="1"
-           a4="1"/>
-        </edfreq.BandSpec>
-        <edfreq.BandSpec alias-ID="83"
-         numBands="2">
-          <java.lang.String alias-ID="84" obj-name="name" valueOf="2-system"/>
-          <ArrayOf-double alias-ID="85" obj-name="bandWidths" length="2"
-           a0="1.5E9"
-           a1="1.8E9"/>
-          <ArrayOf-double alias-ID="121" obj-name="defaultOverlaps" length="2"
-           a0="0.0"
-           a1="0.0"/>
-          <ArrayOf-int alias-ID="86" obj-name="channels" length="2"
-           a0="1250"
-           a1="1250"/>
-          <ArrayOf-int alias-ID="94" obj-name="numHybridSubBands" length="2"
-           a0="1"
-           a1="1"/>
+           a4="1"
+           a5="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
