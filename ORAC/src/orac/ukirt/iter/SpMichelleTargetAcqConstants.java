@@ -9,7 +9,6 @@ package orac.ukirt.iter;
 public interface SpMichelleTargetAcqConstants
 {
 
-    public static final String ATTR_MASK               = "mask";
     public static final String ATTR_DISPERSER          = "disperser";
     public static final String ATTR_FILTER             = "filter";
     public static final String ATTR_SCIENCE_AREA       = "scienceArea";

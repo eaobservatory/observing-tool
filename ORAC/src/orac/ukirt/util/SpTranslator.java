@@ -2321,7 +2321,6 @@ public class SpTranslator {
                   writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
                   writeAttribute( conpw, workConfig, "biasSavedInt", "nreads" );
                } else if ( ((String)workConfig.get( "type" )).equalsIgnoreCase( "TargetAcq" ) ) {
-		   writeAttribute( conpw, workConfig, "targetAcqMask",        "mask" );
 		   writeAttribute( conpw, workConfig, "targetAcqDisperser",   "disperser" );
 		   writeAttribute( conpw, workConfig, "targetAcqSampling",    "sampling" );
 		   writeAttribute( conpw, workConfig, "targetAcqFilter",      "filter" );

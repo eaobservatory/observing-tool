@@ -121,7 +121,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static int PEAK_ROW;
     public static LookUpTable MASKS;
     public static String DEFAULT_MASK;
-    public static String DEFAULT_MASK_TARGET_ACQ;
     // Disperser 1
     public static LookUpTable ORDERS1;
     public static LookUpTable BLOCKERS1;
@@ -501,8 +500,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     MASKS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask")) {
                     DEFAULT_MASK = instInfo.getValue();
-		} else if (InstCfg.matchAttr (instInfo, "default_mask_target_acq")) {
-                    DEFAULT_MASK_TARGET_ACQ = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "chops")) {
                     CHOPS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_chopfreq")) {
