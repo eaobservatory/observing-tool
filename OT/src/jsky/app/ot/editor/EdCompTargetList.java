@@ -52,16 +52,6 @@ public final class EdCompTargetList extends OtItemEditor
      */
     protected String _telescope = UKIRT;
 
-    /**
-     * The text displayed by the "new" (Gemini) button in the target editor.
-     *
-     * MFO 23 May 2001: Currently this is just set to "Add GUIDE" (as required by UKIRT).
-     * This will change when features for JCMT are implemented.
-     */
-    protected String newTargetButtonText = "Add GUIDE";
-
-    protected String GUIDE_STRING        = "GUIDE";
-
     // Frequently used widgets
     private DropDownListBoxWidgetExt _tag;	// Object ID/Type
     private TextBoxWidgetExt         _name;	// Object Name
@@ -128,6 +118,8 @@ public final class EdCompTargetList extends OtItemEditor
         // MFO 23 May 2001
 	_makeTelescopeSpecificChanges();
 
+        _w.newButton.setText("Add " + SpTelescopePos.GUIDE_TAGS[0]);
+
 	// *** buttons
 	_w.newButton.addActionListener(this);
 	_w.removeButton.addActionListener(this);
@@ -147,11 +139,8 @@ public final class EdCompTargetList extends OtItemEditor
 	_tag.setChoices(guideTags);
 	_tag.addChoice(SpTelescopePos.BASE_TAG);
 
-	// MFO 23 May 2001
-	// USER_TAG not used for UKIRT (see changes in FreeBongo OT, orac2)
-	if(!(_telescope == UKIRT)) {
-	  _tag.addChoice(SpTelescopePos.USER_TAG);
-	}
+	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
+	//_tag.addChoice(SpTelescopePos.USER_TAG);
 
 	_tag.addWatcher(new DropDownListBoxWidgetWatcher() {
 		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
@@ -168,18 +157,18 @@ public final class EdCompTargetList extends OtItemEditor
 		    // Don't allow changes from BASE_TAG to anything else.  We always
 		    // want to have a Base.
 		    if (oldTag.equals(SpTelescopePos.BASE_TAG)) {
-			DialogUtil.error(_w, "You can't change the type of the Base Position.");
+			DialogUtil.error(_w, "You can't change the tag of the " + SpTelescopePos.BASE_TAG + " Position.");
 			_tag.setValue(SpTelescopePos.BASE_TAG);
 			return;
 		    }
 
 		    // MFO 23 May 2001 bug fix. (This bug was never fixed in the FreeBongo OT for UKIRT)
-		    if(_telescope == UKIRT) {
-                      if(oldTag.equals(GUIDE_STRING)) {
-		        DialogUtil.error(_w, "You can't change the type of the GUIDE Position.");
-			_tag.setValue(GUIDE_STRING);
-                        return;
-		      }
+                    if(oldTag.equals(SpTelescopePos.GUIDE_TAGS[0])) {
+		      DialogUtil.error(_w, "You can't change the tag of the " +
+			                   SpTelescopePos.GUIDE_TAGS[0] +
+					   " Position.");
+		      _tag.setValue(SpTelescopePos.GUIDE_TAGS[0]);
+                      return;
 		    }
 
 		    _tpl.changeTag(_curPos, newTag);
@@ -663,8 +652,6 @@ public final class EdCompTargetList extends OtItemEditor
      */
     protected void _makeTelescopeSpecificChanges() {
       if(_telescope == UKIRT) {
-        _w.newButton.setText(newTargetButtonText);
-
 	_w.extrasFolder.setEnabledAt(1, false);
 	_w.extrasFolder.setEnabledAt(2, false);
 
@@ -688,7 +675,7 @@ public final class EdCompTargetList extends OtItemEditor
             // UKIRT-ORAC: Instead of user position try just creating a
             // guide position AB 26Apr00 / MFO 23 May 2001
 	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
-            SpTelescopePos tp = _tpl.createPosition(GUIDE_STRING, base.getXaxis(), base.getYaxis());
+            SpTelescopePos tp = _tpl.createPosition(SpTelescopePos.GUIDE_TAGS[0], base.getXaxis(), base.getYaxis());
 
 	    return;
 	}
