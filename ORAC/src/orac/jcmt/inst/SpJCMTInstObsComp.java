@@ -97,4 +97,12 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
    * Returns instrument specific default value for scan dx.
    */
   public abstract double getDefaultScanDy();
+
+
+  /**
+   * Returns a time estimate in seconds for slewing the telescope (JCMT): 60 seconds.
+   */
+  public double getSlewTime() {
+    return 60.0;
+  }
 }
