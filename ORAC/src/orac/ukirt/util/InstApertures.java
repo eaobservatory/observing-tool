@@ -1,4 +1,4 @@
-package orac.util;
+package orac.ukirt.util;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
