@@ -88,11 +88,12 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 
 	// Set the priority
 	int pri = ((SpMSB) _spItem).getPriority();
-	switch (pri) {
-	case SpObs.PRIORITY_HIGH:   _w.priorityHigh.setSelected(true);   break;
-	case SpObs.PRIORITY_MEDIUM: _w.priorityMedium.setSelected(true); break;
-	default:                    _w.priorityLow.setSelected(true);
-	}
+	_w.jComboBox1.setSelectedIndex(pri-1);
+// 	switch (pri) {
+// 	case SpObs.PRIORITY_HIGH:   _w.priorityHigh.setSelected(true);   break;
+// 	case SpObs.PRIORITY_MEDIUM: _w.priorityMedium.setSelected(true); break;
+// 	default:                    _w.priorityLow.setSelected(true);
+// 	}
 
 	ignoreActions = true;
 
