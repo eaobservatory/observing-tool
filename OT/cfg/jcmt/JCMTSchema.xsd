@@ -280,6 +280,16 @@
   </xsd:complexType>
  </xsd:element>
 
+<xsd:element name="remote_trigger">
+  <xsd:complexType>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="id" type="xsd:string"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+</xsd:element>
+
 <xsd:complexType name="conicSystemType">
   <xsd:all>
     <xsd:element name="epoch">
