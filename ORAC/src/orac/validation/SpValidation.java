@@ -8,10 +8,14 @@ import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpItem;
 import gemini.sp.SpNote;
+import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.util.TelescopePos;
 import orac.util.SpItemUtilities;
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.DOMParser;
@@ -237,6 +241,8 @@ public class SpValidation {
                                   "Instrument component is missing."));    
     }
 
+    checkTargetList(SpTreeMan.findTargetList(spObs), report);
+
     if(!spObs.isMSB()) {
       children = spObs.children();
 
@@ -424,6 +430,29 @@ public class SpValidation {
 	    }
 	}
     }
+
+    private void checkTargetList (SpTelescopeObsComp obsComp, Vector report) {
+	if ( obsComp == null ) {
+	    report.add ( new ErrorMessage (ErrorMessage.ERROR, "Observation has no target component", "") );
+	    return;
+	}
+
+	SpTelescopePosList list = obsComp.getPosList();
+	TelescopePos [] position = list.getAllPositions();
+	double [] values = null;
+	double deg, min, sec;
+
+	for ( int i=0; i<position.length; i++ ) {
+	    SpTelescopePos pos = (SpTelescopePos)position[i];
+	    if ( (pos.getXaxis() == 0) && (pos.getYaxis() == 0) ) {
+		report.add ( new ErrorMessage ( ErrorMessage.WARNING,
+			                       "Telescope target " + pos.getName(),
+			                       "Both Dec and RA are 0:00:00"));
+	    }
+	}
+	return;
+    }
+			
 
     /**
      * Perform validation against a schema.  The SpItem class already writes out
