@@ -164,11 +164,11 @@ public final class EdCompTargetList extends OtItemEditor
 		    }
 
 		    // MFO 23 May 2001 bug fix. (This bug was never fixed in the FreeBongo OT for UKIRT)
-                    if(oldTag.equals(SpTelescopePos.GUIDE_TAGS[0])) {
+                    if(oldTag.equals(OtCfg.telescopeUtil.getAdditionalTarget())) {
 		      DialogUtil.error(_w, "You can't change the tag of the " +
-			                   SpTelescopePos.GUIDE_TAGS[0] +
+			                   OtCfg.telescopeUtil.getAdditionalTarget() +
 					   " Position.");
-		      _tag.setValue(SpTelescopePos.GUIDE_TAGS[0]);
+		      _tag.setValue(OtCfg.telescopeUtil.getAdditionalTarget());
                       return;
 		    }
 
