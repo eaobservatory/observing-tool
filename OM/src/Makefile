@@ -191,7 +191,7 @@ INSTALL_BIN_DIR     = $(INSTALL_ROOT)/bin
 INSTALL_CFG_DIR     = $(INSTALL_ROOT)/cfg
 
 
-install:
+install: all
 ifeq ($(INSTALL_ROOT),)
 	@echo Usage: gmake "INSTALL_ROOT=myinstall_directory" install
 else
