@@ -1156,44 +1156,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
       return sampling_x * sampling_y * getExpTime() * getNoCoadds();
     }
 
-    public double getObserveStepTime(SpIterStep spIterStep) {
-      // if it is not a config iteration step then ignore spIterStep
-      // and just return the normal observe step time.
-      if(!spIterStep.title.equals("config")) {
-        return getObserveStepTime();
-      }
-
-      int sampling_x = Integer.valueOf(getSampling().substring(0, 1)).intValue();
-      int sampling_y = Integer.valueOf(getSampling().substring(2, 3)).intValue();
-
-
-      double exposureTime = getExpTime();
-      double coadds       = getNoCoadds();
-
-      // SpIterStep.values     is an array of SpIterValue
-      // SpIterValue.values    is an array of String the first of which contains
-      String attribute = spIterStep.values[0].attribute;
-      String value     = spIterStep.values[0].values[0];
-
-      try {
-        if(attribute.equals("exposureTime")) {
-          exposureTime = Double.valueOf(value).doubleValue();
-	}
-
-	if(attribute.equals("coadds")) {
-          coadds = Integer.valueOf(value).intValue();
-	}
-      }
-      catch(Exception e) {
-        System.out.println("Could not process iteration step "
-	                 + spIterStep.title
-	                 + " for time estimation (CGS4):\n\n" + e);
-      }
-      
-      return sampling_x * sampling_y * exposureTime * coadds;
-    }
-
-
 
   /**
    * Iteration Tracker for CGS4.
