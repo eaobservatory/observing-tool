@@ -294,8 +294,8 @@ public final class EdIterOffset extends OtItemEditor
     // int the "Create Grid" group box.
     //
     private void _createGrid() {
-	_opl.deleteWatcher(_offTW);
-	_opl.removeAllPositions();
+// 	_opl.deleteWatcher(_offTW);
+// 	_opl.removeAllPositions();
 
 	double xOff = _getGridXOffset();
 	double yOff = _getGridYOffset();
