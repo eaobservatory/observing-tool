@@ -88,7 +88,7 @@ storeSp(SpRootItem spItem, File f)
       // MFO (next 16 lines)
       if(_io_xml) {
          if(System.getProperty("DEBUG") != null) { 
-            System.out.println("xml = " + getXML());
+            System.out.println("xml = " + isXML());
          }
         try {
 	  (new SpItemUtilities()).setReferenceIDs(spItem);
@@ -102,7 +102,7 @@ storeSp(SpRootItem spItem, File f)
       }
       else {
          if(System.getProperty("DEBUG") != null) { 
-            System.out.println("xml = " + getXML());
+            System.out.println("xml = " + isXML());
          }
 
          spItem.printDocument(os);
@@ -181,7 +181,7 @@ fetchSp(Reader rdr)
   // MFO (next 18 lines)
   if(_io_xml) {
     if(System.getProperty("DEBUG") != null) { 
-      System.out.println("xml = " + getXML());
+      System.out.println("xml = " + isXML());
     }
 
     try {
@@ -195,7 +195,7 @@ fetchSp(Reader rdr)
   }
   else {
     if(System.getProperty("DEBUG") != null) { 
-      System.out.println("xml = " + getXML());
+      System.out.println("xml = " + isXML());
     }
 
     SpInputSGML inSGML = new SpInputSGML( rdr );
@@ -459,7 +459,7 @@ public static void setXML(boolean xml) {
    _io_xml = xml;
 }
 
-public static boolean getXML() {
+public static boolean isXML() {
    return _io_xml;
 }
 
