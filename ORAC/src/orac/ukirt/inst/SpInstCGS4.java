@@ -1287,6 +1287,16 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
       int sampling_x = Integer.valueOf(getSampling().substring(0, 1)).intValue();
       int sampling_y = Integer.valueOf(getSampling().substring(2, 3)).intValue();
     
+//       System.out.println( "ObserveStepTime calculated from...");
+//       System.out.println( "sampling_x = "+sampling_x);
+//       System.out.println( "sampling_y = "+sampling_x);
+//       System.out.println( "currentNoCoadds = "+currentNoCoadds);
+//       System.out.println( "currentExposureTime = "+currentExposureTime);
+//       System.out.println( "exp time overhead = "+getExposureOverhead());
+//       System.out.println( "int ohd = "+_int_oh);
+//       System.out.println( "obs ohd = "+_obs_oh);
+//       System.out.println( "extra_oh = "+extra_oh);
+
       return (sampling_x * sampling_y * currentNoCoadds * currentExposureTime) + extra_oh;
     }
   }
