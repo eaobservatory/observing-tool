@@ -78,6 +78,9 @@ public final class ProgListWindow extends RemoteGUI
 	    }
 	}
 
+	// make window popup in case it was iconified.
+	((ProgListWindowFrame)_instance).setState(java.awt.Frame.NORMAL);
+
 	return _instance;
     }
 
