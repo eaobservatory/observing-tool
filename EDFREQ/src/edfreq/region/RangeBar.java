@@ -10,6 +10,7 @@
 
 package edfreq.region;
 
+import edfreq.EdFreq;
 import edfreq.SideBand;
 
 import javax.swing.JPanel;
@@ -61,6 +62,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
   private Vector _barXs = new Vector();
   private Vector _barWs = new Vector();
   private int    _editingRegion = -1;
+  private boolean _barChanged = false;
 
   /**
    * Indicates the sideband that is represented by this RangeBar.
@@ -69,7 +71,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
    * The meaning of _associatedSideBand differs from that of
    * {@link edfreq.region.SpectralRegionEditor._sideBand}.
    */
-  private int _associatedSideBand = DoubleSideBandRangeBar.SIDE_BAND_USB;
+  private int _associatedSideBand = EdFreq.SIDE_BAND_USB;
 
   private Observable _observable = new Observable() {
     public void notifyObservers(Object arg) {
@@ -84,13 +86,20 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
   };
 
   public RangeBar() {
-    this(DoubleSideBandRangeBar.SIDE_BAND_USB);
+    this(EdFreq.SIDE_BAND_USB);
     setBorder(new EtchedBorder(EtchedBorder.RAISED));
 
-    _minX = 0;
-    _maxX = getWidth();
-    _xRanges.setElementAt( new Integer(0), 0 );
-    _xRanges.setElementAt( new Integer( getWidth() ), 1 );
+     _minX = 0;
+     _maxX = getWidth();
+     try {
+         _xRanges.setElementAt( new Integer(0), 0 );
+         _xRanges.setElementAt( new Integer( getWidth() ), 1 );
+     }
+     catch (Exception e) {
+         _xRanges.add(new Integer(0));
+         _xRanges.add(new Integer( getWidth() ));
+     }
+//     System.out.println("In RangeBar::RangeBar() - xRanges set to " + _xRanges);
   }
 
   public RangeBar(int associatedSideBand) {
@@ -105,10 +114,11 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
 
     setBar((int)(DEFAULT_PREFERRED_SIZE.width / 3.0),
            (int)(DEFAULT_PREFERRED_SIZE.width / 3.0));
+    setToolTipText("RangeBar");
   }
 
   public RangeBar(int barX, int barWidth) {
-    this(barX, barWidth, DoubleSideBandRangeBar.SIDE_BAND_USB);
+    this(barX, barWidth, EdFreq.SIDE_BAND_USB);
   }
 
   public RangeBar(int barX, int barWidth, int associatedSideBand) {
@@ -116,6 +126,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
     setBorder(new EtchedBorder(EtchedBorder.RAISED));
 
     setBar(barX, barWidth);
+    setToolTipText("RangeBar");
   }
 
   public void setRange(int minX, int maxX) {
@@ -124,6 +135,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
     setBorder(new EtchedBorder(EtchedBorder.RAISED));
     _xRanges.setElementAt( new Integer(0), 0 );
     _xRanges.setElementAt( new Integer( getWidth() ), 1 );
+//    System.out.println("In RangeBar::setRange(int, int) - xRanges set to " + _xRanges);
 
     _validateBarInRange();
   }
@@ -143,6 +155,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
 	  _xRanges.add( new Integer(minX) );
 	  _xRanges.add( new Integer(maxX) );
       }
+//      System.out.println("In RangeBar::setRange(int, int,int) - xRanges set to " + _xRanges);
 	  
 
       _validateBarInRange();
@@ -150,10 +163,12 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
 
   public void _validateBarInRange() {
     if(_barX < _minX) {
+        //System.out.println("barX(" + _barX + ") < minX(" + _minX + ") - resetting to minX");
       _barX = _minX;
     }
 
     if((_barX + _barW) > _maxX) {
+        //System.out.println("barX(" + _barX + ") + barW(" + _barW + ") > maxX(" + _maxX + ") - resetting barW");
       _barW = _maxX - _barX;
     }
 
@@ -295,6 +310,14 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
     _rangeColor = rangeColor;
   }
 
+  public boolean hasChanged() {
+      return _barChanged;
+  }
+
+  public void setBarChanged(boolean b) {
+      _barChanged = b;
+  }
+
   public void mouseDragged(MouseEvent e) {
     if(!isEnabled()) {
       return;
@@ -306,6 +329,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
 
     if ( _editingRegion == -1 ) return;
     
+    _barChanged = true;
     int barX = ((Integer)_barXs.get(_editingRegion)).intValue();
     int barW = ((Integer)_barWs.get(_editingRegion)).intValue();
 
@@ -382,6 +406,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
 
   public void mouseMoved(MouseEvent e)   {
 
+
     for ( int i=0; i<_barXs.size(); i++ ) {
 	int barX = ((Integer)_barXs.get(i)).intValue();
 	int barW = ((Integer)_barWs.get(i)).intValue();
@@ -412,4 +437,24 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
     // Observable.setChanged() is called from within it.
     _observable.notifyObservers();
   }
+
+  public String toString() {
+      StringBuffer buf = new StringBuffer();
+      buf.append("barX=" + _barX);
+      buf.append(", barY=" + _barY);
+      buf.append(", barW=" + _barW);
+      buf.append(", barH=" + _barH);
+      buf.append(", minX=" + _minX);
+      buf.append(", maxX=" + _maxX + "\n");
+      for ( int i=0; i<_xRanges.size(); i+=2 ) {
+          buf.append(", xrange[" + i + "]=(" + (Integer)_xRanges.get(i) + ", " + (Integer)_xRanges.get(i+1) + ")\n");
+      }
+
+      for ( int i=0; i<_barXs.size(); i++ ) {
+          buf.append("bar[" + i + "] = (" + (Integer)_barXs.get(i) + ", " + (Integer)_barWs.get(i) + ")\n");
+      }
+
+      return buf.toString();
+  }
+      
 }

@@ -18,8 +18,10 @@ import javax.swing.table.*;
 import java.util.*;
 import java.io.*;
 
+import edfreq.EdFreq;
 import edfreq.EmissionLines;
 import edfreq.GraphScale;
+import edfreq.FrequencyEditorCfg;
 
 /**
  * Like SideBandDisplay but without the sidebands themselves.
@@ -69,12 +71,24 @@ public class LineDisplay extends JPanel implements Observer
 
       int j;
 
-      double mid = 0.5 * ( _lRangeLimit + _uRangeLimit );
-      double lowIF = mid - _feIF - ( _feBandWidth * 0.5 );
+      double mid    = 0.5 * ( _lRangeLimit + _uRangeLimit );
+      double lowIF  = mid - _feIF - ( _feBandWidth * 0.5 );
       double highIF = mid + _feIF + ( _feBandWidth * 0.5 );
 
+      
+//       System.out.println("LineDisplay: Getting emission lines with parameters:");
+//       System.out.println("\tlRangeLimit="+_lRangeLimit);
+//       System.out.println("\tuRangeLimit="+_uRangeLimit);
+//       System.out.println("\tfeIF="+_feIF);
+//       System.out.println("\tfeBandWidth="+_feBandWidth);
+//       System.out.println("\tlowIF="+lowIF);
+//       System.out.println("\thighIF="+highIF);
+//       System.out.println("\tredshift="+_redshift);
+//       System.out.println("\tdisplayWidth="+_displayWidth);
+//       System.out.println("\tsamplerCount="+samplerCount);
       el = new EmissionLines ( lowIF, highIF, _redshift, 
         _displayWidth, 20, samplerCount );
+      //System.out.println("el=" + el);
 
       targetScale = new GraphScale ( lowIF, highIF, 
         1.0E9, 0.1E9, _redshift, 9, _displayWidth, JSlider.HORIZONTAL );
@@ -156,7 +170,7 @@ public class LineDisplay extends JPanel implements Observer
       double mouseDragLine = getLO1() + (_feIF - (0.5 * _feBandWidth)) + ((mouseX / getPixelsPerValue()) * 1.0E9);
 
       // If the line is supposed to be in the lower sideband then shift it there.
-      if(((RangeBar)((MouseEvent)arg).getSource()).getAssociatedSideBand() == DoubleSideBandRangeBar.SIDE_BAND_LSB) {
+      if(((RangeBar)((MouseEvent)arg).getSource()).getAssociatedSideBand() == EdFreq.SIDE_BAND_LSB) {
         mouseDragLine -= 2.0 * _feIF;
       }
 
@@ -179,6 +193,7 @@ public class LineDisplay extends JPanel implements Observer
       LineDisplay lineDisplay = new LineDisplay ();
 
       lineDisplay.updateDisplay(365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 0.0);
+      lineDisplay.setMainLine(369.907439E+9);
 
       frame.getContentPane().add(lineDisplay);
       frame.setLocation(100, 100);
