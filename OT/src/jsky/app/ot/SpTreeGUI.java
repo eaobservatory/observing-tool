@@ -296,7 +296,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 
 	editorPane = new JPanel();
 	editorPane.setLayout(new BorderLayout());
-	editorPane.setMinimumSize(new Dimension(200, 200));
+	editorPane.setMinimumSize(new Dimension(400, 200));
 
 	JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tree, editorPane);
 	splitPane.setOneTouchExpandable(false);
