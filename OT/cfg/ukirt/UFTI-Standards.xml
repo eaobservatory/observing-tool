@@ -60,8 +60,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -191,8 +191,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -322,8 +322,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -447,8 +447,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -578,8 +578,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -709,8 +709,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -840,8 +840,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -971,8 +971,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -1102,8 +1102,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -1227,8 +1227,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -1358,8 +1358,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -1489,8 +1489,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -1614,8 +1614,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -1745,8 +1745,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -1876,8 +1876,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -2007,8 +2007,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -2144,8 +2144,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -2281,8 +2281,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -2406,8 +2406,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -2537,8 +2537,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -2668,8 +2668,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -2793,8 +2793,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -2924,8 +2924,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -3055,8 +3055,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -3180,8 +3180,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -3311,8 +3311,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -3442,8 +3442,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -3567,8 +3567,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -3698,8 +3698,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -3829,8 +3829,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -3954,8 +3954,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -4085,8 +4085,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -4216,8 +4216,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -4341,8 +4341,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -4477,8 +4477,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -4613,8 +4613,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -4743,8 +4743,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -4874,8 +4874,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -5005,8 +5005,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -5130,8 +5130,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -5261,8 +5261,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -5392,8 +5392,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -5517,8 +5517,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -5648,8 +5648,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -5779,8 +5779,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -5904,8 +5904,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -6035,8 +6035,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -6166,8 +6166,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -6291,8 +6291,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -6422,8 +6422,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -6553,8 +6553,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -6678,8 +6678,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -6809,8 +6809,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -6940,8 +6940,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -7065,8 +7065,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -7196,8 +7196,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -7327,8 +7327,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -7452,8 +7452,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -7583,8 +7583,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -7714,8 +7714,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -7839,8 +7839,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -7970,8 +7970,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -8101,8 +8101,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -8226,8 +8226,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -8357,8 +8357,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -8488,8 +8488,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -8613,8 +8613,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -8744,8 +8744,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -8875,8 +8875,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -9000,8 +9000,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -9131,8 +9131,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -9262,8 +9262,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -9387,8 +9387,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -9518,8 +9518,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -9649,8 +9649,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -9774,8 +9774,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -9905,8 +9905,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -10036,8 +10036,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -10161,8 +10161,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -10292,8 +10292,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -10423,8 +10423,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -10562,8 +10562,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -10701,8 +10701,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -10840,8 +10840,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -10971,8 +10971,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -11102,8 +11102,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -11233,8 +11233,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -11358,8 +11358,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -11489,8 +11489,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -11620,8 +11620,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -11745,8 +11745,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -11876,8 +11876,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -12007,8 +12007,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -12132,8 +12132,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -12263,8 +12263,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -12394,8 +12394,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -12519,8 +12519,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -12650,8 +12650,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -12781,8 +12781,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -12906,8 +12906,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -13037,8 +13037,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -13168,8 +13168,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -13293,8 +13293,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -13424,8 +13424,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -13555,8 +13555,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -13680,8 +13680,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -13811,8 +13811,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -13942,8 +13942,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -14067,8 +14067,8 @@ guide star is available.</note>
         <coadds>5</coadds>
         <sourceMag>8-9</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -14198,8 +14198,8 @@ guide star is available.</note>
         <coadds>5</coadds>
         <sourceMag>8-9</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -14330,8 +14330,8 @@ guide star is available.</note>
         <coadds>5</coadds>
         <sourceMag>8-9</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -14455,8 +14455,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -14586,8 +14586,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -14717,8 +14717,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -14842,8 +14842,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -14973,8 +14973,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -15104,8 +15104,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -15229,8 +15229,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -15360,8 +15360,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -15491,8 +15491,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -15616,8 +15616,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -15747,8 +15747,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -15879,8 +15879,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -16004,8 +16004,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-11.83</value>
-          <value>16.83</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -16135,8 +16135,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-11.83</value>
-          <value>16.83</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -16266,8 +16266,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-11.83</value>
-          <value>16.83</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -16392,8 +16392,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-11.83</value>
-          <value>16.83</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -16523,8 +16523,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-11.83</value>
-          <value>16.83</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -16654,8 +16654,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-11.83</value>
-          <value>16.83</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -16779,8 +16779,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -16910,8 +16910,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -17041,8 +17041,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -17173,8 +17173,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -17304,8 +17304,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -17435,8 +17435,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -17560,8 +17560,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -17691,8 +17691,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -17822,8 +17822,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -17947,8 +17947,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -18078,8 +18078,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -18209,8 +18209,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -18334,8 +18334,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -18465,8 +18465,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -18596,8 +18596,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -18721,8 +18721,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -18852,8 +18852,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -18983,8 +18983,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -19108,8 +19108,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -19239,8 +19239,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -19370,8 +19370,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -19495,8 +19495,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -19626,8 +19626,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -19757,8 +19757,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -19882,8 +19882,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -20013,8 +20013,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -20144,8 +20144,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -20269,8 +20269,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -20400,8 +20400,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -20531,8 +20531,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-16.10</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -20656,8 +20656,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -20787,8 +20787,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -20918,8 +20918,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -21043,8 +21043,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -21174,8 +21174,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -21305,8 +21305,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -21430,8 +21430,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-16.1</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -21561,8 +21561,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-16.1</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -21693,8 +21693,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-16.1</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -21818,8 +21818,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -21949,8 +21949,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -22080,8 +22080,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -22205,8 +22205,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -22336,8 +22336,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -22467,8 +22467,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -22592,8 +22592,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -22723,8 +22723,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -22854,8 +22854,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -22979,8 +22979,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -23110,8 +23110,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -23241,8 +23241,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -23366,8 +23366,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -23497,8 +23497,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -23628,8 +23628,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -23753,8 +23753,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -23884,8 +23884,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -24015,8 +24015,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -24140,8 +24140,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -24271,8 +24271,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -24402,8 +24402,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -24527,8 +24527,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -24658,8 +24658,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -24789,8 +24789,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -24914,8 +24914,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -25045,8 +25045,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -25176,8 +25176,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -25301,8 +25301,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -25432,8 +25432,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -25563,8 +25563,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -25688,8 +25688,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -25819,8 +25819,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -25951,8 +25951,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -26076,8 +26076,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -26207,8 +26207,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -26338,8 +26338,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -26464,8 +26464,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -26597,8 +26597,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -26728,8 +26728,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -26853,8 +26853,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -26984,8 +26984,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -27115,8 +27115,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -27240,8 +27240,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -27371,8 +27371,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -27502,8 +27502,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -27627,8 +27627,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -27758,8 +27758,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -27889,8 +27889,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -28015,8 +28015,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -28146,8 +28146,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -28277,8 +28277,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -28402,8 +28402,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -28533,8 +28533,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -28664,8 +28664,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -28789,8 +28789,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -28920,8 +28920,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -29051,8 +29051,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -29177,8 +29177,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -29309,8 +29309,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -29441,8 +29441,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.82</value>
-          <value>17.75</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -29572,8 +29572,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -29703,8 +29703,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -29834,8 +29834,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -29960,8 +29960,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -30091,8 +30091,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -30223,8 +30223,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -30349,8 +30349,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -30480,8 +30480,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -30611,8 +30611,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -30736,8 +30736,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -30867,8 +30867,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -30998,8 +30998,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -31123,8 +31123,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -31254,8 +31254,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -31385,8 +31385,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -31511,8 +31511,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -31642,8 +31642,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -31773,8 +31773,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -31898,8 +31898,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -32029,8 +32029,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -32160,8 +32160,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -32285,8 +32285,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -32416,8 +32416,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -32547,8 +32547,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -32672,8 +32672,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -32803,8 +32803,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -32934,8 +32934,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -33059,8 +33059,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -33190,8 +33190,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -33321,8 +33321,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -33446,8 +33446,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -33594,8 +33594,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -33725,8 +33725,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -33856,8 +33856,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -33987,8 +33987,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -34118,8 +34118,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>BL</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -34249,8 +34249,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -34380,8 +34380,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -34512,8 +34512,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -34637,8 +34637,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -34769,8 +34769,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -34901,8 +34901,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>8-9</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -35026,8 +35026,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -35157,8 +35157,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -35288,8 +35288,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -35413,8 +35413,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -35544,8 +35544,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -35675,8 +35675,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -35800,8 +35800,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -35931,8 +35931,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -36062,8 +36062,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -36187,8 +36187,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -36318,8 +36318,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -36449,8 +36449,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -36575,8 +36575,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -36707,8 +36707,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -36839,8 +36839,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>7-8</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -36964,8 +36964,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -37095,8 +37095,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -37226,8 +37226,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -37351,8 +37351,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -37482,8 +37482,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -37614,8 +37614,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -37739,8 +37739,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -37870,8 +37870,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -38001,8 +38001,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -38126,8 +38126,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -38257,8 +38257,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -38388,8 +38388,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -38513,8 +38513,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -38644,8 +38644,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -38775,8 +38775,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -38900,8 +38900,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -39031,8 +39031,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -39162,8 +39162,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -39287,8 +39287,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -39418,8 +39418,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -39549,8 +39549,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -39674,8 +39674,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -39810,8 +39810,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -39946,8 +39946,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -40076,8 +40076,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -40207,8 +40207,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -40338,8 +40338,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -40463,8 +40463,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -40594,8 +40594,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -40725,8 +40725,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -40850,8 +40850,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -40981,8 +40981,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -41112,8 +41112,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -41237,8 +41237,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -41368,8 +41368,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -41499,8 +41499,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -41624,8 +41624,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -41760,8 +41760,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -41896,8 +41896,8 @@ guide star is available.</note>
         <coadds>2</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -42026,8 +42026,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -42157,8 +42157,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -42288,8 +42288,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -42414,8 +42414,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.250</value>
         </instAper>
@@ -42545,8 +42545,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.635</value>
         </instAper>
@@ -42676,8 +42676,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>2.150</value>
         </instAper>
@@ -42810,8 +42810,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -42941,8 +42941,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -43072,8 +43072,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -43203,8 +43203,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -43334,8 +43334,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -43465,8 +43465,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -43596,8 +43596,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -43727,8 +43727,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -43858,8 +43858,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -43994,8 +43994,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -44130,8 +44130,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -44261,8 +44261,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -44392,8 +44392,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -44523,8 +44523,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -44654,8 +44654,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -44785,8 +44785,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -44916,8 +44916,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -45047,8 +45047,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -45178,8 +45178,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -45309,8 +45309,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -45440,8 +45440,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -45571,8 +45571,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -45702,8 +45702,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -45833,8 +45833,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -45964,8 +45964,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -46095,8 +46095,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -46226,8 +46226,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -46357,8 +46357,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -46488,8 +46488,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -46619,8 +46619,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -46750,8 +46750,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -46881,8 +46881,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -47012,8 +47012,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -47143,8 +47143,8 @@ guide star is available.</note>
         <coadds>5</coadds>
         <sourceMag>9-10</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -47274,8 +47274,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -47405,8 +47405,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -47536,8 +47536,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -47667,8 +47667,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -47798,8 +47798,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -47929,8 +47929,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -48060,8 +48060,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -48191,8 +48191,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -48322,8 +48322,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -48453,8 +48453,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -48584,8 +48584,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -48715,8 +48715,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -48846,8 +48846,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -48977,8 +48977,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -49108,8 +49108,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -49239,8 +49239,8 @@ guide star is available.</note>
         <coadds>5</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -49370,8 +49370,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -49501,8 +49501,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -49632,8 +49632,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -49763,8 +49763,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -49894,8 +49894,8 @@ guide star is available.</note>
         <coadds>3</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -50025,8 +50025,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>10-11</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -50156,8 +50156,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -50287,8 +50287,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>12-13</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -50418,8 +50418,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -50549,8 +50549,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>11-12</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
@@ -50680,8 +50680,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -50811,8 +50811,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -50942,8 +50942,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>0.9</value>
         </instAper>
@@ -51073,8 +51073,8 @@ guide star is available.</note>
         <coadds>1</coadds>
         <sourceMag>13-14</sourceMag>
         <instAper>
-          <value>-12.86</value>
-          <value>17.51</value>
+          <value>20.59</value>
+          <value>-24.01</value>
           <value>0.0</value>
           <value>1.033</value>
         </instAper>
