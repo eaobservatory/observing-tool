@@ -359,8 +359,6 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 		  currentNoCoadds = instrument.getCoadds();
 	      }		  
 	  }
-	  System.out.println("Setting exp time to "+currentExposureTime);
-	  System.out.println("Setting coadds to "+currentNoCoadds);
 	}  
       }
       catch(Exception e) {
