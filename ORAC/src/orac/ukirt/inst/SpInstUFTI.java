@@ -539,5 +539,27 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
       
    }
 
+   /**
+    * Overhead in doing an exposure in seconds.
+    *
+    * Overhead time associated with an exposure (see {@link #getExposureTime()} and {@link #setExposureTime()}).
+    * cause by reset time, read time, NDR reset delay etc.
+    * <P>
+    * This method is used for MSB duration estimation. Subclasses can override this method to
+    * return an  instrument specific value.
+   */
+   public double getExposureOverhead() {
+      String readoutArea = getReadoutArea();
+
+      if(readoutArea.equalsIgnoreCase("1024x1024")) {
+         return 4.0;
+      }
+      
+      if(readoutArea.indexOf("1024") > -1) {
+         return 2.0;
+      }
+      
+      return 1.0;
+   }
 }
 

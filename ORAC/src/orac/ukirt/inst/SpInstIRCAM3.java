@@ -622,4 +622,18 @@ public final class SpInstIRCAM3 extends SpUKIRTInstObsComp {
       
    }
 
+
+   /**
+    * Overhead in doing an exposure in seconds.
+    *
+    * 0.32 seconds for acquisition mode NDSTARE<br>
+    * 0.12 seconds for acquisition modes STARE and CHOP.
+    */
+   public double getExposureOverhead() {
+      if(getAcqMode().toUpperCase().indexOf("NDSTARE") > -1) {
+         return 0.32;
+      }
+      
+      return 0.12;
+   }
 }
