@@ -122,7 +122,7 @@ public class EdIterOffsetFeature extends TpeImageFeature
 	Assert.notFalse(iw.getBaseItem() instanceof SpIterOffset);
 
 	_iterOffset = (SpIterOffset) iw.getBaseItem();
-	_opl        = _iterOffset.getRotatedPosList(); // changed by MFO, 15 February 2002
+	_opl        = _iterOffset.getCurrentPosList(); // changed by MFO, 15 February 2002 and 1 May 2002
 	_mapItems.clear();
 	findMapItems(_iterOffset, _mapItems);
 
