@@ -29,7 +29,6 @@ import javax.swing.tree.TreePath;
 
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
-import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 
 import jsky.app.ot.util.DnDUtils;
@@ -296,19 +295,12 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	    }
 	    newItems = _spTree.addItems( spID );
 	  }
-
           // force redrawing of the tree
-	  // Latest attempt to fix gaps-between-tree-nodes bug (aka collapse/expand bug).
-	  // _spTree.resetProg(_spTree.getProg()) and
-	  // _spTree.updateNodeExpansions() didn't work although the latter
-	  // seemed to cause fewer problmes
-	  // See also revisions 1.7, 1.8, 1.9 of orac3/OT/src/ot/OtAdvancedTreeDropTarget.java
-	  try { 
-	    _spTree.resetProg((SpRootItem)_spTree.getProg().deepCopy());
-	  }
-	  catch(Exception e) {
-	    _spTree.updateNodeExpansions();
-	  }
+	  // use updateNodeExpansions instead of resetProg to avoid gaps-between-tree-nodes bug
+	  // (aka collapse/expand bug). See also revisions 1.7, 1.8, 1.9 of
+	  // orac3/OT/src/ot/OtAdvancedTreeDropTarget.java
+	  //_spTree.resetProg(_spTree.getProg());
+	  _spTree.updateNodeExpansions();
 	}
 	catch(Exception e) {
           DialogUtil.error(ownerTW, e);
