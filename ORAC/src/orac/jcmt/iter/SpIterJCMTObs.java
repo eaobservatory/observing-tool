@@ -171,6 +171,20 @@ public void setSwitchingMode(String switchingMode) {
 /**
  *
  */
+public boolean getDoAtCurrentAz() {
+   return _avTable.getBool(ATTR_DO_AT_CURRENT_AZ);
+}
+
+/**
+ *
+ */
+public void setDoAtCurrentAz(boolean x) {
+   _avTable.set(ATTR_DO_AT_CURRENT_AZ, x);
+}
+
+/**
+ *
+ */
 public double getReferenceOffsetX() {
    return _avTable.getDouble(ATTR_REFERENCE_OFFSET_X, 0.0);
 }
