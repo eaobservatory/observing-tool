@@ -143,6 +143,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String DEFAULT_MAG8;
     public static String DEFAULT_FILTER_CATEGORY;
     public static LookUpTable FILTERS;
+    public static double DEFAULT_IMAGING_POS_ANGLE;
     // Spectroscopy
     public static double SPECT_FOCAL_LENGTH;
     public static double[] SPECT_FIELD_OF_VIEW;
@@ -162,6 +163,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String DEFAULT_MASK2;
     public static String PUPIL_SCALE;
     public static String PUPIL_FOV;
+    public static double DEFAULT_SPECT_POS_ANGLE;
     // Polarimetry
     public static String POL_MASK_IMAGING;
     public static String POL_GRISM_IMAGING;
@@ -290,8 +292,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         attr  = ATTR_MASK_HEIGHT;
         _avTable.noNotifySet(attr, "0.0", 0);
 
-        attr  = ATTR_POS_ANGLE;
-        _avTable.noNotifySet(attr, "0.0", 0);
+        setDefaultPosAngle();
 
         attr  = ATTR_DISPERSER;
         value = GRISM_IMAGING;
@@ -524,6 +525,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     DEFAULT_PIXEL_FOV  = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_science_area")) {
                     DEFAULT_SCIENCE_AREA  = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_imaging_pos_angle")) {
+                    DEFAULT_IMAGING_POS_ANGLE = Double.valueOf(instInfo.getValue()).doubleValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_spect_pos_angle")) {
+                    DEFAULT_SPECT_POS_ANGLE = Double.valueOf(instInfo.getValue()).doubleValue();
 		} else if (InstCfg.matchAttr (instInfo, "filters1")) {
                     FILTERS1 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "filters2")) {
@@ -912,6 +917,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         useDefaultImager();
         useDefaultDisperser();
         useDefaultSourceMag();
+        setDefaultPosAngle();
     }
 
     /**
@@ -1479,21 +1485,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     }
 
    /**
-    * Override the set-position-angle methods so that we can ensure
-    * it's set to zero: stops dragging of the angle in tpe.
-    * Set the position angle in degrees from due north, updating the
-    * observation data with the new position angle.  This method is
-    * ultimately called by the other setPosAngle methods.
+    * Set the default image rotator angle for the current camera
     */
-    public void setPosAngleDegrees( double posAngle ) {
-        if ( isImaging() ) {
-            if ( posAngle != 0.0 ) {
-                super.setPosAngleDegrees( 0.0 );
-            }
-        }
-        else
-        {
-            super.setPosAngleDegrees( posAngle);
+    public void setDefaultPosAngle()
+    {
+        if (isImaging()) {
+            setPosAngleDegrees(DEFAULT_IMAGING_POS_ANGLE);
+        } else {
+            setPosAngleDegrees(DEFAULT_SPECT_POS_ANGLE);
         }
     }
 
