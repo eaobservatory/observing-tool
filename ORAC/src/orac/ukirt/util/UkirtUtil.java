@@ -46,7 +46,12 @@ public class UkirtUtil implements TelescopeUtil {
    * @return always false for UKIRT
    */
   public boolean isOffsetTarget(String targetTag) {
-    return false;
+    if((targetTag != null) && (targetTag.equalsIgnoreCase("reference"))) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   public boolean supports(int feature) {
