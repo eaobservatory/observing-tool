@@ -38,32 +38,8 @@ public class UkirtUtil implements TelescopeUtil {
     return _ukirtSpValidation;
   }
 
-  public String [] getTargetTags() {
-    if(SpTelescopePos.GUIDE_TAGS == null) {
-      return new String[] { SpTelescopePos.BASE_TAG };
-    }
-
-    String [] result = new String[SpTelescopePos.GUIDE_TAGS.length + 1];
-
-    result[0] = SpTelescopePos.BASE_TAG;
-
-    for(int i = 0 ; i < SpTelescopePos.GUIDE_TAGS.length; i++) {
-      result[i + 1] = SpTelescopePos.GUIDE_TAGS[i];
-    }
-
-    return result;
-  }
-
   public String getBaseTag() {
     return SpTelescopePos.BASE_TAG;
-  }
-
-  public String getAdditionalTarget() {
-    return SpTelescopePos.GUIDE_TAGS[0];
-  }
-
-  public String getAdditionalTargetFeatClass() {
-    return "jsky.app.ot.tpe.feat.TpeGuidePosFeature";
   }
 
   /**
@@ -90,8 +66,8 @@ public class UkirtUtil implements TelescopeUtil {
    * {@link #getAdditionalTarget()} return correct values.
    */
   public void installPreTranslator() throws Exception {
-    SpItemDOM.setPreTranslator(new UkirtPreTranslator(getBaseTag(), getAdditionalTarget()));
-  }
+    SpItemDOM.setPreTranslator(new UkirtPreTranslator(SpTelescopePos.BASE_TAG, SpTelescopePos.GUIDE_TAGS[0]));
+ }
 
   public String [] getCoordSys() {
     return COORD_SYS_FK5_FK4;

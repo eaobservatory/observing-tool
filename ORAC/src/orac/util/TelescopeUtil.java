@@ -64,7 +64,6 @@ public interface TelescopeUtil {
 
   public SpValidation getValidationTool();
 
-  public String [] getTargetTags();
 
   /**
    * Get telescope specific base tag.
@@ -72,28 +71,6 @@ public interface TelescopeUtil {
    * For example "Base" for UKIRT and "Science" for JCMT.
    */
   public String    getBaseTag();
-
-  /**
-   * Returns the tag for the target that can be added to the Target List
-   * in addition to Base/Science.
-   *
-   * For example "GUIDE" for UKIRT and "Reference" for JCMT.
-   */
-  public String getAdditionalTarget();
-
-  /**
-   * Gets full class name of GUIDE/Reference feature.
-   *
-   * <pre>
-     Example:
-
-       <b>Telescope	Additional Target	Feature class</b>
-       
-       UKIRT		GUIDE			{@link jsky.app.ot.tpe.feat.TpeGuidePosFeature}
-       JCMT		Reference		{@link ot.jcmt.tpe.TpeReferencePosFeature}
-   * </pre> 
-   */
-  public String getAdditionalTargetFeatClass();
 
   /**
    * Returns true if the user input for targetTag
