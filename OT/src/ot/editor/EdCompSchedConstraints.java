@@ -20,6 +20,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.editor.OtItemEditor;
 
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -44,6 +45,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 
     _w.earliest.addWatcher(this);
     _w.latest.addWatcher(this);
+    _w.minElevation.addWatcher(this);
   }
 
   public void setup(SpItem spItem) {
@@ -56,7 +58,9 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
     }
 
     if(_schedConstObsComp.getLatest().equals(SpSchedConstObsComp.NO_VALUE)) {
-      _schedConstObsComp.initLatest(OracUtilities.toISO8601(new Date()));
+      Calendar calendar = Calendar.getInstance();
+      calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 30);
+      _schedConstObsComp.initLatest(OracUtilities.toISO8601(calendar.getTime()));
       _updateWidgets();
     }
   }
@@ -69,6 +73,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
   protected void _updateWidgets() {
       _w.earliest.setValue(_schedConstObsComp.getEarliest());
       _w.latest.setValue(_schedConstObsComp.getLatest());
+      _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
   }
 
   /**
@@ -87,6 +92,10 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       if(tbw == _w.latest) {
         String latest   = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.earliest.getText()));
         _schedConstObsComp.setLatest(latest);
+      }
+
+      if(tbw == _w.minElevation) {
+        _schedConstObsComp.setMinElevation(_w.minElevation.getDoubleValue(0.0));
       }
     }
     catch(Exception e) {
