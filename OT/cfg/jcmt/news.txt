@@ -1,0 +1,15 @@
++++ August 2, 2000
+
+v1.2 of FreeBongo version of Orac OT.
+
+Multiple libraries now supported.
+
+ND Filter added to CGS4 Cal. Unit (as hidden, defaulted item).
+
+Instrument, FP and IRPOL iterators all now insert default values when
+new items or steps are created.
+
+Offset iterator bug fixed.
+
+Various other bug fixes applied.
+

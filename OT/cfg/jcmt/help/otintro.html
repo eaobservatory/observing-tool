@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Introduction to the OT</title>
+  </head>
+
+  <body>
+    <h1> <font color = red> Introduction to using the ORAC OT </h1> </font>
+
+<p>
+The ORAC observing tool (ORAC-OT) is derived from the Gemini Observing
+tool, with changes to reflect the UKIRT observing paradigm, telescope
+and instruments. The "look and feel" and essential functionality of
+the Gemini-OT have been maintained, and core features such as the
+appearance and behavior of the desk top and tools icons are
+identical to the Gemini-OT.
+<p>
+The ORAC-OT provides a visual editor designed to allow you to fully
+prepare your observations in advance of your run by specifying : the
+instrument set up, target and guide star positions, sequences of
+telescope moves and instrument/IRPOL/FP changes, data reduction
+recipes, standard star observations. It also has features which are
+intended for use for flexible/queued observing such as specifying
+weather conditions and "chaining" observations together, which are not
+currently in use at UKIRT, and should simply be ignored.  
+<p>
+A <em>Science Program</em> defines a number of <em> Observations </em>
+of astronomical targets and calibrations, which need to be obtained to
+achieve a scientific goal.  Thus at UKIRT a Science Program contains
+the definitions of all the observations that will make up a PATT run
+or a night of service observing.  No limit is enforced on the number
+of Science Programs you create per PATT run, but since the rest of
+ORAC is designed to fetch only one at a time from the database it
+recommended that you create one Science Program containing everything
+you need for your observing run.  A Science Program can contain observations
+to be taken with any UKIRT instrument, it is not instrument specific.
+
+<p>
+An <em> Observation </em> defines the data and how to acquire it for
+an astronomical target or a calibration.  An Observation may thus
+consist of "array_tests", in which a series of darks are obtained, or
+JHK photometry of a point source, spectroscopy of an extended target,
+or a flat and an arc. The <em> Observation </em> component in the OT
+contains items which together specify the target coordinates, the
+guide star location, the instrument configuration, the types of data
+to be obtained (Darks, flats, arcs, etc), the order in which data is
+to be obtained, the ORAC-DR recipe and the sequence of telescope moves
+and exposures to be used.
+
+<p>
+The OT is used to create your Science program by copying into it a template
+for the type of observation you need and editing it, for each observation in
+the programme.  Depending on your program you may have one observation for
+each target or several.
+
+<p>
+The best way to become familiar with the OT capabilities is to create
+a Science Program containing your observations based on the 
+The UKIRT Template Library.
+<p>
+The documents below provide information about using the OT with various levels of detail.  The first three should cover all that you need for normal UKIRT observing, while the remaining documents provide help in how to construct observations from scratch without using the templates.
+
+<p>
+<UL>
+
+<li>
+<A HREF="sciprog.html"> Creating a Science Program from the UKIRT Template Library </A>
+</li>
+
+<li>
+<A HREF="tpe.html"> Target Information and Using the Position Editor </A>
+</li>
+<li>
+<A HREf="library.html">
+Guide to the Library Contents </A></li>
+
+<p>
+
+<li>
+<A HREf="inst.html"> Instrument Components </A></li>   
+<li>
+<A HREf="iter.html"> Sequences and Iterators </A></li>
+<li>
+<A HREf="details.html">More Detailed Help and Descriptions </A></li>
+
+<p>
+<li>
+<A Href="bugs.html"> Known Bugs </A></li>
+
+</UL>
+
+
+
+<hr>
+<ADDRESS>
+
+<spacer type=vertical size=35>	
+
+   
+Original  Authors: <a href="mailto:gsw@roe.ac.uk">Gillian Wright</a>,  and   <a href="mailto:ab@roe.ac.uk">Alan Bridger</a>
+<p>
+Original : 1999/10/24, Last Modification Date 2000/07/26 - Last Modification Author:<a href="mailto:gsw@roe.ac.uk">Gillian Wright</a></address>
+ </body>
+
+</html>
