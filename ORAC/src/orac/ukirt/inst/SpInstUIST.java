@@ -1067,7 +1067,17 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                  fov[1] = maxHeight;
 	     }
 	 } else {
-             fov[0] = getMaskWidthPixels() * pixelScale;;
+	     // SdW - This fixes a display problem on the Position Editor
+	     // without affecting the XML.  The real fix is to change the
+	     // IFU-pickoff parameter in uist.cfg from 36.0 to 28.0, but
+	     // the affect downstream are unknown.  If this ever does get
+	     // updated then the isIFU() clause can be removed.
+	     if ( isIFU() ) {
+		 fov[0] = ( getMaskWidthPixels() - 8.0 ) * pixelScale;
+	     }
+	     else {
+                 fov[0] = getMaskWidthPixels() * pixelScale;;
+	     }
              fov[1] = getMaskHeightArcsec();
          }
          // Adjust the height and width if vignetted by the readout area
