@@ -60,6 +60,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   /** Do not use _instHeterodyne if this is true, as it will still be null. */
   private boolean _ignoreSpItem = false;
 
+  private boolean _updatingWidgets = false;
+
   /**
    * Flag indicating that the text in the velocity box has been changed but
    * the respective fields in this and other classes have not yet been updated accordingly.
@@ -152,6 +154,52 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _ignoreSpItem = false;
    }
 
+   /** Initialises the default values in SpInstHeterodyne. */
+   private void _initialiseInstHeterodyne() {
+
+      String   frontEndName = cfg.frontEnds[0];
+      Receiver receiver     = (Receiver)cfg.receivers.get(frontEndName);
+      BandSpec bandSpec     = (BandSpec)(receiver.bandspecs.get(0));
+
+      // Get hold of a line in the upper sideband that. Make sure it is not to close to
+      // the edge of the range so that the IF can default to the frontend IF.
+      LineDetails [] lineDetailsArray = new LineDetails[1];
+      lineCatalog.returnLines(receiver.loMin + receiver.feIF + receiver.bandWidth,
+                              receiver.loMax                 - receiver.bandWidth,
+                              lineDetailsArray.length, lineDetailsArray);
+
+      String molecule;
+      String transition;
+      String frequency;
+
+      if((lineDetailsArray != null) && (lineDetailsArray.length > 0)) {
+         molecule   = lineDetailsArray[0].name;
+         transition = lineDetailsArray[0].transition;
+         frequency  = "" + lineDetailsArray[0].frequency;
+      }
+      else {
+         molecule   = "";
+         transition = "";
+         frequency  = "";
+      }
+ 
+      _instHeterodyne.initialiseValues(
+         frontEndName,						// front end
+         ((String[])cfg.frontEndTable.get(frontEndName))[0],	// mode
+         bandSpec.toString(),					// band mode
+         "" + bandSpec.defaultOverlaps[0],			// overlap
+         "0.0",							// velocity
+         SpInstHeterodyne.RADIAL_VELOCITY_RADIO,		// velocity definitio
+         "usb",							// band
+         "" + receiver.feIF,					// centre frequency
+         "" + bandSpec.bandWidths[0],				// bandwidth
+         "" + bandSpec.channels[0],				// channels
+         molecule,						// molecule
+         transition,						// transition
+         frequency						// rest frequency
+      );
+   }
+
   /**
    * Override setup to store away a reference to the SpInstCGS4 item.
    */
@@ -168,6 +216,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    */
   protected void _updateWidgets() {
       _ignoreSpItem = true;
+      _updatingWidgets = true;
+
+      if(!_instHeterodyne.valuesInitialised()) {
+         _initialiseInstHeterodyne();
+      }
 
       try {
          _w.feChoice.setSelectedItem(_instHeterodyne.getFrontEnd());
@@ -180,21 +233,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
 
          _w.feBand.setSelectedItem(getObject(_w.feBand, _instHeterodyne.getBand()));
-         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
-         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0)));
-         _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
-         sideBandDisplay.setLO1(_instHeterodyne.getLO1());
 
          for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
            sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
-           
-           // Since bandwidths are different for das and heterodyne there are no default
-           // bandwidths in _instHeterodyne. If a bandwidth is 0.0, i.e. it has not been initialised
-           // properly, then do so now.
-           if(_instHeterodyne.getBandWidth(i) == 0.0) {
-              _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E9, i);
-           }
-	   
+
+           if(i == 0) {
+	      boolean tmpIgnoreEvents = _ignoreEvents;
+	      _ignoreEvents = true;
+              _w.bandWidthChoice.setSelectedItem(getObject(_w.bandWidthChoice, "" + (_instHeterodyne.getBandWidth(0) / 1.0E9)));
+              _ignoreEvents = tmpIgnoreEvents;
+	   }
+
            sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
 
            if(i > 0) {
@@ -203,6 +252,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
                                           _instHeterodyne.getRestFrequency(i), i);
            }
          }
+
+         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
+         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0)));
+         _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -212,6 +265,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
 
       _ignoreSpItem = false;
+      _updatingWidgets = false;
   }
 
 
@@ -392,8 +446,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             else {
                _w.transitionChoice.setSelectedIndex(0);
 
-               JOptionPane.showMessageDialog(_w, "Transition changed: " + transition + " out of range.",
-               "Transition changed", JOptionPane.WARNING_MESSAGE);
+               if(!_updatingWidgets) {
+                  JOptionPane.showMessageDialog(_w, "Transition changed: " + transition + " out of range.",
+                  "Transition changed", JOptionPane.WARNING_MESSAGE);
+               }
             }
          }
 
@@ -474,8 +530,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             {
 	       if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
 
-                  JOptionPane.showMessageDialog(_w, "Using lower sideband in order to reach line.",
-                  "Changing sideband", JOptionPane.WARNING_MESSAGE);
+                  if(!_updatingWidgets) {
+                     JOptionPane.showMessageDialog(_w, "Using lower sideband in order to reach line.",
+                     "Changing sideband", JOptionPane.WARNING_MESSAGE);
+                  }
 
                   _w.feBand.setSelectedItem("lsb");
                   sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
@@ -488,8 +546,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             {
 	       if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
 
-                  JOptionPane.showMessageDialog(_w, "Using upper sideband in order to reach line.",
-                  "Changing sideband", JOptionPane.WARNING_MESSAGE);
+                  if(!_updatingWidgets) {
+                     JOptionPane.showMessageDialog(_w, "Using upper sideband in order to reach line.",
+                     "Changing sideband", JOptionPane.WARNING_MESSAGE);
+                  }
 
                   _w.feBand.setSelectedItem("usb");
                   sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
@@ -824,8 +884,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 
       if(((Vector)lineCatalog.returnSpecies(obsmin*(1.0+redshift), obsmax*(1.0+redshift))).size() < 1) {
-         JOptionPane.showMessageDialog(_w, "This velocity/redshift would results frequency range that exceeds the line catalog.",
+
+         if(!_updatingWidgets) {
+            JOptionPane.showMessageDialog(_w, "This velocity/redshift would results frequency range that exceeds the line catalog.",
                                        "Invalid velocity/redshift", JOptionPane.WARNING_MESSAGE);
+         }
 
          // Reset redshift and value in velocity text field to last valid value.
 	 redshift = _instHeterodyne.getRedshift();
@@ -870,8 +933,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else {
          _w.moleculeChoice.setSelectedIndex(0);
 
-         JOptionPane.showMessageDialog(_w, "Molecule changed: " + molecule + " out of range.",
-         "Molecule changed", JOptionPane.WARNING_MESSAGE);
+         if(!_updatingWidgets) {
+            JOptionPane.showMessageDialog(_w, "Molecule changed: " + molecule + " out of range.",
+            "Molecule changed", JOptionPane.WARNING_MESSAGE);
+         }
       }
 
 /* Update display of sidebands */
@@ -1046,11 +1111,21 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     if(subsystem == 0) {
       _ignoreEvents = true;
       _w.bandWidthChoice.setSelectedItem("" + Math.rint(width * 1.0E-6) / 1000.0);
+
+      // Re-centre band on line
+      feTransitionAction(null);
       _ignoreEvents = false;
     }
   }
 
   public void updateChannels(int channels, int subsystem) {
+    // If the subsystem is the top subsystem (subsystem 0)
+    // then update the resolution display.
+    if(subsystem == 0) {
+      int topSubSystemResolution = (int) ( 1.0E-3 * _instHeterodyne.getBandWidth(0) / (double)channels );
+      _w.resolution.setText("" + topSubSystemResolution);
+    }
+
     if(!_ignoreSpItem) {
       _instHeterodyne.setChannels(channels, subsystem);
     }
