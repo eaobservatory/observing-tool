@@ -47,6 +47,7 @@ public final class OtProgWindow extends OtWindow
      */
     public OtProgWindow() {
 	this((SpRootItem) SpFactory.create(SpType.SCIENCE_PROGRAM), null);
+	OtProps.setSaveShouldPrompt(true);
     }
 
     /**
@@ -54,6 +55,7 @@ public final class OtProgWindow extends OtWindow
      */
     public OtProgWindow(SpRootItem spItem) {
 	this(spItem, null);
+	OtProps.setSaveShouldPrompt(false);
     }
 
     /**
@@ -62,6 +64,7 @@ public final class OtProgWindow extends OtWindow
     public OtProgWindow(SpRootItem spItem, LoginInfo loginInfo, SpProgKey progKey)  {
 	this(spItem, null);
 
+	OtProps.setSaveShouldPrompt(false);
 	_progInfo.login   = loginInfo;
 	_progInfo.progKey = progKey;
     }
@@ -72,6 +75,7 @@ public final class OtProgWindow extends OtWindow
      */
     public OtProgWindow(SpRootItem spItem, FileInfo fileInfo) {
 	super(spItem, fileInfo);
+	OtProps.setSaveShouldPrompt(false);
     }
 
     /**
