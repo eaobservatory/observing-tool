@@ -607,7 +607,7 @@ final public class commandSent extends UnicastRemoteObject
       }
 
 	
-      command=new String ("Dobey "+"QL_"+instName+" " + action + " 1 1 2 1 2");
+      command=new String ("Dobey "+"QL_"+instName+" " + action +  " Argument1=1 Argument2=1 Argument3=2 Argument4=1 Argument5=2 ");
       
       if((System.getProperty("DBUG_MESS") != null) &&
 	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
@@ -634,9 +634,7 @@ final public class commandSent extends UnicastRemoteObject
         action = "SETUP";
       }
 
-	
-      command=new String ("Dobey "+"QL_"+instName+" " + action + " 1 1 2 1 2");
-      
+      command=new String ("Dobey "+"QL_"+instName+" " + action + " Argument1=1 Argument2=1 Argument3=2 Argument4=1 Argument5=2 ");
       if((System.getProperty("DBUG_MESS") != null) &&
 	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
         System.out.println("Sending command \"" + command + "\".");
