@@ -558,7 +558,7 @@ noNotifyRmAll()
     Enumeration e = _avTable.keys();
     while (e.hasMoreElements()) {
 	SpAttr a = (SpAttr) _avTable.get((String)e.nextElement());
-	if (a != null) {
+	if (a != null && a.getValues() != null ) {
 	    a.getValues().clear();
 	}
     }
