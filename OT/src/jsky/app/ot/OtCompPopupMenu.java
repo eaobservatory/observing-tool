@@ -13,6 +13,8 @@ import javax.swing.*;
 import gemini.sp.SpFactory;
 import gemini.sp.SpItem;
 import gemini.sp.SpType;
+import gemini.sp.obsComp.SpSiteQualityObsComp;
+import gemini.sp.obsComp.SpSchedConstObsComp;
 
 import jsky.util.QuickSort;
 
@@ -27,7 +29,13 @@ class OtCompPopupMenu extends JPopupMenu {
      */
     public OtCompPopupMenu(OtTreeWidget treeWidget) {
         // MFO: Changed because UKIRT and JCMT use different site quality components.
-	_add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo")); //OBSERVATION_COMPONENT_SITE_QUALITY);
+	_add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, SpSiteQualityObsComp.SUBTYPE));
+
+	// MFO, 9 November 2001
+	if(System.getProperty("OMP") != null) {
+	  _add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, SpSchedConstObsComp.SUBTYPE));
+	}
+
 	_add(treeWidget, SpType.OBSERVATION_COMPONENT_TARGET_LIST);
 	addSeparator();
 
@@ -41,8 +49,10 @@ class OtCompPopupMenu extends JPopupMenu {
 
 	// Add each type
 	for (int i=0; i<sst.length; ++i) {
-	    // Site quality (shedInfo) has been added already (above the separator), MFO, May 31, 2001
-	    if(!sst[i].spType.getSubtype().equals("schedInfo")) {
+	    // Site quality (shedInfo) and  Scheduling constraints hav been added
+	    // already (above the separator), MFO, May 31, 2001 / November 9, 2001
+	    if(!sst[i].spType.getSubtype().equals(SpSiteQualityObsComp.SUBTYPE) &&
+	       !sst[i].spType.getSubtype().equals(SpSchedConstObsComp.SUBTYPE)) {
 	        _add(treeWidget, sst[i].spType);
 	    }	
 	}
