@@ -26,6 +26,7 @@ import gemini.sp.ipc.SpProgKey;
 import gemini.sp.ipc.SpServerAsync;
 import jsky.app.ot.util.Assert;
 import ot.util.DialogUtil;
+import ot.DatabaseDialog;
 
 /**
  * The program hierarchy edit OtWindow subclass for science programs,
@@ -389,7 +390,14 @@ public final class OtProgWindow extends OtWindow
      */
     public void fetchFromOnlineDatabase() {
 	Thread t = new Thread( new Runnable() {
-		public void run() { fetchProg(); }
+		public void run() {
+		    if(System.getProperty("OMP") != null) {
+			OT.getDatabaseDialog().fetchProgram();
+		    }
+		    else {
+			fetchProg();
+		    }
+		}
 	    });
 	t.start();
     }
@@ -400,7 +408,14 @@ public final class OtProgWindow extends OtWindow
      */
     public void storeToOnlineDatabase() {
 	Thread t = new Thread( new Runnable() {
-		public void run() { OtProgWindow.this.storeProg(); }
+		public void run() {
+		    if(System.getProperty("OMP") != null) {
+			OT.getDatabaseDialog().storeProgram(getItem());
+		    }
+		    else {
+			OtProgWindow.this.storeProg();
+		    }
+		}	    
 	    });
 	t.start();
     }

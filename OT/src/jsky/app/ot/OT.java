@@ -46,6 +46,7 @@ import jsky.util.gui.LookAndFeelMenu;
 
 import ot.News;
 import ot.OtPreferencesDialog;
+import ot.DatabaseDialog;
 import orac.helptool.JHLauncher;
 import gemini.sp.ipc.SpServer;
 
@@ -65,6 +66,9 @@ public class OT extends JFrame {
 
     /** Preferences Dialog */
     private static OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog();
+
+    /** Database Access */
+    private static DatabaseDialog _databaseDialog = new DatabaseDialog();
 
 
     /**
@@ -98,7 +102,7 @@ public class OT extends JFrame {
 	helpLauncher = jHLauncher;
     }
 
-
+    public static DatabaseDialog getDatabaseDialog() { return _databaseDialog; }
 
 
     /**
@@ -313,7 +317,17 @@ public class OT extends JFrame {
      * Fetch a science program from the database.
      */
     public void fetchProgram() {
+      if(System.getProperty("OMP") != null) {
+        if(desktop != null) {
+          _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH, desktop);
+        }
+        else {
+          _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
+        }
+      }
+      else {
 	ProgListWindow.instance().setVisible(true);
+      }	
     }
 
     /**

@@ -1,7 +1,7 @@
 # This Makefile is for top level make of the entire Orac java code
-# (OM, OT and shared classes in GEMINI, ORAC and ODB).
+# (OM, OT and shared classes in GEMINI, ORAC, ODB and OMP).
 #
-# "gmake" makes GEMINI, ORAC, ODB, OM and OT recursively.
+# "gmake" makes GEMINI, ORAC, ODB, OMP, OM and OT recursively.
 
 CONF_HOME           = conf
 include $(CONF_HOME)/make.conf
@@ -10,13 +10,15 @@ include $(CONF_HOME)/make.conf
 SOURCE_FILES          = $(shell find GEMINI/src -name "*.java") \
                         $(shell find ORAC/src   -name "*.java") \
                         $(shell find ODB/src    -name "*.java") \
+                        $(shell find OMP/src    -name "*.java") \
                         $(shell find OT/src     -name "*.java") \
                         $(shell find OM/src     -name "*.java")
 
 all:
 	(cd GEMINI/src; gmake)
-	(cd ORAC/src;   gmake)
 	(cd ODB/src;    gmake)
+	(cd OMP/src;    gmake)
+	(cd ORAC/src;   gmake)
 	(cd OM/src;     gmake)
 	(cd OT/src;     gmake)
 
@@ -35,6 +37,7 @@ install: all install_dir
 	(cd GEMINI/src; gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd ORAC/src;   gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd ODB/src;    gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+	(cd OMP/src;    gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd OM/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd OT/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 
@@ -89,6 +92,7 @@ clean:
 	(cd GEMINI/src; gmake clean)
 	(cd ORAC/src;   gmake clean)
 	(cd ODB/src;    gmake clean)
+	(cd OMP/src;    gmake clean)
 	(cd OM/src;     gmake clean)
 	(cd OT/src;     gmake clean)
 	rm -rf $(INSTALL_ROOT)
@@ -97,6 +101,7 @@ _jar: $(JAR_DIR)
 	(cd GEMINI/src; gmake jar)
 	(cd ORAC/src;   gmake jar)
 	(cd ODB/src;    gmake jar)
+	(cd OMP/src;    gmake jar)
 	(cd OM/src;     gmake jar)
 	(cd OT/src;     gmake jar)
 
