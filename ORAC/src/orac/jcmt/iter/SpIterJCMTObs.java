@@ -25,6 +25,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 
 import gemini.util.CoordSys;
+import gemini.util.Format;
 
 import java.util.Enumeration;
 
@@ -183,7 +184,7 @@ public double getReferenceOffsetX() {
  *
  */
 public void setReferenceOffsetX(String value) {
-   _avTable.set(ATTR_REFERENCE_OFFSET_X, toDouble(value));
+   _avTable.set(ATTR_REFERENCE_OFFSET_X, Format.toDouble(value));
 }
 
 /**
@@ -197,7 +198,7 @@ public double getReferenceOffsetY() {
  *
  */
 public void setReferenceOffsetY(String value) {
-   _avTable.set(ATTR_REFERENCE_OFFSET_Y, toDouble(value));
+   _avTable.set(ATTR_REFERENCE_OFFSET_Y, Format.toDouble(value));
 }
 
 /**
@@ -225,7 +226,7 @@ public double getFrequencyOffsetThrow() {
  *
  */
 public void setFrequencyOffsetThrow(String value) {
-   _avTable.set(ATTR_FREQUENCY_OFFSET_THROW, toDouble(value));
+   _avTable.set(ATTR_FREQUENCY_OFFSET_THROW, Format.toDouble(value));
 }
 
 /**
@@ -240,7 +241,7 @@ public double getFrequencyOffsetRate() {
  *
  */
 public void setFrequencyOffsetRate(String value) {
-   _avTable.set(ATTR_FREQUENCY_OFFSET_RATE, toDouble(value));
+   _avTable.set(ATTR_FREQUENCY_OFFSET_RATE, Format.toDouble(value));
 }
 
   public int getSecsPerCycle() {
@@ -298,6 +299,15 @@ public void setFrequencyOffsetRate(String value) {
     _avTable.set(ATTR_SAMPLE_TIME, value);
   }
 
+  
+  public boolean getAutomaticTarget() {
+    return _avTable.getBool(ATTR_AUTOMATIC_TARGET);
+  }
+
+  public void setAutomaticTarget(boolean value) {
+    _avTable.set(ATTR_AUTOMATIC_TARGET, value);
+  }
+
 /**
  * Override getExposureTime. Get the value from the instrument in
  * scope.
@@ -330,37 +340,6 @@ public void setCoadds(int coadds) {
 /** Not supported by JCMT OT. */
 public void setCoadds(String coadds) {
    throw new UnsupportedOperationException("public double SpIterObserveBase.setCoadds() not supported by JCMT OT.");
-}
-
-/**
- * Helper method.
- *
- * @return double value of doubleStr if it can be parsed to double, 0.0 otherwise.
- */
-protected double toDouble(String doubleStr) {
-  double result = 0.0;
-
-  try {
-    result = Double.valueOf(doubleStr).doubleValue();
-  } catch (Exception ex) { }
-
-  return result;
-}
-
-
-/**
- * Helper method.
- *
- * @return int value of intStr if it can be parsed to double, 0.0 otherwise.
- */
-protected int toInt(String intStr) {
-  int result = 0;
-
-  try {
-    result = Integer.valueOf(intStr).intValue();
-  } catch (Exception ex) { }
-
-  return result;
 }
 
 }
