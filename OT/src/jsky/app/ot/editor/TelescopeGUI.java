@@ -98,7 +98,6 @@ public class TelescopeGUI extends JPanel {
   TextBoxWidgetExt perih = new TextBoxWidgetExt();
   TextBoxWidgetExt aorq = new TextBoxWidgetExt();
   TextBoxWidgetExt e = new TextBoxWidgetExt();
-  JLabel jLabel28 = new JLabel();
   DropDownListBoxWidgetExt conicSystemType = new DropDownListBoxWidgetExt();
   FlowLayout flowLayout1 = new FlowLayout();
   TextBoxWidgetExt l_or_m = new TextBoxWidgetExt();
@@ -112,6 +111,8 @@ public class TelescopeGUI extends JPanel {
   JLabel jLabel25 = new JLabel();
   JLabel l_or_mUnitsLabel = new JLabel();
   JLabel dmUnitsLabel = new JLabel();
+  DropDownListBoxWidgetExt dropDownListBoxWidgetExt1 = new DropDownListBoxWidgetExt();
+  CheckBoxWidgetExt offsetCheckBox = new CheckBoxWidgetExt();
 
     public TelescopeGUI() {
         try {
@@ -230,6 +231,8 @@ public class TelescopeGUI extends JPanel {
     chopSystemLabel.setText("System");
     chopSystem.setFont(new java.awt.Font("Dialog", 0, 12));
     targetSystemsTabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
+    targetSystemsTabbedPane.setMinimumSize(new Dimension(273, 140));
+    targetSystemsTabbedPane.setPreferredSize(new Dimension(274, 130));
     namedSystemPanel.setLayout(gridBagLayout6);
     jLabel21.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel21.setForeground(Color.black);
@@ -253,10 +256,7 @@ public class TelescopeGUI extends JPanel {
     eLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     eLabel.setForeground(Color.black);
     eLabel.setText("e");
-    perih.setColumns(8);
-    jLabel28.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel28.setForeground(Color.black);
-    jLabel28.setText("Type");
+    perih.setColumns(6);
     nameTBW.setColumns(10);
     nameTagPanel.setLayout(flowLayout1);
     flowLayout1.setAlignment(FlowLayout.LEFT);
@@ -268,28 +268,34 @@ public class TelescopeGUI extends JPanel {
     dmLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     dmLabel.setForeground(Color.black);
     dmLabel.setText("n");
-    jLabel20.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel20.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel20.setForeground(Color.black);
     jLabel20.setText("(MJD, TT)");
-    jLabel22.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel22.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel22.setForeground(Color.black);
     jLabel22.setText("(deg)");
-    jLabel23.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel23.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel23.setForeground(Color.black);
     jLabel23.setText("(deg)");
-    jLabel24.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel24.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel24.setForeground(Color.black);
     jLabel24.setText("(deg)");
-    jLabel25.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel25.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel25.setForeground(Color.black);
     jLabel25.setText("(AU)");
-    l_or_mUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    l_or_mUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
     l_or_mUnitsLabel.setForeground(Color.black);
     l_or_mUnitsLabel.setText("(deg)");
-    dmUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    dmUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
     dmUnitsLabel.setForeground(Color.black);
     dmUnitsLabel.setText("(deg)");
-    epoch.setColumns(8);
+    epoch.setColumns(6);
+    l_or_m.setColumns(6);
+    detailsRadVelTBW.setColumns(10);
+    offsetCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
+    offsetCheckBox.setText("Offset");
+    offsetCheckBox.setFont(new java.awt.Font("Dialog", 0, 12));
+    offsetCheckBox.setVerticalAlignment(SwingConstants.BOTTOM);
     this.add(nameTagPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
     nameTagPanel.add(jLabel1, null);
@@ -299,78 +305,78 @@ public class TelescopeGUI extends JPanel {
     this.add(targetSystemsTabbedPane, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-        objectGBW.add(nameResolversDDLBW, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+        objectGBW.add(nameResolversDDLBW, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0)); // MFO
-        objectGBW.add(resolveButton, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0
+        objectGBW.add(resolveButton, new GridBagConstraints(2, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0)); // MFO
 
-        objectGBW.add(xaxisTBW, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+        objectGBW.add(xaxisTBW, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
-        objectGBW.add(Dec_El_STW, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+        objectGBW.add(Dec_El_STW, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-        objectGBW.add(RA_Az_STW, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+        objectGBW.add(RA_Az_STW, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         objectGBW.add(jLabel3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-        objectGBW.add(systemDDLBW, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-        objectGBW.add(yaxisTBW, new GridBagConstraints(2, 2, 1, 1, 1.5, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
+        objectGBW.add(systemDDLBW, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+        objectGBW.add(yaxisTBW, new GridBagConstraints(3, 2, 1, 1, 1.5, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    objectGBW.add(offsetCheckBox, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
         this.add(extrasFolder, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
     // Target Types Tabbed Pane, added by MFO (22 February 2002)
     targetSystemsTabbedPane.add(objectGBW,            "RA/Dec");
     targetSystemsTabbedPane.add(conicSystemPanel, "Orbital Elements");
-    conicSystemPanel.add(epoch, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(orbinc, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(anode, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(epochLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(epoch, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(orbinc, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(anode, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(epochLabel, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(orbincLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(orbincLabel, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(anodeLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(anodeLabel, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(perihLabel, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(perihLabel, new GridBagConstraints(6, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(aorqLabel, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(aorqLabel, new GridBagConstraints(6, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(eLabel, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(eLabel, new GridBagConstraints(6, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(perih, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(aorq, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(e, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(jLabel28, new GridBagConstraints(0, 3, 1, 2, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(conicSystemType, new GridBagConstraints(1, 3, 1, 2, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(20, 5, 5, 5), 0, 0));
-    conicSystemPanel.add(l_or_m, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(perih, new GridBagConstraints(7, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(aorq, new GridBagConstraints(7, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(e, new GridBagConstraints(7, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel20, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
+    conicSystemPanel.add(jLabel22, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel23, new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel24, new GridBagConstraints(8, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(jLabel25, new GridBagConstraints(8, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(conicSystemType, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+    conicSystemPanel.add(l_or_m, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(dm, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
-    conicSystemPanel.add(dm, new GridBagConstraints(4, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    conicSystemPanel.add(l_or_mLabel, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(l_or_mLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(dmLabel, new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(dmLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(jLabel20, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 20), 0, 0));
-    conicSystemPanel.add(jLabel22, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(jLabel23, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(jLabel24, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(jLabel25, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(l_or_mUnitsLabel, new GridBagConstraints(5, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(dmUnitsLabel, new GridBagConstraints(5, 4, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(l_or_mUnitsLabel, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
+    conicSystemPanel.add(dmUnitsLabel, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     targetSystemsTabbedPane.add(namedSystemPanel,     "Planets, Sun, Moon");
     namedSystemPanel.add(jLabel21, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
@@ -378,8 +384,8 @@ public class TelescopeGUI extends JPanel {
     namedSystemPanel.add(namedSystemType, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 
+
     // chop mode added by MFO (3 August 2001)
-    extrasFolder.add(chopPW, "Chop Settings");
     chopPW.add(jLabel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
     chopPW.add(chopThrow, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
@@ -398,7 +404,6 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
     chopPW.add(chopSystemLabel, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        extrasFolder.add(propMotionPW, "Proper Motion");
         propMotionPW.add(jLabel14, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 49, 0, 0), 0, 0));
         propMotionPW.add(propMotionRATBW, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
@@ -411,10 +416,9 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 0, 0, 134), 0, 0));
         propMotionPW.add(jLabel15, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(18, 0, 14, 134), 0, 0));
-        extrasFolder.add(detailsPW, "Tracking Details");
-        detailsPW.add(jLabel6, new GridBagConstraints(0, 0, 1, 2, 0.0, 0.0
+        detailsPW.add(jLabel10, new GridBagConstraints(0, 0, 1, 2, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
-        detailsPW.add(detailsSystemDDLBW, new GridBagConstraints(1, 0, 3, 2, 1.0, 0.0
+        detailsPW.add(detailsRadVelTBW, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(4, 5, 0, 0), 0, 0));
         detailsPW.add(jLabel7, new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(13, 3, 0, 0), 0, 0));
@@ -424,22 +428,25 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
         detailsPW.add(jLabel8, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-        detailsPW.add(detailsParallaxTBW, new GridBagConstraints(5, 2, 2, 1, 1.0, 0.0
+        detailsPW.add(detailsParallaxTBW, new GridBagConstraints(5, 2, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 69, 0));
-        detailsPW.add(jLabel10, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 8, 0, 0), 0, 0));
-        detailsPW.add(detailsRadVelTBW, new GridBagConstraints(5, 3, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 68, 0));
+        detailsPW.add(jLabel6, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        detailsPW.add(detailsSystemDDLBW, new GridBagConstraints(5, 3, 2, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 68, 0));
         detailsPW.add(jLabel9, new GridBagConstraints(4, 0, 1, 2, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(4, 30, 6, 0), 0, 0));
         detailsPW.add(detailsEpochTBW, new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 68, 0));
-        detailsPW.add(jLabel12, new GridBagConstraints(7, 2, 1, 1, 0.0, 0.0
+        detailsPW.add(jLabel12, new GridBagConstraints(6, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(7, 0, 10, 20), 0, 0));
         detailsPW.add(detailsAutoCBW, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 14, 2, 6), 0, 0));
-        detailsPW.add(jLabel17, new GridBagConstraints(7, 3, 1, 1, 0.0, 0.0
+        detailsPW.add(jLabel17, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        extrasFolder.add(detailsPW, "Radial Vel/Tracking");
+        extrasFolder.add(propMotionPW, "Proper Motion");
+        extrasFolder.add(chopPW, "Chop Settings");
         this.add(jScrollPane1, new GridBagConstraints(0, 3, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 5, 0), 0, 0));
         jScrollPane1.getViewport().add(positionTable, null);
