@@ -405,14 +405,12 @@ public class InstConfig extends Hashtable implements Cloneable {
 
 // Check that the key is present in the second config.
             if ( ! config.containsKey( key ) ) {
-            System.out.println( "Missing key: " + key ); 
                same = false;
                break;
             }
 
 // Compare the values in the two configs.
             if ( ! get( key ).equals( config.get( key ) ) ) {
-            System.out.println( "Changed key: " + key ); 
                same = false;
                break;
             }
