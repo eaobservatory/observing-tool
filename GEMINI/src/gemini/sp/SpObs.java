@@ -94,7 +94,7 @@ getTitle()
       title = type().getReadable();
    }
    
-   if(isMSB()) {
+   if((System.getProperty("OMP") != null) && (isMSB())) {
      return title + " (" + getNumberRemaining() + "X)";
    }
    else {
