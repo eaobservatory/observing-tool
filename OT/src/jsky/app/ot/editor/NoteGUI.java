@@ -63,7 +63,7 @@ public class NoteGUI extends JPanel {
 		
 		JTextField inputField = new JTextField(50);
 		inputField.setName( observerTags[i] );
-		inputField.setMinimumSize(new Dimension(50, inputField.getMinimumSize().height));
+		inputField.setMinimumSize(new Dimension(150, inputField.getMinimumSize().height));
 		
 		JLabel exampleLabel = new JLabel( observerExamples[i] );
 		exampleLabel.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -73,7 +73,8 @@ public class NoteGUI extends JPanel {
 								      GridBagConstraints.WEST, 
 								      GridBagConstraints.NONE, 
 								      new Insets(0, 0, 0, 5), 0, 0));
-		observerInputPanel.add( inputField, new GridBagConstraints(1, i, 2, 1, 0.0, 0.0, 
+
+		observerInputPanel.add( inputField, new GridBagConstraints(1, i, 2, 1, 1.0, 0.0, 
 									   GridBagConstraints.WEST, 
 									   GridBagConstraints.NONE, 
 									   new Insets(0, 0, 0, 5), 0, 0));
