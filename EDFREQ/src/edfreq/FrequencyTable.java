@@ -174,7 +174,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 	 }
          widthChoice = new JComboBox ( bandWidthItems );
 	 widthChoice.addItemListener(new NumberedBandWidthListener(j));
-         samplers[j] = new Sampler ( feIF, bandWidths, channels, widthChoice );
+         samplers[j] = new Sampler ( feIF, feBandWidth, bandWidths, channels, widthChoice );
 
          data[j][0] = new SideBand ( lLowLimit, lHighLimit, 
            bandWidths[0], -feIF, (Sampler)samplers[j], 
