@@ -152,7 +152,12 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
     if((SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument()) != null) &&
        (_instSCUBA.getBolometer() != null)) {
 
-      Vector bolometers = SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument());
+      Vector bolometers = new Vector();
+      // Counting downwards is a trick for getting the list of SHORT and LONG bolometers
+      // in the right order (starting with A1).
+      for(int i = selectedSubInstruments.length - 1; i >= 0; i--) {
+        bolometers.addAll(SpInstSCUBA.getBolometersFor(selectedSubInstruments[i]));
+      }
 //      _w.explicitBolometer.setValue(true);
 //      _w.explicitBolometer.setVisible(true);
       _w.bolometerList.setChoices(bolometers);
