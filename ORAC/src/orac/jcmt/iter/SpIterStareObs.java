@@ -52,10 +52,18 @@ public SpIterStareObs()
 }
 
 public double getElapsedTime() {
-   double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
+    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+    double overhead = 0.0;
+    double totalIntegrationTime = 0.0;
 
-   // 18 seconds per integration
-   return (18 * getIntegrations()) + overhead;
+    if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
+	// 18 seconds per integration
+	totalIntegrationTime = 18 * getIntegrations();
+    }
+    else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+    }
+   return (overhead + totalIntegrationTime);
 }
 
 }
