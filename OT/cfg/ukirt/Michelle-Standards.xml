@@ -9,7 +9,7 @@
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_selected>false</meta_gui_selected>
     <meta_gui_collapsed>false</meta_gui_collapsed>
-    <title>Imaging Standards (N & Q Bands)</title>
+    <title>Imaging Standards (N &amp; Q Bands)</title>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
       <note>This list of bright imaging standards has been taken from www.jach.hawaii.edu/JACpublic/UKIRT/astronomy/calib/10_20stds.html and you should refer to this page for magnitudes.
@@ -7718,7 +7718,7 @@ These observations follow a standard technique for N and Q band point source ima
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
-    <title>Spectroscopy Standards (N & Q Bands)</title>
+    <title>Spectroscopy Standards (N &amp; Q Bands)</title>
     <SpNote type="no" subtype="none">
       <title>About N and Q band telluric standards</title>
       <meta_gui_selected>false</meta_gui_selected>
