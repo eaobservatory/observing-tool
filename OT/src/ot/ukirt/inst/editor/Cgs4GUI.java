@@ -126,7 +126,7 @@ public class Cgs4GUI extends JPanel {
     jLabel7.setText("(sec)");
     jLabel8.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel8.setForeground(Color.black);
-    jLabel8.setText("(exp/observe)");
+    jLabel8.setText("(exp/integration)");
     jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel9.setForeground(Color.black);
     jLabel9.setText("Sampling");
