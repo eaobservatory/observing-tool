@@ -63,15 +63,12 @@ public class DatabaseDialog implements ActionListener {
   public static int ACCESS_MODE_FETCH = 0;
   public static int ACCESS_MODE_STORE = 1;
 
-  //private static String [] ACTION_COMMANDS = {"Fetch", "Store"};
-
   private static int _mode = ACCESS_MODE_FETCH;
 
   private static SpItem _spItemToBeSaved = null;
   
   private DatabaseAccessThread _databaseAccessThread;
   private StopActionWidget _stopAction   = new StopActionWidget();
-  private boolean _accessingDatabase     = false;
   private boolean _databaseAccessAborted = false;
 
 
@@ -217,6 +214,7 @@ public class DatabaseDialog implements ActionListener {
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      _stopAction.actionsFinished();
       return;
     }
 
@@ -239,18 +237,21 @@ public class DatabaseDialog implements ActionListener {
     }
   }
 
-  protected static void storeProgram(String password) {
-    //String result = null;
+  protected void storeProgram(String password) {
 
     try {
       SpClient.SpStoreResult result = (new SpClient()).storeProgram((SpProg)_spItemToBeSaved, password);
 
       ((SpProg)_spItemToBeSaved).setTimestamp(result.timestamp);
 
-      new FormattedStringBox(result.summary, "Database Message");
+      String dialogString = result.summary +
+                            "\nPLEASE SAVE THE SCIENCE PROGRAM IN ORDER TO KEEP TIMESTAMP INFORMATION.";
+
+      new FormattedStringBox(dialogString, "Database Message");
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      _stopAction.actionsFinished();
       return;
     }
   }
@@ -264,16 +265,7 @@ public class DatabaseDialog implements ActionListener {
     Object w  = evt.getSource();
 
     if (w == _w.confirmButton) {
-      // In the middle of accessing database. Ignore renewed button press.
-      if(_accessingDatabase) {
-        return;
-      }
-      else {
-        _accessingDatabase = true;
-        _databaseAccessThread = new DatabaseAccessThread();
-        _databaseAccessThread.start();
-      }
-
+      accessDatabase();
       return;
     }
 
@@ -288,44 +280,41 @@ public class DatabaseDialog implements ActionListener {
     }
   }
 
-    /**
-     * This class changes the color and text of the "Resolve" button that starts the name rsolver.
-     *
-     * This inner class is very similar to the class NameResolverFeedback in {@link jsky.app.ot.editor.EdCompTargetList}.
-     * If this design/implementaton is accepted the two classes should inherit from a super class,
-     * say, ot.util.CanelableThreadButton.
-     */
-    class DatabaseAccessThread extends Thread {
-	//private boolean _active = true;
+  public void accessDatabase() {
+    _databaseAccessThread = new DatabaseAccessThread();
+    _databaseAccessThread.start();
+    _stopAction.actionsStarted();
+    _w.confirmButton.setEnabled(false);
+  }
 
-	//public void deActivate() {
-	//    _active = false;
-	//}
+  public void databaseAccessFinished() {
+    _databaseAccessAborted = false;
+    _stopAction.actionsFinished();
+    _w.confirmButton.setEnabled(true);
+  }
+
+  /**
+   * This class changes the color and text of the "Resolve" button that starts the name rsolver.
+   *
+   * This inner class is very similar to the class NameResolverFeedback in {@link jsky.app.ot.editor.EdCompTargetList}.
+   * If this design/implementaton is accepted the two classes should inherit from a super class,
+   * say, ot.util.CanelableThreadButton.
+   */
+  class DatabaseAccessThread extends Thread {
     
-	public void run() {
-	  _stopAction.actionsStarted();
-	  //_w.confirmButton.setText("Stop.");
-	  //_w.confirmButton.setBackground(Color.red);
+    public void run() {
 
-          if(_mode == ACCESS_MODE_STORE) {
-            //  loginTextBox contains the proejctID aka Science Program name.
-	    storeProgram(_w.passwordTextBox.getText());
-          }
-          else {
-            //  loginTextBox contains the proejctID aka Science Program name.
-	    fetchProgram(_w.loginTextBox.getText(), _w.passwordTextBox.getText());
-          }
+      if(_mode == ACCESS_MODE_STORE) {
+        //  loginTextBox contains the proejctID aka Science Program name.
+        storeProgram(_w.passwordTextBox.getText());
+      }
+      else {
+        //  loginTextBox contains the proejctID aka Science Program name.
+        fetchProgram(_w.loginTextBox.getText(), _w.passwordTextBox.getText());
+      }
 
-          // If the DatabaseAccessThread has been deactivated by user request "Stop"
-	  // then ignore 
-	  //if(_active == false) {
-	  //  return;
-	  //}
-
-	  _accessingDatabase     = false;
-	  _databaseAccessAborted = false;
-	  _stopAction.actionsFinished();
-	}
+      databaseAccessFinished();
     }
+  }
 }
 
