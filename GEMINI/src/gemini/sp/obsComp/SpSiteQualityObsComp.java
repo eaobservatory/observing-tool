@@ -6,6 +6,7 @@
 //
 package gemini.sp.obsComp;
 
+import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 
 /**
@@ -50,12 +51,23 @@ public class SpSiteQualityObsComp extends SpObsComp
       "photometric", "spectroscopic", "ignore"
    };
 
+   public static final SpType SP_TYPE =
+   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo", "Site Quality");
+
+   // Register the prototype.
+   static {
+     SpFactory.registerPrototype(new SpSiteQualityObsComp());
+   }
+
+
 /**
  * Default constructor.  Initialize the component type.
  */
 public SpSiteQualityObsComp()
 {
-   super( SpType.OBSERVATION_COMPONENT_SITE_QUALITY );
+   // MFO: Changed because UKIRT and JCMT use different site quality components.
+   super(SP_TYPE);
+   //super( SpType.OBSERVATION_COMPONENT_SITE_QUALITY );
 
    _avTable.noNotifySet(ATTR_IMAGE_QUALITY, IMAGE_QUALITY_OPTIONS[IMAGE_QUALITY_IGNORE], 0);
    _avTable.noNotifySet(ATTR_IR_BACKGROUND, IR_BACKGROUND_OPTIONS[IR_BACKGROUND_IGNORE], 0);
