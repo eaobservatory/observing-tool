@@ -137,10 +137,14 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 
 
 clean:
-	rm -f  $(CLASS_FILES)
-	rm -f  $(JAR_DIR)/$(JAR_FILE)
-	rm -rf $(DOC_DIR)/*
-
+	@echo " Delete these directories?\n"\
+	      "  $(CLASSES_DIR)\n"\
+	      "  $(JAR_DIR)\n"\
+	      "  $(DOC_DIR)\n"\
+	      "  $(LOCAL_INSTALL_ROOT)\n"\
+	      "Yes: return / Cancel: Ctrl-d"
+	@read a
+	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
 
 
 ###################################################################
