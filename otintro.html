@@ -13,16 +13,16 @@ ff0000">
 
     This document is a primer on how to use the JCMT Observing Tool
     (JCMT OT) to prepare and submit SCUBA observations for semester
-    2003A (see <a href="#why">Why do I have to do this?</a>. It
+    2003A (see <a href="faq.html#why">Why do I have to do this?</a>. It
     assumes that you have already downloaded and installed the
     software (see our <a href="download.html">download page</a> - make
     sure you have downloaded the latest version!). Of course if you are
     using a JAC, UKIRT or JCMT machine, the software is already
-    installed. It also assumes that you understand the basic SCUBA
-    observing techniques. If you don't know what a jiggle map is, you
+    installed. It also assumes that you understand the basic SCUBA or heterodyne
+    observing techniques. If you don't, you
     are not ready for this! Consult the <a
-    href="http://www.jach.hawaii.edu/JACpublic/JCMT/User_documentation/Users_guide/guide/node35.html">
-    SCUBA section of the JCMT manual</a> first. <p>
+    href="http://www.jach.hawaii.edu/JACpublic/JCMT/User_documentation/Users_guide/guide/">
+    the JCMT User Guide</a> first. <p>
 
 If you are viewing this document through the JCMT-OT Help menu, there
 may be a more up-to-date version on our web site at <a
@@ -38,9 +38,10 @@ href="http://www.jach.hawaii.edu/JACpublic/JAC/software/jcmtot/index.html?printa
       preparing your observations, email <a
       href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>
 
- Heap praise or abuse on the author of this
+ Heap praise or abuse on the authors of this
       document at <a
-      href="mailto:frossie@jach.hawaii.edu">frossie@jach.hawaii.edu</a>
+      href="mailto:frossie@jach.hawaii.edu">frossie@jach.hawaii.edu</a> (SCUBA primer) or <a
+      href="mailto:j.leech@jach.hawaii.edu">j.leech@jach.hawaii.edu</a> (Heterodyne primer).
 
 
 <h2>Contents</h2>
@@ -55,64 +56,91 @@ href="http://www.jach.hawaii.edu/JACpublic/JAC/software/jcmtot/index.html?printa
       <li><a href="#gs">Getting started</a>
       <li><a href="#ysp">Your science program</a>
       <li><a href="#syp">Saving your progress</a>
-      <li><a href="#ggtm">Getting going: The MSB</a>
-      <li><a href="#oe">Our example: preparing an 850/450 jiggle map</a>
-      <li><a href="#ria">Really Important Aside - or is it Inside? </a>
-      <li><a href="#etmc">Editing the MSB  component</a>
-      <li><a href="#eoam">Elements of an MSB</a>
-      <li><a href="#tsqc">The Site Quality component</a>
-      <li><a href="#tsc">The SCUBA component</a>
-      <li><a href="#tfoc">The first observation: Calibration</a>
-      <li><a href="#ts">The sequence</a>
-      <li><a href="#thingies">Components, Iterators And All That</a>
-      <li><a href="#eyes">The Eyes have it</a>
-      <li><a href="#tci">The chop iterator</a>
-      <li><a href="#tje">The Jiggle eye</a>
-      <li><a href="#tso">The science observation</a>
-      <li><a href="#tcc">The target component</a>
-      <li><a href="#tpe">The position editor</a>
-      <li><a href="#time">The repeat iterator and integration time in general</a>
-      <li><a href="#notes">The only good observer is an informed observer</a>
-      <li><a href="#recap">Recap</a>
-      <li><a href="#database">Submitting to our database</a>
-      <li><a href="#faq">Frequently Asked Questions</a>
+      <li><a href="#ggtm">Getting going: The MSB</a> <p>
+
+      <li><a href="scuba_example.html"> <b>SCUBA Example</b></a> 
+<ul>
+      <li><a href="scuba_example.html#oe">Our example: preparing an 850/450 jiggle map</a>
+      <li><a href="scuba_example.html#ria">Really Important Aside - or is it Inside? </a>
+      <li><a href="scuba_example.html#etmc">Editing the MSB  component</a>
+      <li><a href="scuba_example.html#eoam">Elements of an MSB</a>
+      <li><a href="scuba_example.html#tsqc">The Site Quality component</a>
+      <li><a href="scuba_example.html#tsc">The SCUBA component</a>
+      <li><a href="scuba_example.html#tfoc">The first observation: Calibration</a>
+      <li><a href="scuba_example.html#ts">The sequence</a>
+      <li><a href="scuba_example.html#thingies">Components, Iterators And All That</a>
+      <li><a href="scuba_example.html#eyes">The Eyes have it</a>
+      <li><a href="scuba_example.html#tci">The chop iterator</a>
+      <li><a href="scuba_example.html#tje">The Jiggle eye</a>
+      <li><a href="scuba_example.html#tso">The science observation</a>
+      <li><a href="scuba_example.html#tcc">The target component</a>
+      <li><a href="scuba_example.html#tpe">The position editor</a>
+      <li><a href="scuba_example.html#time">The repeat iterator and integration time in general</a>
+      <li><a href="scuba_example.html#notes">The only good observer is an informed observer</a> <p>
+</ul>
+      <li><a href="het_example.html"> <b>Heterodyne Example</b></a> 
+<ul>
+<li><a href="het_example.html#het_anat"> Anatomy of a beam-switched MSB </a> 
+ <li><a href="het_example.html#ria">Really Important Aside - or is it Inside? </a>
+<li><a href="het_example.html#het_eoam">Elements of an MSB</a>
+ <li><a href="het_example.html#het_thsc">The Het Setup component</a>
+<li><a href="het_example.html#het_tsc">The Site Quality component</a>
+ <li><a href="het_example.html#het_tfoc">The observation: Science Target</a>
+   <li><a href="het_example.html#het_tcc">The target component</a>
+<li><a href="het_example.html#het_tpe">The position editor</a>
+ <li><a href="het_example.html#het_tci">The chop iterator</a>
+<li><a href="het_example.html#het_sample">The photom/sample eye</a>
+ <li><a href="het_example.html#het_time">The repeat iterator and integration time in general</a>
+<li> <a href="het_example.html#het_note">Adding  a note</a>
+<li><a href="het_example.html#het_summary">Summary: Making your heterodyne MSB.</a>
+<li><a href="het_example.html#het_msblib">The Heterodyne MSB library</a>
+<li><a href="het_example.html#het_freq_ed"> The frequency editor</a> <p>
+
+</ul>
+
+      <li><a href="recap.html#recap"> <b>Recap</b></a>
+<ul> 
+     <li><a href="recap.html#database">Submitting to our database</a> <p>
+</ul>
+     
+ <li><a href="faq.html#faq"><b>Frequently Asked Questions</b></a>
 
 <ul>
 
-<li><a href="#why"><em>Why do I have to do this</em>?</a>
+<li><a href="faq.html#why"><em>Why do I have to do this</em>?</a>
 
-<li><a href="#deadline"><em>What is the deadline for submissions?</em></a>
+<li><a href="faq.html#deadline"><em>What is the deadline for submissions?</em></a>
 
-<li><a href="#scheduling"><em>What happens to my MSBs after I submit them?</em></a>
+<li><a href="faq.html#scheduling"><em>What happens to my MSBs after I submit them?</em></a>
 
-<li><a href="#msb"><em>What makes a good MSB?</em></a><p>
+<li><a href="faq.html#msb"><em>What makes a good MSB?</em></a>
 
-<li><a href="#redundancy"><em>My MSBs only last half an hour so it is
+<li><a href="faq.html#redundancy"><em>My MSBs only last half an hour so it is
       a waste to do a calibration for each one!</em></a>
 
-<li><a href="#library"><em>I want to do something that is not in the
+<li><a href="faq.html#library"><em>I want to do something that is not in the
       library</em></a>
 
-<li><a href="#server"><em>What does the warning
+<li><a href="faq.html#server"><em>What does the warning
 		  "Some of the observations in the MSB contained
 		  default settings for the target information"
 		    mean? </em></a>
 
-<li><a href="#timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
+<li><a href="faq.html#timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
 
 </ul>
 
-<li><a href="#advanced">Advanced topics</a>
+<li><a href="advanced.html#advanced"><b>Advanced topics</b></a>
 
 <ul>
 
-<li><a href="#placement">A note about placement</a>
+<li><a href="advanced.html#placement">A note about placement</a>
 
-<li><a href="#replication">Generating a programe from a catalogue file</a>
+<li><a href="advanced.html#replication">Generating a programe from a catalogue file</a>
 
-<li><a href="#constraints">Additional scheduling constraints</a>
+<li><a href="advanced.html#constraints">Additional scheduling constraints</a>
 
-<li><a href="#offsets">Offsets around a base science position</a>
+<li><a href="advanced.html#offsets">Offsets around a base science position</a>
 
 
 </ul>
@@ -219,935 +247,21 @@ observations yet.
     efficient MSB consists of a 0.5 to 2 hour observation on a single
     science target and any necessary calibrations.<p>
 
-      Since SCUBA is best used in a few well-understood ways, we have
-      prepared for you a library of MSBs that you can add to your
-      Science Program and modify to your requirements. In the rest of
-      the document I'll show you how to specify a 850/450 jiggle map
-      of your target. If
-      you follow this
-      example through, you should be able to use any
-      of the other library MSBs with no problems.<p>
+      Since SCUBA or the heterodyne instruments are best used in a few
+      well-understood ways, we have prepared for you librararies of
+      MSBs that you can add to your Science Program and modify to your
+      requirements. If you want to prepare a SCUBA observation go to
+      the <a href="scuba.html"> 850/450 jiggle map tutorial</a>; if
+      you want to prepare a heterodyne observation, go to the <a
+      href="het_example.html"> heterodyne tutorial </a>.
 
 
-    <h2><a name="oe">Our example: preparing an 850/450 jiggle map</a></h2>
 
-    Go to the JCMT root window, and open the SCUBA library:<p>
 
-    <img src="images/filelibrary.gif" alt="Opening the SCUBA library"><p>
-
-    A window will pop up containing a note and list of folders. The
-    little switch on the left of the folder icons is an open/close
-    toggle switch. Push open the folder titled "SCUBA MSBs" and then
-    open the folder entitled "Jiggle Map MSBs". The results of those
-      steps are illustrated below:<p>
-
-    <img src="images/library.gif" alt="Contents of the SCUBA library"><p>
-
-      Inside the the "Jiggle Map MSBs" folder are a list of
-      MSBs. Select the 850/450 MSB and click "Copy" on the toolbar.<p>
-
-    <img src="images/copy.gif" alt="Copying an MSB"><p>
-
-      Now go back to your Science Program window, and click on
-      "Paste". The MSB will be dropped into your science
-      program. Congratulations! You're now well underway. Now is a
-      good time to save your progress, so use the File->Save option in
-      your Science Program window and carry on.
-
-    <h2><a name="ria">Really Important Aside - or is it Inside? </a></h2>
-
-Do you see how the icon for the MSB is not directly below the icon for
-the Science Program but indented to the right? That's because the MSB
-is <em>inside</em> the Science Program. This is a classic way of
-representing a hierarchical structure, and many of you will be
-familiar with it from other applications, such as the "Manage
-Bookmarks" screen in the Netscape and Mozilla browsers.
-
-
-    <h2><a name="etmc">Editing the MSB  component</a></h2>
-
-    <p> Click on the title of the MSB. This will activate the MSB
-    editor panel on the right section of your window.<p>
-
-    <img src="images/msb.gif" alt="MSB component editor"><p>
-
-      The properties of an MSB are very simple. 
-
-      <ul>
-
-      <li>It has a title which you can change to something meaningful
-      (in my screenshot below I use "Jiggle Map of
-      W48"). <strong>Please</strong> take the time to do this - it
-      really helps the person doing the observing.
-
-      <li>A pull down menu with a repeat counter. Leave that to 1 for
-      the time being.
-
-      <li>The priority of the MSB. Note that this only affects the
-      internal priority of your MSBs - not the priority allocated to
-      your entire project by your TAG. So if you had two different
-      MSBs that rose to the top of the scheduling queue and one had
-      priority "1" and the other "99", the one marked "High" will
-      normally get done first. If all your MSBs are of equal interest
-      to you, just don't bother changing the default.
-
-	<small>Small print: Bear in mind though that MSB selection is
-	an operational decision - marking your MSBs with priorities 1,
-	2, 3 etc is no guarantee that they will be done in precisely
-	that particular order. For example, your lower-priority MSBs
-	could be done because they are observable at a time of day
-	where there is not much else in the queue, whereas your
-	high-priority MSBs could be competing against the top-ranked
-	project. Also, the observer/TSS may sometimes select a lower
-	priority MSB because it is the most efficient choice at the
-	time, because of its duration or azimuth.</small>
-
-    </ul>
-
-There is also a display of the OT's estimate of how long the MSB
-will take. 
-
-<h2><a name="eoam">Elements of an MSB</a></h2>
-
-    Click on the push lever to open up your MSB. Inside you will find
-    a Site Quality component, a SCUBA component and two observation
-    components (one calibration, one science):<p>
-
-    <img src="images/elements.gif" alt="Inside an MSB"><p>
-
-     We'll now go through these individually.
-
-
-    <h2><a name="tsqc">The Site Quality component</a></h2>
-
-    The Site Quality component specifies any weather-related
-    scheduling requirements for an MSB. Click on the Site Quality
-    component to get the Site Quality panel:<p>
-
-    <img src="images/sitequality.gif" alt="Site Quality Component"><p>
-
-     You probably don't need to change anything here. The default
-     value of tau of "Allocated" means that your MSB can be scheduled
-     when the tau is in the range that was specified by your TAG for
-     your project The default value of the sub-millimetre seeing is
-     "Don't Care". If you think you need to change these values, click
-     on the note entitled "Note: Site Quality" which contains a
-     lengthy explanation, but don't get bogged down in this for
-     now. 
-
-
-    <h2><a name="tsc">The SCUBA component</a></h2>
-
-    The SCUBA component specifies SCUBA's configuration for this
-    MSB. Click on the SCUBA component to get the JCMT SCUBA panel:<p>
-
-    <img src="images/scuba.gif" alt="Scuba Component"><p>
-
-    You probably don't need to change anything here. Since you started
-    out by copying a 450/850 jiggle map out of the library it is
-    already set to use the 450W/850W array. Just note that this is the
-    place where you can specify which filter and which array or
-    bolometer to use.
-
-    <h2><a name="tfoc">The first observation: Calibration</a></h2>
-
-    Now click on the first observation to bring up its panel<p>
- 
-    <img src="images/calibration.gif" alt="Calibration Observation"><p>
-
-    The properties of an observation are quite simple. It has a name
-    and also an estimate of that observation's duration. The tickbox
-    marked "Flag as calibration" is fairly self-explanatory but has
-      some important implications. When this box is ticked it means:
-
-<ul>
-
-      <li>The observation is exempt from having a specific
-      target. Instead the TSS may choose a source at their
-	discretion, for example by picking high elevation JCMT
-	calibrator in the right quadrant.<p>
-
-
-      <li>The observation may be deferred till later, at the
-      discretion of the TSS, if a calibrator is not available but will
-	rise later in the night. <p>
-
-
-      <li>The observation is optional. This means that the TSS may
-      skip it at his discretion if an appropriate calibration was
-      recently taken. See <a href="#redundancy">My MSBs only last half
-	  an hour so it is a waste to do a calibration for each one!</a><p>
-
-	
-      <li>Depending on your national queue's accounting procedures,
-      your project may not be ultimately charged with some or all of
-      the time spent observing the calibrator.<p>
-
-
-</ul>
-
-    <h2><a name="ts">The sequence</a></h2>
-
-Push the toggle on the left of the calibration observation to open it
-up:<p>
-
-      <img src="images/sequence.gif" alt="The sequence iterator"><p>
-
-      Lots of stuff here, but no need to panic. First, there is
-      another note, since we do try and make our library MSBs
-      self-documenting. If you actually want to use this or any other
-      of our library MSBs for real make sure you read all the notes! 
-      After the note there is what we call a sequence iterator (more
-      about this below in <a href="#thingies">Components, Iterators
-      And All That</a>) The sequence iterator doesn't do anything per
-      se, so you can ignore it for the moment, but it is important to
-      note that it represents the sequence of events at the
-      telescope.<p>
-
-Inside it are a chop iterator and 5 "eyes". Eyes?? Time for another
-aside.
-
-<h2><a name="thingies">Components, Iterators And All That</a></h2>
-
-We've talked about several things so far, so it's time to have a quick
-run down. <p>
-
-<ul>
-
-      <li> <img src="images/icon_msb.gif" alt="*">MSBs
-      <strong>are</strong> individually schedulable blocks and
-      <strong>contain</strong> one or more fully specified science
-      observation and any calibrations.<p>
-
-      <li><img src="images/icon_observation.gif" alt="*">Observations
-      <strong>are</strong> observations of a single astronomical
-	target and <strong>contain</strong> components and a sequence.<p>
-
-
-
-      <li><img src="images/icon_component.gif" alt="*">Components
-      <strong>are</strong> configurators for the JCMT systems such as
-      the instrument (SCUBA component), the telescope (Target
-      component) and the scheduler (Site Quality component). <p>
-
-      <li><img src="images/icon_iterator.gif" alt="*">Iterators
-      <strong>are</strong> potentially multiple actions and
-      <strong>contain</strong> other iterators and one or more
-      eyes.<p>
-
-      <li><img src="images/icon_eye.gif" alt="*">Eyes
-      <strong>are</strong> actions that results in the actual taking
-      of data - a single data file per eye to be precise.<p>
-
-
-      <li><img src="images/icon_note.gif" alt="*">Notes
-      <strong>are</strong> a repository of useful information and can
-      go anywhere.<p>
-
-</ul>
-
-    <h2><a name="eyes">The Eyes have it</a></h2>
-
-Now look at that Sequence again. What we have is the classic SCUBA
-calibration sequence - a skydip, followed by a pointing, a focus,
-another pointing and a jiggle map. How many data files will result
-    from this sequence? Five eyes - five data files.<p>
-
-By clicking on the various eyes you can see their properties but you
-don't need to change any of those now. 
-
-    <h2><a name="tci">The chop iterator</a></h2>
-
-    Click on the chop iterator:<p>
-
-
-    <img src="images/chop.gif" alt="The Chop Iterator"><p>
-
-      The chop iterator has a list of chop configurations (in this
-      example only one 120 arcsecond chop, but for scan maps there are
-      typically six). Each chop needs to be specified by a throw, an
-      angle, and co-ordinate frame of the angle. In this example the
-      frame is AZEL (Azimuth Elevation) but other common options are
-      TRACKING (RA & Dec) or FPLANE (Focal Plane, ie Nasmyth for
-      SCUBA).<p>
-
-    <h2><a name="tje">The Jiggle eye</a></h2>
-
-    No need to edit any properties here, but you might note that since
-    the Jiggle eye is <strong>inside</strong> the chop iterator (see
-    how it is indented?), the chop action will apply to it. So, your
-    jiggle observation will be have a 120 arcsecond, 90 degree AZEL
-    chop as specified in the chop iterator. More about how placement
-    affects properties in <a href="#placement">A Note About
-    Placement</a><p>
-
-
-    <h2><a name="tso">The science observation</a></h2>
-
-    Now expand your science target - nothing you haven't seen before
-    except for the Target component and the Repeat iterator which
-    we'll cover next. Meanwhile, take this opportunity to give your
-    observation a sensible name and to save your progress.
-
-    <h2><a name="tcc">The target component</a></h2>
-
-    Click on the target component to bring up its panel:<p>
-    
-   <img src="images/target.gif" alt="The Target component"><p>
-
-      At first glance you might thing that what you have to do here is
-      enter your target name and position and you can certainly do
-      that. However you can do even less than that - if you are using
-      a machine with an Internet connection try just entering the name
-      of your target (in our example the IRAS source 18592+0108) and
-      hit "Resolve Name".<p>
-
-      After a brief pause the RA and DEC co-ordinate fields are
-      populated with the SIMBAD co-ordinates for the source. The
-      SIMBAD name for the source will also be indicated next to the
-      "Resolve Name" button.  And of course, double check that the
-      co-ordinates are those you intend to observe.<p>
-
-      But wait - that's not all.<p>
-
-    <h2><a name="tpe">The position editor</a></h2>
-
-    You can skip this section if you want because you don't have to do
-    anything, but it's kind of cool and can be very useful in picking
-    a good chop position. Click on the plot button at the bottom left
-    of the target panel:<p>
-
-   <img src="images/plot.gif" alt="Plotting a position"><p>
-
-      A whole new window will pop up - this is the position
-      editor. Looks a bit boring at the moment though, with just a
-      small green crosshair in the middle. Let's make it a bit more
-      interesting - go to Catalog menu and into the Image Servers item
-      and chose a Digital Sky Survey near near you:<p>
-
-   <img src="images/tpe.gif" alt="The Position editor"><p>
-
-      It's now full of stars. The display application, by the way, is
-      is based on JSky, for those familiar with it. <p>
-
-      The DSS may not be the most useful survey for planning
-      sub-millimetre observations, but you can read in any FITS image
-      with an appropriate WCS header using Open under the File
-      menu. You can also fetch a FITS image over the Web.
-
-      In the screenshot below I have loaded the SCUBA commissioning
-      scan map of W48 <em>(image courtesy Tim Jenness)</em>. If you
-      have an Internet connection, go to the File menu, select "Open
-      URL...:" and type in the following URL: <a
-      href="http://www.jach.hawaii.edu/JAC/software/jcmtot/w48.fits">http://www.jach.hawaii.edu/JAC/software/jcmtot/w48.fits</a>
-      or download the image by clicking on the link and and use
-      File-&gt;Open to read it in:<p>
-
-      <img src="images/w48.gif" alt="W48"><p>
-
-      You will then see the DSS image replaced with the sub-millimetre
-      image.<p>
-
-      <small>A short technical note if you are planning on generating
-      your own image for import: if you want to import a
-      SCUBA map in NDF format, convert it to FITS by using the starlink
-      convert utility with the following arguments:
-
-<pre>ndf2fits encoding=FITS-IRAF bitpix=32 comp=D</pre>
-
-    If you have difficulty despite doing this, let us know.</small><p>
-
-    <p>As I mentioned before, the green cross-hair is the position of
-    your science co-ordinates. Click on the button on the left side of
-    the position editor entitled "Sci Area". The circle that is drawn
-    is the SCUBA field of view.<p>
-
-    Now for the useful thing I mentioned earlier. While leaving the
-    position editor window open, go back to your science program
-    window and click on your chop iterator that is inside your science
-    observation. Now look at the position editor. The chop beams and
-    the area in which they will rotate during integration are
-    drawn. Well, that's no good - we're chopping onto bright stuff! 
-    <p>
-
-
-    This is where the position editor comes into its own. We are going
-    to use it to specify where exactly we would like to chop. In the
-    chop iterator, use the drop down menu to change the chopping
-    co-ordinate frame from AZEL to TRACKING (i.e. RA/DEC). You will
-    notice that in the position editor the uncertainty circles have
-    disappeared, since we will always chop in the same position in the
-    sky:<p>
-
-      <img src="images/tpe_chop.gif" alt="Chop and the Position Editor"><p>
-	   
- Now back in the position editor, click on the Drag button on the
- upper left side of the window. The click on the centre of one of the
-	   chop beams in the display and drag it away from the emission:<p>
-
-      <img src="images/tpe_chop2.gif" alt="Dragging the Chop"><p>
-
-      You will note that the values in the chop iterator have
-      automatically changed to reflect the new chop throw and angle
-      values. Neat, eh? If you are going to do this for real and have
-      a calibration observation in the same MSB, don't forget that the
-      chop in your calibration observation should be the same, so you
-      should update the calibration chop iterator with whatever values
-      you decided on for your science calibration.<p>
-
-      You can also click on the target component and use Drag to
-      change your science co-ordinates if you wish. 
-
-
-    <h2><a name="time">The repeat iterator and integration time in general</a></h2>
-
-    Back to your Sciece Program window now. Click on the Repeat
-    iterator. It's only property is a repeat counter:<p>
-
-      <img src="images/repeat.gif" alt="The Repeat Iterator"><p>
-
-      The repeat iterator acts on things that are
-      <strong>inside</strong> the repeat iterator (i.e. indented under
-      it) in turn. So if you set it to 2, your science observation
-      consists of a pointing followed by two jiggle maps. How many
-      data files will this result in? Three! <p>
-
-      Now you can see how your time usage builds up. Working our way
-      inside out (and bottom to top): <p>
-
-<ul>
-      <li><img src="images/icon_eye.gif" alt="*"> The Jiggle eye can be set to a number of integrations (and
-      shows you the estimated RMS noise) that will result from the
-      number of integrations in that single Jiggle<p>
-
-      <li><img src="images/icon_iterator.gif" alt="*">The Repeat
-      iterator multiplies the number of times the Jiggle is carried
-      out. If you increase it from the default of 1, don't forget to
-      take that into account when calculating how deep you will go.<p>
-
-      <li><img src="images/icon_component.gif" alt="*">The observation
-      component shows you the estimated time of the sequence it
-      contains. In our example this includes the time of the pointing
-      plus the time of the jiggle repeated twice.<p>
-
-      <li><img src="images/icon_msb.gif" alt="*">The MSB component
-      will give you the estimated time of the observations inside it -
-      in this case the science observation plus the calibration
-      observation. Let's be clear: this is the estimated time of that
-      single MSB.<p>
-
-      <li><img src="images/sci_prog.gif" alt="*">The Science Program will give you the estimated time of all
-      MSBs inside it including the number of repeats. So if you have a
-      1hr MSB (as in this example) and you set the MSB counter to 2,
-      your MSB estimated time will be 1hr and your Science Program
-      time will show 2hrs.
-
-</ul>
-
-    I hope that makes sense.
-
-
-    <h2><a name="notes">The only good observer is an informed observer</h2>
-
-As you can see from the library we have insterted informative notes
-    for detailed observation. But this works both ways -<strong> you</strong> should also
-make a note containing information that will be useful to the observer
-taking your data! This note should describe the aim of the
-    observations and adress observational concerns such as:<p>
-
-
-<ul>
-
-  <li> "Stable weather is critical for this project, tau is less important
-    i.e. can be done when weather is on the edge of the allocated band."
-
-  <li> pointing and focus are critical for this project. Please repeat
-  any pointings with shifts in excess of 2 arcseconds.  Please repeat
-  the Z-focus at least once every two hours and the X-, and Y-focus at
-  least at the start and middle of the shift.
-
-<li> Precise calibration is/is not exremely important for this project
-
-</ul>
-
-If you wish to make a single note that pertains to all your MSBs,
-highlight the title of your science programme and click on "Note" on
-the left toolbar.  A note will be dropped in just below your
-    highlight.<p>
-
-
-      <img src="images/note.gif" alt="Inserting a note"><p>
-
-You may then click on the note itself, which allows you to tick the
-"Show to observer" option and enter your comments. This will also turn
-the note red in your science programme window. 
-
-      <img src="images/note2.gif" alt="Show note to observer"><p>
-
-If you prefer, you can also put in an individual note in each MSB. If
-there is a "Show to observer" note inside an MSB, it will be shown
-<strong>instead</strong> of any note specified at the science program
-level (see <a href="#placement">A note about placement</a>) as only one
-	      note can be shown during observing.<p>
-
-
-
-    <h2><a name="recap">Recap</a></h2>
-
-    Phew! You've finally reached the end - but what did you really
-    <strong>have</strong> to do so far?
-
-<ul>
-
-      <li>Fill in your Science Program details<p>
-      <li>Fetch a template MSB from the library<p>
-      <li>Set the target co-ordinates
-
-</ul>
-
-    And probably:<p>
-
-<ul>
-     
-
-      <li>Increase the number of integrations, repeats and MSBs
-      <li>Modify the chop position<p>
-      <li>Make an informative note for the observer
-</ul>
-
-Worried? Click on your science programme and press the "Validation"
-button on the bar above. This will tell you if there's anything
-seriously wrong with your MSBs - the output can be a bit cryptic
-though - so do ask us if you can't figure out what it means. You can
-also check individual MSBs and observations.
-
-
-    <h2><a name="database">Submitting to our database</a></h2>
-
-    When you are happy about the MSBs you have created you can submit
-    them to our database. As soon as you do this, they may be observed
-    so don't do this unless you mean it! To submit your program to our
-    database, pull down the Database menu on your Science Program window:<p>
-
-      <img src="images/submit.gif" alt="Submitting"><p>
-    <p>
-      
-      A little window will pop up using the Project ID that you put
-      into your Science Program at the start (see <a href="#ysp">Your
-      science program</a>). It will also ask you for a password. You
-      can get a password from our password generator at <a
-      href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">
-      http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl </a>. If you
-      forget it, go there to get another one. If you are PI on more
-      than one project you'll need a password per project so that you
-      can share it with your different sets of Co-Is. The password you
-      get will also allow you access to your <a
-      href="http://omp.jach.hawaii.edu/cgi-bin/feedback.pl">Feedback
-      Area</a> to check on the progress of your project, double-check
-      your MSBs, retrieve your data and exchange views with our
-      staff. Check it out. Both the above links can also be found off
-      on OMP home page <a href="http://omp.jach.hawaii.edu/">http://omp.jach.hawaii.edu</a><p>
-
-      When you do get your password and submit your program, you will
-      receive a summary of all the MSBs contained in your
-      program. Check to make sure that everything is okay. If the
-      are major problems with you science program the database may complain
-      and refuse to accept the submission. If you don't understand what
-      the problem is, email us along with a copy of the problematic
-      project, but check the <a href="#faq">Frequently Asked Questions
-      </a> for hints first. 
-
-      One last thing: don't forget to save your Science Program to
-      your local file too. But - always start a new session by
-      fetching the program from our database before making any
-      changes, since our system modifies your science program to
-      indicate which observations have been observed.<p>
-
-      Goodbye, and clear skies.<p>
-
-       <h2><a name="faq">Frequently Asked Questions</a></h2>
-
-
-<dl>
-
-
-      <dt><a name="why"><em>Why do I have to do this</em>?</a><p>
-
-
-      <dd> A variety of reasons. 
-
-<ul>
-
-<li>The OMP project is providing a software system, of which the
-JCMT-OT is a necessary component, to manage flexible scheduling at
-JCMT. Its purpose is to reduce the workload on our overworked queue
-managers and TSSs, facilitate communication with the PIs and increase
-the overall observatory efficiency. It will also allow you, the PI, to
-control you observating strategy in a fashion similar to that of
-classical scheduling.<p>
-
-<li>The JCMT-OT has been chosen as the preparation software for all
-heterodyne observing after the arrival of ACSIS. By introducing it now
-for SCUBA observing we have the opportunity of sorting out any issues
-on a commissioned instrument. It also means that we can look forward
-to a unified user interface to all JAC observing, since the OT will be
-the prepation tool for all JCMT instrumentation, as it already is to
-all UKIRT instruments.<p>
-
-</ul>
-
-	<dt><a name="deadline"><em>What is the deadline for submissions?</em></a><p>
-
-
-      <dd> There isn't any. However if you don't submit your sources
-      by the time they are observable you could be throwing away
-      opportunities of having your source observed. Nevertheless, note
-      that there is no requirement that you submit your entire project
-      at once. Therefore you can submit some MSBs, wait for them to
-      get done so you can analyze the results and then submit other
-      MSBs to follow up on those results. Your MSBs will keep on being
-      scheduled until you have exceeded the total time allocated to your
-      project.
-	<p>
-
-
-	      <dt><a name="scheduling"><em>What happens to my MSBs after I submit them?</em></a><p>
-
-
-	     <dd> The introduction of the JCMT-OT does not change any
-      existing scheduling and/or flexing
-		policies of your national queue, nor does it
-		preclude future changes to those policies. <p>
-
-		  During flexible observing, the observer/TSS will run
-		  a tool called JCMT-QT (Query Tool) that allows them
-		  to browse our database for suitable MSBs. The QT by
-		  default returns as yet unobserverd MSBs ranked by
-		  TAG priority containing targets that are actually
-		  observable, whose site quality requirements
-		  match the current conditions and whose projects
-		  still have allocated time left. However the
-		  observer/TSS is able to use the QT to retrieve any
-		    submitted MSB at their discretion.<p>
-
-
-		  When an MSB is selected for actual execution, the
-		  Query Tool can be used to retrieve it from our
-		  database. The observer/TSS is then presented with a
-		  list of the observations in that MSB and given the
-		  opportunity to remove redundant calibrations from
-		  the MSB or to defer them until a calibrator becomes
-		  available. When they are satisfied that the MSB is
-		  suitable for execution they send it off to the
-		  instrument-specific control system.<p>
-
-
-		  In SCUBA's case, the control system used to consist
-		  of a VMS-based queue. From 2002B, this will be
-		  replaced by new unix-based queue software. A program
-		  called the Translator will convert the MSB from its
-		  stored form into one or more SCUBA ODFs.<p>
-
-
-		  The ODFs will then be placed in a queue that can be
-		  processed. As the queue works its way down the ODF
-		  list it will take any sensible course of action,
-		  such as prompting the observer/TSS with a list of
-		  suitable pointing sources if the MSB includes a
-		  pointing with "Automatically determine target"
-		  selected.<p>
-
-
-		  After the ODFs have been carried out the MSB is
-		  marked as done and will not be rescheduled unless it
-		  is resubmitted from the JCMT-OT or marked Undone via
-		  the project feedback system. 
-
-
-	<p>
-
-
-		  <dt><a name="msb"><em>What makes a good MSB?</em></a><p>
-
-
-		  <dd>First the usual things, accurate co-ordinates, suitable
-		    calibrations, good chop positions etc.<p>
-
-		      The aspect of the MSB you most want to think about is its
-	  length. Let's say you have been allocated one shift (8
-	  hours) for a single source. Now, you could submit a single
-	  8-hour MSB if you wanted. But that would be a very silly
-	  thing to do. For one thing, if your source is not up for
-	  more than eight hours, it would never be scheduled as our
-	  software would detect that it would set before the MSB could be
-	  completed. But even if your source was observable for 8
-	  hours solid, the observer won't chose to undertake it except at
-	  the very beginning of shift, which vastly decreases your scheduling
-	  opportunities. <p>
-
-	  At the other end of the scale, using up your 8 hours as 48
-	  10-minute MSBs is a grossly inefficient use of telescope time. If
-	  the 48 MSBs happen to be scheduled on different nights the
-	  time spent on overheads will be huge. On the other hand, if
-	  they all happen to be scheduled one after the other they
-	  would have to be sent to the acquisition one by one,
-	  thus driving the observer insane.<p>
-	<p>
-	  The golden mean? A 45-to-90 minute MSB, with 30-to-120
-	  minutes still quite resonable. If you believe your program
-	  cannot be sensible constructed in MSBs that fall in that
-	  duration range please consult us for ideas.
-
-	<p>
-
-
-      <dt><a name="redundancy"><em>My MSBs only last half an hour so it is
-      a waste to do a calibration for each one!</em></a>
-    <p>
-	
-      <dd>Don't worry about this. The person doing the observing will
-      have the choice of not doing calibrations that are highly
-      redundant.
-	<p>
-
-      <dt><a name="library"><em>I want to do something that is not in the
-      library</em></a>
-	<p>
-
-      <dd>You certainly can. However I suggest you let us know for two
-      reasons. First, for your benefit, we'll be able to look your
-      MSBs over to ensure that they will do what you in fact
-      intend. Secondly, for our benefit, we would like the chance to
-      create a library MSB that matches your observing mode in case
-	    that will be useful to other users.<p>
-
-
-	    <dt><a name="server"><em>What does the warning
-		  "Some of the observations in the MSB contained
-		  default settings for the target information"
-		    mean? </em></a><p>
-
-
-
-	<dd> You probably forgot to enter your co-ordinates! If you really
-meant to observe 0:0:0, 0:0:0 just ignore it. <p>
-
-<dt><a name="timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
-
-
-<dd>We are fine-tuning these, but they will always be just that -
-estimates. However it doesn't really matter if they are a bit off. The
- estimates are used for two things. First, they allow the observer/TSS
- to plan the observing. For example, if they believe that the tau is
- going to change in the next hour, they can select an MSB that is
- estimated to last less than an hour.<p>
-
-Second, time estimates are used to provisionally debit remaining time
-during the night to keep a running tab on projects' use of their
-allocation. However the final time accounting is done the next day
-based on the actual time used by a project as derived from the data
-files and logs. If you find you still have time left after that you
-can submit an MSB to use it up.
-
-</dl>
-
-<h2>Advanced Topics</h2>
-
-So far we have described preparation using the library sequence "as
-is". This section covers some topics of interest to anyone wishing to
-manipulate or add to the standard library sequences in order to create
-some of the less common observing modes that are sometimes
-required. It assumes that you are familiar with the material presented
-in the main part of the tutorial.
-
-<h3><a name="placement">A note about placement</a></h3>
-
-As you may have gathered by now, the Science Program is a tree structure and the placement of elements in that structure has a lot of significance<p>
-
-      For example, look at the example below of a Science Program containing three MSBs - focus on the location of the two Site Quality components:<p>
-
-
-    <img src="images/inheritance.gif" alt="Inheritance"><p>
-
-What does this mean? The first Site Quality component is on the same
-level of indentation, and therefore the same level of branching, as the
-MSBs. If that was the only Site Quality component present <em> it
-would apply to all MSBs in the Science Program</em>. As it is, the
-first MSB has a site quality inside it (technically: within its
-scope). So the first MSB will be scheduled using the criteria of the
-Site Quality component inside it, and the second and third MSBs will
-use the first Site Quality component since they lack one of their
-own. The technical term for this behaviour is "inheritance" for those
-familiar with it already.
-
-
-<h3><a name="replication">Generating a programe from a catalogue file</a></h3>
-
-If you have many sources which you wish to observe in a similar way
-and do not wish to go through the rigmarole of editing a target
-component for each one, there is a way to generate a science programme
-from a template MSB and a text (ASCII) catalog file. This uses a
-    service at our site - you need an internet connection to do this.<p>
-
-
-Start with a
-science program which contains a template MSB with a blank target
-component (for example, a template MSB you have retrieved from the
-SCUBA library). Your catalog file should be of the format:
-
-<pre>
-PKS0106         01 08 38.771 + 01 35 00.32 RJ
-3C84            03 19 48.160 + 41 30 42.10 RJ
-3C120           04 33 11.096 + 05 21 15.62 RJ
-PKS0438         04 40 17.180 - 43 33 08.60 RJ
-
-</pre>
-
-The catalog format is not blank space sensitive - sourceplot and JCMT catalog
-files will work as is, provided they do not contain planets or objects
-    with orbital elements.<p>
-
-Under the edit menu, there is an option called "Replicate from
-      catalog". Choose this action:<p>
-
-<img src="images/replicate.gif" alt="Replication"><p>
-
-A file selector window will pop up which allows you to choose the
-location of the catalog file. Once you have done this, the OT will
-contact our site and after a short delay will pop up a new science
-programme window containing multiple MSBs. So if you had an MSB with
-one blank target component and a catalog file with 12 sources, you
-will get back a science programme with 12 MSBs, whose target
-      components have been filled in using the information from your catalog.<p>
-
-Of course you may have to tweak the MSBs further, such as giving them
-      more informative titles and tweaking the number of integrations on each source.<p>
-
-
-<h3><a name="constraints">Additional Scheduling Constraints</a></h3>
-
-You can place additional scheduling constraints on some or all of your
-MSBs. To set up a scheduling constraint component for all your MSBs,
-return to your science programme component at the top, then click on
-"component" on the left icon bar as shown below. This will bring up a
-number of choices - select "Sched.Constraints". This will drop in a
-Scheduling Constraints component at the top of your programme, which
-will therefore apply to all MSBs. To make this apply to only a
-specific MSB, place the scheduling constraint inside it. 
-    <p>
-    <img src="images/constraints.gif" alt="Constraint"><p>
-
-
-The scheduling constraints component allows you to:
-
-<ul>
-
-<li> specify a specific
-time window in which you want your observations to be taken. Needless
-to say setting this to narrowly will reduce your chances of being
-	scheduled, so only do this if there is a valid scientific reason<p>
-
-<li> set a rescheduling action, that will schedule an MSB that has
-been completed to reappear after a certain number of days. If you have
-been allocated time for a project that requires periodic monitoring,
-	you may wish to ask us for more information on how this works. <p>
-
-
-<li> by default, a target is considered observable if it is between 30
-and 88 degrees of elevation for the entire duration of its MSB. If you
-wish to specify a lower elevation criterion (eg. for a very low
-	declination source) you may do so here.<p>
-
-
-<li> restrict a target to being observed only before or after
-transit. Again, note that this criterion will be applied for the
-entire estimated duration of the MSB, so only do this if it is
-	scientifically vital.<p>
-
-
-</ul>
-
-<h3><a name="offsets">Offsets around a base science position</a></h3>
-
-    We'll now cover a situation where you wish to map a region that is too
-    small to do efficiently with a scan map. To do this, start off by
-    copying the library MSB labeled "850/450 jiggle offsets (mosaic)"
-    into your science programme. (see <a href="#oe">Our example:
-      preparing an 850/450 jiggle map</a>)<p>
-
-      <img src="images/offset_lib.gif" alt="Chosing the offset library MSB"><p>
-
-This MSB is identical to the one described in the main tutorial except
-that it contains an extra item, the offset iterator. The offset
-iterator (like the chop iterator) allows you to specify one or more
-telescope positions as offsets from your science base position. You
-have two choices - you can enter arbitrary positions by hand, or you
-      can ask it to create a grid for you in a fixed pattern. <p>
-
-For example, to create a 1x3 grid whose points are separated by 120
-arcseconds centered on the base co-ordinates:
-
-<ul>
-
-<li> Fill in the spacing values for the grid (120 x 120)
-<li> Fill in the dimensions of the grid (1 x 3)
-<li> Click on "Create/Center on Base"
-
-</ul>
-
-      <img src="images/offset_grid.gif" alt="Entering grid
-      positions"><p>
-
-      The initial and subsequent offsets from the base position are then displayed:<p>
-
-      <img src="images/offset_grid2.gif" alt="Listed grid
-      positions"><p>
-
-You can also specify a rotation for the grid by entering a PA - below
-I have entered 114 as the rotation. Note that the list will show the
-absolute grid offsets: to see the rotated offsets, hold down the
-      "Display Rotated Offsets" button.<p>
-
-
-      <img src="images/offset_rot.gif" alt="Rotation"><p>
-
- As with the chop iterator, you can visualise the positions by
- plotting your source in the position editor and then clicking on the
- offset iterator (see <a href="#tpe">The position editor</a>). This is
- how the 1x3 120 arcsecond grid with a 114 rotation displays with
-      NGC891 as the target:<p>
-
-      <img src="images/offset_tpe.gif" alt="Plotted offsets"><p>
-
-You can see the rotated offset positions (labeled 0, 1 and 2) lined
-along the edge of the galaxy. As with the chop positions, you can
-click on the "Drag" button and re-position the offsets at arbitrary
-points - the values in the offset iterator will automatically update
-to reflect the new placements. You will want to do this if you wish to
-map a source in a non-linear fashion.<p>
-
-Finally, there is a button on the offset iterator labeled "Set Spacing
-from Scan Area". This is in the cases where you have a scan map rather
-than a jiggle map inside your offset iterator. Press this button to
-use individual scan maps as tiles for mapping a much larger area.
-
-
-<small>Note: It is generally a good idea to break an observation down
-so that a particular scan lasts for about half an hour; this is
-because if there is a major technical fault in the middle of a scan it
-is likely that the whole scan will be lost. So doing three 30-minute
-scan maps is better than doing one 90-minute one. <small>
-
-
-
-
-      <p>
 
 
     <hr>
-    <address><a href="mailto:frossie@jach.hawaii.edu">Frossie Economou</a></address>
-<!-- Created: Fri Feb 14 12:57:09 HST 1997 --> <!-- hhmts start -->
-Last modified: Wed Jan 15 15:55:24 HST 2003
-<!-- hhmts end -->
+    <address><a href="mailto:frossie@jach.hawaii.edu">Frossie Economou</a>
+and  <a href="mailto:j.leech@jach.hawaii.edu">Jamie Leech</a></address>
   </body>
 </html>
