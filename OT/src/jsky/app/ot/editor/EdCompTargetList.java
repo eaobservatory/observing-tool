@@ -83,7 +83,7 @@ public final class EdCompTargetList extends OtItemEditor
     public EdCompTargetList() {
 	_title       = "Telescope Targets";
 	_presSource  = _w = new TelescopeGUI();
-	_description = "Use this editor to enter the base positon, WFS stars, and targets.";
+	_description = "Use this editor to enter the base position and targets.";
 
         // Init name resolver drop down (MFO, May29, 2001)
 	String [] catalogs = OtCfg.getNameResolvers();
@@ -399,20 +399,24 @@ public final class EdCompTargetList extends OtItemEditor
 	    _tag.setValue( tp.getTag() );
 	}
 
-	// display the coordinates in the selected system (FK4/FK5), but store them as J2000
-	double equinox = 2000.;
-	if (tp.getCoordSys() == CoordSys.FK4)
-	    equinox = 1950.;
-	WorldCoords pos = new WorldCoords(tp.getXaxis(), tp.getYaxis(), 2000.);
-	String[] radec = pos.format(equinox);
+//	// display the coordinates in the selected system (FK4/FK5), but store them as J2000
+//	double equinox = 2000.;
+//	if (tp.getCoordSys() == CoordSys.FK4)
+//	    equinox = 1950.;
+//	WorldCoords pos = new WorldCoords(tp.getXaxis(), tp.getYaxis(), 2000.);
+//	String[] radec = pos.format(equinox);
+//
+//	_name.setValue(tp.getName());
+//
+//	//_xaxis.setValue(tp.getXaxisAsString());
+//	_xaxis.setValue(radec[0]);
+//
+//	//_yaxis.setValue(tp.getYaxisAsString());
+//	_yaxis.setValue(radec[1]);
 
-	_name.setValue(tp.getName());
-
-	//_xaxis.setValue(tp.getXaxisAsString());
-	_xaxis.setValue(radec[0]);
-
-	//_yaxis.setValue(tp.getYaxisAsString());
-	_yaxis.setValue(radec[1]);
+	_name.setValue(   tp.getName()          );
+	_xaxis.setValue(  tp.getXaxisAsString() );
+	_yaxis.setValue(  tp.getYaxisAsString() );
 
 	//_configureWidgets(tp);
 	_setCoordSys(tp);
