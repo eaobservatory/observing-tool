@@ -136,9 +136,11 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.anode.setToolTipText("Longitude of the ascending node");
         _w.aorq.setToolTipText("Mean distance (a) or perihelion distance (q)");
         _w.e.setToolTipText("Orbital Eccentricity");
-        _w.perih.setToolTipText("Argument of perihelion ");
+        _w.perih.setToolTipText("Argument or Longitude of perihelion");
         _w.orbinc.setToolTipText("Inclination of the orbit ");
-        _w.epoch.setToolTipText("Epoch of the orbital elements or epoch of perihelion ");
+        _w.epoch.setToolTipText("Epoch of the orbital elements or epoch of perihelion");
+        _w.l_or_m.setToolTipText("Longitude or mean anomaly");
+        _w.dm.setToolTipText("Daily motion");
 
         _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPITON);
         _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPITON);
@@ -162,6 +164,8 @@ public final class EdCompTargetList extends OtItemEditor
         _w.perih.addWatcher(this);
         _w.aorq.addWatcher(this);
         _w.e.addWatcher(this);
+        _w.l_or_m.addWatcher(this);
+        _w.dm.addWatcher(this);
         _w.conicSystemType.addWatcher(this);
         _w.namedSystemType.addWatcher(this);
 
@@ -723,6 +727,77 @@ public final class EdCompTargetList extends OtItemEditor
 	showPos(_curPos);
     }
 
+
+    /**
+     * Updates the labels of Orbital Elements on the Conic System Tab.
+     *
+     * The labels are updated according to the selected Conic System type
+     * (Major, Minor, Comet).
+     *
+     *  @param conicSystemType Use SpTelescopePos.TYPE_MAJOR,
+     *                             SpTelescopePos.TYPE_MINOR,
+     *                             SpTelescopePos.TYPE_COMET
+     */
+    private void _setConicSystemType(int conicSystemType) {
+      switch(conicSystemType) {
+        case SpTelescopePos.TYPE_MAJOR:
+	       // Epoch of the elements and mean distance
+	       _w.epochLabel.setText("t0");
+	       _w.aorqLabel.setText("a");
+
+               // Longitude of perihelion
+	       _w.perihLabel.setText("\u03D6");
+
+	       // Longitude and daily motion
+	       _w.l_or_m.setValue(_curPos.getConicSystemLorM());
+	       _w.l_or_mLabel.setText("L");
+	       _w.l_or_m.setVisible(true);
+	       _w.l_or_mLabel.setVisible(true);
+
+	       _w.dm.setValue(_curPos.getConicSystemDailyMotion());
+	       _w.dm.setVisible(true);
+	       _w.dmLabel.setVisible(true);
+
+	       break;
+
+        case SpTelescopePos.TYPE_MINOR:
+	       // Epoch of the elements and mean distance
+	       _w.epochLabel.setText("t0");
+	       _w.aorqLabel.setText("a");
+
+               // Argument of perihelion
+	       _w.perihLabel.setText("\u03C9");
+
+	       // Mean Anomaly
+	       _w.l_or_m.setValue(_curPos.getConicSystemLorM());
+	       _w.l_or_mLabel.setText("M");
+	       _w.l_or_m.setVisible(true);
+	       _w.l_or_mLabel.setVisible(true);
+
+	       // No daily motion
+	       _w.dm.setVisible(false);
+	       _w.dmLabel.setVisible(false);
+
+               break;
+
+        // Comet
+	default:
+	       // Epoch of perihelion and perihelion distance
+	       _w.epochLabel.setText("T");
+	       _w.aorqLabel.setText("q");
+
+               // Argument of perihelion
+	       _w.perihLabel.setText("\u03C9");
+
+               // No longitude, mean anomaly, daily motion
+	       _w.l_or_m.setVisible(false);
+	       _w.l_or_mLabel.setVisible(false);
+	       _w.dm.setVisible(false);	       
+	       _w.dmLabel.setVisible(false);	       
+      }
+    }
+
+
     /**
      * Updates the the conic or named system widgets
      * depending on the target system of the selected target.
@@ -736,11 +811,15 @@ public final class EdCompTargetList extends OtItemEditor
           _w.perih.setValue(tp.getConicSystemPerihelion());
           _w.aorq.setValue(tp.getConicSystemAorQ());
           _w.e.setValue(tp.getConicSystemE());
-          _w.conicSystemType.setValue(tp.getConicSystemType());
+          _w.l_or_m.setValue(tp.getConicSystemLorM());
+          _w.dm.setValue(tp.getConicSystemDailyMotion());
+          _w.conicSystemType.setValue(tp.getConicSystemTypeDescription());
+
+	  _setConicSystemType(_w.conicSystemType.getIntegerValue());
 	  break;
 
         case SpTelescopePos.TARGET_SYSTEM_NAMED:
-          _w.namedSystemType.setValue(tp.getNamedSystemType());
+          _w.namedSystemType.setValue(tp.getNamedSystemTypeDescription());
 	  break;
       }
     }
@@ -919,6 +998,16 @@ public final class EdCompTargetList extends OtItemEditor
         _curPos.setConicSystemE(_w.e.getValue());
         return;
       }
+
+      if(tbwe == _w.l_or_m) {
+        _curPos.setConicSystemLorM(_w.l_or_m.getValue());
+        return;
+      }
+
+      if(tbwe == _w.dm) {
+        _curPos.setConicSystemDailyMotion(_w.dm.getValue());
+        return;
+      }
     }
 
     public void textBoxAction(TextBoxWidgetExt tbwe) { }
@@ -928,12 +1017,15 @@ public final class EdCompTargetList extends OtItemEditor
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
       if(dd == _w.conicSystemType) {
-        _curPos.setConicSystemType(val);
+        _curPos.setConicSystemType(SpTelescopePos.CONIC_SYSTEM_TYPES_XML[i]);
+
+        _setConicSystemType(i);
+
 	return;
       }
 
       if(dd == _w.namedSystemType) {
-        _curPos.setNamedSystemType(val);
+        _curPos.setNamedSystemType(SpTelescopePos.NAMED_SYSTEM_TYPES_XML[i]);
 	return;
       }
     }
