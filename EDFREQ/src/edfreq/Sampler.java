@@ -16,7 +16,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class Sampler implements ItemListener
 {
@@ -68,36 +68,6 @@ public class Sampler implements ItemListener
       return centreFrequency;
    }
 
-   /**
-    * Sets new band width and sets the band width choice box to bandWidthStr.
-    *
-    * This method allows the FrontEnd panel to set a band width which restes the
-    * band widths of the individual Samplers.
-    *
-    * @see #setBandWidth(double)
-    */
-   public void setBandWidthAndGui( String bandWidthStr )
-   {
-      bandWidthChoice.removeItemListener(this);
-
-      if(bandWidthStr.indexOf('E') >= 0) {
-         bandWidthChoice.setSelectedItem("" + (Double.parseDouble(bandWidthStr) * 1.0E-9));
-      }
-      else {
-         bandWidthChoice.setSelectedItem(bandWidthStr);
-      }
-
-      bandWidthChoice.addItemListener(this);
-
-      channels = channelsArray[bandWidthChoice.getSelectedIndex()];
-
-      if(bandWidthStr.indexOf('E') >= 0) {
-         setBandWidth(Double.parseDouble(bandWidthStr));
-      }
-      else {
-         setBandWidth(Double.parseDouble(bandWidthStr) * 1.0E9);
-      }
-   }
 
    /**
     * Sets band width, notifies SamplerWatchers but does <b>not</b> change the band width choice box.
@@ -121,6 +91,12 @@ public class Sampler implements ItemListener
               centreFrequency, bandWidth, channels );
          }
       }
+
+      bandWidthChoice.removeItemListener(this);
+      bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6) / 1000.0));
+      bandWidthChoice.addItemListener(this);
+
+      channels = channelsArray[bandWidthChoice.getSelectedIndex()];
    }
 
    /**
