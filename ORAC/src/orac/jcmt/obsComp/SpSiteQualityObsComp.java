@@ -20,7 +20,7 @@ import gemini.sp.SpType;
 public class SpSiteQualityObsComp extends SpObsComp
 {
 
-   public static final String ATTR_TAU_BAND      = "tauBand";
+   public static final String ATTR_TAU_BAND_INDEX = "tauBandIndex";
    public static final String ATTR_SEEING        = "seeing";
    public static final int NO_VALUE              = 0;
 
@@ -69,33 +69,31 @@ public SpSiteQualityObsComp()
 {
    super(SP_TYPE);
 
-   _avTable.noNotifySet(ATTR_TAU_BAND, "" + (CSO_TAU_RANGES.length - 1), 0);
+   _avTable.noNotifySet(ATTR_TAU_BAND_INDEX, "" + (CSO_TAU_RANGES.length - 1), 0);
    _avTable.noNotifySet(ATTR_SEEING,   "" + SEEING_ANY,                  0);
 }
 
 
 /**
- * Set tau band.
+ * Set tau band index (tau band - 1).
  *
- * The argument tauBand refers directly to a tau band (band 1 = "low" and band 2 = "high") and
- * <i>not</i> to  an index for an array of tau band options.
- * Therefore the smallest meaningful value is 1 and <i>not</i> 0.
+ * Tau band = tau band index + 1.
  */
 public void
-setTauBand(int tauBand)
+setTauBandIndex(int tauBandIndex)
 {
-   _avTable.set(ATTR_TAU_BAND, tauBand);
+   _avTable.set(ATTR_TAU_BAND_INDEX, tauBandIndex);
 }
 
 /**
- * Get the tau band.
+ * Get the tau band index (tau band - 1).
  *
- * @return tau band (not an index for an array of tau band options)
+ * Tau band = tau band index + 1.
  */
 public int
-getTauBand()
+getTauBandIndex()
 {
-   return _avTable.getInt(ATTR_TAU_BAND, NO_VALUE);
+   return _avTable.getInt(ATTR_TAU_BAND_INDEX, NO_VALUE);
 }
 
 
@@ -124,7 +122,7 @@ getSeeing()
  * Derives the index of a tau range from a value.
  */
 public static int
-getTauBandFromMax(double max) {
+getTauBandIndexFromMax(double max) {
    for(int i = 0; i < CSO_TAU_RANGES.length; i++) {
       if((max > CSO_TAU_RANGES[i][0]) && (max <= CSO_TAU_RANGES[i][1])) {
          return i;
@@ -165,10 +163,10 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
       return;
    }
 
-   if(avAttr.equals(ATTR_TAU_BAND)) {
+   if(avAttr.equals(ATTR_TAU_BAND_INDEX)) {
       xmlBuffer.append("\n  "   + indent + "<"  + XML_CSO_TAU + ">");
-      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + CSO_TAU_RANGES[getTauBand()][0] + "</" + XML_MIN + ">");
-      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + CSO_TAU_RANGES[getTauBand()][1] + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + CSO_TAU_RANGES[getTauBandIndex()][0] + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + CSO_TAU_RANGES[getTauBandIndex()][1] + "</" + XML_MAX + ">");
       xmlBuffer.append("\n  "   + indent + "</" + XML_CSO_TAU + ">");
 
       return;
@@ -219,7 +217,7 @@ processXmlElementContent(String name, String value)
                // ignore
             }
 
-            _avTable.noNotifySet(ATTR_TAU_BAND, "" + getTauBandFromMax(max), 0);
+            _avTable.noNotifySet(ATTR_TAU_BAND_INDEX, "" + getTauBandIndexFromMax(max), 0);
 
 	    return;
 	 }
