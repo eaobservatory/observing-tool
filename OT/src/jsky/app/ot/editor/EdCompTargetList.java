@@ -676,7 +676,7 @@ public final class EdCompTargetList extends OtItemEditor
             // UKIRT-ORAC: Instead of user position try just creating a
             // guide position AB 26Apr00 / MFO 23 May 2001
 	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
-            SpTelescopePos tp = _tpl.createPosition(GUIDE_STRING, 0.0, 0.0);
+            SpTelescopePos tp = _tpl.createPosition(GUIDE_STRING, base.getXaxis(), base.getYaxis());
 
 	    return;
 	}
