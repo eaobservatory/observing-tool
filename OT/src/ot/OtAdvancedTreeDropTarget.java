@@ -24,7 +24,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpObs;
 import jsky.app.ot.util.DnDUtils;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 import jsky.app.ot.OtTreeDragSource;
 import jsky.app.ot.OtTreeDropTarget;
@@ -234,7 +234,7 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	  _spTree.updateNodeExpansions();
 	}
 	catch(Exception e) {
-          DialogUtil.error(e);
+          DialogUtil.error(_spTree, e);
 	}
 
 
@@ -302,7 +302,7 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
       }
       // IllegalArgumentException is thrown if user attempts to delete Science Program root node.
       catch(IllegalArgumentException exception) {
-        DialogUtil.error(exception.getMessage());
+        DialogUtil.error(_spTree, exception.getMessage());
       }
     }
   }

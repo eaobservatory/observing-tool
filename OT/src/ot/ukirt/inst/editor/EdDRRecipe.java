@@ -21,7 +21,7 @@ import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 //import jsky.app.ot.gui.util.ErrorBox;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 //import ot_ukirt.util.*;
 import jsky.app.ot.editor.OtItemEditor;
@@ -106,7 +106,7 @@ _initInstWidgets()
      ((CardLayout)(_w.getLayout())).show(_w, _instStr.toLowerCase());
      
    }catch (NullPointerException ex) {
-     DialogUtil.error("Can't identify instrument: probably none in scope?");
+     DialogUtil.error(_w, "Can't identify instrument: probably none in scope?");
      return;
    }
 

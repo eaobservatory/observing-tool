@@ -31,7 +31,7 @@ import jsky.app.ot.util.CoordSys;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 import ot.OtConstants;
 import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
@@ -171,7 +171,7 @@ public final class EdCompTargetList extends OtItemEditor
 		    // Don't allow changes from BASE_TAG to anything else.  We always
 		    // want to have a Base.
 		    if (oldTag.equals(SpTelescopePos.BASE_TAG)) {
-			DialogUtil.error("You can't change the type of the Base Position.");
+			DialogUtil.error(_w, "You can't change the type of the Base Position.");
 			_tag.setValue(SpTelescopePos.BASE_TAG);
 			return;
 		    }
@@ -179,7 +179,7 @@ public final class EdCompTargetList extends OtItemEditor
 		    // MFO 23 May 2001 bug fix. (This bug was never fixed in the FreeBongo OT for UKIRT)
 		    if(_telescope == UKIRT) {
                       if(oldTag.equals(GUIDE_STRING)) {
-		        DialogUtil.error("You can't change the type of the GUIDE Position.");
+		        DialogUtil.error(_w, "You can't change the type of the GUIDE Position.");
 			_tag.setValue(GUIDE_STRING);
                         return;
 		      }
@@ -664,7 +664,7 @@ public final class EdCompTargetList extends OtItemEditor
 
 	if (w == _w.removeButton) {
 	    if (_curPos.getTag().equals(SpTelescopePos.BASE_TAG)) {
-		DialogUtil.error("You can't remove the Base Position.");
+		DialogUtil.error(_w, "You can't remove the Base Position.");
 		return;
 	    }
 
@@ -687,13 +687,13 @@ public final class EdCompTargetList extends OtItemEditor
 	if (w == _w.setBaseButton) {
 	    TelescopePosEditor tpe = TpeManager.get(_spItem);
 	    if (tpe == null) {
-		DialogUtil.message("The Position Editor must be opened for this feature to work.");
+		DialogUtil.message(_w, "The Position Editor must be opened for this feature to work.");
 		return;
 	    }
 
 	    double[] raDec = tpe.getImageCenterLocation();
 	    if (raDec == null) {
-		DialogUtil.message("Couldn't determine the image center.");
+		DialogUtil.message(_w, "Couldn't determine the image center.");
 		return;
 	    }
 
@@ -737,7 +737,7 @@ public final class EdCompTargetList extends OtItemEditor
               e.printStackTrace();
 	    }
 
-            DialogUtil.error(e.getMessage());
+            DialogUtil.error(_w, e.getMessage());
 	  }
 	}
 

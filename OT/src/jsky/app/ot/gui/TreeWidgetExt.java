@@ -18,7 +18,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import jsky.util.JavaUtil;
 import jsky.util.gui.BasicWindowMonitor;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 
 /**
@@ -87,7 +87,7 @@ public class TreeWidgetExt extends JPanel {
 			nodeSelected();
 		    }
 		    catch(Exception ex) {
-			DialogUtil.error(ex);
+			DialogUtil.error(TreeWidgetExt.this, ex);
 		    }
 		}
 	    });
@@ -141,7 +141,7 @@ public class TreeWidgetExt extends JPanel {
 	    tree.setSelectionPath(new TreePath(node.getPath()));
 	}
 	catch(Exception e) {
-	    DialogUtil.error("warning: could not select tree node");
+	    DialogUtil.error(this, "warning: could not select tree node");
 	}
     }
 

@@ -15,7 +15,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.util.gui.BasicWindowMonitor;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 import jsky.util.gui.GenericToolBarTarget;
 
 
@@ -47,7 +47,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    open(false);
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -59,7 +59,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    back();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -71,7 +71,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    forward();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -83,7 +83,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    interrupt();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	    public void setEnabled(boolean enabled) {
@@ -106,7 +106,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    save();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -118,7 +118,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    cut();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -130,7 +130,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    copy();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -142,7 +142,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    paste();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -158,7 +158,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addMsbFolder();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -171,7 +171,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addAndFolder();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -184,7 +184,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addOrFolder();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -197,7 +197,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addFolder();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -209,7 +209,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addGroup();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -222,7 +222,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addObservation();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -235,7 +235,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addNote();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -248,7 +248,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    addLibFolder();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -261,7 +261,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    showPositionEditor();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};
@@ -273,7 +273,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		    doValidation();
 		}
 		catch(Exception e) {
-		    DialogUtil.error(e);
+		    DialogUtil.error(SpTreeGUI.this, e);
 		}
 	    }
 	};

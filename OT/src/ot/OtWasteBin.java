@@ -25,7 +25,7 @@ import java.io.IOException;
 
 import jsky.app.ot.OtDragDropObject;
 import jsky.app.ot.OtTreeWidget;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 /**
  * Waste bin drop target for deleting sp items / tree nodes.
@@ -88,16 +88,16 @@ public class OtWasteBin extends JLabel implements DropTargetListener {
     }
     catch(UnsupportedFlavorException e) {
       dtde.rejectDrop();
-      DialogUtil.error("You cannot delete this item.");
+      DialogUtil.error(this, "You cannot delete this item.");
     }
     catch(IOException e) {
       dtde.rejectDrop();
-      DialogUtil.error("You cannot delete this item.");
+      DialogUtil.error(this, "You cannot delete this item.");
     }
     // IllegalArgumentException is thrown if user attempts to delete Science Program root node.
     catch(IllegalArgumentException e) {
       dtde.rejectDrop();
-      DialogUtil.error(e.getMessage());
+      DialogUtil.error(this, e.getMessage());
     }
   }
 
