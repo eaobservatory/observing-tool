@@ -11,6 +11,8 @@
 package ot.jcmt.iter.editor;
 
 import java.awt.CardLayout;
+import java.text.NumberFormat;
+import java.lang.Double;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -67,7 +69,8 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     protected static String [] SWITCHING_MODES = { IterJCMTGenericGUI.BEAM,         // Beam
 						   IterJCMTGenericGUI.POSITION,        // Position
-						   IterJCMTGenericGUI.FREQUENCY,   // Frequency
+						   IterJCMTGenericGUI.FREQUENCY_S,   // Frequency
+						   IterJCMTGenericGUI.FREQUENCY_F,   // Frequency
 						   IterJCMTGenericGUI.NONE };      // None
 
     protected static int SWITCHING_MODE_CHOP = 1;
@@ -98,7 +101,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	_w.frequencyOffset_throw.addWatcher(this);
 	_w.frequencyOffset_rate.addWatcher(this);
 	_w.secsPerCycle.addWatcher(this);
-	_w.noOfCycles.addWatcher(this);
+// 	_w.noOfCycles.addWatcher(this);
 	_w.cycleReversal.addWatcher(this);
 	_w.continuousCal.addWatcher(this);
 	_w.stepSize.addWatcher(this);
@@ -118,8 +121,26 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
 	if(ddlbwe == _w.switchingMode) {
-	    if(val.equals(IterJCMTGenericGUI.FREQUENCY)) {
+	    if(val.equals(IterJCMTGenericGUI.FREQUENCY_S)) {
 		_w.frequencyPanel.setVisible(true);
+		_w.frequencyOffset_rate.setEnabled(false);
+		if (_iterObs.getSecsPerCycle() != 0) {
+		    NumberFormat nf = NumberFormat.getInstance();
+		    nf.setMaximumFractionDigits(5);
+		    _w.frequencyOffset_rate.setValue(nf.format(1.0/_iterObs.getSecsPerCycle()));
+		}
+		else {
+		    _w.frequencyOffset_rate.setValue(0.0);
+		}
+		_iterObs.setFrequencyOffsetRate(_w.frequencyOffset_rate.getValue());
+		_iterObs.setFrequencyOffsetThrow(_w.frequencyOffset_throw.getValue());
+	    }
+	    else if (val.equals(IterJCMTGenericGUI.FREQUENCY_F)) {
+		_w.frequencyPanel.setVisible(true);
+		_w.frequencyOffset_rate.setEnabled(true);
+		_w.frequencyOffset_rate.setValue(0.5);
+		_iterObs.setFrequencyOffsetRate(_w.frequencyOffset_rate.getValue());
+		_iterObs.setFrequencyOffsetThrow(_w.frequencyOffset_throw.getValue());
 	    }
 	    else {
 		_w.frequencyPanel.setVisible(false);
@@ -162,13 +183,19 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
 	if (tbwe == _w.secsPerCycle) {
 	    _iterObs.setSecsPerCycle(_w.secsPerCycle.getValue());
+	    if (!_w.frequencyOffset_rate.isEnabled()) {
+		NumberFormat nf = NumberFormat.getInstance();
+		nf.setMaximumFractionDigits(5);
+		_w.frequencyOffset_rate.setValue(nf.format(1.0/_iterObs.getSecsPerCycle()));
+		_iterObs.setFrequencyOffsetRate(_w.frequencyOffset_rate.getValue());
+	    }
 	    return;
 	}
 
-	if (tbwe == _w.noOfCycles) {
-	    _iterObs.setNoOfCycles(_w.noOfCycles.getValue());
-	    return;
-	}
+// 	if (tbwe == _w.noOfCycles) {
+// 	    _iterObs.setNoOfCycles(_w.noOfCycles.getValue());
+// 	    return;
+// 	}
 
 	if(tbwe == _w.jigglesPerCycle) {
 	    _iterObs.setJigglesPerCycle(_w.jigglesPerCycle.getValue());
@@ -212,9 +239,19 @@ public class EdIterJCMTGeneric extends OtItemEditor
     }
 
     protected void _updateWidgets() {
+	setInstrument(SpTreeMan.findInstrument(_spItem));
+
   	_w.switchingMode.setValue(_iterObs.getSwitchingMode());
-	if (_iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY)) {
+	if ((_iterObs.getSwitchingMode() != null) &&
+	    (_iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
+	    _iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY_F))) {
 	    _w.frequencyPanel.setVisible(true);
+	    if (_iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY_S)) {
+		_w.frequencyOffset_rate.setEnabled(false);
+	    }
+	    else {
+		_w.frequencyOffset_rate.setEnabled(true);
+	    }
 	}
 	else {
 	    _w.frequencyPanel.setVisible(false);
@@ -223,7 +260,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	_w.frequencyOffset_throw.setValue(_iterObs.getFrequencyOffsetThrow());
 	_w.frequencyOffset_rate.setValue(_iterObs.getFrequencyOffsetRate());
 	_w.secsPerCycle.setValue(_iterObs.getSecsPerCycle());
-	_w.noOfCycles.setValue(_iterObs.getNoOfCycles());
+// 	_w.noOfCycles.setValue(_iterObs.getNoOfCycles());
 	_w.cycleReversal.setValue(_iterObs.getCycleReversal());
 	_w.stepSize.setValue(_iterObs.getStepSize());
 	_w.jiggleAtReference.setValue(_iterObs.getJiggleAtReference());
@@ -232,6 +269,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	_w.automaticTarget.setValue(_iterObs.getAutomaticTarget());
 	_w.noiseTextBox.setValue(calculateNoise());
 	_w.noiseTextBox.setToolTipText(_noiseToolTip);
+	_w.continuousCal.setValue(_iterObs.getContinuousCal());
     }
 
     /**
@@ -243,7 +281,8 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	    _w.switchingMode.setVisible(true);
 	    _w.switchingModeLabel.setVisible(true);
 
-	    if(_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY)) {
+	    if(_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
+	       _w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_F)) {
 		_w.frequencyPanel.setVisible(true);
 	    }
 	    else {
