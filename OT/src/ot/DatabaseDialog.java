@@ -23,7 +23,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import jsky.app.ot.OT;
@@ -60,7 +59,7 @@ public class DatabaseDialog implements ActionListener {
   /**
    * Is only used if the OT is started with internal frames.
    */
-  private static JDialog _dialogComponent;
+  private static JFrame _dialogComponent;
 
   public static int ACCESS_MODE_FETCH = 0;
   public static int ACCESS_MODE_STORE = 1;
@@ -171,10 +170,10 @@ public class DatabaseDialog implements ActionListener {
     
     if(_dialogComponent == null) {
       if(OT.getDesktop() != null) {
-        _dialogComponent = new JDialog();
+        _dialogComponent = new JFrame();
       }
       else {
-        _dialogComponent = new JDialog();
+        _dialogComponent = new JFrame();
       }
       _dialogComponent.getContentPane().add(_w);
       _dialogComponent.pack();
@@ -187,6 +186,7 @@ public class DatabaseDialog implements ActionListener {
 
     _dialogComponent.setTitle(_title);
     _dialogComponent.setVisible(true);
+    _dialogComponent.setState(JFrame.NORMAL);
   }
 
 
@@ -217,12 +217,14 @@ public class DatabaseDialog implements ActionListener {
     catch(Exception e) {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
       _stopAction.actionsFinished();
+      hide();
       return;
     }
 
     // If the user has aborted fetchProgram by hitting "Stop" then do not
     // display the science program.
     if(_databaseAccessAborted) {
+      hide();
       return;
     }
 
@@ -237,6 +239,8 @@ public class DatabaseDialog implements ActionListener {
       OT.getDesktop().add(c, JLayeredPane.DEFAULT_LAYER);
       OT.getDesktop().moveToFront(c);
     }
+  
+    hide();
   }
 
   protected void storeProgram(String password) {
@@ -270,6 +274,8 @@ public class DatabaseDialog implements ActionListener {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
       _stopAction.actionsFinished();
     }
+  
+    hide();
   }
 
   /**
