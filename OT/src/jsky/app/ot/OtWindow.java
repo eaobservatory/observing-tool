@@ -528,6 +528,7 @@ public class OtWindow extends SpTreeGUI
 	// Initialize the title
 	_updateEditPencil( spItem.getEditState() );
 	spItem.getEditFSM().addEditChangeObserver(this);
+	spItem.getEditFSM().reset();
 
 	_obsGroupButtonMan.resetItem(spItem);
 	_obsFolderButtonMan.resetItem(spItem);
@@ -539,15 +540,17 @@ public class OtWindow extends SpTreeGUI
      */
     protected boolean isOkayToClose()  {
 	// If not edited, then it is okay to close this program.
-	if (!isEdited()) {
+	if (!isEdited() && !OtProps.isSaveShouldPrompt()) {
 	    return true;
 	}
+	System.out.println("edited? "+isEdited());
+	System.out.println("should save? "+OtProps.isSaveShouldPrompt());
 
 	// The program was edited, so now check whether we should prompt
 	// the user or not.  If not, it is okay to close this program.
-	if (!OtProps.isSaveShouldPrompt()) {
-	    return true;
-	}
+// 	if (!OtProps.isSaveShouldPrompt()) {
+// 	    return true;
+// 	}
 
 	// The program was edited and we should prompt, so do so.
 	String msg = "Save changes to " + getItemType() + " '" +  getFilename() + "'?";
