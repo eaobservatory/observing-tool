@@ -105,7 +105,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     // might have to be changed as well depending on what the frontend supports
     _avTable.noNotifySet(ATTR_MODE,             "dsb",                     0);
     _avTable.noNotifySet(ATTR_BAND_MODE,        "1-system",                0);
-    _avTable.noNotifySet(ATTR_OVERLAP,          "0.0",                     0);
+    _avTable.noNotifySet(ATTR_OVERLAP,          "1.0E8",                   0);
     _avTable.noNotifySet(ATTR_BAND,             "usb",                     0);
     _avTable.noNotifySet(ATTR_LO1,              "2.2229E11",               0);
     _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY, "" + 4.0E9,                0);
@@ -445,22 +445,22 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Get overlap of multiple subbands in one subsystem.
    */
-  public double getOverlap() {
-    return _avTable.getDouble(ATTR_OVERLAP, 0.0);
+  public double getOverlap(int subsystem) {
+    return _avTable.getDouble(ATTR_OVERLAP, subsystem, 0.0);
   }
 
   /**
    * Set overlap of multiple subbands in one subsystem.
    */
-  public void setOverlap(double value) {
-    _avTable.set(ATTR_OVERLAP, value);
+  public void setOverlap(double value, int subsystem) {
+    _avTable.set(ATTR_OVERLAP, value, subsystem);
   }
 
   /**
    * Set overlap of multiple subbands in one subsystem.
    */
-  public void setOverlap(String value) {
-    setOverlap(Format.toDouble(value));
+  public void setOverlap(String value, int subsystem) {
+    setOverlap(Format.toDouble(value), subsystem);
   }
 
 
