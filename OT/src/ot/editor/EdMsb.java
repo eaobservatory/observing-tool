@@ -19,6 +19,7 @@ import jsky.app.ot.editor.OtItemEditor;
 import gemini.sp.SpItem;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
+import orac.util.OracUtilities;
 
 /**
  * MSB folder editor.
@@ -92,6 +93,8 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	ignoreActions = true;
 	_w.remaining.setSelectedIndex(((SpMSB)_spItem).getNumberRemaining() - 1);
 	ignoreActions = false;
+
+	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpMSB)_spItem).getElapsedTime(), 1));
     }
 
     /**
