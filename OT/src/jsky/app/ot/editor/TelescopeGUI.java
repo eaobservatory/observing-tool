@@ -129,6 +129,7 @@ public class TelescopeGUI extends JPanel {
 
   JLabel targetType = new JLabel();
   DropDownListBoxWidgetExt targetTypeDDList = new DropDownListBoxWidgetExt();
+  JLabel resolvedName = new JLabel();
 
     public TelescopeGUI() {
         try {
@@ -171,6 +172,9 @@ public class TelescopeGUI extends JPanel {
 	targetType.setLabelFor(targetTypeDDList);
 	nameResolversDDLBW.setFont(new java.awt.Font("Dialog", 0, 10)); // MFO
 	resolveButton.setText("Resolve Name"); //MFO
+	resolvedName.setFont(new java.awt.Font("Dialog", 0, 12)); //SDW
+	resolvedName.setText("Resolved Name: ");
+        resolvedName.setForeground(Color.gray);
         setBaseButton.setMargin(new Insets(2, 2, 2, 2));
         setBaseButton.setText("Set Base From Image");
         newButton.setMargin(new Insets(2, 10, 2, 10));
@@ -350,10 +354,12 @@ public class TelescopeGUI extends JPanel {
     this.add(targetSystemsTabbedPane, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
-        objectGBW.add(nameResolversDDLBW, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
+        objectGBW.add(nameResolversDDLBW, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0)); // MFO
-        objectGBW.add(resolveButton, new GridBagConstraints(2, 0, 2, 1, 0.0, 0.0
+        objectGBW.add(resolveButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0)); // MFO
+        objectGBW.add(resolvedName,  new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0)); // SDW
 
         objectGBW.add(xaxisTBW, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
