@@ -6,130 +6,136 @@
 //
 package ot.ukirt.iter.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
-import jsky.app.ot.editor.OtItemEditor;
-
 import orac.ukirt.iter.SpIterDarkObs;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 
-import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
+import gemini.sp.SpAvTable;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JComboBox;
+
+import jsky.app.ot.editor.OtItemEditor;
 
 /**
  * This is the editor for Dark Observe iterator component.
  */
 public final class EdIterDarkObs extends OtItemEditor
-    implements TextBoxWidgetWatcher, ActionListener {
+                              implements TextBoxWidgetWatcher, ActionListener
+{
 
-    private IterDarkObsGUI _w;       // the GUI layout panel
+   private IterDarkObsGUI _w;
+   
+   /**
+    * If true, ignore action events.
+    */
+   private boolean ignoreActions = false;
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+/**
+ * The constructor initializes the title, description, and presentation source.
+ */
+public EdIterDarkObs()
+{
+   _title       ="Dark Iterator";
+   _presSource  = _w = new IterDarkObsGUI();
+   _description ="Take the specified number of dark exposures.";
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterDarkObs() {
-	_title       ="Dark Iterator";
-	_presSource  = _w = new IterDarkObsGUI();
-	_description ="Take the specified number of dark exposures.";
+   for(int i = 0; i < 100; i++) {
+     _w.repeatComboBox.addItem("" + (i + 1));
+   }
 
-	// Note: The original bongo code used a SpinBoxWidget, but since Swing
-	// doesn't have one, try using a JComboBox instead...
-	Object[] ar = new Object[99];
-	for (int i = 0; i < 99; i++)
-	    ar[i] = new Integer(i+1);
-	_w.repeatComboBox.setModel(new DefaultComboBoxModel(ar));
-	_w.repeatComboBox.addActionListener(this);
-    }
+   _w.repeatComboBox.addActionListener(this);
+   _w.defaultAcquisition.addActionListener(this);
+}
 
-    /**
-     */
-    protected void _init() {
-	TextBoxWidgetExt tbwe;
+/**
+ */
+protected void
+_init()
+{
+   // Exposure time
+   _w.exposureTime.addWatcher( this );
  
-	// Exposure time
-	tbwe = _w.exposureTime;
-	tbwe.addWatcher( this );
+   // Coadds
+   _w.coadds.addWatcher( this );
  
-	// Coadds
-	tbwe = _w.coadds;
-	tbwe.addWatcher( this );
+   super._init();
+}
+
+
+/**
+ * Implements the _updateWidgets method from OtItemEditor in order to
+ * setup the widgets to show the current values of the item.
+ */
+protected void
+_updateWidgets()
+{
+   ignoreActions = true;
+
+   SpIterDarkObs iterObs = (SpIterDarkObs) _spItem;
+
+   // Repetitions
+   _w.repeatComboBox.setSelectedIndex( iterObs.getCount() - 1);
+
+   // Exposure Time
+   _w.exposureTime.setValue( iterObs.getExposureTime() );
+
+   // Coadds
+   _w.coadds.setValue( iterObs.getCoadds() );
+
+   ignoreActions = false;
+}
+
+/**
+ * Watch changes to text boxes
+ */
+public void
+textBoxKeyPress(TextBoxWidgetExt tbwe)
+{
+   SpIterDarkObs iterObs = (SpIterDarkObs) _spItem;
+
+   if (tbwe == _w.exposureTime) {
+      iterObs.setExposureTime( tbwe.getText() );
+   } else if (tbwe == _w.coadds) {
+      iterObs.setCoadds( tbwe.getText() );
+   }
+}
  
-	super._init();
-    }
+/**
+ * Text box action.
+ */
+public void
+textBoxAction(TextBoxWidgetExt tbwe) {}
 
-
-    /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-	ignoreActions = true;
-
-	try {
-	    SpIterDarkObs iterObs = (SpIterDarkObs) _spItem;
-
-	    // Repetitions
-	    JComboBox sbw = _w.repeatComboBox;
-	    sbw.getModel().setSelectedItem(new Integer(iterObs.getCount()));
-
-	    TextBoxWidgetExt tbwe;
+/**
+ *
+ */
+public void
+actionPerformed(ActionEvent evt)
+{
+   if(ignoreActions)
+      return;
  
-	    // Exposure Time
-	    tbwe = _w.exposureTime;
-	    tbwe.setValue( iterObs.getExposureTime() );
+   Object w = evt.getSource();
 
-	    // Coadds
-	    tbwe = _w.coadds;
-	    tbwe.setValue( iterObs.getCoadds() );
-	}
-	catch(Exception e) {
-	    throw new RuntimeException(e.toString());
-	}
+   SpIterDarkObs iterObs = (SpIterDarkObs) _spItem;
 
-	ignoreActions = false;
-    }
+   if (w == _w.repeatComboBox) {
+      int i = _w.repeatComboBox.getSelectedIndex() + 1;
+      iterObs.setCount(i);
+      return;
+   }else if (w == _w.defaultAcquisition) {
+      iterObs.useDefaultAcquisition();
+      _updateWidgets();
+      return;
+   }
+}
 
-    /**
-     * Watch changes to text boxes
-     */
-    public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-	SpIterDarkObs iterObs = (SpIterDarkObs) _spItem;
-
-	if (tbwe == _w.exposureTime) {
-	    iterObs.setExposureTime( tbwe.getText() );
-	} 
-	else if (tbwe == _w.coadds) {
-	    iterObs.setCoadds( tbwe.getText() );
-	}
-    }
- 
-    /**
-     * Text box action.
-     */
-    public void textBoxAction(TextBoxWidgetExt tbwe) {}
-
-
-    /**
-     * Called when the value in the combo box is changed.
-     */
-    public void actionPerformed(ActionEvent evt) {
-	if (ignoreActions)
-	    return;
-
-	SpIterDarkObs iterObs = (SpIterDarkObs) _spItem;
-
-	JComboBox sbw = _w.repeatComboBox;
-	int i = ((Integer)(sbw.getSelectedItem())).intValue();
-	iterObs.setCount(i);
-    }
 }
 
