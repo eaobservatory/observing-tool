@@ -78,4 +78,18 @@
   </xsd:choice>
 </xsd:group>
 
+<xsd:simpleType name="cloudLimits">
+  <xsd:restriction base="xsd:double">
+    <xsd:minInclusive value="0.0"/>
+    <xsd:maxInclusive value="100.0"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:complexType name="cloudType">
+  <xsd:sequence>
+    <xsd:element name="min" type="toml:cloudLimits" minOccurs="0"/>
+    <xsd:element name="max" type="toml:cloudLimits" minOccurs="0"/>
+  </xsd:sequence>
+</xsd:complexType>
+
 </xsd:schema>
