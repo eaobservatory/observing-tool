@@ -72,8 +72,9 @@ public final class EdObservation extends OtItemEditor
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
 	_w.optional.addWatcher(this);
-	_w.chained.addActionListener(this);
-	_w.chained.setVisible(false); // XXX allan: remove it?
+	_w.standard.addWatcher(this);
+//	_w.chained.addActionListener(this);
+//	_w.chained.setVisible(false); // XXX allan: remove it?
 
 	for(int i = 0; i < 100; i++) {
 	  _w.remaining.addItem("" + (i + 1));
@@ -156,9 +157,12 @@ public final class EdObservation extends OtItemEditor
 	}
 
 	// Set the chained state
-	CheckBoxWidgetExt cbw = _w.chained;
-	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
-    
+//	CheckBoxWidgetExt cbw = _w.chained;
+//	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
+
+	// Set whether or not this is a standard
+	_w.standard.setSelected( ((SpObs) _spItem).getIsStandard() );
+
         // Added for OMP (MFO, 7 August 2001)
 	_w.optional.setValue(((SpObs)_spItem).isOptional()); 
 	_w.remaining.setSelectedIndex(((SpObs)_spItem).getNumberRemaining() - 1);
@@ -192,8 +196,11 @@ public final class EdObservation extends OtItemEditor
 	    return;
 	}
 
-	CheckBoxWidgetExt cbw = _w.chained;
-	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
+//	CheckBoxWidgetExt cbw = _w.chained;
+//	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
+
+	// Set whether or not this is a standard
+	_w.standard.setSelected( ((SpObs) _spItem).getIsStandard() );
     }
 
 
@@ -229,22 +236,33 @@ public final class EdObservation extends OtItemEditor
 	}
 
 	// Change the chained state
-	if (w == _w.chained) {
-	    CheckBoxWidgetExt cbw = (CheckBoxWidgetExt)w;
-	    
-	    _spItem.getAvEditFSM().deleteObserver(this);
-	    spObs.chainToNext( cbw.getBooleanValue() );
-	    _spItem.getAvEditFSM().addObserver(this);
+//	if (w == _w.chained) {
+//	    CheckBoxWidgetExt cbw = (CheckBoxWidgetExt)w;
+//	    
+//	    _spItem.getAvEditFSM().deleteObserver(this);
+//	    spObs.chainToNext( cbw.getBooleanValue() );
+//	    _spItem.getAvEditFSM().addObserver(this);
+//
+//	    cbw.setValue( spObs.getChainedToNext() );
+//	    return;
+//	}
 
-	    cbw.setValue( spObs.getChainedToNext() );
-	    return;
-	}
     }
 
     public void checkBoxAction(CheckBoxWidgetExt checkBoxWidgetExt) {
 	if(checkBoxWidgetExt == _w.optional) {
 	    ((SpObs)_spItem).setOptional(_w.optional.isSelected());
+	    return;
 	}
+
+        if (checkBoxWidgetExt == _w.standard) {
+            _spItem.getAvEditFSM().deleteObserver(this);
+            ((SpObs)_spItem).setIsStandard( _w.standard.getBooleanValue() );
+            _spItem.getAvEditFSM().addObserver(this);
+
+           _w.standard.setValue( ((SpObs)_spItem).getIsStandard() );
+           return;
+        }
     }
 
     /**
