@@ -164,7 +164,7 @@
     <xsd:element ref="toml:version"/>
     <xsd:element ref="toml:pi"/>
     <xsd:element ref="toml:projectID"/>
-    <xsd:element ref="toml:telescope"/>
+    <xsd:element ref="toml:telescope" minOccurs="0"/>
     <xsd:element ref="toml:title"/>
   </xsd:sequence>
 </xsd:group>
