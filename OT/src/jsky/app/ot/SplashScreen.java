@@ -31,6 +31,7 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 	dismissButton.addActionListener(this);
 	openButton.addActionListener(this);
 	newButton.addActionListener(this);
+	fetchButton.addActionListener(this);
     }
 
     //
@@ -92,7 +93,9 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 	    OtFileIO.open();
 	else if (w == newButton)
 	    OT.newProgram();
-	
+	else if (w == fetchButton)
+	    OT.fetchProgram();
+
 	// In any case, remove the splash screen
 	dismiss();
 
