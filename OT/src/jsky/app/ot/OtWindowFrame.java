@@ -66,6 +66,8 @@ public class OtWindowFrame extends JFrame {
 
 	// include this top level window in any future look and feel changes
 	LookAndFeelMenu.addWindow(this);
+
+	/*MFO DEBUG*/ pack();
     }
 
     /** Return the main science program editor panel */

@@ -187,6 +187,9 @@ public class OTMenuBar extends JMenuBar {
 	JMenuItem menuItem = new JMenuItem("Preferences");
         menuItem.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent ae) {
+		// I suspect it should be possible to define OT.preferences() as
+		// non-static method and use ot.preferences(). But it did
+		// cause an java.lang.IncompatibleClassChangeError in the past.
 		OT.preferences();
 	    }
 	});
@@ -200,6 +203,9 @@ public class OTMenuBar extends JMenuBar {
 	JMenuItem menuItem = new JMenuItem("Exit");
         menuItem.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent ae) {
+		// I suspect it should be possible to define OT.exit() as
+		// non-static method and use ot.exit(). But it did
+		// cause an java.lang.IncompatibleClassChangeError in the past.
 		OT.exit();
 	    }
 	});
