@@ -1059,8 +1059,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
          double maxHeight = ra[1] * pixelScale;
          if (isImaging()) {
              if (isPolarimetry()) {
-                 fov[0] = getMaskWidthPixels() * pixelScale;;
-                 fov[1] = getMaskHeightArcsec();
+                 fov[1] = getMaskWidthPixels() * pixelScale;;
+                 fov[0] = getMaskHeightArcsec();
 	     } else {
 	         fov[0] = maxWidth;
                  fov[1] = maxHeight;
