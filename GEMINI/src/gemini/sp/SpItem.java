@@ -49,8 +49,35 @@ public Object nextElement()
 
 
 /**
- * The base class for all Science Program items.  It implements common
- * features and services.
+ * The base class for all Science Program items.
+ * 
+ * It implements common features and services.
+ *
+ * <h3>SpItem and XML</h3>
+ *
+ * (added by M.Folger@roe.ac.uk, 27 March 2002))
+ * <p>
+ * Methods for reading and writing XML have been added.<p>
+ * <ul>Writing XML
+ *   <li>{@link #toXML()}
+ *   <li>{@link #toXML(java.lang.String,java.lang.StringBuffer)}
+ *   <li>{@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer))}
+ *   <li>{@link #avToXml(java.lang.String,java.lang.String)}
+ * </ul>
+ * <ul>Reading XML (These methods are called from an external XML Parser,
+ *                  see {@link orac.util.SpInputXML}.)
+ *   <li>{@link #processXmlElementStart(java.lang.String)}
+ *   <li>{@link #processXmlElementContent(java.lang.String,java.lang.String)}
+ *   <li>{@link #processXmlElementContent(java.lang.String,java.lang.String,int)}
+ *   <li>{@link #processXmlElementEnd(java.lang.String)}
+ *   <li>{@link #processXmlAttribute(java.lang.String,java.lang.String,java.lang.String)}
+ * </ul>
+ *
+ * <h4>SpAvTable attributes vs XML attributes</h4>
+ * Note that <i>SpAvTable attributes</i> are generally represented by <i>XML elements</i>. <i>XML attributes</i>
+ * represent special cases of SpAvTable attributes
+ * (see {@link #processAvAttribute(java.lang.String, java.lang.String, java.lang.StringBuffer))})
+ * Make sure you do not confuse SpAvTable attributes and XML attributes when reading this documentation.
  */
 public class SpItem extends Observable implements Cloneable, java.io.Serializable
 {
@@ -62,6 +89,13 @@ public class SpItem extends Observable implements Cloneable, java.io.Serializabl
     * The ODB assigns a unique name once the item is stored.
     */
    public static final String NO_NAME    = "new";
+
+   public static final String XML_ATTR_TYPE         = "type";
+   public static final String XML_ATTR_SUBTYPE      = "subtype";
+   public static final String XML_META_PREFIX       = "meta";
+
+   /** The class name is used as XML element name for an SpItem. */
+   private String _className;
 
    /**
     * The item's name as assigned by the ODB.
@@ -140,6 +174,8 @@ protected SpItem(SpType type)
 
    _avTable = new SpAvTable();
    _avTable.setStateMachine(_editAvFSM);
+
+   _className = getClass().getName().substring(getClass().getName().lastIndexOf(".") + 1);
 }
 
 /**
@@ -272,6 +308,18 @@ public final SpItem parent()	{ return _parent; }
  * @see #next
  */
 public final SpItem child()     { return _firstChild; }
+
+public final SpItem lastChild()
+{ 
+   SpItem child = child();
+
+   while((child != null) && (child.next() != null)) {
+      child = child.next();
+   }
+
+   return child;
+}
+
 
 /**
  * Get the next sibling.  Siblings are stored in a linked list and order
@@ -755,4 +803,310 @@ print(String indentStr)
    }
 }
 
+  public String getXmlElementName() {
+    return _className;
+  }
+
+  /**
+   * Returns XML representation of this SpItem.
+   *
+   * Could be overridden by subclasses to change their XML representation.
+   * But it is recommened to override
+   * {@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer)}.
+   * This allows to keep the basic form
+   * <pre><tt>
+   * &lt;SpItem <i>user attributes (XML representation of SpAvTable attributes starting with ':')</i> type="x" sybtype="y"&gt;
+   *   <i>XML representation of SpAvTable</i>
+   * &lt;SpItem&gt;
+   * </tt></pre>
+   */
+  public String toXML() {
+    StringBuffer buffer = new StringBuffer();
+
+    toXML("", buffer);
+
+    return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" + buffer.toString();
+  }
+
+  /**
+   * Appends an XML representation of this SpItem to a StringBuffer.
+   *
+   * @param indent    String by which the XML representation of this SpItem should be indented
+   * @param xmlBuffer StringBuffer to which the XML representation of this SpItem is appended
+   */
+  protected void toXML(String indent, StringBuffer xmlBuffer) {
+    Enumeration avAttributes;
+    String avAttr;
+    SpItem child;
+
+    xmlBuffer.append("\n" + indent + "<" + _className);
+
+    // Sort table entries to make different saves of a Science Program more
+    // comparible. Not sorting would still result in valid XML but
+    // the XML elements representing the Av table entries could
+    // be in a different order every time the XML created.
+    _avTable.sort();
+
+    // Get those AV table attributes that are to represented by XML attributes
+    // i.e. those that start with the character ':'.
+    avAttributes = _avTable.attributes(":");
+
+    // Write the XML attributes
+    while(avAttributes.hasMoreElements()) {
+      avAttr = (String)avAttributes.nextElement();
+
+      xmlBuffer.append(" " + avAttr.substring(1) + "=\"" + _avTable.get(avAttr) + "\"");
+    }
+
+    // Add type and subtype as XML attributes
+    xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">");
+
+    // Now get hold of and process all AV table attributes.
+    // The once starting with the character ':' have been dealt with already
+    // and will be ignored by processAvAttribute().
+    avAttributes = _avTable.attributes();
+
+    while(avAttributes.hasMoreElements()) {
+      processAvAttribute((String)avAttributes.nextElement(), indent, xmlBuffer);
+    }
+
+    // Deal with the child items.
+    child = child();
+    while(child != null) {
+      child.toXML(indent + "  ", xmlBuffer);
+      child = child.next();
+    }
+
+    xmlBuffer.append("\n" + indent + "</" + _className + ">");
+  }
+
+  /**
+   * Turns an AV table entry into XML.
+   *
+   *
+   * <table border cols=3 width="100%">
+   * <tr><td><b>SpAvTable attribute string</b> (ATTR_...)</td><td><b>value</b></td><td><b>XML representation</b></td></tr>
+   * <tr><td><tt>"attribute"</tt></td><td><tt>"value"</tt></td><td>&lt;value&gt;12.3&lt;/attribute&gt;</td></tr>
+   * <tr><td>Example:<br>
+   *         <tt>"expTime"</tt></td><td><tt>12.3</tt></td><td>&lt;expTime&gt;12.3&lt;/expTime&gt;</td></tr>
+   * <tr><td span=3><br></td></tr>
+   * <tr><td><tt>"attribute"</tt></td><td>value Vector (Java Vector)</td><td><pre>&lt;attribute&gt;
+  &lt;value&gt;value Vector entry 1&lt;/value&gt;
+  &lt;value&gt;value Vector entry 2&lt;/value&gt;
+  &lt;value&gt;value Vector entry 3&lt;/value&gt;
+&lt;/attribute&gt;</pre></td></tr>
+   * <tr><td>Example<br>
+   *         <tt>"expTimes"</tt></td><td>Java Vector containing 12.3, 23.4, 34.5</td><td><pre>&lt;expTimes&gt;
+  &lt;value&gt;12.3&lt;/value&gt;
+  &lt;value&gt;23.4&lt;/value&gt;
+  &lt;value&gt;34.4&lt;/value&gt;
+&lt;/expTimes&gt;</pre></td></tr>
+   * <tr><td span=3><br></td></tr>
+   * <tr><td><tt>":attribute"</tt></td><td><tt>"value"</tt></td><td>&lt;SpItem attribute="value"&gt; ... &lt;/SpItem&gt;<br>
+   *                                        where SpItem is any subclass of SpItem</td></tr>
+   * <tr><td>Example<br>
+   *         <tt>":optional"</tt></td><td><tt>"true"</tt></td><td>&lt;SpItem optional="true"&gt; ... &lt;/SpItem&gt;<br>
+   *                                        where SpItem is any subclass of SpItem</td></tr>
+   * <tr><td span=3><br></td></tr>
+   * <tr><td><tt>"attrPrefix:attrSuffix"</tt></td><td><tt>"value"</tt></td><td>&lt;attrPrefix attrSuffix="value"/&gt;</td></tr>
+   * <tr><td>Example<br>
+   *         <tt>"acquisation:mode"</tt></td><td><tt>"imaging"</tt></td><td>&lt;acquisation mode="imaging"/&gt;</td></tr>
+   * <tr><td span=3><br></td></tr>
+   * <tr><td><tt>".string1.string2.string3 ..."</tt></td><td><tt>"value"</tt></td><td>&lt;meta_string1_string2_string3 ...&gt;
+                                                                               value&lt;/meta_string1_string2_string3 ...&gt;</td></tr>
+   * <tr><td>Example<br>
+   *         <tt>"gui.collapsed"</tt></td><td><tt>"true"</tt></td><td>&lt;meta_gui_collapsed&gt;
+                                                                               true&lt;/meta_gui_collapsed&gt;</td></tr>
+   * </table>
+   *
+   * <h3>Reserved Strings</h3>
+   *
+   * In order to allow the XML conversion described above to work the following reserved strings
+   * must not be used as AV table attribute names (ATTR_...):
+   * <ul>
+   *   <li><tt><b>value</b></tt> Used to encode value Vectors.
+   *   <li><tt><b>:type</b></tt> Used to encode the the type string of the SpItem (see {@link #typeStr()}).
+   *   <li><tt><b>:subtype</b></tt> Used to encode the the subtype string of the SpItem (see {@link #subtypeStr()}).
+   *   <li><tt><b>meta...</b></tt> The prfix meta is used to encode attributes starting and containing the character '.'.
+   * </ul>
+   *
+   * <h3>SpAvTable attributes that cannot be converted</h3>
+   *
+   * Appart from attributes starting with the character '.' (e.g. ".gui.collapsed") attributes should not contain
+   * characters that cannot be used in XML element or attribute names. Normally '.' is such a forbidden character
+   * but if an attribute starts with '.' then it is converted to and from XML as described in the
+   * table above.
+   *
+   * <h3>name and :name</h3>
+   *
+   * If one is table entry is <tt>acquisation:mode = "imaging"</tt> and another is <tt>acquisation = "on"</tt>
+   * then they will be translated as
+   *
+   * <pre>
+   *   &lt;acquisation mode="imaging"&gt;
+   *   &lt;acquisation&gt;on&lt;/acquisation&gt;
+   * </pre>
+   *
+   * and <b>not</b> as
+   *
+   * <pre>
+   *   &lt;acquisation mode="imaging"&gt;on&lt;/acquisation&gt;
+   * </pre>
+   *
+   * <h3>Overriding processAvAttribute()</h3>
+   *
+   * Subclasses can override this method. In that case all the above rules and restrictions could become meaningless.
+   * In a typical case the method processAvAttribute would check for a particular attribute and depending on
+   * which attribute it is either super.processAvAttribute() (i.e. SpItem.processAvAttribute) would be called (for example
+   * for standard attrbutes such as ".gui.collapsed") or the subclass would create a differend XML representation.
+   * <b>In the latter case some or all of the XML reading methods {@link #processXmlElementStart},
+   * {@link #processXmlElementContent},{@link #processXmlElementEnd},{@link #processXmlAttribute} will
+   * need to be adjusted accordingly so that the XML produced by processAvAttribute can be read back in again.</b>
+   *
+   * @param avAttr SpAvTable attribute String
+   * @param indent String by which the XML representation of this SpAvTable entry should be indented
+   * @param xmlBuffer StringBuffer to which the XML representation of this SpAvTable is appended
+   */
+  protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
+    if(!avAttr.startsWith(":")) {
+      if(_avTable.getAll(avAttr).size() == 1) {
+        xmlBuffer.append("\n  " + indent + avToXml(avAttr, _avTable.get(avAttr)));
+      }
+      else {
+        String value;
+        xmlBuffer.append("\n  " + indent + "<" + avAttr + ">");
+          
+        for(int i = 0; i < _avTable.getAll(avAttr).size(); i++) {
+	  value = _avTable.get(avAttr, i);
+
+	  if((value != null) && (value.length() > 0)) {
+            xmlBuffer.append("\n    " + indent + "<value>" + _avTable.get(avAttr, i) + "</value>");
+	  }
+	  else {
+            xmlBuffer.append("\n    " + indent + "<value>" /*+ XML_ARRAY_POS_EMPTY*/     + "</value>");
+	  }
+        }
+	  
+        xmlBuffer.append("\n  " + indent + "</" + avAttr + ">");
+      }
+    }
+  }
+
+  /**
+   * This method can be called by an external XML parser to indicate the start of an XML element.
+   *
+   * Subclassed that read and write their individual XML format can override this method.
+   *
+   * @param name XML element name
+   *
+   * @see #processXmlElementContent(java.lang.String,java.lang.String,int)
+   */
+  public void processXmlElementStart(String name) { }
+
+  /**
+   * This method can be called by an external XML parser when an XML element is parsed.
+   *
+   * Subclassed that read and write their individual XML format can override this method.
+   *
+   * @param name  XML element name
+   * @param value Characters inside the XML element
+   * 
+   */
+  public void processXmlElementContent(String name, String value) {
+    processXmlElementContent(name, value, 0);
+  }
+
+  /**
+   * This method can be called by an external XML parser when an XML element is parsed.
+   *
+   * This methods is used when the XML contains a number of
+   * <tt>&lt;value&gt;text&lt;/value&gt;</tt> elements. These value elements are used as
+   * the XML representation of mulitple values of one {@link gemini.sp.SpAvTable} attribute.
+   * Each SpAvTable attribute can have multiple values each of which is stored at a certain
+   * position in a Vector.
+   * (see {@link gemini.sp.SpAvTable.get(java.lang.String,int)},
+   * {@link gemini.sp.SpAvTable.set(java.lang.String,java.lang.String,int)} etc.)
+   *
+   * Subclassed that read and write their individual XML format can override this method.
+   *
+   * @param name  XML element name
+   * @param value <tt><i>value</i></tt> in <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt>
+                  element number <i>pos</i>
+   * @param pos   Indicates which <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt>
+   *              element's value is returned. Corresponds to the position of
+   *              the value in side the Vector of the SpAvTable attribute <i>name</i>.
+   */
+  public void processXmlElementContent(String name, String value, int pos) {
+    //if((name == null) || (value == null) || (name.length() < 1) || (value.length() < 1)) {
+    if((name == null) || (name.length() < 1)) {
+      return;
+    }
+
+    if(name.startsWith(XML_META_PREFIX)) {
+      _avTable.noNotifySet(name.substring(XML_META_PREFIX.length()).replace('_', '.'), value, pos);
+    }
+    else {
+      _avTable.noNotifySet(name, value, pos);
+    }
+  }
+
+  /**
+   * This method can be called by an external XML parser to indicate the end of an XML element.
+   *
+   * Subclassed that read and write their individual XML format can override this method.
+   *
+   * @param name XML element name
+   *
+   * @see #processXmlElementContent(java.lang.String,java.lang.String,int)
+   */
+  public void processXmlElementEnd(String name) { }
+
+  /**
+   * This method can be called by an external XML parser when an XML attribute is parsed.
+   *
+   * Subclassed that read and write their individual XML format can override this method.
+   *
+   * @param elementName name of the XML element which has this XML attribute
+   * @param attribute   XML attribute name
+   * @param value       value of the XML attribute
+   */
+  public void processXmlAttribute(String elementName, String attributeName, String value) {
+    if((attributeName == null) || (value == null) || (attributeName.length() < 1) || (value.length() < 1)) {
+      return;
+    }
+
+    if(attributeName.equals(XML_ATTR_TYPE) || attributeName.equals(XML_ATTR_SUBTYPE)) {
+      return;
+    }
+
+    // If the elementName is the class name, i.e. it is an XML attribute of the <SpItem> XML element,
+    // then the av attribute is ":attributeName".
+    if(_className.equals(elementName)) {
+      _avTable.noNotifySet(":" + attributeName, value, 0);
+    }
+    // Otherwise the av attribute is "elementName:attributeName".
+    else {
+      _avTable.noNotifySet(elementName + ":" + attributeName, value, 0);
+    }
+  }
+
+  /**
+   * Convenience method.
+   */
+  protected final String avToXml(String avAttr, String value) {
+    if(avAttr.indexOf(':') < 0) {
+      if(avAttr.startsWith(".")) {
+        return "<"  + XML_META_PREFIX + avAttr.replace('.', '_') + ">" + value +
+	       "</" + XML_META_PREFIX + avAttr.replace('.', '_') + ">";
+      }
+      else {
+        return "<" + avAttr + ">" + value + "</" + avAttr + ">";
+      }	
+    }
+    else {
+      return "<" + avAttr.substring(0, avAttr.indexOf(':')) + " " +
+                   avAttr.substring(avAttr.indexOf(':') + 1) + "=\"" + value + "\"/>";
+    }
+  }
 }
+

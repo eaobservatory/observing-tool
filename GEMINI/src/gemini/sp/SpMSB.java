@@ -190,7 +190,33 @@ public double getElapsedTime()
  */
 public void saveElapsedTime() {
   _avTable.set(ATTR_ELAPSED_TIME, getElapsedTime());
-  _avTable.set(ATTR_ELAPSED_TIME + ":units", "seconds");
+//  _avTable.set(ATTR_ELAPSED_TIME + ":units", "seconds");
+}
+
+protected void
+processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
+{
+
+   if(avAttr.equals(ATTR_ELAPSED_TIME)) {
+      xmlBuffer.append("\n  "   + indent + "<"  + ATTR_ELAPSED_TIME + " units=\"seconds\">" + getElapsedTime() +
+                                           "</" + ATTR_ELAPSED_TIME + ">");
+
+      return;
+   }
+
+   super.processAvAttribute(avAttr, indent, xmlBuffer);
+}
+
+public void
+processXmlAttribute(String elementName, String attributeName, String value)
+{
+   // Do not save units = seconds to the AV table because the XML attribute units="seconds"
+   // is added in processAvAttribute. So ignore units = seconds.
+   if(attributeName.equals("units") && value.equals("seconds")) {
+     return;
+   }
+
+   super.processXmlAttribute(elementName, attributeName, value);
 }
 
 }
