@@ -29,8 +29,8 @@ public class TpeSciArea
    // scratch work variable
    private PolygonD _pd;
 
-   private static final int RECTANGULAR    =  0;
-   private static final int CIRCULAR       =  1;
+   public static final int RECTANGULAR    =  0;
+   public static final int CIRCULAR       =  1;
    private int _shape = RECTANGULAR;
 
    /** Number of vertices of the Polygon that approximates the circle. */
@@ -168,6 +168,17 @@ getPolygonDAt(double x, double y)
       ScreenMath.rotateRadians(pd, posAngleRadians + skyCorrection, x, y);
       return new PolygonD(pd);
    }  
+}
+
+/**
+ * Returns shape of science area.
+ *
+ * @return {@link #RECTANGULAR} or {@link #CIRCULAR}
+ */
+public int
+getShape()
+{
+   return _shape;
 }
 
 }

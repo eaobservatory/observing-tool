@@ -229,6 +229,12 @@ draw(Graphics g, FitsImageInfo fii)
 
    g.setColor(Color.cyan);
    g.drawPolygon(_sciAreaPD.getAWTPolygon());
+
+   // If the shape is circular then forget about tick mark and dragging.
+   if(_sciArea.getShape() == TpeSciArea.CIRCULAR) {
+      return;
+   }
+
    g.fillPolygon(_tickMarkPD.getAWTPolygon());
 
    if (_dragging) {
@@ -248,6 +254,11 @@ draw(Graphics g, FitsImageInfo fii)
 public boolean
 dragStart(FitsMouseEvent fme, FitsImageInfo fii)
 {
+   // If the shape is circular then forget about dragging.
+   if(_sciArea.getShape() == TpeSciArea.CIRCULAR) {
+      return false;
+   }
+
    if ((_sciAreaPD == null) || (_tickMarkPD == null)) {
       return false;
    }
@@ -304,6 +315,11 @@ dragStart(FitsMouseEvent fme, FitsImageInfo fii)
  */
 public void drag(FitsMouseEvent fme)
 {
+   // If the shape is circular then forget about dragging.
+   if(_sciArea.getShape() == TpeSciArea.CIRCULAR) {
+      return;
+   }
+
    if (_dragObject != null) {
       _dragX = fme.xWidget;
       _dragY = fme.yWidget;
@@ -318,6 +334,11 @@ public void drag(FitsMouseEvent fme)
  */
 public void dragStop(FitsMouseEvent fme)
 {
+   // If the shape is circular then forget about dragging.
+   if(_sciArea.getShape() == TpeSciArea.CIRCULAR) {
+      return;
+   }
+
    if (_dragObject != null) {
       _instItem.getAvEditFSM().setEachEditNotifies(true);
       _dragging = false;
