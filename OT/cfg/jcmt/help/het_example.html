@@ -214,11 +214,13 @@ window"><p>
 
     <img src="het_images/het_site_quality.gif" alt="Site Quality Component"><p>
 
-     You probably don't need to change anything here. The default
-     value of tau of "Allocated" means that your MSB can be scheduled
-     when the tau is in the range that was specified by your TAG for
-     your project The default value of the sub-millimetre seeing is
-     "Don't Care".
+     You probably don't need to change anything here, except if your
+program is using different receivers (where you don't want an RxW
+project done in grade 5 weather or an RxA project in grade 2
+weather). The default value of tau of "Allocated" means that your MSB
+can be scheduled when the tau is in the range that was specified by
+your TAG for your project. The default value of the sub-millimetre
+seeing is "Don't Care".
 
 <!-- If you think you need to change these values, click
      on the note entitled "Note: Site Quality" which contains a
@@ -571,10 +573,11 @@ time per GSD file produced.
 <li> Set up the repeat counter to give the number of repeats of the
 time set up in the photom/sample eye to get your total required
 integration time. If you want a total integration of one hour, you
-might set up an integration time of 10 minutes in the photom/sample
+can set up an integration time of 10 minutes in the photom/sample
 eye and set the repeat counter to six. When observing, you can then
 monitor the observation by inspecting the GSD file produced every ten
-minutes, and co-add the spectra as you go along.
+minutes, and co-add the spectra as you go along. 
+
 
 <li> Add a "show to observer" note. This should contain additional
 information on the overall aims of your science program, details of
