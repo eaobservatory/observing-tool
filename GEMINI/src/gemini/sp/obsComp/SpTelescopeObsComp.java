@@ -23,6 +23,13 @@ import gemini.sp.SpType;
  */
 public class SpTelescopeObsComp extends SpObsComp
 {
+
+   // CHOP MODE parameters (added by MFO, 6 August 2001)
+   public static final String ATTR_CHOPPING	= "chopping";
+   public static final String ATTR_CHOP_THROW	= "chopThrow";
+   public static final String ATTR_CHOP_ANGLE	= "chopAngle";
+
+
    protected SpTelescopePosList _posList;
 
 public SpTelescopeObsComp()
@@ -125,6 +132,111 @@ replaceTable(SpAvTable avTab)
       // NOTE this will reset the base position in the obs data.
       _posList.setTable(avTab);
    }
+}
+
+/**
+ * Get chopping on / off.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public boolean
+isChopping()
+{
+   return _avTable.getBool(ATTR_CHOPPING);
+}
+
+/**
+ * Set chopping on / off.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public void
+setChopping(boolean choppingOn)
+{
+   _avTable.set(ATTR_CHOPPING, choppingOn);
+   // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
+   // (for TelescopesPosWatcher or TelescopePosListWatcher).
+   //_notifyOfGenericUpdate();
+}
+
+/**
+ * Get the chop throw as String.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public String
+getChopThrowAsString()
+{
+   String res = _avTable.get(ATTR_CHOP_THROW);
+   if (res == null) {
+      res = "0.0";
+   }
+   return res;
+}
+
+/**
+ * Get the chop throw.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public double
+getChopThrow()
+{
+   return Double.parseDouble(getChopThrowAsString());
+}
+
+/**
+ * Set the chop throw as a string.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public void
+setChopThrow(String chopThrowStr)
+{
+   _avTable.set(ATTR_CHOP_THROW, chopThrowStr);
+   // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
+   // (for TelescopesPosWatcher or TelescopePosListWatcher).
+   //_notifyOfGenericUpdate();
+}
+
+/**
+ * Get the chop angle as string.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public String
+getChopAngleAsString()
+{
+   String res = _avTable.get(ATTR_CHOP_ANGLE);
+   if (res == null) {
+      res = "0.0";
+   }
+   return res;
+}
+
+/**
+ * Get the chop angle.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public double
+getChopAngle()
+{
+   return Double.parseDouble(getChopAngleAsString());
+}
+
+/**
+ * Set the chop angle as a string.
+ *
+ * Added by MFO (6 August 2001)
+ */
+public void
+setChopAngle(String chopAngleStr)
+{
+   _avTable.set(ATTR_CHOP_ANGLE, chopAngleStr);
+   // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
+   // (for TelescopesPosWatcher or TelescopePosListWatcher).
+   //_notifyOfGenericUpdate();
 }
 
 }
