@@ -114,6 +114,8 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
+	\nset OT_USERDIR=\`pwd\`\
+	\n\
 	\ncd \`dirname $$""0\`\
 	\n\
 	\nset JAVA = $(JAVA)\
@@ -133,7 +135,7 @@ endif
 	"\n\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset CLASSPATH = $(LOCAL_INSTALL_CLASSPATH)\
-        \n\
+	\n\
 	\n" >> $@
 
 	@cat scripts/ot_script_source >> $@
@@ -216,6 +218,8 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# For editing this script and keeping the modifications make a copy of this script in   #\
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
+	\n\
+	\nset OT_USERDIR=\`pwd\`\
 	\n\
 	\ncd \`dirname $$""0\`\
 	\n\
