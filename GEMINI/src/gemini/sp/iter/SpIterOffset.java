@@ -15,6 +15,9 @@ import gemini.sp.SpItem;
 import gemini.sp.SpPosAngleObserver;
 import gemini.sp.SpObsData;
 
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpInstObsComp;
+
 //import gemini.sp.iter.SpIterComp;
 //import gemini.sp.iter.SpIterEnumeration;
 //import gemini.sp.iter.SpIterStep;
@@ -321,6 +324,13 @@ processXmlElementContent(String name, String value)
    }
 
    if(name.equals("PA")) {
+       // Added by SdW - allows posAngle in target attribute to override
+       // that supplied if it exists...
+       SpInstObsComp inst = SpTreeMan.findInstrument(this);
+       if (inst != null && inst.getPosAngleDegrees() != 0.0) {
+	   value = inst.getPosAngleDegreesStr();
+       }
+       // END
       setPosAngle(value);
 
       return;
