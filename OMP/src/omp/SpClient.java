@@ -2,6 +2,7 @@ package omp;
 
 import java.io.*;
 import java.net.*;
+import javax.swing.JOptionPane;
 import java.util.Properties;
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
@@ -124,6 +125,49 @@ public class SpClient extends SoapClient {
 	 }   
       }
    }
+
+    public static SpItem replicateSp(SpItem currentItem, File catalog) throws Exception {
+	char [] contents = new char [(int)catalog.length()];
+	byte [][] rtn;
+	SpItem spItem = null;
+	flushParameter();
+	try {
+	    FileReader fr = new FileReader(catalog);
+	    fr.read(contents, 0, (int)catalog.length());
+
+	    // get the current science program and convert it to a string
+	    String currentSp = currentItem.toXML();
+	    addParameter("TemplateSp", String.class, currentSp);
+	    addParameter("Catalog", String.class, new String(contents));
+	    Object o = doCall(getURL(), SOAP_ACTION, "SpInsertCat");
+	    rtn = (byte [][])o;
+	    String spXML = new String (rtn[0]);
+	    if (spXML != null && !spXML.equals("")) {
+		System.out.println("Building replicated Science Program");
+		spItem = (new SpInputXML()).xmlToSpItem(spXML);
+	    }
+	    JOptionPane.showMessageDialog(null, 
+					  new String (rtn[1]),
+					  "Replication returned the following information",
+					  JOptionPane.INFORMATION_MESSAGE);
+	}
+	catch (java.io.FileNotFoundException e) {
+	    e.printStackTrace();
+	    throw(e);
+	}
+	catch (java.io.IOException e) {
+	    e.printStackTrace();
+	    throw(e);
+	}
+	catch (Exception e) {
+	    System.out.println("Unexpected exception caught");
+	    e.printStackTrace();
+	    throw e;
+	}
+	
+	return (SpItem)spItem;
+	
+    }
 
 
    /**
