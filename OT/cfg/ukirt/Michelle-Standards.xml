@@ -22760,7 +22760,7 @@ If you change the standard star settings in the Michelle instrument component, p
       <SpTelescopeObsCompRef idref="511"/>
       <SpDRRecipeRef idref="513"/>
       <chainedToPrev>false</chainedToPrev>
-      <title>BS6746 LowN (18:05 +03)</title>
+      <title>BS6746 LowN (18:05 -30)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>true</standard>
@@ -22889,7 +22889,7 @@ If you change the standard star settings in the Michelle instrument component, p
       <SpTelescopeObsCompRef idref="514"/>
       <SpDRRecipeRef idref="516"/>
       <chainedToPrev>false</chainedToPrev>
-      <title>BS6746 LowQ (18:05 +03)</title>
+      <title>BS6746 LowQ (18:05 -30)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>true</standard>
