@@ -77,12 +77,13 @@ public class SpIterNodObs extends SpIterObserveBase
 {
    public static final String ATTR_NOD_PATTERN = "nodPattern";
 
-   public static String CHOP_BEAM_MAIN   = "MAIN";
-   public static String CHOP_BEAM_OFFSET = "OFFSET";
+   public static String CHOP_BEAM_A      = "A";
+   public static String CHOP_BEAM_B      = "B";
+   public static String CHOP_BEAM_MIDDLE = "MIDDLE";
 
    public static String[][] NOD_PATTERNS = {
-      {CHOP_BEAM_MAIN, CHOP_BEAM_OFFSET},
-      {CHOP_BEAM_MAIN, CHOP_BEAM_OFFSET, CHOP_BEAM_MAIN, CHOP_BEAM_OFFSET}
+      {CHOP_BEAM_A, CHOP_BEAM_B},
+      {CHOP_BEAM_A, CHOP_BEAM_B, CHOP_BEAM_A, CHOP_BEAM_B}
    };
 
    public static final SpType SP_TYPE =
@@ -127,7 +128,7 @@ elements()
 /**
  * Get the nod pattern as String array.
  *
- * Each String in the array is one of {@link #CHOP_BEAM_MAIN}, {@link #CHOP_BEAM_OFFSET}
+ * Each String in the array is one of {@link #CHOP_BEAM_A}, {@link #CHOP_BEAM_B}
  */
 public String []
 getNodPattern()
@@ -167,20 +168,23 @@ setNodPattern(String [] nodPatternArray)
 }
 
 /**
- * Returns i'th predefined nod pattern.
+ * Returns Enumeration of nod pattern vectors.
  *
  * Convenience method. Useful for JComboBox in GUI.
- *
- * Does <b>NOT</b> return the i'th element of the current nod pattern.
  */
-public static Vector getNodPattern(int i) {
-   if(i < NOD_PATTERNS.length) {
-      return stringArrayToVector(NOD_PATTERNS[i]);
+public static Enumeration patterns() {
+   Vector allPatterns = new Vector();
+   Vector onePattern;
+
+   for(int i = 0; i < NOD_PATTERNS.length; i++) {
+      onePattern = new Vector();
+      for(int j = 0; j < NOD_PATTERNS[i].length; j++) {
+         onePattern.add(NOD_PATTERNS[i][j]);
+      }
+      allPatterns.add(onePattern);
    }
-   else {
-      // No such nod pattern. Return empty Vector.
-      return new Vector();
-   }
+
+   return allPatterns.elements();
 }
 
 public static Vector stringArrayToVector(String [] stringArray) {
