@@ -246,6 +246,9 @@ the end of the transition name - it makes the display nicer.
     <transition name="12 1 2  - 12 0 1 " frequency="336874.3522"/>
     <transition name="3 3 3  - 4 2 3 " frequency="337135.9128"/>
     <transition name="7 0 3  - 6 0 3 " frequency="338124.502"/>
+    <transition name="7 1 4  - 6 1 4 " frequency="338344.628"/>
+    <transition name="7 1 3  - 6 1 3 " frequency="338614.999"/>
+    <transition name="7 2 3  - 6 2 3 " frequency="338722.220"/>
     <transition name="2 2 1  - 3 1 1 " frequency="340141.1577"/>
     <transition name="7 1 2  - 6 1 2 " frequency="341415.5"/>
     <transition name="4 0 3  - 3 1 4 " frequency="350687.6685"/>
