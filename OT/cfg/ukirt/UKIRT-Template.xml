@@ -13,7 +13,7 @@
 
 Remember to include an array_tests observation so that you can check the array performance at the start of each night.
 
-9 point or 5-point jitter patterns are available with standard offsets of 10 or 20 arcsecs.  (Edit for non-standard offsets.)
+9-point or 5-point jitter patterns are available with standard offsets of 10 or 20 arcsecs.  (Edit for non-standard offsets.)
 
 Quadrant-jitter patterns for deep imaging are available.
 
@@ -2218,7 +2218,7 @@ The UFTI component below uses a 40-second exposure time.   To change it move the
       <SpDRRecipe id="34" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
-        <SkyRecipe>REDUCE_SKY</SkyRecipe>
+        <SkyRecipe>SKY_AND_JITTER</SkyRecipe>
         <ObjectRecipe>SKY_AND_JITTER</ObjectRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <BiasRecipe>REDUCE_BIAS</BiasRecipe>
@@ -12194,7 +12194,7 @@ The IRCAM3 component below uses a 0.5-second exposure time.  To change it move t
       <SpDRRecipe id="193" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
-        <SkyRecipe>REDUCE_SKY</SkyRecipe>
+        <SkyRecipe>SKY_AND_JITTER_APHOT</SkyRecipe>
         <ObjectRecipe>SKY_AND_JITTER_APHOT</ObjectRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <BiasRecipe>REDUCE_BIAS</BiasRecipe>
