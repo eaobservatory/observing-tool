@@ -644,7 +644,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     }
     
     /**
-     * Get the dispserser R.
+     * Get the dispserser R (resolving power).
      */
     public int
 	getDisperserR()
@@ -791,39 +791,74 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
      * central wavelength.  0 is returned if there is no disperser selected.
      */
     public double []
-	getWavelengthCoverage()
+        getWavelengthCoverage()
     {
-	double range[] = new double[2];
-	int r = getDisperserR();
-	if (r == 0) {
-	    range[0] = 0.0;
-	    range[1] = 0.0;
-	}else{
-	    double cw = getCentralWavelength();
-	    double wr = DETECTOR_WIDTH * cw / r;
-	    range[0] = cw - wr / 2.0;
-	    range[1] = cw + wr / 2.0;
-	}
-	return range;
+        double range[] = new double[2];
+        int r = getDisperserR();
+
+        if ( r == 0 ) {
+           range[0] = 0.0;
+           range[1] = 0.0;
+        } else {
+
+    // Obtain the disperser name, central wavelength, and the
+    // wavelength coverage in first order for the standard
+    // gratings but the coverage per unit wavelength for the
+    // echelle.
+          int di = getDisperserIndex();
+          String disp = (String) DISPERSERS.elementAt( di, 0 );
+          double cw = getCentralWavelength();
+          double coverage = ( Double.valueOf( (String)DISPERSERS.elementAt( di, 9 ) ) ).doubleValue();
+          double wr;
+
+    // Ordinary gratings.  Range fixed at each order.
+          if ( disp.startsWith( "40" ) || disp.startsWith( "150" ) ) {
+             int o = getOrder();
+             wr = coverage / o;
+
+    // Echelle range is depends on the central wavelength.
+          } else {
+             wr = coverage * cw;
+          }
+          range[0] = cw - wr / 2.0;
+          range[1] = cw + wr / 2.0;
+       }
+       return range;
     }
     
     /**
-     * Calculate the spectral resolution, based upon the disperser, order and
-     * central wavelength.  0 is returned if there is no disperser selected.
+     * Calculate the spectral resolution, based upon the disperser,
+     * order, pixel width, and central wavelength.  0 is returned if
+     * there is no disperser selected.
      */
     public double
-	getResolution()
+        getResolution()
     {
-	double res;
-	int r = getDisperserR();
-	if (r == 0) {
-	    res = 0.0;
-	}else{
-	    int o = getOrder();
-	    double cw = getCentralWavelength();
-	    res = o * r * cw/2.0;
-	}
-	return res;
+        double res;
+        int r = getDisperserR();
+
+        if ( r == 0 ) {
+           res = 0.0;
+        } else {
+
+    // Obtain the disperser name.
+           int di = getDisperserIndex();
+           String disp = (String) DISPERSERS.elementAt( di, 0 );
+           double sw = getMaskWidth();
+
+    // Ordinary gratings
+           if ( disp.startsWith( "40" ) || disp.startsWith( "150" ) ) {
+              int o = getOrder();
+              double cw = getCentralWavelength();
+              res = o * r * cw / sw;
+
+     // Echelle resolution is independent of the wavelength.  Assume
+     // that the optimum order is used.
+           } else {
+              res = r / sw;
+           }
+        }
+        return res;
     }
     
     /**
