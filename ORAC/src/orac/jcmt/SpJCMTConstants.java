@@ -127,6 +127,7 @@ public interface SpJCMTConstants {
    public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference";
    public static final String ATTR_SAMPLE_TIME         = "sampleTime";
    public static final String ATTR_JIGGLES_PER_CYCLE   = "jigglePerCycle";
+   public static final String ATTR_AUTOMATIC_TARGET    = "autoTarget";
 
 
    /** Focus Iterator. */
