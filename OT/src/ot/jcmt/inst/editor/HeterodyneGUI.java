@@ -36,6 +36,7 @@ public class HeterodyneGUI extends JPanel {
   private JPanel displayPanel;
   private JPanel overlapBandwidthPanel;
   private JPanel velocityPanel;
+  private JPanel warningPanel;
 //  private JPanel rangePanel;
 //  private Box linePanel;
   private JPanel mol1Panel;
@@ -260,6 +261,17 @@ public class HeterodyneGUI extends JPanel {
       freqEditorButton.setFont(new Font("Dialog", 0, 12));
       hideFreqEditorButton.setFont(new Font("Dialog", 0, 12));
 
+      warningPanel = new JPanel(new GridLayout(0,1));
+      label = new JLabel ("Note");
+      label.setFont(new Font(label.getFont().getName(), Font.BOLD, 16));
+      label.setForeground(Color.red);
+      warningPanel.add(label);
+      
+      label = new JLabel ("Use the \"Enter\" Key to confirm edited values of VELOCITY and FREQUENCY");
+      label.setFont(new Font(label.getFont().getName(), Font.PLAIN, 14));
+      label.setForeground(Color.red);
+      warningPanel.add(label);
+
 //      linePanel = Box.createVerticalBox();
 //      linePanel.add ( mol1Panel );
 
@@ -300,6 +312,7 @@ public class HeterodyneGUI extends JPanel {
       northPanel.add ( overlapBandwidthPanel );
       northPanel.add ( velocityPanel );
       northPanel.add ( mol1Panel );
+      northPanel.add ( warningPanel );
       add ( northPanel, BorderLayout.NORTH );
 
 //      scrollPanel = new JScrollPane();
