@@ -107,22 +107,20 @@ public final class EdCompTargetList extends OtItemEditor
 	  //}
 	}
 
-
-        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
-          _w.extrasFolder.setEnabledAt(2, false);
-	  _w.extrasFolder.setSelectedIndex(0);
-        }
-
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
-          _w.extrasFolder.setEnabledAt(1, false);
-	  _w.extrasFolder.setSelectedIndex(2);
+          _w.extrasFolder.setEnabledAt(0, false);
+          _w.extrasFolder.setSelectedIndex(1);
         }
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
-          _w.extrasFolder.setEnabledAt(0, false);
-	  _w.extrasFolder.setSelectedIndex(2);
+          _w.extrasFolder.setEnabledAt(1, false);
+          _w.extrasFolder.setSelectedIndex(2);
         }
 
+        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
+          _w.extrasFolder.setEnabledAt(2, false);
+          _w.extrasFolder.setSelectedIndex(0);
+        }
 
         _w.newButton.setText("Add " + OtCfg.telescopeUtil.getAdditionalTarget());
 
