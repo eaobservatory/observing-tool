@@ -29,18 +29,30 @@ public class SiteQualityGUI extends JPanel {
     GridBagLayout gridBagLayout3 = new GridBagLayout();
     GridBagLayout gridBagLayout4 = new GridBagLayout();
     GridBagLayout gridBagLayout5 = new GridBagLayout();
-    OptionWidgetExt seeingGood = new OptionWidgetExt();
-    OptionWidgetExt seeingPoor = new OptionWidgetExt();
-    OptionWidgetExt seeingAny = new OptionWidgetExt();
-    OptionWidgetExt csoAny = new OptionWidgetExt();
-    OptionWidgetExt csoVeryDry = new OptionWidgetExt();
+//     OptionWidgetExt seeingGood = new OptionWidgetExt();
+//     OptionWidgetExt seeingPoor = new OptionWidgetExt();
+//     OptionWidgetExt seeingAny = new OptionWidgetExt();
+//     OptionWidgetExt csoAny = new OptionWidgetExt();
+//     OptionWidgetExt csoVeryDry = new OptionWidgetExt();
     OptionWidgetExt moonAny = new OptionWidgetExt();
     OptionWidgetExt moonGrey = new OptionWidgetExt();
     OptionWidgetExt moonDark = new OptionWidgetExt();
     OptionWidgetExt cloudAny = new OptionWidgetExt();
     OptionWidgetExt cloudThinCirrus = new OptionWidgetExt();
     OptionWidgetExt cloudPhotometric = new OptionWidgetExt();
-  OptionWidgetExt seeingExcellent = new OptionWidgetExt();
+//     OptionWidgetExt seeingExcellent = new OptionWidgetExt();
+    OptionWidgetExt  tauBandAllocated = new OptionWidgetExt();
+    OptionWidgetExt  tauBandUserDefined = new OptionWidgetExt();
+    TextBoxWidgetExt minTau           = new TextBoxWidgetExt();
+    TextBoxWidgetExt maxTau           = new TextBoxWidgetExt();
+    OptionWidgetExt  seeingAllocated  = new OptionWidgetExt();
+    OptionWidgetExt  seeingUserDefined = new OptionWidgetExt();
+    TextBoxWidgetExt minSeeing        = new TextBoxWidgetExt();
+    TextBoxWidgetExt maxSeeing        = new TextBoxWidgetExt();
+    JLabel           minLabel1         = new JLabel();
+    JLabel           maxLabel1         = new JLabel();
+    JLabel           minLabel2         = new JLabel();
+    JLabel           maxLabel2         = new JLabel();
 
     public SiteQualityGUI() {
         try {
@@ -68,16 +80,38 @@ public class SiteQualityGUI extends JPanel {
         jPanel3.setLayout(gridBagLayout4);
         jPanel4.setBorder(titledBorder4);
         jPanel4.setLayout(gridBagLayout5);
-        seeingGood.setText("Good (<= 0.6)");
-        seeingGood.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeingPoor.setText("Poor (<= 0.8)");
-        seeingPoor.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeingAny.setText("Don\'t Care (any)");
-        seeingAny.setFont(new java.awt.Font("Dialog", 0, 12));
-        csoAny.setFont(new java.awt.Font("Dialog", 0, 12));
-        csoAny.setText("Don\'t Care (any)");
-        csoVeryDry.setFont(new java.awt.Font("Dialog", 0, 12));
-        csoVeryDry.setText("Very Dry (<= 0.09)");
+
+	minLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
+	minLabel1.setForeground(Color.black);
+	minLabel1.setText("Min ");
+	maxLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
+	maxLabel1.setForeground(Color.black);
+	maxLabel1.setText("Max ");
+
+	minLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+	minLabel2.setForeground(Color.black);
+	minLabel2.setText("Min ");
+	maxLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+	maxLabel2.setForeground(Color.black);
+	maxLabel2.setText("Max ");
+//         seeingGood.setText("Good (<= 0.6)");
+//         seeingGood.setFont(new java.awt.Font("Dialog", 0, 12));
+//         seeingPoor.setText("Poor (<= 0.8)");
+//         seeingPoor.setFont(new java.awt.Font("Dialog", 0, 12));
+//         seeingAny.setText("Don\'t Care (any)");
+//         seeingAny.setFont(new java.awt.Font("Dialog", 0, 12));
+        seeingAllocated.setText("Allocated");
+        seeingAllocated.setFont(new java.awt.Font("Dialog", 0, 12));
+	seeingUserDefined.setText("User Defined");
+        seeingUserDefined.setFont(new java.awt.Font("Dialog", 0, 12));
+//         csoAny.setFont(new java.awt.Font("Dialog", 0, 12));
+//         csoAny.setText("Don\'t Care (any)");
+//         csoVeryDry.setFont(new java.awt.Font("Dialog", 0, 12));
+//         csoVeryDry.setText("Very Dry (<= 0.09)");
+        tauBandAllocated.setText("Allocated");
+        tauBandAllocated.setFont(new java.awt.Font("Dialog", 0, 12));
+	tauBandUserDefined.setText("User Defined");
+        tauBandUserDefined.setFont(new java.awt.Font("Dialog", 0, 12));
         moonAny.setFont(new java.awt.Font("Dialog", 0, 12));
         moonAny.setText("Don\'t Care (Any)");
         moonGrey.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -85,44 +119,85 @@ public class SiteQualityGUI extends JPanel {
         moonDark.setFont(new java.awt.Font("Dialog", 0, 12));
         moonDark.setText("Dark");
         cloudAny.setFont(new java.awt.Font("Dialog", 0, 12));
-        cloudAny.setText("Don\'t Care (Any)");
+        cloudAny.setText("Allocated");
         cloudThinCirrus.setFont(new java.awt.Font("Dialog", 0, 12));
         cloudThinCirrus.setText("Thin Cirrus OK");
         cloudPhotometric.setFont(new java.awt.Font("Dialog", 0, 12));
         cloudPhotometric.setText("Photometric");
-        seeingExcellent.setText("Excellent (<= 0.4)");
-    seeingExcellent.setFont(new java.awt.Font("Dialog", 0, 12));
-    this.add(jPanel1, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-        jPanel1.add(seeingGood, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+//         seeingExcellent.setText("Excellent (<= 0.4)");
+// 	seeingExcellent.setFont(new java.awt.Font("Dialog", 0, 12));
+	this.add(jPanel1, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+						 ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, 
+						 new Insets(5, 5, 5, 5), 0, 0));
+//         jPanel1.add(seeingGood, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+// 						       ,GridBagConstraints.WEST, GridBagConstraints.BOTH, 
+// 						       new Insets(0, 0, 0, 0), 0, 0));
+//         jPanel1.add(seeingPoor, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+// 						       ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+// 						       new Insets(0, 0, 0, 0), 0, 0));
+//         jPanel1.add(seeingAny, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+// 						      ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+// 						      new Insets(0, 0, 0, 0), 0, 0));
+// 	jPanel1.add(seeingExcellent, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+// 							    ,GridBagConstraints.CENTER, GridBagConstraints.NONE,
+// 							    new Insets(0, 0, 0, 0), 0, 0));
+	jPanel1.add(seeingAllocated, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-        jPanel1.add(seeingPoor, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+	jPanel1.add(seeingUserDefined, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        jPanel1.add(seeingAny, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+	jPanel1.add(minLabel1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel1.add(seeingExcellent, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+	jPanel1.add(maxLabel1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+	jPanel1.add(minSeeing, new GridBagConstraints(2, 1, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+	jPanel1.add(maxSeeing, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+
         this.add(jPanel2, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-        jPanel2.add(csoAny, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+						 ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, 
+						 new Insets(5, 5, 5, 5), 0, 0));
+//         jPanel2.add(csoAny, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+// 						   ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+// 						   new Insets(0, 0, 0, 0), 0, 0));
+//         jPanel2.add(csoVeryDry, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+// 						       ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+// 						       new Insets(0, 0, 0, 0), 0, 0));
+	jPanel2.add(tauBandAllocated, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+	jPanel2.add(tauBandUserDefined, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        jPanel2.add(csoVeryDry, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+	jPanel2.add(minLabel2, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+	jPanel2.add(maxLabel2, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+	jPanel2.add(minTau, new GridBagConstraints(2, 1, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+	jPanel2.add(maxTau, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
         this.add(jPanel3, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+						 ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, 
+						 new Insets(5, 5, 5, 5), 0, 0));
         jPanel3.add(moonAny, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+						    ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+						    new Insets(0, 0, 0, 0), 0, 0));
         jPanel3.add(moonGrey, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+						     ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+						     new Insets(0, 0, 0, 0), 0, 0));
         jPanel3.add(moonDark, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+						     ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+						     new Insets(0, 0, 0, 0), 0, 0));
         this.add(jPanel4, new GridBagConstraints(1, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
+						 ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, 
+						 new Insets(5, 5, 5, 5), 0, 0));
         jPanel4.add(cloudAny, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+						     ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+						     new Insets(0, 0, 0, 0), 0, 0));
         jPanel4.add(cloudThinCirrus, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+							    ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+							    new Insets(0, 0, 0, 0), 0, 0));
         jPanel4.add(cloudPhotometric, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+							     ,GridBagConstraints.WEST, GridBagConstraints.NONE,
+							     new Insets(0, 0, 0, 0), 0, 0));
     }
 }
