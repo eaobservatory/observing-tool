@@ -66,7 +66,8 @@ public final class OtCfg
 	String          phase1Class;
 	TpeFeatureCfg[]	tpeFeatureCfgA;
 	SpItemCfg[]	spItemCfgA;
-	String          validationClass;
+	String          validationClass; // Added by MFO
+	String []       nameResolvers;   // Added May 30, 2001 by MFO
     }
 
     /**
@@ -106,6 +107,15 @@ public final class OtCfg
     public static String[] getLibraries() {
       return _otCfgInfo.libraryTags;
     }
+
+    /**
+     * Added by MFO, May 30, 2001
+     * 
+     * @return name resolvers
+     */
+    public static String[] getNameResolvers() {
+      return _otCfgInfo.nameResolvers;
+    }    
 
     public static synchronized boolean	phase1Available() {
 	if ((_otCfgInfo == null) || (_otCfgInfo.phase1Class == null)) {

@@ -38,6 +38,8 @@ class OtCfgReader
 
     public static final String VALIDATION_TAG	= "validation";
 
+    public static final String NAME_RESOLVERS_TAG	= "name resolvers";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -129,9 +131,15 @@ class OtCfgReader
                                                info.libraryTags = _parseCommaList(_getValue(line));
                                            } else
 
+					      // validation class (added by MFO)
 					      if (line.startsWith(VALIDATION_TAG)) {
                                                   info.validationClass = _getValue(line);
-					      }
+					      } else
+
+					         // name rsolvers (added by MFO, May 30, 2001)
+						 if(line.startsWith(NAME_RESOLVERS_TAG)) {
+                                                    info.nameResolvers = _parseCommaList(_getValue(line));
+						 }
 	    }
 
 	    // Add the last config class
