@@ -29,6 +29,7 @@ public class OtWindowToolBar extends GenericToolBar {
     protected JButton posEditorButton;
 
     protected JButton validationButton;
+    protected JButton prioritizeButton;
 
     /**
      * Create the toolbar for the given OT window
@@ -62,6 +63,8 @@ public class OtWindowToolBar extends GenericToolBar {
 	add(makeSaveButton());
 	addSeparator();
 	add(makePosEditorButton());
+	addSeparator();
+	add(makePrioritizeButton());
 	addSeparator();
 	add(makeValidationButton());
     }
@@ -154,10 +157,28 @@ public class OtWindowToolBar extends GenericToolBar {
 	    validationButton = makeButton("Validate.", editor.getValidationAction(), false);
 	
 	updateButton(validationButton, "Validation",
-	  new ImageIcon(ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/images/validation.gif")), null, null);
+		     new ImageIcon(ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/images/validation.gif")),
+		     null, 
+		     null);
 	return validationButton;
     }
 
+    /**
+     * Make the Prioritize, if it does not yet exists. Otherwise update the display
+     * using the current options for displaying text or icons.
+     *
+     * @return the Position Editor button
+     */
+    protected JButton makePrioritizeButton() {
+	if (prioritizeButton == null)
+	    prioritizeButton = makeButton("Prioritize", editor.getPrioritizeAction(), false);
+	
+	updateButton(prioritizeButton, "Prioritize",
+		     null,
+		     null, 
+		     null);
+	return prioritizeButton;
+    }
     /**
      * Update the toolbar display using the current text/pictures options.
      * (redefined from the parent class).
@@ -175,7 +196,7 @@ public class OtWindowToolBar extends GenericToolBar {
 	makeSaveButton();
 	makePosEditorButton();
 	//makeStatusButtonPanel();
-
+	makePrioritizeButton();
 	makeValidationButton();
     }
 }

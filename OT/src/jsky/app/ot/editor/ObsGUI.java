@@ -9,6 +9,7 @@
 package jsky.app.ot.editor;
 
 import java.awt.*;
+import java.util.Vector;
 import javax.swing.*;
 import jsky.app.ot.gui.*;
 
@@ -23,6 +24,9 @@ public class ObsGUI extends JPanel {
     JToggleButton priorityHigh = new JToggleButton();
     JToggleButton priorityMedium = new JToggleButton();
     JToggleButton priorityLow = new JToggleButton();
+    JComboBox jComboBox1;
+    Vector priorities = new Vector();
+    final int nPriorities = 99;
     //CheckBoxWidgetExt chained = new CheckBoxWidgetExt();
     //JLabel jLabel5 = new JLabel();
     //JTextArea historyBox = new JTextArea();
@@ -40,6 +44,10 @@ public class ObsGUI extends JPanel {
 
     public ObsGUI() {
         try {
+	    for (int i=1; i<=nPriorities; i++) {
+		priorities.add(new Integer(i));
+	    }
+	    jComboBox1 = new JComboBox(priorities);
             jbInit();
         }
         catch(Exception ex) {
@@ -107,12 +115,14 @@ public class ObsGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     msbPanel.add(jLabel4, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    msbPanel.add(priorityHigh, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+    msbPanel.add(jComboBox1, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-    msbPanel.add(priorityMedium, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    msbPanel.add(priorityLow, new GridBagConstraints(3, 1, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+//     msbPanel.add(priorityHigh, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
+//     msbPanel.add(priorityMedium, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+//     msbPanel.add(priorityLow, new GridBagConstraints(3, 1, 1, 1, 1.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     msbPanel.add(remainingLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     msbPanel.add(remaining, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0

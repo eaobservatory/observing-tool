@@ -266,6 +266,19 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 	    }
 	};
 
+    /** Action to use for the Prioritize menu and toolbar items */
+    protected AbstractAction prioritizeAction = new AbstractAction("Prioritize") {
+	    public void actionPerformed (ActionEvent evt) {
+		try {
+		    prioritize();
+		}
+		catch (Exception e) {
+		    DialogUtil.error(SpTreeGUI.this, e);
+		}
+	    }
+	};
+
+
     /** Action to use for the "Validation" menu and toolbar items */
     protected AbstractAction validationAction = new AbstractAction("Validation") {
 	    public void actionPerformed(ActionEvent evt) {
@@ -451,6 +464,12 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     public void showPositionEditor() {
     }
 
+    /**
+     * Prioritize all the MSBs
+     */
+    public void prioritize() {
+    }
+
     /** 
      * Validate selected Science Program or Observation.
      */
@@ -483,6 +502,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     public AbstractAction getOrFolderAction()  {return  orFolderAction;}
 
     public AbstractAction getPosEditorAction() {return posEditorAction;}
+    public AbstractAction getPrioritizeAction() {return prioritizeAction;}
     public AbstractAction getValidationAction() {return validationAction;}
 
 

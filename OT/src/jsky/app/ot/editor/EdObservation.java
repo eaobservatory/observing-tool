@@ -17,6 +17,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
 
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -60,18 +61,20 @@ public final class EdObservation extends OtItemEditor
 
 	_obsState  =  _w.obsState;
 
-	_priHigh   = _w.priorityHigh;
-	_priMedium = _w.priorityMedium;
-	_priLow    = _w.priorityLow;
+// 	_priHigh   = _w.priorityHigh;
+// 	_priMedium = _w.priorityMedium;
+// 	_priLow    = _w.priorityLow;
 
-	ButtonGroup grp = new ButtonGroup();
-	grp.add(_priHigh);
-	grp.add(_priMedium);
-	grp.add(_priLow);
+// 	ButtonGroup grp = new ButtonGroup();
+// 	grp.add(_priHigh);
+// 	grp.add(_priMedium);
+// 	grp.add(_priLow);
 
-	_w.priorityHigh.addActionListener(this);
-	_w.priorityMedium.addActionListener(this);
-	_w.priorityLow.addActionListener(this);
+// 	_w.priorityHigh.addActionListener(this);
+// 	_w.priorityMedium.addActionListener(this);
+// 	_w.priorityLow.addActionListener(this);
+	_w.jComboBox1.addActionListener(this);
+
 	_w.optional.addWatcher(this);
 	_w.standard.addWatcher(this);
 //	_w.chained.addActionListener(this);
@@ -160,11 +163,12 @@ public final class EdObservation extends OtItemEditor
 
 	// Set the priority
 	int pri = ((SpObs) _spItem).getPriority();
-	switch (pri) {
-	case SpObs.PRIORITY_HIGH:   _priHigh.setSelected(true);   break;
-	case SpObs.PRIORITY_MEDIUM: _priMedium.setSelected(true); break;
-	default:                    _priLow.setSelected(true);
-	}
+	_w.jComboBox1.setSelectedIndex(pri-1);
+// 	switch (pri) {
+// 	case SpObs.PRIORITY_HIGH:   _priHigh.setSelected(true);   break;
+// 	case SpObs.PRIORITY_MEDIUM: _priMedium.setSelected(true); break;
+// 	default:                    _priLow.setSelected(true);
+// 	}
 
 	// Set the chained state
 //	CheckBoxWidgetExt cbw = _w.chained;
@@ -275,6 +279,10 @@ public final class EdObservation extends OtItemEditor
 	    }
 	}
 	 
+	if ( w instanceof JComboBox ) {
+	    spObs.setPriority( ((Integer)_w.jComboBox1.getSelectedItem()).intValue() );
+	}
+
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
 	    return;
 	

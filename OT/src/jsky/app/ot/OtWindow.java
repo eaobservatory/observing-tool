@@ -1116,6 +1116,13 @@ public class OtWindow extends SpTreeGUI
     }
 
     /**
+     * Auto Prioritize all the MSBs currently in the Tree
+     */
+    public void prioritize() {
+	_tw.autoAssignPriority();
+    }
+
+    /**
      * @return true  if selected component has been checked and found valid.
      *         false if the component has been checked and found invalid
      *               OR if the component has not been checked because it is neither an observation nor a science program.

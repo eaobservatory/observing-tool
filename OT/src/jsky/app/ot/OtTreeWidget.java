@@ -993,6 +993,73 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
       return resultComponent;
     }
+
+    public void autoAssignPriority() {
+	int numberMSBs = 0;
+	int nMin = 0;
+	int nLow = 0;
+
+	// Find all of the children of the program
+	Enumeration children = _spProg.children();
+	// For now just count the MSBs and Obs that are MSBs
+	while (children.hasMoreElements()) {
+	    SpItem child = (SpItem) children.nextElement();
+	    if ( (child instanceof SpMSB) ||
+		 (child instanceof SpObs && ((SpObs)child).isMSB()) ) {
+		numberMSBs ++;
+	    }
+	}
+	if ( numberMSBs > 99) { // Limit to priority
+	    float x = (float)numberMSBs/99;
+	    // Get the smallest number of priorities that can be assigned to high ranking MSBs
+	    nMin = (int) x;
+	    nLow = 99*(nMin+1)-numberMSBs;
+	    children = _spProg.children();
+	    int priority = 1;
+	    int priorityCount = 1;
+	    int msbCount = 1;
+	    boolean updateDone = false;
+	    System.out.println("Should update nMin at msbCount of "+(nLow*nMin));
+	    while (children.hasMoreElements()) {
+		SpItem child = (SpItem) children.nextElement();
+		if ( (child instanceof SpMSB) ||
+		     (child instanceof SpObs && ((SpObs)child).isMSB()) ) {
+		    System.out.println("setting msb "+msbCount+" to priority "+priority);
+		    ((SpMSB)child).setPriority(priority);
+		    if ( msbCount == nLow*nMin && !updateDone ) {
+			System.out.println("Restting nMib at msbCount "+msbCount);
+			nMin++;
+			priority++;
+			priorityCount = 1;
+			msbCount++;
+			updateDone = true;
+			continue;
+		    }
+		    if (priorityCount == nMin) {
+			priorityCount=1;
+			priority++;
+			msbCount++;
+			continue;
+		    }
+		    msbCount++;
+		    priorityCount++;
+		}
+	    }
+	}
+	else {
+	    int priority = 1;
+	    children = _spProg.children();
+	    while (children.hasMoreElements()) {
+		SpItem child = (SpItem) children.nextElement();
+		if ( (child instanceof SpMSB) ||
+		     (child instanceof SpObs && ((SpObs)child).isMSB()) ) {
+		    ((SpMSB)child).setPriority(priority);
+		    priority++;
+		}
+	    }
+	}
+    }
+	    
 }
 
 
