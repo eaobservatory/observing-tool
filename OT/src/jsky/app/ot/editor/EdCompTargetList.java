@@ -141,12 +141,8 @@ public final class EdCompTargetList extends OtItemEditor
 
         // chop mode tab added by MFO (3 August 2001)
 	_w.chopping.addActionListener(this);
-    }
 
-    /**
-     * Do one-time initialization of the editor.  This includes adding watchers.
-     */
-    protected void _init() {
+
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
 	String[] guideTags = SpTelescopePos.getGuideStarTags();
@@ -385,7 +381,13 @@ public final class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    // MFO TODO: see TODO in SpTelescopeObsComp.
 		    //_curPos.deleteWatcher(EdCompTargetList.this);
-		    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
+
+		    // chop angle range is checked here rather than in
+		    // gemini.sp.obsComp.SpTelescopeObsComp.setChopAngle() because it is telescope specific.
+		    // SpTelescopeObsComp however is generic and does not contain telescope specific code.
+		    // EdCompTargetList on the other hand contains telescope specific code already.
+		    ((SpTelescopeObsComp)_spItem).setChopAngle(validateChopAngle(_w.chopAngle.getText()));
+
 		    // MFO TODO: see TODO in SpTelescopeObsComp.
 		    //_curPos.deleteWatcher(EdCompTargetList.this);
 		}
@@ -393,6 +395,13 @@ public final class EdCompTargetList extends OtItemEditor
 	    });
     }
 
+
+    /**
+     * Do one-time initialization of the editor.  This includes adding watchers.
+     */
+    protected void _init() {
+        // is now all done in constructor (MFO, 12 October 2001)
+    }
 
     /**
      * Show the given SpTelescopePos.
@@ -418,6 +427,7 @@ public final class EdCompTargetList extends OtItemEditor
 //
 //	//_yaxis.setValue(tp.getYaxisAsString());
 //	_yaxis.setValue(radec[1]);
+
 
 	_name.setValue(   tp.getName()          );
 	_xaxis.setValue(  tp.getXaxisAsString() );
@@ -740,6 +750,43 @@ public final class EdCompTargetList extends OtItemEditor
 	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
 	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
 	}
+    }
+
+    /**
+     * Checks whether chop angle is in valid range.
+     * 
+     * Telescope specific.
+     *
+     * Added by MFO (12 October 2001)
+     */
+    public String validateChopAngle(String chopAngleString) {
+      double chopAngle = Double.valueOf(chopAngleString).doubleValue();
+	
+        if(_telescope == UKIRT) {
+          if(chopAngle < -90) {
+            chopAngle = -90;
+            DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
+          }
+
+         if(chopAngle > 90) {
+           chopAngle = 90;
+           DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
+         }	
+       }
+ 
+//       if(_telescope == JCMT) {
+//         if(chopAngle < -90) {
+//           chopAngle = -90;
+//           DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
+//         }
+//
+//         if(chopAngle > 90) {
+//           chopAngle = 90;
+//           DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
+//         }	
+//       }
+
+       return Double.toString(chopAngle);
     }
 
     /**
