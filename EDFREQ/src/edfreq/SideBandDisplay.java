@@ -286,6 +286,10 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       return ((Sampler)jt.getSamplers()[0]).getCentreFrequency();
    }
 
+   public int getResolution(int subsystem) {
+      return ((Sampler)jt.getSamplers()[subsystem]).getResolution();
+   }
+
    public int getNumSubSystems() {
       return jt.getSamplers().length;
    }
