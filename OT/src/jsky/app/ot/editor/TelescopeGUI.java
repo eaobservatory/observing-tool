@@ -272,7 +272,7 @@ public class TelescopeGUI extends JPanel {
     dmLabel.setText("n");
     jLabel20.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel20.setForeground(Color.black);
-    jLabel20.setText("(MJD, TT)");
+    jLabel20.setText("(years, TT)");
     jLabel22.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel22.setForeground(Color.black);
     jLabel22.setText("(deg)");
