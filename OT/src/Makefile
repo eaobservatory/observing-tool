@@ -18,7 +18,7 @@ include $(CONF_HOME)/make.conf
 CLASSES_DIR_FOR_SED = $(shell echo $(CLASSES_DIR) | sed -e 's/\./\\\./g' | sed -e 's/\//\\\//g')
 CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
-GIF_IMAGES          = $(addprefix $(LOCAL_INSTALL_ROOT)/, $(shell find . -name "*.gif"))
+GIF_IMAGES          = $(addprefix $(CLASSES_DIR)/, $(shell find . -name "*.gif"))
 CFG_FILES           = $(addprefix $(CFG_DIRS)/, $(shell cd ../cfg; find .))
 
 CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(JSKY_RELATED_CP)
@@ -68,7 +68,7 @@ $(CLASSES_DIR)/%.class: %.java
 	$(JAVAC) $(JFLAGS) -d $(CLASSES_DIR) -classpath $(CLASSPATH) -sourcepath . $<
 
 
-$(LOCAL_INSTALL_ROOT)/%.gif: %.gif
+$(CLASSES_DIR)/%.gif: %.gif
 	@mkdir -p `dirname $@`
 	cp $< $@
 
