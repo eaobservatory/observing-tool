@@ -23,7 +23,7 @@ import gemini.sp.ipc.SpAccess;
 import gemini.sp.ipc.SpProgKey;
 import gemini.sp.ipc.SpServerAsync;
 
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 import ot.gui.PasswordWidgetExt;
 
 import java.awt.Component;
@@ -295,7 +295,7 @@ public final class ProgListWindow extends RemoteGUI
     public synchronized void spServerError(String problem, SpServerAsync ssa) {
 	if (ssa != _spServerAsync) return;
 	_spServerAsync = null;
-	DialogUtil.error("Problem communicating with ODB: " + problem);
+	DialogUtil.error(this, "Problem communicating with ODB: " + problem);
 	_thaw();
     }
 
@@ -357,13 +357,13 @@ public final class ProgListWindow extends RemoteGUI
    // Make sure they've logged in.
 	if ((_spAccess == null) || _spAccess.password.equals("")) {
 	    gotoPage(LOGIN_PAGE);
-	    DialogUtil.error("You have to login first.");
+	    DialogUtil.error(this, "You have to login first.");
 	}
 
 	// Get the selected name.
 	String progName = _progList.getStringValue();
 	if (progName == null) {
-	    DialogUtil.error("You must select a program to fetch.");
+	    DialogUtil.error(this, "You must select a program to fetch.");
 	    return;
 	}
 
@@ -380,7 +380,7 @@ public final class ProgListWindow extends RemoteGUI
 	tbw = keyTextBox;
 	String key = new String(tbw.getPassword()).trim();
 	if ((key == null) || (key.equals(""))) {
-	    DialogUtil.error("You must specify the program's key.");
+	    DialogUtil.error(this, "You must specify the program's key.");
 	    return;
 	}
 
