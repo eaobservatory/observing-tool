@@ -764,6 +764,7 @@ public class SpTranslator {
       int lastRepeatCount = 0;            // Previous count of iterator loop
 //    String long;                        // Sky longitude (e.g. RA) sexagesimal
                                           // value
+      String msbid;                       // Minimum schedulable block identification
       Float milli = new Float( 0.001 );   // One thousandth
       String mpmDec;                      // Proper motion in Dec. milli-arcsec/yr
       String mpmRA;                       // Proper motion in R.A. milli-arcsec/yr
@@ -779,6 +780,7 @@ public class SpTranslator {
       boolean polariserConfig;            // Is the config a polariser iterator?
       String prevSeqIns;                  // Previous sequence instruction
       String prevTitle = "blank";         // Previous component title
+      String project;                     // Project information
       String RA;                          // R.A. sexagesimal value
       InstApertures refInstAper;          // Reference instrument apertures
       InstConfig refConfig;               // Reference instrument config
@@ -833,6 +835,31 @@ public class SpTranslator {
          spObs = findSpObs( spObs );
       }
       if ( spObs != null ) {
+
+// Store minimum schedulable block identifier to a header.
+// =======================================================
+
+// SpObs is a subclass of SpMSB so SpObs objects are instances of SpMSB
+// as well as SpObs.
+
+// Obtain the minimum-schedulable-block identification.
+         msbid = spObs.getTable().get( "msbid" );
+         if ( msbid != null ) {
+
+// Add the msbid-related instruction to the sequence buffer.
+            sequence.addElement( "setHeader MSBID " + msbid );
+         }
+
+// Store project name to a header.
+// ===============================
+
+// Obtain the project information.
+         project = spObs.getTable().get( "project" );
+         if ( project != null ) {
+
+// Add the project instruction to the sequence buffer.
+            sequence.addElement( "setHeader PROJECT " + project );
+         }
 
 // Define file name.
 // =================
@@ -1613,6 +1640,7 @@ public class SpTranslator {
 // written in uppercase within the sequence so refer to the type here
 // in uppercase too.
                            observeCount( sequence, "SKY", drRecipeComp );
+
                         }
 
 // Store the previous component title.
