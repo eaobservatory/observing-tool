@@ -41,17 +41,21 @@ public final class SpFactory
    public static final SpItem OBSERVATION_LINK   = new SpObsLink();
    public static final SpItem NOTE               = new SpNote();
 
-   public static final SpItem OBSERVATION_COMPONENT_SITE_QUALITY =
-      new gemini.sp.obsComp.SpSiteQualityObsComp();
+   // MFO: JCMT/ACSIS and UKIRT use different site quality components
+   // so they have to be specified in the config file.
+   //public static final SpItem OBSERVATION_COMPONENT_SITE_QUALITY =
+   //   new gemini.sp.obsComp.SpSiteQualityObsComp();
 
    public static final SpItem OBSERVATION_COMPONENT_TARGET_LIST =
       new gemini.sp.obsComp.SpTelescopeObsComp();
 
-   public static final SpItem ITERATOR_COMPONENT_OBSERVE =
-      new gemini.sp.iter.SpIterObserve();
+   // MFO: "Observe" and "Sky" are not needed in JCMT so they are
+   // specified in the config file if needed.
+   //public static final SpItem ITERATOR_COMPONENT_OBSERVE =
+   //   new gemini.sp.iter.SpIterObserve();
 
-   public static final SpItem ITERATOR_COMPONENT_SKY =
-      new gemini.sp.iter.SpIterSky();
+   //public static final SpItem ITERATOR_COMPONENT_SKY =
+   //   new gemini.sp.iter.SpIterSky();
 
    public static final SpItem ITERATOR_COMPONENT_OFFSET =
       new gemini.sp.iter.SpIterOffset();
@@ -71,12 +75,15 @@ static {
    registerPrototype(OBSERVATION_LINK);
    registerPrototype(SEQUENCE);
    registerPrototype(NOTE);
-
-   registerPrototype(OBSERVATION_COMPONENT_SITE_QUALITY);
+   
+   // MFO: Changed because UKIRT and JCMT use different site quality components.
+   //registerPrototype(OBSERVATION_COMPONENT_SITE_QUALITY);
    registerPrototype(OBSERVATION_COMPONENT_TARGET_LIST);
 
-   registerPrototype(ITERATOR_COMPONENT_OBSERVE);
-   registerPrototype(ITERATOR_COMPONENT_SKY);
+   // MFO: "Observe" and "Sky" are not needed in JCMT so they are
+   // specified in the config file if needed.
+   //registerPrototype(ITERATOR_COMPONENT_OBSERVE);
+   //registerPrototype(ITERATOR_COMPONENT_SKY);
    registerPrototype(ITERATOR_COMPONENT_OFFSET);
    registerPrototype(ITERATOR_COMPONENT_REPEAT);
 }
@@ -87,7 +94,14 @@ static {
 public static void
 registerPrototype(SpItem protoItem)
 {
-   Assert.notFalse(_prototypes.get(protoItem.type()) == null);
+   try {
+     Assert.notFalse(_prototypes.get(protoItem.type()) == null);
+   }
+   catch(IllegalArgumentException e) {
+     System.out.println("Problem registering " + protoItem.toString());
+     throw e;
+   }
+   
    _prototypes.put(protoItem.type(), protoItem);
 }
 

@@ -53,21 +53,21 @@ _thisNextElement()
 public class SpIterSky extends SpIterObserveBase
 {
 
-//   public static final SpType SP_TYPE =
-//        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "sky", "Sky");
-//
-//// Register the prototype.
-//static {
-//   SpFactory.registerPrototype(new SpIterSky());
-//}
+   public static final SpType SP_TYPE =
+        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "sky", "Sky");
+
+// Register the prototype.
+static {
+   SpFactory.registerPrototype(new SpIterSky());
+}
 
 /**
  * Default constructor.
  */
 public SpIterSky()
 {
-//   super(SP_TYPE);
-   super(SpType.ITERATOR_COMPONENT_SKY);
+   super(SP_TYPE);
+//   super(SpType.ITERATOR_COMPONENT_SKY);
 }
 
 /**

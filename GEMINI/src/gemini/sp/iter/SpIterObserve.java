@@ -58,21 +58,21 @@ _thisNextElement()
 public class SpIterObserve extends SpIterObserveBase
 {
 
-//   public static final SpType SP_TYPE =
-//        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "observe", "Observe");
-//
-//// Register the prototype.
-//static {
-//   SpFactory.registerPrototype(new SpIterObserve());
-//}
+   public static final SpType SP_TYPE =
+        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "observe", "Observe");
+
+// Register the prototype.
+static {
+   SpFactory.registerPrototype(new SpIterObserve());
+}
 
 /**
  * Default constructor.
  */
 public SpIterObserve()
 {
-//   super(SP_TYPE);
-   super(SpType.ITERATOR_COMPONENT_OBSERVE);
+   super(SP_TYPE);
+//   super(SpType.ITERATOR_COMPONENT_OBSERVE);
 }
 
 /**

@@ -94,8 +94,9 @@ public class SpType implements java.io.Serializable
    // Some Specific Observation Components
 
    /** The "site quality" observation component. */
-   public static final SpType OBSERVATION_COMPONENT_SITE_QUALITY =
-	SpType.create(OBSERVATION_COMPONENT_TYPE, "schedInfo", "Site Quality");
+   // MFO: Changed because UKIRT and JCMT use different site quality components.
+   //public static final SpType OBSERVATION_COMPONENT_SITE_QUALITY =
+   //	SpType.create(OBSERVATION_COMPONENT_TYPE, "schedInfo", "Site Quality");
 
    /** The "target list" observation component. */
    public static final SpType OBSERVATION_COMPONENT_TARGET_LIST =
@@ -104,12 +105,14 @@ public class SpType implements java.io.Serializable
 
    // Some Specific Iterator Components
 
-   /** The "offset" iterator component. */
-   public static final SpType ITERATOR_COMPONENT_OBSERVE =
-	SpType.create(ITERATOR_COMPONENT_TYPE, "observe", "Observe");
+   // MFO: "Observe" and "Sky" are not needed in JCMT so they are
+   // specified in the config file if needed.
+   /** The "observe" iterator component. */
+   //public static final SpType ITERATOR_COMPONENT_OBSERVE =
+   //	SpType.create(ITERATOR_COMPONENT_TYPE, "observe", "Observe");
 
-   public static final SpType ITERATOR_COMPONENT_SKY =
-	SpType.create(ITERATOR_COMPONENT_TYPE, "sky", "Sky");
+   //public static final SpType ITERATOR_COMPONENT_SKY =
+   //	SpType.create(ITERATOR_COMPONENT_TYPE, "sky", "Sky");
 
    /** The "offset" iterator component. */
    public static final SpType ITERATOR_COMPONENT_OFFSET =
