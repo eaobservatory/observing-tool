@@ -276,7 +276,18 @@ public class SideBandDisplay extends JFrame implements ChangeListener
 
    public static void main(String args[]) 
    {
-      SideBandDisplay sbt = new SideBandDisplay ( null );
+      // Create SideBandDisplay with anonymous HeterodyneEditor implementation
+      // that does not do anything.
+      SideBandDisplay sbt = new SideBandDisplay ( new HeterodyneEditor() {
+         public String getFeBand() { return "usb"; }
+         public double getRedshift() { return 0.0; }
+         public void updateCentreFrequency(double centre, int subsystem) { }
+         public void updateBandWidth(double width, int subsystem) { }
+         public void updateChannels(double channels, int subsystem) { }
+         public void updateLineDetails(LineDetails lineDetails, int subsystem) { }
+         public void updateLO1(double lo1) { }
+      } );
+
       sbt.updateDisplay( "Frequency editor test",
         365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 0.0,
         new double[] { 0.25E9, 1.0E9 }, new int [] { 8192, 2048 }, 8 );
