@@ -652,6 +652,29 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 	_avTable.rm(ATTR_NAMED_CONFIGURATION);
     }
 
+    public double [] getScienceArea() {
+	if ( getBackEnd().equals("das") ) {
+	    if ( getFrontEnd().equalsIgnoreCase("A3") ) {
+		return new double [] { 20.0 };
+	    }
+	    else if ( getFrontEnd().equalsIgnoreCase("B3") ) {
+		return new double [] { 14.0 };
+	    }
+	    else if (  getFrontEnd().equalsIgnoreCase("W(C)") ) {
+		return new double [] { 11.0 };
+	    }
+	    else if (  getFrontEnd().equalsIgnoreCase("W(D)") ) {
+		return new double [] { 8.0 };
+	    }
+	    else {
+		return null;
+	    }
+	}
+	else {
+	    return null;
+	}
+    }
+
 
   /**
    * Converts given redshift to specified radial velocity definition.
