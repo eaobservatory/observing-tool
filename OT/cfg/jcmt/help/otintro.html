@@ -73,6 +73,41 @@ href="http://www.jach.hawaii.edu/JACpublic/JAC/software/jcmtot/index.html?printa
       <li><a href="#recap">Recap</a>
       <li><a href="#database">Submitting to our database</a>
       <li><a href="#faq">Frequently Asked Questions</a>
+
+<ul>
+
+<li><a href="#why"><em>Why do I have to do this</em>?</a>
+
+<li><a href="#deadline"><em>What is the deadline for submissions?</em></a>
+
+<li><a href="#scheduling"><em>What happens to my MSBs after I submit them?</em></a>
+
+<li><a href="#msb"><em>What makes a good MSB?</em></a><p>
+
+<li><a href="#redundancy"><em>My MSBs only last half an hour so it is
+      a waste to do a calibration for each one!</em></a>
+
+<li><a href="#library"><em>I want to do something that is not in the
+      library</em></a>
+
+<li><a href="#server"><em>What does the warning
+		  "Some of the observations in the MSB contained
+		  default settings for the target information"
+		    mean? </em></a>
+
+<li><a href="#timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
+
+</ul>
+
+<li><a href="#advanced">Advanced topics</a>
+
+<ul>
+
+<li>Placement
+
+</ul>
+
+
 </ul>
 
 
@@ -178,8 +213,9 @@ observations yet.
       prepared for you a library of MSBs that you can add to your
       Science Program and modify to your requirements. In the rest of
       the document I'll show you how to specify a 850/450 jiggle map
-      of your target and then show you an 850/450 scan map example. If
-      you follow these examples through, you should be able to use any
+      of your target. If
+      you follow this
+      example through, you should be able to use any
       of the other library MSBs with no problems.<p>
 
 
@@ -634,17 +670,18 @@ don't need to change any of those now.
       A little window will pop up using the Project ID that you put
       into your Science Program at the start (see <a href="#ysp">Your
       science program</a>). It will also ask you for a password. You
-      can get a password from our <a
-      href="http://www.ukirt.jach.hawaii.edu/cgi-bin/issuepwd.pl">password
-      generator</a>. If you forget it, go there to get another one. If
+      can get a password from our password generator at <a
+      href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">
+http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl
+</a>. If you forget it, go there to get another one. If
       you are PI on more than one project you'll need a password per
       project so that you can share it with your different sets of
       Co-Is. The password you get will also allow you access to your
       <a
-      href="http://www.ukirt.jach.hawaii.edu/cgi-bin/feedback.pl">Feedback
+      href="http://omp.jach.hawaii.edu/cgi-bin/feedback.pl">Feedback
       Area</a> to check on the progress of your project,
       double-check your MSBs, retrieve your data and exchange views with
-      our staff.<p>
+      our staff. Check it out. <p>
 
       When you do get your password and submit your program, you will
       receive a summary of all the MSBs contained in your
@@ -662,9 +699,6 @@ don't need to change any of those now.
       indicate which observations have been observed.<p>
 
       Goodbye, and clear skies.<p>
-
-
-
 
        <h2><a name="faq">Frequently Asked Questions</a></h2>
 
@@ -714,18 +748,67 @@ all UKIRT instruments.<p>
 
 	      <dt><a name="scheduling"><em>What happens to my MSBs after I submit them?</em></a><p>
 
-      <dd> This section in progress
+
+	     <dd> The introduction of the JCMT-OT does not change any
+      existing scheduling and/or flexing
+		policies of your national queue, nor does it
+		preclude future changes to those policies. <p>
+
+		  During flexible observing, the observer/TSS will run
+		  a tool called JCMT-QT (Query Tool) that allows them
+		  to browse our database for suitable MSBs. The QT by
+		  default returns as yet unobserverd MSBs ranked by
+		  TAG priority containing targets that are actually
+		  observable, whose site quality requirements
+		  match the current conditions and whose projects
+		  still have allocated time left. However the
+		  observer/TSS is able to use the QT to retrieve any
+		    submitted MSB at their discretion.<p>
+
+
+		  When an MSB is selected for actual execution, the
+		  Query Tool can be used to retrieve it from our
+		  database. The observer/TSS is then presented with a
+		  list of the observations in that MSB and given the
+		  opportunity to remove redundant calibrations from
+		  the MSB or to defer them until a calibrator becomes
+		  available. When they are satisfied that the MSB is
+		  suitable for execution they send it off to the
+		  instrument-specific control system.<p>
+
+
+		  In SCUBA's case, the control system used to consist
+		  of a VMS-based queue. From 2002B, this will be
+		  replaced by new unix-based queue software. A program
+		  called the Translator will convert the MSB from its
+		  stored form into one or more SCUBA ODFs.<p>
+
+
+		  The ODFs will then be placed in a queue that can be
+		  processed. As the queue works its way down the ODF
+		  list it will take any sensible course of action,
+		  such as prompting the observer/TSS with a list of
+		  suitable pointing sources if the MSB includes a
+		  pointing with "Automatically determine target"
+		  selected.<p>
+
+
+		  After the ODFs have been carried out the MSB is
+		  marked as done and will not be rescheduled unless it
+		  is resubmitted from the JCMT-OT or marked Undone via
+		  the project feedback system. 
+
+
 	<p>
 
 
 		  <dt><a name="msb"><em>What makes a good MSB?</em></a><p>
 
 
-      <dd>First the usual things, accurate co-ordinates, suitable
-	calibrations, good chop positions etc.<p>
+		  <dd>First the usual things, accurate co-ordinates, suitable
+		    calibrations, good chop positions etc.<p>
 
-
-	  The aspect of the MSB you most want to think about is its
+		      The aspect of the MSB you most want to think about is its
 	  length. Let's say you have been allocated one shift (8
 	  hours) for a single source. Now, you could submit a single
 	  8-hour MSB if you wanted. But that would be a very silly
@@ -781,17 +864,59 @@ all UKIRT instruments.<p>
 
 
 
-<d> You probably forgot to enter your co-ordinates! If you really
+	<dd> You probably forgot to enter your co-ordinates! If you really
 meant to observe 0:0:0, 0:0:0 just ignore it. <p>
 
+<dt><a name="timeest"><em>I don't agree with the time estimates shown in the OT</em></a><p>
+
+
+<dd>We are fine-tuning these, but they will always be just that -
+estimates. However it doesn't really matter if they are a bit off. The
+ estimates are used for two things. First, they allow the observer/TSS
+ to plan the observing. For example, if they believe that the tau is
+ going to change in the next hour, they can select an MSB that is
+ estimated to last less than an hour.<p>
+
+Second, time estimates are used to provisionally debit remaining time
+during the night to keep a running tab on projects' use of their
+allocation. However the final time accounting is done the next day
+based on the actual time used by a project as derived from the data
+files and logs. If you find you still have time left after that you
+can submit an MSB to use it up.
 
 </dl>
+
+<h2>Advanced Topics</h2>
+
+So far we have described preparation using the library sequence "as is". This section covers some topics of interest to anyone wishing to manipulate the standard library sequences in simple ways. 
+
+<h3>Context</h3>
+
+As you may have gathered by now, the Science Program is a tree structure and the placement of elements in that structure has a lot of significance<p>
+
+      For example, look at the example below of a Science Program containing three MSBs - focus on the location of the two Site Quality components:<p>
+
+
+    <img src="images/inheritance.gif" alt="Inheritance"><p>
+
+What does this mean? The first Site Quality component is on the same
+level of indentation, and therefore the same level of branching, as the
+MSBs. If that was the only Site Quality component present <em> it
+would apply to all MSBs in the Science Program</em>. As it is, the
+first MSB has a site quality inside it (technically: within its
+scope). So the first MSB will be scheduled using the criteria of the
+Site Quality component inside it, and the second and third MSBs will
+use the first Site Quality component since they lack one of their
+own. The technical term for this behaviour is "inheritance" for those
+familiar with it already.
+
+
 
  
     <hr>
     <address><a href="mailto:frossie@jach.hawaii.edu">Frossie Economou</a></address>
 <!-- Created: Fri Feb 14 12:57:09 HST 1997 --> <!-- hhmts start -->
-Last modified: Tue Mar 10 14:15:42 HST 1998
+Last modified: Mon Jul 15 05:00:35 HST 2002
 <!-- hhmts end -->
   </body>
 </html>
