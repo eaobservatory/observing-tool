@@ -5,8 +5,13 @@ import java.util.Enumeration;
 import gemini.sp.SpProg;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
+import gemini.sp.SpItem;
+import gemini.sp.SpNote;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
+import gemini.sp.obsComp.SpSchedConstObsComp;
+import gemini.sp.obsComp.SpInstObsComp;
+import orac.util.SpItemUtilities;
 
 /**
  * Validation Tool.
@@ -26,59 +31,125 @@ public class SpValidation {
       report = new Vector();
     }
 
-    SpObs spObs = null;
-    SpMSB spMSB = null;
-    Vector itemVector = null;
-    Enumeration children = null;
-    boolean hasSiteQualityComponent = false;
-
-    // Issue an Error message for each MSB without a Site Quality component.
-    itemVector = SpTreeMan.findAllItems(spProg, SpMSB.class.getName());
-    for(int i = 0; i < itemVector.size(); i++) {
-      spMSB = (SpMSB)itemVector.get(i);
-      children = spMSB.children();
-      hasSiteQualityComponent = false;
-
-      while(children.hasMoreElements()) {
-        if(children.nextElement() instanceof SpSiteQualityObsComp) {
-          hasSiteQualityComponent = true;
-	  break;
-	}
-      }
-
-      if(!hasSiteQualityComponent) {
-        report.add(new ErrorMessage(ErrorMessage.ERROR,
-	                            "MSB \"" + spMSB.getTitle() + "\"",
-	                            "Site Quality component is missing."));
-
-      }
-    }
-
-    // Issue a warning for each Observation that is not an MSB but has a Site Quality component.
-    itemVector = SpTreeMan.findAllItems(spProg, SpObs.class.getName());
-
-    for(int i = 0; i < itemVector.size(); i++) {
-      spObs = (SpObs)itemVector.get(i);
-      children = spObs.children();
-      hasSiteQualityComponent = false;
-
-      while(children.hasMoreElements()) {
-        if(children.nextElement() instanceof SpSiteQualityObsComp) {
-          hasSiteQualityComponent = true;
-	  break;
-	}
-      }
-
-      if(!spObs.isMSB() && hasSiteQualityComponent) {
-        report.add(new ErrorMessage(ErrorMessage.ERROR,
-	                            "Observation \"" + spObs.getTitle() + "\"",
-	                            "Site Quality will be ignored because this Observation is not an MSB."));
-
-      }
-    }
-    
+    checkSciProgramRecursively(spProg, report);
   }
-  
-  public void checkObservation(SpObs spObs,  Vector report) { }
+
+  protected void checkSciProgramRecursively(SpItem spItem, Vector report) {
+    Enumeration children = spItem.children();
+    SpItem child;
+
+    while(children.hasMoreElements()) {
+      child = (SpItem)children.nextElement();
+
+      if(child instanceof SpMSB) {
+        checkMSB((SpMSB)child, report);
+      }
+      else {
+        checkSciProgramRecursively(child, report);
+      }
+    }
+  }
+
+  public void checkMSB(SpMSB spMSB,  Vector report) {
+
+    // Check for observation components (target information, instrument,
+    // site quality, scheduling constraints
+
+    if(SpTreeMan.findTargetList(spMSB) == null) {
+      report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                  "MSB \"" + spMSB.getTitle() + "\"",
+                                  "Target information is missing.")); 
+    }
+
+    checkMSBgeneric(spMSB, report);
+  }
+
+  protected void checkMSBgeneric(SpMSB spMSB,  Vector report) {
+/*MFO DEBUG*/System.out.println("in SpValidation.checkMSBgeneric().");
+
+    report.add("------------------------------------------------------\n");
+
+    if(report == null) {
+      report = new Vector();
+    }
+
+    if(SpTreeMan.findInstrument(spMSB) == null) {
+      report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                  "MSB \"" + spMSB.getTitle() + "\"",
+                                  "Instrument component is missing."));    
+    }
+
+    if(SpItemUtilities.findSiteQuality(spMSB) == null) {
+      report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                  "MSB \"" + spMSB.getTitle() + "\"",
+                                  "Site quality component list is missing."));
+    }
+
+
+    // Check whether there are more than one observe instruction notes.
+    Vector notes = SpTreeMan.findAllItems(spMSB, SpNote.class.getName());
+
+    if(notes.size() > 1) {
+      int numberOfObserveInstructions = 0;
+
+      for(int i = 0; i < notes.size(); i++) {
+        if(((SpNote)notes.get(i)).isObserveInstruction()) {
+          numberOfObserveInstructions++;
+
+          if(numberOfObserveInstructions > 1) {
+            report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                        "Note \"" + ((SpNote)notes.get(i)).getTitle() + "\" in MSB \"" + spMSB.getTitle() + "\"",
+                                        "Each MSB can only contain one note that has \"Show to the Observer\" ticked."));
+          }
+        }
+      }
+    }  
+
+
+    if(spMSB instanceof SpObs) {
+      checkObservation((SpObs)spMSB, report);
+    }
+    else {
+
+      Enumeration children = spMSB.children();
+      SpItem child;
+
+      while(children.hasMoreElements()) {
+        child = (SpItem)children.nextElement();
+
+        if(child instanceof SpObs) {
+          checkObservation((SpObs)child, report);
+        }  
+      }
+    }
+  }
+
+  public void checkObservation(SpObs spObs,  Vector report) {
+    if(report == null) {
+      report = new Vector();
+    }
+
+    Enumeration children;
+    SpItem child;
+
+    if(!spObs.isMSB()) {
+      children = spObs.children();
+
+      while(children.hasMoreElements()) {
+        child = (SpItem)children.nextElement();
+        if(child instanceof SpSiteQualityObsComp) {
+          report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                      "Observation \"" + spObs.getTitle() + "\"",
+                                      "Observations inside MSBs must use the site quality component of the parent MSB."));
+	}
+
+        if(child instanceof SpSchedConstObsComp) {
+          report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                      "Observation \"" + spObs.getTitle() + "\"",
+                                      "Observations inside MSBs must use the scheduling constraints component of the parent MSB."));
+	}
+      }
+    }
+  }
 }
 
