@@ -1164,6 +1164,7 @@ public class SpTranslator {
                   isGuideTarget = targetAttribute.equalsIgnoreCase( "GUIDE" );
 
 // Obtain the values of the position as a Vector.
+		  tavl.printAll( targetAttribute );
                   targetValues = tavl.getAll( targetAttribute );
 
 // Obtain the raw mandatory strings.  Assume that the order is constant
@@ -1176,6 +1177,10 @@ public class SpTranslator {
                   RA = ( (String) targetValues.elementAt( 2 ) ).trim();
                   Dec = ( (String) targetValues.elementAt( 3 ) ).trim();
                   coordSystem = ( (String) targetValues.elementAt( 4 ) ).trim();
+		  int spherSystem = 0;
+		  if ( targetValues.size() > 5 ) {
+		      spherSystem = Integer.parseInt( (String)targetValues.elementAt(12) );
+		  }
 
 // Check for a missing co-ordinate.
                   if ( RA.equals( "" ) ) {
@@ -1243,17 +1248,22 @@ public class SpTranslator {
 
 // Need the equinox, not the FK number.  So look for the enclosing
 // parentheses.
-                  if ( coordSystem.equals( "" ) ) { 
-                     equinox = "J2000";
-                  } 
-		  else if (coordSystem.equalsIgnoreCase("AZ/EL")) {
-		      equinox = "AZEL"; // The TCS requires this exact string for Az/El
+		  if ( spherSystem == 0 ) {
+                      if ( coordSystem.equals( "" ) ) { 
+                         equinox = "J2000";
+                      } 
+		      else if (coordSystem.equalsIgnoreCase("AZ/EL")) {
+		         equinox = "AZEL"; // The TCS requires this exact string for Az/El
+		      }
+		      else {
+                         start = coordSystem.indexOf( "(" ) + 1;
+                         end = coordSystem.indexOf( ")" );
+                         equinox = coordSystem.substring( start, end );
+                      }
 		  }
 		  else {
-                     start = coordSystem.indexOf( "(" ) + 1;
-                     end = coordSystem.indexOf( ")" );
-                     equinox = coordSystem.substring( start, end );
-                  }
+		      equinox = "APP";
+		  }
 
 // Use a StringBuffer to form the record.  Store the mandatory items
 // first.  Note the different command for a guide star.
