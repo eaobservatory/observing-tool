@@ -353,7 +353,7 @@
 </configuration>
 
 <configuration>
-  <name>      NS_JANW1_125X4USB  </name>
+  <name>      NS_JANW1_4x125USB  </name>
   <frontEnd>  A3              </frontEnd>
   <frequency> 219.9795        </frequency>
   <sideband>  USB             </sideband>
@@ -368,7 +368,7 @@
 </configuration>
 
 <configuration>
-  <name>      NS_JANW1_125X4LSB  </name>
+  <name>      NS_JANW1_4x125LSB  </name>
   <frontEnd>  A3              </frontEnd>
   <frequency> 219.9795        </frequency>
   <sideband>  LSB             </sideband>
