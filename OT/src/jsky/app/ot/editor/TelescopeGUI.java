@@ -21,6 +21,8 @@ public class TelescopeGUI extends JPanel {
     JPanel buttonPanel = new JPanel();
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     TextBoxWidgetExt nameTBW = new TextBoxWidgetExt();
+    DropDownListBoxWidgetExt nameResolversDDLBW = new DropDownListBoxWidgetExt(); // MFO
+    CommandButtonWidgetExt   resolveButton = new CommandButtonWidgetExt();  // MFO
     TextBoxWidgetExt xaxisTBW = new TextBoxWidgetExt();
     JLabel Dec_El_STW = new JLabel();
     DropDownListBoxWidgetExt tagDDLBW = new DropDownListBoxWidgetExt();
@@ -97,6 +99,8 @@ public class TelescopeGUI extends JPanel {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel1.setForeground(Color.black);
         jLabel1.setText("Name");
+	nameResolversDDLBW.setFont(new java.awt.Font("Dialog", 0, 10)); // MFO
+	resolveButton.setText("Resolve"); //MFO
         setBaseButton.setMargin(new Insets(2, 2, 2, 2));
         setBaseButton.setText("Set Base From Image");
         newButton.setMargin(new Insets(2, 10, 2, 10));
@@ -157,9 +161,15 @@ public class TelescopeGUI extends JPanel {
         positionTable.setShowHorizontalLines(false);
         this.add(objectGBW, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-        objectGBW.add(nameTBW, new GridBagConstraints(1, 0, 3, 1, 0.0, 0.0
+        objectGBW.add(nameTBW, new GridBagConstraints(1, 0, 3, 1, 1.0, 0.0                           // MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
-        objectGBW.add(xaxisTBW, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+	
+        objectGBW.add(nameResolversDDLBW, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0                // MFO
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0)); // MFO
+        objectGBW.add(resolveButton, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0                     // MFO
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0)); // MFO
+	    
+        objectGBW.add(xaxisTBW, new GridBagConstraints(3, 1, 3, 1, 0.0, 0.0                          // MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
         objectGBW.add(Dec_El_STW, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
@@ -175,7 +185,7 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 0), 0, 0));
         objectGBW.add(systemDDLBW, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-        objectGBW.add(yaxisTBW, new GridBagConstraints(3, 2, 1, 1, 1.5, 0.0
+        objectGBW.add(yaxisTBW, new GridBagConstraints(3, 2, 3, 1, 1.5, 0.0                          //MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
         this.add(extrasFolder, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
