@@ -452,7 +452,7 @@
       <xsd:choice>
         <xsd:element name="namedSystem">
           <xsd:complexType>
-            <xsd:attribute name="type" type="xsd:string" fixed="major"/>
+            <xsd:attribute name="TYPE" type="xsd:string" fixed="major"/>
           </xsd:complexType>
         </xsd:element>
         <xsd:element name="spherSystem">
