@@ -156,7 +156,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	_avTable.noNotifySet(attr, "1", 0);
 	
 	attr  = ATTR_FILTER;
-	value = NO_VALUE;
+	value = getDefaultFilter(); // MFO, 9 November 2001
 	_avTable.noNotifySet(attr, value, 0);
 	
     }
