@@ -133,6 +133,12 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode {
 	return icon;
     }
 
+    /** Remove an icon */
+    public void rmIcons() {
+	icon = null;
+	expandIcon = null;
+    }
+
     /** 
      * Set the url of the image for this node when it is expanded.
      */
