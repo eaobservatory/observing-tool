@@ -345,6 +345,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	      coaddsFound = true;
             }
 	  }
+
 	  if (!expTimeFound) {
 	      // See if we can get an exposure time from the instrument
 	      SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
@@ -353,8 +354,13 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	      }
 	  }
 	  if (!coaddsFound) {
-	      currentNoCoadds = 1;
+	      SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
+	      if (instrument != null) {
+		  currentNoCoadds = instrument.getCoadds();
+	      }		  
 	  }
+	  System.out.println("Setting exp time to "+currentExposureTime);
+	  System.out.println("Setting coadds to "+currentNoCoadds);
 	}  
       }
       catch(Exception e) {
