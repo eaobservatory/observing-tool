@@ -351,10 +351,11 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
    * @see gemini.sp.obsComp.SpInstObsComp
    */
   public class IterTrackerUKIRT extends IterationTracker {
-    double currentExposureTime = getExpTime();
-    int    currentNoCoadds     = 1;
+    double currentExposureTime     = getExpTime();
+    int    currentNoCoadds         = 1;
     SpIterComp currentIterStepItem = null;
-    boolean exposureTimeOverride = false;
+    boolean exposureTimeOverride   = false;
+    boolean coaddsFound            = false;
 
     IterTrackerUKIRT() {
       if(_avTable.exists(ATTR_COADDS)) {
@@ -366,7 +367,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 
       SpIterValue spIterValue = null;
       boolean     expTimeFound = false;
-      boolean     coaddsFound  = false;
+//       boolean     coaddsFound  = false;
 
       currentIterStepItem = spIterStep.item;
 
