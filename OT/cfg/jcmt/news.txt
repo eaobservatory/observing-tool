@@ -1,42 +1,20 @@
-+++ May 31, 2001
+JCMT Observing Tool
 
-Swing version of Orac OT.
+The JCMT-OT is released as part of the JAC Observation Management
+Project. It has been extensively modified from the Gemini OT version 0.5.
 
-Some features off the new Swing OT differ from
-those in the old FreeBongo OT:
+The JCMT-OT home page is at http://www.jach.hawaii.edu/JAC/software/jcmtot
 
-  Copying components by dragging and dropping:
-    Press CONTROL key during dragging. (Press mouse first. Then press CONTROL key.)
+If you have feedback or any questions on the JCMT-OT please email
+jcmtot@jach.hawaii.edu
 
-  Using the DELETE and BACKSPACE keys to delete selected nodes:
-    This works only if the most recent mouse click occured on the Science Programme tree panel.
-    (e. g. by selecting a node of this tree).
+OMP modifications Copyright 2001-2002 Particle Physics and Astronomy Research
+Council All Rights. Reserved.
 
-  Multiple tree node selection:
-    Arbitrary multiple tree node selections are now allowed. Selecting nodes works like in standard file managers:
-    Selecting contiguous nodes: select first node, hold SHIFT key, select second node.
-      
-    Selecting dis-contiguous nodes: select node, hold CONTROL key, (un)select next node, ... 
++++ July 8th 2002
 
-    The selected nodes can be deleted (with DELETE or BACKSPACE) or dragged and dropped.
+  - First release of the JCMT-OT to the public.
 
-    WARNING: Remember that the multiple node selection in the FreeBongo OT was much simpler.
-    Only certain contiguous nodes could be selected at the same time.
-    Although this Swing OT allows arbitrary multiple selections there can be problems if arbitrary
-    dis-contiguous nodes  from all over the tree are selected. Things can become to complex so that the OT
-    fails to move/copy/delete all nodes. So stick to simple uses of multiple selection similar to those that
-    were allowed in the FreeBongo OT. 
+  - Released for SCUBA observation preparation
 
-  Changing background pattern:
-    Not supported anymore.
-
-  Frames:
-    The Swing OT can be run with internal frames inside
-    one main frame (like the old FreeBongo OT). This is the default
-    behaviour.
-    By using the flag -nointernalframes the OT displays every Science Program
-    tree in a separate frame without one OT main frame.
-
-    ONLY THE INTERNAL FRAMES MODE (DEFAULT) PROVIDES THE FULL FUNCTIONALITY
-    OF THE OLD FREEBONGO VERSION!
-
+  - Please see the Help system for known bugs
