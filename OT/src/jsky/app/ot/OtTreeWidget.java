@@ -424,10 +424,27 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      */
     public void rmAllSelectedItems() {
       TreePath [] paths = getSelectionPaths();
+      boolean attemptToDeleteRoot = false;
       if (paths != null && paths.length > 0) {
 	for (int i = 0; i < paths.length; i++) {
           tree.setSelectionPath(paths[i]);
-          rmSelectedItem();
+	  // This is a hack to prevent freezing when the Science Program node is dropped
+	  // into the waste bin under Linux.
+	  // Normally one would just try to apply rmSelectedItem without checking whether it is
+	  // the Science Program node. rmSelectedItem would then call
+	  // DialogUtil.error("You have to select an item to delete."). But this can cause the OT under Linux
+	  // to freeze. However, throwing an Exception and catching it in the calling class and calling
+	  // DialogUtil.error there works fine. MFO, May 31, 2001
+	  if((OtTreeNodeWidget) getSelectedNode() == (OtTreeNodeWidget) getRoot()) {
+            attemptToDeleteRoot = true;
+	  }
+	  else {
+	    rmSelectedItem();
+	  }  
+	}
+
+	if(attemptToDeleteRoot) {
+          throw new IllegalArgumentException("You can't delete the Science Program!");
 	}
       }
     }

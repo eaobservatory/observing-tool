@@ -84,12 +84,20 @@ public class OtWasteBin extends JLabel implements DropTargetListener {
       // MultiSelTreeWidget then one could also get the selected items from the OtDragDropObject
       // rather than from the current selection of the OtTreeWidget.
       ownerTW.rmAllSelectedItems();
+      dtde.acceptDrop(dtde.getDropAction());
     }
     catch(UnsupportedFlavorException e) {
-      DialogUtil.error("You cannot drop this object here.");
+      dtde.rejectDrop();
+      DialogUtil.error("You cannot delete this item.");
     }
     catch(IOException e) {
-      DialogUtil.error("You cannot drop this object here.");
+      dtde.rejectDrop();
+      DialogUtil.error("You cannot delete this item.");
+    }
+    // IllegalArgumentException is thrown if user attempts to delete Science Program root node.
+    catch(IllegalArgumentException e) {
+      dtde.rejectDrop();
+      DialogUtil.error(e.getMessage());
     }
   }
 
