@@ -71,13 +71,29 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
 
     if(instObsComp != null) {
       _w.jigglePattern.setChoices(instObsComp.getJigglePatterns());
+
+      // Select jiggle pattern.
+      boolean jigglePatternSet = false;
+      String jigglePattern = _iterObs.getJigglePattern();
+      for(int i = 0; i < _w.jigglePattern.getItemCount(); i++) {
+        if(jigglePattern == null) {
+          break;
+	}
+
+        if(jigglePattern.equals(_w.jigglePattern.getItemAt(i))) {
+          _w.jigglePattern.setValue(_w.jigglePattern.getItemAt(i));
+	  jigglePatternSet = true;
+	  break;
+	}
+      }
+
+      if(!jigglePatternSet) {
+        _iterObs.setJigglePattern((String)_w.jigglePattern.getValue());
+      }
     }
     else {
       _w.jigglePattern.setChoices(_noJigglePatterns);
-    }
-
-    if(_iterObs.getJigglePattern() == null) {
-      _iterObs.setJigglePattern((String)_w.jigglePattern.getValue());
+      _iterObs.setJigglePattern("");
     }
 
     super._updateWidgets();
