@@ -15,6 +15,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.geom.Point2D;
+import java.net.URL;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -1199,8 +1200,8 @@ public class OtWindow extends SpTreeGUI
 	  OT.getHelpLauncher().launch();
 	}
 	else {
-	    String[] args={"-helpset", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "help/othelp.hs"};
-            OT.setHelpLauncher(new JHLauncher(args));
+	    URL url = ClassLoader.getSystemClassLoader().getResource("help/othelp.hs");
+            OT.setHelpLauncher(new JHLauncher(url));
             //System.out.println ("Help tool launched");
 	}
     }
