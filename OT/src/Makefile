@@ -128,7 +128,7 @@ endif
 	@cat scripts/ot_script_source >> $@
 
 	@echo Creating $@
-	@chmod 755 $@
+	@chmod 775 $@
 
 
 $(BIN_DIR)/ot.bat: scripts/ot_bat_local_source
@@ -296,7 +296,7 @@ endif
 	@cat scripts/ot_script_source >> $@
 
 	@echo Creating $@
-	@chmod 755 $@
+	@chmod 775 $@
 
 
 $(INSTALL_ROOT)/bin/ot.bat: $(INSTALL_BAT_SCRIPT) $(CONF_HOME)/make.conf Makefile

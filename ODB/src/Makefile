@@ -115,7 +115,7 @@ endif
 	@cat scripts/odb_script_source >> $@
 
 	@echo Creating $@
-	@chmod 755 $@
+	@chmod 775 $@
 
 #install:
 #	@echo Use \"\gmake JAR_DIR=my_jar_dir jar\" to create $(JAR_FILE) in my_jar_dir.
@@ -253,6 +253,6 @@ endif
 	@cat scripts/odb_script_source >> $@
 
 	@echo Creating $@
-	@chmod 755 $@
+	@chmod 775 $@
 
 

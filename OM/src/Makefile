@@ -181,7 +181,7 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf Makefile
 	\n" > $(BIN_DIR)/$(OM_SCRIPT)
 
 	@echo Creating $(BIN_DIR)/$(OM_SCRIPT)
-	chmod 755 $(BIN_DIR)/$(OM_SCRIPT)
+	chmod 775 $(BIN_DIR)/$(OM_SCRIPT)
 
 $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	@printf \
@@ -281,7 +281,7 @@ $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf M
 	\n" > $(LOCAL_INSTALL_ROOT)/bin/os
 
 	@echo Creating $(LOCAL_INSTALL_ROOT)/bin/os
-	chmod 755 $(LOCAL_INSTALL_ROOT)/bin/os
+	chmod 775 $(LOCAL_INSTALL_ROOT)/bin/os
 
 
 
@@ -321,7 +321,7 @@ $(LOCAL_INSTALL_ROOT)/bin/mon: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf 
 	\n" > $(LOCAL_INSTALL_ROOT)/bin/mon
 
 	@echo Creating $(LOCAL_INSTALL_ROOT)/bin/mon
-	chmod 755 $(LOCAL_INSTALL_ROOT)/bin/mon
+	chmod 775 $(LOCAL_INSTALL_ROOT)/bin/mon
 
 
 
@@ -522,7 +522,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n" > $(INSTALL_ROOT)/bin/om
 
 	@echo Creating $(INSTALL_ROOT)/bin/om
-	chmod 755 $(INSTALL_ROOT)/bin/om
+	chmod 775 $(INSTALL_ROOT)/bin/om
 
 $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	@printf \
@@ -621,7 +621,7 @@ $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n" > $(INSTALL_ROOT)/bin/os
 
 	@echo Creating $(INSTALL_ROOT)/bin/os
-	chmod 755 $(INSTALL_ROOT)/bin/os
+	chmod 775 $(INSTALL_ROOT)/bin/os
 
 $(INSTALL_ROOT)/bin/mon: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	@printf \
@@ -656,6 +656,6 @@ $(INSTALL_ROOT)/bin/mon: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n" > $(INSTALL_ROOT)/bin/mon
 
 	@echo Creating $(INSTALL_ROOT)/bin/mon
-	chmod 755 $(INSTALL_ROOT)/bin/mon
+	chmod 775 $(INSTALL_ROOT)/bin/mon
 
 
