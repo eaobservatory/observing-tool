@@ -46,10 +46,6 @@ public class SpSiteQualityObsComp extends SpObsComp
    /** Number of Moon options. */
    public static final int MOON_OPTIONS_LENGTH = 3;
 
-//   public static final String[] MOON_OPTIONS = {
-//      "dark", "bright", "ignore"
-//   };
-
    public static final int CLOUD_PHOTOMETRIC = 0;
    public static final int CLOUD_THIN_CIRRUS = 1;
    public static final int CLOUD_ANY         = 2;
@@ -57,12 +53,10 @@ public class SpSiteQualityObsComp extends SpObsComp
    /** Number of Cloud options. */
    public static final int CLOUD_OPTIONS_LENGTH = 3;
 
-//   public static final String[] SKY_OPTIONS = {
-//      "photometric", "spectroscopic", "ignore"
-//   };
+   public static final String SUBTYPE = "schedInfo";
 
    public static final SpType SP_TYPE =
-   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo", "Site Quality");
+   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Site Quality");
 
    // Register the prototype.
    static {
