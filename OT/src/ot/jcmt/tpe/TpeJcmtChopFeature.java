@@ -15,6 +15,7 @@ import gemini.sp.iter.SpIterChop;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.iter.SpIterJiggleObs;
 import orac.jcmt.iter.SpIterRasterObs;
+import orac.jcmt.iter.SpIterStareObs;
 import jsky.app.ot.tpe.feat.TpeChopFeature;
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
@@ -37,19 +38,19 @@ public void draw(Graphics g, FitsImageInfo fii) {
   }
 
   if(containsJiggleObservation(_iterChop)) {
-    // Need the chop iterator to know what to draw.
-    SpIterChop spIterChop = (SpIterChop)_iw.getBaseItem();
-    if ((spIterChop == null) || (spIterChop.getSelectedIndex() < 0)) {
+//    // Need the chop iterator to know what to draw.
+//    SpIterChop _iterChop = (SpIterChop)_iw.getBaseItem();
+    if ((_iterChop == null) || (_iterChop.getSelectedIndex() < 0)) {
       return;
     }
 
-    int chopStepIndex = spIterChop.getSelectedIndex();
+    int chopStepIndex = _iterChop.getSelectedIndex();
 
     // Opposite chop position specified by angle and -throw.
     double chop2X =
-      spIterChop.getThrow(chopStepIndex) * Math.sin((spIterChop.getAngle(chopStepIndex) / 360) * (Math.PI * 2.0));
+      _iterChop.getThrow(chopStepIndex) * Math.sin((_iterChop.getAngle(chopStepIndex) / 360) * (Math.PI * 2.0));
     double chop2Y =
-      spIterChop.getThrow(chopStepIndex) * Math.cos((spIterChop.getAngle(chopStepIndex) / 360) * (Math.PI * 2.0));
+      _iterChop.getThrow(chopStepIndex) * Math.cos((_iterChop.getAngle(chopStepIndex) / 360) * (Math.PI * 2.0));
 
     chop2X *= fii.pixelsPerArcsec;
     chop2Y *= fii.pixelsPerArcsec;
@@ -125,9 +126,12 @@ public void draw(Graphics g, FitsImageInfo fii) {
       }
     }
 
-    // Draw the actual chop position (at the centre of the science area) as a small box.
-    // This box is used for dragging the position with the mouse.
+    // Draw the actual chop positions (at the centre of the science areas) as a small boxes.
+    // The box at position (_chopX, _chopY), i.e. the one with the label,
+    // is used for dragging the position with the mouse.
     g.drawRect((int)_chopX - 2, (int)_chopY - 2, 4, 4);
+    g.drawRect((int)_baseX - 2, (int)_baseY - 2, 4, 4);
+    g.drawRect((int)chop2X - 2, (int)chop2Y - 2, 4, 4);
 
 //   g.setFont(FONT);
     g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")", (int)_chopX + 3, (int)_chopY + 2);
@@ -146,19 +150,19 @@ public void draw(Graphics g, FitsImageInfo fii) {
   }
 
   if(containsRasterObservation(_iterChop)) {
-    // Need the chop iterator to know what to draw.
-    SpIterChop spIterChop = (SpIterChop)_iw.getBaseItem();
-    if ((spIterChop == null) || (spIterChop.getSelectedIndex() < 0)) {
+//    // Need the chop iterator to know what to draw.
+//    SpIterChop _iterChop = (SpIterChop)_iw.getBaseItem();
+    if ((_iterChop == null) || (_iterChop.getSelectedIndex() < 0)) {
       return;
     }
 
-    int chopStepIndex = spIterChop.getSelectedIndex();
+    int chopStepIndex = _iterChop.getSelectedIndex();
 
     // Chop position specified by angle and 0.5 * throw.
     double chop1X =
-      spIterChop.getThrow(chopStepIndex) * Math.sin(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
+      _iterChop.getThrow(chopStepIndex) * Math.sin(((180 + _iterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
     double chop1Y =
-      spIterChop.getThrow(chopStepIndex) * Math.cos(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
+      _iterChop.getThrow(chopStepIndex) * Math.cos(((180 + _iterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
 
     chop1X /= 2.0;
     chop1Y /= 2.0;
@@ -171,9 +175,9 @@ public void draw(Graphics g, FitsImageInfo fii) {
 
     // Opposite chop position specified by angle and -0.5 * throw.
     double chop2X =
-      spIterChop.getThrow(chopStepIndex) * Math.sin(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
+      _iterChop.getThrow(chopStepIndex) * Math.sin(((180 + _iterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
     double chop2Y =
-      spIterChop.getThrow(chopStepIndex) * Math.cos(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
+      _iterChop.getThrow(chopStepIndex) * Math.cos(((180 + _iterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
 
     chop2X /= -2.0;
     chop2Y /= -2.0;
@@ -240,9 +244,11 @@ public void draw(Graphics g, FitsImageInfo fii) {
       }
     }
 
-    // Draw the actual chop position (at the centre of the science area) as a small box.
-    // This box is used for dragging the position with the mouse.
+    // Draw the actual chop positions (at the centre of the science areas) as a small boxes.
+    // The box at position (chop1X, chop1Y), i.e. the one with the label,
+    // is used for dragging the position with the mouse.
     g.drawRect((int)chop1X - 2, (int)chop1Y - 2, 4, 4);
+    g.drawRect((int)chop2X - 2, (int)chop2Y - 2, 4, 4);
 
 //   g.setFont(FONT);
     g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")", (int)chop1X + 3, (int)chop1Y + 2);
@@ -250,11 +256,31 @@ public void draw(Graphics g, FitsImageInfo fii) {
     // If the exact position is not known due to the Az/El coordinate system
     // then draw two circles around the base. The science area is between these two circles.
     if(_drawAsCircle) {
-      g.drawArc((int)(_baseX - (_chopInnerRadius / 2.0)), (int)(_baseY - (_chopInnerRadius / 2.0)),
-                (int)_chopInnerRadius, (int)_chopInnerRadius, 0, 360);
+/*
+      double scienceAreaRadius = 0.0;
 
-      g.drawArc((int)(_baseX - (_chopOuterRadius / 2.0)), (int)(_baseY - (_chopOuterRadius / 2.0)),
-                (int)_chopOuterRadius, (int)_chopOuterRadius, 0, 360);
+      if(scienceArea != null) {
+         if(scienceArea.length == 1) {
+            scienceAreaRadius = scienceArea[0];
+         }
+         else {
+            scienceAreaRadius = Math.sqrt((scienceArea[0] * scienceArea[0]) + (scienceArea[1] * scienceArea[1]));
+         }
+      }
+*/
+      double scienceAreaRadius = (0.5 * (_chopOuterRadius - _chopInnerRadius)) / fii.pixelsPerArcsec;
+
+      _chopInnerRadius = (_iterChop.getThrow(chopStepIndex) / 2.0) - scienceAreaRadius;
+      _chopInnerRadius *= fii.pixelsPerArcsec;
+
+      _chopOuterRadius = (_iterChop.getThrow(chopStepIndex) / 2.0) + scienceAreaRadius;
+      _chopOuterRadius *= fii.pixelsPerArcsec;
+
+      g.drawArc((int)(_baseX - _chopInnerRadius), (int)(_baseY - _chopInnerRadius),
+                (int)(2.0 * _chopInnerRadius), (int)(2.0 * _chopInnerRadius), 0, 360);
+
+      g.drawArc((int)(_baseX - _chopOuterRadius), (int)(_baseY - _chopOuterRadius),
+                (int)(2.0 * _chopOuterRadius), (int)(2.0 * _chopOuterRadius), 0, 360);
     }
 
     return;
@@ -289,12 +315,16 @@ public void drag(FitsMouseEvent fme)
 
 
   /**
-   * Checks whether there is a Jiggle Observation inside this Chop iterator.
+   * Checks whether there is a Jiggle or Photom/Stare Observe inside this Chop iterator.
    */
   protected static boolean containsJiggleObservation(SpIterChop spIterChop) {
     SpItem child = spIterChop.child();
     while(child != null) {
       if(child instanceof SpIterJiggleObs) {
+        return true;
+      }
+
+      if(child instanceof SpIterStareObs) {
         return true;
       }
 
@@ -305,7 +335,7 @@ public void drag(FitsMouseEvent fme)
   }
 
   /**
-   * Checks whether there is a Scan/Raster Observation inside this Chop iterator.
+   * Checks whether there is a Scan/Raster Observe inside this Chop iterator.
    */
   protected static boolean containsRasterObservation(SpIterChop spIterChop) {
     SpItem child = spIterChop.child();
