@@ -47,10 +47,9 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
    private String _previousXmlElement = "";
    
 
-   public static final SpType SP_TYPE =
-   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Site Quality");
-
    // Register the prototype.
+   // This replaces gemini.sp.obsComp.SpSiteQualityObsComp
+   // with orac.jcmt.obsComp.SpSiteQualityObsComp
    static {
      SpFactory.registerPrototype(new SpSiteQualityObsComp());
    }
