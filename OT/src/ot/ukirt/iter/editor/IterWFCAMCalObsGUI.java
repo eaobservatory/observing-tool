@@ -53,11 +53,13 @@ public class IterWFCAMCalObsGUI extends JPanel {
     jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
     Coadds.setBorder(BorderFactory.createLoweredBevelBorder());
     Coadds.setHorizontalAlignment(SwingConstants.CENTER);
-    Coadds.setBackground(new Color(220, 220, 220));
+//     Coadds.setBackground(new Color(220, 220, 220));
+    Coadds.setBackground(Color.WHITE);
     ExpTime.setHorizontalAlignment(SwingConstants.CENTER);
     ExpTime.setBorder(BorderFactory.createLoweredBevelBorder());
     ExpTime.setEditable(true);
-    ExpTime.setBackground(new Color(220, 220, 220));
+//     ExpTime.setBackground(new Color(220, 220, 220));
+    ExpTime.setBackground(Color.WHITE);
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setRequestFocusEnabled(true);
