@@ -41,6 +41,28 @@ public final class SpFactory
    public static final SpItem OBSERVATION_LINK   = new SpObsLink();
    public static final SpItem NOTE               = new SpNote();
 
+   /**
+    * MSB folder for OMP.
+    *
+    * Added by MFO (09 July 2001)
+    */
+   public static final SpItem MSB_FOLDER         = new SpMSB();
+
+   /**
+    * AND folder for OMP.
+    *
+    * Added by MFO (09 July 2001)
+    */
+   public static final SpItem AND_FOLDER         = new SpAND();
+
+   /**
+    * OR folder for OMP.
+    *
+    * Added by MFO (09 July 2001)
+    */
+   public static final SpItem OR_FOLDER          = new SpOR();
+
+
    // MFO: JCMT/ACSIS and UKIRT use different site quality components
    // so they have to be specified in the config file.
    //public static final SpItem OBSERVATION_COMPONENT_SITE_QUALITY =
@@ -75,6 +97,11 @@ static {
    registerPrototype(OBSERVATION_LINK);
    registerPrototype(SEQUENCE);
    registerPrototype(NOTE);
+
+   // Added by MFO (09 July 2001)
+   registerPrototype(MSB_FOLDER);
+   registerPrototype(AND_FOLDER);
+   registerPrototype(OR_FOLDER);
    
    // MFO: Changed because UKIRT and JCMT use different site quality components.
    //registerPrototype(OBSERVATION_COMPONENT_SITE_QUALITY);

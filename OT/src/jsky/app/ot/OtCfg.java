@@ -327,6 +327,24 @@ public final class OtCfg
 	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdIterRepeat");
 	SpFactory.ITERATOR_COMPONENT_REPEAT.setClientData(clientData);
 	iteratorTypes.addElement(SpType.ITERATOR_COMPONENT_REPEAT);
+
+	// MSB Folder (MFO, 09 July 2001)
+	tnw        = new OtObsContainerTreeNodeWidget();
+	tnw.setBothImageSrc("ot/images/msbFolder.gif");
+	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdTitle");
+	SpFactory.MSB_FOLDER.setClientData(clientData);
+
+	// AND Folder (MFO, 09 July 2001)
+	tnw        = new OtObsContainerTreeNodeWidget();
+	tnw.setBothImageSrc("ot/images/andFolder.gif");
+	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdTitle");
+	SpFactory.AND_FOLDER.setClientData(clientData);
+
+	// OR Folder (MFO, 09 July 2001)
+	tnw        = new OtObsContainerTreeNodeWidget();
+	tnw.setBothImageSrc("ot/images/orFolder.gif");
+	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdTitle");
+	SpFactory.OR_FOLDER.setClientData(clientData);
     }
 
 

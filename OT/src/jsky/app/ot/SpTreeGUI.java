@@ -147,6 +147,49 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 	    }
 	};
 
+
+    // The following three actions were added for the OMP project.
+    // (MFO, 09 July 2001)
+
+    /** Action to use for the "MsbFolder" menu and toolbar items */
+    protected AbstractAction msbFolderAction = new AbstractAction("MsbFolder") {
+	    public void actionPerformed(ActionEvent evt) {
+		try {
+		    addMsbFolder();
+		}
+		catch(Exception e) {
+		    DialogUtil.error(e);
+		}
+	    }
+	};
+
+
+    /** Action to use for the "AndFolder" menu and toolbar items */
+    protected AbstractAction andFolderAction = new AbstractAction("AndFolder") {
+	    public void actionPerformed(ActionEvent evt) {
+		try {
+		    addAndFolder();
+		}
+		catch(Exception e) {
+		    DialogUtil.error(e);
+		}
+	    }
+	};
+
+
+    /** Action to use for the "OrFolder" menu and toolbar items */
+    protected AbstractAction orFolderAction = new AbstractAction("OrFolder") {
+	    public void actionPerformed(ActionEvent evt) {
+		try {
+		    addOrFolder();
+		}
+		catch(Exception e) {
+		    DialogUtil.error(e);
+		}
+	    }
+	};
+
+
     /** Action to use for the "ObsFolder" menu and toolbar items */
     protected AbstractAction obsFolderAction = new AbstractAction("Folder") {
 	    public void actionPerformed(ActionEvent evt) {
@@ -197,6 +240,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 	    }
 	};
 
+
     /** Action to use for the "LibFolder" menu and toolbar items */
     protected AbstractAction libFolderAction = new AbstractAction("LibFolder") {
 	    public void actionPerformed(ActionEvent evt) {
@@ -208,6 +252,7 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 		}
 	    }
 	};
+
 
     /** Action to use for the "PosEditor" menu and toolbar items */
     protected AbstractAction posEditorAction = new AbstractAction("PosEditor") {
@@ -311,6 +356,20 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 	this.desktop = desktop;
     }
 
+    // The following three methods were added for the OMP project.
+    // (MFO, 09 July 2001)
+
+    /** Create an observation folder. */
+    public void addMsbFolder() {
+    }
+
+    /** Create an observation folder. */
+    public void addAndFolder() {
+    }
+
+    /** Create an observation folder. */
+    public void addOrFolder() {
+    }
 
     /** Create an observation folder. */
     public void addFolder() {
@@ -416,6 +475,13 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     public AbstractAction getObservationAction() {return observationAction;}
     public AbstractAction getNoteAction() {return noteAction;}
     public AbstractAction getLibFolderAction() {return libFolderAction;}
+
+    // The following three methods were added for the OMP project.
+    // (MFO, 09 July 2001)
+    public AbstractAction getMsbFolderAction() {return msbFolderAction;}
+    public AbstractAction getAndFolderAction() {return andFolderAction;}
+    public AbstractAction getOrFolderAction()  {return  orFolderAction;}
+
     public AbstractAction getPosEditorAction() {return posEditorAction;}
     public AbstractAction getValidationAction() {return validationAction;}
 

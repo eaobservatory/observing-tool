@@ -83,6 +83,36 @@ public class SpType implements java.io.Serializable
    public static final SpType NOTE =
 	SpType.create("no", "Note");
 
+   // The following three types have been added as part of the OMP project.
+   // Added by MFO (05 July 2001)
+
+   /**
+    * The MSB Folder Type.
+    *
+    * The type string "og" (Obs Group) is reused here as Obs Groups behave in the
+    * same as MSB folders with respect to InsertPolicy.
+    */
+   public static final SpType MSB_FOLDER =
+	SpType.create("og", "msb", "MSB Folder");
+
+   /**
+    * The AND Folder Type.
+    * 
+    * The type string "fo" (Obs Folder) is reused here as Obs Folders behave in the
+    * same as AND folder with respect to InsertPolicy.
+    */
+   public static final SpType AND_FOLDER =
+	SpType.create("fo", "and", "AND Folder");
+
+   /**
+    * The OR Folder Type.
+    *
+    * A new type string is used: "of" (OR Folder).
+    */
+   public static final SpType OR_FOLDER =
+	SpType.create("of", "or", "OR Folder");
+
+
    /**
     * The Iterator Sequence Type. NOTE, 'if' is left over from
     * "iterator folder".

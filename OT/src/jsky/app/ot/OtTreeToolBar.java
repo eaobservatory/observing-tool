@@ -28,6 +28,12 @@ public class OtTreeToolBar extends GenericToolBar {
     protected JButton iterCompMenuButton;
     protected JButton iterObsMenuButton;
 
+    // OMP buttons
+    // added by MFO (06 July 2001)
+    protected JButton msbFolderButton;
+    protected JButton andFolderButton;
+    protected JButton  orFolderButton;
+
     /**
      * Create a toolbar with tree related actions for the given OT window.
      */
@@ -44,9 +50,22 @@ public class OtTreeToolBar extends GenericToolBar {
      * Add the items to the tool bar.
      */
     protected void addToolBarItems() {
-	add(makeObsFolderButton());
-	addSeparator();
-	add(makeObsGroupButton());
+
+	// OMP menus
+	// added by MFO (06 July 2001)
+	if(System.getProperty("OMP") != null) {
+	    add(makeOrFolderButton());
+	    addSeparator();
+	    add(makeAndFolderButton());
+	    addSeparator();
+	    add(makeMsbFolderButton());
+	}
+	else {
+	    add(makeObsFolderButton());
+	    addSeparator();
+	    add(makeObsGroupButton());
+	}
+
 	addSeparator();
 	add(makeObservationButton());
 	addSeparator();
@@ -179,14 +198,73 @@ public class OtTreeToolBar extends GenericToolBar {
     }
 
 
+    // The following three functions were added fir the OMP project.
+    // (MFO, 09 July 2001)
+
+    /**
+     * Make the MSB Folder button (OMP project), if it does not yet exists.
+     * Otherwise update the display
+     * using the current options for displaying text or icons.
+     *
+     * @return the MSB Folder button
+     */
+    protected JButton makeMsbFolderButton() {
+	if (msbFolderButton == null) 
+	    msbFolderButton = makeButton("Create an MSB folder.", editor.getMsbFolderAction(), false);
+	
+	updateButton(msbFolderButton, "MSB Folder", "ot/images/msbFolder.gif", null, null);
+	return msbFolderButton;
+    }
+
+    /**
+     * Make the AND Folder button (OMP project), if it does not yet exists.
+     * Otherwise update the display
+     * using the current options for displaying text or icons.
+     *
+     * @return the AND Folder button
+     */
+    protected JButton makeAndFolderButton() {
+	if (andFolderButton == null) 
+	    andFolderButton = makeButton("Create an AND folder.", editor.getAndFolderAction(), false);
+	
+	updateButton(andFolderButton, "AND Folder", "ot/images/andFolder.gif", null, null);
+	return andFolderButton;
+    }
+
+    /**
+     * Make the OR Folder button (OMP project), if it does not yet exists.
+     * Otherwise update the display
+     * using the current options for displaying text or icons.
+     *
+     * @return the OR Folder button
+     */
+    protected JButton makeOrFolderButton() {
+	if (orFolderButton == null) 
+	    orFolderButton = makeButton("Create an OR folder.", editor.getOrFolderAction(), false);
+	
+	updateButton(orFolderButton, "OR Folder", "ot/images/orFolder.gif", null, null);
+	return orFolderButton;
+    }
+
 
     /**
      * Update the toolbar display using the current text/pictures options.
      * (redefined from the parent class).
      */
     public void update() {
-	makeObsFolderButton();
-	makeObsGroupButton();
+
+	// OMP menus
+	// added by MFO (06 July 2001)
+	if(System.getProperty("OMP") != null) {
+            makeMsbFolderButton();
+	    makeAndFolderButton();
+	    makeOrFolderButton();
+	}
+        else {
+	    makeObsFolderButton();
+	    makeObsGroupButton();
+	}
+
 	makeObservationButton();
 	makeComponentMenuButton();
 	makeNoteButton();

@@ -804,6 +804,25 @@ public class OtWindow extends SpTreeGUI
 	_itemEditor.setItem( ((OtTreeNodeWidget) tnw).getItem() );
     }
 
+
+    // The following three methods were added for the OMP project.
+    // (MFO, 09 July 2001)
+
+    /** Create an observation folder. */
+    public void addMsbFolder() {
+	_tw.addItem(SpFactory.create(SpType.MSB_FOLDER));
+    }
+
+    /** Create an observation folder. */
+    public void addAndFolder() {
+	_tw.addItem(SpFactory.create(SpType.AND_FOLDER));
+    }
+
+    /** Create an observation folder. */
+    public void addOrFolder() {
+	_tw.addItem(SpFactory.create(SpType.OR_FOLDER));
+    }
+
     /** Create an observation folder. */
     public void addFolder() {
         // MFO May 28 2001

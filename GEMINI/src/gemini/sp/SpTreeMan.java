@@ -383,16 +383,27 @@ static {
       ip = new InsidePolicy_AfterComponents();
       libraryPolicy = new InsidePolicy_ItemIntoLibraryFolder( ip );
 
+      // OR Folder (for OMP project)
+      // Note that for the time being "fo" (Obs Folders) is used for
+      // AND folders and "og" (Obs Groups) is used for MSB folders
+      // added by MFO (06 July 2001)
+      _insertInside.put("of,pr", ip);
+      _insertInside.put("of,pl", ip);
+      _insertInside.put("of,p1", ip);
+      _insertInside.put("of,lf", libraryPolicy);      
+
       // Inserting Obs Folders
       _insertInside.put("fo,pr", ip);
       _insertInside.put("fo,pl", ip);
       _insertInside.put("fo,p1", ip);
+      _insertInside.put("fo,of", ip); // MFO
       _insertInside.put("fo,lf", libraryPolicy);
 
       // Inserting Obs Groups
       _insertInside.put("og,pr", ip);
       _insertInside.put("og,pl", ip);
       _insertInside.put("og,p1", ip);
+      _insertInside.put("og,of", ip); // MFO
       _insertInside.put("og,fo", ip);
       _insertInside.put("og,lf", libraryPolicy);
 
@@ -400,6 +411,7 @@ static {
       _insertInside.put("ob,pr", ip);
       _insertInside.put("ob,pl", ip);
       _insertInside.put("ob,p1", ip);
+      _insertInside.put("ob,of", ip); // MFO
       _insertInside.put("ob,fo", ip);
       _insertInside.put("ob,og", ip);
       _insertInside.put("ob,lf", libraryPolicy);
@@ -408,6 +420,7 @@ static {
       _insertInside.put("li,pr", ip);
       _insertInside.put("li,pl", ip);
       _insertInside.put("li,p1", ip);
+      _insertInside.put("li,of", ip); // MFO
       _insertInside.put("li,fo", ip);
       _insertInside.put("li,og", ip);
       _insertInside.put("li,lf", libraryPolicy);
@@ -419,6 +432,7 @@ static {
       _insertInside.put("if,pr", ip);
       _insertInside.put("if,pl", ip);
       _insertInside.put("if,p1", ip);
+      _insertInside.put("if,of", ip); // MFO
       _insertInside.put("if,fo", ip);
       _insertInside.put("if,ob", ip);
       _insertInside.put("if,og", ip);
@@ -438,6 +452,7 @@ static {
       _insertInside.put("oc,pr", ip);
       _insertInside.put("oc,pl", ip);
       _insertInside.put("oc,p1", ip);
+      _insertInside.put("oc,of", ip); // MFO
       _insertInside.put("oc,fo", ip);
       _insertInside.put("oc,ob", ip);
       _insertInside.put("oc,og", ip);
@@ -461,6 +476,7 @@ static {
       _insertInside.put("no,p1", ip);
       _insertInside.put("no,lb", ip);
       _insertInside.put("no,lf", ip);
+      _insertInside.put("no,of", ip); // MFO
       _insertInside.put("no,fo", ip);
       _insertInside.put("no,ob", ip);
       _insertInside.put("no,li", ip);
@@ -474,7 +490,21 @@ static {
 
       ip = new AfterPolicy_AfterComponents();
 
+      // OR Folder (for OMP project)
+      // Note that for the time being "fo" (Obs Folders) is used for
+      // AND folders and "og" (Obs Groups) is used for MSB folders
+      // added by MFO (06 July 2001)
+      _insertAfter.put("of,of", ip);
+      _insertAfter.put("of,fo", ip);
+      _insertAfter.put("of,ob", ip);
+      _insertAfter.put("of,li", ip);
+      _insertAfter.put("of,oc", ip);
+      _insertAfter.put("of,no", ip);
+      _insertAfter.put("of,if", ip);
+      _insertAfter.put("of,og", ip);
+
       // Obs Folders
+      _insertAfter.put("fo,of", ip); // MFO
       _insertAfter.put("fo,fo", ip);
       _insertAfter.put("fo,ob", ip);
       _insertAfter.put("fo,li", ip);
@@ -484,6 +514,7 @@ static {
       _insertAfter.put("fo,og", ip);
 
       // Obs Groups
+      _insertAfter.put("og,of", ip); // MFO
       _insertAfter.put("og,fo", ip);
       _insertAfter.put("og,ob", ip);
       _insertAfter.put("og,li", ip);
@@ -493,6 +524,7 @@ static {
       _insertAfter.put("og,og", ip);
 
       // Observations
+      _insertAfter.put("ob,of", ip); // MFO
       _insertAfter.put("ob,fo", ip);
       _insertAfter.put("ob,ob", ip);
       _insertAfter.put("ob,li", ip);
@@ -502,6 +534,7 @@ static {
       _insertAfter.put("ob,og", ip);
 
       // Obs Links
+      _insertAfter.put("li,of", ip); // MFO
       _insertAfter.put("li,fo", ip);
       _insertAfter.put("li,ob", ip);
       _insertAfter.put("li,li", ip);
@@ -525,6 +558,7 @@ static {
       _insertAfter.put("lf,no", ip);
 
       // Notes
+      _insertAfter.put("no,of", ip); // MFO
       _insertAfter.put("no,fo", ip);
       _insertAfter.put("no,og", ip);
       _insertAfter.put("no,ob", ip);
