@@ -227,6 +227,13 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       return (sideBandDisplay != null);
    }
 
+   public void on() {
+      sideBandGui.setEnabled(true);
+   }
+
+   public void off() {
+      sideBandGui.setEnabled(false);
+   }
 
    public void mouseClicked(MouseEvent e) { }
    public void mouseEntered(MouseEvent e) { }
