@@ -1,6 +1,7 @@
 Welcome to the ORAC/OMP Observing Tool (JCMT-OT [1]), based on the Gemini OT (version ot-0.5, Swing and JSky widgets) [2] and classes of the old Gemini OT (pre-JSky)[3].
 
-JAC OMP OT Release version 1.0 (Swing and JSky)
+JAC OMP OT Release version 20020731
+(Swing and JSky)
 
 1. (c) 2001-2002 PPARC UK Astronomy Technology Centre, Joint Astronomy Centre, Hilo
 
