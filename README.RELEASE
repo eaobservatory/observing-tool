@@ -1,0 +1,18 @@
+How to prepare an OT release
+
+- Remove install/bin/* and copy in the tweaked files
+  from this directory [these include jcmtot/ukirtot batch and csh
+  files and tweaked .bat files that dont need command line arguments]
+  Also have removed SERVER= line
+
+- remove install/cfg/om install/cfg/odb
+
+- remove install/cfg/ukirt/*.lib
+
+- remove the CVS directories (from the install tree)
+
+  find . -name CVS -exec rm -rf {} \;
+
+- tar it up
+
+  tar zcvhf ot_YYYYMMDD.tar.gz ompot 
