@@ -9,6 +9,14 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="wfcamUStepPatternType">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="NONE"/>
+    <xsd:enumeration value="2x2"/>
+    <xsd:enumeration value="3x3"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
 <xsd:complexType name="nodPatternType" mixed="true">
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
@@ -30,6 +38,19 @@
     </xsd:sequence>
     <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="nod"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterMicroStep">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element ref="toml:obsArea"/>
+      <xsd:element name="pattern" type="toml:wfcamUStepPatternType"/>
+      <xsd:group ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="microstep"/>
   </xsd:complexType>
 </xsd:element>
 

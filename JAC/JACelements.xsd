@@ -77,4 +77,6 @@
   </xsd:complexType>
 </xsd:element>
 
+<xsd:element name="obsArea" type="toml:offsetDefinition"/>
+
 </xsd:schema>

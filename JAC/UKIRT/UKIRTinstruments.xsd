@@ -7,6 +7,7 @@
 <xsd:include schemaLocation="UFTI.xsd"/>
 <xsd:include schemaLocation="Michelle.xsd"/>
 <xsd:include schemaLocation="UIST.xsd"/>
+<xsd:include schemaLocation="WFCAM.xsd"/>
 <xsd:include schemaLocation="IRPOL.xsd"/>
 
 <xsd:group name="instrumentGroup">
@@ -15,6 +16,7 @@
     <xsd:element ref="toml:SpInstUFTI"/>
     <xsd:element ref="toml:SpInstMichelle"/>
     <xsd:element ref="toml:SpInstUIST"/>
+    <xsd:element ref="toml:SpInstWFCAM"/>
   </xsd:choice>
 </xsd:group>
 
@@ -26,6 +28,8 @@
 <xsd:element name="SpInstMichelleRef" type="toml:compRefType"
 	     substitutionGroup="toml:componentRef"/>
 <xsd:element name="SpInstUISTRef" type="toml:compRefType"
+	     substitutionGroup="toml:componentRef"/>
+<xsd:element name="SpInstWFCAMRef" type="toml:compRefType"
 	     substitutionGroup="toml:componentRef"/>
 
 </xsd:schema>

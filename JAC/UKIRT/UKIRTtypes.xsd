@@ -27,7 +27,10 @@
     <xsd:element ref="toml:SpIterMichelleCalObs"/>
     <xsd:element ref="toml:SpIterMichelleTargetAcq"/>
     <xsd:element ref="toml:SpIterIRPOL"/>
+    <xsd:element ref="toml:SpIterWFCAM"/>
+    <xsd:element ref="toml:SpIterWFCAMCalObs"/>
     <xsd:element ref="toml:SpIterNod"/>
+    <xsd:element ref="toml:SpIterMicroStep"/>
     <xsd:element ref="toml:SpIterBiasObs"/>
     <xsd:element ref="toml:SpIterDarkObs"/>
     <xsd:element ref="toml:SpIterObserve"/>
@@ -42,6 +45,7 @@
     <xsd:element ref="toml:SpInstUFTI"/>
     <xsd:element ref="toml:SpInstUIST"/>
     <xsd:element ref="toml:SpInstMichelle"/>
+    <xsd:element ref="toml:SpInstWFCAM"/>
   </xsd:choice>
 </xsd:group>
 
@@ -62,6 +66,7 @@
     <xsd:element ref="toml:SpNote"/>
     <xsd:element ref="toml:SpIterIRPOL"/>
     <xsd:element ref="toml:SpIterMichelleCalObs"/>
+    <xsd:element ref="toml:SpIterWFCAMCalObs"/>
     <xsd:element ref="toml:SpIterBiasObs"/>
     <xsd:element ref="toml:SpIterDarkObs"/>
     <xsd:element ref="toml:SpIterObserve"/>
@@ -69,6 +74,7 @@
     <xsd:element ref="toml:SpIterChop"/>
     <xsd:element ref="toml:SpIterRepeat"/>
     <xsd:element ref="toml:SpIterOffset"/>
+    <xsd:element ref="toml:SpIterMicroStep"/>
   </xsd:choice>
 </xsd:group>
 
