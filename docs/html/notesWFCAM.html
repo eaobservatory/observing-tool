@@ -1,0 +1,100 @@
+<html>
+<head>
+  <title>WFCAM OT Notes</title>
+</head>
+<body>
+
+<h1>WFCAM OT Notes</h1>
+
+<h2>Survey Component gemini.sp.obsComp.SpSurveyObsComp</h2>
+
+<h3>Vector gemini.sp.obsComp.SpSurveyObsComp._telescopeObsCompVectour containing gemini.sp.obsComp.SpTelescopeObsComp items</h3>
+
+The survey component gemini.sp.obsComp.SpSurveyObsComp contains target information components
+(gemini.sp.obsComp.SpTelescopeObsComp) in a Vector:
+
+<pre>
+  private Vector _telescopeObsCompVector;
+</pre>
+
+The SpTelescopeObsComp items in this Vector are not normal SpItem <i>children</i> of the
+SpSurveyObsComp item, i.e. they are not included in the Enumeration returned
+by the SpSurveyObsComp.children() method. Similarly, The SpSurveyObsComp item
+is not returned by the SpTelescopeObsComp.parent() method of the
+SpTelescopeObsComp items. There parent field is not used. This breaks the
+usual SpItem tree paradigm. To use the gemini.sp.SpTreeMan functionality in
+connection with SpTelescopeObsComp items contained in
+SpSurveyObsComp._telescopeObsCompVector the SpTreeMan methods should be
+applied the containing SpSurveyObsComp which is returned by
+
+<pre>
+gemini.sp.obsComp.SpTelescopeObsComp.getSurveyComponent()
+</pre>
+
+The appropriate result for the SpTelescopeObsComp
+item contained in SpSurveyObsComp._telescopeObsCompVector should then be
+inferred (see implementation of jsky.app.ot.tpe.TpeManager.findRootItem(gemini.sp.SpItem)
+as an example).
+
+<h4>XML SpTelescopeObsComp items in SpSurveyObsComp._telescopeObsCompVector</h4>
+
+<h3>gemini.sp.obsComp.SpSurveyObsComp, gemini.sp.SpObsContextItem,
+gemini.sp.SpObsData and the Telescope Position Editor (TPE)</h3>
+
+OT components are associated with an SpObsContextItem and its SpObsData which
+contain the x, y coordinates of one base position.
+The TPE uses this information. Initially this lead to problems: while a
+SpSurveyObsComp is associated with one SpObsContextItem and SpObsData object
+which contains x, y coordinates of one base position, the SpSurveyObsComp
+itself contains multiple base positions and the TPE should be able to display
+all of these depending on which of the pointings is selected in the
+ot.editor.EdCompSurvey editor. To solve the problem a field
+<pre>
+  private SpObsData _obsData = null;
+</pre>
+was added to gemini.sp.obsComp.SpTelescopeObsComp. This is only used when the
+SpTelescopeObsComp object is contained in a SpSurveyObsComp. In that case it
+uses its own _obsData object (which is returned by the overridden getObsData()
+method) with its own x, y coordinates for its base position.
+
+<h3>Menu File -&gt; Save Observation As Sequence</h3>
+
+If the menu "File" -&gt; "Save Observation As Sequence" is applied to an
+observation (SpObs) that contains a survey component (SpSurveyObsComp) but no
+target information component (target list, SpTelescopeObsComp) then the translator
+uses the SpTelescopeObsComp that is selected in the survey component, i.e.
+
+<pre>
+// Find the target list.
+         targetComponent = (SpTelescopeObsComp) SpTreeMan.findTargetList( spObs );
+
+// If there is no target list then look for a survey component and use its selected target list
+         if(targetComponent == null) {
+            SpSurveyObsComp surveyObsComp = (SpSurveyObsComp)SpTreeMan.findSurveyComp(spObs);
+
+            if(surveyObsComp != null) {
+               targetComponent = surveyObsComp.getSpTelescopeObsComp(surveyObsComp.getSelectedTelObsComp());
+            }
+         }
+</pre>
+
+<h2>Telescope Position Editor resize bug</h2>
+This is a bug which causes the
+TelescopePosEditor to shrink every time the OT is restarted. This bug
+appears only if the width of the TelescopePosEditorToolBar exceeds a
+certain value. Somehow the code managing the size of TelescopePosEditor
+(see {@link jsky.util.Preferences.manageSize(java.swing.JComponent,java.awt.Dimension,java.lang.String)}
+does not take the increase width into account.
+
+The bug was fixed by increasing the width in the JSky Preference class before exiting the OT. So when the OT is
+started again it decreases the width of the TelescopePosEditor editor by the same amount resulting in the correct
+width. This solution is a bit of a hack but it did not seem easy to fix this problem properly in the OT code
+without having to modify the JSky code.
+
+This bug became more of a problem when the button size of the TPE tool bar view buttons increased with the
+introduction of a "WFCAM Autoguider" button.
+
+See jsky.app.ot.tpe.TelescopePosEditor.adjustWidthPreference().
+
+</body>
+</html>
