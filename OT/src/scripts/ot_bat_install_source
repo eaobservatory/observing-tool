@@ -53,6 +53,7 @@ IF (%1)==(-internalframes)    set INTERNAL_FRAMES=-internalframes
 IF (%1)==(-nointernalframes)  set INTERNAL_FRAMES=-nointernalframes
 IF (%1)==(-omp)               set OMP_FLAG=-DOMP
 IF (%1)==(-nodas)             set FREQ_EDITOR_CFG_RESOURCE=edfreq/acsisCfg.xml
+IF (%1)==(-das)               set FREQ_EDITOR_CFG_RESOURCE=edfreq/dasCfg.xml
 IF (%1)==(-noomp)             set OMP_FLAG=
 IF (%1)==(-server)            set SERVER=%2
 IF (%1)==(-server)            SHIFT
