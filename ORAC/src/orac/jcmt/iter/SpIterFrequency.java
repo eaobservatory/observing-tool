@@ -234,7 +234,7 @@ public class SpIterFrequency extends SpIterConfigObsUKIRT {
 
      IterConfigItem frequencyConfigItem = new IterConfigItem("Frequency", "frequency", null);
 
-     String [] sidebandChoices = {"usb", "lsb" };
+     String [] sidebandChoices = {"usb", "lsb", "best" };
 
      IterConfigItem sidebandConfigItem = new IterConfigItem("Sideband", "sideband", sidebandChoices);
 
