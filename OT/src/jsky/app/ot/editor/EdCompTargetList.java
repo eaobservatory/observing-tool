@@ -103,13 +103,13 @@ public final class EdCompTargetList extends OtItemEditor
 	    }
 	  }
 
-	  _w.nameResolversDDLBW.addItem("-------------");
-
-	  for(int i = 0; i < catalogs.length; i++) {
-            if(!NameResolver.isAvailableAsCatalog(catalogs[i])) {
-	      _w.nameResolversDDLBW.addItem(catalogs[i]);
-	    }
-	  }
+	  //_w.nameResolversDDLBW.addItem("-------------");
+	  //
+	  //for(int i = 0; i < catalogs.length; i++) {
+	  //  if(!NameResolver.isAvailableAsCatalog(catalogs[i])) {
+	  //    _w.nameResolversDDLBW.addItem(catalogs[i]);
+	  //  }
+	  //}
 	}
 
 
