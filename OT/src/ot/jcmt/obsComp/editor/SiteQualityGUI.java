@@ -3,7 +3,7 @@
 /*                UK Astronomy Technology Centre                */
 /*                 Royal Observatory, Edinburgh                 */
 /*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2001                   */
+/*                   Copyright (c) PPARC 2001-2002              */
 /*                                                              */
 /*==============================================================*/
 // $Id$
@@ -37,10 +37,10 @@ public class SiteQualityGUI extends JPanel {
     GridBagLayout gridBagLayout3 = new GridBagLayout();
     OptionWidgetExt tauBandAllocated = new OptionWidgetExt();
     OptionWidgetExt tauBandUserDefined = new OptionWidgetExt();
-    OptionWidgetExt seeing3 = new OptionWidgetExt();
+    //    OptionWidgetExt seeing3 = new OptionWidgetExt();
     OptionWidgetExt seeing2 = new OptionWidgetExt();
     OptionWidgetExt seeing1 = new OptionWidgetExt();
-  OptionWidgetExt seeing4 = new OptionWidgetExt();
+    //  OptionWidgetExt seeing4 = new OptionWidgetExt();
   OptionWidgetExt seeingAny = new OptionWidgetExt();
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
@@ -74,14 +74,14 @@ public class SiteQualityGUI extends JPanel {
         tauBandAllocated.setText("Allocated");
         tauBandAllocated.setFont(new java.awt.Font("Dialog", 0, 12));
         tauBandUserDefined.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeing3.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeing3.setText("1.0-3.0");
+        // seeing3.setFont(new java.awt.Font("Dialog", 0, 12));
+        // seeing3.setText("1.0-3.0");
         seeing2.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeing2.setText("0.3 - 1.0");
+        seeing2.setText("> 1.0");
         seeing1.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeing1.setText("< 0.3");
-    seeing4.setText("> 3");
-    seeing4.setFont(new java.awt.Font("Dialog", 0, 12));
+        seeing1.setText("<= 1.0");
+	// seeing4.setText("> 3");
+	// seeing4.setFont(new java.awt.Font("Dialog", 0, 12));
     seeingAny.setText("Don\'t care");
     seeingAny.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -113,14 +113,14 @@ public class SiteQualityGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(1, 5, 5, 5), 0, 0));
         this.add(jPanel2, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-        jPanel2.add(seeing3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        // jPanel2.add(seeing3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+        //    ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         jPanel2.add(seeing2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         jPanel2.add(seeing1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(seeing4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+	//    jPanel2.add(seeing4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+	//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPanel2.add(seeingAny, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
