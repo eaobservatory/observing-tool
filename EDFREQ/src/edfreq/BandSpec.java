@@ -17,20 +17,15 @@ public class BandSpec
 {
    public String name;
    public int numBands;
-   public double loBandWidth;
-   public int loChannels;
-   public double hiBandWidth;
-   public int hiChannels;
+   public double [] bandWidths;
+   public int [] channels;
 
-   public BandSpec ( String name, int numBands, double loBandWidth, 
-     int loChannels, double hiBandWidth, int hiChannels )
+   public BandSpec ( String name, int numBands, double [] bandWidths, int [] channels )
    {
       this.name = name;
       this.numBands = numBands;
-      this.loBandWidth = loBandWidth;
-      this.loChannels = loChannels;
-      this.hiBandWidth = hiBandWidth;
-      this.hiChannels = hiChannels;
+      this.bandWidths = bandWidths;
+      this.channels = channels;
    }
 
    public String toString()

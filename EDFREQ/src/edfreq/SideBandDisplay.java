@@ -61,8 +61,7 @@ public class SideBandDisplay extends JFrame
      double lRangeLimit, double uRangeLimit, 
      double feIF, double feBandWidth,
      double redshift, 
-     double loBandWidth, int loChannels, 
-     double hiBandWidth, int hiChannels, 
+     double [] bandWidths, int [] channels, 
      int samplerCount )
    {
 
@@ -77,14 +76,14 @@ public class SideBandDisplay extends JFrame
       dataPanel = Box.createVerticalBox();
       titlePanel = Box.createVerticalBox();
 
-      this.subBandWidth = loBandWidth;
+      this.subBandWidth = bandWidths[0];
 
       double mid = 0.5 * ( lRangeLimit + uRangeLimit );
       double lowIF = mid - feIF - ( feBandWidth * 0.5 );
       double highIF = mid + feIF + ( feBandWidth * 0.5 );
 
       jt = new FrequencyTable ( feIF, feBandWidth,
-        loBandWidth, loChannels, hiBandWidth, hiChannels,
+        bandWidths, channels,
         samplerCount, displayWidth, this, frontEnd );
 
       dataPanel.add ( jt, BorderLayout.CENTER );
@@ -272,7 +271,7 @@ public class SideBandDisplay extends JFrame
       SideBandDisplay sbt = new SideBandDisplay ( null );
       sbt.updateDisplay( "Frequency editor test",
         365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 0.0,
-        0.25E9, 8192, 1.0E9, 2048, 8 );
+        new double[] { 0.25E9, 1.0E9 }, new int [] { 8192, 2048 }, 8 );
       sbt.setVisible(true);
    }
 
