@@ -17,6 +17,9 @@ rem If your setup differs from the one above please change the below variables a
 rem If there is no appropriate jdk1.3 java in your PATH then set one here. 
 set JAVA=java 
 
+rem Set server to ATC, HILO, HOME or DEPLOYED. 
+set SERVER=ATC 
+
 set ORAC_BASE=..\..
 set CFG_DIRS=%ORAC_BASE%\OT\install\cfg
 
@@ -39,9 +42,10 @@ IF NOT EXIST %CFG_DIRS%\%TELESCOPE% echo Telescope configuration directory %TELE
 IF NOT EXIST %CFG_DIRS%\%TELESCOPE% GOTO USAGE
 
 set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
+set CLASSPATH=%ORAC_BASE%\OT\install\classes;%ORAC_BASE%\GEMINI\install\classes;%ORAC_BASE%\ORAC\install\classes;%ORAC_BASE%\ODB\install\classes;%ORAC_BASE%\OT\tools\jsky.jar;%ORAC_BASE%\OT\tools\diva.jar;%ORAC_BASE%\OT\tools\graph.jar;%ORAC_BASE%\OT\tools\jacl.jar;%ORAC_BASE%\OT\tools\jdom-b4.jar;%ORAC_BASE%\OT\tools\junit.jar;%ORAC_BASE%\OT\tools\tcljava.jar;%ORAC_BASE%\OT\tools\xerces.jar;%ORAC_BASE%\ORAC\tools\jhall.jar;%ORAC_BASE%\ORAC\tools\jhtools.jar;%CFG_TELESCOPE_DIR%
 
 echo on
-%JAVA% -ms5m -mx50m -DSERVER=ATC -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath  %ORAC_BASE%\OT\install\classes;%ORAC_BASE%\GEMINI\install\classes;%ORAC_BASE%\ORAC\install\classes;%ORAC_BASE%\ODB\install\classes;%ORAC_BASE%\OT\tools\jsky.jar;%ORAC_BASE%\OT\tools\diva.jar;%ORAC_BASE%\OT\tools\graph.jar;%ORAC_BASE%\OT\tools\jacl.jar;%ORAC_BASE%\OT\tools\jdom-b4.jar;%ORAC_BASE%\OT\tools\junit.jar;%ORAC_BASE%\OT\tools\tcljava.jar;%ORAC_BASE%\OT\tools\xerces.jar;%ORAC_BASE%\ORAC\tools\jhall.jar;%ORAC_BASE%\ORAC\tools\jhtools.jar;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
+%JAVA% -ms5m -mx50m -DSERVER=%SERVER% -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH% jsky.app.ot.OT %INTERNAL_FRAMES%
 echo off
 
 GOTO END
