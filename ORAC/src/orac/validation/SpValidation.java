@@ -483,7 +483,8 @@ public class SpValidation {
 	public Vector errorMessages = new Vector();
 
 	public void error(SAXParseException e) {
-	    String errorMessage = "Validation error in <"+SchemaContentHandler.getCurrentClass()+">: "+e.getMessage()+"\n";
+// 	    String errorMessage = "Validation error in <"+SchemaContentHandler.getCurrentClass()+">: "+e.getMessage()+"\n";
+	    String errorMessage = "Validation error in MSB<"+SchemaContentHandler.getCurrentMSB()+">, Obs:<"+SchemaContentHandler.getCurrentObs()+">, component<"+SchemaContentHandler.getCurrentClass()+">: message:<"+e.getMessage()+">\n";
 	    errorMessages.add(errorMessage);
 	}
 	public void fatalError(SAXParseException e) {
@@ -504,6 +505,11 @@ public class SpValidation {
 	public static String currentClass;
 	public ClassLoader loader = new ComponentLoader();
 	private HashMap classPathMap = new HashMap();
+	public static StringBuffer currentMSB = null;
+	public static StringBuffer currentObs = null;
+	boolean readingMSB = false;
+	boolean readingObs = false;
+	boolean getContents = false;
 
 	public SchemaContentHandler() {
 	    initClasspaths();
@@ -543,6 +549,15 @@ public class SpValidation {
 				 String localName,
 				 String qName,
 				 Attributes attr) {
+	    if ( localName.equals("SpMSB") ) {
+		currentMSB = null;
+		currentObs = null;
+		readingMSB = true;
+	    }
+	    else if ( localName.equals("SpObs") ) {
+		currentObs = null;
+		readingObs = true;
+	    }
 	    if (localName.startsWith("Sp")) {
 		currentClass = localName;
 		try {
@@ -560,10 +575,38 @@ public class SpValidation {
 // 		    System.out.println("Unable to access class "+localName);
 		}
 	    }
+	    else if ( localName.equals("title") && (readingMSB || readingObs ) ) {
+		getContents = true;
+	    }
 	}
-	public void characters (char [] ch, int start, int length){};
+	public void characters (char [] ch, int start, int length){
+	    if ( getContents ) {
+		if ( readingMSB ) {
+		    if ( currentMSB == null ) {
+			currentMSB = new StringBuffer ();
+		    }
+		    currentMSB.append(ch, start, length);
+		}
+		else if ( readingObs ) {
+		    if ( currentObs == null ) {
+			currentObs = new StringBuffer () ;
+		    }
+		    currentObs.append( ch, start, length );
+		}
+	    }
+	};
 	public void endDocument() {};
-	public void endElement (String namespace, String localName, String qName) {};
+	public void endElement (String namespace, String localName, String qName) {
+	    if ( getContents && localName.equals("title") ) {
+		getContents = false;
+		if ( readingMSB ) {
+		    readingMSB = false;
+		}
+		if ( readingObs ) {
+		    readingObs = false;
+		}
+	    }
+	};
         public void endPrefixMapping(String prefix) {};
 	public void ignorableWhitespace(char [] ch, int start, int length){};
 	public void processingInstruction(String target, String data) {};
@@ -573,6 +616,18 @@ public class SpValidation {
         public void startPrefixMapping(String prefix, String uri) {};
 	public static String getCurrentClass() {
 	    return currentClass;
+	}
+	public static String getCurrentMSB () {
+	    if ( currentMSB != null ) {
+		return currentMSB.toString();
+	    }
+	    return "";
+	}
+	public static String getCurrentObs () {
+	    if ( currentObs != null ) {
+		return currentObs.toString();
+	    }
+	    return "";
 	}
     }
 
