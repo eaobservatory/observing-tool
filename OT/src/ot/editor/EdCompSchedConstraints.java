@@ -176,13 +176,23 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 
     try {
       if(tbw == _w.earliest) {
-        String earliest = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.earliest.getText()));
-        _schedConstObsComp.setEarliest(earliest);
+	if ( _w.earliest.getText().equals("") ) {
+	     _schedConstObsComp.setEarliest("none");
+	}
+	else {
+            String earliest = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.earliest.getText()));
+            _schedConstObsComp.setEarliest(earliest);
+	}
       }
 
       if(tbw == _w.latest) {
-        String latest   = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.latest.getText()));
-        _schedConstObsComp.setLatest(latest);
+	if ( _w.latest.getText().equals("") ) {
+	    _schedConstObsComp.setLatest("none");
+	}
+	else {
+            String latest   = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.latest.getText()));
+            _schedConstObsComp.setLatest(latest);
+	}
       }
 
       if(tbw == _w.minElevation) {
