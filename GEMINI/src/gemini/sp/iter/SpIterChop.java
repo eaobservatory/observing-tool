@@ -15,34 +15,99 @@ import gemini.sp.SpFactory;
 
 import java.util.Vector;
 
+
+/**
+ * This class defines the Enumeration for SpIterChop.
+ */
+class SpIterChopEnumeration extends SpIterEnumeration
+{
+   private SpIterChop _iterChop;
+
+   private int    _totalSteps;
+   private int    _curStep = 0;
+
+SpIterChopEnumeration(SpIterChop iterChop)
+{
+   super(iterChop);
+
+   _iterChop   = iterChop;
+   _totalSteps = iterChop.getTable().getAll(SpIterChop.ATTR_THROW).size();
+}
+
+protected boolean
+_thisHasMoreElements()
+{
+   return (_curStep < _totalSteps);
+}
+
+// Trim the "Iter" off the end of an iteration item attribute name.
+private String
+_trimIter(String attribute)
+{
+   if (attribute.endsWith("Iter")) {
+      int endIndex = attribute.length() - 4;
+      return attribute.substring(0, endIndex);
+   }
+   return attribute;
+}
+
+// Get the chop step corresponding with the given step.
+private SpIterValue[]
+_getChopValues(int stepIndex)
+{
+   String attr, val;
+
+   SpIterValue[] values = new SpIterValue[3];
+
+   values[0] = new SpIterValue(_trimIter(SpIterChop.ATTR_THROW),       _iterChop.getThrowAsString(stepIndex));
+   values[1] = new SpIterValue(_trimIter(SpIterChop.ATTR_ANGLE),       _iterChop.getAngleAsString(stepIndex));
+   values[2] = new SpIterValue(_trimIter(SpIterChop.ATTR_COORD_FRAME), _iterChop.getCoordFrame(stepIndex));
+
+   return values;
+}
+
+protected SpIterStep
+_thisFirstElement()
+{
+   return _thisNextElement();
+}
+
+protected SpIterStep
+_thisNextElement()
+{
+   SpIterValue[] values = _getChopValues(_curStep);
+   return new SpIterStep("chop", _curStep++, _iterComp, values);
+}
+ 
+}
+
+
+/**
+ * Chop Iterator.
+ *
+ * @author Martin Folger (M.Folger@roe.ac.uk, based on gemini/sp/iter/SpIterConfigBase.java)
+ */
 public class SpIterChop extends SpIterComp {
 
   /**
-   * Prefix for chop attributes.
+   * Records a vector of chop throws.
    *
-   * <pre>
-   * Use as follows:
-   *
-   * ATTR_COORD_FRAME + "#" + i + "." + ATTR_THROW
-   * ATTR_COORD_FRAME + "#" + i + "." + ATTR_ANGLE
-   * ATTR_COORD_FRAME + "#" + i + "." + ATTR_COORD_FRAME
-   *
-   * where i is the number of the chop iterator step.
-   * </pre>
-   *
-   * This notation will be tranlated to XML with one &lt;chop&gt; element for each
-   * chop iterater step where each &lt;chop&gt; contains the elements
-   * &lt;throw&gt;, &lt;angle&gt; and &lt;coordFrame&gt;.
+   * Each vector element represents one chop iterator step.
    */
-  public static String ATTR_PREFIX_CHOP = "chop";
-
-  /** @see #ATTR_PREFIX_CHOP */
   public static String ATTR_THROW       = "throw";
 
-  /** @see #ATTR_PREFIX_CHOP */
+  /**
+   * Records a vector of chop angles.
+   *
+   * Each vector element represents one chop iterator step.
+   */
   public static String ATTR_ANGLE       = "angle";
 
-  /** @see #ATTR_PREFIX_CHOP */
+  /**
+   * Records a vector of chop coordinates frames.
+   *
+   * Each vector element represents one chop iterator step.
+   */
   public static String ATTR_COORD_FRAME = "coordFrame";
 
   /**
@@ -68,50 +133,50 @@ public class SpIterChop extends SpIterComp {
   }
 
   public SpIterEnumeration elements() {
-    return null;
+    return new SpIterChopEnumeration(this);
   }
 
 
   public double getThrow(int step) {
-    return _avTable.getDouble(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_THROW, 0.0);
+    return _avTable.getDouble(ATTR_THROW, step, 0.0);
   }
 
   public String getThrowAsString(int step) {
-    return _avTable.get(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_THROW);
+    return _avTable.get(ATTR_THROW, step);
   }
   
   public void setThrow(String throwValue, int step) {
-    _avTable.set(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_THROW, throwValue);
+    _avTable.set(ATTR_THROW, throwValue, step);
   }
 
   public void setThrow(double throwValue, int step) {
-    _avTable.set(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_THROW, throwValue);
+    _avTable.set(ATTR_THROW, throwValue, step);
   }
 
 
   public double getAngle(int step) {
-    return _avTable.getDouble(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_ANGLE, 0.0);
+    return _avTable.getDouble(ATTR_ANGLE, step, 0.0);
   }
 
   public String getAngleAsString(int step) {
-    return _avTable.get(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_ANGLE);
+    return _avTable.get(ATTR_ANGLE, step);
   }
   
   public void setAngle(String angle, int step) {
-    _avTable.set(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_ANGLE, angle);
+    _avTable.set(ATTR_ANGLE, angle, step);
   }
 
   public void setAngle(double angle, int step) {
-    _avTable.set(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_ANGLE, angle);
+    _avTable.set(ATTR_ANGLE, angle, step);
   }
 
 
   public String getCoordFrame(int step) {
-    return _avTable.get(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_COORD_FRAME);
+    return _avTable.get(ATTR_COORD_FRAME, step);
   }
 
   public void setCoordFrame(String coordFrame, int step) {
-    _avTable.set(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_COORD_FRAME, coordFrame);
+    _avTable.set(ATTR_COORD_FRAME, coordFrame, step);
   }
 
   public int getSelectedIndex() {
