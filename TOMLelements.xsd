@@ -18,6 +18,7 @@
 <xsd:element name="schedPeriodicity"     type="toml:nonNegativeDecimal"/>
 <xsd:element name="meridianApproach"     type="toml:approachType"/>
 <xsd:element name="seeing"               type="toml:seeingType"/>
+<xsd:element name="skyBrightness"        type="toml:magType"/>
 <xsd:element name="tau"                  type="toml:tauType"/>
 <xsd:element name="namedSystem"          type="toml:namedTargetType"/>
 <xsd:element name="spherSystem"          type="toml:sphericalCoordinateSystemType"/>
@@ -206,6 +207,7 @@
 <xsd:group name="siteQualityGroup">
   <xsd:sequence>
     <xsd:element ref="toml:seeing" minOccurs="0"/>
+    <xsd:element ref="toml:skyBrightness"  minOccurs="0"/>
     <xsd:element ref="toml:tau"    minOccurs="0"/>
   </xsd:sequence>
 </xsd:group>
