@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>scuba_library.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
+  <meta_gui_filename>tweak.xml</meta_gui_filename>
   <SpNote type="no" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <note> The intention of this library is to provide a series of templates which can be used by investigators  to prepare their observing programs. The library is split into two sections: 
@@ -1075,11 +1075,16 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <SpSiteQualityObsCompRef idref="17"/>
         <SpInstSCUBARef idref="16"/>
         <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
+        <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
+          <noiseCalculationTau>0.08</noiseCalculationTau>
+          <meta_unique>true</meta_unique>
+        </SpSiteQualityObsComp>
         <SpInstSCUBA id="16" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>SHORT</primaryBolometer>
           <bolometers>SHORT</bolometers>
@@ -1195,18 +1200,18 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="18"/>
-        <SpInstSCUBARef idref="17"/>
+        <SpSiteQualityObsCompRef idref="19"/>
+        <SpInstSCUBARef idref="18"/>
         <title>2000 um jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1015.0</estimatedDuration>
-        <SpSiteQualityObsComp id="18" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="19" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="17" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="18" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -1328,18 +1333,18 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="20"/>
-        <SpInstSCUBARef idref="19"/>
+        <SpSiteQualityObsCompRef idref="21"/>
+        <SpInstSCUBARef idref="20"/>
         <title>1350 um jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1015.0</estimatedDuration>
-        <SpSiteQualityObsComp id="20" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="21" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="19" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="20" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -1461,18 +1466,18 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="22"/>
-        <SpInstSCUBARef idref="21"/>
+        <SpSiteQualityObsCompRef idref="23"/>
+        <SpInstSCUBARef idref="22"/>
         <title>1100 um jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1015.0</estimatedDuration>
-        <SpSiteQualityObsComp id="22" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="23" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="21" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="22" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1100</primaryBolometer>
           <bolometers>P1100</bolometers>
           <meta_unique>true</meta_unique>
@@ -1598,18 +1603,18 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA scan map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="24"/>
-        <SpInstSCUBARef idref="23"/>
+        <SpSiteQualityObsCompRef idref="25"/>
+        <SpInstSCUBARef idref="24"/>
         <title>850/450 um scan map</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">3665.25</estimatedDuration>
-        <SpSiteQualityObsComp id="24" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="25" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="23" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="24" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>
             <value>SHORT</value>
@@ -1781,12 +1786,17 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpInstSCUBARef idref="25"/>
+        <SpSiteQualityObsCompRef idref="27"/>
+        <SpInstSCUBARef idref="26"/>
         <title>2000 um scan map</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1459.9285714285713</estimatedDuration>
-        <SpInstSCUBA id="25" type="oc" subtype="inst.SCUBA">
+        <SpSiteQualityObsComp id="27" type="oc" subtype="schedInfo">
+          <noiseCalculationTau>0.08</noiseCalculationTau>
+          <meta_unique>true</meta_unique>
+        </SpSiteQualityObsComp>
+        <SpInstSCUBA id="26" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -1990,13 +2000,13 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="26"/>
+      <SpInstSCUBARef idref="28"/>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <title>SCUBA telescope set up (850/450)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>true</standard>
-      <SpInstSCUBA id="26" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="28" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -2056,9 +2066,9 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="28"/>
+      <SpInstSCUBARef idref="30"/>
       <estimatedDuration units="seconds">1472.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="27"/>
+      <SpTelescopeObsCompRef idref="29"/>
       <title>850 um photometry: instrumental polarization calibration</title>
       <priority>Medium</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2071,7 +2081,7 @@ setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCU
 respectively) as is a skydip.         </note>
         <title>Observation notes</title>
       </SpNote>
-      <SpTelescopeObsComp id="27" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="29" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
@@ -2082,7 +2092,7 @@ respectively) as is a skydip.         </note>
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstSCUBA id="28" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>H7</primaryBolometer>
         <bolometers>H7</bolometers>
         <meta_unique>true</meta_unique>
@@ -2159,9 +2169,9 @@ respectively) as is a skydip.         </note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="30"/>
+      <SpInstSCUBARef idref="32"/>
       <estimatedDuration units="seconds">1472.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="29"/>
+      <SpTelescopeObsCompRef idref="31"/>
       <title>450 um photometry: instrumental polarization calibration</title>
       <priority>Medium</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2174,7 +2184,7 @@ setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCU
 respectively) as is a skydip.         </note>
         <title>Observation notes</title>
       </SpNote>
-      <SpTelescopeObsComp id="29" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="31" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
@@ -2185,7 +2195,7 @@ respectively) as is a skydip.         </note>
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="32" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>C14</primaryBolometer>
         <bolometers>C14</bolometers>
         <meta_unique>true</meta_unique>
@@ -2262,10 +2272,10 @@ respectively) as is a skydip.         </note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpSiteQualityObsCompRef idref="33"/>
-      <SpInstSCUBARef idref="32"/>
+      <SpSiteQualityObsCompRef idref="35"/>
+      <SpInstSCUBARef idref="34"/>
       <estimatedDuration units="seconds">1232.5</estimatedDuration>
-      <SpTelescopeObsCompRef idref="31"/>
+      <SpTelescopeObsCompRef idref="33"/>
       <title>450/850 um scan map flatfield</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2278,7 +2288,7 @@ Only relative calibration matters for a flatfield. Make sure that the telescope 
 Note that we use EKH scanning here - emersonII scanning would take to long.
 This observation requires a point source target (uranus is selected by default).</note>
       </SpNote>
-      <SpSiteQualityObsComp id="33" type="oc" subtype="schedInfo">
+      <SpSiteQualityObsComp id="35" type="oc" subtype="schedInfo">
         <seeing>
           <min>0.0</min>
           <max>0.5</max>
@@ -2288,7 +2298,7 @@ This observation requires a point source target (uranus is selected by default).
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <min>0.0</min>
       </SpSiteQualityObsComp>
-      <SpInstSCUBA id="32" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="34" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -2298,7 +2308,7 @@ This observation requires a point source target (uranus is selected by default).
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <filter>450W:850W</filter>
       </SpInstSCUBA>
-      <SpTelescopeObsComp id="31" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="33" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
@@ -2350,14 +2360,14 @@ There is usually no need to provide an instrumental polarization observation as 
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <title>SCUBA polarimetry: jiggle map mode</title>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="35"/>
+          <SpInstSCUBARef idref="37"/>
           <estimatedDuration units="seconds">3264.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="34"/>
+          <SpTelescopeObsCompRef idref="36"/>
           <title>850/450 um jiggle map (fully sampled at both 850/450 um )</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -2371,7 +2381,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="35" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="37" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>LONG</primaryBolometer>
             <bolometers>
               <value>SHORT</value>
@@ -2432,14 +2442,14 @@ There is usually no need to provide an instrumental polarization observation as 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="37"/>
+          <SpInstSCUBARef idref="39"/>
           <estimatedDuration units="seconds">2640.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="36"/>
+          <SpTelescopeObsCompRef idref="38"/>
           <title>2000 um jiggle map (fully sampled)</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -2453,7 +2463,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="37" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
             <meta_unique>true</meta_unique>
@@ -2511,14 +2521,14 @@ There is usually no need to provide an instrumental polarization observation as 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="39"/>
+          <SpInstSCUBARef idref="41"/>
           <estimatedDuration units="seconds">2640.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="38"/>
+          <SpTelescopeObsCompRef idref="40"/>
           <title>1350 um jiggle map (fully sampled)</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="40" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -2532,7 +2542,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="41" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P1350</primaryBolometer>
             <bolometers>P1350</bolometers>
             <meta_unique>true</meta_unique>
@@ -2590,14 +2600,14 @@ There is usually no need to provide an instrumental polarization observation as 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="41"/>
+          <SpInstSCUBARef idref="43"/>
           <estimatedDuration units="seconds">2640.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="40"/>
+          <SpTelescopeObsCompRef idref="42"/>
           <title>1100 um jiggle map (fully sampled)</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpTelescopeObsComp id="40" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="42" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -2611,7 +2621,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="41" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="43" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P1100</primaryBolometer>
             <bolometers>P1100</bolometers>
             <meta_unique>true</meta_unique>
@@ -2669,14 +2679,14 @@ There is usually no need to provide an instrumental polarization observation as 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="43"/>
+          <SpInstSCUBARef idref="45"/>
           <estimatedDuration units="seconds">1296.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="42"/>
+          <SpTelescopeObsCompRef idref="44"/>
           <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
           <priority>Medium</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpTelescopeObsComp id="42" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="44" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -2690,7 +2700,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="43" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>LONG</primaryBolometer>
             <bolometers>LONG</bolometers>
             <meta_unique>true</meta_unique>
@@ -2748,14 +2758,14 @@ There is usually no need to provide an instrumental polarization observation as 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="45"/>
+          <SpInstSCUBARef idref="47"/>
           <estimatedDuration units="seconds">1296.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="44"/>
+          <SpTelescopeObsCompRef idref="46"/>
           <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpTelescopeObsComp id="44" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="46" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -2769,7 +2779,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="47" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>SHORT</primaryBolometer>
             <bolometers>SHORT</bolometers>
             <meta_unique>true</meta_unique>
@@ -2831,9 +2841,9 @@ There is usually no need to provide an instrumental polarization observation as 
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <title>SCUBA polarimetry: photometry mode</title>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="47"/>
+          <SpInstSCUBARef idref="49"/>
           <estimatedDuration units="seconds">3136.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="46"/>
+          <SpTelescopeObsCompRef idref="48"/>
           <title>850 um photometry polarimetry</title>
           <priority>Medium</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2841,89 +2851,6 @@ There is usually no need to provide an instrumental polarization observation as 
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation is an example of the sequence of tasks required to make an 850 um polarimetry photometry observation. Note that this observation will be made without any jiggling of the secondary.   </note>
-            <title>Observation notes</title>
-          </SpNote>
-          <SpTelescopeObsComp id="46" type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="SCIENCE">
-              <target>
-                <targetName></targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
-          <SpInstSCUBA id="47" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>H7</primaryBolometer>
-            <bolometers>H7</bolometers>
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>450W:850W</filter>
-          </SpInstSCUBA>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>1</repeatCount>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SpIterChop type="ic" subtype="chop">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SECONDARY>
-                  <CHOP SYSTEM="AZEL">
-                    <THROW>60.0</THROW>
-                    <PA>90.0</PA>
-                  </CHOP>
-                </SECONDARY>
-                <SpIterPOL type="ic" subtype="instPOL">
-                  <iterConfigList>POLIter</iterConfigList>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <POLIter>
-                    <value>0</value>
-                    <value>22.5</value>
-                    <value>45</value>
-                    <value>67.5</value>
-                    <value>90</value>
-                    <value>112.5</value>
-                    <value>135</value>
-                    <value>157.5</value>
-                    <value>180.0</value>
-                    <value>202.5</value>
-                    <value>225.0</value>
-                    <value>247.5</value>
-                    <value>270.0</value>
-                    <value>292.5</value>
-                    <value>315.0</value>
-                    <value>337.5</value>
-                  </POLIter>
-                  <SpIterStareObs type="ic" subtype="stareObs">
-                    <integrations>6</integrations>
-                    <meta_gui_collapsed>false</meta_gui_collapsed>
-                  </SpIterStareObs>
-                </SpIterPOL>
-              </SpIterChop>
-            </SpIterRepeat>
-          </SpIterFolder>
-        </SpObs>
-        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="49"/>
-          <estimatedDuration units="seconds">3136.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="48"/>
-          <title>450 um photometry polarimetry</title>
-          <priority>Medium</priority>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <standard>false</standard>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make a 450um polarimetry photometry observation. Note that this observation will be made without any jiggling of the secondary mirror.  </note>
             <title>Observation notes</title>
           </SpNote>
           <SpTelescopeObsComp id="48" type="oc" subtype="targetList">
@@ -2941,8 +2868,8 @@ There is usually no need to provide an instrumental polarization observation as 
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
           <SpInstSCUBA id="49" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>C14</primaryBolometer>
-            <bolometers>C14</bolometers>
+            <primaryBolometer>H7</primaryBolometer>
+            <bolometers>H7</bolometers>
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <filter>450W:850W</filter>
@@ -3000,13 +2927,13 @@ There is usually no need to provide an instrumental polarization observation as 
           <SpInstSCUBARef idref="51"/>
           <estimatedDuration units="seconds">3136.0</estimatedDuration>
           <SpTelescopeObsCompRef idref="50"/>
-          <title>1350 um photometry polarimetry</title>
-          <priority>High</priority>
+          <title>450 um photometry polarimetry</title>
+          <priority>Medium</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+            <note>This observation is an example of the sequence of tasks required to make a 450um polarimetry photometry observation. Note that this observation will be made without any jiggling of the secondary mirror.  </note>
             <title>Observation notes</title>
           </SpNote>
           <SpTelescopeObsComp id="50" type="oc" subtype="targetList">
@@ -3024,6 +2951,89 @@ There is usually no need to provide an instrumental polarization observation as 
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
           <SpInstSCUBA id="51" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>C14</primaryBolometer>
+            <bolometers>C14</bolometers>
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <filter>450W:850W</filter>
+          </SpInstSCUBA>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterStareObs type="ic" subtype="stareObs">
+                    <integrations>6</integrations>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterStareObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+          <SpInstSCUBARef idref="53"/>
+          <estimatedDuration units="seconds">3136.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="52"/>
+          <title>1350 um photometry polarimetry</title>
+          <priority>High</priority>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>false</standard>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+            <title>Observation notes</title>
+          </SpNote>
+          <SpTelescopeObsComp id="52" type="oc" subtype="targetList">
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpInstSCUBA id="53" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P1350</primaryBolometer>
             <bolometers>P1350</bolometers>
             <meta_unique>true</meta_unique>
@@ -3084,9 +3094,9 @@ There is usually no need to provide an instrumental polarization observation as 
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <title>SCUBA polarimetry: scan map mode</title>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpInstSCUBARef idref="53"/>
+          <SpInstSCUBARef idref="55"/>
           <estimatedDuration units="seconds">6376.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="52"/>
+          <SpTelescopeObsCompRef idref="54"/>
           <title>850/450 um scan map polarimetry</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3098,7 +3108,7 @@ There is usually no need to provide an instrumental polarization observation as 
  assumed that it is optimal to make 4 raster scans instead of the usual 6 that are employed for the Emerson2 scanning scheme, and that the 4 scans are made for each of  the polarization grid angles. Under some circumstances it may be preferable to make       observations at each of the grid angles before moving to a different scan throw/angle.     
   </note>
           </SpNote>
-          <SpTelescopeObsComp id="52" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="54" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -3112,7 +3122,7 @@ There is usually no need to provide an instrumental polarization observation as 
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="53" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="55" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>LONG</primaryBolometer>
             <bolometers>LONG</bolometers>
             <meta_unique>true</meta_unique>
