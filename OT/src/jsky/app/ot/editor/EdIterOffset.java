@@ -217,15 +217,6 @@ public final class EdIterOffset extends OtItemEditor
 	}
 	else if (tbwe == _w.paTextBox) {
 	    iterOffset.setPosAngle(tbwe.getText().trim());
-
-	    // Added by MFO, 15 February 2002
-	    // I think this is implemented in a different way in Gemini ot-2000B.12.
-	    try {
-	      TpeManager.get(_spItem).reset(_spItem);
-	    }
-	    catch(NullPointerException e) {
-	    // ignore
-	    }
 	}	
     }
  
@@ -499,10 +490,17 @@ public final class EdIterOffset extends OtItemEditor
         _w.paTextBox.setValue("0.0");
 
 	// Get the current offset list
-        SpOffsetPosList	rotatedOpl = ((SpIterOffset)_spItem).getRotatedPosList();
-        for(int i = 0; i < rotatedOpl.size(); i++) {
-          _offTW.setValueAt("" + (Math.rint(rotatedOpl.getPositionAt(i).getXaxis() * 10) / 10), i, 1);
-          _offTW.setValueAt("" + (Math.rint(rotatedOpl.getPositionAt(i).getYaxis() * 10) / 10), i, 2);
+	double posAngle, rotatedX, rotatedY;
+	TelescopePos tp;
+	for(int i = 0; i < _opl.size(); i++) {
+	  tp = _opl.getPositionAt(i);
+	  posAngle = _opl.getPosAngle();
+
+	  rotatedX = (tp.getXaxis() *   Math.cos(posAngle) ) + (tp.getYaxis() * Math.sin(posAngle));
+	  rotatedY = (tp.getXaxis() * (-Math.sin(posAngle))) + (tp.getYaxis() * Math.cos(posAngle));
+
+          _offTW.setValueAt("" + (Math.rint(rotatedX * 10) / 10), i, 1);
+          _offTW.setValueAt("" + (Math.rint(rotatedY * 10) / 10), i, 2);
         }
       }
       // Undo the rotation
