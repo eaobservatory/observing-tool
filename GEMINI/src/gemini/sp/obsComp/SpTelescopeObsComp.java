@@ -730,6 +730,11 @@ processXmlAttribute(String elementName, String attributeName, String value)
 	 return;
       }
 
+      if ( value.equals(TX_AZEL) ) {
+	  _currentPosition.setCoordSys(CoordSys.COORD_SYS[CoordSys.AZ_EL]);
+	  return;
+      }
+
       _currentPosition.setCoordSys(value);
       return;
    }
