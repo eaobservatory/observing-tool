@@ -405,6 +405,18 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    super.processAvAttribute(avAttr, indent, xmlBuffer);
 }
 
+public void processXmlElementStart( String name) {
+   if(name.equals(XML_SEEING)) {
+      _previousXmlElement = name;
+      return;
+   }
+
+   if(name.equals(XML_CSO_TAU)) {
+     _previousXmlElement = name;
+     return;
+   }    
+}
+
 
 public void
 processXmlElementContent(String name, String value)
@@ -431,6 +443,7 @@ processXmlElementContent(String name, String value)
 
          if(_previousXmlElement.equals(XML_CSO_TAU)) {
             _avTable.noNotifySet(ATTR_CSO_TAU_MAX, value, 0);
+	    System.out.println("Setting allocated tau to false");
 	    _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "false", 0);
 	    return;
 	 }
