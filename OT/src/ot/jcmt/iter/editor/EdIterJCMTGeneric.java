@@ -75,7 +75,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     protected static int SWITCHING_MODE_CHOP = 1;
 
-    private SpIterJCMTObs _iterObs;
+    protected SpIterJCMTObs _iterObs;
 
     private String _noiseToolTip = "";
 
@@ -320,13 +320,17 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	    return "No site quality";
 	}
 
+	double airmass    = DrUtil.airmass(telescopeObsComp.getPosList().getBasePosition().getYaxis(),
+					   DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
+	double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
+
 	if(instObsComp instanceof SpInstSCUBA) {
 	    int [] status     = { 0 };
 	    double noise      = 0.0;
 	    int integrations  = _iterObs.getIntegrations();
-	    double airmass    = DrUtil.airmass(telescopeObsComp.getPosList().getBasePosition().getYaxis(),
-					       DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
-	    double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
+// 	    double airmass    = DrUtil.airmass(telescopeObsComp.getPosList().getBasePosition().getYaxis(),
+// 					       DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
+// 	    double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
 	    double wavelength;
 	    double transmission;
 	    double nefd;
@@ -392,6 +396,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		return "" + noise450Str + " (450), " + noise850Str + " (850)";
 	    }
 	}
+	else if (instObsComp instanceof SpInstHeterodyne) {
+	    return ""+calculateNoise((SpInstHeterodyne)instObsComp, airmass, csoTau);
+	}
 
 	_noiseToolTip = "Not for Heterodyne";
 	return "Not for Heterodyne";
@@ -410,18 +417,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	return 0.0;
     }
 
-
-    /**
-     * Returns mode for noise calculation.
-     *
-     * Subclass should override this method.
-     *
-     * @return "PHOT", "JIG16", "JIG64", "SCAN" etc.
-     */
-    //  protected String getMode() {
-    //
-    //    return "";
-    //  }
-
+    protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
+// 	System.out.println("Calculating generic heterodyne noise");
+	return 0.0;
+    }
 }
 

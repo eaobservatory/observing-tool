@@ -39,6 +39,7 @@ import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.util.ScubaNoise;
+import orac.jcmt.util.HeterodyneNoise;
 
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
@@ -162,14 +163,24 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
     if(tbwe == _w.dx) {
       _iterObs.setScanDx(_w.dx.getValue());
+      if (!(_w.dx.getValue().equals(""))) {
+	  _w.noiseTextBox.setValue(calculateNoise());
+      }
     }
 
     if(tbwe == _w.dy) {
       _iterObs.setScanDy(_w.dy.getValue());
+      if (!(_w.dy.getValue().equals(""))) {
+	  _w.noiseTextBox.setValue(calculateNoise());
+      }
     }
 
     if(tbwe == _w.width) {
       _iterObs.setWidth(_w.width.getValue());
+
+      if (!(_w.width.getValue().equals(""))) {
+	  _w.noiseTextBox.setValue(calculateNoise());
+      }
 
       // Probably implemented in a different way in Gemini ot-2000B.12.
       try {
@@ -183,6 +194,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
     if(tbwe == _w.height) {
       _iterObs.setHeight(_w.height.getValue());
+
+      if (!(_w.height.getValue().equals(""))) {
+	  _w.noiseTextBox.setValue(calculateNoise());
+      }
 
       // Probably implemented in a different way in Gemini ot-2000B.12.
       try {
@@ -261,6 +276,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	if (ddlbwe == _w.sampleTime) {
 	    _iterObs.setSampleTime(_w.sampleTime.getStringValue());
+	    _w.noiseTextBox.setValue(calculateNoise());
 	}
 
 	if(ddlbwe == _w.scanSystem) {
@@ -334,5 +350,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     return ScubaNoise.noise_level(integrations, wavelength, "SCAN", nefd, status,
 				  _iterObs.getHeight(), _iterObs.getWidth());
   }
+
+    protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
+// 	System.out.println("Calculating Raster specific heterodyne noise");
+	return HeterodyneNoise.getHeterodyneNoise(_iterObs, inst, tau, airmass);
+    }
+
 }
 
