@@ -76,6 +76,17 @@ public class SpIterSkydipObs extends SpIterJCMTObs {
   public void setStartPosition(String startPositionStr) {
     _avTable.set(ATTR_START_POSITION, startPositionStr);
   }
+
+    public double getElapsedTime() {
+	SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+	double time = 0.0;
+	if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	    time = 227.+SCUBA_STARTUP_TIME;
+	}
+	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	}
+	return time;
+    }
 }
 
 
