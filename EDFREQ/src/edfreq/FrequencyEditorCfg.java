@@ -81,7 +81,7 @@ public class FrequencyEditorCfg {
     frontEndTable.put("B3",     new String[]{ "ssb", "dsb" });
     frontEndTable.put("WC",     new String[]{ "ssb", "dsb" });
     frontEndTable.put("WD",     new String[]{ "ssb", "dsb" });
-    frontEndTable.put("HARB-B", new String[]{ "ssb" });
+    frontEndTable.put("HARP-B", new String[]{ "ssb" });
 
     centreFrequenciesAdjustable = true;
     receivers = ReceiverList.getReceiverTable();

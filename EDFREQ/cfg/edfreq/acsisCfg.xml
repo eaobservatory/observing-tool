@@ -20,7 +20,7 @@
       <java.lang.String alias-ID="103" valueOf="dsb"/>
     </ArrayOf-java.lang.String>
 
-    <java.lang.String alias-ID="104" valueOf="HARB-B"/>
+    <java.lang.String alias-ID="104" valueOf="HARP-B"/>
     <ArrayOf-java.lang.String alias-ID="105" length="1">
       <java.lang.String alias-ID="106" valueOf="ssb"/>
     </ArrayOf-java.lang.String>
