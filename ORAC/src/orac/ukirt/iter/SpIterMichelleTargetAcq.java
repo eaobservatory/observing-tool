@@ -72,29 +72,30 @@ class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration {
 	String obsTimeValue = String.valueOf(ibo.W_obsTime);
 	
 	//System.out.println("SpIterMichelleTargetAcq._thisFirstElement expTime " +  ibo.getExposureTimeString() + " coadds " + coaddsValue + " disperser " + ibo.getDisperser());
-	_values = new SpIterValue[22];
+	_values = new SpIterValue[23];
 	_values[ 0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, exposureTimeValue);
 	_values[ 1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
 	_values[ 2] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_FILTER, ibo.getFilter());
 	_values[ 3] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_DISPERSER, ibo.getDisperser());
 	_values[ 4] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_SCIENCE_AREA, ibo.getScienceAreaString());
-	_values[ 5] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_MODE, ibo.W_mode);
-	_values[ 6] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_WAVEFORM, ibo.W_waveform);
-	_values[ 7] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NREADS, nreadsValue);
-	_values[ 8] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NRESETS, nresetsValue);
-	_values[ 9] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_RESET_DELAY, resetDelayValue);
-	_values[10] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_READ_INTERVAL, readIntervalValue);
-	_values[11] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_IDLE_PERIOD, idlePeriodValue);
-	_values[12] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_MUST_IDLES, mustIdlesValue);
-	_values[13] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NULL_CYCLES, nullCyclesValue);
-	_values[14] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NULL_EXPOSURES, nullExposuresValue);
-	_values[15] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NULL_READS, nullReadsValue);
-	_values[16] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_DUTY_CYCLE, dutyCycleValue);
-	_values[17] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_CHOP_FREQUENCY, ibo.W_chopFrequency);
-	_values[18] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_CHOP_DELAY, chopDelayValue);
-	_values[19] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_SAMPLING, ibo.getSampling());
-	_values[20] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_OBSERVATION_TIME, obsTimeValue);
-	_values[21] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_OBSTIME_OT, ibo.getObservationTime());
+	_values[ 5] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_PIXEL_FOV, ibo.getPixelFOVString());
+	_values[ 6] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_MODE, ibo.W_mode);
+	_values[ 7] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_WAVEFORM, ibo.W_waveform);
+	_values[ 8] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NREADS, nreadsValue);
+	_values[ 9] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NRESETS, nresetsValue);
+	_values[10] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_RESET_DELAY, resetDelayValue);
+	_values[11] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_READ_INTERVAL, readIntervalValue);
+	_values[12] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_IDLE_PERIOD, idlePeriodValue);
+	_values[13] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_MUST_IDLES, mustIdlesValue);
+	_values[14] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NULL_CYCLES, nullCyclesValue);
+	_values[15] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NULL_EXPOSURES, nullExposuresValue);
+	_values[16] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_NULL_READS, nullReadsValue);
+	_values[17] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_DUTY_CYCLE, dutyCycleValue);
+	_values[18] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_CHOP_FREQUENCY, ibo.W_chopFrequency);
+	_values[19] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_CHOP_DELAY, chopDelayValue);
+	_values[20] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_SAMPLING, ibo.getSampling());
+	_values[21] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_OBSERVATION_TIME, obsTimeValue);
+	_values[22] = new SpIterValue(SpMichelleTargetAcqConstants.ATTR_OBSTIME_OT, ibo.getObservationTime());
 	
 	return _thisNextElement();
     }
@@ -381,6 +382,44 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
     }    
 
     /**
+     * Get the pixel FOV
+     */
+    public double[]
+	getPixelFOV() 
+    {
+	SpInstMichelle inst =  (SpInstMichelle) getInstrumentItem();
+	double pfov[];
+	pfov =  inst.getPixelFOV("TARGETACQ");
+        return pfov;
+    }
+
+    /**
+     * Get the pixel FOV as a string
+     */
+    public String
+	getPixelFOVString() 
+    {
+	SpInstMichelle inst =  (SpInstMichelle) getInstrumentItem();
+	double pfov[];
+	pfov = getPixelFOV();
+        double w = MathUtil.round(pfov[0], 4);
+        double h = MathUtil.round(pfov[1], 4);
+        String pfovs = w + " x " + h;
+        setPixelFOV(pfovs);
+        return pfovs;
+    }
+
+    /**
+     * Update the science area value in the attribute-value table
+     */
+    public void
+	setPixelFOV(String pfovs)
+    {
+	
+	_avTable.set(SpMichelleTargetAcqConstants.ATTR_PIXEL_FOV, pfovs);
+    }    
+
+    /**
      * use
      Defaults - reset values so that defaults will get used
     */
@@ -389,6 +428,7 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
     {
 	_avTable.rm(SpMichelleTargetAcqConstants.ATTR_FILTER);
 	_avTable.rm(SpMichelleTargetAcqConstants.ATTR_MODE);
+	_avTable.rm(SpMichelleTargetAcqConstants.ATTR_PIXEL_FOV);
 	_avTable.rm(SpInstConstants.ATTR_EXPOSURE_TIME);
 	_avTable.rm(SpInstConstants.ATTR_COADDS);
 	_avTable.rm(SpMichelleTargetAcqConstants.ATTR_WAVEFORM);

@@ -2325,6 +2325,7 @@ public class SpTranslator {
 		   writeAttribute( conpw, workConfig, "targetAcqSampling",    "sampling" );
 		   writeAttribute( conpw, workConfig, "targetAcqFilter",      "filter" );
 		   writeAttribute( conpw, workConfig, "targetAcqScienceArea", "scienceArea" );
+		   writeAttribute( conpw, workConfig, "targetAcqPixelFOV",    "pixelFOV" );
 		   writeAttribute( conpw, workConfig, "targetAcqNreads",      "nreads" );
 		   writeAttribute( conpw, workConfig, "targetAcqMode",        "mode" );
 		   writeAttribute( conpw, workConfig, "targetAcqExpTime",     "exposureTime" );

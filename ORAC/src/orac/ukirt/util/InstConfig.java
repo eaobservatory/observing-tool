@@ -535,6 +535,7 @@ public class InstConfig extends Hashtable implements Cloneable {
           else if ( lcAttribute.equals( "resolution" ) ) key ="targetAcqResolution";
           else if ( lcAttribute.equals( "dispersion" ) ) key ="targetAcqDispersion";
           else if ( lcAttribute.equals( "sciencearea" ) ) key ="targetAcqScienceArea";
+          else if ( lcAttribute.equals( "pixelfov" ) ) key ="targetAcqPixelFOV";
           else if ( lcAttribute.equals( "nreads" ) ) key ="targetAcqNreads";
           else if ( lcAttribute.equals( "mode" ) ) key ="targetAcqMode";
           else if ( lcAttribute.equals( "exposuretime" ) ) key ="targetAcqExpTime";

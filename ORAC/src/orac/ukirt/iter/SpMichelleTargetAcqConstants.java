@@ -12,6 +12,7 @@ public interface SpMichelleTargetAcqConstants
     public static final String ATTR_DISPERSER          = "disperser";
     public static final String ATTR_FILTER             = "filter";
     public static final String ATTR_SCIENCE_AREA       = "scienceArea";
+    public static final String ATTR_PIXEL_FOV          = "pixelFOV";
     public static final String ATTR_NREADS             = "nreads";
     public static final String ATTR_MODE               = "mode";
     public static final String ATTR_WAVEFORM           = "waveform";
