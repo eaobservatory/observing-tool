@@ -33,7 +33,6 @@ import java.util.Enumeration;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class SpIterJiggleObs extends SpIterJCMTObs {
-  public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
 
   public static final SpType SP_TYPE =
     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "jiggleObs", "Jiggle");
