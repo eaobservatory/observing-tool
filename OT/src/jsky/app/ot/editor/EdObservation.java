@@ -22,6 +22,7 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
 import gemini.sp.SpAvEditState;
 import gemini.sp.SpItem;
@@ -31,7 +32,7 @@ import gemini.sp.SpObs;
  * This is the editor for the Observation item.
  */
 public final class EdObservation extends OtItemEditor
-    implements TextBoxWidgetWatcher, Observer, ActionListener {
+    implements TextBoxWidgetWatcher, CheckBoxWidgetWatcher, Observer, ActionListener {
 
     private TextBoxWidgetExt _obsTitle;
     private JLabel _obsState;
@@ -69,6 +70,7 @@ public final class EdObservation extends OtItemEditor
 	_w.priorityHigh.addActionListener(this);
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
+	_w.optional.addWatcher(this);
 	_w.chained.addActionListener(this);
 	_w.chained.setVisible(false); // XXX allan: remove it?
 
@@ -141,6 +143,9 @@ public final class EdObservation extends OtItemEditor
 	    _obsState.setText(state);
 	}
 
+
+	ignoreActions = true; // MFO
+
 	// Set the priority
 	int pri = ((SpObs) _spItem).getPriority();
 	switch (pri) {
@@ -153,8 +158,8 @@ public final class EdObservation extends OtItemEditor
 	CheckBoxWidgetExt cbw = _w.chained;
 	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
     
-         // Added for OMP (MFO, 7 August 2001)
-	ignoreActions = true;
+        // Added for OMP (MFO, 7 August 2001)
+	_w.optional.setValue(((SpObs)_spItem).isOptional()); 
 	_w.remaining.setSelectedIndex(((SpObs)_spItem).getNumberRemaining() - 1);
 	ignoreActions = false;
     }
@@ -233,29 +238,32 @@ public final class EdObservation extends OtItemEditor
 	}
     }
 
-    /**
-     * Sets status and priority widgets visible.
-     *
-     * These widegets are visible by default. So this methods is only needed after
-     * {@link #hideMsbParameters} has been called.
-     *
-     * This method is needed for the OMP.
-     *
-     * Added for OMP. (MFO, 1 August 2001)
-     */
-    public void showMsbParameters() {
-      _w.msbPanel.setVisible(true);
+    public void checkBoxAction(CheckBoxWidgetExt checkBoxWidgetExt) {
+	if(checkBoxWidgetExt == _w.optional) {
+	    ((SpObs)_spItem).setOptional(_w.optional.isSelected());
+	}
     }
 
     /**
-     * Hides status and priority widgets.
+     * Changes display according to whether or not the observation
+     * is an MSB in its own right.
      *
      * This method is needed for the OMP.
      *
      * Added for OMP. (MFO, 1 August 2001)
      */
-    public void hideMsbParameters() {
-      _w.msbPanel.setVisible(false);
+    public void setMsbDisplay(boolean msb) {
+      if(msb == true) {
+        _w.msbPanel.setVisible(true);
+	_w.optional.setVisible(false);
+      }
+      else {
+        _w.msbPanel.setVisible(false);
+	
+	if(System.getProperty("OMP") != null) {
+	  _w.optional.setVisible(true);
+	}  
+      }
     }
 }
 
