@@ -244,6 +244,13 @@ public class SpAvTableDOM {
         _xmlTag = token;
       }
 
+      // Special case. Token was of the form ":someToken"
+      if(_xmlTag.equals("") && (_xmlAttribute != null)) {
+        ((Element)_treeWalker.getCurrentNode()).setAttribute(_xmlAttribute, _avTab.get(_avTabAttribute, 0));
+	return;
+      }
+
+
       // user data is the token + '#' + a number but NOT ':' + attribute if these form the
       // end of the token.
       _userData = _xmlTag;
