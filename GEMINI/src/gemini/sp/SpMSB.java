@@ -10,6 +10,7 @@
 
 package gemini.sp;
 
+import gemini.sp.obsComp.SpInstObsComp;
 import java.util.Enumeration;
 
 /**
@@ -180,7 +181,14 @@ public double getElapsedTime()
     }
   }
 
-  return elapsedTime;
+  SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(this);
+
+  if(spInstObsComp != null) {
+    return elapsedTime + spInstObsComp.getSlewTime();
+  }
+  else {
+    return elapsedTime;
+  }  
 }
 
 /**
