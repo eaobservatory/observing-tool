@@ -71,7 +71,7 @@ public class ProgramGUI extends JPanel {
     jLabel3.setText("Project ID");
     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel5.setForeground(Color.black);
-    jLabel5.setText("Estimated Time (w/o calibration)");
+    jLabel5.setText("Estimated Time (w/o optionals)");
     estimatedTime.setEditable(false);
     jLabel6.setText("Estimated Total Time");
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
