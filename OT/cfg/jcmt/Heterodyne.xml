@@ -28,6 +28,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -147,6 +148,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -270,6 +272,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -382,6 +385,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -497,6 +501,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -619,6 +624,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -745,6 +751,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -860,6 +867,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
@@ -978,6 +986,7 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
         <velocity>0.0</velocity>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
         <beName>das</beName>
         <mode>dsb</mode>
         <velocityDefinition>radio</velocityDefinition>
