@@ -18,8 +18,8 @@ ff0000">
     A window will pop up containing a note and list of folders. The
     little switch on the left of the folder icons is an open/close
     toggle switch. Push open the folder titled "SCUBA MSBs" and then
-    open the folder entitled "Jiggle Map MSBs". The results of those
-      steps are illustrated below:<p>
+    open the folder entitled "Jiggle Map MSBs".<!-- The results of those
+      steps are illustrated below:--><p>
 
     <img src="images/library.gif" alt="Contents of the SCUBA library"><p>
 
@@ -55,9 +55,8 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
 
       <ul>
 
-      <li>It has a title which you can change to something meaningful
-      (in my screenshot below I use "Jiggle Map of
-      W48"). <strong>Please</strong> take the time to do this - it
+      <li>It has a title which you can change to something meaningful.
+      <strong>Please</strong> take the time to do this - it
       really helps the person doing the observing.
 
       <li>A pull down menu with a repeat counter. Leave that to 1 for
@@ -67,7 +66,7 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
       internal priority of your MSBs - not the priority allocated to
       your entire project by your TAG. So if you had two different
       MSBs that rose to the top of the scheduling queue and one had
-      priority "1" and the other "99", the one marked "High" will
+      priority "1" and the other "99", the one marked "1" will
       normally get done first. If all your MSBs are of equal interest
       to you, just don't bother changing the default.
 
@@ -84,16 +83,16 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
 
     </ul>
 
-There is also a display of the OT's estimate of how long the MSB
-will take. 
+There are also two estimates of how long the MSB
+will take. The first estimate is without any observations that you have marked as optional within the MSB, such as calibrations (more later).  The second includes absolutely every specified observation within the MSB.
 
 <h2><a name="eoam">Elements of an MSB</a></h2>
 
     Click on the push lever to open up your MSB. Inside you will find
-    a Site Quality component, a SCUBA component and two observation
+    a Site Quality component, a SCUBA component, two notes and two observation
     components (one calibration, one science):<p>
 
-    <img src="images/elements.gif" alt="Inside an MSB"><p>
+ <img src="images/elements.gif" alt="Inside an MSB"><p>
 
      We'll now go through these individually.
 
@@ -129,6 +128,12 @@ will take.
     place where you can specify which filter and which array or
     bolometer to use.
 
+    <h2><a name="tsc">Notes: a vital step for good observations</a></h2>
+
+    The other elements before the observations are two notes.  When you bring the MSB from the library, these notes contain information intended for you, the PI.  At the end of this example, we'll explain more about using notes to give information to the TSS (see <a href="#notes">The only good observer is an informed observer</a>).  For now we'll just point out that this is the place to put a note which you wish to have apply to the observations in a single  MSB, and that you can just convert one of these notes into one for TSSs by ticking the "Show to Observer" option (and replacing the text, of course).
+
+    
+
     <h2><a name="tfoc">The first observation: Calibration</a></h2>
 
     Now click on the first observation to bring up its panel<p>
@@ -158,6 +163,8 @@ will take.
       recently taken. See <a href="#redundancy">My MSBs only last half
 	  an hour so it is a waste to do a calibration for each one!</a><p>
 
+
+	  <li>The time estimate for this observation is not included in the "w/o optionals" estimate on the program and MSB front pages.<p>
 	
       <li>Depending on your national queue's accounting procedures,
       your project may not be ultimately charged with some or all of
@@ -184,7 +191,7 @@ up:<p>
       note that it represents the sequence of events at the
       telescope.<p>
 
-Inside it are a chop iterator and 5 "eyes". Eyes?? Time for another
+Inside it are a chop iterator and 4 "eyes". Eyes?? Time for another
 aside.
 
 <h2><a name="thingies">Components, Iterators And All That</a></h2>
@@ -229,9 +236,8 @@ run down. <p>
     <h2><a name="eyes">The Eyes have it</a></h2>
 
 Now look at that Sequence again. What we have is the classic SCUBA
-calibration sequence - a skydip, followed by a pointing, a focus,
-another pointing and a jiggle map. How many data files will result
-    from this sequence? Five eyes - five data files.<p>
+calibration sequence - a skydip, followed by a pointing, a focus and a jiggle map. How many data files will result
+    from this sequence? Four eyes - four data files.<p>
 
 By clicking on the various eyes you can see their properties but you
 don't need to change any of those now. 
@@ -459,7 +465,7 @@ taking your data! This note should describe the aim of the
 If you wish to make a single note that pertains to all your MSBs,
 highlight the title of your science programme and click on "Note" on
 the left toolbar.  A note will be dropped in just below your
-    highlight.<p>
+    highlight.  Alternatively you can convert one of the notes with information for PIs, as explained above.<p>
 
 
       <img src="images/note.gif" alt="Inserting a note"><p>
