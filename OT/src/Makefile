@@ -21,14 +21,23 @@ CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_D
 GIF_IMAGES          = $(addprefix $(CLASSES_DIR)/, $(shell find . -name "*.gif"))
 CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
 
-CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(OMP_CP):$(SOAP_CP):$(JSKY_RELATED_CP)
-
 # Should NOT be changed as other packages might rely on the this name!
 JAR_FILE            = ot.jar
 
 # This variable is set to "scripts/ot_bat_install_all_source" on the command line if
 # "gmake install" is called in the orac3 directory.
 INSTALL_BAT_SCRIPT  = scripts/ot_bat_install_source
+
+#all0:
+#	@echo $(EXTERNAL_JAR_DIRS)
+#	@echo $(EXTERNAL_JAR_FILES)
+#	@echo $(foreach exterbalJarFile,$(EXTERNAL_JAR_FILES),$(shell echo $(notdir $(exterbalJarFile))))
+#	@echo COMPILE_CLASSPATH:
+#	@echo $(COMPILE_CLASSPATH)
+#	@echo LOCAL_INSTALL_ROOT:
+#	@echo $(LOCAL_INSTALL_CLASSPATH)
+#	@echo INSTALL_CLASSPATH:
+#	@echo $(INSTALL_CLASSPATH)
 
 all: classes cfg script
 
@@ -69,7 +78,7 @@ $(LOCAL_INSTALL_ROOT)/classes/ot/images: ot/images
 
 # default rule 
 $(CLASSES_DIR)/%.class: %.java
-	$(JAVAC) $(JFLAGS) -d $(CLASSES_DIR) -classpath $(CLASSPATH) -sourcepath . $<
+	$(JAVAC) $(JFLAGS) -d $(CLASSES_DIR) -classpath $(COMPILE_CLASSPATH) -sourcepath . $<
 
 
 $(CLASSES_DIR)/%.gif: %.gif
@@ -105,6 +114,8 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
+	\ncd \`dirname $$""0\`\
+	\n\
 	\nset JAVA = $(JAVA)\
 	\n\
 	\n# The telescope names in this list should correspond to the directories in CFG_DIRS.\
@@ -121,7 +132,7 @@ endif
 	@printf \
 	"\n\
 	\n# (generated from $(CONF_HOME)/make.conf)\
-	\nset CLASSPATH = $(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g')\
+	\nset CLASSPATH = $(LOCAL_INSTALL_CLASSPATH)\
         \n\
 	\n" >> $@
 
@@ -146,32 +157,18 @@ clean:
 #                    Installation                                 #
 ###################################################################
 
-ALL_TOOLS           = $(INSTALL_ROOT)/tools/$(notdir $(JHTOOLS_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(JHALL_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(DIVA_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(GRAPH_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(JACL_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(JDOM_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(JSKY_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(JUNIT_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(TCLJAVA_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(ACTIVATION_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(MAIL_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(SOAP_JAR))
+install-jars:
+	@mkdir -p $(INSTALL_ROOT)/tools
+	@mkdir -p $(INSTALL_ROOT)/lib
 
-ALL_LIBS            = $(INSTALL_ROOT)/lib/$(notdir $(GEMINI_JAR)) \
-                      $(INSTALL_ROOT)/lib/$(notdir $(ORAC_JAR)) \
-                      $(INSTALL_ROOT)/lib/$(notdir $(ODB_JAR)) \
-                      $(INSTALL_ROOT)/lib/$(notdir $(OMP_JAR)) \
-                      $(INSTALL_ROOT)/lib/$(notdir $(OT_JAR))
+	@cp -i $(EXTERNAL_JAR_FILES) $(INSTALL_ROOT)/tools
 
+	(cd ../../GEMINI/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
+	(cd ../../ORAC/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
+	(cd ../../ODB/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
+	(cd ../../OMP/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
+	(cd ../../OT/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 
-INSTALL_CLASSES_DIR = $(INSTALL_ROOT)/classes
-INSTALL_JAR_DIR     = $(INSTALL_ROOT)/lib
-INSTALL_DOC_DIR     = $(INSTALL_ROOT)/html/api
-INSTALL_BIN_DIR     = $(INSTALL_ROOT)/bin
-INSTALL_CFG_DIR     = $(INSTALL_ROOT)/cfg
 
 
 install: all
@@ -182,89 +179,18 @@ else
 endif
 
 
-_install: $(INSTALL_ROOT)/lib $(INSTALL_ROOT)/tools $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/bin/ot $(INSTALL_ROOT)/bin/ot.bat
+_install: install-jars $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/bin/ot $(INSTALL_ROOT)/bin/ot.bat
 
 
-$(INSTALL_ROOT)/tools/$(notdir $(JHTOOLS_JAR)): $(JHTOOLS_JAR)
+# Rules for installing external jar files
+$(INSTALL_ROOT)/tools/%.jar:../../ORAC/tools/%.jar
 	cp $< $@
 
-$(INSTALL_ROOT)/tools/$(notdir $(JHALL_JAR)): $(JHALL_JAR)
+$(INSTALL_ROOT)/tools/%.jar:../../OMP/tools/%.jar
 	cp $< $@
 
-$(INSTALL_ROOT)/tools/$(notdir $(DIVA_JAR)): $(DIVA_JAR)
+$(INSTALL_ROOT)/tools/%.jar:../../OT/tools/%.jar
 	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(GRAPH_JAR)): $(GRAPH_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(JACL_JAR)): $(JACL_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(JDOM_JAR)): $(JDOM_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(JSKY_JAR)): $(JSKY_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(JUNIT_JAR)): $(JUNIT_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(TCLJAVA_JAR)): $(TCLJAVA_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR)): $(XERCES_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(ACTIVATION_JAR)): $(ACTIVATION_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(MAIL_JAR)): $(MAIL_JAR)
-	cp $< $@
-
-$(INSTALL_ROOT)/tools/$(notdir $(SOAP_JAR)): $(SOAP_JAR)
-	cp $< $@
-
-# Rules for Orac libraries in default location
-# If a jar file is not found in its default location the following rules will try to create it directly
-# in $(INSTALL_ROOT)/lib rather then create in its default location and then copy it
-# into $(INSTALL_ROOT)/lib. This avoids interfering with local setting in other directories.
-# These rules will only work if the location of the Orac modules (GEMINI, ORAC, ODB, OT) are equivalent to
-# the ones in the cvs directory tree.
-
-$(INSTALL_ROOT)/lib/$(notdir $(GEMINI_JAR)):
-ifneq ($(shell if test -f $(GEMINI_JAR) ; then echo exists; fi), )
-	cp $(GEMINI_JAR) $@
-else
-	(cd ../../GEMINI/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
-endif
-
-$(INSTALL_ROOT)/lib/$(notdir $(ORAC_JAR)):
-ifneq ($(shell if test -f $(ORAC_JAR) ; then echo exists; fi), )
-	cp $(ORAC_JAR) $@
-else
-	(cd ../../ORAC/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
-endif
-
-$(INSTALL_ROOT)/lib/$(notdir $(ODB_JAR)):
-ifneq ($(shell if test -f $(ODB_JAR) ; then echo exists; fi), )
-	cp $(ODB_JAR) $@
-else
-	(cd ../../ODB/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
-endif
-
-$(INSTALL_ROOT)/lib/$(notdir $(OMP_JAR)):
-ifneq ($(shell if test -f $(OMP_JAR) ; then echo exists; fi), )
-	cp $(OMP_JAR) $@
-else
-	(cd ../../OMP/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
-endif
-
-$(INSTALL_ROOT)/lib/$(notdir $(OT_JAR)):
-ifneq ($(shell if test -f $(OT_JAR) ; then echo exists; fi), )
-	cp $(OT_JAR) $@
-else
-	(cd ../../OT/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
-endif
 
 
 
@@ -291,7 +217,7 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
-	\nset OT_HOME = $(shell cd $(INSTALL_ROOT); pwd)\
+	\ncd \`dirname $$""0\`\
 	\n\
 	\nset JAVA = $(JAVA)\
 	\n\
@@ -301,14 +227,14 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n" > $@
 
 ifeq ($(CFG_DIRS),)
-	@printf "\nset CFG_DIRS     = $$""{OT_HOME}/cfg" >> $@
+	@printf "\nset CFG_DIRS     = ../cfg" >> $@
 else
 	@printf "\nset CFG_DIRS     = $(CFG_DIRS)" >> $@
 endif
 
 	@printf \
 	"\n\
-	\nset CLASSPATH = $(shell echo $(addprefix DOLLAR{OT_HOME}/tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g'):$(shell echo $(addprefix DOLLAR{OT_HOME}/lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
+	\nset CLASSPATH = $(INSTALL_CLASSPATH)\
 	\n\
 	\n" >> $@
 
