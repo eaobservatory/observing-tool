@@ -43,9 +43,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
   public EdIterStareObs() {
     super(new IterStareObsGUI());
 
-    _title       ="Stare Iterator (Heterodyne)";
+    _title       ="Photom/Stare";
     _presSource  = _w = (IterStareObsGUI)super._w;
-    _description ="Stare Observation Mode (Heterodyne)";
+    _description ="Photom/Stare Observation Mode";
   }
 
 //  public void textBoxKeyPress(TextBoxWidgetExt e) {

@@ -45,7 +45,7 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
   public EdIterFocusObs() {
     super(new IterFocusObsGUI());
 
-    _title       ="Focus Iterator";
+    _title       ="Focus";
     _presSource  = _w = (IterFocusObsGUI)super._w;
     _description ="Focus Observation Mode";
 

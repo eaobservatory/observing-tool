@@ -46,7 +46,7 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric {
   public EdIterSkydipObs() {
     super(new IterSkydipObsGUI());
 
-    _title       ="Skydip Iterator";
+    _title       ="Skydip";
     _presSource  = _w = (IterSkydipObsGUI)super._w;
     _description ="Skydip Observation Mode";
 

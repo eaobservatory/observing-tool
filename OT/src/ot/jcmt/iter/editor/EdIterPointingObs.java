@@ -54,7 +54,7 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
   public EdIterPointingObs() {
     super(new IterPointingObsGUI());
 
-    _title       ="Pointing Iterator";
+    _title       ="Pointing";
     _presSource  = _w = (IterPointingObsGUI)super._w;
     _description ="Pointing Observation Mode";
 
