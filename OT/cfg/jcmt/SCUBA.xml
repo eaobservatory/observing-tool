@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
+  <meta_gui_filename>scuba.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
@@ -1304,7 +1304,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>2</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -1462,7 +1462,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <standard>true</standard>
           <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -1498,7 +1498,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>2</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -1653,7 +1653,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <standard>true</standard>
           <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -1689,7 +1689,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>2</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -1840,11 +1840,11 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>450 um jiggle map calibration</title>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -1880,7 +1880,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>2</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -2042,7 +2042,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -2078,7 +2078,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>1</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>7X7</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -2240,7 +2240,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -2276,7 +2276,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>1</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>7X7</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -2438,7 +2438,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -2474,7 +2474,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>1</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>7X7</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -4256,7 +4256,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <filter>450W:850W</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -4292,7 +4292,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>2</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
@@ -4468,7 +4468,7 @@ and "Don't Care" for maps.
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -4504,7 +4504,7 @@ and "Don't Care" for maps.
                 </CHOP>
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                <integrations>1</integrations>
+                <integrations>3</integrations>
                 <jigglePattern>7X7</jigglePattern>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterJiggleObs>
