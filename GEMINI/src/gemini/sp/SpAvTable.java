@@ -11,6 +11,7 @@ import gemini.util.Assert;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
+import java.util.TreeMap;
 
 //
 // This is an implementation class used only by SpAttrTable, holding a
@@ -73,6 +74,10 @@ public final class SpAvTable implements java.io.Serializable
 
    // The state machine that tracks this table's edits for its SpItem.
    private SpAvEditState _editFSM;
+
+
+   /** Needed for sorting. @see #sort() */
+   private static TreeMap _sortedMap = null;
 
 /**
  * Default constructor.
@@ -897,6 +902,22 @@ indexToLast(String name, int pos)
       _indexToLast(v, pos);
       _editFSM.editComplete();
    }
+}
+
+/**
+ * Sort the table entries.
+ */
+public void sort() {
+  if(_sortedMap == null) {
+    _sortedMap = new TreeMap(_avTable);
+  }
+  else {
+    _sortedMap.clear();
+    _sortedMap.putAll(_avTable);
+  }
+
+  _avTable.clear();
+  _avTable.putAll(_sortedMap);
 }
 
 }
