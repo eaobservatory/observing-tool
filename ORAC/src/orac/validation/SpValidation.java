@@ -211,6 +211,13 @@ public class SpValidation {
 				     "Recommend MSBs have an observe instruction"));
     }
 
+    // Add a check for MSB's > 2 hours long
+    if ( spMSB.getElapsedTime() > 2.0*3600 ) {
+        report.add( new ErrorMessage (ErrorMessage.WARNING,
+                    "MSB \"" + spMSB.getTitle() + "\" is more than 2 hours long",
+                    "MSBs should ideally be < 1.5 hours long"));
+    }
+
 
     if(spMSB instanceof SpObs) {
       checkObservation((SpObs)spMSB, report);
