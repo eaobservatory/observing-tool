@@ -70,6 +70,9 @@ import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
 import ot.ReportBox;
 
+import orac.ukirt.util.SpTranslator;
+import gemini.sp.obsComp.SpInstObsComp;
+
 /**
  * Button manager base class.  Helper classes derived from this
  * class keep their associated button disabled or enabled appropriately.
@@ -543,6 +546,47 @@ public class OtWindow extends SpTreeGUI
      */
     public boolean doSaveChanges() {
 	return OtFileIO.save(getItem(), _progInfo.file);
+    }
+
+    /**
+     * Save the observation as an ORAC Sequence, returning true if successful.
+     *
+     * MFO: copied from FreeBongo OT (orac2) and modified.
+     */
+    public boolean doSaveSequence() {
+      OtTreeNodeWidget tnw;
+      tnw = (OtTreeNodeWidget) OtWindow.this._tw.getSelectedNode();
+      SpItem spitem = tnw.getItem();
+
+      // Initialise sequence name
+      String seqName = "None";
+
+      // check this is an Observation
+      if (spitem.type().equals(SpType.OBSERVATION)) {
+
+        SpObs spobs = (SpObs) spitem;
+
+        // Get the instrumnet in scope
+        SpInstObsComp inst = ((SpInstObsComp) SpTreeMan.findInstrument(spitem));
+        
+        // Create a translator class and do the translation
+        SpTranslator spt = new SpTranslator (spobs);
+        try {
+	    seqName = spt.translate();
+        }catch (Exception ex) {
+	    DialogUtil.error("Exception whilst translating:\n "+ex.getMessage());
+	    return false;
+        }
+
+      }else{
+        // The user didn't select an observation item for the translation.
+        DialogUtil.error("Selected node is not an observation");
+        return false;
+      }
+
+      DialogUtil.message("Observation saved to " + seqName);
+  
+      return true;
     }
 
     /**
