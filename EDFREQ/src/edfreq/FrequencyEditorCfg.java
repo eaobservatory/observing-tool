@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import JSX.ObjOut;
 import JSX.ObjIn;
 
@@ -24,26 +25,57 @@ import JSX.ObjIn;
  */
 public class FrequencyEditorCfg {
 
+  public static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
+
   public String[] frontEnds;
   public String[] frontEndModes;
   public boolean centreFrequenciesAdjustable;
   public Hashtable receivers;
-  
+
+  private static FrequencyEditorCfg _frequencyEditorCfg = null;
+
   public FrequencyEditorCfg() {
     frontEnds     = new String[] { "A3", "B3", "WC", "WD", "HARP-B" };
     frontEndModes = new String[] { "ssb", "dsb" };
     centreFrequenciesAdjustable = true;
-    receivers = ReceiverList.getReceiverTable(); 
+    receivers = ReceiverList.getReceiverTable();
   }
 
-  protected static FrequencyEditorCfg getCfg(InputStream inputStream) {
+  public static FrequencyEditorCfg getConfiguration() {
+    if(_frequencyEditorCfg == null) {
+      String freqEditorCfgFile = System.getProperty(FREQ_EDITOR_CFG_PROPERTY);
+      URL freqEditorCfgUrl = null;
+
+      if(freqEditorCfgFile != null) {
+        freqEditorCfgUrl = ClassLoader.getSystemClassLoader().getResource(freqEditorCfgFile);
+      }
+
+      if(freqEditorCfgUrl != null) {
+        try {
+          _frequencyEditorCfg = getConfiguration(freqEditorCfgUrl.openStream());
+        }
+        catch(IOException e) {
+          System.out.println("Using default FrequencyEditorCfg object.");
+          _frequencyEditorCfg = new FrequencyEditorCfg();
+        }
+      }
+      else {
+        System.out.println("Using default FrequencyEditorCfg object.");
+        _frequencyEditorCfg = new FrequencyEditorCfg();
+      }
+    }
+
+    return _frequencyEditorCfg;
+  }
+
+  public static FrequencyEditorCfg getConfiguration(InputStream inputStream) {
     try {
       ObjIn objIn = new ObjIn(inputStream);
       return (FrequencyEditorCfg)objIn.readObject();
     }
     catch(Exception e) {
       System.out.println("Could not create a FrequencyEditorCfg object from the input stream provided.");
-      System.out.println("Creating default FrequencyEditorCfg object.");
+      e.printStackTrace();
       
       return new FrequencyEditorCfg();
     }
