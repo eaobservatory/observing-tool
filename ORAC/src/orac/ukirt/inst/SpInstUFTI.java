@@ -49,6 +49,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
    public static int DETECTOR_WIDTH;
    public static int DETECTOR_HEIGHT;
    public static double PLATESCALE;
+   public static String [][] EXPTIME_LIMITS;
 
    static String FILTER_NONE = "None";  
   
@@ -161,7 +162,9 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
                DETECTOR_SIZE = instInfo.getValueAsArray();
                DETECTOR_WIDTH = Integer.parseInt( DETECTOR_SIZE[ 0 ] );
                DETECTOR_HEIGHT = Integer.parseInt( DETECTOR_SIZE[ 1 ] );
-            }
+            } else if ( instInfo.getKeyword().equalsIgnoreCase("exptime_limits") ) {
+               EXPTIME_LIMITS = instInfo.getValueAs2DArray();
+	    }
          }
       } catch ( IOException e ) {
          System.out.println( "Error reading UFTI instrument cfg file." );
@@ -560,6 +563,29 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
       }
       
       return 1.0;
+   }
+
+   /**
+     * Return the current exposure time limits for the current mode
+     * and readout area.  This should be called whenever the ufti mode
+     * and readout area change.
+     */
+   public double [] getExpTimeLimits() {
+       double [] limits = new double[2];
+       String roa = getReadoutArea();
+       String mode = getAcqMode();
+
+       for ( int i=0; i< EXPTIME_LIMITS.length; i++ ) {
+	   if ( EXPTIME_LIMITS[i][0].equals(roa) && EXPTIME_LIMITS[i][1].equals(mode) ) {
+	       // Get the limits
+	       limits[0] = Double.parseDouble( EXPTIME_LIMITS[i][2] );
+	       limits[1] = Double.parseDouble( EXPTIME_LIMITS[i][3] );
+	   }
+       }
+
+       // System.out.println("Got limits of (" + limits[0] + ", " + limits[1] + ")" );
+
+       return limits;
    }
 }
 
