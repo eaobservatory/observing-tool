@@ -25,6 +25,7 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 import gemini.util.Format;
+import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.inst.SpInstHeterodyne;
@@ -235,7 +236,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
       }
 
       if(inst instanceof SpInstHeterodyne) {
-        // to be implemented
+	  return getScanVelocity()*getSampleTime();
       }
 
       return 0.0;
@@ -255,8 +256,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
       throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
                                                "Needed for calculation of scan velocity.");
     }
-    else {
+    else if (inst instanceof SpInstSCUBA){
       _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * dx);
+    }
+    else {
+	_avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, (dx/getSampleTime()) );
     }
   }
 
@@ -268,14 +272,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
    * @throws java.lang.UnsupportedOperationException No instrument in scope.
    */
   public void setScanDx(String dx) throws UnsupportedOperationException {
-    SpInstObsComp inst = SpTreeMan.findInstrument(this);
-    if(inst == null) {
-      throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
-                                               "Needed for calculation of scan velocity.");
-    }
-    else {
-      _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * Format.toDouble(dx));
-    }   
+      setScanDx(Format.toDouble(dx));
+//     SpInstObsComp inst = SpTreeMan.findInstrument(this);
+//     if(inst == null) {
+//       throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
+//                                                "Needed for calculation of scan velocity.");
+//     }
+//     else {
+//       _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * Format.toDouble(dx));
+//     }   
   }
 
 
@@ -371,6 +376,16 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   public void setRowReversal(boolean value) {
     _avTable.set(ATTR_ROW_REVERSAL, value);
   }
+
+    public void setSampleTime(String value) {
+	SpInstObsComp inst = SpTreeMan.findInstrument(this);
+	if (inst instanceof SpInstHeterodyne) {
+	    _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, getScanDx()/Format.toDouble(value));
+	}
+	super.setSampleTime(value);
+
+
+    }
 
   public void posAngleUpdate(double posAngle) {
     // Do not use setPosAngle(posAngle) here as it would reset the posAngle of the class
@@ -534,10 +549,13 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Position", 0);
 	_avTable.noNotifySet(ATTR_ROWS_PER_CAL, null, 0);
 	_avTable.noNotifySet(ATTR_ROWS_PER_REF, "1", 0);
 	_avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
+	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SpJCMTConstants.SCAN_SYSTEMS[0], 0);
+	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
+	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY, "0.0", 0);
     }
 
     public void setupForSCUBA() {
@@ -545,6 +563,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	_avTable.noNotifyRm(ATTR_ROWS_PER_CAL);
 	_avTable.noNotifyRm(ATTR_ROWS_PER_REF);
 	_avTable.noNotifyRm(ATTR_SAMPLE_TIME);
+	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, 
+			     ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanVelocity(), 0);
+	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,
+			     ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanDy(), 0);
     }
 }
 
