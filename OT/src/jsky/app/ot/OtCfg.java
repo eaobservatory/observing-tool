@@ -156,7 +156,7 @@ public final class OtCfg
      * @return  The fully qualified file name for the installed schema file
      */
     public static String getSchemaLocation() {
-      return _otCfgInfo.schemaLocation;
+      return System.getProperty("ot.cfgdir")+_otCfgInfo.schemaLocation;
     }
 
     public static synchronized boolean	phase1Available() {
