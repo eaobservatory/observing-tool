@@ -948,13 +948,18 @@ _updateImager()
 private void
 _updateFilterChoices()
 {
-    boolean useCurrentFilter = false;
+    boolean useCurrentFilter;
+    if ( _instUIST != null && _instUIST.isImaging() ) {
+	useCurrentFilter = false;
+    }
+    else {
+	useCurrentFilter = true;
+    }
     String [] filterChoices = _instUIST.getFilterList();
     _w.imaging_filter.setChoices(_instUIST.getFilterList());
-    for ( int i=0; i<filterChoices.length; i++ ) {
+    for ( int i=0; i<filterChoices.length && useCurrentFilter == false; i++ ) {
 	if ( _instUIST != null && _instUIST.getFilter().equals(filterChoices[i]) ) {
 	    useCurrentFilter = true;
-	    break;
 	}
     }
     if ( useCurrentFilter ) {
