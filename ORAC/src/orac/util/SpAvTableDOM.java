@@ -279,6 +279,9 @@ public class SpAvTableDOM {
 	      // Therefore only the first entry in the value vector is used and the others are ignored.
               ((Element)nodeList.item(i)).setAttribute(_xmlAttribute, _avTab.get(_avTabAttribute, 0));
 	    }
+	    else {
+              ((Element)nodeList.item(i)).appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
+	    }
 
 	    _treeWalker.setCurrentNode(nodeList.item(i));
 	    return;
