@@ -122,14 +122,15 @@ getPriority()
       return PRIORITY_LOW;
    }
 
-   return ((new Integer(str)).intValue());
+    for (int i=0; i<PRIORITIES.length; ++i) {
+      if (str.equals(PRIORITIES[i])) {
+	  if (i==0) return PRIORITY_HIGH;
+	  if (i==1) return PRIORITY_MEDIUM;
+	  if (i==2) return PRIORITY_LOW;
+      }
+   }
 
-//     for (int i=0; i<PRIORITIES.length; ++i) {
-//       if (str.equals(PRIORITIES[i])) {
-//          return i;
-//       }
-//    }
-//    return PRIORITY_LOW;
+   return ((new Integer(str)).intValue());
 }
 
 /**
