@@ -236,7 +236,10 @@
       <xsd:element name="bandWidth"               type="toml:positiveDecimal"/>
       <xsd:element name="beName"                  type="toml:hetBackEndList"/>
       <xsd:element name="centreFrequency"         type="toml:positiveDecimal"/>
+      <!--
       <xsd:element name="channels"                type="toml:hetChannelsList"/>
+      -->
+      <xsd:element name="channels"                type="xsd:positiveInteger"/>
       <xsd:element name="configuration"           type="xsd:string"  minOccurs="0"/>
       <xsd:element name="feName"                  type="toml:hetFrontEndList"/>
       <xsd:element name="mixers"                  type="toml:hetMixerList"/>
