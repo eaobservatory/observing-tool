@@ -12,6 +12,13 @@ package ot;
 
 import java.awt.Font;
 import javax.swing.JTextArea;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.StringTokenizer;
 
 /**
  * Frame for displaying formatted ASCII text.
@@ -34,24 +41,23 @@ public class FormattedStringBox extends ReportBox {
   protected JTextArea _textArea = new JTextArea();
 
   protected FormattedStringBox() {
-  
-    super();
+
+    _fileChooser.addChoosableFileFilter(_asciiFileFilter);
 
     _textArea.setFont(new Font("Monospaced", 0, 10));
 
+    _printButton.setVisible(false);
+
     getContentPane().remove(_textPane);
     getContentPane().add(_textArea);
+
+    setVisible(true);
   }
 
   public FormattedStringBox(String message) {
     this();
 
     _textArea.setText(message);
-
-    // Set _textPane text as well for saving
-    // as this is used for saving and printing.
-    _textPane.setText(message);
-
 
     setLocation(100, 300);
     pack();
@@ -64,6 +70,38 @@ public class FormattedStringBox extends ReportBox {
     setTitle(title);
   }
 
+  /**
+   * Print not supported for FormattedStringBox.
+   */
+  public void print() { }
+
+  public void save() {
+    if(_fileChooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
+      return;
+    }
+    
+    String fileName    = _fileChooser.getSelectedFile().getPath();
+    String description = _fileChooser.getFileFilter().getDescription();
+
+    if(fileName == null) {
+      return;
+    }
+
+    try {
+      PrintWriter printWriter = new PrintWriter(new FileWriter(fileName));
+      StringTokenizer st = new StringTokenizer(_textArea.getText(), "\n");
+
+      while (st.hasMoreTokens()) {
+        printWriter.println(st.nextToken());
+      }
+
+      printWriter.close();
+    }
+    catch(IOException e) {
+      JOptionPane.showMessageDialog(this, "Problems writing to file \"" + fileName + "\": " + e,
+	                                   "Save Error", JOptionPane.ERROR_MESSAGE);
+    }
+  }
 
 }
 
