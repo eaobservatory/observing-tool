@@ -374,6 +374,11 @@
     <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
   </xsd:complexType>
 </xsd:element>
+<xsd:element name="SpInstHeterodyneRef">
+  <xsd:complexType>
+    <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
+  </xsd:complexType>
+</xsd:element>
 <xsd:element name="SpTelescopeObsCompRef">
   <xsd:complexType>
     <xsd:attribute name="idref" type="xsd:nonNegativeInteger"/>
@@ -387,6 +392,18 @@
 
 
 <!-- COMPLEX BASAL ELEMENTS -->
+<xsd:element name="switchingMode">
+  <xsd:simpleType>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="Beam"/>
+      <xsd:enumeration value="Position"/>
+      <xsd:enumeration value="Frequency"/>
+      <xsd:enumeration value="None"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:element>
+
+
 <!-- Estimated Duration -->
 <xsd:element name="estimatedDuration">
   <xsd:complexType>
@@ -577,6 +594,194 @@
   </xsd:complexType>
 </xsd:element>
 
+<!-- Heterodyne front end configuration -->
+<xsd:element name="frontend_configure">
+  <xsd:complexType>
+    <xsd:all>
+      <xsd:element name="rest_frequency">
+        <xsd:complexType>
+          <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
+          <xsd:attribute name="value" type="xsd:decimal"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="if_centre_freq">
+        <xsd:complexType>
+          <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
+          <xsd:attribute name="value" type="xsd:decimal"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sideband">
+        <xsd:complexType>
+          <xsd:attribute name="value">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:integer">
+                <xsd:enumeration value="-1"/>
+                <xsd:enumeration value="1"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="sb_mode">
+        <xsd:complexType>
+          <xsd:attribute name="value">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="DSB"/>
+                <xsd:enumeration value="SSB"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="freq_offset_scale">
+        <xsd:complexType>
+          <xsd:attribute name="units" type="xsd:string" fixed="MHz"/>
+          <xsd:attribute name="value" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="dopple_tracking">
+        <xsd:complexType>
+          <xsd:attribute name="value">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="ON"/>
+                <xsd:enumeration value="OFF"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="optimize">
+        <xsd:complexType>
+          <xsd:attribute name="value">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="ENABLE"/>
+                <xsd:enumeration value="DISABLE"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="line_list">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="rest_frequency" minOccurs="1" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:simpleContent>
+            <xsd:extension base="xsd:decimal">
+              <xsd:attribute name="id" type="xsd:string"/>
+              <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
+            </xsd:extension>
+          </xsd:simpleContent>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="acsis_spw_list">
+  <xsd:complexType>
+    <xsd:all>
+      <xsd:element name="doppler_field">
+        <xsd:complexType>
+          <xsd:attribute name="ref" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="spectral_window_id_field">
+        <xsd:complexType>
+          <xsd:attribute name="ref" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="front_end_lo_freq_field">
+        <xsd:complexType>
+          <xsd:attribute name="ref" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="spectral_window">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="spw_bandwidth_mode">
+              <xsd:complexType>
+                <xsd:attribute name="mode" type="xsd:string"/>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="spw_window">
+              <xsd:complexType>
+                <xsd:attribute name="type" type="xsd:string"/>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="rest_frequency_ref">
+              <xsd:complexType>
+                <xsd:attribute name="ref" type="xsd:string"/>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="front_end_sideband">
+              <xsd:complexType>
+                <xsd:attribute name="sideband">
+                  <xsd:simpleType>
+                    <xsd:restriction base="xsd:decimal">
+                      <xsd:enumeration value="-1"/>
+                      <xsd:enumeration value="1"/>
+                    </xsd:restriction>
+                  </xsd:simpleType>
+                </xsd:attribute>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="spw_if_coordinate">
+              <xsd:complexType>
+                <xsd:all>
+                  <xsd:element name="spw_reference_if_frequency">
+                    <xsd:complexType>
+                      <xsd:simpleContent>
+                        <xsd:extension base="xsd:decimal">
+                          <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
+                        </xsd:extension>
+                      </xsd:simpleContent>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="spw_reference_pixel" type="xsd:anyType"/>
+                  <xsd:element name="spw_if_channel_width">
+                    <xsd:complexType>
+                      <xsd:simpleContent>
+                        <xsd:extension base="xsd:decimal">
+                          <xsd:attribute name="units" type="xsd:string" fixed="Hz"/>
+                        </xsd:extension>
+                      </xsd:simpleContent>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="spw_number_if_channel" type="xsd:integer"/>
+                </xsd:all>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+          <xsd:attribute name="id" type="xsd:string"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+</xsd:element>
+
+
+<!-- JCMT configuration for heterodyne -->
+<xsd:element name="jcmt_config">
+  <xsd:complexType>
+    <xsd:all>
+      <xsd:element ref="frontend_configure"/>
+      <xsd:element ref="line_list"/>
+      <xsd:element ref="acsis_spw_list"/>
+    </xsd:all>
+  </xsd:complexType>
+</xsd:element>
+
+
+
+
 <!-- OBSERVE EYES  -->
 <xsd:element name="SpIterFocusObs">
   <xsd:complexType>
@@ -589,11 +794,16 @@
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="axis" type="axisType"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element name="axis"        type="axisType"/>
       <xsd:element name="focusPoints" type="xsd:positiveInteger"/>
-      <xsd:element name="autoTarget" type="xsd:boolean"/>
+      <xsd:element name="autoTarget"  type="xsd:boolean"/>
       <xsd:element ref="integrations"/>
+<!-- The follwoing are only required for heterodyne observations -->
+      <xsd:element ref="switchingMode" minOccurs="0"/>
+      <xsd:element name="secsPerCycle"  type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="noOfCycles"    type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="cycleReversal" type="xsd:boolean"            minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:NMTOKEN" fixed="focusObs" use="optional"/>
@@ -616,10 +826,21 @@
   <xsd:complexType>
     <xsd:all>
       <xsd:element ref="integrations"/>
-      <xsd:element name="startPosition" type="xsd:string" fixed="Zenith"/>
-      <xsd:element name="positions" type="xsd:positiveInteger"/>
+      <xsd:element name="startPosition">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Zenith"/>
+            <xsd:enumeration value="Horizon"/>
+            <xsd:enumeration value="Automatic"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="positions" type="xsd:nonNegativeInteger"/>
       <xsd:element name="useCurrentAz" type="xsd:boolean" minOccurs="0"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element name="useCurrentAz" type="xsd:boolean"/>
+<!-- The following are required for heterodyne observations -->
+      <xsd:element ref="switchingMode" minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:NMTOKEN" fixed="skydipObs" use="optional"/>
@@ -633,6 +854,19 @@
       <xsd:element name="pointingPixel" type="xsd:string"/>
       <xsd:element name="autoTarget" type="xsd:boolean"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
+<!-- The following are required for heterodyne observations -->
+      <xsd:element ref="switchingMode" minOccurs="0"/>
+      <xsd:element name="spectralMode" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="spectralLine"/>
+            <xsd:enumeration value="Continuum"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="noOfCycles" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="secsPerCycle" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="pointingMethod" type="xsd:string" fixed="5-point" minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:NMTOKEN" fixed="pointingObs" use="optional"/>
@@ -646,6 +880,10 @@
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
       <xsd:element ref="integrations"/>
       <xsd:element name="noiseSource" type="noiseSourceType"/>
+<!-- The following are required for heterodyne observations -->
+      <xsd:element ref="switchingMode" minOccurs="0"/>
+      <xsd:element name="frequencyOffset.rate"  type="nonNegativeDecimal" minOccurs="0"/>
+      <xsd:element name="frequencyOffset.throw" type="nonNegativeDecimal" minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:NMTOKEN" fixed="noiseObs" use="optional"/>
@@ -657,6 +895,14 @@
     <xsd:all>
       <xsd:element ref="integrations"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
+<!-- The following are required for heterodyne observations -->
+      <xsd:element ref="switchingMode" minOccurs="0"/>
+      <xsd:element name="noOfCycles"            type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="secsPerCycle"          type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="frequencyOffset.rate"  type="nonNegativeDecimal"     minOccurs="0"/>
+      <xsd:element name="frequencyOffset.throw" type="nonNegativeDecimal"     minOccurs="0"/>
+      <xsd:element name="cycleReversal"         type="xsd:boolean"            minOccurs="0"/>
+      <xsd:element name="continuousCal"         type="xsd:boolean"            minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:NMTOKEN" fixed="stareObs"/>
@@ -669,6 +915,18 @@
       <xsd:element ref="integrations"/>
       <xsd:element ref="obsArea"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
+<!-- The following are required for heterodyne observations -->
+      <xsd:element ref="switchingMode" minOccurs="0"/>
+      <xsd:element name="rowsPerCal" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="rowsPerRef" type="xsd:integer" minOccurs="0"/>
+      <xsd:element name="sampleTime" minOccurs="0">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="4"/>
+            <xsd:maxInclusive value="7"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
     </xsd:all>
   <xsd:attribute name="type" type="SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="rasterObs"/>
@@ -879,6 +1137,94 @@
   </xsd:complexType>
 </xsd:element>
 
+<!-- Heterodyne instrument componenbt -->
+<xsd:element name="SpInstHeterodyne">
+  <xsd:complexType>
+    <xsd:all>
+      <xsd:element ref="meta_unique" minOccurs="0"/>
+      <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element name="velocityDefinition">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="radio"/>
+            <xsd:enumeration value="redshift"/>
+            <xsd:enumeration value="optical"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="feName">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="A3"/>
+            <xsd:enumeration value="B3"/>
+            <xsd:enumeration value="W(C)"/>
+            <xsd:enumeration value="W(D)"/>
+            <xsd:enumeration value="HARP-B"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="mode">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="dsb"/>
+            <xsd:enumeration value="ssb"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="bandMode" type="xsd:string" fixed="1-system"/>
+      <xsd:element name="mixers">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Single Mixer"/>
+            <xsd:enumeration value="Dual Mixer"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="band">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="usb"/>
+            <xsd:enumeration value="lsb"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="channels" type="xsd:integer"/>
+      <xsd:element name="centreFrequency" type="xsd:decimal"/>
+      <xsd:element name="overlap">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="3.5E7"/>
+            <xsd:enumeration value="7.0E7"/>
+            <xsd:enumeration value="1.4E8"/>
+            <xsd:enumeration value="5.2E8"/>
+            <xsd:enumeration value="3.6E8"/>
+            <xsd:enumeration value="7.2E8"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="bandWidth">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="1.25E8"/>
+            <xsd:enumeration value="2.5E8"/>
+            <xsd:enumeration value="5.0E8"/>
+            <xsd:enumeration value="7.6E8"/>
+            <xsd:enumeration value="9.2E8"/>
+            <xsd:enumeration value="1.84E9"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="molecule"      type="xsd:string"/>
+      <xsd:element name="transition"    type="xsd:string"/>
+      <xsd:element name="restFrequency" type="xsd:decimal"/>
+      <xsd:element name="velocity"      type="xsd:decimal"/>
+      <xsd:element ref="jcmt_config"/>
+    </xsd:all>
+    <xsd:attribute name="type" type="SpType" fixed="oc"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="inst.Heterodyne"/>
+    <xsd:attribute name="id" type="xsd:integer" use="optional"/>
+  </xsd:complexType>
+</xsd:element>
 
 <!--  NOTES -->
 <xsd:element name="SpNote">
