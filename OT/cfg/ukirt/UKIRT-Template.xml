@@ -43,6 +43,7 @@ are unlikely to apply to more than a small minority of programmes.
       <title>Multicolour MSBs</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="0"/>
       <title>JHK photometry, 5pt jitters</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -289,6 +290,7 @@ If you want to use a different size of offset, move the highlight to the offset 
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="1"/>
       <title>Multi-colour (equal depth), 9pt jitters</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -543,6 +545,7 @@ Three darks are done here - one for each filter that will follow.  Set the expos
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="2"/>
       <title>Multi-colour (efficient), 9pt jitters</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -801,6 +804,7 @@ Three darks are done here - one for each filter that will follow.  Set the expos
       <title>Single-colour jitters</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="3"/>
       <title>5pt jitter/offsets: Bright Point Source</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -1002,6 +1006,7 @@ If you want to use a different size of offset, move the highlight to the offset 
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="4"/>
       <title>9pt jitter/offsets of 20arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -1210,6 +1215,7 @@ start position (00) after all the data has been obtained.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="5"/>
       <title>9pt jitter/offsets of 10arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -1420,6 +1426,7 @@ If you want to use a different size of offset, move the highlight to the offset 
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="6"/>
       <title>9pt jitter/offsets of 85 arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -1630,6 +1637,7 @@ start position (00) after all the data has been obtained.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="7"/>
       <title>5pt jitter/offsets of 10arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -1823,6 +1831,7 @@ If you want to use a different size of offset, move the highlight to the offset 
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="8"/>
       <title>5pt jitter/offsets of 20arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2015,6 +2024,7 @@ If you want to use a different size of offset, move the highlight to the offset 
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="9"/>
       <title>Quadrant Jitter</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2209,6 +2219,7 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
       <title>Single-colour jitters with sky measured separately</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="10"/>
       <title>Chop obj-sky with 9pt jitter</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2461,6 +2472,7 @@ Changing the total number of offsets will break the data-reduction recipe.
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="11"/>
       <title>sky and jitter</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2677,6 +2689,7 @@ Removing the offset to sky will break the recipe.</note>
       <title>Single-colour extended object MSBs</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="12"/>
       <title>extended_3x3</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2931,6 +2944,7 @@ Changing the total number of offsets will break the data-reduction recipe.
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="13"/>
       <title>extended_5x5</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -3320,6 +3334,7 @@ may be included in MSBs in your science programme.
       <title>Utility sequences</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="14"/>
@@ -3477,6 +3492,7 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">2054.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="17"/>
@@ -3628,6 +3644,7 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">215.0</estimatedDuration>
       <SpInstUFTIRef idref="20"/>
@@ -3709,6 +3726,7 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">195.0</estimatedDuration>
       <SpInstUFTIRef idref="22"/>
@@ -3784,6 +3802,7 @@ Also ensures that the blank is in place at the end of the night.
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">117.0</estimatedDuration>
       <SpInstUFTIRef idref="24"/>
@@ -3886,6 +3905,7 @@ Scheduling constraint components are also not included by default, since they ar
       <title>Contents and how to use them</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="28"/>
       <title>point source, nod along slit</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -4206,6 +4226,7 @@ This is the "Point Source, nod along slit" science target.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="31"/>
       <title>point source, nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -4544,6 +4565,7 @@ This is the "Point source, nod to blank sky" science target. By default, it goes
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="34"/>
       <title>extended source, nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -4882,6 +4904,7 @@ This is the "Extended source, nod to blank sky" science target. By default, it g
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="37"/>
       <title>extended source, infrequent nod to blank sky</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -5230,6 +5253,7 @@ You can change the number of object frames that follow each sky frame by editing
       <title>Utility sequences</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">389.0</estimatedDuration>
       <SpDRRecipeRef idref="39"/>
@@ -5334,6 +5358,7 @@ You can change the number of object frames that follow each sky frame by editing
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">31.0</estimatedDuration>
       <chainedToPrev>false</chainedToPrev>
@@ -5383,6 +5408,7 @@ You can change the number of object frames that follow each sky frame by editing
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">110.0</estimatedDuration>
       <SpDRRecipeRef idref="42"/>
@@ -5527,6 +5553,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>UFTI</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="43"/>
       <title>Pol jitter then angle (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -6139,6 +6166,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="44"/>
       <title>Pol angle then jitter (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -6753,6 +6781,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="45"/>
       <title>Pol extended (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -7421,6 +7450,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="46"/>
       <title>Pol extended 3x3 (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -8291,6 +8321,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>IRCAM</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="47"/>
       <title>Pol jitter then angle (IRCAM3)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -8887,6 +8918,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="48"/>
       <title>Pol angle then jitter (IRCAM3)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -9481,6 +9513,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="49"/>
       <title>Pol extended (IRCAM3)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -10145,6 +10178,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>CGS4</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="50"/>
       <title>Pol nod along slit (CGS4)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -10788,6 +10822,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>Michelle</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <title>Specpol - Point Source (Michelle)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
@@ -11146,6 +11181,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <title>Impol iterate angle then nod (Michelle)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
@@ -11344,6 +11380,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <title>Impol nod then angle (Michelle)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
@@ -11550,6 +11587,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>Utility sequences</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">366.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="51"/>
@@ -11851,6 +11889,7 @@ Guiding may be switched off at the telescope.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">174.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="54"/>
@@ -12108,6 +12147,7 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">104.52000000000001</estimatedDuration>
       <SpTelescopeObsCompRef idref="57"/>
@@ -12353,6 +12393,7 @@ the telescope to slide 0 0</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">366.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="60"/>
@@ -12646,6 +12687,7 @@ Guiding may be switched off at the telescope.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <SpInstMichelleRef idref="63"/>
       <estimatedDuration units="seconds">294.37594709760003</estimatedDuration>
@@ -12814,6 +12856,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>Jitters</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="65"/>
       <title>Nod 4 /offsets of 10arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -13009,6 +13052,7 @@ Remember that changing the number of offsets will break the reduction recipe. </
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="66"/>
       <title>Nod 8 /offsets of 5arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -13216,6 +13260,7 @@ Remember that changing the number of offsets will break the reduction recipe. </
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="67"/>
       <title>5pt jitter/offsets of 5arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -13411,6 +13456,7 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="68"/>
       <title>5pt jitter/offsets of 6arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -13606,6 +13652,7 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="69"/>
       <title>9pt jitter/offsets of 6arcsec</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -13814,6 +13861,7 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="70"/>
       <title>Quadrant Jitter</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -14014,6 +14062,7 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
       <title>N-colour sequence</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="71"/>
       <title>n-colour photometry</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -14251,6 +14300,7 @@ Three darks are done here - one for each filter that will follow.  Set the expos
       <title>Jitters with separate sky</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="72"/>
       <title>Chop obj-sky with 9pt jitter</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -14511,6 +14561,7 @@ Changing the total number of offsets will break the data-reduction recipe.
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="73"/>
       <title>sky and jitter</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -14722,6 +14773,7 @@ Removing the offset to sky will break the recipe, as will changing the order.</n
       <title>Extended objects</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="74"/>
       <title>extended_3x3</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -14973,6 +15025,7 @@ Changing the total number of offsets will break the data-reduction recipe.
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="75"/>
       <title>extended_5x5</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -15362,6 +15415,7 @@ Changing the total number of offsets will break the data-reduction recipe.
       <title>utility sequences</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">324.96</estimatedDuration>
       <SpInstIRCAM3Ref idref="76"/>
@@ -15479,6 +15533,7 @@ then a 60-second and a 10-second dark to calculate the dark current.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">156.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="78"/>
@@ -15659,6 +15714,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>FP sequences</title>
     </SpNote>
     <SpMSB remaining="100" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <title>Alignment and quick look</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
@@ -16153,6 +16209,7 @@ Short integration times are usually sufficient for FP alignment with the lamp.
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="81"/>
       <title>Basic: online(obj,sky)-offline(sky,obj)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -16882,6 +16939,7 @@ down the sequence).
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="82"/>
       <title>Jitter 5 no sky: online(obj)-offline(obj)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -17533,6 +17591,7 @@ Enter these new values into the "FP" component below.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
       <SpNoteRef idref="83"/>
       <title>Jitter 5: online(obj,sky)-offline(sky,obj)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -18946,6 +19005,7 @@ Enter these new values into the "FP" component below.
       <title>utility sequences</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">2560.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="84"/>
@@ -19175,6 +19235,7 @@ Enter these new values into the "FP" component below.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">215.0</estimatedDuration>
       <SpInstUFTIRef idref="87"/>
@@ -19256,6 +19317,7 @@ Enter these new values into the "FP" component below.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">117.0</estimatedDuration>
       <SpInstUFTIRef idref="89"/>
@@ -19331,6 +19393,7 @@ Note:  These frames WILL be stored to disk.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">195.0</estimatedDuration>
       <SpInstUFTIRef idref="91"/>
@@ -19413,6 +19476,7 @@ Also ensures that the blank is in place at the end of the night.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Imaging</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="93"/>
         <estimatedDuration units="seconds">284.0049095</estimatedDuration>
@@ -19516,6 +19580,7 @@ Also ensures that the blank is in place at the end of the night.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="96"/>
         <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
@@ -19655,6 +19720,7 @@ Also ensures that the blank is in place at the end of the night.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="99"/>
         <estimatedDuration units="seconds">10145.294569999978</estimatedDuration>
@@ -19835,6 +19901,7 @@ Also ensures that the blank is in place at the end of the night.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Spectroscopy</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="101"/>
         <estimatedDuration units="seconds">284.0049095</estimatedDuration>
@@ -19938,6 +20005,7 @@ Also ensures that the blank is in place at the end of the night.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <SpNoteRef idref="105"/>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="103"/>
@@ -20096,6 +20164,7 @@ At the final break, you can run down the sequence console and OM, there is no ne
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="107"/>
         <estimatedDuration units="seconds">246.0256136528</estimatedDuration>
@@ -20270,6 +20339,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="110"/>
         <estimatedDuration units="seconds">430.0704009752</estimatedDuration>
@@ -20482,6 +20552,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="112"/>
         <estimatedDuration units="seconds">450.276171264</estimatedDuration>
@@ -20614,6 +20685,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="115"/>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
@@ -20743,6 +20815,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="118"/>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
@@ -20924,6 +20997,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="121"/>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
@@ -21053,6 +21127,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="124"/>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
@@ -21234,6 +21309,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="127"/>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
@@ -21363,6 +21439,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="130"/>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
@@ -21544,6 +21621,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="133"/>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
@@ -21673,6 +21751,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <SpInstMichelleRef idref="136"/>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
@@ -21871,6 +21950,7 @@ the background limited regime.</note>
         <title>Exposure times</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>5pt jitter/offsets of 20arcsec</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -22113,6 +22193,7 @@ If you want to use a different size of offset, move the highlight to the offset 
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>9pt jitter/offsets of 20arcsec</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -22371,6 +22452,7 @@ start position (00) after all the data has been obtained.</note>
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>quadrant jitter</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -22612,6 +22694,7 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>extended 3x3</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -22914,6 +22997,7 @@ Changing the total number of offsets will break the data-reduction recipe.
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>extended 5x5</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -23358,6 +23442,7 @@ M'      0.06     0.5    18
         <title>Exposure times</title>
       </SpNote>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">117.74999999999999</estimatedDuration>
         <SpTelescopeObsCompRef idref="138"/>
@@ -23594,6 +23679,7 @@ Remember that changing the number of offsets will break the reduction recipe. </
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">187.95000000000002</estimatedDuration>
         <SpTelescopeObsCompRef idref="141"/>
@@ -23846,6 +23932,7 @@ lower right is avoided.  </note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">257.88</estimatedDuration>
         <SpTelescopeObsCompRef idref="144"/>
@@ -24098,6 +24185,7 @@ lower right is avoided.  </note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">161.76</estimatedDuration>
         <SpTelescopeObsCompRef idref="147"/>
@@ -24351,6 +24439,7 @@ lower right is avoided.  </note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">213.60000000000002</estimatedDuration>
         <SpTelescopeObsCompRef idref="150"/>
@@ -24660,6 +24749,7 @@ movie and mean x/y profiles.
         <title>Acquisition</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Point source slide along slit</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -25221,6 +25311,7 @@ change grism.
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Faint point source slide along slit</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -25782,6 +25873,7 @@ change grism.
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Extended source slide along slit</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -26344,6 +26436,7 @@ change grism.
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Extended source nod to sky</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -26931,6 +27024,7 @@ NOTE, however, that the UIST component must be exactly the same as that used wit
         <title>Utility observations</title>
       </SpNote>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <estimatedDuration units="seconds">27.0</estimatedDuration>
         <SpDRRecipeRef idref="158"/>
         <title>Flat and arc</title>
@@ -27135,6 +27229,7 @@ Note, however, that imaging-mode acquisition is "less crucial" with the IFU beca
         <title>Acquisition</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>IFU, nod to blank sky</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -27769,6 +27864,7 @@ with the IFU orientated east-west.</note>
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>IFU map extended source</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -28409,6 +28505,7 @@ with the IFU orientated east-west.</note>
         <title>Imaging Polarimetry</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Pol jitter then angle (UIST - imaging)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -29121,6 +29218,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Pol angle then jitter (UIST - imaging)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -29835,6 +29933,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Pol extended (UIST - imaging)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -30604,6 +30703,7 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Pol extended full-field (UIST - imaging)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -31390,6 +31490,7 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
         <title>Spectro-Polarimetry</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Pol nod along slit (UIST - spectroscopy)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -32077,6 +32178,7 @@ object</note>
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <title>Pol nod to blank sky (UIST - spectroscopy)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
@@ -32765,6 +32867,7 @@ object</note>
         <title>Imaging pol. utility sequences</title>
       </SpNote>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">624.0</estimatedDuration>
         <SpTelescopeObsCompRef idref="159"/>
@@ -33039,6 +33142,7 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">1416.0</estimatedDuration>
         <SpTelescopeObsCompRef idref="162"/>

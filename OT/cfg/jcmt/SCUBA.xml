@@ -10,6 +10,7 @@
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA Photometry MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="1"/>
         <SpInstSCUBARef idref="0"/>
         <title>850/450 um photometry</title>
@@ -199,6 +200,7 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="3"/>
         <SpInstSCUBARef idref="2"/>
         <title>850/450 um 2-bol photometry</title>
@@ -391,6 +393,7 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA Jiggle Map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="5"/>
         <SpInstSCUBARef idref="4"/>
         <title>850/450 um jiggle map (fully sampled at both 850/450 um)</title>
@@ -589,6 +592,7 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="7"/>
         <SpInstSCUBARef idref="6"/>
         <title>850/450 um jiggle offsets (mosaic)</title>
@@ -794,6 +798,7 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="9"/>
         <SpInstSCUBARef idref="8"/>
         <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
@@ -979,6 +984,7 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="11"/>
         <SpInstSCUBARef idref="10"/>
         <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
@@ -1168,6 +1174,7 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA scan map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="13"/>
         <SpInstSCUBARef idref="12"/>
         <title>850/450 um scan map</title>
@@ -1402,6 +1409,7 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="15"/>
         <SpInstSCUBARef idref="14"/>
         <title>850um fast scan map</title>
@@ -2090,6 +2098,7 @@ The 450um IPs are uncertain. Please talk to your support scientist before attemp
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: photometry mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="26"/>
         <SpInstSCUBARef idref="25"/>
         <title>850/450 um photometry polarimetry</title>
@@ -2287,6 +2296,7 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: jiggle map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="28"/>
         <SpInstSCUBARef idref="27"/>
         <title>850 um pol jiggle map (fully sampled 850, under-sampled 450um)</title>
@@ -2504,6 +2514,7 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: scan map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
+        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="30"/>
         <SpInstSCUBARef idref="29"/>
         <title>850 um fast scan map polarimetry</title>

@@ -7,6 +7,7 @@
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>JHK</title>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">324.96</estimatedDuration>
       <SpInstIRCAM3Ref idref="0"/>
@@ -108,6 +109,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="2"/>
@@ -237,6 +239,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="5"/>
@@ -360,6 +363,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="8"/>
@@ -483,6 +487,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="11"/>
@@ -612,6 +617,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="14"/>
@@ -735,6 +741,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="17"/>
@@ -858,6 +865,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="20"/>
@@ -987,6 +995,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="23"/>
@@ -1110,6 +1119,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="26"/>
@@ -1233,6 +1243,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="29"/>
@@ -1362,6 +1373,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="32"/>
@@ -1485,6 +1497,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="35"/>
@@ -1608,6 +1621,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="38"/>
@@ -1737,6 +1751,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="41"/>
@@ -1860,6 +1875,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="44"/>
@@ -1983,6 +1999,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="47"/>
@@ -2112,6 +2129,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="50"/>
@@ -2235,6 +2253,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="53"/>
@@ -2358,6 +2377,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="56"/>
@@ -2487,6 +2507,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="59"/>
@@ -2610,6 +2631,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="62"/>
@@ -2733,6 +2755,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="65"/>
@@ -2862,6 +2885,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="68"/>
@@ -2985,6 +3009,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="71"/>
@@ -3108,6 +3133,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="74"/>
@@ -3237,6 +3263,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="77"/>
@@ -3360,6 +3387,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="80"/>
@@ -3483,6 +3511,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="83"/>
@@ -3612,6 +3641,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="86"/>
@@ -3735,6 +3765,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="89"/>
@@ -3858,6 +3889,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="92"/>
@@ -3987,6 +4019,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="95"/>
@@ -4110,6 +4143,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="98"/>
@@ -4233,6 +4267,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="101"/>
@@ -4362,6 +4397,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="104"/>
@@ -4485,6 +4521,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="107"/>
@@ -4608,6 +4645,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="110"/>
@@ -4737,6 +4775,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="113"/>
@@ -4860,6 +4899,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="116"/>
@@ -4983,6 +5023,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="119"/>
@@ -5112,6 +5153,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="122"/>
@@ -5235,6 +5277,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="125"/>
@@ -5358,6 +5401,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="128"/>
@@ -5487,6 +5531,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="131"/>
@@ -5610,6 +5655,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="134"/>
@@ -5733,6 +5779,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="137"/>
@@ -5862,6 +5909,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="140"/>
@@ -5985,6 +6033,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="143"/>
@@ -6108,6 +6157,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="146"/>
@@ -6237,6 +6287,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="149"/>
@@ -6360,6 +6411,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="152"/>
@@ -6483,6 +6535,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="155"/>
@@ -6612,6 +6665,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="158"/>
@@ -6735,6 +6789,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="161"/>
@@ -6858,6 +6913,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="164"/>
@@ -6987,6 +7043,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="167"/>
@@ -7110,6 +7167,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="170"/>
@@ -7233,6 +7291,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="173"/>
@@ -7362,6 +7421,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="176"/>
@@ -7485,6 +7545,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="179"/>
@@ -7608,6 +7669,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="182"/>
@@ -7737,6 +7799,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="185"/>
@@ -7860,6 +7923,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="188"/>
@@ -7983,6 +8047,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="191"/>
@@ -8112,6 +8177,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="194"/>
@@ -8235,6 +8301,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="197"/>
@@ -8358,6 +8425,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="200"/>
@@ -8487,6 +8555,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="203"/>
@@ -8610,6 +8679,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="206"/>
@@ -8733,6 +8803,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="209"/>
@@ -8862,6 +8933,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="212"/>
@@ -8985,6 +9057,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="215"/>
@@ -9108,6 +9181,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="218"/>
@@ -9237,6 +9311,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="221"/>
@@ -9366,6 +9441,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="224"/>
@@ -9489,6 +9565,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="227"/>
@@ -9618,6 +9695,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="230"/>
@@ -9747,6 +9825,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="233"/>
@@ -9870,6 +9949,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="236"/>
@@ -9999,6 +10079,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="239"/>
@@ -10128,6 +10209,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="242"/>
@@ -10251,6 +10333,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="245"/>
@@ -10380,6 +10463,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="248"/>
@@ -10503,6 +10587,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="251"/>
@@ -10626,6 +10711,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="254"/>
@@ -10755,6 +10841,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="257"/>
@@ -10878,6 +10965,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="260"/>
@@ -11001,6 +11089,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="263"/>
@@ -11130,6 +11219,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="266"/>
@@ -11253,6 +11343,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="269"/>
@@ -11376,6 +11467,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="272"/>
@@ -11505,6 +11597,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="275"/>
@@ -11628,6 +11721,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="278"/>
@@ -11751,6 +11845,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="281"/>
@@ -11880,6 +11975,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="284"/>
@@ -12003,6 +12099,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="287"/>
@@ -12126,6 +12223,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="290"/>
@@ -12255,6 +12353,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="293"/>
@@ -12378,6 +12477,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="296"/>
@@ -12501,6 +12601,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="299"/>
@@ -12630,6 +12731,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="302"/>
@@ -12753,6 +12855,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="305"/>
@@ -12876,6 +12979,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="308"/>
@@ -13005,6 +13109,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="311"/>
@@ -13128,6 +13233,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="314"/>
@@ -13251,6 +13357,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="317"/>
@@ -13380,6 +13487,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="320"/>
@@ -13503,6 +13611,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="323"/>
@@ -13626,6 +13735,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="326"/>
@@ -13755,6 +13865,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="329"/>
@@ -13878,6 +13989,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="332"/>
@@ -14001,6 +14113,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="335"/>
@@ -14130,6 +14243,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="338"/>
@@ -14253,6 +14367,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="341"/>
@@ -14376,6 +14491,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="344"/>
@@ -14505,6 +14621,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="347"/>
@@ -14628,6 +14745,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="350"/>
@@ -14751,6 +14869,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="353"/>
@@ -14880,6 +14999,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="356"/>
@@ -15003,6 +15123,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="359"/>
@@ -15126,6 +15247,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="362"/>
@@ -15255,6 +15377,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="365"/>
@@ -15378,6 +15501,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="368"/>
@@ -15501,6 +15625,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="371"/>
@@ -15630,6 +15755,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="374"/>
@@ -15753,6 +15879,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="377"/>
@@ -15876,6 +16003,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="380"/>
@@ -16005,6 +16133,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="383"/>
@@ -16128,6 +16257,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="386"/>
@@ -16251,6 +16381,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="389"/>
@@ -16380,6 +16511,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="392"/>
@@ -16503,6 +16635,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="395"/>
@@ -16626,6 +16759,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="398"/>
@@ -16755,6 +16889,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="401"/>
@@ -16878,6 +17013,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="404"/>
@@ -17001,6 +17137,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">156.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="407"/>
@@ -17130,6 +17267,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">109.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="410"/>
@@ -17253,6 +17391,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">109.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="413"/>
@@ -17377,6 +17516,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="416"/>
@@ -17506,6 +17646,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="419"/>
@@ -17629,6 +17770,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="422"/>
@@ -17752,6 +17894,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="425"/>
@@ -17881,6 +18024,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="428"/>
@@ -18004,6 +18148,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="431"/>
@@ -18127,6 +18272,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="434"/>
@@ -18256,6 +18402,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="437"/>
@@ -18379,6 +18526,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="440"/>
@@ -18502,6 +18650,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="443"/>
@@ -18631,6 +18780,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="446"/>
@@ -18754,6 +18904,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="449"/>
@@ -18877,6 +19028,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="452"/>
@@ -19006,6 +19158,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="455"/>
@@ -19129,6 +19282,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="458"/>
@@ -19252,6 +19406,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="461"/>
@@ -19381,6 +19536,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="464"/>
@@ -19504,6 +19660,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="467"/>
@@ -19627,6 +19784,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="470"/>
@@ -19756,6 +19914,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="473"/>
@@ -19879,6 +20038,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="476"/>
@@ -20002,6 +20162,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="479"/>
@@ -20131,6 +20292,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="482"/>
@@ -20254,6 +20416,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="485"/>
@@ -20377,6 +20540,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="488"/>
@@ -20506,6 +20670,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="491"/>
@@ -20629,6 +20794,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="494"/>
@@ -20752,6 +20918,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="497"/>
@@ -20882,6 +21049,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="500"/>
@@ -21005,6 +21173,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="503"/>
@@ -21129,6 +21298,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="506"/>
@@ -21258,6 +21428,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="509"/>
@@ -21381,6 +21552,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="512"/>
@@ -21504,6 +21676,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="515"/>
@@ -21633,6 +21806,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="518"/>
@@ -21756,6 +21930,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="521"/>
@@ -21879,6 +22054,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="524"/>
@@ -22008,6 +22184,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="527"/>
@@ -22137,6 +22314,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="530"/>
@@ -22260,6 +22438,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="533"/>
@@ -22390,6 +22569,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="536"/>
@@ -22519,6 +22699,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="539"/>
@@ -22643,6 +22824,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="542"/>
@@ -22772,6 +22954,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="545"/>
@@ -22895,6 +23078,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="548"/>
@@ -23018,6 +23202,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="551"/>
@@ -23147,6 +23332,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="554"/>
@@ -23270,6 +23456,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="557"/>
@@ -23393,6 +23580,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="560"/>
@@ -23522,6 +23710,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="563"/>
@@ -23645,6 +23834,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="566"/>
@@ -23768,6 +23958,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="569"/>
@@ -23897,6 +24088,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="572"/>
@@ -24020,6 +24212,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="575"/>
@@ -24143,6 +24336,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="578"/>
@@ -24272,6 +24466,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="581"/>
@@ -24395,6 +24590,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="584"/>
@@ -24518,6 +24714,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">78.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="587"/>
@@ -24653,6 +24850,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="590"/>
@@ -24781,6 +24979,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="593"/>
@@ -24909,6 +25108,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="596"/>
@@ -25038,6 +25238,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="599"/>
@@ -25161,6 +25362,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="602"/>
@@ -25284,6 +25486,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="605"/>
@@ -25413,6 +25616,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="608"/>
@@ -25536,6 +25740,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="611"/>
@@ -25659,6 +25864,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">690.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="614"/>
@@ -25803,6 +26009,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">246.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="617"/>
@@ -25932,6 +26139,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">246.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="620"/>
@@ -26061,6 +26269,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">246.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="623"/>
@@ -26190,6 +26399,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">126.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="626"/>
@@ -26319,6 +26529,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="629"/>
@@ -26448,6 +26659,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="632"/>
@@ -26577,6 +26789,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="635"/>
@@ -26700,6 +26913,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="638"/>
@@ -26824,6 +27038,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="641"/>
@@ -26953,6 +27168,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">105.83999999999997</estimatedDuration>
       <SpTelescopeObsCompRef idref="644"/>
@@ -27083,6 +27299,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">103.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="647"/>
@@ -27213,6 +27430,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="650"/>
@@ -27347,6 +27565,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="653"/>
@@ -27475,6 +27694,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="656"/>
@@ -27603,6 +27823,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">87.83999999999997</estimatedDuration>
       <SpTelescopeObsCompRef idref="659"/>
@@ -27732,6 +27953,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">52.88</estimatedDuration>
       <SpTelescopeObsCompRef idref="662"/>
@@ -27855,6 +28077,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">52.88</estimatedDuration>
       <SpTelescopeObsCompRef idref="665"/>
@@ -27978,6 +28201,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">87.83999999999997</estimatedDuration>
       <SpTelescopeObsCompRef idref="668"/>
@@ -28107,6 +28331,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">246.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="671"/>
@@ -28236,6 +28461,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">52.88</estimatedDuration>
       <SpTelescopeObsCompRef idref="674"/>
@@ -28359,6 +28585,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">87.83999999999997</estimatedDuration>
       <SpTelescopeObsCompRef idref="677"/>
@@ -28489,6 +28716,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">52.88</estimatedDuration>
       <SpTelescopeObsCompRef idref="680"/>
@@ -28613,6 +28841,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">52.88</estimatedDuration>
       <SpTelescopeObsCompRef idref="683"/>
@@ -28737,6 +28966,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="686"/>
@@ -28867,6 +29097,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="689"/>
@@ -28991,6 +29222,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="692"/>
@@ -29115,6 +29347,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="695"/>
@@ -29250,6 +29483,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="698"/>
@@ -29379,6 +29613,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="701"/>
@@ -29508,6 +29743,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="704"/>
@@ -29643,6 +29879,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="707"/>
@@ -29772,6 +30009,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">74.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="710"/>
@@ -29901,6 +30139,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">186.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="713"/>
@@ -30036,6 +30275,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="716"/>
@@ -30165,6 +30405,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">134.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="719"/>
@@ -30294,6 +30535,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="722"/>
@@ -30423,6 +30665,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="725"/>
@@ -30552,6 +30795,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="728"/>
@@ -30675,6 +30919,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="731"/>
@@ -30810,6 +31055,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="734"/>
@@ -30939,6 +31185,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="737"/>
@@ -31068,6 +31315,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="740"/>
@@ -31203,6 +31451,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="743"/>
@@ -31338,6 +31587,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">114.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="746"/>
@@ -31473,6 +31723,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="749"/>
@@ -31608,6 +31859,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="752"/>
@@ -31737,6 +31989,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="755"/>
@@ -31866,6 +32119,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="758"/>
@@ -32001,6 +32255,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="761"/>
@@ -32130,6 +32385,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="764"/>
@@ -32259,6 +32515,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">306.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="767"/>
@@ -32394,6 +32651,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="770"/>
@@ -32523,6 +32781,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">234.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="773"/>
@@ -32652,6 +32911,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">96.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="776"/>
@@ -32787,6 +33047,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="779"/>
@@ -32916,6 +33177,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">59.68</estimatedDuration>
       <SpTelescopeObsCompRef idref="782"/>
@@ -33045,6 +33307,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">91.91999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="785"/>
@@ -33180,6 +33443,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="788"/>
@@ -33309,6 +33573,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">56.28</estimatedDuration>
       <SpTelescopeObsCompRef idref="791"/>
@@ -33442,6 +33707,7 @@
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>L and M</title>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">324.96</estimatedDuration>
       <SpInstIRCAM3Ref idref="794"/>
@@ -33543,6 +33809,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="796"/>
@@ -33668,6 +33935,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="799"/>
@@ -33810,6 +34078,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="802"/>
@@ -33935,6 +34204,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="805"/>
@@ -34078,6 +34348,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="808"/>
@@ -34220,6 +34491,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="811"/>
@@ -34346,6 +34618,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="814"/>
@@ -34489,6 +34762,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="817"/>
@@ -34615,6 +34889,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="820"/>
@@ -34758,6 +35033,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="823"/>
@@ -34900,6 +35176,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="826"/>
@@ -35042,6 +35319,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="829"/>
@@ -35185,6 +35463,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="832"/>
@@ -35328,6 +35607,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="835"/>
@@ -35454,6 +35734,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="838"/>
@@ -35597,6 +35878,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="841"/>
@@ -35740,6 +36022,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="844"/>
@@ -35882,6 +36165,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="847"/>
@@ -36008,6 +36292,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="850"/>
@@ -36151,6 +36436,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="853"/>
@@ -36293,6 +36579,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="856"/>
@@ -36436,6 +36723,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">370.91999999999996</estimatedDuration>
       <SpTelescopeObsCompRef idref="859"/>
@@ -36578,6 +36866,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="862"/>
@@ -36721,6 +37010,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">370.91999999999996</estimatedDuration>
       <SpTelescopeObsCompRef idref="865"/>
@@ -36864,6 +37154,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="868"/>
@@ -37007,6 +37298,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="871"/>
@@ -37133,6 +37425,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="874"/>
@@ -37276,6 +37569,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="877"/>
@@ -37401,6 +37695,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="880"/>
@@ -37543,6 +37838,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="883"/>
@@ -37686,6 +37982,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="886"/>
@@ -37828,6 +38125,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="889"/>
@@ -37954,6 +38252,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="892"/>
@@ -38097,6 +38396,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="895"/>
@@ -38239,6 +38539,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="898"/>
@@ -38365,6 +38666,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="901"/>
@@ -38508,6 +38810,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="904"/>
@@ -38650,6 +38953,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="907"/>
@@ -38776,6 +39080,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="910"/>
@@ -38902,6 +39207,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="913"/>
@@ -39045,6 +39351,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="916"/>
@@ -39187,6 +39494,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="919"/>
@@ -39313,6 +39621,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="922"/>
@@ -39456,6 +39765,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="925"/>
@@ -39582,6 +39892,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="928"/>
@@ -39725,6 +40036,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="931"/>
@@ -39867,6 +40179,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="934"/>
@@ -39993,6 +40306,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="937"/>
@@ -40136,6 +40450,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="940"/>
@@ -40262,6 +40577,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="943"/>
@@ -40405,6 +40721,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="946"/>
@@ -40530,6 +40847,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="949"/>
@@ -40672,6 +40990,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="952"/>
@@ -40815,6 +41134,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="955"/>
@@ -40957,6 +41277,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">976.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="958"/>
@@ -41100,6 +41421,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="961"/>
@@ -41225,6 +41547,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="964"/>
@@ -41367,6 +41690,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="967"/>
@@ -41492,6 +41816,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="970"/>
@@ -41634,6 +41959,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="973"/>
@@ -41759,6 +42085,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="976"/>
@@ -41901,6 +42228,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="979"/>
@@ -42043,6 +42371,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="982"/>
@@ -42185,6 +42514,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="985"/>
@@ -42327,6 +42657,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="988"/>
@@ -42470,6 +42801,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="991"/>
@@ -42612,6 +42944,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="994"/>
@@ -42755,6 +43088,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="997"/>
@@ -42880,6 +43214,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="1000"/>
@@ -43022,6 +43357,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="1003"/>
@@ -43147,6 +43483,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="1006"/>
@@ -43289,6 +43626,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="1009"/>
@@ -43414,6 +43752,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="1012"/>
@@ -43556,6 +43895,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpTelescopeObsCompRef idref="1015"/>
@@ -43681,6 +44021,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">626.9999999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="1018"/>
@@ -43823,6 +44164,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">435.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="1021"/>
@@ -43965,6 +44307,7 @@
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">673.9599999999999</estimatedDuration>
       <SpTelescopeObsCompRef idref="1024"/>

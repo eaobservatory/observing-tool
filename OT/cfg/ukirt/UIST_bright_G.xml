@@ -40,6 +40,7 @@ Andy Adamson, August 2000</note>
       <title>RA 0 - 4 hours</title>
     </SpNote>
     <SpObs checksum="d54dbe0eea46bca7f2e1c9a3dc7da6c3" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="0"/>
@@ -73,6 +74,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="d86cef500b4c727f575b14f1353cac04" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="1"/>
@@ -106,6 +108,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="4ed4a4923cbd8c24738ff2822169e29f" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="2"/>
@@ -139,6 +142,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="c393a25285d04c5fff5fda238b9bb738" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="3"/>
@@ -172,6 +176,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="506f357f8b7d9f51e072038f7373afa4" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="4"/>
@@ -205,6 +210,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="654bd9debdc0aedcb66145e7944abd86" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="5"/>
@@ -238,6 +244,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="4ca5a32bf489d0311ad7e8254d832eb4" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="6"/>
@@ -271,6 +278,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="a74667e09a94e907f1af50f32ed1d00a" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="7"/>
@@ -304,6 +312,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="e826550debc098e530b595cc52159c1d" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="8"/>
@@ -337,6 +346,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="1a13ceff187bd960ff50848e5128c52d" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="9"/>
@@ -370,6 +380,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="f020e8b7bdf07e119bb503400904c1e1" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="10"/>
@@ -403,6 +414,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="8e48cd99bed9dd6946f70b6dce5c40cf" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="11"/>
@@ -436,6 +448,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="bdfcc4335324b3863ba17be5bcae2b0e" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="12"/>
@@ -474,6 +487,7 @@ Andy Adamson, August 2000</note>
       <title>RA 5 - 8 hours</title>
     </SpNote>
     <SpObs checksum="4bb5b067157ef80d555c9976b8ce281c" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="13"/>
@@ -507,6 +521,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="5d0b99836d2a8617eae0137720870260" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="14"/>
@@ -540,6 +555,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="79ebfd76c66ba727685f340d928bb2f2" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="15"/>
@@ -573,6 +589,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="2949002f78e1baee90531b16f7dcb1ad" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="16"/>
@@ -606,6 +623,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="eea85435dedef0919555a660c7880380" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="17"/>
@@ -639,6 +657,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="23e6a5d483a592bc9521ff266c54eef0" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="18"/>
@@ -672,6 +691,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="cfdd149616216d61764f7652796501f2" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="19"/>
@@ -705,6 +725,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="7a0a57ab0b1b56ee4009fc740fb3985d" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="20"/>
@@ -738,6 +759,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="c9a478d4e58fab6ccdaac8d8c8d21d7b" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="21"/>
@@ -771,6 +793,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="77369a4bb4d00931d161c0e242f1b4b0" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="22"/>
@@ -804,6 +827,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="cd69073a34b5a16c80d45b327414f09f" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="23"/>
@@ -837,6 +861,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="b7a12a7edb47704a1aa7c82dc166173a" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="24"/>
@@ -870,6 +895,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="5b962a3afd2c2fd1c99653734d4d6a20" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="25"/>
@@ -903,6 +929,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="819cf3719f7d0fdc92f59ecb154e5803" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="26"/>
@@ -941,6 +968,7 @@ Andy Adamson, August 2000</note>
       <title>RA 9 - 13 hours</title>
     </SpNote>
     <SpObs checksum="306f67ba8a75485eeab0181aaee368e5" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="27"/>
@@ -974,6 +1002,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="abb98a701dd3798898e15e4420864d7f" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="28"/>
@@ -1007,6 +1036,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="9dceaee89678781e8db38a80e9219687" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="29"/>
@@ -1040,6 +1070,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="febfeb3d001e04fda1cd14579a97e6e9" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="30"/>
@@ -1073,6 +1104,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="d8d46a30ba342f24b2eee82db3207690" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="31"/>
@@ -1106,6 +1138,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="6bff2bc6f6a92da92f77e4bcaacdb4f4" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="32"/>
@@ -1139,6 +1172,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="6d92f2531807c1161c600586b6d63955" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="33"/>
@@ -1172,6 +1206,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="12ef1cdf603457c297740c332c4bbd07" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="34"/>
@@ -1205,6 +1240,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="c3829eb771cdfdb46e0cf6c7bc76f12c" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="35"/>
@@ -1238,6 +1274,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="be63b7f3e497f69e319e387a3aa3b740" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="36"/>
@@ -1276,6 +1313,7 @@ Andy Adamson, August 2000</note>
       <title>RA 14 - 16 hours</title>
     </SpNote>
     <SpObs checksum="fd1658d2d7d3532d69f68d780fc20b31" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="37"/>
@@ -1309,6 +1347,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="5f5ca737b458f84566b360238084dde6" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="38"/>
@@ -1342,6 +1381,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="24f15f5622b5585c19a8c8079019cc1d" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="39"/>
@@ -1375,6 +1415,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="59f2cb2d51b713b77376cc22d049b56a" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="40"/>
@@ -1408,6 +1449,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="345b381eef3a0cec1cec22bd226169e4" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="41"/>
@@ -1441,6 +1483,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="65819ef731c1d31a4b3ee12e47803c5b" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="42"/>
@@ -1474,6 +1517,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="8d90b8ddadf503dc424dfbf784de2806" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="43"/>
@@ -1507,6 +1551,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="284479b11bedcbc8dd8f289bc802c062" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="44"/>
@@ -1540,6 +1585,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="c3e34b3ce3b22402bba9afee4331ad04" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="45"/>
@@ -1573,6 +1619,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="7ada05ef33804e99722ef0f8e0682d81" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="46"/>
@@ -1606,6 +1653,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="9ae07e37d8efe508dec952053ccb6178" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="47"/>
@@ -1639,6 +1687,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="d796c155096100ef013cbfea77195102" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="48"/>
@@ -1672,6 +1721,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="f84ca0574254cd13e862b06dcc60e3dc" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="49"/>
@@ -1710,6 +1760,7 @@ Andy Adamson, August 2000</note>
       <title>RA 17 - 19 hours</title>
     </SpNote>
     <SpObs checksum="c3fd27a9a04f5ff24caa519f5e36d493" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="50"/>
@@ -1743,6 +1794,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="0137200e5b4d7c373dde1bdfc1afe859" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="51"/>
@@ -1776,6 +1828,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="e1657605b4ceb4c59e1a9a312d378b24" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="52"/>
@@ -1809,6 +1862,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="b398bd1512aa286a13396f2a48778856" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="53"/>
@@ -1842,6 +1896,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="ba3cd75ce2dae918005f24908cf3f7fd" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="54"/>
@@ -1875,6 +1930,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="5316051406370df37f69694d501636c1" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="55"/>
@@ -1908,6 +1964,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="8d41de1fcfa730aa98f13fc1973272dd" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="56"/>
@@ -1941,6 +1998,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="4e516d5a8a6b51a5eb7adf8f5be5f112" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="57"/>
@@ -1974,6 +2032,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="dfd9986bd540d9c5fd328e1083cf7a54" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="58"/>
@@ -2007,6 +2066,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="3cdae54d089807d2d71935017564b1ca" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="59"/>
@@ -2040,6 +2100,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="6cb8753d0fe906e4091cc5f89273ba09" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="60"/>
@@ -2073,6 +2134,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="3bb7d13b309bfe85b9f6f2edb5d3774d" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="61"/>
@@ -2111,6 +2173,7 @@ Andy Adamson, August 2000</note>
       <title>RA 20 - 23h</title>
     </SpNote>
     <SpObs checksum="e511bf85d77b168437c1bf08356d3848" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="62"/>
@@ -2144,6 +2207,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="a7421329a5e94a37fe0c75589d3bb5cb" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="63"/>
@@ -2177,6 +2241,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="6db9db4b9d5b566ebbdb3d4908146d93" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="64"/>
@@ -2210,6 +2275,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="2a85fde9360bd32b40fe4b29b34e1ff5" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="65"/>
@@ -2243,6 +2309,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="80f949ee21ca8c57060bb6b0983b5aee" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="66"/>
@@ -2276,6 +2343,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="1a336f90dbdf3631eae4ab897960c5e0" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="67"/>
@@ -2309,6 +2377,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="0fd7e86b0a10df7ef94ec2dea25f4111" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="68"/>
@@ -2342,6 +2411,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="3e4f8e697755e396cba6f54719b0bc90" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="69"/>
@@ -2375,6 +2445,7 @@ Andy Adamson, August 2000</note>
       </SpTelescopeObsComp>
     </SpObs>
     <SpObs checksum="eedc9c55238e04d6176671e9303abe17" msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">0.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="70"/>

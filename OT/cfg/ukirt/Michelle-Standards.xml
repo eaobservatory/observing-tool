@@ -18,6 +18,7 @@ These observations follow a standard technique for N and Q band point source ima
       <title>About N and Q Band Imaging Standards</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="1"/>
@@ -157,6 +158,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="4"/>
@@ -297,6 +299,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="7"/>
@@ -436,6 +439,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="10"/>
@@ -576,6 +580,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="13"/>
@@ -716,6 +721,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="16"/>
@@ -856,6 +862,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="19"/>
@@ -996,6 +1003,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="22"/>
@@ -1136,6 +1144,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="25"/>
@@ -1276,6 +1285,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="28"/>
@@ -1416,6 +1426,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="31"/>
@@ -1556,6 +1567,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="34"/>
@@ -1696,6 +1708,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="37"/>
@@ -1836,6 +1849,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="40"/>
@@ -1976,6 +1990,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="43"/>
@@ -2116,6 +2131,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="46"/>
@@ -2256,6 +2272,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="49"/>
@@ -2396,6 +2413,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="52"/>
@@ -2536,6 +2554,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="55"/>
@@ -2676,6 +2695,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="58"/>
@@ -2816,6 +2836,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="61"/>
@@ -2956,6 +2977,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="64"/>
@@ -3096,6 +3118,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="67"/>
@@ -3236,6 +3259,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="70"/>
@@ -3376,6 +3400,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="73"/>
@@ -3516,6 +3541,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="76"/>
@@ -3656,6 +3682,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="79"/>
@@ -3796,6 +3823,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="82"/>
@@ -3936,6 +3964,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="85"/>
@@ -4076,6 +4105,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="88"/>
@@ -4216,6 +4246,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="91"/>
@@ -4356,6 +4387,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="94"/>
@@ -4496,6 +4528,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="97"/>
@@ -4636,6 +4669,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="100"/>
@@ -4776,6 +4810,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="103"/>
@@ -4916,6 +4951,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="106"/>
@@ -5056,6 +5092,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="109"/>
@@ -5196,6 +5233,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="112"/>
@@ -5336,6 +5374,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="115"/>
@@ -5476,6 +5515,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="118"/>
@@ -5616,6 +5656,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="121"/>
@@ -5756,6 +5797,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="124"/>
@@ -5896,6 +5938,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="127"/>
@@ -6036,6 +6079,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="130"/>
@@ -6176,6 +6220,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="133"/>
@@ -6316,6 +6361,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="136"/>
@@ -6456,6 +6502,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="139"/>
@@ -6596,6 +6643,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="142"/>
@@ -6736,6 +6784,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="145"/>
@@ -6876,6 +6925,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="148"/>
@@ -7016,6 +7066,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="151"/>
@@ -7156,6 +7207,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="154"/>
@@ -7296,6 +7348,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="157"/>
@@ -7436,6 +7489,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="160"/>
@@ -7576,6 +7630,7 @@ These observations follow a standard technique for N and Q band point source ima
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
       <SpInstMichelleRef idref="163"/>
@@ -7736,6 +7791,7 @@ If you change the standard star settings in the Michelle instrument component, p
 </note>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">450.276171264</estimatedDuration>
       <SpInstMichelleRef idref="165"/>
@@ -7867,6 +7923,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">346.1846334912</estimatedDuration>
       <SpInstMichelleRef idref="167"/>
@@ -8027,6 +8084,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="170"/>
@@ -8156,6 +8214,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="173"/>
@@ -8285,6 +8344,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="176"/>
@@ -8414,6 +8474,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="179"/>
@@ -8543,6 +8604,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="182"/>
@@ -8672,6 +8734,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="185"/>
@@ -8801,6 +8864,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="188"/>
@@ -8930,6 +8994,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="191"/>
@@ -9059,6 +9124,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="194"/>
@@ -9188,6 +9254,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="197"/>
@@ -9317,6 +9384,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="200"/>
@@ -9446,6 +9514,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="203"/>
@@ -9575,6 +9644,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="206"/>
@@ -9704,6 +9774,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="209"/>
@@ -9833,6 +9904,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="212"/>
@@ -9962,6 +10034,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="215"/>
@@ -10091,6 +10164,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="218"/>
@@ -10220,6 +10294,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="221"/>
@@ -10349,6 +10424,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="224"/>
@@ -10478,6 +10554,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="227"/>
@@ -10607,6 +10684,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="230"/>
@@ -10736,6 +10814,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="233"/>
@@ -10865,6 +10944,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="236"/>
@@ -10994,6 +11074,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="239"/>
@@ -11123,6 +11204,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="242"/>
@@ -11252,6 +11334,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="245"/>
@@ -11381,6 +11464,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="248"/>
@@ -11511,6 +11595,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="251"/>
@@ -11641,6 +11726,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="254"/>
@@ -11770,6 +11856,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="257"/>
@@ -11899,6 +11986,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="260"/>
@@ -12028,6 +12116,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="263"/>
@@ -12157,6 +12246,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="266"/>
@@ -12286,6 +12376,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="269"/>
@@ -12415,6 +12506,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="272"/>
@@ -12545,6 +12637,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="275"/>
@@ -12674,6 +12767,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="278"/>
@@ -12803,6 +12897,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="281"/>
@@ -12932,6 +13027,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="284"/>
@@ -13061,6 +13157,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="287"/>
@@ -13190,6 +13287,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="290"/>
@@ -13319,6 +13417,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="293"/>
@@ -13449,6 +13548,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="296"/>
@@ -13578,6 +13678,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="299"/>
@@ -13707,6 +13808,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="302"/>
@@ -13836,6 +13938,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="305"/>
@@ -13965,6 +14068,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="308"/>
@@ -14094,6 +14198,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="311"/>
@@ -14223,6 +14328,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="314"/>
@@ -14352,6 +14458,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="317"/>
@@ -14482,6 +14589,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="320"/>
@@ -14611,6 +14719,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="323"/>
@@ -14741,6 +14850,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="326"/>
@@ -14871,6 +14981,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="329"/>
@@ -15001,6 +15112,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="332"/>
@@ -15130,6 +15242,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="335"/>
@@ -15259,6 +15372,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="338"/>
@@ -15388,6 +15502,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="341"/>
@@ -15517,6 +15632,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="344"/>
@@ -15646,6 +15762,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="347"/>
@@ -15775,6 +15892,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="350"/>
@@ -15904,6 +16022,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="353"/>
@@ -16033,6 +16152,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="356"/>
@@ -16162,6 +16282,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="359"/>
@@ -16291,6 +16412,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="362"/>
@@ -16420,6 +16542,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="365"/>
@@ -16549,6 +16672,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="368"/>
@@ -16678,6 +16802,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="371"/>
@@ -16808,6 +16933,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="374"/>
@@ -16938,6 +17064,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="377"/>
@@ -17067,6 +17194,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="380"/>
@@ -17196,6 +17324,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="383"/>
@@ -17325,6 +17454,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="386"/>
@@ -17454,6 +17584,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="389"/>
@@ -17583,6 +17714,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="392"/>
@@ -17712,6 +17844,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="395"/>
@@ -17841,6 +17974,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="398"/>
@@ -17970,6 +18104,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="401"/>
@@ -18099,6 +18234,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="404"/>
@@ -18228,6 +18364,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="407"/>
@@ -18357,6 +18494,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="410"/>
@@ -18487,6 +18625,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="413"/>
@@ -18617,6 +18756,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="416"/>
@@ -18746,6 +18886,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="419"/>
@@ -18875,6 +19016,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="422"/>
@@ -19004,6 +19146,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="425"/>
@@ -19134,6 +19277,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="428"/>
@@ -19264,6 +19408,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="431"/>
@@ -19394,6 +19539,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="434"/>
@@ -19523,6 +19669,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="437"/>
@@ -19652,6 +19799,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="440"/>
@@ -19781,6 +19929,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="443"/>
@@ -19911,6 +20060,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="446"/>
@@ -20040,6 +20190,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="449"/>
@@ -20170,6 +20321,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="452"/>
@@ -20299,6 +20451,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="455"/>
@@ -20429,6 +20582,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="458"/>
@@ -20558,6 +20712,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="461"/>
@@ -20687,6 +20842,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="464"/>
@@ -20816,6 +20972,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="467"/>
@@ -20945,6 +21102,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="470"/>
@@ -21074,6 +21232,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="473"/>
@@ -21203,6 +21362,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="476"/>
@@ -21332,6 +21492,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="479"/>
@@ -21461,6 +21622,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="482"/>
@@ -21590,6 +21752,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="485"/>
@@ -21719,6 +21882,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="488"/>
@@ -21848,6 +22012,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="491"/>
@@ -21977,6 +22142,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="494"/>
@@ -22107,6 +22273,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="497"/>
@@ -22237,6 +22404,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="500"/>
@@ -22367,6 +22535,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="503"/>
@@ -22496,6 +22665,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="506"/>
@@ -22625,6 +22795,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="509"/>
@@ -22754,6 +22925,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="512"/>
@@ -22883,6 +23055,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="515"/>
@@ -23012,6 +23185,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="518"/>
@@ -23142,6 +23316,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="521"/>
@@ -23271,6 +23446,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="524"/>
@@ -23400,6 +23576,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="527"/>
@@ -23529,6 +23706,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="530"/>
@@ -23658,6 +23836,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="533"/>
@@ -23787,6 +23966,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="536"/>
@@ -23916,6 +24096,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="539"/>
@@ -24045,6 +24226,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="542"/>
@@ -24174,6 +24356,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="545"/>
@@ -24303,6 +24486,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="548"/>
@@ -24432,6 +24616,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="551"/>
@@ -24561,6 +24746,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="554"/>
@@ -24690,6 +24876,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="557"/>
@@ -24819,6 +25006,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="560"/>
@@ -24948,6 +25136,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="563"/>
@@ -25077,6 +25266,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="566"/>
@@ -25206,6 +25396,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="569"/>
@@ -25336,6 +25527,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="572"/>
@@ -25465,6 +25657,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="575"/>
@@ -25594,6 +25787,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="578"/>
@@ -25723,6 +25917,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="581"/>
@@ -25852,6 +26047,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="584"/>
@@ -25981,6 +26177,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="587"/>
@@ -26110,6 +26307,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="590"/>
@@ -26239,6 +26437,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="593"/>
@@ -26368,6 +26567,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="596"/>
@@ -26497,6 +26697,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="599"/>
@@ -26626,6 +26827,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="602"/>
@@ -26756,6 +26958,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="605"/>
@@ -26885,6 +27088,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="608"/>
@@ -27014,6 +27218,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="611"/>
@@ -27144,6 +27349,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="614"/>
@@ -27273,6 +27479,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="617"/>
@@ -27402,6 +27609,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="620"/>
@@ -27531,6 +27739,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="623"/>
@@ -27660,6 +27869,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="626"/>
@@ -27789,6 +27999,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="629"/>
@@ -27918,6 +28129,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="632"/>
@@ -28047,6 +28259,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="635"/>
@@ -28176,6 +28389,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="638"/>
@@ -28305,6 +28519,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
       <SpInstMichelleRef idref="641"/>
@@ -28434,6 +28649,7 @@ If you change the standard star settings in the Michelle instrument component, p
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">723.1590226431999</estimatedDuration>
       <SpInstMichelleRef idref="644"/>

@@ -30,6 +30,7 @@ A J Adamson, JAC August 2000</note>
       <title>RA 0 - 4 hours</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="0"/>
@@ -214,6 +215,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="3"/>
@@ -398,6 +400,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="6"/>
@@ -582,6 +585,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="9"/>
@@ -766,6 +770,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="12"/>
@@ -950,6 +955,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="15"/>
@@ -1134,6 +1140,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="18"/>
@@ -1318,6 +1325,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="21"/>
@@ -1502,6 +1510,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="24"/>
@@ -1686,6 +1695,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="27"/>
@@ -1870,6 +1880,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="30"/>
@@ -2054,6 +2065,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="33"/>
@@ -2238,6 +2250,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="36"/>
@@ -2427,6 +2440,7 @@ q = perpendicular to the slit</note>
       <title>RA 5 - 8 hours</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="39"/>
@@ -2611,6 +2625,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="42"/>
@@ -2795,6 +2810,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="45"/>
@@ -2979,6 +2995,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="48"/>
@@ -3163,6 +3180,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="51"/>
@@ -3347,6 +3365,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="54"/>
@@ -3531,6 +3550,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="57"/>
@@ -3715,6 +3735,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="60"/>
@@ -3899,6 +3920,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="63"/>
@@ -4083,6 +4105,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="66"/>
@@ -4267,6 +4290,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="69"/>
@@ -4451,6 +4475,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">357.44000000000005</estimatedDuration>
       <SpTelescopeObsCompRef idref="72"/>
@@ -4635,6 +4660,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="75"/>
@@ -4819,6 +4845,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="78"/>
@@ -5008,6 +5035,7 @@ q = perpendicular to the slit</note>
       <title>RA 9 - 13 hours</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="81"/>
@@ -5192,6 +5220,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="84"/>
@@ -5376,6 +5405,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="87"/>
@@ -5560,6 +5590,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="90"/>
@@ -5744,6 +5775,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">165.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="93"/>
@@ -5928,6 +5960,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="96"/>
@@ -6112,6 +6145,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">165.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="99"/>
@@ -6296,6 +6330,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="102"/>
@@ -6480,6 +6515,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">165.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="105"/>
@@ -6664,6 +6700,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="108"/>
@@ -6853,6 +6890,7 @@ q = perpendicular to the slit</note>
       <title>RA 14 - 16 hours</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="111"/>
@@ -7037,6 +7075,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="114"/>
@@ -7221,6 +7260,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="117"/>
@@ -7405,6 +7445,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="120"/>
@@ -7589,6 +7630,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="123"/>
@@ -7773,6 +7815,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="126"/>
@@ -7957,6 +8000,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="129"/>
@@ -8141,6 +8185,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="132"/>
@@ -8325,6 +8370,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="135"/>
@@ -8509,6 +8555,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="138"/>
@@ -8693,6 +8740,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="141"/>
@@ -8877,6 +8925,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="144"/>
@@ -9061,6 +9110,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="147"/>
@@ -9250,6 +9300,7 @@ q = perpendicular to the slit</note>
       <title>RA 17 - 19 hours</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="150"/>
@@ -9434,6 +9485,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="153"/>
@@ -9618,6 +9670,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="156"/>
@@ -9802,6 +9855,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="159"/>
@@ -9986,6 +10040,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="162"/>
@@ -10170,6 +10225,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="165"/>
@@ -10354,6 +10410,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="168"/>
@@ -10538,6 +10595,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="171"/>
@@ -10722,6 +10780,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="174"/>
@@ -10906,6 +10965,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="177"/>
@@ -11090,6 +11150,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="180"/>
@@ -11274,6 +11335,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">165.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="183"/>
@@ -11463,6 +11525,7 @@ q = perpendicular to the slit</note>
       <title>RA 20 - 23h</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="186"/>
@@ -11647,6 +11710,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="189"/>
@@ -11831,6 +11895,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="192"/>
@@ -12015,6 +12080,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="195"/>
@@ -12199,6 +12265,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="198"/>
@@ -12383,6 +12450,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="201"/>
@@ -12567,6 +12635,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="204"/>
@@ -12751,6 +12820,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">197.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="207"/>
@@ -12935,6 +13005,7 @@ q = perpendicular to the slit</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+      <library_version>$Revision$</library_version>
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.44000000000003</estimatedDuration>
       <SpTelescopeObsCompRef idref="210"/>
