@@ -1296,11 +1296,11 @@ public class SpTranslator {
                          sequence.addElement( "-WAIT ALL" );
                       }
                   } else {
-                      sequence.addElement( "-system " + equinox +" ALL" );
 		      if ( firstSlew ) {
 			  sequence.addElement("break");
 			  firstSlew = false;
 		      }
+                      sequence.addElement( "-system " + equinox +" ALL" );
                       sequence.addElement( "do 1 _slew_all" );
                   }
                }
