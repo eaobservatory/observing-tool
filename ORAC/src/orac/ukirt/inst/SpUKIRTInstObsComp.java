@@ -433,6 +433,13 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 
         extra_oh = 30.0;
       }
+//       System.out.println( "ObserveStepTime calculated from...");
+//       System.out.println( "currentNoCoadds = "+currentNoCoadds);
+//       System.out.println( "currentExposureTime = "+currentExposureTime);
+//       System.out.println( "exp time overhead = "+getExposureOverhead());
+//       System.out.println( "int ohd = "+_int_oh);
+//       System.out.println( "obs ohd = "+_obs_oh);
+//       System.out.println( "extra_oh = "+extra_oh);
       return (((currentNoCoadds * (currentExposureTime + getExposureOverhead())) + _int_oh) + _obs_oh) + extra_oh;
     }
   }

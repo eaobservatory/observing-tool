@@ -3935,6 +3935,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         W_dutyCycle = totalExposure/W_obsTime;
 }
 
+    public double getExposureOverhead() {
+	double overhead = 0.0;
+	double dc = (Double.valueOf(getDutyCycle())).doubleValue();
+	double expTime = getExposureTime();
+	overhead = expTime/dc - expTime;
+	return overhead;
+    }
+
 
     /**
      * Update the daconf for the given obsType
