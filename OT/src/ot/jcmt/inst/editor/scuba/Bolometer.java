@@ -13,6 +13,7 @@ package ot.jcmt.inst.editor.scuba;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -232,12 +233,17 @@ public class Bolometer extends ClickableCircle {
       return;
     }
 
-    int command;
-    if(SwingUtilities.isRightMouseButton(e)) {
-      setPrimary(true);
+    if(_enabled) {
+      int command;
+      if(SwingUtilities.isRightMouseButton(e)) {
+        setPrimary(true);
+      }
+      else {
+        setSelected(!_selected);
+      }
     }
     else {
-      setSelected(!_selected);
+      Toolkit.getDefaultToolkit().beep();
     }
 
     super.mouseClicked(e);
