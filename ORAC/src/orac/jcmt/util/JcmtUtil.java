@@ -66,7 +66,7 @@ public class JcmtUtil implements TelescopeUtil {
   public boolean supports(int feature) {
     switch(feature) {
       case FEATURE_TARGET_INFO_CHOP:        return false;
-      case FEATURE_FLAG_AS_STANDARD:        return true;
+      case FEATURE_FLAG_AS_STANDARD:        return false;
       case FEATURE_TARGET_INFO_PROP_MOTION: return true;
       case FEATURE_TARGET_INFO_TRACKING:    return false;
       case FEATURE_OFFSET_GRID_PA:          return true;
