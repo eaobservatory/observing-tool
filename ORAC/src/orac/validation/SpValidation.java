@@ -197,11 +197,14 @@ public class SpValidation {
 	}
     }
 
+    /*
+       SDW- REMOVED since we can now have >1 observer note
     if (numberOfObserveInstructions > 1) {
 	report.add(new ErrorMessage(ErrorMessage.ERROR,
 				    "MSB \"" + spMSB.getTitle() + "\" has >1 observer note associated with it.",
 				    "Each MSB can only contain one note that has \"Show to the Observer\" ticked."));
     }
+    */
     if (!observeNoteFound) {
 	report.add(new ErrorMessage (ErrorMessage.WARNING,
 				     "MSB \"" + spMSB.getTitle() + "\" does not have an Show-to Observer Note",
