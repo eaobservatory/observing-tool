@@ -272,12 +272,11 @@ nextElement()
    }
 
    // Base case: an iterComp without children
-   if (_childEnum == null) {
+   if ( (_childEnum == null) || !(_childEnum.hasMoreElements()) ) {
 
       if (_curElement == null) {
          _curElement = _thisNextElement();
       }
-
       v = new Vector();
       v.insertElementAt(_curElement, 0);
       _curElement = null;
@@ -301,7 +300,8 @@ nextElement()
       }
       return v;
 
-   } else if (_childEnum.hasCleanup()) {
+   } 
+   else if (_childEnum.hasCleanup()) {
       v = new Vector();
       v.addElement(_childEnum.cleanup());
       return v;
