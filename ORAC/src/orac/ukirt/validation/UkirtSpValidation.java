@@ -20,6 +20,7 @@ import gemini.sp.iter.SpIterFolder;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpObsContextItem;
+import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterOffset;
@@ -683,6 +684,25 @@ public class UkirtSpValidation extends SpValidation {
 	    }
 	  }  
 	}  
+    }
+
+    // Make sure the guide star is within 210 arcsecs of the base
+    if ( hasGuideStar ) {
+        SpTelescopePos basePos = list.getBasePosition();
+        SpTelescopePos guidePos = (SpTelescopePos)list.getPosition("GUIDE");
+        if ( basePos != null && guidePos!= null ) {
+            // Guides are never offsets for ukirt, so we need to work out the offsets
+            double [] offsets = RADecMath.getOffset(guidePos.getXaxis(), guidePos.getYaxis(),
+                    basePos.getXaxis(), basePos.getYaxis());
+            for ( int i=0; i<offsets.length; i++ ) {
+                if ( offsets[i] > 210 ) {
+                    report.add( new ErrorMessage( ErrorMessage.ERROR,
+                                basePos.getName(),
+                                "Guide star is more than 210 arcsecs from the base"));
+                    break;
+                }
+            }
+        }
     }
   
     if(!hasGuideStar) {
