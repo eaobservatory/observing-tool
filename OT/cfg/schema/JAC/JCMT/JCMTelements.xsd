@@ -25,6 +25,7 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group   ref="toml:jac_meta_group"/>
+      <xsd:element name="min" type="xsd:anyType"  minOccurs="0"/>
       <xsd:element name="noiseCalculationTau"   type="toml:tauLimit"/>
       <xsd:group   ref="toml:siteQualityGroup"/>
     </xsd:sequence>
