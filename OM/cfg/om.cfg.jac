@@ -7,8 +7,8 @@
 # Only one configuration file for running.
 
 # Location for Ot configuration files to find orac ot objects.
-# It is not in use now.
-ot.cfgdir:/ukirt_sw/oracrel/apps/ot/cfg/
+# It is not in use now. YES IT IS! (AB, 2001/07/02)
+ot.cfgdir:/ukirt_sw/orac-J2/apps/ot/cfg/
 
 # Location for EXEC_PATH to find a directory where has a lot of exec files
 # This one should be the same which is defined in login.orac or systemsetup
@@ -22,7 +22,7 @@ CONF_PATH:/ukirtdata/orac_data/configs
 
 # CONT_PATH specifies the location of the Drama sequencer.  It will fail
 # to start if the JVM can not find the file.  The OM would not run the 
-# Drama task fails to start.
+# Drama task fails to start. Now not in use.
 CONT_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/oos
 
 # Location for images files; there are a number of gif files.
@@ -31,26 +31,36 @@ IMAG_PATH:/ukirt_sw/oracom/image/
 # SOCK_CODE specifies the location of the Drama Socket task and code.
 # It will fail to start if the JVM can not find the file.  The OM would
 # not run the Drama task fails to start.
-SOCK_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/dsocket
+#SOCK_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/dsocket
+SOCK_CODE:/jac_sw/itsroot/install/oracda/bin/solaris/dsocket
 
 # MONI_CODE specifies the location of the monitor code, and hence the
 # the Drama monitor task.  It will fail to start if the JVM can not find
 # the file.  The OM would not run the Drama task fails to start.
-MONI_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/monitor
+#MONI_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/monitor
+MONI_CODE:/jac_sw/itsroot/install/oracda/bin/solaris/monitor
 
 # Specify the location for each instrument's control code and task.
 # It will fail to start if the JVM can not find the file.  The OM
-# would not run the Drama task fails to start.
+# would not run the Drama task fails to start. Now not in use.
 #CGS4_CODE:/net/alba/sw4/mt/cgs4/bin/cgs4
-UFTI_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/ufti
+#UFTI_CODE:/ukirt_sw/ukroot/install/orac/bin/solaris/ufti
 
 # Name of tasks to monitor for parameters of instruments. If not specified here
-# then the name defaults to the same as the instrument.
+# then the name defaults to the same as the instrument. Include name of
+# DES or TIDE task for each instrument here too, unless it
+# is "DES_<instrument>", which is the default that will be used.
 CGS4:ALFD@IRTCON
 IRCAM3:ALFD@IRTCON
+Michelle:MOCS
+
+DES_UFTI:TIDE
+DES_CGS4:TIDE
+DES_IRCAM3:TIDE
 
 # Location of script for load dhs
-LOAD_DHSC:/ukirt_sw/bin/loadORAC
+LOAD_DHSC:loadORAC
+#LOAD_DHSC:/ukirt_sw/bin/loadORAC
 #LOAD_DHSC:/bin/true
 
 # Script debugging. Turn this on for messages from the load script and
@@ -58,11 +68,11 @@ LOAD_DHSC:/ukirt_sw/bin/loadORAC
 SCR_MESS:ON
 
 # RMI debugging, a switch for RMI-related debugging print outs
-RMIS_MESS:ON
+RMIS_MESS:OFF
 
 # Normal debugging, a switch for normal debugging print outs e.g. the
 # JVM path settings.
-DBUG_MESS:ON
+DBUG_MESS:OFF
 
 # Socket message debugging, a switch for all the string messgae from the
 # socket.
@@ -83,3 +93,17 @@ UFTI_OBJE:rmi://kiki.ukirt.jach.hawaii.edu:4321/uftiConsole
 # RMI SERVER PORT NUMBER, the post numer which rmi server uses.
 RMIS_PORT:4321
 
+#FRAME TO SUBTRACT IN MOVIE, location and format of sdf files
+#Directory path up to (not including) "/YYYYMMDD ..." 
+DATA_BASE_DIR:/net/alba/data/michelle/data
+
+#Child directory in "DATA_BASE_DIR/YYYYMMDD/" (e.g. raw, reduced)
+DATA_TYPE_SUB_DIR:reduced
+
+#Suffix for sdf files
+SDF_SUFFIX:.sdf
+
+#start and end index of substring in sdf file name that limit the number in that file name.
+#E.g. number "00153" in filename "M20001130_00153_raw.sdf": start index 10, end index 15.
+NUMBER_START_INDEX:10
+NUMBER_END_INDEX:15
