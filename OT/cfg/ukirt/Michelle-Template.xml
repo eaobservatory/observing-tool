@@ -1,0 +1,2528 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SpLibrary type="lb" subtype="none">
+  <meta_gui_collapsed>false</meta_gui_collapsed>
+  <ot_version>2003-05-30</ot_version>
+  <meta_gui_filename>Michelle-Template.xml</meta_gui_filename>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <title>Michelle</title>
+    <SpLibraryFolder type="lf" subtype="none">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <title>Imaging</title>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="0"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">284.0049095</estimatedDuration>
+        <SpDRRecipeRef idref="1"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Array Tests</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpInstMichelle id="0" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>68.3 x 51.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="1" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_BIAS</DarkRecipe>
+          <title>ARRAY_TESTS</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>ARRAY_TESTS</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="3"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">373.00981899999994</estimatedDuration>
+        <SpTelescopeObsCompRef idref="2"/>
+        <SpDRRecipeRef idref="4"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Point Source Imaging</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="2" type="oc" subtype="targetList">
+          <chopThrow>15.07</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="3" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>68.3 x 51.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="4" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>NOD_CHOP_APHOT</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>NOD_CHOP_APHOT</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="6"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">10145.294569999978</estimatedDuration>
+        <SpTelescopeObsCompRef idref="5"/>
+        <SpDRRecipeRef idref="7"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Extended Source  with Point Sources (2x3 scan)</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>started with 0.08, 20 but moved to 0.1,10 on 20020423 (cloudy so shorter)</note>
+        </SpNote>
+        <SpTelescopeObsComp id="5" type="oc" subtype="targetList">
+          <chopThrow>3.8</chopThrow>
+          <chopSystem>FK5 (J2000)</chopSystem>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selected>false</meta_gui_selected>
+          <chopAngle>0.0</chopAngle>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <chopping>true</chopping>
+          <BASE TYPE="GUIDE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>17:45:31.394</c1>
+                <c2>-28:59:53.45</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="6" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <meta_gui_selected>false</meta_gui_selected>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>51.2 x 68.3</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="7" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>NOD_CHOP_SCAN</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>NOD_CHOP_SCAN</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>10</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 10X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_selected>false</meta_gui_selected>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>40.0</DC1>
+                  <DC2>30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-40.0</DC1>
+                  <DC2>30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-40.0</DC1>
+                  <DC2>-30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-30.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>40.0</DC1>
+                  <DC2>-30.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterNod type="ic" subtype="nod">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <nodPattern>
+                  <value>A</value>
+                  <value>B</value>
+                  <value>B</value>
+                  <value>A</value>
+                </nodPattern>
+                <SpIterObserve type="ic" subtype="observe">
+                  <repeatCount>1</repeatCount>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                </SpIterObserve>
+              </SpIterNod>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+    </SpLibraryFolder>
+    <SpLibraryFolder type="lf" subtype="none">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <title>Spectroscopy</title>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="8"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">284.0049095</estimatedDuration>
+        <SpDRRecipeRef idref="9"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Array Tests</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpInstMichelle id="8" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>68.3 x 51.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="9" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_BIAS</DarkRecipe>
+          <title>ARRAY_TESTS</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>ARRAY_TESTS</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <coadds>621</coadds>
+            <exposureTime>0.01</exposureTime>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+          </SpIterDarkObs>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="10"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">210.92017821119998</estimatedDuration>
+        <SpDRRecipeRef idref="11"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>End of night Michelle emissivity</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpNote observeInstruction="true" type="no" subtype="none">
+          <title>emissivity check</title>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <note>This end of night observation does an emissivity check by measuring the sky and the dome flux in the thermal IR.  
+
+Before starting the sequence, move the telescope to zenith and make sure you are pointing at blank sky. Run the sequence and take the initial flatfield and sky observation (note: there is a break before the first flat - hit "continue" when this point is reached). The sequence then hits another break before taking the next observation. At this point, please close the dome and the mirror covers. When both are closed, hit "continue" and let the sequence run to the next break. 
+
+At the final break, you can run down the sequence console and OM, there is no need to take data on the final flat. It is there so that the Michelle window cover gets closed. Once you've reached the final break point, the window will have been closed by the "set object" command.</note>
+        </SpNote>
+        <SpInstMichelle id="10" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>6</order>
+          <centralWavelength>12.1</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>Echelle</disperser>
+          <instPort>Centre</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.38</value>
+            <value>6.86</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDSTARE</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I116B9</filter>
+          <coadds>3</coadds>
+          <nreads>601</nreads>
+          <meta_gui_selected>false</meta_gui_selected>
+          <spectralCoverage>12.07 - 12.13</spectralCoverage>
+          <observationTime>18.1150222764</observationTime>
+          <dutyCycle>0.9936504479737874</dutyCycle>
+          <chopFrequency>0.0</chopFrequency>
+          <maskAngle>48.0912</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>0</nullCycles>
+          <pixelFOV>0.57 x 0.25</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>1.14 x 60.92</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>6.0</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="11" type="oc" subtype="DRRecipe">
+          <DarkInGroup>false</DarkInGroup>
+          <ArcInGroup>false</ArcInGroup>
+          <SkyRecipe>EMISSIVITY</SkyRecipe>
+          <ObjectRecipe>EMISSIVITY</ObjectRecipe>
+          <meta_gui_selected>false</meta_gui_selected>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_unique>true</meta_unique>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BiasInGroup>false</BiasInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <title>EMISSIVITY</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>601</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>18.1150222764</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>I116B9</filter>
+            <dutyCycle>0.9936504479737874</dutyCycle>
+            <meta_gui_selected>false</meta_gui_selected>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>6.0</exposureTime>
+            <chopFrequency>0.0</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>0</nullCycles>
+            <nresets>1</nresets>
+            <coadds>3</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDSTARE</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterSky type="ic" subtype="sky">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+          </SpIterSky>
+          <SpIterObserve type="ic" subtype="observe">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+          </SpIterObserve>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>601</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>18.1150222764</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>I116B9</filter>
+            <dutyCycle>0.9936504479737874</dutyCycle>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>6.0</exposureTime>
+            <chopFrequency>0.0</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>0</nullCycles>
+            <nresets>1</nresets>
+            <coadds>3</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDSTARE</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="13"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">246.0256136528</estimatedDuration>
+        <SpTelescopeObsCompRef idref="12"/>
+        <SpDRRecipeRef idref="14"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>General Peakup</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpNote type="no" subtype="none">
+          <title>What is this?</title>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <note>This is a sequence for doing Michelle peakup without using movie. It scans a distance of 4 arcsecs across the slit in steps of 0.5 arcsecs.
+
+In order to use this sequence, you should make sure that the slit position angle, slit width, wavelength and grating are all changed to match the settings of your own observations. You will also need to keep the target component in the sequence as this will turn on chopping for you.
+
+Sampling, which is set to 1x1 in this sequence, and the observation time, which is set to 10 seconds, need not be altered. These have been changed from the default Michelle settings in order to speed up peakup.</note>
+        </SpNote>
+        <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
+          <chopThrow>16</chopThrow>
+          <chopSystem>FK5 (J2000)</chopSystem>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selected>false</meta_gui_selected>
+          <chopAngle>0.0</chopAngle>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <chopping>true</chopping>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="13" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>Centre</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>10.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>40</coadds>
+          <nreads>22</nreads>
+          <meta_gui_selected>false</meta_gui_selected>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>21.2806237392</observationTime>
+          <dutyCycle>0.8053450467269815</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="14" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>PEAK_UP</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>PEAK_UP</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset1</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>2.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>1.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>1.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-0.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-1.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-1.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-2.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <title>0,0</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="16"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">430.0704009752</estimatedDuration>
+        <SpTelescopeObsCompRef idref="15"/>
+        <SpDRRecipeRef idref="17"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Echelle Peakup</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpNote type="no" subtype="none">
+          <title>What is this?</title>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This is a sequence for doing Michelle peakup without using movie. It scans a distance of 4 arcsecs across the slit in steps of 0.5 arcsecs, and also performs an offset observation, along the slit, for sky subtraction purposes.
+
+In order to use this sequence, you should make sure that the slit position angle, slit width, wavelength and order are all changed to match the settings of your own observations. 
+
+Sampling, which is set to 1x1 in this sequence, and the observation time, which is set to 20 seconds, need not be altered.</note>
+        </SpNote>
+        <SpTelescopeObsComp id="15" type="oc" subtype="targetList">
+          <chopThrow>16</chopThrow>
+          <chopSystem>FK5 (J2000)</chopSystem>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selected>false</meta_gui_selected>
+          <chopAngle>0.0</chopAngle>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <chopping>false</chopping>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="16" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>7</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>Echelle</disperser>
+          <instPort>Centre</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDSTARE</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I103B10</filter>
+          <coadds>3</coadds>
+          <nreads>601</nreads>
+          <meta_gui_selected>false</meta_gui_selected>
+          <spectralCoverage>10.47 - 10.53</spectralCoverage>
+          <observationTime>18.1150222764</observationTime>
+          <dutyCycle>0.9936504479737874</dutyCycle>
+          <chopFrequency>0.0</chopFrequency>
+          <maskAngle>49.6697</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>0</nullCycles>
+          <pixelFOV>0.59 x 0.25</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>1.17 x 59.02</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>6.0</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
+          <DarkInGroup>false</DarkInGroup>
+          <ArcInGroup>false</ArcInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <ObjectRecipe>PEAK_UP_PAIRS</ObjectRecipe>
+          <meta_gui_selected>false</meta_gui_selected>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_unique>true</meta_unique>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BiasInGroup>false</BiasInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <title>PEAK_UP_PAIRS</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterOffset type="ic" subtype="offset">
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>2.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>2.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>1.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>1.5</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>1.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>1.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.5</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-0.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-0.5</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-1.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-1.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-1.5</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-1.5</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-2.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-2.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+              </obsArea>
+              <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_selectedOffsetPos>Offset1</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <title>0,0</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="18"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">450.276171264</estimatedDuration>
+        <SpDRRecipeRef idref="19"/>
+        <meta_gui_selected>false</meta_gui_selected>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Flats and Arc</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpInstMichelle id="18" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="19" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_BIAS</DarkRecipe>
+          <title>QUICK_LOOK</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>NBlock</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>3</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>WCalLowN</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Arc</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="21"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
+        <SpTelescopeObsCompRef idref="20"/>
+        <SpDRRecipeRef idref="22"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Standard Star</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="20" type="oc" subtype="targetList">
+          <chopThrow>16.01</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>BS 99</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:26:17.051</c1>
+                <c2>-42:18:21.53</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="21" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="22" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>STANDARD_STAR</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="24"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
+        <SpTelescopeObsCompRef idref="23"/>
+        <SpDRRecipeRef idref="25"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Standard Star With Flats and Arc</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="23" type="oc" subtype="targetList">
+          <chopThrow>16.01</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>BS 99</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:26:17.051</c1>
+                <c2>-42:18:21.53</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="24" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="25" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>STANDARD_STAR</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>NBlock</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>3</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>WCalLowN</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Arc</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="27"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
+        <SpTelescopeObsCompRef idref="26"/>
+        <SpDRRecipeRef idref="28"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Point Source</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="26" type="oc" subtype="targetList">
+          <chopThrow>16.01</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>BS 99</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:26:17.051</c1>
+                <c2>-42:18:21.53</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="27" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="28" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>POINT_SOURCE</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="30"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
+        <SpTelescopeObsCompRef idref="29"/>
+        <SpDRRecipeRef idref="31"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Point Source With Flats And Arcs</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="29" type="oc" subtype="targetList">
+          <chopThrow>16.01</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>BS 99</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:26:17.051</c1>
+                <c2>-42:18:21.53</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="30" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="31" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>POINT_SOURCE</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>NBlock</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>3</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>WCalLowN</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Arc</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-7.98</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="33"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
+        <SpTelescopeObsCompRef idref="32"/>
+        <SpDRRecipeRef idref="34"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Extended Source - Chop Along Slit</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
+          <chopThrow>21.7</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="33" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="34" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>POINT_SOURCE</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset2</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="36"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
+        <SpTelescopeObsCompRef idref="35"/>
+        <SpDRRecipeRef idref="37"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Extended Source - Chop Along Slit with Flats And Arc</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="35" type="oc" subtype="targetList">
+          <chopThrow>21.7</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="36" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="37" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>POINT_SOURCE</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>NBlock</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>3</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>WCalLowN</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Arc</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset2</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="39"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
+        <SpTelescopeObsCompRef idref="38"/>
+        <SpDRRecipeRef idref="40"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Extended Source - Chop And Nod Off Slit</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
+          <chopThrow>21.7</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>90.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="39" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="40" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>POINT_SOURCE</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset2</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <SpInstMichelleRef idref="42"/>
+        <library_version>$Revision$</library_version>
+        <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
+        <SpTelescopeObsCompRef idref="41"/>
+        <SpDRRecipeRef idref="43"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Extended Source - Chop And Nod Off Slit With Flats and Arcs</title>
+        <priority>99</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="41" type="oc" subtype="targetList">
+          <chopThrow>21.7</chopThrow>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>90.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="42" type="oc" subtype="inst.michelle">
+          <instPntgOffset>
+            <value>0.0</value>
+            <value>0.0</value>
+          </instPntgOffset>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>1</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>ndrv11small</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>0.59</value>
+            <value>7.52</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>NDCHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>NBlock</filter>
+          <coadds>78</coadds>
+          <nreads>22</nreads>
+          <spectralCoverage>6.52 - 14.48</spectralCoverage>
+          <observationTime>40.534521408</observationTime>
+          <dutyCycle>0.824471991586747</dutyCycle>
+          <chopFrequency>0.98681318073008</chopFrequency>
+          <maskAngle>0.455</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x2</sampling>
+          <nullReads>1</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>1</nullCycles>
+          <pixelFOV>0.38 x 0.38</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>0.76 x 91.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <exposureTime>0.21</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="43" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>POINT_SOURCE</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>NBlock</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>3</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
+            <nreads>22</nreads>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>40.534521408</observationTime>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.01</resetDelay>
+            <idlePeriod>0.01</idlePeriod>
+            <filter>WCalLowN</filter>
+            <dutyCycle>0.824471991586747</dutyCycle>
+            <calType>Arc</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>0.21</exposureTime>
+            <chopFrequency>0.98681318073008</chopFrequency>
+            <waveform>ndrv11small</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <sampling>as object</sampling>
+            <nullCycles>1</nullCycles>
+            <nresets>1</nresets>
+            <coadds>78</coadds>
+            <chopDelay>0.015</chopDelay>
+            <mustIdles>0</mustIdles>
+            <mode>NDCHOP</mode>
+            <readInterval>0.01</readInterval>
+            <flatSource>shutter</flatSource>
+          </SpIterMichelleCalObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>2</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 2X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset2</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>90.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpLibraryFolder>
+  </SpLibraryFolder>
+</SpLibrary>

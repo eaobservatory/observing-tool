@@ -55,7 +55,11 @@ public class OTMenuBar extends JMenuBar {
 	//fileMenu.add(createFileOpenStandardLibraryMenuItem());
 	JMenuItem [] instLibraryMenuItems = createFileOpenInstLibraryMenuItems();
 	for(int i = 0; i < instLibraryMenuItems.length; i++) {
-	  fileMenu.add(instLibraryMenuItems[i]);
+	    if ( instLibraryMenuItems[i] == null ) {
+		fileMenu.addSeparator();
+		continue;
+	    }
+	    fileMenu.add(instLibraryMenuItems[i]);
 	}  
 	fileMenu.addSeparator();
 	fileMenu.add(createFilePreferencesMenuItem());
@@ -152,6 +156,10 @@ public class OTMenuBar extends JMenuBar {
 	// CHanged for ORAC by AB, 1-Aug-00. Allow multiple libraries.
  	for (int i = 0; i<libs.length; i++) {
 	    final String libname = libs[i];
+	    if ( libname.equals("null") ) {
+		menuItems[i] = null;
+		continue;
+	    }
  	    menuItems[i] = new JMenuItem("Open "+libs[i]+" library");
 	    menuItems[i].addActionListener(new ActionListener() {
  		public void actionPerformed(ActionEvent e) {
