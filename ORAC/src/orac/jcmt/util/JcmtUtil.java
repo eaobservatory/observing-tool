@@ -36,20 +36,8 @@ public class JcmtUtil implements TelescopeUtil {
     return _spValidation;
   }
 
-  public String [] getTargetTags() {
-    return _targetTags;
-  }
-
   public String getBaseTag() {
     return _targetTags[0];
-  }
-
-  public String getAdditionalTarget() {
-    return _targetTags[1];
-  }
-
-  public String getAdditionalTargetFeatClass() {
-    return "ot.jcmt.tpe.TpeReferencePosFeature";
   }
 
   /**
@@ -78,11 +66,11 @@ public class JcmtUtil implements TelescopeUtil {
   /**
    * Sets PreTranslator in SpItemDOM.
    *
-   * Make sure at the time this method is called {@link #getBaseTag()} and
-   * {@link #getAdditionalTarget()} return correct values.
+   * Make sure at the time this method is called SpTelescopePos.BASE_TAG and
+   * SpTelescopePos.GUIDE_TAGS[0] are set to correct values.
    */
   public void installPreTranslator() throws Exception {
-    SpItemDOM.setPreTranslator(new JcmtPreTranslator(getBaseTag(), getAdditionalTarget()));
+    SpItemDOM.setPreTranslator(new JcmtPreTranslator(_targetTags[0], _targetTags[1]));
   }
 
   public String [] getCoordSys() {
