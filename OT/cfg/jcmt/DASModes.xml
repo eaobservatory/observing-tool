@@ -300,7 +300,7 @@
   <name>      NS_COPCOP_125AB  </name>
   <frontEnd>  B3              </frontEnd>
   <frequency> 353.8778        </frequency>
-  <sideband>  USB             </sideband>
+  <sideband>  LSB             </sideband>
   <mixers>    2               </mixers>
   <mode>      SSB             </mode>
   <systems>   4               </systems>
