@@ -860,7 +860,7 @@ print(String indentStr)
     if (typeStr().startsWith("p")) {
 	xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\"\n");
 	xmlBuffer.append("\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
-	xmlBuffer.append("\txmlns=\"http://omp.jach.hawaii.edu/schema\">\n");
+	xmlBuffer.append("\txmlns=\"http://omp.jach.hawaii.edu/schema/TOML\">\n");
     }
     else {
 	xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">");
