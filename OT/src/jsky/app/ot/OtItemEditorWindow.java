@@ -231,16 +231,6 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer {
 	// Tell the editor to show the values of this item.
 	if (_editor != null)
 	    _editor.setup(spItem);
-
-	// Added for OMP (MFO, 7 August 2001)
-	if(spItem instanceof SpObs) {
-          if(spItem.parent() instanceof SpMSB) {
-            ((EdObservation)ed).setMsbDisplay(false);
-	  }
-	  else {
-            ((EdObservation)ed).setMsbDisplay(true);
-	  }
-	}
     }
 
     /**
