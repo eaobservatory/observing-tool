@@ -11,6 +11,9 @@ import gemini.sp.SpFactory;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
 import gemini.sp.SpType;
+import gemini.sp.SpItem;
+import gemini.sp.SpPosAngleObserver;
+import gemini.sp.SpObsData;
 
 //import gemini.sp.iter.SpIterComp;
 //import gemini.sp.iter.SpIterEnumeration;
@@ -72,6 +75,21 @@ _thisNextElement()
 public class SpIterOffset extends SpIterComp
 {
    /**
+    * Position Angle.
+    *
+    * This attribute is only used for JCMT. Its String "PA" is taken from
+    * the TCS XML element &lt;PA&gt;.
+    */
+   public static String ATTR_POS_ANGLE = "PA";
+
+   /**
+    * Data structure for maintaining position angle and SpPosAngleObservers.
+    *
+    * Note that this is <b>not</b> the SpObsData object that is returned by getObsData().
+    */
+   private SpObsData _posAngleObsData = new SpObsData();
+
+   /**
     * The position list uses the attributes and values contained in
     * this SpItem's attribute table to construct and maintain a list
     * of offset positions.
@@ -114,6 +132,97 @@ getPosList()
     //}
    return _posList;
 }
+
+// Added by MFO, 15 February 2002
+/**
+ * This method returns a copy of the offset position list where all
+ * the offset positions are rotated by the position angle.
+ *
+ * The SpIterOffset item itself however maintains the unrotated list
+ * plus a postion angle.
+ * So this method is for classes that want to display the the positions
+ * that result from rotating them by the position angle.
+ */
+public SpOffsetPosList
+getRotatedPosList()
+{
+   SpOffsetPosList rotatedPosList = new SpOffsetPosList(new SpAvTable());
+  
+   double xAxis, yAxis;
+   double pa = ((getPosAngle() * Math.PI) / 180.0);
+   for(int i = 0; i < _posList.size(); i++) {
+      xAxis = (_posList.getPositionAt(i).getXaxis() *   Math.cos(pa))  + (_posList.getPositionAt(i).getYaxis() * Math.sin(pa));
+      yAxis = (_posList.getPositionAt(i).getXaxis() * (-Math.sin(pa))) + (_posList.getPositionAt(i).getYaxis() * Math.cos(pa));
+
+      rotatedPosList.createPosition(xAxis, yAxis);
+   }
+
+   return rotatedPosList;
+}
+
+
+/** Get the Position Angle. */
+public double getPosAngle()
+{
+   return _avTable.getDouble(ATTR_POS_ANGLE, 0.0);
+}
+
+/** Set the Position Angle as double. */
+public void setPosAngle(double pa)
+{
+   _avTable.set(ATTR_POS_ANGLE, pa);
+
+   _posAngleObsData.setPosAngle(pa);
+}
+
+
+/** Set the Position Angle as String. */
+public void setPosAngle(String pa)
+{
+   try {
+      setPosAngle(Double.parseDouble(pa));
+   }
+   catch(Exception e) {
+      setPosAngle(0.0);
+   }
+}
+
+
+/**
+ * Add a position angle observer.
+ */
+public void
+addPosAngleObserver(SpPosAngleObserver pao)
+{
+   _posAngleObsData.addPosAngleObserver(pao);
+}
+
+/**
+ * Remove a position angle observer.
+ */
+public void
+deletePosAngleObserver(SpPosAngleObserver pao)
+{
+   _posAngleObsData.deletePosAngleObserver(pao);
+}
+
+/**
+ * Connects SpPosAngleObservers if there are any amoung the new children.
+ */
+protected void
+insert(SpItem[] newChildren, SpItem afterChild)
+{
+   // Check for SpPosAngleObservers amoung the newChildren and
+   // add them as SpPosAngleObservers.
+   for(int i = 0; i < newChildren.length; i++) {
+      if(newChildren[i] instanceof SpPosAngleObserver) {
+	 addPosAngleObserver((SpPosAngleObserver)newChildren[i]);
+      }
+   }
+
+   super.insert(newChildren, afterChild);
+}
+
 
 /**
  * Override setTable() to make sure that the offset position list
