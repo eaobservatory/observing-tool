@@ -35,6 +35,11 @@
            a2="313"
            a3="625"
            a4="625"/>
+          <ArrayOf-int alias-ID="87" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"
+           a2="1"
+           a3="1"/>
         </edfreq.BandSpec>
         <edfreq.BandSpec alias-ID="15"
          numBands="2">
@@ -45,6 +50,9 @@
           <ArrayOf-int alias-ID="18" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
+          <ArrayOf-int alias-ID="88" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
@@ -72,6 +80,11 @@
            a2="313"
            a3="625"
            a4="625"/>
+          <ArrayOf-int alias-ID="89" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"
+           a2="1"
+           a3="1"/>
         </edfreq.BandSpec>
         <edfreq.BandSpec alias-ID="35"
          numBands="2">
@@ -82,6 +95,9 @@
           <ArrayOf-int alias-ID="38" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
+          <ArrayOf-int alias-ID="90" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
@@ -109,6 +125,11 @@
            a2="313"
            a3="625"
            a4="625"/>
+          <ArrayOf-int alias-ID="91" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"
+           a2="1"
+           a3="1"/>
         </edfreq.BandSpec>
         <edfreq.BandSpec alias-ID="51"
          numBands="2">
@@ -119,6 +140,9 @@
           <ArrayOf-int alias-ID="54" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
+          <ArrayOf-int alias-ID="92" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
@@ -146,6 +170,11 @@
            a2="313"
            a3="625"
            a4="625"/>
+          <ArrayOf-int alias-ID="93" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"
+           a2="1"
+           a3="1"/>
         </edfreq.BandSpec>
         <edfreq.BandSpec alias-ID="83"
          numBands="2">
@@ -156,6 +185,9 @@
           <ArrayOf-int alias-ID="86" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
+          <ArrayOf-int alias-ID="94" obj-name="numHybridSubBands" length="2"
+           a0="1"
+           a1="1"/>
         </edfreq.BandSpec>
       </java.util.Vector>
     </edfreq.Receiver>
