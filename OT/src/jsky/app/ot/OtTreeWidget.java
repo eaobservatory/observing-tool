@@ -28,6 +28,8 @@ import jsky.app.ot.util.ClipboardHelper;
 import jsky.util.gui.DialogUtil;
 import ot.OtAdvancedTreeDropTarget;
 import ot.OtAdvancedTreeDragSource;
+import javax.swing.event.TreeExpansionListener;
+import javax.swing.event.TreeExpansionEvent;
 
 /**
  * A helper class used when an attempt to place an observation component in
@@ -66,7 +68,7 @@ final class ConfirmAVClobber {
  * for adding, removing, and moving items around in the tree are provided.
  */
 public final class OtTreeWidget extends MultiSelTreeWidget
-    implements OtGuiAttributes, SpHierarchyChangeObserver {
+    implements OtGuiAttributes, SpHierarchyChangeObserver, TreeExpansionListener {
 
     // The OtTreeNodeWidget of the root node.
     private OtTreeNodeWidget _otTNW;
@@ -78,6 +80,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget
     // Information global to the program or plan.
     private ProgramInfo      _progInfo;
 
+    // If true, ignore action events
+    private boolean ignoreActions = false; // added by MFO (31 July 2001)
+
+
     /**
      * Default constructor, for the Bongo builder.
      */
@@ -87,6 +93,8 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
 	// Add a drop target to the FileTree
 	OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget(this, source);
+
+	tree.addTreeExpansionListener(this);
     }
 
     /**
@@ -143,7 +151,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	    }
 
 	    // Make sure this node is expanded/collapsed correctly.
+	    ignoreActions = true;  // added by MFO (31 July 2001)
 	    tnw.setCollapsed( child.getTable().getBool(GUI_COLLAPSED) );
+	    ignoreActions = false; // added by MFO (31 July 2001)
  
 	    ++index;
 	}
@@ -793,6 +803,36 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	_spItemsRemoved(oldParent, children);
 	spItemsAdded(newParent, children, afterChild);
     }
+
+
+    /**
+     * Sets .gui.collapsed to true in the respective SpItem.
+     *
+     * Added by MFO (31 July 2001).
+     */
+    public void treeCollapsed(TreeExpansionEvent e) {
+    
+	if(ignoreActions) {
+	    return;
+	}
+
+	((OtTreeNodeWidget)e.getPath().getLastPathComponent()).getItem().getTable().set(GUI_COLLAPSED, true);
+    }
+
+    /**
+     * Sets .gui.collapsed to false in the respective SpItem.
+     *
+     * Added by MFO (31 July 2001).
+     */
+    public void treeExpanded(TreeExpansionEvent e) {
+    
+	if(ignoreActions) {
+	    return;
+	}
+
+	((OtTreeNodeWidget)e.getPath().getLastPathComponent()).getItem().getTable().set(GUI_COLLAPSED, false);
+    }    
+
 }
 
 
