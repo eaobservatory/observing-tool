@@ -38,7 +38,6 @@ public final class OtCfg
     public static Vector instrumentTypes  = new Vector();
     public static Vector iteratorTypes    = new Vector();
     public static Vector obsIteratorTypes = new Vector();
-    public static String [] namedTargets  = null;
 
     public static TelescopeUtil telescopeUtil = null;
 
@@ -75,6 +74,7 @@ public final class OtCfg
 	String          telescopeUtilClass; // Added by MFO, 9 January 2002
 	String []       chopDefaults;       // Added by MFO, May 13, 2002
 	String []       namedTargets;       // Added by MFO, June 05, 2002
+	String          telescopeLatitude;   // Added by MFO, June 13, 2002
     }
 
     /**
@@ -133,6 +133,16 @@ public final class OtCfg
      */
     public static String[] getNamedTargets() {
       return _otCfgInfo.namedTargets;
+    }
+
+    // Added by MFO, June 13, 2002
+    /**
+     * Get telescope latitude.
+     *
+     * Can be used for noise calculations etc.
+     */
+    public static String getTelescopeLatitude() {
+      return _otCfgInfo.telescopeLatitude;
     }
 
     public static synchronized boolean	phase1Available() {

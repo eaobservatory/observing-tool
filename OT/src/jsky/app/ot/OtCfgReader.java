@@ -48,6 +48,9 @@ class OtCfgReader
     /** Targets which are known by the TCS by name. E.g. planets. */
     public static final String NAMED_TARGETS		= "named targets";
 
+    /** Telescope latitude. Can be used for noise calculations etc. */
+    public static final String TELESCOPE_LATITUDE	= "telescope latitude";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -165,6 +168,10 @@ class OtCfgReader
                                                        info.namedTargets = _parseCommaList(_getValue(line));
 						    }
 
+						    // Telescope latitude (added by MFO, June 13, 2002) 
+						    if(line.startsWith(TELESCOPE_LATITUDE)) {
+                                                       info.telescopeLatitude = _getValue(line);
+						    }
 	    }
 
 	    // Add the last config class
