@@ -78,6 +78,7 @@ public abstract class TcsPreTranslator implements PreTranslator {
     }
 
     translateAllTargetInformation(element);
+    translateAllOffsetIterators(element);
   }
 
   /**
@@ -92,27 +93,22 @@ public abstract class TcsPreTranslator implements PreTranslator {
     }
 
     reverseAllTargetInformation(element);
+    reverseAllOffsetIterators(element);
   }
 
   /**
    * Converts DOM/XML representaion of SpTelescopeObsComp.
    *
-   * From: DOM Element based on XML generated from SpAvTable in SpTelescopeObsComp (UKIRT)
+   * From: DOM Element based on XML generated from SpAvTable in SpTelescopeObsComp
    * To:   DOM Element based on XML as used in the TCS.
    *
    * The DTD/XML used in the TCS is based on the Gemini Phase 1 Tool.
-   * See document OCS/ICD/006.2 (Except: Element target contains (science | guide))
-   *
-   * This method is UKIRT specific. It will need adjusting for JCMT. But JCMT will eith have a
-   * telescope observation component which produces the TCS style XML and does not need
-   * this conversion or this method will need modification.
+   * See document OCS/ICD/006.2.
    *
    * @see #reverseTargetInformation(org.apache.xerces.dom.ElementImpl)
    */
   private void translateTargetInformation(ElementImpl element) throws Exception {
-    // TODO: In case their is going to be a different SpTelescopeObsComp for JCMT (from another package)
-    // which produces TCS style XML anyway, then the the following if should be more precise so that
-    // the conversion would not be applied in such case.
+
     if(!element.getTagName().equals("SpTelescopeObsComp")) {
       return;
     }
@@ -134,7 +130,7 @@ public abstract class TcsPreTranslator implements PreTranslator {
         if(targetListElement != null) {
           valueList = targetListElement.getElementsByTagName("value");
 
-          // Don't confuse TCS tag "Base" (JCMT speak) with Ukirt tag "Base" (as in "Base vs GUIDE")
+          // Don't confuse OCS TCS element <base> with Ukirt telescope tag "Base".
           baseElement = (ElementImpl)document.createElement("base");
 
           // Add target element and add type attribute.
@@ -166,7 +162,7 @@ public abstract class TcsPreTranslator implements PreTranslator {
           child = (ElementImpl)child.appendChild(document.createElement("c2"));
           child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.YAXIS_INDEX).getFirstChild().getNodeValue()));
     
-          // Replace old target list element (UKIRT/Sp style value array)
+          // Replace old target list element (Sp style value array)
           // with new base element (TCS XML)
           element.replaceChild(baseElement, targetListElement);
         }	
@@ -216,21 +212,15 @@ public abstract class TcsPreTranslator implements PreTranslator {
    * Converts DOM/XML representaion of SpTelescopeObsComp.
    *
    * From: DOM Element based on XML as used in the TCS.
-   * To:   DOM Element based on XML generated from SpAvTable in SpTelescopeObsComp (UKIRT)
+   * To:   DOM Element based on XML generated from SpAvTable in SpTelescopeObsComp
    *
    * The DTD/XML used in the TCS is based on the Gemini Phase 1 Tool.
-   * See document OCS/ICD/006.2 (Except: Element target contains (science | guide))
-   * 
-   * This method is UKIRT specific. It will need adjusting for JCMT. But JCMT will eith have a
-   * telescope observation component which produces the TCS style XML and does not need
-   * this conversion or this method will need modification.
+   * See document OCS/ICD/006.2.
    *
    * @see #translateTargetInformation(org.apache.xerces.dom.ElementImpl)
    */
   private void reverseTargetInformation(ElementImpl element) throws Exception {
-    // TODO: In case their is going to be a different SpTelescopeObsComp for JCMT (from another package)
-    // which produces TCS style XML anyway, then the the following if should be more precise so that
-    // the conversion would not be applied in such case.
+
     if(!element.getTagName().equals("SpTelescopeObsComp")) {
       return;
     }
@@ -248,7 +238,7 @@ public abstract class TcsPreTranslator implements PreTranslator {
       String type  = null;
       Vector targetElementVector = new Vector();
     
-      // There should be one base node of type "science" and optionally another one of type "guide".
+      // There should be one or two <base> elements (one for each telescope target tag).
       for(int i = 0; i < baseNodes.getLength(); i++) {
         baseElement = (ElementImpl)baseNodes.item(i);
 
@@ -262,18 +252,16 @@ public abstract class TcsPreTranslator implements PreTranslator {
         else if(type.equals(getTcsTargetTypes()[1])) {
           value = TELESCOPE_TARGET_TAGS[1];
         }
-        // The tag should always be one of getTcsTargetTypes() ("science", "guide") which
-        // is then converted to the respective String in TELESCOPE_TARGET_TAGS ("Base", "GUIDE")
-        // If baseNodes.getAttribute("type") isn't either "science" or "guide" different then
-        // use it as it is as UKIRT tag (without convcersion).
+        // If baseNodes.getAttribute("type") isn't one of getTcsTargetTypes() then use it directly without
+	// converting it.
         else {
           value = type;
         }
 	
-	// Create Element, "Base" or "GUIDE".
+	// Create Element for telescope target tags.
 	targetListElement = (ElementImpl)document.createElement(value);
         
-	// Set text of first value element to "Base" or "GUIDE" too.
+	// Set text of first value element to the telescope target tag too.
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
 
         // target name
@@ -327,7 +315,7 @@ public abstract class TcsPreTranslator implements PreTranslator {
         element.removeChild(baseNodes.item(0));
       }
 
-      // Add UKIRT / Sp "Base" and "GUIDE" (if there is one) element.
+      // Add telescope target tag elements.
       for(int i = 0; i < targetElementVector.size(); i++) {
         element.appendChild((ElementImpl)targetElementVector.get(i));
       }
@@ -397,5 +385,197 @@ public abstract class TcsPreTranslator implements PreTranslator {
     }
   }
 
+
+  /**
+   * Converts DOM/XML representaion of SpIterOffset.
+   *
+   * From: DOM Element based on XML generated from SpAvTable in SpIterOffset
+   * To:   DOM Element based on XML as used in the JAC OCS TCS.
+   *
+   * The DTD/XML used in the TCS is based on the Gemini Phase 1 Tool.
+   * See document OCS/ICD/006.2.
+   *
+   * @see #reverseOffsetIterator(org.apache.xerces.dom.ElementImpl)
+   */
+  private void translateOffsetIterator(ElementImpl element) throws Exception {
+    if(!element.getTagName().equals("SpIterOffset")) {
+      return;
+    }
+
+    try {
+      DocumentImpl document = (DocumentImpl)element.getOwnerDocument();
+
+      ElementImpl child;
+
+      // Science Program XML elements
+      ElementImpl sp_offsetPositions;        // <offsetPositions>
+      ElementImpl sp_OffsetN;                // <OffsetN> where N is an integer at the end of the tag name string
+      NodeList    sp_offsetPositions_values; // <value>   These are the <value> elements in
+                                             //           sp_offsetPositions (<offsetPositions>)
+                                             //           There is one such element for each offset position.
+
+      NodeList    sp_OffsetN_values;         // <value>   These are the <value> elements in
+                                             //           sp_OffsetN_values (<OffsetN>)
+                                             //           There is one such element for p and one for q.
+
+
+      // TCS XML elements
+      ElementImpl tcs_obsArea;               // <obsArea>
+      ElementImpl tcs_offset;                // <offset>
+
+      // Get hold of the offset positions.
+      sp_offsetPositions = (ElementImpl)element.getElementsByTagName("offsetPositions").item(0);
+      if(sp_offsetPositions == null) {
+        throw new Exception(EXCECPTION_MESSAGE_PREFIX + "\n\nCould not find offset positions in offset iterator.");
+      }
+      
+      // Get hold of the values in sp_offsetPositions list.
+      sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName("value");
+
+      // Create obsArea element for TCS XML.
+      tcs_obsArea = (ElementImpl)document.createElement("obsArea");
+
+      for(int i = 0; i < sp_offsetPositions_values.getLength(); i++) {
+        tcs_offset = (ElementImpl)tcs_obsArea.appendChild(document.createElement("offset"));
+        tcs_offset.setAttribute("id", "offset" + (i + 1));
+
+        sp_OffsetN = (ElementImpl)element.getElementsByTagName("Offset" + i).item(0);
+
+        sp_OffsetN_values = sp_OffsetN.getElementsByTagName("value");
+
+        tcs_offset.appendChild(document.createElement("dc1")).appendChild(document.createTextNode(
+          sp_OffsetN_values.item(0).getFirstChild().getNodeValue()
+	));
+
+        tcs_offset.appendChild(document.createElement("dc2")).appendChild(document.createTextNode(
+          sp_OffsetN_values.item(1).getFirstChild().getNodeValue()
+	));
+
+        // Remove sp_OffsetN <OffsetN>.
+	element.removeChild(sp_OffsetN);
+      }
+
+      // Remove sp_offsetPositions <offsetPositions>.
+      element.removeChild(sp_offsetPositions);
+
+      // Append tcs_obsArea <obsArea>.
+      element.appendChild(tcs_obsArea);
+    }
+
+    // Make sure RuntimeExceptions are not ignored.
+    catch(Exception e) {
+      e.printStackTrace();
+      throw new Exception(EXCECPTION_MESSAGE_PREFIX + "\n\nProblem converting offset iterator to TCS XML format." +
+                                                      "\n\n" + e); 
+    }
+  }
+
+  /**
+   * Converts all child nodes represent SpTelescopeObsComp's.
+   * 
+   * @see #translateOffsetIterator(ElementImpl)
+   */
+  private void translateAllOffsetIterators(ElementImpl element) throws Exception {
+    NodeList offsetIteratorList = element.getElementsByTagName("SpIterOffset");
+  
+    for(int i = 0; i < offsetIteratorList.getLength(); i++) {
+      translateOffsetIterator((ElementImpl)offsetIteratorList.item(i));
+    }
+  }
+
+  /**
+   * Converts DOM/XML representaion of SpTelescopeObsComp.
+   *
+   * From: DOM Element based on XML as used in the TCS.
+   * To:   DOM Element based on XML generated from SpAvTable in SpIterOffset
+   *
+   * The DTD/XML used in the TCS is based on the Gemini Phase 1 Tool.
+   * See document OCS/ICD/006.2.
+   *
+   * @see #translateOffsetIterator(org.apache.xerces.dom.ElementImpl)
+   */
+  private void reverseOffsetIterator(ElementImpl element) throws Exception {
+
+    if(!element.getTagName().equals("SpIterOffset")) {
+      return;
+    }
+
+    try {
+      DocumentImpl document = (DocumentImpl)element.getOwnerDocument();
+
+
+      // Science Program XML elements
+      ElementImpl sp_offsetPositions;        // <offsetPositions>
+      ElementImpl sp_OffsetN;                // <OffsetN> where N is an integer at the end of the tag name string
+      ElementImpl sp_OffsetN_value;          // <value>   <value> element in sp_OffsetN_values (<OffsetN>)
+                                             //           There is one such element for p and one for q.
+
+      // TCS XML elements
+      ElementImpl tcs_obsArea;               // <obsArea>
+      NodeList    tcs_offsets;               // <offset>
+      String      tcs_offset_id;             // "offsetN" in <offset id="offsetN"> where N is the number of this offset
+      int         tcs_offset_number;         // N in <offset id="offsetN">
+      String      tcs_dc1;
+      String      tcs_dc2;
+
+
+      // Get tcs_obsArea (<obsArea>).
+      tcs_obsArea = (ElementImpl)element.getElementsByTagName("obsArea").item(0);
+
+      // Get <offset> elements.
+      tcs_offsets = tcs_obsArea.getElementsByTagName("offset");
+
+      // Append sp_offsetPositions (<offsetPositions>) to element (<SpIterOffset>).
+      sp_offsetPositions = (ElementImpl)element.appendChild(document.createElement("offsetPositions"));
+
+      for(int i = 0; i < tcs_offsets.getLength(); i++) {
+        // Get the offset id string.
+        tcs_offset_id = ((ElementImpl)tcs_offsets.item(i)).getAttribute("id");
+
+	// Parse the offset number at the end of the offset id string.
+	// This relies on the offset string being of the form "offsetN" where N is an integer.
+	tcs_offset_number = Integer.parseInt(tcs_offset_id.substring(6));
+
+        tcs_dc1 = ((ElementImpl)tcs_offsets.item(i)).getElementsByTagName("dc1").item(0).getFirstChild().getNodeValue();
+        tcs_dc2 = ((ElementImpl)tcs_offsets.item(i)).getElementsByTagName("dc2").item(0).getFirstChild().getNodeValue();
+
+	// Create sp_OffsetN (<OffsetN>) where N is tcs_offset_number - 1.
+	sp_OffsetN       = (ElementImpl)element.appendChild(document.createElement("Offset" + (tcs_offset_number - 1)));
+
+	// Create <value> element for dc1.
+        sp_OffsetN_value = (ElementImpl)sp_OffsetN.appendChild(document.createElement("value"));
+	sp_OffsetN_value.appendChild(document.createTextNode(tcs_dc1));
+
+	// Create <value> element for dc2.
+        sp_OffsetN_value = (ElementImpl)sp_OffsetN.appendChild(document.createElement("value"));	
+	sp_OffsetN_value.appendChild(document.createTextNode(tcs_dc2));
+
+	// Append tag name of sp_OffsetN (<OffsetN>) to offset list sp_offsetPositions (<offsetPositions>).
+	sp_offsetPositions.appendChild(document.createElement("value"))
+	                  .appendChild(document.createTextNode("Offset" + (tcs_offset_number - 1)));
+      }
+
+      // Remove tcs_obsArea (<obsArea>).
+      element.removeChild(tcs_obsArea);
+    }
+    // Make sure RuntimeExceptions are not ignored.
+    catch(Exception e) {
+      e.printStackTrace();
+      throw new Exception(EXCECPTION_MESSAGE_PREFIX + "Problem converting offset iterator from TCS XML.");
+    }
+  }
+
+  /**
+   * Converts all child nodes that represent SpTelescopeObsComp's.
+   *
+   * @see #reverseOffsetIterator(ElementImpl)
+   */
+  private void reverseAllOffsetIterators(ElementImpl element) throws Exception {
+    NodeList offsetIteratorList = element.getElementsByTagName("SpIterOffset");
+
+    for(int i = 0; i < offsetIteratorList.getLength(); i++) {
+      reverseOffsetIterator((ElementImpl)offsetIteratorList.item(i));
+    }
+  }
 }
 
