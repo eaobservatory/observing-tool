@@ -216,7 +216,15 @@ public class TextBoxWidgetExt extends JTextField
      */
     public void setText(String s) {
 	_ignoreChanges = true;
-	super.setText(s);
+	
+	// added by MFO (14 August 2001)
+	try {
+	  super.setText(s);
+	}
+	catch(Exception e) {
+	  e.printStackTrace();
+	}
+
 	_ignoreChanges = false;
     }
 
