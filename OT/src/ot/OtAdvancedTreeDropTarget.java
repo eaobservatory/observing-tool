@@ -259,7 +259,13 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 
   public void keyPressed(KeyEvent e) {
     if((e.getKeyCode() == KeyEvent.VK_DELETE) || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-      _spTree.rmAllSelectedItems(); 
+      try {
+        _spTree.rmAllSelectedItems();
+      }
+      // IllegalArgumentException is thrown if user attempts to delete Science Program root node.
+      catch(IllegalArgumentException exception) {
+        DialogUtil.error(exception.getMessage());
+      }
     }
   }
   
