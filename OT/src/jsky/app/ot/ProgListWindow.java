@@ -30,6 +30,8 @@ import java.awt.Component;
 import java.awt.Frame;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -43,7 +45,7 @@ import javax.swing.JLayeredPane;
  * ProgListWindow will ever exist.
  */
 public final class ProgListWindow extends RemoteGUI
-    implements TextBoxWidgetWatcher, SpServerWatcher, StopActionWatcher {
+    implements TextBoxWidgetWatcher, SpServerWatcher, StopActionWatcher, ActionListener {
 
     // The singleton ProgListWindowFrame or InternalFrame instance.
     private static Component _instance;
@@ -146,14 +148,10 @@ public final class ProgListWindow extends RemoteGUI
     // Initialize the textbox watchers.
     //
     private void _init() {
-	// MFO
-	//TextBoxWidgetExt passwd;
-	//passwd = passwordTextBox;
-	//passwd.addWatcher(this);
+	//MFO
+	passwordTextBox.addActionListener(this);
 
-	//PasswordWidgetExt tbwe;
-	//tbwe = keyTextBox;
-	//tbwe.addWatcher(this);
+	keyTextBox.addActionListener(this);
 
 	stopAction.addWatcher(this);
     }
@@ -174,13 +172,15 @@ public final class ProgListWindow extends RemoteGUI
 
     // Get the text in the password textbox.
     private String _getPasswordEntry() {
+	// MFO
 	PasswordWidgetExt tb;
 	tb = passwordTextBox;
-	return tb.getText().trim();
+	return new String(tb.getPassword()).trim();
     }
 
     // Set the text in the password textbox.
     private void _setPasswordEntry(String password) {
+	// MFO
 	PasswordWidgetExt tb;
 	tb = passwordTextBox;
 	tb.setText(password);
@@ -375,9 +375,10 @@ public final class ProgListWindow extends RemoteGUI
 	}
 
 	// Get the key.
+	// MFO
 	PasswordWidgetExt tbw;
 	tbw = keyTextBox;
-	String key = tbw.getText().trim();
+	String key = new String(tbw.getPassword()).trim();
 	if ((key == null) || (key.equals(""))) {
 	    DialogUtil.error("You must specify the program's key.");
 	    return;
@@ -488,17 +489,23 @@ public final class ProgListWindow extends RemoteGUI
     public void textBoxKeyPress(TextBoxWidgetExt tbwe) {}
 
     /**
-     * Receive notification when a TextBoxWidgetExt that we are interrested
-     * in has the return key pressed.  This method implements part of the
-     * TextBoxWidgetWatcher interface from gemini.gui.
+     * This method implements part of the TextBoxWidgetWatcher interface from gemini.gui.
      */
-    public void textBoxAction(TextBoxWidgetExt tbwe)  {
-	// MFO This could be re-implemented using ActionListener etc.
-	//if (tbwe == passwordTextBox) {
-	//    fetchListing();
-	//} 
-	//else if (tbwe == keyTextBox) {
-	//    fetchProg();
-	//}
+    public void textBoxAction(TextBoxWidgetExt tbwe) {}
+
+    /**
+     * Receive notification when a PasswordWidgetExt that we are interrested
+     * in has the return key pressed.
+     *
+     * This functionality used to be in textBoxAction.
+     * MFO: May 28, 2001
+     */
+    public void actionPerformed(ActionEvent e)  {
+	if (e.getSource() == passwordTextBox) {
+	    fetchListing();
+	} 
+	else if (e.getSource() == keyTextBox) {
+	    fetchProg();
+	}
     }
 }
