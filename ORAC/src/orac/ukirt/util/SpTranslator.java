@@ -204,13 +204,16 @@ public class SpTranslator {
 
       if ( project != null ) {
 
-// Add the project instruction to the sequence buffer.
-         sequence.addElement( "setHeader PROJECT " + project );
+// Add the project instruction to the sequence buffer.  Ensure the
+// that PROJECT is in uppercase.
+         sequence.addElement( "setHeader PROJECT " + project.toUpperCase() );
       }
 
-// Finally insert the nOffsets.
-      sequence.addElement( noffsetsInstruction );
+      if ( noffsetsInstruction != null ) {
 
+// Finally insert the nOffsets.
+         sequence.addElement( noffsetsInstruction );
+      }
    }
    
 /**
