@@ -100,9 +100,6 @@ _updateWidgets()
    // Observation Time
    _w.observationTime.setValue( _ita.getObservationTime() );
 
-   // Disperser
-   _w.disperser.setValue( _ita.getDisperser() );
-
    // Update data acquisition config
    _ita.updateDAConf();
 
