@@ -24,6 +24,8 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 
+import gemini.util.Format;
+
 import java.util.Enumeration;
 
 
@@ -64,7 +66,7 @@ public class SpIterSkydipObs extends SpIterJCMTObs {
   }
 
   public void setPositions(String positionsStr) {
-    _avTable.set(ATTR_POSITIONS, toInt(positionsStr));
+    _avTable.set(ATTR_POSITIONS, Format.toInt(positionsStr));
   }
 
   public String getStartPosition() {
