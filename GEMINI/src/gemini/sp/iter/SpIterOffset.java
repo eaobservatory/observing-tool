@@ -132,6 +132,8 @@ getPosList()
     //   if (_posList== null) {
     _posList = new SpOffsetPosList(_avTable);
     //}
+    if (_posList.size() == 0) _posList.createPosition(0.0,0.0);
+
    return _posList;
 }
 
@@ -151,8 +153,8 @@ getCurrentPosList()
 {
     if (_posList== null) {
       _posList = new SpOffsetPosList(_avTable);
+      
     }
-
    return _posList;
 }
 
