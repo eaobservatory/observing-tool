@@ -765,7 +765,10 @@ public class SpTranslator {
       String value;                       // Attribute value
 
 // Check if this is an Observation.
-      if ( spObs.type().equals( SpType.OBSERVATION ) ) {
+      if ( !( spObs.type().equals( SpType.OBSERVATION ) ) ) {
+         spObs = findSpObs( spObs );
+      }
+      if ( spObs != null ) {
 
 // Define file name.
 // =================
@@ -909,6 +912,7 @@ public class SpTranslator {
                   targetName = ( (String) targetValues.elementAt( 1 ) ).trim();
                   if ( targetName.length() == 0 ) { targetName = "unknown"; }
                   targetName = expelChar( targetName, ' ' );
+                  targetName = expelChar( targetName, ',' );
                   RA = ( (String) targetValues.elementAt( 2 ) ).trim();
                   Dec = ( (String) targetValues.elementAt( 3 ) ).trim();
                   coordSystem = ( (String) targetValues.elementAt( 4 ) ).trim();
@@ -1338,7 +1342,6 @@ public class SpTranslator {
 // Remove previous config, since the second contains the combined information.
 // Remove the unnecessary loadConfig from the sequence.
                            if ( removeConfig ) {
-                              System.out.println( "Removing config inst" );
                               configArray.removeElementAt( configArray.size() - 1 );
                               numConfig--;
                               sequence.removeElementAt( sequence.size() - removeIndex );
@@ -3056,7 +3059,40 @@ public class SpTranslator {
       return null;
    }
 
+/**
+ * Find the parent Science Programme Observation associated with the
+ * scope of the given item.  This traverses the tree.
+ *
+ * @param spItem the SpItem defining the scope to search
+ */
+   public static SpObs findSpObs( SpItem spItem ) {
+
+      SpItem parent;                      // Parent of spItem
+
+      if ( spItem.type().equals( SpType.OBSERVATION ) ) {
+         return (SpObs) spItem;
+      }
+            
+// Get the parent.
+      parent = spItem.parent();
+
+// Either the item is an observation context, which is
+// what we want, or continue the search one level 
+// higher in the hierarchy.
+      if ( ! ( spItem.type().equals( SpType.OBSERVATION ) ) ) {
+         if ( parent == null ) {
+            return null;
+         } else {
+            return findSpObs( parent );
+         }
+
+      } else {
+         return (SpObs) spItem;
+      }
+   }
+
 }
+
 
 /**
  *  MissingValue exception class is used to indicate that an
