@@ -12,6 +12,8 @@ package orac.jcmt.iter;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpInstObsComp;
 
 import orac.jcmt.SpJCMTConstants;
 
@@ -63,5 +65,16 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
       }
     }
   }
+
+    public double getElapsedTime() {
+	SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+	double time = 0.0;
+	if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	    time = 1.1*getIntegrations() + SCUBA_STARTUP_TIME;
+	}
+	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	}
+	return time;
+    }
 }
 
