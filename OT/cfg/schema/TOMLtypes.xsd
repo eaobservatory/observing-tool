@@ -143,6 +143,7 @@
     <xsd:pattern value="GUIDE"/>
     <xsd:pattern value="REFERENCE"/>
     <xsd:pattern value="SKY[0-9]*"/>
+    <xsd:pattern value="SKYGUIDE[0-9]*"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -200,6 +201,13 @@
   <xsd:sequence>
     <xsd:element name="min" type="toml:seeingLimits" minOccurs="0"/>
     <xsd:element name="max" type="toml:seeingLimits" minOccurs="0"/>
+  </xsd:sequence>
+</xsd:complexType>
+
+<xsd:complexType name="magType">
+  <xsd:sequence>
+    <xsd:element name="min" type="xsd:double" minOccurs="0"/>
+    <xsd:element name="max" type="xsd:double" minOccurs="0"/>
   </xsd:sequence>
 </xsd:complexType>
 
