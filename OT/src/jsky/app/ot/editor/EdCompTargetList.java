@@ -930,6 +930,7 @@ public final class EdCompTargetList extends OtItemEditor
       switch(tp.getSystemType()) {
         case SpTelescopePos.SYSTEM_CONIC:
           _w.epoch.setValue(tp.getConicSystemEpochAsString());
+	  _w.epoch.setCaretPosition(0);
           _w.orbinc.setValue(tp.getConicSystemInclination());
           _w.anode.setValue(tp.getConicSystemAnode());
           _w.perih.setValue(tp.getConicSystemPerihelion());
