@@ -71,6 +71,8 @@ public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants
 public SpIterRepeat()
 {
    super(SpType.ITERATOR_COMPONENT_REPEAT);
+
+   _avTable.noNotifySet(COUNT, String.valueOf(COUNT_DEF), 0);
 }
 
 /** Override getTitle to return the repeat count. */
