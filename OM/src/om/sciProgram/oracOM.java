@@ -10,6 +10,7 @@ import orac.ukirt.inst.*;
 import orac.ukirt.iter.*;
 import gemini.sp.iter.SpIterObserve;
 import gemini.sp.iter.SpIterSky;
+import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 
 

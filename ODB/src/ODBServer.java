@@ -26,6 +26,7 @@ import ODBAccess.*;
 import gemini.sp.*;
 import gemini.sp.iter.SpIterObserve;
 import gemini.sp.iter.SpIterSky;
+import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import orac.ukirt.util.*;
 import orac.ukirt.inst.*;
