@@ -65,7 +65,6 @@ protected SpObs()
    super(SpType.OBSERVATION);
    if(System.getProperty("OMP") != null) {
       _avTable.noNotifySet(SpMSB.ATTR_REMAINING, "1", 0);
-      _avTable.noNotifySet(SpMSB.ATTR_DONE,      "0", 0);
    }
    else {
       _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);

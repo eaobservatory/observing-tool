@@ -21,16 +21,12 @@ public class SpMSB extends SpObsContextItem {
    /** This attribute records the number of remaining MSBs. */
    public static final String ATTR_REMAINING = ":remaining";
 
-   /** This attribute records the number of completed MSBs. */
-   public static final String ATTR_DONE      = ":done";
-
   /**
    * Default constructor.
    */
   protected SpMSB() {
     super(SpType.MSB_FOLDER);
     _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
-    _avTable.noNotifySet(ATTR_DONE,      "0", 0);
   }
 
 /**
