@@ -49,6 +49,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /** Radial velocity. */
   public static final String ATTR_VELOCITY = "velocity";
+    public static final String ATTR_RF_VELOCITY = "referenceFrameVelocity";
 
   /** Radial velocity definition: "redshift", "optical", "radio". */
   public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition";
@@ -181,6 +182,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifySet(ATTR_MIXER,               defaultMixer,              0);
     _avTable.noNotifySet(ATTR_OVERLAP,             defaultOverlap,            0);
     _avTable.noNotifySet(ATTR_VELOCITY,            defaultVelocity,           0);
+    _avTable.noNotifySet(ATTR_RF_VELOCITY,         defaultVelocity,           0);
     _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, defaultVelocityDefinition, 0);
     _avTable.noNotifySet(ATTR_VELOCITY_FRAME,      defaultVelocityFrame,      0);
     _avTable.noNotifySet(ATTR_BAND,                defaultBand,               0);
@@ -385,6 +387,24 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   public void setVelocityFromRedshift(double redshift) {
     setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
   }
+
+    /**
+     * Set the reference frame velocity
+     */
+    public void setRefFrameVelocity (double value) {
+	_avTable.set(ATTR_RF_VELOCITY, value);
+    }
+
+    /**
+     * Set the reference frame velocity
+     */
+    public void setRefFrameVelocity (String value) {
+	setRefFrameVelocity(Format.toDouble(value));;
+    }
+
+    public double getRefFrameVelocity() {
+	return _avTable.getDouble(ATTR_RF_VELOCITY, 0.0);
+    }
 
   /**
    * Get band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).
