@@ -89,8 +89,7 @@
 
 <xsd:group name="ProgInfoGroup">
     <xsd:sequence>
-      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="toml:meta_gui_filename"/>
+      <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
       <xsd:group ref="toml:ProgInfoGroup"/>
     </xsd:sequence>
 </xsd:group>
