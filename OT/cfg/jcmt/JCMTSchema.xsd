@@ -765,7 +765,8 @@
 <!-- Site Quality Component -->
 <xsd:element name="SpSiteQualityObsComp">
   <xsd:complexType>
-    <xsd:sequence>
+    <xsd:all>
+      <xsd:element name="min" type="xsd:string" minOccurs="0"/>
       <xsd:element name="seeing" minOccurs="0" maxOccurs="1">
         <xsd:complexType>
           <xsd:sequence>
@@ -823,7 +824,7 @@
 <!--
       <xsd:element name="min" type="xsd:decimal" minOccurs="0"/>
 -->
-    </xsd:sequence>
+    </xsd:all>
     <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type" type="SpType"/>
     <xsd:attribute name="subtype" type="xsd:string"/>
