@@ -13,32 +13,35 @@ package ot.jcmt.iter.editor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
+import java.util.Observer;
+import java.util.Observable;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
-import jsky.app.ot.util.CoordSys;
+import jsky.util.gui.DialogUtil;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.gui.OptionWidgetWatcher;
+import jsky.app.ot.tpe.TpeManager;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.SpJCMTConstants;
+import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
-import ot.util.DialogUtil;
 
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWidgetWatcher {
+public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer, OptionWidgetWatcher {
 
   private IterRasterObsGUI _w;       // the GUI layout panel
 
@@ -61,14 +64,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
     _w.alongRow.setActionCommand(SpIterRasterObs.RASTER_MODE_ALONG_ROW);
     _w.interleaved.setActionCommand(SpIterRasterObs.RASTER_MODE_INTERLEAVED);
 
-    _w.offSystem.setChoices(CoordSys.COORD_SYS);
+    _w.scanAreaSystem.setChoices(SpJCMTConstants.SCANAREA_SYSTEMS);
 
-    _w.xCenter.addWatcher(this);
-    _w.yCenter.addWatcher(this);
+    _w.dx.addWatcher(this);
+    _w.dy.addWatcher(this);
     _w.width.addWatcher(this);
     _w.height.addWatcher(this);
-    _w.rectanglePA.addWatcher(this);
-    _w.offSystem.addWatcher(this);
+    _w.posAngle.addWatcher(this);
+    _w.scanAreaSystem.addWatcher(this);
     _w.alongRow.addWatcher(this);
     _w.interleaved.addWatcher(this);
     _w.rowsPerCal.addWatcher(this);
@@ -81,16 +84,29 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
    */
   public void setup(SpItem spItem) {
     _iterObs = (SpIterRasterObs) spItem;
+
     super.setup(spItem);
+    _iterObs.getAvEditFSM().addObserver(this);
   }
 
   protected void _updateWidgets() {
-    _w.xCenter.setValue(_iterObs.getXCenter());
-    _w.yCenter.setValue(_iterObs.getYCenter());
+    try {
+      _w.dx.setValue(_iterObs.getScanDx());
+      _w.dx.setCaretPosition(0);
+    }
+    catch(UnsupportedOperationException e) {
+      DialogUtil.message(_w, "Warning:\n" + e.getMessage());
+    }
+
+    _w.dy.setValue(_iterObs.getScanDy());
+    _w.dy.setCaretPosition(0);
     _w.width.setValue(_iterObs.getWidth());
+    _w.width.setCaretPosition(0);
     _w.height.setValue(_iterObs.getHeight());
-    _w.rectanglePA.setValue(_iterObs.getRectanglePA());
-    _w.offSystem.setValue(_iterObs.getOffSystem());
+    _w.height.setCaretPosition(0);
+    _w.posAngle.setValue(_iterObs.getPosAngle());
+    _w.posAngle.setCaretPosition(0);
+    _w.scanAreaSystem.setValue(_iterObs.getScanAreaSystem());
     _w.rowsPerCal.setValue(_iterObs.getRowsPerCal());
     _w.rowsPerRef.setValue(_iterObs.getRowsPerRef());
     _w.rowReversal.setValue(_iterObs.getRowReversal());
@@ -106,45 +122,71 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
   }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    if(tbwe == _w.xCenter) {
-      _iterObs.setXCenter(_w.xCenter.getValue());
-      return;
+    _iterObs.getAvEditFSM().deleteObserver(this);
+
+    if(tbwe == _w.dx) {
+      _iterObs.setScanDx(_w.dx.getValue());
     }
 
-    if(tbwe == _w.yCenter) {
-      _iterObs.setYCenter(_w.yCenter.getValue());
+    if(tbwe == _w.dy) {
+      _iterObs.setScanDy(_w.dy.getValue());
     }
 
     if(tbwe == _w.width) {
       _iterObs.setWidth(_w.width.getValue());
-      return;
+
+      // Probably implemented in a different way in Gemini ot-2000B.12.
+      try {
+        TpeManager.get(_spItem).reset(_spItem);
+      }
+      catch(NullPointerException e) {
+        // ignore
+      }
+
     }
 
     if(tbwe == _w.height) {
       _iterObs.setHeight(_w.height.getValue());
+
+      // Probably implemented in a different way in Gemini ot-2000B.12.
+      try {
+        TpeManager.get(_spItem).reset(_spItem);
+      }
+      catch(NullPointerException e) {
+        // ignore
+      }
+
     }
 
-    if(tbwe == _w.rectanglePA) {
-      _iterObs.setRectanglePA(_w.rectanglePA.getValue());
-      return;
+    if(tbwe == _w.posAngle) {
+      _iterObs.setPosAngle(_w.posAngle.getValue());
+
+      // Probably implemented in a different way in Gemini ot-2000B.12.
+      try {
+        TpeManager.get(_spItem).reset(_spItem);
+      }
+      catch(NullPointerException e) {
+        // ignore
+      }
+
     }
 
     if(tbwe == _w.rowsPerCal) {
       _iterObs.setRowsPerCal(_w.rowsPerCal.getValue());
-      return;
     }
 
     if(tbwe == _w.rowsPerRef) {
       _iterObs.setRowsPerRef(_w.rowsPerRef.getValue());
-      return;
     }
 
     super.textBoxKeyPress(tbwe);
+
+    _iterObs.getAvEditFSM().addObserver(this);
   }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if(ddlbwe == _w.offSystem) {
-      _iterObs.setOffSystem(CoordSys.COORD_SYS[index]);
+    if(ddlbwe == _w.scanAreaSystem) {
+      _iterObs.setScanAreaSystem(SpJCMTConstants.SCANAREA_SYSTEMS[index]);
       return;  
     }
 
@@ -165,12 +207,18 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
   }
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-      _w.heterodynePanel.setVisible(false);
-    }
-    else {
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.heterodynePanel.setVisible(true);
     }
+    else {
+      _w.heterodynePanel.setVisible(false);
+    }
+
+    super.setInstrument(spInstObsComp);
+  }
+
+  public void update(Observable o, Object arg) {
+    _updateWidgets();
   }
 }
 

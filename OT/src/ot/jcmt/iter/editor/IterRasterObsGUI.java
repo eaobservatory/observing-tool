@@ -36,9 +36,9 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel2 = new JLabel();
   JLabel jLabel3 = new JLabel();
   JLabel jLabel4 = new JLabel();
-  DropDownListBoxWidgetExt offSystem = new DropDownListBoxWidgetExt();
-  TextBoxWidgetExt xCenter = new TextBoxWidgetExt();
-  TextBoxWidgetExt yCenter = new TextBoxWidgetExt();
+  DropDownListBoxWidgetExt scanAreaSystem = new DropDownListBoxWidgetExt();
+  TextBoxWidgetExt dx = new TextBoxWidgetExt();
+  TextBoxWidgetExt dy = new TextBoxWidgetExt();
   TextBoxWidgetExt width = new TextBoxWidgetExt();
   JLabel jLabel5 = new JLabel();
   JLabel jLabel18 = new JLabel();
@@ -46,7 +46,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   TextBoxWidgetExt height = new TextBoxWidgetExt();
   JLabel jLabel20 = new JLabel();
   JLabel jLabel21 = new JLabel();
-  TextBoxWidgetExt rectanglePA = new TextBoxWidgetExt();
+  TextBoxWidgetExt posAngle = new TextBoxWidgetExt();
   JLabel jLabel23 = new JLabel();
   Border border1;
   JLabel jLabel14 = new JLabel();
@@ -87,10 +87,10 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     scubaAcsisPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Scan/Raster Area"));
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
-    jLabel1.setText("x");
+    jLabel1.setText("dx");
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
-    jLabel2.setText("y");
+    jLabel2.setText("dy");
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Width");
@@ -100,7 +100,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel5.setForeground(Color.black);
     jLabel5.setText("(arcsecs)");
-    offSystem.setFont(new java.awt.Font("Dialog", 0, 12));
+    scanAreaSystem.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel18.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel18.setForeground(Color.black);
     jLabel18.setText("(arcsecs)");
@@ -113,7 +113,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     jLabel21.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel21.setForeground(Color.black);
     jLabel21.setText("Height");
-    rectanglePA.setColumns(5);
+    posAngle.setColumns(5);
     jLabel23.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel23.setForeground(Color.black);
     jLabel23.setText("(degrees)");
@@ -158,21 +158,21 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     jLabel6.setForeground(Color.black);
     jLabel6.setText("Rows/Col");
     this.add(scubaAcsisPanel, BorderLayout.WEST);
-    scubaAcsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    scubaAcsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(jLabel2, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    scubaAcsisPanel.add(jLabel3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(jLabel3, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     scubaAcsisPanel.add(jLabel4, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 0), 0, 0));
-    scubaAcsisPanel.add(offSystem, new GridBagConstraints(0, 7, 3, 1, 0.0, 1.0
+    scubaAcsisPanel.add(scanAreaSystem, new GridBagConstraints(0, 7, 3, 1, 0.0, 1.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
-    scubaAcsisPanel.add(xCenter, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
+    scubaAcsisPanel.add(dx, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaAcsisPanel.add(yCenter, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(dy, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaAcsisPanel.add(width, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(width, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     scubaAcsisPanel.add(jLabel5, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
@@ -180,13 +180,13 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     scubaAcsisPanel.add(jLabel19, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    scubaAcsisPanel.add(height, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(height, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     scubaAcsisPanel.add(jLabel20, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    scubaAcsisPanel.add(jLabel21, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(jLabel21, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    scubaAcsisPanel.add(rectanglePA, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(posAngle, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
     scubaAcsisPanel.add(jLabel23, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
