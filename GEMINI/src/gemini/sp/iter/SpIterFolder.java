@@ -149,6 +149,7 @@ printSummary()
 
         if(spIterStep.item instanceof SpIterObserveBase) {
           elapsedTime += iterationTracker.getObserveStepTime();
+// 	  System.out.println("Adding "+iterationTracker.getObserveStepTime()+" from "+spIterStep.item );
         }  
 
         if(spIterStep.item instanceof SpIterOffset) {
@@ -156,6 +157,7 @@ printSummary()
             // If for each OFFSET_TIME added an exposure overhead can be
             // subtracted since this is done while the telescope moves.
             elapsedTime += (OFFSET_TIME - instrument.getExposureOverhead());
+// 	    System.out.println( "Adding "+(OFFSET_TIME - instrument.getExposureOverhead())+" from offset iterator");
           }
         }
       }

@@ -74,7 +74,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   private String currentFE = "";
   private static SideBandDisplay sideBandDisplay = null;
-  private LineCatalog lineCatalog = LineCatalog.getInstance();
+  private LineCatalog lineCatalog;
   private double redshift = 0.0;
   private double subBandWidth = 0.25E9;
   private double loMin;
@@ -127,6 +127,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     _title       ="JCMT Heterodyne";
     _presSource  = _w = new HeterodyneGUI();
     _description ="The Heterodyne instrument is configured with this component.";
+
+    try {
+	lineCatalog = LineCatalog.getInstance();
+    }
+    catch (Exception e) {};
 
       _ignoreSpItem = true;
 

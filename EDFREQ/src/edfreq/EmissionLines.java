@@ -83,7 +83,12 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
 /* Select the emission lines within the frequency range */
 
       lineStore = new LineDetails[xSize];
-      lineCatalog = LineCatalog.getInstance();
+      try {
+	  lineCatalog = LineCatalog.getInstance();
+      }
+      catch (Exception e) {
+	  System.out.println( e.getMessage() );
+      }
 
       for ( j=0; j<xSize; j++ )
       {
