@@ -100,16 +100,16 @@ setSeeing(int seeing)
 public int
 getSeeing()
 {
-   if(_avTable.get(ATTR_SEEING_MIN) == null) {
+   if(_avTable.get(ATTR_SEEING_MAX) == null) {
       return SEEING_ANY;
    }
    
-   // Default -1.0 ensure that no range minimum matches and SEEING_ANY is returned.
-   double min = _avTable.getDouble(ATTR_SEEING_MIN, -1.0);
+   // Default -1.0 ensure that no range maximum matches and SEEING_ANY is returned.
+   double max = _avTable.getDouble(ATTR_SEEING_MAX, -1.0);
 
-   if(min == SEEING_RANGES[SEEING_EXCELLENT][0]) return SEEING_EXCELLENT;
-   if(min == SEEING_RANGES[SEEING_GOOD][0])      return SEEING_GOOD;
-   if(min == SEEING_RANGES[SEEING_POOR][0])      return SEEING_POOR;
+   if(max == SEEING_RANGES[SEEING_EXCELLENT][1]) return SEEING_EXCELLENT;
+   if(max == SEEING_RANGES[SEEING_GOOD][1])      return SEEING_GOOD;
+   if(max == SEEING_RANGES[SEEING_POOR][1])      return SEEING_POOR;
    
    return SEEING_ANY;
 }
