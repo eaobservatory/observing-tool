@@ -13,6 +13,14 @@ package ot.jcmt.inst.editor;
 import java.awt.Event;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.util.Vector;
 import javax.swing.*;
 import orac.jcmt.inst.SpInstHeterodyne;
@@ -27,6 +35,13 @@ import gemini.sp.*;
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 
+import orac.util.SpItemDOM;
+import org.xml.sax.InputSource;
+import org.apache.xerces.dom.ElementImpl;
+import org.apache.xerces.parsers.DOMParser;
+import java.io.StringReader;
+
+
 // TODO MFO: check whether jcmt needs its own EdCompInstBase.
 import ot.ukirt.inst.editor.EdCompInstBase;
 
@@ -34,12 +49,14 @@ import ot.ukirt.inst.editor.EdCompInstBase;
  * Editor class for Heterodyne instrument component.
  */
 public final class EdCompInstHeterodyne extends EdCompInstBase
-    implements TableWidgetWatcher, DropDownListBoxWidgetWatcher, ActionListener {
+    implements TableWidgetWatcher, DropDownListBoxWidgetWatcher, ActionListener,
+               MouseListener, ItemListener, DocumentListener {
 
 //    private EdStareCapability _edStareCapability;
 
     private HeterodyneGUI _w;		// the GUI layout
 
+    private boolean ignoreActions = false;
 
     /**
      * The constructor initializes the title, description, and presentation source.
@@ -60,6 +77,19 @@ public final class EdCompInstHeterodyne extends EdCompInstBase
 	_w.filterNarrowBand.addActionListener(this);
 	_w.filterSpecial.addActionListener(this);
 */
+      _w.frontEnd.getFeComboBox().addItemListener(this);
+      _w.frontEnd.getFeBandModeComboBox().addItemListener(this);
+      _w.frontEnd.getVelocityTextField().getDocument().addDocumentListener(this);
+      _w.frontEnd.getOverlapTextField().getDocument().addDocumentListener(this);
+      _w.frontEnd.getFeBandComboBox().addItemListener(this);
+      _w.frontEnd.getFeModeComboBox().addItemListener(this);
+      _w.frontEnd.getMoleculeComboBox().addItemListener(this);
+      _w.frontEnd.getMolecule2ComboBox().addItemListener(this);
+      _w.frontEnd.getTransitionComboBox().addItemListener(this);
+      _w.frontEnd.getTransition2ComboBox().addItemListener(this);
+      _w.frontEnd.getSideBandButton().addActionListener(this);
+
+      _addListenersToSideBandDisplay();
     }
 
     /**
@@ -186,10 +216,81 @@ public final class EdCompInstHeterodyne extends EdCompInstBase
 
 
     /**
+     * Add AdjustmentListeners to the new JSliders that might have been added as a result of changes made
+     * to other widgets.
+     */
+    protected void _addListenersToSideBandDisplay() {
+      Vector widgets = _w.frontEnd.getSideBandDisplayWidgets();
+
+      for(int i = 0;i < widgets.size(); i++) {
+        if((widgets.get(i) instanceof JScrollBar) || (widgets.get(i) instanceof JSlider)) {
+          // remove MouseListener (in case it was already there)
+          ((JComponent)widgets.get(i)).removeMouseListener(this);
+
+	  // add MouseListener
+          ((JComponent)widgets.get(i)).addMouseListener(this);
+        }
+	else if (widgets.get(i) instanceof JToggleButton){
+          // remove MouseListener (in case it was already there)
+          ((JToggleButton)widgets.get(i)).removeActionListener(this);
+
+	  // add MouseListener
+          ((JToggleButton)widgets.get(i)).addActionListener(this);
+	}
+      }
+    }
+
+
+    protected void _updateSpItem() {
+      /*MFO DEBUG*/System.out.println("EdCompInstHeterodyne._updateSpItem called.");
+      // Preliminary implementation.
+      SpInstHeterodyne instHeterodyne = (SpInstHeterodyne)_spItem;
+      //instHeterodyne.setXML(_w.frontEnd.toXML());
+      try {
+        String xml = _w.frontEnd.toXML();
+
+        DOMParser parser = new DOMParser();
+        parser.parse(new InputSource(new StringReader(xml)));
+        ElementImpl element = (ElementImpl)parser.getDocument().getDocumentElement();
+
+        _spItem.getTable().rmAll();
+        SpItemDOM.fillAvTable("", element, _spItem.getTable());
+      }
+      catch(Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(_w, "Could not read data from frequency editor: " + e);
+      }
+    }
+
+    /**
      * Implements the _updateWidgets method from OtItemEditor in order to
      * setup the widgets to show the current values of the item.
      */
     protected void _updateWidgets() {
+      ignoreActions = true;
+
+      // Check whether _avTable contains frequency editor data.
+      // Note that this is a preliminary implementation and _spItem might not be
+      // properly initialized yet.
+      if(_avTab.get("heterodyne:feName") == null) {
+        ignoreActions = false;
+        return;
+      }
+      
+      System.out.println("Trying to update from: ");
+      _spItem.print("    ");      
+      
+      _w.frontEnd.getFeComboBox().setSelectedItem(_avTab.get("heterodyne:feName"));
+      _w.frontEnd.getFeModeComboBox().setSelectedItem(_avTab.get("heterodyne:mode"));
+
+      _w.frontEnd.getFeBandModeComboBox().setSelectedItem(_avTab.get("heterodyne:bandMode"));
+      _w.frontEnd.getOverlapTextField().setText(_avTab.get("heterodyne:overlap"));
+
+      _w.frontEnd.getVelocityTextField().setText(_avTab.get("heterodyne:velocity"));
+      _w.frontEnd.getFeBandComboBox().setSelectedItem(_avTab.get("heterodyne:band"));
+
+      ignoreActions = false;
+
 /*
 	SpInstUFTI instUFTI = (SpInstUFTI) _spItem;
 
@@ -326,6 +427,15 @@ public final class EdCompInstHeterodyne extends EdCompInstBase
      */
 
     public void actionPerformed(ActionEvent evt) {
+      if(ignoreActions) return;
+
+      Object source = evt.getSource();
+      if(source == _w.frontEnd.getSideBandButton()) {
+        _addListenersToSideBandDisplay();
+      }
+      else if(_w.frontEnd.getSideBandDisplayWidgets().contains(source)) {
+        _updateSpItem();
+      }
 /*
 	Object w  = evt.getSource();
    
@@ -394,4 +504,46 @@ public final class EdCompInstHeterodyne extends EdCompInstBase
 */
     }
 
+
+    /**
+     * Hack to provide SpInstHeterodyne with reference to this object.
+     *
+     * Needed for preliminary implementation of XML output.
+     * (to XML from Dennis' frequency editor into the OT XML output)
+     *
+     */
+    //public void	setup(SpItem spItem) {
+    //  super.setup(spItem);
+//
+//      ((SpInstHeterodyne)spItem).setFrontEnd(_w.frontEnd);
+//    }
+
+  public void changedUpdate(DocumentEvent e) {
+    if(ignoreActions) return;
+
+    _updateSpItem();
+  }
+  
+  public void insertUpdate(DocumentEvent e) { }
+  public void removeUpdate(DocumentEvent e) { }
+ 
+  public void mouseClicked(MouseEvent e) { }
+  public void mouseEntered(MouseEvent e) { }
+  public void mouseExited(MouseEvent e) { }
+  public void mousePressed(MouseEvent e) { }
+  public void mouseReleased(MouseEvent e) {
+    if(ignoreActions) return;
+
+    _updateSpItem();
+  }
+ 
+  public void itemStateChanged(ItemEvent e) {
+    if(ignoreActions) return;
+
+    if(e.getSource() == _w.frontEnd.getFeBandModeComboBox()) {
+      _addListenersToSideBandDisplay();
+    }
+
+    _updateSpItem();
+  }
 }

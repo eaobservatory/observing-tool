@@ -23,6 +23,9 @@ import ot.jcmt.inst.editor.edfreq.FrontEnd;
  * @author M.Folger@roe.ac.uk
  */
 public class HeterodyneGUI extends JPanel {
+
+  FrontEnd frontEnd = new FrontEnd();
+
   HeterodyneGUI() { //FrontEnd frontEnd, DataReductionScreen dataReductionScreen) {
     //FrontEnd frontEnd = new FrontEnd();
     //frontEnd.setBorder(new TitledBorder("Frequency"));
@@ -32,7 +35,7 @@ public class HeterodyneGUI extends JPanel {
 
     setLayout(new BorderLayout());
 
-    add(new JScrollPane(new FrontEnd()), BorderLayout.CENTER);
+    add(new JScrollPane(frontEnd), BorderLayout.CENTER);
     add(new JLabel("Layout will be tidied up."), BorderLayout.SOUTH);
     //add(dataReductionScreen, BorderLayout.SOUTH);
   }
