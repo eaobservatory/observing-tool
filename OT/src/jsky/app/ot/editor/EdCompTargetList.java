@@ -45,13 +45,6 @@ import jsky.app.ot.OtCfg;
 public final class EdCompTargetList extends OtItemEditor
     implements TelescopePosWatcher, TableWidgetWatcher, ActionListener, OtConstants {
 
-
-    /**
-     * Telescope string.
-     * MFO 23 May 2001: Allows for telescope specific code.
-     */
-    protected String _telescope = UKIRT;
-
     // Frequently used widgets
     private DropDownListBoxWidgetExt _tag;	// Object ID/Type
     private TextBoxWidgetExt         _name;	// Object Name
@@ -104,21 +97,28 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
 
+        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
+          _w.extrasFolder.setEnabledAt(0, false);
+	  _w.extrasFolder.setSelectedIndex(1);
+        }
 
-	// MFO 23 May 2001: Setting _telescope. Could be done somewhere more central like OtCfg.
-	if(System.getProperty("ot.cfgdir").endsWith("jcmt" + File.separatorChar) ||
-	   System.getProperty("ot.cfgdir").endsWith("jcmt")) {
+        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
+          _w.extrasFolder.setEnabledAt(1, false);
+	  _w.extrasFolder.setSelectedIndex(2);
+        }
 
-          _telescope = JCMT;
-	}
-	else {
-          _telescope = UKIRT;
-	}
+        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
+          _w.extrasFolder.setEnabledAt(2, false);
+	  _w.extrasFolder.setSelectedIndex(0);
+        }
 
-        // MFO 23 May 2001
-	_makeTelescopeSpecificChanges();
 
-        _w.newButton.setText("Add " + SpTelescopePos.GUIDE_TAGS[0]);
+        _w.newButton.setText("Add " + OtCfg.telescopeUtil.getAdditionalTarget());
+
+        // UKIRT does not need the chopSystem choice and JCMT does not use the
+	// Chop Settings tab. (MFO, 21 January 2002)
+	_w.chopSystemLabel.setVisible(false);
+	_w.chopSystem.setVisible(false);
 
 	// *** buttons
 	_w.newButton.addActionListener(this);
@@ -133,11 +133,12 @@ public final class EdCompTargetList extends OtItemEditor
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
-	String[] guideTags = SpTelescopePos.getGuideStarTags();
+	//String[] guideTags = SpTelescopePos.getGuideStarTags();
 
 	// MFO 30 May 2001
-	_tag.setChoices(guideTags);
-	_tag.addChoice(SpTelescopePos.BASE_TAG);
+	//_tag.setChoices(guideTags);
+	//_tag.addChoice(SpTelescopePos.BASE_TAG);
+	_tag.setChoices(OtCfg.telescopeUtil.getTargetTags());
 
 	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
 	//_tag.addChoice(SpTelescopePos.USER_TAG);
@@ -346,7 +347,6 @@ public final class EdCompTargetList extends OtItemEditor
 	//_tpTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	_tpTable.addWatcher(this);
     
-        //_makeTelescopeSpecificChanges();
     
         // chop mode tab added by MFO (3 August 2001)
 	_w.chopThrow.addWatcher( new TextBoxWidgetWatcher() {
@@ -493,11 +493,6 @@ public final class EdCompTargetList extends OtItemEditor
 	    JTabbedPane fwe;
 	    fwe = _w.extrasFolder;
 	    
-	    // MFO 23 May 2001: Keep choice between "Proper motion" and "Tracking Details" disabled for UKIRT.
-	    if(_telescope != UKIRT) {
-	      fwe.setEnabledAt(1, true);
-	      fwe.setEnabledAt(2, true);
-	    }  
 
 	    // Set the Equinox and Proper Motion
 	    TextBoxWidgetExt tbw;
@@ -645,20 +640,6 @@ public final class EdCompTargetList extends OtItemEditor
 	}
     }
 
-    /**
-     * Needed to customize EdCompTargetList for different Telescopes.
-     * 
-     * @author Martin Folger (M.Folger@roe.ac.uk)
-     */
-    protected void _makeTelescopeSpecificChanges() {
-      if(_telescope == UKIRT) {
-	_w.extrasFolder.setEnabledAt(1, false);
-	_w.extrasFolder.setEnabledAt(2, false);
-
-	_w.chopSystemLabel.setVisible(false);
-	_w.chopSystem.setVisible(false);
-      }
-    }
 
     /**
      * Method to handle button actions.
@@ -674,8 +655,10 @@ public final class EdCompTargetList extends OtItemEditor
 
             // UKIRT-ORAC: Instead of user position try just creating a
             // guide position AB 26Apr00 / MFO 23 May 2001
+	    // UKIRT/JCMT: Instead of creating a guide position create an additional target according to the telescope
+	    // used ("GUIDE" for UKIRT, "Reference" for JCMT), MFO 21 January 2002.
 	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
-            SpTelescopePos tp = _tpl.createPosition(SpTelescopePos.GUIDE_TAGS[0], base.getXaxis(), base.getYaxis());
+            SpTelescopePos tp = _tpl.createPosition(OtCfg.telescopeUtil.getAdditionalTarget(), base.getXaxis(), base.getYaxis());
 
 	    return;
 	}
@@ -746,38 +729,24 @@ public final class EdCompTargetList extends OtItemEditor
     /**
      * Checks whether chop angle is in valid range.
      * 
-     * Telescope specific.
+     * The validity check applies to UKIRT. JCMT does not use the "Chop Settings" tab.
      *
      * Added by MFO (12 October 2001)
      */
     public String validateChopAngle(String chopAngleString) {
       double chopAngle = Double.valueOf(chopAngleString).doubleValue();
 	
-        if(_telescope == UKIRT) {
-          if(chopAngle < -90) {
-            chopAngle = -90;
-            DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
-          }
+      if(chopAngle < -90) {
+        chopAngle = -90;
+        DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
+      }
 
-         if(chopAngle > 90) {
-           chopAngle = 90;
-           DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
-         }	
-       }
- 
-//       if(_telescope == JCMT) {
-//         if(chopAngle < -90) {
-//           chopAngle = -90;
-//           DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
-//         }
-//
-//         if(chopAngle > 90) {
-//           chopAngle = 90;
-//           DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
-//         }	
-//       }
+      if(chopAngle > 90) {
+        chopAngle = 90;
+        DialogUtil.error(_w, "Valid range of chop angles: -90.0..90.0");
+      }	
 
-       return Double.toString(chopAngle);
+      return Double.toString(chopAngle);
     }
 
     /**
