@@ -831,6 +831,61 @@ findAllItems(SpItem rootItem, String className)
    return v;
 }
 
+/**
+ * Find all of the items which are instances of the class 
+ * that are in the scope of the given SpItem.  This can be
+ * used to find instances of superclasses
+ */
+public static Vector
+findAllInstances(SpItem rootItem, String name)
+{
+   Vector v = new Vector();
+   if ( name == null || name.length() == 0) return v;
+
+   Class c;
+   try {
+       c = Class.forName(name);
+   }
+   catch ( ClassNotFoundException ex ) {
+       return v;
+   }
+
+   if ( rootItem instanceof  SpObsContextItem ) {
+       // Start searching from the parent node
+       _findAllInstances ( rootItem, c, v);
+   }
+   else {
+       //if (rootItem instanceof Class.forName(name)) {
+       if ( c.isInstance(rootItem) ) {
+           v.addElement( rootItem );
+       }
+       _findAllInstances ( rootItem.parent(), c, v);
+   }
+   return v;
+}
+
+
+//
+// Find all of the items of the given Class in the scope of the given SpItem.
+//
+private static void
+_findAllInstances(SpItem rootItem, Class c, Vector v)
+{
+   SpItem child = rootItem.child();
+   while (child != null) {
+      //if (child instanceof Class.forName(name)) {
+      if ( c.isInstance(child) ) {
+         v.addElement(child);
+      }
+
+      // For efficiency, only recurse if the child has children ...
+      if (child.child() != null) {
+         _findAllInstances(child, c, v);
+      }
+
+      child = child.next();
+   }
+}   
 
 //
 // Find all of the items of the given Class in the scope of the given SpItem.
@@ -852,6 +907,8 @@ _findAllItems(SpItem rootItem, Class c, Vector v)
       child = child.next();
    }
 }
+
+
 
 // -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
