@@ -21,11 +21,17 @@ import jsky.app.ot.editor.OtItemEditor;
  */
 public abstract class EdCompInstBase extends OtItemEditor implements Observer {
 
+    private boolean _initialised = false;
+
     /**
      * This method initializes the widgets in the presentation to reflect the
      * current values of the items attributes.
      */
     protected void _init() {
+	if(_initialised) {
+	    return;
+	}
+
 	TextBoxWidgetExt tbwe;
 	tbwe = getPosAngleTextBox();
 	tbwe.addWatcher( new TextBoxWidgetWatcher() {
@@ -49,6 +55,8 @@ public abstract class EdCompInstBase extends OtItemEditor implements Observer {
 
 		public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
 	    });
+
+	_initialised = true;
     }
 
 
