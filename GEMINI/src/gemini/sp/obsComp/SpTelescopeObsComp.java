@@ -505,13 +505,22 @@ processXmlElementContent(String name, String value)
       return;
    }
 
+   /*
+    * Since the proper motion is stored in arcsecs/yr, but
+    * is displayed in mas/year, we need to convert between
+    * the two before assigning.
+    */
    if ( name.equals(TX_PM1) ) {
-       _currentPosition.setPropMotionRA(value);
+       Double dValue = new Double (value);
+       dValue = new Double (dValue.doubleValue() * 1000.0);
+       _currentPosition.setPropMotionRA(dValue.toString());
        return;
    }
 
    if ( name.equals(TX_PM2) ) {
-       _currentPosition.setPropMotionDec(value);
+       Double dValue = new Double (value);
+       dValue = new Double (dValue.doubleValue() * 1000.0);
+       _currentPosition.setPropMotionDec(dValue.toString());
        return;
    }
 
