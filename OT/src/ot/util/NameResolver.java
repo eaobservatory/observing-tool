@@ -31,12 +31,11 @@ public class NameResolver {
     // Using  URLEncoder.encode would be nice but it replaces ' ' with '+' which
     // doesn't do the trick. ' ' has to be replaced with "%20".
     //queryString= URLEncoder.encode(queryString);
-    do {
+    while(queryString.indexOf(' ') >= 0) {
       queryString = queryString.substring(0, queryString.indexOf(' '))
                   + "%20"
                   + queryString.substring(queryString.indexOf(' ') + 1);
-    
-    } while(queryString.indexOf(' ') >= 0);
+    }    
 
     Catalog catalog = SkycatConfigFile.getConfigFile(null).getCatalog(catalogName);
 

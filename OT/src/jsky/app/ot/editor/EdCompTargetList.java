@@ -85,6 +85,35 @@ public final class EdCompTargetList extends OtItemEditor
 	_presSource  = _w = new TelescopeGUI();
 	_description = "Use this editor to enter the base positon, WFS stars, and targets.";
 
+        // Init name resolver drop down (MFO, May29, 2001)
+	String [] catalogs = OtCfg.getNameResolvers();
+
+	// Adding catalogs as follows:
+	//   available   catalog 1
+	//   available   catalog 2
+	//   ...
+	//   ---------------------
+	//   unavailable catalog 1
+	//   unavailable catalog 2
+	//   ...
+	if(catalogs != null) { 
+	  for(int i = 0; i < catalogs.length; i++) {
+            if(NameResolver.isAvailableAsCatalog(catalogs[i])) {
+	      _w.nameResolversDDLBW.addItem(catalogs[i]);
+	    }
+	  }
+
+	  _w.nameResolversDDLBW.addItem("-------------");
+
+	  for(int i = 0; i < catalogs.length; i++) {
+            if(!NameResolver.isAvailableAsCatalog(catalogs[i])) {
+	      _w.nameResolversDDLBW.addItem(catalogs[i]);
+	    }
+	  }
+	}
+
+
+
 	// MFO 23 May 2001: Setting _telescope. Could be done somewhere more central like OtCfg.
 	if(System.getProperty("ot.cfgdir").endsWith("jcmt" + File.separatorChar) ||
 	   System.getProperty("ot.cfgdir").endsWith("jcmt")) {
@@ -113,33 +142,6 @@ public final class EdCompTargetList extends OtItemEditor
      * Do one-time initialization of the editor.  This includes adding watchers.
      */
     protected void _init() {
-        // Init name resolver drop down (MFO, May29, 2001)
-	String [] catalogs = OtCfg.getNameResolvers();
-
-	// Adding catalogs as follows:
-	//   available   catalog 1
-	//   available   catalog 2
-	//   ...
-	//   ---------------------
-	//   unavailable catalog 1
-	//   unavailable catalog 2
-	//   ...
-	if(catalogs != null) { 
-	  for(int i = 0; i < catalogs.length; i++) {
-            if(NameResolver.isAvailableAsCatalog(catalogs[i])) {
-	      _w.nameResolversDDLBW.addItem(catalogs[i]);
-	    }
-	  }
-
-	  _w.nameResolversDDLBW.addItem("-------------");
-
-	  for(int i = 0; i < catalogs.length; i++) {
-            if(!NameResolver.isAvailableAsCatalog(catalogs[i])) {
-	      _w.nameResolversDDLBW.addItem(catalogs[i]);
-	    }
-	  }
-	}
-
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
 	String[] guideTags = SpTelescopePos.getGuideStarTags();
