@@ -89,13 +89,13 @@ storeSp(SpRootItem spItem, File f)
          if(System.getProperty("DEBUG") != null) { 
             System.out.println("xml = " + getXML());
          }
-        //try {
+        try {
           (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
-	//}
-	//catch(Exception e) {
-        //  JOptionPane.showMessageDialog(null, e.getMessage(), "Could not open " + f.getName(), JOptionPane.ERROR_MESSAGE);
-	//  return false;
-	//}
+	}
+	catch(Exception e) {
+          JOptionPane.showMessageDialog(null, e.getMessage(), "Could not open " + f.getName(), JOptionPane.ERROR_MESSAGE);
+	  return false;
+	}
       }
       else {
          if(System.getProperty("DEBUG") != null) { 
