@@ -1,49 +1,36 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
-<xsd:redefine schemaLocation="../../ATOMIXelements.xsd">
+<xsd:redefine schemaLocation="../../TOMLelements.xsd">
 
 <xsd:group name="ProgInfoGroup">
     <xsd:sequence>
-      <xsd:group ref="atx:jac_meta_group"/>
-      <xsd:group ref="atx:ProgInfoGroup"/>
+      <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:group ref="toml:ProgInfoGroup"/>
     </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="schedBlockGroup">
   <xsd:sequence>
-      <xsd:group ref="atx:jac_meta_group"/>
-    <xsd:element ref="atx:componentRef"   minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group ref="atx:schedBlockGroup"/>
+      <xsd:group ref="toml:jac_meta_group"/>
+    <xsd:element ref="toml:componentRef"   minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group ref="toml:schedBlockGroup"/>
   </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="observationGroup">
   <xsd:sequence>
-      <xsd:group ref="atx:jac_meta_group"/>
-    <xsd:element ref="atx:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group   ref="atx:observationGroup"/>
+      <xsd:group ref="toml:jac_meta_group"/>
+    <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group   ref="toml:observationGroup"/>
   </xsd:sequence>
 </xsd:group>
 
 </xsd:redefine>
 
-<!--
-<xsd:redefine schemaLocation="../JACtypes.xsd">
-
-<xsd:group name="MSBContents">
-  <xsd:choice>
-    <xsd:group ref="atx:MSBContents"/>
-    <xsd:group ref="atx:instrumentGroup"/>
-  </xsd:choice>
-</xsd:group>
-
-</xsd:redefine>
--->
-
-<xsd:include schemaLocation="../../ATOMIXtypes.xsd"/>
+<xsd:include schemaLocation="../../TOMLelements.xsd"/>
 <xsd:include schemaLocation="../JACelements.xsd"/>
 <xsd:include schemaLocation="../JACcomponents.xsd"/>
 <xsd:include schemaLocation="../JACfolders.xsd"/>

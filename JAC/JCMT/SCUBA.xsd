@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 <!-- Simple Types used for SCUBA -->
@@ -156,7 +156,7 @@
     <xsd:complexContent>
       <xsd:restriction base="xsd:anyType">
         <xsd:choice>
-          <xsd:element name='value'  type="atx:scubaBolometerList"
+          <xsd:element name='value'  type="toml:scubaBolometerList"
 		       minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
       </xsd:restriction>
@@ -167,7 +167,7 @@
     <xsd:complexContent>
       <xsd:restriction base="xsd:anyType">
         <xsd:choice>
-          <xsd:element name='value'  type="atx:scubaFilterList"
+          <xsd:element name='value'  type="toml:scubaFilterList"
 		       minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
       </xsd:restriction>
@@ -179,10 +179,10 @@
 <xsd:element name="SpInstSCUBA">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:group  ref="atx:jac_meta_group"/>
-      <xsd:element name="bolometers"       type="atx:scubaBolometerType"/>
-      <xsd:element name="filter"           type="atx:scubaFilterType"/>
-      <xsd:element name="primaryBolometer" type="atx:scubaBolometerList"/>
+      <xsd:group  ref="toml:jac_meta_group"/>
+      <xsd:element name="bolometers"       type="toml:scubaBolometerType"/>
+      <xsd:element name="filter"           type="toml:scubaFilterType"/>
+      <xsd:element name="primaryBolometer" type="toml:scubaBolometerList"/>
     </xsd:sequence>
     <xsd:attribute name='id' type='xsd:nonNegativeInteger' use='optional'/>
     <xsd:attribute name='type' type='xsd:string' use='required'/>

@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 
@@ -32,7 +32,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value"  type="atx:irpolIterList"
+        <xsd:element name="value"  type="toml:irpolIterList"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -45,15 +45,15 @@
 <xsd:element name="SpIterIRPOL">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element ref="atx:meta_unique"        minOccurs="0"/>
-      <xsd:element ref="atx:meta_version"       minOccurs="0"/>
-      <xsd:element name="IRPOLIter"       type="atx:irpolIterType"/>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="toml:meta_unique"        minOccurs="0"/>
+      <xsd:element ref="toml:meta_version"       minOccurs="0"/>
+      <xsd:element name="IRPOLIter"       type="toml:irpolIterType"/>
       <xsd:element name="iterConfigList"  type="xsd:string"  fixed="IRPOLIter"/>
-      <xsd:group   ref="atx:instIterContent"    minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:group   ref="toml:instIterContent"    minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="instIRPOL"/>
   </xsd:complexType>
 </xsd:element>

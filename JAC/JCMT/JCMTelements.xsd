@@ -1,20 +1,20 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 <xsd:element name="SpNote">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:group   ref="atx:jac_meta_group"/>
+      <xsd:group   ref="toml:jac_meta_group"/>
       <xsd:element name="binning"              type="xsd:anyType" minOccurs="0"/>
       <xsd:element name="completionParameter"  type="xsd:anyType" minOccurs="0"/>
-      <xsd:group   ref="atx:noteGroup"/>
-      <xsd:element ref="atx:title"                      minOccurs="0"/>
+      <xsd:group   ref="toml:noteGroup"/>
+      <xsd:element ref="toml:title"                      minOccurs="0"/>
     </xsd:sequence>
     <xsd:attribute name="id"                 type="xsd:nonNegativeInteger" 
 		   use="optional"/>
-    <xsd:attribute name="type"               type="atx:SpType" fixed="no"/>
+    <xsd:attribute name="type"               type="toml:SpType" fixed="no"/>
     <xsd:attribute name="subtype"            type="xsd:string" fixed="none"/>
     <xsd:attribute name="observeInstruction" type="xsd:boolean" use="optional"
 		   default="false"/>
@@ -24,12 +24,12 @@
 <xsd:element name="SpSiteQualityObsComp">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:group   ref="atx:jac_meta_group"/>
-      <xsd:element name="noiseCalculationTau"   type="atx:tauLimit"/>
-      <xsd:group   ref="atx:siteQualityGroup"/>
+      <xsd:group   ref="toml:jac_meta_group"/>
+      <xsd:element name="noiseCalculationTau"   type="toml:tauLimit"/>
+      <xsd:group   ref="toml:siteQualityGroup"/>
     </xsd:sequence>
     <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="oc"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="schedInfo"/>
   </xsd:complexType>
 </xsd:element>
