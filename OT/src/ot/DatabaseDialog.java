@@ -212,7 +212,7 @@ public class DatabaseDialog implements ActionListener {
     SpItem spItem = null;
    
     try {
-      spItem = (new SpClient()).fetchProgram(projectID, password);
+      spItem = SpClient.fetchProgram(projectID, password);
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
@@ -250,7 +250,7 @@ public class DatabaseDialog implements ActionListener {
   protected void storeProgram(String password, boolean force) {
 
     try {
-      SpClient.SpStoreResult result = (new SpClient()).storeProgram((SpProg)_spItemToBeSaved, password, force);
+      SpClient.SpStoreResult result = SpClient.storeProgram((SpProg)_spItemToBeSaved, password, force);
 
       ((SpProg)_spItemToBeSaved).setTimestamp(result.timestamp);
 
