@@ -41,7 +41,7 @@ rem Variable is reset if one of the following command line options is
 rem used: -omp, -noomp.
 set OMP_FLAG=
 
-set FREQ_EDITOR_CFG_RESOURCE=edfreq/acsisCfg.xml
+set FREQ_EDITOR_CFG_RESOURCE=edfreq/dasCfg.xml
 
 rem Allowed values: ukirt, jcmt
 rem Variable is reset if a command line argument is specified (e.g. ukirt or jcmt)
@@ -52,7 +52,7 @@ IF (%1)==(-h)                 GOTO USAGE
 IF (%1)==(-internalframes)    set INTERNAL_FRAMES=-internalframes
 IF (%1)==(-nointernalframes)  set INTERNAL_FRAMES=-nointernalframes
 IF (%1)==(-omp)               set OMP_FLAG=-DOMP
-IF (%1)==(-das)               set FREQ_EDITOR_CFG_RESOURCE=edfreq/dasCfg.xml
+IF (%1)==(-nodas)             set FREQ_EDITOR_CFG_RESOURCE=edfreq/acsisCfg.xml
 IF (%1)==(-noomp)             set OMP_FLAG=
 IF (%1)==(-server)            set SERVER=%2
 IF (%1)==(-server)            SHIFT
@@ -66,7 +66,7 @@ IF NOT EXIST %CFG_DIRS%\%TELESCOPE% GOTO USAGE
 
 echo Settings:
                                             echo   Telescope:       %TELESCOPE%
-					    echo   Server:          %SERVER%
+rem					    echo   Server:          %SERVER%
 IF (%OMP_FLAG%)==(-DOMP)                    echo   Database:        OMP/XML 
 iF (%OMP_FLAG%)==()                         echo   Database:        RMI/SGML 
 IF (%INTERNAL_FRAMES%)==(-internalframes)   echo   Internal Frames: Yes
