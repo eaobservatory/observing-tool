@@ -37,7 +37,7 @@ import ot.util.DialogUtil;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterRoverObs extends EdIterJCMTGeneric implements ActionListener {
+public final class EdIterRoverObs extends EdIterJCMTGeneric { // implements ActionListener {
 
   private IterRoverObsGUI _w;       // the GUI layout panel
 
@@ -50,17 +50,16 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric implements ActionLis
     _title       ="Rover";
     _presSource  = _w = (IterRoverObsGUI)super._w;
     _description ="Rover Observation Mode";
-    _w.widePhotom.addActionListener(this);
-
+//    _w.widePhotom.addActionListener(this);
   }
 
     protected void _updateWidgets () {
-	if ( _iterObs != null && ((SpIterRoverObs)_iterObs).getWidePhotom() ) {
-	    _w.widePhotom.setSelected(true);
-	}
-	else {
-	    _w.widePhotom.setSelected(false);
-	}
+//	if ( _iterObs != null && ((SpIterRoverObs)_iterObs).getWidePhotom() ) {
+//	    _w.widePhotom.setSelected(true);
+//	}
+//	else {
+//	    _w.widePhotom.setSelected(false);
+//	}
 	super._updateWidgets();
 
         _w.switchingMode.deleteWatcher(this);
@@ -81,19 +80,19 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric implements ActionLis
 //  }
 
 
-  public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-      _w.acsisPanel.setVisible(true);
-      _w.widePhotom.setVisible(false);
-      _w.widePhotom.setSelected(false);
-    }
-    else {
-      _w.acsisPanel.setVisible(false);
-      _w.widePhotom.setVisible(true);
-    }
-
-    super.setInstrument(spInstObsComp);
-  }
+//  public void setInstrument(SpInstObsComp spInstObsComp) {
+//    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+//      _w.acsisPanel.setVisible(true);
+//      _w.widePhotom.setVisible(false);
+//      _w.widePhotom.setSelected(false);
+//    }
+//    else {
+//      _w.acsisPanel.setVisible(false);
+//      _w.widePhotom.setVisible(true);
+//    }
+//
+//    super.setInstrument(spInstObsComp);
+//  }
 
   protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
 
@@ -112,8 +111,8 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric implements ActionLis
 	return HeterodyneNoise.getHeterodyneNoise((SpIterRoverObs)_iterObs, inst, tau, airmass);
     }
 
-    public void actionPerformed (ActionEvent e) {
-	((SpIterRoverObs)_iterObs).setWidePhotom ( _w.widePhotom.isSelected() );
-    }
+//    public void actionPerformed (ActionEvent e) {
+//	((SpIterRoverObs)_iterObs).setWidePhotom ( _w.widePhotom.isSelected() );
+//    }
 }
 

@@ -53,16 +53,12 @@ public SpIterRoverObs()
    _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
 }
 
-    public void setWidePhotom (boolean flag) {
-	_avTable.set( ATTR_WIDE_PHOTOMETRY, flag );
+    public void setSamplesPerRevolution(int samplesPerRevolution) {
+        _avTable.set(ATTR_SAMPLES_PER_REVOLUTION, samplesPerRevolution);
     }
 
-    public boolean getWidePhotom () {
-	boolean isSet = false;
-	if ( _avTable.exists( ATTR_WIDE_PHOTOMETRY ) && _avTable.getBool ( ATTR_WIDE_PHOTOMETRY ) ) {
-	    isSet = true;
-	}
-	return isSet;
+    public int getSamplesPerRevolution() {
+        return _avTable.getInt(ATTR_SAMPLES_PER_REVOLUTION, 1);
     }
 
 public double getElapsedTime() {
@@ -86,7 +82,7 @@ public double getElapsedTime() {
 	    // 8 seconds per integration
 	    totalIntegrationTime = 8 *  getIntegrations();
 	}
-	else {
+/*	else {
 	    // 18 seconds per integration
 	    if ( getWidePhotom() ) {
 		totalIntegrationTime = 24*getIntegrations();
@@ -94,7 +90,7 @@ public double getElapsedTime() {
 	    else {
 		totalIntegrationTime = 18 * getIntegrations();
 	    }
-	}
+	}*/
     }
     else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
 	double overheadFactor = 1.2;
@@ -128,6 +124,14 @@ public double getElapsedTime() {
     }
 
     public String [] getSwitchingModeOptions() {
+        // Note that there are Strings
+        //   SWITCHING_MODE_CHOP
+        //   SWITCHING_MODE_NOD
+        // defined in the interface orac.jcmt.SpJCMTConstants
+        // of the ACSIS_OT_03_2003 branch which could be used
+        // here when the ACSIS_OT_03_2003 and ROVER_OT branches
+        // are merged into the main branch.
+
         return new String [] {
             "Beam",
             "Position"
