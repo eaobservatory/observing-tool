@@ -192,13 +192,7 @@ _calc(FitsImageInfo fii)
    int chopStepIndex = spIterChop.getSelectedIndex();
    String coordFrame = spIterChop.getCoordFrame(chopStepIndex);
 
-   if(coordFrame.equals(CoordSys.COORD_SYS[0]) || coordFrame.equals(CoordSys.COORD_SYS[1])) {
-     _drawAsCircle = false;
-   }
-   else {
-     _drawAsCircle = true;
-   }
-
+   _drawAsCircle = drawAsCircle(coordFrame);
 
    _baseX = (double) fii.baseScreenPos.x;
    _baseY = (double) fii.baseScreenPos.y;
@@ -372,6 +366,21 @@ public void dragStop(FitsMouseEvent fme)
       _dragging = false;
       drag(fme);
       _dragObject = null;
+   }
+}
+
+/**
+ * Return true if the chop position should be drawn as circle
+ * given the coordFrame.
+ */
+protected boolean drawAsCircle(String coordFrame) {
+   if(coordFrame.equals(CoordSys.COORD_SYS[CoordSys.FK5]) ||
+      coordFrame.equals(CoordSys.COORD_SYS[CoordSys.FK4])) {
+
+      return false;
+   }
+   else {
+      return true;
    }
 }
 
