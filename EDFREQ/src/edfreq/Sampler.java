@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import java.util.*;
 import java.awt.event.*;
@@ -85,6 +85,10 @@ public class Sampler implements ItemListener
    public int getChannels ( )
    {
       return channels;
+   }
+
+   public void toggleBandWidth() {
+     jtb.doClick();
    }
 
    public void itemStateChanged ( ItemEvent ev )
