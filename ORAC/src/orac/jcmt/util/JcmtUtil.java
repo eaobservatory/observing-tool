@@ -25,7 +25,7 @@ public class JcmtUtil implements TelescopeUtil {
   // There is no proper JCMT validation class yet.
   // Use the Generic class instead.
   private SpValidation _spValidation =  new SpValidation();
-  private String []    _targetTags = { "Science", "Reference" };
+  private String []    _targetTags = { "SCIENCE", "REFERENCE" };
 
 
   public SpValidation getValidationTool() {
