@@ -42,7 +42,7 @@ import java.util.Enumeration;
  */
 public class SpIterRasterObs extends SpIterJCMTObs {
   public static final SpType SP_TYPE =
-    SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "rasterObs", "Raster");
+    SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "rasterObs", "Scan/Raster");
 
   // Register the prototype.
   static {
@@ -56,60 +56,97 @@ public class SpIterRasterObs extends SpIterJCMTObs {
   public SpIterRasterObs() {
     super(SP_TYPE);
 
-    _avTable.noNotifySet(ATTR_X,           "0.0", 0);
-    _avTable.noNotifySet(ATTR_Y,           "0.0", 0);
-    _avTable.noNotifySet(ATTR_THETA,       "0.0", 0);
-    _avTable.noNotifySet(ATTR_SYSTEM,      CoordSys.COORD_SYS[CoordSys.FK5], 0);
+    _avTable.noNotifySet(ATTR_X_CENTER,     "0.0", 0);
+    _avTable.noNotifySet(ATTR_X_CENTER     + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
+    _avTable.noNotifySet(ATTR_Y_CENTER,     "0.0", 0);
+    _avTable.noNotifySet(ATTR_Y_CENTER     + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
+    _avTable.noNotifySet(ATTR_WIDTH,        "0.0", 0);
+    _avTable.noNotifySet(ATTR_WIDTH        + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
+    _avTable.noNotifySet(ATTR_HEIGHT,       "0.0", 0);
+    _avTable.noNotifySet(ATTR_HEIGHT       + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
+    _avTable.noNotifySet(ATTR_RECTANGLE_PA, "0.0", 0);
+    _avTable.noNotifySet(ATTR_RECTANGLE_PA + ":" + ATTR_UNITS, VALUE_DEGREES, 0);
+    _avTable.noNotifySet(ATTR_OFF_SYSTEM, CoordSys.COORD_SYS[CoordSys.FK5], 0);
+  }
+
+  /** Get map x center. */
+  public double getXCenter() {
+    return _avTable.getDouble(ATTR_X_CENTER, 0.0);
+  }
+
+  /** Set map x center. */
+  public void setXCenter(double x) {
+    _avTable.set(ATTR_X_CENTER, x);
+  }
+
+  /** Set map x center. */
+  public void setXCenter(String xStr) {
+    _avTable.set(ATTR_X_CENTER, toDouble(xStr));
+  }
+
+  /** Get map y center. */
+  public double getYCenter() {
+    return _avTable.getDouble(ATTR_Y_CENTER, 0.0);
+  }
+
+  /** Set map y center. */
+  public void setYCenter(double y) {
+    _avTable.set(ATTR_Y_CENTER, y);
+  }
+
+  /** Set map y center. */
+  public void setYCenter(String yStr) {
+    _avTable.set(ATTR_Y_CENTER, toDouble(yStr));
   }
 
   /** Get map width. */
-  public double getX() {
-    return _avTable.getDouble(ATTR_X, 0.0);
+  public double getWidth() {
+    return _avTable.getDouble(ATTR_WIDTH, 0.0);
   }
 
   /** Set map width. */
-  public void setX(double x) {
-    _avTable.set(ATTR_X, x);
+  public void setWidth(double width) {
+    _avTable.set(ATTR_WIDTH, width);
   }
 
   /** Set map width. */
-  public void setX(String xStr) {
-    _avTable.set(ATTR_X, toDouble(xStr));
+  public void setWidth(String widthStr) {
+    _avTable.set(ATTR_WIDTH, toDouble(widthStr));
   }
 
   /** Get map height. */
-  public double getY() {
-    return _avTable.getDouble(ATTR_Y, 0.0);
+  public double getHeight() {
+    return _avTable.getDouble(ATTR_HEIGHT, 0.0);
   }
 
   /** Set map height. */
-  public void setY(double y) {
-    _avTable.set(ATTR_Y, y);
+  public void setHeight(double height) {
+    _avTable.set(ATTR_HEIGHT, height);
   }
 
   /** Set map height. */
-  public void setY(String yStr) {
-    _avTable.set(ATTR_Y, toDouble(yStr));
+  public void setHeight(String heightStr) {
+    _avTable.set(ATTR_HEIGHT, toDouble(heightStr));
   }
 
-  public double getTheta() {
-    return _avTable.getDouble(ATTR_THETA, 0.0);
+  public double getRectanglePA() {
+    return _avTable.getDouble(ATTR_RECTANGLE_PA, 0.0);
   }
 
-  public void setTheta(double theta) {
-    _avTable.set(ATTR_THETA, theta);
+  public void setRectanglePA(double theta) {
+    _avTable.set(ATTR_RECTANGLE_PA, theta);
   }
 
-  public void setTheta(String thetaStr) {
-    _avTable.set(ATTR_THETA, toDouble(thetaStr));
+  public void setRectanglePA(String thetaStr) {
+    _avTable.set(ATTR_RECTANGLE_PA, toDouble(thetaStr));
   }
 
-  public String getSystem() {
-    return _avTable.get(ATTR_SYSTEM);
+  public String getOffSystem() {
+    return _avTable.get(ATTR_OFF_SYSTEM);
   }
 
-  public void setSystem(String system) {
-    _avTable.set(ATTR_SYSTEM, system);
+  public void setOffSystem(String system) {
+    _avTable.set(ATTR_OFF_SYSTEM, system);
   }
 
   public String getRasterMode() {
