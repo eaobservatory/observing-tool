@@ -45,6 +45,14 @@ public class SpIterChop extends SpIterComp {
   /** @see #ATTR_PREFIX_CHOP */
   public static String ATTR_COORD_FRAME = "coordFrame";
 
+  /**
+   * Index of step that is currently selected in the chop iterator editor.
+   *
+   * This index is needed for the painting of the chop feature in the telescope position editor.
+   * It is not saved to the _avTable as it is not needed for the XML representation of this iterator.
+   * And a change of the selected step should not result in this item being marked as edited.
+   */
+  private int _selectedIndex = -1;
 
   public static final SpType SP_TYPE =
     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "chop", "Chop");
@@ -106,6 +114,13 @@ public class SpIterChop extends SpIterComp {
     _avTable.set(ATTR_PREFIX_CHOP + "#" + step + "." + ATTR_COORD_FRAME, coordFrame);
   }
 
+  public int getSelectedIndex() {
+    return _selectedIndex;
+  }
+
+  public void setSelectedIndex(int selectedIndex) {
+    _selectedIndex = selectedIndex;
+  }
 
   public Vector getStep(int i) {
     if(getThrowAsString(i) == null) {
