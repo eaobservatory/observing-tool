@@ -1440,7 +1440,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public void
     setDisperser(String disperser)
     {
-        _avTable.set(ATTR_DISPERSER, disperser);
+	_avTable.set(ATTR_DISPERSER, disperser);
         confirmMask();
         useDefaultFilter();
         useDefaultFilterCategory();
@@ -4425,7 +4425,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 
 		for (int i = 0; i < disperserChoicesAcq.length; i++) {
 		    if (disperser.equalsIgnoreCase(disperserChoicesAcq[i])) {
-			setTargetAcq("yes");
+			_avTable.set(ATTR_TARGET_ACQ, "yes");
 		    }
 		}
 	    }
