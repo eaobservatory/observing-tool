@@ -1164,7 +1164,7 @@ public class SpTranslator {
                   isGuideTarget = targetAttribute.equalsIgnoreCase( "GUIDE" );
 
 // Obtain the values of the position as a Vector.
-		  tavl.printAll( targetAttribute );
+		  //tavl.printAll( targetAttribute );
                   targetValues = tavl.getAll( targetAttribute );
 
 // Obtain the raw mandatory strings.  Assume that the order is constant
