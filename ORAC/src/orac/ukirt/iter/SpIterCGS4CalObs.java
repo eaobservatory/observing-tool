@@ -163,22 +163,16 @@ private void _readCfgFile (String filename) {
             ARC_LAMPS = instInfo.getValueAsArray();
          }else if (instInfo.getKeyword().equalsIgnoreCase("40lpmm_arclamps")) {
             ARCLAMPS1 = instInfo.getValueAsLUT();
-         }else if (instInfo.getKeyword().equalsIgnoreCase("150lpmm_arclamps")) {
-            ARCLAMPS2 = instInfo.getValueAsLUT();
          }else if (instInfo.getKeyword().equalsIgnoreCase("echelle_arclamps")) {
-            ARCLAMPS3 = instInfo.getValueAsLUT();
+            ARCLAMPS2 = instInfo.getValueAsLUT();
          }else if (instInfo.getKeyword().equalsIgnoreCase("40lpmm_arcfilters")) {
             ARCFILTS1 = instInfo.getValueAsLUT();
-         }else if (instInfo.getKeyword().equalsIgnoreCase("150lpmm_arcfilters")) {
-            ARCFILTS2 = instInfo.getValueAsLUT();
          }else if (instInfo.getKeyword().equalsIgnoreCase("echelle_arcfilters")) {
-            ARCFILTS3 = instInfo.getValueAsLUT();
+            ARCFILTS2 = instInfo.getValueAsLUT();
          }else if (instInfo.getKeyword().equalsIgnoreCase("40lpmm_flatlamps")) {
             FLATLAMPS1 = instInfo.getValueAsLUT();
-         }else if (instInfo.getKeyword().equalsIgnoreCase("150lpmm_flatlamps")) {
-            FLATLAMPS2 = instInfo.getValueAsLUT();
          }else if (instInfo.getKeyword().equalsIgnoreCase("echelle_flatlamps")) {
-            FLATLAMPS3 = instInfo.getValueAsLUT();
+            FLATLAMPS2 = instInfo.getValueAsLUT();
          }else if (instInfo.getKeyword().equalsIgnoreCase("filters")) {
             FILTERS = instInfo.getValueAsArray();
          }else if (instInfo.getKeyword().equalsIgnoreCase("default_mode")) {
@@ -556,7 +550,7 @@ getDefaultFilter()
 	  }
 	}catch (Exception ex) {
 	}
-	if (filter.equalsIgnoreCase("asInstrument")) filter=instfilt;
+	if (filter == null || filter.equalsIgnoreCase("asInstrument")) filter=instfilt;
       }
    }else {
       filter = FILTERS[0];
@@ -669,12 +663,15 @@ getDefaultNdFilter()
 	 int instdi = inst.getDisperserIndex();
          double instcwl = inst.getCentralWavelength();
          if (instdi == 0) {
+             System.out.println("ARCLAMPS1=" + ARCLAMPS1);
 	   int pos = ARCLAMPS1.rangeInColumn(instcwl, 0);
 	   ndFilter = Boolean.valueOf ((String) ARCLAMPS1.elementAt(pos, 3)).booleanValue();
          }else if (instdi == 1) {
+             System.out.println("ARCLAMPS2=" + ARCLAMPS2);
 	   int pos = ARCLAMPS2.rangeInColumn(instcwl, 0);
 	   ndFilter = Boolean.valueOf ((String) ARCLAMPS2.elementAt(pos, 3)).booleanValue();
          }else if (instdi == 2) {
+             System.out.println("ARCLAMPS3=" + ARCLAMPS3);
 	   int pos = ARCLAMPS3.rangeInColumn(instcwl, 0);
 	   ndFilter = Boolean.valueOf ((String) ARCLAMPS3.elementAt(pos, 3)).booleanValue();
          }
