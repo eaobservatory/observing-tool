@@ -1303,7 +1303,7 @@
       <xsd:element name="restFrequency" type="xsd:double"/>
       <xsd:element name="velocity"      type="xsd:double"/>
       <xsd:element name="referenceFrameVelocity" type="xsd:double" minOccurs="0"/>
-      <xsd:element name="configuration" type="csd:string" minOccurs="0"/>
+      <xsd:element name="configuration" type="xsd:string" minOccurs="0"/>
       <xsd:element name="velocityFrame" type="velocityFrameReferenceType"/>
       <xsd:element name="beName">
         <xsd:simpleType>
