@@ -155,7 +155,10 @@ ALL_TOOLS           = $(INSTALL_ROOT)/tools/$(notdir $(JHTOOLS_JAR)) \
                       $(INSTALL_ROOT)/tools/$(notdir $(JSKY_JAR)) \
                       $(INSTALL_ROOT)/tools/$(notdir $(JUNIT_JAR)) \
                       $(INSTALL_ROOT)/tools/$(notdir $(TCLJAVA_JAR)) \
-                      $(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR))
+                      $(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR)) \
+                      $(INSTALL_ROOT)/tools/$(notdir $(ACTIVATION_JAR)) \
+                      $(INSTALL_ROOT)/tools/$(notdir $(MAIL_JAR)) \
+                      $(INSTALL_ROOT)/tools/$(notdir $(SOAP_JAR))
 
 ALL_LIBS            = $(INSTALL_ROOT)/lib/$(notdir $(GEMINI_JAR)) \
                       $(INSTALL_ROOT)/lib/$(notdir $(ORAC_JAR)) \
@@ -212,6 +215,14 @@ $(INSTALL_ROOT)/tools/$(notdir $(TCLJAVA_JAR)): $(TCLJAVA_JAR)
 $(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR)): $(XERCES_JAR)
 	cp $< $@
 
+$(INSTALL_ROOT)/tools/$(notdir $(ACTIVATION_JAR)): $(ACTIVATION_JAR)
+	cp $< $@
+
+$(INSTALL_ROOT)/tools/$(notdir $(MAIL_JAR)): $(MAIL_JAR)
+	cp $< $@
+
+$(INSTALL_ROOT)/tools/$(notdir $(SOAP_JAR)): $(SOAP_JAR)
+	cp $< $@
 
 # Rules for Orac libraries in default location
 # If a jar file is not found in its default location the following rules will try to create it directly
@@ -239,6 +250,13 @@ ifneq ($(shell if test -f $(ODB_JAR) ; then echo exists; fi), )
 	cp $(ODB_JAR) $@
 else
 	(cd ../../ODB/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
+endif
+
+$(INSTALL_ROOT)/lib/$(notdir $(OMP_JAR)):
+ifneq ($(shell if test -f $(OMP_JAR) ; then echo exists; fi), )
+	cp $(OMP_JAR) $@
+else
+	(cd ../../OMP/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 endif
 
 $(INSTALL_ROOT)/lib/$(notdir $(OT_JAR)):

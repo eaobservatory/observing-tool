@@ -42,7 +42,7 @@ install: all install_dir
 	(cd OT/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 
 	mkdir -p $(INSTALL_ROOT)/tools
-	cp ORAC/tools/*.jar OT/tools/*.jar $(INSTALL_ROOT)/tools
+	cp OT/tools/*.jar ORAC/tools/*.jar OMP/tools/*.jar $(INSTALL_ROOT)/tools
 
 	mkdir -p $(INSTALL_ROOT)/cfg
 
