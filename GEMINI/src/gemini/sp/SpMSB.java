@@ -18,8 +18,34 @@ package gemini.sp;
  */
 public class SpMSB extends SpObsContextItem {
 
+   /** This attribute records the observation priority. */
+   public static final String ATTR_PRIORITY = "priority";
+
+   /**
+    * High observation priority, relative to the other observations in
+    * the science program.
+    */
+   public static final int PRIORITY_HIGH   = 0;
+
+   /**
+    * Medium observation priority, relative to the other observations in
+    * the science program.
+    */
+   public static final int PRIORITY_MEDIUM = 1;
+
+   /**
+    * Low observation priority, relative to the other observations in
+    * the science program.
+    */
+   public static final int PRIORITY_LOW    = 2;
+
+   public static String[] PRIORITIES = {
+      "High", "Medium", "Low"
+   };
+
    /** This attribute records the number of remaining MSBs. */
    public static final String ATTR_REMAINING = ":remaining";
+
 
   /**
    * Default constructor.
@@ -27,8 +53,36 @@ public class SpMSB extends SpObsContextItem {
   protected SpMSB() {
     super(SpType.MSB_FOLDER);
     _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
-    _avTable.noNotifySet(SpObs.ATTR_PRIORITY, SpObs.PRIORITIES[SpObs.PRIORITY_LOW], 0);
+    _avTable.noNotifySet(ATTR_PRIORITY, PRIORITIES[PRIORITY_LOW], 0);
   }
+
+  /**
+   * Constructor with the specific SpType.
+   *
+   * This constructor can be called from subclasses. Note that it deliberately
+   * does not initialise _avTable values. This should be done in the constructor of the
+   * subclass. This is usefull because the {@link gemini.sp.SpObs} constructor 
+   * initialises its _avTable values dependend on whether the OT runs in OMP mode
+   * or not. The {@link #SpMSB} constructor however always assumes OMP mode. 
+   */
+  protected SpMSB(SpType spType) {
+    super(spType);
+  }
+
+/**
+ * Override getTitle so that it simply returns the "title" attribute if
+ * set.
+ */
+public String
+getTitle()
+{
+   String title = getTitleAttr();
+   if ((title == null) || title.equals("")) {
+      title = type().getReadable();
+   }
+   return title + " (" + getNumberRemaining() + "X)";
+}
+
 
 /**
  * Get the observation priority.
@@ -36,17 +90,17 @@ public class SpMSB extends SpObsContextItem {
 public int
 getPriority()
 {
-   String str = _avTable.get(SpObs.ATTR_PRIORITY);
+   String str = _avTable.get(ATTR_PRIORITY);
    if (str == null) {
-      return SpObs.PRIORITY_LOW;
+      return PRIORITY_LOW;
    }
 
-   for (int i=0; i<SpObs.PRIORITIES.length; ++i) {
-      if (str.equals(SpObs.PRIORITIES[i])) {
+   for (int i=0; i<PRIORITIES.length; ++i) {
+      if (str.equals(PRIORITIES[i])) {
          return i;
       }
    }
-   return SpObs.PRIORITY_LOW;
+   return PRIORITY_LOW;
 }
 
 /**
@@ -55,9 +109,9 @@ getPriority()
 public String
 getPriorityString()
 {
-   String str = _avTable.get(SpObs.ATTR_PRIORITY);
+   String str = _avTable.get(ATTR_PRIORITY);
    if (str == null) {
-      return SpObs.PRIORITIES[0];
+      return PRIORITIES[0];
    }
    return str;
 }
@@ -68,11 +122,11 @@ getPriorityString()
 public void
 setPriority(int priority)
 {
-   if ((priority < 0) || (priority > SpObs.PRIORITIES.length)) {
+   if ((priority < 0) || (priority > PRIORITIES.length)) {
       return;
    }
  
-   _avTable.set(SpObs.ATTR_PRIORITY, SpObs.PRIORITIES[priority]);
+   _avTable.set(ATTR_PRIORITY, PRIORITIES[priority]);
 }
 
 
@@ -99,7 +153,6 @@ setNumberRemaining(int remaining)
 {
    _avTable.set(ATTR_REMAINING, remaining);
 }
-
 
 }
 
