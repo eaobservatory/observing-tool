@@ -184,6 +184,7 @@
     <xsd:element ref="atx:priority" minOccurs="0"/>
     <xsd:element ref="atx:standardStar" minOccurs="0"/>
     <xsd:element ref="atx:title"/>
+    <xsd:element ref="atx:totalDuration" minOccurs="0"/>
   </xsd:sequence>
 </xsd:group>
 
