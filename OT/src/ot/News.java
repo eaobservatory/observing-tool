@@ -64,6 +64,7 @@ showNews(URL url)
    }
    _news.show();
    _news.toFront();
+   _news.setState(JFrame.NORMAL);
 }
 
 public synchronized static void
