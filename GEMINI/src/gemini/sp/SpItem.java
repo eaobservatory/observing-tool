@@ -841,12 +841,6 @@ print(String indentStr)
 
     xmlBuffer.append("\n" + indent + "<" + _className);
 
-    // Sort table entries to make different saves of a Science Program more
-    // comparible. Not sorting would still result in valid XML but
-    // the XML elements representing the Av table entries could
-    // be in a different order every time the XML created.
-    _avTable.sort();
-
     // Get those AV table attributes that are to represented by XML attributes
     // i.e. those that start with the character ':'.
     avAttributes = _avTable.attributes(":");
