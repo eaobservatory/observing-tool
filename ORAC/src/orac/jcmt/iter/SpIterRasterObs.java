@@ -227,7 +227,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     SpInstObsComp inst = SpTreeMan.findInstrument(this);
     if(inst == null) {
       throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
-                                               "Needed for calculation of scan dx.");
+                                               "Needed for calculation of sample spacing.");
     }
     else {
       if(inst instanceof SpInstSCUBA) {

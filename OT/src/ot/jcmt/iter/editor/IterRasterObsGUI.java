@@ -96,10 +96,10 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     scanPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Scan"));
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
-    jLabel1.setText("dx");
+    jLabel1.setText("Sample Spacing");
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
-    jLabel2.setText("dy");
+    jLabel2.setText("Scan Spacing");
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Width");
@@ -181,24 +181,24 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     scanPanel.add(scanSystem, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 2, 0, 0), 0, 0));
     scanPanel.add(jLabel16, new GridBagConstraints(0, 0, 1, 1, 0.0, 1.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
     scanPanel.add(scanAngle, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
     scanPanel.add(jLabel17, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    areaPanel.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    areaPanel.add(jLabel2, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    areaPanel.add(jLabel1, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 0), 0, 0));
+    areaPanel.add(jLabel2, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 0), 0, 0));
     areaPanel.add(jLabel3, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    areaPanel.add(dx, new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    areaPanel.add(dx, new GridBagConstraints(1, 3, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
-    areaPanel.add(dy, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+    areaPanel.add(dy, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
     areaPanel.add(width, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
-    areaPanel.add(jLabel5, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+    areaPanel.add(jLabel5, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     areaPanel.add(jLabel18, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
@@ -206,16 +206,16 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     areaPanel.add(height, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
-    areaPanel.add(jLabel20, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
+    areaPanel.add(jLabel20, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     areaPanel.add(jLabel21, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    areaPanel.add(posAngle, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    areaPanel.add(posAngle, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
-    areaPanel.add(jLabel23, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+    areaPanel.add(jLabel23, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    areaPanel.add(jLabel14, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    areaPanel.add(jLabel14, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     this.add(heterodynePanel, BorderLayout.CENTER);
     heterodynePanel.add(alongRow, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
