@@ -22,6 +22,5 @@ public class BasicWindowMonitor extends WindowAdapter {
     Window w = e.getWindow();
     w.setVisible(false);
     w.dispose();
-    System.exit(0);
   }
 }
