@@ -233,7 +233,7 @@ public class SpInputXML extends DefaultHandler {
 
     xmlReader.setContentHandler(this);
 
-    xmlReader.parse(new InputSource(reader));
+    xmlReader.parse(new InputSource(bufferedReader));
 
     return _currentSpItem;
   }
