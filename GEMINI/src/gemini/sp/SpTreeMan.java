@@ -567,6 +567,7 @@ static {
       _insertAfter.put("no,oc", ip);
       _insertAfter.put("no,ic", ip);
       _insertAfter.put("no,no", ip);
+      _insertAfter.put("no,pr", ip); // SdW
 
       ip = new AfterPolicy_Component();
 
@@ -844,7 +845,9 @@ _findAllItems(SpItem rootItem, Class c, Vector v)
 static SpInsertInfo
 doEvalInsertInside(SpItem newItem, SpItem parent)
 {
-   if (parent == null) return null;
+   if (parent == null) {
+       return null;
+   }
 
    // Is there a definition for this combination?
    String key = newItem.typeStr() + "," + parent.typeStr();
