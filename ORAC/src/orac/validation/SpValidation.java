@@ -106,9 +106,12 @@ public class SpValidation {
 	mandatoryChildren.add("SpObs");
 	mandatoryChildren.add("SpMSB");
 	excludedChildren.add("SpOR");
+	excludedChildren.add("SpAND");
 	checkForChildren(doc, "SpAND", mandatoryChildren, excludedChildren, report);
-	mandatoryChildren.add("SpOR");
-	checkForChildren(doc, "SpOR", mandatoryChildren, null, report);
+	mandatoryChildren.add("SpAND");
+	excludedChildren.clear();
+	excludedChildren.add("SpOR");
+	checkForChildren(doc, "SpOR", mandatoryChildren, excludedChildren, report);
 	mandatoryChildren.clear();
 	mandatoryChildren.add("SpObs");
 	checkForChildren(doc, "SpMSB", mandatoryChildren, null, report);
