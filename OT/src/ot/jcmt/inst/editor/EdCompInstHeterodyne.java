@@ -94,6 +94,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.velocity.setText ( "0.0" );
       _w.velocity.addActionListener ( this );
 
+      _w.velocityDefinition.setModel(new DefaultComboBoxModel(new String[]{ "Velocity, optical",
+									    "Velocity, radio",
+									    "Redshift, z" }));
+      _w.velocityDefinition.addActionListener ( this );
+
+      _w.velocityFrame.setModel(new DefaultComboBoxModel(cfg.velocityFrames));
+      _w.velocityFrame.addActionListener ( this );
 
       _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "usb", "lsb" } ));
       _w.feBand.addActionListener ( this );
@@ -115,9 +122,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.moleculeFrequency2.setText ( "0.0000" );
       _w.moleculeFrequency2.addActionListener(this);
 
-/* Assemble the display */
 
       _w.freqEditorButton.addActionListener(this);
+      _w.hideFreqEditorButton.addActionListener(this);
 
    
       // MFO trigger additional initialising.
@@ -192,7 +199,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    public void actionPerformed ( ActionEvent ae )
    {
       if(ae.getSource() == _w.freqEditorButton) {
-         sideBandDisplay.show();
+         sideBandDisplay.setVisible(true);
+      }
+
+      if(ae.getSource() == _w.hideFreqEditorButton) {
+         sideBandDisplay.setVisible(false);
       }
 
       if(_ignoreEvents) {
