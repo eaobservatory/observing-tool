@@ -13,6 +13,9 @@ package edfreq;
 import java.util.*;
 
 /**
+ * @deprecated This class is not needed anymore. The receiver list details are now
+ *             read in and maintained by the class {@link edfreq.FrequencyEditorCfg}.
+ *
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
 public class ReceiverList
