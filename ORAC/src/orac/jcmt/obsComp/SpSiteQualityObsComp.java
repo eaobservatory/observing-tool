@@ -35,9 +35,9 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
    protected static final String XML_MIN        = "min";
 
    public static final double [][] SEEING_RANGES = {
+      {0.0, 0.5},
       {0.0, 1.0},
-      {1.0, Double.POSITIVE_INFINITY},
-      {0.0, Double.POSITIVE_INFINITY}, // Not used
+      {0.0, 3.0},
       {0.0, Double.POSITIVE_INFINITY} // not used
    };
 

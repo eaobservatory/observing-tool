@@ -58,14 +58,14 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 	_w.seeing1.addActionListener(this);
 	_w.seeing2.addActionListener(this);
-	// _w.seeing3.addActionListener(this);
+        _w.seeing3.addActionListener(this);
 	// _w.seeing4.addActionListener(this);
 	_w.seeingAny.addActionListener(this);
 
 	grp = new ButtonGroup();
 	grp.add(_w.seeing1);
 	grp.add(_w.seeing2);
-	// grp.add(_w.seeing3);
+        grp.add(_w.seeing3);
 	// grp.add(_w.seeing4);
 	grp.add(_w.seeingAny);
     }
@@ -106,8 +106,9 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    _w.seeing1.setValue(true); break;
 	case 1:
 	    _w.seeing2.setValue(true); break;
-	    // case 2:
-	    // _w.seeing3.setValue(true); break;
+	case 2:
+	    _w.seeing3.setValue(true); break;
+            // KLUGE - must check that case 3 has not become case 4
 	    // case 3:
 	    // _w.seeing4.setValue(true); break;	    
         case 4:
@@ -115,7 +116,7 @@ public final class EdCompSiteQuality extends OtItemEditor
 	default:
 	    _w.seeing1.setValue(false);
 	    _w.seeing2.setValue(false);
-	    // _w.seeing3.setValue(false);
+	    _w.seeing3.setValue(false);
 	    // _w.seeing4.setValue(false);
 	    _w.seeingAny.setValue(false);
 	    break;
@@ -166,9 +167,9 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    sq.setSeeing(1);
 	}
 
-	// if (w == _w.seeing3) {
-	//    sq.setSeeing(2);
-	// }
+	if (w == _w.seeing3) {
+	    sq.setSeeing(2);
+	}
 
 	// if (w == _w.seeing4) {
 	//    sq.setSeeing(3);
