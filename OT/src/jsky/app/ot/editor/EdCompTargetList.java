@@ -568,14 +568,6 @@ public final class EdCompTargetList extends OtItemEditor
 
 
     /**
-     * Do one-time initialization of the editor.  This includes adding watchers.
-     */
-//    protected void _init() {
-//        // is now all done in constructor (MFO, 12 October 2001)
-//    }
-
-
-    /**
      * Show the given SpTelescopePos.
      */
     public void showPos( SpTelescopePos tp ) {
@@ -584,22 +576,6 @@ public final class EdCompTargetList extends OtItemEditor
 	} else {
 	    _tag.setValue( tp.getTag() );
 	}
-
-
-//	// display the coordinates in the selected system (FK4/FK5), but store them as J2000
-//	double equinox = 2000.;
-//	if (tp.getCoordSys() == CoordSys.FK4)
-//	    equinox = 1950.;
-//	WorldCoords pos = new WorldCoords(tp.getXaxis(), tp.getYaxis(), 2000.);
-//	String[] radec = pos.format(equinox);
-//
-//	_name.setValue(tp.getName());
-//
-//	//_xaxis.setValue(tp.getXaxisAsString());
-//	_xaxis.setValue(radec[0]);
-//
-//	//_yaxis.setValue(tp.getYaxisAsString());
-//	_yaxis.setValue(radec[1]);
 
 
 	_name.setValue(   tp.getName()          );
@@ -614,9 +590,6 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
 	_w.offsetCheckBox.setValue(tp.isOffsetPosition());
-
-//	_xaxis.setValue(tp.getXaxisAsString());
-//	_yaxis.setValue(tp.getYaxisAsString());	
 
 	//_configureWidgets(tp);
 	_setCoordSys(tp);
@@ -766,25 +739,9 @@ public final class EdCompTargetList extends OtItemEditor
 
 	_updateXYUnitsLabels();
 
-/*
-	// update remove button
-	if(_curPos.getTag().equals(SpTelescopePos.BASE_TAG)) {
-	  _w.removeButton.setEnabled(false);
-	}
-	else {
-	  _w.removeButton.setEnabled(true);
-	}
-
-
-	// Make sure the tag selection is disabled while the base position is selected.
-	// The base position tag cannot be changed.
-	if(_tag.getValue().equals(SpTelescopePos.BASE_TAG)) {
-	  _tag.setEnabled(false);
-	}
-	else {
-	  _tag.setEnabled(true);
-	}
-*/
+	// Set the type based on the current contents of the component
+	System.out.println( _curPos.toString() );
+	_type.setSelectedIndex ( _curPos.getSystemType() );
     }
 
     /**
