@@ -869,6 +869,8 @@ public class TelescopePosEditor extends JSkyCat
      * the editor.
      */
     public void	spHierarchyChange() {
+        repaint(); // MFO (April 19, 2002)
+
 	SpObsContextItem spContext = _getContext(_spItem);
 	if (spContext == null) return;
 
