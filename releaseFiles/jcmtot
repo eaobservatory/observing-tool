@@ -1,0 +1,12 @@
+#!/bin/csh -f
+
+# Simple startup script for the JCMT-OT. Just runs the actual
+# OT script with the correct options of "-omp jcmt"
+
+
+# Find out where we are
+# Assumes people dont copy me
+set mydir=`dirname $0` 
+
+# Now run the ot
+${mydir}/ot -omp -nointernalframes jcmt
