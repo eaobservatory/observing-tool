@@ -461,7 +461,7 @@
       <xsd:element name="resetDelay"        type="toml:nonNegativeDecimal" minOccurs="0"/>
       <xsd:element name="waveform"          type="toml:uistWaveformList" minOccurs="0"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="UISTCalObs"/>
   </xsd:complexType>
@@ -484,7 +484,7 @@
       <xsd:element name="scienceArea"      type="xsd:anyType"/>
       <xsd:element name="source_mag"       type="xsd:anyType"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="instUISTTargetAcq"/>
   </xsd:complexType>
