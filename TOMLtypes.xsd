@@ -42,9 +42,15 @@
   </xsd:restriction>
 </xsd:simpleType>
 
-<xsd:simpleType name="nameType">
+<xsd:simpleType name="asciiType">
   <xsd:restriction base="xsd:string">
-    <xsd:pattern value="[A-Za-z0-9_\+\- \.]*"/>
+    <xsd:pattern value="\p{IsBasicLatin}*"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="nameType">
+  <xsd:restriction base="toml:asciiType">
+    <xsd:pattern value="[^$\\/]*[^$\\/]*"/>
   </xsd:restriction>
 </xsd:simpleType>
 

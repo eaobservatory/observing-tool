@@ -22,6 +22,7 @@
     <xsd:enumeration value="J"/>
     <xsd:enumeration value="H"/>
     <xsd:enumeration value="K"/>
+    <xsd:enumeration value="1-0S1"/>
     <xsd:enumeration value="BGamma"/>
     <xsd:enumeration value="Blank"/>
   </xsd:restriction>
@@ -169,6 +170,7 @@
           </xsd:complexType>
         </xsd:element>
         <xsd:element name="instPort" type="toml:ukirtPortsList" fixed="Centre"/>
+        <xsd:element name="posAngle" type="xsd:double"  minOccurs="0"/>
         <xsd:element name="readMode" type="toml:wfcamReadModeType"/>
       </xsd:sequence>
       <xsd:attribute name="id" type="xsd:nonNegativeInteger" />
