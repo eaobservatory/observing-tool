@@ -526,7 +526,9 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
       
 // Polariser overrides readout area.  (Is there a check that prevents
 // sub-arrays being used with the polariser?)
-      if ( polariser.equalsIgnoreCase( "prism" ) ) {
+      if ( polariser.equalsIgnoreCase( "prism" ) ||
+           polariser.equalsIgnoreCase( "FP" ) ) {
+
          x = ( Double.valueOf( (String) POLARISERS.elementAt( poli, 1 ) ) ).doubleValue();
          y = ( Double.valueOf( (String) POLARISERS.elementAt( poli, 2 ) ) ).doubleValue();
       }

@@ -1111,7 +1111,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	double hilim = 187.0;
 	double neglim = -173.0;
 	if (getDisperser().equalsIgnoreCase("echelle")) {
-	    lolim = 44.0;
+	    lolim = 50.0;
 	    hilim = 224.0;
 	    neglim = -136.0;
 	}

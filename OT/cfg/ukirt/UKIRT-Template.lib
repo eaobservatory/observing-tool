@@ -1,10 +1,10 @@
 <spDocument>
    <lb name=new type=lb subtype=none>
-      <av name=title descr="No Description">
-            <val value="UKIRT LIBRARY">
-      </av>
       <av name=.gui.filename descr="No Description">
             <val value="UKIRT-Template.lib">
+      </av>
+      <av name=title descr="No Description">
+            <val value="UKIRT LIBRARY">
       </av>
       <lf name=new type=lf subtype=none>
          <av name=title descr="No Description">
@@ -1006,15 +1006,15 @@
                                                 <val value="1.0">
                                                 <val value="-10.0">
                         </av>
-                        <av name=Offset2 descr="No Description">
-                                                <val value="10.0">
-                                                <val value="1.0">
+                        <av name=.gui.selectedOffsetPos descr="No Description">
+                                                <val value="Offset0">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="jitter_9_10as">
                         </av>
-                        <av name=.gui.selectedOffsetPos descr="No Description">
-                                                <val value="Offset0">
+                        <av name=Offset2 descr="No Description">
+                                                <val value="10.0">
+                                                <val value="1.0">
                         </av>
                         <av name=Offset1 descr="No Description">
                                                 <val value="-10.0">
@@ -1325,15 +1325,15 @@
                                                 <val value="1.0">
                                                 <val value="-10.0">
                         </av>
-                        <av name=Offset2 descr="No Description">
-                                                <val value="10.0">
-                                                <val value="1.0">
+                        <av name=.gui.selectedOffsetPos descr="No Description">
+                                                <val value="Offset0">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="jitter_9_10as">
                         </av>
-                        <av name=.gui.selectedOffsetPos descr="No Description">
-                                                <val value="Offset0">
+                        <av name=Offset2 descr="No Description">
+                                                <val value="10.0">
+                                                <val value="1.0">
                         </av>
                         <av name=Offset1 descr="No Description">
                                                 <val value="-10.0">
@@ -1601,15 +1601,15 @@
                                           <val value="-20.0">
                                           <val value="22.0">
                      </av>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset0">
+                     <av name=Offset2 descr="No Description">
+                                          <val value="20.0">
+                                          <val value="1.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="9 pt jitter">
                      </av>
-                     <av name=Offset2 descr="No Description">
-                                          <val value="20.0">
-                                          <val value="1.0">
+                     <av name=.gui.selectedOffsetPos descr="No Description">
+                                          <val value="Offset0">
                      </av>
                      <av name=Offset1 descr="No Description">
                                           <val value="21.0">
@@ -1882,15 +1882,15 @@
                                           <val value="-10.0">
                                           <val value="12.0">
                      </av>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset8">
+                     <av name=Offset2 descr="No Description">
+                                          <val value="1.0">
+                                          <val value="11.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="jitter_9_10as">
                      </av>
-                     <av name=Offset2 descr="No Description">
-                                          <val value="1.0">
-                                          <val value="11.0">
+                     <av name=.gui.selectedOffsetPos descr="No Description">
+                                          <val value="Offset8">
                      </av>
                      <av name=Offset1 descr="No Description">
                                           <val value="11.0">
@@ -3259,15 +3259,15 @@
                                           <val value="20.0">
                                           <val value="20.0">
                      </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="21.0">
-                                          <val value="-20.0">
-                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset1">
                                           <val value="Offset0">
                                           <val value="Offset5">
                                           <val value="Offset7">
+                     </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="21.0">
+                                          <val value="-20.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="quadrant jitter">
@@ -5150,8 +5150,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -5247,8 +5247,8 @@
                               <val value="3.5">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.03">
-                              <val value="9.95">
+                              <val value="-0.75">
+                              <val value="15.08">
                               <val value="0.0">
                               <val value="3.5">
                </av>
@@ -5293,12 +5293,12 @@
                   <av name=exposureTimeIter descr="No Description">
                                     <val value="12">
                   </av>
+                  <av name=coaddsIter descr="No Description">
+                                    <val value="3">
+                  </av>
                   <av name=iterConfigList descr="No Description">
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
-                  </av>
-                  <av name=coaddsIter descr="No Description">
-                                    <val value="3">
                   </av>
                </ic>
                <ic name=new type=ic subtype=sky>
@@ -5310,12 +5310,12 @@
                   <av name=exposureTimeIter descr="No Description">
                                     <val value="2">
                   </av>
+                  <av name=coaddsIter descr="No Description">
+                                    <val value="10">
+                  </av>
                   <av name=iterConfigList descr="No Description">
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
-                  </av>
-                  <av name=coaddsIter descr="No Description">
-                                    <val value="10">
                   </av>
                </ic>
                <no name=new type=no subtype=none>
@@ -5468,8 +5468,8 @@
                               <val value="3.5">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="3.5">
                </av>
@@ -5540,12 +5540,12 @@
                   <av name=exposureTimeIter descr="No Description">
                                     <val value="0.4">
                   </av>
+                  <av name=coaddsIter descr="No Description">
+                                    <val value="20">
+                  </av>
                   <av name=iterConfigList descr="No Description">
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
-                  </av>
-                  <av name=coaddsIter descr="No Description">
-                                    <val value="20">
                   </av>
                </ic>
                <no name=new type=no subtype=none>
@@ -5659,8 +5659,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -5905,8 +5905,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -6095,15 +6095,15 @@
                                           <val value="0.0">
                                           <val value="11.74">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <ic name=new type=ic subtype=observe>
                         <av name=repeatCount descr="No Description">
@@ -6219,8 +6219,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -6329,15 +6329,15 @@
                                           <val value="0.0">
                                           <val value="11.74">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <ic name=new type=ic subtype=observe>
                         <av name=repeatCount descr="No Description">
@@ -6445,8 +6445,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -6555,15 +6555,15 @@
                                           <val value="0.0">
                                           <val value="11.74">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <ic name=new type=ic subtype=observe>
                         <av name=repeatCount descr="No Description">
@@ -6671,8 +6671,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -6922,8 +6922,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -7164,8 +7164,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -7354,15 +7354,15 @@
                                           <val value="0.0">
                                           <val value="11.74">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <ic name=new type=ic subtype=observe>
                         <av name=repeatCount descr="No Description">
@@ -7470,8 +7470,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -7801,8 +7801,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -8239,14 +8239,14 @@
                   <av name=exposureTimeIter descr="No Description">
                                     <val value="10">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
                   <av name=iterConfigList descr="No Description">
                                     <val value="filterIter">
                                     <val value="instAperLIter">
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
@@ -8289,16 +8289,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -8337,16 +8337,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -8385,16 +8385,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -8433,16 +8433,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -8671,14 +8671,14 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
+                     <av name=.gui.selected descr="No Description">
+                                          <val value="false">
+                     </av>
                      <av name=IRPOLIter descr="No Description">
                                           <val value="0">
                                           <val value="45">
                                           <val value="22.5">
                                           <val value="67.5">
-                     </av>
-                     <av name=.gui.selected descr="No Description">
-                                          <val value="false">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
@@ -8703,14 +8703,14 @@
                                                 <val value="-20.0">
                                                 <val value="1.0">
                         </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
+                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
-                        </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="3pt E-W jitter">
@@ -8961,14 +8961,14 @@
                   <av name=exposureTimeIter descr="No Description">
                                     <val value="10">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
                   <av name=iterConfigList descr="No Description">
                                     <val value="filterIter">
                                     <val value="instAperLIter">
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
@@ -8999,13 +8999,13 @@
                                                 <val value="0.0">
                                                 <val value="-60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="0.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -9032,13 +9032,13 @@
                                                 <val value="-60.0">
                                                 <val value="0.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="60.0">
                                                 <val value="0.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -9065,13 +9065,13 @@
                                                 <val value="60.0">
                                                 <val value="-60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="60.0">
                                                 <val value="60.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -9098,13 +9098,13 @@
                                                 <val value="-60.0">
                                                 <val value="-60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="-60.0">
                                                 <val value="60.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -9352,14 +9352,14 @@
                                           <val value="-20.0">
                                           <val value="1.0">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="3pt E-W jitter">
@@ -9371,14 +9371,14 @@
                         <av name=iterConfigList descr="No Description">
                                                 <val value="IRPOLIter">
                         </av>
+                        <av name=.gui.selected descr="No Description">
+                                                <val value="false">
+                        </av>
                         <av name=IRPOLIter descr="No Description">
                                                 <val value="0">
                                                 <val value="45">
                                                 <val value="22.5">
                                                 <val value="67.5">
-                        </av>
-                        <av name=.gui.selected descr="No Description">
-                                                <val value="false">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -9638,13 +9638,13 @@
                                                 <val value="0.0">
                                                 <val value="100.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="0.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="Obj-Sky nod 1">
@@ -9677,13 +9677,13 @@
                                                 <val value="0.0">
                                                 <val value="90.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="1.0">
                                                 <val value="-1.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="Obj-Sky nod 2">
@@ -9713,13 +9713,13 @@
                                                 <val value="0.0">
                                                 <val value="95.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="-1.0">
                                                 <val value="1.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="Obj-Sky nod 3">
@@ -9843,8 +9843,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="6.35">
-                              <val value="15.84">
+                              <val value="5.21">
+                              <val value="13.19">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -9952,12 +9952,12 @@
                   <av name=instAperLIter descr="No Description">
                                     <val value="3.6">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
                   <av name=iterConfigList descr="No Description">
                                     <val value="instAperLIter">
                                     <val value="filterIter">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
@@ -9985,13 +9985,13 @@
                                                 <val value="60.0">
                                                 <val value="-60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="60.0">
                                                 <val value="60.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10018,13 +10018,13 @@
                                                 <val value="-60.0">
                                                 <val value="-60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="-60.0">
                                                 <val value="60.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10051,13 +10051,13 @@
                                                 <val value="0.0">
                                                 <val value="-60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="60.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10084,13 +10084,13 @@
                                                 <val value="30.0">
                                                 <val value="30.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="-30.0">
                                                 <val value="-30.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10211,8 +10211,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="6.35">
-                              <val value="15.84">
+                              <val value="5.21">
+                              <val value="13.19">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -10318,11 +10318,11 @@
                                     <val value="instAperLIter">
                                     <val value="filterIter">
                   </av>
-                  <av name=filterIter descr="No Description">
-                                    <val value="H98">
-                  </av>
                   <av name=instAperLIter descr="No Description">
                                     <val value="1.635">
+                  </av>
+                  <av name=filterIter descr="No Description">
+                                    <val value="H98">
                   </av>
                   <ic name=new type=ic subtype=instIRPOL>
                      <av name=iterConfigList descr="No Description">
@@ -10362,16 +10362,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10410,16 +10410,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10458,16 +10458,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10506,16 +10506,16 @@
                                                 <val value="-60.0">
                                                 <val value="59.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10633,8 +10633,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="6.35">
-                              <val value="15.84">
+                              <val value="5.21">
+                              <val value="13.19">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -10738,14 +10738,14 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
+                     <av name=.gui.selected descr="No Description">
+                                          <val value="false">
+                     </av>
                      <av name=IRPOLIter descr="No Description">
                                           <val value="0">
                                           <val value="45">
                                           <val value="22.5">
                                           <val value="67.5">
-                     </av>
-                     <av name=.gui.selected descr="No Description">
-                                          <val value="false">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
@@ -10770,14 +10770,14 @@
                                                 <val value="7.0">
                                                 <val value="0.0">
                         </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
+                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
-                        </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -10895,8 +10895,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="6.35">
-                              <val value="15.84">
+                              <val value="5.21">
+                              <val value="13.19">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -11019,14 +11019,14 @@
                                           <val value="7.0">
                                           <val value="0.0">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <ic name=new type=ic subtype=instIRPOL>
                         <av name=iterConfigList descr="No Description">
@@ -11154,8 +11154,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="6.35">
-                              <val value="15.84">
+                              <val value="5.21">
+                              <val value="13.19">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -11290,13 +11290,13 @@
                                                 <val value="0.0">
                                                 <val value="60.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="0.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="Obj-sky nod 1">
@@ -11326,13 +11326,13 @@
                                                 <val value="3.0">
                                                 <val value="55.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="-1.0">
                                                 <val value="-0.5">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="Obj-sky nod 2">
@@ -11362,13 +11362,13 @@
                                                 <val value="1.0">
                                                 <val value="65.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="1.0">
                                                 <val value="0.5">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="Obj-sky nod 3">
@@ -11519,8 +11519,8 @@
                               <val value="2.1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.1">
                </av>
@@ -11636,13 +11636,13 @@
                                                 <val value="0.0">
                                                 <val value="11.74">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="0.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -11666,13 +11666,13 @@
                                                 <val value="0.0">
                                                 <val value="0.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="11.74">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -11696,13 +11696,13 @@
                                                 <val value="0.0">
                                                 <val value="11.74">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="0.0">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -11726,13 +11726,13 @@
                                                 <val value="0.0">
                                                 <val value="0.0">
                         </av>
-                        <av name=offsetPositions descr="No Description">
-                                                <val value="Offset0">
-                                                <val value="Offset1">
-                        </av>
                         <av name=Offset0 descr="No Description">
                                                 <val value="0.0">
                                                 <val value="11.74">
+                        </av>
+                        <av name=offsetPositions descr="No Description">
+                                                <val value="Offset0">
+                                                <val value="Offset1">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -12060,8 +12060,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -12192,15 +12192,15 @@
                                           <val value="-5.0">
                                           <val value="5.0">
                      </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="-5.0">
-                                          <val value="-5.0">
-                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
+                     </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="-5.0">
+                                          <val value="-5.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="nod_4_10as">
@@ -12312,8 +12312,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -12584,8 +12584,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -12720,16 +12720,16 @@
                                           <val value="5.0">
                                           <val value="5.0">
                      </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
-                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
                                           <val value="Offset4">
+                     </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="5point jitter/offsets of 5 arc sec">
@@ -12841,8 +12841,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -13101,8 +13101,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -13378,8 +13378,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -13530,15 +13530,15 @@
                                           <val value="filterIter">
                                           <val value="instAperLIter">
                      </av>
-                     <av name=instAperLIter descr="No Description">
-                                          <val value="1.250">
-                                          <val value="1.635">
-                                          <val value="2.150">
-                     </av>
                      <av name=filterIter descr="No Description">
                                           <val value="J98">
                                           <val value="H98">
                                           <val value="K98">
+                     </av>
+                     <av name=instAperLIter descr="No Description">
+                                          <val value="1.250">
+                                          <val value="1.635">
+                                          <val value="2.150">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
@@ -13568,16 +13568,16 @@
                                                 <val value="5.0">
                                                 <val value="5.0">
                         </av>
-                        <av name=Offset0 descr="No Description">
-                                                <val value="0.0">
-                                                <val value="0.0">
-                        </av>
                         <av name=offsetPositions descr="No Description">
                                                 <val value="Offset0">
                                                 <val value="Offset1">
                                                 <val value="Offset2">
                                                 <val value="Offset3">
                                                 <val value="Offset4">
+                        </av>
+                        <av name=Offset0 descr="No Description">
+                                                <val value="0.0">
+                                                <val value="0.0">
                         </av>
                         <av name=title descr="No Description">
                                                 <val value="jitter_5_5as">
@@ -13690,8 +13690,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -14018,8 +14018,8 @@
                               <val value="42">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="4.800">
                </av>
@@ -14304,8 +14304,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -14428,15 +14428,15 @@
                                           <val value="5.0">
                                           <val value="5.0">
                      </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="5.0">
-                                          <val value="-5.0">
-                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset1">
                                           <val value="Offset0">
                                           <val value="Offset5">
                                           <val value="Offset7">
+                     </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="5.0">
+                                          <val value="-5.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="quadrant jitter">
@@ -14559,8 +14559,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -14876,8 +14876,8 @@
                               <val value="100">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="1.0">
                </av>
@@ -15353,8 +15353,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="4.42">
-                              <val value="11.61">
+                              <val value="4.88">
+                              <val value="10.30">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -15730,7 +15730,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -15749,7 +15749,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -15931,7 +15931,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -15950,7 +15950,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -16276,7 +16276,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -16295,7 +16295,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -16514,7 +16514,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -16533,7 +16533,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -16752,7 +16752,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -16771,7 +16771,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -16989,7 +16989,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -17008,7 +17008,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -17381,7 +17381,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -17400,7 +17400,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -17563,16 +17563,16 @@
                                           <val value="5.0">
                                           <val value="6.0">
                      </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
                      <av name=offsetPositions descr="No Description">
                                           <val value="Offset0">
                                           <val value="Offset1">
                                           <val value="Offset2">
                                           <val value="Offset3">
                                           <val value="Offset4">
-                     </av>
-                     <av name=Offset0 descr="No Description">
-                                          <val value="0.0">
-                                          <val value="0.0">
                      </av>
                      <ic name=new type=ic subtype=instFP>
                         <av name=title descr="No Description">
@@ -17683,7 +17683,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="BL">
@@ -17702,7 +17702,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>
@@ -19032,7 +19032,7 @@
                               <val value="East">
                </av>
                <av name=polariser descr="No Description">
-                              <val value="none">
+                              <val value="FP">
                </av>
                <av name=sourceMag descr="No Description">
                               <val value="8-9">
@@ -19051,7 +19051,7 @@
                </av>
                <av name=instAper descr="No Description">
                               <val value="3.28">
-                              <val value="0.36">
+                              <val value="8.51">
                               <val value="0.0">
                               <val value="2.122">
                </av>

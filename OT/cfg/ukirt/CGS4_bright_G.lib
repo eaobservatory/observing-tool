@@ -135,8 +135,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -226,7 +226,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -376,8 +376,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -467,7 +467,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -617,8 +617,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -708,7 +708,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -858,8 +858,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -949,7 +949,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -1099,8 +1099,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -1190,7 +1190,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -1340,8 +1340,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -1431,7 +1431,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -1581,8 +1581,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -1672,7 +1672,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -1822,8 +1822,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -1913,7 +1913,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -2063,8 +2063,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -2154,7 +2154,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -2304,8 +2304,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -2395,7 +2395,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -2545,8 +2545,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -2636,7 +2636,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -2786,8 +2786,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -2877,7 +2877,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -3027,8 +3027,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -3118,7 +3118,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -3276,8 +3276,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -3367,7 +3367,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -3517,8 +3517,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -3608,7 +3608,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -3758,8 +3758,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -3849,7 +3849,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -3999,8 +3999,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -4090,7 +4090,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -4240,8 +4240,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -4331,7 +4331,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -4481,8 +4481,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -4572,7 +4572,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -4722,8 +4722,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -4813,7 +4813,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -4963,8 +4963,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -5054,7 +5054,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -5204,8 +5204,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -5295,7 +5295,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -5445,8 +5445,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -5536,7 +5536,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -5686,8 +5686,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -5777,7 +5777,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -5927,8 +5927,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -6018,7 +6018,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -6168,8 +6168,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -6259,7 +6259,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -6409,8 +6409,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -6500,7 +6500,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -6658,8 +6658,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -6749,7 +6749,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -6899,8 +6899,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -6990,7 +6990,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -7140,8 +7140,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -7231,7 +7231,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -7381,8 +7381,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -7472,7 +7472,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -7622,8 +7622,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -7713,7 +7713,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -7863,8 +7863,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -7954,7 +7954,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -8104,8 +8104,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -8195,7 +8195,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -8345,8 +8345,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -8436,7 +8436,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -8586,8 +8586,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -8677,7 +8677,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -8827,8 +8827,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -8918,7 +8918,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -9076,8 +9076,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -9167,7 +9167,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -9317,8 +9317,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -9408,7 +9408,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -9558,8 +9558,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -9649,7 +9649,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -9799,8 +9799,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -9890,7 +9890,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -10040,8 +10040,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -10131,7 +10131,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -10281,8 +10281,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -10372,7 +10372,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -10522,8 +10522,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -10613,7 +10613,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -10763,8 +10763,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -10854,7 +10854,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -11004,8 +11004,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -11095,7 +11095,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -11245,8 +11245,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -11336,7 +11336,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -11486,8 +11486,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -11577,7 +11577,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -11727,8 +11727,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -11818,7 +11818,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -11968,8 +11968,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -12059,7 +12059,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -12217,8 +12217,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -12308,7 +12308,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -12458,8 +12458,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -12549,7 +12549,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -12699,8 +12699,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -12790,7 +12790,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -12940,8 +12940,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -13031,7 +13031,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -13181,8 +13181,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -13272,7 +13272,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -13422,8 +13422,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -13513,7 +13513,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -13663,8 +13663,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -13754,7 +13754,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -13904,8 +13904,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -13995,7 +13995,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -14145,8 +14145,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -14236,7 +14236,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -14386,8 +14386,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -14477,7 +14477,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -14627,8 +14627,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -14718,7 +14718,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -14868,8 +14868,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -14959,7 +14959,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -15117,8 +15117,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -15208,7 +15208,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -15358,8 +15358,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -15449,7 +15449,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -15599,8 +15599,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -15690,7 +15690,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -15840,8 +15840,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -15931,7 +15931,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -16081,8 +16081,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -16172,7 +16172,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -16322,8 +16322,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -16413,7 +16413,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -16563,8 +16563,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -16654,7 +16654,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -16804,8 +16804,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -16895,7 +16895,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
@@ -17045,8 +17045,8 @@
                               <val value="2.2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-0.25">
-                              <val value="12.25">
+                              <val value="-0.81">
+                              <val value="12.32">
                               <val value="0.0">
                               <val value="2.2">
                </av>
@@ -17136,7 +17136,7 @@
                                           <val value="offset info">
                      </av>
                      <av name=note descr="No Description">
-                                          <val value="this nods 30 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
+                                          <val value="this nods 20 rows along the slit\n\nOffsets are enetered in the co-ordinate frame of the slit\n\np = along the slit\nq = perpendicular to the slit">
                      </av>
                   </no>
                   <ic name=new type=ic subtype=offset>
