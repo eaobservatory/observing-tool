@@ -38,7 +38,7 @@ public class SpIterPointingObs extends SpIterJCMTObs {
    *
    * To be decided.
    */
-  public static String [] POINTING_PIXELS_MANUAL_CHOICES = { "1", "..." };
+  public static String [] POINTING_PIXEL_MANUAL_CHOICES = { "1", "..." };
 
   public static String [] POINTING_METHODS = { "9 Position", "16 Position", "25 Position" };
 

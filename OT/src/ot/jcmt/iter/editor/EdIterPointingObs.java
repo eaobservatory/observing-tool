@@ -71,18 +71,18 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     MenuElement [] subElements  = null;
 
     Font font = new Font("Dialog", Font.PLAIN, 12);
-    JMenuItem menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXELS_AUTOMATIC);
+    JMenuItem menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXEL_AUTOMATIC);
     menuItem.setFont(font);
     menuItem.addActionListener(this);
     _w.pointingPixelPopupMenu.add(menuItem);
 
-    JMenu menu = new JMenu(SpIterPointingObs.POINTING_PIXELS_MANUAL);
+    JMenu menu = new JMenu(SpIterPointingObs.POINTING_PIXEL_MANUAL);
     menu.setFont(font);
     menu.addActionListener(this);
     _w.pointingPixelPopupMenu.add(menu);
 
-    for(int i = 0; i < SpIterPointingObs.POINTING_PIXELS_MANUAL_CHOICES.length; i++) {
-      menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXELS_MANUAL_CHOICES[i]);
+    for(int i = 0; i < SpIterPointingObs.POINTING_PIXEL_MANUAL_CHOICES.length; i++) {
+      menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXEL_MANUAL_CHOICES[i]);
       menuItem.setFont(font);
       menuItem.addActionListener(this);
       menu.add(menuItem);
