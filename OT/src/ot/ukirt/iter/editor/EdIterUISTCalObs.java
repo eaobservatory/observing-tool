@@ -210,6 +210,11 @@ _updateWidgets(Object source)
    tbw.setValue( ico.getObservationTimeString() );
 // End of added by RDK
 
+// Added by RDK
+   tbw = (TextBoxWidgetExt) _w.filter;
+   tbw.setValue( ico.getFilter() );
+// End of added by RDK
+
    //Update coadds
 // Commented by RDK
 //    tbw = (TextBoxWidgetExt) _w.coadds;
