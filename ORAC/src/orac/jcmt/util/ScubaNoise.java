@@ -237,6 +237,20 @@ public class ScubaNoise {
     return val;
   }
 
+  public static double scunefd(double wavelength, double airmass, double csoTau, int [] status) {
+    double tau   = csoTau2Tau(wavelength, csoTau, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) {
+      return 0.0;
+    }
+
+    double trans = DrUtil.transmission(airmass, tau, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) {
+      return 0.0;
+    }
+
+    return scunefd(wavelength, trans, status);
+  }
+
   /** Find the ammount of overhead in seconds for an observation when you know the
    *  number of integrations.
 
@@ -514,7 +528,7 @@ mJy. The second is a scalar containing the exit status of the function:
     status[0] = DrUtil.STATUS_SUCCESSFUL;
     return noise;
   }
-
+/*
   public static double noise_level(double integrations, double wavelength, String mode,
                                    double dec, double latitude, double csoTau,
                                    int [] status) {
@@ -558,20 +572,8 @@ mJy. The second is a scalar containing the exit status of the function:
 
     return noise_level(integrations, wavelength, mode, nefd, status, length, width);
   }
-
+*/
 /* #------------------------------------------------------------------------------ */
-
-  /**
-   * Calculates an airmass estimate based on dec of target and telescope latitude.
-   *
-   * @param  dec      Dec of target
-   * @param  latitude Latitude of telescope
-   *
-   * @return airmass estimate
-   */
-  public static double airmass(double dec, double latitude) {
-    return 1.0 / Math.sin(0.9 * Math.abs(dec - latitude));
-  }
 
 
 /*
