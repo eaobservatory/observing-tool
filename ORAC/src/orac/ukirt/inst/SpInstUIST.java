@@ -161,12 +161,20 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String[] MASKS3;
     public static String[] MASKS4;
     public static String[] MASKS5;
+    public static String[] MASKS6;
+    public static String[] MASKS7;
+    public static String[] MASKS8;
+    public static String[] MASKS9;
     public static LookUpTable MASKS;
     public static String DEFAULT_MASK1;
     public static String DEFAULT_MASK2;
     public static String DEFAULT_MASK3;
     public static String DEFAULT_MASK4;
     public static String DEFAULT_MASK5;
+    public static String DEFAULT_MASK6;
+    public static String DEFAULT_MASK7;
+    public static String DEFAULT_MASK8;
+    public static String DEFAULT_MASK9;
     public static String PUPIL_SCALE;
     public static String PUPIL_FOV;
     public static double DEFAULT_SPECT_POS_ANGLE;
@@ -628,6 +636,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     MASKS4 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks5")) {
                     MASKS5 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks6")) {
+                    MASKS6 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks7")) {
+                    MASKS7 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks8")) {
+                    MASKS8 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks9")) {
+                    MASKS9 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks")) {
                     MASKS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask1")) {
@@ -640,6 +656,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     DEFAULT_MASK4 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask5")) {
                     DEFAULT_MASK5 = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask6")) {
+                    DEFAULT_MASK6 = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask7")) {
+                    DEFAULT_MASK7 = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask8")) {
+                    DEFAULT_MASK8 = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask9")) {
+                    DEFAULT_MASK9 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "chops")) {
                     CHOPS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "array_angle")) {
@@ -1356,6 +1380,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                    return MASKS4;
 		} else if (maskSet == 5) {
                    return MASKS5;
+		} else if (maskSet == 6) {
+                   return MASKS6;
+		} else if (maskSet == 7) {
+                   return MASKS7;
+		} else if (maskSet == 8) {
+                   return MASKS8;
+		} else if (maskSet == 9) {
+                   return MASKS9;
 		} else {
 		   // Should not happen
                    return MASKS1;
@@ -1430,6 +1462,14 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                         mask = DEFAULT_MASK4;
                     } else if (maskSet==5) {
                         mask = DEFAULT_MASK5;
+                    } else if (maskSet==6) {
+                        mask = DEFAULT_MASK6;
+                    } else if (maskSet==7) {
+                        mask = DEFAULT_MASK7;
+                    } else if (maskSet==8) {
+                        mask = DEFAULT_MASK8;
+                    } else if (maskSet==9) {
+                        mask = DEFAULT_MASK9;
                     }
 	        }
 	    }
