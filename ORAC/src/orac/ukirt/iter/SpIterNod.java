@@ -175,9 +175,9 @@ public static Enumeration patterns() {
    for(int i = 0; i < NOD_PATTERNS.length; i++) {
       onePattern = new Vector();
       for(int j = 0; j < NOD_PATTERNS[i].length; j++) {
-         onePattern.add(NOD_PATTERNS[i][j]);
+         onePattern.addElement(NOD_PATTERNS[i][j]);
       }
-      allPatterns.add(onePattern);
+      allPatterns.addElement(onePattern);
    }
 
    return allPatterns.elements();
@@ -187,7 +187,7 @@ public static Vector stringArrayToVector(String [] stringArray) {
    Vector result = new Vector();
 
    for(int i = 0; i < stringArray.length; i++) {
-      result.add(stringArray[i]);
+      result.addElement(stringArray[i]);
    }
    
    return result;
