@@ -1225,6 +1225,7 @@
       <xsd:element name="transition"    type="xsd:string"/>
       <xsd:element name="restFrequency" type="xsd:double"/>
       <xsd:element name="velocity"      type="xsd:double"/>
+      <xsd:element name="referenceFrameVelocity" type="xsd:double" minOccurs="0"/>
       <xsd:element ref="jcmt_config"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="oc"/>
