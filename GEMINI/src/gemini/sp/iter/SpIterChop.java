@@ -110,6 +110,10 @@ public class SpIterChop extends SpIterComp {
    */
   public static String ATTR_COORD_FRAME = "SYSTEM";
 
+  private static String _defaultThrow      = "0.0";
+  private static String _defaultAngle      = "0.0";
+  private static String _defaultCoordFrame = "";
+
   /**
    * Index of step that is currently selected in the chop iterator editor.
    *
@@ -136,6 +140,41 @@ public class SpIterChop extends SpIterComp {
     return new SpIterChopEnumeration(this);
   }
 
+  /**
+   * Set the default values for throw, angle and coordinate frame.
+   */
+  public static void setChopDefaults(String [] chopDefaults) {
+    if(chopDefaults == null) {
+      return;
+    }
+
+    if(chopDefaults.length > 0) {
+      _defaultThrow = chopDefaults[0];
+    }
+
+    if(chopDefaults.length > 1) {
+      _defaultAngle = chopDefaults[1];
+    }
+
+    if(chopDefaults.length > 2) {
+      _defaultCoordFrame = chopDefaults[2];
+    }
+  }
+
+  public static String getDefaultThrow()      { return _defaultThrow;      }
+  public static String getDefaultAngle()      { return _defaultAngle;      }
+  public static String getDefaultCoordFrame() { return _defaultCoordFrame; }
+
+  /**
+   * Initialises the first step using the chop defaults.
+   *
+   * This method does not mark the item as edited.
+   */
+  public void addInitialStep() {
+    _avTable.noNotifySet(ATTR_THROW,       _defaultThrow,      0);
+    _avTable.noNotifySet(ATTR_ANGLE,       _defaultAngle,      0);
+    _avTable.noNotifySet(ATTR_COORD_FRAME, _defaultCoordFrame, 0);
+  }
 
   public double getThrow(int step) {
     return _avTable.getDouble(ATTR_THROW, step, 0.0);

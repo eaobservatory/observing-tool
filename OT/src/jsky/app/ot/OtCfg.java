@@ -14,6 +14,7 @@ import gemini.sp.SpType;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterComp;
+import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpObsComp;
 import orac.util.TelescopeUtil;
 
@@ -71,6 +72,7 @@ public final class OtCfg
 	SpItemCfg[]	spItemCfgA;
 	String []       nameResolvers;   // Added May 30, 2001 by MFO
 	String          telescopeUtilClass; // Added by MFO, 9 January 2002
+	String []       chopDefaults;       // Added by MFO, May 13, 2002
     }
 
     /**
@@ -258,6 +260,8 @@ public final class OtCfg
       // For example "Base" for UKIRT, "Science" for JCMT.
       // The base star tag has to be set BEFORE _initStandardSpItems is called.
       SpTelescopePos.setBaseTag(telescopeUtil.getBaseTag());
+
+      SpIterChop.setChopDefaults(cfgInfo.chopDefaults);
     }
 
     //

@@ -139,6 +139,10 @@ public class EdIterChop extends OtItemEditor
     protected void  _updateWidgets() {
         _ignoreGuiEvents = true;
 
+	if(_iterChop.getStepCount() < 1) {
+	  _iterChop.addInitialStep();
+	}
+
 	_iterTab.setRows(_iterChop.getAllSteps());
 
 	if(_iterTab.getRowCount() > 0) {
@@ -199,9 +203,9 @@ public class EdIterChop extends OtItemEditor
 
 //        if(_iterTab.getRowCount() < 1) {
 	  Vector rowVector = new Vector();
-	  rowVector.add("0.0");
-	  rowVector.add("0.0");
-	  rowVector.add(OtCfg.telescopeUtil.getCoordSysFor(OtCfg.telescopeUtil.CHOP)[0]);
+	  rowVector.add(_iterChop.getDefaultThrow());
+	  rowVector.add(_iterChop.getDefaultAngle());
+	  rowVector.add(_iterChop.getDefaultCoordFrame());
 
 	  _iterTab.absInsertRowAt(rowVector, ++rowIndex);
 //	}

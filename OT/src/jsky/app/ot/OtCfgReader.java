@@ -43,6 +43,8 @@ class OtCfgReader
 
     public static final String NAME_RESOLVERS_TAG	= "name resolvers";
 
+    public static final String CHOP_DEFAULTS		= "chop defaults";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -148,8 +150,12 @@ class OtCfgReader
 					         // name resolvers (added by MFO, May 30, 2001)
 						 if(line.startsWith(NAME_RESOLVERS_TAG)) {
                                                     info.nameResolvers = _parseCommaList(_getValue(line));
-						 }
+					         } else
 
+					            // chop defaults (added by MFO, May 13, 2002)
+						    if(line.startsWith(CHOP_DEFAULTS)) {
+                                                       info.chopDefaults = _parseCommaList(_getValue(line));
+						    }
 	    }
 
 	    // Add the last config class
