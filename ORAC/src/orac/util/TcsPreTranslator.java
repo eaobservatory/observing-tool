@@ -98,20 +98,6 @@ public abstract class TcsPreTranslator implements PreTranslator {
       return;
     }
 
-    // If conicSystem or namedSystem then    /*just remove the HMSDEG/DEGDEG bits which
-    // are in the old SGML style format (e.g. value list in <Base> etc).
-    // Then */ return because the conicSystem and namedSystem XML is in the correct format already.
-    NodeList targetSystemList = element.getElementsByTagName("conicSystem");
-    if((targetSystemList != null) && (targetSystemList.getLength() > 0)) {
-      return;
-    }
-
-    targetSystemList= element.getElementsByTagName("namedSystem");
-    if((targetSystemList != null) && (targetSystemList.getLength() > 0)) {
-      return;
-    }
-
-
     try {
       DocumentImpl document = (DocumentImpl)element.getOwnerDocument();
 
@@ -127,43 +113,58 @@ public abstract class TcsPreTranslator implements PreTranslator {
         targetListElement = (ElementImpl)element.getElementsByTagName(TELESCOPE_TARGET_TAGS[i]).item(0);
       
         if(targetListElement != null) {
-          valueList = targetListElement.getElementsByTagName("value");
+          boolean translationNeeded = true;
 
-          // Don't confuse OCS TCS element <base> with Ukirt telescope tag "Base".
-          baseElement = (ElementImpl)document.createElement("base");
+          // If conicSystem or namedSystem then do not translate this target.
+          NodeList targetSystemList = targetListElement.getElementsByTagName("conicSystem");
+          if((targetSystemList != null) && (targetSystemList.getLength() > 0)) {
+            translationNeeded = false;
+          }
 
-          // Add target element and add type attribute.
-          child = (ElementImpl)baseElement.appendChild(document.createElement("target"));
-          child.setAttribute("type", getTcsTargetTypes()[i]);
+          targetSystemList= targetListElement.getElementsByTagName("namedSystem");
+          if((targetSystemList != null) && (targetSystemList.getLength() > 0)) {
+            translationNeeded = false;
+          }
 
-          // Add targetName element with text node containing the target name.
-          child = (ElementImpl)child.appendChild(document.createElement("targetName"));
-          child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.NAME_INDEX).getFirstChild().getNodeValue()));
+          if(translationNeeded) {
+            valueList = targetListElement.getElementsByTagName("value");
 
-          // Set child to target element again.
-          child = (ElementImpl)child.getParentNode();
+            // Don't confuse OCS TCS element <base> with Ukirt telescope tag "Base".
+            baseElement = (ElementImpl)document.createElement("base");
 
-          // Add hmsdegSystem element and add type attribute.
-          child = (ElementImpl)child.appendChild(document.createElement("hmsdegSystem"));
-          String system = valueList.item(SpTelescopePos.COORD_SYS_INDEX).getFirstChild().getNodeValue();
-	  if(system.equals("FK4 (B1950)")) system = "B1950";
-	  if(system.equals("FK5 (J2000)")) system = "J2000";
-	  child.setAttribute("type", system);
+            // Add target element and add type attribute.
+            child = (ElementImpl)baseElement.appendChild(document.createElement("target"));
+            child.setAttribute("type", getTcsTargetTypes()[i]);
 
-          // Add c1 target with text node containing RA.
-          child = (ElementImpl)child.appendChild(document.createElement("c1"));
-          child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.XAXIS_INDEX).getFirstChild().getNodeValue()));
+            // Add targetName element with text node containing the target name.
+            child = (ElementImpl)child.appendChild(document.createElement("targetName"));
+            child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.NAME_INDEX).getFirstChild().getNodeValue()));
 
-          // Set child to hmsdegSystem element again.
-          child = (ElementImpl)child.getParentNode();
+            // Set child to target element again.
+            child = (ElementImpl)child.getParentNode();
 
-          // Add c2 target with text node containing Dec.
-          child = (ElementImpl)child.appendChild(document.createElement("c2"));
-          child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.YAXIS_INDEX).getFirstChild().getNodeValue()));
+            // Add hmsdegSystem element and add type attribute.
+            child = (ElementImpl)child.appendChild(document.createElement("hmsdegSystem"));
+            String system = valueList.item(SpTelescopePos.COORD_SYS_INDEX).getFirstChild().getNodeValue();
+            if(system.equals("FK4 (B1950)")) system = "B1950";
+            if(system.equals("FK5 (J2000)")) system = "J2000";
+            child.setAttribute("type", system);
+
+            // Add c1 target with text node containing RA.
+            child = (ElementImpl)child.appendChild(document.createElement("c1"));
+            child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.XAXIS_INDEX).getFirstChild().getNodeValue()));
+
+            // Set child to hmsdegSystem element again.
+            child = (ElementImpl)child.getParentNode();
+
+            // Add c2 target with text node containing Dec.
+            child = (ElementImpl)child.appendChild(document.createElement("c2"));
+            child.appendChild(document.createTextNode(valueList.item(SpTelescopePos.YAXIS_INDEX).getFirstChild().getNodeValue()));
     
-          // Replace old target list element (Sp style value array)
-          // with new base element (TCS XML)
-          element.replaceChild(baseElement, targetListElement);
+            // Replace old target list element (Sp style value array)
+            // with new base element (TCS XML)
+            element.replaceChild(baseElement, targetListElement);
+          }  
         }	
       }
 
