@@ -23,6 +23,8 @@ public class SpMSB extends SpObsContextItem {
 
    /** This attribute records the observation priority. */
    public static final String ATTR_PRIORITY = "priority";
+    public static final String ATTR_LIBRARY_VERSION = "library_version";
+    public static final String LIBRARY_VERSION = "$Revision$";
 
    /**
     * High observation priority, relative to the other observations in
@@ -158,6 +160,24 @@ setPriority(int priority)
    }
  
    _avTable.set(ATTR_PRIORITY, priority );
+}
+
+/**
+ * Set the library verion to the default String.  This should be replaced after
+ * the library is commited to CVS.  It is set to the CVS keyword $Revision$.
+ *
+ */
+public void setLibraryRevision() {
+    System.out.println("SpMSB::setLibraryRevion() called");
+    _avTable.set(ATTR_LIBRARY_VERSION, LIBRARY_VERSION);
+}
+
+/**
+ * Get the version of the library.  
+ * @return It will return $Revision$ if this has been checked into CVS or $Revision$ if not.
+ */
+public String getLibraryRevision() {
+    return _avTable.get(ATTR_LIBRARY_VERSION);
 }
 
 

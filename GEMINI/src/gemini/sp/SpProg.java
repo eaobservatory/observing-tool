@@ -36,6 +36,7 @@ public class SpProg extends SpRootItem
 protected SpProg()
 {
    super(SpType.SCIENCE_PROGRAM);
+   setOTVersion();
 }
 
 //

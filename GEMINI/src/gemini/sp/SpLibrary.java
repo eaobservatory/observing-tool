@@ -19,6 +19,7 @@ public class SpLibrary extends SpRootItem
 protected SpLibrary()
 {
    super(SpType.LIBRARY);
+   setOTVersion();
 }
 
 /**
@@ -29,5 +30,6 @@ protected SpLibrary(SpLibraryFolder lfPrototype)
    this();
    doInsert(lfPrototype, null);
 }
+
 
 }

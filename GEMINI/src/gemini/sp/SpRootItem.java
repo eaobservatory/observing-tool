@@ -7,6 +7,9 @@
 package gemini.sp;
 
 import java.io.OutputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 /**
  * A root of the program hierarchy.
@@ -15,6 +18,8 @@ import java.io.OutputStream;
  */
 public class SpRootItem extends SpObsContextItem
 {
+    /** The version of the OT used to generate this file */
+    public static final String ATTR_OT_VERSION = "ot_version";
 
 /**
  * Default constructor.
@@ -64,6 +69,25 @@ printDocument(OutputStream os)
 {
    SpOutputSGML out = new SpOutputSGML(os);
    out.printDocument(this);
+}
+
+public void setOTVersion() {
+    String version = "unknown";
+    try {
+	File versionFile  = new File (System.getProperty("ot.cfgdir", "ot/cfg/")+"versionFile");
+	BufferedReader br = new BufferedReader(new FileReader(versionFile));
+	version = br.readLine().trim();
+    }
+    catch (Exception e) {}
+    _avTable.set(ATTR_OT_VERSION, version);
+}
+
+public String getOTVersion() {
+    String version = "unknown";
+    if ( _avTable.get(ATTR_OT_VERSION) != null) {
+	version = _avTable.get(ATTR_OT_VERSION);
+    }
+    return version;
 }
 
 }

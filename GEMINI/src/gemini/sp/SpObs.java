@@ -41,6 +41,13 @@ public class SpObs extends SpMSB
    /** This attribute records whether the calibration observation is optional. */
    public static final String ATTR_OPTIONAL = ":optional";   
 
+    /** Attribute of the library version */
+    public static final String ATTR_LIBRARY_VERSION = "library_version";
+
+    /** Default library version string */
+    public static final String LIBRARY_VERSION = "$Revision$";
+
+
 
 /**
  * Default constructor.  Initializes the Observation with required items.
@@ -127,6 +134,25 @@ setIsStandard(boolean standard)
 {
   _avTable.set(ATTR_STANDARD, standard);
 }
+
+/**
+ * Set the library verion to the default String.  This should be replaced after
+ * the library is commited to CVS.  It is set to the CVS keyword $Revision$.
+ *
+ */
+public void setLibraryRevision() {
+    System.out.println("spObs::setLibraryRevision() called");
+    _avTable.set(ATTR_LIBRARY_VERSION, LIBRARY_VERSION);
+}
+
+/**
+ * Get the version of the library.  
+ * @return It will return $Revision$ if this has been checked into CVS or $Revision$ if not.
+ */
+public String getLibraryRevision() {
+    return _avTable.get(ATTR_LIBRARY_VERSION);
+}
+
 
 /**
  * Get the "chained to next" state of the observation.  When consecutive
