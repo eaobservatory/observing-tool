@@ -61,10 +61,10 @@ public interface SpJCMTConstants {
    public static final String ATTR_REFERENCE_OFFSET_SYSTEM = "referenceOffset.system";
 
    /** Frequency offset, throw. */
-   public static final String ATTR_FREQUENCY_OFFSET_THROW  = "frequencyOffset.throw";
+   public static final String ATTR_FREQUENCY_OFFSET_THROW  = "frequencyOffsetThrow";
 
    /** Frequency offset, rate. */
-   public static final String ATTR_FREQUENCY_OFFSET_RATE   = "frequencyOffset.rate";
+   public static final String ATTR_FREQUENCY_OFFSET_RATE   = "frequencyOffsetRate";
 
 
    // Scan/Raster Iterator
