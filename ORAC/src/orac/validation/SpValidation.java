@@ -241,7 +241,9 @@ public class SpValidation {
                                   "Instrument component is missing."));    
     }
 
-    checkTargetList(SpTreeMan.findTargetList(spObs), report);
+    if ( !spObs.isOptional() ) {
+        checkTargetList(SpTreeMan.findTargetList(spObs), report);
+    }
 
     if(!spObs.isMSB()) {
       children = spObs.children();
