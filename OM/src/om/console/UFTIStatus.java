@@ -7,8 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.event.*;
 import javax.swing.border.*;
 
-/** UFTIStatus class is about
-    showing UFTI status. For a different instrument, there will be a different class for the status display.
+/** UFTIStatus class is the status display class for the UFTI instrument.
     Please note this is serialized for RMI calls
     even I was told that I can't serialize a swing object.
     since it is host-dependent. But there is only one type of host anyway.
@@ -27,53 +26,86 @@ public final class UFTIStatus extends instrumentStatusPanel
   */
   public UFTIStatus( )
   {
-      //Border border=BorderFactory.createMatteBorder(12, 12,
-        //    12,12, Color.lightGray);
 
-       Border border=BorderFactory.createMatteBorder(2, 2,
-            2,2, Color.white); //a new border required by gsw on April 07, 2000
+    Border border=BorderFactory.createMatteBorder(2, 2,
+                                                  2,2, Color.white);
 
-      setBorder(new TitledBorder(border,
-      "UFTI Status",0,0,
-      new Font("Roman",Font.BOLD,14),Color.black));
+    setBorder(new TitledBorder(border,
+                               "UFTI Status",0,0,
+                               new Font("Roman",Font.BOLD,14),Color.black));
 
-      setLayout(new BorderLayout(10,10));
+    setLayout(new BorderLayout(10,10));
 
-      JPanel topPanel=new JPanel (new GridLayout(1,2,8,8));
+    JPanel topPanel=new JPanel (new GridLayout(1,2,8,8));
 
-      top=new statusPanel("UFTI State:","Unknown ...");
+    top=new statusPanel("UFTI State:","Unknown ...");
 
-      topPanel.add(top);
+    topPanel.add(top);
 
-      remaining=new statusPanel("Remaining:"," ");
-      topPanel.add(remaining);
+    remaining=new statusPanel("Remaining:"," ");
+    topPanel.add(remaining);
 
-      add(topPanel,"South");
+    add(topPanel,"South");
 
-      dataPanel=new JPanel(new GridLayout(4,2,8,8));
-      dataPanel.setBorder(new MatteBorder(4,4,4,12,Color.lightGray));
+    st=new statusPanel[9];
+    values =new String[9];
 
-      st=new statusPanel[8];
-      values =new String[8];
+    dataPanel = new JPanel(new GridLayout (5,1,8,8));
+    dataPanel.setBorder(new MatteBorder(4,4,4,12,Color.lightGray));
 
-      for(int i=0; i<8;i++)
-      {
-        values[i]=new String();
-        st[i]=new statusPanel(names[i],values[i]);
-        dataPanel.add(st[i]);
-      }
-      add(dataPanel);
+    dataPanel1 = new JPanel(new GridLayout(1,2,8,8));
+    for(int i=0; i<2;i++) {
+      values[i]=new String();
+      st[i]=new statusPanel(names[i],values[i]);
+      dataPanel1.add(st[i]);
+    }
+    dataPanel.add(dataPanel1);
 
-      bottom=new myTextField(" ");
-      bottom.setColumns(32);
+    dataPanel2 = new JPanel(new GridLayout(1,2,8,8));
+    for(int i=2; i<4;i++) {
+      values[i]=new String();
+      st[i]=new statusPanel(names[i],values[i]);
+      dataPanel2.add(st[i]);
+    }
+    dataPanel.add(dataPanel2);
 
-      JPanel mPanel=new JPanel();
-      mPanel.setBorder(new TitledBorder(new MatteBorder(4,4,4,4,Color.lightGray),
-      "Message:",0,0,
-      new Font("Roman",Font.BOLD,12),Color.black));
+    dataPanel3 = new JPanel(new GridLayout(1,2,8,8));
+    for(int i=4; i<6;i++) {
+      values[i]=new String();
+      st[i]=new statusPanel(names[i],values[i]);
+      dataPanel3.add(st[i]);
+    }
+    dataPanel.add(dataPanel3);
 
-      mPanel.add(bottom);
-      add(mPanel,"North");
+    dataPanel4 = new JPanel(new GridLayout(1,1,8,8));
+
+    values[6]=new String();
+    st[6]=new statusPanel(names[6],values[6]);
+    dataPanel4.add(st[6]);
+    dataPanel.add(dataPanel4);
+
+    dataPanel5 = new JPanel(new GridLayout(1,2,8,8));
+
+    for(int i=7; i<9;i++) {
+      values[i]=new String();
+      st[i]=new statusPanel(names[i],values[i]);
+      dataPanel5.add(st[i]);
+    }
+    dataPanel.add(dataPanel5);
+
+    add (dataPanel, "Center");
+
+    bottom=new myTextField(" ");
+    bottom.setColumns(32);
+
+    JPanel mPanel=new JPanel();
+    mPanel.setBorder(new TitledBorder(new MatteBorder(4,4,4,4,Color.lightGray),
+                                      "Message:",0,0,
+                                      new Font("Roman",Font.BOLD,12),Color.black));
+    
+    mPanel.add(bottom);
+    add(mPanel,"North");
+
    }
 
   /**  public void messageString (String u) is a public method.
@@ -97,71 +129,66 @@ public final class UFTIStatus extends instrumentStatusPanel
 
     //System.out.println("MESS:"+u);
 
-    if(name.equals("State"))
-    {
+    if (name.equals("State")) {
       top.getValu().setText(value);
       return;
     }
 
-    if(name.equals("Message"))
-    {
+    if (name.equals("Message")) {
       bottom.setText(value);
       return;
     }
 
-    if(name.equals("Filter"))
-    {
+    if (name.equals("Filter")) {
       st[0].getValu().setText(value);
       return;
     }
 
-    if(name.equals("readMode"))
-    {
+    if (name.equals("ConfigType")) {
       st[1].getValu().setText(value);
       return;
     }
 
-    if(name.equals("expTime"))
-    {
+    if (name.equals("expTime")) {
       st[2].getValu().setText(value);
       return;
     }
 
-    if(name.equals("Coadds"))
-    {
+    if (name.equals("Coadds")) {
       st[3].getValu().setText(value);
       return;
     }
 
-    if(name.equals("readArea"))
-    {
+    if (name.equals("readArea")) {
       st[4].getValu().setText(value);
       return;
     }
 
-    if(name.equals("ConfigType"))
-    {
+    if (name.equals("FieldSize")) {
       st[5].getValu().setText(value);
       return;
     }
 
-    if(name.equals("PixelScale"))
-    {
+    if (name.equals("readMode")) {
       st[6].getValu().setText(value);
       return;
     }
 
-    if(name.equals("FieldSize"))
-    {
+    if (name.equals("FPZ")) {
       st[7].getValu().setText(value);
       return;
     }
 
-    if(name.equals("Remaining"))
-    {
+    if (name.equals("POLANG")) {
+      st[8].getValu().setText(value);
+      return;
+    }
+
+    if (name.equals("Remaining")) {
       remaining.getValu().setText(value);
       return;
     }
+
   }
 
   /**  public void close () is a public method.
@@ -218,10 +245,14 @@ public final class UFTIStatus extends instrumentStatusPanel
   private myTextField bottom;
   private statusPanel top;
   private statusPanel remaining;
-  private JPanel dataPanel;
+  private JPanel dataPanel, dataPanel1, dataPanel2,
+    dataPanel3, dataPanel4, dataPanel5;
   private statusPanel[] st;
   private String[] values;
-  private String [] names={"Filter:","Acq. Mode","Exp. Time","Coadds","Readout",
-                           "Config Type", "Pixel Size:",   "Science FOV"};
+  private String [] names={"Filter:", "Config Type",
+                           "Exp. Time", "Coadds",
+                           "Readout", "Science Area",
+                           "Acquisition Mode",
+                           "FPZ", "Pol. Angle"};
 }
 
