@@ -11,6 +11,73 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ July 3rd 2003
+
+  [Semester 03B release]
+
+  - Added versioning to OT and template libraries
+
+  - Reduced memory leaks
+
+  - Support for multiple observer notes
+
+  - Finer granularity on priority and ability to "auto-prioritize"
+
+  - Support display of suspended MSBs
+
+  - Bug fix to prevent updating all PAs in program when editing
+
+  - Time estimation does not now include removed MSBs
+
+  - Epochs can now be entered in either JD or MJD in the target component
+
+  - Improved time estimation for all instruments
+
+  - Proxy settings can now be done via ot.cfg
+
+  - Improved schema validation reporting
+
+  - MSB/Obs title now get reported in validation, and validation report now on scrollable list
+
+  - Backup files now created during save operation
+
+  - Notes can now be inserted directly at the Project level
+
+  - Some layout changes to prevent widgets from being hidden when resizing
+
+  - Improved Position Editior display to correct the bug that required zoom/unzoom
+
+  - OR folders now allow 0 items to be selected
+
+  - Added mixers to heterodyne editor
+
+  - Fixed a bug in frequency editor which meant the tuned line moved if it was not a molecule
+
+  - Added "best" to sideband list
+
+  - Molecular frequencies now shown in GHz and bandwidth in MHz
+
+  - Support for special DAS configurations
+
+  - Resolution now dependent on number of mixers
+
+  - Display TRx and untunable bands on freq editor
+
+  - Added "useCurrentAz" to skydip editor
+
+  - Added science area display for DAS to position editor
+
+  - <referenceFrameVelocity> added to heterodyne XML
+
+  - XML now identifies Heterodyne backend
+
+  - Heterodyne noise estimation
+
+  - Cycle reversal checkbox removed from Photom/Sample component
+
+  - Wide photometry checkbox added to Photom/Sample component for SCUBA
+
+
 +++ February 28th 2003
 
   - Added Proxy setup to config file for site wide installations

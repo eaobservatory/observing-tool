@@ -13,6 +13,60 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ July 3rd 2003
+
+  [Semester 03B release]
+
+  - Added versioning to OT and template libraries
+
+  - Reduced memory leaks
+
+  - Support for multiple observer notes
+
+  - Finer granularity on priority and ability to "auto-prioritize"
+
+  - Support display of suspended MSBs
+
+  - Bug fix to prevent updating all PAs in program when editing
+
+  - Time estimation does not now include removed MSBs
+
+  - Epochs can now be entered in either JD or MJD in the target component
+
+  - Improved time estimation for all instruments
+
+  - Proxy settings can now be done via ot.cfg
+
+  - Improved schema validation reporting
+
+  - MSB/Obs title now get reported in validation, and validation report now on scrollable list
+
+  - Backup files now created during save operation
+
+  - Notes can now be inserted directly at the Project level
+
+  - Some layout changes to prevent widgets from being hidden when resizing
+
+  - Improved Position Editior display to correct the bug that required zoom/unzoom
+
+  - OR folders now allow 0 items to be selected
+
+  - Several changes to the UIST instrument component
+
+  - REFERENCE changed to SKY for UKIRT target component
+  
+  - Elapsed time estimation problem corrected
+
+  - Az/El now supported for UKIRT target component
+
+  - Template library now split into instrument libraries
+
+  - Instruments can now be specified in Observations as well as MSBs ( required UIST feature)
+
+  - IRPOL now displayable on position editor
+
+  - CVF Offset changed to CVF Wavelength in CGS instrument component
+
 +++ February 28th 2003
 
   - Added Proxy setup to config file for site wide installations
