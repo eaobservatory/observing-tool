@@ -582,8 +582,8 @@ public final class EdCompTargetList extends OtItemEditor
 	_name.setValue(   tp.getName()          );
 
 	if(tp.isOffsetPosition()) {
-	  _xaxis.setValue(tp.getXaxis());
-	  _yaxis.setValue(tp.getYaxis());
+	  _xaxis.setValue(tp.getXaxisAsString());
+	  _yaxis.setValue(tp.getYaxisAsString());
 	}
 	else {
 	  _xaxis.setValue(tp.getXaxisAsString());
@@ -1380,6 +1380,12 @@ public final class EdCompTargetList extends OtItemEditor
         else {
           _curPos.setName(val);
 	  _name.setValue(val);
+	  if ( (_tpl != null) && (_tpl.exists("REFERENCE"))  ) {
+		  // Set the object name field to the currently selected planet
+		  _name.setValue( val );
+		  ((SpTelescopePos)_tpl.getPosition("REFERENCE")).setName(val);
+	  }
+	      
         }
 
         _curPos.addWatcher(EdCompTargetList.this);
