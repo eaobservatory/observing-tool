@@ -52,7 +52,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   private static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 
+  /** Ignore events caused by input widgets of the HeterodyneGUI _w. */
   private boolean _ignoreEvents = false;
+
+  /** Do not use _instHeterodyne if this is true, as it will still be null. */
   private boolean _ignoreSpItem = false;
 
 
@@ -82,6 +85,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       _w.overlap.setText ( "0.0" );
       _w.overlap.addActionListener ( this );
+
+      // For now the user should not be allowed to change the overlap.
+      _w.overlap.setEnabled(false);
 
 /* Create the display */
 
@@ -145,7 +151,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          _w.feChoice.setSelectedItem(_instHeterodyne.getFrontEnd());
          _w.feMode.setSelectedItem(_instHeterodyne.getMode());
          _w.feBandModeChoice.setSelectedItem(getObject(_w.feBandModeChoice, _instHeterodyne.getBandMode()));
-         _w.overlap.setText("" + _instHeterodyne.getOverlap());
+         _w.overlap.setText("" + (_instHeterodyne.getOverlap(0) / 1.0E6));
          _w.velocity.setText("" + _instHeterodyne.getVelocity());
          _w.feBand.setSelectedItem(getObject(_w.feBand, _instHeterodyne.getBand()));
          _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
@@ -246,16 +252,30 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
    public void bandWidthChoiceAction ( ActionEvent ae ) {
       for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-         _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E9, i);
+         if(!_ignoreSpItem) {
+            _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E9, i);
+	 }
+
          sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
       }
 
-      if(((BandSpec)_w.feBandModeChoice.getSelectedItem()).getNumHybridSubBands(_w.bandWidthChoice.getSelectedIndex()) > 1) {
-         _w.overlap.setEnabled(true);
+      BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+      feOverlap = currentBandSpec.defaultOverlaps[_w.bandWidthChoice.getSelectedIndex()];
+      _w.overlap.setText("" + (feOverlap / 1.0E6));
+
+      if(!_ignoreSpItem) {
+         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
+            _instHeterodyne.setOverlap(feOverlap, i);
+	 }
       }
-      else {
-         _w.overlap.setEnabled(false);
-      }
+
+// For now the user should not be allowed to change the overlap. So leave the _w.overlap disabled.
+//      if(((BandSpec)_w.feBandModeChoice.getSelectedItem()).getNumHybridSubBands(_w.bandWidthChoice.getSelectedIndex()) > 1) {
+//         _w.overlap.setEnabled(true);
+//      }
+//      else {
+//         _w.overlap.setEnabled(false);
+//      }
    }
 
 
@@ -442,6 +462,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             band = (String)_w.feBand.getSelectedItem();
             boolean stillOutOfRange = false;
 
+
             if ( band.equals ( "lsb" ) )
             {
 	       if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
@@ -569,27 +590,35 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    public void feBandModeChoiceAction ( ActionEvent ae ) {
 
       BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-      _updateBandWidthChoice(currentBandSpec.getBandWidths(feOverlap));
+      _updateBandWidthChoice(currentBandSpec.getDefaultOverlapBandWidths());
 
-      if(currentBandSpec.getNumHybridSubBands(_w.bandWidthChoice.getSelectedIndex()) > 1) {
-         _w.overlap.setEnabled(true);
-      }
-      else {
-        _w.overlap.setEnabled(false);
-      }
+      feOverlap = currentBandSpec.defaultOverlaps[_w.bandWidthChoice.getSelectedIndex()];
+      _w.overlap.setText("" + (feOverlap/ 1.0E6));
+
+// For now the user should not be allowed to change the overlap. So leave the _w.overlap disabled.
+//      if(currentBandSpec.getNumHybridSubBands(_w.bandWidthChoice.getSelectedIndex()) > 1) {
+//         _w.overlap.setEnabled(true);
+//      }
+//      else {
+//         _w.overlap.setEnabled(false);
+//      }
 
       updateSideBandDisplay();
 
       if(!_ignoreSpItem) {
+
          _instHeterodyne.setBandMode(_w.feBandModeChoice.getSelectedItem().toString());
 
          for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
             _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), i);
             _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString(), i);
             _instHeterodyne.setCentreFrequency(feIF, i);
-            _instHeterodyne.setBandWidth(currentBandSpec.getBandWidths(feOverlap)[0], i);
-            _instHeterodyne.setChannels(currentBandSpec.getChannels(feOverlap)[0], i);
+            //_instHeterodyne.setBandWidth(currentBandSpec.getBandWidths(feOverlap)[0], i);
+            //_instHeterodyne.setChannels(currentBandSpec.getChannels(feOverlap)[0], i);
+            _instHeterodyne.setBandWidth(currentBandSpec.getDefaultOverlapBandWidths()[0], i);
+            _instHeterodyne.setBandWidth(currentBandSpec.getDefaultOverlapChannels()[0], i);
 	    _instHeterodyne.setRestFrequency(getRestFrequency(i), i);
+            _instHeterodyne.setOverlap(feOverlap, i); 
 
             // Skip to top system on sideBandDisplay
             if(i > 0) {
@@ -621,13 +650,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       // subBandCount and numBands refers to the number of subsystem, not to the number
       // of multiple subbands in one subsystem.
       subBandCount = currentBandSpec.numBands;
-      subBandWidth = currentBandSpec.getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
+      subBandWidth = currentBandSpec.getDefaultOverlapBandWidths()[0]; //getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
 
       sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
         feIF, feBandWidth,
         redshift,
-        currentBandSpec.getBandWidths(feOverlap),
-        currentBandSpec.getChannels(  feOverlap),
+        currentBandSpec.getDefaultOverlapBandWidths(), //getBandWidths(feOverlap),
+        currentBandSpec.getDefaultOverlapChannels(),   //getChannels(  feOverlap),
         subBandCount );
 
       _ignoreEvents = true;
@@ -809,7 +838,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       feOverlap = 1.0E6 * dvalue;
 
       if(!_ignoreSpItem) {
-         _instHeterodyne.setOverlap(dvalue);
+         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
+            _instHeterodyne.setOverlap(feOverlap, i);
+	 }
       }
 
       BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
@@ -910,6 +941,18 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   public void updateBandWidth(double width, int subsystem) {
     _instHeterodyne.setBandWidth(width, subsystem);
+
+    // Find the overlap asscoiated with this bandWidth
+    BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+    int index = 0;
+    for(int i = 0; i < currentBandSpec.bandWidths.length; i++) {
+      if(currentBandSpec.bandWidths[i] == width) {
+        index = i;
+	break;
+      }
+    }
+
+    _instHeterodyne.setOverlap(currentBandSpec.defaultOverlaps[index], subsystem);
 
     if(subsystem == 0) {
       _ignoreEvents = true;
