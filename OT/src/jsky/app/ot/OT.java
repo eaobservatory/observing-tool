@@ -203,9 +203,11 @@ public class OT extends JFrame {
      * Make a new library
      */
     public void newLibrary() {
-	Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) SpFactory.create(SpType.LIBRARY)));
-	desktop.add(c, JLayeredPane.DEFAULT_LAYER);
-	desktop.moveToFront(c);
+	// Changed by MFO, 15 February 2002
+	OtWindow.create((SpLibrary) SpFactory.create(SpType.LIBRARY), new FileInfo());
+	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) SpFactory.create(SpType.LIBRARY)));
+	//desktop.add(c, JLayeredPane.DEFAULT_LAYER);
+	//desktop.moveToFront(c);
     }
 
     /** 
@@ -271,8 +273,10 @@ public class OT extends JFrame {
       Reader r = null;
       try {
         r = new InputStreamReader(url.openStream());
+	boolean ioXml = OtFileIO.isXML();
         OtFileIO.setXML(false);
         spItem = OtFileIO.fetchSp(r);
+	OtFileIO.setXML(ioXml);
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(this, "Could not open the standard library.", "Error", JOptionPane.ERROR_MESSAGE);
       } finally {
@@ -280,7 +284,7 @@ public class OT extends JFrame {
       }
 
       if ((spItem != null) && (spItem instanceof SpLibrary)) {
-	// Changed by MFO, 22 August 2201
+	// Changed by MFO, 22 August 2001
 	OtWindow.create(spItem, new FileInfo());
 	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) spItem));
 	//desktop.add(c, JLayeredPane.DEFAULT_LAYER);
