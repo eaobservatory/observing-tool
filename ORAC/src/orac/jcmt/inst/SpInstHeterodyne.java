@@ -53,8 +53,13 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Transition. */
   public static final String ATTR_TRANSITION = "transition";
 
-  /** Line Frequency. */
-  public static final String ATTR_LINE_FREQUENCY = "lineFrequency";
+  /**
+   * Rest Frequency.
+   *
+   * This is usually the rest frequency of a molecular transition line.
+   * But it can also be used for an arbitrary user defined frequency in the rest frame of the source.
+   */
+  public static final String ATTR_REST_FREQUENCY = "restFrequency";
 
   /** Overlap of multiple hybrid subbands. */
   public static final String ATTR_OVERLAP = "overlap";
@@ -95,7 +100,10 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     // Trailing white space need to be exactly as they are in the frequency editor
     // widgets (see ATTR_TRANSITION)
     _avTable.noNotifySet(ATTR_FE_NAME,          "A3",                      0);
-    _avTable.noNotifySet(ATTR_MODE,             "ssb",                     0);
+
+    // If the ATTR_FE_NAME default is set to a front end other than A3, then ATTR_MODE
+    // might have to be changed as well depending on what the frontend supports
+    _avTable.noNotifySet(ATTR_MODE,             "dsb",                     0);
     _avTable.noNotifySet(ATTR_BAND_MODE,        "1-system",                0);
     _avTable.noNotifySet(ATTR_OVERLAP,          "0.0",                     0);
     _avTable.noNotifySet(ATTR_BAND,             "usb",                     0);
@@ -105,6 +113,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifySet(ATTR_CHANNELS,         "32768",                   0);
     _avTable.noNotifySet(ATTR_MOLECULE,         "CN, v = 0, 1",            0);
     _avTable.noNotifySet(ATTR_TRANSITION,       "2 0 2 1  - 1 0 2 1 ",     0);
+    _avTable.noNotifySet(ATTR_TRANSITION,       "2 0 2 1  - 1 0 2 1 ",     0);
+    _avTable.noNotifySet(ATTR_REST_FREQUENCY,   "" + 226287.4265E6,        0);
   }
 
 
@@ -289,39 +299,43 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
 
   /**
-   * Get frequency of specified subsystem.
+   * Get rest frequency for specified subsystem.
+   *
+   * This is usually the rest frequency of a molecular transition line.
+   * If the heterodyne editor components allow specifying arbitrary frequencies in the
+   * rest frame of the source instead of a line line rest frequency then these frequencies
+   * would be returned by this method. Currently an arbitrary frequency can only be specified
+   * for the top subsystem (subsystem 0). All the other ones can only have line frequencies
+   * taken form the LineCatalog provided with the Frequency Editor.<p>
+   * 
+   * For subsystems other than the top one (subsystem 0) the rest frequency is only used for
+   * data reduction purposes. The rest frequency of the top subsystem is also used to recalculate
+   * the LO1 at the time of the observation.
    *
    * @param Number of subsystems (starting at 0).
    */
-  public double getLineFrequency(int subsystem) {
-    return _avTable.getDouble(ATTR_LINE_FREQUENCY, subsystem, 0.0);
+  public double getRestFrequency(int subsystem) {
+    return _avTable.getDouble(ATTR_REST_FREQUENCY, subsystem, 0.0);
   }
 
   /**
-   * Set frequency of specified subsystem.
+   * Set rest frequency for specified subsystem.
    *
+   * @see #getRestFrequency(int)
    * @param Number of subsystems (starting at 0).
    */
-  public void setLineFrequency(double value, int subsystem) {
-    _avTable.set(ATTR_LINE_FREQUENCY, value, subsystem);
+  public void setRestFrequency(double value, int subsystem) {
+    _avTable.set(ATTR_REST_FREQUENCY, value, subsystem);
   }
 
   /**
-   * Set frequency of specified subsystem.
+   * Set rest frequency for specified subsystem.
    *
+   * @see #getRestFrequency(int)
    * @param Number of subsystems (starting at 0).
    */
-  public void setLineFrequency(String value, int subsystem) {
-    setLineFrequency(Format.toDouble(value), subsystem);
-  }
-
-  /**
-   * Set frequency of specified subsystem to the centre of the band.
-   *
-   * @param Number of subsystems (starting at 0).
-   */
-  public void setLineFrequency(int subsystem) {
-    setLineFrequency(getFrequencyAtCentre(subsystem), subsystem);
+  public void setRestFrequency(String value, int subsystem) {
+    setRestFrequency(Format.toDouble(value), subsystem);
   }
 
 
@@ -452,6 +466,10 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /**
    * Get LO1.
+   *
+   * The local oscillator (LO1) is only saved to setup the Frequency Editor.
+   * During observing it is recalculated using the rest frequency and centre frequency
+   * of the top subsystem (subsystem 0) and the velocity (or redshift).
    */
   public double getLO1() {
     return _avTable.getDouble(ATTR_LO1, 0.0);
@@ -459,6 +477,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /**
    * Set LO1.
+   *
+   * @see #getLO1()
    */
   public void setLO1(double value) {
     _avTable.set(ATTR_LO1, value);
@@ -466,6 +486,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /**
    * Set LO1.
+   *
+   * @see #getLO1()
    */
   public void setLO1(String value) {
     setLO1(Format.toDouble(value));
@@ -475,20 +497,6 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     return _avTable.size(ATTR_CENTRE_FREQUENCY);
   }
 
-
-  /**
-   * Get frequency at the centre of the band of specified subsystem.
-   *
-   * @param Number of subsystems (starting at 0).
-   */
-  public double getFrequencyAtCentre(int subsystem) {
-    if(!getBand().toLowerCase().equals("usb")) {
-       return (getLO1() - getCentreFrequency(subsystem)) * (1.0 + getRedshift());
-    }
-    else {
-       return (getLO1() + getCentreFrequency(subsystem)) * (1.0 + getRedshift());
-    }
-  }
 
   /**
    * Creates parts of ACSIS configuration file.
@@ -512,7 +520,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     xmlBuffer.append( 
         indent + "<frontend_configure>\n" +
         indent + "  <rest_frequency units=\"GHz\" value=\"" +
-                 (getLineFrequency(0) * 1.0E6) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
+                 (getRestFrequency(0) * 1.0E6) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
         indent + "  <if_centre_freq units=\"GHz\" value=\"" + getFeIF() + "\"/>\n" +
         indent + "  <sideband value=\"" + sideband + "\"/>\n" +
         indent + "  <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" +
@@ -556,7 +564,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
     for(int i = 0; i < getNumSubSystems(); i++) {
       xmlBuffer.append(indent + "  <rest_frequency id=\"line" + i + "\" units=\"GHz\">" +
-                       getLineFrequency(i) +
+                       getRestFrequency(i) +
                       "</rest_frequency>\n");
     }
     
