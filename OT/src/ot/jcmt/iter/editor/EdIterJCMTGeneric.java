@@ -59,7 +59,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
    * The constructor initializes the title, description, and presentation source.
    */
   public EdIterJCMTGeneric(IterJCMTGenericGUI w) {
-    _title       ="JCMT Iterator";
+    _title       ="JCMT Observe";
     _presSource  = _w = w;
     _description ="Iterator Component for JCMT";
 
@@ -71,14 +71,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
       _w.switchingMode.addItem(SWITCHING_MODES[i]);
     }
 
-    _w.referenceOffset_system.setChoices(CoordSys.COORD_SYS);
-//    _w.referenceOffset_system.setValue(CoordSys.FK5);
 
     _w.switchingMode.addWatcher(this);
     _w.noOfIntegrations.addWatcher(this);
-    _w.referenceOffset_x.addWatcher(this);
-    _w.referenceOffset_y.addWatcher(this);
-    _w.referenceOffset_system.addWatcher(this);
     _w.frequencyOffset_throw.addWatcher(this);
     _w.frequencyOffset_rate.addWatcher(this);
     _w.secsPerCycle.addWatcher(this);
@@ -100,8 +95,12 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
     if(ddlbwe == _w.switchingMode) {
-      ((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, val);
-      _iterObs.setSwitchingMode(val);
+      if(val.equals(IterJCMTGenericGUI.FREQUENCY)) {
+        _w.frequencyPanel.setVisible(true);
+      }
+      else {
+        _w.frequencyPanel.setVisible(false);
+      }
 
       return; 
     }
@@ -111,24 +110,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
       return;
     }
 
-    if(ddlbwe == _w.referenceOffset_system) {
-      _iterObs.setReferenceOffsetSystem(val);
-      return;
-    }
   }
 
   public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    if(tbwe == _w.referenceOffset_x) {
-      _iterObs.setReferenceOffsetX(tbwe.getValue());
-      return;
-    }
-
-    if(tbwe == _w.referenceOffset_y) {
-      _iterObs.setReferenceOffsetY(tbwe.getValue());
-      return;
-    }
 
     if(tbwe == _w.frequencyOffset_throw) {
       _iterObs.setFrequencyOffsetThrow(tbwe.getValue());
@@ -184,9 +170,6 @@ public class EdIterJCMTGeneric extends OtItemEditor
     setInstrument(SpTreeMan.findInstrument(_spItem));
 
     _w.noOfIntegrations.setValue(_iterObs.getIntegrations() - 1);
-    _w.referenceOffset_x.setValue(_iterObs.getReferenceOffsetX());
-    _w.referenceOffset_y.setValue(_iterObs.getReferenceOffsetY());
-    _w.referenceOffset_system.setValue(_iterObs.getReferenceOffsetSystem());
     _w.frequencyOffset_throw.setValue(_iterObs.getFrequencyOffsetThrow());
     _w.frequencyOffset_rate.setValue(_iterObs.getFrequencyOffsetRate());
     _w.secsPerCycle.setValue(_iterObs.getSecsPerCycle());
@@ -206,12 +189,18 @@ public class EdIterJCMTGeneric extends OtItemEditor
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
       _w.switchingMode.setVisible(false);
       _w.switchingModeLabel.setVisible(false);
-      _w.switchingModePanel.setVisible(false);
+      _w.frequencyPanel.setVisible(false);
     }
     else {
       _w.switchingMode.setVisible(true);
-      _w.switchingModeLabel.setVisible(true);      
-      _w.switchingModePanel.setVisible(true);
+      _w.switchingModeLabel.setVisible(true);
+
+      if(_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY)) {
+        _w.frequencyPanel.setVisible(true);
+      }
+      else {
+        _w.frequencyPanel.setVisible(false);
+      }
     }
   }
 }
