@@ -38,7 +38,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
    // A position can have one of the following tags.  "Guide" and "User"
    // tags have a numeric suffix appended to them to make them unique.
    //
-   public static final String   BASE_TAG  = "Base";
+   public static       String   BASE_TAG  = "Base";
    public static final String   USER_TAG  = "User";
    public static String[] GUIDE_TAGS = {"PWFS1", "PWFS2", "OIWFS"};
 
@@ -90,6 +90,21 @@ getGuideStarTags()
 {
    return GUIDE_TAGS;
 }
+
+/**
+ * Set BASE_TAG to another value.
+ *
+ * By default the base tag is "Base". If required this can be changed.
+ * E.g. JCMT uses the tag "Science".
+ *
+ * Added by MFO, 19 December 2001.
+ */
+public static void
+setBaseTag(String tag)
+{
+   BASE_TAG = tag;
+}
+
 
 /**
  * Create a SpTelescopePos object, bound to an attribute with the same name
