@@ -42,6 +42,7 @@ public class SpTelescopeObsComp extends SpObsComp
 
    /** TCS XML constants: Orbital elements. */
    private static final String TX_EPOCH                = "epoch";
+   private static final String TX_EPOCH_PERIH          = "epochPerih";
    private static final String TX_INCLINATION          = "inclination";
    private static final String TX_ANODE                = "anode";
    private static final String TX_PERIHELION           = "perihelion";
@@ -366,6 +367,12 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
                                                   + targetPos.getConicOrNamedType() + "\">");
        xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH + " units=\"days\">" + targetPos.getConicSystemEpoch()
                                               + "</" + TX_EPOCH + ">");
+
+       if(targetPos.getConicOrNamedType().equals(SpTelescopePos.CONIC_SYSTEM_TYPES[SpTelescopePos.TYPE_COMET])) {
+         xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH_PERIH + " units=\"days\">" + targetPos.getConicSystemEpochPerih()
+                                                + "</" + TX_EPOCH_PERIH + ">");
+       }
+
        xmlBuffer.append("\n        " + indent + "<"  + TX_INCLINATION + " units=\"degrees\">" + targetPos.getConicSystemInclination()
                                               + "</" + TX_INCLINATION + ">");
        xmlBuffer.append("\n        " + indent + "<"  + TX_ANODE + " units=\"degrees\">" + targetPos.getConicSystemAnode()
@@ -517,6 +524,11 @@ processXmlElementContent(String name, String value)
 
    if(name.equals(TX_EPOCH)) {
       _currentPosition.setConicSystemEpoch(value);
+      return;
+   }
+
+   if(name.equals(TX_EPOCH_PERIH)) {
+      _currentPosition.setConicSystemEpochPerih(value);
       return;
    }
 
@@ -678,6 +690,7 @@ processXmlAttribute(String elementName, String attributeName, String value)
    }
 
    if(elementName.equals(TX_EPOCH)       ||
+      elementName.equals(TX_EPOCH_PERIH) ||
       elementName.equals(TX_INCLINATION) ||
       elementName.equals(TX_ANODE)       ||
       elementName.equals(TX_PERIHELION)  ||

@@ -152,7 +152,8 @@ public final class EdCompTargetList extends OtItemEditor
         _w.e.setToolTipText("Orbital Eccentricity");
         _w.perih.setToolTipText("Argument or Longitude of perihelion");
         _w.orbinc.setToolTipText("Inclination of the orbit ");
-        _w.epoch.setToolTipText("Epoch of the orbital elements or epoch of perihelion");
+        _w.epoch.setToolTipText("Epoch of the orbital elements");
+        _w.epochPerih.setToolTipText("Epoch of perihelion");
         _w.l_or_m.setToolTipText("Longitude or mean anomaly");
         _w.dm.setToolTipText("Daily motion");
 
@@ -176,6 +177,7 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.targetSystemsTabbedPane.addChangeListener(this);
 
         _w.epoch.addWatcher(this);
+        _w.epochPerih.addWatcher(this);
         _w.orbinc.addWatcher(this);
         _w.anode.addWatcher(this);
         _w.perih.addWatcher(this);
@@ -860,8 +862,12 @@ public final class EdCompTargetList extends OtItemEditor
     private void _setConicSystemType(int conicSystemType) {
       switch(conicSystemType) {
         case SpTelescopePos.TYPE_MAJOR:
-	       // Epoch of the elements and mean distance
-	       _w.epochLabel.setText("t0");
+	       // Epoch of perihelion
+	       _w.epochPerih.setVisible(false);
+	       _w.epochPerihLabel.setVisible(false);
+	       _w.epochPerihUnitsLabel.setVisible(false);
+
+	       // Mean distance
 	       _w.aorqLabel.setText("a");
 
                // Longitude of perihelion
@@ -882,8 +888,12 @@ public final class EdCompTargetList extends OtItemEditor
 	       break;
 
         case SpTelescopePos.TYPE_MINOR:
-	       // Epoch of the elements and mean distance
-	       _w.epochLabel.setText("t0");
+	       // Epoch of perihelion
+	       _w.epochPerih.setVisible(false);
+	       _w.epochPerihLabel.setVisible(false);
+	       _w.epochPerihUnitsLabel.setVisible(false);
+
+	       // Mean distance
 	       _w.aorqLabel.setText("a");
 
                // Argument of perihelion
@@ -905,8 +915,12 @@ public final class EdCompTargetList extends OtItemEditor
 
         // Comet
 	default:
-	       // Epoch of perihelion and perihelion distance
-	       _w.epochLabel.setText("T");
+	       // Epoch of perihelion
+	       _w.epochPerih.setVisible(true);
+	       _w.epochPerihLabel.setVisible(true);
+	       _w.epochPerihUnitsLabel.setVisible(true);
+
+	       // Perihelion distance
 	       _w.aorqLabel.setText("q");
 
                // Argument of perihelion
@@ -932,6 +946,8 @@ public final class EdCompTargetList extends OtItemEditor
         case SpTelescopePos.SYSTEM_CONIC:
           _w.epoch.setValue(tp.getConicSystemEpochAsString());
 	  _w.epoch.setCaretPosition(0);
+          _w.epochPerih.setValue(tp.getConicSystemEpochPerihAsString());
+	  _w.epochPerih.setCaretPosition(0);
           _w.orbinc.setValue(tp.getConicSystemInclination());
           _w.anode.setValue(tp.getConicSystemAnode());
           _w.perih.setValue(tp.getConicSystemPerihelion());
@@ -1150,7 +1166,13 @@ public final class EdCompTargetList extends OtItemEditor
         _updateWidgets();
 
         _curPos.deleteWatcher(EdCompTargetList.this);
-        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
+        
+	if(_curPos.getSystemType() == SpTelescopePos.SYSTEM_CONIC) {
+	  _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_COMET]);
+	}
+	else {
+	  _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
+	}
 
         _curPos.setName("");
 	_name.setValue("");
@@ -1164,6 +1186,11 @@ public final class EdCompTargetList extends OtItemEditor
     public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
       if(tbwe == _w.epoch) {
         _curPos.setConicSystemEpoch(_w.epoch.getValue());
+        return;
+      }
+
+      if(tbwe == _w.epochPerih) {
+        _curPos.setConicSystemEpochPerih(_w.epochPerih.getValue());
         return;
       }
 

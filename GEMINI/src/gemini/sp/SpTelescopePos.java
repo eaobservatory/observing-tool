@@ -252,6 +252,12 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
     */
    public static final int CONIC_SYSTEM_DM          = 22;
 
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemEpochPerih()
+    */
+   public static final int CONIC_SYSTEM_EPOCH_PERIH = 23;
 
 
    private SpItem    _spItem;
@@ -950,7 +956,7 @@ setTrackingEffectiveWavelength(String trackEffWave)
 /**
  * Conic System (Oribital Elements).
  *
- * Get the epoch of the orbital elements or epoch of perihelion (t0, T).
+ * Get the epoch of the orbital elements (t0).
  */
 public double
 getConicSystemEpoch()
@@ -961,7 +967,7 @@ getConicSystemEpoch()
 /**
  * Conic System (Oribital Elements).
  *
- * Get the epoch of the orbital elements or epoch of perihelion (t0, T).
+ * Get the epoch of the orbital elements (t0).
  */
 public String
 getConicSystemEpochAsString()
@@ -972,7 +978,7 @@ getConicSystemEpochAsString()
 /**
  * Conic System (Orbital Elements).
  * 
- * Set the epoch of the orbital elements or epoch of perihelion (t0, T).
+ * Set the epoch of the orbital elements (t0).
  */
 public void
 setConicSystemEpoch(String value)
@@ -982,6 +988,45 @@ setConicSystemEpoch(String value)
    }
    catch(NumberFormatException e) {
       _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH);
+   }
+}
+
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the epoch of the perihelion (T).
+ */
+public double
+getConicSystemEpochPerih()
+{
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_EPOCH_PERIH, 0.0);
+}
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the epoch of the perihelion (T).
+ */
+public String
+getConicSystemEpochPerihAsString()
+{
+   return convertMJD(getConicSystemEpochPerih());
+}
+
+/**
+ * Conic System (Orbital Elements).
+ * 
+ * Set the epoch of the perrihelion (T).
+ */
+public void
+setConicSystemEpochPerih(String value)
+{
+   try {
+      _avTab.set(_tag, Double.parseDouble(value), CONIC_SYSTEM_EPOCH_PERIH);
+   }
+   catch(NumberFormatException e) {
+      _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH_PERIH);
    }
 }
 

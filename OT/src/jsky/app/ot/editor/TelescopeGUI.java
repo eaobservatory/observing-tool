@@ -94,9 +94,12 @@ public class TelescopeGUI extends JPanel {
   DropDownListBoxWidgetExt namedTarget = new DropDownListBoxWidgetExt();
   GridBagLayout gridBagLayout7 = new GridBagLayout();
   TextBoxWidgetExt epoch = new TextBoxWidgetExt();
+  TextBoxWidgetExt epochPerih = new TextBoxWidgetExt();
   TextBoxWidgetExt orbinc = new TextBoxWidgetExt();
   TextBoxWidgetExt anode = new TextBoxWidgetExt();
   JLabel epochLabel = new JLabel();
+  JLabel epochPerihLabel = new JLabel();
+  JLabel epochPerihUnitsLabel = new JLabel();
   JLabel orbincLabel = new JLabel();
   JLabel anodeLabel = new JLabel();
   JLabel perihLabel = new JLabel();
@@ -249,7 +252,10 @@ public class TelescopeGUI extends JPanel {
     conicSystemPanel.setLayout(gridBagLayout7);
     epochLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     epochLabel.setForeground(Color.black);
-    epochLabel.setText("T");
+    epochLabel.setText("t0");
+    epochPerihLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    epochPerihLabel.setForeground(Color.black);
+    epochPerihLabel.setText("T");    
     orbincLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     orbincLabel.setForeground(Color.black);
     orbincLabel.setText("i");
@@ -296,10 +302,14 @@ public class TelescopeGUI extends JPanel {
     l_or_mUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
     l_or_mUnitsLabel.setForeground(Color.black);
     l_or_mUnitsLabel.setText("(deg)");
+    epochPerihUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
+    epochPerihUnitsLabel.setForeground(Color.black);
+    epochPerihUnitsLabel.setText("(TT)");
     dmUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
     dmUnitsLabel.setForeground(Color.black);
     dmUnitsLabel.setText("(deg)");
     epoch.setColumns(10);
+    epochPerih.setColumns(10);
     l_or_m.setColumns(6);
     detailsRadVelTBW.setColumns(10);
     offsetCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -312,6 +322,11 @@ public class TelescopeGUI extends JPanel {
     yUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
     yUnitsLabel.setForeground(Color.black);
     yUnitsLabel.setText("(degrees)");
+
+    epochPerih.setVisible(false);
+    epochPerihLabel.setVisible(false);
+    epochPerihUnitsLabel.setVisible(false);
+    
     this.add(nameTagPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
     nameTagPanel.add(jLabel1, null);
@@ -398,6 +413,14 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
     conicSystemPanel.add(dmUnitsLabel, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+
+    conicSystemPanel.add(epochPerih, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
+    conicSystemPanel.add(epochPerihLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    conicSystemPanel.add(epochPerihUnitsLabel, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
+
     targetSystemsTabbedPane.add(namedSystemPanel,     "Planets, Sun, Moon");
     //namedSystemPanel.add(jLabel21, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
     //        ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
