@@ -1311,7 +1311,7 @@
     <xsd:attribute name="type" type="SpType" fixed="ob"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
     <xsd:attribute name="obsnum" type="xsd:nonNegativeInteger" use="optional"/>
-    <xsd:attribute name="checksum" type="xsd:hexBinary" use="optional"/>
+    <xsd:attribute name="checksum" type="xsd:string" use="optional"/>
     <xsd:attribute name="suspend" type="xsd:boolean" use="optional"/>
   </xsd:complexType>
 </xsd:element>
@@ -1321,7 +1321,7 @@
     <xsd:sequence>
       <xsd:any minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
-    <xsd:attribute name="checksum" type="xsd:hexBinary" use="optional"/>
+    <xsd:attribute name="checksum" type="xsd:string" use="optional"/>
     <xsd:attribute name="suspend" type="xsd:string" use="optional"/>
     <xsd:attribute name="remaining">
       <xsd:simpleType>
