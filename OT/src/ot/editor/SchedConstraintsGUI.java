@@ -96,19 +96,19 @@ public class SchedConstraintsGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     this.add(jLabel2, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    this.add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+    this.add(jLabel5, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    this.add(minElevation, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+    this.add(minElevation, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(jLabel6, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+    this.add(jLabel6, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
     // Periodicity [timj kluge]
-    this.add(jLabel7, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+    this.add(jLabel7, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    this.add(period, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+    this.add(period, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(jLabel8, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
+    this.add(jLabel8, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
 }
