@@ -127,7 +127,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     _avTable.set(ATTR_JIGGLE_PATTERN, value);
   }
 
-  private static boolean isJIG64(SpInstSCUBA instSCUBA) {
+  public static boolean isJIG64(SpInstSCUBA instSCUBA) {
     return instSCUBA.getBolometers() != null &&
            instSCUBA.getBolometers().contains("LONG") &&
            instSCUBA.getBolometers().contains("SHORT");
