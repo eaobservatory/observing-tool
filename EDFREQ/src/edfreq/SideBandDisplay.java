@@ -261,6 +261,11 @@ public class SideBandDisplay extends JFrame
       return jt.toXML();
    }   
 
+   public String toConfigXML(String restFrequencyId, int sideband, String dataReductionXML, String indent) {
+     return jt.toConfigXML(restFrequencyId, sideband, dataReductionXML, indent); 
+   }
+
+
    public void update(String xml) throws Exception
    {
       jt.update(xml);
