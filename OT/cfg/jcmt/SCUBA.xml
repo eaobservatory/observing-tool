@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
+  <ot_version>20030807</ot_version>
+  <title>SCUBA Libraries</title>
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>scuba_library_03a.xml</meta_gui_filename>
-  <title>SCUBA Libraries</title>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>SCUBA Photometry MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="1"/>
         <SpInstSCUBARef idref="0"/>
         <title>850/450 um photometry</title>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <library_version>$Revision$</library_version>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">1262.0</estimatedDuration>
         <SpNote type="no" subtype="none">
@@ -60,9 +61,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="1" type="oc" subtype="schedInfo">
@@ -73,6 +72,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="0" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -86,7 +86,7 @@ and "Don't Care" for maps.
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This MSB provides an example of photometry at 850/450 um. Two observations are combined within the MSB: a calibration and a science observation. 
+          <note>This MSB provides an example of photometry at 850/450 um. Two observations are combined within the MSB: a calibration and a science observation.  These are followed by an optional pointing observation, which is recommended after long photometry observations.
  
 The following parameters have been set: 
 - the on-source bolometers have been set to H7 on the LONG array and C14 on the SHORT array, with the 850W/450W um filter wheel setting selected (by way of the 
@@ -94,7 +94,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850/450 um photometry observation</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -165,8 +165,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -198,13 +197,27 @@ If you want to point on your source because you know for a fact that it is brigh
             </SpIterRepeat>
           </SpIterFolder>
         </SpObs>
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+          <title>Optional pointing</title>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>true</standard>
+          <estimatedDuration units="seconds">122.0</estimatedDuration>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <integrations>2</integrations>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+            </SpIterPointingObs>
+          </SpIterFolder>
+        </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="3"/>
         <SpInstSCUBARef idref="2"/>
         <title>850/450 um 2-bol photometry</title>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <library_version>$Revision$</library_version>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">1262.0</estimatedDuration>
         <SpNote type="no" subtype="none">
@@ -250,9 +263,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="3" type="oc" subtype="schedInfo">
@@ -263,6 +274,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="2" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -276,14 +288,14 @@ and "Don't Care" for maps.
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This MSB provides an example of 2 bolometer photometry at 850/450 um. Two observations are combined within the MSB: a calibration and a science observation. 
+          <note>This MSB provides an example of 2 bolometer photometry at 850/450 um. Two observations are combined within the MSB: a calibration and a science observation. These are followed by an optional pointing observation, which is recommended after long photometry observations.
  
 The following parameters have been set: 
 - the on-source bolometers have been set to H7 and H9 on the LONG array (the 450um bolometers will be selected automatically) and the 850W/450W um filter wheel setting selected (by way of the SCUBA component).  Both the calibration and the science observations will inherit this setup  
 - a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850/450 um photometry observation</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -354,8 +366,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -387,16 +398,29 @@ If you want to point on your source because you know for a fact that it is brigh
             </SpIterRepeat>
           </SpIterFolder>
         </SpObs>
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+          <title>Optional pointing</title>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>true</standard>
+          <estimatedDuration units="seconds">122.0</estimatedDuration>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <integrations>2</integrations>
+              <autoTarget>true</autoTarget>
+            </SpIterPointingObs>
+          </SpIterFolder>
+        </SpObs>
       </SpMSB>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA Jiggle Map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="5"/>
         <SpInstSCUBARef idref="4"/>
         <title>850/450 um jiggle map (fully sampled at both 850/450 um)</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">1862.0</estimatedDuration>
@@ -443,9 +467,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
@@ -474,7 +496,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850/450 um jiggle map observation, fully sampled at both 850/450 um</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -488,8 +510,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
 - maps map with both arrays will be fully sampled 
 - a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
             <title>Jiggle map calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -556,8 +577,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -592,13 +612,13 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="7"/>
         <SpInstSCUBARef idref="6"/>
         <title>850/450 um jiggle offsets (mosaic)</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">182.0</estimatedDuration>
+        <estimatedDuration units="seconds">1867.0</estimatedDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
@@ -642,9 +662,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="7" type="oc" subtype="schedInfo">
@@ -673,7 +691,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850/450 um jiggle map observation, fully sampled at both 850/450 um</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -687,8 +705,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
 - maps map with both arrays will be fully sampled 
 - a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
             <title>Jiggle map calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -734,7 +751,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850/450 um jiggle map (fully sampled at both 850/450 um )</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">122.0</estimatedDuration>
+          <estimatedDuration units="seconds">1807.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -755,8 +772,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -776,6 +792,10 @@ If you want to point on your source because you know for a fact that it is brigh
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <obsArea>
                     <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
                   </obsArea>
                   <SpIterChop type="ic" subtype="chop">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -798,10 +818,10 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="9"/>
         <SpInstSCUBARef idref="8"/>
         <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
@@ -848,9 +868,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="9" type="oc" subtype="schedInfo">
@@ -876,7 +894,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850 um jiggle map observation, fully sampled at 850 um ONLY</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -948,8 +966,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -984,10 +1001,10 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="11"/>
         <SpInstSCUBARef idref="10"/>
         <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
@@ -1034,9 +1051,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="11" type="oc" subtype="schedInfo">
@@ -1062,7 +1077,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 450 um jiggle map observation, fully sampled at 450 um ONLY</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -1134,8 +1149,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -1174,13 +1188,13 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA scan map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="13"/>
         <SpInstSCUBARef idref="12"/>
         <title>850/450 um scan map</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">3189.5</estimatedDuration>
+        <estimatedDuration units="seconds">3542.854144631338</estimatedDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
@@ -1224,9 +1238,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="13" type="oc" subtype="schedInfo">
@@ -1246,15 +1258,14 @@ and "Don't Care" for maps.
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of a calibrated scan map observation using the LONG and SHORT arrays, with the filter wheel set at the 850W/450W um position. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence, in addition to the specific choice of calibrator,  will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
+          <note>This observation provides an example of a calibrated scan map observation using the LONG and SHORT arrays, with the filter wheel set at the 850W/450W um position. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence, in addition to the specific choice of calibrator,  will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
           <title>A calibrated 850/450 um scan map observation</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">1138.75</estimatedDuration>
+          <estimatedDuration units="seconds">1244.250456860203</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -1329,7 +1340,7 @@ and "Don't Care" for maps.
           <title>850/450 um scan map</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">3129.5</estimatedDuration>
+          <estimatedDuration units="seconds">3482.854144631338</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1350,8 +1361,7 @@ and "Don't Care" for maps.
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
@@ -1409,13 +1419,13 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="15"/>
         <SpInstSCUBARef idref="14"/>
         <title>850um fast scan map</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">975.5</estimatedDuration>
+        <estimatedDuration units="seconds">1046.1708289262676</estimatedDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
@@ -1459,9 +1469,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="15" type="oc" subtype="schedInfo">
@@ -1487,7 +1495,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
           <title>850 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">876.3999999999999</estimatedDuration>
+          <estimatedDuration units="seconds">892.1801096464487</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -1562,7 +1570,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
           <title>850um fast scan map</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">915.5</estimatedDuration>
+          <estimatedDuration units="seconds">986.1708289262676</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1583,8 +1591,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
@@ -1743,7 +1750,7 @@ If you want to point on your source because you know for a fact that it is brigh
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <SpInstSCUBARef idref="19"/>
-      <estimatedDuration units="seconds">2135.0</estimatedDuration>
+      <estimatedDuration units="seconds">1215.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="18"/>
       <title>850 um photometry: instrumental polarization calibration</title>
       <priority>49</priority>
@@ -1751,7 +1758,7 @@ If you want to point on your source because you know for a fact that it is brigh
       <standard>false</standard>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
+        <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.</note>
         <title>Instrumental polarization observation notes</title>
       </SpNote>
       <SpTelescopeObsComp id="18" type="oc" subtype="targetList">
@@ -1847,7 +1854,7 @@ If you want to point on your source because you know for a fact that it is brigh
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <SpInstSCUBARef idref="21"/>
-      <estimatedDuration units="seconds">2135.0</estimatedDuration>
+      <estimatedDuration units="seconds">1215.0</estimatedDuration>
       <SpTelescopeObsCompRef idref="20"/>
       <title>450 um photometry: instrumental polarization calibration</title>
       <priority>49</priority>
@@ -1855,7 +1862,7 @@ If you want to point on your source because you know for a fact that it is brigh
       <standard>false</standard>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
+        <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.</note>
         <title>Instrumental polarization observation notes</title>
       </SpNote>
       <SpTelescopeObsComp id="20" type="oc" subtype="targetList">
@@ -1952,7 +1959,7 @@ If you want to point on your source because you know for a fact that it is brigh
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <SpSiteQualityObsCompRef idref="24"/>
       <SpInstSCUBARef idref="23"/>
-      <estimatedDuration units="seconds">1354.5</estimatedDuration>
+      <estimatedDuration units="seconds">1706.1681895340098</estimatedDuration>
       <SpTelescopeObsCompRef idref="22"/>
       <title>450/850 um scan map flatfield</title>
       <priority>99</priority>
@@ -2010,9 +2017,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
         <title>Site Quality</title>
       </SpNote>
       <SpSiteQualityObsComp id="24" type="oc" subtype="schedInfo">
@@ -2023,6 +2028,7 @@ and "Don't Care" for maps.
         <noiseCalculationTau>0.08</noiseCalculationTau>
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <min>0.0</min>
       </SpSiteQualityObsComp>
       <SpInstSCUBA id="23" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
@@ -2098,13 +2104,13 @@ The 450um IPs are uncertain. Please talk to your support scientist before attemp
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: photometry mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="26"/>
         <SpInstSCUBARef idref="25"/>
         <title>850/450 um photometry polarimetry</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">3318.0</estimatedDuration>
+        <estimatedDuration units="seconds">1758.0</estimatedDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
@@ -2148,9 +2154,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="26" type="oc" subtype="schedInfo">
@@ -2161,6 +2165,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="25" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -2174,8 +2179,7 @@ and "Don't Care" for maps.
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>A 850 (and simulataneously 450-) micron photometry polarimetry observation using 16 waveplate positions and a chop throw of 120 arcsec. There are 6 integrations for each waveplate position. Includes an optional  flux calibration observation.
-</note>
+          <note>A 850 (and simulataneously 450-) micron photometry polarimetry observation using 16 waveplate positions and a chop throw of 120 arcsec. There are 6 integrations for each waveplate position. Includes an optional  flux calibration observation.</note>
           <title>850um phot pol</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -2218,7 +2222,7 @@ and "Don't Care" for maps.
           <title>850/450um photometry polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">3258.0</estimatedDuration>
+          <estimatedDuration units="seconds">1698.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2239,8 +2243,7 @@ and "Don't Care" for maps.
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
@@ -2296,13 +2299,13 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: jiggle map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="28"/>
         <SpInstSCUBARef idref="27"/>
         <title>850 um pol jiggle map (fully sampled 850, under-sampled 450um)</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">1478.0</estimatedDuration>
+        <estimatedDuration units="seconds">878.0</estimatedDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
@@ -2346,9 +2349,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="28" type="oc" subtype="schedInfo">
@@ -2359,6 +2360,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="27" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
@@ -2385,8 +2387,7 @@ This observation uses 16 waveplate positions and a 150 arcsec chop throw.</note>
 - maps map with both arrays will be fully sampled 
 - a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
             <title>Jiggle map calibration</title>
           </SpNote>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
@@ -2435,7 +2436,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850um pol jiggle map (fully sampled 850, under-sampled 450 um )</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1418.0</estimatedDuration>
+          <estimatedDuration units="seconds">818.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2456,8 +2457,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
@@ -2514,13 +2514,13 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: scan map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <SpSiteQualityObsCompRef idref="30"/>
         <SpInstSCUBARef idref="29"/>
         <title>850 um fast scan map polarimetry</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">1076.3999999999996</estimatedDuration>
+        <estimatedDuration units="seconds">1478.48029239053</estimatedDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
@@ -2564,9 +2564,7 @@ general recommendation is for you to use:
 &lt;=0.5 for polarimetry observations
 &lt;=1.0 for photometry observations
 
-and "Don't Care" for maps.
-
-</note>
+and "Don't Care" for maps.</note>
           <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="30" type="oc" subtype="schedInfo">
@@ -2577,6 +2575,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="29" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
@@ -2596,7 +2595,7 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
           <title>850um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">497.5999999999999</estimatedDuration>
+          <estimatedDuration units="seconds">508.1200730976325</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterPointingObs type="ic" subtype="pointingObs">
@@ -2656,13 +2655,12 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
           <title>850um fast scan map polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1016.3999999999997</estimatedDuration>
+          <estimatedDuration units="seconds">1418.48029239053</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note> Scan map polarimetry is a difficult observing mode in which to obtain high quality 
+            <note>Scan map polarimetry is a difficult observing mode in which to obtain high quality 
  data. The limiting factor becomes that of sky variability. In this mode we have 
- assumed that it is optimal to make 4 raster scans instead of the usual 6 that are employed for the Emerson2 scanning scheme, and that the 4 scans are made for each of  the polarization grid angles. Under some circumstances it may be preferable to make observations at each of the grid angles before moving to a different scan throw/angle.     
-  </note>
+ assumed that it is optimal to make 4 raster scans instead of the usual 6 that are employed for the Emerson2 scanning scheme, and that the 4 scans are made for each of  the polarization grid angles. Under some circumstances it may be preferable to make observations at each of the grid angles before moving to a different scan throw/angle.</note>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
@@ -2684,8 +2682,7 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
 
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.</note>
               <title>Pointing information</title>
             </SpNote>
             <SpIterPointingObs type="ic" subtype="pointingObs">
