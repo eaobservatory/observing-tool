@@ -1883,7 +1883,9 @@ public class SpTranslator {
             moveSetChopBeam( sequence );
 
 // As re-requested by Sandy Leggett to reduce latency effects.
-            if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
+// SKL requested the "set DARK" be inserted for UIST sequences as well (3 July 2003, RDK)
+            if ( instrument.equalsIgnoreCase( "UFTI" ) ||
+		 instrument.equalsIgnoreCase( "UIST" ) ) {
                sequence.addElement( "set DARK" );
             }
 
