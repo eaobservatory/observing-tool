@@ -334,6 +334,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
       }
     }
 
+    _noiseToolTip = "Not for Heterodyne";
     return "Not for Heterodyne";
   }
 
