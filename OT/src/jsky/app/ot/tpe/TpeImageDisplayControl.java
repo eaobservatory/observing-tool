@@ -29,8 +29,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * @param statusPanel panel to use to display status info
      * @param size   the size (width, height) to use for the pan and zoom windows.
      */
-    public TpeImageDisplayControl(Component parent, StatusPanel statusPanel, int size) {
-	super(parent, statusPanel, size);
+    public TpeImageDisplayControl(Component parent, /*StatusPanel statusPanel,*/ int size) {
+	super(parent, /*statusPanel,*/ size);
     }
 
     /** 
@@ -39,8 +39,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * @param parent The top level parent frame (or internal frame) used to close the window
      * @param statusPanel panel to use to display status info
      */
-    public TpeImageDisplayControl(Component parent, StatusPanel statusPanel) {
-	super(parent, statusPanel);
+    public TpeImageDisplayControl(Component parent) { //, StatusPanel statusPanel) {
+	super(parent); //, statusPanel);
     }
 
 
@@ -52,8 +52,8 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * @param statusPanel panel to use to display status info
      * @param url The URL for the image to load
      */
-    public TpeImageDisplayControl(Component parent, StatusPanel statusPanel, URL url) {
-	super(parent, statusPanel, url);
+    public TpeImageDisplayControl(Component parent, /*StatusPanel statusPanel,*/ URL url) {
+	super(parent, /*statusPanel,*/ url);
     }
 
 
@@ -65,13 +65,13 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * @param statusPanel panel to use to display status info
      * @param filename The image file to load
      */
-    public TpeImageDisplayControl(Component parent, StatusPanel statusPanel, String filename) {
-	super(parent, statusPanel, filename);
+    public TpeImageDisplayControl(Component parent, /*StatusPanel statusPanel,*/ String filename) {
+	super(parent, /*statusPanel,*/ filename);
     }
 
     /** Make and return the image display window */
     protected DivaMainImageDisplay makeImageDisplay() {
-	return new TpeImageWidget(parent, statusPanel);
+	return new TpeImageWidget(parent); //, statusPanel);
     }
 }
 
