@@ -104,7 +104,7 @@
 <xsd:simpleType name="chopThrowLimits">
   <xsd:restriction base="xsd:double">
     <xsd:minInclusive value="0.0"/>
-    <xsd:maxInclusive value="500.0"/>
+    <xsd:maxInclusive value="480.0"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -237,7 +237,7 @@
 <xsd:complexType name="conicSystemType">
   <xsd:all>
     <xsd:element ref="toml:epoch"/>
-    <xsd:element ref="toml:epochPerih"/>
+    <xsd:element ref="toml:epochPerih" minOccurs="0"/>
     <xsd:element ref="toml:inclination"/>
     <xsd:element ref="toml:anode"/>
     <xsd:element ref="toml:perihelion"/>
