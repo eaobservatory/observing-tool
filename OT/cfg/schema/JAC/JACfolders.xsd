@@ -59,7 +59,7 @@
       <xsd:element ref="toml:meta_gui_collapsed"         minOccurs="0"/>
       <xsd:element ref="toml:meta_gui_selected"          minOccurs="0"/>
       <xsd:element ref="toml:meta_gui_selectedOffsetPos" minOccurs="0"/>
-      <xsd:element name="obsArea" type="toml:offsetDefinition"/>
+      <xsd:element ref="toml:obsArea"/>
       <xsd:element ref="toml:title"                      minOccurs="0"/>
       <xsd:group   ref="toml:sequenceContent"            minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>

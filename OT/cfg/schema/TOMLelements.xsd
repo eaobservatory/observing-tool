@@ -33,6 +33,14 @@
 <xsd:element name="coadds"              type="xsd:positiveInteger"/>
 <xsd:element name="exposureTime"        type="toml:exposureTimeLimit"/>
 
+<xsd:element name="telescope">
+  <xsd:simpleType>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="ukirt"/>
+      <xsd:enumeration value="jcmt"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:element>
 <!-- Conic System elements -->
 
 <!-- MJD of the elements -->
@@ -156,6 +164,7 @@
     <xsd:element ref="toml:version"/>
     <xsd:element ref="toml:pi"/>
     <xsd:element ref="toml:projectID"/>
+    <xsd:element ref="toml:telescope"/>
     <xsd:element ref="toml:title"/>
   </xsd:sequence>
 </xsd:group>
