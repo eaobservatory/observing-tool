@@ -182,13 +182,15 @@ public class FrequencyTable extends JPanel implements ActionListener
          samplerDisplay = new SamplerDisplay ( String.valueOf ( feIF ) );
          resolutionDisplay = new ResolutionDisplay ( channels[0],
            bandWidths[0], nMixers );
+
 	 Vector bandWidthItems = new Vector();
 	 for(int k = 0; k < bandWidths.length; k++) {
             bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6) ));
 	 }
          widthChoice = new JComboBox ( bandWidthItems );
-	 widthChoice.addItemListener(new NumberedBandWidthListener(j));
          samplers[j] = new Sampler ( feIF, feBandWidth, bandWidths, channels, widthChoice );
+	 samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
+	 widthChoice.addItemListener(new NumberedBandWidthListener(j));
 
          data[j][0] = new SideBand ( lLowLimit, lHighLimit, 
            bandWidths[0], -feIF, (Sampler)samplers[j], 

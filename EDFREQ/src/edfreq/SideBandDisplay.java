@@ -58,6 +58,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       contentPane = getContentPane();
 
       this.hetEditor = hetEditor;
+
    }
 
    public void updateDisplay ( String feName, 
@@ -289,12 +290,12 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       this.redshift = redshift;
 
       if(el != null) {
-	  System.out.println("Setting emmission line redshift");
+// 	  System.out.println("Setting emmission line redshift");
          el.setRedshift ( redshift );
       }
 
       if(targetScale != null) {
-	  System.out.println("Setting target scale redshift");
+// 	  System.out.println("Setting target scale redshift");
          targetScale.setRedshift ( redshift );
       }
    }
@@ -334,7 +335,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
    public void setBandWidth(double width, int subsystem) {
        if ( jt == null) return;
-      jt.getSamplers()[subsystem].setBandWidth(width);
+       jt.getSamplers()[subsystem].setBandWidth(width);
    }
 
    public void setLineText(String lineText, int subsystem) {
@@ -370,6 +371,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
          public void updateChannels(int channels, int subsystem) { }
          public void updateLineDetails(LineDetails lineDetails, int subsystem) { }
          public void updateLO1(double lo1) { }
+         public double getCurrentBandwidth(int subsystem) { return 0.0; }
       } );
 
       sbt.updateDisplay( "Frequency editor test",

@@ -56,7 +56,9 @@ public interface HeterodyneEditor {
     *
     * @return observe frequency in GHz 
     */
-   public double getObsFrequency(int subsystem);
+    public double getObsFrequency(int subsystem);
+
+   public double getCurrentBandwidth(int subsystem);
 
    public void updateCentreFrequency(double centre, int subsystem);
    public void updateBandWidth(double width, int subsystem);

@@ -1430,6 +1430,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       return (String)_w.feMode.getSelectedItem();
    }
 
+
    private void _updateBandWidthChoice(double [] values) {
       _w.bandWidthChoice.removeActionListener(this);
       int selectedIndex = _w.bandWidthChoice.getSelectedIndex();
@@ -1588,6 +1589,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
     sideBandDisplay.setMainLine(getRestFrequency(0));
   }
+
+    public double getCurrentBandwidth ( int subsystem) {
+	if ( _instHeterodyne == null) return 0.0;
+	return _instHeterodyne.getBandWidth(subsystem);
+    }
 
 
     private DefaultComboBoxModel getSpecialConfigsModel () {
