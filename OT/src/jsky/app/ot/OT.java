@@ -19,6 +19,7 @@ import java.io.Reader;
 import java.lang.ClassLoader;
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.util.Vector;
 import javax.swing.JDesktopPane;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -40,7 +41,7 @@ import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.util.CloseableApp;
 import jsky.catalog.skycat.SkycatConfigFile;
 import jsky.util.gui.BasicWindowMonitor;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 import jsky.util.gui.LookAndFeelMenu;
 
 import ot.News;
@@ -50,8 +51,14 @@ import gemini.sp.ipc.SpServer;
 
 public class OT extends JFrame {
 
+    /** Vector of all non-internal OtWindowFrame's */
+    private static Vector _otWindowFrames = new Vector();
+
     /** Main window, when using internal frames */
     private static JDesktopPane desktop;
+
+    /** Help launcher. */
+    private static JHLauncher helpLauncher = null;
 
     /** Splash screen displayed on startup */
     private static SplashScreen _splash;
@@ -60,12 +67,20 @@ public class OT extends JFrame {
     private OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog();
 
 
-
     /**
      * Create the OT application using internal frames.
      */
     public OT() {
+	this(true);
+    }
+
+    public OT(boolean internalFrames) {
 	super("OT");
+
+	if(!internalFrames) {
+	    return;
+	}
+
 	makeLayout();
 
 	// Clean up on exit
@@ -74,6 +89,17 @@ public class OT extends JFrame {
     
     /** Return the desktop, if using internal frames, otherwise null. */
     public static JDesktopPane getDesktop() {return desktop;}
+
+    /** Return the help launcher. */
+    public static JHLauncher getHelpLauncher() {return helpLauncher;}
+
+    /** Set help launcher. */
+    public static void setHelpLauncher(JHLauncher jHLauncher) {
+	helpLauncher = jHLauncher;
+    }
+
+
+
 
     /**
      * Do the window layout using internal frames
@@ -126,7 +152,7 @@ public class OT extends JFrame {
      */
     public static void newProgram() {
 	if (desktop == null) {
-	    new OtWindowFrame(new OtProgWindow());
+	    addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
 	}
 	else {
 	    Component c = new OtWindowInternalFrame(new OtProgWindow());
@@ -175,7 +201,7 @@ public class OT extends JFrame {
 	    spItem = OtFileIO.fetchSp(r);
 	} 
 	catch (IOException ex) {
-	    DialogUtil.error( "Could not open the standard library.");
+	    DialogUtil.error(this, "Could not open the standard library.");
 	    return;
 	} 
 	finally {
@@ -244,6 +270,7 @@ public class OT extends JFrame {
 	// If the user wants to be prompted before closing when there are edited
 	// programs, look for edited programs and prompt
 	if (OtProps.isSaveShouldPrompt()) {
+	  if(desktop != null) {
 	    JInternalFrame[] ar = desktop.getAllFrames();
 	    for (int i = 0; i < ar.length; i++) {
 		if (! (ar[i] instanceof CloseableApp)) 
@@ -253,6 +280,20 @@ public class OT extends JFrame {
 		    return;
 		}
 	    }
+	  }
+	  else {	    
+	    int current_number_of_frames = _otWindowFrames.size();
+	    for (int i = 0; i < current_number_of_frames; i++) {
+		if(_otWindowFrames.get(0) != null) {
+		    if(!((OtWindowFrame)_otWindowFrames.get(0)).getEditor().closeApp()) {
+			return;
+		    }
+		}
+		else {
+		    System.out.println("Frames " + i + " does not exist anymore.");
+		}
+	    }
+	  }
 	}
 
 	// XXX allan saveProperties();
@@ -310,8 +351,14 @@ public class OT extends JFrame {
 public void
 launchHelp()
 {
-  String[] args={"-hsURL", ClassLoader.getSystemClassLoader().getResource("help/othelp.hs").toString()};
-  JHLauncher jhl = new JHLauncher(args);
+   if(OT.helpLauncher != null) {
+	  OT.helpLauncher.launch();
+   }
+   else {
+      String[] args={"-helpset", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "help/othelp.hs"};
+      OT.helpLauncher = new JHLauncher(args);
+      //System.out.println ("Help tool launched");
+   }
 }
 
 
@@ -377,6 +424,14 @@ showNews()
       SpServer.selectServer(serverType);
     }
 
+    public static void addOtWindowFrame(OtWindowFrame frame) {
+      _otWindowFrames.add(frame);
+    }
+
+    public static void removeOtWindowFrame(OtWindowFrame frame) {
+      _otWindowFrames.remove(frame);
+    }
+
 // From ATC OT.java end
 
     /** 
@@ -401,6 +456,7 @@ showNews()
 		String opt = args[i];
 		if (opt.equals("-internalframes")) {
 		    internalFrames = true;
+		    //DialogUtil.setUseInternalDialogs(); // MFO, 15 August 2001
 		}
 		else if (opt.equals("-nointernalframes")) {
 		    internalFrames = false;
@@ -430,6 +486,24 @@ showNews()
 
 	if (internalFrames) {
 	    new OT();
+	}
+	else {
+	    JFrame menuFrame = new JFrame("OT");
+	    menuFrame.setJMenuBar(new OTMenuBar(new OT(false)));
+
+	    try {
+	      ImageIcon icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("images/background_small.gif"));
+              JLabel label = new JLabel(icon);
+              label.setBounds(0, 0, icon.getIconWidth(), icon.getIconHeight());
+	      menuFrame.getContentPane().add(label);
+	    }
+	    catch(Exception e) {
+              // An exception is thrown if no background image is found in images/background.gif. Ignore.
+              // Background has been set to light blue anyway.
+	    }
+	    
+	    menuFrame.pack();
+	    menuFrame.setVisible(true);
 	}
 
 	if (filename != null) {
