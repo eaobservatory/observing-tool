@@ -60,6 +60,7 @@ public class SpTranslator {
    SpObs spObs;                        // Observation sequence
 
    final String defInst = "define_inst";
+   final String setChopBeam = "SET_CHOPBEAM A";
 
 /**
  *  Constructor
@@ -334,6 +335,41 @@ public class SpTranslator {
          }   
       }
    }
+
+/**
+ * Move the last "SET_CHOPBEAM A" instruction before the startGroup
+ * to after the startGroup.
+ *
+ * @param Vector the sequence instructions (this is updated).
+ */
+   public void moveSetChopBeam( Vector sequence ) {
+
+      boolean found = false;              // First "SET_CHOPBEAM A" encountered?
+      boolean start = false;              // "startGroup" encountered?
+      int i;                              // Loop counter
+      int remove = -1;                    // Index of setChopBeam command to
+                                          //remove from the sequence
+
+// Traverse the sequence.
+      for ( i = 0; i < sequence.size(); ++i ) {
+
+// Look for a "startGroup" instruction.
+         if ( ( (String) sequence.elementAt( i ) ).equals( "startGroup" ) ) {
+            start = true;
+
+// If we already have a a setChopBeam instruction, it needs to be moved.             
+            if ( found ) {
+               sequence.insertElementAt( setChopBeam, ++i );
+               sequence.removeElementAt( remove );
+            }
+            
+         } else if ( ( (String) sequence.elementAt( i ) ).equals( setChopBeam ) ) {
+            found = true;
+            remove = i;
+         }
+      }
+   }
+
 
 /**
  * Count the number of offsets associated with the scope of the given
@@ -1205,7 +1241,7 @@ public class SpTranslator {
                sequence.addElement( "-DEFINE_BEAMS " + chopAngle + " " + chopThrow );
                sequence.addElement( "-CHOP ChopOn" );
                sequence.addElement( "-CHOP_EXTERNAL" );
-               sequence.addElement( "SET_CHOPBEAM A" );
+               sequence.addElement( setChopBeam );
             }
          }
 
@@ -1637,7 +1673,7 @@ public class SpTranslator {
                            sequence.addElement( "-DEFINE_BEAMS " + chopAngle + " " + chopThrow );
                            sequence.addElement( "-CHOP ChopOn" );
                            sequence.addElement( "-CHOP_EXTERNAL" );
-                           sequence.addElement( "SET_CHOPBEAM A" );
+                           sequence.addElement( setChopBeam );
 
 // Store nodding observe commands.
 // ===============================
@@ -1790,6 +1826,10 @@ public class SpTranslator {
 // Insert a "set " command immediately after each loadConfig, using
 // the current observe type.
             insertConfigObstype( sequence );
+
+// Move last "SET_CHOPBEAM A" that's before the startGroup, until after
+// the startGroup instruction.
+            moveSetChopBeam( sequence );
 
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
