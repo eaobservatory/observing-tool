@@ -104,7 +104,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
       jt = new FrequencyTable ( feIF, feBandWidth,
         bandWidths, channels,
-        samplerCount, displayWidth, this, hetEditor, el, nMixers);
+        samplerCount, displayWidth+6, this, hetEditor, el, nMixers);
 
       dataPanel.add ( jt, BorderLayout.CENTER );
 
