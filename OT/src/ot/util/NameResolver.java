@@ -11,7 +11,12 @@ import jsky.coords.HMS;
 import jsky.coords.DMS;
 
 import java.util.Iterator;
+import java.io.File;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.util.StringTokenizer;
 //import java.net.URLEncoder;
 
 /**
@@ -24,99 +29,150 @@ import java.io.IOException;
  */
 public class NameResolver {
 
-  protected String _id;
-  protected String _ra;
-  protected String _dec;
+  protected String _id = "";
+  protected String _ra = "";
+  protected String _dec = "";
+  protected String _eq = "";
 
   public NameResolver(String catalogName, String queryString) throws ProgressException {
     // Using  URLEncoder.encode would be nice but it replaces ' ' with '+' which
     // doesn't do the trick. ' ' has to be replaced with "%20".
     //queryString= URLEncoder.encode(queryString);
-    while(queryString.indexOf(' ') >= 0) {
-      queryString = queryString.substring(0, queryString.indexOf(' '))
+      // Added by SdW
+      System.out.println("Using catalog "+catalogName);
+      if (catalogName.equalsIgnoreCase("Personal Catalog")) {
+	  this.getPersonalData(queryString);
+      }
+      // END
+      else {
+	  while(queryString.indexOf(' ') >= 0) {
+	      queryString = queryString.substring(0, queryString.indexOf(' '))
                   + "%20"
                   + queryString.substring(queryString.indexOf(' ') + 1);
-    }    
+	  }    
 
-    Catalog catalog = SkycatConfigFile.getConfigFile().getCatalog(catalogName);
+	  Catalog catalog = SkycatConfigFile.getConfigFile().getCatalog(catalogName);
 
-    if((catalogName == null) || (System.getProperty("DEBUG") != null)) {
-      System.out.println("NameResolver(\"" + catalogName + "\", \"" + queryString + "\") called.");
-      int n = SkycatConfigFile.getConfigFile().getNumCatalogs();
-      System.out.println("There are " + n + " catalogs available.");
-      System.out.println("Pick one of the following catalogs:");
-      for(int i = 0; i < n; i++) {
-        System.out.println("    " + SkycatConfigFile.getConfigFile().getCatalog(i));
-      }
-    }
+	  if((catalogName == null) || (System.getProperty("DEBUG") != null)) {
+	      System.out.println("NameResolver(\"" + catalogName + "\", \"" + queryString + "\") called.");
+	      int n = SkycatConfigFile.getConfigFile().getNumCatalogs();
+	      System.out.println("There are " + n + " catalogs available.");
+	      System.out.println("Pick one of the following catalogs:");
+	      for(int i = 0; i < n; i++) {
+		  System.out.println("    " + SkycatConfigFile.getConfigFile().getCatalog(i));
+	      }
+	  }
 
-    if(catalog == null) {
-      throw new RuntimeException("Could not create catalog \"" + catalogName + "\"");
-    }
+	  if(catalog == null) {
+	      throw new RuntimeException("Could not create catalog \"" + catalogName + "\"");
+	  }
 
-    QueryArgs queryArgs = new QueryArgs(catalog);
+	  QueryArgs queryArgs = new QueryArgs(catalog);
 
-    queryArgs.setParamValue(0, queryString);
+	  queryArgs.setParamValue(0, queryString);
 
-     TableQueryResult tableQueryResult = null;
+	  TableQueryResult tableQueryResult = null;
     
-    try {
-      tableQueryResult = (TableQueryResult)catalog.query(queryArgs);
-    }
-    catch(ProgressException e) {
-      // query interrupted by user. Handle exception in the calling class.
-      throw e;
-    }
-    catch(Exception e) {
-      // Exception is handled in the following code because tableQueryResult is still null.
-    }
+	  try {
+	      tableQueryResult = (TableQueryResult)catalog.query(queryArgs);
+	  }
+	  catch(ProgressException e) {
+	      // query interrupted by user. Handle exception in the calling class.
+	      throw e;
+	  }
+	  catch(Exception e) {
+	      // Exception is handled in the following code because tableQueryResult is still null.
+	  }
+	  
+	  if((tableQueryResult == null) || (tableQueryResult.getRowCount() < 1)) {
+	      throw new RuntimeException("No query result.");
+	  }
 
-    if((tableQueryResult == null) || (tableQueryResult.getRowCount() < 1)) {
-      throw new RuntimeException("No query result.");
-    }
+	  if((tableQueryResult.getRowCount() > 1) && (System.getProperty("DEBUG") != null)) {
+	      System.out.println("NameResolver: More than 1 query result. Only the first result is used.");
+	  }
 
-    if((tableQueryResult.getRowCount() > 1) && (System.getProperty("DEBUG") != null)) {
-      System.out.println("NameResolver: More than 1 query result. Only the first result is used.");
-    }
+	  _id  = "" + tableQueryResult.getValueAt(0, 0);
 
-    _id  = "" + tableQueryResult.getValueAt(0, 0);
+	  try {
+	      double raDegDouble = Double.parseDouble("" + tableQueryResult.getValueAt(0, 1));
+	      double raDouble    = (raDegDouble * 24) / 360;
+	      
+	      _ra = (new HMS(raDouble)).toString();
+	  }
+	  catch(NumberFormatException e) {
+	      _ra  = "";
+	  }
 
-    try {
-      double raDegDouble = Double.parseDouble("" + tableQueryResult.getValueAt(0, 1));
-      double raDouble    = (raDegDouble * 24) / 360;
-    
-      _ra = (new HMS(raDouble)).toString();
-    }
-    catch(NumberFormatException e) {
-      _ra  = "";
-    }
+	  try{
+	      double decDouble   = Double.parseDouble("" + tableQueryResult.getValueAt(0, 2));
+	      
+	      _dec = (new DMS(decDouble)).toString();
+	  }
+	  catch(NumberFormatException e) {
+	      _dec = "";
+	  }
 
-    try{
-      double decDouble   = Double.parseDouble("" + tableQueryResult.getValueAt(0, 2));
-
-      _dec = (new DMS(decDouble)).toString();
-    }
-    catch(NumberFormatException e) {
-      _dec = "";
-    }
-
-    if(System.getProperty("DEBUG") != null) {
-      System.out.println("Complete query result table for catalog " + catalogName + ":");
-      for(int i = 0; i < tableQueryResult.getRowCount(); i++) {
-        for(int j = 0; j < tableQueryResult.getColumnCount(); j++) {
-          System.out.print("(" + i + ", " + j + ") = " + tableQueryResult.getValueAt(i, j) + ";    ");
-        }
-        System.out.println("");
+	  if(System.getProperty("DEBUG") != null) {
+	      System.out.println("Complete query result table for catalog " + catalogName + ":");
+	      for(int i = 0; i < tableQueryResult.getRowCount(); i++) {
+		  for(int j = 0; j < tableQueryResult.getColumnCount(); j++) {
+		      System.out.print("(" + i + ", " + j + ") = " + tableQueryResult.getValueAt(i, j) + ";    ");
+		  }
+		  System.out.println("");
+	      }
+	  }
       }
-    }
   }
+
+    // New method added by SdW
+    private void getPersonalData(String queryString) {
+	File catalog = new File (System.getProperty("OT_CATALOG_FILE"));
+	try {
+	    BufferedReader in = new BufferedReader(new FileReader(catalog));
+	    String line;
+	    while ((line = in.readLine()) != null) {
+		if (line.startsWith("*") || line.equals("\n") || line.equals("\r")) {
+		    continue;
+		}
+		if (line.startsWith(queryString)) {
+		    StringTokenizer st = new StringTokenizer(line);
+		    // Line should be of the form
+		    // source HH MM SS.SSS +/- DD MM SS.SSS EQ
+		    // where the 1st 3 fields are the RA, the next 4 are the dec and the last is the equinox
+		    // First skip the source.
+		    _id  = st.nextToken();
+		    _ra  = st.nextToken() + ":" + st.nextToken() + ":" + st.nextToken();
+		    _dec = st.nextToken() + st.nextToken() + ":" + st.nextToken() +":"+ st.nextToken();
+		    _eq  = st.nextToken();
+		}
+		else {
+		    continue;
+		}
+	    }
+	}
+	catch (FileNotFoundException fnf) {
+	    System.out.println("Unable to find catalog file.");
+	}
+	catch (IOException ioe) {
+	    System.out.println("IO Exception");
+	}
+    }
 
   public String getId()  { return _id;  }
   public String getRa()  { return _ra;  }
   public String getDec() { return _dec; }
+    // Added by SdW
+  public String getEquinox() { return _eq;}
+    // END
 
   public static boolean isAvailableAsCatalog(String catalogName) {
-    return (SkycatConfigFile.getConfigFile().getCatalog(catalogName) != null);
+      if (catalogName.equals("Personal Catalog")) {
+	  return true;
+      }
+      else {
+	  return (SkycatConfigFile.getConfigFile().getCatalog(catalogName) != null);
+      }
   }
 
   public static void main(String [] args) {
