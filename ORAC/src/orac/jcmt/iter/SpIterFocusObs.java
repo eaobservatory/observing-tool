@@ -101,6 +101,18 @@ public class SpIterFocusObs extends SpIterJCMTObs {
       return 1.0;
     }
   }
+
+    public double getElapsedTime() {
+	SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+	double time = 0.0;
+	if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	    time = 22.4*getIntegrations()*getFocusPoints() + SCUBA_STARTUP_TIME;
+	}
+	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	    time = 0.0;
+	}
+	return time;
+    }
 }
 
 
