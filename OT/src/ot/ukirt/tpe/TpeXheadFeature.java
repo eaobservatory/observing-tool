@@ -83,8 +83,8 @@ public class TpeXheadFeature extends TpeImageFeature {
 
       SpUKIRTInstObsComp _inst = (SpUKIRTInstObsComp) _iw.getInstrumentItem();
       if ( _inst != null ) {
-         xoff = -1.0 * _inst.getInstApXra();
-         yoff = -1.0 * _inst.getInstApYdec();
+         xoff = -1.0 * ( _inst.getInstApXra() + _inst.getInstPntgOffsetCH() );
+         yoff = -1.0 * ( _inst.getInstApYdec() + _inst.getInstPntgOffsetID() );
       }
 
 // Obtain the origin in image pixel co-ordinates.

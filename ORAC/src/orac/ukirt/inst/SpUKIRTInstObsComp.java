@@ -49,13 +49,17 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     public static final int YAP_INDEX = 1;      // Location of inst aper Y value
     public static final int ZAP_INDEX = 2;      // Location of inst aper Z value
     public static final int LAP_INDEX = 3;      // Location of inst aper L value
+    public static final int IDPO_INDEX = 0;       // Location of inst pointing offset ID value
+    public static final int CHPO_INDEX = 1;       // Location of inst pointing offset CH value
     public static String INSTRUMENT_PORT;       // The instrument port
     public static String[] INSTRUMENT_APER;     // Array of inst aper values
+    public static String[] INSTRUMENT_PNTG_OFFSET; // Array of inst pointing offset values
     
     // Names of the attributes
     public static final String ATTR_INSTRUMENT_PORT = "instPort";
     public static final String ATTR_INSTRUMENT_APER = "instAper";
     public static final String ATTR_VERSION = ".version";
+    public static final String ATTR_INSTRUMENT_PNTG_OFFSET = "instPntgOffset";
 
     /**
      * Integration overhead.
@@ -96,6 +100,8 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", ZAP_INDEX);
 	_avTable.noNotifySet(ATTR_INSTRUMENT_APER, "0.0", LAP_INDEX);
 	_avTable.noNotifySet(ATTR_EXPOSURE_TIME, "0", 0);
+	_avTable.noNotifySet(ATTR_INSTRUMENT_PNTG_OFFSET, "0.0", IDPO_INDEX);
+	_avTable.noNotifySet(ATTR_INSTRUMENT_PNTG_OFFSET, "0.0", CHPO_INDEX);
 	
     }
     
@@ -209,6 +215,43 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	getInstApL()
     {
 	return _avTable.getDouble(ATTR_INSTRUMENT_APER, LAP_INDEX, 0.0);
+    }
+    
+    /**
+     * Set the ID value of the instrument pointing offset
+     */
+    public void
+	setInstPntgOffsetID(String id)
+    {
+	_avTable.set(ATTR_INSTRUMENT_PNTG_OFFSET, id, IDPO_INDEX);
+    }
+    
+    /**
+     * Set the CH value of the instrument pointing offset
+     */
+    public void
+	setInstPntgOffsetCH(String ch)
+    {
+	_avTable.set(ATTR_INSTRUMENT_PNTG_OFFSET, ch, CHPO_INDEX);
+    }
+    
+    /**
+     * Get the instrument pointing offset ID value.
+     * The -1 is due to coordinate system considerations.
+     */
+    public double
+	getInstPntgOffsetID()
+    {
+	return -1.0 * _avTable.getDouble(ATTR_INSTRUMENT_PNTG_OFFSET, IDPO_INDEX, 0.0);    
+    }
+    
+    /**
+     * Get the instrument pointing offset CH value
+     */
+    public double
+	getInstPntgOffsetCH()
+    {
+	return _avTable.getDouble(ATTR_INSTRUMENT_PNTG_OFFSET, CHPO_INDEX, 0.0);    
     }
     
     /**

@@ -340,6 +340,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         value = INSTRUMENT_PORT;
         _avTable.noNotifySet(attr, value, 0);
 
+        attr  = ATTR_INSTRUMENT_PNTG_OFFSET;
+        value = INSTRUMENT_PNTG_OFFSET[IDPO_INDEX];
+	_avTable.noNotifySet(attr, value, IDPO_INDEX);
+        value = INSTRUMENT_PNTG_OFFSET[CHPO_INDEX];
+	_avTable.noNotifySet(attr, value, CHPO_INDEX);
+
         attr  = ATTR_VERSION;
         value = VERSION;
         _avTable.noNotifySet(attr, value, 0);
@@ -601,6 +607,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                 instInfo = new InstCfg (block);
 		if (InstCfg.matchAttr (instInfo, "instrument_port")) {
                     INSTRUMENT_PORT = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "instrument_pointing_offsets")) {
+                   INSTRUMENT_PNTG_OFFSET  = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "config_type")) {
                     CONFIG_TYPE = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "version")) {
