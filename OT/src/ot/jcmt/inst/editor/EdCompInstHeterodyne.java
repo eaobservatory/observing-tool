@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
+import javax.swing.event.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -90,6 +91,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    * the respective fields in this and other classes have not yet been updated accordingly.
    */
   private boolean _velocityChanged = false;
+  private boolean _frequencyChanged = false;
 
   /**
    * A static configuration object which can used by classes throughout this
@@ -137,9 +139,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 /* Create the display */
 
       _w.velocity.setText ( "0.0" );
-      _w.velocity.addActionListener ( this );
-      _w.velocity.addFocusListener ( this );
-      _w.velocity.getDocument().addDocumentListener( this );
+//       _w.velocity.addActionListener ( this );
+      _w.velocity.addKeyListener( new KeyAdapter () {
+	      public void keyTyped(KeyEvent e) { _velocityChanged = true; _w.acceptVF.setEnabled(true);}
+	  });
+
 
       _w.velocityDefinition.setModel(new DefaultComboBoxModel(_radialVelocityDefinitions));
       _w.velocityDefinition.addActionListener ( this );
@@ -156,7 +160,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.moleculeChoice.addActionListener ( this );
       _w.transitionChoice.addActionListener ( this );
       _w.moleculeFrequency.setText ( "0.0000" );
-      _w.moleculeFrequency.addActionListener(this);
+       _w.moleculeFrequency.addKeyListener( new KeyAdapter () {
+	      public void keyTyped (KeyEvent e) { _frequencyChanged = true; _w.acceptVF.setEnabled(true);}
+	  });
+//       _w.moleculeFrequency.addActionListener(this);
       _w.bandWidthChoice.addActionListener( this );
 
 /* Secondary moleculare line choice - displayed just for convenience of
@@ -173,6 +180,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.freqEditorButton.addActionListener(this);
       _w.hideFreqEditorButton.addActionListener(this);
 
+      _w.acceptVF.addActionListener(this);
+      _w.acceptVF.setEnabled(true);
+
+      _w.addAncestorListener( new AncestorListener() {
+	      public void ancestorAdded(AncestorEvent e) {};
+	      public void ancestorMoved(AncestorEvent e) {};
+	      public void ancestorRemoved( AncestorEvent e) {
+		  if ( _w.acceptVF.isEnabled() ) {
+		      _w.acceptVF.doClick();
+		  }
+	      }
+	  });
+      
    
       // MFO trigger additional initialising.
       feChoiceAction(null);
@@ -244,6 +264,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          transitionName,					// transition
          frequency						// rest frequency
       );
+      _frequencyChanged = false;
+      _velocityChanged = false;
    }
 
   /**
@@ -322,6 +344,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	 else {
 	     _w.resolution.setText("" + sideBandDisplay.getResolution(0));
 	 }
+	 
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -356,18 +379,22 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else if ( ae.getSource() == _w.moleculeChoice )
       {
          feMoleculeAction ( ae );
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.transitionChoice )
       {
          feTransitionAction ( ae );
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.moleculeChoice2 )
       {
          feMolecule2Action ( ae );
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.transitionChoice2 )
       {
          feTransition2Action ( ae );
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.feChoice )
       {
@@ -383,14 +410,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
       else if (ae.getSource() == _w.velocityFrame) {
 	  velocityFrameAction(ae);
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.velocity )
       {
          feVelocityAction ( ae );
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.velocityDefinition )
       {
          feVelocityDefinitionAction ( ae );
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.overlap )
       {
@@ -399,10 +429,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       else if ( ae.getSource() == _w.moleculeFrequency )
       {
          moleculeFrequencyChanged();
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.moleculeFrequency2 )
       {
          moleculeFrequency2Changed();
+	  _w.acceptVF.setEnabled(true);
       }
       else if ( ae.getSource() == _w.bandWidthChoice )
       {
@@ -415,6 +447,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	 }
 
          sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
+      }
+      else if (ae.getSource() == _w.acceptVF) {
+	  if (_frequencyChanged)
+	      moleculeFrequencyChanged();
+	  if (_velocityChanged)
+	      feVelocityAction ( ae );
+	  _velocityChanged = false;
+	  _frequencyChanged = false;
+
+	  _w.acceptVF.setEnabled(false);
       }
    }
 
@@ -1338,6 +1380,5 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   public void insertUpdate(DocumentEvent e)  { _velocityChanged = true; }
   public void removeUpdate(DocumentEvent e)  { _velocityChanged = true; }
     public void focusGained(FocusEvent e) {}
-//     public void focusLost(FocusEvent e) {feVelocityAction(null);}
     public void focusLost(FocusEvent e) {}
 }

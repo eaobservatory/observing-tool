@@ -59,6 +59,7 @@ public class HeterodyneGUI extends JPanel {
   JComboBox transitionChoice2;
   JComboBox bandWidthChoice;
   JLabel resolution;
+    JButton acceptVF = new JButton ("Accept Values");
   JButton freqEditorButton = new JButton("Show Frequency Editor");
   JButton hideFreqEditorButton = new JButton("Hide Frequency Editor");
   JLabel label = null;
@@ -258,6 +259,20 @@ public class HeterodyneGUI extends JPanel {
       label.setForeground(Color.black);
       mol2Panel.add(label);
 
+      // Combine the molecule and velocity panels, and add an accept button to them
+      // This will mean the user will not have to remember to hit return to accept the fields
+      JPanel vfPanel = new JPanel();
+      vfPanel.setLayout( new BoxLayout(vfPanel, BoxLayout.Y_AXIS) );
+      vfPanel.setBorder ( BorderFactory.createTitledBorder ( BorderFactory.createEtchedBorder(), "Velocity and Frequency" ) );
+
+      acceptVF.setFont(new Font("Dialog", 0, 12));
+      acceptVF.setForeground(Color.black);
+
+      vfPanel.add(velocityPanel);
+      vfPanel.add(mol1Panel);
+      vfPanel.add(acceptVF);
+
+
       freqEditorButton.setFont(new Font("Dialog", 0, 12));
       hideFreqEditorButton.setFont(new Font("Dialog", 0, 12));
 
@@ -301,18 +316,19 @@ public class HeterodyneGUI extends JPanel {
       overlapBandwidthPanel.setPreferredSize(preferredSize);
       preferredSize = velocityPanel.getPreferredSize();
       preferredSize.height += 10;
-      velocityPanel.setPreferredSize(preferredSize);
-      preferredSize = mol1Panel.getPreferredSize();
-      preferredSize.height += 10;
-      mol1Panel.setPreferredSize(preferredSize);
+//       velocityPanel.setPreferredSize(preferredSize);
+//       preferredSize = mol1Panel.getPreferredSize();
+//       preferredSize.height += 10;
+//       mol1Panel.setPreferredSize(preferredSize);
 
 
       northPanel.add ( fePanel );
       northPanel.add ( displayPanel );
       northPanel.add ( overlapBandwidthPanel );
-      northPanel.add ( velocityPanel );
-      northPanel.add ( mol1Panel );
-      northPanel.add ( warningPanel );
+//       northPanel.add ( velocityPanel );
+//       northPanel.add ( mol1Panel );
+      northPanel.add ( vfPanel );
+//       northPanel.add ( warningPanel );
       add ( northPanel, BorderLayout.NORTH );
 
 //      scrollPanel = new JScrollPane();
