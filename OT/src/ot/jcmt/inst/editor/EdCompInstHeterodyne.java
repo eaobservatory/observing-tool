@@ -1237,7 +1237,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   }
 
   public void updateBandWidth(double width, int subsystem) {
-      System.out.println("updateBandWidth called with width "+width);
     _instHeterodyne.setBandWidth(width, subsystem);
 
     // Find the overlap asscoiated with this bandWidth
@@ -1245,7 +1244,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     double [] defOverlaps    =  currentBandSpec.getDefaultOverlapBandWidths();
     int index = 0;
     for(int i = 0; i < defOverlaps.length; i++) {
-	System.out.println("Checking bandwidth "+defOverlaps[i]);
       if(defOverlaps[i] == width) {
         index = i;
 	break;
