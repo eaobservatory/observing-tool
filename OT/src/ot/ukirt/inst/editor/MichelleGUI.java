@@ -84,7 +84,7 @@ public class MichelleGUI extends JPanel {
   }
 
   private void jbInit() throws Exception {
-    titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Data Aquisition");
+    titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Data Acquisition");
     titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Imaging Configuration");
     titledBorder3 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Spectroscopy Configuration");
     this.setLayout(borderLayout1);
