@@ -1,0 +1,64 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<xsd:redefine schemaLocation="../JACtypes.xsd">
+
+<xsd:group name="MSBContents">
+  <xsd:choice>
+    <xsd:group ref="atx:MSBContents"/>
+    <xsd:group ref="atx:instrumentGroup"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="sequenceContent">
+  <xsd:choice>
+    <xsd:group   ref="atx:sequenceContent"/>
+    <xsd:element ref="atx:SpIterPOL"/>
+    <xsd:element ref="atx:SpIterSkydipObs"/>
+    <xsd:element ref="atx:SpIterPointingObs"/>
+    <xsd:element ref="atx:SpIterFocusObs"/>
+    <xsd:element ref="atx:SpIterNoiseObs"/>
+    <xsd:element ref="atx:SpIterStareObs"/>
+    <xsd:element ref="atx:SpIterJiggleObs"/>
+    <xsd:element ref="atx:SpIterRasterObs"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="obsContent">
+  <xsd:choice>
+    <xsd:group   ref="atx:obsContent"/>
+    <xsd:group   ref="atx:instrumentGroup"/>
+  </xsd:choice>
+</xsd:group>
+
+</xsd:redefine>
+
+<xsd:group name="instIterContent">
+  <xsd:choice>
+    <xsd:group   ref="atx:sequenceContent"/>
+<!--
+    <xsd:element ref="atx:SpIterPOL"/>
+    <xsd:element ref="atx:SpIterSkydipObs"/>
+    <xsd:element ref="atx:SpIterPointingObs"/>
+    <xsd:element ref="atx:SpIterFocusObs"/>
+    <xsd:element ref="atx:SpIterNoiseObs"/>
+    <xsd:element ref="atx:SpIterStareObs"/>
+    <xsd:element ref="atx:SpIterJiggleObs"/>
+    <xsd:element ref="atx:SpIterRasterObs"/>
+-->
+  </xsd:choice>
+</xsd:group>
+
+<xsd:simpleType name="jcmtSystemList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="FPLANE"/>
+    <xsd:enumeration value="TRACKING"/>
+    <xsd:enumeration value="AZEL"/>
+    <xsd:enumeration value="SCAN"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+</xsd:schema>

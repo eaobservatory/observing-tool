@@ -1,0 +1,128 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+<!-- Simple Types used locally at JAC -->
+
+<xsd:simpleType name="SpType">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="oc"/>
+    <xsd:enumeration value="ic"/>
+    <xsd:enumeration value="pr"/>
+    <xsd:enumeration value="pl"/>
+    <xsd:enumeration value="lb"/>
+    <xsd:enumeration value="lf"/>
+    <xsd:enumeration value="ob"/>
+    <xsd:enumeration value="li"/>
+    <xsd:enumeration value="fo"/>
+    <xsd:enumeration value="og"/>
+    <xsd:enumeration value="no"/>
+    <xsd:enumeration value="of"/>
+    <xsd:enumeration value="if"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Complex types used locally at the JAC -->
+
+<xsd:complexType name="offsetDefinition">
+  <xsd:sequence>
+    <xsd:element name="PA" type="atx:degrees360"/>
+    <xsd:element ref="atx:OFFSET" minOccurs="1" maxOccurs="unbounded"/>
+  </xsd:sequence>
+</xsd:complexType>
+
+
+<!-- Groups used locally at the JAC -->
+
+<xsd:group name="jac_meta_group">
+  <xsd:sequence>
+    <xsd:element ref="atx:meta_gui_collapsed"            minOccurs="0"/>
+    <xsd:element ref="atx:meta_gui_dir"                  minOccurs="0"/>
+    <xsd:element ref="atx:meta_gui_filename"             minOccurs="0"/>
+    <xsd:element ref="atx:meta_gui_hasBeenSaved"         minOccurs="0"/>
+    <xsd:element ref="atx:meta_gui_selected"             minOccurs="0"/>
+    <xsd:element ref="atx:meta_gui_selectedOffsetPos"    minOccurs="0"/>
+    <xsd:element ref="atx:meta_gui_selectedTelescopePos" minOccurs="0"/>
+    <xsd:element ref="atx:meta_unique"                   minOccurs="0"/>
+    <xsd:element ref="atx:meta_version"                  minOccurs="0"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="schedConstraintsGroup">
+  <xsd:sequence>
+    <xsd:group ref="atx:jac_meta_group"           minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element ref="atx:earliestScheduleDate"   minOccurs="0" maxOccurs="1"/>
+    <xsd:element ref="atx:latestScheduleDate"     minOccurs="0" maxOccurs="1"/>
+    <xsd:element ref="atx:maxElevation"           minOccurs="0" maxOccurs="1"/>
+    <xsd:element ref="atx:minElevation"           minOccurs="0" maxOccurs="1"/>
+    <xsd:element ref="atx:schedPeriodicity"       minOccurs="0" maxOccurs="1"/>
+    <xsd:element ref="atx:meridianApproach"       minOccurs="0" maxOccurs="1"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="programContent">
+  <xsd:choice>
+    <xsd:element ref="atx:SpOR"/>
+    <xsd:element ref="atx:SpAND"/>
+    <xsd:element ref="atx:SpMSB"/>
+    <xsd:element ref="atx:SpObs"/>
+    <xsd:element ref="atx:SpNote"/>
+    <xsd:element ref="atx:SpSiteQualityObsComp"/>
+    <xsd:element ref="atx:SpSchedConstObsComp"/>
+    <xsd:element ref="atx:SpTelescopeObsComp"/>
+    <xsd:group   ref="atx:instrumentGroup"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="MSBContents">
+    <xsd:choice>
+      <xsd:element ref="atx:SpNote"/>
+      <xsd:element ref="atx:SpObs"/>
+      <xsd:element ref="atx:SpTelescopeObsComp"/>
+      <xsd:element ref="atx:SpSiteQualityObsComp"/>
+      <xsd:element ref="atx:SpSchedConstObsComp"/>
+    </xsd:choice>
+</xsd:group>
+
+<xsd:group name="obsContent">
+  <xsd:choice>
+    <xsd:element ref="atx:SpNote"/>
+    <xsd:element ref="atx:SpDRRecipe"/>
+    <xsd:element ref="atx:SpTelescopeObsComp"/>
+    <xsd:element ref="atx:SpSiteQualityObsComp"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="sequenceContent">
+  <xsd:choice>
+    <xsd:element ref="atx:SpIterChop"/>
+    <xsd:element ref="atx:SpIterRepeat"/>
+    <xsd:element ref="atx:SpIterOffset"/>
+    <xsd:element ref="atx:SpNote"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="andContent">
+  <xsd:choice>
+    <xsd:element ref="atx:SpMSB"/>
+    <xsd:element ref="atx:SpObs"/>
+    <xsd:element ref="atx:SpNote"/>
+    <xsd:element ref="atx:SpOR"/>
+    <xsd:element ref="atx:SpSiteQualityObsComp"/>
+    <xsd:element ref="atx:SpTelescopeObsComp"/>
+    <xsd:element ref="atx:SpSchedConstObsComp"/>
+    <xsd:group   ref="atx:instrumentGroup"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="orContent">
+  <xsd:choice>
+    <xsd:element ref="atx:SpMSB"/>
+    <xsd:element ref="atx:SpObs"/>
+    <xsd:element ref="atx:SpNote"/>
+    <xsd:element ref="atx:SpAND"/>
+  </xsd:choice>
+</xsd:group>
+
+</xsd:schema>

@@ -1,0 +1,72 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<xsd:element name="SpIterFolder">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:group   ref="atx:sequenceContent"    minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="atx:SpType" fixed="if"/>
+    <xsd:attribute name="subtype" type="xsd:string"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpLibraryFolder">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:any minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="atx:SpType" fixed="lf"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="none"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterChop">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="atx:SECONDARY"/>
+      <xsd:group   ref="atx:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="chop"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterRepeat">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="atx:repeatCount"/>
+      <xsd:element ref="atx:title" minOccurs="0"/>
+      <xsd:group   ref="atx:sequenceContent" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="repeat"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterOffset">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed"         minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"          minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selectedOffsetPos" minOccurs="0"/>
+      <xsd:element name="obsArea" type="atx:offsetDefinition"/>
+      <xsd:element ref="atx:title"                      minOccurs="0"/>
+      <xsd:group   ref="atx:sequenceContent"            minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="offset"/>
+  </xsd:complexType>
+</xsd:element>
+
+
+</xsd:schema>

@@ -1,0 +1,222 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<!-- Primitive types used for UFTI -->
+<xsd:simpleType name="uftiAcqModList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="Normal+NDSTARE"/>
+    <xsd:enumeration value="Normal+10_NDSTARE"/>
+    <xsd:enumeration value="Fast+NDSTARE"/>
+    <xsd:enumeration value="Higain+NDSTARE"/>
+    <xsd:enumeration value="Higain+10_NDSTARE"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="uftiWavelengthLimits">
+  <xsd:restriction base="xsd:double">
+    <xsd:minInclusive value="1.0"/>
+    <xsd:maxInclusive value="2.5"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="uftiExpTimeLimits">
+  <xsd:restriction base="atx:nonNegativeDecimal">
+    <xsd:maxInclusive value="1000.0"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="uftiFilterList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="I"/>
+    <xsd:enumeration value="Z"/>
+    <xsd:enumeration value="J98"/>
+    <xsd:enumeration value="H98"/>
+    <xsd:enumeration value="K98"/>
+    <xsd:enumeration value="Kprime"/>
+    <xsd:enumeration value="1.644"/>
+    <xsd:enumeration value="1.57"/>
+    <xsd:enumeration value="1.69CH4"/>
+    <xsd:enumeration value="2.122MK"/>
+    <xsd:enumeration value="BrG"/>
+    <xsd:enumeration value="BrGz"/>
+    <xsd:enumeration value="2.248MK"/>
+    <xsd:enumeration value="2.27"/>
+    <xsd:enumeration value="Blank"/>
+    <xsd:enumeration value="User"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="uftiPolList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="none"/>
+    <xsd:enumeration value="FP"/>
+    <xsd:enumeration value="prism"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="uftiROAreaList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="1024x1024"/>
+    <xsd:enumeration value="512x512"/>
+    <xsd:enumeration value="256x256"/>
+    <xsd:enumeration value="512x1024"/>
+    <xsd:enumeration value="1024x512"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="uftiIterList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="acqModeIter"/>
+    <xsd:enumeration value="coaddsIter"/>
+    <xsd:enumeration value="exposureTimeIter"/>
+    <xsd:enumeration value="filterIter"/>
+    <xsd:enumeration value="instAperLIter"/>
+    <xsd:enumeration value="instAperXIter"/>
+    <xsd:enumeration value="instAperYIter"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Complex types types used for UFTI -->
+
+<xsd:complexType name="uftiAcqModeIteratorType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="atx:uftiAcqModList"
+		     minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="uftiCoaddsIteratorType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="xsd:positiveInteger"
+		     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="uftiExpTimeIteratorType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="atx:uftiExpTimeLimits"
+		     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="uftiFilterIteratorType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="atx:uftiFilterList"
+		     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="uftiAperIteratorType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="xsd:double"
+		     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:complexType name="uftiIterTypeList" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="atx:uftiIterList"
+		     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<!-- Groups used for UFTI -->
+
+<!-- UFTI elements -->
+
+<xsd:element name="SpInstUFTI">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="atx:meta_unique"        minOccurs="0"/>
+      <xsd:element ref="atx:meta_version"       minOccurs="0"/>
+      <xsd:element name="acqMode" type="atx:uftiAcqModList"/>
+      <xsd:element ref="atx:coadds"/>
+      <xsd:element name="exposureTime"  type="atx:uftiExpTimeLimits"/>
+      <xsd:element name="filter"        type="atx:uftiFilterList"/>
+      <xsd:element name="instAper">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value"  type="xsd:double" 
+			 minOccurs="4" maxOccurs="4"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="instPntgOffset">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="value"  type="xsd:double" 
+			 minOccurs="2" maxOccurs="2"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="instPort"    type="atx:ukirtPortsList"/>
+      <xsd:element name="polariser"   type="atx:uftiPolList"/>
+      <xsd:element name="posAngle"    type="xsd:double" minOccurs="0"/>
+      <xsd:element name="readoutArea" type="atx:uftiROAreaList" minOccurs="0"/>
+      <xsd:element name="sourceMag"/>
+      <xsd:element ref="atx:title" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="type"    type="atx:SpType" fixed="oc"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="inst.UFTI"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterUFTI">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element name="acqModeIter"      type="atx:uftiAcqModeIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="coaddsIter"       type="atx:uftiCoaddsIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="exposureTimeIter" type="atx:uftiExpTimeIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="filterIter"       type="atx:uftiFilterIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="instAperLIter"    type="atx:uftiAperIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="instAperXIter"    type="atx:uftiAperIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="instAperYIter"    type="atx:uftiAperIteratorType"
+		   minOccurs="0"/>
+      <xsd:element name="iterConfigList"   type="atx:uftiIterTypeList"
+		   minOccurs="1"/>
+      <xsd:group   ref="atx:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="instUFTI"/>
+  </xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

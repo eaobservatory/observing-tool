@@ -1,0 +1,79 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+
+<!-- Unique JAC elements -->
+<xsd:element name="meta_gui_collapsed"         type="xsd:boolean"/>
+<xsd:element name="meta_gui_selected"          type="xsd:boolean"/>
+<xsd:element name="meta_gui_filename"          type="xsd:string"/>
+<xsd:element name="meta_gui_hasBeenSaved"      type="xsd:boolean"/>
+<xsd:element name="meta_gui_dir"               type="xsd:boolean"/>
+<xsd:element name="meta_gui_selectedOffsetPos" type="xsd:string"/>
+<xsd:element name="meta_unique"                type="xsd:boolean"/>
+<xsd:element name="meta_gui_selectedTelescopePos"  type="xsd:string"/>
+<xsd:element name="meta_version"/>
+
+<xsd:element name="chainedToNext" type="xsd:boolean"/>
+<xsd:element name="chainedToPrev" type="xsd:boolean"/>
+
+
+<!-- Substituted JAC elements -->
+<xsd:element name="ot_version"      type="xsd:string"   substitutionGroup="atx:version"/>
+<xsd:element name="library_version" type="xsd:string"   substitutionGroup="atx:version"/>
+<xsd:element name="standard"        type="xsd:boolean"  substitutionGroup="atx:standardStar"/>
+<xsd:element name="earliest"        type="xsd:dateTime" substitutionGroup="atx:earliestScheduleDate"/>
+<xsd:element name="latest"          type="xsd:dateTime" substitutionGroup="atx:latestScheduleDate"/>
+<xsd:element name="maxEl"           type="atx:elevationLimits" substitutionGroup="atx:maxElevation"/>
+<xsd:element name="minEl"           type="atx:elevationLimits" substitutionGroup="atx:minElevation"/>
+<xsd:element name="period"          type="atx:nonNegativeDecimal" substitutionGroup="atx:schedPeriodicity"/>
+<xsd:element name="csoTau"          type="atx:tauType"  substitutionGroup="atx:tau"/>
+
+<!-- General Reference types instrumented at JAC -->
+<xsd:element name="SpSiteQualityObsCompRef" type="atx:compRefType" substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpSchedConstObsCompRef"  type="atx:compRefType" substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpTelescopeObsCompRef"   type="atx:compRefType" substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpNoteRef"               type="atx:compRefType" substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpDRRecipeRef"           type="atx:compRefType" substitutionGroup="atx:componentRef"/>
+<!-- End of reference type definitions -->
+
+
+<xsd:element name="BASE">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="target" type="atx:targetDefinition"/>
+      <xsd:element ref="atx:OFFSET" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="TYPE" type="atx:targetTypeList"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SECONDARY">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="CHOP" minOccurs="1" maxOccurs="unbounded">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="THROW" type="atx:chopThrowLimits"/>
+            <xsd:element name="PA"    type="atx:chopAngleLimits"/>
+          </xsd:sequence>
+          <xsd:attribute name="SYSTEM" type="atx:chopSystem"/>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="OFFSET">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element name="DC1" type="atx:offsetLimit"/>
+      <xsd:element name="DC2" type="atx:offsetLimit"/>
+    </xsd:sequence>
+  <xsd:attribute name="SYSTEM" type="atx:sphericalSystemList" use="optional"/>
+  </xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

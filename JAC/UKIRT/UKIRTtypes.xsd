@@ -1,0 +1,73 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<xsd:redefine schemaLocation="../JACtypes.xsd">
+
+<xsd:group name="MSBContents">
+  <xsd:choice>
+    <xsd:group ref="atx:MSBContents"/>
+    <xsd:group ref="atx:instrumentGroup"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="sequenceContent">
+  <xsd:choice>
+    <xsd:group   ref="atx:sequenceContent"/>
+    <xsd:element ref="atx:SpIterCGS4CalObs"/>
+    <xsd:element ref="atx:SpIterCGS4"/>
+    <xsd:element ref="atx:SpIterUFTI"/>
+    <xsd:element ref="atx:SpIterUISTImaging"/>
+    <xsd:element ref="atx:SpIterUISTCalObs"/>
+    <xsd:element ref="atx:SpIterUISTTargetAcq"/>
+    <xsd:element ref="atx:SpIterUISTSpecIFU"/>
+    <xsd:element ref="atx:SpIterMichelleCalObs"/>
+    <xsd:element ref="atx:SpIterIRPOL"/>
+    <xsd:element ref="atx:SpIterNod"/>
+    <xsd:element ref="atx:SpIterBiasObs"/>
+    <xsd:element ref="atx:SpIterDarkObs"/>
+    <xsd:element ref="atx:SpIterObserve"/>
+    <xsd:element ref="atx:SpIterSky"/>
+  </xsd:choice>
+</xsd:group>
+
+<xsd:group name="obsContent">
+  <xsd:choice>
+    <xsd:group   ref="atx:obsContent"/>
+    <xsd:element ref="atx:SpInstCGS4"/>
+    <xsd:element ref="atx:SpInstUFTI"/>
+    <xsd:element ref="atx:SpInstUIST"/>
+    <xsd:element ref="atx:SpInstMichelle"/>
+  </xsd:choice>
+</xsd:group>
+
+</xsd:redefine>
+
+<xsd:simpleType name="ukirtPortsList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="Centre"/>
+    <xsd:enumeration value="North"/>
+    <xsd:enumeration value="East"/>
+    <xsd:enumeration value="South"/>
+    <xsd:enumeration value="West"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:group name="instIterContent">
+  <xsd:choice>
+    <xsd:element ref="atx:SpNote"/>
+    <xsd:element ref="atx:SpIterIRPOL"/>
+    <xsd:element ref="atx:SpIterMichelleCalObs"/>
+    <xsd:element ref="atx:SpIterBiasObs"/>
+    <xsd:element ref="atx:SpIterDarkObs"/>
+    <xsd:element ref="atx:SpIterObserve"/>
+    <xsd:element ref="atx:SpIterSky"/>
+    <xsd:element ref="atx:SpIterChop"/>
+    <xsd:element ref="atx:SpIterRepeat"/>
+    <xsd:element ref="atx:SpIterOffset"/>
+  </xsd:choice>
+</xsd:group>
+
+</xsd:schema>

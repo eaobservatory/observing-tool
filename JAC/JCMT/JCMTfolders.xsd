@@ -1,0 +1,62 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+<!-- Simple Types -->
+<xsd:simpleType name="jcmtPolList">
+  <xsd:restriction base="xsd:double">
+    <xsd:enumeration value="0"/>
+    <xsd:enumeration value="22.5"/>
+    <xsd:enumeration value="45"/>
+    <xsd:enumeration value="67.5"/>
+    <xsd:enumeration value="90"/>
+    <xsd:enumeration value="112.5"/>
+    <xsd:enumeration value="135"/>
+    <xsd:enumeration value="157.5"/>
+    <xsd:enumeration value="180"/>
+    <xsd:enumeration value="202.5"/>
+    <xsd:enumeration value="225"/>
+    <xsd:enumeration value="247.5"/>
+    <xsd:enumeration value="270"/>
+    <xsd:enumeration value="292.5"/>
+    <xsd:enumeration value="315"/>
+    <xsd:enumeration value="337.5"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="jcmtIterList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="POLIter"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+
+<!-- Complex types -->
+<xsd:complexType name="jcmtPolType" mixed="true">
+    <xsd:complexContent>
+      <xsd:restriction base="xsd:anyType">
+        <xsd:choice>
+          <xsd:element name='value'  type="atx:jcmtPolList"
+		       minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+      </xsd:restriction>
+    </xsd:complexContent>
+ </xsd:complexType>
+
+
+<xsd:element name="SpIterPOL">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group ref="atx:jac_meta_group"/>
+      <xsd:element name="POLIter"         type="atx:jcmtPolType"/>
+      <xsd:element name="iterConfigList"  type="atx:jcmtIterList"/>
+      <xsd:group   ref="atx:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="instPOL"/>
+  </xsd:complexType>
+</xsd:element>
+
+
+</xsd:schema>
