@@ -747,10 +747,12 @@ public final class EdCompTargetList extends OtItemEditor
 
         // chop mode tab added by MFO (3 August 2001)
 	if(w == _w.chopping) {
-	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
-
 	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
 	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
+
+	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
+	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
+	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
 	}
     }
 }
