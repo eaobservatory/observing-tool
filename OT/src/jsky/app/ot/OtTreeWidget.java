@@ -27,6 +27,7 @@ import jsky.app.ot.util.Assert;
 import jsky.app.ot.util.ClipboardHelper;
 import jsky.util.gui.DialogUtil;
 import ot.OtAdvancedTreeDropTarget;
+import ot.OtAdvancedTreeDragSource;
 
 /**
  * A helper class used when an attempt to place an observation component in
@@ -81,11 +82,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      * Default constructor, for the Bongo builder.
      */
     public OtTreeWidget() {
-	// Add a drop target to the FileTree
-	OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget(this);
-
 	// Add a drag source to the FileTree
-	OtTreeDragSource source = new OtTreeDragSource(this);
+	OtAdvancedTreeDragSource source = new OtAdvancedTreeDragSource(this);
+
+	// Add a drop target to the FileTree
+	OtAdvancedTreeDropTarget target = new OtAdvancedTreeDropTarget(this, source);
     }
 
     /**
