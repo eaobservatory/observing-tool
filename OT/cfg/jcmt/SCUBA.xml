@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
+  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
@@ -2723,8 +2723,9 @@ and "Don't Care" for maps.
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This observation provides an example of a calibrated fast scan map observation using the LONG array, with the filter wheel set at the 850W/450W um position. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence, in addition to the specific choice of calibrator,  will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-          <title>A calibrated 850/450 um scan map observation</title>
+
+For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corresponding to a sample spacing of 7.5 arcsec. Additionally the array is moved 2 arcmin between scans.</note>
+          <title>A calibrated 850 um fast scan map observation</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850 um scan map calibration</title>
@@ -3381,6 +3382,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="38" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -3393,13 +3395,14 @@ and "Don't Care" for maps.
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A 850 (and simulataneously 450-) micron photometry polarimetry observation using 16 waveplate positions and a chop throw of 120 arcsec. There are 6 integrations for each waveplate position. Includes an optional  flux calibration observation.
 </note>
           <title>850um phot pol</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850/450 um photometry calibration</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">196.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
@@ -3431,6 +3434,7 @@ and "Don't Care" for maps.
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>120.0</THROW>
@@ -3446,7 +3450,7 @@ and "Don't Care" for maps.
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850/450um photometry polarimetry</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">3136.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -3581,6 +3585,7 @@ and "Don't Care" for maps.
           <filter>PHOT</filter>
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A 1350 micron photometry polarimetry observation using 16 waveplate positions and a chop throw of 120 arcsec. There are 6 integrations for each waveplate position. Includes an optional  flux calibration observation.</note>
           <title>1350um phot pol</title>
         </SpNote>
@@ -3628,6 +3633,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>120.0</THROW>
@@ -3642,10 +3648,10 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <estimatedDuration units="seconds">3136.0</estimatedDuration>
           <title>1350 um photometry polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
+          <estimatedDuration units="seconds">3136.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation is an example of the sequence of tasks required to make an 1350um polarimetry photometry observation. </note>
@@ -3677,6 +3683,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterChop type="ic" subtype="chop">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SECONDARY>
                   <CHOP SYSTEM="AZEL">
                     <THROW>120.0</THROW>
@@ -3781,6 +3788,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="42" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
@@ -3790,6 +3798,7 @@ and "Don't Care" for maps.
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This observation contains a flux calibration for 850 and 450 microns, and a polarimetry observations at 850 microns. The translator will ensure that 450 micron data is saved even though the data will be under-sampled initially (since each map is usually repeated a number of times the 450 micron data will eventually fill in the gaps as the sky rotates).
 
 This observation uses 16 waveplate positions and a 150 arcsec chop throw.</note>
@@ -3997,6 +4006,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="44" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
@@ -4006,6 +4016,7 @@ and "Don't Care" for maps.
           <filter>PHOT</filter>
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This is a 7x7 jiggle map polarimetry observation using 16 waveplate angles and a 150 arcsec chop throw. It includes an optional flux calibration.</note>
           <title>1350 um jiggle pol</title>
         </SpNote>
@@ -4202,6 +4213,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="46" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
@@ -4211,6 +4223,7 @@ and "Don't Care" for maps.
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This is a fast scan map polarimetry observation at 850 microns using the EmersonII scanning technique. It is important that an image is obtained for each waveplate position as soon as possible, it is for this reason that we do 4 chopped scan maps between each movement of the waveplate whilst scanning as fast as we can - no 450 micron data will be obtained in this mode.
 
 Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to obtain a single Q or U Stokes parameter in the shortest possible time.</note>
@@ -4289,10 +4302,10 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <estimatedDuration units="seconds">894.3999999999997</estimatedDuration>
           <title>850um fast scan map polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
+          <estimatedDuration units="seconds">894.3999999999997</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note> Scan map polarimetry is a difficult observing mode in which to obtain high quality 
