@@ -43,8 +43,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
    private XMLReader _xmlReader = null;
 
    public FrequencyTable ( double feIF, double feBandWidth,
-     double loBandWidth, int loChannels, 
-     double hiBandWidth, int hiChannels, 
+     double [] bandWidths, int [] channels, 
      int samplerCount, int displayWidth,
      SideBandDisplay sideBandDisplay,
      FrontEnd frontEnd ) 
@@ -59,7 +58,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
       int i;
       JScrollBar lowBar;
       JScrollBar highBar;
-      JToggleButton widthButton;
+      JComboBox widthChoice;
       SamplerDisplay samplerDisplay;
       ResolutionDisplay resolutionDisplay;
       double gigToPix;
@@ -127,35 +126,41 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
       data = new Object [samplerCount][3];
       samplers = new Object [samplerCount];
 
+      frontEnd.clearSamplerList();
+
       for ( j=0; j<samplerCount; j++ )
       {
          lowBar = new JScrollBar ( JScrollBar.HORIZONTAL, 
-           (int)( gigToPix * (-feIF-0.5*loBandWidth) ), 
-           (int)( gigToPix * loBandWidth ), 
+           (int)( gigToPix * (-feIF-0.5*bandWidths[0]) ), 
+           (int)( gigToPix * bandWidths[0] ), 
            (int)( gigToPix * lLowLimit ) + 20, 
            (int)( gigToPix * lHighLimit ) - 20 );
          lowBar.setUnitIncrement ( 1 );
 
          highBar = new JScrollBar ( JScrollBar.HORIZONTAL,
-           (int)( gigToPix * (feIF-0.5*loBandWidth) ), 
-           (int)( gigToPix * loBandWidth), 
+           (int)( gigToPix * (feIF-0.5*bandWidths[0]) ), 
+           (int)( gigToPix * bandWidths[0]), 
            (int)( gigToPix * uLowLimit ) + 20, 
            (int)( gigToPix * uHighLimit ) - 20 );
          highBar.setUnitIncrement ( 1 );
 
          samplerDisplay = new SamplerDisplay ( String.valueOf ( feIF ) );
-         resolutionDisplay = new ResolutionDisplay ( loChannels,
-           loBandWidth );
-         widthButton = new JToggleButton ( "" + ( loBandWidth * 1.0E-9 ) );
-         samplers[j] = new Sampler ( feIF, loBandWidth, hiBandWidth, 
-           loChannels, hiChannels, widthButton );
+         resolutionDisplay = new ResolutionDisplay ( channels[0],
+           bandWidths[0] );
+	 Vector bandWidthItems = new Vector();
+	 for(int k = 0; k < bandWidths.length; k++) {
+            bandWidthItems.add("" + bandWidths[k] * 1.0E-9);
+	 }
+         widthChoice = new JComboBox ( bandWidthItems );
+         samplers[j] = new Sampler ( feIF, bandWidths, channels, widthChoice );
+	 frontEnd.addToSamplerList( (Sampler)samplers[j] );
 
          data[j][0] = new SideBand ( lLowLimit, lHighLimit, 
-           loBandWidth, -feIF, (Sampler)samplers[j], 
+           bandWidths[0], -feIF, (Sampler)samplers[j], 
            lowBar, gigToPix );
          data[j][1] = samplers[j];
          data[j][2] = new SideBand ( uLowLimit, uHighLimit, 
-           loBandWidth, feIF, (Sampler)samplers[j],
+           bandWidths[0], feIF, (Sampler)samplers[j],
             highBar, gigToPix );
 
          ((Sampler)samplers[j]).addSamplerWatcher ( 
@@ -169,7 +174,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 
          columns[0].add ( lowBar );
          columns[2].add ( samplerDisplay );
-         columns[3].add ( widthButton );
+         columns[3].add ( widthChoice );
          columns[4].add ( resolutionDisplay );
          columns[5].add ( highBar );
       }
@@ -211,9 +216,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 	          sideband.updateSamplerValues(centreFrequency, bandWidth, 0);
 	          //sideband.updateScrollBarValue();
                
-	          if(bandWidth == 1.0E9) {
-	             ((Sampler)samplers[i]).toggleBandWidth();
-		  }   
+	          ((Sampler)samplers[i]).setBandWidthAndGui(atts.getValue(XML_ATTRIBUTE_BANDWIDTH));
                }	 
 	    }
          });

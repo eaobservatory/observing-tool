@@ -65,6 +65,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    private JTextField moleculeFrequency2;
    private JComboBox transitionChoice;
    private JComboBox transitionChoice2;
+   private JComboBox bandWidthChoice;
    private JScrollPane scrollPanel;
    private double redshift = 0.0;
    private double subBandWidth = 0.25E9;
@@ -87,6 +88,16 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    /** Parser for XML input/output. (MFO, 29 November 2001) */
    private XMLReader _xmlReader = null;
 
+   /**
+    * A list off samplers whose band widths must be updated when the
+    * band width on the front end panel is changed.
+    */
+   private Vector _samplerList = new Vector();
+
+   /**
+    * A static configuration object which can used by classes throughout this
+    * package to configure themselves.
+    */
    protected static FrequencyEditorCfg cfg = null;
 
    public FrontEnd ( )
@@ -164,12 +175,15 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       moleculeFrequency.setText ( "0.0000" );
       moleculeFrequency.setForeground ( Color.red );
       moleculeFrequency.getDocument().addDocumentListener(this);
+      bandWidthChoice = new JComboBox();
+      bandWidthChoice.addActionListener( this );
       mol1Panel = new JPanel(flowLayoutRight);
       mol1Panel.add ( feBand );
       mol1Panel.add ( moleculeChoice );
       mol1Panel.add ( transitionChoice );
       mol1Panel.add ( moleculeFrequency );
       mol1Panel.add ( new JLabel("MHz") );
+      mol1Panel.add ( bandWidthChoice );
 
 /* Secondary moleculare line choice - displayed just for convenience of
    astronomer */
@@ -303,6 +317,13 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       {
          feOverlapAction ( ae );
       }
+      else if ( ae.getSource() == bandWidthChoice )
+      {
+         for(int i = 0; i < _samplerList.size(); i++) {
+            ((Sampler)_samplerList.get(i)).setBandWidthAndGui((String)bandWidthChoice.getSelectedItem());
+	 }
+      }
+
    }
 
    public void changedUpdate(DocumentEvent e) { }
@@ -470,13 +491,12 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       mid = 0.5 * ( loMin + loMax );
 
       subBandCount = currentBandSpec.numBands;
-      subBandWidth = currentBandSpec.loBandWidth;
+      subBandWidth = currentBandSpec.bandWidths[0];
 
       sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
         feIF, feBandWidth,
         redshift,
-        currentBandSpec.loBandWidth, currentBandSpec.loChannels,
-        currentBandSpec.hiBandWidth, currentBandSpec.hiChannels,
+        currentBandSpec.bandWidths, currentBandSpec.channels,
         subBandCount );
    }
 
@@ -737,5 +757,42 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
     */
    protected String getFeBand() {
       return (String)feBand.getSelectedItem();
+   }
+
+   /**
+    * Add a sampler to a list off samplers so that its band widths can be updated when the
+    * band width on the front end panel is changed.
+    */
+   protected void addToSamplerList(Sampler sampler) {
+      _samplerList.add(sampler);
+
+      if(bandWidthChoice.getItemCount() != sampler.getBandWidthOptions().length) {
+         _updateBandWidthChoice(sampler.getBandWidthOptions());
+	 return;
+      }
+
+      for(int i = 0; i < bandWidthChoice.getItemCount(); i++) {
+         if(Double.parseDouble((String)bandWidthChoice.getItemAt(i)) != sampler.getBandWidthOptions()[i]) {
+            _updateBandWidthChoice(sampler.getBandWidthOptions());
+            return;
+	 }
+      }
+   }
+
+   /**
+    * Add a sampler to a list off samplers so that its band widths can be updated when the
+    * band width on the front end panel is changed.
+    */
+   protected void clearSamplerList() {
+      _samplerList.clear();
+   }
+
+   private void _updateBandWidthChoice(double [] values) {
+      bandWidthChoice.removeActionListener(this);
+      bandWidthChoice.removeAllItems();
+      for(int i = 0; i < values.length; i++) {
+         bandWidthChoice.addItem("" + ( values[i] * 1.0E-9 ));
+      }
+      bandWidthChoice.addActionListener(this);
    }
 }
