@@ -185,6 +185,8 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf Makefile
 	\ntidy:\
 	\nonintr -\
 	\ncleanup\
+	\nset gaia_pids=( \`awk '{print $$""1}' $$""OM_LOG_DIR/*/.rtd-remote\` )\
+        \nif ( \"$$""gaia_pids\" != \"\" ) kill -KILL $$""gaia_pids\
 	\n" > $(BIN_DIR)/$(OM_SCRIPT)
 
 	@echo Creating $(BIN_DIR)/$(OM_SCRIPT)
