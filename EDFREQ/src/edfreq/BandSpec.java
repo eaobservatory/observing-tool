@@ -136,11 +136,11 @@ public class BandSpec
     */
    public int [] getDefaultOverlapChannels() {
       int [] result = new int[channels.length];
-      int channelOverlap;
+      double channelOverlap;
 
       for(int i = 0; i < channels.length; i++) {
-	 channelOverlap = (int)(channels[i] * (defaultOverlaps[i] / bandWidths[i]));
-	 result[i] = channels[i] - (numHybridSubBands[i] * channelOverlap);
+	 channelOverlap = channels[i] * (defaultOverlaps[i] / bandWidths[i]);
+	 result[i] = (int)(channels[i] - (numHybridSubBands[i] * channelOverlap));
       }
 
       return result;
