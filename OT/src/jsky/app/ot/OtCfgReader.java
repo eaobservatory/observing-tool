@@ -52,6 +52,8 @@ class OtCfgReader
     /** Telescope latitude. Can be used for noise calculations etc. */
     public static final String TELESCOPE_LATITUDE	= "telescope latitude";
 
+    public static final String SCHEMA_LOCATION          = "schemaLocation";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -172,6 +174,9 @@ class OtCfgReader
 						    // Telescope latitude (added by MFO, June 13, 2002) 
 						    if(line.startsWith(TELESCOPE_LATITUDE)) {
                                                        info.telescopeLatitude = _getValue(line);
+						    }
+						    if(line.startsWith(SCHEMA_LOCATION)) {
+                                                       info.schemaLocation = _getValue(line);
 						    }
 	    }
 
