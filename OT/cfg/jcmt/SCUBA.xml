@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
-  <ot_version>20030807</ot_version>
+  <ot_version>20030808</ot_version>
   <title>SCUBA Libraries</title>
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>scuba_library_03a.xml</meta_gui_filename>
+  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA Photometry MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="1"/>
         <SpInstSCUBARef idref="0"/>
         <title>850/450 um photometry</title>
         <library_version>$Revision$</library_version>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">1262.0</estimatedDuration>
         <SpNote type="no" subtype="none">
@@ -217,7 +217,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpInstSCUBARef idref="2"/>
         <title>850/450 um 2-bol photometry</title>
         <library_version>$Revision$</library_version>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">1262.0</estimatedDuration>
         <SpNote type="no" subtype="none">
@@ -407,6 +407,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <integrations>2</integrations>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
             </SpIterPointingObs>
           </SpIterFolder>
@@ -496,7 +497,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
+A pointing and z-focus will be made prior to the calibration observation (POINTING and FOCUS eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850/450 um jiggle map observation, fully sampled at both 850/450 um</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -510,7 +511,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
 - maps map with both arrays will be fully sampled 
 - a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
+A pointing and z-focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
             <title>Jiggle map calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -691,7 +692,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
+A pointing and z-focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850/450 um jiggle map observation, fully sampled at both 850/450 um</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -705,7 +706,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
 - maps map with both arrays will be fully sampled 
 - a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
+A pointing and z-focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.</note>
             <title>Jiggle map calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -749,7 +750,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850/450 um jiggle map (fully sampled at both 850/450 um )</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1807.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -894,7 +895,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
+A pointing and z-focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 850 um jiggle map observation, fully sampled at 850 um ONLY</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -1077,7 +1078,7 @@ SCUBA component).  Both the calibration and the science observations will inheri
 - a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
 - 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
  
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
+A pointing and z-focus will be made prior to the calibration observation (POINTING and FOCUS eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.</note>
           <title>A calibrated 450 um jiggle map observation, fully sampled at 450 um ONLY</title>
         </SpNote>
         <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -1126,7 +1127,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">572.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
