@@ -2,7 +2,6 @@
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
-// $Id$
 //
 package jsky.app.ot.editor;
 
@@ -17,6 +16,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -59,7 +59,7 @@ import jsky.app.ot.OtCfg;
 /**
  * This is the editor for the target list component.
  */
-public final class EdCompTargetList extends OtItemEditor
+public class EdCompTargetList extends OtItemEditor
     implements TelescopePosWatcher, TableWidgetWatcher, ActionListener,
                ChangeListener, TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher, OtConstants {
 
@@ -72,16 +72,16 @@ public final class EdCompTargetList extends OtItemEditor
     // Frequently used widgets
     private DropDownListBoxWidgetExt _tag;	// Object ID/Type
     private DropDownListBoxWidgetExt _type;     // Object type
-    private TextBoxWidgetExt         _name;	// Object Name
-    private TextBoxWidgetExt         _xaxis;	// RA/Az
-    private TextBoxWidgetExt         _yaxis;	// Del/El
-    private DropDownListBoxWidgetExt  _system;	// Coordinate System
+    protected TextBoxWidgetExt       _name;	// Object Name
+    protected TextBoxWidgetExt       _xaxis;	// RA/Az
+    protected TextBoxWidgetExt       _yaxis;	// Del/El
+    protected DropDownListBoxWidgetExt _system;	// Coordinate System
 
     private TelescopePosTableWidget _tpTable;
 
-    private TelescopeGUI             _w;         // the GUI layout panel
+    protected TelescopeGUI          _w;         // the GUI layout panel
 
-    private SpTelescopePos     _curPos;	// Position being edited
+    protected SpTelescopePos     _curPos;	// Position being edited
     private SpTelescopePosList _tpl;	// List of positions being edited
 
     private String [] _guideTags;
@@ -268,17 +268,11 @@ public final class EdCompTargetList extends OtItemEditor
 
 	_guideTags = SpTelescopePos.getGuideStarTags();
 
-	if((_guideTags != null) && (_guideTags[0] != null)) {
-          _w.newButton.setText("Add " + _guideTags[0]);
-	  for(int i = 0; i < _guideTags.length; i++)
-	      _tag.addChoice(_guideTags[i]);
-	}
-	else {
-	  // Set the button text to "Add" so that it looks more consistent.
-	  // But the button will be disabled all the time if
-	  // _guideTags is null or empty.
-	  _w.newButton.setText("Add");
-	}
+        if ( _guideTags != null && _guideTags.length > 0 ) {
+            _w.newButton.removeActionListener(this);
+            _w.newButton.setModel(new DefaultComboBoxModel(_guideTags));
+            _w.newButton.addActionListener(this);
+        }
 
 
 	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
@@ -800,7 +794,7 @@ public final class EdCompTargetList extends OtItemEditor
         // have been added.
         if(nextTag != null) {
           _w.newButton.setEnabled(true);
-          _w.newButton.setText("Add " + nextTag);
+          //_w.newButton.setText("Add " + nextTag);
         }
         else {
           _w.newButton.setEnabled(false);
@@ -1091,12 +1085,26 @@ public final class EdCompTargetList extends OtItemEditor
 	    }
 
 
-            String nextTag = _nextTag();
+            //String nextTag = _nextTag();
+            String nextTag = (String)_w.newButton.getSelectedItem();
 
-            // This should not happen since _w.newButton should be disabled if there are no more tags.
-            if(nextTag == null) {
-              return;
+            /*
+             * If the user selects SKY, we create a new indexed tag starting at 0
+             */
+            if ( "SKY".equalsIgnoreCase(nextTag) || "SKYGUIDE".equalsIgnoreCase(nextTag)) {
+                int index=0;
+                while (true) {
+                    TelescopePos p = _tpl.getPosition(nextTag + index);
+                    if (p == null) break;
+                    index++;
+                }
+                nextTag = nextTag + index;
             }
+                
+            // This should not happen since _w.newButton should be disabled if there are no more tags.
+//             if(nextTag == null) {
+//               return;
+//             }
 
             SpTelescopePos tp = _tpl.createPosition(nextTag, base.getXaxis(), base.getYaxis());
 	    if ( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR ) {
@@ -1512,7 +1520,7 @@ public final class EdCompTargetList extends OtItemEditor
       String nextTag = _nextTag();
 
       if(nextTag != null) {
-        _w.newButton.setText("Add " + _nextTag());
+        //_w.newButton.setText("Add " + _nextTag());
       }
       else {
         _w.newButton.setEnabled(false);

@@ -296,7 +296,8 @@ updateMsbAttributes()
   // after the component title.) 
 
   // If the parent component is an MSB then this SpObs is not.
-  if(parent() instanceof SpMSB) {
+  if(parent() instanceof SpMSB || 
+          (parent() instanceof SpSurveyContainer && parent().parent() instanceof SpMSB )) {
     _avTable.set(ATTR_MSB, "false");
 
     // If this SpObs is not and MSB then it does not have a priority. Remove the priority.

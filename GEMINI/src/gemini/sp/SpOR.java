@@ -79,6 +79,11 @@ public class SpOR extends SpObsContextItem {
         elapsedTime += ((SpAND)spItem).getTotalTime();
         n++;
       }
+
+      if ( spItem instanceof SpSurveyContainer ) {
+          elapsedTime += ((SpSurveyContainer)spItem).getTotalTime();
+          n++;
+      }
     }
 
     return (elapsedTime / n) * getNumberOfItems();
@@ -113,6 +118,11 @@ public class SpOR extends SpObsContextItem {
       if(spItem instanceof SpAND) {
         elapsedTime += ((SpAND)spItem).getElapsedTime();
         n++;
+      }
+
+      if ( spItem instanceof SpSurveyContainer ) {
+          elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
+          n++;
       }
     }
 

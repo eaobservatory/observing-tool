@@ -2,7 +2,6 @@
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
-// $Id$
 //
 package gemini.sp;
 
@@ -267,7 +266,7 @@ getEditFSM()
 // This method is used internally to keep the SpEditState reference
 // the same for every item in the program or plan.
 //
-final void
+public void
 setEditFSM(SpEditState fsm)
 {
    if (fsm == _editFSM) {
@@ -300,7 +299,7 @@ setEditFSM(SpEditState fsm)
 /**
  * The the parent of the item.
  */
-public final SpItem parent()	{ return _parent; }
+public SpItem parent()	{ return _parent; }
 
 /**
  * Get the first child of the item.  Only one pointer is stored.  The other
@@ -536,7 +535,11 @@ deepCopy()
    // Copy each child
    SpItem lastChild = null;
    for (SpItem child = _firstChild; child != null; child = child.next()) {
+       //System.out.println("Before deep copy...");
+       //System.out.println( child.toXML() );
       SpItem spChildCopy = (SpItem) child.deepCopy();
+       //System.out.println("After deep copy...");
+       //System.out.println( spChildCopy.toXML() );
       spCopy.doInsert( spChildCopy, lastChild);
       lastChild = spChildCopy;
    }

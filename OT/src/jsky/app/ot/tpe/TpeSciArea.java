@@ -66,7 +66,11 @@ update(SpInstObsComp spInst, FitsImageInfo fii)
 	 return true;
       }
    }
-   // More than one element in array: Science area is recangular.
+   // Two elements in array: Science area is recangular.
+   // There might be more than two elements in the array, e.g. for a multi-detector
+   // footprint (e.g. orac.ukirt.inst.SpInstWFCAM.getScienceArea()) but this class does
+   // currently not deal with them. The multi-detector footprints are drawn in the class
+   // jsky.app.ot.tpe.feat.TpeSciAreaFeature without using this class (jsky.app.ot.tpe.TpeSciArea).
    else {
       _shape = RECTANGULAR;
       double w, h, posAngle, sky;

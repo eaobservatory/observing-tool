@@ -13,7 +13,9 @@ package ot.editor;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -38,6 +40,9 @@ public class SurveyGUI extends JPanel {
   JButton removeAllButton  = new JButton("Remove all");
   JButton loadButton       = new JButton("Load");
   JTabbedPane tabbedPane   = new JTabbedPane();
+  JCheckBox  chooseButton  = new JCheckBox("Select");
+  JLabel  selectLabel    = new JLabel("from 1");
+  JTextField selectField   = new JTextField();
 
   /**
    * List of fiels.
@@ -55,7 +60,10 @@ public class SurveyGUI extends JPanel {
     removeButton.setFont(new java.awt.Font("Dialog", 0, 12));
     removeAllButton.setFont(new java.awt.Font("Dialog", 0, 12));
     loadButton.setFont(new java.awt.Font("Dialog", 0, 12));
+    chooseButton.setFont(new java.awt.Font("Dialog", 0, 12));
+    selectLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
+    selectField.setColumns(4);
 
     setLayout(new BorderLayout());
 
@@ -78,6 +86,13 @@ public class SurveyGUI extends JPanel {
     label.setForeground(Color.black);
     panel.add(label);
     panel.add(priority);
+    
+    JLabel strut = new JLabel("     ");
+    strut.setFont(new java.awt.Font("Dialog", 0, 12));
+    panel.add(strut);
+    panel.add(chooseButton);
+    panel.add(selectField);
+    panel.add(selectLabel);
 
     JPanel southPanel = new JPanel(new BorderLayout());
     southPanel.add(panel,       BorderLayout.NORTH);

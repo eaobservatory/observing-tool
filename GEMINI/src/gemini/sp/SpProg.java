@@ -36,6 +36,7 @@ public class SpProg extends SpRootItem
 protected SpProg()
 {
    super(SpType.SCIENCE_PROGRAM);
+   setTelescope();
    setOTVersion();
 }
 
@@ -183,6 +184,10 @@ public double getTotalTime()
     if(spItem instanceof SpOR) {
       elapsedTime += ((SpOR)spItem).getTotalTime();
     }
+    
+    if ( spItem instanceof SpSurveyContainer ) {
+        elapsedTime += ((SpSurveyContainer)spItem).getTotalTime();
+    }
   }
 
   return elapsedTime;
@@ -213,6 +218,10 @@ public double getElapsedTime()
 
     if(spItem instanceof SpOR) {
       elapsedTime += ((SpOR)spItem).getElapsedTime();
+    }
+
+    if ( spItem instanceof SpSurveyContainer ) {
+        elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
     }
   }
 

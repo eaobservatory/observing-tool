@@ -112,6 +112,9 @@ public class SpType implements java.io.Serializable
    public static final SpType OR_FOLDER =
 	SpType.create("of", "or", "OR Folder");
 
+   public static final SpType SURVEY_CONTAINER = 
+       SpType.create("sc", "survey", "Survey Container");
+
 
    /**
     * The Iterator Sequence Type. NOTE, 'if' is left over from

@@ -2,14 +2,17 @@
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
-// $Id$
 //
 package gemini.sp.obsComp;
  
+import gemini.sp.SpItem;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpType;
+import gemini.sp.SpEditState;
+import gemini.sp.SpObsData;
+import gemini.sp.SpSurveyContainer;
 import gemini.util.CoordSys;
 
 import java.util.Enumeration;
@@ -75,12 +78,37 @@ public class SpTelescopeObsComp extends SpObsComp
    public static final String ATTR_CHOP_ANGLE	= "chopAngle";
    public static final String ATTR_CHOP_SYSTEM	= "chopSystem";
 
+   /** @see #getFitsKey(int) */
+   public static final String ATTR_FITS_KEY     = "fitsKey";
+
+   /** @see #getFitsValue(int) */
+   public static final String ATTR_FITS_VALUE   = "fitsValue";
+
+
+   /** @see #getPositionInTile() */
+   public static final String ATTR_POSITION_IN_TILE  = "positionInTile";
+
+   /** @see #getPositionInTile() */
+   public static final int NOT_IN_TILE = -1;
 
    protected SpTelescopePosList _posList;
 
 
    /** Needed for XML parsing. */
    private SpTelescopePos _currentPosition = null;
+
+   /**
+    * @see #getSurveyComponent()
+    */
+   //private SpSurveyObsComp _surveyComp = null;
+   private SpSurveyContainer _surveyComp = null;
+
+   /**
+    * If this SpTelescopeObsComp is contained in a SpSurveyObsComp then it needs its own
+    * SpObsData object because it does not share its base position with the other
+    * SpTelescopeObsComp items in the SpSurveyObsComp.
+    */
+   private SpObsData _obsData = null;
 
 public SpTelescopeObsComp()
 {
@@ -144,9 +172,12 @@ public SpTelescopePosList
 getPosList()
 {
    if (_posList == null) {
+       //System.out.println("getPosList() constructing new posList");
       _posList = new SpTelescopePosList(this);
    }
 
+//     System.out.println("getPosList() (size=" + _posList.size() + ") called by ...");
+//     new Exception().printStackTrace();
    return _posList;
 }
 
@@ -183,6 +214,140 @@ replaceTable(SpAvTable avTab)
       _posList.setTable(avTab);
    }
 }
+
+/**
+ * Get the FITS key at the given index.
+ *
+ * @param index Index of one of the FITS key/value pairs.
+ *
+ * @see #setFitsValue(int)
+ */
+public String
+getFitsKey(int index)
+{
+   return _avTable.get(ATTR_FITS_KEY, index);
+}
+
+/**
+ * Set the FITS key at the given index.
+ *
+ * @param index Index of one of the FITS key/value pairs.
+ *
+ * @see #setFitsValue(int)
+ */
+public void
+setFitsKey(String fitsKey, int index)
+{
+   _avTable.set(ATTR_FITS_KEY, fitsKey, index);
+}
+
+
+/**
+ * Get the FITS value at the given index.
+ *
+ * @param index Index of one of the FITS key/value pairs.
+ *
+ * @see #setFitsKey(int)
+ */
+public String
+getFitsValue(int index)
+{
+   return _avTable.get(ATTR_FITS_VALUE, index);
+}
+
+/**
+ * Set the FITS value at the given index.
+ *
+ * @param index Index of one of the FITS key/value pairs.
+ *
+ * @see #setFitsKey(int)
+ */
+public void
+setFitsValue(String fitsValue, int index)
+{
+   _avTable.set(ATTR_FITS_VALUE, fitsValue, index);
+}
+
+
+/**
+ * Get the number of FITS key/value pairs.
+ *
+ * The maximum index for the methods
+ *
+ * <ul>
+ *   <li>{@link #getFitsKey(int)}
+ *   <li>{@link #setFitsKey(String,int)}
+ *   <li>{@link #getFitsValue(int)}
+ *   <li>{@link #setFitsValue(String,int)}
+ * </ul>
+ *
+ * is <tt>getFitsCount() - 1</tt>.
+ *
+ * @see #getFitsKey(int)
+ * @see #getFitsValue(int)
+ */
+public int
+getFitsCount()
+{
+   return _avTable.size(ATTR_FITS_KEY);
+}
+
+
+/**
+ * Returns the position of this target in a tile if this SpTelescopePosList
+ * was created as part of a tile by the survey definition tool.
+ *
+ * Pointings created by the survey definition tool and belonging to
+ * the same tile are numbered through from 0 to n-1 where n is the
+ * number of pointings in the tile. E.g. in a standard tile containing
+ * 2 X 2 pointings this method returns
+ *
+ * <pre>
+ * "lower right" pointing in tile: getPositionInTile() returns 0
+ * "upper right" pointing in tile: getPositionInTile() returns 1
+ * "lower left"  pointing in tile: getPositionInTile() returns 2
+ * "upper left"  pointing in tile: getPositionInTile() returns 3
+ * </pre>
+ *
+ * If this SpTelescopeObsComp was not created as part of a tile
+ * then {@link #NOT_IN_TILE} is returned.<p>
+ *
+ * The number returned by this method is <b>not</b> the <tt>TILENUM</tt>
+ * in the FITS header. The <tt>TILENUM</tt> in the FITS header comes from
+ * the DHS. It is incremented through the "startTile" command in the EXEC
+ * file which in turn is inserted into the EXEC by the translator when a
+ * SpTelescopeObsComp with getPositionInTile() == 0 is encountered.<p>
+ *
+ * Example:
+ * <pre>
+ * "lower right" pointing in new tile: getPositionInTile() returns 0 =&gt; "startTile" =&gt; TILENUM == 1, say
+ * "upper right" pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 1
+ * "lower left"  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 1
+ * "upper left"  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 1
+ * "lower right" pointing in new tile: getPositionInTile() returns 0 =&gt; "startTile" =&gt; TILENUM == 2
+ * "upper right" pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 2
+ * "lower left"  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 2
+ * "upper left"  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 2
+ * "lower right" pointing in new tile: getPositionInTile() returns 0 =&gt; "startTile" =&gt; TILENUM == 3
+ * "upper right" pointing in     tile: getPositionInTile() returns 1 =&gt;             =&gt; TILENUM == 3
+ * "lower left"  pointing in     tile: getPositionInTile() returns 2 =&gt;             =&gt; TILENUM == 3
+ * "upper left"  pointing in     tile: getPositionInTile() returns 3 =&gt;             =&gt; TILENUM == 3
+ * ...
+ * </pre>
+
+
+ */
+public int getPositionInTile() {
+   return _avTable.getInt(ATTR_POSITION_IN_TILE, NOT_IN_TILE);
+}
+
+/**
+ * @see #getPositionInTile()
+ */
+public void setPositionInTile(int positionInTile) {
+   _avTable.set(ATTR_POSITION_IN_TILE, positionInTile);
+}
+
 
 /**
  * Get chopping on / off.
@@ -333,6 +498,56 @@ public String writeTCSXML() {
 }
 
 /**
+ * If this SpTelescopeObsComp is contained in a SpSurveyObsComp than this method
+ * returns the SpObsData associated with the SpSurveyObsComp.
+ *
+ * Otherwise see {@link gemini.sp.SpItem.getObsData()}.
+ */
+public SpObsData
+getObsData()
+{
+   if (_surveyComp == null) {
+      return super.getObsData();
+   }
+
+   return _obsData;
+}
+
+/**
+ * The the parent of the item or, if this SpTelescopeObsComp is contained in an SpSurveyObsComp,
+ * the patent of the SpSurveyObsComp.
+ */
+public SpItem parent() {
+  if(_parent == null) {
+    if(_surveyComp != null) {
+      return _surveyComp.parent();
+    }
+  }
+
+  return _parent;
+}
+
+/**
+  * If this SpTelescopeObsComp is contained in a SpSurveyObsComp than this method
+  * returns to that SpSurveyObsComp.
+  *
+  * It returns null otherwise.
+  */
+public SpSurveyContainer
+getSurveyComponent() {
+  return _surveyComp;
+}
+
+/**
+ * @see #getSurveyComponent()
+ */
+public void
+setSurveyComponent(SpSurveyContainer surveyComp) {
+  _surveyComp = surveyComp;
+  _obsData    = new SpObsData();
+}
+
+/**
  * This method creates JAC TCS XML from those attributes of the
  * SpAvTable that equal a target tag such as BASE, SCIENCE, GUIDE, REFERENCE.
  *
@@ -345,6 +560,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    SpTelescopePos tp = null;
 
    // Check whether avAttr is a telescope position.
+   //System.out.println("CurrentPosList = " + getPosList());
    if(avAttr != null) {
      tp = (SpTelescopePos)getPosList().getPosition(avAttr);
    }  
@@ -352,6 +568,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    // If avAttr is not a telescope position then let the
    // super class deal with it and return.
    if(tp == null) {
+       //System.out.println("avAttr " + avAttr + " returned a null tp");
      super.processAvAttribute(avAttr, indent, xmlBuffer);
      return;
    }
@@ -367,7 +584,6 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    if(tp.isOffsetPosition()) {
      targetPos = getPosList().getBasePosition();
    }
-
    String system = targetPos.getCoordSysAsString();
 
    if(system.equals(CoordSys.COORD_SYS[CoordSys.FK5])) {
@@ -382,7 +598,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
        system = TX_AZEL;
    }
 
-   // Check whether it is a spherical system. Only the spherical systems are saved using
+   // Check whether it is a spherical system. Only the spherical systOT/src/jsky/app/ot/editor/TelescopePosTableWidget.java:ems are saved using
    // there tag name as attribute name for the av table.
    switch(targetPos.getSystemType()) {
      // Conic system (orbital elements)
@@ -493,14 +709,14 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
  * Parses JAC TCS XML.
  */
 public void
-processXmlElementContent(String name, String value)
+processXmlElementContent(String name, String value, int pos)
 {
 
    // All the hard wired strings are taken from the JAC TCS XML.
    // They are left hard wired as they are unlikely to be needed outside this class.
 
    if(_currentPosition == null) {
-      super.processXmlElementContent(name, value);
+      super.processXmlElementContent(name, value, pos);
       return;
    }
 
@@ -669,7 +885,7 @@ processXmlElementContent(String name, String value)
       return;
    }
 
-   super.processXmlElementContent(name, value);
+   super.processXmlElementContent(name, value, pos);
 }
 
 /**
@@ -770,6 +986,17 @@ processXmlAttribute(String elementName, String attributeName, String value)
    }
 
    super.processXmlAttribute(elementName, attributeName, value);
+}
+
+/**
+ * Public convenience method used for use in SpSurveyObsComp.
+ */
+public String getXML(String indent) {
+   StringBuffer stringBuffer = new StringBuffer();
+
+   toXML(indent, stringBuffer);
+
+   return stringBuffer.toString();
 }
 
 }

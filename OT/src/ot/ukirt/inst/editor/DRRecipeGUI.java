@@ -15,7 +15,9 @@ import java.awt.event.*;
 
 public class DRRecipeGUI extends JPanel {
   CardLayout cardLayout1 = new CardLayout();
+  BorderLayout borderLayoutE1 = new BorderLayout();
   JPanel emptyPanel = new JPanel();
+  JLabel jLabelE1 = new JLabel();
 
 // Initialise GUI components by instrument.
 
@@ -189,13 +191,52 @@ public class DRRecipeGUI extends JPanel {
   CommandButtonWidgetExt uist_objectSet = new CommandButtonWidgetExt();
   CommandButtonWidgetExt uist_skySet = new CommandButtonWidgetExt();
   
+// WFCAM
+  JPanel wfcamPanel = new JPanel();
+  JPanel jPanelW1 = new JPanel();
+
+  JLabel jLabelW1 = new JLabel();
+  JLabel jLabelW2 = new JLabel();
+  JLabel jLabelW3 = new JLabel();
+  JLabel jLabelW4 = new JLabel();
+  JLabel jLabelW5 = new JLabel();
+  JLabel jLabelW6 = new JLabel();
+  JLabel jLabelW7 = new JLabel();
+  JLabel jLabelW8 = new JLabel();
+  JLabel jLabelW9 = new JLabel();
+
+  GridBagLayout gridBagLayoutW1 = new GridBagLayout();
+  BorderLayout borderLayoutW1 = new BorderLayout();
+
+  TextBoxWidgetExt wfcam_focusRecipe = new TextBoxWidgetExt();
+  TextBoxWidgetExt wfcam_biasRecipe = new TextBoxWidgetExt();
+  TextBoxWidgetExt wfcam_darkRecipe = new TextBoxWidgetExt();
+  TextBoxWidgetExt wfcam_flatRecipe = new TextBoxWidgetExt();
+  TextBoxWidgetExt wfcam_objectRecipe = new TextBoxWidgetExt();
+  TextBoxWidgetExt wfcam_skyRecipe = new TextBoxWidgetExt();
+
+  CheckBoxWidgetExt wfcam_focusInGroup = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt wfcam_biasInGroup = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt wfcam_darkInGroup = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt wfcam_flatInGroup = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt wfcam_objectInGroup = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt wfcam_skyInGroup = new CheckBoxWidgetExt();
+
+  CommandButtonWidgetExt wfcam_focusSet = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt wfcam_biasSet = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt wfcam_darkSet = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt wfcam_flatSet = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt wfcam_objectSet = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt wfcam_skySet = new CommandButtonWidgetExt();
+  
 // Headings
   JLabel jLabelC11 = new JLabel();
   JLabel jLabelI8 = new JLabel();
   JLabel jLabelM10 = new JLabel();
   JLabel jLabelF7 = new JLabel();
   JLabel jLabelU10 = new JLabel();
-
+  JLabel jLabelW10 = new JLabel();
+  
 // CGS4 recipe selection
   JPanel jPanelC2 = new JPanel();
   JPanel jPanelC3 = new JPanel();
@@ -246,13 +287,24 @@ public class DRRecipeGUI extends JPanel {
   JScrollPane jScrollPane_uist = new JScrollPane();
   TableWidgetExt uist_recipeTable = new TableWidgetExt();
 
+// WFCAM recipe selection
+  JPanel jPanelW2 = new JPanel();
+  JPanel jPanelW3 = new JPanel();
+  BorderLayout borderLayoutW2 = new BorderLayout();
+  CommandButtonWidgetExt wfcam_defaultName = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt wfcam_userSpec = new CommandButtonWidgetExt();
+  TextBoxWidgetExt wfcam_userRecipe = new TextBoxWidgetExt();
+  JScrollPane jScrollPane_wfcam = new JScrollPane();
+  TableWidgetExt wfcam_recipeTable = new TableWidgetExt();
+
 // For defaults and selecting user recipe.
   GridBagLayout gridBagLayoutC2 = new GridBagLayout();
   GridBagLayout gridBagLayoutI2 = new GridBagLayout();
   GridBagLayout gridBagLayoutM2 = new GridBagLayout();
   GridBagLayout gridBagLayoutF2 = new GridBagLayout();
   GridBagLayout gridBagLayoutU2 = new GridBagLayout();
-
+  GridBagLayout gridBagLayoutW2 = new GridBagLayout();
+  
   public DRRecipeGUI() {
     try {
       jbInit();
@@ -266,6 +318,10 @@ public class DRRecipeGUI extends JPanel {
     this.setLayout(cardLayout1);
     //jPanelI2.setPreferredSize(new Dimension(471, 60));
     //jScrollPane_cgs4.setPreferredSize(new Dimension(453, 200));
+    
+    emptyPanel.setLayout(borderLayoutE1);
+    jLabelE1.setText("This panel is deliberately left empty");
+    jLabelE1.setForeground(Color.black);
 
 // Define headings by instrument.
 
@@ -491,6 +547,56 @@ public class DRRecipeGUI extends JPanel {
     uist_objectSet.setText("Set");
     uist_biasSet.setText("Set");
 
+// WFCAM
+    wfcam_objectRecipe.addActionListener(new java.awt.event.ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        wfcam_objectRecipe_actionPerformed(e);
+      }
+    });
+    wfcamPanel.setLayout(borderLayoutW1);
+    jLabelW1.setText("Observation Type");
+    jLabelW1.setForeground(Color.black);
+    jLabelW1.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW2.setText("BIAS");
+    jLabelW2.setForeground(Color.black);
+    jLabelW2.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW3.setText("DARK");
+    jLabelW3.setForeground(Color.black);
+    jLabelW3.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW4.setText("SKY");
+    jLabelW4.setForeground(Color.black);
+    jLabelW4.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW5.setText("OBJECT");
+    jLabelW5.setForeground(Color.black);
+    jLabelW5.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW6.setText("Include in Group?");
+    jLabelW6.setForeground(Color.black);
+    jLabelW6.setFont(new java.awt.Font("Dialog", 0, 12));
+    wfcam_biasRecipe.addActionListener(new java.awt.event.ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        wfcam_biasRecipe_actionPerformed(e);
+      }
+    });
+    jPanelW1.setLayout(gridBagLayoutW1);
+    jLabelW7.setText("Recipe Name");
+    jLabelW7.setForeground(Color.black);
+    jLabelW7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW8.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW8.setForeground(Color.black);
+    jLabelW8.setText("FOCUS");
+    jLabelW9.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabelW9.setForeground(Color.black);
+    jLabelW9.setText("FLAT");
+
+    wfcam_darkSet.setText("Set");
+    wfcam_focusSet.setText("Set");
+    wfcam_flatSet.setText("Set");
+    wfcam_skySet.setText("Set");
+    wfcam_objectSet.setText("Set");
+    wfcam_biasSet.setText("Set");
+
 // Define the titles
     jLabelC11.setFont(new java.awt.Font("Dialog", 1, 14));
     jLabelC11.setForeground(Color.black);
@@ -507,6 +613,9 @@ public class DRRecipeGUI extends JPanel {
     jLabelU10.setFont(new java.awt.Font("Dialog", 1, 14));
     jLabelU10.setForeground(Color.black);
     jLabelU10.setText("UIST DR Recipe");
+    jLabelW10.setFont(new java.awt.Font("Dialog", 1, 14));
+    jLabelW10.setForeground(Color.black);
+    jLabelW10.setText("WFCAM DR Recipe");
 
 // Defaults and user-defined recipe by instrument. 
     jPanelC2.setLayout(borderLayoutC2);
@@ -550,7 +659,16 @@ public class DRRecipeGUI extends JPanel {
     uist_userRecipe.setText("ENTER_YOUR_OWN_RECIPE_HERE");
     uist_userRecipe.setEditable(false);
 
+    jPanelW2.setLayout(borderLayoutW2);
+    wfcam_defaultName.setText("Reset Defaults");
+    wfcam_userSpec.setText("User Specified:");
+    jPanelW3.setLayout(gridBagLayoutW2);
+    jPanelW3.setMinimumSize(new Dimension(260, 60));
+    wfcam_userRecipe.setText("ENTER_YOUR_OWN_RECIPE_HERE");
+    wfcam_userRecipe.setEditable(false);
+
     this.add(emptyPanel, "empty");
+    emptyPanel.add( jLabelE1, BorderLayout.SOUTH );
 
 // For each instrument.  Fill the GUI array of recipes, set button, presence in the group
 // tick boxes.  Create scrolling menu of recipes.
@@ -865,6 +983,76 @@ public class DRRecipeGUI extends JPanel {
     jPanelU2.add(jScrollPane_uist, BorderLayout.CENTER);
     jScrollPane_uist.getViewport().add(uist_recipeTable, null);
 
+// WFCAM
+    this.add(wfcamPanel, "wfcam");
+    wfcamPanel.add(jPanelW1, BorderLayout.NORTH);
+    jPanelW1.add(jLabelW5, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 15, 0));
+    jPanelW1.add(wfcam_biasRecipe, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 52, 0));
+    jPanelW1.add(wfcam_darkRecipe, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 42, 0));
+    jPanelW1.add(wfcam_skyRecipe, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_objectRecipe, new GridBagConstraints(2, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_darkSet, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_skySet, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_objectSet, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_biasInGroup, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_darkInGroup, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_skyInGroup, new GridBagConstraints(3, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_objectInGroup, new GridBagConstraints(3, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW6, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW7, new GridBagConstraints(2, 1, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -2, 0, 27), 0, 0));
+    jPanelW1.add(jLabelW1, new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW2, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW3, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW4, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW9, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_flatSet, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_flatRecipe, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_flatInGroup, new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW8, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_focusSet, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_focusRecipe, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_focusInGroup, new GridBagConstraints(3, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(wfcam_biasSet, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanelW1.add(jLabelW10, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 0, 10, 0), 0, 0));
+    wfcamPanel.add(jPanelW2, BorderLayout.CENTER);
+    jPanelW2.add(jPanelW3, BorderLayout.NORTH);
+    jPanelW3.add(wfcam_defaultName, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
+    jPanelW3.add(wfcam_userSpec, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
+    jPanelW3.add(wfcam_userRecipe, new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
+    jPanelW2.add(jScrollPane_wfcam, BorderLayout.CENTER);
+    jScrollPane_wfcam.getViewport().add(wfcam_recipeTable, null);
+
   }
 
 
@@ -904,6 +1092,14 @@ public class DRRecipeGUI extends JPanel {
   }
 
   void uist_biasRecipe_actionPerformed(ActionEvent e) {
+
+  }
+
+  void wfcam_objectRecipe_actionPerformed(ActionEvent e) {
+
+  }
+
+  void wfcam_biasRecipe_actionPerformed(ActionEvent e) {
 
   }
 

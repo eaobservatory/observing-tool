@@ -17,10 +17,13 @@ public class SpSiteQualityObsComp extends SpObsComp
 {
    public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated";
    public static final String ATTR_SEEING_ALLOCATED = "seeingAllocated";
+   public static final String ATTR_SKY_ALLOCATED = "skyAllocated";
    public static final String ATTR_SEEING_MIN   = "seeing.min";
    public static final String ATTR_SEEING_MAX   = "seeing.max";
    public static final String ATTR_CSO_TAU_MIN  = "csoTau.min";
    public static final String ATTR_CSO_TAU_MAX  = "csoTau.max";
+   public static final String ATTR_SKY_MIN      = "skyBrightness.min";
+   public static final String ATTR_SKY_MAX      = "skyBrightness.max";
    public static final String ATTR_MOON         = "moon";
    public static final String ATTR_CLOUD        = "cloud";
 
@@ -31,6 +34,7 @@ public class SpSiteQualityObsComp extends SpObsComp
 
    protected static final String XML_SEEING     = "seeing";
    protected static final String XML_CSO_TAU    = "csoTau";
+   protected static final String XML_SKY        = "skyBrightness";
    protected static final String XML_MOON       = "moon";
    protected static final String XML_CLOUD      = "cloud";
    protected static final String XML_MAX        = "max";
@@ -52,15 +56,15 @@ public class SpSiteQualityObsComp extends SpObsComp
 //    };
 
    public static final int MOON_DARK = 0;
-   public static final int MOON_GREY = 1;
-   public static final int MOON_ANY  = 2;
+   public static final int MOON_GREY = 25;
+   public static final int MOON_ANY  = 100;
 
    /** Number of Moon options. */
    public static final int MOON_OPTIONS_LENGTH = 3;
 
    public static final int CLOUD_PHOTOMETRIC = 0;
-   public static final int CLOUD_THIN_CIRRUS = 1;
-   public static final int CLOUD_ANY         = 2;
+   public static final int CLOUD_THIN_CIRRUS = 20;
+   public static final int CLOUD_ANY         = 100;
 
    /** Number of Cloud options. */
    public static final int CLOUD_OPTIONS_LENGTH = 3;
@@ -85,10 +89,8 @@ public SpSiteQualityObsComp()
    // MFO: Changed because UKIRT and JCMT use different site quality components.
    super(SP_TYPE);
    _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "true", 0);
-   _avTable.noNotifySet(ATTR_SEEING_ALLOCATED, "true", 0);
-//    _avTable.noNotifySet(ATTR_MOON, "2", 0);
-//    _avTable.noNotifySet(ATTR_CLOUD, "2", 0);
-   //super( SpType.OBSERVATION_COMPONENT_SITE_QUALITY );
+   _avTable.noNotifySet(ATTR_SEEING_ALLOCATED,   "true", 0);
+   _avTable.noNotifySet(ATTR_SKY_ALLOCATED,      "true", 0);
 }
 
 /**
@@ -96,58 +98,7 @@ public SpSiteQualityObsComp()
  *
  * @param seeing One of {@link #SEEING_EXCELLENT}, {@link #SEEING_GOOD}, {@link #SEEING_POOR}, {@link #SEEING_ANY}.
  */
-// public void
-// setSeeing(int seeing)
-// {
-//    if ((seeing < 0) || (seeing >= (SEEING_RANGES.length) || (seeing == SEEING_ANY))) {
-//       _avTable.rm(ATTR_SEEING_MIN);
-//       _avTable.rm(ATTR_SEEING_MAX);
-//    }
-//    else {
-//       _avTable.set(ATTR_SEEING_MIN, SEEING_RANGES[seeing][0]);
-//       _avTable.set(ATTR_SEEING_MAX, SEEING_RANGES[seeing][1]);
-//    }
-// }
 
-/**
- * Get Seeing index.
- *
- * @return One of {@link #SEEING_EXCELLENT}, {@link #SEEING_GOOD}, {@link #SEEING_POOR}, {@link #SEEING_ANY}.
- */
-// public int
-// getSeeing()
-// {
-//    if(_avTable.get(ATTR_SEEING_MAX) == null) {
-//       return SEEING_ANY;
-//    }
-   
-//    // Default -1.0 ensure that no range maximum matches and SEEING_ANY is returned.
-//    double max = _avTable.getDouble(ATTR_SEEING_MAX, -1.0);
-
-//    if(max == SEEING_RANGES[SEEING_EXCELLENT][1]) return SEEING_EXCELLENT;
-//    if(max == SEEING_RANGES[SEEING_GOOD][1])      return SEEING_GOOD;
-//    if(max == SEEING_RANGES[SEEING_POOR][1])      return SEEING_POOR;
-   
-//    return SEEING_ANY;
-// }
-
-/**
- * Get Seeing range as array of two doubles.
- */
-// public double []
-// getSeeingRange()
-// {
-//    double [] result = new double[]{
-//       _avTable.getDouble(ATTR_SEEING_MIN, -1), _avTable.getDouble(ATTR_SEEING_MAX, -1)
-//    };
-
-//    if((result[0] == -1) || (result[1] == -1)) {
-//       return null;
-//    }
-//    else {
-//       return result;
-//    }
-// }
 public void
 setSeeingAllocated(boolean value)
 {
@@ -203,57 +154,6 @@ getMaxSeeing()
  *
  * @param csoTau One of {@link #CSO_TAU_VERY_DRY}, {@link #CSO_TAU_ANY}.
  */
-// public void
-// setCsoTau(int csoTau)
-// {
-//    if ((csoTau < 0) || (csoTau >= (CSO_TAU_RANGES.length) || (csoTau == CSO_TAU_ANY))) {
-//       _avTable.rm(ATTR_CSO_TAU_MIN);
-//       _avTable.rm(ATTR_CSO_TAU_MAX);
-//    }
-//    else {
-//       _avTable.set(ATTR_CSO_TAU_MIN, CSO_TAU_RANGES[csoTau][0]);
-//       _avTable.set(ATTR_CSO_TAU_MAX, CSO_TAU_RANGES[csoTau][1]);
-//    }
-// }
-
-/**
- * Get CSO Tau index.
- *
- * @return One of {@link #CSO_TAU_VERY_DRY}, {@link #CSO_TAU_ANY}.
- */
-// public int
-// getCsoTau()
-// {
-//    if(_avTable.get(ATTR_CSO_TAU_MIN) == null) {
-//       return CSO_TAU_ANY;
-//    }
-
-//    // Default -1.0 ensure that no range minimum matches and CSO_TAU_ANY is returned.
-//    double min = _avTable.getDouble(ATTR_SEEING_MIN, -1.0);
-
-//    if(min == CSO_TAU_RANGES[CSO_TAU_VERY_DRY][0]) return CSO_TAU_VERY_DRY;
-   
-//    return CSO_TAU_ANY;
-// }
-
-/**
- * Get CSO Tau range as array of two doubles.
- */
-// public double []
-// getCsoTauRange()
-// {
-//    double [] result = new double[]{
-//       _avTable.getDouble(ATTR_CSO_TAU_MIN, -1), _avTable.getDouble(ATTR_CSO_TAU_MAX, -1)
-//    };
-
-//    if((result[0] == -1) || (result[1] == -1)) {
-//       return null;
-//    }
-//    else {
-//       return result;
-//    }
-// }
-
 
 public void
 setTauBandAllocated(boolean value)
@@ -304,6 +204,56 @@ getMaxTau()
    return _avTable.getDouble(ATTR_CSO_TAU_MAX, NO_VALUE);
 }
 
+/*-------------------------------------------------------
+  Sky Brightness Constraint
+-------------------------------------------------------*/
+public void
+setSkyAllocated(boolean value)
+{
+   _avTable.set(ATTR_SKY_ALLOCATED, value);
+}
+
+public boolean
+skyAllocated()
+{
+   return _avTable.getBool(ATTR_SKY_ALLOCATED);
+}
+
+public void
+setMinSky(double value)
+{
+   _avTable.set(ATTR_SKY_MIN, value);
+}
+
+public void
+setMinSky(String value)
+{
+   setMinSky(Format.toDouble(value));
+}
+
+public double
+getMinSky()
+{
+   return _avTable.getDouble(ATTR_SKY_MIN, NO_VALUE);
+}
+
+public void
+setMaxSky(double value)
+{
+   _avTable.set(ATTR_SKY_MAX, value);
+}
+
+public void
+setMaxSky(String value)
+{
+   setMaxSky(Format.toDouble(value));
+}
+
+public double
+getMaxSky()
+{
+   return _avTable.getDouble(ATTR_SKY_MAX, NO_VALUE);
+}
 
 /**
  * Set Moon index.
@@ -313,12 +263,7 @@ getMaxTau()
 public void
 setMoon(int moon)
 {
-   if ((moon < 0) || (moon >= MOON_OPTIONS_LENGTH) || (moon == MOON_ANY)) {
-      _avTable.rm(ATTR_MOON);
-   }
-   else {
-      _avTable.set(ATTR_MOON, moon);
-   }
+    _avTable.set(ATTR_MOON, moon);
 }
 
 /**
@@ -342,12 +287,7 @@ getMoon()
 public void
 setCloud(int cloud)
 {
-   if ((cloud < 0) || (cloud >= CLOUD_OPTIONS_LENGTH) || (cloud == CLOUD_ANY)) {
-      _avTable.rm(ATTR_CLOUD);
-   }
-   else {
-      _avTable.set(ATTR_CLOUD, cloud);
-   }
+    _avTable.set(ATTR_CLOUD, cloud);
 }
 
 /**
@@ -390,14 +330,35 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
       return;
    }
 
+   if(avAttr.equals(ATTR_SKY_ALLOCATED) && (!skyAllocated())) {
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_SKY + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + getMinSky() + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + getMaxSky() + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n  "   + indent + "</" + XML_SKY + ">");
+
+      return;
+   }
+  
+   if(avAttr.equals(ATTR_SKY_MIN) || avAttr.equals(ATTR_SKY_MAX) || avAttr.equals(ATTR_SKY_ALLOCATED)) {
+      return;
+   }
+
    if(avAttr.equals(ATTR_MOON)) {
-      xmlBuffer.append("\n  "   + indent + "<"  + XML_MOON    + ">" + getMoon()  + "</" + XML_MOON  + ">");
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_MOON + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + "0" + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + getMoon() + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n  "   + indent + "</" + XML_MOON + ">");
+      //xmlBuffer.append("\n  "   + indent + "<"  + XML_MOON    + ">" + getMoon()  + "</" + XML_MOON  + ">");
 
       return;
    }
 
    if(avAttr.equals(ATTR_CLOUD)) {
-      xmlBuffer.append("\n  "   + indent + "<"  + XML_CLOUD   + ">" + getCloud() + "</" + XML_CLOUD + ">");
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_CLOUD + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + "0" + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + getCloud() + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n  "   + indent + "</" + XML_CLOUD + ">");
+      //xmlBuffer.append("\n  "   + indent + "<"  + XML_CLOUD   + ">" + getCloud() + "</" + XML_CLOUD + ">");
 
       return;
    }
@@ -415,6 +376,21 @@ public void processXmlElementStart( String name) {
      _previousXmlElement = name;
      return;
    }    
+   
+   if(name.equals(XML_SKY)) {
+     _previousXmlElement = name;
+     return;
+   }    
+
+   if ( name.equals(XML_MOON) ) {
+       _previousXmlElement = name;
+       return;
+   }
+   
+   if ( name.equals(XML_CLOUD) ) {
+       _previousXmlElement = name;
+       return;
+   }
 }
 
 
@@ -433,6 +409,21 @@ processXmlElementContent(String name, String value)
    }
 
 
+   if(name.equals(XML_SKY)) {
+     _previousXmlElement = name;
+     return;
+   }
+
+   if(name.equals(XML_MOON)) {
+     _previousXmlElement = name;
+     return;
+   }
+
+   if(name.equals(XML_CLOUD)) {
+     _previousXmlElement = name;
+     return;
+   }
+
    try {
       if(name.equals(XML_MAX)) {
          if(_previousXmlElement.equals(XML_SEEING)) {
@@ -443,10 +434,26 @@ processXmlElementContent(String name, String value)
 
          if(_previousXmlElement.equals(XML_CSO_TAU)) {
             _avTable.noNotifySet(ATTR_CSO_TAU_MAX, value, 0);
-	    System.out.println("Setting allocated tau to false");
 	    _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "false", 0);
 	    return;
 	 }
+
+         if(_previousXmlElement.equals(XML_SKY)) {
+            _avTable.noNotifySet(ATTR_SKY_MAX, value, 0);
+	    _avTable.noNotifySet(ATTR_SKY_ALLOCATED, "false", 0);
+	    return;
+         }
+
+         if ( _previousXmlElement.equals(XML_MOON) ) {
+             _avTable.noNotifySet(ATTR_MOON, value, 0);
+             return;
+         }
+
+         if ( _previousXmlElement.equals(XML_CLOUD) ) {
+             _avTable.noNotifySet(ATTR_CLOUD, value, 0);
+             return;
+         }
+
       }
 
       if(name.equals(XML_MIN)) {
@@ -459,17 +466,30 @@ processXmlElementContent(String name, String value)
             _avTable.noNotifySet(ATTR_CSO_TAU_MIN, value, 0);
 	    return;
 	 }
+
+         if(_previousXmlElement.equals(XML_SKY)) {
+            _avTable.noNotifySet(ATTR_SKY_MIN, value, 0);
+	    return;
+	 }
+
+         if ( _previousXmlElement.equals(XML_MOON) ) {
+             return;
+         }
+
+         if ( _previousXmlElement.equals(XML_CLOUD) ) {
+             return;
+         }
       }
 
-      if(name.equals(XML_MOON)) {
-        _avTable.noNotifySet(ATTR_MOON, value, 0);
-	return;
-      }
-
-      if(name.equals(XML_CLOUD)) {
-        _avTable.noNotifySet(ATTR_CLOUD, value, 0);
-	return;
-      }
+//       if(name.equals(XML_MOON)) {
+//         _avTable.noNotifySet(ATTR_MOON, value, 0);
+// 	return;
+//       }
+// 
+//       if(name.equals(XML_CLOUD)) {
+//         _avTable.noNotifySet(ATTR_CLOUD, value, 0);
+// 	return;
+//       }
    }
    catch(Exception e) {
       e.printStackTrace();

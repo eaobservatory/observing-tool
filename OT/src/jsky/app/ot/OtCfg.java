@@ -463,6 +463,13 @@ public final class OtCfg
 	tnw.setBothImageSrc("ot/images/orFolder.gif");
 	clientData = new OtClientData(tnw, "ot.editor.EdOrFolder");
 	SpFactory.OR_FOLDER.setClientData(clientData);
+
+        // Survey Container (SDW Oct 2004)
+        tnw        = new OtObsContainerTreeNodeWidget();
+        tnw.setBothImageSrc("ot/images/surveyContainer.gif");
+	clientData = new OtClientData(tnw, "ot.editor.EdSurvey");
+	SpFactory.SURVEY_CONTAINER.setClientData(clientData);
+        
     }
 
 

@@ -15,6 +15,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import jsky.app.ot.editor.OtItemEditor;
@@ -349,5 +350,15 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer {
      */
     public void setResizable(boolean b) {
 	// XXX allan _resizable = b;
+    }
+
+    // Needed for survey component editor, added by MFO, January 08, 2003
+    public JButton getUndoButton() {
+        return _undoButton;
+    }
+
+    // Needed for survey component editor, added by MFO, January 08, 2003
+    public JButton getShowEditPencilButton() {
+        return _showEditPencil;
     }
 }

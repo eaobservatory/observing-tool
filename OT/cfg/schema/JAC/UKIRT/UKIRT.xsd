@@ -31,6 +31,7 @@
   </xsd:sequence>
 </xsd:group>
 
+
 <xsd:simpleType name="chopThrowLimits">
   <xsd:restriction base="toml:chopThrowLimits">
     <xsd:maxInclusive value="30.0"/>
@@ -82,7 +83,37 @@
 
 </xsd:redefine>
 
-<xsd:include schemaLocation="../../TOMLelements.xsd"/>
+<xsd:redefine schemaLocation="../../TOMLelements.xsd">
+
+<xsd:group name="ProgInfoGroup">
+    <xsd:sequence>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_filename"/>
+      <xsd:group ref="toml:ProgInfoGroup"/>
+    </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="schedBlockGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+    <xsd:element ref="toml:componentRef" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group ref="toml:schedBlockGroup"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="observationGroup">
+  <xsd:sequence>
+    <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+    <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+    <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element ref="toml:chainedToNext"      minOccurs="0"/>
+    <xsd:element ref="toml:chainedToPrev"      minOccurs="0"/>
+    <xsd:group   ref="toml:observationGroup"/>
+  </xsd:sequence>
+</xsd:group>
+
+</xsd:redefine>
+
 <xsd:include schemaLocation="../JACelements.xsd"/>
 <xsd:include schemaLocation="../JACcomponents.xsd"/>
 <xsd:include schemaLocation="../JACfolders.xsd"/>

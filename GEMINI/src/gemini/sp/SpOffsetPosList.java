@@ -6,11 +6,17 @@
 //
 package gemini.sp;
  
+import java.awt.Point;
+
 import java.util.Enumeration;
 import java.util.Vector;
 
+import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosList;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.sp.iter.SpIterSky;
 
 /**
  * A data object that describes a list of telescope offset positions.
@@ -21,12 +27,16 @@ public final class SpOffsetPosList extends TelescopePosList
    // The name of the attribute that holds the target list
    public static final String OFFSET_POS_LIST = "offsetPositions";
 
+   // The name of the attribute that golds the sky list
+   public static final String SKY_POS_LIST = "skyPositions";
+
    /** The name of the attribute that holds the position angle. */
    public static String ATTR_POS_ANGLE = "PA";
 
 
    private SpAvTable _avTab;	// The table that holds the positions
    private Vector    _posList;	// A vector of SpOffsetPos objects
+   private Vector    _skyOffsets = new Vector();
 
 /**
  * Create with a an attribute/value table.
@@ -93,6 +103,12 @@ getAllPositions(SpAvTable avTab, SpOffsetPosList list)
    return v;
 }
 
+/**
+  * Return the current sky offsets
+  */
+public Vector getSkyOffsets() {
+    return _skyOffsets;
+}
 
 /**
  * Get the position angle of offset position list.
@@ -140,6 +156,25 @@ _getUniqueTag()
    }
 
    return SpOffsetPos.OFFSET_TAG + i;
+}
+
+
+//
+// Get a unique sky tag for the offset position.
+//
+private synchronized String
+_getUniqueSkyTag()
+{
+   int i;
+   int size = _avTab.size(SKY_POS_LIST);
+   for (i=0; i<size; ++i) {
+      String tag = _avTab.get(SpOffsetPos.SKY_TAG + i);
+      if (tag == null) {
+         break;
+      }
+   }
+
+   return SpOffsetPos.SKY_TAG + i;
 }
 
 
@@ -216,6 +251,21 @@ _addOffsetPosition(String tag)
       _avTab.set(OFFSET_POS_LIST, tag);
    } else {
       _avTab.set(OFFSET_POS_LIST, tag, size);
+   }
+}
+
+//
+// Add the given sky tag to the list of user positions.
+//
+private synchronized void
+_addSkyOffsetPosition(String tag)
+{
+   // Add the tag to the list of user tags
+   int size = _avTab.size(SKY_POS_LIST);
+   if (size == 0) {
+      _avTab.set(SKY_POS_LIST, tag);
+   } else {
+      _avTab.set(SKY_POS_LIST, tag, size);
    }
 }
 
@@ -566,6 +616,31 @@ positionToFront(SpOffsetPos op)
       _notifyOfReorder(op);
    }
    return i;
+}
+
+/**
+  * Reset sky offset positions.  Just clears the current entries.
+  */
+public void resetSkyPositions() {
+    _skyOffsets.clear();
+}
+
+/**
+  * Create sky offset. Sky offsets are created in their own space and
+  * should not interact with the real position list (_posList).  They
+  * are assumed to be at the same PA as the current posList.
+  */
+public SpOffsetPos createSkyPosition( double xoff, double yoff) {
+    SpOffsetPos op;
+    synchronized(this) {
+        String tag = _getUniqueSkyTag();
+        _addSkyOffsetPosition (tag);
+
+        op = new SpOffsetPos( _avTab, tag, this);
+        op.noNotifySetXY(xoff, yoff);
+        _skyOffsets.addElement(op);
+    }
+    return op;
 }
 
 /**

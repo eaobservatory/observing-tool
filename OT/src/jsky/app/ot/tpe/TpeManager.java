@@ -11,6 +11,7 @@ import java.util.Vector;
 import javax.swing.JDesktopPane;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp;
 import jsky.util.gui.DialogUtil;
 import jsky.app.jskycat.JSkyCat;
 
@@ -80,7 +81,8 @@ public final class TpeManager implements TpeWatcher
      * the editor.
      */
     public static TelescopePosEditor get(SpItem spItem) {
-	SpItem    root = SpTreeMan.findRootItem(spItem);
+	SpItem    root = findRootItem(spItem);
+
 	TpeManager man = (TpeManager) _map.get(root);
 	if (man == null) {
 	    return null;
@@ -94,7 +96,8 @@ public final class TpeManager implements TpeWatcher
      */
     public static TelescopePosEditor open(SpItem spItem) {
       try {
-	SpItem    root = SpTreeMan.findRootItem(spItem);
+	SpItem    root = findRootItem(spItem);
+
 	TpeManager man = (TpeManager) _map.get(root);
 
 	if (man == null) {
@@ -128,10 +131,10 @@ public final class TpeManager implements TpeWatcher
      * Associate the TPE with a new root SpItem.
      */
     public static void remap(SpItem oldItem, SpItem newItem) {
-	SpItem    oldRoot = SpTreeMan.findRootItem(oldItem);
+	SpItem    oldRoot = findRootItem(oldItem);
 	TpeManager    man = (TpeManager) _map.get(oldRoot);
 
-	SpItem newRoot = SpTreeMan.findRootItem(newItem);
+	SpItem newRoot = findRootItem(newItem);
 	if (man != null) {
 	    _map.remove(oldRoot);
 	    man._spItem = newRoot;
@@ -153,7 +156,7 @@ public final class TpeManager implements TpeWatcher
      * Remove the editor.
      */
     public static void remove(SpItem spItem) {
-	SpItem    root = SpTreeMan.findRootItem(spItem);
+	SpItem    root = findRootItem(spItem);
 	TpeManager man = (TpeManager) _map.get(root);
 
 	if (man != null) {
@@ -168,7 +171,7 @@ public final class TpeManager implements TpeWatcher
      * is associated with the program (plan, or library) of the given item.
      */
     public synchronized static void addWatcher(TpeManagerWatcher watcher, SpItem spItem) {
-	SpItem spRoot = SpTreeMan.findRootItem(spItem);
+	SpItem spRoot = findRootItem(spItem);
 	Vector v      = (Vector) _openWatchers.get(spRoot);
 	if (v == null) {
 	    v = new Vector();
@@ -186,7 +189,7 @@ public final class TpeManager implements TpeWatcher
      * Delete a watcher.
      */
     public synchronized static void deleteWatcher(TpeManagerWatcher watcher, SpItem spItem) {
-	SpItem spRoot = SpTreeMan.findRootItem(spItem);
+	SpItem spRoot = findRootItem(spItem);
 	Vector v      = (Vector) _openWatchers.get(spRoot);
 	if (v == null) return;
 
@@ -207,7 +210,7 @@ public final class TpeManager implements TpeWatcher
      * Get a copy of the _openWatchers Vector.
      */
     private synchronized static Vector _getWatchers(SpItem spItem) {
-	SpItem spRoot = SpTreeMan.findRootItem(spItem);
+	SpItem spRoot = findRootItem(spItem);
 	Vector v      = (Vector) _openWatchers.get(spRoot);
 	if (v == null) return null;
 
@@ -226,5 +229,16 @@ public final class TpeManager implements TpeWatcher
 	    TpeManagerWatcher watcher = (TpeManagerWatcher) v.elementAt(i);
 	    watcher.tpeOpened(tpe);
 	}
+    }
+
+
+    public static SpItem findRootItem(SpItem spItem) {
+	if((spItem instanceof SpTelescopeObsComp) && (((SpTelescopeObsComp)spItem).getSurveyComponent() != null)) {
+	  return SpTreeMan.findRootItem(((SpTelescopeObsComp)spItem).getSurveyComponent());
+	}
+	else {
+	  return SpTreeMan.findRootItem(spItem);
+	}
+
     }
 }

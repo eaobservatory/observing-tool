@@ -68,5 +68,31 @@
   </xsd:complexType>
 </xsd:element>
 
+<!-- SURVEY CONTAINER -->
+<xsd:element name="SpSurveyContainer">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element name="TargetList">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Target" minOccurs="1" maxOccurs="unbounded">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element ref="toml:SpTelescopeObsComp" minOccurs="1" maxOccurs="unbounded"/>
+                </xsd:sequence>
+                <xsd:attribute name="priority"  type="toml:priorityType"/>
+                <xsd:attribute name="remaining" type="xsd:integer"/>
+              </xsd:complexType>
+            </xsd:element> <!-- End of Target element -->
+          </xsd:sequence>
+       </xsd:complexType>
+      </xsd:element> <!-- End of element TargetList -->
+      <xsd:group ref="toml:surveyContent"  minOccurs="1"  maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="sc"/>
+    <xsd:attribute name="subtype" type="xsd:string"  fixed="survey"/>
+  </xsd:complexType>
+</xsd:element>
 
 </xsd:schema>

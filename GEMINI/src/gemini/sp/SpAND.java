@@ -42,6 +42,9 @@ public class SpAND extends SpObsContextItem {
           elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
 	}
       }
+      else if ( spItem instanceof SpSurveyContainer ) {
+          elapsedTime += ((SpSurveyContainer)spItem).getTotalTime();
+      }
     }
 
     return elapsedTime;
@@ -60,6 +63,9 @@ public class SpAND extends SpObsContextItem {
 
       if(spItem instanceof SpMSB) {
         elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+      }
+      else if ( spItem instanceof SpSurveyContainer ) {
+          elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
       }
     }
 

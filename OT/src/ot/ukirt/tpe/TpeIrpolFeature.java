@@ -2,7 +2,6 @@
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
-// $Id$
 //
 package ot.ukirt.tpe;
 
@@ -175,6 +174,10 @@ _calc(FitsImageInfo fii)
        _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
        _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));
       }else if (_inst instanceof SpInstUIST) {
+       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
+       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));
+      }else if (_inst instanceof SpInstWFCAM) {
        _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(45.0));
        _iw.skyRotate(_oobtArea, Angle.degreesToRadians(45.0));
        _iw.skyRotate(_oobbArea, Angle.degreesToRadians(45.0));

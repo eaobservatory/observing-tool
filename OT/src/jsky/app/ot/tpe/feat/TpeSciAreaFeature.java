@@ -214,6 +214,7 @@ _calc(FitsImageInfo fii)
    _iw.skyRotate(_tickMarkPD, _sciArea.posAngleRadians);
 
    _valid = true;
+
    return true;
 }
 
@@ -228,6 +229,19 @@ draw(Graphics g, FitsImageInfo fii)
    }
 
    g.setColor(Color.cyan);
+
+
+   // Check whether _instItem is a multi-detector instrument.
+   // If it is then draw the footprint directly from the values returned
+   // by _instItem.getScienceArea() and do not use _sciArea, _sciAreaPD, _calc etc.
+   double [] sciAreaValues = _instItem.getScienceArea();
+   if((sciAreaValues != null) && (sciAreaValues.length == 4)) {
+     drawMultiDetectorFootprint(g, sciAreaValues);
+
+     // Currently no tick mark or dragging for multi-detector footprint.
+     return;
+   }
+
    g.drawPolygon(_sciAreaPD.getAWTPolygon());
 
    // If the shape is circular then forget about tick mark and dragging.
@@ -246,6 +260,102 @@ draw(Graphics g, FitsImageInfo fii)
       String s = _instItem.getPosAngleDegreesStr();
       DrawUtil.drawString(g, s, Color.cyan, Color.black, baseX, baseY);
    }
+}
+
+/**
+ * Draw a multi-detector footprint.
+ */
+public void
+drawMultiDetectorFootprint(Graphics g, double [] sciAreaValues) {
+   double width   = sciAreaValues[0];
+   double height  = sciAreaValues[1];
+   double xoffset = sciAreaValues[2];
+   double yoffset = sciAreaValues[3];
+
+   int [] xpoints = new int[4];
+   int [] ypoints = new int[4];
+
+   Point2D.Double p = null;
+   Polygon awtPolygon = null;
+
+   p = _iw.offsetToImageWidget( xoffset + (0.5 * width),  yoffset + (0.5 * height));
+   xpoints[0] = (int)p.x;
+   ypoints[0] = (int)p.y;
+
+   p = _iw.offsetToImageWidget( xoffset + (0.5 * width),  yoffset - (0.5 * height));
+   xpoints[1] = (int)p.x;
+   ypoints[1] = (int)p.y;
+
+   p = _iw.offsetToImageWidget( xoffset - (0.5 * width),  yoffset - (0.5 * height));
+   xpoints[2] = (int)p.x;
+   ypoints[2] = (int)p.y;
+
+   p = _iw.offsetToImageWidget( xoffset - (0.5 * width),  yoffset + (0.5 * height));
+   xpoints[3] = (int)p.x;
+   ypoints[3] = (int)p.y;
+
+   awtPolygon = new Polygon(xpoints, ypoints, xpoints.length);
+   g.drawPolygon(awtPolygon);
+
+   p = _iw.offsetToImageWidget( xoffset + (0.5 * width), -yoffset + (0.5 * height));
+   xpoints[0] = (int)p.x;
+   ypoints[0] = (int)p.y;
+
+   p = _iw.offsetToImageWidget( xoffset + (0.5 * width), -yoffset - (0.5 * height));
+   xpoints[1] = (int)p.x;
+   ypoints[1] = (int)p.y;
+
+   p = _iw.offsetToImageWidget( xoffset - (0.5 * width), -yoffset - (0.5 * height));
+   xpoints[2] = (int)p.x;
+   ypoints[2] = (int)p.y;
+
+   p = _iw.offsetToImageWidget( xoffset - (0.5 * width), -yoffset + (0.5 * height));
+   xpoints[3] = (int)p.x;
+   ypoints[3] = (int)p.y;
+
+   awtPolygon = new Polygon(xpoints, ypoints, xpoints.length);
+   g.drawPolygon(awtPolygon);
+
+
+   p = _iw.offsetToImageWidget(-xoffset + (0.5 * width), -yoffset + (0.5 * height));
+   xpoints[0] = (int)p.x;
+   ypoints[0] = (int)p.y;
+
+   p = _iw.offsetToImageWidget(-xoffset + (0.5 * width), -yoffset - (0.5 * height));
+   xpoints[1] = (int)p.x;
+   ypoints[1] = (int)p.y;
+
+   p = _iw.offsetToImageWidget(-xoffset - (0.5 * width), -yoffset - (0.5 * height));
+   xpoints[2] = (int)p.x;
+   ypoints[2] = (int)p.y;
+
+
+   p = _iw.offsetToImageWidget(-xoffset - (0.5 * width), -yoffset + (0.5 * height));
+   xpoints[3] = (int)p.x;
+   ypoints[3] = (int)p.y;
+
+   awtPolygon = new Polygon(xpoints, ypoints, xpoints.length);
+   g.drawPolygon(awtPolygon);
+
+
+   p = _iw.offsetToImageWidget(-xoffset + (0.5 * width),  yoffset + (0.5 * height));
+   xpoints[0] = (int)p.x;
+   ypoints[0] = (int)p.y;
+
+   p = _iw.offsetToImageWidget(-xoffset + (0.5 * width),  yoffset - (0.5 * height));
+   xpoints[1] = (int)p.x;
+   ypoints[1] = (int)p.y;
+
+   p = _iw.offsetToImageWidget(-xoffset - (0.5 * width),  yoffset - (0.5 * height));
+   xpoints[2] = (int)p.x;
+   ypoints[2] = (int)p.y;
+
+   p = _iw.offsetToImageWidget(-xoffset - (0.5 * width),  yoffset + (0.5 * height));
+   xpoints[3] = (int)p.x;
+   ypoints[3] = (int)p.y;
+
+   awtPolygon = new Polygon(xpoints, ypoints, xpoints.length);
+   g.drawPolygon(awtPolygon);
 }
 
 /**

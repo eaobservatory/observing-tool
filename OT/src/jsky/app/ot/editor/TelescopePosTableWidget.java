@@ -150,6 +150,7 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	if (tpl != _tpl) return;
 
 	// Add the row to the table
+        //System.out.println("tpl instance of " + tpl.getClass().getName() );
 	int    i = tpl.getPositionIndex(tp);
 	Vector v = _createPosRow((SpTelescopePos) tp);
 	absInsertRowAt(v, i);

@@ -161,6 +161,12 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		} else if (InstCfg.matchAttr (instInfo, "default_focus_coadds")) {
                     DEFAULT_FOCUS_COADDS = 
                        Integer.valueOf(instInfo.getValue()).intValue();
+                } else if ( instInfo.getKeyword().equalsIgnoreCase( "instrument_aper" ) ) {
+                    INSTRUMENT_APER = instInfo.getValueAsArray();
+                    setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
+                    setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
+                    setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
+                    setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
 		} else {
                     System.out.println("Unmatched keyword:" + instInfo.getKeyword());
 		}
@@ -442,5 +448,12 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
                             (DETECTOR_SIZE * (1.0 + (DETECTOR_SPACING / 100.0))) / 2.0,
                             (DETECTOR_SIZE * (1.0 + (DETECTOR_SPACING / 100.0))) / 2.0
                           };
+    }
+
+    public void setInstAper() {
+        setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
+        setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
+        setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
+        setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
     }
 }

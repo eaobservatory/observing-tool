@@ -29,6 +29,7 @@ import gemini.sp.SpLibrary;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpNote;
+import gemini.sp.SpSurveyContainer;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpInstObsComp;
@@ -400,6 +401,81 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	}
 	SpItem destItem = destTNW.getItem();
 
+        /*
+         * The following are additional checks needed for the survey component.
+         * The following checks are performed (but only when inserting an SpMSB
+         * or an SpObs) - 
+         * 1. If the Survey Component is outside an MSB
+         *   1.1 Only one MSB can be added, but any number of
+         *       SpObs can be added within that MSB
+         *   1.2 A single SpObs can also be added but it must
+         *       be marked as an SpMSB
+         * 2. If the Survey Component is inside an MSB
+         *   2.1 We can not add another SpMSB within the survey component
+         *   2.2 Any number of SpObs can be added inside the survey component
+         *   2.3 Make sure that the SpObs is not an MSB (needed for copy/paste)
+         */
+        // See if we have a Survey component is scope
+        boolean scInScope = false;  // Survey Container in scope
+        boolean scInMSB   = false;  // Survey Container in MSB
+        SpItem  sc = null;
+        if ( destItem instanceof SpSurveyContainer ) {
+            scInScope = true;
+            sc = destItem;
+        }
+        SpItem parent = destItem.parent();
+        while ( parent != null ) {
+            if (parent instanceof SpSurveyContainer ) {
+                scInScope = true;
+                sc = parent;
+            }
+            if ( parent instanceof SpMSB && scInScope ) {
+                scInMSB = true;
+            }
+            parent = parent.parent();
+        }
+
+        // Now do the checks.  We only need to do it if we have a survey component is scope
+        if ( scInScope ) {
+            for ( int i=0; i<newItems.length; i++ ) {
+                if ( newItems[i] instanceof SpMSB ) {
+                    if ( !scInMSB ) {
+                        // If the newItem is an SpObs, we can legally insert it if
+                        // the destination is an MSB (insertInside)
+                        // or an SpObs which is not an MSB (insertAfter)
+                        if ( newItems[i] instanceof SpObs && 
+                                ( destItem instanceof SpMSB || 
+                                  ( destItem  instanceof SpObs && !((SpObs)destItem).isMSB() ) 
+                                  ) 
+                                ) {
+                            continue;
+                        }
+                        Enumeration children = sc.children();
+                        while ( children.hasMoreElements() ) {
+                            SpItem child = (SpItem)children.nextElement();
+                            if ( child instanceof SpObs && ((SpObs)child).isMSB() ) {
+                                DialogUtil.error(this, "A Survey folder can contain at most 1 MSB and the current Obs is an MSB");
+                                return null;
+                            }
+                            else if ( child instanceof SpMSB && !(child instanceof SpObs) ) {
+                                DialogUtil.error(this, "A Survey folder can contain at most 1 MSB");
+                                return null;
+                            }
+                        }
+                    }
+                    else {
+                        if ( !(newItems[i] instanceof SpObs) ) {
+                            DialogUtil.error(this, "A Survey folder within an MSB can not contain another MSB");
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+        
 	// First see if we can insert the items inside the selected node
 	SpInsertData spID;
 	spID = SpTreeMan.evalInsertInside(newItems, destItem);
@@ -823,14 +899,14 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      * Items were added to the program, add corresponding tree nodes.
      */
     public void	spItemsAdded(SpItem parent, SpItem[] children, SpItem afterChild)  {
-	//System.out.println("------------- spItemsAdded");
-	//System.out.println("*** parent     = " + parent);
-	//System.out.println("*** chilren:");
-	//for (int i=0; i<children.length; ++i) {
-	//   System.out.println("    " + children[i]);
-	//}
-	//System.out.println("*** afterChild = " + afterChild);
-	//System.out.println("--------------------------");
+// 	System.out.println("------------- spItemsAdded");
+// 	System.out.println("*** parent     = " + parent);
+// 	System.out.println("*** chilren:");
+// 	for (int i=0; i<children.length; ++i) {
+// 	   System.out.println("    " + children[i]);
+// 	}
+// 	System.out.println("*** afterChild = " + afterChild);
+// 	System.out.println("--------------------------");
 
 
 	// Get the parent TNW

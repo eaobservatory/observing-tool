@@ -21,12 +21,16 @@ public class SpRootItem extends SpObsContextItem
     /** The version of the OT used to generate this file */
     public static final String ATTR_OT_VERSION = "ot_version";
 
+    /** The telescope name */
+    public static final String ATTR_TELESCOPE = "telescope";
+
 /**
  * Default constructor.
  */
 protected SpRootItem(SpType spType)
 {
    super(spType);
+   setTelescope();
    setEditFSM( new SpEditState(this) );
 }
 
@@ -69,6 +73,16 @@ printDocument(OutputStream os)
 {
    SpOutputSGML out = new SpOutputSGML(os);
    out.printDocument(this);
+}
+
+/**
+  * Set the telescope name - based on input TELESCOPE
+  */
+
+public void setTelescope() {
+    String name="";
+    name = System.getProperty("TELESCOPE");
+    _avTable.set(ATTR_TELESCOPE, name);
 }
 
 public void setOTVersion() {

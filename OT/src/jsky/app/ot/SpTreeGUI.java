@@ -189,6 +189,19 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 	    }
 	};
 
+    /** Action to use for the "SurveyFolder" menu and toolbar items */
+    protected AbstractAction surveyFolderAction = new AbstractAction("surveyFolder") {
+	    public void actionPerformed(ActionEvent evt) {
+		try {
+		    addSurveyFolder();
+		}
+		catch(Exception e) {
+		    DialogUtil.error(SpTreeGUI.this, e);
+		}
+	    }
+	};
+
+
 
     /** Action to use for the "ObsFolder" menu and toolbar items */
     protected AbstractAction obsFolderAction = new AbstractAction("Folder") {
@@ -385,6 +398,10 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
     }
 
     /** Create an observation folder. */
+    public void addSurveyFolder() {
+    }
+
+    /** Create an observation folder. */
     public void addFolder() {
     }
 
@@ -497,9 +514,10 @@ public class SpTreeGUI extends JPanel implements GenericToolBarTarget {
 
     // The following three methods were added for the OMP project.
     // (MFO, 09 July 2001)
-    public AbstractAction getMsbFolderAction() {return msbFolderAction;}
-    public AbstractAction getAndFolderAction() {return andFolderAction;}
-    public AbstractAction getOrFolderAction()  {return  orFolderAction;}
+    public AbstractAction getMsbFolderAction()     {return msbFolderAction;}
+    public AbstractAction getAndFolderAction()     {return andFolderAction;}
+    public AbstractAction getOrFolderAction()      {return  orFolderAction;}
+    public AbstractAction getSurveyFolderAction()  {return  surveyFolderAction;}
 
     public AbstractAction getPosEditorAction() {return posEditorAction;}
     public AbstractAction getPrioritizeAction() {return prioritizeAction;}

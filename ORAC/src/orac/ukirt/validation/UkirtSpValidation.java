@@ -48,7 +48,8 @@ public class UkirtSpValidation extends SpValidation {
 				   "IRCAM3",
 				   "UFTI",
 				   "Michelle",
-		                   "UIST"
+		                   "UIST",
+                                   "WFCAM"
                                  };
 
   /**
@@ -192,6 +193,9 @@ public class UkirtSpValidation extends SpValidation {
     else if(spInstObsComp instanceof orac.ukirt.inst.SpInstUIST) {
       (new UISTValidation()).checkInstrument(spInstObsComp, report);
     }
+    else if(spInstObsComp instanceof orac.ukirt.inst.SpInstWFCAM) {
+      (new WFCAMValidation()).checkInstrument(spInstObsComp, report);
+    }
     else if(spInstObsComp instanceof orac.ukirt.inst.SpInstIRCAM3) {
       (new IRCAM3Validation()).checkInstrument(spInstObsComp, report);
     }
@@ -279,6 +283,7 @@ public class UkirtSpValidation extends SpValidation {
           if( currentInstObsComp instanceof SpInstCGS4 ||
               currentInstObsComp instanceof SpInstMichelle ||
               currentInstObsComp instanceof SpInstUIST ||
+              currentInstObsComp instanceof SpInstWFCAM ||
 	      currentInstObsComp instanceof SpInstIRCAM3 ) {
 	    report.add(new ErrorMessage(ErrorMessage.ERROR,
 	                                "FP iterator",
@@ -293,6 +298,7 @@ public class UkirtSpValidation extends SpValidation {
         if(currentIterator instanceof SpIterIRPOL) {
           if( currentInstObsComp instanceof SpInstMichelle ||
               currentInstObsComp instanceof SpInstUIST ||
+              currentInstObsComp instanceof SpInstWFCAM ||
 	      currentInstObsComp instanceof SpInstIRCAM3 ) {
 	    report.add(new ErrorMessage(ErrorMessage.ERROR,
 	                                "IRPOL iterator",
@@ -325,13 +331,23 @@ public class UkirtSpValidation extends SpValidation {
     }
 
     // Check whether the observation has a target list (as its own child OR in its context).
-    if(SpTreeMan.findTargetList(spObs) == null) {
+    // Also need to check if this observation has a survey container as a parent.
+    boolean hasSurveyParent = false;
+    SpItem parent = spObs.parent();
+    while ( parent != null ) {
+        if ( parent instanceof SpSurveyContainer ) {
+            hasSurveyParent = true;
+            break;
+        }
+        parent = parent.parent();
+    }
+    if(SpTreeMan.findTargetList(spObs) == null && !hasSurveyParent ) {
       report.add(new ErrorMessage(ErrorMessage.WARNING,
                                   spObs.getTitle(),
 				  "No target list."));
     }
     else {
-      if(!_isSpProgCheck) {
+      if(!_isSpProgCheck && !hasSurveyParent) {
 	checkTargetList(SpTreeMan.findTargetList(spObs), report);
       }	
     }
@@ -1199,12 +1215,14 @@ print(SpItem spItem, String indentStr)
     spItem = new SpInstIRCAM3();
     spItem = new SpInstMichelle();
     spItem = new SpInstUIST();
+    spItem = new SpInstWFCAM();
     spItem = new SpDRRecipe();
     spItem = new SpIterBiasObs();
     spItem = new SpIterDarkObs();
     spItem = new SpIterCGS4();
     spItem = new SpIterMichelle();
     spItem = new SpIterUFTI();
+    spItem = new SpIterWFCAM();
     spItem = new SpIterIRCAM3();
     spItem = new SpIterCGS4CalUnit();
     spItem = new SpIterCGS4CalObs();

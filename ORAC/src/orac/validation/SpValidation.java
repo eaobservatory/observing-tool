@@ -8,6 +8,7 @@ import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpItem;
 import gemini.sp.SpNote;
+import gemini.sp.SpSurveyContainer;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
@@ -83,10 +84,10 @@ public class SpValidation {
 	//         SpInst...
         //         SpSiteQualityObsComp
         //         SptelescopeObsComp
- 	checkInheritedComponents(doc, "SpMSB", "SpTelescopeObsComp", "Target Information", report);
+ 	//checkInheritedComponents(doc, "SpMSB", "SpTelescopeObsComp", "Target Information", report);
 	checkInheritedComponents(doc, "SpMSB", "SpSiteQualityObsComp", "Site Quality", report);
 	checkInheritedComponents(doc, "SpMSB", "SpInst", "Instrument", report);
-	checkInheritedComponents(doc, "SpObs", "SpTelescopeObsComp", "Target Information", report);
+	//checkInheritedComponents(doc, "SpObs", "SpTelescopeObsComp", "Target Information", report);
 	checkInheritedComponents(doc, "SpObs", "SpSiteQualityObsComp", "Site Quality", report);
 	checkInheritedComponents(doc, "SpObs", "SpInst", "Instrument", report);
 
@@ -117,9 +118,9 @@ public class SpValidation {
 	excludedChildren.clear();
 	excludedChildren.add("SpOR");
 	checkForChildren(doc, "SpOR", mandatoryChildren, excludedChildren, report);
-	mandatoryChildren.clear();
-	mandatoryChildren.add("SpObs");
-	checkForChildren(doc, "SpMSB", mandatoryChildren, null, report);
+// 	mandatoryChildren.clear();
+// 	mandatoryChildren.add("SpObs");
+// 	checkForChildren(doc, "SpMSB", mandatoryChildren, null, report);
     }
   }
 
@@ -217,6 +218,22 @@ public class SpValidation {
     }
 
 
+    // Following check added - if the MSB parent is a survey container, and
+    // the MSB has a TargetComponent as a child, this is an error
+    if ( spMSB.parent() instanceof SpSurveyContainer && !(spMSB instanceof SpObs) ) {
+        Enumeration children = spMSB.children();
+        while ( children.hasMoreElements() ) {
+            SpItem child = (SpItem)children.nextElement();
+            if ( child instanceof SpTelescopeObsComp ) {
+                report.add( new ErrorMessage( ErrorMessage.ERROR,
+                            "An MSB within a Survey Container may not contain a Target Component",
+                            "SC/MSB/Target not allowed"));
+                break;
+            }
+        }
+    }
+
+    
     if(spMSB instanceof SpObs) {
       checkObservation((SpObs)spMSB, report);
     }

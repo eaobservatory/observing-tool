@@ -20,10 +20,13 @@ import gemini.util.TelescopePosWatcher;
 import gemini.util.CoordSys;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpOffsetPosList;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.awt.geom.Point2D;
 
 
@@ -299,9 +302,13 @@ _initPosTable()
    _posTable.clear();
    _tpl.addWatcher(this);  // We are a TelescopePosListWatcher
  
-   TelescopePos[] tpA = _tpl.getAllPositions();
-   for (int i=0; i<tpA.length; ++i) {
-      TelescopePos tp = tpA[i];
+   //TelescopePos[] tpA = _tpl.getAllPositions();
+   ArrayList tpA = new ArrayList( Arrays.asList(_tpl.getAllPositions()) );
+   if ( _tpl instanceof SpOffsetPosList ) {
+       tpA.addAll( ((SpOffsetPosList)_tpl).getSkyOffsets() );
+   }
+   for (int i=0; i<tpA.size(); ++i) {
+      TelescopePos tp = (TelescopePos)tpA.get(i);
       tp.addWatcher(this);
 
       Point2D.Double p = telescopePosToImageWidget(tp);

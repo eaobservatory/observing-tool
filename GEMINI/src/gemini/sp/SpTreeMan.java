@@ -2,7 +2,6 @@
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
-// $Id$
 //
 package gemini.sp;
 
@@ -392,11 +391,22 @@ static {
       _insertInside.put("of,p1", ip);
       _insertInside.put("of,lf", libraryPolicy);      
 
+      // Survey components can be inserted either within MSBs or within
+      // root items
+      _insertInside.put("sc,pr", ip);
+      _insertInside.put("sc,pl", ip);
+      _insertInside.put("sc,p1", ip);
+      _insertInside.put("sc,og", ip);
+      _insertInside.put("sc,of", ip);
+      _insertInside.put("sc,fo", ip);
+      _insertInside.put("sc,lf", libraryPolicy);
+      
       // Inserting Obs Folders
       _insertInside.put("fo,pr", ip);
       _insertInside.put("fo,pl", ip);
       _insertInside.put("fo,p1", ip);
       _insertInside.put("fo,of", ip); // MFO
+      _insertInside.put("fo,sc", ip); // SDW
       _insertInside.put("fo,lf", libraryPolicy);
 
       // Inserting Obs Groups
@@ -405,6 +415,7 @@ static {
       _insertInside.put("og,p1", ip);
       _insertInside.put("og,of", ip); // MFO
       _insertInside.put("og,fo", ip);
+      _insertInside.put("og,sc", ip); //SDW
       _insertInside.put("og,lf", libraryPolicy);
 
       // Inserting Observations
@@ -414,6 +425,7 @@ static {
       _insertInside.put("ob,of", ip); // MFO
       _insertInside.put("ob,fo", ip);
       _insertInside.put("ob,og", ip);
+      _insertInside.put("ob,sc", ip);
       _insertInside.put("ob,lf", libraryPolicy);
 
       // Inserting Obs Links
@@ -482,6 +494,7 @@ static {
       _insertInside.put("no,li", ip);
       _insertInside.put("no,if", ip);
       _insertInside.put("no,og", ip);
+      _insertInside.put("no,sc", ip);
       // also _insertInside.put("no,ic", ip); defined above to use
       // the "InsidePolicy_IteratorComp".
 
@@ -522,6 +535,18 @@ static {
       _insertAfter.put("og,no", ip);
       _insertAfter.put("og,if", ip);
       _insertAfter.put("og,og", ip);
+      _insertAfter.put("og,sc", ip);
+
+      // Survey Container
+      _insertAfter.put("sc,of", ip); // MFO
+      _insertAfter.put("sc,fo", ip);
+      _insertAfter.put("sc,ob", ip);
+      _insertAfter.put("sc,og", ip);
+      _insertAfter.put("sc,li", ip);
+      _insertAfter.put("sc,oc", ip);
+      _insertAfter.put("sc,no", ip);
+      _insertAfter.put("sc,if", ip);
+      _insertAfter.put("sc,sc", ip);
 
       // Observations
       _insertAfter.put("ob,of", ip); // MFO
@@ -665,6 +690,26 @@ findTargetListInContext(SpItem spItem)
 }
 
 /**
+ * Find the SpSurveyObsComp assoicated with this context, if any.  Only
+ * searches the given scope.  It does not navigate the tree hierarchy.
+ */
+public static SpSurveyObsComp
+findSurveyCompInContext(SpItem spItem)
+{
+   SpSurveyObsComp soc = null;
+   Enumeration e = spItem.children();
+   while (e.hasMoreElements()) {
+      SpItem child = (SpItem) e.nextElement();
+      if (child instanceof SpSurveyObsComp) {
+         soc = (SpSurveyObsComp) child;
+         break;
+      }
+   }
+   return soc;
+}
+
+
+/**
  * Find the SpInstObsComp assoicated with this context, if any.  Only
  * searches the given scope.  It does not navigate the tree hierarchy.
  */
@@ -745,6 +790,37 @@ findTargetList(SpItem spItem)
       return findTargetList(parent);
    }
    return toc;
+}
+
+/**
+ * Find the survey component associated with the given scope
+ * scope of the given item.
+ *
+ * @param spItem the SpItem defining the scope to search
+ */
+public static SpSurveyObsComp
+findSurveyComp(SpItem spItem)
+{
+   if (spItem instanceof SpSurveyObsComp) {
+      return (SpSurveyObsComp) spItem;
+   }
+
+   SpItem parent = spItem.parent();
+
+   SpSurveyObsComp soc;
+   if (!(spItem instanceof SpObsContextItem)) {
+      if (parent == null) {
+         return null;
+      }
+      soc = findSurveyCompInContext(parent);
+   } else {
+      soc = findSurveyCompInContext(spItem);
+   }
+
+   if ((soc == null) && (parent != null)) {
+      return findSurveyComp(parent);
+   }
+   return soc;
 }
 
 /**

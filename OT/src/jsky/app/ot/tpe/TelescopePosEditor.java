@@ -29,6 +29,7 @@ import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.sp.obsComp.SpSurveyObsComp;
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.tpe.feat.TpeCatalogFeature;
 import jsky.app.ot.util.BasicPropertyList;
@@ -37,6 +38,8 @@ import jsky.app.ot.util.HHMMSS;
 import jsky.catalog.skycat.SkycatConfigFile;
 import jsky.navigator.NavigatorImageDisplayFrame;
 import jsky.navigator.NavigatorImageDisplayInternalFrame;
+import jsky.util.Preferences;
+import jsky.util.TclUtil;
 import jsky.util.gui.BasicWindowMonitor;
 import jsky.util.gui.DialogUtil;
 import jsky.coords.wcscon;
@@ -100,6 +103,8 @@ public class TelescopePosEditor extends JSkyCat
 
     /** Used in {@link #loadImage(java.lang.String)}. */
     private Point2D.Double _convertedPosition = new Point2D.Double();
+
+    private static int _widthIncrement = 0;
 
     static {
 	// Register the standard target list features.
@@ -181,6 +186,37 @@ public class TelescopePosEditor extends JSkyCat
 
 	// Select the "Browse" tool.
 	_editorTools.gotoBrowseMode();
+
+	_widthIncrement = _tpeToolBar.getPreferredSize().width - _tpeToolBar.getWidth();
+    }
+
+    /**
+     * Method used to prevent the bug which causes the TelescopePosEditor window
+     * to shrink every time the OT is started.
+     *
+     * This bug is more severe if longer TpeImageFeature names are used
+     * such as "WFCAM Autoguider" because that results in larger buttons
+     * in the TPE tool bar which cause the problem.
+     */
+    public static void adjustWidthPreference() {
+	try {
+	    // Get hold of dimensions stored in preferences.
+	    String [] imageDisplayControlDimension =
+		TclUtil.splitList(Preferences.get(TpeImageDisplayControl.class.getName() + ".size"));
+
+	    int width = Integer.parseInt(imageDisplayControlDimension[0]);
+
+	    // Increment width.
+	    width += _widthIncrement;
+
+	    imageDisplayControlDimension[0] = "" + width;
+
+ 	      // Set to new value.
+	      Preferences.set(TpeImageDisplayControl.class.getName() + ".size", TclUtil.makeList(imageDisplayControlDimension));
+	}
+	catch(Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     /**
@@ -753,6 +789,11 @@ public class TelescopePosEditor extends JSkyCat
      * If so, a new image may be substituted for the current image.
      */
     public void reset(SpItem spItem) {
+	if(spItem instanceof SpSurveyObsComp) {
+	  SpSurveyObsComp spSurveyObsComp = (SpSurveyObsComp)spItem;
+	  spItem = spSurveyObsComp.getSpTelescopeObsComp(spSurveyObsComp.getSelectedTelObsComp());
+	}
+
 	// Find the telescope position list in the spItem's scope, if any, and
 	// pass it to reset().
 	reset(_getPosList(spItem), spItem);
@@ -779,7 +820,7 @@ public class TelescopePosEditor extends JSkyCat
 
 	    // Watch the spItem hierarchy to know when telescope comps or inst
 	    // comps are inserted into or removed from its scope.
-	    if (SpTreeMan.findRootItem(_spItem) != SpTreeMan.findRootItem(spItem)) {
+	    if (TpeManager.findRootItem(_spItem) != TpeManager.findRootItem(spItem)) {
 		_spItem.getEditFSM().deleteHierarchyChangeObserver(this);
 	    }
 	}

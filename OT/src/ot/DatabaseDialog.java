@@ -105,6 +105,7 @@ public class DatabaseDialog implements ActionListener {
 
     String projectID = ((SpProg)spItem).getProjectID();
     ((SpProg)spItem).setOTVersion();
+    ((SpProg)spItem).setTelescope();
   
     if((projectID == null) || projectID.trim().equals("")) {
       DialogUtil.error(_w, "Please specify a Project ID (Science Program component).");
@@ -286,6 +287,7 @@ public class DatabaseDialog implements ActionListener {
       }
     }
     catch(Exception e) {
+        e.printStackTrace();
       JOptionPane.showMessageDialog(_dialogComponent, "Could not store Science Program.\n" + e.getMessage(),
                                     "Database Error", JOptionPane.ERROR_MESSAGE);
       _stopAction.actionsFinished();

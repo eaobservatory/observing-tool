@@ -6,11 +6,11 @@
 /*                   Copyright (c) PPARC 2001                   */
 /*                                                              */
 /*==============================================================*/
-// $Id$
 
 package gemini.sp;
 
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpSurveyObsComp;
 import java.util.Enumeration;
 import java.lang.Integer;
 
@@ -68,6 +68,7 @@ public class SpMSB extends SpObsContextItem {
    * @see #REMOVED_CODE 
    */
   public static final String REMOVED_STRING = "REMOVED";
+  public static final String REMOVE_STRING = "(UN)REMOVE";
 
     /** This attribute records whether an MSB has been suspended */
     public static final String ATTR_SUSPEND = ":suspend";
@@ -113,7 +114,7 @@ getTitle()
       title = type().getReadable();
    }
 
-   if(getNumberRemaining() == REMOVED_CODE) {
+   if(getNumberRemaining() < 0) {
       return title + " (" + REMOVED_STRING + ")";
    }
    else {
@@ -172,18 +173,15 @@ setPriority(int priority)
 }
 
 /**
- * Set the library verion to the default String.  This should be replaced after
- * the library is commited to CVS.  It is set to the CVS keyword $Revision$.
+ * Set the library verion to the default String.  
  *
  */
 public void setLibraryRevision() {
-    System.out.println("SpMSB::setLibraryRevion() called");
     _avTable.set(ATTR_LIBRARY_VERSION, KEYWORD_IDENTIFIER+LIBRARY_VERSION+KEYWORD_IDENTIFIER);
 }
 
 /**
  * Get the version of the library.  
- * @return It will return $Revision$ if this has been checked into CVS or $Revision$ if not.
  */
 public String getLibraryRevision() {
     return _avTable.get(ATTR_LIBRARY_VERSION);
@@ -252,6 +250,7 @@ public double getTotalTime()
   double elapsedTime = 0.0;
   Enumeration children = children();
   SpItem spItem = null;
+  boolean containsSurvey = false;
 
   while(children.hasMoreElements()) {
     spItem = (SpItem)children.nextElement();
@@ -259,11 +258,17 @@ public double getTotalTime()
     if(spItem instanceof SpObs) {
         elapsedTime += ((SpObs)spItem).getElapsedTime();
     }
+    else if ( spItem instanceof SpSurveyContainer ) {
+        containsSurvey = true;
+        elapsedTime += ((SpSurveyContainer)spItem).getTotalTime();
+    }
   }
 
   SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(this);
 
-  if(spInstObsComp != null) {
+  // Add a slew time if we don't have a Survey child - the Survey child
+  // already adds a slew
+  if(spInstObsComp != null && !containsSurvey ) {
     return elapsedTime + spInstObsComp.getSlewTime();
   }
   else {
@@ -293,15 +298,28 @@ public double getElapsedTime()
 	    elapsedTime += ((SpObs)spItem).getElapsedTime();
 	}
     }
+    else if ( spItem instanceof SpSurveyContainer ) {
+        elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
+    }
   }
 
   SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(this);
 
+  // The targetCount is set assuming that there is either a target list
+  // or a survey component in the scope but not both.
+  int targetCount = 1;
+
+  SpSurveyObsComp surveyObsComp = SpTreeMan.findSurveyComp(this);
+
+  if(surveyObsComp != null) {
+    targetCount = surveyObsComp.size();
+  }
+
   if(spInstObsComp != null) {
-    return elapsedTime + spInstObsComp.getSlewTime();
+    return (elapsedTime + spInstObsComp.getSlewTime()) * targetCount;
   }
   else {
-    return elapsedTime;
+    return elapsedTime * targetCount;
   }  
 }
 

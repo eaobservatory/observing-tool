@@ -3,7 +3,7 @@
 /*                UK Astronomy Technology Centre                */
 /*                 Royal Observatory, Edinburgh                 */
 /*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 1999                   */
+/*                 Copyright (c) PPARC 1999-2003                */
 /*                                                              */
 /*==============================================================*/
 
@@ -30,6 +30,7 @@ import gemini.sp.obsComp.SpObsComp;
  * @author Alan Bridger, UKATC
  * @version 1.0
  * Modified for UIST: 2001-Nov-06 Alan Pickup, UKATC
+ * Modified for WFCAM: 2003-Mar-31 Alan Pickup, UKATC
  *
  */
 public final class SpDRRecipe extends SpObsComp
@@ -40,6 +41,9 @@ public final class SpDRRecipe extends SpObsComp
     public static final String ATTR_ARC_RECIPE     = "ArcRecipe";
     public static final String ATTR_SKY_RECIPE     = "SkyRecipe";
     public static final String ATTR_OBJECT_RECIPE  = "ObjectRecipe";
+    // ADDED BY SDW
+    public static final String ATTR_FOCUS_RECIPE   = "FocusRecipe";
+    // END
     
     public static final String ATTR_BIAS_IN_GROUP    = "BiasInGroup";
     public static final String ATTR_DARK_IN_GROUP    = "DarkInGroup";
@@ -47,12 +51,16 @@ public final class SpDRRecipe extends SpObsComp
     public static final String ATTR_ARC_IN_GROUP     = "ArcInGroup";
     public static final String ATTR_SKY_IN_GROUP     = "SkyInGroup";
     public static final String ATTR_OBJECT_IN_GROUP  = "ObjectInGroup";
+    // ADDED BY SDW
+    public static final String ATTR_FOCUS_IN_GROUP   = "FocusInGroup";
+    // END
     
     public static LookUpTable UFTI;
     public static LookUpTable CGS4;
     public static LookUpTable IRCAM3;
     public static LookUpTable MICHELLE;
     public static LookUpTable UIST;
+    public static LookUpTable WFCAM;
     
     public static String UFTI_DARK_RECIPE_DEFAULT = "REDUCE_DARK";
     public static String UFTI_SKY_RECIPE_DEFAULT = "REDUCE_SKY";
@@ -109,6 +117,23 @@ public final class SpDRRecipe extends SpObsComp
     public static String UIST_SKY_IN_GROUP_DEFAULT = "false";
     public static String UIST_OBJECT_IN_GROUP_DEFAULT = "false";
     
+    public static String WFCAM_BIAS_RECIPE_DEFAULT = "REDUCE_BIAS";
+    public static String WFCAM_DARK_RECIPE_DEFAULT = "REDUCE_DARK";
+    public static String WFCAM_FLAT_RECIPE_DEFAULT = "REDUCE_FLAT";
+    public static String WFCAM_SKY_RECIPE_DEFAULT = "REDUCE_SKY";
+    // ADDED BY SDW
+    public static String WFCAM_FOCUS_RECIPE_DEFAULT = "REDUCE_FOCUS";
+    // END
+    public static String WFCAM_OBJECT_RECIPE_DEFAULT = "QUICK_LOOK";
+    public static String WFCAM_BIAS_IN_GROUP_DEFAULT = "false";
+    public static String WFCAM_DARK_IN_GROUP_DEFAULT = "false";
+    public static String WFCAM_FLAT_IN_GROUP_DEFAULT = "false";
+    public static String WFCAM_SKY_IN_GROUP_DEFAULT = "false";
+    // ADDED BY SDW
+    public static String WFCAM_FOCUS_IN_GROUP_DEFAULT = "false";
+    // END
+    public static String WFCAM_OBJECT_IN_GROUP_DEFAULT = "false";
+    
     public static final SpType SP_TYPE =
 	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "DRRecipe", "DRRecipe");
     
@@ -134,6 +159,7 @@ public final class SpDRRecipe extends SpObsComp
 	_avTable.noNotifySet(ATTR_FLAT_RECIPE, "REDUCE_FLAT", 0);
 	_avTable.noNotifySet(ATTR_ARC_RECIPE, "REDUCE_ARC", 0);
 	_avTable.noNotifySet(ATTR_SKY_RECIPE, "REDUCE_SKY", 0);
+	_avTable.noNotifySet(ATTR_FOCUS_RECIPE, "REDUCE_FOCUS", 0);
 	_avTable.noNotifySet(ATTR_OBJECT_RECIPE, "QUICK_LOOK", 0);
 	_avTable.noNotifySet(ATTR_BIAS_IN_GROUP, "false", 0);
 	_avTable.noNotifySet(ATTR_DARK_IN_GROUP, "false", 0);
@@ -141,6 +167,7 @@ public final class SpDRRecipe extends SpObsComp
 	_avTable.noNotifySet(ATTR_ARC_IN_GROUP, "false", 0);
 	_avTable.noNotifySet(ATTR_SKY_IN_GROUP, "true", 0);
 	_avTable.noNotifySet(ATTR_OBJECT_IN_GROUP, "true", 0);
+	_avTable.noNotifySet(ATTR_FOCUS_IN_GROUP, "false", 0);
     }
     
     private void _readCfgFile (String filename) {
@@ -267,7 +294,35 @@ public final class SpDRRecipe extends SpObsComp
 		    UIST_SKY_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
 		}else if (InstCfg.matchAttr (instInfo, "uist_object_in_group_default")) {
 		    UIST_OBJECT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+
+                }else if (InstCfg.matchAttr (instInfo, "wfcam")) {
+		    WFCAM = instInfo.getValueAsLUT();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_bias_default_recipe")) {
+		    WFCAM_BIAS_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_dark_default_recipe")) {
+		    WFCAM_DARK_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_flat_default_recipe")) {
+		    WFCAM_FLAT_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_sky_default_recipe")) {
+		    WFCAM_SKY_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_object_default_recipe")) {
+		    WFCAM_OBJECT_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_focus_default_recipe")) {
+		    WFCAM_OBJECT_RECIPE_DEFAULT = instInfo.getValue();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_bias_in_group_default")) {
+		    WFCAM_BIAS_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_dark_in_group_default")) {
+		    WFCAM_DARK_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_flat_in_group_default")) {
+		    WFCAM_FLAT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_sky_in_group_default")) {
+		    WFCAM_SKY_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_object_in_group_default")) {
+		    WFCAM_OBJECT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
+		}else if (InstCfg.matchAttr (instInfo, "wfcam_focus_in_group_default")) {
+		    WFCAM_OBJECT_IN_GROUP_DEFAULT = instInfo.getValue().toLowerCase();
 		}
+
 	    }
 	}catch (IOException e) {
 	    System.out.println ("Error reading DRRECIPE cfg file");
@@ -286,6 +341,46 @@ public final class SpDRRecipe extends SpObsComp
 	    title = title + ": " + titleAttr;
 	}
 	return title;
+    }
+
+     /**
+     * Set the DR recipe name.
+     */
+    public void
+	setFocusRecipeName(String text)
+    {
+	if (text == null) text = "REDUCE_FOCUS";
+	_avTable.set(ATTR_FOCUS_RECIPE, text);
+    }
+    
+    /**
+     * Get the DR recipe name.
+     */
+    public String
+	getFocusRecipeName()
+    {
+	String recipe = _avTable.get(ATTR_FOCUS_RECIPE);
+	if  (recipe == null) recipe = "REDUCE_FOCUS";
+	return recipe;
+    }
+    
+    /**
+     * Set FocusInGroup.
+     */
+    public void
+	setFocusInGroup(boolean tf)
+    {
+	_avTable.set(ATTR_FOCUS_IN_GROUP, tf);
+    }
+    
+    /**
+     * Get FocusInGroup.
+     */
+    public boolean
+	getFocusInGroup()
+    {
+	boolean inGroup = _avTable.getBool(ATTR_FOCUS_IN_GROUP);
+	return inGroup;
     }
     
     /**
@@ -623,6 +718,22 @@ public final class SpDRRecipe extends SpObsComp
 	    _avTable.noNotifySet(ATTR_SKY_IN_GROUP, UIST_SKY_IN_GROUP_DEFAULT, 0);
 	    _avTable.noNotifySet(ATTR_OBJECT_IN_GROUP, UIST_OBJECT_IN_GROUP_DEFAULT, 0);
 	    setTitleAttr(UIST_OBJECT_RECIPE_DEFAULT);
+
+        } else if (instName.equalsIgnoreCase("wfcam")) {
+	    _avTable.noNotifySet(ATTR_BIAS_RECIPE, WFCAM_BIAS_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_DARK_RECIPE, WFCAM_DARK_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_FLAT_RECIPE, WFCAM_FLAT_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_FOCUS_RECIPE, WFCAM_FOCUS_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_SKY_RECIPE, WFCAM_SKY_RECIPE_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_OBJECT_RECIPE, WFCAM_OBJECT_RECIPE_DEFAULT, 0);
+	    
+	    _avTable.noNotifySet(ATTR_BIAS_IN_GROUP, WFCAM_BIAS_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_DARK_IN_GROUP, WFCAM_DARK_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_FLAT_IN_GROUP, WFCAM_FLAT_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_FOCUS_IN_GROUP, WFCAM_FOCUS_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_SKY_IN_GROUP, WFCAM_SKY_IN_GROUP_DEFAULT, 0);
+	    _avTable.noNotifySet(ATTR_OBJECT_IN_GROUP, WFCAM_OBJECT_IN_GROUP_DEFAULT, 0);
+	    setTitleAttr(WFCAM_OBJECT_RECIPE_DEFAULT);
 	}  
     }
     

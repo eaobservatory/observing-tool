@@ -63,6 +63,14 @@ public final class SpFactory
    public static final SpItem OR_FOLDER          = new SpOR();
 
 
+   /**
+    * Survey folder for OMP.
+    *
+    * Added by SDW (Oct 2004)
+    */
+   public static final SpItem SURVEY_CONTAINER          = new SpSurveyContainer();
+
+
    // MFO: JCMT/ACSIS and UKIRT use different site quality components
    // so they have to be specified in the config file.
    //public static final SpItem OBSERVATION_COMPONENT_SITE_QUALITY =
@@ -102,6 +110,9 @@ static {
    registerPrototype(MSB_FOLDER);
    registerPrototype(AND_FOLDER);
    registerPrototype(OR_FOLDER);
+
+   // Added by SDW (OCT 2004)
+   registerPrototype(SURVEY_CONTAINER);
    
    // MFO: Changed because UKIRT and JCMT use different site quality components.
    //registerPrototype(OBSERVATION_COMPONENT_SITE_QUALITY);

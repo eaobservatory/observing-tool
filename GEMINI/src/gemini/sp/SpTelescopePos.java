@@ -13,6 +13,7 @@ import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.Format;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -145,6 +146,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
    public static       String   BASE_TAG  = "Base";
    public static final String   USER_TAG  = "User";
    public static String[] GUIDE_TAGS = {"PWFS1", "PWFS2", "OIWFS"};
+   public static ArrayList SKY_TAGS = new ArrayList();
 
    // Indices of the the fields of a position
    /** Index for SpAvTable value (position in value Vector). */
@@ -277,6 +279,8 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
     boolean isSystemTypeSet = false;
     String delayedSystemTypeValue = null;
 
+    private double _boxSize;
+
 
 /**
  * Set the list of tags that represent guide stars.  For instance,
@@ -295,6 +299,11 @@ public static String[]
 getGuideStarTags()
 {
    return GUIDE_TAGS;
+}
+
+public static String[] getSkyTags() {
+    //System.out.println("SkyTags = " + SKY_TAGS);
+    return (String[]) SKY_TAGS.toArray(new String[SKY_TAGS.size()]);
 }
 
 /**
@@ -330,6 +339,10 @@ protected SpTelescopePos(SpItem spItem, SpAvTable avTab,
    super(tag, list);
    _spItem = spItem;
    _avTab  = avTab;
+
+   if ( tag.startsWith("SKY") ) {
+       SKY_TAGS.add(tag);
+   }
 
    if (avTab.exists(tag)) {
       _name = avTab.get(tag, NAME_INDEX);
@@ -670,7 +683,7 @@ setCoordSys(int i)
       _avTab.set(_tag, sysString, COORD_SYS_INDEX);
    }
 
-   if (_tag.equals(BASE_TAG)) {
+   if (_tag.equals(BASE_TAG) || _tag.startsWith("SKY") ) {
       SpObsData od = _spItem.getObsData();
       if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
    }
@@ -1327,6 +1340,14 @@ public boolean
 isOffsetPosition()
 {
    return _avTab.getBool(_tag, OFFSET_POSITION);
+}
+
+public void setBoxSize( double size ) {
+    _boxSize = size;
+}
+
+public double getBoxSize() {
+    return _boxSize;
 }
 
 /**

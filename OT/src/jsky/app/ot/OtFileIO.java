@@ -444,6 +444,7 @@ save(SpRootItem spItem, FileInfo fi)
 
    SpRootItem spRoot = (SpRootItem)spItem.getRootItem();
    spRoot.setOTVersion();
+   spRoot.setTelescope();
 
    boolean hasBeenSaved = storeSp(spItem, f);
 
@@ -474,6 +475,7 @@ saveAs(SpRootItem spItem, FileInfo fi)
 
    SpRootItem spCopy = (SpRootItem) spItem.deepCopy();
    spCopy.setOTVersion();
+   spCopy.setTelescope();
 
    if (!save(spCopy, fi)) {
       fi.hasBeenSaved = hasBeenSaved;

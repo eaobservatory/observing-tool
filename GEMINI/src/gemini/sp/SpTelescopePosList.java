@@ -49,10 +49,12 @@ public SpTelescopePosList(SpItem spItem)
       setTable(_avTab);
    } else {
       _avTab   = new SpAvTable();
+      //System.out.println("Creating new posList");
       _posList = new Vector();
       SpTelescopePos tp = createPosition(SpTelescopePos.BASE_TAG, 0.0, 0.0);
       //tp.setXY("0:00:00", "0:00:00");
    }
+   //System.out.println("After ctor - " + this);
 }
 
 /**
@@ -84,6 +86,7 @@ setTable(SpAvTable avTab)
    }
 
    _notifyOfReset();
+   //System.out.println("After setTable - posList.size()=" + _posList.size());
 }
 
 //
@@ -114,8 +117,17 @@ getAllPositions(SpItem spItem, SpAvTable avTab, SpTelescopePosList list)
    String[] guideTags = SpTelescopePos.getGuideStarTags();
    if (guideTags != null) {
       for (int i=0; i<guideTags.length; ++i) {
-         tp = getPosition(spItem, avTab, guideTags[i], list);
-         if (tp != null) v.addElement(tp);
+          if ( guideTags[i].startsWith("SKY") ) {
+              int index=0;
+              while ( (tp=getPosition( spItem, avTab, guideTags[i]+index, list)) != null ) {
+                  v.addElement(tp);
+                  index++;
+              }
+          }
+          else {
+              tp = getPosition(spItem, avTab, guideTags[i], list);
+              if (tp != null) v.addElement(tp);
+          }
       }
    }
 
@@ -225,6 +237,17 @@ getAllUserPositions()
    return v;
 }
 
+public synchronized Vector getAllTags(String tagType) {
+    Vector v = new Vector();
+    for ( int i=0; i<_posList.size(); i++ ) {
+        String tag = ((SpTelescopePos)_posList.elementAt(i)).getTag();
+        if ( tag.matches(tagType + "[0-9]+") ) {
+            v.add(tag);
+        }
+    }
+    return v;
+}
+
 //
 // Get (create if needed) the array of SpTelescopePos tags in order.
 //
@@ -256,11 +279,13 @@ _getTagOrder()
 private synchronized void
 _placeInPosList(SpTelescopePos tp)
 {
+
    // If this is a user tag (or the first tp to be placed in the list),
    // place the new tp at the end of the list
    if ((_posList.size()==0) ||
        (tp.getTag().startsWith(SpTelescopePos.USER_TAG))) {
       _posList.addElement(tp);
+      //System.out.println("After _placeInPosList - " + _posList.size());
       return;
    }
 
@@ -275,6 +300,7 @@ _placeInPosList(SpTelescopePos tp)
       // If its a user position, insert the new tp before it
       if (nextTP.getTag().startsWith(SpTelescopePos.USER_TAG)) {
          _posList.insertElementAt(tp, pos);
+         //System.out.println("After _placeInPosList - " + _posList.size());
          return;
       }
 
@@ -282,10 +308,13 @@ _placeInPosList(SpTelescopePos tp)
          ++pos;
          if (pos == _posList.size()) {
             _posList.addElement(tp);
+            //System.out.println("After _placeInPosList - " + _posList.size());
             return;
          }
-      } else if (tagOrder[i].equals(tp.getTag())) {
+      //} else if (tagOrder[i].equals(tp.getTag())) {
+      } else if (tp.getTag().startsWith(tagOrder[i])) {
          _posList.insertElementAt(tp, pos);
+         //System.out.println("After _placeInPosList - " + _posList.size());
          return;
       }
    }
@@ -304,6 +333,7 @@ _addUserPosition(String tag)
    } else {
       _avTab.set(USER_POS_LIST, tag, size);
    }
+   //System.out.println("After _addUserPosition - " + this);
 }
 
 /**
@@ -319,6 +349,7 @@ createBlankUserPosition()
    _placeInPosList(tp);
    _notifyOfAdd(tp);
 
+   //System.out.println("After createBlankUserPosition - " + this);
    return tp;
 }
 
@@ -360,6 +391,7 @@ createPosition(String tag, double xaxis, double yaxis)
       _placeInPosList(tp);
    }
    _notifyOfAdd(tp);
+   //System.out.println("After createPosition(String, double, double) - " + _posList);
    return tp;
 }
 
@@ -394,6 +426,7 @@ createPosition(String tag, String xaxis, String yaxis, int coordSys)
       _placeInPosList(tp);
    }
    _notifyOfAdd(tp);
+   //System.out.println("After createPosition(String, String, String, int) - " + this);
    return tp;
 }
 
@@ -408,6 +441,7 @@ _removeFromPosList(String tag)
       if (tp.getTag().equals(tag)) {
          _posList.removeElementAt(i);
          tp.deleteWatchers();
+         //System.out.println("After _removeFromPosList - " + this);
          return tp;
       }
    }
@@ -440,6 +474,7 @@ _removePosition(SpTelescopePos tp)
    }
 
    _avTab.rm(tp.getTag());
+   //System.out.println("After _removePosition - " + this);
    return rmPos;
 }
 

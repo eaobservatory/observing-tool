@@ -2,6 +2,8 @@ package orac.ukirt.util;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.sp.obsComp.SpSurveyObsComp;
+import gemini.sp.obsComp.SpMicroStepUser;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.SpNote;
@@ -12,14 +14,20 @@ import gemini.sp.SpObsFolder;
 import gemini.sp.SpOffsetPosList;
 import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
+import gemini.sp.SpFactory;
 import gemini.sp.iter.SpIterChop;
 import gemini.sp.iter.SpIterComp;
 import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterOffset;
+import gemini.sp.iter.SpIterMicroStep;
+import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterRepeat;
+import gemini.sp.iter.SpIterSky;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 import gemini.util.CoordSys;
@@ -31,6 +39,7 @@ import orac.ukirt.inst.SpInstIRCAM3;
 import orac.ukirt.inst.SpInstMichelle;
 import orac.ukirt.inst.SpInstUFTI;
 import orac.ukirt.inst.SpInstUIST;
+import orac.ukirt.inst.SpInstWFCAM;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
 //import ot_ukirt.util.InstApertures;
 //import ot_ukirt.util.InstConfig;
@@ -44,16 +53,19 @@ import java.util.Date;
 // End of added by RDK
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 /**
  * The SpTranslator class translates the instrument setup and observation
  * sequence into form suitable for UKIRT.  These are currently the
  * sequence text files for all UKIRT instruments, the new-style
- * attribute = value configuration text files for UFTI, Michelle, and
- * UIST; and old-style configuration text files for CGS4 and IRCAM3.
+ * attribute = value configuration text files for UFTI, Michelle, UIST
+ * & WFCAM; and old-style configuration text files for CGS4 and IRCAM3.
  */
 public class SpTranslator {
 
@@ -66,11 +78,53 @@ public class SpTranslator {
    final String defInst = "define_inst";
    final String setChopBeam = "SET_CHOPBEAM A";
 
+   Random randomizer;
+
+
+   /**
+    * Current jitter (offset) x, y offsets.
+    *
+    * This has to be added to the microstep offsets to obtain the total offset.
+    */
+   double [] jitter = { 0.0, 0.0 };
+
+   /** Current microstep x, y offsets. */
+   double [] microstep     = { 0.0, 0.0 };
+
+   /** Number of positions in current jitter pattern. */
+   private int njitter;
+
+   /** Number of positions in current microstep pattern. */
+   private int nustep;
+
+   /**
+    * Serial number in this telescope jitter pattern.
+    *
+    * Counting starts at 1.
+    */
+   private int jitter_i = 1;
+
+   /**
+    * Serial number in this telescope microstep pattern.
+    *
+    * Counting starts at 1.
+    */
+   private int ustep_i  = 0;
+
+   /** Current total offset is part of a jitter pattern. */
+   private boolean jPattern = false;
+
+   /** Current total offset is part of a microstep pattern. */
+   private boolean mPattern = false;
+
+
+
 /**
  *  Constructor
  */
     public SpTranslator( SpObs spobs ) {
        spObs = spobs;
+       randomizer = new Random();
     }
 
 /**
@@ -83,9 +137,12 @@ public class SpTranslator {
     public static boolean containsConfigInfo( String title ) {
 
       return title.equalsIgnoreCase( "flat" ) ||
+             title.equalsIgnoreCase( "skyFlat" )||
+             title.equalsIgnoreCase( "domeFlat" )||
              title.equalsIgnoreCase( "dark" ) ||
              title.equalsIgnoreCase( "bias" ) ||
              title.equalsIgnoreCase( "arc" )  ||
+             title.equalsIgnoreCase( "focus" )||
 	     title.equalsIgnoreCase( "TargetAcq" );
     }
 
@@ -93,7 +150,7 @@ public class SpTranslator {
  * Insert BREAK instructions into a sequence.
  *
  * @param String the instrument. So far CGS4, IRCAM3, MICHELLE
- *        UFTI, and UIST are supported.
+ *        UFTI, UIST & WFCAM are supported.
  * @param Vector the sequence instructions (this is updated).
  */
    public void insertBreaks( String instrument, Vector sequence ) {
@@ -105,6 +162,7 @@ public class SpTranslator {
            instrument.equalsIgnoreCase( "MICHELLE" ) ||
            instrument.equalsIgnoreCase( "UFTI" ) ||
            instrument.equalsIgnoreCase( "UIST" ) ||
+           instrument.equalsIgnoreCase( "WFCAM" ) ||
            instrument.equalsIgnoreCase( "IRCAM3" ) ) {
 
 // Traverse the sequence.
@@ -114,8 +172,12 @@ public class SpTranslator {
 // after that instruction.
             if ( instrument.equalsIgnoreCase( "CGS4" ) || 
                  instrument.equalsIgnoreCase( "UIST" ) ||
+                 instrument.equalsIgnoreCase( "WFCAM" ) ||
                  instrument.equalsIgnoreCase( "MICHELLE" ) ) {
                if ( ( (String) sequence.elementAt( i ) ).equals( "set FLAT" ) ) {
+                  sequence.insertElementAt( "break", ++i );
+               }
+               if ( ( (String) sequence.elementAt( i ) ).equals( "set FOCUS" ) ) {
                   sequence.insertElementAt( "break", ++i );
                }
 	       // Added by RDK
@@ -318,43 +380,28 @@ public class SpTranslator {
  */
    public void insertPeakup( String instrument, Vector sequence ) {
 
-      boolean firstObject = false;        // First "set OBJECT" encountered?
-      boolean firstSky = false;           // First "set SKY" encountered?
-      int i;                              // Loop counter
-      int objectIndex = -1;               // Sequence index to first "set OBJECT"
-      int skyIndex = -1;                  // Sequence index to first "set SKY"
+      String offsetPattern = "^(-)?offset.*";
 
       if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
 
-// Traverse the sequence.
-         for ( i = 0; i < sequence.size(); ++i ) {
-
-// Look for first "set SKY".
-            if ( ( (String) sequence.elementAt( i ) ).equals( "set SKY" ) &&
-                 ! firstSky ) {
-
-// It's found, so record the fact, and the index.
-               firstSky = true;
-               skyIndex = i;
-            }
-
-// Look for first "set OBJECT".
-            if ( ( (String) sequence.elementAt( i ) ).equals( "set OBJECT" ) &&
-                 ! firstObject ) {
-
-// It's found, so record the fact, and the index.
-               firstObject = true;
-               objectIndex = i;
-            }
-         }
-
-// Does the sky come before the object?
-         if ( skyIndex < objectIndex && firstSky ) {
-
-// Insert the additional commands to enable a peakup on the object.
-            sequence.insertElementAt( "offset 0 0", skyIndex );
-            sequence.insertElementAt( "set OBJECT", skyIndex + 1 );
-         }   
+          if ( sequence.indexOf( "set SKY" ) != -1 ) {
+              if ( sequence.indexOf( "set SKY" ) < sequence.indexOf( "set OBJECT" ) ) {
+                  // Loop to find the first offset command
+                  // and insert the peakup
+                  for ( int i=0; i<sequence.size(); i++ ) {
+                      if ( ((String)sequence.get(i)).matches(offsetPattern) ||
+                              ((String)sequence.get(i)).equals("set SKY") ) {
+                          sequence.insertElementAt("break", i);
+                          sequence.insertElementAt("set OBJECT", i);
+                          sequence.insertElementAt("offset 0 0", i);
+                          break;
+                      }
+                  }
+              }
+          }
+//           // Modified to JUST insert anyway regardless
+//           objectIndex = sequence.indexOf("set OBJECT");
+//           sequence.insertElementAt("offset 0.0 0.0", objectIndex+1);
       }
    }
 
@@ -400,7 +447,10 @@ public class SpTranslator {
  * @param SpItem: the science program defining the scope to search.
  * @param count: the number offsets counted so far.
  */
-   public static int countOffsets (SpItem spif, int count) {
+   public static int countOffsets (SpItem spif, int count ) {
+      if(SpTreeMan.findInstrument(spif) instanceof SpMicroStepUser) {
+         return countObserveOffsets(spif);
+      }
 
       SpItem child;                       // Child of the sequence
       Enumeration eseq;                   // Enumerated sequence
@@ -426,6 +476,96 @@ public class SpTranslator {
 
       }
       return count;
+   }
+
+/**
+ * Count the number of offsets and microsteps associated with the scope
+ * of the given sequence at which data are taken.
+ *
+ * This method deals with jitter (offset) and microstep patterns and their
+ * combinations. It is currently designed to work for the following
+ * offset iterator / microstep iterator settings:
+ *
+ * <ul>
+ * <li>microstep iterator inside offset iterator
+ * <li>offset iterator without microstep iterator (no nested offset iterators)
+ * <li>microstep iterator without offset iterator (no nested microstep iterators)
+ * </ul>
+ *
+ * @param spif:  SpItem whose offsets and microsteps at which data are taken are counted.
+ */
+   public static int countObserveOffsets (SpItem spif) {
+
+      int count = 0;
+
+      Vector allOffsetIterators = SpTreeMan.findAllItems(spif, SpFactory.ITERATOR_COMPONENT_OFFSET.getClass().getName());
+
+      Vector microstepIterators = null;
+      int microstepCount;
+
+      for(int i = 0; i < allOffsetIterators.size(); i++) {
+         microstepIterators = SpTreeMan.findAllItems((SpItem)allOffsetIterators.get(i),
+                                                     SpFactory.getPrototype(SpIterMicroStep.SP_TYPE).getClass().getName());
+
+         if(microstepIterators.size() == 0) {
+            // No microsteps. Data taken at the actual offset positions.
+            count += ((SpIterOffset)allOffsetIterators.get(i)).getCurrentPosList().size();
+         }
+         else {
+            microstepCount = 0;
+            for(int j = 0; j < microstepIterators.size(); j++) {
+               microstepCount += ((SpIterMicroStep)microstepIterators.get(j)).getCurrentPosList().size();
+            }
+
+            count += (((SpIterOffset)allOffsetIterators.get(i)).getCurrentPosList().size() * microstepCount);
+         }
+      }
+
+      return count;
+   }
+
+/**
+ *  Check whether an item is part of a microstep pattern.
+ */
+   private static boolean isInMicrostepPattern(SpItem spItem) {
+      if((spItem.parent() == null) || (spItem == null)) {
+         return false;
+      }
+
+      if(spItem.parent() instanceof SpIterMicroStep) {
+         return true;
+      }
+
+      return isInMicrostepPattern(spItem.parent());
+   }
+
+/**
+ *  Check whether an item is part of a jitter pattern.
+ */
+   private static boolean isInJitterPattern(SpItem spItem) {
+      if((spItem.parent() == null) || (spItem == null)) {
+         return false;
+      }
+
+      if((spItem.parent() instanceof SpIterOffset) && (!(spItem.parent() instanceof SpIterMicroStep))) {
+         return true;
+      }
+
+      return isInJitterPattern(spItem.parent());
+   }
+
+
+/**
+ * Check whether the purpose of this SpIterOffset is to resets
+ * reset the telescope position back to the base postion.
+ *
+ * SpIterOffset is considered a reset offset if it contains
+ * a single offset position where the offsets are (0.0, 0.0).
+ */
+   private static boolean isResetOffset(SpIterOffset spIterOffset) {
+      return ((spIterOffset.getCurrentPosList().size() == 1) &&
+              (spIterOffset.getCurrentPosList().getPositionAt(0).getXaxis() == 0.0) &&
+              (spIterOffset.getCurrentPosList().getPositionAt(0).getXaxis() == 0.0));
    }
 
 
@@ -534,7 +674,7 @@ public class SpTranslator {
  */
 
    private void observeCount( Vector sequence, String type,
-                              SpDRRecipe drRecipeComp ) {
+                              SpDRRecipe drRecipeComp, SpInstObsComp inst ) {
 
 // Local variables.
       BreakIterator biw = BreakIterator.getWordInstance(); // Break
@@ -580,6 +720,10 @@ public class SpTranslator {
             drRecipe = drRecipeComp.getArcRecipeName();
             typeInGroup = drRecipeComp.getArcInGroup();
 
+// FOCUS frames
+         } else if ( type.equalsIgnoreCase( "focus" ) ) {
+             drRecipe = drRecipeComp.getFocusRecipeName();
+             typeInGroup = drRecipeComp.getFocusInGroup();
 // Bias frames
          } else if ( type.equalsIgnoreCase( "bias" ) ) {
             drRecipe = drRecipeComp.getBiasRecipeName();
@@ -595,8 +739,16 @@ public class SpTranslator {
             drRecipe = drRecipeComp.getFlatRecipeName();
             typeInGroup = drRecipeComp.getFlatInGroup();
 
+         } else if ( type.equalsIgnoreCase( "skyflat" ) ) {
+            drRecipe = drRecipeComp.getFlatRecipeName();
+            typeInGroup = drRecipeComp.getFlatInGroup();
+
+         } else if ( type.equalsIgnoreCase( "domeflat" ) ) {
+            drRecipe = drRecipeComp.getFlatRecipeName();
+            typeInGroup = drRecipeComp.getFlatInGroup();
+
 // Sky frames
-         } else if ( type.equalsIgnoreCase( "sky" ) ) {
+         } else if ( type.startsWith( "SKY" ) ) {
             drRecipe = drRecipeComp.getSkyRecipeName();
             typeInGroup = drRecipeComp.getSkyInGroup();
 
@@ -703,20 +855,29 @@ public class SpTranslator {
 
 // Decide whether there are instructions to move.
                moveOffset = false;
+
+
                if ( toWait != 0 && ( numElements - toWait - 2 ) >= 0 ) {
 
 // Store the instructions which are expected to move.
                   work = (String) sequence.elementAt( numElements - toWait - 1 );
                   offsetCmd = (String) sequence.elementAt( numElements - toWait - 2 );
 
+ 
 // The instructions are as expected, so remove them and record the fact.
+                  /*
                   if ( work.startsWith( "-WAIT ALL" ) &&
-                       offsetCmd.startsWith( "offset" ) ) {
+                       ( offsetCmd.startsWith( "offset" ) || offsetCmd.startsWith( "-offset" )) ) {
                      moveOffset = true;
+                     System.out.println("Moving offset...");
+                     System.out.println("\t" + (String)sequence.get( numElements - toWait - 1 ) );
+                     System.out.println("\t" + (String)sequence.get( numElements - toWait - 2 ) );
                      sequence.removeElementAt( numElements - toWait - 1 );
                      sequence.removeElementAt( numElements - toWait - 2 );
+
                      numElements = sequence.size( );                  
                   }
+                  */
                }
 
 // We can merely append the header commands.                  
@@ -778,6 +939,109 @@ public class SpTranslator {
 	 if (!type.equalsIgnoreCase("TargetAcq")) {
 	     sequence.addElement( "do 1 _observe" );
 	 }
+      }
+
+      if ( inst instanceof SpMicroStepUser ) {
+         insertMicroStepHeaders(sequence);
+      }
+   }
+
+   /**
+    * Inserts title and setHeader commands that describe a overall offset position
+    * in terms its positions in a jitter pattern and a nested microstep pattern.
+    *
+    * Note that "offset" commands are turned into "-offset".
+    *
+    * This method must be called <b>after</b> the "do n _observe" command has
+    * been added to the sequence.
+    * 
+    * @param sequence command sequence
+    * @param jPattern is part of jiiter (offset) pattern
+    * @param mPattern is part of microstep pattern
+    * @param 
+    * @param
+    * @param
+    */
+   private void insertMicroStepHeaders(Vector sequence) {
+      int insertIndex = sequence.size() - 1;
+      String titleStart;
+      boolean isOffset = false;
+
+      for(int i = sequence.size() - 1; i >= sequence.size() - 5; i--) {
+         if(((String)sequence.elementAt(i)).toLowerCase().startsWith("offset")) {
+            sequence.setElementAt("-" + sequence.elementAt(i), i);
+            insertIndex = i;
+            isOffset = true;
+            break;
+         }
+      }
+
+      if(isOffset) {
+         titleStart = "title ";
+      }
+      else {
+         int i;
+         for(i = sequence.size() - 2; i >= sequence.size() - 3; i--) {
+            if(((String)sequence.elementAt(i)).startsWith("set ")) {
+               insertIndex = i + 1;
+               break;
+            }
+         }
+
+         if(i == sequence.size() - 3) {
+            System.out.print("WARNING: Neither offset nor set command found in insertMicroStepHeaders(sequence). ");
+            System.out.print("Maybe insertMicroStepHeaders(sequence) was called before the command \"do n _observe\" was ");
+            System.out.println("appended to the sequence. Appending microstep headers at the end of the current sequence.");
+	 }
+
+         titleStart = "title Settings for ";
+      }
+
+// The title is the only command in the sequence that is not hidden. This ensures that
+// Users cannot repeat an offset without setting all the correct headers.
+      if(jPattern && mPattern) {
+         sequence.insertElementAt( titleStart + "jitter " + jitter_i + ", ustep " + ustep_i + " (" +
+	                           (jitter[0] + microstep[0]) + ", " +
+				   (jitter[1] + microstep[1]) + ")", insertIndex++);
+      }
+      else {
+         if(jPattern) {
+            sequence.insertElementAt( titleStart + "jitter " + jitter_i, insertIndex++);
+         }
+         else {
+            if(mPattern) {
+               sequence.insertElementAt( titleStart + "microstep " + ustep_i, insertIndex++);
+            }
+            else {
+               sequence.insertElementAt( titleStart + "base position", insertIndex++);
+            }
+         }
+      }
+
+      if(jPattern) {
+         sequence.insertElementAt( "-setHeader NJITTER "  + njitter,      insertIndex++);
+         sequence.insertElementAt( "-setHeader JITTER_I " + jitter_i,     insertIndex++);
+         sequence.insertElementAt( "-setHeader JITTER_X " + jitter[0],    insertIndex++);
+         sequence.insertElementAt( "-setHeader JITTER_Y " + jitter[1],    insertIndex++);
+      }
+      else {
+         sequence.insertElementAt( "-setHeader NJITTER 1",                insertIndex++);
+         sequence.insertElementAt( "-setHeader JITTER_I 1",               insertIndex++);
+         sequence.insertElementAt( "-setHeader JITTER_X 0.0",             insertIndex++);
+         sequence.insertElementAt( "-setHeader JITTER_Y 0.0",             insertIndex++);
+      }
+
+      if(mPattern) {
+         sequence.insertElementAt( "-setHeader NUSTEP "   + nustep,       insertIndex++);
+         sequence.insertElementAt( "-setHeader USTEP_I "  + ustep_i,      insertIndex++);
+         sequence.insertElementAt( "-setHeader USTEP_X "  + microstep[0], insertIndex++);
+         sequence.insertElementAt( "-setHeader USTEP_Y "  + microstep[1], insertIndex++);
+      }
+      else {
+         sequence.insertElementAt( "-setHeader NUSTEP 1",                 insertIndex++);
+         sequence.insertElementAt( "-setHeader USTEP_I 1",                insertIndex++);
+         sequence.insertElementAt( "-setHeader USTEP_X 0.0",              insertIndex++);
+         sequence.insertElementAt( "-setHeader USTEP_Y 0.0",              insertIndex++);
       }
    }
 
@@ -949,9 +1213,11 @@ public class SpTranslator {
       boolean standard;                   // Observation is of a standard?
       boolean startGroup = false;         // Is there a startGroup in the
                                           // sequence?
+      boolean startTileOrNoTile = false;     // Is there a startTile or noTile in the sequence?
       boolean storedLevel;                // Is the iterator level is stored?
       String targetAttribute;             // Target (SpTelescopeObsComp) attribute
       SpTelescopeObsComp targetComponent; // A target component
+      SpSurveyObsComp surveyObsComp = null; // A survey component
       String targetName;                  // Name of the target
       boolean targetPresent = false;      // Target information is present?
       StringBuffer targetRecord;          // Builds a sequence target instruction
@@ -1134,6 +1400,16 @@ public class SpTranslator {
 
 // Find the target list.
          targetComponent = (SpTelescopeObsComp) SpTreeMan.findTargetList( spObs );
+
+// If there is no target list then look for a survey component and use its selected target list
+         if(targetComponent == null) {
+            surveyObsComp = (SpSurveyObsComp)SpTreeMan.findSurveyComp(spObs);
+
+            if(surveyObsComp != null) {
+               targetComponent = surveyObsComp.getSpTelescopeObsComp(surveyObsComp.getSelectedTelObsComp());
+            }
+	 }
+
          if ( ! ( targetComponent == null ) ) {
             targetPresent = true;
 	    
@@ -1318,11 +1594,19 @@ public class SpTranslator {
                          sequence.addElement( "-WAIT ALL" );
                       }
                   } else {
+//<<<<<<< SpTranslator.java
 		      if ( firstSlew ) {
 			  sequence.addElement("break");
 			  firstSlew = false;
 		      }
                       sequence.addElement( "-system " + equinox +" ALL" );
+//=======
+                      for(int fitsIndex = 0; fitsIndex < targetComponent.getFitsCount(); fitsIndex++) {
+                         sequence.addElement( "-setHeader " + targetComponent.getFitsKey(fitsIndex) + " "
+                                                            + targetComponent.getFitsValue(fitsIndex));
+                      }
+
+//>>>>>>> 1.47.2.15
                       sequence.addElement( "do 1 _slew_all" );
                   }
                }
@@ -1566,17 +1850,29 @@ public class SpTranslator {
 // Note that the dark uses the object's attributes.
                                     if ( title.equalsIgnoreCase( "Flat" ) ) {
                                        currConfig.put( "type", "flat" );
+                                    } else if ( title.equalsIgnoreCase( "SkyFlat" ) ) {
+                                       currConfig.put( "type", "skyFlat" );
+                                    } else if ( title.equalsIgnoreCase( "DomeFlat" ) ) {
+                                       currConfig.put( "type", "domeFlat" );
                                     } else if ( title.equalsIgnoreCase( "Arc" ) ) {
                                        currConfig.put( "type", "arc" );
                                     } else if ( title.equalsIgnoreCase( "Bias" ) ) {
                                        currConfig.put( "type", "bias" );
+                                    } else if ( title.equalsIgnoreCase( "Focus" ) ) {
+                                       currConfig.put( "type", "focus" );
                                     } else if ( title.equalsIgnoreCase( "Dark" ) ) {
-                                       currConfig.put( "type", "object" );
+// Darks have type = dark for WFCAM, otherwise
+// type = object
+                                       if ( instrument.equalsIgnoreCase( "WFCAM" ) ) {
+                                          currConfig.put( "type", "dark" );
+				       } else {
+                                          currConfig.put( "type", "object" );
+				       }
 				    } else if ( title.equalsIgnoreCase( "TargetAcq" ) ) {
 					currConfig.put( "type", title.toUpperCase() );
 				    }
 				    // Added by RDK
-				    if (instrument.equalsIgnoreCase( "UIST" ) &&
+				    if ((instrument.equalsIgnoreCase( "UIST" ) || instrument.equalsIgnoreCase("WFCAM")) &&
 					title.equalsIgnoreCase( "config" )) {
 					currConfig.put( "type", "object" );
                                     }
@@ -1614,7 +1910,8 @@ public class SpTranslator {
 // In the case of Michelle and UIST we *need* the initial base config.  So
 // never remove it.
                               if ( ! ( instrument.equalsIgnoreCase( "Michelle" ) ||
-                                       instrument.equalsIgnoreCase( "UIST" ) ) ) {
+                                       instrument.equalsIgnoreCase( "UIST" ) ||
+                                       instrument.equalsIgnoreCase( "WFCAM" ) ) ) {
                                  prevSeqIns = (String) sequence.lastElement();
                                  removeConfig = prevSeqIns.startsWith( "loadConfig" ) || 
                                                 prevSeqIns.startsWith( setInst ) ||
@@ -1734,6 +2031,11 @@ public class SpTranslator {
 // in uppercase too.
                            if ( ! sis.title.equalsIgnoreCase( "config" ) ) {
 
+// Add startTile or noTile before the first "set <obstype>".
+                              if ( ! startTileOrNoTile ) {
+                                 startTileOrNoTile = _processTileString(targetComponent, surveyObsComp, inst, sequence);
+                              }
+
 // Add startGroup before the first "set <obstype>".
                               if ( ! startGroup ) {
                                  sequence.addElement( "startGroup" );
@@ -1747,12 +2049,31 @@ public class SpTranslator {
                               }
 
                               observeCount( sequence, (sis.title).toUpperCase(),
-                                            drRecipeComp );
+                                            drRecipeComp, inst );
                            }
 
 // Store offsets in sequence.
 // ==========================
                         } else if ( sis.title.equalsIgnoreCase( "offset" ) ) {
+                           if(isResetOffset((SpIterOffset)sis.item)) {
+                              jPattern = false;
+                              mPattern = false;
+                           }
+                           else {
+// Note that jitter_i counts from 1 through njitter
+                              if (jitter_i >= njitter) {
+                                 jitter_i = 1;
+                                 njitter = ((SpIterOffset)sis.item).getCurrentPosList().size();
+                              }
+                              else {
+                                 jitter_i++;
+                              }
+
+// Reset to 0 although counting starts at 1. Will be incremented once before first use.
+// ustep_i counts from 1 through nustep.
+                              ustep_i = 0;
+                              jPattern = true;
+                           }
 
 // Here we just need the values, not the attribute.  Append the values
 // in a StringBuffer.  Initialise with the command.
@@ -1763,17 +2084,80 @@ public class SpTranslator {
                            for ( j = 0; j < sis.values.length; ++j ) {
                               siv = (SpIterValue) sis.values[ j ];
 
-// Append the first value.
-                              offsetCommand = offsetCommand.append( " " ).append( siv.values[ 0 ] );
+// Record offset
+                              jitter[j] = Double.parseDouble(siv.values[ 0 ]);
+
+// Append the first value only if this offset position does not contain
+// microstep positions.
+                              if ( (sis.item instanceof SpIterOffset) &&
+                                   (!((SpIterOffset)sis.item).containsMicroSteps()) ) {
+
+                                 offsetCommand = offsetCommand.append( " " ).append( siv.values[ 0 ] );
+                              }
                            }
+
+
+// Add the offset instruction to the sequence buffer
+// only if this offset position does not contain microstep positions.
+                           if ( (sis.item instanceof SpIterOffset) &&
+                               (!((SpIterOffset)sis.item).containsMicroSteps()) ) {
+
+                              mPattern = false;
+
+                              instruction = offsetCommand.toString();
+                              sequence.addElement( instruction );
+
+// If the instrument uses nested offsets (e.g. WFCAM Microsteps) then set appropriate headers
+// to allow identification of an overall offset position in the nested sequence of offsets.
+
+// Also need a silent WAIT ALL to let the telescope finish moving before
+// taking an exposure.
+                              sequence.addElement( "-WAIT ALL" );
+                           }
+
+
+// Store microstep in sequence.
+// ==========================
+                        } else if ( sis.title.equalsIgnoreCase( "microstep" ) ) {
+                           nustep = ((SpIterMicroStep)sis.item).getCurrentPosList().size();
+                           mPattern = true;
+
+// Here we just need the values, not the attribute.  Append the values
+// in a StringBuffer.  Initialise with the command.
+                           offsetCommand = new StringBuffer( 30 );
+                           offsetCommand.append( "offset" );
+
+// Obtain the microstep values and calculate the total offset values.
+
+                           for ( j = 0; j < sis.values.length; ++j ) {
+                              siv = (SpIterValue) sis.values[ j ];
+
+                              microstep[ j ] = Double.parseDouble(siv.values[ 0 ]);
+
+// Append the total offset.
+                              offsetCommand = offsetCommand.append( " " ).append( jitter[ j ] + microstep[ j ] );
+                           }
+
+                           if ( isInJitterPattern(sis.item)) {
+                              jPattern = true;
+                           }
+                           else {
+                              jPattern = false;
+                           }
+
 
 // Add the offset instruction to the sequence buffer.
                            instruction = offsetCommand.toString();
                            sequence.addElement( instruction );
 
+// If the instrument uses nested offsets (e.g. WFCAM Microsteps) then set appropriate headers
+// to allow identification of an overall offset position in the nested sequence of offsets.
+
 // Also need a silent WAIT ALL to let the telescope finish moving before
 // taking an exposure.
                            sequence.addElement( "-WAIT ALL" );
+
+                           ustep_i++;
 
 // Store chopping commands in sequence.
 // ====================================
@@ -1809,6 +2193,11 @@ public class SpTranslator {
                         } else if ( sis.title.equalsIgnoreCase( "nod" ) 
                                     && chopping ) {
 
+// Add startTile or noTile before the first "set <obstype>".
+                              if ( ! startTileOrNoTile ) {
+                                 startTileOrNoTile = _processTileString(targetComponent, surveyObsComp, inst, sequence);
+                              }
+
 // Add startGroup before the first "set OBJECT".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
@@ -1842,6 +2231,11 @@ public class SpTranslator {
 // =========================
                         } else if ( sis.title.equalsIgnoreCase( "observe" ) ) {
 
+// Add startTile or noTile before the first "set <obstype>".
+                              if ( ! startTileOrNoTile ) {
+                                 startTileOrNoTile = _processTileString(targetComponent, surveyObsComp, inst, sequence);
+                              }
+
 // Add startGroup before the first "set OBJECT".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
@@ -1857,7 +2251,7 @@ public class SpTranslator {
 // Add the observe instructions to the sequence buffer.  Note the type
 // written in uppercase within the sequence so refer to the type here
 // in uppercase too.
-                           observeCount( sequence, "OBJECT", drRecipeComp );
+                           observeCount( sequence, "OBJECT", drRecipeComp, inst );
 
 // Special case for CGS4, Michelle, and UIST.  Need to add a break after a
 // "set OBJECT" before the do n _observe, whenever certain configuration
@@ -1865,6 +2259,7 @@ public class SpTranslator {
 // potentially requiring a break changed.
                            if ( instrument.equalsIgnoreCase( "CGS4" ) || 
                                 instrument.equalsIgnoreCase( "UIST" ) || 
+                                instrument.equalsIgnoreCase( "WFCAM" ) || 
                                 instrument.equalsIgnoreCase( "Michelle" ) ) {
                               if ( currConfig.changedAttribute(
                                    (InstConfig) configArray.lastElement(),
@@ -1887,6 +2282,11 @@ public class SpTranslator {
 // ====================
                         } else if ( sis.title.equalsIgnoreCase( "sky" ) ) {
 
+// Add startTile or noTile before the first "set <obstype>".
+                              if ( ! startTileOrNoTile ) {
+                                 startTileOrNoTile = _processTileString(targetComponent, surveyObsComp, inst, sequence);
+                              }
+
 // Add startGroup before the first "set SKY".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
@@ -1902,7 +2302,24 @@ public class SpTranslator {
 // Add the observe instructions to the sequence buffer.  Note the type
 // written in uppercase within the sequence so refer to the type here
 // in uppercase too.
-                           observeCount( sequence, "SKY", drRecipeComp );
+                           String skyName = ( (SpIterSky)sis.item).getSky();
+                           if ( "SKY".equals(skyName) ) {
+                               observeCount( sequence, "SKY", drRecipeComp, inst );
+
+                           }
+                           else {
+                               StringBuffer skyLine = new StringBuffer("SKY " + skyName);
+                               SpIterSky thisSky = (SpIterSky)sis.item;
+                               // The following flags need to be upper case for observeCount
+                               // to work
+                               if ( thisSky.getFollowOffset() ) {
+                                   skyLine.append(" -F ").append(thisSky.getScaleFactor());
+                               }
+                               else if ( thisSky.getRandomPattern() ) {
+                                   skyLine.append(" -R ").append(thisSky.getBoxSize());
+                               }
+                               observeCount( sequence, skyLine.toString(), drRecipeComp, inst );
+                           }
 
                         }
 
@@ -1933,14 +2350,6 @@ public class SpTranslator {
                sequence.addElement( "SET_CHOPBEAM MIDDLE" );
             }
 
-// Insert a peakup sequence when SKY comes before the first OBJECT
-// observe.  This is currently only for CGS4.  Exclude the EMISSIVITY
-// special case, which does have a SKY before the first OBJECT, but no
-// peakup is required.
-            if ( ( drRecipeComp == null ) ||  
-                !( drRecipeComp.getObjectRecipeName().equalsIgnoreCase( "EMISSIVITY" ) ) ) {
-               insertPeakup( instrument, sequence );
-            }
 
 // Add breaks to sequence.
             insertBreaks( instrument, sequence );
@@ -1980,6 +2389,26 @@ public class SpTranslator {
 // before sequence ends.  Add a command to hold the OM until all of its
 // associated processes have completed.
             sequence.addElement( "-ready" );
+            
+            addOffsets(sequence);
+            sortOutSkys( sequence );
+
+// Insert a peakup sequence when SKY comes before the first OBJECT
+// observe.  This is currently only for CGS4.  Exclude the EMISSIVITY
+// special case, which does have a SKY before the first OBJECT, but no
+// peakup is required.
+            if ( !( drRecipeComp.getObjectRecipeName().equalsIgnoreCase( "EMISSIVITY" ) ) ) {
+               insertPeakup( instrument, sequence );
+            }
+
+	    // Only need to fix up the offsets if using new style skys
+	    if ( targetComponent != null ) {
+	       SpTelescopePosList posList = targetComponent.getPosList();
+	       SpTelescopePos sky0 = (SpTelescopePos)posList.getPosition("SKY0");
+	       if ( sky0 != null ) {
+		  fixNOffsets( sequence, spObs );
+	       }
+	    }
 
 // Write the sequence file.
 // ========================
@@ -2186,7 +2615,8 @@ public class SpTranslator {
 
 // Determine whether or not the neutral-density filter is in place.
             if ( !( instrum.equalsIgnoreCase( "Michelle" ) ||
-                    instrum.equalsIgnoreCase( "UIST" ) ) ) {
+                    instrum.equalsIgnoreCase( "UIST" ) ||
+                    instrum.equalsIgnoreCase( "WFCAM" ) ) ) {
                nd = Boolean.valueOf( (String) workConfig.get( "neutralDensity" ) );
 
 // Obtain the polariser. "none" means there is no polariser in place.
@@ -2584,6 +3014,41 @@ public class SpTranslator {
 		   writeAttribute( conpw, workConfig, "targetAcqDispersion", "dispersion" );
 		   writeAttribute( conpw, workConfig, "targetAcqScienceArea", "scienceArea" );
                }
+// WFCAM
+// -----
+            } else if ( instrum.equalsIgnoreCase( "WFCAM" ) ) {
+
+               writeAttribute( conpw, workConfig, "instrument" );
+               writeAttribute( conpw, workConfig, "version" );
+               writeAttribute( conpw, workConfig, "configType" );
+               writeAttribute( conpw, workConfig, "type" );
+
+               if ( workConfig.get( "type" ).equals( "object" ) ) {
+                  writeAttribute( conpw, workConfig, "instPort" );
+                  writeAttribute( conpw, workConfig, "filter" );
+                  writeAttribute( conpw, workConfig, "readMode" );
+                  writeAttribute( conpw, workConfig, "expTime", "exposureTime" );
+                  writeAttribute( conpw, workConfig, "objNumExp", "coadds" );
+               } else if ( workConfig.get( "type" ).equals( "dark" ) ) {
+                  writeAttribute( conpw, workConfig, "expTime",
+                                  "exposureTime" );
+                  writeAttribute( conpw, workConfig, "darkNumExp", "coadds" );
+               } else if (( workConfig.get( "type" ).equals( "skyFlat" ) ) ||
+                  ( workConfig.get( "type" ).equals( "domeFlat" ))) {
+                  writeAttribute( conpw, workConfig, "flatFilter", "filter" );
+                  writeAttribute( conpw, workConfig, "flatReadMode", "readMode" );
+                  writeAttribute( conpw, workConfig, "flatExpTime",
+                                  "exposureTime" );
+                  writeAttribute( conpw, workConfig, "flatNumExp", "coadds" );
+               } else if ( workConfig.get( "type" ).equals( "focus" ) ) {
+                  writeAttribute( conpw, workConfig, "focusFilter", "filter" );
+                  writeAttribute( conpw, workConfig, "focusReadMode", "readMode" );
+                  writeAttribute( conpw, workConfig, "focusExpTime",
+                                  "exposureTime" );
+                  writeAttribute( conpw, workConfig, "focusNumExp", "coadds" );
+               } else if ( workConfig.get( "type" ).equals( "bias" ) ) {
+		  // Nothing extra to write for a bias
+	       }
 
             } else {
                // Throw exception
@@ -3537,7 +4002,7 @@ public class SpTranslator {
 
 // slide
 // -----
-            } else if ( instruction.startsWith( "offset" ) ) {
+            } else if ( instruction.startsWith( "offset" ) || instruction.startsWith( "-offset" )) {
  
 // Extract the offsets.  Form exec command.
                command = "slide " + instruction.substring( start );
@@ -3707,6 +4172,311 @@ public class SpTranslator {
       }
    }
 
+
+   /**
+    * Inserts a "startTile" or "noTile" command into the sequence if needed.
+    */
+   private boolean _processTileString(SpTelescopeObsComp targetComponent, SpSurveyObsComp surveyObsComp,
+                                      SpInstObsComp inst, Vector sequence) {
+
+      // If the instrument is not WFCAM than do nothing and return true
+      // to indicate that nothing needs to be done for the rest of the translation.
+      if(!(inst instanceof SpInstWFCAM)) {
+         return true;
+      }
+
+      // SDW: What happens if there is no targetComponent in scope?  I am guessing
+      // we can just return true, and don't need to do anything else
+      if ( targetComponent == null ) {
+          return true;
+      }
+
+      // If the targetComponent was not created as a tile
+      // then add a "noTile" command
+      if(targetComponent.getPositionInTile() == SpTelescopeObsComp.NOT_IN_TILE) {
+        sequence.addElement( "noTile" );
+        return true;
+      }
+
+      // If the targetComponent is at position 0 in the tile
+      // then add a "startTile" command.
+      if(targetComponent.getPositionInTile() == 0) {
+         sequence.addElement( "startTile" );
+         return true;
+      }
+
+      return false;
+   }
+
+   /**
+     * Fix up offsets.  In using the new style header, we may need to reset
+     * OBJECT offsets.
+     */
+   public void addOffsets ( Vector sequence ) {
+       String offsetPattern = "^(-)?offset.*";
+       
+       // Get the first OBJECT and find it's offset.  This should be on the line after
+       // the "set OBJECT" command.  
+       int objectIndex = sequence.indexOf("set OBJECT");
+       String lastOffset = (String)sequence.get(objectIndex+1);
+       // If this is not an offset, then report a possible error.
+       if ( !(lastOffset.matches(offsetPattern)) ) {
+           // Add a default offset 0f 0.0
+           sequence.add( objectIndex+1, "offset 0.0 0.0" );
+           lastOffset = (String)sequence.get(objectIndex+1);
+       }
+
+       // Loop through here noting if we have any intervening skys, until we hit the next 
+       // "set OBJECT" command
+       boolean skyFound = false;
+       for ( int i=objectIndex+1; i<sequence.size(); i++ ) {
+           if ( ((String)sequence.get(i)).startsWith("set SKY") ) {
+               skyFound = true;
+           }
+           else if ( ((String)sequence.get(i)).startsWith("set OBJECT") ) {
+               // If there has been no intervening SKY, dont do anything
+               if ( skyFound ) {
+                   // There has been an intervening sky.  If the next
+                   // line is not an offset then we add the last
+                   // known offset after this
+                   String line = (String)sequence.get(i+1);
+                   if ( !(line.matches(offsetPattern)) ) {
+                       sequence.insertElementAt( lastOffset, i+1 );
+                   }
+                   else {
+                       // Store this as the new last offset
+                       lastOffset = line;
+                   }
+                   skyFound = false; // Reset for next time round
+               }
+           }
+       }
+   }
+
+
+   private void sortOutSkys( Vector sequence ) {
+       String skyPattern = "set SKY SKY[0-9]+.*";
+       String offPattern = "^(-)?offset.*";
+       String observePattern ="do [0-9]+ _observe";
+
+       boolean skyBeforeObject = false; // This will normally be the case, cetainly for CGS4
+       int firstObjectIndex    = sequence.indexOf("set OBJECT");
+
+       // See if we can get all the skys associated with this
+       SpTelescopeObsComp obscomp = SpTreeMan.findTargetList(spObs);
+       if ( obscomp == null ) return;
+       SpTelescopePosList posList = obscomp.getPosList();
+       HashMap skys = new HashMap();
+       int index = 0;
+       SpTelescopePos tp;
+       while ( (tp = (SpTelescopePos)posList.getPosition( "SKY" + index )) != null ) {
+           skys.put("SKY"+index, tp);
+           index++;
+       }
+       
+       
+       // Need to loop through all the set SKY commands.  We have to do this sequentially
+       // since we don't know the exact tag
+       for ( int i=0; i<sequence.size(); i++ ) {
+           String currentLine = (String)sequence.get(i);
+           if ( currentLine.matches( skyPattern ) ) {
+               // Work out which sky we are dealing with
+               if ( i < firstObjectIndex ) skyBeforeObject = true;
+               String skyName;
+               try {
+                   skyName = currentLine.split("\\s")[2];
+               }
+               catch ( ArrayIndexOutOfBoundsException x) {
+                   // There is no name associated with this SKY, so ignore it and go
+                   // on to the next one.  This should never happen since we catch it
+                   // in the preceding if condition, but better to be safe.
+                   continue;
+               }
+
+               // Get the telescope pos from the HashMap
+               SpTelescopePos pos = (SpTelescopePos)skys.get( skyName );
+               
+               // Work out what type of sky we have.  We will need to parse the line.
+               // We should have added options -R if this uses a random offset or -F
+               // if we are following the base offset.  If neither exist, then we assume 
+               // it is a fixed position - either offset from base or absolute.
+               boolean followBaseOffset = currentLine.matches(".*-F.*");
+               boolean useRandomOffset  = currentLine.matches(".*-R.*");
+               boolean isOffset = pos.isOffsetPosition();
+
+               // We need to check if this is already within an offset, and if it is,
+               // then we add the offset and the sky offset together.  If the sky
+               // is specified as an absolute position, then any offset line should be
+               // deleted but we will come onto that later.
+               double [] skyOffs = new double[2];
+               String nextLine = (String)sequence.get(i+1);
+               if ( nextLine.matches(offPattern) ) {
+                   skyOffs[0] += Double.parseDouble( nextLine.split("\\s")[1] );
+                   skyOffs[1] += Double.parseDouble( nextLine.split("\\s")[2] );
+                   sequence.removeElementAt(i+1);
+               }
+
+               // Add the actual sky position offset
+               if ( isOffset ) {
+                   skyOffs[0] += pos.getXaxis();
+                   skyOffs[1] += pos.getYaxis();
+               }
+               
+               if ( followBaseOffset && isOffset ) {
+                   // We need to get the last/next OBJECT offset.
+                   // The variable skyBeforeObject tells us whether
+                   // to look forward or backwards to find the correct
+                   // OBJECT.  The line after should be an offset.  If it's
+                   // not, issue a warning, and assume 0,0 offset
+                   double scaleFactor = Double.parseDouble( currentLine.split("\\s")[4]);
+                   int objectIndex;
+                   if ( skyBeforeObject ) {
+                       // search forward
+                       objectIndex = sequence.indexOf("set OBJECT", i);
+                   }
+                   else {
+                       // Search backwards
+                       objectIndex = sequence.lastIndexOf("set OBJECT", i);
+                   }
+                   nextLine = (String)sequence.get(objectIndex + 1);
+                   if ( nextLine.equalsIgnoreCase("break") ) {
+                       // This can happen on the first observe of a sequence, in which
+                       // case the offset should be the nest line
+                       nextLine = (String)sequence.get(objectIndex + 2);
+                   }
+
+                   if ( nextLine.matches(offPattern) ) {
+                       // Add the base offset
+                       skyOffs[0] += (scaleFactor*Double.parseDouble(nextLine.split("\\s")[1]));
+                       skyOffs[1] += (scaleFactor*Double.parseDouble(nextLine.split("\\s")[2]));
+                   }
+                   else {
+                       /*
+                       JOptionPane.showMessageDialog(
+                               null,
+                               "Unexpected line found in sequence, assuming (0,0) base offset\n for sky position",
+                               "Unexpected line",
+                               JOptionPane.WARNING_MESSAGE);
+                       */
+                       System.out.println("Unexpected line found in sequence, assuming (0,0) base offset\n for sky position");
+                       System.out.println("\tFound \"" + nextLine + "\"");
+                   }
+                   String offLine = "offset " + skyOffs[0] + " " + skyOffs[1];
+                   sequence.insertElementAt(offLine, i+1);
+               }
+               else if ( useRandomOffset && isOffset  ) {
+                   double boxSize = Double.parseDouble( currentLine.split("\\s")[4] );
+                   double [] randOffs = getRandomOffsets( boxSize );
+                   skyOffs[0] += randOffs[0];
+                   skyOffs[1] += randOffs[1];
+                   String offLine = "offset " + skyOffs[0] + " " + skyOffs[1];
+                   sequence.insertElementAt(offLine, i+1);
+               }
+               else {
+                   String offLine;
+                   if ( isOffset ) {
+                       offLine = "offset " + skyOffs[0] + " " + skyOffs[1];
+                   }
+                   else {
+                       offLine = "SLEW MAIN " + skyName;
+                   }
+                   sequence.insertElementAt(offLine, i+1);
+               }
+               // Finally replace the current line with a simple
+               // "set SKY" command
+               sequence.set(i, "set SKY");
+           }
+       }
+   }
+
+   private void fixNOffsets( Vector sequence, SpObs spObs ) {
+       int nOffIndex         = -1;
+       int offCount          = 0;
+       String currentLine;
+       String noffPattern    = "^(-)?setHeader NOFFSET.*";
+       String offPattern     = "^(-)?offset.*";
+       String slewPattern    = "^(-)?SLEW.*";
+       String lastOffsetLine = "";
+       int     currOffPos    = 0;
+       int     lastOffPos    = 0;
+
+       // Get all of the repeats and offsets associated with this
+       Vector offsets = SpTreeMan.findAllItems( spObs, "gemini.sp.iter.SpIterOffset" );
+       Vector obsAndSkys = SpTreeMan.findAllItems( spObs, "gemini.sp.iter.SpIterObserve" );
+       obsAndSkys.addAll( SpTreeMan.findAllItems( spObs, "gemini.sp.iter.SpIterSky" ) );
+
+       // Create a Hashmap of obs/sky to work out whether we have dealy with them
+       HashMap obsDoneMap = new HashMap();
+       HashMap offDoneMap = new HashMap();
+       for ( int i=0; i<obsAndSkys.size(); i++ ) {
+           obsDoneMap.put( obsAndSkys.get(i), Boolean.FALSE);
+       }
+
+       for ( int i=0; i<offsets.size(); i++ ) {
+           offDoneMap.put( offsets.get(i), Boolean.FALSE);
+       }
+
+       // Now loop over each offset
+       int nOff = 0;
+       for ( int i=0; i<offsets.size(); i++ ) {
+           SpIterOffset off = (SpIterOffset) offsets.get(i);
+           // We need to multiply this by the number of child
+           // offsets
+           nOff += _findNumberOffsets( off, offDoneMap, obsDoneMap );
+       }
+
+       for ( int i=0; i<obsAndSkys.size(); i++ ) {
+           if ( obsDoneMap.get( obsAndSkys.get(i) ) == Boolean.FALSE ) {
+                nOff += ((SpIterObserveBase)obsAndSkys.get(i)).getCount();
+           }
+       }
+
+       for ( int i=0; i<sequence.size(); i++ ) {
+           currentLine = (String)sequence.get(i);
+           if ( currentLine.matches(noffPattern) ) {
+               nOffIndex = i;
+               break;
+           }
+       }
+       if ( nOffIndex != -1 ) {
+           // Replace the current NOFFSETS line
+           currentLine = "-setHeader NOFFSETS " + nOff;
+           sequence.setElementAt(currentLine, nOffIndex);
+       }
+   }
+   /**
+     * Gets a pair of random offsets within boxSize/2.
+     */
+   private double [] getRandomOffsets( double boxSize ) {
+       double [] rtn = new double [2];
+
+       DecimalFormat df = new DecimalFormat();
+       df.setMaximumFractionDigits(2);
+
+       rtn[0] = Double.parseDouble( df.format( (randomizer.nextDouble() - 0.5) * boxSize ) );
+       rtn[1] = Double.parseDouble( df.format( (randomizer.nextDouble() - 0.5) * boxSize ) );
+       
+       return rtn;
+   }
+
+   private int _findNumberOffsets (SpIterOffset thisOff, HashMap offDone, HashMap obsDone) {
+       int rtn = thisOff.getPosList().size();
+       offDone.put( thisOff, Boolean.TRUE);
+       int nObs = 0;
+       Enumeration e = thisOff.children();
+       while ( e.hasMoreElements() ) {
+           Object o = e.nextElement();
+           if ( o instanceof SpIterOffset ) {
+               rtn *= ((SpIterOffset)o).getPosList().size();
+           }
+           else if ( o instanceof SpIterObserveBase ) {
+               nObs += ((SpIterObserveBase)o).getCount();
+               obsDone.put(o, Boolean.TRUE);
+           }
+       }
+       if (nObs == 0) nObs = 1;
+       return (nObs * rtn);
+   }
 }
 
 

@@ -38,10 +38,6 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// add action listeners and group the buttons
 	ButtonGroup grp;
 
-// 	_w.seeingExcellent.addActionListener(this);
-// 	_w.seeingGood.addActionListener(this);
-// 	_w.seeingPoor.addActionListener(this);
-// 	_w.seeingAny.addActionListener(this);
 	_w.seeingAllocated.addActionListener(this);
 	_w.seeingUserDefined.addActionListener(this);
 	_w.minSeeing.addWatcher(this);
@@ -52,8 +48,6 @@ public final class EdCompSiteQuality extends OtItemEditor
 	grp.add(_w.seeingUserDefined);
 
 
-// 	_w.csoVeryDry.addActionListener(this);
-// 	_w.csoAny.addActionListener(this);
 	_w.tauBandAllocated.addActionListener(this);
 	_w.tauBandUserDefined.addActionListener(this);
 	_w.minTau.addWatcher(this);
@@ -62,6 +56,15 @@ public final class EdCompSiteQuality extends OtItemEditor
 	grp = new ButtonGroup();
 	grp.add(_w.tauBandAllocated);
 	grp.add(_w.tauBandUserDefined);
+
+	_w.skyAllocated.addActionListener(this);
+	_w.skyUserDefined.addActionListener(this);
+	_w.minSky.addWatcher(this);
+	_w.maxSky.addWatcher(this);
+
+	grp = new ButtonGroup();
+	grp.add(_w.skyAllocated);
+	grp.add(_w.skyUserDefined);
 
 
 	_w.moonDark.addActionListener(this);
@@ -94,17 +97,6 @@ public final class EdCompSiteQuality extends OtItemEditor
 	int i;
 
 	// Image Quality
-// 	i = sq.getSeeing();
-// 	switch (i) {
-// 	case SpSiteQualityObsComp.SEEING_EXCELLENT:
-// 	    ow = _w.seeingExcellent; break;
-// 	case SpSiteQualityObsComp.SEEING_GOOD:
-// 	    ow = _w.seeingGood; break;
-// 	case SpSiteQualityObsComp.SEEING_POOR:
-// 	    ow = _w.seeingPoor; break;
-// 	default:
-// 	    ow = _w.seeingAny; break;
-// 	}
 	if (sq.tauBandAllocated()) {
 	    _w.tauBandAllocated.setValue(true);
 	    _w.minTau.setValue("");
@@ -119,17 +111,8 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    _w.minTau.setEnabled(true);
 	    _w.maxTau.setEnabled(true);
 	}
-// 	ow.setValue(true);
 
 	// IR Background
-// 	i = sq.getCsoTau();
-// 	switch (i) {
-// 	case SpSiteQualityObsComp.CSO_TAU_VERY_DRY:
-// 	    ow = _w.csoVeryDry; break;
-// 	default:
-// 	    ow = _w.csoAny; break;
-// 	}
-// 	ow.setValue(true);
 	if (sq.seeingAllocated()) {
 	    _w.seeingAllocated.setValue(true);
 	    _w.minSeeing.setValue("");
@@ -143,6 +126,22 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    _w.maxSeeing.setValue(sq.getMaxSeeing());
 	    _w.minSeeing.setEnabled(true);
 	    _w.maxSeeing.setEnabled(true);
+	}
+
+	// J-Band Sky brightness
+	if (sq.skyAllocated()) {
+	    _w.skyAllocated.setValue(true);
+	    _w.minSky.setValue("");
+	    _w.maxSky.setValue("");
+	    _w.minSky.setEnabled(false);
+	    _w.maxSky.setEnabled(false);
+	}
+	else {
+	    _w.skyUserDefined.setValue(true);
+	    _w.minSky.setValue(sq.getMinSeeing());
+	    _w.maxSky.setValue(sq.getMaxSeeing());
+	    _w.minSky.setEnabled(true);
+	    _w.maxSky.setEnabled(true);
 	}
 
 	// Moon
@@ -180,22 +179,6 @@ public final class EdCompSiteQuality extends OtItemEditor
 	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
 
 	// Seeing
-// 	if (w == _w.seeingExcellent) {
-// 	    sq.setSeeing(SpSiteQualityObsComp.SEEING_EXCELLENT);
-// 	    return;
-// 	}
-// 	if (w == _w.seeingGood) {
-// 	    sq.setSeeing(SpSiteQualityObsComp.SEEING_GOOD);
-// 	    return;
-// 	}
-// 	if (w == _w.seeingPoor) {
-// 	    sq.setSeeing(SpSiteQualityObsComp.SEEING_POOR);
-// 	    return;
-// 	}
-// 	if (w == _w.seeingAny) {
-// 	    sq.setSeeing(SpSiteQualityObsComp.SEEING_ANY);
-// 	    return;
-// 	}
 	if (w == _w.seeingAllocated) {
 	    sq.setSeeingAllocated(true);
 	    _w.minSeeing.setValue("");
@@ -213,14 +196,6 @@ public final class EdCompSiteQuality extends OtItemEditor
 	}
 
 	// CSO Tau
-// 	if (w == _w.csoVeryDry) {
-// 	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAU_VERY_DRY);
-// 	    return;
-// 	}
-// 	if (w == _w.csoAny) {
-// 	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAU_ANY);
-// 	    return;
-// 	}
 	if (w == _w.tauBandAllocated) {
 	    sq.setTauBandAllocated(true);
 	    _w.minTau.setValue("");
@@ -236,6 +211,24 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    _w.maxTau.setValue(sq.getMaxTau());
 	    _w.minTau.setEnabled(true);
 	    _w.maxTau.setEnabled(true);
+	}
+
+	// Sky Brightness
+	if (w == _w.skyAllocated) {
+	    sq.setSkyAllocated(true);
+	    _w.minSky.setValue("");
+	    _w.maxSky.setValue("");
+	    _w.minSky.setEnabled(false);
+	    _w.maxSky.setEnabled(false);
+
+	}
+
+	if (w == _w.skyUserDefined) {
+	    sq.setSkyAllocated(false);
+	    _w.minSky.setValue(sq.getMinSky());
+	    _w.maxSky.setValue(sq.getMaxSky());
+	    _w.minSky.setEnabled(true);
+	    _w.maxSky.setEnabled(true);
 	}
 
 	// Moon
@@ -282,14 +275,22 @@ public final class EdCompSiteQuality extends OtItemEditor
 	}
 
 	if (tbwe == _w.minSeeing) {
-	    System.out.println("Updating min seeing to "+_w.minSeeing.getValue());
 	    ((SpSiteQualityObsComp)_spItem).setMinSeeing(_w.minSeeing.getValue());
 	    return;
 	}
 
 	if (tbwe == _w.maxSeeing) {
-	    System.out.println("Updating max seeing to "+_w.maxSeeing.getValue());
 	    ((SpSiteQualityObsComp)_spItem).setMaxSeeing(_w.maxSeeing.getValue());
+	    return;
+	}
+
+    	if (tbwe == _w.minSky) {
+	    ((SpSiteQualityObsComp)_spItem).setMinSky(_w.minSky.getValue());
+	    return;
+	}
+
+	if (tbwe == _w.maxSky) {
+	    ((SpSiteQualityObsComp)_spItem).setMaxSky(_w.maxSky.getValue());
 	    return;
 	}
     }

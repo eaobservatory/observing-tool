@@ -6,7 +6,6 @@
 /*                   Copyright (c) PPARC 2001                   */
 /*                                                              */
 /*==============================================================*/
-// $Id$
 
 package orac.ukirt.util;
 
@@ -44,15 +43,22 @@ public class UkirtUtil implements TelescopeUtil {
   }
 
   /**
-   * @return always false for UKIRT
+   * @return true for REFERENCE position.
    */
   public boolean isOffsetTarget(String targetTag) {
+    // If REFERENCE or SKY but not REFERENCE GUIDE or SKY GUIDE
+    if(((targetTag.toUpperCase().indexOf("REFERENCE") >= 0) || (targetTag.toUpperCase().indexOf("SKY") >= 0))
+      && ((targetTag.toUpperCase().indexOf("GUIDE") < 0))) {
+
+      return true;
+    }
+
     return false;
   }
 
   public boolean supports(int feature) {
     switch(feature) {
-      case FEATURE_TARGET_INFO_CHOP:        return true;
+      case FEATURE_TARGET_INFO_CHOP:        return false;
       case FEATURE_FLAG_AS_STANDARD:        return true;
       case FEATURE_TARGET_INFO_PROP_MOTION: return true;
       case FEATURE_TARGET_INFO_TRACKING:    return false;

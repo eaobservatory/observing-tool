@@ -234,55 +234,54 @@ public class EdIterOffsetFeature extends TpeImageFeature
      * Draw the offset positions.
      */
     public void draw(Graphics g, FitsImageInfo fii)  {
-	g.setColor(Color.yellow);
-	g.setFont(FONT);
+        g.setColor(Color.yellow);
+        g.setFont(FONT);
 
-	int r = MARKER_SIZE/2 + 1;
-	int d = MARKER_SIZE + 2;
+        int r = MARKER_SIZE/2 + 1;
+        int d = MARKER_SIZE + 2;
 
-	TpeSciArea tsa = null;
-	if (getSciAreaMode() != SCI_AREA_NONE) {
-	    tsa = _iw.getSciArea();
-	}
+        TpeSciArea tsa = null;
+        if (getSciAreaMode() != SCI_AREA_NONE) {
+            tsa = _iw.getSciArea();
+        }
 
-	int i = 0;
-	Enumeration e = _opm.getAllPositionMapEntries();
-	while (e.hasMoreElements()) {
-	    FitsPosMapEntry pme = (FitsPosMapEntry) e.nextElement();
-	    Point2D.Double p   = pme.screenPos;
-	    // Rotate this point based on the current pos angle off the science area
-	    SpInstObsComp myInst = (SpInstObsComp) _iw.getInstrumentItem();
-	    g.drawOval((int)(p.x - r), (int)(p.y - r), d, d);
+        int i = 0;
+        Enumeration e = _opm.getAllPositionMapEntries();
+        while (e.hasMoreElements()) {
+            FitsPosMapEntry pme = (FitsPosMapEntry) e.nextElement();
+            Point2D.Double p   = pme.screenPos;
+            // Rotate this point based on the current pos angle off the science area
+            SpInstObsComp myInst = (SpInstObsComp) _iw.getInstrumentItem();
+            g.drawOval((int)(p.x - r), (int)(p.y - r), d, d);
 
-	    if (getDrawIndex()) {
-		// Should probably use font metrics to position the tag ...
-		// This is rather arbitrary ...
-		SpOffsetPos op = (SpOffsetPos) pme.telescopePos;
-		g.drawString(String.valueOf(_opl.getPositionIndex(op)), (int)p.x + d, (int)p.y + d + r);
-	    }
+            if (getDrawIndex()) {
+                // Should probably use font metrics to position the tag ...
+                // This is rather arbitrary ...
+                SpOffsetPos op = (SpOffsetPos) pme.telescopePos;
+                g.drawString(String.valueOf(_opl.getPositionIndex(op)), (int)p.x + d, (int)p.y + d + r);
+            }
 
-	    if (tsa != null) {
-		switch (getSciAreaMode()) {
-		case SCI_AREA_SELECTED:
-		    if (pme.telescopePos == _opl.getSelectedPos()) {
-			g.drawPolygon( tsa.getPolygonAt((double) p.x, (double) p.y));
-		    }
-		    break;
-		case SCI_AREA_ALL:
-		    g.drawPolygon( tsa.getPolygonAt((double) p.x, (double) p.y));
-		    break;
-		}
-	    }
+            switch (getSciAreaMode()) {
+                case SCI_AREA_SELECTED:
+                    if (pme.telescopePos == _opl.getSelectedPos()) {
+                        g.drawPolygon( tsa.getPolygonAt((double) p.x, (double) p.y));
+                    }
+                    break;
+                case SCI_AREA_ALL:
+                    g.drawPolygon( tsa.getPolygonAt((double) p.x, (double) p.y));
+                    break;
+            }
 
             if(_mapItems != null) {
-	      for(int j = 0; j < _mapItems.size(); j++) {
-                g.drawPolygon(getPolygon((double) p.x,
-		                         (double) p.y,
-					 (SpMapItem)_mapItems.get(j),
-					 fii));
-	      }
-	    }
-	}
+                for(int j = 0; j < _mapItems.size(); j++) {
+                    g.drawPolygon(getPolygon((double) p.x,
+                                (double) p.y,
+                                (SpMapItem)_mapItems.get(j),
+                                fii));
+                }
+            }
+
+        }
     }
 
     /**

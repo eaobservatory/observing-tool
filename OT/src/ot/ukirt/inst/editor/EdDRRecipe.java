@@ -139,6 +139,36 @@ _initInstWidgets()
       }
     });
   }catch (NullPointerException ex) {}
+
+  // FOCUS
+  rtbw = (TextBoxWidgetExt) getWidget(_instStr, "focusRecipe");
+  // Disable it so it the user cannot use it.
+  //  _disableRecipeEntry(true);
+  try {
+    rtbw.setEditable(false);
+    //    rtbw.addWatcher(this);
+    // button to set the dark recipe
+    cbw = (CommandButtonWidgetExt) getWidget(_instStr, "focusSet");
+    cbw.addWatcher( new CommandButtonWidgetWatcher() {
+      public void commandButtonAction(CommandButtonWidgetExt cbw) {
+	// Set the selected table value
+	_spDRRecipe.setFocusRecipeName(_currentRecipeSelected);
+	
+	TextBoxWidgetExt tbwe = (TextBoxWidgetExt) getWidget(_instStr, "focusRecipe");
+	tbwe.setText(_currentRecipeSelected);
+	_disableRecipeEntry(true);
+      }
+    });
+    // check box for group membership
+    ckbw = (CheckBoxWidgetExt) getWidget(_instStr, "focusInGroup");
+    ckbw.addWatcher( new CheckBoxWidgetWatcher() {
+      public void checkBoxAction(CheckBoxWidgetExt ckbw) {
+	// Set the value
+	_spDRRecipe.setFocusInGroup(ckbw.getBooleanValue());
+      }
+    });
+  }catch (NullPointerException ex) {}
+
   
   rtbw = (TextBoxWidgetExt) getWidget(_instStr, "darkRecipe");
   // Disable it so it the user cannot use it.
@@ -376,7 +406,14 @@ _updateRecipeWidgets()
     recipe = _spDRRecipe.getBiasRecipeName();
     tbwe.setValue(recipe);
     cbwe = (CheckBoxWidgetExt) getWidget(_instStr, "biasInGroup");
-    cbwe.setValue(_spDRRecipe.getBiasInGroup());
+    cbwe.setValue(_spDRRecipe.getFocusInGroup());
+  }catch (NullPointerException ex) {}
+  tbwe = (TextBoxWidgetExt) getWidget(_instStr, "focusRecipe");
+  try {
+    recipe = _spDRRecipe.getFocusRecipeName();
+    tbwe.setValue(recipe);
+    cbwe = (CheckBoxWidgetExt) getWidget(_instStr, "focusInGroup");
+    cbwe.setValue(_spDRRecipe.getFocusInGroup());
   }catch (NullPointerException ex) {}
   tbwe = (TextBoxWidgetExt) getWidget(_instStr, "darkRecipe");
   try {
@@ -445,6 +482,10 @@ _updateRecipeWidgets()
 
      rarray = SpDRRecipe.UIST;
 
+   }else if (instStr.equalsIgnoreCase("WFCAM")) {
+
+     rarray = SpDRRecipe.WFCAM;
+
    }
 
    // Show the correct recipes, and select the option widget for the type
@@ -480,8 +521,6 @@ _updateWidgets()
  * @see KeyPressWatcher
  */
    public void keyPressed( KeyEvent evt ) {
-     System.out.println( "In kp" );
-
    }
 
 /**
@@ -502,7 +541,6 @@ textBoxKeyPress(TextBoxWidgetExt tbwe)
  * @see TextBoxWidgetWatcher
  */
    public void textBoxAction( TextBoxWidgetExt tbwe ) {
-     System.out.println ( "In tba" );
    }
 
 

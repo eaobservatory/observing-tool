@@ -8,7 +8,7 @@ import java.util.Vector;
  *  This class defines a data structure which stores the instrument
  *  configurations for the Translator.
  *
- *  Currently supports UFTI, IRCAM3, CGS4, Michelle.  UIST support
+ *  Currently supports UFTI, IRCAM3, CGS4, Michelle.  UIST & WFCAM support
  *  is in development.
  *
  *  see SpTranslator
@@ -394,6 +394,28 @@ public class InstConfig extends Hashtable implements Cloneable {
 //         put( "arcNullCycles", "0" );     // Edict no. of null cycles
 //         put( "arcIdlePeriod", "0.0" );   // Edict idle period
 // End of commented by RDK
+  
+// WFCAM
+// ====
+      } else if ( instrum.equalsIgnoreCase( "WFCAM" ) ) {
+         put( "instrument", instrum );    // Instrument name
+         put( "version", "TBD" );         // Version number
+         put( "name", "TBD" );            // Name of configuration file
+         put( "configType", "Normal");    // Type of configuration: always Normal
+         put( "type", "object" );         // Default "type" of WFCAM config
+         put( "instPort", "South" );      // Instrument port
+         put( "filter", "undefined" );    // Filter name
+         put( "flatFilter", "undefined" );// Flat filter name
+         put( "focusFilter", "undefined" );// Focus filter name
+         put( "readMode", "undefined" );  // Read mode
+         put( "flatReadMode", "undefined" );  // Flat read mode
+         put( "focusReadMode", "undefined" );  // Focus read mode
+         put( "expTime", "5.5" );         // Exposure time in seconds
+         put( "objNumExp", "1" );         // Number of object exposures (coadds)
+         put( "darkNumExp", "19" );       // Number of dark exposures (coadds)
+         put( "flatNumExp", "1" );        // Number of flat exposures (coadds)
+         put( "biasNumExp", "50" );       // Number of bias exposures (coadds)
+         put( "focusNumExp", "1" );       // Number of focus exposures (coadds)
 
       }
    }
@@ -499,10 +521,13 @@ public class InstConfig extends Hashtable implements Cloneable {
          else if ( lcAttribute.equals( "exposuretime" ) ) key ="darkExpTime";
          else if ( lcAttribute.equals( "filter" ) ) key = "darkFilter";
 
-      } else if (  lcTitle.equals( "flat" ) ) {
+      } else if ( (  lcTitle.equals( "flat" ) ) ||
+                  (  lcTitle.equals( "skyflat" ) ) ||
+                  (  lcTitle.equals( "domeflat" ) ) ) {
          if ( lcAttribute.equals( "coadds" ) ) key = "flatNumExp";
          else if ( lcAttribute.equals( "caltype" ) ) key = "type";
          else if ( lcAttribute.equals( "acqmode" ) ) key = "flatReadMode";
+         else if ( lcAttribute.equals( "readmode" ) ) key = "flatReadMode";
          else if ( lcAttribute.equals( "exposuretime" ) ) key ="flatExpTime";
          else if ( lcAttribute.equals( "observationtime" ) ) key ="flatObsTime";
          else if ( lcAttribute.equals( "sampling" ) ) key = "flatSampling";
@@ -553,6 +578,13 @@ public class InstConfig extends Hashtable implements Cloneable {
           else if ( lcAttribute.equals( "idleperiod" ) ) key ="targetAcqIdlePeriod";
           else if ( lcAttribute.equals( "observationtime" ) ) key ="targetAcqObsTime";
           else if ( lcAttribute.equals( "sampling" ) ) key ="targetAcqSampling";
+      } else if (  lcTitle.equals( "focus" ) ) {
+         if ( lcAttribute.equals( "coadds" ) ) key = "focusNumExp";
+         else if ( lcAttribute.equals( "caltype" ) ) key = "type";
+         else if ( lcAttribute.equals( "acqmode" ) ) key = "focusReadMode";
+         else if ( lcAttribute.equals( "readmode" ) ) key = "focusReadMode";
+         else if ( lcAttribute.equals( "exposuretime" ) ) key ="focusExpTime";
+         else if ( lcAttribute.equals( "filter" ) ) key = "focusFilter";
       }
       return key;
    }

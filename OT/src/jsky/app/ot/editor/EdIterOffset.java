@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
@@ -23,7 +24,11 @@ import jsky.util.gui.DialogUtil;
 import gemini.sp.SpItem;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTreeMan;
 import gemini.sp.iter.SpIterOffset;
+import gemini.sp.iter.SpIterSky;
+import gemini.sp.obsComp.SpTelescopeObsComp;
 
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
@@ -31,6 +36,7 @@ import jsky.app.ot.OtCfg;
 
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
+import gemini.util.RADecMath;
 import orac.jcmt.iter.SpIterRasterObs;
 
 /**
@@ -163,6 +169,80 @@ public final class EdIterOffset extends OtItemEditor
 //	else {
 //            _w.createScanMosaicButton.setEnabled(false);
 //	}
+
+        // Added by SDW - Sept. 2004.
+        createSkyOffsets();
+    }
+
+    /**
+      * Create sky offsets.  See if we have any sky eyes amongst the children, and
+      * check if they are following the base offset.  If they are, get the obsComp
+      * and calculate the offset from base of the sky offsets.
+      */
+    private void createSkyOffsets() {
+
+        _opl.resetSkyPositions();
+
+        // See if we can get the obsComp.  If not, just return since
+        // we can't do anything without it.
+        SpTelescopeObsComp obsComp = SpTreeMan.findTargetList(_spItem);
+        if ( obsComp == null ) return;
+        
+        Vector children = new Vector();
+        getOffsetSkyChildren((SpIterOffset)_spItem, children);
+        //System.out.println("child items found = " + children);
+        // Loop through all the children
+        for ( int i=0; i<children.size(); i++ ) {
+            SpIterSky sky = (SpIterSky)children.get(i);
+
+            // Get the associated scale factor
+            double scale = sky.getScaleFactor();
+
+            // Get the corrsponding position entry from the obsComp
+            SpTelescopePos tp = (SpTelescopePos) obsComp.getPosList().getPosition( sky.getSky() );
+
+            // See if the sky position is specified as an offset or absolute
+            double [] childOffset;
+            if ( !tp.isOffsetPosition() ) {
+                // To simplify things, we convert this to an offset position internally
+                SpTelescopePos base = (SpTelescopePos) obsComp.getPosList().getBasePosition();
+                childOffset = RADecMath.getOffset( tp.getXaxis(), tp.getYaxis(),
+                                                   base.getXaxis(), base.getYaxis(),
+                                                   _opl.getPosAngle() );
+            }
+            else {
+                childOffset = new double[2];
+                childOffset[0] = tp.getXaxis();
+                childOffset[1] = tp.getYaxis();
+            }
+
+            // Loop over all the current offset positions
+            for ( int count=0; count < _opl.size(); count++ ) {
+                double [] skyOffset = new double[2];
+                // Get the current position and its coordinates
+                SpOffsetPos currPos = (SpOffsetPos)_opl.getPositionAt(count);
+                skyOffset[0] = childOffset[0] + scale*currPos.getXaxis();
+                skyOffset[1] = childOffset[1] + scale*currPos.getYaxis();
+                // Now create the sky offset position
+                _opl.createSkyPosition( skyOffset[0], skyOffset[1] );
+            }
+        } 
+    }
+
+    /**
+      * Get all the sky children that are following offset.
+      */
+    private void getOffsetSkyChildren( SpItem parent, Vector offsetSkys) {
+        Enumeration children = parent.children();
+        while ( children.hasMoreElements() ) {
+            SpItem child = (SpItem)children.nextElement();
+            if ( child instanceof SpIterSky && ((SpIterSky)child).getFollowOffset() ) {
+                offsetSkys.add(child);
+            }
+            else {
+                getOffsetSkyChildren( child, offsetSkys );
+            }
+        }
     }
 
     /**

@@ -70,224 +70,238 @@ import org.xml.sax.InputSource;
  */
 public class SpInputXML extends DefaultHandler {
 
-  /**
-   * Used to check whether XML format is old (SpItemDOM based) or new.
-   *
-   * First 200 characters of XML file are read into this buffer to check format.
-   */
-  private static char [] _xmlBuffer = new char[200];
+    /**
+     * Used to check whether XML format is old (SpItemDOM based) or new.
+     *
+     * First 200 characters of XML file are read into this buffer to check format.
+     */
+    private static char [] _xmlBuffer = new char[200];
 
-  public static final String XML_ATTR_TYPE    = "type";
-  public static final String XML_ATTR_SUBTYPE = "subtype";
+    public static final String XML_ATTR_TYPE    = "type";
+    public static final String XML_ATTR_SUBTYPE = "subtype";
 
-  private String _currentElement;
-  private SpItem _currentSpItem;
-  private boolean _ignoreCharacters = false;
-  private String  _valueArrayElement = null;
-  private int     _valueArrayPos = 0;
+    private String _currentElement;
+    private SpItem _currentSpItem;
+    private boolean _ignoreCharacters = false;
+    private String  _valueArrayElement = null;
+    private int     _valueArrayPos = 0;
 
-  /**
-   * True if the first characters in side this element are encountered.
-   *
-   * The method {@link #characters(char[], int, int)} is sometimes called more than
-   * once whithin one XML element. This seems to be dependend on the parser that is used.
-   */
-  private boolean _firstCharacters = false;
+    /*
+     * The following is used to prevent attempts to insert SpTelescopeObsComp
+     * into SurveyContainers.  In this case, the obsComp are stored internally
+     * in the SurveyContainers.
+     */
+    protected boolean ignoreObsComp = false;
 
-  private String _characterBuffer = null;
+    /**
+     * True if the first characters in side this element are encountered.
+     *
+     * The method {@link #characters(char[], int, int)} is sometimes called more than
+     * once whithin one XML element. This seems to be dependend on the parser that is used.
+     */
+    private boolean _firstCharacters = false;
 
-  public void startElement(String namespaceURI,
-                           String localName,
-                           String qName,
-                           Attributes atts) throws SAXException {
+    private String _characterBuffer = null;
 
-    _firstCharacters = true;
+    public void startElement(String namespaceURI,
+            String localName,
+            String qName,
+            Attributes atts) throws SAXException {
 
-    if(_currentSpItem != null) {
-      _currentSpItem.processXmlElementStart(qName);
-    }
+        _firstCharacters = true;
 
-    // Check whether the element represents an SpItem.
-    if(qName.startsWith("Sp") &&
-       (atts.getValue(SpItem.XML_ATTR_TYPE) != null) &&
-       (atts.getValue(SpItem.XML_ATTR_SUBTYPE) != null)) {
-
-      _ignoreCharacters = true;
-
-      SpItem spItem = SpFactory.createShallow(SpType.get(atts.getValue(XML_ATTR_TYPE), atts.getValue(XML_ATTR_SUBTYPE)));
-
-      // Add the new element to the tree (unless it is the root item).
-      if(_currentSpItem != null) {
-        SpInsertData spID;
-        if(_currentSpItem.childCount() < 1) {
-          spID = SpTreeMan.evalInsertInside(spItem, _currentSpItem);
-
-          if (spID == null) {
-	    System.out.println("Could not insert " + spItem + " into " + _currentSpItem);
-          }
-	}
-	else {
-          spID = SpTreeMan.evalInsertAfter(spItem, _currentSpItem.lastChild());
-
-          if (spID == null) {
-	    System.out.println("Could not insert " + spItem + " after " + _currentSpItem.lastChild());
-          }
-	}
-
-        if (spID != null) {
-          SpTreeMan.insert(spID);
+        if(_currentSpItem != null) {
+            _currentSpItem.processXmlElementStart(qName);
         }
-      }
 
-      _currentSpItem     = spItem;
-    }
-    else {
-      _ignoreCharacters = false;
-    }
+        // Check whether the element represents an SpItem.
+        if(qName.startsWith("Sp") &&
+                (atts.getValue(SpItem.XML_ATTR_TYPE) != null) &&
+                (atts.getValue(SpItem.XML_ATTR_SUBTYPE) != null)) {
 
-    if(qName.equals("value")) {
-      if(_valueArrayElement != null) {
-        _valueArrayPos++;
-      }
-      else {
-        _valueArrayPos = 0;
-	_valueArrayElement = _currentElement;
-      }
-    }
+            if ( qName.equals("SpSurveyContainer" ) ) {
+                ignoreObsComp = true;
+            }
 
-    _currentElement = qName;
+            _ignoreCharacters = true;
 
+            if ( ignoreObsComp && qName.equals("SpTelescopeObsComp") ) return;
+            SpItem spItem = SpFactory.createShallow(SpType.get(atts.getValue(XML_ATTR_TYPE), atts.getValue(XML_ATTR_SUBTYPE)));
 
-    // Deal with attributes of XML element.
-    for(int i = 0; i < atts.getLength(); i++) {
-      _currentSpItem.processXmlAttribute(qName, atts.getQName(i), atts.getValue(i));
-    }
-  }
+            // Add the new element to the tree (unless it is the root item).
+            if(_currentSpItem != null) {
+                SpInsertData spID;
+                if(_currentSpItem.childCount() < 1) {
+                    spID = SpTreeMan.evalInsertInside(spItem, _currentSpItem);
 
-  public void endElement(String uri, String localName, String qName) {
-    if(qName.equals(_valueArrayElement)) {
-      _valueArrayElement = null;
-    }
+                    if (spID == null) {
+                        System.out.println("Could not insert " + spItem + " into " + _currentSpItem);
+                    }
+                }
+                else {
+                    spID = SpTreeMan.evalInsertAfter(spItem, _currentSpItem.lastChild());
 
-    if ( _characterBuffer != null ) {
-        if(_valueArrayElement != null) {
-          _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
-          _characterBuffer = null;
+                    if (spID == null) {
+                        System.out.println("Could not insert " + spItem + " after " + _currentSpItem.lastChild());
+                    }
+                }
+
+                if (spID != null) {
+                    SpTreeMan.insert(spID);
+                }
+            }
+
+            _currentSpItem     = spItem;
         }
-        else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
-          _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-          _characterBuffer = null;
+        else {
+            _ignoreCharacters = false;
+        }
+
+        if(qName.equals("value")) {
+            if(_valueArrayElement != null) {
+                _valueArrayPos++;
+            }
+            else {
+                _valueArrayPos = 0;
+                _valueArrayElement = _currentElement;
+            }
+        }
+
+        _currentElement = qName;
+
+
+        // Deal with attributes of XML element.
+        for(int i = 0; i < atts.getLength(); i++) {
+            _currentSpItem.processXmlAttribute(qName, atts.getQName(i), atts.getValue(i));
         }
     }
 
-    _currentSpItem.processXmlElementEnd(qName);
+    public void endElement(String uri, String localName, String qName) {
+        if(qName.equals(_valueArrayElement)) {
+            _valueArrayElement = null;
+        }
 
-    if(qName.equals(_currentSpItem.getXmlElementName())) {
-      if(_currentSpItem.parent() != null) {
-        _currentSpItem = _currentSpItem.parent();
-      }
+        if ( _characterBuffer != null ) {
+            if(_valueArrayElement != null) {
+                _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
+                _characterBuffer = null;
+            }
+            else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
+                _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+                _characterBuffer = null;
+            }
+        }
+
+        _currentSpItem.processXmlElementEnd(qName);
+
+        if(qName.equals(_currentSpItem.getXmlElementName())) {
+            if(_currentSpItem.parent() != null) {
+                _currentSpItem = _currentSpItem.parent();
+            }
+        }
+         
+        if ( qName.equals("SpSurveyContainer") ) ignoreObsComp = false;
+
+        _currentElement = null;
     }
 
-    _currentElement = null;
-  }
- 
 
-  public void characters(char[] ch, int start, int length) {
+    public void characters(char[] ch, int start, int length) {
 
-    if(_ignoreCharacters) {
-      return;
+        if(_ignoreCharacters) {
+            return;
+        }
+
+        if(_firstCharacters) {
+            _characterBuffer = null;
+            _firstCharacters = false;
+        }
+        if (_characterBuffer == null) {
+            _characterBuffer = new String (ch, start, length);
+        }
+        else {
+            _characterBuffer = _characterBuffer+new String(ch, start, length);
+        }
+
+
+        //if((_currentElement != null) && (value.trim().length() > 0)){
+        // values have to be "sent" in the endElement method because a multiple
+        // call to characters() inside a <value> element would cause extra elements to
+        // be added to the attribute _currentElement of the SpAvTable, each of them containing
+        // partial Strings.
+        if((_currentElement != null) && (_valueArrayElement == null)){
+            //        _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+        }
     }
 
-    if(_firstCharacters) {
-      _characterBuffer = null;
-      _firstCharacters = false;
-    }
-    if (_characterBuffer == null) {
-	_characterBuffer = new String (ch, start, length);
-    }
-    else {
-	_characterBuffer = _characterBuffer+new String(ch, start, length);
+    public SpItem xmlToSpItem(String xml) throws Exception {
+        return xmlToSpItem(new StringReader(xml));
     }
 
+    public SpItem xmlToSpItem(Reader reader) throws Exception {
 
-    //if((_currentElement != null) && (value.trim().length() > 0)){
-    // values have to be "sent" in the endElement method because a multiple
-    // call to characters() inside a <value> element would cause extra elements to
-    // be added to the attribute _currentElement of the SpAvTable, each of them containing
-    // partial Strings.
-    if((_currentElement != null) && (_valueArrayElement == null)){
-//        _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-    }
-  }
+        // A BufferedReader is only need to reset the stream
+        // inside isOldXmlFormat(BufferedReader). Once there
+        // are no Science Programs in the old XML format in
+        // circulation anymore things like
+        // isOldXmlFormat, SpItemDOM can go and the normal
+        // Reader can be used instead of the BufferedReader.
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        if(isOldXmlFormat(bufferedReader)) {
+            System.out.println("Converting from old XML format.");
+            return (new SpItemDOM(bufferedReader)).getSpItem();
+        }
 
-  public SpItem xmlToSpItem(String xml) throws Exception {
-    return xmlToSpItem(new StringReader(xml));
-  }
 
-  public SpItem xmlToSpItem(Reader reader) throws Exception {
-  
-    // A BufferedReader is only need to reset the stream
-    // inside isOldXmlFormat(BufferedReader). Once there
-    // are no Science Programs in the old XML format in
-    // circulation anymore things like
-    // isOldXmlFormat, SpItemDOM can go and the normal
-    // Reader can be used instead of the BufferedReader.
-    BufferedReader bufferedReader = new BufferedReader(reader);
-    if(isOldXmlFormat(bufferedReader)) {
-      System.out.println("Converting from old XML format.");
-      return (new SpItemDOM(bufferedReader)).getSpItem();
+        XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+
+        xmlReader.setContentHandler(this);
+
+        xmlReader.parse(new InputSource(bufferedReader));
+
+        return _currentSpItem;
     }
 
-  
-    XMLReader xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+    /**
+     * Checks whether XML format is old (based on SpItemDOM conversion).
+     *
+     * @param reader buffered reader to read XML.
+     *
+     * @return true if file contains old XML format (based on SpItemDOM conversion)
+     */
+    public static boolean isOldXmlFormat(BufferedReader reader) {
 
-    xmlReader.setContentHandler(this);
+        try {
+            reader.mark(_xmlBuffer.length + 10);
+            reader.read(_xmlBuffer, 0, _xmlBuffer.length);
+            reader.reset();
 
-    xmlReader.parse(new InputSource(bufferedReader));
+            String xmlStart = new String(_xmlBuffer);
 
-    return _currentSpItem;
-  }
+            if((xmlStart != null) && (xmlStart.indexOf("ItemData") >= 0)) {
+                return true;
+            }
+        }
+        catch(IOException e) {
+            System.out.println("Problem while checking XML format: " + e + ". Using new XML format.");
+        }
 
-  /**
-   * Checks whether XML format is old (based on SpItemDOM conversion).
-   *
-   * @param reader buffered reader to read XML.
-   *
-   * @return true if file contains old XML format (based on SpItemDOM conversion)
-   */
-  public static boolean isOldXmlFormat(BufferedReader reader) {
-
-    try {
-      reader.mark(_xmlBuffer.length + 10);
-      reader.read(_xmlBuffer, 0, _xmlBuffer.length);
-      reader.reset();
-
-      String xmlStart = new String(_xmlBuffer);
-
-      if((xmlStart != null) && (xmlStart.indexOf("ItemData") >= 0)) {
-        return true;
-      }
+        return false;
     }
-    catch(IOException e) {
-      System.out.println("Problem while checking XML format: " + e + ". Using new XML format.");
-    }
-    
-    return false;
-  }
 
-  /** Test method. */
-  public static void main(String [] args) {
-    try {
-	FileReader fr = new FileReader(args[0]);
-	SpItem spItem = (new SpInputXML()).xmlToSpItem(fr);
-	fr.close();
-	FileWriter fw = new FileWriter (args[0]);
-	fw.write(spItem.toXML());
-	fw.close();
+    /** Test method. */
+    public static void main(String [] args) {
+        try {
+            FileReader fr = new FileReader(args[0]);
+            SpItem spItem = (new SpInputXML()).xmlToSpItem(fr);
+            fr.close();
+            FileWriter fw = new FileWriter (args[0]);
+            fw.write(spItem.toXML());
+            fw.close();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
-    catch(Exception e) {
-      e.printStackTrace();
     }
-  }
-}
 

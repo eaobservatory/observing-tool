@@ -44,7 +44,9 @@ public class TelescopeGUI extends JPanel {
     TextBoxWidgetExt yaxisTBW = new TextBoxWidgetExt();
     Border border1;
     CommandButtonWidgetExt setBaseButton = new CommandButtonWidgetExt();
-    CommandButtonWidgetExt newButton = new CommandButtonWidgetExt();
+    //CommandButtonWidgetExt newButton = new CommandButtonWidgetExt();
+    JLabel newLabel = new JLabel("Add");
+    JComboBox newButton = new JComboBox();
     CommandButtonWidgetExt plotButton = new CommandButtonWidgetExt();
     CommandButtonWidgetExt removeButton = new CommandButtonWidgetExt();
     GridBagLayout gridBagLayout4 = new GridBagLayout();
@@ -177,8 +179,11 @@ public class TelescopeGUI extends JPanel {
         resolvedName.setForeground(Color.gray);
         setBaseButton.setMargin(new Insets(2, 2, 2, 2));
         setBaseButton.setText("Set Base From Image");
-        newButton.setMargin(new Insets(2, 10, 2, 10));
-        newButton.setText("New");
+        newLabel.setForeground(Color.black);
+        newLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        newLabel.setFont( new java.awt.Font("Dialog", 0, 12));
+        newButton.setForeground(Color.black);
+        newButton.setFont( new java.awt.Font("Dialog", 0, 12));
         plotButton.setMargin(new Insets(2, 10, 2, 10));
         plotButton.setText("Plot...");
         removeButton.setMargin(new Insets(2, 2, 2, 2));
@@ -561,6 +566,7 @@ public class TelescopeGUI extends JPanel {
         buttonPanel.add(plotButton, null);
         buttonPanel.add(setBaseButton, null);
         buttonPanel.add(removeButton, null);
+        buttonPanel.add(newLabel, null);
         buttonPanel.add(newButton, null);
     }
 }

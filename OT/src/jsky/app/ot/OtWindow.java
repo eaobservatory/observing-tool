@@ -2,7 +2,6 @@
  * Copyright 2000 Association for Universities for Research in Astronomy, Inc.,
  * Observatory Control System, Gemini Telescopes Project.
  *
- * $Id$
  */
 
 package jsky.app.ot;
@@ -266,7 +265,6 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
  * window and handles basic interaction such as button press events
  * and menu choices.
  *
- * @version $Revision$
  * @author Allan Brighton (ported to Swing/JSky, changed the layout)
  */
 public class OtWindow extends SpTreeGUI  
@@ -598,6 +596,23 @@ public class OtWindow extends SpTreeGUI
       String seqName = "None";
       String seqDir  = "";
 
+      // Walk back up the tree to see if this is contained in a survey component
+      // since we can handle these
+      SpItem parent = spitem;
+      boolean inSurvey = false;
+      while ( parent != null ) {
+          if ( parent.type().equals(SpType.SURVEY_CONTAINER) ) {
+              inSurvey = true;
+              break;
+          }
+          parent = parent.parent();
+      }
+      if ( inSurvey ) {
+           DialogUtil.error(this, "Can not translate observations within a Survey Container");
+           return false;
+      }
+          
+
       // Check if this is an Observation.
       if ( !( spitem.type().equals( SpType.OBSERVATION ) ) ) {
          spitem = SpTranslator.findSpObs( spitem );
@@ -649,6 +664,8 @@ public class OtWindow extends SpTreeGUI
 
 	TpeManager.remove( spItem );
 	TpeManager.deleteWatchers( spItem );
+
+        TelescopePosEditor.adjustWidthPreference();
 
 	// Try to clear up memory
 	System.out.println("Trying to clear memory references...");
@@ -855,6 +872,11 @@ public class OtWindow extends SpTreeGUI
     /** Create an observation folder. */
     public void addOrFolder() {
 	_tw.addItem(SpFactory.create(SpType.OR_FOLDER));
+    }
+
+    /** Create an observation folder. */
+    public void addSurveyFolder() {
+	_tw.addItem(SpFactory.create(SpType.SURVEY_CONTAINER));
     }
 
     /** Create an observation folder. */

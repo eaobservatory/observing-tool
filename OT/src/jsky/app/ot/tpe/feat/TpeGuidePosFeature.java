@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.Arrays;
+import java.util.ArrayList;
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
 import jsky.app.ot.fits.gui.FitsPosMapEntry;
@@ -32,6 +34,7 @@ public class TpeGuidePosFeature extends TpePositionFeature
 
     private static final String PROP_SHOW_TAGS = "Show Tags";
     private static BasicPropertyList _props;
+    private static boolean _offsetPosition = false;
 
     static {
 	// Initialize the properties supported by the TpeGuidePosFeature.
@@ -116,7 +119,7 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	String   tag       = null;
 	String[] guideTags = SpTelescopePos.getGuideStarTags();
 	for (int i=0; i<guideTags.length; ++i) {
-	    if (label.equals(guideTags[i])) {
+	    if (label.startsWith(guideTags[i])) {
 		tag = label;
 		break;
 	    }
@@ -143,6 +146,13 @@ public class TpeGuidePosFeature extends TpePositionFeature
 		tp.setName("");
 	    }
 	} else {
+            if ( "SKY".equals(tag) || "SKYGUIDE".equals(tag) ) {
+                int id=0;
+                while ( tpl.exists(tag + id ) ) {
+                    id++;
+                }
+                tag = tag + id;
+            }
 	    tp = tpl.createPosition(tag, fme.ra, fme.dec);
 	}
 	return true;
@@ -223,6 +233,17 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	}
     }
 
+    private final void _drawSkyBox(Graphics g, Point2D.Double p, int size, String tag) {
+	g.setColor(Color.green.darker());
+	g.drawRect((int)(p.x - size/2), (int)(p.y - size/2), size, size);
+ 
+	if (getDrawTags()) {
+	    // Draw the tag--should use font metrics to position the tag
+	    g.setFont(FONT);
+	    g.drawString(tag, (int)(p.x + size/2), (int)(p.y - size/2));
+	}
+    }
+
     /**
      * Draw Additional Target as Circle.
      *
@@ -264,29 +285,35 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	int size = (int) (10 * fii.pixelsPerArcsec);
  
 	Point2D.Double p;
-	String[] guideTags = SpTelescopePos.getGuideStarTags();
-	for (int i=0; i<guideTags.length; ++i) {
-	    p = pm.getLocationFromTag( guideTags[i] );
+        ArrayList tags = new ArrayList(Arrays.asList(SpTelescopePos.getGuideStarTags()));
+        tags.addAll(Arrays.asList(SpTelescopePos.getSkyTags()));
+	for (int i=0; i<tags.size(); ++i) {
+            String currentTag = (String)tags.get(i);
+	    p = pm.getLocationFromTag( currentTag );
 	    if (p != null) {
 	      SpTelescopePosList tpl = getSpTelescopePosList();
 	      SpTelescopePos tp = null;
 
  
 	      if(tpl != null) {
-	        tp = (SpTelescopePos) tpl.getPosition(guideTags[i]);
+	        tp = (SpTelescopePos) tpl.getPosition(currentTag);
 	      }
 
 	      if(tp != null) {
 	        switch(tp.getCoordSys()) {
 	          case CoordSys.AZ_EL:
-	            _drawGuideStar(g, p, size, guideTags[i], fii.baseScreenPos);
+	            _drawGuideStar(g, p, size, currentTag, fii.baseScreenPos);
 	            break;
 	          default:
-	            _drawGuideStar(g, p, size, guideTags[i]);
+	            _drawGuideStar(g, p, size, currentTag);
+                    if ( tp.getBoxSize() > 0.0 ) {
+                        int skySize = ( int ) (tp.getBoxSize() * fii.pixelsPerArcsec);
+                        _drawSkyBox (g, p, skySize, "Random Area");
+                    }
 	        }
 	      }
 	      else {
-	        _drawGuideStar(g, p, size, guideTags[i]);
+	        _drawGuideStar(g, p, size, currentTag);
 	      }
 	    }
 	}
@@ -301,14 +328,27 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	int x = fme.xWidget;
 	int y = fme.yWidget;
 
-	String[] guideTags = SpTelescopePos.getGuideStarTags();
-	for (int i=0; i<guideTags.length; ++i) {
-	    pme = pm.getPositionMapEntry( guideTags[i] );
+//	String[] guideTags = SpTelescopePos.getGuideStarTags();
+        ArrayList tags = new ArrayList(Arrays.asList(SpTelescopePos.getGuideStarTags()));
+        tags.addAll(Arrays.asList(SpTelescopePos.getSkyTags()));
+	for (int i=0; i<tags.size(); ++i) {
+	    pme = pm.getPositionMapEntry( (String)tags.get(i) );
 	    if ((pme != null) && (positionIsClose( pme, x, y ))) {
 		_dragObject = pme;
 
 		SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
+
+                // Save whether this is an offset or not, so we can set the final position 
+                // to an offset as well
+                if ( tp.isOffsetPosition() ) {
+                    _offsetPosition = true;
+                }
+                else {
+                    _offsetPosition = false;
+                }
+                
 		tp.setOffsetPosition(false);
+		tp.setXY(fme.ra, fme.dec);
 		tp.setCoordSys(CoordSys.FK5);
 		tp.setXY(fme.ra, fme.dec);
 
@@ -328,6 +368,18 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	}
 
 	SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
+        // If this was a offset, convert it back
+        if ( _offsetPosition ) {
+            // Get the base position
+            // Currently this does not work, TODO
+            /*
+            SpTelescopePos base = getSpTelescopePosList().getBasePosition();
+            System.out.println("Base position = " + base );
+            double [] offPos = RADecMath.getOffset(fme.ra, fme.dec, base.getXaxis(), base.getYaxis());
+            tp.setOffsetPosition(true);
+            tp.setXY( offPos[0], offPos[1]);
+            */
+        }
 
 	// See if we can snap to a catalog star
 	boolean snappedToCatStar = false;

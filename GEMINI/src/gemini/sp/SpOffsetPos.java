@@ -17,6 +17,9 @@ public final class SpOffsetPos extends TelescopePos
    // The prefix of all SpOffsetPos tags
    public static final String OFFSET_TAG = "Offset";
 
+   // Prefix for all sky offset tags
+   public static final String SKY_TAG = "SkyOffset";
+
    // Indices of the the fields of a position
    public static final int XAXIS_INDEX = 0;
    public static final int YAXIS_INDEX = 1;

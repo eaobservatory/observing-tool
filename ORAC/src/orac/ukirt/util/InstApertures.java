@@ -64,7 +64,8 @@ public class InstApertures extends Hashtable implements Cloneable {
            instrum.equalsIgnoreCase( "IRCAM3" ) ||
            instrum.equalsIgnoreCase( "CGS4" ) ||
            instrum.equalsIgnoreCase( "Michelle" ) ||
-           instrum.equalsIgnoreCase( "UIST" ) ) {
+           instrum.equalsIgnoreCase( "UIST" ) ||
+           instrum.equalsIgnoreCase( "WFCAM" ) ) {
 
 // Get the individual values
          xAperture = (String) this.get( "instAperX" );
@@ -114,6 +115,14 @@ public class InstApertures extends Hashtable implements Cloneable {
       } else if ( instrum.equalsIgnoreCase( "UIST" ) ) {
 
 // Initialise the UIST instrument apertures.
+         put( "instAperX", "1" );        // X aperture
+         put( "instAperY", "1" );        // Y aperture
+         put( "instAperZ", "0" );        // Z aperture
+         put( "instAperL", "5.0" );      // Lambda aperture
+
+      } else if ( instrum.equalsIgnoreCase( "WFCAM" ) ) {
+
+// Initialise the WFCAM instrument apertures.
          put( "instAperX", "1" );        // X aperture
          put( "instAperY", "1" );        // Y aperture
          put( "instAperZ", "0" );        // Z aperture
@@ -170,7 +179,8 @@ public class InstApertures extends Hashtable implements Cloneable {
            instrum.equalsIgnoreCase( "IRCAM3" ) ||
            instrum.equalsIgnoreCase( "CGS4" ) ||
            instrum.equalsIgnoreCase( "Michelle" ) ||
-           instrum.equalsIgnoreCase( "UIST" ) ) {
+           instrum.equalsIgnoreCase( "UIST" ) ||
+           instrum.equalsIgnoreCase( "WFCAM" ) ) {
 
 // Get an enumeration of the keys.
          ekey = keys();

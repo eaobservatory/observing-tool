@@ -2,8 +2,11 @@ package omp;
 
 import java.io.*;
 import java.net.*;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 import javax.swing.JOptionPane;
 import java.util.Properties;
+import java.util.Date;
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
 import orac.util.SpInputXML;
@@ -184,8 +187,39 @@ public class SpClient extends SoapClient {
       flushParameter();
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
+      addParameter("compress", String.class, "auto");
 
-      String spXML = new String((byte[])doCall(getURL(), SOAP_ACTION, "fetchProgram"));
+      String spXML;
+
+      try {
+          byte [] input = (byte [])doCall(getURL(), SOAP_ACTION, "fetchProgram");
+          if ( (char)input[0] != '<' && (char)input[1] != '?' ) {
+              System.out.println("Seems to be gzipped");
+              ByteArrayInputStream bis = new ByteArrayInputStream(input);
+              GZIPInputStream gis = new GZIPInputStream(bis);
+              byte [] read = new byte[1024];
+              int len;
+              StringBuffer sb = new StringBuffer();
+              while ( (len = gis.read(read)) > 0) {
+                  sb.append(new String(read, 0, len));
+              }
+              gis.close();
+              bis.close();
+              spXML = sb.toString();
+          }
+          else {
+              System.out.println("Seems not to be gzipped");
+              spXML = new String(input);
+          }
+      }
+      catch ( Exception e) {
+          e.printStackTrace();
+          flushParameter();
+          addParameter("projectid", String.class, id);
+          addParameter("password", String.class, pass);
+          
+          spXML = new String((byte[])doCall(getURL(), SOAP_ACTION, "fetchProgram"));
+      }
       
       SpItem spItem = (new SpInputXML()).xmlToSpItem(spXML);
 
@@ -240,8 +274,39 @@ public class SpClient extends SoapClient {
         forceString = "0";
       }
 
+      byte [] toSend;
+
+      try {
+//           GZIPOutputStream gos= new GZIPOutputStream(new FileOutputStream("/home/dewitt/test.xml.gz"));
+//           StringReader srdr = new StringReader(sp);
+//           byte [] data = sp.getBytes();
+//           byte [] buff = new byte[1024];
+//           int len;
+//           ByteArrayInputStream bis = new ByteArrayInputStream(data);
+//           while ( (len = bis.read(buff)) > 0 ) {
+//               gos.write(buff, 0, len);
+//           }
+//           gos.close();
+//           bis.close();
+          ByteArrayOutputStream bos = new ByteArrayOutputStream();
+          GZIPOutputStream gos = new GZIPOutputStream( bos );
+          byte [] input = sp.getBytes();
+          byte [] buff = new byte[1024];
+          int len;
+          ByteArrayInputStream bis = new ByteArrayInputStream(input);
+          while ( (len = bis.read(buff)) > 0 ) {
+              gos.write(buff, 0, len);
+          }
+          gos.close();
+          toSend = bos.toByteArray();
+      }
+      catch (Exception e) {
+          e.printStackTrace();
+          toSend = sp.getBytes();
+      }
+          
       flushParameter();
-      addParameter("sp", byte[].class, sp.getBytes());
+      addParameter("sp", byte[].class, toSend);
       addParameter("password", byte[].class, pass.getBytes());
       addParameter("force", byte[].class, forceString.getBytes());
 

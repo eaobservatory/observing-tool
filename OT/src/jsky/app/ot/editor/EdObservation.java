@@ -73,7 +73,7 @@ public final class EdObservation extends OtItemEditor
 	  _w.optional.deleteWatcher(this);
 	}
 
-	_w.remaining.addItem(SpObs.REMOVED_STRING);
+	_w.remaining.addItem(SpObs.REMOVE_STRING);
 
 	for(int i = 0; i <= 100; i++) {
 	  _w.remaining.addItem("" + i);
@@ -159,8 +159,8 @@ public final class EdObservation extends OtItemEditor
 
 	int numberRemaining = ((SpObs)_spItem).getNumberRemaining();
 
-	if(numberRemaining == SpObs.REMOVED_CODE) {
-	  _w.remaining.setValue(SpObs.REMOVED_STRING);
+	if(numberRemaining < 0 ) {
+	  _w.remaining.setValue(SpObs.REMOVE_STRING);
 	}
 	else {
 	  _w.remaining.setSelectedIndex(numberRemaining + 1);
@@ -255,8 +255,15 @@ public final class EdObservation extends OtItemEditor
 
 	// Added for OMP (MFO, 7 August 2001)
 	if(w == _w.remaining) {
-	    if(_w.remaining.getSelectedItem().equals(SpObs.REMOVED_STRING)) {
-	        spObs.setNumberRemaining(SpObs.REMOVED_CODE);
+	    if(_w.remaining.getSelectedItem().equals(SpObs.REMOVE_STRING)) {
+                if ( spObs.getNumberRemaining() == SpObs.REMOVED_CODE ) {
+                    spObs.setNumberRemaining(1);
+                }
+                else {
+                    spObs.setNumberRemaining(-1 * spObs.getNumberRemaining());
+
+                }
+                _updateWidgets();
 	    }
 	    else {
                 spObs.setNumberRemaining(_w.remaining.getSelectedIndex() - 1);

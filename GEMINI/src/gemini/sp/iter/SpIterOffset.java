@@ -62,7 +62,7 @@ _thisNextElement()
       new SpIterValue("p", String.valueOf(op.getXaxis())),
       new SpIterValue("q", String.valueOf(op.getYaxis()))
    };
-   return new SpIterStep("offset", _curIndex++, _iterComp, sivA);
+   return new SpIterStep(((SpIterOffset)_iterComp).title_offset(), _curIndex++, _iterComp, sivA);
 }
  
 }
@@ -105,7 +105,6 @@ public class SpIterOffset extends SpIterComp
    /** Needed for XML parsing. */
    private double yOffNew = 0.0;
 
-
 /**
  * Default constructor.
  */
@@ -113,6 +112,11 @@ public SpIterOffset()
 {
 //   super(SP_TYPE);
    super(SpType.ITERATOR_COMPONENT_OFFSET);
+}
+
+protected SpIterOffset(SpType spType)
+{
+  super(spType);
 }
 
 /**
@@ -274,6 +278,40 @@ elements()
    return new SpIterOffsetEnumeration(this);
 }
 
+/**
+ * Returns true if one or more direct children of this offset iterator are offset iterators themselves.
+ *
+ * Such a nested offset iterator inside this offset inside can be either a SpIterOffset
+ * or a SpIterMicroStep (subclass of SpIterOffset).
+ *
+ * @see #containsMicroSteps()
+ */
+public boolean containsNestedOffsets() {
+  Enumeration e = children();
+  while(e.hasMoreElements()) {
+    if(e.nextElement() instanceof SpIterOffset) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+/**
+ * Returns true if one or more direct children of this offset iterator are microstep iterators.
+ *
+ * @see #containsNestedOffsets()
+ */
+public boolean containsMicroSteps() {
+  Enumeration e = children();
+  while(e.hasMoreElements()) {
+    if(e.nextElement() instanceof SpIterMicroStep) {
+      return true;
+    }
+  }
+
+  return false;
+}
 
 protected void
 processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
@@ -287,6 +325,12 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    // as their information has already been dealt with in the TCS XML representation of
    // this item.
    // The other attributes are delegated to the super class.
+
+    // Ignore any sky offsets
+    if ( avAttr.equals(SpOffsetPosList.SKY_POS_LIST) ) {
+        return;
+    }
+
    if(avAttr.equals(SpOffsetPosList.OFFSET_POS_LIST)) {
       // Append <obsArea> element.
       xmlBuffer.append("\n" + indent + "  <obsArea>");
@@ -305,7 +349,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    }
 
 
-   if(avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE) || avAttr.startsWith(SpOffsetPos.OFFSET_TAG)) {
+   if(avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE) || avAttr.startsWith(SpOffsetPos.OFFSET_TAG) || avAttr.startsWith( SpOffsetPos.SKY_TAG) ) {
       // Ignore. Dealt with in <obsArea> element (see above).
       return;
    }
@@ -383,6 +427,10 @@ processXmlElementEnd(String name)
    super.processXmlElementEnd(name);
 }
 
+
+public String title_offset() {
+   return "offset";
+}
 
 }
 

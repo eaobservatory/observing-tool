@@ -34,6 +34,7 @@ public class OtTreeToolBar extends GenericToolBar {
     protected JButton msbFolderButton;
     protected JButton andFolderButton;
     protected JButton  orFolderButton;
+    protected JButton    surveyButton;
 
     /**
      * Create a toolbar with tree related actions for the given OT window.
@@ -43,7 +44,7 @@ public class OtTreeToolBar extends GenericToolBar {
 	setFloatable(false);
 	this.editor = editor;
 	showPictures = true;
-	showText = false;
+	showText = true;
 	addToolBarItems();
     }
 
@@ -58,6 +59,8 @@ public class OtTreeToolBar extends GenericToolBar {
 	    add(makeOrFolderButton());
 	    addSeparator();
 	    add(makeAndFolderButton());
+	    addSeparator();
+	    add(makeSurveyButton());
 	    addSeparator();
 	    add(makeMsbFolderButton());
 	}
@@ -256,6 +259,23 @@ public class OtTreeToolBar extends GenericToolBar {
 	updateButton(orFolderButton, "OR Folder",
 	  new ImageIcon(ClassLoader.getSystemClassLoader().getResource("ot/images/orFolder.gif")), null, null);
 	return orFolderButton;
+    }
+
+
+    /**
+     * Make the Survey Folder button (OMP project), if it does not yet exists.
+     * Otherwise update the display
+     * using the current options for displaying text or icons.
+     *
+     * @return the OR Folder button
+     */
+    protected JButton makeSurveyButton() {
+	if (surveyButton == null) 
+	    surveyButton = makeButton("Create a Survey Container.", editor.getSurveyFolderAction(), false);
+	
+	updateButton(surveyButton, "Survey Folder",
+	  new ImageIcon(ClassLoader.getSystemClassLoader().getResource("ot/images/surveyContainer.gif")), null, null);
+	return surveyButton;
     }
 
 
