@@ -72,7 +72,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="0" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -267,7 +266,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="2" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -461,7 +459,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="4" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -2840,7 +2837,16 @@ and "Don't Care" for maps.
         </SpInstSCUBA>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This MSB provides an example of a calibrated scan map observation using the 2000 um bolometer. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence, in addition to the specific choice of calibrator,  will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+          <note>This MSB provides an example of a calibrated scan map
+observation using the 2000 um bolometer. The standard Emerson2 chop sequence
+has been assumed here, with 2 chop angles at each of 3 different chop throws
+(the chop throws have been scaled up for the larger beam size). A pointing,
+z-focus and repoint will be made prior to the calibration observation
+(POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The
+actual sequence, in addition to the specific choice of calibrator,  will be
+determined at the time of observing by the TSS/observer, depending on when the
+last focus/SKYDIPs were made.  Given that this is not an array observation
+you should consider doing an EKH scan instead.
   </note>
           <title>A calibrated 2000 um scan map observation</title>
         </SpNote>
@@ -2884,27 +2890,27 @@ and "Don't Care" for maps.
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SECONDARY>
                   <CHOP SYSTEM="TRACKING">
-                    <THROW>127.5</THROW>
+                    <THROW>71.0</THROW>
                     <PA>90.0</PA>
                   </CHOP>
                   <CHOP SYSTEM="TRACKING">
-                    <THROW>127.5</THROW>
+                    <THROW>71.0</THROW>
                     <PA>0.0</PA>
                   </CHOP>
                   <CHOP SYSTEM="TRACKING">
-                    <THROW>187.0</THROW>
+                    <THROW>103.0</THROW>
                     <PA>90.0</PA>
                   </CHOP>
                   <CHOP SYSTEM="TRACKING">
-                    <THROW>187.0</THROW>
+                    <THROW>103.0</THROW>
                     <PA>0.0</PA>
                   </CHOP>
                   <CHOP SYSTEM="TRACKING">
-                    <THROW>289.0</THROW>
+                    <THROW>160.0</THROW>
                     <PA>90.0</PA>
                   </CHOP>
                   <CHOP SYSTEM="TRACKING">
-                    <THROW>289.0</THROW>
+                    <THROW>160.0</THROW>
                     <PA>0.0</PA>
                   </CHOP>
                 </SECONDARY>
@@ -3617,7 +3623,6 @@ and "Don't Care" for maps.
         <noiseCalculationTau>0.08</noiseCalculationTau>
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <min>0.0</min>
       </SpSiteQualityObsComp>
       <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
@@ -3752,7 +3757,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="41" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -4174,7 +4178,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
@@ -4400,7 +4403,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="47" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
@@ -4615,7 +4617,6 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="49" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
