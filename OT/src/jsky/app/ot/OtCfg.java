@@ -343,7 +343,7 @@ public final class OtCfg
 	// OR Folder (MFO, 09 July 2001)
 	tnw        = new OtObsContainerTreeNodeWidget();
 	tnw.setBothImageSrc("ot/images/orFolder.gif");
-	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdTitle");
+	clientData = new OtClientData(tnw, "ot.editor.EdOrFolder");
 	SpFactory.OR_FOLDER.setClientData(clientData);
     }
 
