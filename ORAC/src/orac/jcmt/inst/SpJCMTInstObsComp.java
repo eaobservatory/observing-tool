@@ -81,4 +81,11 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
     return new IterTrackerJCMT();
   }
 
+  /**
+   * Get jiggle pattern options for this instrument, given the current settings.
+   *
+   * @return String array of jiggle pattern options.
+   */
+  public abstract String [] getJigglePatterns();
+
 }

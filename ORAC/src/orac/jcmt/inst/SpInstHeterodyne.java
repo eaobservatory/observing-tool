@@ -25,6 +25,8 @@ import gemini.sp.SpType;
  */
 public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
+  public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
+
   /**
    * Front end name.
    *
@@ -74,6 +76,15 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     else {
       return super.getTitle();
     }
+  }
+
+  /**
+   * Get jiggle pattern options.
+   *
+   * @return String array of jiggle pattern options.
+   */
+  public String [] getJigglePatterns() {
+    return JIGGLE_PATTERNS;
   }
 }
 
