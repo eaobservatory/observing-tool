@@ -618,6 +618,7 @@
       <xsd:element ref="integrations"/>
       <xsd:element name="startPosition" type="xsd:string" fixed="Zenith"/>
       <xsd:element name="positions" type="xsd:positiveInteger"/>
+      <xsd:element name="useCurrentAz" type="xsd:boolean" minOccurs="0"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
