@@ -72,7 +72,7 @@ public class OtWindowFrame extends JFrame implements WindowListener {
 
 	// include this top level window in any future look and feel changes
 	LookAndFeelMenu.addWindow(this);
-        System.out.println("Adding a windowFrame from ctor");
+//         System.out.println("Adding a windowFrame from ctor");
         openFrames.add(this);
     }
 
@@ -83,14 +83,29 @@ public class OtWindowFrame extends JFrame implements WindowListener {
         return openFrames;
     }
 
-    public void windowActivated( WindowEvent e ) {};
-    public void windowClosed( WindowEvent e ) {};
-    public void windowDeactivated( WindowEvent e ) {};
-    public void windowDeiconified( WindowEvent e ) {};
-    public void windowIconified( WindowEvent e ) {};
-    public void windowOpened( WindowEvent e ) {};
+    public void windowActivated( WindowEvent e ) {
+//         System.out.println("Got a window activated event");
+    };
+    public void windowClosed( WindowEvent e ) {
+//         System.out.println("Got a window closed event");
+        openFrameCount--;
+        openFrames.remove(this);
+//         editor.close();
+    };
+    public void windowDeactivated( WindowEvent e ) {
+//         System.out.println("Got a window deactivated event");
+    };
+    public void windowDeiconified( WindowEvent e ) {
+//         System.out.println("Got a window deiconified event");
+    };
+    public void windowIconified( WindowEvent e ) {
+//         System.out.println("Got a window iconified event");
+    };
+    public void windowOpened( WindowEvent e ) {
+//         System.out.println("Got a window opened event");
+    };
     public void windowClosing( WindowEvent e ) {
-        System.out.println("Removing a windowFrame");
+//         System.out.println("Got a window closing event");
         openFrameCount--;
         openFrames.remove(this);
         editor.close();
