@@ -55,7 +55,7 @@ public class SpIterFocusObs extends SpIterJCMTObs {
     super(SP_TYPE);
 
     _avTable.noNotifySet(ATTR_AXIS,         AXES[0], 0);
-    _avTable.noNotifySet(ATTR_STEPS,        "0.0", 0);
+    _avTable.noNotifySet(ATTR_STEPS,        "" + getDefaultSteps(AXES[0]), 0);
     _avTable.noNotifySet(ATTR_FOCUS_POINTS, "5", 0);
     _avTable.noNotifySet(ATTR_AUTOMATIC_TARGET, "false", 0);
   }
@@ -91,6 +91,15 @@ public class SpIterFocusObs extends SpIterJCMTObs {
 
   public void setFocusPoints(String focusPointsStr) {
     _avTable.set(ATTR_FOCUS_POINTS, Format.toInt(focusPointsStr));
+  }
+
+  public static double getDefaultSteps(String axis) {
+    if(axis.equalsIgnoreCase("z")) {
+      return 0.3;
+    }
+    else {
+      return 1.0;
+    }
   }
 }
 
