@@ -73,6 +73,9 @@ import ot.ReportBox;
 import orac.ukirt.util.SpTranslator;
 import gemini.sp.obsComp.SpInstObsComp;
 
+import orac.util.FileFilterSGML;
+import orac.util.FileFilterXML;
+
 /**
  * Button manager base class.  Helper classes derived from this
  * class keep their associated button disabled or enabled appropriately.
@@ -294,6 +297,12 @@ public class OtWindow extends SpTreeGUI
     // used to exit the application when the last main frame is closed
     static protected int             _frameCount = 0;
 
+    /** XML file filter (*.xml). MFO 04 June 2001 */
+    protected FileFilterXML   xmlFilter = new FileFilterXML();
+
+    /** SGML file filter (*.ot, *.sp, *.sgml). MFO 04 June 2001 */
+    protected FileFilterSGML sgmlFilter = new FileFilterSGML();
+
     /**
      * Create an OtWindow of the appropriate type.
      */
@@ -361,6 +370,10 @@ public class OtWindow extends SpTreeGUI
 		fileInfo.dir          = dir;
 		fileInfo.filename     = filename;
 		fileInfo.hasBeenSaved = hasBeenSaved;
+	    }
+	    // Added by MFO (04 June 2001)
+	    else {
+                fileInfo.dir          = System.getProperty("user.dir");
 	    }
 	}
 	_progInfo.file = fileInfo;
@@ -861,12 +874,27 @@ public class OtWindow extends SpTreeGUI
 		return;
 
 	    // open in this window
-	    JFileChooser fileChooser = new JFileChooser(); //OtFileIO.getFileChooser();
-	    // mfo ATC JSKY: I might have to set a directory and dialog name for
-	    // fileChooser here.
+	    JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+            fileChooser.addChoosableFileFilter(xmlFilter);
+            fileChooser.addChoosableFileFilter(sgmlFilter);
+
+            if(System.getProperty("OMP") != null) {
+              fileChooser.setFileFilter(xmlFilter);
+            }
+            else {
+              fileChooser.setFileFilter(sgmlFilter);
+            }
+
 	    int option = fileChooser.showOpenDialog(null);
 	    if (option != JFileChooser.APPROVE_OPTION || fileChooser.getSelectedFile() == null) 
 		return;
+
+            if(fileChooser.getFileFilter() instanceof FileFilterXML) {
+              OtFileIO.setXML(true);
+            }
+            else {
+              OtFileIO.setXML(false);
+            }
 
 	    File file = fileChooser.getSelectedFile();
 	    if (file != null)
@@ -885,6 +913,7 @@ public class OtWindow extends SpTreeGUI
 	if (filename == null) {
 	    return;
 	}
+	OtFileIO.setXML(true);
 	SpRootItem spItem = OtFileIO.fetchSp( dir, filename );
 	if (spItem != null) {
 	    FileInfo fi = new FileInfo(dir, filename, true);
