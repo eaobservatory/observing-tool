@@ -34,6 +34,10 @@ public class SpObs extends SpObsContextItem
    /** This attribute records the observation priority. */
    public static final String ATTR_PRIORITY = "priority";
 
+   /** This attribute records the observation status. */
+   public static final String ATTR_STATUS_DONE = "status";
+   
+
    /**
     * High observation priority, relative to the other observations in
     * the science program.
@@ -264,6 +268,30 @@ setPriority(int priority)
    }
  
    _avTable.set(ATTR_PRIORITY, PRIORITIES[priority]);
+}
+
+/**
+ * Get status attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ *
+ * @return country or "" if attribute hasn't been set.
+ */
+public boolean
+isDone()
+{
+   return _avTable.getBool(ATTR_STATUS_DONE);
+}
+
+/**
+ * Set status attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ */
+public void
+setDone(boolean status)
+{
+   _avTable.set(ATTR_STATUS_DONE, status);
 }
 
 }
