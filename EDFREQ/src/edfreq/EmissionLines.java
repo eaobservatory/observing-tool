@@ -23,15 +23,19 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class EmissionLines extends JPanel implements MouseListener,
-ChangeListener
+public class EmissionLines extends JPanel implements MouseListener, ChangeListener
 {
 
    int xSize;
    int ySize;
    JPopupMenu popup = null;
+   private Hashtable popupLineTable = new Hashtable();
+   private Hashtable popupLinePosTable = new Hashtable();
+   private int samplerCount = 0;
+   private JMenuItem [] samplerMenus;
+
    JMenuItem item;
    private double lowLimit;
    private double highLimit;
@@ -45,6 +49,12 @@ ChangeListener
    private int mainLinePos = -1;
    private double sideLineFreq = 0;
    private int sideLinePos = -1;
+
+   // Added by MFO (October 15, 2002)
+   private LineDetails selectedLine;
+   private double popupLineFreq = 0;
+   /** Position of the line temporarily selected in the popup menu while the popup menu is visible. */
+   private int popupLinePos = -1;
    private double redshift;
    private double restLowLimit;
    private double restHighLimit;
@@ -52,7 +62,7 @@ ChangeListener
 
    public EmissionLines ( double lowLimit, 
      double highLimit, double redshift, 
-     int xSize, int ySize )
+     int xSize, int ySize, int samplerCount )
    {
       super();
 
@@ -88,6 +98,11 @@ ChangeListener
       setPreferredSize ( new Dimension ( xSize, ySize ) );
       setSize ( xSize, ySize );
       addMouseListener ( this );
+
+      samplerMenus = new JMenuItem[samplerCount];
+      for(int i = 0; i < samplerCount; i++) {
+         samplerMenus[i] = new JMenuItem("" + i);
+      }
    }
 
 
@@ -138,6 +153,12 @@ ChangeListener
          ig.setColor ( Color.magenta );
          ig.drawLine ( sideLinePos, 0, sideLinePos, ySize );
       }
+      // Added by MFO (October 15, 2002)
+      if ( popupLinePos >= 0 )
+      {
+         ig.setColor ( Color.green );
+         ig.drawLine ( popupLinePos, 0, popupLinePos, ySize );
+      }
 
       g.drawImage ( buffer, 0, 0, null );
    }
@@ -147,6 +168,9 @@ ChangeListener
       int j;
       int xPos;
 
+      // Emission lines in the interval [-range, range] are displayed. (Added by MFO, October 15, 2002)
+      int range = 200;
+
       j = e.getX();
       xPos = j;
       if ( xPos > xSize/2 )
@@ -154,37 +178,29 @@ ChangeListener
          xPos = xPos - 200;
       }
 
-      if ( lineStore[j] != null )
-      {
-         item = new JMenuItem ( lineStore[j].name + "  " +
-           lineStore[j].transition );
-         popup = new JPopupMenu ( );
-         popup.add ( item );
-         popup.show ( this, xPos, e.getY() );
+      popup = new JPopupMenu();
+
+      // The popupLineTable could probably be cleared at this point but it is not necessary
+      // to clear the it and this class has never been tested with the following line enabled.
+      // popupLineTable.clear();
+
+
+      for(int i = j - range; i <= j + range; i++) {
+         if((i >= 0) && (i < lineStore.length) && (lineStore[i] != null)) {
+            item = new JMenuItem ( lineStore[i].name       + "  " +
+                                   lineStore[i].transition + "  " +
+                                   lineStore[i].frequency);
+
+	    popupLineTable.put(item, lineStore[i]);
+	    popupLinePosTable.put(item, new int[]{ i });
+
+            item.addChangeListener(this);
+	    popup.add(item);
+	 }
       }
-      else if ( j > 0 )
-      {
-         j--;
-         if ( lineStore[j] != null )
-         {
-            item = new JMenuItem ( lineStore[j].name + "  " +
-              lineStore[j].transition );
-            popup = new JPopupMenu ( );
-            popup.add ( item );
-            popup.show ( this, xPos, e.getY() );
-         }
-      }
-      else if ( j+1 < lineStore.length )
-      {
-         j++;
-         if ( lineStore[j] != null )
-         {
-            item = new JMenuItem ( lineStore[j].name + "  " +
-              lineStore[j].transition );
-            popup = new JPopupMenu ( );
-            popup.add ( item );
-            popup.show ( this, xPos, e.getY() );
-         }
+
+      if(popup != null) {
+         popup.show(this, xPos, e.getY());
       }
    }
 
@@ -207,6 +223,18 @@ ChangeListener
 
    public void stateChanged ( ChangeEvent e )
    {
+      if(e.getSource() instanceof JMenuItem) {
+         // update popupLinePos
+         popupLinePos = ((int[])popupLinePosTable.get(e.getSource()))[0];
+
+         repaint();
+
+         selectedLine  = ((LineDetails)popupLineTable.get(e.getSource()));
+	 popupLineFreq = selectedLine.frequency * 1.0E6;
+
+         return;
+      }
+
       double value;
       int j;
 
@@ -259,6 +287,17 @@ ChangeListener
          sideLinePos = -1;
       }
 
+      if ( ( popupLineFreq > lowLimit ) && ( popupLineFreq < highLimit ) )
+      {
+         popupLinePos = (int) ( ((double)xSize) * 
+                 ( popupLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+      }
+      else
+      {
+         popupLinePos = -1;
+      }
+
+
    }
 
 
@@ -297,5 +336,7 @@ ChangeListener
 
    }
 
-
+   public LineDetails getSelectedLine() {
+      return selectedLine;
+   }
 }
