@@ -11,6 +11,10 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ Jannuary 29th 2003
+
+  - Configure SOAP calls to use proxy server
+
 +++ January 28th 2003
 
   - Fix schema validation in distribution
