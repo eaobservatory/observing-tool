@@ -576,6 +576,7 @@ public class SpItemDOM {
         // tag
 	type = ((ElementImpl)baseElement.getElementsByTagName("target").item(0)).getAttribute("type");
 
+	// ?? MFO
         if(type.equals(TCS_TARGET_TYPES[0])) {
           value = UKIRT_TARGET_TAGS[0];
         }
@@ -597,21 +598,41 @@ public class SpItemDOM {
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
 
         // target name
-        value = baseElement.getElementsByTagName("targetName").item(0).getFirstChild().getNodeValue();
+	try {
+	  value = baseElement.getElementsByTagName("targetName").item(0).getFirstChild().getNodeValue();
+	}
+	catch(NullPointerException e) {
+	  value = "";
+	}
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
 
         // RA
-        value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0)))
-                                          .getElementsByTagName("c1").item(0).getFirstChild().getNodeValue();
+        try {
+	  value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0)))
+                                            .getElementsByTagName("c1").item(0).getFirstChild().getNodeValue();
+	}
+	catch(NullPointerException e) {
+	  value = "";
+	}
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
 
         // Dec
-        value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0)))
-                                          .getElementsByTagName("c2").item(0).getFirstChild().getNodeValue();
+	try {
+          value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0)))
+                                            .getElementsByTagName("c2").item(0).getFirstChild().getNodeValue();
+	}
+	catch(NullPointerException e) {
+	  value = "";
+	}
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
 
         // System
-        value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0))).getAttribute("type");
+	try {
+          value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0))).getAttribute("type");
+	}
+	catch(NullPointerException e) {
+	  value = "";
+	}
 	if(value.equals("B1950")) value = "FK4 (B1950)";
 	if(value.equals("J2000")) value = "FK5 (J2000)";
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
