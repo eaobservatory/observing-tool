@@ -482,6 +482,18 @@ rm(String name)
    }
 }
 
+/**
+ * Remove an attribute without notifying the state machine.
+ *
+ * Added by MFO (2 November 2001).
+ */
+public void
+noNotifyRm(String name)
+{
+   _avTable.remove(name);
+}
+
+
 private void
 _rmValue(String name, int pos)
 {
