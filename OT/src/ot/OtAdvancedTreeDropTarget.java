@@ -18,9 +18,11 @@ import java.awt.dnd.DropTargetDragEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.io.IOException;
+import java.util.Enumeration;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
+import gemini.sp.SpObs;
 import jsky.app.ot.util.DnDUtils;
 import jsky.util.gui.DialogUtil;
 
@@ -29,6 +31,7 @@ import jsky.app.ot.OtTreeDropTarget;
 import jsky.app.ot.OtDragDropObject;
 import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtTreeNodeWidget;
+import jsky.app.ot.OtWindow;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
@@ -228,12 +231,27 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	  //   resetProg seems to have caused the gaps in the tree between obs components in a group.
 	  //   Unless other problems araise setCollapsed should be used instead.
 	  //_spTree.resetProg(_spTree.getProg());
-	  _spTree.setCollapsed();
+	  _spTree.updateNodeExpansions();
 	}
 	catch(Exception e) {
           DialogUtil.error(e);
 	}
-	
+
+
+	// Hack to get Observation editor updated when Observation is dragged in and out MSB.
+	if((newItems != null) && (newItems[0] instanceof SpObs)) {
+	  Enumeration children = node.children();
+	  OtTreeNodeWidget treeNodeWidget = null;
+	  while(children.hasMoreElements()) {
+	    treeNodeWidget = (OtTreeNodeWidget)children.nextElement();
+            if(treeNodeWidget.getItem() == newItems[0]) {
+	      System.out.println("_spTree.getParent().getParent() = " + _spTree.getParent().getParent());
+	      System.out.println("Calling _spTree.nodeSelect on " + treeNodeWidget);
+	      ((OtWindow)_spTree.getParent().getParent()).nodeSelect(_spTree, treeNodeWidget);
+	    }
+	  }
+	}
+
 	if (newItems == null) 
 	    return false;
    	return true;
