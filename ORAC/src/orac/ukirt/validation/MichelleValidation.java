@@ -17,9 +17,9 @@ public class MichelleValidation implements InstrumentValidation {
         report = new Vector();
       }
 
-      report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                  instObsComp,
-		                  "WARNING: MichelleValidation.checkInstrument not implemented."));
+      //report.add(new ErrorMessage(ErrorMessage.WARNING,
+      //                            instObsComp,
+      //	                    "WARNING: MichelleValidation.checkInstrument not implemented."));
     }
 
 }
