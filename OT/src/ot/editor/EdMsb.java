@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
@@ -44,14 +45,15 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	_presSource  = _w = new MsbEditorGUI();
 	_description = "MSB information.";
 
-	ButtonGroup grp = new ButtonGroup();
-	grp.add(_w.priorityHigh);
-	grp.add(_w.priorityMedium);
-	grp.add(_w.priorityLow);
+// 	ButtonGroup grp = new ButtonGroup();
+// 	grp.add(_w.priorityHigh);
+// 	grp.add(_w.priorityMedium);
+// 	grp.add(_w.priorityLow);
 
-	_w.priorityHigh.addActionListener(this);
-	_w.priorityMedium.addActionListener(this);
-	_w.priorityLow.addActionListener(this);
+// 	_w.priorityHigh.addActionListener(this);
+// 	_w.priorityMedium.addActionListener(this);
+// 	_w.priorityLow.addActionListener(this);
+	_w.jComboBox1.addActionListener(this);
 
 	_w.remaining.addItem(SpMSB.REMOVED_STRING);
 
@@ -141,6 +143,10 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	    else {
                 spMSB.setNumberRemaining(_w.remaining.getSelectedIndex() - 1);
 	    }
+	}
+
+	if ( w instanceof JComboBox ) {
+	    spMSB.setPriority( ((Integer)_w.jComboBox1.getSelectedItem()).intValue() );
 	}
 
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
