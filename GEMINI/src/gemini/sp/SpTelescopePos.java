@@ -13,6 +13,10 @@ import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.Format;
 
+import java.util.StringTokenizer;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * A data object that describes a telescope position and includes methods
  * for extracting positions from A/V tables.
@@ -43,6 +47,17 @@ import gemini.util.Format;
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
+   /** Year of origin of MJD: 1858. */
+   public static final int MJD_0_YEAR  = 1858;
+
+   /** Year of origin of MJD: java.util.Calendar.NOVEMBER. */
+   public static final int MJD_0_MONTH = Calendar.NOVEMBER;
+
+   /** Day of origin of MJD: 17. */
+   public static final int MJD_0_DAY   = 17;
+
+   private static final String [] MONTH_NAMES = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
    /**
     * System based on two coordinates.
@@ -944,6 +959,17 @@ getConicSystemEpoch()
 }
 
 /**
+ * Conic System (Oribital Elements).
+ *
+ * Get the epoch of the orbital elements or epoch of perihelion (t0, T).
+ */
+public String
+getConicSystemEpochAsString()
+{
+   return convertMJD(getConicSystemEpoch());
+}
+
+/**
  * Conic System (Orbital Elements).
  * 
  * Set the epoch of the orbital elements or epoch of perihelion (t0, T).
@@ -951,7 +977,12 @@ getConicSystemEpoch()
 public void
 setConicSystemEpoch(String value)
 {
-   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_EPOCH);
+   try {
+      _avTab.set(_tag, Double.parseDouble(value), CONIC_SYSTEM_EPOCH);
+   }
+   catch(NumberFormatException e) {
+      _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH);
+   }
 }
 
 
@@ -1244,4 +1275,114 @@ toString()
 	", coordSystem=" + getCoordSysAsString() + "]";
 }
 
+
+  /**
+   * Converts TT in MJD to YYYY MM DD.ddd format.
+   *
+   * @param  mjdDays TT in MJD (days).
+   * @return TT in YYYY MM DD.ddd format.
+   */
+  public static String convertMJD(double mjdDays) {
+    double fullDays  = Math.rint(mjdDays);
+    double remainder = mjdDays - fullDays;
+
+    remainder = Math.rint(remainder * 1000.0) / 1000.0;
+
+    GregorianCalendar calendar = new GregorianCalendar(MJD_0_YEAR, MJD_0_MONTH, MJD_0_DAY);
+    calendar.add(Calendar.DAY_OF_MONTH, (int)fullDays);
+
+    return calendar.get(Calendar.YEAR) + " " +
+           MONTH_NAMES[calendar.get(Calendar.MONTH)] + " " +
+	   calendar.get(Calendar.DAY_OF_MONTH) + ("" + remainder).substring(1);
+  }
+
+  /**
+   * Converts TT in YYYY MM DD.ddd format to MJD (days).
+   *
+   * @param  yyyymmdd_ddd TT in YYYY MM DD.ddd format.
+   * @return TT in MJD (days).
+   */
+  public static double convertMJD(String yyyymmdd_ddd) {
+    StringTokenizer stringTokenizer = new StringTokenizer(yyyymmdd_ddd, " ,:;/");
+    GregorianCalendar calendar = new GregorianCalendar();
+
+    int year        = 0;
+
+    // monthIndex for January is 0, for December is 11
+    int monthIndex  = 0;
+    double day      = 0;
+
+    String monthString = "";
+
+    double resultInDays = 0.0;
+   
+    if(stringTokenizer.hasMoreTokens()) {
+      year = Format.toInt(stringTokenizer.nextToken());
+    }
+
+    if(stringTokenizer.hasMoreTokens()) {
+      monthString = stringTokenizer.nextToken().toLowerCase();
+
+      for(int i = 0; i < MONTH_NAMES.length; i++) {
+        if(monthString.startsWith(MONTH_NAMES[i].toLowerCase())) {
+          monthIndex = i;
+	  break;
+	}
+      }
+    }
+
+    if(stringTokenizer.hasMoreTokens()) {
+      day = Format.toDouble(stringTokenizer.nextToken());
+    }
+
+    // Add the remaining 44 days of 1858 (November 18 - December 31 inclusive)
+    resultInDays += 44;
+
+    if(year > MJD_0_YEAR) {
+      for(int i = MJD_0_YEAR + 1; i < year; i++) {
+        resultInDays += 365;
+
+        if(calendar.isLeapYear(i)) {
+          resultInDays++;
+        }
+      }
+    }
+
+    if(year <= MJD_0_YEAR) {
+      for(int i = MJD_0_YEAR; i >= year; i--) {
+        resultInDays -= 365;
+
+        if(calendar.isLeapYear(i)) {
+          resultInDays--;
+        }
+      }
+    }
+
+    for(int i = 1; i <= monthIndex; i++) {
+      switch(i) {
+        case  1: resultInDays += 31; break;
+        case  2: resultInDays += 28; break;
+        case  3: resultInDays += 31; break;
+        case  4: resultInDays += 30; break;
+        case  5: resultInDays += 31; break;
+        case  6: resultInDays += 30; break;
+        case  7: resultInDays += 31; break;
+        case  8: resultInDays += 31; break;
+        case  9: resultInDays += 30; break;
+        case 10: resultInDays += 31; break;
+        case 11: resultInDays += 30; break;
+        case 12: resultInDays += 31; break;
+      }
+    }
+
+    if((calendar.isLeapYear(year)) && (monthIndex > 1)) {
+      resultInDays++;
+    }
+
+    resultInDays += day;
+
+    resultInDays = Math.rint(resultInDays * 1000.0) / 1000.0;
+
+    return resultInDays;
+  }
 }
