@@ -29,6 +29,7 @@ import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpObsComp;
+import orac.util.SpItemUtilities;
 import jsky.app.ot.util.Assert;
 import jsky.app.ot.util.ClipboardHelper;
 import ot.util.DialogUtil;
@@ -202,6 +203,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	}
 	_spProg = prog;
 	_spProg.getEditFSM().addHierarchyChangeObserver(this);
+	_spProg.getEditFSM().addHierarchyChangeObserver(SpItemUtilities.getHierarchyChangeUtil());
 
 	// Create a new tree node widget for the program root
 	_otTNW = ((OtClientData) prog.getClientData()).tnw;
