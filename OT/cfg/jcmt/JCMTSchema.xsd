@@ -56,6 +56,15 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="velocityFrameReferenceType">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="LSR"/>
+    <xsd:enumeration value="Geocentric"/>
+    <xsd:enumeration value="Heliocentric"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+
 <!-- Valid values of priority -->
 <xsd:simpleType name="priorityType">
   <xsd:restriction base="xsd:integer">
@@ -1226,6 +1235,15 @@
       <xsd:element name="restFrequency" type="xsd:double"/>
       <xsd:element name="velocity"      type="xsd:double"/>
       <xsd:element name="referenceFrameVelocity" type="xsd:double" minOccurs="0"/>
+      <xsd:element name="velocityFrame" type="velocityFrameReferenceType"/>
+      <xsd:element name="beName">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="das"/>
+            <xsd:enumeration value="acsis"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
       <xsd:element ref="jcmt_config"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="oc"/>
