@@ -174,7 +174,34 @@ public final class EdObservation extends OtItemEditor
 	ignoreActions = false;
 
 	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpObs)_spItem).getElapsedTime(), 1));
+    
+        _updateMsbDisplay();
     }
+
+
+    /**
+     * Checks whether SpObs is an MSB and calls _setMsbDisplay(true/false)
+     * accordingly.
+     *
+     * Added for OMP. (MFO, 5 March 2002)
+     *
+     * @see #_setMsbDisplay(boolean)
+     */
+    protected void _updateMsbDisplay() {
+
+      if(((SpObs)_spItem).isMSB()) {
+        _w.msbPanel.setVisible(true);
+	_w.optional.setVisible(false);
+      }
+      else {
+        _w.msbPanel.setVisible(false);
+	
+	if(System.getProperty("OMP") != null) {
+	  _w.optional.setVisible(true);
+	}  
+      }
+    }
+
 
     /**
      * Watch changes to the title text box.
@@ -206,6 +233,9 @@ public final class EdObservation extends OtItemEditor
 
 	// Set whether or not this is a standard
 	_w.standard.setSelected( ((SpObs) _spItem).getIsStandard() );
+
+
+        _updateMsbDisplay(); // MFO
     }
 
 
@@ -268,28 +298,6 @@ public final class EdObservation extends OtItemEditor
            _w.standard.setValue( ((SpObs)_spItem).getIsStandard() );
            return;
         }
-    }
-
-    /**
-     * Changes display according to whether or not the observation
-     * is an MSB in its own right.
-     *
-     * This method is needed for the OMP.
-     *
-     * Added for OMP. (MFO, 1 August 2001)
-     */
-    public void setMsbDisplay(boolean msb) {
-      if(msb == true) {
-        _w.msbPanel.setVisible(true);
-	_w.optional.setVisible(false);
-      }
-      else {
-        _w.msbPanel.setVisible(false);
-	
-	if(System.getProperty("OMP") != null) {
-	  _w.optional.setVisible(true);
-	}  
-      }
     }
 }
 
