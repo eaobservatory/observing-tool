@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
+  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
@@ -103,7 +103,33 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <standard>true</standard>
           <estimatedDuration units="seconds">196.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -112,32 +138,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <integrations>6</integrations>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -282,11 +282,37 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>750/350 um photometry calibration</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">196.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -295,32 +321,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <integrations>6</integrations>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -330,7 +330,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>750/350 um photometry</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1080.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -461,6 +461,32 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <estimatedDuration units="seconds">196.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -469,32 +495,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <integrations>6</integrations>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -638,6 +638,32 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -646,32 +672,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <integrations>6</integrations>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -810,6 +810,32 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -818,32 +844,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <integrations>6</integrations>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1008,6 +1008,32 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1016,32 +1042,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>2</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
@@ -1188,7 +1188,33 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <standard>true</standard>
           <estimatedDuration units="seconds">368.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1197,32 +1223,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>2</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
@@ -1367,40 +1367,40 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <estimatedDuration units="seconds">122.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>120.0</THROW>
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>2</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
@@ -1545,40 +1545,40 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <estimatedDuration units="seconds">122.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>120.0</THROW>
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>2</integrations>
                 <jigglePattern>DEFAULT</jigglePattern>
@@ -1729,7 +1729,33 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1738,32 +1764,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>1</integrations>
                 <jigglePattern>7X7</jigglePattern>
@@ -1914,7 +1914,33 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1923,32 +1949,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>1</integrations>
                 <jigglePattern>7X7</jigglePattern>
@@ -2100,6 +2100,32 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -2108,32 +2134,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterSkydipObs type="ic" subtype="skydipObs">
-                <positions>1</positions>
-                <startPosition>Zenith</startPosition>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-              </SpIterSkydipObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.3</steps>
-                <axis>z</axis>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <focusPoints>5</focusPoints>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-              </SpIterFocusObs>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <integrations>1</integrations>
                 <jigglePattern>7X7</jigglePattern>
@@ -2192,7 +2192,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
       </SpMSB>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA scan map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="25"/>
@@ -2276,7 +2276,7 @@ and "Don't Care" for maps.
           <standard>true</standard>
           <estimatedDuration units="seconds">597.75</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
