@@ -291,6 +291,47 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
       return stringBuffer.toString();
    }
 
+   public String toConfigXML(String restFrequencyId, int sideband, String dataReductionXML, String indent) {
+
+      StringBuffer xmlBuffer = new StringBuffer();
+
+      for(int i = 0; i < samplers.length; i++) {
+         xmlBuffer.append(spectralWindowToXML(i, restFrequencyId, sideband, dataReductionXML, indent) + "\n");
+      }
+
+      return xmlBuffer.toString();
+   }
+
+   public String spectralWindowToXML(int subsystemIndex,
+				     String restFrequencyId,
+				     int sideband,
+				     String dataReductionXML,
+				     String indent) {
+      return 
+         indent + "<spectral_window id=\"SPW" + (subsystemIndex + 1) + "\">\n" +
+         indent + "  <spw_bandwidth_mode mode=\"1GHzx1024\"/>\n" +
+         indent + "  <spw_window type=\"truncate\"/>\n" +
+         indent + "  <rest_frequency_ref ref=\"" + restFrequencyId +"\"/>\n" +
+         indent + "  <front_end_sideband sideband=\"" + sideband + "\"/>\n" +
+         indent + "  <spw_if_coordinate>\n" +
+         indent + "    <spw_reference_if_frequency units=\"GHz\">" +
+           ((Sampler)samplers[subsystemIndex]).getCentreFrequency() +
+           "</spw_reference_if_frequency>\n" +
+         indent + "    <spw_reference_pixel>" +
+	   "4064.0???" +
+           "</spw_reference_pixel>\n" +
+         indent + "    <spw_if_channel_width units=\"Hz\">" +
+           ((Sampler)samplers[subsystemIndex]).getBandWidth() +
+           "</spw_if_channel_width>\n" +
+         indent + "    <spw_number_if_channel>" +
+           ((Sampler)samplers[subsystemIndex]).getChannels() +
+           "</spw_number_if_channel>\n" +
+         indent + "  </spw_if_coordinate>\n" +
+         indent + dataReductionXML + "\n" +
+         indent + "</spectral_window>\n";
+   }
+
+
    /**
     * Set FrequencyTable from XML.
     *
