@@ -50,9 +50,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
   public EdIterRasterObs() {
     super(new IterRasterObsGUI());
 
-    _title       ="Raster Iterator (ACSIS)";
+    _title       ="Scan/Raster";
     _presSource  = _w = (IterRasterObsGUI)super._w;
-    _description ="Raster Observation Mode (ACSIS)";
+    _description ="Scan/Raster Map";
 
     ButtonGroup grp = new ButtonGroup();
     grp.add(_w.alongRow);
@@ -61,12 +61,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
     _w.alongRow.setActionCommand(SpIterRasterObs.RASTER_MODE_ALONG_ROW);
     _w.interleaved.setActionCommand(SpIterRasterObs.RASTER_MODE_INTERLEAVED);
 
-    _w.system.setChoices(CoordSys.COORD_SYS);
+    _w.offSystem.setChoices(CoordSys.COORD_SYS);
 
-    _w.x.addWatcher(this);
-    _w.y.addWatcher(this);
-    _w.theta.addWatcher(this);
-    _w.system.addWatcher(this);
+    _w.xCenter.addWatcher(this);
+    _w.yCenter.addWatcher(this);
+    _w.width.addWatcher(this);
+    _w.height.addWatcher(this);
+    _w.rectanglePA.addWatcher(this);
+    _w.offSystem.addWatcher(this);
     _w.alongRow.addWatcher(this);
     _w.interleaved.addWatcher(this);
     _w.rowsPerCal.addWatcher(this);
@@ -83,10 +85,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
   }
 
   protected void _updateWidgets() {
-    _w.x.setValue(_iterObs.getX());
-    _w.y.setValue(_iterObs.getY());
-    _w.theta.setValue(_iterObs.getTheta());
-    _w.system.setValue(_iterObs.getSystem());
+    _w.xCenter.setValue(_iterObs.getXCenter());
+    _w.yCenter.setValue(_iterObs.getYCenter());
+    _w.width.setValue(_iterObs.getWidth());
+    _w.height.setValue(_iterObs.getHeight());
+    _w.rectanglePA.setValue(_iterObs.getRectanglePA());
+    _w.offSystem.setValue(_iterObs.getOffSystem());
     _w.rowsPerCal.setValue(_iterObs.getRowsPerCal());
     _w.rowsPerRef.setValue(_iterObs.getRowsPerRef());
     _w.rowReversal.setValue(_iterObs.getRowReversal());
@@ -102,17 +106,26 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
   }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    if(tbwe == _w.x) {
-      _iterObs.setX(_w.x.getValue());
+    if(tbwe == _w.xCenter) {
+      _iterObs.setXCenter(_w.xCenter.getValue());
       return;
     }
 
-    if(tbwe == _w.y) {
-      _iterObs.setY(_w.y.getValue());
+    if(tbwe == _w.yCenter) {
+      _iterObs.setYCenter(_w.yCenter.getValue());
     }
 
-    if(tbwe == _w.theta) {
-      _iterObs.setTheta(_w.theta.getValue());
+    if(tbwe == _w.width) {
+      _iterObs.setWidth(_w.width.getValue());
+      return;
+    }
+
+    if(tbwe == _w.height) {
+      _iterObs.setHeight(_w.height.getValue());
+    }
+
+    if(tbwe == _w.rectanglePA) {
+      _iterObs.setRectanglePA(_w.rectanglePA.getValue());
       return;
     }
 
@@ -130,8 +143,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
   }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if(ddlbwe == _w.system) {
-      _iterObs.setSystem(CoordSys.COORD_SYS[index]);
+    if(ddlbwe == _w.offSystem) {
+      _iterObs.setOffSystem(CoordSys.COORD_SYS[index]);
       return;  
     }
 
@@ -153,7 +166,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements OptionWi
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-      DialogUtil.error(_w, "Raster Iterator cannot be used with SCUBA.\nUse Raster Iterator instead.");
+      _w.heterodynePanel.setVisible(false);
+    }
+    else {
+      _w.heterodynePanel.setVisible(true);
     }
   }
 }
