@@ -180,6 +180,7 @@ public class OT extends JFrame {
      * Open a new program.
      */
     public static void newProgram() {
+	OtProps.setSaveShouldPrompt(true);
 	if (desktop == null) {
 	    addOtWindowFrame(new OtWindowFrame(new OtProgWindow()));
 	}
@@ -188,12 +189,14 @@ public class OT extends JFrame {
 	    desktop.add(c, JLayeredPane.DEFAULT_LAYER);
 	    desktop.moveToFront(c);
 	}
+
     }
 
     /** 
      * Make a new plan
      */
     public void newPlan() {
+	OtProps.setSaveShouldPrompt(true);
 	Component c = new OtWindowInternalFrame(new OtProgWindow((SpPlan) SpFactory.create(SpType.SCIENCE_PLAN)));
 	desktop.add(c, JLayeredPane.DEFAULT_LAYER);
 	desktop.moveToFront(c);
@@ -203,6 +206,7 @@ public class OT extends JFrame {
      * Make a new library
      */
     public void newLibrary() {
+	OtProps.setSaveShouldPrompt(true);
 	// Changed by MFO, 15 February 2002
 	OtWindow.create((SpLibrary) SpFactory.create(SpType.LIBRARY), new FileInfo());
 	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) SpFactory.create(SpType.LIBRARY)));
@@ -214,6 +218,7 @@ public class OT extends JFrame {
      * Open a new science program.
      */
     public void open() {
+	OtProps.setSaveShouldPrompt(false);
 	OtFileIO.open();
     }
 
@@ -221,6 +226,7 @@ public class OT extends JFrame {
      * Open a science program from the standard library
      */
     public void openStandardLibrary() {
+	OtProps.setSaveShouldPrompt(false);
 	URL url = ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/cfg/library.xml");
 	Reader r = null;
 	/** This probably isn't adequate -- just using fetchXMLSp.  Should
@@ -252,6 +258,7 @@ public class OT extends JFrame {
      * Method based on OT.openLibrary from old ATC OT.
      */
     public void openLibrary(String library) {
+      OtProps.setSaveShouldPrompt(false);
       SpRootItem spItem = null;
       boolean openAsXml = library.endsWith(".xml");
       //URL url = null;
