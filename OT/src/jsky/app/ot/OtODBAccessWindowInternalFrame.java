@@ -42,6 +42,7 @@ public class OtODBAccessWindowInternalFrame extends JInternalFrame {
 	setLocation(screen.width/2 - dim.width/2, screen.height/2 - dim.height/2);
         pack();
         setVisible(true);
+	OT.getDesktop().add(this, JLayeredPane.MODAL_LAYER); // MFO (24 July 2001)
 
 	// include this top level window in any future look and feel changes
 	LookAndFeelMenu.addWindow(this);
