@@ -182,7 +182,32 @@ public class SpValidation {
           }
         }
       }
-    }  
+    }
+    else {
+	boolean observeNoteFound = false;
+	if (notes.size() == 1 && ((SpNote)(notes.get(0))).isObserveInstruction()) {
+	    observeNoteFound = true;
+	}
+	else {
+	    SpItem parent = spMSB.parent();
+	    while (parent != null) {
+		SpNote note = SpTreeMan.findObserverNoteInContext(parent);
+		if (note == null) {
+		    parent = parent.parent();
+		    continue;
+		}
+		else {
+		    observeNoteFound = true;
+		    break;
+		}
+	    }
+	}
+	if (!observeNoteFound) {
+	    report.add(new ErrorMessage (ErrorMessage.WARNING,
+					"MSB \"" + spMSB.getTitle() + "\" does not have an observe instruction",
+					 "Recommend MSBs have an observe instruction"));
+	}
+    }
 
 
     if(spMSB instanceof SpObs) {
