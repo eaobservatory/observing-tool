@@ -116,7 +116,7 @@ public final class TpeManager implements TpeWatcher
       catch(NoClassDefFoundError e) {
         DialogUtil.error("The Position Editor cannot be launched because of a missing class: " +
 	                 e.getMessage() +
-                         "\n        Make sure you have Java Advanced Imaging 1.1 installed.");
+                         "\n        Make sure you have Java Advanced Imaging installed (version 1.1 or higher).");
 
         e.printStackTrace();
 
