@@ -13,6 +13,7 @@ import java.awt.Polygon;
 
 import jsky.app.ot.gui.DrawUtil;
 
+import gemini.util.CoordSys;
 import gemini.sp.SpItem;
 import gemini.sp.SpAvEditState;
 import gemini.sp.iter.SpIterChop;
@@ -22,7 +23,6 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
 
 import jsky.app.ot.util.Angle;
 import jsky.app.ot.util.PolygonD;
-import jsky.app.ot.util.CoordSys;
 
 import jsky.app.ot.tpe.TpeImageFeature;
 import jsky.app.ot.tpe.TpeDraggableFeature;
@@ -35,13 +35,13 @@ import java.awt.geom.Point2D;
  */
 final class TpeChopDragObject
 {
-   int    _xb, _yb;
-   double _angle = 0;
+//   int    _xb, _yb;
+//   double _angle = 0;
  
 /**
  * Construct with the base position at (xb,yb).
  */
-public TpeChopDragObject(int xb, int yb, int x, int y)
+/*public TpeChopDragObject(double xOffset, double yOffset)
 {
    //System.out.println("BASE.........: (" + _xb + ", " + _yb + ")");
  
@@ -50,9 +50,9 @@ public TpeChopDragObject(int xb, int yb, int x, int y)
    _angle = getAngle(x,y);
  
    //System.out.println("INITIAL ANGLE: " + _angle);
-}
+}*/
  
-public double
+/*public double
 nextAngleDiff(int x, int y)
 {
    double angle = getAngle(x, y);
@@ -66,45 +66,8 @@ nextAngleDiff(int x, int y)
  
    return val;
 }
- 
-public double
-getAngle(int x, int y)
-{
-   double angle;
- 
-   // All the points are in screen coordinates, which means y increases down
-   // This makes x and y relative to the origin in a right side up frame.
-   int xp = x - _xb;
-   int yp = _yb - y;
- 
-   int xa = Math.abs( xp );
-   int ya = Math.abs( yp );
- 
-   if (xa == 0) {
-      if (yp >= 0) {
-         return Math.PI * 0.5;
-      } else {
-         return Math.PI * 1.5;
-      }
-   }
- 
-   angle = Angle.atanRadians( ((double) ya) / ((double) xa) );
- 
-   if ((xp > 0)  && (yp >= 0)) {
-      return angle;
-   }
- 
-   if ((xp < 0) && (yp >= 0)) {
-      return Math.PI - angle;
-   }
- 
-   if ((xp < 0) && (yp < 0)) {
-      return Math.PI + angle;
-   }
- 
-   return Math.PI * 2.0 - angle;
-}
- 
+*/
+
 }
 
 
@@ -120,15 +83,13 @@ public class TpeChopFeature extends TpeImageFeature
 
    private double        _chopX        = 0;
    private double        _chopY        = 0;
-   private double        _chopRadius   = 0;
+   private double        _chopInnerRadius = 0;
+   private double        _chopOuterRadius = 0;
    private double        _baseX        = 0;
    private double        _baseY        = 0;
 
    private boolean       _drawAsCircle = false;
 
-   private TpeSciArea    _sciArea;
-   private PolygonD      _sciAreaPD;
-   private PolygonD      _tickMarkPD;
    private SpIterChop    _iterChop;
 
    private boolean       _valid = false;
@@ -181,14 +142,6 @@ _calc(FitsImageInfo fii)
       return false;
    }
 
-/*   if (_sciArea == null) {
-      _sciArea = _iw.getSciArea();
-      if (_sciArea == null) {
-         return false;
-      }
-   }*/
-
-
    int chopStepIndex = spIterChop.getSelectedIndex();
    String coordFrame = spIterChop.getCoordFrame(chopStepIndex);
 
@@ -197,50 +150,45 @@ _calc(FitsImageInfo fii)
    _baseX = (double) fii.baseScreenPos.x;
    _baseY = (double) fii.baseScreenPos.y;
 
-   _chopX = (spIterChop.getThrow(chopStepIndex) * Math.sin(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0))) + _baseX;
-   _chopY = (spIterChop.getThrow(chopStepIndex) * Math.cos(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0))) + _baseY;
+   _chopX = spIterChop.getThrow(chopStepIndex) * Math.sin(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
+   _chopY = spIterChop.getThrow(chopStepIndex) * Math.cos(((180 + spIterChop.getAngle(chopStepIndex)) / 360) * (Math.PI * 2.0));
 
-   _chopRadius = spIterChop.getThrow(chopStepIndex);
+   _chopX      *= fii.pixelsPerArcsec;
+   _chopY      *= fii.pixelsPerArcsec;
+
+   _chopX += _baseX;
+   _chopY += _baseY;
+
+   double [] scienceArea = null;
+
+   if(_iw.getInstrumentItem() != null) {
+     scienceArea = _iw.getInstrumentItem().getScienceArea();
+   }
+
+   double scienceAreaRadius = 0.0;
+
+   if(scienceArea != null) {
+      if(scienceArea.length == 1) {
+         scienceAreaRadius = scienceArea[0];
+      }
+      else {
+         scienceAreaRadius = Math.sqrt((scienceArea[0] * scienceArea[0]) + (scienceArea[1] * scienceArea[1]));
+      }
+   }
    
+   _chopInnerRadius = spIterChop.getThrow(chopStepIndex) - scienceAreaRadius;
+   _chopInnerRadius *= fii.pixelsPerArcsec;
 
-//   boolean updated = _sciArea.update(spIterChop, fii);
+   _chopOuterRadius = spIterChop.getThrow(chopStepIndex) + scienceAreaRadius;
+   _chopOuterRadius *= fii.pixelsPerArcsec;
+
  
-   if (_valid && /*!updated &&*/ (_sciAreaPD != null) && (spIterChop == _iterChop)) {
+   if (_valid && (spIterChop == _iterChop)) {
       // Already have the current values
       return true;
    }
  
    _iterChop = spIterChop;
-
-//   double xBase = (double) fii.baseScreenPos.x;
-//   double yBase = (double) fii.baseScreenPos.y;
-//   _sciAreaPD   = _sciArea.getPolygonDAt(xBase, yBase);
-
-   // Init the _tickMarkPD
-//   if (_tickMarkPD == null) {
-//      double[] xpoints = new double[4];
-//      double[] ypoints = new double[4];
-//      _tickMarkPD = new PolygonD(xpoints, ypoints, 4);
-//   }
-
-//   double x = xBase;
-//   double y = yBase - _sciArea.height/2.0;
-
-//   _tickMarkPD.xpoints[0] = x;
-//   _tickMarkPD.ypoints[0] = y - MARKER_SIZE*2;
-
-//   _tickMarkPD.xpoints[1] = x - MARKER_SIZE;
-//   _tickMarkPD.ypoints[1] = y - 2;
-
-//   _tickMarkPD.xpoints[2] = x + MARKER_SIZE;
-//   _tickMarkPD.ypoints[2] = y - 2;
-
-//   _tickMarkPD.xpoints[3] = _tickMarkPD.xpoints[0];
-//   _tickMarkPD.ypoints[3] = _tickMarkPD.ypoints[0];
-
-//   _iw.skyRotate(_tickMarkPD, _sciArea.posAngleRadians);
-
-   
 
    _valid = true;
    return true;
@@ -258,20 +206,68 @@ draw(Graphics g, FitsImageInfo fii)
 
    g.setColor(Color.magenta);
 
+   double [] scienceArea = null;
+
+   if(_iw.getInstrumentItem() != null) {
+     scienceArea = _iw.getInstrumentItem().getScienceArea();
+
+     // ScienceArea is circular (approximately circular detector/array as opposed to
+     // circular representation of science area due to al/az mounting)
+     if(scienceArea.length == 1) {
+       double radius = scienceArea[0] * fii.pixelsPerArcsec;
+       g.drawArc((int)(_baseX - radius), (int)(_baseY - radius),
+                 (int)(2 * radius), (int)(2 * radius), 0, 360);
+
+       g.drawArc((int)(_chopX - radius), (int)(_chopY - radius),
+                 (int)(2 * radius), (int)(2 * radius), 0, 360);
+
+     }
+     // Science Area is retangular.
+     else {
+
+       if(_drawAsCircle) {
+         double radius = Math.sqrt((scienceArea[0] * scienceArea[0]) +
+                                 (scienceArea[1] * scienceArea[1]));
+
+         radius *= fii.pixelsPerArcsec;
+
+         g.drawArc((int)(_baseX - radius), (int)(_baseY - radius),
+                   (int)(2 * radius), (int)(2 * radius), 0, 360);
+
+         g.drawArc((int)(_chopX - radius), (int)(_chopY - radius),
+                   (int)(2 * radius), (int)(2 * radius), 0, 360);
+       }
+       else {
+         double w = scienceArea[0] * fii.pixelsPerArcsec;
+	 double h = scienceArea[1] * fii.pixelsPerArcsec;
+
+         g.drawRect((int)(_baseX - (w / 2.0)),
+                    (int)(_baseY - (h / 2.0)),
+		    (int)w,
+		    (int)h);
+
+         g.drawRect((int)(_chopX - (w / 2.0)),
+                    (int)(_chopY - (h / 2.0)),
+		    (int)w,
+		    (int)h);
+       }
+     }
+   }
+
+// Draw the chop position, either as a small box or as a circle (coordinate system Az/El)
+
    if(_drawAsCircle) {
-     g.drawArc((int)(_baseX - _chopRadius), (int)(_baseY - _chopRadius),
-               (int)(2 * _chopRadius), (int)(2 * _chopRadius), 0, 360);
+     g.drawArc((int)(_baseX - _chopInnerRadius), (int)(_baseY - _chopInnerRadius),
+               (int)(2 * _chopInnerRadius), (int)(2 * _chopInnerRadius), 0, 360);
+
+     g.drawArc((int)(_baseX - _chopOuterRadius), (int)(_baseY - _chopOuterRadius),
+               (int)(2 * _chopOuterRadius), (int)(2 * _chopOuterRadius), 0, 360);
    }
-   else {
-     g.drawRect((int)_chopX - 2, (int)_chopY - 2, 4, 4);
-   }
+
+   g.drawRect((int)_chopX - 2, (int)_chopY - 2, 4, 4);
 
 //   g.setFont(FONT);
-   g.drawString(_name, (int)_chopX + 3, (int)_chopY + 2);
-
-
-//   g.drawPolygon(new Polygon(new int[] { 10, 100, 20 }, new int[] {20, 90, 40}, 3)); //_sciAreaPD.getAWTPolygon());
-   //g.fillPolygon(_tickMarkPD.getAWTPolygon());
+   g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")", (int)_chopX + 3, (int)_chopY + 2);
 
    if (_dragging) {
       // Draw a little above the mouse
@@ -285,58 +281,22 @@ draw(Graphics g, FitsImageInfo fii)
 
 }
 
+
 /**
  * Start dragging the object.
  */
 public boolean
 dragStart(FitsMouseEvent fme, FitsImageInfo fii)
 {
-   if ((_sciAreaPD == null) || (_tickMarkPD == null)) {
-      return false;
-   }
-
-   _dragObject = null;
-
-   // See if dragging by the corner
-   for (int i=0; i<(_sciAreaPD.npoints-1); ++i) {
-      int cornerx = (int) (_sciAreaPD.xpoints[i] + 0.5);
-      int cornery = (int) (_sciAreaPD.ypoints[i] + 0.5);
- 
-     int dx = Math.abs(cornerx - fme.xWidget);
-      if (dx > MARKER_SIZE) {
-         continue;
-      }
-      int dy = Math.abs(cornery - fme.yWidget);
-      if (dy > MARKER_SIZE) {
-         continue;
-      }
-
-      Point2D.Double p = fii.baseScreenPos;
-      _dragObject = new TpeChopDragObject((int)p.x, (int)p.y, cornerx, cornery);
-   }
-
-   // See if dragging by the tick mark (give a couple extra pixels to make it
-   // easier to grab)
-   if (_dragObject == null) {
-      int x  = (int) (_tickMarkPD.xpoints[0] + 0.5);
-      int dx = Math.abs(x - fme.xWidget);
-      if (dx <= MARKER_SIZE + 2) {
-         int y0 = (int) (_tickMarkPD.ypoints[0] + 0.5);
-         int y1 = (int) (_tickMarkPD.ypoints[1] + 0.5);
-         int y = (y0 + y1)/2;
-         int dy = Math.abs(y - fme.yWidget);
-         if (dy <= MARKER_SIZE + 2) {
-            Point2D.Double p = fii.baseScreenPos;
-            _dragObject = new TpeChopDragObject((int)p.x, (int)p.y, x, y);
-         }
-      }
-   }
+   _dragObject = new TpeChopDragObject();
 
    _dragging = (_dragObject != null);
    if (_dragging) {
       _dragX    = fme.xWidget;
       _dragY    = fme.yWidget;
-      _iterChop.getAvEditFSM().setEachEditNotifies(false);
+
+// Should table be updated on dragStop only?
+//    _iterChop.getAvEditFSM().setEachEditNotifies(false);
    }
 
    return _dragging;
@@ -351,9 +311,12 @@ public void drag(FitsMouseEvent fme)
       _dragX = fme.xWidget;
       _dragY = fme.yWidget;
 
-      double diff = _dragObject.nextAngleDiff(fme.xWidget, fme.yWidget);
-      //_iterChop.addPosAngleRadians(diff);
+      _iterChop.setAngle(getAngle(fme.xOffset, fme.yOffset), _iterChop.getSelectedIndex());
+      _iterChop.setThrow(getThrow(fme.xOffset, fme.yOffset), _iterChop.getSelectedIndex());
    }
+
+   _iw.repaint();
+
 }
  
 /**
@@ -362,7 +325,8 @@ public void drag(FitsMouseEvent fme)
 public void dragStop(FitsMouseEvent fme)
 {
    if (_dragObject != null) {
-      _iterChop.getAvEditFSM().setEachEditNotifies(true);
+// Should table be updated on dragStop only?
+//      _iterChop.getAvEditFSM().setEachEditNotifies(true);
       _dragging = false;
       drag(fme);
       _dragObject = null;
@@ -383,6 +347,47 @@ protected boolean drawAsCircle(String coordFrame) {
       return true;
    }
 }
+
+
+protected static double
+getAngle(double x, double y)
+{
+   double angle;
+ 
+   double xa = Math.abs( x );
+   double ya = Math.abs( y );
+ 
+   if (xa == 0) {
+      if (y >= 0) {
+         return 0.0;
+      } else {
+         return 180.0;
+      }
+   }
+ 
+   angle = (Angle.atanRadians(ya / xa) * 360) / (Math.PI * 2.0);
+ 
+   if ((x > 0)  && (y >= 0)) {
+      return 90.0 - angle;
+   }
+ 
+   if ((x < 0) && (y >= 0)) {
+      return 270.0 + angle;
+   }
+ 
+   if ((x < 0) && (y < 0)) {
+      return 270.0 - angle;
+   }
+ 
+   return 90.0 + angle;
+}
+
+protected static double
+getThrow(double x, double y)
+{
+   return Math.sqrt((x * x) + (y * y));
+}
+
 
 }
 
