@@ -1048,6 +1048,12 @@ print(String indentStr)
     if((name == null) || (name.length() < 1)) {
       return;
     }
+    // Hacky fix for chnage in priority - try to work out a better fix later
+    if (name.equals("Priority")) {
+	if (value.equals("High")) value="1";
+	if (value.equals("Medium")) value="49";
+	if (value.equals("Low")) value="99";
+    }
 
     if(name.startsWith(XML_META_PREFIX)) {
       _avTable.noNotifySet(name.substring(XML_META_PREFIX.length()).replace('_', '.'), value, pos);
