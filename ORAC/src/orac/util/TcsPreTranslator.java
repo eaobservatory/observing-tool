@@ -12,6 +12,8 @@ package orac.util;
 
 import orac.util.PreTranslator;
 import gemini.sp.SpTelescopePos;
+import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.Vector;
 import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.NodeList;
@@ -417,11 +419,16 @@ public abstract class TcsPreTranslator implements PreTranslator {
       NodeList    sp_OffsetN_values;         // <value>   These are the <value> elements in
                                              //           sp_OffsetN_values (<OffsetN>)
                                              //           There is one such element for p and one for q.
-
+      String      sp_OffsetN_name;           // OffsetN name String.
+      String []   sp_OffsetN_nameArray;      // Array of OffsetN name Strings (used for sorting).
 
       // TCS XML elements
       ElementImpl tcs_obsArea;               // <obsArea>
       ElementImpl tcs_offset;                // <offset>
+      Hashtable   tcs_offset_table = new Hashtable();
+                                             // Hashtable containing tcs_offsets so that they can be sorted.
+
+
 
       // Get hold of the offset positions.
       sp_offsetPositions = (ElementImpl)element.getElementsByTagName("offsetPositions").item(0);
@@ -434,12 +441,16 @@ public abstract class TcsPreTranslator implements PreTranslator {
 
       // Create obsArea element for TCS XML.
       tcs_obsArea = (ElementImpl)document.createElement("obsArea");
+      sp_OffsetN_nameArray = new String[sp_offsetPositions_values.getLength()];
 
       for(int i = 0; i < sp_offsetPositions_values.getLength(); i++) {
-        tcs_offset = (ElementImpl)tcs_obsArea.appendChild(document.createElement("offset"));
+        tcs_offset = (ElementImpl)document.createElement("offset");
         tcs_offset.setAttribute("id", "offset" + (i + 1));
+	sp_OffsetN_name = sp_offsetPositions_values.item(i).getFirstChild().getNodeValue();
+	tcs_offset_table.put(sp_OffsetN_name, tcs_offset);
+	sp_OffsetN_nameArray[i] = sp_OffsetN_name;
 
-        sp_OffsetN = (ElementImpl)element.getElementsByTagName("Offset" + i).item(0);
+        sp_OffsetN = (ElementImpl)element.getElementsByTagName(sp_OffsetN_name).item(0);
 
         if(sp_OffsetN != null) {
 	  sp_OffsetN_values = sp_OffsetN.getElementsByTagName("value");
@@ -455,6 +466,13 @@ public abstract class TcsPreTranslator implements PreTranslator {
           // Remove sp_OffsetN <OffsetN>.
 	  element.removeChild(sp_OffsetN);
 	}  
+      }
+
+      // Sort offsets and append them to tcs_obsArea <obsArea>.
+      Arrays.sort(sp_OffsetN_nameArray);
+
+      for(int i = 0; i < sp_OffsetN_nameArray.length; i++) {
+        tcs_obsArea.appendChild((ElementImpl)tcs_offset_table.get(sp_OffsetN_nameArray[i]));
       }
 
       // Remove sp_offsetPositions <offsetPositions>.
@@ -515,7 +533,10 @@ public abstract class TcsPreTranslator implements PreTranslator {
       // TCS XML elements
       ElementImpl tcs_obsArea;               // <obsArea>
       NodeList    tcs_offsets;               // <offset>
+      Hashtable   tcs_offset_table = new Hashtable();
+                                             // Hashtable containing tcs_offsets so that they can be sorted.
       String      tcs_offset_id;             // "offsetN" in <offset id="offsetN"> where N is the number of this offset
+      String[]    tcs_offset_id_array;       // Array of tcs_offset_id Strings (used for sorting).
       int         tcs_offset_number;         // N in <offset id="offsetN">
       String      tcs_dc1;
       String      tcs_dc2;
@@ -530,16 +551,25 @@ public abstract class TcsPreTranslator implements PreTranslator {
       // Append sp_offsetPositions (<offsetPositions>) to element (<SpIterOffset>).
       sp_offsetPositions = (ElementImpl)element.appendChild(document.createElement("offsetPositions"));
 
+      tcs_offset_id_array = new String[tcs_offsets.getLength()];
+
       for(int i = 0; i < tcs_offsets.getLength(); i++) {
         // Get the offset id string.
         tcs_offset_id = ((ElementImpl)tcs_offsets.item(i)).getAttribute("id");
+	tcs_offset_id_array[i] = tcs_offset_id;
+	tcs_offset_table.put(tcs_offset_id, (ElementImpl)tcs_offsets.item(i));
+      }
 
+      // Sort offset id array.
+      Arrays.sort(tcs_offset_id_array);
+
+      for(int i = 0; i < tcs_offsets.getLength(); i++) {
 	// Parse the offset number at the end of the offset id string.
 	// This relies on the offset string being of the form "offsetN" where N is an integer.
-	tcs_offset_number = Integer.parseInt(tcs_offset_id.substring(6));
+	tcs_offset_number = Integer.parseInt(tcs_offset_id_array[i].substring(6));
 
-        tcs_dc1 = ((ElementImpl)tcs_offsets.item(i)).getElementsByTagName("dc1").item(0).getFirstChild().getNodeValue();
-        tcs_dc2 = ((ElementImpl)tcs_offsets.item(i)).getElementsByTagName("dc2").item(0).getFirstChild().getNodeValue();
+        tcs_dc1 = ((ElementImpl)tcs_offset_table.get(tcs_offset_id_array[i])).getElementsByTagName("dc1").item(0).getFirstChild().getNodeValue();
+        tcs_dc2 = ((ElementImpl)tcs_offset_table.get(tcs_offset_id_array[i])).getElementsByTagName("dc2").item(0).getFirstChild().getNodeValue();
 
 	// Create sp_OffsetN (<OffsetN>) where N is tcs_offset_number - 1.
 	sp_OffsetN       = (ElementImpl)element.appendChild(document.createElement("Offset" + (tcs_offset_number - 1)));
