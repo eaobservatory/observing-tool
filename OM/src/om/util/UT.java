@@ -1,6 +1,8 @@
 package om.util;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Utility class for getting the current date in UT format (YYYYMMDD).
@@ -13,7 +15,11 @@ public class UT {
    * Returns the current date in UT format (YYYYMMDD).
    */
   public static String getUT() {
-    Calendar calendar = Calendar.getInstance();
+    //Calendar calendar = Calendar.getInstance();
+    Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+
+    DateFormat dateFormatter = DateFormat.getTimeInstance(DateFormat.MEDIUM);
+    System.out.println("TIME: "+dateFormatter.format(calendar.getTime()));
 
     String dayString = null;
     if(calendar.get(Calendar.DAY_OF_MONTH) < 10) {
