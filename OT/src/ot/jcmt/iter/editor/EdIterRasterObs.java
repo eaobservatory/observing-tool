@@ -12,13 +12,15 @@ package ot.jcmt.iter.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.awt.CardLayout;
 import java.util.Observer;
 import java.util.Observable;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 import jsky.util.gui.DialogUtil;
 
@@ -41,11 +43,14 @@ import orac.jcmt.iter.SpIterRasterObs;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer, OptionWidgetWatcher {
+public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer, OptionWidgetWatcher,
+									KeyListener {
 
   private IterRasterObsGUI _w;       // the GUI layout panel
 
   private SpIterRasterObs _iterObs;
+
+  private final String [] SCAN_PA_CHOICES = { "automatic", "user def" };
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -64,19 +69,23 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _w.alongRow.setActionCommand(SpIterRasterObs.RASTER_MODE_ALONG_ROW);
     _w.interleaved.setActionCommand(SpIterRasterObs.RASTER_MODE_INTERLEAVED);
 
-    _w.scanAreaSystem.setChoices(SpJCMTConstants.SCANAREA_SYSTEMS);
+    _w.scanAngle.setChoices(SCAN_PA_CHOICES);
+//    _w.scanAngle.addItem(new javax.swing.JTextField("bla bla"));
+    _w.scanSystem.setChoices(SpJCMTConstants.SCAN_SYSTEMS);
 
     _w.dx.addWatcher(this);
     _w.dy.addWatcher(this);
     _w.width.addWatcher(this);
     _w.height.addWatcher(this);
     _w.posAngle.addWatcher(this);
-    _w.scanAreaSystem.addWatcher(this);
     _w.alongRow.addWatcher(this);
     _w.interleaved.addWatcher(this);
     _w.rowsPerCal.addWatcher(this);
     _w.rowsPerRef.addWatcher(this);
     _w.rowReversal.addWatcher(this);
+    _w.scanSystem.addWatcher(this);
+    _w.scanAngle.addWatcher(this);
+    _w.scanAngle.getEditor().getEditorComponent().addKeyListener(this);
   }
 
   /**
@@ -106,7 +115,23 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _w.height.setCaretPosition(0);
     _w.posAngle.setValue(_iterObs.getPosAngle());
     _w.posAngle.setCaretPosition(0);
-    _w.scanAreaSystem.setValue(_iterObs.getScanAreaSystem());
+
+/*MFO DEBUG*///try { throw new Exception("MFO DEBUG: _updateWidgets()"); } catch(Exception e) { e.printStackTrace(); }
+    if((_iterObs.getScanAngles() == null) || (_iterObs.getScanAngles().size() == 0)) {
+      _w.scanAngle.setEditable(false);
+      _w.scanAngle.setValue(SCAN_PA_CHOICES[0]);
+    }
+    else {
+      String scanAngleString = "";
+      for(int i = 0; i < _iterObs.getScanAngles().size(); i++) {
+        scanAngleString += ", " + _iterObs.getScanAngle(i);
+      }
+
+      _w.scanAngle.setEditable(true);
+      _w.scanAngle.setValue(scanAngleString.substring(2));
+    }
+
+    _w.scanSystem.setValue(_iterObs.getScanSystem());
     _w.rowsPerCal.setValue(_iterObs.getRowsPerCal());
     _w.rowsPerRef.setValue(_iterObs.getRowsPerRef());
     _w.rowReversal.setValue(_iterObs.getRowReversal());
@@ -185,25 +210,74 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if(ddlbwe == _w.scanAreaSystem) {
-      _iterObs.setScanAreaSystem(SpJCMTConstants.SCANAREA_SYSTEMS[index]);
+    _iterObs.getAvEditFSM().deleteObserver(this);
+
+    if(ddlbwe == _w.scanSystem) {
+      _iterObs.setScanSystem(SpJCMTConstants.SCAN_SYSTEMS[index]);
       return;  
     }
 
+    if(ddlbwe == _w.scanAngle) {
+      if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[0])) {
+        _w.scanAngle.setEditable(false);
+
+	_iterObs.setScanAngles(null);
+      }
+      
+      if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[1])) {
+        _w.scanAngle.setEditable(true);
+	_w.scanAngle.setValue("");
+
+	_iterObs.setScanSystem(_w.scanSystem.getStringValue());
+      }
+
+      return;
+    }
+
+    if(ddlbwe == _w.scanSystem) {
+      _iterObs.setScanAngles(_w.scanSystem.getStringValue());
+
+      return;
+    }
+
     super.dropDownListBoxAction(ddlbwe, index, val);
+
+    _iterObs.getAvEditFSM().addObserver(this);
   }
 
+
+  public void keyPressed(java.awt.event.KeyEvent e)  { }
+
+  public void keyReleased(java.awt.event.KeyEvent e) {
+    _iterObs.getAvEditFSM().deleteObserver(this);
+
+     if(e.getSource() == _w.scanAngle.getEditor().getEditorComponent()) {
+      _iterObs.setScanAngles(((JTextField)_w.scanAngle.getEditor().getEditorComponent()).getText());      
+    }
+
+    _iterObs.getAvEditFSM().addObserver(this);
+  }
+
+  public void keyTyped(java.awt.event.KeyEvent e) { }
+
+
   public void optionAction(OptionWidgetExt owe) {
+    _iterObs.getAvEditFSM().deleteObserver(this);
     _iterObs.setRasterMode(owe.getActionCommand());
+    _iterObs.getAvEditFSM().addObserver(this);
   }
 
   public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+    _iterObs.getAvEditFSM().deleteObserver(this);
+
      if (cbwe == _w.rowReversal) {
       _iterObs.setRowReversal(_w.rowReversal.getBooleanValue());
       return;
     }
 
     super.checkBoxAction(cbwe);
+
+    _iterObs.getAvEditFSM().addObserver(this);
   }
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
