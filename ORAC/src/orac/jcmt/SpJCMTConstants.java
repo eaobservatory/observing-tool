@@ -69,25 +69,14 @@ public interface SpJCMTConstants {
    public static final String ATTR_FREQUENCY_OFFSET_RATE   = "frequencyOffset.rate";
 
 
-   // Scan Iterator
+   // Scan/Raster Iterator
+   public static final String ATTR_X_CENTER        = "scanArea.rectangle.xCenter";
+   public static final String ATTR_Y_CENTER        = "scanArea.rectangle.yCenter";
+   public static final String ATTR_WIDTH           = "scanArea.rectangle.width";
+   public static final String ATTR_HEIGHT          = "scanArea.rectangle.height";
+   public static final String ATTR_RECTANGLE_PA    = "scanArea.rectangle.rectanglePA";
+   public static final String ATTR_OFF_SYSTEM      = "scanArea.offSystem:type";
 
-   /** Map width. */
-   public static final String ATTR_X               = "x";
-
-   /** Map height. */
-   public static final String ATTR_Y               = "y";
-
-   public static final String ATTR_THETA           = "theta";
-   public static final String ATTR_SYSTEM          = "system";
-
-   /** Sample DX. */
-   public static final String ATTR_DELTA_X         = "deltaX";
-
-   /** Sample DY. */
-   public static final String ATTR_DELTA_Y         = "deltaY";
-
-   public static final String ATTR_COORD_FRAME     = "coordFrame";
-   public static final String ATTR_POS_ANGLE       = "posAngle";
 
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
@@ -135,6 +124,12 @@ public interface SpJCMTConstants {
     * Constant value.
     * @see #ATTR_UNITS
     */
+   public static final String VALUE_DEGREES        = "degrees";
+
+   /**
+    * Constant value.
+    * @see #ATTR_UNITS
+    */
    public static final String VALUE_SECONDS        = "seconds";
 
    /**
@@ -147,7 +142,7 @@ public interface SpJCMTConstants {
     * Constant value.
     * @see #ATTR_UNITS
     */   
-   public static final String VALUE_ARC_MINUTES    = "arcseconds";
+   public static final String VALUE_ARC_MINUTES    = "arcminutes";
 
 
    // SCUBA constants
