@@ -38,7 +38,12 @@ else
 	gmake _doc
 endif
 
-
+clean:
+	(cd GEMINI/src; gmake clean)
+	(cd ORAC/src;   gmake clean)
+	(cd ODB/src;    gmake clean)
+	(cd OM/src;     gmake clean)
+	(cd OT/src;     gmake clean)
 
 _jar: $(JAR_DIR)
 	(cd GEMINI/src; gmake jar)
