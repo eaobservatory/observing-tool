@@ -144,7 +144,7 @@ public class SpValidation {
   }
 
   protected void checkMSBgeneric(SpMSB spMSB,  Vector report) {
-/*MFO DEBUG*/System.out.println("in SpValidation.checkMSBgeneric().");
+      /*MFO DEBUG*///System.out.println("in SpValidation.checkMSBgeneric().");
 
     report.add("------------------------------------------------------\n");
 
