@@ -18,7 +18,7 @@
 
 <xsd:simpleType name="positiveDecimal">
   <xsd:restriction base="xsd:double">
-    <xsd:minExclusive value="0.0">
+    <xsd:minExclusive value="0.0"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -363,6 +363,7 @@
 <xsd:element name="pi" type="xsd:string"/>
 <xsd:element name='value' type="bolometerList"/>
 <xsd:element name='chainedToPrev' type="xsd:boolean"/>
+<xsd:element name="secsPerCycle" type="xsd:positiveInteger"/>
 
 <!-- ELEMENT REFERENCES -->
 <xsd:element name="SpSiteQualityObsCompRef">
@@ -442,7 +443,7 @@
               <xsd:element name="pm1" minOccurs="0">
                 <xsd:complexType>
                   <xsd:simpleContent>
-                    <xsd:extension base="xsd:decimal">
+                    <xsd:extension base="xsd:double">
                       <xsd:attribute name="units" type="xsd:string"/>
                     </xsd:extension>
                   </xsd:simpleContent>
@@ -451,7 +452,7 @@
               <xsd:element name="pm2" minOccurs="0">
                 <xsd:complexType>
                   <xsd:simpleContent>
-                    <xsd:extension base="xsd:decimal">
+                    <xsd:extension base="xsd:double">
                       <xsd:attribute name="units" type="xsd:string"/>
                     </xsd:extension>
                   </xsd:simpleContent>
@@ -500,7 +501,7 @@
     <xsd:sequence>
       <xsd:element name="PA">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:decimal">
+          <xsd:restriction base="xsd:double">
             <xsd:minInclusive value="-360.0"/>
             <xsd:maxInclusive value="360.0"/>
           </xsd:restriction>
@@ -514,8 +515,8 @@
                 <xsd:complexType>
                   <xsd:complexContent>
                     <xsd:restriction base="xsd:anyType">
-                      <xsd:attribute name="HEIGHT" type="xsd:decimal"/>
-                      <xsd:attribute name="WIDTH" type="xsd:decimal"/>
+                      <xsd:attribute name="HEIGHT" type="xsd:double"/>
+                      <xsd:attribute name="WIDTH" type="xsd:double"/>
                     </xsd:restriction>
                   </xsd:complexContent>
                 </xsd:complexType>
@@ -525,15 +526,15 @@
                   <xsd:sequence>
                     <xsd:element name="PA" minOccurs="0" maxOccurs="unbounded">
                       <xsd:simpleType>
-                        <xsd:restriction base="xsd:decimal">
+                        <xsd:restriction base="xsd:double">
                           <xsd:minInclusive value="-360.0"/>
                           <xsd:maxInclusive value="360.0"/>
                         </xsd:restriction>
                       </xsd:simpleType>
                     </xsd:element>
                   </xsd:sequence>
-                  <xsd:attribute name="DY" type="xsd:decimal"/>
-                  <xsd:attribute name="VELOCITY" type="xsd:decimal"/>
+                  <xsd:attribute name="DY" type="positiveDecimal"/>
+                  <xsd:attribute name="VELOCITY" type="positiveDecimal"/>
                   <xsd:attribute name="SYSTEM" type="SystemType"/>
                 </xsd:complexType>
               </xsd:element>
@@ -543,8 +544,8 @@
         <xsd:element name="OFFSET" minOccurs="1" maxOccurs="unbounded">
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="DC1" type="xsd:decimal"/>
-              <xsd:element name="DC2" type="xsd:decimal"/>
+              <xsd:element name="DC1" type="xsd:double"/>
+              <xsd:element name="DC2" type="xsd:double"/>
             </xsd:sequence>
           </xsd:complexType>
         </xsd:element>
@@ -562,7 +563,7 @@
           <xsd:sequence>
             <xsd:element name="THROW">
               <xsd:simpleType>
-                <xsd:restriction base="xsd:decimal">
+                <xsd:restriction base="xsd:double">
                   <xsd:minInclusive value="0.0"/>
                   <xsd:maxInclusive value="200.0"/>
                 </xsd:restriction>
@@ -570,7 +571,7 @@
             </xsd:element>
             <xsd:element name="PA">
               <xsd:simpleType>
-                <xsd:restriction base="xsd:decimal">
+                <xsd:restriction base="xsd:double">
                   <xsd:minInclusive value="-3600.0"/>
                   <xsd:maxInclusive value="360.0"/>
                 </xsd:restriction>
@@ -591,7 +592,7 @@
     <xsd:sequence>
       <xsd:element name="value" minOccurs="1" maxOccurs="unbounded" default="0.0">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:decimal">
+          <xsd:restriction base="xsd:double">
             <xsd:minInclusive value="0.0"/>
             <xsd:maxInclusive value="360.0"/>
           </xsd:restriction>
@@ -608,13 +609,13 @@
       <xsd:element name="rest_frequency">
         <xsd:complexType>
           <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
-          <xsd:attribute name="value" type="xsd:decimal"/>
+          <xsd:attribute name="value" type="xsd:double"/>
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="if_centre_freq">
         <xsd:complexType>
           <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
-          <xsd:attribute name="value" type="xsd:decimal"/>
+          <xsd:attribute name="value" type="xsd:double"/>
         </xsd:complexType>
       </xsd:element>
       <xsd:element name="sideband">
@@ -681,7 +682,7 @@
       <xsd:element name="rest_frequency" minOccurs="1" maxOccurs="unbounded">
         <xsd:complexType>
           <xsd:simpleContent>
-            <xsd:extension base="xsd:decimal">
+            <xsd:extension base="xsd:double">
               <xsd:attribute name="id" type="xsd:string"/>
               <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
             </xsd:extension>
@@ -732,7 +733,7 @@
               <xsd:complexType>
                 <xsd:attribute name="sideband">
                   <xsd:simpleType>
-                    <xsd:restriction base="xsd:decimal">
+                    <xsd:restriction base="xsd:double">
                       <xsd:enumeration value="-1"/>
                       <xsd:enumeration value="1"/>
                     </xsd:restriction>
@@ -746,7 +747,7 @@
                   <xsd:element name="spw_reference_if_frequency">
                     <xsd:complexType>
                       <xsd:simpleContent>
-                        <xsd:extension base="xsd:decimal">
+                        <xsd:extension base="xsd:double">
                           <xsd:attribute name="units" type="xsd:string" fixed="GHz"/>
                         </xsd:extension>
                       </xsd:simpleContent>
@@ -756,7 +757,7 @@
                   <xsd:element name="spw_if_channel_width">
                     <xsd:complexType>
                       <xsd:simpleContent>
-                        <xsd:extension base="xsd:decimal">
+                        <xsd:extension base="xsd:double">
                           <xsd:attribute name="units" type="xsd:string" fixed="Hz"/>
                         </xsd:extension>
                       </xsd:simpleContent>
@@ -795,7 +796,7 @@
     <xsd:all>
       <xsd:element name="steps">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:decimal">
+          <xsd:restriction base="xsd:double">
             <xsd:minInclusive value="0.0"/>
             <xsd:maxInclusive value="2.0"/>
           </xsd:restriction>
@@ -808,7 +809,7 @@
       <xsd:element ref="integrations"/>
 <!-- The follwoing are only required for heterodyne observations -->
       <xsd:element ref="switchingMode" minOccurs="0"/>
-      <xsd:element name="secsPerCycle"  type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element ref="secsPerCycle"  minOccurs="0"/>
       <xsd:element name="noOfCycles"    type="xsd:nonNegativeInteger" minOccurs="0"/>
       <xsd:element name="cycleReversal" type="xsd:boolean"            minOccurs="0"/>
     </xsd:all>
@@ -858,7 +859,7 @@
   <xsd:complexType>
     <xsd:all>
       <xsd:element ref="integrations"/>
-      <xsd:element name="pointingPixel" type="xsd:string"/>
+      <xsd:element name="pointingPixel" type="xsd:string" minOccurs="0"/>
       <xsd:element name="autoTarget" type="xsd:boolean"/>
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
 <!-- The following are required for heterodyne observations -->
@@ -867,12 +868,12 @@
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:enumeration value="spectralLine"/>
-            <xsd:enumeration value="Continuum"/>
+            <xsd:enumeration value="continuum"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
       <xsd:element name="noOfCycles" type="xsd:nonNegativeInteger" minOccurs="0"/>
-      <xsd:element name="secsPerCycle" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element ref="secsPerCycle" minOccurs="0"/>
       <xsd:element name="pointingMethod" type="xsd:string" fixed="5-point" minOccurs="0"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="ic"/>
@@ -905,7 +906,7 @@
 <!-- The following are required for heterodyne observations -->
       <xsd:element ref="switchingMode" minOccurs="0"/>
       <xsd:element name="noOfCycles"            type="xsd:nonNegativeInteger" minOccurs="0"/>
-      <xsd:element name="secsPerCycle"          type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element ref="secsPerCycle"           minOccurs="0"/>
       <xsd:element name="frequencyOffset.rate"  type="positiveDecimal"     minOccurs="0"/>
       <xsd:element name="frequencyOffset.throw" type="positiveDecimal"     minOccurs="0"/>
       <xsd:element name="cycleReversal"         type="xsd:boolean"            minOccurs="0"/>
@@ -924,7 +925,7 @@
       <xsd:element ref="meta_gui_collapsed" minOccurs="0"/>
 <!-- The following are required for heterodyne observations -->
       <xsd:element ref="switchingMode" minOccurs="0"/>
-      <xsd:element name="rowsPerCal" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="rowsPerCal" type="xsd:nonNegativeInteger" minOccurs="0"/>
       <xsd:element name="rowsPerRef" type="xsd:integer" minOccurs="0"/>
       <xsd:element name="sampleTime" minOccurs="0">
         <xsd:simpleType>
@@ -1004,7 +1005,7 @@
       <xsd:element name="latest" type="xsd:string"/>
       <xsd:element name="maxEl" minOccurs="0">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:decimal">
+          <xsd:restriction base="xsd:double">
             <xsd:minInclusive value="5.0"/>
             <xsd:maxInclusive value="89.0"/>
           </xsd:restriction>
@@ -1012,7 +1013,7 @@
       </xsd:element>
       <xsd:element name="minEl" minOccurs="0">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:decimal">
+          <xsd:restriction base="xsd:double">
             <xsd:minInclusive value="5.0"/>
             <xsd:maxInclusive value="89.0"/>
           </xsd:restriction>
@@ -1037,7 +1038,7 @@
           <xsd:sequence>
             <xsd:element name="min">
               <xsd:simpleType>
-                <xsd:restriction base="xsd:decimal">
+                <xsd:restriction base="xsd:double">
                   <xsd:minInclusive value="0.0"/>
                   <xsd:maxInclusive value="10.0"/>
                 </xsd:restriction>
@@ -1045,7 +1046,7 @@
             </xsd:element>
             <xsd:element name="max">
               <xsd:simpleType>
-                <xsd:restriction base="xsd:decimal">
+                <xsd:restriction base="xsd:double">
                   <xsd:minInclusive value="0.0"/>
                   <xsd:maxInclusive value="10.0"/>
                 </xsd:restriction>
@@ -1056,7 +1057,7 @@
       </xsd:element>
       <xsd:element name="noiseCalculationTau">
         <xsd:simpleType>
-          <xsd:restriction base="xsd:decimal">
+          <xsd:restriction base="xsd:double">
             <xsd:minInclusive value="0.0"/>
             <xsd:maxInclusive value="0.5"/>
           </xsd:restriction>
@@ -1069,7 +1070,7 @@
           <xsd:sequence>
             <xsd:element name="min">
               <xsd:simpleType>
-                <xsd:restriction base="xsd:decimal">
+                <xsd:restriction base="xsd:double">
                   <xsd:minInclusive value="0.0"/>
                   <xsd:maxInclusive value="0.5"/>
                 </xsd:restriction>
@@ -1077,7 +1078,7 @@
             </xsd:element>
             <xsd:element name="max">
               <xsd:simpleType>
-                <xsd:restriction base="xsd:decimal">
+                <xsd:restriction base="xsd:double">
                   <xsd:minInclusive value="0.0"/>
                   <xsd:maxInclusive value="0.5"/>
                 </xsd:restriction>
@@ -1087,7 +1088,7 @@
         </xsd:complexType>
       </xsd:element>
 <!--
-      <xsd:element name="min" type="xsd:decimal" minOccurs="0"/>
+      <xsd:element name="min" type="xsd:double" minOccurs="0"/>
 -->
     </xsd:all>
     <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
@@ -1224,7 +1225,7 @@
       <xsd:element name="molecule"      type="xsd:string"/>
       <xsd:element name="transition"    type="xsd:string"/>
       <xsd:element name="restFrequency" type="xsd:double"/>
-      <xsd:element name="velocity"      type="xsd:decimal"/>
+      <xsd:element name="velocity"      type="xsd:double"/>
       <xsd:element ref="jcmt_config"/>
     </xsd:all>
     <xsd:attribute name="type" type="SpType" fixed="oc"/>
