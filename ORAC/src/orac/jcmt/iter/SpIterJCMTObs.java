@@ -109,8 +109,6 @@ public SpIterJCMTObs(SpType spType)
    // is appended to the name of the iterator in the Science Prrogram tree
    // is the number of iterations, ATTR_INTEGRATIONS.
    _avTable.rm(ATTR_COUNT);
-
-   _avTable.noNotifySet(ATTR_REFERENCE_OFFSET_SYSTEM, CoordSys.COORD_SYS[CoordSys.FK5], 0);
 }
 
 /** Get the number of desired integrations. */
