@@ -14,11 +14,16 @@ include $(CONF_HOME)/make.conf
 CLASS_FILES = $(LOCAL_INSTALL_ROOT)/classes/edfreq/FrontEnd.class \
               $(addprefix $(LOCAL_INSTALL_ROOT)/classes/,$(shell ls edfreq/*.java | sed -e 's/\.java/\.class/g'))
 
-all: classes script
+CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
+
+all: classes script cfg
 
 classes: $(LOCAL_INSTALL_ROOT)/classes $(CLASS_FILES)
 
 script: $(LOCAL_INSTALL_ROOT)/bin $(LOCAL_INSTALL_ROOT)/bin/freqEditor $(LOCAL_INSTALL_ROOT)/bin/freqEditor.bat
+
+#cfg: $(LOCAL_INSTALL_ROOT)/cfg $(CFG_FILES)
+cfg: $(LOCAL_INSTALL_ROOT)/cfg $(CFG_FILES)
 
 $(LOCAL_INSTALL_ROOT):
 	@ -mkdir -p $(LOCAL_INSTALL_ROOT)
@@ -33,8 +38,14 @@ $(LOCAL_INSTALL_ROOT)/bin:
 
 # default rule 
 $(LOCAL_INSTALL_ROOT)/classes/%.class: %.java
-	$(JAVAC) -d $(LOCAL_INSTALL_ROOT)/classes -classpath .:$(XERXES_JAR) $<
+	$(JAVAC) -d $(LOCAL_INSTALL_ROOT)/classes -classpath .:$(XERXES_JAR):../tools/JSX1.0.1.1.jar $<
 
+$(LOCAL_INSTALL_ROOT)/cfg: ../cfg
+	cp -r ../cfg $(LOCAL_INSTALL_ROOT)
+
+$(LOCAL_INSTALL_ROOT)/cfg/%: ../cfg/%
+	rm -rf $@
+	cp -r $< $@
 
 # Bundle everything into jar file
 jar: classes
