@@ -1182,15 +1182,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    }
 
    public void _updateVelocityTextField(String velocityDefinition) {
-//       double velocityOrRedshift = SpInstHeterodyne.convertRedshiftTo(velocityDefinition, redshift);
+       if (_instHeterodyne.getRefFrameVelocity() == 0.0) {
+	   double velocityOrRedshift = SpInstHeterodyne.convertRedshiftTo(velocityDefinition, redshift);
 
-//       if(velocityDefinition.equals(SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT)) {
-//          _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E9) / 1.0E9));
-//       }
-//       else {
-//          _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E3) / 1.0E3));
-//       }
-       _w.velocity.setText(""+_instHeterodyne.getVelocity() );
+	   if(velocityDefinition.equals(SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT)) {
+	       _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E9) / 1.0E9));
+	   }
+	   else {
+	       _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E3) / 1.0E3));
+	   }
+       }
+       else {
+	   _w.velocity.setText(""+_instHeterodyne.getRefFrameVelocity() );
+       }
        _w.velocity.setCaretPosition(0);
    }
 
