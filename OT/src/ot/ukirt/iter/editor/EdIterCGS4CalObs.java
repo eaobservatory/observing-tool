@@ -115,7 +115,9 @@ _init()
    // Flat sampling
    Vector samplingChoiceVector = new Vector();
    samplingChoiceVector.add("1x1");
+   samplingChoiceVector.add("AS_OBJECT");
    _w.flatSampling.setChoices (samplingChoiceVector);
+   _w.flatSampling.setValue("AS_OBJECT");
    //   _w.flatSampling.addWatcher( this );
 
    super._init();
