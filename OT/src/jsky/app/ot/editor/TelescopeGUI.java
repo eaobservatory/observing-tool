@@ -158,17 +158,17 @@ public class TelescopeGUI extends JPanel {
         jLabel3.setText("System");
         jLabel3.setForeground(Color.black);
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel2.setText("   Tag");
+        jLabel2.setText("    Tag ");
         jLabel2.setForeground(Color.black);
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
 	jLabel2.setLabelFor(tagDDLBW);
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel1.setForeground(Color.black);
-        jLabel1.setText("Name");
+        jLabel1.setText("Name ");
 	jLabel1.setLabelFor(nameTBW);
         targetType.setFont(new java.awt.Font("Dialog", 0, 12));
         targetType.setForeground(Color.black);
-        targetType.setText("   TargetType");
+        targetType.setText("    TargetType ");
 	targetType.setLabelFor(targetTypeDDList);
 	nameResolversDDLBW.setFont(new java.awt.Font("Dialog", 0, 10)); // MFO
 	resolveButton.setText("Resolve Name"); //MFO
@@ -287,9 +287,10 @@ public class TelescopeGUI extends JPanel {
     eLabel.setForeground(Color.black);
     eLabel.setText("e");
     perih.setColumns(6);
-    nameTBW.setColumns(10);
-    gridLayout1.setHgap(20);
-    nameTagPanel.setLayout(gridLayout1);
+    nameTBW.setColumns(15);
+//     gridLayout1.setHgap(20);
+    nameTagPanel.setLayout(new BoxLayout(nameTagPanel, BoxLayout.X_AXIS));
+//     nameTagPanel.setLayout(gridLayout1);
 //     flowLayout1.setAlignment(FlowLayout.LEFT);
     conicSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
     //namedSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -345,12 +346,42 @@ public class TelescopeGUI extends JPanel {
     
     this.add(nameTagPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    nameTagPanel.add(jLabel1, null);
-    nameTagPanel.add(nameTBW, null);
-    nameTagPanel.add(jLabel2, null);
-    nameTagPanel.add(tagDDLBW, null);
-    nameTagPanel.add(targetType, null);
-    nameTagPanel.add(targetTypeDDList, null);
+    nameTagPanel.add(jLabel1);
+    nameTagPanel.add(nameTBW);
+    nameTagPanel.add(jLabel2);
+    nameTagPanel.add(tagDDLBW);
+    nameTagPanel.add(targetType);
+    nameTagPanel.add(targetTypeDDList);
+//     nameTagPanel.add(jLabel1, new GridBagConstraints (0, 0, 1, 1, 0.0, 0.0, 
+// 						      GridBagConstraints.EAST, 
+// 						      GridBagConstraints.HORIZONTAL,
+// 						      new Insets(0, 0, 0, 0), 0, 0));
+//     nameTagPanel.add(nameTBW,  new GridBagConstraints (GridBagConstraints.RELATIVE, 0, 2, 1, 0.0, 0.0, 
+// 						       GridBagConstraints.EAST, 
+// 						       GridBagConstraints.HORIZONTAL,
+// 						       new Insets(0, 0, 0, 0), 0, 0));
+
+//     nameTagPanel.add(jLabel2,  new GridBagConstraints (GridBagConstraints.RELATIVE, 0, 1, 1, 0.0, 0.0, 
+// 						      GridBagConstraints.EAST, 
+// 						      GridBagConstraints.HORIZONTAL,
+// 						      new Insets(0, 0, 0, 0), 0, 0));
+
+//     nameTagPanel.add(tagDDLBW,  new GridBagConstraints (GridBagConstraints.RELATIVE, 0, 1, 1, 0.0, 0.0, 
+// 						      GridBagConstraints.EAST, 
+// 						      GridBagConstraints.HORIZONTAL,
+// 						      new Insets(0, 0, 0, 0), 0, 0));
+
+//     nameTagPanel.add(targetType, new GridBagConstraints (GridBagConstraints.RELATIVE, 0, 1, 1, 0.0, 0.0, 
+// 						      GridBagConstraints.EAST, 
+// 						      GridBagConstraints.HORIZONTAL,
+// 						      new Insets(0, 0, 0, 0), 0, 0));
+
+//     nameTagPanel.add(targetTypeDDList,  new GridBagConstraints (GridBagConstraints.RELATIVE, 0, 1, 1, 0.0, 0.0, 
+// 						      GridBagConstraints.EAST, 
+// 						      GridBagConstraints.HORIZONTAL,
+// 						      new Insets(0, 0, 0, 0), 0, 0));
+    nameTagPanel.validate();
+
     this.add(targetSystemsTabbedPane, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
