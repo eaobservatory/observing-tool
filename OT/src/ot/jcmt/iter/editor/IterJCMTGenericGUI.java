@@ -51,6 +51,7 @@ public class IterJCMTGenericGUI extends JPanel {
 
   JLabel noiseLabel = new JLabel();
   TextBoxWidgetExt noiseTextBox = new TextBoxWidgetExt();
+  JLabel jLabel2 = new JLabel();
 
   public IterJCMTGenericGUI() {
     try {
@@ -98,7 +99,10 @@ public class IterJCMTGenericGUI extends JPanel {
     noiseLabel.setText("Noise");
     noiseTextBox.setEditable(false);
     noiseTextBox.setColumns(15);
-    
+
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel2.setForeground(Color.black);
+    jLabel2.setText("(mJy)");
     this.add(jPanel1, BorderLayout.NORTH);
     jPanel1.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 5, 0, 0), 0, 0));
@@ -108,12 +112,14 @@ public class IterJCMTGenericGUI extends JPanel {
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     jPanel1.add(switchingMode, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
-    jPanel1.add(frequencyPanel, new GridBagConstraints(1, 0, 2, 3, 0.0, 0.0
+    jPanel1.add(frequencyPanel, new GridBagConstraints(1, 0, 3, 3, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
     jPanel1.add(noiseLabel, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 1, 0, 0), 0, 0));
     jPanel1.add(noiseTextBox, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    jPanel1.add(jLabel2, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     frequencyPanel.add(jLabel8, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     frequencyPanel.add(frequencyOffset_throw, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
