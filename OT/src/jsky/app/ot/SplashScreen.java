@@ -97,8 +97,8 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 	dismiss();
 
 	// If we are not using internal frames, there is nothing left to do here...
-	if (w == dismissButton && parent instanceof JFrame) 
-	    System.exit(0);
+	//MFO//if (w == dismissButton && parent instanceof JFrame) 
+	//MFO//    System.exit(0);
     }
 }
 
