@@ -536,19 +536,17 @@ public class SpItemDOM {
             chopElement.appendChild(child);
 	  }  
 
-          // Currently not needed
-//          if(element.getElementsByTagName("chopSystem").item(0) != null) {
-//            child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
-//            chopElement.appendChild(child);
-//          }
+          if(element.getElementsByTagName("chopSystem").item(0) != null) {
+            child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+            chopElement.appendChild(child);
+          }
 
           element.appendChild(chopElement);
         }
         else {
           element.removeChild(element.getElementsByTagName("chopAngle").item(0));
           element.removeChild(element.getElementsByTagName("chopThrow").item(0));
-	  // Currently not needed
-	  //element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+	  element.removeChild(element.getElementsByTagName("chopSystem").item(0));
         }
 
         element.removeChild(element.getElementsByTagName("chopping").item(0));
@@ -696,9 +694,8 @@ public class SpItemDOM {
         child.removeAttribute("units");
         element.appendChild(child);
 
-        // Currently not needed
-//        child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopSystem").item(0));
-//        element.appendChild(child);
+        child = (ElementImpl)chopElement.removeChild(chopElement.getElementsByTagName("chopSystem").item(0));
+        element.appendChild(child);
 
         child = (ElementImpl)element.appendChild(document.createElement("chopping"));
 	child.appendChild(document.createTextNode("true"));
@@ -710,10 +707,8 @@ public class SpItemDOM {
 	child.appendChild(document.createTextNode(""));
         child = (ElementImpl)element.appendChild(document.createElement("chopThrow"));
 	child.appendChild(document.createTextNode(""));
-
-	// Currently not needed
-//	child = (ElementImpl)element.appendChild(document.createElement("chopSystem"));
-//	child.appendChild(document.createTextNode(""));
+	child = (ElementImpl)element.appendChild(document.createElement("chopSystem"));
+	child.appendChild(document.createTextNode(""));
       }
     }
     // Make sure RuntimeExceptions are not ignored.
