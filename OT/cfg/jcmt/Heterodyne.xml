@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
+  <ot_version>2003-05-30</ot_version>
   <meta_gui_filename>Heterodyne.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Samples</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="1"/>
       <SpInstHeterodyneRef idref="0"/>
       <title>Beam-switch sample</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="0" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -28,10 +85,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -81,10 +138,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">60.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -127,13 +186,69 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="3"/>
       <SpInstHeterodyneRef idref="2"/>
       <title>Position-switch sample</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="2" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -149,10 +264,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -202,10 +317,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">60.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -218,6 +335,7 @@
               </spherSystem>
             </target>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -231,7 +349,6 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -252,13 +369,69 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="5"/>
       <SpInstHeterodyneRef idref="4"/>
       <title>Fast Frequency-switch sample</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="4" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -274,10 +447,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -327,10 +500,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">60.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -358,21 +533,77 @@
               <cycleReversal>true</cycleReversal>
               <continuousCal>false</continuousCal>
               <switchingMode>Frequency-Fast</switchingMode>
-              <frequencyOffset.rate>0.5</frequencyOffset.rate>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <frequencyOffset.rate>0.5</frequencyOffset.rate>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="7"/>
       <SpInstHeterodyneRef idref="6"/>
       <title>Slow Frequency-switch sample</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="6" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -388,10 +619,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -441,10 +672,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">60.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -465,14 +698,14 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <frequencyOffset.throw>8.3</frequencyOffset.throw>
+              <switchingMode>Frequency-Slow</switchingMode>
+              <noOfCycles>0</noOfCycles>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <integrations>1</integrations>
               <secsPerCycle>60</secsPerCycle>
-              <noOfCycles>0</noOfCycles>
               <cycleReversal>true</cycleReversal>
+              <frequencyOffset.throw>8.3</frequencyOffset.throw>
               <continuousCal>false</continuousCal>
-              <switchingMode>Frequency-Slow</switchingMode>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -483,13 +716,69 @@
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Grids</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="9"/>
       <SpInstHeterodyneRef idref="8"/>
       <title>Beam-switch grid</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="8" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -505,10 +794,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -558,10 +847,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">65.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -590,6 +881,13 @@
                 </CHOP>
               </SECONDARY>
               <SpIterOffset type="ic" subtype="offset">
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterStareObs type="ic" subtype="stareObs">
                   <switchingMode>Beam</switchingMode>
@@ -607,13 +905,69 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="11"/>
       <SpInstHeterodyneRef idref="10"/>
       <title>Position-switch grid</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="10" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -629,10 +983,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -682,10 +1036,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">65.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -698,6 +1054,7 @@
               </spherSystem>
             </target>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -711,7 +1068,6 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -719,6 +1075,13 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <switchingMode>Position</switchingMode>
@@ -735,13 +1098,69 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="13"/>
       <SpInstHeterodyneRef idref="12"/>
       <title>Fast Frequency-switch grid</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="12" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -757,10 +1176,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -810,10 +1229,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">65.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -834,6 +1255,13 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <frequencyOffset.throw>8.3</frequencyOffset.throw>
@@ -843,8 +1271,8 @@
                 <cycleReversal>true</cycleReversal>
                 <continuousCal>false</continuousCal>
                 <switchingMode>Frequency-Fast</switchingMode>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <frequencyOffset.rate>0.5</frequencyOffset.rate>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
@@ -852,13 +1280,69 @@
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="15"/>
       <SpInstHeterodyneRef idref="14"/>
       <title>Slow Frequency-switch grid</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="14" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -874,10 +1358,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -927,10 +1411,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">65.0</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -951,16 +1437,23 @@
             <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterStareObs type="ic" subtype="stareObs">
-                <frequencyOffset.throw>8.3</frequencyOffset.throw>
+                <switchingMode>Frequency-Slow</switchingMode>
+                <noOfCycles>0</noOfCycles>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <integrations>1</integrations>
                 <secsPerCycle>60</secsPerCycle>
-                <noOfCycles>0</noOfCycles>
                 <cycleReversal>true</cycleReversal>
+                <frequencyOffset.throw>8.3</frequencyOffset.throw>
                 <continuousCal>false</continuousCal>
-                <switchingMode>Frequency-Slow</switchingMode>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
@@ -972,13 +1465,69 @@
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Raster</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
       <SpSiteQualityObsCompRef idref="17"/>
       <SpInstHeterodyneRef idref="16"/>
       <title>Position-switch raster</title>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <estimatedDuration units="seconds">Infinity</estimatedDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <title>Please read</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+      </SpNote>
       <SpInstHeterodyne id="16" type="oc" subtype="inst.Heterodyne">
         <restFrequency>2.30538E11</restFrequency>
         <bandMode>1-system</bandMode>
@@ -994,10 +1543,10 @@
         <bandWidth>1.25E8</bandWidth>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <velocityFrame>LSR</velocityFrame>
-        <velocity>0.0</velocity>
         <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <beName>das</beName>
+        <velocity>0.0</velocity>
         <mode>dsb</mode>
+        <beName>das</beName>
         <velocityDefinition>radio</velocityDefinition>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
@@ -1047,10 +1596,12 @@
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">Infinity</estimatedDuration>
+        <chainedToPrev>false</chainedToPrev>
         <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1063,6 +1614,7 @@
               </spherSystem>
             </target>
           </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -1076,7 +1628,6 @@
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
