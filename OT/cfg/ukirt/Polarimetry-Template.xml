@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <ot_version>20030701</ot_version>
+  <ot_version>20030703</ot_version>
   <meta_gui_filename>Polarimetry-Template.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -30,8 +30,8 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>UFTI</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol jitter then angle (UFTI)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol jitter then angle (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">238.0</estimatedDuration>
@@ -71,8 +71,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -171,8 +171,8 @@ required.</note>
               <value>exposureTimeIter</value>
               <value>coaddsIter</value>
             </iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <filterIter>H98</filterIter>
             <exposureTimeIter>10</exposureTimeIter>
             <SpNote type="no" subtype="none">
@@ -408,9 +408,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -419,12 +419,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selected>false</meta_gui_selected>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -581,9 +581,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -592,12 +592,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selected>false</meta_gui_selected>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -651,8 +651,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol angle then jitter (UFTI)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol angle then jitter (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">229.0</estimatedDuration>
@@ -692,8 +692,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -792,8 +792,8 @@ required.</note>
               <value>exposureTimeIter</value>
               <value>coaddsIter</value>
             </iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <filterIter>H98</filterIter>
             <exposureTimeIter>10</exposureTimeIter>
             <SpNote type="no" subtype="none">
@@ -1029,13 +1029,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Jitter AFTER 4 WP positions</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -1065,8 +1065,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                   <value>67.5</value>
                 </IRPOLIter>
                 <iterConfigList>IRPOLIter</iterConfigList>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selected>false</meta_gui_selected>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterObserve type="ic" subtype="observe">
                   <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1202,13 +1202,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Jitter AFTER 4 WP positions</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -1238,8 +1238,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                   <value>67.5</value>
                 </IRPOLIter>
                 <iterConfigList>IRPOLIter</iterConfigList>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selected>false</meta_gui_selected>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterObserve type="ic" subtype="observe">
                   <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1272,8 +1272,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol extended (UFTI)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol extended (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">430.0</estimatedDuration>
@@ -1313,8 +1313,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -1413,8 +1413,8 @@ required.</note>
               <value>exposureTimeIter</value>
               <value>coaddsIter</value>
             </iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <filterIter>H98</filterIter>
             <exposureTimeIter>10</exposureTimeIter>
             <SpNote type="no" subtype="none">
@@ -1650,9 +1650,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -1661,12 +1661,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selected>false</meta_gui_selected>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -1823,13 +1823,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Obj-Sky pair at each WP position.</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
             </SpNote>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -1840,8 +1840,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <title>Obj-Sky nod 1</title>
@@ -1949,8 +1949,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol extended 3x3 (UFTI)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol extended 3x3 (UFTI)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">1198.0</estimatedDuration>
@@ -1990,8 +1990,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -2090,8 +2090,8 @@ required.</note>
               <value>exposureTimeIter</value>
               <value>coaddsIter</value>
             </iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <filterIter>H98</filterIter>
             <exposureTimeIter>10</exposureTimeIter>
             <SpNote type="no" subtype="none">
@@ -2327,9 +2327,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -2338,12 +2338,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpNote type="no" subtype="none">
                 <title>E-W jitter at each WP position.</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selected>false</meta_gui_selected>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -2500,13 +2500,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Obj-Sky pair at each WP position.</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.
 
 This set is akin to the 3x3 extended observation with 50% overlaps on the target and a jitter on a sky region.</note>
@@ -2519,8 +2519,8 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <title>Obj-Sky nod 1</title>
@@ -2809,17 +2809,12 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
     </SpMSB>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note></note>
+      <note>Currently, template observations for point sources (observing at 3 positions along the N-S imaging-pol aperture) and extended sources (nodding to blank sky) exist.  The Waveplate may be moved BEFORE the offsets, or vice-versa (see the MSBs for further notes).</note>
       <title>UIST Imaging</title>
     </SpNote>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>Currently, template observations for point sources (observing at 3 positions along the N-S imaging-pol aperture) and extended sources (nodding to blank sky) exist.  The Waveplate may be moved BEFORE the offsets, or vice-versa (see the MSBs for further notes).</note>
-      <title>Which MSB should I use??</title>
-    </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol jitter then angle (UIST - imaging)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol jitter then angle (UIST - imaging)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">1305.1808217333332</estimatedDuration>
@@ -2847,8 +2842,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -3262,9 +3257,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -3273,12 +3268,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>N-S jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three N-S jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -3490,9 +3485,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -3501,12 +3496,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>N-S jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three N-S jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -3560,8 +3555,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol angle then jitter (UIST - imaging)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol angle then jitter (UIST - imaging)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">1252.0501262133332</estimatedDuration>
@@ -3589,8 +3584,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -4004,13 +3999,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Jitter AFTER 4 WP positions</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps N-S.  There is also a 1-arcsecond E-W offset to sample different rows.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -4040,8 +4035,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                   <value>67.5</value>
                 </IRPOLIter>
                 <iterConfigList>IRPOLIter</iterConfigList>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <SpIterObserve type="ic" subtype="observe">
                   <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4232,13 +4227,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Jitter AFTER 4 WP positions</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps N-S.  There is also a 1-arcsecond E-W offset to sample different rows.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -4268,8 +4263,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                   <value>67.5</value>
                 </IRPOLIter>
                 <iterConfigList>IRPOLIter</iterConfigList>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <SpIterObserve type="ic" subtype="observe">
                   <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4302,8 +4297,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol extended (UIST - imaging)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol extended (UIST - imaging)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">1617.1808217333332</estimatedDuration>
@@ -4331,8 +4326,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -4746,9 +4741,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -4757,12 +4752,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>N-S jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three N-S jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -4975,13 +4970,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Obj-Sky pair at each WP position.</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
             </SpNote>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -4992,8 +4987,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <title>Obj-Sky nod 1</title>
@@ -5101,8 +5096,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol extended full-field (UIST - imaging)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol extended full-field (UIST - imaging)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">1617.1808217333332</estimatedDuration>
@@ -5130,8 +5125,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <BASE TYPE="Base">
             <target>
               <targetName>Enter blank sky coords.</targetName>
@@ -5545,9 +5540,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
               <IRPOLIter>
                 <value>0</value>
@@ -5556,12 +5551,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpNote type="no" subtype="none">
                 <title>N-S jitter at each WP position.</title>
-                <meta_gui_selected>false</meta_gui_selected>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selected>false</meta_gui_selected>
                 <note>The three N-S jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
@@ -5784,13 +5779,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterDarkObs>
           <SpIterRepeat type="ic" subtype="repeat">
             <title>Repeat 1X</title>
+            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>Obj-Sky pair at each WP position.</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.
 
 This set is akin to the 3x3 extended observation with 50% overlaps on the target and a jitter on a sky region.</note>
@@ -5803,8 +5798,8 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <title>Obj-Sky (center)</title>
@@ -5913,17 +5908,11 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
     </SpMSB>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note></note>
-      <title>UIST Spectroscopy</title>
-    </SpNote>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>Currently, template observations for point sources (sliding up and down the 20"-long spec-pol slits) and extended sources (nodding to blank sky) exist.</note>
-      <title>Which MSB should I use??</title>
-    </SpNote>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>For bright calibrators exposures of a few seconds work well.
+      <note>WHICH MSB
+Currently, template observations for point sources (sliding up and down the 20"-long spec-pol slits) and extended sources (nodding to blank sky) exist.
+
+EXPOSURE TIMES
+For bright calibrators exposures of a few seconds work well.
 
 For faint targets the following exposures are recommended
 with the 5 pixel spec-pol slit (for "near" background-limited performance):
@@ -5932,24 +5921,20 @@ with the 5 pixel spec-pol slit (for "near" background-limited performance):
   240s for HK
   60s for shortL
   20s for longL
-  6s for M</note>
-      <title>Exposure times</title>
-    </SpNote>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>The default slit PA is -90 so that it matches the UIST imaging orientation (it makes imaging acquisition a bit simpler!), though any angle, between -90 and +90 (measured E of N) can be used.</note>
-      <title>Slit angles</title>
-    </SpNote>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>All targets (bright standards and faint sources) are now acquired in imaging mode.  Simply make sure that each observation contains an acquisition Eyeball
+  6s for M
+
+SLIT ANGLES
+The default slit PA is -90 so that it matches the UIST imaging orientation (it makes imaging acquisition a bit simpler!), though any angle, between -90 and +90 (measured E of N) can be used.
+
+ACQUISITION
+All targets (bright standards and faint sources) are now acquired in imaging mode.  Simply make sure that each observation contains an acquisition Eyeball
 (see the examples below).</note>
-      <title>Acquisition</title>
+      <title>UIST Spectroscopy</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpInstUISTRef idref="1"/>
-      <title>Pol nod along slit (UIST - spectroscopy)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol nod along slit (UIST - spectroscopy)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">8065.13996</estimatedDuration>
@@ -6564,8 +6549,8 @@ object</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpInstUISTRef idref="3"/>
-      <title>Pol nod to blank sky (UIST - spectroscopy)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol nod to blank sky (UIST - spectroscopy)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">6097.13996</estimatedDuration>
@@ -7191,8 +7176,8 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>CGS4</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Pol nod along slit (CGS4)</title>
       <library_version>$Revision$</library_version>
+      <title>Pol nod along slit (CGS4)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">2314.8799999999997</estimatedDuration>
@@ -7833,8 +7818,8 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>Michelle</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Specpol - Point Source (Michelle)</title>
       <library_version>$Revision$</library_version>
+      <title>Specpol - Point Source (Michelle)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">11480.060614246408</estimatedDuration>
@@ -8200,8 +8185,8 @@ are unlikely to apply to more than a small minority of programmes.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Impol iterate angle then nod (Michelle)</title>
       <library_version>$Revision$</library_version>
+      <title>Impol iterate angle then nod (Michelle)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">10725.314207999983</estimatedDuration>
@@ -8403,8 +8388,8 @@ are unlikely to apply to more than a small minority of programmes.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <title>Impol nod then angle (Michelle)</title>
       <library_version>$Revision$</library_version>
+      <title>Impol nod then angle (Michelle)</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
       <estimatedDuration units="seconds">11205.314207999983</estimatedDuration>
@@ -8639,8 +8624,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="4" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords</targetName>
@@ -8736,8 +8721,8 @@ If you wish to observe at more than one wavelength, add filters to the "UFTI" co
             <value>exposureTimeIter</value>
             <value>coaddsIter</value>
           </iterConfigList>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <filterIter>H98</filterIter>
           <exposureTimeIter>10</exposureTimeIter>
           <SpNote type="no" subtype="none">
@@ -8944,8 +8929,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="7" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -9044,8 +9029,8 @@ required.</note>
             <value>exposureTimeIter</value>
             <value>coaddsIter</value>
           </iterConfigList>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <filterIter>H98</filterIter>
           <exposureTimeIter>10</exposureTimeIter>
           <SpNote type="no" subtype="none">
@@ -9179,8 +9164,8 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <SpInstMichelleRef idref="10"/>
-      <estimatedDuration units="seconds">294.37594709760003</estimatedDuration>
       <library_version>$Revision$</library_version>
+      <estimatedDuration units="seconds">294.37594709760003</estimatedDuration>
       <SpDRRecipeRef idref="11"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Flats and Arc (MIchelle)</title>
@@ -9348,8 +9333,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -9632,8 +9617,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="15" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords</targetName>
