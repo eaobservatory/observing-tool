@@ -68,6 +68,8 @@ public abstract class TelescopePos implements java.io.Serializable
 
    /**
     * Get the xaxis.
+    *
+    * @return x axis in degrees or x offset in arcsecs if isOffsetPosition() == true.
     */
    public final synchronized double
    getXaxis()
@@ -77,6 +79,8 @@ public abstract class TelescopePos implements java.io.Serializable
 
    /**
     * Get the yaxis.
+    *
+    * @return y axis in degrees or y offset in arcsecs if isOffsetPosition() == true.
     */
    public final synchronized double
    getYaxis()
