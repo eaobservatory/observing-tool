@@ -114,7 +114,7 @@ public class SpClient extends SoapClient {
 
 
    public SpStoreResult storeProgram(SpProg spProg, String pass) throws Exception {
-      String sp = (new SpItemDOM(spProg)).toString();
+      String sp = (new SpItemDOM(spProg)).toXML();
    
       addParameter("sp", String.class, sp);
       addParameter("password", String.class, pass);
