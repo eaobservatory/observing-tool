@@ -96,9 +96,9 @@ class OtCfgReader
 		  // Base Star Tag
 		  // If BASE_TAG is not found in cfg file then the default "Base" is used.
 		  // (see SpTelescopePos.BASE_TAG)
-		  if (line.startsWith(BASE_TAG)) {
-		      info.baseTag = _getValue(line);
-		  } else
+//		  if (line.startsWith(BASE_TAG)) {
+//		      info.baseTag = _getValue(line);
+//		  } else
 
 		    // Phase1 Document Generator
 		    if (line.startsWith(PHASE1_TAG)) {
