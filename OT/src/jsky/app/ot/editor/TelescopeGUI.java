@@ -272,7 +272,7 @@ public class TelescopeGUI extends JPanel {
     dmLabel.setText("n");
     jLabel20.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel20.setForeground(Color.black);
-    jLabel20.setText("(years, TT)");
+    jLabel20.setText("(TT)");
     jLabel22.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel22.setForeground(Color.black);
     jLabel22.setText("(deg)");
@@ -291,7 +291,7 @@ public class TelescopeGUI extends JPanel {
     dmUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
     dmUnitsLabel.setForeground(Color.black);
     dmUnitsLabel.setText("(deg)");
-    epoch.setColumns(6);
+    epoch.setColumns(10);
     l_or_m.setColumns(6);
     detailsRadVelTBW.setColumns(10);
     offsetCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
