@@ -102,7 +102,8 @@ public class SpTranslator {
 
 // Look for each "set FLAT" for CGS4.  Insert a break in the sequence
 // after that instruction.
-            if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
+            if ( instrument.equalsIgnoreCase( "CGS4" ) || 
+                 instrument.equalsIgnoreCase( "MICHELLE" ) ) {
                if ( ( (String) sequence.elementAt( i ) ).equals( "set FLAT" ) ) {
                   sequence.insertElementAt( "break", ++i );
                }
@@ -1506,7 +1507,8 @@ public class SpTranslator {
 // before the do n _observe, whenever certain configuration attributes
 // have changed.  So look to see if any of the attributes potentially
 // requiring a break changed.
-                           if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
+                           if ( instrument.equalsIgnoreCase( "CGS4" ) || 
+                                instrument.equalsIgnoreCase( "MICHELLE" ) ) {
                               if ( currConfig.changedAttribute(
                                    (InstConfig) configArray.lastElement(),
                                    breakAttribute ) ) {
