@@ -95,7 +95,7 @@ public class SpItem extends Observable implements Cloneable, java.io.Serializabl
    public static final String XML_META_PREFIX       = "meta";
 
    /** The class name is used as XML element name for an SpItem. */
-   private String _className;
+   protected String _className;
 
    /**
     * The item's name as assigned by the ODB.
