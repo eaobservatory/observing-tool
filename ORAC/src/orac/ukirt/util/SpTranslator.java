@@ -1948,12 +1948,12 @@ public class SpTranslator {
  * allows them to be different.
  */
    private void writeAttribute( PrintWriter ow, InstConfig ic, 
-                                 String attrName, String keyName ) {
+                                String attrName, String keyName ) {
      ow.print( keyName + " = " + ic.get( attrName ) + "\n" );
    }
 
    private void writeAttribute( PrintWriter ow, InstConfig ic, 
-                                 String attrName) {
+                                String attrName) {
      ow.print( attrName + " = " + ic.get( attrName ) + "\n" );
    }
 
@@ -1965,6 +1965,7 @@ public class SpTranslator {
                              String rootConfigName )
 			     throws IOException {
 
+      double angle;                       // Work positionAngle to 2 d.p.
       FileWriter conf;                    // File identifier for config
       int configNumber = 1;               // Config number
       String conName;                     // Config filename
@@ -2186,7 +2187,15 @@ public class SpTranslator {
                   writeAttribute( conpw, workConfig, "maskHeight" );
                   writeAttribute( conpw, workConfig, "disperser" );
                   writeAttribute( conpw, workConfig, "order" );
+
+// Limit positionAngle to to decimal places.  Not having easy
+// formatting, use a simple kludge to limit the decimal places,
+// and replace the value in the configuration.
+                  angle = Double.valueOf( (String) workConfig.get("positionAngle" ) ).doubleValue();
+                  angle = Math.rint( 100.0d * angle ) / 100.0d;
+                  workConfig.put( "positionAngle", (String) Double.toString( angle ) );
                   writeAttribute( conpw, workConfig, "positionAngle", "posAngle" );
+
                   writeAttribute( conpw, workConfig, "centralWavelength" );
                   writeAttribute( conpw, workConfig, "resolution" );
                   writeAttribute( conpw, workConfig, "dispersion" );
