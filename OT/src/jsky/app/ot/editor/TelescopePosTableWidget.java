@@ -235,7 +235,17 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	}
 
 	if(_coordSysInTable) {
-	    v.addElement(tp.getCoordSysAsString());
+	    switch(tp.getSystemType()) {
+		case SpTelescopePos.SYSTEM_CONIC:
+		    v.addElement("Orb. Elem.");
+		    break;
+		case SpTelescopePos.SYSTEM_NAMED:
+		    v.addElement("Planets etc.");
+		    break;
+		case SpTelescopePos.SYSTEM_SPHERICAL:
+		    v.addElement(tp.getCoordSysAsString());
+		    break;
+	    }
 	}
 
 	return v;
