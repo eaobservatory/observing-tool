@@ -6,6 +6,7 @@
 //
 package jsky.app.ot;
 
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -181,6 +182,19 @@ class OtCfgReader
 	} finally {
 	    if (br != null) br.close();
 	}
+
+	// SdW - Add a check to see if a personal nameresolver exists.
+	if (System.getProperty("OT_CATALOG_FILE") != null) {
+	    File cFile = new File (System.getProperty("OT_CATALOG_FILE"));
+	    if (cFile.exists() && cFile.isFile() && cFile.canRead()) {
+		String oldNames [] = info.nameResolvers;
+		String [] newNames = new String [oldNames.length+1] ;
+		newNames = oldNames;
+		newNames[newNames.length-1] = "Personal Catalog";
+		info.nameResolvers = newNames;
+	    }
+	}
+	// END
 
 	// Copy all the TpeImageFeature configurations into an array in the
 	// OtCfg.Info return class.
