@@ -37,13 +37,14 @@ public class SideBandDisplay extends JFrame
    private Box contentPanel;
    private double redshift;
    private FrequencyTable jt;
+   private FrontEnd frontEnd;
    private Container contentPane;
    private JPanel area1;
    private JPanel area2;
    private JPanel area3;
    private JPanel area4;
 
-   public SideBandDisplay ( ) {   
+   public SideBandDisplay (FrontEnd frontEnd) {   
       super ( "Frequency editor" );
       setResizable ( false );
 
@@ -52,6 +53,8 @@ public class SideBandDisplay extends JFrame
 
       //setLocation(200, 200);
       //setVisible(true);
+
+      this.frontEnd = frontEnd;
    }
 
    public void updateDisplay ( String feName, 
@@ -82,7 +85,7 @@ public class SideBandDisplay extends JFrame
 
       jt = new FrequencyTable ( feIF, feBandWidth,
         loBandWidth, loChannels, hiBandWidth, hiChannels,
-        samplerCount, displayWidth );
+        samplerCount, displayWidth, this, frontEnd );
 
       dataPanel.add ( jt, BorderLayout.CENTER );
 
@@ -209,8 +212,10 @@ public class SideBandDisplay extends JFrame
 
    public void setLO1 ( double lo1 )
    {
-      int centre = Math.round ( (float)(lo1 / EdFreq.SLIDERSCALE) );
-      slider.setValue ( centre );
+      if(slider != null) {
+         int centre = Math.round ( (float)(lo1 / EdFreq.SLIDERSCALE) );
+         slider.setValue ( centre );
+      }	 
    }
 
    public double getLO1 ( )
@@ -220,19 +225,29 @@ public class SideBandDisplay extends JFrame
 
    public void setMainLine ( double frequency )
    {
-      el.setMainLine ( frequency );
+      if(el != null) {
+         el.setMainLine ( frequency );
+      }
    }
 
    public void setSideLine ( double frequency )
    {
-      el.setSideLine ( frequency );
+      if(el != null) {
+         el.setSideLine ( frequency );
+      }
    }
 
    public void setRedshift ( double redshift )
    {
       this.redshift = redshift;
-      el.setRedshift ( redshift );
-      targetScale.setRedshift ( redshift );
+
+      if(el != null) {
+         el.setRedshift ( redshift );
+      }
+
+      if(targetScale != null) {
+         targetScale.setRedshift ( redshift );
+      }
    }
 
 
@@ -254,7 +269,7 @@ public class SideBandDisplay extends JFrame
 
    public static void main(String args[]) 
    {
-      SideBandDisplay sbt = new SideBandDisplay ( );
+      SideBandDisplay sbt = new SideBandDisplay ( null );
       sbt.updateDisplay( "Frequency editor test",
         365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 0.0,
         0.25E9, 8192, 1.0E9, 2048, 8 );
