@@ -50,6 +50,8 @@ install: all install_dir
 	cp -r  OM/install/cfg $(INSTALL_ROOT)/cfg/om
 	cp -r  OT/install/cfg $(INSTALL_ROOT)/cfg/ot
 
+	(cd OM/src; gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/om_images)
+
 	mkdir -p $(INSTALL_ROOT)/bin
 	(cd ODB/src; gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
 	                   CFG_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/cfg/odb \
