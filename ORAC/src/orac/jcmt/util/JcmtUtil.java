@@ -14,6 +14,7 @@ import orac.util.TelescopeUtil;
 import orac.util.PreTranslator;
 import orac.util.SpItemDOM;
 import orac.validation.SpValidation;
+import orac.jcmt.SpJCMTConstants;
 
 /**
  * Used for JCMT specific features.
@@ -21,6 +22,8 @@ import orac.validation.SpValidation;
  * @author Martin Folger
  */
 public class JcmtUtil implements TelescopeUtil {
+
+  public static final String CHOP = "chop";
 
   // There is no proper JCMT validation class yet.
   // Use the Generic class instead.
@@ -78,6 +81,14 @@ public class JcmtUtil implements TelescopeUtil {
    */
   public void installPreTranslator() throws Exception {
     SpItemDOM.setPreTranslator(new JcmtPreTranslator(getBaseTag(), getAdditionalTarget()));
+  }
+
+  public String [] getCoordSysFor(String purpose) {
+    if(purpose.equals(CHOP)) {
+      return SpJCMTConstants.CHOP_SYSTEMS;
+    }
+
+    return null;
   }
 }
 

@@ -11,6 +11,7 @@
 package orac.ukirt.util;
 
 import gemini.sp.SpTelescopePos;
+import gemini.util.CoordSys;
 import orac.util.TelescopeUtil;
 import orac.util.PreTranslator;
 import orac.util.SpItemDOM;
@@ -23,6 +24,8 @@ import orac.ukirt.validation.UkirtSpValidation;
  * @author Martin Folger
  */
 public class UkirtUtil implements TelescopeUtil {
+
+  public static String [] CHOP_SYSTEM = { CoordSys.COORD_SYS[CoordSys.FK5] };
 
   private UkirtSpValidation _ukirtSpValidation = new UkirtSpValidation();
 
@@ -84,6 +87,14 @@ public class UkirtUtil implements TelescopeUtil {
    */
   public void installPreTranslator() throws Exception {
     SpItemDOM.setPreTranslator(new UkirtPreTranslator(getBaseTag(), getAdditionalTarget()));
+  }
+
+  public String [] getCoordSysFor(String purpose) {
+    if(purpose.equals(CHOP)) {
+      return CHOP_SYSTEM;
+    }
+
+    return null;
   }
 }
 

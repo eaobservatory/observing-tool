@@ -59,6 +59,9 @@ public interface TelescopeUtil {
    */
   public static final int FEATURE_FLAG_AS_STANDARD        = 4;
 
+  public static final String CHOP = "chop";
+
+
   public SpValidation getValidationTool();
 
   public String [] getTargetTags();
@@ -103,5 +106,12 @@ public interface TelescopeUtil {
   public boolean supports(int feature);
 
   public void installPreTranslator() throws Exception;
+
+  /**
+   * Returns an array of coordinate system for a given purpose.
+   *
+   * @param purpose E.g. Chop, Jiggle, Offset etc.
+   */
+  public String [] getCoordSysFor(String purpose);
 }
 
