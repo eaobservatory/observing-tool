@@ -10,57 +10,59 @@
 
 package ot.jcmt.inst.editor;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.*;
+import javax.swing.*;
 import jsky.app.ot.gui.*;
 
 /**
  * @author Martin Folger ( M.Folger@roe.ac.uk )
  */
 public class ScubaGUI extends JPanel {
-  GridBagLayout gridBagLayout1 = new GridBagLayout();
-  OptionWidgetExt longShortRadioButton = new OptionWidgetExt();
-  CheckBoxWidgetExt longCheckBox = new CheckBoxWidgetExt();
-  CheckBoxWidgetExt shortCheckBox = new CheckBoxWidgetExt();
-  OptionWidgetExt pixelListRadioButton = new OptionWidgetExt();
-  TextBoxWidgetExt textBoxWidgetExt1 = new TextBoxWidgetExt();
-  CommandButtonWidgetExt pixelToolButton = new CommandButtonWidgetExt();
+  BorderLayout borderLayout1 = new BorderLayout();
+  JPanel jPanel1 = new JPanel();
+  JPanel jPanel2 = new JPanel();
+  GridLayout gridLayout1 = new GridLayout();
+  GridLayout gridLayout2 = new GridLayout();
+  JLabel jLabel1 = new JLabel();
+  JLabel jLabel2 = new JLabel();
+  ListBoxWidgetExt filterList = new ListBoxWidgetExt();
+  ListBoxWidgetExt subInstList = new ListBoxWidgetExt();
+  JScrollPane bolometerScrollPane = new JScrollPane();
+  ListBoxWidgetExt bolometerList = new ListBoxWidgetExt();
+  CheckBoxWidgetExt explicitBolometer = new CheckBoxWidgetExt();
 
-   public ScubaGUI() {
+  public ScubaGUI() {
     try {
       jbInit();
     }
     catch(Exception e) {
       e.printStackTrace();
     }
-
-   }
+  }
 
   private void jbInit() throws Exception {
-    this.setLayout(gridBagLayout1);
-    longCheckBox.setText("Long");
-    longCheckBox.setFont(new java.awt.Font("Dialog", 0, 12));
-    shortCheckBox.setText("Short");
-    shortCheckBox.setFont(new java.awt.Font("Dialog", 0, 12));
-    pixelListRadioButton.setText("List of Pixels");
-    pixelListRadioButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    pixelToolButton.setToolTipText("");
-    pixelToolButton.setText("Pixel Tool");
-    longShortRadioButton.setFont(new java.awt.Font("Dialog", 0, 12));
-    this.add(longShortRadioButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(longCheckBox, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-    this.add(shortCheckBox, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-    this.add(pixelListRadioButton, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
-    this.add(textBoxWidgetExt1, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 0, 0), 0, 0));
-    this.add(pixelToolButton, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
+    this.setLayout(borderLayout1);
+    jPanel1.setLayout(gridLayout1);
+    gridLayout1.setColumns(3);
+    gridLayout1.setHgap(5);
+    jPanel2.setLayout(gridLayout2);
+    gridLayout2.setColumns(3);
+    gridLayout2.setHgap(5);
+    jLabel1.setForeground(Color.black);
+    jLabel1.setPreferredSize(new Dimension(28, 30));
+    jLabel1.setText("Filter");
+    jLabel2.setForeground(Color.black);
+    jLabel2.setText("Sub-Instrument");
+    explicitBolometer.setText("Explicit Pixel");
+    this.add(jPanel1, BorderLayout.NORTH);
+    jPanel1.add(jLabel1, null);
+    jPanel1.add(jLabel2, null);
+    jPanel1.add(explicitBolometer, null);
+    this.add(jPanel2, BorderLayout.CENTER);
+    jPanel2.add(filterList, null);
+    jPanel2.add(subInstList, null);
+    jPanel2.add(bolometerScrollPane, null);
+    bolometerScrollPane.getViewport().setView(bolometerList);
   }
+
 }

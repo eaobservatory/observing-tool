@@ -10,392 +10,209 @@
 
 package ot.jcmt.inst.editor;
 
-import java.awt.Event;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Vector;
-import javax.swing.*;
+import gemini.sp.SpItem;
 import orac.jcmt.inst.SpInstSCUBA;
-import orac.util.LookUpTable;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.gui.OptionWidgetExt;
-import jsky.app.ot.gui.TableWidgetExt;
-import jsky.app.ot.gui.TableWidgetWatcher;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import gemini.sp.*;
-import jsky.app.ot.tpe.TelescopePosEditor;
-import jsky.app.ot.tpe.TpeManager;
+import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.gui.ListBoxWidgetExt;
+import jsky.app.ot.gui.ListBoxWidgetWatcher;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
-// TODO MFO: check whether JCMT/SCUBA needs its own EdCompInstBase, whether it can use the UKIRT EdCompInstBase
-// (in which case it should go into a package that is not instrument specific) or whether it is sufficient just to
-// subclass OtItemEditor (as in EdCompInstHeterodyne).
-import ot.ukirt.inst.editor.EdCompInstBase;
+import java.util.Enumeration;
+import java.util.Vector;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 /**
  * This is the editor for the Scuba instrument component.
  *
+ * Event handling and widget update.
+ *
+ * In most UKIRT components all the widgets are explicitly set to certain values
+ * when _updateWidgets() is called. In order to avoid multiple updates the Watchers
+ * from the package jsky.app.ot.gui are used because they do not fire events when
+ * the value of a widget is set by some code rather then the user.<p>
+ *
+ * Example: JComboBox.setSelectedItem() <i>does</i> cause a call to
+ * java.awt.event.ItemListener.itemStateChanged().<p>
+ *
+ * But {@link jsky.app.ot.gui.DropDownListBoxWidgetExt}.setValue() does <i>not</i>
+ * cause a call to {@link jsky.app.ot.gui.DropDownListBoxWidget}.dropDownListBoxSelect()
+ *
+ * That is why the jsky.app.ot.gui package Watchers are better for components such as the
+ * ones used for UKIRT.
+ * The event handling and widget updating is simpler in the SCUBA component. Using the
+ * ListSelectionListener simplifies event handling and widget updating even further
+ * as long as it is taken into account that setting a ListBoxWidgetExt to a certain value
+ * will trigger a ListSelectionEvent just like a user action would.
+ *
  * @author Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdCompInstSCUBA extends EdCompInstBase
-    implements TableWidgetWatcher, DropDownListBoxWidgetWatcher, ActionListener {
+public final class EdCompInstSCUBA extends OtItemEditor implements ListSelectionListener,
+                                                                   ListBoxWidgetWatcher,
+								   CheckBoxWidgetWatcher {
 
-//    private EdStareCapability _edStareCapability;
+  private SpInstSCUBA _instSCUBA;
 
-    private ScubaGUI _w;		// the GUI layout
+  private ScubaGUI _w;		// the GUI layout
 
+  private boolean _ignoreActions = false;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdCompInstSCUBA() {
-	_title       ="JCMT SCUBA";
-	_presSource  = _w = new ScubaGUI();
-	_description ="The SCUBA instrument is configured with this component.";
-/*
-	_edStareCapability = new EdStareCapability();
-
-	ButtonGroup grp = new ButtonGroup();
-	grp.add(_w.filterBroadBand);
-	grp.add(_w.filterNarrowBand);
-	grp.add(_w.filterSpecial);
-
-	_w.filterBroadBand.addActionListener(this);
-	_w.filterNarrowBand.addActionListener(this);
-	_w.filterSpecial.addActionListener(this);
-*/
-    }
-
-    /**
-     * This method initializes the widgets in the presentation to reflect the
-     * current values of the items attributes.
-     */
-    protected void _init() {
-/*
-	DropDownListBoxWidgetExt ddlbw;
-
-	ddlbw = _w.readoutArea;
-	ddlbw.setChoices(SpInstUFTI.READAREAS.getColumn(0));
-
-	ddlbw = _w.sourceMagnitude;
-	ddlbw.setChoices(SpInstUFTI.SRCMAGS);
-
-	ddlbw = _w.acquisitionMode;
-	ddlbw.setChoices(SpInstUFTI.MODES);
-
-	ddlbw = _w.polariser;
-	ddlbw.setChoices(SpInstUFTI.POLARISERS.getColumn(0));
-
-	_w.readoutArea.addWatcher(this);
-	_w.sourceMagnitude.addWatcher(this);
-	_w.acquisitionMode.addWatcher(this);
-	_w.polariser.addWatcher(this);
-	// XXX MFO: OT to swing/jsky: Does _w.polariser really need a watcher???
-	// I added it.
-
-	TableWidgetExt twe;
-	twe = _w.filterTable;
-	twe.setBackground(_w.getBackground());
-	twe.setColumnHeaders(new String[]{"Filter", "Wavel.(um)"});
-	twe.addWatcher(this);
-
-	super._init();
-	_edStareCapability._init(this);
-*/
-    }
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdCompInstSCUBA() {
+    _title       ="JCMT SCUBA";
+    _presSource  = _w = new ScubaGUI();
+    _description ="The SCUBA instrument is configured with this component.";
 
 
-    /**
-     * Initialize the Filter table widget according to the selected
-     * filter category.
-     */
-    private void
-    _showFilterType(LookUpTable filters)
-    {
-/*
-      Vector[] rowsV = new Vector[filters.getNumRows()];
-      rowsV = filters.getAsVectorArray();
-      TableWidgetExt tw = _w.filterTable;
-      tw.setRows(rowsV);
-*/      
-    }
-
-    /**
-     * Get the index of the filter in the given array, or -1 if the filter
-     * isn't in the array.
-     */
-    private int
-    _getFilterIndex(String filter, LookUpTable farray)
-    {
-      int fi = -1;
-      try {
-        fi = farray.indexInColumn (filter, 0);
-      }catch (Exception ex) {
-      }
-      return fi;
-    }
+    Enumeration filters = SpInstSCUBA.filters();
+    Vector filterVector = new Vector();
     
-    /**
-     * Update the filter choice related widgets.
-     */
-    private void _updateFilterWidgets() {
-/*
-	// First fill in the text box.
-	JLabel stw  = _w.filter;
-	String filter = ((SpInstUFTI) _spItem).getFilter();
-	stw.setText(filter);
+    while(filters.hasMoreElements()) {
+      filterVector.add(filters.nextElement());  
+    }
 
-	// See which type of filter the selected filter is, if any.
-	LookUpTable   farray = null;
-	OptionWidgetExt ow     = null;
+    _w.filterList.setChoices(filterVector);
 
-	int index = -1;
-	if (filter == null) {
-	    farray = SpInstUFTI.BROAD_BAND_FILTERS;
-	    ow     = _w.filterBroadBand;
-	} else {
-	    farray = SpInstUFTI.BROAD_BAND_FILTERS;
-	    index = _getFilterIndex(filter, farray);
-	    if (index != -1) {
-		ow = _w.filterBroadBand;
-	    } else {
-		farray = SpInstUFTI.NARROW_BAND_FILTERS;
-		index = _getFilterIndex(filter, farray);
-		if (index != -1) {
-		    ow = _w.filterNarrowBand;
-		} else {
-		    farray = SpInstUFTI.SPECIAL_FILTERS;
-		    index = _getFilterIndex(filter, farray);
-		    if (index != -1) {
-			ow = _w.filterSpecial;
-		    } else {
-			ow = _w.filterBroadBand;
-		    }
-		}
-	    }
-	}
 
-	// Show the correct filters, and select the option widget for the type
-	_showFilterType(farray);
-	ow.setValue(true);
 
-	// Select the filter in the table
-	if ((filter != null) && (index != -1)) {
-	    TableWidgetExt tw = _w.filterTable;
-	    tw.selectRowAt(index);
-	    tw.focusAtRow(index);
-	}
-*/
+//    if(filterVector.size() > 0) {
+//      _w.subInstList.setChoices(SpInstSCUBA.getSubInstrumentsFor((String)filterVector.get(0)));
+//    }  
+//    System.out.println("filterList.setValue(int)-----------------------");
+//    _ignoreActions = true;
+//    _w.filterList.setValue(0);
+//    _w.subInstList.setValue(0);
+//    _ignoreActions = false;
+
+
+//    _w.filterList.addListSelectionListener(this);
+//    _w.subInstList.addListSelectionListener(this);
+//    _w.bolometerList.addListSelectionListener(this);
+    _w.filterList.addWatcher(this);
+    _w.subInstList.addWatcher(this);
+    _w.bolometerList.addWatcher(this);
+    _w.explicitBolometer.addWatcher(this);
+  }
+
+  /**
+   * Override setup to store away a reference to the SpInstSCUBA item.
+   */
+  public void setup(SpItem spItem) {
+    _instSCUBA = (SpInstSCUBA) spItem;
+    super.setup(spItem);
+  }
+
+
+  /**
+   * Implements the _updateWidgets method from OtItemEditor in order to
+   * setup the widgets to show the current values of the item.
+   */
+  protected void _updateWidgets() {
+    _ignoreActions = true;
+
+    _w.filterList.setValue(_instSCUBA.getFilter());
+
+    String [] subInstruments = SpInstSCUBA.getSubInstrumentsFor(_instSCUBA.getFilter());
+    _w.subInstList.setChoices(subInstruments);
+    _w.subInstList.setValue(_instSCUBA.getSubInstrument());
+      
+    if(_w.subInstList.getSelectedIndex() == -1) {
+      _w.subInstList.setValue(0);
+      _instSCUBA.setSubInstrument(_w.subInstList.getStringValue());
+      _instSCUBA.setBolometer(null);
+    }
+
+    if((SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()) != null) && (_instSCUBA.getBolometer() != null)) {
+      Vector bolometers = SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument());
+      _w.explicitBolometer.setValue(true);
+      _w.explicitBolometer.setVisible(true);
+      _w.bolometerList.setChoices(bolometers);
+      _w.bolometerList.setSelectedValue(_instSCUBA.getBolometer(), true);
+      _w.bolometerScrollPane.setVisible(true);
+    }
+    else {
+      _w.explicitBolometer.setValue(false);
+      _w.bolometerScrollPane.setVisible(false);
+    }  
+
+    if(SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()) != null) {
+      _w.explicitBolometer.setVisible(true);
+    }
+    else {
+      _w.explicitBolometer.setVisible(false);
+    }
+
+    _ignoreActions = false;
+    //((SpInstSCUBA)_spItem)
+  }
+
+  public void valueChanged(ListSelectionEvent e) {
+  }
+  
+  public void listBoxAction(ListBoxWidgetExt lbwe, int index, java.lang.String val) {
+    if(System.getProperty("DEBUG") != null) {
+      System.out.println("in listBoxAction, value = " + val);
+    }
+  }
+
+  public void listBoxSelect(ListBoxWidgetExt lbwe, int index, java.lang.String val) {
+    if(_ignoreActions) {
+      if(System.getProperty("DEBUG") != null) {
+        System.out.println("in listBoxSelect, value = " + val + ", IGNORING");
+      }
+
+      return;
     }
 
 
-    /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-/*
-	SpInstUFTI instUFTI = (SpInstUFTI) _spItem;
-
-	DropDownListBoxWidgetExt ddlbw;
-
-	ddlbw = _w.readoutArea;
-	ddlbw.setValue( instUFTI.getReadoutArea() );
-
-	ddlbw        = _w.acquisitionMode;
-	ddlbw.setValue( instUFTI.getAcqMode() );
-
-	ddlbw         = _w.sourceMagnitude;
-	ddlbw.setValue( instUFTI.getSourceMagnitude() );
-
-	_updateFilterWidgets();
-	_updateScienceFOV();
-	_updateExpWidgets();
-
-	super._updateWidgets();
-	_edStareCapability._updateWidgets(this, instUFTI.getStareCapability());
-*/
-    }
-
-    /**
-     * Update the science field of view based upon the camera and mask
-     * settings.
-     */
-    private void _updateScienceFOV() {
-/*
-	SpInstUFTI  instUFTI = (SpInstUFTI) _spItem;
-	TextBoxWidgetExt    tbw = _w.scienceFOV;   
-	double[] scienceArea = instUFTI.getScienceArea();
-	tbw.setText(scienceArea[0] + " x " + scienceArea[1]);
-*/
-    }
-
-    /**
-     * Update the exposure time and coadds widgets
-     */
-    private void _updateExpWidgets() {
-/*
-	SpInstUFTI instUFTI = (SpInstUFTI) _spItem;
-	TextBoxWidgetExt tbw = _w.exposureTime;
-	double d = instUFTI.getExpTime();
-	String e = Double.toString(d);
-	//   _instUFTI.setExpTime(e);
-	tbw.setText (e);
-
-	//GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
-	tbw = _w.coadds; 
-	int coadds = instUFTI.getNoCoadds();
-	// _instUFTI.setNoCoadds(coadds);
-	tbw.setText (Integer.toString(coadds));
-
-      System.out.println("_updateExpWidgets has been called. exposure = " + instUFTI.getExpTime() + ", coadds = " + instUFTI.getNoCoadds());
-*/
+    if(System.getProperty("DEBUG") != null) {
+      System.out.println("in listBoxSelect, value = " + val + ", NOT ignoring");
     }
 
 
-    /**
-     * Observer of TableWidget selections.
-     */
-    public void tableRowSelected(TableWidgetExt twe, int rowIndex) {
-/*
-	SpInstUFTI instUFTI = (SpInstUFTI) _spItem;
-
-	String  filter = (String) twe.getCell(0, rowIndex);
-
-	// Don't set the value if the new selection is the same as the old
-	// (otherwise, we'd fool the OT into thinking a change had been made)
-	String curValue = instUFTI.getFilter();
-	if ((curValue != null) && (curValue.equals(filter))) {
-	    return;
-	}
-
-	instUFTI.setFilter(filter);
-
-	JLabel stw = _w.filter;
-	stw.setText(filter);
-*/
+    if(lbwe == _w.filterList) {
+      _instSCUBA.setFilter(_w.filterList.getStringValue());
     }
 
-    /**
-     * Must watch table widget actions as part of the TableWidgetWatcher
-     * interface, but don't care about them.
-     */
-    public void	tableAction(TableWidgetExt twe, int colIndex, int rowIndex) {}
-
-    /**
-     * The given filter list was selected.  Show it, and if the current
-     * filter is in the list, highlight it.
-     */
-    private void _selectFilterType(LookUpTable farray) {
-/*
-	_showFilterType(farray);
-	String filter = ((SpInstUFTI) _spItem).getFilter();
-	if (filter != null) {
-	    int index = _getFilterIndex(filter, farray);
-	    if (index != -1) {
-		TableWidgetExt tw = _w.filterTable;
-		tw.selectRowAt(index);
-		tw.focusAtRow(index);
-	    }
-	}
-*/
+    if(lbwe == _w.subInstList) {
+      _instSCUBA.setSubInstrument(_w.subInstList.getStringValue());
     }
 
-    /** Return the position angle text box */
-    public TextBoxWidgetExt getPosAngleTextBox() {
-      // TODO MFO quick fix
-      //javax.swing.JOptionPane.showMessageDialog(_w, "The method getPosAngleTextBox has been been called.\n" +
-      //                                                  "But it is not implemented by EdCompInstUFTI.\n" +
-      //						"Empty text box 0 is returned.");
-      return new TextBoxWidgetExt();//_w.posAngle;
+    if(lbwe == _w.bolometerList) {
+      _instSCUBA.setBolometer(_w.bolometerList.getStringValue());
     }
 
-    /** Return the exposure time text box */
-    public TextBoxWidgetExt getExposureTimeTextBox() {
-	// return _w.exposureTime;
-	// TODO MFO quick fix
-	return new TextBoxWidgetExt();	
+    _updateWidgets();
+  }
+
+  public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+
+    if(_ignoreActions) {
+      if(System.getProperty("DEBUG") != null) {
+        System.out.println("in checkBoxAction, IGNORING");
+      }
+
+      return;
     }
 
-    /** Return the coadds text box. */
-
-    public TextBoxWidgetExt getCoaddsTextBox() {
-	//return _w.coadds;
-	// TODO MFO quick fix
-	return new TextBoxWidgetExt();
+    if(System.getProperty("DEBUG") != null) {
+      System.out.println("in checkBoxAction, NOT ignoring");
     }
 
-    /**
-     * Handle action events (for checkbuttons).
-     */
 
-    public void actionPerformed(ActionEvent evt) {
-/*
-	Object w  = evt.getSource();
-   
-	if (w == _w.filterBroadBand) {
-	    _selectFilterType( SpInstUFTI.BROAD_BAND_FILTERS );
-	    return;
-	} 
-	else if (w == _w.filterNarrowBand) {
-	    _selectFilterType(SpInstUFTI.NARROW_BAND_FILTERS);
-	    return;
-	} 
-	else if (w == _w.filterSpecial) {
-	    _selectFilterType(SpInstUFTI.SPECIAL_FILTERS);
-	    return;
-	}
-*/
+    if(cbwe.getBooleanValue() == true) {
+      if(SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()) != null) {
+        _instSCUBA.setBolometer((String)SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()).get(0));
+      }
+    }
+    else {
+      _instSCUBA.setBolometer(null);
     }
 
-   /**
-    * Called when an item in a DropDownListBoxWidgetExt is selected.
-    */
-
-    public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    }
-
-   /**
-    * Called when an item in a DropDownListBoxWidgetExt is double clicked.
-    */
-
-    public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbw, int index, String val) {
-/*
-	SpInstUFTI instUFTI = (SpInstUFTI) _spItem;
-
-	if (ddlbw == _w.readoutArea) {
-	    instUFTI.setReadoutArea(val);
-	    _updateScienceFOV();
-
-	    TelescopePosEditor tpe = TpeManager.get(_spItem);
-	    if (tpe != null) tpe.repaint();
-
-	    return;
-	}
-
-	if (ddlbw == _w.acquisitionMode) {
-	    instUFTI.setAcqMode(val);
-	    _updateScienceFOV();
-
-	    TelescopePosEditor tpe = TpeManager.get(_spItem);
-	    if (tpe != null) tpe.repaint();
-
-	    return;
-	}
-
-	if (ddlbw == _w.sourceMagnitude) {
-	    instUFTI.setSourceMagnitude(val);
-	    _updateExpWidgets();
-	    return;
-	}
-
-	if(ddlbw == _w.polariser) {
-          instUFTI.setPolariser(val);
-          _updateWidgets();
-
-	  return;
-	}
-*/
-    }
-
+    _updateWidgets();
+  }
 }
+
