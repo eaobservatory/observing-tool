@@ -27,6 +27,7 @@ import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 import gemini.sp.SpAvEditState;
 import gemini.sp.SpItem;
 import gemini.sp.SpObs;
+import orac.util.OracUtilities;
 
 /**
  * This is the editor for the Observation item.
@@ -162,6 +163,8 @@ public final class EdObservation extends OtItemEditor
 	_w.optional.setValue(((SpObs)_spItem).isOptional()); 
 	_w.remaining.setSelectedIndex(((SpObs)_spItem).getNumberRemaining() - 1);
 	ignoreActions = false;
+
+	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpObs)_spItem).getElapsedTime(), 1));
     }
 
     /**
