@@ -88,11 +88,23 @@ public final class movie extends JFrame
 
       JPanel bPanel = new JPanel();
       bPanel.setBorder(border);
-      bPanel.setLayout(new GridLayout(6,1,4,4));
+      bPanel.setLayout(new GridLayout(7,1,4,4));
 
-      cutRow = new statusPanel("Display Cut Row:","");
-      
+      // Cut row for the display
+      cutRow = new statusPanel("Display Cut Row:","1");
       cutRow.setBorder(border);
+
+      // Stats box limits
+      JPanel statsBox = new JPanel();
+      statsBox.setLayout(new GridLayout(2,2,4,4));
+      xstart = new statusPanel("X start:","1");
+      xsize = new statusPanel("X size:","2");
+      ystart = new statusPanel("Y start:","1");
+      ysize = new statusPanel("Y size:","2");
+      statsBox.add(xstart);
+      statsBox.add(xsize);
+      statsBox.add(ystart);
+      statsBox.add(ysize);
 
       JPanel backGround = new JPanel();
       backGround.setLayout(new GridLayout(1,2,4,4));
@@ -121,8 +133,9 @@ public final class movie extends JFrame
 
       switchModeButton = new JButton("Switch to \"" + _modes[(_currentMode+1)%2] + "\"");
 
-      // if the instrument is (also) a spectrometer (the instrument can take data in spectroscopy mode)
-      // then set widgets enabled/editable according to _currentMode and leave switchModeButton enabled.
+      // if the instrument is (also) a spectrometer then set widgets 
+      // enabled/editable according to _currentMode and leave 
+      // switchModeButton enabled.
       if(spectrometer) {
         cutRow.getValu().setEditable(_currentMode == SPECTROSCOPY);
         cutRow.getValu().setEnabled(_currentMode == SPECTROSCOPY);
@@ -131,7 +144,9 @@ public final class movie extends JFrame
         bGroundOn.setEnabled(_currentMode == SPECTROSCOPY);
         bPixelOn.setEnabled(_currentMode == SPECTROSCOPY);
       }
-      // If the instrument does not have a spectroscopy mode, then disable widgets AND switchModeButton
+
+      // If the instrument does not have a spectroscopy mode, then 
+      // disable widgets AND switchModeButton
       else {
         cutRow.getValu().setEditable(false);
         cutRow.getValu().setEnabled(false);
@@ -142,8 +157,19 @@ public final class movie extends JFrame
 
         switchModeButton.setEnabled(false);
       }
+      // Stats limits always available
+
+      xstart.getValu().setEditable(true);
+      xstart.getValu().setEnabled(true);
+      xsize.getValu().setEditable(true);
+      xsize.getValu().setEnabled(true);
+      ystart.getValu().setEditable(true);
+      ystart.getValu().setEnabled(true);
+      ysize.getValu().setEditable(true);
+      ysize.getValu().setEnabled(true);
       
       bPanel.add(cutRow);
+      bPanel.add(statsBox);
       bPanel.add(backGround);
       bPanel.add(maskPixel);
       bPanel.add(Apply);
@@ -211,20 +237,11 @@ public final class movie extends JFrame
        }
 
        cSent.startMovie(period);
-       //        Stop.setEnabled(true);
-       //        expTime.getValu().setEditable(false);
-       //        Dismiss.setEnabled(false);
-       //        Start.setEnabled(false);
        return;
      }
 
      if (source==Stop) {
        cSent.stopMovie();
-       //        Stop.setEnabled(false);
-       //        Start.setEnabled(true);
-       //        Dismiss.setEnabled(true);
-       //        expTime.getValu().setEditable(true);
-       
        return;
      }
 
@@ -235,14 +252,52 @@ public final class movie extends JFrame
      if (source==Apply) {
        try {
          int tmpCutRow = Integer.parseInt(cutRow.getValu().getText());
-	 if(tmpCutRow < 0) {
-           cutRow.getValu().setText("0");
+	 if(tmpCutRow < 1) {
+           cutRow.getValu().setText("1");
 	 }
        } catch(NumberFormatException e) {
-         cutRow.getValu().setText("0");
+         cutRow.getValu().setText("1");
+       }
+       try {
+         int tmpxstart = Integer.parseInt(xstart.getValu().getText());
+	 if(tmpxstart < 1) {
+           xstart.getValu().setText("1");
+	 }
+       } catch(NumberFormatException e) {
+         xstart.getValu().setText("1");
+       }
+       try {
+         int tmpystart = Integer.parseInt(ystart.getValu().getText());
+	 if(tmpystart < 0) {
+           ystart.getValu().setText("1");
+	 }
+       } catch(NumberFormatException e) {
+         ystart.getValu().setText("1");
+       }
+       try {
+         int tmpxsize = Integer.parseInt(xsize.getValu().getText());
+	 if(tmpxsize < 1) {
+           xsize.getValu().setText("1");
+	 }
+       } catch(NumberFormatException e) {
+         xsize.getValu().setText("1");
+       }
+       try {
+         int tmpysize = Integer.parseInt(ysize.getValu().getText());
+	 if(tmpysize < 1) {
+           ysize.getValu().setText("1");
+	 }
+       } catch(NumberFormatException e) {
+         ysize.getValu().setText("1");
        }
 
-       cSent.applyQlook(cutRow.getValu().getText(), _currentBackground, getMode());
+       
+       cSent.applyQlook(cutRow.getValu().getText(), 
+                        xstart.getValu().getText(), 
+                        xsize.getValu().getText(), 
+                        ystart.getValu().getText(), 
+                        ysize.getValu().getText(), 
+                        _currentBackground, getMode());
      }
      
      if (source==switchModeButton) { 
@@ -485,7 +540,7 @@ public final class movie extends JFrame
 
   private String period;
   private sendCmds cSent;
-  private statusPanel expTime,cutRow;
+  private statusPanel expTime,cutRow,xstart,xsize,ystart,ysize;
   private JButton Start, Stop, Dismiss,Apply,bPixel, bGround;
   private JCheckBox bGroundOn;
   private JCheckBox bPixelOn;
