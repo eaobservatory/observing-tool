@@ -82,6 +82,10 @@ public static boolean
 storeSp(SpRootItem spItem, File f)
 {
    // Get a FileOutputStream pointing to the given File.
+    if (f.exists()) {
+	File backup = new File (f.getPath()+".BAK");
+	f.renameTo(backup);
+    }
    try {
       FileOutputStream fis = new FileOutputStream(f);
       OutputStream os = new BufferedOutputStream(fis);
