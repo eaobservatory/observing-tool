@@ -922,7 +922,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     * ultimately called by the other setPosAngle methods.
     */
     public void setPosAngleDegrees( double posAngle ) {
-        super.setPosAngleDegrees( posAngle);
+        if ( isImaging() ) {
+            if ( posAngle != 0.0 ) {
+                super.setPosAngleDegrees( 0.0 );
+            }
+        }
+        else
+        {
+            super.setPosAngleDegrees( posAngle);
+        }
     }
 
    /**
