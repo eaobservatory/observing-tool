@@ -196,6 +196,56 @@ is likely that the whole scan will be lost. So doing three 30-minute
 scan maps is better than doing one 90-minute one. </small>
       <p>
 
+<h3><a name="proxy">AND and OR Folders</a></h3>
+
+ By default, all MSBs will be considered available for observation, unless their
+ "Observe" counter has been set to "0" or "removed". The OMP software
+ includes AND and OR folders, which can be inserted by clicking on the
+ left hand toolbar, to modify this behaviour. They can be very useful
+ for managing your observing programme as the semester progresses.<p>
+
+  An OR folder can contain N items, and you can set the "Select"
+  counter on the OR folder to indicate that you'd like any subset of
+  size M to be observed.  For example, if you wanted to try to
+ detect the CO line in an object, but were not concerned in which
+ transition (either 3-2 or 2-1), one could use a top level OR folder
+ which contained a target information component and two MSBs as shown
+  below. The use should set the "Select" counter of the OR folder to 1
+  to indicate that just 1 of the MSBs should be executed (not both). <p>
+
+<img src="images/or_example.gif" alt="or example"><p>
+
+  Another application of OR folders is managing available telescope
+ time for projects with a large number of potential targets. Suppose
+ an observer wants to observe from a sample of 40 potential
+ targets. Further suppose that some of the objects will require follow
+ up observations towards the end of a semester and telescope time is
+ somewhat limited (i.e. not enough to observe them all once and follow
+ up the interesting ones). One solution would be to put the 40 MSBs
+ for the sample into an OR folder, then set the "select" switch to,
+ say, 10 objects. This will mean that no more than 10 objects will be
+ observed from the sample. This can be used to ensure that all of the
+ telescope does not get used up in making first observations, and that
+ some time will be left over for follow up observations. This kind of
+ programme management can involve the observer, in conjunction with
+ the support astronomer, dynamically altering the programme in the
+ light of past observations, results of data reduction and available
+ telescope time.<p>
+
+  AND folders enable similar observations to be grouped together, and
+  to ensure that observations within the same group are more likely to
+  get observed than those from a different group. In the example
+  below, AND folders are used to indicate that the observer would
+  prefer to end up with observations A and B or X and Y rather than A
+  and X and A and Y. Note, that the order of observations, and which
+  get done will still depend on project priority, source availability
+  and weather. If the observer absolutely needs two targets observed
+  to get any meaningful scientific result, they should go in the same
+  MSB rather than in an AND folder - do not forget MSBs are allowed to
+  contain multiple targets. <p>
+
+<img src="images/and_example.gif" alt="and example"><p>
+
 <h3><a name="proxy">To those behind a firewall: Setting your proxy server</a></h3>
 
 If your host is behind a firewall, you may need to use a proxy server
