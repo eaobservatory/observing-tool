@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE specialConfigs [
@@ -315,7 +316,7 @@
   <name>      NS_SIOSO_125x2  </name>
   <frontEnd>  A3              </frontEnd>
   <frequency> 261.18085       </frequency>
-  <sideband>  USB             </sideband>
+  <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   2               </systems>
