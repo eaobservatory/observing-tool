@@ -49,6 +49,7 @@ import gemini.sp.SpEditState;
 import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
+import gemini.sp.SpMSB;
 import gemini.sp.SpObs;
 import gemini.sp.SpObsFolder;
 import gemini.sp.SpObsGroup;
@@ -841,7 +842,13 @@ public class OtWindow extends SpTreeGUI
 
     /**Create an observation. */
     public void addObservation() {
-	_tw.addItem(SpFactory.create(SpType.OBSERVATION));
+	// MFO, 23 October 2001
+	// After spObs has been added call spObs.updateMsbAttributes().
+	// This will set attributes in spObs according to whether spObs is the
+	// child node of an SpMSB or whether spObs is an MSB in its own right.
+	SpObs spObs = (SpObs)SpFactory.create(SpType.OBSERVATION);
+	_tw.addItem(spObs);
+	spObs.updateMsbAttributes();
 
 	// Update collapsed/expanded display for tree nodes so that the SpIterFolder inside
 	// the Observation is displayed as expanded.
