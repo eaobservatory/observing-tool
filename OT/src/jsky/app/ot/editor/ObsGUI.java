@@ -95,7 +95,7 @@ public class ObsGUI extends JPanel {
     standard.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
-    this.add(obsTitle, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+    this.add(obsTitle, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
 //    this.add(chained, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
 //            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
