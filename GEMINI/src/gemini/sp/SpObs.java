@@ -14,7 +14,7 @@ import gemini.sp.iter.SpIterFolder;
  * to the next or previous observation (if any).
  * 17Apr00 AB Added standard flag to this.
  */
-public class SpObs extends SpObsContextItem
+public class SpObs extends SpMSB
 {
    /**
     * This attribute determines whether or not the observation is chained
@@ -31,37 +31,14 @@ public class SpObs extends SpObsContextItem
    /** This attribute records if the obs. is to be treated as a "standard"*/
    public static final String ATTR_STANDARD = "standard";
 
-   /** This attribute records the observation priority. */
-   public static final String ATTR_PRIORITY = "priority";
-
-
-   /**
-    * High observation priority, relative to the other observations in
-    * the science program.
-    */
-   public static final int PRIORITY_HIGH   = 0;
-
-   /**
-    * Medium observation priority, relative to the other observations in
-    * the science program.
-    */
-   public static final int PRIORITY_MEDIUM = 1;
-
-   /**
-    * Low observation priority, relative to the other observations in
-    * the science program.
-    */
-   public static final int PRIORITY_LOW    = 2;
-
-   public static String[] PRIORITIES = {
-      "High", "Medium", "Low"
-   };
-
    /**
     * This attribute is true if the SpObs is not inside an SpMSB because
     * in that case the observation is an MSB in its own right.
     */
    public static final String ATTR_MSB = ":msb";
+
+   /** This attribute records whether the calibration observation is optional. */
+   public static final String ATTR_OPTIONAL = ":optional";   
 
 
 /**
@@ -71,7 +48,8 @@ protected SpObs()
 {
    super(SpType.OBSERVATION);
    if(System.getProperty("OMP") != null) {
-      _avTable.noNotifySet(SpMSB.ATTR_REMAINING, "1", 0);
+      _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
+      _avTable.noNotifySet(ATTR_OPTIONAL, "false", 0);
       _avTable.noNotifySet(ATTR_PRIORITY, PRIORITIES[PRIORITY_LOW], 0);
    }
    else {
@@ -115,7 +93,13 @@ getTitle()
    if ((title == null) || title.equals("")) {
       title = type().getReadable();
    }
-   return title;
+   
+   if(isMSB()) {
+     return title + " (" + getNumberRemaining() + "X)";
+   }
+   else {
+     return title;
+   }
 }
 
 /**
@@ -237,75 +221,6 @@ setTable(SpAvTable avTable)
    super.setTable(avTable);
 }
 
-/**
- * Get the observation priority.
- */
-public int
-getPriority()
-{
-   String str = _avTable.get(ATTR_PRIORITY);
-   if (str == null) {
-      return PRIORITY_LOW;
-   }
-
-   for (int i=0; i<PRIORITIES.length; ++i) {
-      if (str.equals(PRIORITIES[i])) {
-         return i;
-      }
-   }
-   return PRIORITY_LOW;
-}
-
-/**
- * Get the observation priority as a human readable String.
- */
-public String
-getPriorityString()
-{
-   String str = _avTable.get(ATTR_PRIORITY);
-   if (str == null) {
-      return PRIORITIES[0];
-   }
-   return str;
-}
- 
-/**
- * Set the Observation type.
- */
-public void
-setPriority(int priority)
-{
-   if ((priority < 0) || (priority > PRIORITIES.length)) {
-      return;
-   }
- 
-   _avTable.set(ATTR_PRIORITY, PRIORITIES[priority]);
-}
-
-
-/**
- * Get the number of observations remaining to be observed.
- *
- * Added for OMP (MFO, 9 August 2001)
- *
- * @return number of observations remaining to be observed or 1 if the attribute has not been set.
- */
-public int
-getNumberRemaining()
-{
-   return _avTable.getInt(SpMSB.ATTR_REMAINING, 1);
-}
-
-/**
- * Set status attribute.
- *
- * Added for OMP (MFO, 9 August 2001)
- */
-public void
-setNumberRemaining(int remaining)
-{
-   _avTable.set(SpMSB.ATTR_REMAINING, remaining);
-}
 
 /**
  * Get the MSB flag of the observation.
@@ -313,7 +228,7 @@ setNumberRemaining(int remaining)
  * Added for OMP. <!-- MFO, 27 August 2001 -->
  */
 public boolean
-getIsMSB()
+isMSB()
 {
    return _avTable.getBool(ATTR_MSB);
 }
@@ -324,9 +239,61 @@ getIsMSB()
  * Added for OMP. <!-- MFO, 27 August 2001 -->
  */
 public void
-setIsMSB(boolean isMSB)
+updateMsbAttributes()
 {
-  _avTable.set(ATTR_MSB, isMSB);
+  int editState = getAvEditFSM().getState();
+
+  // Note that _avTable.set is used instead of _avTable.noNotifySet and that
+  // the SpAvEditState which is set to EDITED as a consequence is reset
+  // immediately (if it was UNEDITED before). The is done deliberately.
+  // If noNotifySet was used instead then the title would not always be displayed/updated
+  // correctly with respect to whether or not isMSB() is true or false.
+  // (Only isMSB() == true then getNumberRemaining() is displayed in the tree in brackets
+  // after the component title.) 
+
+  // If the parent component is an MSB then this SpObs is not.
+  if(parent() instanceof SpMSB) {
+    _avTable.set(ATTR_MSB, "false");
+
+    // If this SpObs is not and MSB then it does not have a priority. Remove the priority.
+    _avTable.rm(SpObs.ATTR_PRIORITY);    
+  }
+  else {
+    _avTable.set(ATTR_MSB, "true");
+
+    // If this SpObs is an MSB then it cannot be optional.
+    setOptional(false);
+  }
+
+  if(editState == SpAvEditState.UNEDITED) {
+    // save() just means reset() in this context.
+    getAvEditFSM().save();
+  }
+}
+
+
+/**
+ * Indicates whether the calibration observation is optional.
+ *
+ * Added for OMP (MFO, 22 October 2001)
+ *
+ * @return true if calibration is optional.
+ */
+public boolean
+isOptional()
+{
+   return _avTable.getBool(ATTR_OPTIONAL);
+}
+
+/**
+ * Set true if calibration observatiob is optional, false otherwise.
+ *
+ * Added for OMP (MFO, 22 October 2001)
+ */
+public void
+setOptional(boolean optional)
+{
+   _avTable.set(ATTR_OPTIONAL, optional);
 }
 
 }
