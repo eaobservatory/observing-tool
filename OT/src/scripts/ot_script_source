@@ -9,7 +9,7 @@ set SERVER = ATC
 set TELESCOPE = "" 
 set INTERNAL_FRAMES = -internalframes 
 set OMP_FLAG = "" 
-set FREQ_EDITOR_CFG_RESOURCE = "edfreq/acsisCfg.xml"
+set EDFREQ_CFG = "edfreq/acsisCfg.xml"
 set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-[no]omp] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
  
 ############################## 
@@ -30,7 +30,7 @@ while ("$1" != "")
   else if("$1" == "-noomp") then 
     set OMP_FLAG = "" 
   else if("$1" == "-das") then 
-    set FREQ_EDITOR_CFG_RESOURCE = "edfreq/dasCfg.xml" 
+    set EDFREQ_CFG = "edfreq/dasCfg.xml" 
   else if("$1" == "-server") then
     shift
     set SERVER = $1
@@ -75,5 +75,5 @@ echo "Use ot -h for information on how to change these settings."
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
  
-${JAVA} -ms5m -mx100m -oss5m -DFREQ_EDITOR_CFG=${FREQ_EDITOR_CFG_RESOURCE} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
+${JAVA} -ms5m -mx100m -oss5m -DFREQ_EDITOR_CFG=${EDFREQ_CFG} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
 
