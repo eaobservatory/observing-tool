@@ -21,6 +21,20 @@ Council All Rights. Reserved.
 
  - Updated OMP specific documentation
 
+ - Higher granularity MSB priorities
+
+ - Re-designed site quality component
+
+ - Improved support for moving objects
+
+ - UKIRT Template updates for 03A
+
+ - Position editor access though proxy server
+
+ - Bug fixes
+
+ - Additional documentation
+
 +++ Octoboer 2002
 
  - Internal release of OMP OT
