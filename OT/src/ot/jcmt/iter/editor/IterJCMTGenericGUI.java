@@ -113,7 +113,7 @@ public class IterJCMTGenericGUI extends JPanel {
     jPanel1.add(noiseLabel, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 1, 0, 0), 0, 0));
     jPanel1.add(noiseTextBox, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 1, 0, 0), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
     frequencyPanel.add(jLabel8, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     frequencyPanel.add(frequencyOffset_throw, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0

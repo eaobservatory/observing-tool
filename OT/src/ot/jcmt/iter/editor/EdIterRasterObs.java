@@ -37,6 +37,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
+import orac.jcmt.util.ScubaNoise;
 
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
@@ -293,6 +294,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
   public void update(Observable o, Object arg) {
     _updateWidgets();
+  }
+
+  protected double calculateNoise(int integrations, double wavelength,
+				  double decRadians, double latRadians, double csoTau, int [] status) {
+
+    return ScubaNoise.noise_level(integrations, wavelength, "SCAN", decRadians, latRadians, csoTau, status,
+				  _iterObs.getHeight(), _iterObs.getWidth());
   }
 }
 

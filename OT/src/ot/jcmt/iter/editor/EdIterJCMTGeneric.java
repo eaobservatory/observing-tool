@@ -15,6 +15,7 @@ import java.awt.CardLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.OtItemEditor;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
@@ -29,8 +30,17 @@ import gemini.sp.SpItem;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.util.Angle;
+import gemini.util.DDMMSS;
+
+import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJCMTObs;
+import orac.jcmt.obsComp.SpSiteQualityObsComp;
+import orac.jcmt.util.ScubaNoise;
+import orac.util.SpItemUtilities;
 
 
 /**
@@ -40,6 +50,14 @@ import orac.jcmt.iter.SpIterJCMTObs;
  */
 public class EdIterJCMTGeneric extends OtItemEditor
   implements DropDownListBoxWidgetWatcher, TextBoxWidgetWatcher, CheckBoxWidgetWatcher {
+
+  /**
+   * Error code for observe modes whose noise calculation is not implemented yet.
+   *
+   * This constant should remain distinct from the STATUS constants used in
+   * {@link orac.util.DrUtil}.
+   */
+  protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5;
 
   protected IterJCMTGenericGUI _w;       // the GUI layout panel
 
@@ -190,10 +208,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
     _w.sampleTime.setValue(_iterObs.getSampleTime());
     _w.automaticTarget.setValue(_iterObs.getAutomaticTarget());
     _w.noiseTextBox.setValue(calculateNoise());
+    _w.noiseTextBox.setToolTipText(_w.noiseTextBox.getValue());
   }
 
   /**
-   * This method should be overwritten by sub classes representing iterators whose appearance
+   * This method should be overridden by subclasses representing iterators whose appearance
    * is different for different instruments.
    */
   public void setInstrument(SpInstObsComp spInstObsComp) {
@@ -216,12 +235,108 @@ public class EdIterJCMTGeneric extends OtItemEditor
   }
 
   /**
-   * Returns Noise information depending on instrument, observe mode and number of integrations.
-   *
-   * Subclass should override this method.
+   * Returns noise information.
    */
   protected String calculateNoise() {
-    return "Not available";
+
+    SpTelescopeObsComp telescopeObsComp = (SpTelescopeObsComp)SpTreeMan.findTargetList(_iterObs);
+    if(telescopeObsComp == null) {
+      return "No target";
+    }
+
+    SpJCMTInstObsComp instObsComp       = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
+    if(instObsComp == null) {
+      return "No instrument";
+    }
+
+    SpSiteQualityObsComp siteQualityObsComp = (SpSiteQualityObsComp)SpItemUtilities.findSiteQuality(_iterObs);
+    if(siteQualityObsComp == null) {
+      return "No site quality";
+    }
+
+    if(instObsComp instanceof SpInstSCUBA) {
+      int [] status     = { 0 };
+      double noise      = 0.0;
+      int integrations  = _iterObs.getIntegrations();
+      double decRadians = Angle.degreesToRadians(telescopeObsComp.getPosList().getBasePosition().getXaxis());
+      double latRadians = Angle.degreesToRadians(DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
+      double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
+      double wavelength;
+
+      if(((((SpInstSCUBA)instObsComp).getFilter() != null) &&
+          (((SpInstSCUBA)instObsComp).getFilter().toUpperCase().endsWith("PHOT")))) {
+
+	if(((SpInstSCUBA)instObsComp).getPrimaryBolometer() == null) {
+	  return "No wavelength";
+	}
+
+	wavelength = Double.parseDouble(((SpInstSCUBA)instObsComp).getPrimaryBolometer().substring(1));
+	noise = calculateNoise(integrations, wavelength, decRadians, latRadians, csoTau, status);
+
+	if(status[0] == 0) {
+	  return "" + noise;
+	}
+      }
+      else {
+	String noise450Str;
+
+	double noise450 = calculateNoise(integrations, 450.0, decRadians, latRadians, csoTau, status);
+
+	if(status[0] == NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED) {
+	  return "Not implemented.";
+	}
+
+	if(status[0] == 0) {
+	  noise450Str = "" + (Math.rint(noise450 * 10) / 10);
+	}
+	else {
+	  noise450Str = "error " + status[0];
+	}
+
+	String noise850Str;
+
+	double noise850 = calculateNoise(integrations, 850.0, decRadians, latRadians, csoTau, status);
+
+	if(status[0] == 0) {
+	  noise850Str = "" + (Math.rint(noise850 * 10) / 10);
+	}
+	else {
+	  noise850Str = "error " + status[0];
+	}
+
+	return "" + noise450Str + " (450), " + noise850Str + " (850)";
+      }
+    }
+
+    return "Not for Heterodyne";
   }
+
+  /**
+   * Returns noise.
+   *
+   * This method should be implemented by subclasses taking into accound the
+   * observe mode and whether length and width are needed (SCAN more only).
+   */
+  protected double calculateNoise(int integrations, double wavelength,
+				  double decRadians, double latRadians, double csoTau, int [] status) {
+
+    status[0] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED;
+
+    return 0.0;
+  }
+
+
+  /**
+   * Returns mode for noise calculation.
+   *
+   * Subclass should override this method.
+   *
+   * @return "PHOT", "JIG16", "JIG64", "SCAN" etc.
+   */
+//  protected String getMode() {
+//
+//    return "";
+//  }
+
 }
 
