@@ -1,0 +1,10 @@
+This file test the results output from various keywords.
+I am using this to determine if any of the keywords will report the 
+tag so that I Can use it for versioning
+
+Header  : $Header$
+ID      : $Id$
+Name    : $Name$
+RCSFile : $RCSfile$
+Revision: $Revision$
+Source  : $Source$
