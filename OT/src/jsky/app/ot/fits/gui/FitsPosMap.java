@@ -20,6 +20,7 @@ import gemini.util.TelescopePosWatcher;
 import gemini.util.CoordSys;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
 
 import java.util.Enumeration;
@@ -306,6 +307,7 @@ _initPosTable()
    ArrayList tpA = new ArrayList( Arrays.asList(_tpl.getAllPositions()) );
    if ( _tpl instanceof SpOffsetPosList ) {
        tpA.addAll( ((SpOffsetPosList)_tpl).getSkyOffsets() );
+       tpA.addAll( ((SpOffsetPosList)_tpl).getGuideOffsets() );
    }
    for (int i=0; i<tpA.size(); ++i) {
       TelescopePos tp = (TelescopePos)tpA.get(i);
@@ -508,6 +510,8 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
    * FitsImageWidget.telescopePosToImageWidget(tp) is returned.
    */
   public Point2D.Double telescopePosToImageWidget(TelescopePos tp) {
+//       System.out.println("telescopePosToImageWidget called from...");
+//       new Exception().printStackTrace();
     if(tp instanceof SpTelescopePos) {
       if(tp.isOffsetPosition()) {
         if(_tpl instanceof SpTelescopePosList) {
@@ -634,7 +638,6 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
 	return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
       }
     }
-
     return _iw.telescopePosToImageWidget(tp);
   }
 }

@@ -249,6 +249,12 @@ public class EdIterOffsetFeature extends TpeImageFeature
         Enumeration e = _opm.getAllPositionMapEntries();
         while (e.hasMoreElements()) {
             FitsPosMapEntry pme = (FitsPosMapEntry) e.nextElement();
+            if ( pme.telescopePos.getTag().startsWith(SpOffsetPos.GUIDE_TAG) ) {
+                g.setColor(Color.blue);
+            }
+            else {
+                g.setColor(Color.yellow);
+            }
             Point2D.Double p   = pme.screenPos;
             // Rotate this point based on the current pos angle off the science area
             SpInstObsComp myInst = (SpInstObsComp) _iw.getInstrumentItem();
@@ -258,7 +264,9 @@ public class EdIterOffsetFeature extends TpeImageFeature
                 // Should probably use font metrics to position the tag ...
                 // This is rather arbitrary ...
                 SpOffsetPos op = (SpOffsetPos) pme.telescopePos;
-                g.drawString(String.valueOf(_opl.getPositionIndex(op)), (int)p.x + d, (int)p.y + d + r);
+                if ( !(op.getTag().startsWith(SpOffsetPos.GUIDE_TAG)) ) {
+                    g.drawString(String.valueOf(_opl.getPositionIndex(op)), (int)p.x + d, (int)p.y + d + r);
+                }
             }
 
             switch (getSciAreaMode()) {

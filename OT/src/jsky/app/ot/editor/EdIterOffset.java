@@ -172,6 +172,34 @@ public final class EdIterOffset extends OtItemEditor
 
         // Added by SDW - Sept. 2004.
         createSkyOffsets();
+
+
+        // Try to create offset positions around the guide as well...
+        createGuideOffsets();
+    }
+
+    private void createGuideOffsets() {
+        _opl.resetGuidePositions();
+        SpTelescopeObsComp obsComp = SpTreeMan.findTargetList(_spItem);
+        if ( obsComp == null ) return;
+
+        if ( obsComp.getPosList().getPosition("GUIDE") == null ) return;
+
+        SpTelescopePos guidePos = (SpTelescopePos) obsComp.getPosList().getPosition("GUIDE");
+        SpTelescopePos basePos  = obsComp.getPosList().getBasePosition();
+
+        double [] guideOffset = RADecMath.getOffset( guidePos.getXaxis(), guidePos.getYaxis(),
+                                                     basePos.getXaxis(), basePos.getYaxis(),
+                                                     _opl.getPosAngle() );
+        guideOffset[0] = guideOffset[0]*(Math.cos(Math.toRadians(obsComp.getPosList().getBasePosition().getYaxis())));
+        // Create a offset position around the guide for each offset
+        for ( int count=0; count < _opl.size(); count++ ) {
+            double [] thisGuideOffset = new double [2];
+            SpOffsetPos currPos = (SpOffsetPos)_opl.getPositionAt(count);
+            thisGuideOffset[0] = guideOffset[0] + currPos.getXaxis();
+            thisGuideOffset[1] = guideOffset[1] + currPos.getYaxis();
+            _opl.createGuideOffset( thisGuideOffset[0], thisGuideOffset[1] );
+        }
     }
 
     /**
@@ -209,6 +237,7 @@ public final class EdIterOffset extends OtItemEditor
                 childOffset = RADecMath.getOffset( tp.getXaxis(), tp.getYaxis(),
                                                    base.getXaxis(), base.getYaxis(),
                                                    _opl.getPosAngle() );
+                childOffset[0] = childOffset[0] * Math.cos( Math.toRadians(base.getYaxis()) );
             }
             else {
                 childOffset = new double[2];

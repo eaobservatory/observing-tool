@@ -20,6 +20,9 @@ public final class SpOffsetPos extends TelescopePos
    // Prefix for all sky offset tags
    public static final String SKY_TAG = "SkyOffset";
 
+   // Prefix for all guide offset tags
+   public static final String GUIDE_TAG = "GuideOffset";
+
    // Indices of the the fields of a position
    public static final int XAXIS_INDEX = 0;
    public static final int YAXIS_INDEX = 1;

@@ -330,6 +330,9 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
     if ( avAttr.equals(SpOffsetPosList.SKY_POS_LIST) ) {
         return;
     }
+    if ( avAttr.equals(SpOffsetPosList.GUIDE_POS_LIST) ) {
+        return;
+    }
 
    if(avAttr.equals(SpOffsetPosList.OFFSET_POS_LIST)) {
       // Append <obsArea> element.
@@ -349,7 +352,10 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    }
 
 
-   if(avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE) || avAttr.startsWith(SpOffsetPos.OFFSET_TAG) || avAttr.startsWith( SpOffsetPos.SKY_TAG) ) {
+   if(avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE) || 
+      avAttr.startsWith(SpOffsetPos.OFFSET_TAG)     || 
+      avAttr.startsWith( SpOffsetPos.SKY_TAG)       ||
+      avAttr.startsWith( SpOffsetPos.GUIDE_TAG) ) {
       // Ignore. Dealt with in <obsArea> element (see above).
       return;
    }

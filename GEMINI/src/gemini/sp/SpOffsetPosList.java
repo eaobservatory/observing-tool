@@ -27,8 +27,10 @@ public final class SpOffsetPosList extends TelescopePosList
    // The name of the attribute that holds the target list
    public static final String OFFSET_POS_LIST = "offsetPositions";
 
-   // The name of the attribute that golds the sky list
+   // The name of the attribute that holds the sky list
    public static final String SKY_POS_LIST = "skyPositions";
+   // The name of the attribute that holds the guide list
+   public static final String GUIDE_POS_LIST = "guidePositions";
 
    /** The name of the attribute that holds the position angle. */
    public static String ATTR_POS_ANGLE = "PA";
@@ -37,6 +39,7 @@ public final class SpOffsetPosList extends TelescopePosList
    private SpAvTable _avTab;	// The table that holds the positions
    private Vector    _posList;	// A vector of SpOffsetPos objects
    private Vector    _skyOffsets = new Vector();
+   private Vector    _guideOffsets = new Vector();
 
 /**
  * Create with a an attribute/value table.
@@ -111,6 +114,13 @@ public Vector getSkyOffsets() {
 }
 
 /**
+  * Return the current guide offsets
+  */
+public Vector getGuideOffsets() {
+    return _guideOffsets;
+}
+
+/**
  * Get the position angle of offset position list.
  *
  * The angle by which the offset poitions are rotated around the base position.
@@ -173,10 +183,26 @@ _getUniqueSkyTag()
          break;
       }
    }
-
    return SpOffsetPos.SKY_TAG + i;
 }
 
+
+//
+// Get a unique sky tag for the offset position.
+//
+private synchronized String
+_getUniqueGuideTag()
+{
+   int i;
+   int size = _avTab.size(GUIDE_POS_LIST);
+   for (i=0; i<size; ++i) {
+      String tag = _avTab.get(SpOffsetPos.GUIDE_TAG + i);
+      if (tag == null) {
+         break;
+      }
+   }
+   return SpOffsetPos.GUIDE_TAG + i;
+}
 
 //
 // Implementation of the TelescopePosList interface.
@@ -266,6 +292,21 @@ _addSkyOffsetPosition(String tag)
       _avTab.set(SKY_POS_LIST, tag);
    } else {
       _avTab.set(SKY_POS_LIST, tag, size);
+   }
+}
+
+//
+// Add the given guide tag to the list of user positions.
+//
+private synchronized void
+_addGuideOffsetPosition(String tag)
+{
+   // Add the tag to the list of user tags
+   int size = _avTab.size(GUIDE_POS_LIST);
+   if (size == 0) {
+      _avTab.set(GUIDE_POS_LIST, tag);
+   } else {
+      _avTab.set(GUIDE_POS_LIST, tag, size);
    }
 }
 
@@ -626,6 +667,13 @@ public void resetSkyPositions() {
 }
 
 /**
+  * Reset guide offset positions.
+  */
+public void resetGuidePositions() {
+    _guideOffsets.clear();
+}
+
+/**
   * Create sky offset. Sky offsets are created in their own space and
   * should not interact with the real position list (_posList).  They
   * are assumed to be at the same PA as the current posList.
@@ -639,6 +687,24 @@ public SpOffsetPos createSkyPosition( double xoff, double yoff) {
         op = new SpOffsetPos( _avTab, tag, this);
         op.noNotifySetXY(xoff, yoff);
         _skyOffsets.addElement(op);
+    }
+    return op;
+}
+
+/**
+  * Create guide offset. Guide offsets are created in their own space and
+  * should not interact with the real position list (_posList).  They
+  * are assumed to be at the same PA as the current posList.
+  */
+public SpOffsetPos createGuideOffset( double xoff, double yoff) {
+    SpOffsetPos op;
+    synchronized(this) {
+        String tag = _getUniqueGuideTag();
+        _addGuideOffsetPosition (tag);
+
+        op = new SpOffsetPos( _avTab, tag, this);
+        op.noNotifySetXY(xoff, yoff);
+        _guideOffsets.addElement(op);
     }
     return op;
 }
