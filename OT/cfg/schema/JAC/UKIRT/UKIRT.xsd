@@ -1,34 +1,34 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
-<xsd:redefine schemaLocation="../../ATOMIXtypes.xsd">
+<xsd:redefine schemaLocation="../../TOMLtypes.xsd">
 
 <xsd:group name="ProgInfoGroup">
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_filename"/>
-      <xsd:group ref="atx:ProgInfoGroup"/>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_filename"/>
+      <xsd:group ref="toml:ProgInfoGroup"/>
     </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="schedBlockGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-    <xsd:element ref="atx:componentRef" minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:group ref="atx:schedBlockGroup"/>
+    <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+    <xsd:element ref="toml:componentRef" minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group ref="toml:schedBlockGroup"/>
   </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="observationGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-    <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
-    <xsd:element ref="atx:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
-    <xsd:element ref="atx:chainedToNext"      minOccurs="0"/>
-    <xsd:element ref="atx:chainedToPrev"      minOccurs="0"/>
-    <xsd:group   ref="atx:observationGroup"/>
+    <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+    <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+    <xsd:element ref="toml:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:element ref="toml:chainedToNext"      minOccurs="0"/>
+    <xsd:element ref="toml:chainedToPrev"      minOccurs="0"/>
+    <xsd:group   ref="toml:observationGroup"/>
   </xsd:sequence>
 </xsd:group>
 
@@ -38,43 +38,43 @@
 
 <xsd:group name="MSBContents">
   <xsd:choice>
-    <xsd:group ref="atx:MSBContents"/>
-    <xsd:group ref="atx:instrumentGroup"/>
+    <xsd:group ref="toml:MSBContents"/>
+    <xsd:group ref="toml:instrumentGroup"/>
   </xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
   <xsd:choice>
-    <xsd:group   ref="atx:sequenceContent"/>
-    <xsd:element ref="atx:SpIterCGS4CalObs"/>
-    <xsd:element ref="atx:SpIterCGS4"/>
-    <xsd:element ref="atx:SpIterUFTI"/>
-    <xsd:element ref="atx:SpIterUISTImaging"/>
-    <xsd:element ref="atx:SpIterUISTCalObs"/>
-    <xsd:element ref="atx:SpIterUISTTargetAcq"/>
-    <xsd:element ref="atx:SpIterUISTSpecIFU"/>
-    <xsd:element ref="atx:SpIterMichelleCalObs"/>
-    <xsd:element ref="atx:SpIterIRPOL"/>
-    <xsd:element ref="atx:SpIterBiasObs"/>
-    <xsd:element ref="atx:SpIterDarkObs"/>
-    <xsd:element ref="atx:SpIterObserve"/>
-    <xsd:element ref="atx:SpIterSky"/>
+    <xsd:group   ref="toml:sequenceContent"/>
+    <xsd:element ref="toml:SpIterCGS4CalObs"/>
+    <xsd:element ref="toml:SpIterCGS4"/>
+    <xsd:element ref="toml:SpIterUFTI"/>
+    <xsd:element ref="toml:SpIterUISTImaging"/>
+    <xsd:element ref="toml:SpIterUISTCalObs"/>
+    <xsd:element ref="toml:SpIterUISTTargetAcq"/>
+    <xsd:element ref="toml:SpIterUISTSpecIFU"/>
+    <xsd:element ref="toml:SpIterMichelleCalObs"/>
+    <xsd:element ref="toml:SpIterIRPOL"/>
+    <xsd:element ref="toml:SpIterBiasObs"/>
+    <xsd:element ref="toml:SpIterDarkObs"/>
+    <xsd:element ref="toml:SpIterObserve"/>
+    <xsd:element ref="toml:SpIterSky"/>
   </xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
   <xsd:choice>
-    <xsd:group   ref="atx:obsContent"/>
-    <xsd:element ref="atx:SpInstCGS4"/>
-    <xsd:element ref="atx:SpInstUFTI"/>
-    <xsd:element ref="atx:SpInstUIST"/>
-    <xsd:element ref="atx:SpInstMichelle"/>
+    <xsd:group   ref="toml:obsContent"/>
+    <xsd:element ref="toml:SpInstCGS4"/>
+    <xsd:element ref="toml:SpInstUFTI"/>
+    <xsd:element ref="toml:SpInstUIST"/>
+    <xsd:element ref="toml:SpInstMichelle"/>
   </xsd:choice>
 </xsd:group>
 
 </xsd:redefine>
 
-<xsd:include schemaLocation="../../ATOMIXelements.xsd"/>
+<xsd:include schemaLocation="../../TOMLelements.xsd"/>
 <xsd:include schemaLocation="../JACelements.xsd"/>
 <xsd:include schemaLocation="../JACcomponents.xsd"/>
 <xsd:include schemaLocation="../JACfolders.xsd"/>

@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 
@@ -8,38 +8,38 @@
 
 <xsd:group name="MSBContents">
   <xsd:choice>
-    <xsd:group ref="atx:MSBContents"/>
-    <xsd:group ref="atx:instrumentGroup"/>
+    <xsd:group ref="toml:MSBContents"/>
+    <xsd:group ref="toml:instrumentGroup"/>
   </xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
   <xsd:choice>
-    <xsd:group   ref="atx:sequenceContent"/>
-    <xsd:element ref="atx:SpIterCGS4CalObs"/>
-    <xsd:element ref="atx:SpIterCGS4"/>
-    <xsd:element ref="atx:SpIterUFTI"/>
-    <xsd:element ref="atx:SpIterUISTImaging"/>
-    <xsd:element ref="atx:SpIterUISTCalObs"/>
-    <xsd:element ref="atx:SpIterUISTTargetAcq"/>
-    <xsd:element ref="atx:SpIterUISTSpecIFU"/>
-    <xsd:element ref="atx:SpIterMichelleCalObs"/>
-    <xsd:element ref="atx:SpIterIRPOL"/>
-    <xsd:element ref="atx:SpIterNod"/>
-    <xsd:element ref="atx:SpIterBiasObs"/>
-    <xsd:element ref="atx:SpIterDarkObs"/>
-    <xsd:element ref="atx:SpIterObserve"/>
-    <xsd:element ref="atx:SpIterSky"/>
+    <xsd:group   ref="toml:sequenceContent"/>
+    <xsd:element ref="toml:SpIterCGS4CalObs"/>
+    <xsd:element ref="toml:SpIterCGS4"/>
+    <xsd:element ref="toml:SpIterUFTI"/>
+    <xsd:element ref="toml:SpIterUISTImaging"/>
+    <xsd:element ref="toml:SpIterUISTCalObs"/>
+    <xsd:element ref="toml:SpIterUISTTargetAcq"/>
+    <xsd:element ref="toml:SpIterUISTSpecIFU"/>
+    <xsd:element ref="toml:SpIterMichelleCalObs"/>
+    <xsd:element ref="toml:SpIterIRPOL"/>
+    <xsd:element ref="toml:SpIterNod"/>
+    <xsd:element ref="toml:SpIterBiasObs"/>
+    <xsd:element ref="toml:SpIterDarkObs"/>
+    <xsd:element ref="toml:SpIterObserve"/>
+    <xsd:element ref="toml:SpIterSky"/>
   </xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
   <xsd:choice>
-    <xsd:group   ref="atx:obsContent"/>
-    <xsd:element ref="atx:SpInstCGS4"/>
-    <xsd:element ref="atx:SpInstUFTI"/>
-    <xsd:element ref="atx:SpInstUIST"/>
-    <xsd:element ref="atx:SpInstMichelle"/>
+    <xsd:group   ref="toml:obsContent"/>
+    <xsd:element ref="toml:SpInstCGS4"/>
+    <xsd:element ref="toml:SpInstUFTI"/>
+    <xsd:element ref="toml:SpInstUIST"/>
+    <xsd:element ref="toml:SpInstMichelle"/>
   </xsd:choice>
 </xsd:group>
 
@@ -57,16 +57,16 @@
 
 <xsd:group name="instIterContent">
   <xsd:choice>
-    <xsd:element ref="atx:SpNote"/>
-    <xsd:element ref="atx:SpIterIRPOL"/>
-    <xsd:element ref="atx:SpIterMichelleCalObs"/>
-    <xsd:element ref="atx:SpIterBiasObs"/>
-    <xsd:element ref="atx:SpIterDarkObs"/>
-    <xsd:element ref="atx:SpIterObserve"/>
-    <xsd:element ref="atx:SpIterSky"/>
-    <xsd:element ref="atx:SpIterChop"/>
-    <xsd:element ref="atx:SpIterRepeat"/>
-    <xsd:element ref="atx:SpIterOffset"/>
+    <xsd:element ref="toml:SpNote"/>
+    <xsd:element ref="toml:SpIterIRPOL"/>
+    <xsd:element ref="toml:SpIterMichelleCalObs"/>
+    <xsd:element ref="toml:SpIterBiasObs"/>
+    <xsd:element ref="toml:SpIterDarkObs"/>
+    <xsd:element ref="toml:SpIterObserve"/>
+    <xsd:element ref="toml:SpIterSky"/>
+    <xsd:element ref="toml:SpIterChop"/>
+    <xsd:element ref="toml:SpIterRepeat"/>
+    <xsd:element ref="toml:SpIterOffset"/>
   </xsd:choice>
 </xsd:group>
 

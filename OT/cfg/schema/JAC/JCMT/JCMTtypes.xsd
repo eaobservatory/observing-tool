@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 
@@ -8,29 +8,29 @@
 
 <xsd:group name="MSBContents">
   <xsd:choice>
-    <xsd:group ref="atx:MSBContents"/>
-    <xsd:group ref="atx:instrumentGroup"/>
+    <xsd:group ref="toml:MSBContents"/>
+    <xsd:group ref="toml:instrumentGroup"/>
   </xsd:choice>
 </xsd:group>
 
 <xsd:group name="sequenceContent">
   <xsd:choice>
-    <xsd:group   ref="atx:sequenceContent"/>
-    <xsd:element ref="atx:SpIterPOL"/>
-    <xsd:element ref="atx:SpIterSkydipObs"/>
-    <xsd:element ref="atx:SpIterPointingObs"/>
-    <xsd:element ref="atx:SpIterFocusObs"/>
-    <xsd:element ref="atx:SpIterNoiseObs"/>
-    <xsd:element ref="atx:SpIterStareObs"/>
-    <xsd:element ref="atx:SpIterJiggleObs"/>
-    <xsd:element ref="atx:SpIterRasterObs"/>
+    <xsd:group   ref="toml:sequenceContent"/>
+    <xsd:element ref="toml:SpIterPOL"/>
+    <xsd:element ref="toml:SpIterSkydipObs"/>
+    <xsd:element ref="toml:SpIterPointingObs"/>
+    <xsd:element ref="toml:SpIterFocusObs"/>
+    <xsd:element ref="toml:SpIterNoiseObs"/>
+    <xsd:element ref="toml:SpIterStareObs"/>
+    <xsd:element ref="toml:SpIterJiggleObs"/>
+    <xsd:element ref="toml:SpIterRasterObs"/>
   </xsd:choice>
 </xsd:group>
 
 <xsd:group name="obsContent">
   <xsd:choice>
-    <xsd:group   ref="atx:obsContent"/>
-    <xsd:group   ref="atx:instrumentGroup"/>
+    <xsd:group   ref="toml:obsContent"/>
+    <xsd:group   ref="toml:instrumentGroup"/>
   </xsd:choice>
 </xsd:group>
 
@@ -38,16 +38,16 @@
 
 <xsd:group name="instIterContent">
   <xsd:choice>
-    <xsd:group   ref="atx:sequenceContent"/>
+    <xsd:group   ref="toml:sequenceContent"/>
 <!--
-    <xsd:element ref="atx:SpIterPOL"/>
-    <xsd:element ref="atx:SpIterSkydipObs"/>
-    <xsd:element ref="atx:SpIterPointingObs"/>
-    <xsd:element ref="atx:SpIterFocusObs"/>
-    <xsd:element ref="atx:SpIterNoiseObs"/>
-    <xsd:element ref="atx:SpIterStareObs"/>
-    <xsd:element ref="atx:SpIterJiggleObs"/>
-    <xsd:element ref="atx:SpIterRasterObs"/>
+    <xsd:element ref="toml:SpIterPOL"/>
+    <xsd:element ref="toml:SpIterSkydipObs"/>
+    <xsd:element ref="toml:SpIterPointingObs"/>
+    <xsd:element ref="toml:SpIterFocusObs"/>
+    <xsd:element ref="toml:SpIterNoiseObs"/>
+    <xsd:element ref="toml:SpIterStareObs"/>
+    <xsd:element ref="toml:SpIterJiggleObs"/>
+    <xsd:element ref="toml:SpIterRasterObs"/>
 -->
   </xsd:choice>
 </xsd:group>

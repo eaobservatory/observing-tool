@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 <!-- Primitive types used for CGS4 -->
@@ -29,7 +29,7 @@
 </xsd:simpleType>
 
 <xsd:simpleType name="cgs4expTimeLimits">
-  <xsd:restriction base="atx:nonNegativeDecimal">
+  <xsd:restriction base="toml:nonNegativeDecimal">
     <xsd:maxInclusive value="600.0"/>
   </xsd:restriction>
 </xsd:simpleType>
@@ -128,7 +128,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:cgs4AcqModList"
+        <xsd:element name="value" type="toml:cgs4AcqModList"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -150,7 +150,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:nonNegativeDecimal"
+        <xsd:element name="value" type="toml:nonNegativeDecimal"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -161,7 +161,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:cgs4IterTypeList"
+        <xsd:element name="value" type="toml:cgs4IterTypeList"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -173,20 +173,20 @@
 <xsd:element name="SpInstCGS4">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed"   minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_selected"    minOccurs="0"/>
-      <xsd:element ref="atx:meta_unique"   minOccurs="0"/>
-      <xsd:element ref="atx:meta_version"  minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_collapsed"   minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"    minOccurs="0"/>
+      <xsd:element ref="toml:meta_unique"   minOccurs="0"/>
+      <xsd:element ref="toml:meta_version"  minOccurs="0"/>
       <xsd:element name="acqMode" 
-		   type="atx:cgs4AcqModList"/>
+		   type="toml:cgs4AcqModList"/>
       <xsd:element name="centralWavelength"
-		   type="atx:cgs4WavelengthLimits"/>
-      <xsd:element ref="atx:coadds"/>
+		   type="toml:cgs4WavelengthLimits"/>
+      <xsd:element ref="toml:coadds"/>
       <xsd:element name="cvfOffset"     type="xsd:double" minOccurs="0"/>
       <xsd:element name="cvfWavelength" type="xsd:double" minOccurs="0"/>
-      <xsd:element name="disperser"     type="atx:cgs4disperserList"/>
-      <xsd:element name="exposureTime"  type="atx:cgs4expTimeLimits"/>
-      <xsd:element name="filter"        type="atx:cgs4filterList"/>
+      <xsd:element name="disperser"     type="toml:cgs4disperserList"/>
+      <xsd:element name="exposureTime"  type="toml:cgs4expTimeLimits"/>
+      <xsd:element name="filter"        type="toml:cgs4filterList"/>
       <xsd:element name="instAper">
         <xsd:complexType>
           <xsd:sequence>
@@ -203,17 +203,17 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="instPort"       type="atx:ukirtPortsList"/>
-      <xsd:element name="mask"           type="atx:cgs4MaskList"/>
+      <xsd:element name="instPort"       type="toml:ukirtPortsList"/>
+      <xsd:element name="mask"           type="toml:cgs4MaskList"/>
       <xsd:element name="neutralDensity" type="xsd:boolean"/>
       <xsd:element name="order"          type="xsd:positiveInteger"/>
-      <xsd:element name="polariser"      type="atx:cgs4polList"/>
-      <xsd:element name="posAngle"       type="atx:cgs4PALimit" minOccurs="0"/>
-      <xsd:element name="sampling"       type="atx:cgs4samplingList"/>
+      <xsd:element name="polariser"      type="toml:cgs4polList"/>
+      <xsd:element name="posAngle"       type="toml:cgs4PALimit" minOccurs="0"/>
+      <xsd:element name="sampling"       type="toml:cgs4samplingList"/>
       <xsd:element name="sourceMag"/>
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="oc"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="inst.CGS4"/>
   </xsd:complexType>
 </xsd:element>
@@ -221,23 +221,23 @@
 <xsd:element name="SpIterCGS4CalObs">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
       <xsd:element name="acqMode" 
-		   type="atx:cgs4AcqModList"/>
-      <xsd:element name="calType" type="atx:cgs4CalTypeList"/>
-      <xsd:element ref="atx:coadds"/>
+		   type="toml:cgs4AcqModList"/>
+      <xsd:element name="calType" type="toml:cgs4CalTypeList"/>
+      <xsd:element ref="toml:coadds"/>
       <xsd:element name="cvfOffset"     type="xsd:double" minOccurs="0"/>
       <xsd:element name="cvfWavelength" type="xsd:double" minOccurs="0"/>
-      <xsd:element name="exposureTime"  type="atx:cgs4expTimeLimits"/>
-      <xsd:element name="filter"        type="atx:cgs4filterList"/>
-      <xsd:element name="flatSampling"  type="atx:cgs4calSamplingList"/>
-      <xsd:element name="lamp"          type="atx:cgs4CalLamps"/>
+      <xsd:element name="exposureTime"  type="toml:cgs4expTimeLimits"/>
+      <xsd:element name="filter"        type="toml:cgs4filterList"/>
+      <xsd:element name="flatSampling"  type="toml:cgs4calSamplingList"/>
+      <xsd:element name="lamp"          type="toml:cgs4CalLamps"/>
       <xsd:element name="neutralDensity" type="xsd:boolean"/>
-      <xsd:element ref="atx:repeatCount"/>
+      <xsd:element ref="toml:repeatCount"/>
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="CGS4calUnitObs"/>
   </xsd:complexType>
 </xsd:element>
@@ -245,13 +245,13 @@
 <xsd:element name="SpIterCGS4">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed"                                    minOccurs="0"/>
-      <xsd:element name="acqModeIter"      type="atx:cgs4acqModeIteratorType"      minOccurs="0"/>
-      <xsd:element name="coaddsIter"       type="atx:cgs4coaddsIteratorType"       minOccurs="0"/>
-      <xsd:element name="exposureTimeIter" type="atx:cgs4exposureTimeIteratorType" minOccurs="0"/>
-      <xsd:element name="iterConfigList"   type="atx:cgs4IterType"                 minOccurs="1"/>
+      <xsd:element ref="toml:meta_gui_collapsed"                                    minOccurs="0"/>
+      <xsd:element name="acqModeIter"      type="toml:cgs4acqModeIteratorType"      minOccurs="0"/>
+      <xsd:element name="coaddsIter"       type="toml:cgs4coaddsIteratorType"       minOccurs="0"/>
+      <xsd:element name="exposureTimeIter" type="toml:cgs4exposureTimeIteratorType" minOccurs="0"/>
+      <xsd:element name="iterConfigList"   type="toml:cgs4IterType"                 minOccurs="1"/>
     </xsd:sequence>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="instCGS4"/>
   </xsd:complexType>
 </xsd:element>

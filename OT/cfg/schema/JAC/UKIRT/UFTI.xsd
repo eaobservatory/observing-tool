@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 
@@ -23,7 +23,7 @@
 </xsd:simpleType>
 
 <xsd:simpleType name="uftiExpTimeLimits">
-  <xsd:restriction base="atx:nonNegativeDecimal">
+  <xsd:restriction base="toml:nonNegativeDecimal">
     <xsd:maxInclusive value="1000.0"/>
   </xsd:restriction>
 </xsd:simpleType>
@@ -85,7 +85,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:uftiAcqModList"
+        <xsd:element name="value" type="toml:uftiAcqModList"
 		     minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
     </xsd:restriction>
@@ -107,7 +107,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:uftiExpTimeLimits"
+        <xsd:element name="value" type="toml:uftiExpTimeLimits"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -118,7 +118,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:uftiFilterList"
+        <xsd:element name="value" type="toml:uftiFilterList"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -140,7 +140,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:uftiIterList"
+        <xsd:element name="value" type="toml:uftiIterList"
 		     minOccurs="0" maxOccurs="unbounded"/>
       </xsd:choice>
     </xsd:restriction>
@@ -154,14 +154,14 @@
 <xsd:element name="SpInstUFTI">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element ref="atx:meta_unique"        minOccurs="0"/>
-      <xsd:element ref="atx:meta_version"       minOccurs="0"/>
-      <xsd:element name="acqMode" type="atx:uftiAcqModList"/>
-      <xsd:element ref="atx:coadds"/>
-      <xsd:element name="exposureTime"  type="atx:uftiExpTimeLimits"/>
-      <xsd:element name="filter"        type="atx:uftiFilterList"/>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="toml:meta_unique"        minOccurs="0"/>
+      <xsd:element ref="toml:meta_version"       minOccurs="0"/>
+      <xsd:element name="acqMode" type="toml:uftiAcqModList"/>
+      <xsd:element ref="toml:coadds"/>
+      <xsd:element name="exposureTime"  type="toml:uftiExpTimeLimits"/>
+      <xsd:element name="filter"        type="toml:uftiFilterList"/>
       <xsd:element name="instAper">
         <xsd:complexType>
           <xsd:sequence>
@@ -178,15 +178,15 @@
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="instPort"    type="atx:ukirtPortsList"/>
-      <xsd:element name="polariser"   type="atx:uftiPolList"/>
+      <xsd:element name="instPort"    type="toml:ukirtPortsList"/>
+      <xsd:element name="polariser"   type="toml:uftiPolList"/>
       <xsd:element name="posAngle"    type="xsd:double" minOccurs="0"/>
-      <xsd:element name="readoutArea" type="atx:uftiROAreaList" minOccurs="0"/>
+      <xsd:element name="readoutArea" type="toml:uftiROAreaList" minOccurs="0"/>
       <xsd:element name="sourceMag"/>
-      <xsd:element ref="atx:title" minOccurs="0"/>
+      <xsd:element ref="toml:title" minOccurs="0"/>
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="oc"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="inst.UFTI"/>
   </xsd:complexType>
 </xsd:element>
@@ -194,27 +194,27 @@
 <xsd:element name="SpIterUFTI">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element name="acqModeIter"      type="atx:uftiAcqModeIteratorType"
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element name="acqModeIter"      type="toml:uftiAcqModeIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="coaddsIter"       type="atx:uftiCoaddsIteratorType"
+      <xsd:element name="coaddsIter"       type="toml:uftiCoaddsIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="exposureTimeIter" type="atx:uftiExpTimeIteratorType"
+      <xsd:element name="exposureTimeIter" type="toml:uftiExpTimeIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="filterIter"       type="atx:uftiFilterIteratorType"
+      <xsd:element name="filterIter"       type="toml:uftiFilterIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="instAperLIter"    type="atx:uftiAperIteratorType"
+      <xsd:element name="instAperLIter"    type="toml:uftiAperIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="instAperXIter"    type="atx:uftiAperIteratorType"
+      <xsd:element name="instAperXIter"    type="toml:uftiAperIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="instAperYIter"    type="atx:uftiAperIteratorType"
+      <xsd:element name="instAperYIter"    type="toml:uftiAperIteratorType"
 		   minOccurs="0"/>
-      <xsd:element name="iterConfigList"   type="atx:uftiIterTypeList"
+      <xsd:element name="iterConfigList"   type="toml:uftiIterTypeList"
 		   minOccurs="1"/>
-      <xsd:group   ref="atx:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+      <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
     </xsd:sequence>
-    <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="instUFTI"/>
   </xsd:complexType>
 </xsd:element>

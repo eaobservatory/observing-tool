@@ -1,6 +1,6 @@
-<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML" 
 	    elementFormDefault="qualified">
 
 <xsd:simpleType name="nodPatternList">
@@ -13,7 +13,7 @@
   <xsd:complexContent>
     <xsd:restriction base="xsd:anyType">
       <xsd:choice>
-        <xsd:element name="value" type="atx:nodPatternList"
+        <xsd:element name="value" type="toml:nodPatternList"
 		     minOccurs="0" maxOccurs="unbounded"/>
     </xsd:choice>
     </xsd:restriction>
@@ -23,12 +23,12 @@
 <xsd:element name="SpIterNod">
   <xsd:complexType>
     <xsd:sequence>
-      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
-      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
-      <xsd:element name="nodPattern" type="atx:nodPatternType"/>
-      <xsd:group   ref="atx:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+      <xsd:element ref="toml:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="toml:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element name="nodPattern" type="toml:nodPatternType"/>
+      <xsd:group   ref="toml:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
     </xsd:sequence>
-    <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="nod"/>
   </xsd:complexType>
 </xsd:element>
