@@ -509,13 +509,19 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
           _convertedPosition.x = basePosition.getXaxis();
           _convertedPosition.y = basePosition.getYaxis();
 
-
           int baseCoordSystem   = basePosition.getCoordSys();
 	  int offsetCoordSystem = ((SpTelescopePos)tp).getCoordSys();
 
           if(offsetCoordSystem == CoordSys.FK5) {
             if(baseCoordSystem == CoordSys.FK5) {
-	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+              double dec;
+	      if ( _convertedPosition.y > 89.9 ) {
+		  dec = 89.9;
+	      }
+	      else {
+		  dec = _convertedPosition.y;
+	      }
+	      _convertedPosition.x += ((tp.getXaxis() / 3600.0) / ( Math.cos(Math.toRadians(dec)) ));
 	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
 	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
 
@@ -523,7 +529,9 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
 
             if(baseCoordSystem == CoordSys.FK4) {
               wcscon.fk425(_convertedPosition);
-	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+              double dec = _convertedPosition.y;
+	      if ( dec > 89.9 ) dec = 89.9;
+	      _convertedPosition.x += ( (tp.getXaxis() / 3600.0) / (Math.cos(Math.toRadaians(dec))) );
 	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
 	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
 
@@ -531,7 +539,9 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
 
             if(baseCoordSystem == CoordSys.GAL) {
               wcscon.gal2fk5(_convertedPosition);
-	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+              double dec = _convertedPosition.y;
+	      if ( dec > 89.9 ) dec = 89.9;
+	      _convertedPosition.x += ( (tp.getXaxis() / 3600.0) / (Math.cos(Math.toRadaians(dec))) );
 	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
 	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
 
@@ -541,7 +551,9 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
           if(offsetCoordSystem == CoordSys.FK4) {
             if(baseCoordSystem == CoordSys.FK5) {
               wcscon.fk524(_convertedPosition);
-	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      double dec = _convertedPosition.y;
+	      if ( dec > 89.9 ) dec = 89.9;
+	      _convertedPosition.x += ( (tp.getXaxis() / 3600.0) / Math.cos(Math.toRadaians(dec)));
 	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
 	      wcscon.fk425(_convertedPosition);
 	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
@@ -549,7 +561,9 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
 	    }
 
             if(baseCoordSystem == CoordSys.FK4) {
-	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+		double dec = _convertedPosition.y;
+		if ( dec > 89.9 ) dec = 89.9;
+	      _convertedPosition.x += ( (tp.getXaxis() / 3600.0) / Math.cos(Math.toRadaians(dec)) );
 	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
 	      wcscon.fk425(_convertedPosition);
 	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
@@ -558,7 +572,9 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
 
             if(baseCoordSystem == CoordSys.GAL) {
               wcscon.gal2fk4(_convertedPosition);
-	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      double dec = _convertedPosition.y;
+	      if ( dec > 89.9 ) dec = 89.9;
+	      _convertedPosition.x += ( (tp.getXaxis() / 3600.0) / Math.cos(Math.toRadaians(dec)) );
 	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
 	      wcscon.fk425(_convertedPosition);
 	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
