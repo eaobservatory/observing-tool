@@ -15,7 +15,6 @@ import gemini.sp.SpTelescopePos;
 import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Vector;
-import org.apache.xerces.dom.ElementImpl;
 import org.w3c.dom.NodeList;
 import org.apache.xerces.dom.ElementImpl;
 import org.apache.xerces.dom.DocumentImpl;
@@ -438,6 +437,17 @@ public abstract class TcsPreTranslator implements PreTranslator {
       
       // Get hold of the values in sp_offsetPositions list.
       sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName("value");
+
+      // If there is only one offset position then it is directly inside <offsetPositions> (no <value> tag).
+      if((sp_offsetPositions_values == null) || (sp_offsetPositions_values.getLength() < 1)) {
+        // Put the single offset position inside <offsetPositions> into a <value> element.
+        sp_offsetPositions.appendChild(document.createElement("value")).appendChild(document.createTextNode(
+	  sp_offsetPositions.getFirstChild().getNodeValue()
+	));
+
+        // Now try again
+        sp_offsetPositions_values = sp_offsetPositions.getElementsByTagName("value");
+      }
 
       // Create obsArea element for TCS XML.
       tcs_obsArea = (ElementImpl)document.createElement("obsArea");
