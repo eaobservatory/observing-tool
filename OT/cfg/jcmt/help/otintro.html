@@ -13,14 +13,16 @@ ff0000">
 
     This document is a primer on how to use the JCMT Observing Tool
     (JCMT OT) to prepare and submit SCUBA observations for semester
-    2002B (see <a href="#why">Why do I have to do this?</a>. It
+    2003A (see <a href="#why">Why do I have to do this?</a>. It
     assumes that you have already downloaded and installed the
-    software (see our <a href="download.html">download page</a>). Of course if you are using a JAC, UKIRT or JCMT machine,
-    the software is already installed. It also assumes that you
-    understand the basic SCUBA observing techniques. If you don't know
-    what a jiggle map is, you are not ready for this! Consult the <a
+    software (see our <a href="download.html">download page</a> - make
+    sure you have downloaded the latest version!). Of course if you are
+    using a JAC, UKIRT or JCMT machine, the software is already
+    installed. It also assumes that you understand the basic SCUBA
+    observing techniques. If you don't know what a jiggle map is, you
+    are not ready for this! Consult the <a
     href="http://www.jach.hawaii.edu/JACpublic/JCMT/User_documentation/Users_guide/guide/node35.html">
-      SCUBA section of the JCMT manual</a> first. <p>
+    SCUBA section of the JCMT manual</a> first. <p>
 
 If you are viewing this document through the JCMT-OT Help menu, there
 may be a more up-to-date version on our web site at <a
@@ -103,7 +105,12 @@ href="http://www.jach.hawaii.edu/JACpublic/JAC/software/jcmtot/index.html?printa
 
 <ul>
 
-<li>Placement
+<li><a href="#placement">A note about placement</a>
+
+<li><a href="#constraints">Additional scheduling constraints</a>
+
+<li><a href="#offsets">Offsets around a base science position</a>
+
 
 </ul>
 
@@ -162,7 +169,7 @@ its details in the Science Program editor on the right. The most
 important field here is the Project ID field. <em>You have to get this
 right otherwise you will not be able to submit your program to
 us</em>. Your project ID is what you were assigned when you submitted
-your proposal for telescope time. It is of the form m02b followed by a
+your proposal for telescope time. It is of the form m03a followed by a
 country letter and proposal number. You can also find your country and
 proposal number in our web page of <a
 href="http://www.jach.hawaii.edu/JACpublic/JCMT/Observing_info/Time_allocations/02b-allocations.html">time
@@ -206,7 +213,7 @@ observations yet.
     data. <em>An MSB will always be executed at the telescope in its
     entirety</em>. For more information see <a href="#msb">What makes
     a good MSB?</a> but for the moment bear in mind that the most
-    efficient MSB consists of a 1 to 2 hour observation on a single
+    efficient MSB consists of a 0.5 to 2 hour observation on a single
     science target and any necessary calibrations.<p>
 
       Since SCUBA is best used in a few well-understood ways, we have
@@ -266,17 +273,31 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
       <ul>
 
       <li>It has a title which you can change to something meaningful
-      (in my screenshot below I use "Jiggle Map of W48").
+      (in my screenshot below I use "Jiggle Map of
+      W48"). <strong>Please</strong> take the time to do this - it
+      really helps the person doing the observing.
 
       <li>A pull down menu with a repeat counter. Leave that to 1 for
       the time being.
 
       <li>The priority of the MSB. Note that this only affects the
-      internal priority of your MSBs. So if you had two different MSBs
-      that rose to the top of the scheduling queue and one was marked
-      "High" and the other "Low", the one marked "High" will normally
-      get done first. If all your MSBs are of equal interest to you,
-      just don't bother changing the default.
+      internal priority of your MSBs - not the priority allocated to
+      your entire project by your TAG. So if you had two different
+      MSBs that rose to the top of the scheduling queue and one had
+      priority "1" and the other "99", the one marked "High" will
+      normally get done first. If all your MSBs are of equal interest
+      to you, just don't bother changing the default.
+
+	<small>Small print: Bear in mind though that MSB selection is
+	an operational decision - marking your MSBs with priorities 1,
+	2, 3 etc is no guarantee that they will be done in precisely
+	that particular order. For example, your lower-priority MSBs
+	could be done because they are observable at a time of day
+	where there is not much else in the queue, whereas your
+	high-priority MSBs could be competing against the top-ranked
+	project. Also, the observer/TSS may sometimes select a lower
+	priority MSB because it is the most efficient choice at the
+	time, because of its duration or azimuth.</small>
 
     </ul>
 
@@ -308,7 +329,8 @@ will take.
      your project The default value of the sub-millimetre seeing is
      "Don't Care". If you think you need to change these values, click
      on the note entitled "Note: Site Quality" which contains a
-     lengthy explanation, but don't get bogged down in this for now.
+     lengthy explanation, but don't get bogged down in this for
+     now. 
 
 
     <h2><a name="tsc">The SCUBA component</a></h2>
@@ -453,7 +475,7 @@ don't need to change any of those now.
     how it is indented?), the chop action will apply to it. So, your
     jiggle observation will be have a 120 arcsecond, 90 degree AZEL
     chop as specified in the chop iterator. More about how placement
-    affects properties in <a href="#inheritance">A Note About
+    affects properties in <a href="#placement">A Note About
     Placement</a><p>
 
 
@@ -478,10 +500,10 @@ don't need to change any of those now.
       hit "Resolve Name".<p>
 
       After a brief pause the RA and DEC co-ordinate fields are
-      populated with the SIMBAD co-ordinates for the source - the name
-      field may also have changed to the equinalent SIMBAD name, but
-      you can change that back if you like. And of course, double
-      check that the co-ordinates are those you intend to observe.<p>
+      populated with the SIMBAD co-ordinates for the source. The
+      SIMBAD name for the source will also be indicated next to the
+      "Resolve Name" button.  And of course, double check that the
+      co-ordinates are those you intend to observe.<p>
 
       But wait - that's not all.<p>
 
@@ -523,21 +545,14 @@ don't need to change any of those now.
       You will then see the DSS image replaced with the sub-millimetre
       image.<p>
 
-      <small>Two technical notes if you are planning on generating
-      your own image for import: Firstly, if you want to import a
+      <small>A short technical note if you are planning on generating
+      your own image for import: if you want to import a
       SCUBA map in NDF format, convert it to FITS by using the starlink
       convert utility with the following arguments:
 
-<pre>convert encoding=FITS-IRAF bitpix=32 comp=D</pre>
+<pre>ndf2fits encoding=FITS-IRAF bitpix=32 comp=D</pre>
 
-    Secondly, there is a bug (possibly in JSky itself) which we have
-    not been able to fix at the time of writing. If you read in an
-    image that is not exactly centered at the co-ordinates in the
-    target component, the cross-hair icon may be incorrectly
-    positioned. This problem fixes itself at the next redraw. To force
-    a redraw you can briefly zoom out and back in again using the
-    buttons at the bottom left of the position editor. Do this now if
-    you are using our w48.fits image</small><p>
+    If you have difficulty despite doing this, let us know.</small><p>
 
     <p>As I mentioned before, the green cross-hair is the position of
     your science co-ordinates. Click on the button on the left side of
@@ -628,10 +643,6 @@ don't need to change any of those now.
 
     I hope that makes sense.
 
-    <h2><a name="inheritance">A note about placement</a></h2>
-      
-
-    (This section in progress)
 
     <h2><a name="recap">Recap</a></h2>
 
@@ -655,6 +666,11 @@ don't need to change any of those now.
 
 </ul>
 
+Worried? Click on your science programme and press the "Validation"
+button on the bar above. This will tell you if there's anything
+seriously wrong with your MSBs - the output can be a bit cryptic
+though - so do ask us if you can't figure out what it means. You can
+also check individual MSBs and observations.
 
 
     <h2><a name="database">Submitting to our database</a></h2>
@@ -672,16 +688,16 @@ don't need to change any of those now.
       science program</a>). It will also ask you for a password. You
       can get a password from our password generator at <a
       href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">
-http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl
-</a>. If you forget it, go there to get another one. If
-      you are PI on more than one project you'll need a password per
-      project so that you can share it with your different sets of
-      Co-Is. The password you get will also allow you access to your
-      <a
+      http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl </a>. If you
+      forget it, go there to get another one. If you are PI on more
+      than one project you'll need a password per project so that you
+      can share it with your different sets of Co-Is. The password you
+      get will also allow you access to your <a
       href="http://omp.jach.hawaii.edu/cgi-bin/feedback.pl">Feedback
-      Area</a> to check on the progress of your project,
-      double-check your MSBs, retrieve your data and exchange views with
-      our staff. Check it out. <p>
+      Area</a> to check on the progress of your project, double-check
+      your MSBs, retrieve your data and exchange views with our
+      staff. Check it out. Both the above links can also be found off
+      on OMP home page <a href="http://omp.jach.hawaii.edu/">http://omp.jach.hawaii.edu</a><p>
 
       When you do get your password and submit your program, you will
       receive a summary of all the MSBs contained in your
@@ -828,7 +844,7 @@ all UKIRT instruments.<p>
 	  would have to be sent to the acquisition one by one,
 	  thus driving the observer insane.<p>
 	<p>
-	  The golden mean? A 60-to-90 minute MSB, with 30-to-120
+	  The golden mean? A 45-to-90 minute MSB, with 30-to-120
 	  minutes still quite resonable. If you believe your program
 	  cannot be sensible constructed in MSBs that fall in that
 	  duration range please consult us for ideas.
@@ -888,9 +904,14 @@ can submit an MSB to use it up.
 
 <h2>Advanced Topics</h2>
 
-So far we have described preparation using the library sequence "as is". This section covers some topics of interest to anyone wishing to manipulate the standard library sequences in simple ways. 
+So far we have described preparation using the library sequence "as
+is". This section covers some topics of interest to anyone wishing to
+manipulate or add to the standard library sequences in order to create
+some of the less common observing modes that are sometimes
+required. It assumes that you are familiar with the material presented
+in the main part of the tutorial.
 
-<h3>Context</h3>
+<h3><a name="placement">A note about placement</a></h3>
 
 As you may have gathered by now, the Science Program is a tree structure and the placement of elements in that structure has a lot of significance<p>
 
@@ -911,12 +932,130 @@ own. The technical term for this behaviour is "inheritance" for those
 familiar with it already.
 
 
+<h3><a name="constraints">Additional Scheduling Constraints</a></h3>
 
- 
+You can place additional scheduling constraints on some or all of your
+MSBs. To set up a scheduling constraint component for all your MSBs,
+return to your science programme component at the top, then click on
+"component" on the left icon bar as shown below. This will bring up a
+number of choices - select "Sched.Constraints". This will drop in a
+Scheduling Constraints component at the top of your programme, which
+will therefore apply to all MSBs. To make this apply to only a
+specific MSB, place the scheduling constraint inside it. 
+    <p>
+    <img src="images/constraints.gif" alt="Constraint"><p>
+
+
+The scheduling constraints component allows you to:
+
+<ul>
+
+<li> specify a specific
+time window in which you want your observations to be taken. Needless
+to say setting this to narrowly will reduce your chances of being
+	scheduled, so only do this if there is a valid scientific reason<p>
+
+<li> set a rescheduling action, that will schedule an MSB that has
+been completed to reappear after a certain number of days. If you have
+been allocated time for a project that requires periodic monitoring,
+	you may wish to ask us for more information on how this works. <p>
+
+
+<li> by default, a target is considered observable if it is between 30
+and 88 degrees of elevation for the entire duration of its MSB. If you
+wish to specify a lower elevation criterion (eg. for a very low
+	declination source) you may do so here.<p>
+
+
+<li> restrict a target to being observed only before or after
+transit. Again, note that this criterion will be applied for the
+entire estimated duration of the MSB, so only do this if it is
+	scientifically vital.<p>
+
+
+</ul>
+
+<h3><a href="#offsets">Offsets around a base science position</a></h3>
+
+    We'll now cover a situation where you wish to map a region that is too
+    small to do efficiently with a scan map. To do this, start off by
+    copying the library MSB labeled "850/450 jiggle offsets (mosaic)"
+    into your science programme. (see <a href="#oe">Our example:
+      preparing an 850/450 jiggle map</a>)<p>
+
+      <img src="images/offset_lib.gif" alt="Chosing the offset library MSB"><p>
+
+This MSB is identical to the one described in the main tutorial except
+that it contains an extra item, the offset iterator. The offset
+iterator (like the chop iterator) allows you to specify one or more
+telescope positions as offsets from your science base position. You
+have two choices - you can enter arbitrary positions by hand, or you
+      can ask it to create a grid for you in a fixed pattern. <p>
+
+For example, to create a 1x3 grid whose points are separated by 120
+arcseconds centered on the base co-ordinates:
+
+<ul>
+
+<li> Fill in the spacing values for the grid (120 x 120)
+<li> Fill in the dimensions of the grid (1 x 3)
+<li> Click on "Create/Center on Base"
+
+</ul>
+
+      <img src="images/offset_grid.gif" alt="Entering grid
+      positions"><p>
+
+      The initial and subsequent offsets from the base position are then displayed:<p>
+
+      <img src="images/offset_grid2.gif" alt="Listed grid
+      positions"><p>
+
+You can also specify a rotation for the grid by entering a PA - below
+I have entered 114 as the rotation. Note that the list will show the
+absolute grid offsets: to see the rotated offsets, hold down the
+      "Display Rotated Offsets" button.<p>
+
+
+      <img src="images/offset_rot.gif" alt="Rotation"><p>
+
+ As with the chop iterator, you can visualise the positions by
+ plotting your source in the position editor and then clicking on the
+ offset iterator (see <a href="#tpe">The position editor</a>). This is
+ how the 1x3 120 arcsecond grid with a 114 rotation displays with
+      NGC891 as the target:<p>
+
+      <img src="images/offset_tpe.gif" alt="Plotted offsets"><p>
+
+You can see the rotated offset positions (labeled 0, 1 and 2) lined
+along the edge of the galaxy. As with the chop positions, you can
+click on the "Drag" button and re-position the offsets at arbitrary
+points - the values in the offset iterator will automatically update
+to reflect the new placements. You will want to do this if you wish to
+map a source in a non-linear fashion.<p>
+
+Finally, there is a button on the offset iterator labeled "Set Spacing
+from Scan Area". This is in the cases where you have a scan map rather
+than a jiggle map inside your offset iterator. Press this button to
+use individual scan maps as tiles for mapping a much larger area.
+
+
+<small>Note: It is generally a good idea to break an observation down
+so that a particular scan lasts for about half an hour; this is
+because if there is a major technical fault in the middle of a scan it
+is likely that the whole scan will be lost. So doing three 30-minute
+scan maps is better than doing one 90-minute one. <small>
+
+
+
+
+      <p>
+
+
     <hr>
     <address><a href="mailto:frossie@jach.hawaii.edu">Frossie Economou</a></address>
 <!-- Created: Fri Feb 14 12:57:09 HST 1997 --> <!-- hhmts start -->
-Last modified: Mon Jul 15 05:00:35 HST 2002
+Last modified: Sat Dec 21 22:07:54 HST 2002
 <!-- hhmts end -->
   </body>
 </html>
