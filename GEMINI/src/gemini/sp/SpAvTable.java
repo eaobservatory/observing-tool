@@ -378,17 +378,23 @@ getAll(String name)
 public void
 printAll(String name)
 {
-   Vector v = getAll(name);
-   if (v == null) {
-      System.out.println(name + ": DOES NOT EXIST IN TABLE");
-      return;
-   }
+    if (name.equals("*")) {
+	System.out.println(_avTable.toString());
+    }
+    else {
 
-   System.out.println(name + " contains:");
-   for (int i=0; i<v.size(); ++i) {
-      System.out.println('\t' + (String) v.elementAt(i));
-   }
-   System.out.println("-- EOD --");
+	Vector v = getAll(name);
+	if (v == null) {
+	    System.out.println(name + ": DOES NOT EXIST IN TABLE");
+	    return;
+	}
+
+	System.out.println(name + " contains:");
+	for (int i=0; i<v.size(); ++i) {
+	    System.out.println('\t' + (String) v.elementAt(i));
+	}
+	System.out.println("-- EOD --");
+    }
 }
 
 /**
