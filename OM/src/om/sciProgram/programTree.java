@@ -251,7 +251,11 @@ final public class programTree extends JPanel
 
   private Double lastScaleFactor() {
     if (scaleFactors.size() == 0) {
-      return new Double(AttributeEditor.scaleFactorUsed());
+      if (AttributeEditor.scaleFactorUsed() > 0) {
+	return new Double(AttributeEditor.scaleFactorUsed());
+      } else {
+	return new Double(1.0); 
+      }
     } else {
       return (Double)scaleFactors.elementAt(scaleFactors.size()-1);
     }

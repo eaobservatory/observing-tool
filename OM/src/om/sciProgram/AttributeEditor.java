@@ -13,12 +13,14 @@ import orac.ukirt.iter.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import javax.swing.*;
+import javax.swing.table.*;
 
 /**
  *
  * @author  ab
  */
-public class AttributeEditor extends javax.swing.JDialog 
+public class AttributeEditor extends JDialog 
   implements ActionListener {
 
   /**
@@ -165,16 +167,17 @@ public class AttributeEditor extends javax.swing.JDialog
 
 
   /**
-   * private void initTableComponents()
+   * private void createComponents()
    *
-   * Create the tabular attribute editor components
-   */
-  private void initTableComponents() {
+   * Create all the various components used by the dialogues. Don't
+   * lay them out yet, that is done by the initXXXComponents()
+   * methods.
+   **/
+  private void createComponents(String attributes, String iterators, double oldFactor) {
 
-    System.out.println ("Opening attribute editor");
-
-    configAttributes = getConfigNames(instName + "_ATTRIBS");
-    configIterators  = getConfigNames(instName + "_ITERATORS");
+    System.out.println("Editing attributes.");
+    configAttributes = getConfigNames(attributes);
+    configIterators  = getConfigNames(iterators);
 
     // Get the instrument attributes that are editable, along with
     // their current values.
@@ -187,10 +190,16 @@ public class AttributeEditor extends javax.swing.JDialog
 
     //create the table model   
     model = new AttributeTableModel(instName, avPairs, iavTriplets);
-    editorTable = new javax.swing.JTable(model);
-    buttonPanel = new javax.swing.JPanel();
-    cancel = new javax.swing.JButton();
-    OK = new javax.swing.JButton();
+    editorTable = new JTable(model);
+    buttonPanel = new JPanel();
+    buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+    buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    cancel = new JButton();
+    cancel.setText("Cancel");
+    cancel.addActionListener (this);
+    OK = new JButton();
+    OK.setText("OK");
+    OK.addActionListener (this);
     
     addWindowListener(new java.awt.event.WindowAdapter() {
       public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -198,21 +207,70 @@ public class AttributeEditor extends javax.swing.JDialog
       }
     });
 
-    getContentPane().add(editorTable.getTableHeader(), java.awt.BorderLayout.NORTH);
-    getContentPane().add(editorTable, java.awt.BorderLayout.CENTER);
-        
-    //        panel.setLayout(new java.awt.GridLayout(1, 0));
+    warnPanel = new JPanel();
+    warnPanel.setLayout(new BoxLayout(warnPanel, BoxLayout.X_AXIS));
+    warn = new JLabel("Warning: ");
+    warn.setForeground(Color.red);
+    warnEmpty   = new JLabel("No attributes found which match the config spec.");
+    warnAlready = new JLabel("This observation has already been scaled.");
+
+    scalePanel = new JPanel();
+    scalePanel.setLayout(new BoxLayout(scalePanel, BoxLayout.X_AXIS));
+    scaleLabel = new JLabel("Scale " + configAttributes.elementAt(0) +
+			    " attributes by ");
+    scaleFactor = new JTextField(Double.toString(oldFactor), 10);
+    rescaleLabel = new JLabel("Scale " + configAttributes.elementAt(0) +
+			      " attributes by " + oldFactor);
     
-    OK.setText("OK");
-    OK.addActionListener (this);
-    buttonPanel.add(OK);
-    
-    cancel.setText("Cancel");
-    cancel.addActionListener (this);
-    buttonPanel.add(cancel,java.awt.BorderLayout.SOUTH);
-    
-    getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
+
+    // Fix the height of the scaleFactor box to that of the
+    // scaleLabel. This keeps the layout sensible when resizing the
+    // dialog window (without it, the scaleFactor is the component
+    // which grows with the window, which is OK width wise but bogging
+    // height wise)
+    int height = scaleLabel.getMaximumSize().height; 
+    scaleFactor.setMinimumSize(new Dimension(scaleFactor.getMinimumSize().width, height));
+    scaleFactor.setPreferredSize(new Dimension(scaleFactor.getPreferredSize().width, height));
+    scaleFactor.setMaximumSize(new Dimension(scaleFactor.getMaximumSize().width, height));
+
+    getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
     initColumnSizes();
+  }
+
+
+  /**
+   * private void initTableComponents()
+   *
+   * Layout the editing form.
+   */
+  private void initTableComponents() {
+
+    boolean tableIsEmpty;
+
+    createComponents(instName + "_ATTRIBS", instName + "_ITERATORS", -1.0);
+    tableIsEmpty = (model.getRowCount() == 0);
+    
+    if (tableIsEmpty) {
+      // No attributes to edit. Just put a warning to this effect and an OK button
+      warnPanel.add(warn);
+      warnPanel.add(warnEmpty);
+      getContentPane().add(warnPanel);
+      // Rather than using the OK button, make the cancel button say
+      // OK and use that instead. this stops the action listener from
+      // trying to do anything with the empty table.
+      cancel.setText("OK");
+      buttonPanel.add(cancel);
+      getContentPane().add(buttonPanel);
+    } else {
+      // There are attributes to edit. Show the table, the OK button
+      // and the Cancel button.
+      getContentPane().add(editorTable.getTableHeader());
+      getContentPane().add(editorTable);
+      buttonPanel.add(OK);
+      buttonPanel.add(cancel);
+      getContentPane().add(buttonPanel);
+    }
+        
     pack();
   }
 
@@ -223,91 +281,52 @@ public class AttributeEditor extends javax.swing.JDialog
    *                                  double oldFactor,
    *                                  boolean rescale)
    *
-   * Create the scaling components
+   * Layout the scaling form.
    **/
   private void initScaleComponents(String attribute,
 				   boolean haveScaledThisObs,
 				   double oldFactor,
 				   boolean rescale) {
 
-    boolean showTable = true;	// Set to true for debug
+    boolean tableIsEmpty;
 
-    System.out.println ("Applying scaling factor");
+    createComponents(instName + "_" + attribute, instName + "_ITERATORS", oldFactor);
+    tableIsEmpty = (model.getRowCount() == 0);
 
-    configAttributes = getConfigNames(instName + "_" + attribute);
-    if (configAttributes.size() == 0) {
-      configAttributes.addElement("exposureTime");
-    }
-    configIterators  = getConfigNames(instName + "_ITERATORS");
-
-    // Get the instrument attributes that are editable, along with
-    // their current values.
-    avPairs = getInstAttValues(inst);
-
-    // Look for any iterators that may need addressing too, get those
-    // attributes and values.
-    iavTriplets = new Vector();
-    getIterAttValues(sequence);
-
-    // Create the table model. Still used in the scaling mode even
-    // though it is not displayed.
-    model = new AttributeTableModel(instName, avPairs, iavTriplets);
-    if (showTable) {
-      editorTable = new javax.swing.JTable(model);
-    }
-    buttonPanel = new javax.swing.JPanel();
-    if (haveScaledThisObs) {
-      scaleWarning = new javax.swing.JLabel("Warning: ");
-      scaleWarning.setForeground(Color.red);
-      buttonPanel.add(scaleWarning);
-      scaleWarning = new javax.swing.JLabel("This observation has already been scaled.");
-      buttonPanel.add(scaleWarning);
-    }
-
-    if (rescale) {
-      scaleLabel = new javax.swing.JLabel("Scale " + configAttributes.elementAt(0) +
-					  " attributes by " + oldFactor);
-      scaleFactor = new javax.swing.JTextField(Double.toString(oldFactor), 10);
-      buttonPanel.add(scaleLabel);
+    if (tableIsEmpty) {
+      // No attributes to scale. Just put a warning to this effect and an OK button
+      warnPanel.add(warn);
+      warnPanel.add(warnEmpty);
+      getContentPane().add(warnPanel);
+      // Rather than using the OK button, make the cancel button say
+      // OK and use that instead. This stops the action listener from
+      // trying to do anything with the empty table.
+      cancel.setText("OK");
+      buttonPanel.add(cancel);
+      getContentPane().add(buttonPanel);
     } else {
-      scaleLabel = new javax.swing.JLabel("Scale " + configAttributes.elementAt(0) +
-					  " attributes by ");
-      scaleFactor = new javax.swing.JTextField(Double.toString(oldFactor), 10);
-      buttonPanel.add(scaleLabel);
-      buttonPanel.add(scaleFactor);
-    }
-
-    cancel = new javax.swing.JButton();
-    OK = new javax.swing.JButton();
-    
-    addWindowListener(new java.awt.event.WindowAdapter() {
-      public void windowClosing(java.awt.event.WindowEvent evt) {
-        closeDialog();
+      // There are attributes to edit. Show the table, the OK button
+      // and the Cancel button.
+      getContentPane().add(editorTable.getTableHeader());
+      getContentPane().add(editorTable);
+      if (haveScaledThisObs) {
+	warnPanel.add(warn);
+	warnPanel.add(warnAlready);
+	getContentPane().add(warnPanel);
       }
-    });
-
-    if (showTable) {
-      getContentPane().add(editorTable.getTableHeader(), java.awt.BorderLayout.NORTH);
-      getContentPane().add(editorTable, java.awt.BorderLayout.CENTER);
+      if (rescale) {
+	scalePanel.add(rescaleLabel);
+      } else {
+	scalePanel.add(scaleLabel);
+	scalePanel.add(scaleFactor);
+      }
+      getContentPane().add(scalePanel);
+      buttonPanel.add(OK);
+      buttonPanel.add(cancel);
+      getContentPane().add(buttonPanel);
     }
         
-    //        panel.setLayout(new java.awt.GridLayout(1, 0));
-    
-    OK.setText("OK");
-    OK.addActionListener (this);
-    buttonPanel.add(OK);
-    
-    cancel.setText("Cancel");
-    cancel.addActionListener (this);
-    buttonPanel.add(cancel,java.awt.BorderLayout.SOUTH);
-    
-    getContentPane().add(buttonPanel, java.awt.BorderLayout.SOUTH);
-    if (showTable) {
-      initColumnSizes();
-    }
     pack();
-    //      makeChanges();
-    //      closeDialog();
   }
 
 
@@ -329,25 +348,37 @@ public class AttributeEditor extends javax.swing.JDialog
       if (doingScale) {
 	_scaleFactorUsed = -1.0;
       }
+      closeDialog();
     } else if (source == OK) {
-      makeChanges();
+      if (makeChanges()) {
+	closeDialog();
+      }
     }
-
-    closeDialog();
   }
   
   
   /**
-   * public void makeChanges()
+   * private boolean makeChanges()
    *
    * Effect any scaling and then write back all changes to the
-   * observation
+   * observation. Return value denotes whether or not the method
+   * completed normally.
    **/
-  private void makeChanges() {
+  private boolean makeChanges() {
     if (doingScale) {
-      System.out.println("Scale factor = " + scaleFactor.getText());
-      _scaleFactorUsed = Double.valueOf(scaleFactor.getText()).doubleValue();
-      model.scaleValuesBy(_scaleFactorUsed);
+      ErrorBox eb;
+      try {
+	_scaleFactorUsed = Double.valueOf(scaleFactor.getText()).doubleValue();
+	if (_scaleFactorUsed <= 0.0) {
+	  eb = new ErrorBox("Negative or Zero scale factor (" + scaleFactor.getText() + ").");
+	  return false;
+	} else {
+	  model.scaleValuesBy(_scaleFactorUsed);
+	}
+      } catch (Exception e) {
+	eb = new ErrorBox("Invalid scale factor (" + scaleFactor.getText() + ").");
+	return false;
+      }
     }
     
     boolean doneSome = false;
@@ -386,6 +417,8 @@ public class AttributeEditor extends javax.swing.JDialog
     if (!doneSome) {
       System.out.println ("No changes made");
     }
+
+    return true;
     
   }
 
@@ -429,7 +462,6 @@ public class AttributeEditor extends javax.swing.JDialog
       }
     }
 
-    //    System.out.println(av.size() + " attributes");
     return av;
 
   }
@@ -567,7 +599,7 @@ public class AttributeEditor extends javax.swing.JDialog
     final int minWidth = 80;
     final int padding  = 20;
 
-    javax.swing.table.TableColumn column = null;
+    TableColumn column = null;
     Component comp = null;
     int width;
     int maxWidth;
@@ -576,9 +608,15 @@ public class AttributeEditor extends javax.swing.JDialog
       maxWidth = minWidth;	// sic - set a lower bound for the width
       column = editorTable.getColumnModel().getColumn(i);
 
-      comp = column.getHeaderRenderer().
-	getTableCellRendererComponent(null, column.getHeaderValue(),
-				      false, false, 0, 0);
+      TableCellRenderer r = column.getHeaderRenderer();
+      if (r == null) {
+	comp = editorTable.getDefaultRenderer(model.getColumnClass(i)).
+	  getTableCellRendererComponent(editorTable, column.getHeaderValue(),
+					false, false, 0, i);
+      } else {
+	comp = r.getTableCellRendererComponent(null, column.getHeaderValue(),
+					       false, false, 0, 0);
+      }
       width = comp.getPreferredSize().width;
       maxWidth = Math.max(width, maxWidth);
       
@@ -604,7 +642,7 @@ public class AttributeEditor extends javax.swing.JDialog
    * @param args the command line arguments
    */
   public static void main(String args[]) {
-    new AttributeEditor(new javax.swing.JFrame(), true).show();
+    new AttributeEditor(new JFrame(), true).show();
   }
 
   public static double scaleFactorUsed() {
@@ -613,14 +651,19 @@ public class AttributeEditor extends javax.swing.JDialog
 
   private static double _scaleFactorUsed = 1.0;
 
-  private javax.swing.JTable editorTable;
-  private javax.swing.JPanel buttonPanel;
-  private javax.swing.JButton cancel;
-  private javax.swing.JButton OK;
-  private javax.swing.JPanel scalePanel;
-  private javax.swing.JTextField scaleFactor;
-  private javax.swing.JLabel scaleLabel;
-  private javax.swing.JLabel scaleWarning;
+  private JTable editorTable;
+  private JPanel buttonPanel;
+  private JPanel warnPanel;
+  private JPanel scalePanel;
+  private JButton cancel;
+  private JButton OK;
+  private JLabel warn;
+  private JLabel warnEmpty;
+  private JLabel warnAlready;
+  private JLabel scaleLabel;
+  private JLabel rescaleLabel;
+  private JTextField scaleFactor;
+
   private SpObs obs;
   private SpItem sequence;
   private SpItem inst, child;
