@@ -140,7 +140,7 @@ public SpIterCGS4CalObs()
    _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_EXPOSURE_TIME, null, 0);
    _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_COADDS, DEFAULT_COADDS, 0);
    _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_CVF_WAVELENGTH, "0.0", 0);
-   _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING, "1x1", 0);
+   _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING, "AS_OBJECT", 0);
    _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY, null, 0);
 
 }
@@ -497,8 +497,8 @@ getFlatSampling()
 {
    String sam = _avTable.get(SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING);
    if (sam == null) {
-      _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING, "1x1", 0);
-      sam = "1x1";
+      _avTable.noNotifySet(SpCGS4CalUnitConstants.ATTR_FLAT_SAMPLING, "AS_OBJECT", 0);
+      sam = "AS_OBJECT";
    }
    return sam;
 }
