@@ -41,6 +41,7 @@
     <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_dir"                  minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_filename"             minOccurs="0"/>
+    <xsd:element ref="toml:meta_gui_filename_"            minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_hasBeenSaved"         minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_selected"             minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_selectedOffsetPos"    minOccurs="0"/>

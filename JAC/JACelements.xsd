@@ -10,6 +10,7 @@
 <xsd:element name="meta_gui_collapsed"         type="xsd:boolean"/>
 <xsd:element name="meta_gui_selected"          type="xsd:boolean"/>
 <xsd:element name="meta_gui_filename"          type="xsd:string"/>
+<xsd:element name="meta_gui_filename_"         type="xsd:string"/>
 <xsd:element name="meta_gui_hasBeenSaved"      type="xsd:boolean"/>
 <xsd:element name="meta_gui_dir"               type="xsd:boolean"/>
 <xsd:element name="meta_gui_selectedOffsetPos" type="xsd:string"/>
