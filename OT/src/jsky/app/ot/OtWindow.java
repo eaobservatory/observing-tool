@@ -62,7 +62,7 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.tpe.TpeManagerWatcher;
 import jsky.app.ot.util.CloseableApp;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 import orac.helptool.JHLauncher;
 
@@ -308,14 +308,14 @@ public class OtWindow extends SpTreeGUI
      */
     public static void create(SpRootItem spItem, FileInfo fi) {
 	SpType spType = spItem.type();
-	OtWindow editor;
+	OtWindow editor = null;
 	if (spType.equals(SpType.SCIENCE_PROGRAM) 
 	    || spType.equals(SpType.SCIENCE_PLAN)
 	    || spType.equals(SpType.LIBRARY)) {
 	    editor = new OtProgWindow(spItem, fi);
 	} 
 	else {
-	    DialogUtil.error("Can't create an OtWindow for type: " + spItem.type());
+	    DialogUtil.error(editor, "Can't create an OtWindow for type: " + spItem.type());
 	    return;
 	}
 	
@@ -541,7 +541,7 @@ public class OtWindow extends SpTreeGUI
 
 	// The program was edited and we should prompt, so do so.
 	String msg = "Save changes to " + getItemType() + " '" +  getFilename() + "'?";
-	int response = DialogUtil.confirm(msg);
+	int response = DialogUtil.confirm(this, msg);
 	if (response == JOptionPane.CANCEL_OPTION) {
 	    return false;
 	}
@@ -589,17 +589,17 @@ public class OtWindow extends SpTreeGUI
         try {
 	    seqName = spt.translate();
         }catch (Exception ex) {
-	    DialogUtil.error("Exception whilst translating:\n "+ex.getMessage());
+	    DialogUtil.error(this, "Exception whilst translating:\n "+ex.getMessage());
 	    return false;
         }
 
       }else{
         // The user didn't select an observation item for the translation.
-        DialogUtil.error("Selected node is not an observation");
+        DialogUtil.error(this, "Selected node is not an observation");
         return false;
       }
 
-      DialogUtil.message("Observation saved to " + seqName);
+      DialogUtil.message(this, "Observation saved to " + seqName);
   
       return true;
     }
@@ -623,11 +623,11 @@ public class OtWindow extends SpTreeGUI
 
 	JDesktopPane desktop = OT.getDesktop();
 	Component f;
+
 	if (desktop == null) {
 	    ((JFrame)parent).setVisible(false);
-	    if (--_frameCount <= 0)
-		System.exit(0);
 	    ((JFrame)parent).dispose();
+	    OT.removeOtWindowFrame((OtWindowFrame)parent);
 	}
 	else {
 	    parent.setVisible(false);
@@ -668,13 +668,13 @@ public class OtWindow extends SpTreeGUI
 	SpItem spRoot = _tw.getProg();
 
 	if (!(spRoot instanceof SpProg)) {
-	    DialogUtil.message("Phase 1 information is only available for Science Programs.");
+	    DialogUtil.message(this, "Phase 1 information is only available for Science Programs.");
 	    return;
 	}
 
 	SpPhase1 p1 = ((SpProg) spRoot).getPhase1Item();
 	if (p1 == null) {
-	    DialogUtil.message("There is no Phase 1 Information for this Science Program.");
+	    DialogUtil.message(this, "There is no Phase 1 Information for this Science Program.");
 	    return;
 	}
 
@@ -682,7 +682,7 @@ public class OtWindow extends SpTreeGUI
 
 	if (doc == null) {
 	    String msg = "This installation does not support Phase 1 Info browsing.";
-	    DialogUtil.message(msg);
+	    DialogUtil.message(this, msg);
 	    return;
 	}
 
@@ -987,7 +987,7 @@ public class OtWindow extends SpTreeGUI
 	    item.actionPerformed((ActionEvent)null);
 	}
 	catch(Exception e) {
-	    DialogUtil.error(e);
+	    DialogUtil.error(this, e);
 	}
 	noStack = false;
     }
@@ -1016,7 +1016,7 @@ public class OtWindow extends SpTreeGUI
 	    item.actionPerformed((ActionEvent)null);
 	}
 	catch(Exception e) {
-	    DialogUtil.error(e);
+	    DialogUtil.error(this, e);
 	}
 	noStack = false;
     }
@@ -1183,9 +1183,14 @@ public class OtWindow extends SpTreeGUI
      * ORAC (UKIRT) Added item. AB 28-Sep-1999, M.Folger@roe.ac.uk 30/01/2001
      */
     public void launchHelp() {
-        String[] args={"-helpset", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "help/othelp.hs"};
-        JHLauncher jhl = new JHLauncher(args);
-        //System.out.println ("Help tool launched");
+	if(OT.getHelpLauncher() != null) {
+	  OT.getHelpLauncher().launch();
+	}
+	else {
+	    String[] args={"-helpset", System.getProperty("ot.cfgdir", "jsky/app/ot/cfg/") + "help/othelp.hs"};
+            OT.setHelpLauncher(new JHLauncher(args));
+            //System.out.println ("Help tool launched");
+	}
     }
 
     /** 
@@ -1211,7 +1216,7 @@ public class OtWindow extends SpTreeGUI
     public void editItemTitle() {
 	OtTreeNodeWidget tnw = (OtTreeNodeWidget) _tw.getSelectedNode();
 	//new TitleChangeWindow(tnw.getItem());
-	String s = DialogUtil.input("New Title:");
+	String s = DialogUtil.input(this, "New Title:");
 	if (s != null && s.length() != 0) {
 	    _curItem.setTitleAttr(s);
 	}
