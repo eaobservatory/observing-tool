@@ -40,7 +40,7 @@ public final class movie extends JFrame
   public movie(sendCmds c, boolean spectrometer)
   {
       cSent = c;
-      setTitle("Quick Look Feature Control");
+      setTitle("Movie Feature Control");
 
       setLocation(800,400);
 
