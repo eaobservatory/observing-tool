@@ -31,7 +31,6 @@ import orac.ukirt.inst.SpInstIRCAM3;
 import orac.ukirt.inst.SpInstMichelle;
 import orac.ukirt.inst.SpInstUFTI;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
-import orac.ukirt.iter.SpIterNodObs;
 //import ot_ukirt.util.InstApertures;
 //import ot_ukirt.util.InstConfig;
 import java.io.*;
@@ -656,7 +655,6 @@ public class SpTranslator {
       String apertures;                   // Space-separated list of
                                           // aperture values
       String attribute;                   // Config attribute 
-      String beams[];                     // Nodding beams
       Vector breakAttribute = new Vector(); // CGS4 attributes when changed
                                           // requiring a break in the sequence
       SpAvTable cavl;                     // Instrument attribute value table
@@ -702,7 +700,6 @@ public class SpTranslator {
       String mpmDec;                      // Proper motion in Dec. milli-arcsec/yr
       String mpmRA;                       // Proper motion in R.A. milli-arcsec/yr
       StringBuffer nodCommand;            // Buffer for building nod instruction
-      Vector nods;                        // Nod positions
       String noffsetsInstruction;         // NOFFSETS setHeader instruction in sequence
       int numConfig = 0;                  // Number of configs
       int numberOffsets;                  // Number of offsets
@@ -734,7 +731,6 @@ public class SpTranslator {
       SpIterComp sic;                     // Current Iterator Component
       SpIterEnumeration sie;              // Enumeration of the Iterator
                                           // Component
-      SpIterNodObs sino;                  // Nod iterator
       SpIterStep sis;                     // Iteration step
       SpIterValue siv;                    // Iteration attribute and values
       double skyCoords[];                 // Sky co-ordinates (lat then long) in
@@ -1468,34 +1464,26 @@ public class SpTranslator {
                               sequence.addElement( noffsetsInstruction );
                            }
 
-// Get access to the nod iterator.  It is a sequence component, not an
-// iterator step.
-                           sino = (SpIterNodObs) sic;
-                           beams = sino.getNodPattern();
-
-// Obtain the nod positions values.
-                           for ( i = 0; i < beams.length; ++i ) {
-
 // Here we just need the values of the nod positions, not the attribute.  Append
 // the values in a StringBuffer.  Initialise with the command.
-                              nodCommand = new StringBuffer( 20 );
+                           nodCommand = new StringBuffer( 20 );
+
+// Obtain the nod beam values.
+                           for ( j = 0; j < sis.values.length; ++j ) {
+                              siv = (SpIterValue) sis.values[ j ];
 
 // Create the command for the current nod position.
                               nodCommand = nodCommand.append( "SET_CHOPBEAM " );
-                              nodCommand = nodCommand.append( beams[ i ] );
+                              nodCommand = nodCommand.append( siv.values[ 0 ] );
 
 // Add the observe instruction to the sequence buffer.
                               instruction = nodCommand.toString();
                               sequence.addElement( instruction );
 
-// Obtain the nod positions values.
-                              for ( j = 0; j < sino.getCount(); ++j ) {
-
 // Add the observe instructions to the sequence buffer.  Note the type
 // written in uppercase within the sequence so refer to the type here
 // in uppercase too.
-                                 observeCount( sequence, "OBJECT", drRecipeComp );
-                              }
+                              observeCount( sequence, "OBJECT", drRecipeComp );
                            }
 
 // Store an observe command.
