@@ -61,24 +61,10 @@ public final class EdObservation extends OtItemEditor
 
 	_obsState  =  _w.obsState;
 
-// 	_priHigh   = _w.priorityHigh;
-// 	_priMedium = _w.priorityMedium;
-// 	_priLow    = _w.priorityLow;
-
-// 	ButtonGroup grp = new ButtonGroup();
-// 	grp.add(_priHigh);
-// 	grp.add(_priMedium);
-// 	grp.add(_priLow);
-
-// 	_w.priorityHigh.addActionListener(this);
-// 	_w.priorityMedium.addActionListener(this);
-// 	_w.priorityLow.addActionListener(this);
 	_w.jComboBox1.addActionListener(this);
 
 	_w.optional.addWatcher(this);
 	_w.standard.addWatcher(this);
-//	_w.chained.addActionListener(this);
-//	_w.chained.setVisible(false); // XXX allan: remove it?
 
         // Added by MFO (22 February 2002)
 	if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
@@ -164,15 +150,6 @@ public final class EdObservation extends OtItemEditor
 	// Set the priority
 	int pri = ((SpObs) _spItem).getPriority();
 	_w.jComboBox1.setSelectedIndex(pri-1);
-// 	switch (pri) {
-// 	case SpObs.PRIORITY_HIGH:   _priHigh.setSelected(true);   break;
-// 	case SpObs.PRIORITY_MEDIUM: _priMedium.setSelected(true); break;
-// 	default:                    _priLow.setSelected(true);
-// 	}
-
-	// Set the chained state
-//	CheckBoxWidgetExt cbw = _w.chained;
-//	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
 
 	// Set whether or not this is a standard
 	_w.standard.setSelected( ((SpObs) _spItem).getIsStandard() );
@@ -188,6 +165,8 @@ public final class EdObservation extends OtItemEditor
 	else {
 	  _w.remaining.setSelectedIndex(numberRemaining + 1);
 	}
+
+	_w.unSuspendCB.addActionListener(this);
 
 	ignoreActions = false;
 
@@ -207,9 +186,16 @@ public final class EdObservation extends OtItemEditor
      */
     protected void _updateMsbDisplay() {
 
+      ignoreActions = true;
       if(((SpObs)_spItem).isMSB()) {
         _w.msbPanel.setVisible(true);
 	_w.optional.setVisible(false);
+	if ( ((SpObs)_spItem).isSuspended() ) {
+	    _w.unSuspendCB.setVisible(true);
+	}
+	else {
+	    _w.unSuspendCB.setVisible(false);
+	}
       }
       else {
         _w.msbPanel.setVisible(false);
@@ -220,6 +206,7 @@ public final class EdObservation extends OtItemEditor
 	  _w.optional.setVisible(true);
 	}  
       }
+      ignoreActions = false;
     }
 
 
@@ -247,9 +234,6 @@ public final class EdObservation extends OtItemEditor
 	if (!(o instanceof SpAvEditState)) {
 	    return;
 	}
-
-//	CheckBoxWidgetExt cbw = _w.chained;
-//	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
 
 	// Set whether or not this is a standard
 	_w.standard.setSelected( ((SpObs) _spItem).getIsStandard() );
@@ -298,18 +282,23 @@ public final class EdObservation extends OtItemEditor
 	    spObs.setPriority(SpObs.PRIORITY_LOW);
 	    return;
 	}
-
-	// Change the chained state
-//	if (w == _w.chained) {
-//	    CheckBoxWidgetExt cbw = (CheckBoxWidgetExt)w;
-//	    
-//	    _spItem.getAvEditFSM().deleteObserver(this);
-//	    spObs.chainToNext( cbw.getBooleanValue() );
-//	    _spItem.getAvEditFSM().addObserver(this);
-//
-//	    cbw.setValue( spObs.getChainedToNext() );
-//	    return;
-//	}
+	if ( w == _w.unSuspendCB) {
+	    String message = "This is an Irreversible Operation" + 
+		"\n" +
+		"Are you sure you want to proceed?";
+	    int option = JOptionPane.showConfirmDialog(_w,
+						       message,
+						       "Irreversible Operation",
+						       JOptionPane.YES_NO_OPTION,
+						       JOptionPane.WARNING_MESSAGE);
+	    if ( option == JOptionPane.NO_OPTION) {
+		return;
+	    }
+	    spObs.unSuspend();
+	    _w.unSuspendCB.setVisible(false);
+	    return;
+	}
+	
 
     }
 

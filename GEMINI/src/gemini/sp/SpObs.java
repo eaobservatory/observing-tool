@@ -265,6 +265,7 @@ isMSB()
    return _avTable.getBool(ATTR_MSB);
 }
 
+
 /**
  * Set the MSB attribute of the observation.
  *

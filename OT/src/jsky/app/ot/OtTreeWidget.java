@@ -1008,6 +1008,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	if(spMSB.getNumberRemaining() < 1) {
           resultComponent.setForeground(Color.gray);
 	}
+	if (spMSB.isSuspended()) {
+	    resultComponent.setForeground(Color.red);
+	}
       }
 
 
@@ -1018,6 +1021,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	// the Science program spObs.isOptional() implies spObs.getIsMSB() == false.
 	if(spObs.isOptional()) {
           resultComponent.setForeground(GREEN);
+	}
+	if ( spObs.isMSB() && spObs.isSuspended() ) {
+	    resultComponent.setForeground(Color.red);
 	}
       }
 

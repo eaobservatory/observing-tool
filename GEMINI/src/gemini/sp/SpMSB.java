@@ -64,6 +64,9 @@ public class SpMSB extends SpObsContextItem {
    */
   public static final String REMOVED_STRING = "REMOVED";
 
+    /** This attribute records whether an MSB has been suspended */
+    public static final String ATTR_SUSPEND = ":suspend";
+
   /**
    * The databases uses this number to indecate that an MSB has been removed.
    *
@@ -204,6 +207,22 @@ public void
 setNumberRemaining(int remaining)
 {
    _avTable.set(ATTR_REMAINING, remaining);
+}
+
+/**
+ * Returns a boolean if the suspend attribute exists
+ */
+public boolean isSuspended() {
+    boolean suspended = false;
+    if ( _avTable.exists(ATTR_SUSPEND) ) suspended = true;
+    return suspended;
+}
+
+/**
+ * Unsuspend an MSB
+ */
+public void unSuspend() {
+    _avTable.rm(ATTR_SUSPEND);
 }
 
 /**

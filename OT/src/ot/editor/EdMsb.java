@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
@@ -45,14 +46,6 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	_presSource  = _w = new MsbEditorGUI();
 	_description = "MSB information.";
 
-// 	ButtonGroup grp = new ButtonGroup();
-// 	grp.add(_w.priorityHigh);
-// 	grp.add(_w.priorityMedium);
-// 	grp.add(_w.priorityLow);
-
-// 	_w.priorityHigh.addActionListener(this);
-// 	_w.priorityMedium.addActionListener(this);
-// 	_w.priorityLow.addActionListener(this);
 	_w.jComboBox1.addActionListener(this);
 
 	_w.remaining.addItem(SpMSB.REMOVED_STRING);
@@ -62,6 +55,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	}
 
 	_w.remaining.addActionListener(this);
+	_w.unSuspendCB.addActionListener(this);
     }
 
     /**
@@ -106,6 +100,13 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	  _w.remaining.setSelectedIndex(numberRemaining + 1);
 	}
 
+	if ( ((SpMSB)_spItem).isSuspended() ) {
+	    _w.unSuspendCB.setVisible(true);
+	}
+	else {
+	    _w.unSuspendCB.setVisible(false);
+	}
+
 	ignoreActions = false;
 
 	// Note that the elapsed time is re-calculated every time _updateWidgets is called.
@@ -148,6 +149,23 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 
 	if ( w instanceof JComboBox ) {
 	    spMSB.setPriority( ((Integer)_w.jComboBox1.getSelectedItem()).intValue() );
+	}
+
+	if ( w == _w.unSuspendCB) {
+	    String message = "This is an Irreversible Operation" + 
+		"\n" +
+		"Are you sure you want to proceed?";
+	    int option = JOptionPane.showConfirmDialog(_w,
+						       message,
+						       "Irreversible Operation",
+						       JOptionPane.YES_NO_OPTION,
+						       JOptionPane.WARNING_MESSAGE);
+	    if ( option == JOptionPane.NO_OPTION) {
+		return;
+	    }
+	    spMSB.unSuspend();
+	    _w.unSuspendCB.setVisible(false);
+	    return;
 	}
 
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
