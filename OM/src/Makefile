@@ -25,7 +25,15 @@ JAR_FILE            = om.jar
 
 OM_SCRIPT           = om
 
-all: classes cfg script
+RMI_GENERATED_CLASSES = $(CLASSES_DIR)/om/console/commandSent_Skel.class \
+                        $(CLASSES_DIR)/om/console/commandSent_Stub.class \
+                        $(CLASSES_DIR)/om/console/messageServer_Skel.class \
+                        $(CLASSES_DIR)/om/console/messageServer_Stub.class \
+                        $(CLASSES_DIR)/om/console/remoteFrame_Skel.class \
+                        $(CLASSES_DIR)/om/console/remoteFrame_Stub.class
+
+
+all: classes $(RMI_GENERATED_CLASSES) cfg script
 
 
 classes: $(CLASSES_DIR) $(CLASS_FILES)
@@ -142,8 +150,8 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n\
 	\nset CFG_DIR = $(shell cd $(CFG_DIR); pwd)\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -classpath \
-	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):/ukirt_sw/jh1.0/swing/swingall.jar\
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -classpath \
+	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
 	\n" > $(BIN_DIR)/$(OM_SCRIPT)
@@ -155,6 +163,12 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 clean:
 	rm -rf $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
 	rm -f  $(BIN_DIR)/$(OM_SCRIPT)
+
+
+$(RMI_GENERATED_CLASSES):
+	$(RMIC) -classpath $(CLASSPATH) -d $(CLASSES_DIR) om.console.commandSent
+	$(RMIC) -classpath $(CLASSPATH) -d $(CLASSES_DIR) om.console.messageServer
+	$(RMIC) -classpath $(CLASSPATH) -d $(CLASSES_DIR) om.console.remoteFrame
 
 
 ###################################################################
@@ -323,8 +337,8 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n\
 	\nset CFG_DIR = $(shell cd $(CFG_DIR); pwd)\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=ATC -classpath \
-	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):/ukirt_sw/jh1.0/swing/swingall.jar\
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -classpath \
+	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
 	\n" > $(INSTALL_ROOT)/bin/om
