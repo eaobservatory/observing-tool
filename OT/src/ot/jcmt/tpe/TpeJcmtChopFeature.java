@@ -37,7 +37,7 @@ public void draw(Graphics g, FitsImageInfo fii) {
     return;
   }
 
-  if(containsJiggleObservation(_iterChop)) {
+  if(!containsRasterObservation(_iterChop)) {
 //    // Need the chop iterator to know what to draw.
 //    SpIterChop _iterChop = (SpIterChop)_iw.getBaseItem();
     if ((_iterChop == null) || (_iterChop.getSelectedIndex() < 0)) {
@@ -148,8 +148,7 @@ public void draw(Graphics g, FitsImageInfo fii) {
 
     return;
   }
-
-  if(containsRasterObservation(_iterChop)) {
+  else {
 //    // Need the chop iterator to know what to draw.
 //    SpIterChop _iterChop = (SpIterChop)_iw.getBaseItem();
     if ((_iterChop == null) || (_iterChop.getSelectedIndex() < 0)) {
@@ -285,8 +284,6 @@ public void draw(Graphics g, FitsImageInfo fii) {
 
     return;
   }
-
-  super.draw(g, fii);
 }
 
 
@@ -313,26 +310,6 @@ public void drag(FitsMouseEvent fme)
 
 }
 
-
-  /**
-   * Checks whether there is a Jiggle or Photom/Stare Observe inside this Chop iterator.
-   */
-  protected static boolean containsJiggleObservation(SpIterChop spIterChop) {
-    SpItem child = spIterChop.child();
-    while(child != null) {
-      if(child instanceof SpIterJiggleObs) {
-        return true;
-      }
-
-      if(child instanceof SpIterStareObs) {
-        return true;
-      }
-
-      child = child.next();
-    }
-
-    return false;
-  }
 
   /**
    * Checks whether there is a Scan/Raster Observe inside this Chop iterator.
