@@ -326,6 +326,8 @@ public void drag(FitsMouseEvent fme)
 
       double diff = _dragObject.nextAngleDiff(fme.xWidget, fme.yWidget);
       _instItem.addPosAngleRadians(diff);
+
+      _iw.repaint();
    }
 }
  
