@@ -379,6 +379,8 @@
 <xsd:element name='value' type="bolometerList"/>
 <xsd:element name='chainedToPrev' type="xsd:boolean"/>
 <xsd:element name="secsPerCycle" type="xsd:positiveInteger"/>
+<xsd:element name="ot_version" type="xsd:string/>
+<xsd:element name="library_version" type="xsd:string/>
 
 <!-- ELEMENT REFERENCES -->
 <xsd:element name="SpSiteQualityObsCompRef">
