@@ -124,12 +124,64 @@ public class SpTranslator {
    }
 
 /**
+ * Insert a "set <obstype>" instruction immediately following each
+ * loadConfig command in the sequence, except the first.
+ *
+ * @param Vector the sequence instructions (this is updated).
+ */
+   public void insertConfigObstype( Vector sequence ) {
+
+      int i;                              // Loop counter
+      int j;                              // Loop counter
+      String obsType = "set OBJECT";      // Command to set the current observe
+                                          // type
+      boolean setFound;                   // Intermediate "set <obstype>"
+                                          // instruction present
+
+// Traverse the sequence.
+      for ( i = 0; i < sequence.size(); ++i ) {
+
+// Record the current observe type.
+         if ( ( (String) sequence.elementAt( i ) ).startsWith( "set " ) ) {
+            obsType = (String) sequence.elementAt( i );
+         }
+
+// Look for a "loadConfig" instruction.
+         if ( ( (String) sequence.elementAt( i ) ).startsWith( "loadConfig" ) ) {
+
+// Starting from there, search forward to the next "do <N> _observe" command.
+// Look for an intermediate "Set <obstype> command.
+            setFound = false;
+            for ( j = i + 1; j < sequence.size(); ++j ) {
+               if ( ( (String) sequence.elementAt( j ) ).startsWith( "set " ) ) {
+                  setFound = true;
+               }
+
+// Look for a "do n _observe" instruction.
+               if ( ( (String) sequence.elementAt( j ) ).startsWith( "do" ) &&
+                    ( (String) sequence.elementAt( j ) ).endsWith( "_observe" ) ) {
+                  if ( ! setFound ) {
+
+// Add the additional "set <obstype>" instruction immediately following the
+// current "loadConfig" line.
+                     ++i;
+                     sequence.insertElementAt( obsType, i );
+
+// Move the main instruction number to after the "do <N> _observe" command.
+                     i = j + 1;
+                  }
+               }
+            }
+         }
+      }
+   }
+
+/**
  * Insert a loadConfig instruction before the first set OBJECT in a
  * sequence, unless there are no preceeding "set <obstype>" commands,
  * or there is a "loadConfig" instruction following the last 
  * "set <obstype>" command.
  *
- * @param String the instrument (so far only CGS4, IRCAM3 and UFTI supported).
  * @param Vector the sequence instructions (this is updated).
  */
    public void insertObjectConfig( Vector sequence ) {
@@ -188,6 +240,7 @@ public class SpTranslator {
          }
       }
    }
+
 
 /**
  * Insert peakup instructions into a CGS4 sequence containing a sky
@@ -1610,6 +1663,10 @@ public class SpTranslator {
 
 // Remove superfluous "set OBJECT" entries from the sequence.
             removeDupSetObject( sequence );
+
+// Insert a "set " command immediately after each loadConfig, using
+// the current observe type.
+            insertConfigObstype( sequence );
 
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
