@@ -88,6 +88,7 @@ public class DatabaseDialog implements ActionListener {
 
     _w.confirmButton.addActionListener(this);
     _w.closeButton.addActionListener(this);
+    _w.passwordTextBox.addActionListener(this);
     _stopAction.getStopButton().addActionListener(this);
   }
 
@@ -314,6 +315,10 @@ public class DatabaseDialog implements ActionListener {
     if (w == _stopAction.getStopButton()) {
       _databaseAccessAborted = true;
       return;
+    }
+
+    if ( w == _w.passwordTextBox ) {
+	_w.confirmButton.doClick();
     }
   }
 
