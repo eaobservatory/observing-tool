@@ -239,17 +239,23 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	}
 
 
-	// Hack to get Observation editor updated when Observation is dragged in and out MSB.
-	if((newItems != null) && (newItems[0] instanceof SpObs)) {
-	  Enumeration children = node.children();
-	  OtTreeNodeWidget treeNodeWidget = null;
-	  while(children.hasMoreElements()) {
-	    treeNodeWidget = (OtTreeNodeWidget)children.nextElement();
-            if(treeNodeWidget.getItem() == newItems[0]) {
-	      System.out.println("_spTree.getParent().getParent() = " + _spTree.getParent().getParent());
-	      System.out.println("Calling _spTree.nodeSelect on " + treeNodeWidget);
-	      ((OtWindow)_spTree.getParent().getParent()).nodeSelect(_spTree, treeNodeWidget);
+	if(newItems != null) {
+	  for(int i = 0; i < newItems.length; i++) {
+	    if((newItems[i] != null) && (newItems[i] instanceof SpObs)) {
+	      ((SpObs)newItems[i]).updateMsbAttributes();
 	    }
+	  }  
+
+	  // Hack to get Observation editor updated when Observation is dragged in and out MSB.
+	  if((newItems[0] != null) && (newItems[0] instanceof SpObs)) {
+	    Enumeration children = node.children();
+	    OtTreeNodeWidget treeNodeWidget = null;
+	    while(children.hasMoreElements()) {
+	      treeNodeWidget = (OtTreeNodeWidget)children.nextElement();
+              if(treeNodeWidget.getItem() == newItems[0]) {
+	        ((OtWindow)_spTree.getParent().getParent()).nodeSelect(_spTree, treeNodeWidget);
+	      }
+	    }  
 	  }
 	}
 
