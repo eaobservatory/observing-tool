@@ -4443,7 +4443,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                 }
             }
             _avTable.set(ATTR_VERSION, "2");
-        }
+        } else if (_avTable.get(ATTR_VERSION).equals("3")) {
+	    // This was added to compensate for a bug in convertUISTSp.pl wherein the
+	    // minumum exposure time attribute was incorrectly specified as DAConfMinExpTime. (RDK)
+	    String DAConf = _avTable.get(ATTR_DACONF);
+	    setDAConfMinExpT(DAConf);
+	}
     }
 // End of added by RDK
 }
