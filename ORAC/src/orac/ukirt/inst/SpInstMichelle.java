@@ -1416,6 +1416,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getPixelSampling()
     {
+	if ( isImaging() ) return "1x1";
         String sampling = _avTable.get(ATTR_SAMPLING);
         return sampling;
     }
