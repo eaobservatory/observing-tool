@@ -1173,7 +1173,7 @@ public class OtWindow extends SpTreeGUI
 
       // ADDED BY SDW...
       if (spItem instanceof SpProg || spItem instanceof SpLibrary) {
-	  spValidation.schemaValidate(spItem.toXML(), OtCfg.getSchemaLocation(), report);
+	  spValidation.schemaValidate(spItem.toXML(), OtCfg.getSchemaURL(), OtCfg.getSchemaLocation(), report);
       }
    
       // at the moment there is no difference in how errors and warnings are handled.

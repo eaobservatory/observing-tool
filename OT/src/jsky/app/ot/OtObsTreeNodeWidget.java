@@ -28,8 +28,8 @@ import java.util.Observable;
  * </ul>
  */
 public class OtObsTreeNodeWidget extends OtTreeNodeWidget {
-    protected boolean _amChained   = false;
-    protected boolean _chainAction = false;
+//     protected boolean _amChained   = false;
+//     protected boolean _chainAction = false;
 
     public OtObsTreeNodeWidget() {
     }
@@ -53,7 +53,7 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget {
      */
     public void	setItem(SpItem spItem)  {
 	super.setItem(spItem);
-	_amChained = getObsChained();
+// 	_amChained = getObsChained();
     }
 
     /**
@@ -99,15 +99,16 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget {
      * Get the chained state of the observation associated with this node.
      */
     public boolean getObsChained()  {
-	return ((SpObs) _spItem).getChainedToNext();
+// 	return ((SpObs) _spItem).getChainedToNext();
+	return false;
     }
 
     /**
      * Set the chained state of the observation associated with this node.
      */
     public void	setObsChained(boolean chained) {
-	_amChained = chained;
-	((SpObs) _spItem).chainToNext(chained);
+// 	_amChained = chained;
+// 	((SpObs) _spItem).chainToNext(chained);
     }
 
     /**
@@ -116,11 +117,11 @@ public class OtObsTreeNodeWidget extends OtTreeNodeWidget {
      * its definition.
      */
     public void	update(Observable o, Object arg)  {
-	boolean chained = getObsChained();
-	if (_amChained != chained) {
-	    _amChained = chained;
-	    //if (getParent() != null) getParent().repaint();
-	}
+// 	boolean chained = getObsChained();
+// 	if (_amChained != chained) {
+// 	    _amChained = chained;
+// 	    //if (getParent() != null) getParent().repaint();
+// 	}
 	super.update(o, arg);
     }
 

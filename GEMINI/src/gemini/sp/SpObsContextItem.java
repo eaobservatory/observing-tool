@@ -165,6 +165,7 @@ doExtract(SpItem child)
 void
 _fixChainStateBeforeExtract(SpItem firstChild, SpItem lastChild)
 {
+    /*
    if (firstChild instanceof SpObs) {
       // If the previous item is also an observation, then we may need to
       // update its "chainedToNext" property.
@@ -206,6 +207,7 @@ _fixChainStateBeforeExtract(SpItem firstChild, SpItem lastChild)
       }
       ((SpObs) lastChild).setChainedToNext(false);
    }
+    */
 }
 
 
@@ -216,6 +218,7 @@ _fixChainStateBeforeExtract(SpItem firstChild, SpItem lastChild)
 void
 _fixChainStateBeforeInsert(SpItem[] newChildren, SpItem afterChild)
 {
+    /*
    if ((afterChild == null) || !(afterChild instanceof SpObs)) {
       return;
    }
@@ -255,6 +258,7 @@ _fixChainStateBeforeInsert(SpItem[] newChildren, SpItem afterChild)
          nextObs.setChainedToPrev(false);
       }
    }
+    */
 }
 
 /**

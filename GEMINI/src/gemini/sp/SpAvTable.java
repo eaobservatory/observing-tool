@@ -10,6 +10,8 @@ import gemini.util.Assert;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.TreeMap;
 import java.util.Vector;
 
 //
@@ -69,7 +71,7 @@ public final class SpAvTable implements java.io.Serializable
    private static final float AV_TAB_LOAD_FACTOR =  0.33F;    
 
    // The table of attributes and values.
-   private Hashtable _avTable;
+   private TreeMap _avTable;
 
    // The state machine that tracks this table's edits for its SpItem.
    private SpAvEditState _editFSM;
@@ -79,13 +81,13 @@ public final class SpAvTable implements java.io.Serializable
  */
 public SpAvTable()
 {
-   _avTable   = new Hashtable(AV_TAB_INIT_SIZE, AV_TAB_LOAD_FACTOR);
+   _avTable   = new TreeMap();
 }
 
 //
 // Construct with an existing hashtable.
 //
-SpAvTable(Hashtable avTable)
+SpAvTable(TreeMap avTable)
 {
    _avTable   = avTable;
 }
@@ -555,9 +557,9 @@ public void
 noNotifyRmAll()
 {
     // Clear all of the SpAttr vectors...
-    Enumeration e = _avTable.keys();
-    while (e.hasMoreElements()) {
-	SpAttr a = (SpAttr) _avTable.get((String)e.nextElement());
+    Iterator e = _avTable.keySet().iterator();
+    while (e.hasNext()) {
+	SpAttr a = (SpAttr) _avTable.get((String)e.next());
 	if (a != null && a.getValues() != null ) {
 	    a.getValues().clear();
 	}
@@ -615,12 +617,34 @@ public void edit() {
 }
 
 /**
+ * Get an iterator over the attributes
+ */
+public Iterator getAttrIterator () {
+    return _avTable.keySet().iterator();
+}
+
+/**
  * Get an enumeration of the attributes.
  */
 public Enumeration
 attributes()
 {
-   return _avTable.keys();
+   return new Enumeration() {
+      private Iterator _keys    = _avTable.keySet().iterator();
+      private String      _nextKey = null;
+
+      public synchronized boolean hasMoreElements() {
+	  _nextKey = null;
+	  if ( _keys.hasNext() ) {
+	      _nextKey = (String)_keys.next();
+	  }
+	  return (_nextKey != null);
+      }
+
+      public synchronized Object nextElement() {
+         return _nextKey;
+      }
+   };
 }
 
 /**
@@ -631,13 +655,13 @@ public Enumeration
 attributes(final String prefix)
 {
    return new Enumeration() {
-      private Enumeration _keys    = _avTable.keys();
+      private Iterator _keys    = _avTable.keySet().iterator();
       private String      _nextKey = null;
 
       public boolean hasMoreElements() {
          _nextKey = null;
-         while (_keys.hasMoreElements()) {
-            String key = (String) _keys.nextElement();
+         while (_keys.hasNext()) {
+            String key = (String) _keys.next();
             if (key.startsWith(prefix)) {
                _nextKey = key;
                break;
@@ -659,12 +683,12 @@ public SpAvTable
 copy()
 {
    // Shallow copy the table structure.
-   Hashtable htCopy = (Hashtable) _avTable.clone();
+   TreeMap htCopy = (TreeMap) _avTable.clone();
 
    // Make a copy of the values.
-   Enumeration keys = _avTable.keys();
-   while (keys.hasMoreElements()) {
-      String key = (String) keys.nextElement();
+   Iterator keys = _avTable.keySet().iterator();
+   while (keys.hasNext()) {
+      String key = (String) keys.next();
       SpAttr   a = (SpAttr) _avTable.get(key);
       Vector   v = (Vector) a.getValues().clone();
       htCopy.put(key, new SpAttr(a.getDescription(), v) );

@@ -64,9 +64,9 @@ $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	-cp -r ../cfg/ $(LOCAL_INSTALL_ROOT)
 # Hacky solution to adding scema locations to the config files...
 	@ echo "" >> $(shell (cd $(LOCAL_INSTALL_ROOT);pwd))/cfg/jcmt/ot.cfg
-	@ echo "schemaLocation: JCMTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
+	@ echo "schemaBase: TOML/JAC/JCMT/JCMT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
 	@ echo "" >> $(shell (cd $(LOCAL_INSTALL_ROOT);pwd))/cfg/ukirt/ot.cfg
-	@ echo "schemaLocation: UKIRTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
+	@ echo "schemaBase: TOML/JAC/UKIRT/UKIRT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
 
 FORCE:
 

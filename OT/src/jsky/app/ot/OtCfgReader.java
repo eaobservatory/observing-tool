@@ -52,7 +52,8 @@ class OtCfgReader
     /** Telescope latitude. Can be used for noise calculations etc. */
     public static final String TELESCOPE_LATITUDE	= "telescope latitude";
 
-    public static final String SCHEMA_LOCATION          = "schemaLocation";
+    public static final String SCHEMA_BASE              = "schemaBase";
+    public static final String SCHEMA_URL               = "schemaURL";
 
     public static final String PROXY_SERVER             = "Proxy Server";
     private static final String PROP_PROXY_SERVER       = "http.proxyHost";
@@ -184,7 +185,10 @@ class OtCfgReader
 						    if(line.startsWith(TELESCOPE_LATITUDE)) {
                                                        info.telescopeLatitude = _getValue(line);
 						    }
-						    if(line.startsWith(SCHEMA_LOCATION)) {
+						    if(line.startsWith(SCHEMA_BASE)) {
+                                                       info.schemaBase = _getValue(line);
+						    }
+						    if(line.startsWith(SCHEMA_URL)) {
                                                        info.schemaLocation = _getValue(line);
 						    }
 						    if (line.startsWith(PROXY_SERVER)) {

@@ -16,6 +16,7 @@ import java.lang.Double;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.OtItemEditor;
@@ -136,6 +137,16 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		_iterObs.setFrequencyOffsetThrow(_w.frequencyOffset_throw.getValue());
 	    }
 	    else if (val.equals(IterJCMTGenericGUI.FREQUENCY_F)) {
+		// Make sure we are using A3 since that is the only
+		// front end capable of this.
+		SpInstHeterodyne currentInst = (SpInstHeterodyne)SpTreeMan.findInstrument(_iterObs);
+		if ( !currentInst.getFrontEnd().equals("A3") ) {
+		    JOptionPane.showMessageDialog( _w,
+						   "Fast Frequency Switching only available for A3,\nplease change front end configuration or select a different switching mode.",
+						   "Fast Freq. Switching Not Available",
+						   JOptionPane.WARNING_MESSAGE);
+		    return;
+		}
 		_w.frequencyPanel.setVisible(true);
 		_w.frequencyOffset_rate.setEnabled(true);
 		_w.frequencyOffset_rate.setValue(0.5);

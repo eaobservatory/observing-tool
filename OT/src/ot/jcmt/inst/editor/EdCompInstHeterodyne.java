@@ -28,8 +28,10 @@ import java.io.*;
 
 import gemini.sp.SpItem;
 import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.iter.SpIterStareObs;
 import edfreq.*;
 import jsky.app.ot.editor.OtItemEditor;
+import ot.jcmt.iter.editor.IterJCMTGenericGUI;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.xml.sax.InputSource;
@@ -1134,8 +1136,23 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       double obsmin;
       double obsmax;
 
+
       String newFE = (String)_w.feChoice.getSelectedItem();
       currentFE = newFE;
+
+      // See if we are allowed to make this change.  If any
+      // of the children use fast frequency switching and we 
+      // are not using A3, then report the error to the user
+      // but make the change anyway.
+      if ( _instHeterodyne != null ) {
+	  if ( usingFFSwitching(_instHeterodyne.parent()) && !currentFE.equals("A3") ) {
+	      JOptionPane.showMessageDialog(_w,
+					    "One of the observations using this configuration uses Fast-Frequency Switching\nwhich is only available on A3.\nEither switch to A3 or edit the Observation",
+					    "Fast Frequency Switching Used",
+					    JOptionPane.WARNING_MESSAGE);
+	  }
+      }
+
       r = (Receiver)cfg.receivers.get ( currentFE );
 
       loMin = r.loMin;
@@ -1595,6 +1612,25 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     public double getCurrentBandwidth ( int subsystem) {
 	if ( _instHeterodyne == null) return 0.0;
 	return _instHeterodyne.getBandWidth(subsystem);
+    }
+
+    private boolean usingFFSwitching(SpItem item) {
+	boolean ffUsed = false;
+
+	// Get the pareant and go through the children looking
+	Enumeration children = item.children();
+	while (children.hasMoreElements() && !ffUsed ) {
+	    SpItem child = (SpItem)children.nextElement();
+	    if ( child instanceof SpIterStareObs ) {
+		if ( IterJCMTGenericGUI.FREQUENCY_F.equals( ((SpIterStareObs)child).getSwitchingMode())) {
+		    ffUsed = true;
+		}
+	    }
+	    else {
+		ffUsed = usingFFSwitching(child);
+	    }
+	}
+	return ffUsed;
     }
 
 

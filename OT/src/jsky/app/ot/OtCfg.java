@@ -77,6 +77,7 @@ public final class OtCfg
 	String []       namedTargets;       // Added by MFO, June 05, 2002
 	String          telescopeLatitude;   // Added by MFO, June 13, 2002
 	String          schemaLocation;      // Added by SdW, Sept. 2002
+	String          schemaBase;          // Added ny SdW, Dec 2003
 	String          proxyServer;         // Added by Sdw, Feb 2003
 	String          proxyPort;           // Added by Sdw, Feb 2003
 	String []       noteLabels;
@@ -163,8 +164,9 @@ public final class OtCfg
      */
     public static String getSchemaLocation() {
 	// See if we can use a URL version of the schema
-	String schemaBase = _otCfgInfo.schemaLocation;
-	String schema = "http://www.jach.hawaii.edu/JACpublic/JAC/software/omp/schema/"+schemaBase;
+	//String schemaBase = _otCfgInfo.schemaBase;
+	//String schema = "http://www.jach.hawaii.edu/JACpublic/JAC/software/omp/schema/"+schemaBase;
+	String schema = _otCfgInfo.schemaLocation + "/" + _otCfgInfo.schemaBase;
 	try {
 	    URL url = new URL (schema);
 	    url.getContent();
@@ -172,13 +174,17 @@ public final class OtCfg
 	catch (Exception e) {
 	    System.out.println("No web connection available or file moved from server");
 	    System.out.println("Trying local version...");
-	    schema = System.getProperty("ot.cfgdir")+schemaBase;
+	    schema = System.getProperty("ot.cfgdir") + "/../schema/TOML/JAC/" + _otCfgInfo.schemaBase;
 	    File file = new File (schema);
 	    if ( !file.exists()) {
 		schema = null;
 	    }
 	}
 	return schema;
+    }
+
+    public static String getSchemaURL() {
+	return _otCfgInfo.schemaLocation;
     }
 
     // Added by SdW. Feb 2003

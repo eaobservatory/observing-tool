@@ -33,6 +33,7 @@ import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import java.util.Vector;
 import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  * Utilities for SpItem trees.
@@ -149,13 +150,13 @@ public class SpItemUtilities {
   public static void removeReferenceIDs(SpItem spItem) {
     spItem.getTable().noNotifyRm(ATTR_ID);
 
-    Enumeration attributes = spItem.getTable().attributes();
+    Iterator attributes = spItem.getTable().getAttrIterator();
     String idrefAttribute = null;
 
-    while(attributes.hasMoreElements()) {
-      idrefAttribute = (String)attributes.nextElement();
+    while(attributes.hasNext()) {
+      idrefAttribute = (String)attributes.next();
       if(idrefAttribute.endsWith(ID_REF_SUFFIX)) {
-        spItem.getTable().noNotifyRm(idrefAttribute);
+        attributes.remove();
       }
     }
     

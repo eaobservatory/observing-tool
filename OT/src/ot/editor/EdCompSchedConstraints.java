@@ -25,6 +25,7 @@ import java.util.Date;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import javax.swing.ButtonGroup;
 
 
@@ -58,6 +59,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
     _w.minElevation.addWatcher(this);
     _w.maxElevation.addWatcher(this);
     _w.period.addWatcher(this);
+    _w.airmassCB.addActionListener(this);
     _w.meridianApproachRising.addActionListener(this);
     _w.meridianApproachSetting.addActionListener(this);
     _w.meridianApproachAny.addActionListener(this);
@@ -78,6 +80,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       _schedConstObsComp.initLatest(OracUtilities.toISO8601(calendar.getTime()));
       _updateWidgets();
     }
+
   }
 
 
@@ -88,8 +91,67 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
   protected void _updateWidgets() {
       _w.earliest.setValue(_schedConstObsComp.getEarliest());
       _w.latest.setValue(_schedConstObsComp.getLatest());
-      _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
-      _w.maxElevation.setValue(_schedConstObsComp.getMaxElevation());
+
+      if ( _schedConstObsComp.getDisplayAirmass() ) {
+	  _w.airmassCB.removeActionListener(this);
+	  _w.airmassCB.setSelected(true);
+	  _w.airmassCB.addActionListener(this);
+	  _w.jLabel6.setVisible (false);
+	  _w.jLabel9.setText("Max");
+	  _w.jLabel10.setText("Min");
+
+      }
+      else {
+	  _w.jLabel6.setVisible (true);
+	  _w.jLabel9.setText("Min");
+	  _w.jLabel10.setText("Max");
+      }
+
+      if ( _schedConstObsComp.getMinElevation() != null && !_schedConstObsComp.getMinElevation().equals("") ) {
+	  // Get the value as a double
+	  double elevation = Double.valueOf( _schedConstObsComp.getMinElevation() ).doubleValue();
+	  // See if we should display this as an airmass
+	  if ( _w.airmassCB.isSelected() ) {
+	      // Convert the elevation to an airmass
+	      double airmass = _elevationToAirmass(elevation);
+	      // Display airmass to 3 diecimal places
+	      NumberFormat nf  = NumberFormat.getInstance();
+	      nf.setMaximumFractionDigits(3);
+	      nf.setGroupingUsed(false);
+	      _w.minElevation.setValue( nf.format(airmass) );
+	  }
+	  else {
+	      // Just show the elevation
+	      _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
+	  }
+      }
+      else {
+	  _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
+      }
+
+      if ( _schedConstObsComp.getMaxElevation() != null  && !_schedConstObsComp.getMinElevation().equals("") ) {
+	  // Get the value as a double
+	  double elevation = Double.valueOf( _schedConstObsComp.getMaxElevation() ).doubleValue();
+	  // See if we should display this as an airmass
+	  if ( _w.airmassCB.isSelected() ) {
+	      // Convert the elevation to an airmass
+	      double airmass = _elevationToAirmass(elevation);
+	      // Display airmass to 3 diecimal places
+	      NumberFormat nf  = NumberFormat.getInstance();
+	      nf.setMaximumFractionDigits(3);
+	      nf.setGroupingUsed(false);
+	      _w.maxElevation.setValue( nf.format(airmass) );
+	  }
+	  else {
+	      // Just show the elevation
+	      _w.maxElevation.setValue(_schedConstObsComp.getMaxElevation());
+	  }
+      }
+      else {
+	  _w.maxElevation.setValue(_schedConstObsComp.getMaxElevation());
+      }
+
+
       _w.period.setValue(_schedConstObsComp.getPeriod());
 
       if(_schedConstObsComp.getMeridianApproach() != null) {
@@ -124,11 +186,37 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       }
 
       if(tbw == _w.minElevation) {
-        _schedConstObsComp.setMinElevation(_w.minElevation.getValue());
+	  // If we aren't using airmass, just store the elevation
+	  if ( ! _w.airmassCB.isSelected() || "".equals(_w.minElevation.getValue()) ) {
+	      _schedConstObsComp.setMinElevation(_w.minElevation.getValue());
+	  }
+	  else {
+	      // User is inputing airmass, so convert it to degrees elevation
+	      double airmass   = Double.valueOf(_w.minElevation.getValue()).doubleValue();
+	      double elevation = _airmassToElevation(airmass);
+	      // Just store the converted value to 3 decimal places
+	      NumberFormat nf  = NumberFormat.getInstance();
+	      nf.setMaximumFractionDigits(3);
+	      nf.setGroupingUsed(false);
+	      _schedConstObsComp.setMinElevation(nf.format(elevation));
+	  }
       }
 
       if(tbw == _w.maxElevation) {
-        _schedConstObsComp.setMaxElevation(_w.maxElevation.getValue());
+	  // If we aren't using airmass, just store the elevation
+	  if ( ! _w.airmassCB.isSelected()  || _w.maxElevation.getValue().length() == 0 ) {
+	      _schedConstObsComp.setMaxElevation(_w.maxElevation.getValue());
+	  }
+	  else {
+	      // User is inputing airmass, so convert it to degrees elevation
+	      double airmass   = Double.valueOf(_w.maxElevation.getValue()).doubleValue();
+	      double elevation = _airmassToElevation(airmass);
+	      // Just store the converted value to 3 decimal places
+	      NumberFormat nf  = NumberFormat.getInstance();
+	      nf.setMaximumFractionDigits(3);
+	      nf.setGroupingUsed(false);
+	      _schedConstObsComp.setMaxElevation(nf.format(elevation));
+	  }
       }
 
       if(tbw == _w.period) {
@@ -137,6 +225,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
     }
     catch(Exception e) {
       DialogUtil.error(_w, e.getMessage());
+      e.printStackTrace();
     }
   }
  
@@ -164,5 +253,32 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
     if (w == _w.meridianApproachAny) {
       _schedConstObsComp.setMeridianApproach(null);
     }
+
+    if ( w== _w.airmassCB ) {
+	_schedConstObsComp.setDisplayAirmass( _w.airmassCB.isSelected() );
+	_updateWidgets();
+    }
   }
+
+  private double _elevationToAirmass(double elevation) {
+      // If the elevation is < 5 degrees set the airmass to 12
+      double airmass;
+      if ( elevation < 5.0 ) {
+	  airmass = 12.0;
+      }
+      else {
+	  // Convert elevation to radians
+	  elevation = elevation*Math.PI/180.0;
+	  airmass = 1.0/Math.sin(elevation);
+      }
+      return airmass;
+  }
+    
+    private double _airmassToElevation(double airmass) {
+	if ( Math.abs(airmass) < 1.0 ) airmass = 1.0;
+	double elevation = Math.asin(1.0/airmass);
+	// Convert to degrees
+	elevation = 180.0*elevation/Math.PI;
+	return elevation;
+    }
 }

@@ -21,13 +21,13 @@ public class SpObs extends SpMSB
     * This attribute determines whether or not the observation is chained
     * to the next observation.
     */
-   public static final String ATTR_CHAINED_NEXT = "chainedToNext";
+//    public static final String ATTR_CHAINED_NEXT = "chainedToNext";
 
    /**
     * This attribute determines whether or not the observation is chained
     * to the prev observation.
     */
-   public static final String ATTR_CHAINED_PREV = "chainedToPrev";
+//    public static final String ATTR_CHAINED_PREV = "chainedToPrev";
 
    /** This attribute records if the obs. is to be treated as a "standard"*/
    public static final String ATTR_STANDARD = "standard";
@@ -62,8 +62,8 @@ protected SpObs()
       _avTable.noNotifySet(ATTR_PRIORITY, "99", 0);
    }
    else {
-      _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
-      _avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
+//       _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
+//       _avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
    }   
    _avTable.noNotifySet(ATTR_STANDARD, "false", 0);
 }
@@ -85,8 +85,8 @@ clone()
 {
    SpItem spClone = (SpItem) super.clone();
    if(System.getProperty("OMP") == null) {
-      spClone._avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
-      spClone._avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
+//       spClone._avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
+//       spClone._avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
    }   
    return spClone;
 }
@@ -166,7 +166,8 @@ public String getLibraryRevision() {
 public boolean
 getChainedToNext()
 {
-   return _avTable.getBool(ATTR_CHAINED_NEXT);
+//    return _avTable.getBool(ATTR_CHAINED_NEXT);
+   return false;
 }
 
 //
@@ -177,9 +178,11 @@ getChainedToNext()
 void
 setChainedToNext(boolean chained)
 {
+    /*
    if (getChainedToNext() != chained) {
       _avTable.set(ATTR_CHAINED_NEXT, chained);
    }
+    */
 }
 
 /**
@@ -189,6 +192,7 @@ setChainedToNext(boolean chained)
 public void
 chainToNext(boolean chain)
 {
+    /*
    if (next() == null) {
       return;
    }
@@ -197,6 +201,7 @@ chainToNext(boolean chain)
       setChainedToNext(chain);
       ((SpObs) next()).setChainedToPrev(chain);
    }
+    */
 }
 
 
@@ -209,7 +214,8 @@ chainToNext(boolean chain)
 public boolean
 getChainedToPrev()
 {
-   return _avTable.getBool(ATTR_CHAINED_PREV);
+//    return _avTable.getBool(ATTR_CHAINED_PREV);
+   return false;
 }
 
 //
@@ -220,9 +226,11 @@ getChainedToPrev()
 void
 setChainedToPrev(boolean chained)
 {
+    /*
    if (getChainedToPrev() != chained) {
       _avTable.set(ATTR_CHAINED_PREV, chained);
    }
+    */
 }
 
 /**
@@ -231,6 +239,7 @@ setChainedToPrev(boolean chained)
 protected void
 setTable(SpAvTable avTable)
 {
+    /*
    // Make the new "chained to previous" state to equal the current one.
    Boolean b = new Boolean( getChainedToPrev() );
    avTable.noNotifySet(ATTR_CHAINED_PREV, b.toString(), 0);
@@ -249,6 +258,7 @@ setTable(SpAvTable avTable)
          ((SpObs) next()).setChainedToPrev(cNext);
       }
    }
+    */
 
    super.setTable(avTable);
 }

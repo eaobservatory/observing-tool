@@ -223,6 +223,16 @@ public class SpSchedConstObsComp extends SpObsComp {
     catch(NumberFormatException e) { _avTable.rm(ATTR_PERIOD); }
     catch(NullPointerException  e) { _avTable.rm(ATTR_PERIOD); }
   }
+
+    /** Set whether to display as airmass or elevation */
+    public void setDisplayAirmass (boolean flag) {
+	_avTable.set(".display.airmass", flag);
+    }
+
+    /** Get whether to display as airmass or elevation */
+    public boolean getDisplayAirmass() {
+	return (_avTable.getBool(".display.airmass"));
+    }
 }
 
 

@@ -434,7 +434,7 @@ public class SpValidation {
      * @param schema     Fully qualified file name for the schema.
      * @return           A vector of strings containing the validation errors
      */
-    public void schemaValidate(String xmlString, String schema, Vector report) {
+    public void schemaValidate(String xmlString, String schemaURL, String schema, Vector report) {
 	// Make sure the schema exists
 	if ( schema == null ) {
 	    report.add( new ErrorMessage(ErrorMessage.WARNING,
@@ -442,6 +442,7 @@ public class SpValidation {
 					 "Unable to locate both web service and local version"));
 	    return;
 	}
+	String schemaLoc = new String (schemaURL + " " + schema);
 	SAXParser parser = new SAXParser();
 	SchemaErrorHandler handler = new SchemaErrorHandler();
         SchemaContentHandler contentHandler = new SchemaContentHandler();
@@ -451,9 +452,9 @@ public class SpValidation {
 	try {
     	    parser.setFeature("http://xml.org/sax/features/validation", true);
    	    parser.setFeature("http://apache.org/xml/features/validation/schema", true);
-	    parser.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", schema);
+   	    parser.setFeature("http://apache.org/xml/features/validation/schema-full-checking", true);
+	    parser.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation", schemaLoc );
 	    parser.parse(new InputSource(new StringReader(xmlString)));
-// 	    doc = parser.getDocument();
 	}
 	catch (SAXNotRecognizedException e) {
 	    System.out.println("Unrecognized feature");

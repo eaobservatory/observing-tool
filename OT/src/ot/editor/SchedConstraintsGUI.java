@@ -52,6 +52,7 @@ public class SchedConstraintsGUI extends JPanel {
   OptionWidgetExt meridianApproachRising = new OptionWidgetExt();
   FlowLayout flowLayout1 = new FlowLayout();
   JLabel jLabel11 = new JLabel();
+    JCheckBox airmassCB = new JCheckBox("As airmass");
 
     public SchedConstraintsGUI() {
         try {
@@ -101,6 +102,8 @@ public class SchedConstraintsGUI extends JPanel {
     jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel10.setForeground(Color.black);
     jLabel10.setText("Max");
+    airmassCB.setFont(new java.awt.Font("Dialog", 0, 12));
+    airmassCB.setForeground(Color.black);
     meridianApproachAny.setText("Don\'t Care");
     meridianApproachAny.setFont(new java.awt.Font("Dialog", 0, 12));
     meridianApproachSetting.setText("Setting    ");
@@ -126,6 +129,8 @@ public class SchedConstraintsGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
     this.add(jLabel5, new GridBagConstraints(0, 6, 4, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
+    this.add(airmassCB, new GridBagConstraints(3, 6, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 5, 0, 0), 0, 0));
     this.add(minElevation, new GridBagConstraints(1, 7, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     this.add(jLabel6, new GridBagConstraints(4, 7, 1, 1, 0.0, 0.0

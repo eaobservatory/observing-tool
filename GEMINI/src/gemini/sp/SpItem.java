@@ -849,7 +849,8 @@ print(String indentStr)
     // Write the XML attributes
     while(avAttributes.hasMoreElements()) {
 	avAttr = (String)avAttributes.nextElement();
-	if (avAttr.indexOf("xmlns") != -1) {
+	if (avAttr.indexOf("xmlns") != -1 ||
+	    avAttr.indexOf("schemaLocation") != -1 ) {
 	    continue;
 	}
 	xmlBuffer.append(" " + avAttr.substring(1) + "=\"" + _avTable.get(avAttr) + "\"");
@@ -858,7 +859,8 @@ print(String indentStr)
     // Add type and subtype as XML attributes
     if (typeStr().startsWith("p")) {
 	xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\"\n");
-	xmlBuffer.append("\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n");
+	xmlBuffer.append("\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n");
+	xmlBuffer.append("\txmlns=\"http://omp.jach.hawaii.edu/schema\">\n");
     }
     else {
 	xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">");

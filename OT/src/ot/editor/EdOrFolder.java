@@ -68,7 +68,7 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	}
 
 	ignoreActions = true;
-	_w.numberOfItems.setSelectedIndex(((SpOR)_spItem).getNumberOfItems() - 1);
+	_w.numberOfItems.setSelectedIndex(((SpOR)_spItem).getNumberOfItems() );
 	ignoreActions = false;
     }
 
@@ -90,7 +90,7 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	if(ignoreActions)
 	  return;
  
-	((SpOR)_spItem).setNumberOfItems(_w.numberOfItems.getSelectedIndex() + 1);
+	((SpOR)_spItem).setNumberOfItems(_w.numberOfItems.getSelectedIndex() );
     }
 
 }

@@ -132,9 +132,7 @@ public final class EdNote extends OtItemEditor
 	    // Disable if within sequence
 	    SpItem parent = _spItem.parent();
 	    if ( parent != null) {
-		if ( !(parent instanceof SpRootItem) &&
-		     !(parent instanceof SpMSB)      &&
-		     !(parent instanceof SpObs) ) {
+		if ( parent.getClass().getName().indexOf("SpIter") != -1) {
 		    _w.observeInstruction.setVisible(false);
 		    if ( _w.observeInstruction.isSelected() ) _w.observeInstruction.doClick();
 		}
