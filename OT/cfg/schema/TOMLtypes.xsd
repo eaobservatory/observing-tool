@@ -141,6 +141,7 @@
     <xsd:pattern value="Base"/>
     <xsd:pattern value="SCIENCE"/>
     <xsd:pattern value="GUIDE"/>
+    <xsd:pattern value="GUIDE2"/>
     <xsd:pattern value="REFERENCE"/>
     <xsd:pattern value="SKY[0-9]*"/>
     <xsd:pattern value="SKYGUIDE[0-9]*"/>
