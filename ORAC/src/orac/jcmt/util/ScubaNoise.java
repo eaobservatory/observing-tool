@@ -22,26 +22,6 @@ import orac.util.DrUtil;
  */
 public class ScubaNoise {
 
-  public static final int STATUS_SUCCESSFUL = 0;
-
-  /** Failure due to invalid parameters. */
-  public static final int STATUS_INVALID_PARAMETERS  = -1;
-
-  /** Bad value because transmission out of range of fit. */
-  public static final int STATUS_OUT_OF_RANGE_OF_FIT = -2;
-
-
-  /**
-   * Incorrect number of parameters.
-   *
-   * Example a mode has been specified that requires a
-   * different version of the method, one with a different argument list.
-   */
-  public static final int STATUS_INCORRECT_ARGUMENT_LIST = -3;
-
-  /** Calculation failed for whatever reason. */
-  public static final int STATUS_FAILED                  = -4;
-
   /** Table which stores constant NEFD values for different filters. */
   public static final Hashtable nefd_table = new Hashtable();
 
@@ -148,7 +128,7 @@ public class ScubaNoise {
 */
     double val;
     double [] thisarray = null;
-    status[0] = STATUS_SUCCESSFUL;
+    status[0] = DrUtil.STATUS_SUCCESSFUL;
     
     int wavelengthInt = (int)wavelength;
 
@@ -159,7 +139,7 @@ public class ScubaNoise {
 
     // See if transmission is reasonable (i.e. between 0 and 1)
     if(trans < 0.0) {
-      status[0] = STATUS_INVALID_PARAMETERS;
+      status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
       return 0.0;
     }
 
@@ -178,7 +158,7 @@ public class ScubaNoise {
         // See if transmission on interval of fit
 
         if ( trans<.042 || trans>.641 ) {
-	  status[0] = STATUS_OUT_OF_RANGE_OF_FIT;
+	  status[0] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
         }
 
       //last SWITCH;
@@ -196,7 +176,7 @@ public class ScubaNoise {
         // See if transmission on interval of fit
 
         if ( trans<.038 || trans>.937 ) {
-	  status[0] = STATUS_OUT_OF_RANGE_OF_FIT;
+	  status[0] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
         }
 
         //last SWITCH;
@@ -214,7 +194,7 @@ public class ScubaNoise {
         // See if transmission on interval of fit
 
         if ( trans<.038 || trans>.437 ) {
-	  status[0] = STATUS_OUT_OF_RANGE_OF_FIT;
+	  status[0] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
         }
 
         //last SWITCH;
@@ -232,14 +212,14 @@ public class ScubaNoise {
         // See if transmission on interval of fit
 
         if ( trans<.038 || trans>.875 ) {
-	  status[0] = STATUS_OUT_OF_RANGE_OF_FIT;
+	  status[0] = DrUtil.STATUS_OUT_OF_RANGE_OF_FIT;
         }
 
         //last SWITCH;
 	break;
 
       default:
-        status[0] = STATUS_INVALID_PARAMETERS;
+        status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
         //throw new ScubaNoiseException("Invalid wavelength", ScubaNoiseException.ERROR_INVALID_PARAMETERS);
     }
 
@@ -433,7 +413,7 @@ mJy. The second is a scalar containing the exit status of the function:
   public static double noise_level(double integrations, double wavelength, String mode, double nefd, int [] status) {
     
     if (mode.equalsIgnoreCase("SCAN")) {
-      status[0] = STATUS_INCORRECT_ARGUMENT_LIST;
+      status[0] = DrUtil.STATUS_INCORRECT_ARGUMENT_LIST;
       return 0.0;
     }
     else {
@@ -460,7 +440,7 @@ mJy. The second is a scalar containing the exit status of the function:
       // now check dimensions
 
       if (length <= 0 || width <= 0) {
-        status[0] = STATUS_INVALID_PARAMETERS;
+        status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
         return 0.0;
       }
     }
@@ -468,14 +448,14 @@ mJy. The second is a scalar containing the exit status of the function:
     // Make sure we have positive integration time
 
     if(integrations <= 0) {
-      status[0] = STATUS_INVALID_PARAMETERS;
+      status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
       return 0.0;
     }
   
     // Check NEFD value
 
     if(nefd <= 0) {
-      status[0] = STATUS_INVALID_PARAMETERS;
+      status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
       return 0.0;
     }
 
@@ -524,33 +504,57 @@ mJy. The second is a scalar containing the exit status of the function:
 
             // --- if no match bad exit status ---
 
-            status[0] = STATUS_INVALID_PARAMETERS;
+            status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
             return 0.0;
 	  }
 	}
       }
     }
     
-    status[0] = STATUS_SUCCESSFUL;
+    status[0] = DrUtil.STATUS_SUCCESSFUL;
     return noise;
   }
 
   public static double noise_level(double integrations, double wavelength, String mode,
-                                   double dec, double latitude, double tau,
+                                   double dec, double latitude, double csoTau,
                                    int [] status) {
 
+    double tau   = csoTau2Tau(wavelength, csoTau, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) {
+      return 0.0;
+    }
+
     double trans = DrUtil.transmission(airmass(dec, latitude), tau, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) {
+      return 0.0;
+    }
+
     double nefd  = scunefd(wavelength, trans, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) { // && (status[0] != DrUtil.STATUS_OUT_OF_RANGE_OF_FIT)) {
+      return 0.0;
+    }
 
     return noise_level(integrations, wavelength, mode, nefd, status, 0.0, 0.0);
   }
 
   public static double noise_level(double integrations, double wavelength, String mode,
-                                   double dec, double latitude, double tau,
+                                   double dec, double latitude, double csoTau,
                                    int [] status, double length, double width) {
 
+    double tau   = csoTau2Tau(wavelength, csoTau, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) {
+      return 0.0;
+    }
+
     double trans = DrUtil.transmission(airmass(dec, latitude), tau, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) {
+      return 0.0;
+    }
+
     double nefd  = scunefd(wavelength, trans, status);
+    if(status[0] != DrUtil.STATUS_SUCCESSFUL) { // && (status[0] != DrUtil.STATUS_OUT_OF_RANGE_OF_FIT)) {
+      return 0.0;
+    }
 
     return noise_level(integrations, wavelength, mode, nefd, status, length, width);
   }
@@ -608,7 +612,7 @@ Module created by Edward Chapin, echapin@jach.hawaii.edu
       int    integrations = Integer.parseInt(args[0]);
       String mode         = args[1];
       double wavelength   = Double.parseDouble(args[2]);
-      double tau          = Double.parseDouble(args[3]);
+      double csoTau          = Double.parseDouble(args[3]);
       double airmass      = Double.parseDouble(args[4]);
 
       double length       = 0.0;
@@ -629,7 +633,7 @@ Module created by Edward Chapin, echapin@jach.hawaii.edu
       System.out.println("  int          = " + integrations);
       System.out.println("  mode         = " + mode        );
       System.out.println("  wavelength   = " + wavelength  );
-      System.out.println("  tau          = " + tau         );
+      System.out.println("  csoTau       = " + csoTau         );
       System.out.println("  airmass      = " + airmass     );
       System.out.println("  length       = " + length      );
       System.out.println("  width        = " + width       );
@@ -642,7 +646,7 @@ Module created by Edward Chapin, echapin@jach.hawaii.edu
       double noise = 0.0;
       // Get transmission
 
-      trans = DrUtil.transmission(airmass, tau, status);
+      trans = DrUtil.transmission(airmass, csoTau, status);
       System.out.println("  transmission = " + trans + "\t\t(status " + status[0] + ")");
 
       // Get nefd
@@ -655,31 +659,88 @@ Module created by Edward Chapin, echapin@jach.hawaii.edu
     }
     catch(Exception e) {
       e.printStackTrace();
-      System.out.println("Usage: ScubaNoise integrations mode wavelength tau airmass [length width]"); 
+      System.out.println("Usage: ScubaNoise integrations mode wavelength csoTau airmass [length width]"); 
     }
   }
+
+
+  /**
+   * Calculates tau for a certain wavelength from cso tau.
+   *
+   * This class is based on the get_tau(desiredTau,sourceTau,tauValue) in JCMT::Tau.
+   * <p>
+   * It is often the case that the zenith sky opacity at 450 or 850 microns is 
+   * unknown, but the opacity at 225 GHz is available from the Caltech Submillimeter
+   * Observatory (http://puuoo.caltech.edu/index.html). The empirical relationships 
+   * between 450 Tau and 850 Tau with CSO Tau have been derived from past skydips at
+   * the JCMT. Similar relations have also been derived for 350 and 750 microns, 
+   * although there is currently very little data to support them. This module 
+   * presently contains two functions: get_tau for retrieving sky opacity at 450, 
+   * 850, 350 and 750  microns and transmission for calculating the atmospheric 
+   * transmission coefficient at a given airmass and sky opacity.
+   *
+   * @param  wavelength Allowed values: 450, 850, 350, 750
+   * @param  csoTau     cso tau.
+   * @param  status     Method exit status.
+   *
+   * @return tau for specified wavelength and csoTau
+   */
+  public static double csoTau2Tau(double wavelength, double csoTau, int [] status) {
+
+    // The actual coefficients of the relation y = a(x + b) where x and y are zenith
+    // sky opacities at different wavelengths are stored in a hash which is imported
+    // when the module is used, called %Tau_Relation. The keys are of the form 'x:y',
+    // and each element of the hash is an array containing a and b. For instance:
+    // 
+    //   'CSO:450' => [25, -.011] 
+    // 
+    // where y=450, x=CSO, a=25, b=-.011, and 'CSO:450' is a key for %Tau_Relation
+    // ---------------------------------------------------------------------------
+    // First define a hash which contains the current best guesses for each
+    // relation. Each key is of the form x:y where x and y are opacity values in
+    // the relation y = a(x + b), and each element of the hash is an array
+    // containing a and b.
+    // The reverse relationships are calculated immediately afterwards
+    Hashtable tauRelation = new Hashtable();
+    tauRelation.put( "450", new double[]{26.2,  -0.014});  // wideband filters
+    tauRelation.put( "850", new double[]{ 4.02, -0.001});  // wideband filter
+    tauRelation.put( "350", new double[]{28,    -0.012});
+    tauRelation.put( "750", new double[]{ 9.3,  -0.007});
+    tauRelation.put("1100", new double[]{ 1.4,   0.0 });
+    tauRelation.put("1350", new double[]{ 1.4,   0.0 });
+    tauRelation.put("2000", new double[]{ 0.9,   0.0 });
+
+
+    //  # Check to see if arg 3 is defined and is a number
+    //  # First see if source Tau value is reasonable:
+    //  unless ( defined $_[2] && number($_[2]) && $_[2]>=0) {
+    //    return (0,-1);
+    //  }
+    if(csoTau < 0.0) {
+      status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
+      return 0.0;
+    }
+
+
+    //  # If good parameters, find the return value of tau
+    //
+    //  if ( exists $Tau_Relation{$name} ) {
+    //    return $Tau_Relation{$name}[0]*($_[2] + $Tau_Relation{$name}[1]),0;
+    //  }
+    if(tauRelation.containsKey("" + ((int)wavelength))) {
+      status[0] = DrUtil.STATUS_SUCCESSFUL;
+
+      double [] coefficients = (double[])tauRelation.get("" + ((int)wavelength));
+
+      return (coefficients[0] * csoTau) + coefficients[1];
+    }
+
+
+    //  # If we haven't returned a good value yet, the parameters are bad
+    //  # so return -1 status.
+    //  return (0,-1);
+    status[0] = DrUtil.STATUS_INVALID_PARAMETERS;
+    return 0.0;
+  }
 }
-
-
-//class ScubaNoiseException extends Exception {
-//
-//  /** Failure due to invalid parameters. */
-//  public static final int ERROR_INVALID_PARAMETERS  = -1;
-
-  /** Bad value because transmission out of range of fit. */
-  //public static final int ERROR_OUT_OF_RANGE_OF_FIT = -2;
-  
-  //int ERROR_ = -1;
-  //int ERROR_ = -1;
-
-  /** Error code */
-//  private int _error;
-
-//  public ScubaNoiseException(String message, int error) {
-//    super(message);
-//
-//    _error = error;
-//  }
-//
-//}
 
