@@ -71,6 +71,7 @@ public class SpValidation {
     }
 
     checkSciProgramRecursively(spProg, report);
+
     if (doc != null) {
 	// I use one method for each 'rule'
 	// Rule 1: Each SpObs and MSB must either contain the following
@@ -194,6 +195,7 @@ public class SpValidation {
 		observeNoteFound = true;
 		break;
 	    }
+	    parent = parent.parent();
 	}
     }
 
