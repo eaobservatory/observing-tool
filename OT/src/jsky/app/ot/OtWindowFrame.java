@@ -58,7 +58,7 @@ public class OtWindowFrame extends JFrame {
 	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	addWindowListener(new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    editor.exit();
+		    editor.close();
 		}
 	    });
         setVisible(true);
