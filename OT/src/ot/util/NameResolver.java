@@ -6,11 +6,13 @@ import jsky.catalog.QueryArgs;
 
 import jsky.catalog.TableQueryResult;
 import jsky.catalog.skycat.SkycatConfigFile;
+import jsky.catalog.skycat.SkycatConfigEntry;
 
 import jsky.coords.HMS;
 import jsky.coords.DMS;
 
 import java.util.Iterator;
+import java.io.IOException;
 //import java.net.URLEncoder;
 
 /**
@@ -37,15 +39,15 @@ public class NameResolver {
                   + queryString.substring(queryString.indexOf(' ') + 1);
     }    
 
-    Catalog catalog = SkycatConfigFile.getConfigFile(null).getCatalog(catalogName);
+    Catalog catalog = SkycatConfigFile.getConfigFile().getCatalog(catalogName);
 
     if((catalogName == null) || (System.getProperty("DEBUG") != null)) {
       System.out.println("NameResolver(\"" + catalogName + "\", \"" + queryString + "\") called.");
-      int n = SkycatConfigFile.getConfigFile(null).getNumCatalogs();
+      int n = SkycatConfigFile.getConfigFile().getNumCatalogs();
       System.out.println("There are " + n + " catalogs available.");
       System.out.println("Pick one of the following catalogs:");
       for(int i = 0; i < n; i++) {
-        System.out.println("    " + SkycatConfigFile.getConfigFile(null).getCatalog(i));
+        System.out.println("    " + SkycatConfigFile.getConfigFile().getCatalog(i));
       }
     }
 
@@ -57,14 +59,21 @@ public class NameResolver {
 
     queryArgs.setParamValue(0, queryString);
 
-    TableQueryResult tableQueryResult = (TableQueryResult)catalog.query(queryArgs);
-
-    if((tableQueryResult.getRowCount() > 1) && (System.getProperty("DEBUG") != null)) {
-      System.out.println("NameResolver: More than 1 query result. Only the first result is used.");
+     TableQueryResult tableQueryResult = null;
+    
+    try {
+      tableQueryResult = (TableQueryResult)catalog.query(queryArgs);
+    }
+    catch(Exception e) {
+      // Exception is handled in the following code because tableQueryResult is still null.
     }
 
     if((tableQueryResult == null) || (tableQueryResult.getRowCount() < 1)) {
       throw new RuntimeException("No query result.");
+    }
+
+    if((tableQueryResult.getRowCount() > 1) && (System.getProperty("DEBUG") != null)) {
+      System.out.println("NameResolver: More than 1 query result. Only the first result is used.");
     }
 
     _id  = "" + tableQueryResult.getValueAt(0, 0);
@@ -104,7 +113,7 @@ public class NameResolver {
   public String getDec() { return _dec; }
 
   public static boolean isAvailableAsCatalog(String catalogName) {
-    return (SkycatConfigFile.getConfigFile(null).getCatalog(catalogName) != null);
+    return (SkycatConfigFile.getConfigFile().getCatalog(catalogName) != null);
   }
 
   public static void main(String [] args) {
