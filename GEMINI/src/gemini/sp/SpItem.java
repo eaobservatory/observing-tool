@@ -848,9 +848,11 @@ print(String indentStr)
 
     // Write the XML attributes
     while(avAttributes.hasMoreElements()) {
-      avAttr = (String)avAttributes.nextElement();
-
-      xmlBuffer.append(" " + avAttr.substring(1) + "=\"" + _avTable.get(avAttr) + "\"");
+	avAttr = (String)avAttributes.nextElement();
+	if (avAttr.indexOf("xmlns") != -1) {
+	    continue;
+	}
+	xmlBuffer.append(" " + avAttr.substring(1) + "=\"" + _avTable.get(avAttr) + "\"");
     }
 
     // Add type and subtype as XML attributes
@@ -867,8 +869,9 @@ print(String indentStr)
     // and will be ignored by processAvAttribute().
     avAttributes = _avTable.attributes();
 
+    String tmp;
     while(avAttributes.hasMoreElements()) {
-      processAvAttribute((String)avAttributes.nextElement(), indent, xmlBuffer);
+	processAvAttribute((String)avAttributes.nextElement(), indent, xmlBuffer);
     }
 
     // Deal with the child items.
@@ -969,6 +972,10 @@ print(String indentStr)
    * @param xmlBuffer StringBuffer to which the XML representation of this SpAvTable is appended
    */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
+      System.out.println("Found attribute "+avAttr);
+      if (avAttr.indexOf("xmlns") != -1) {
+	  return;
+      }
     if(!avAttr.startsWith(":")) {
       if(_avTable.getAll(avAttr).size() == 1) {
         xmlBuffer.append("\n  " + indent + avToXml(avAttr, _avTable.get(avAttr)));
