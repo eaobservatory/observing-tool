@@ -627,23 +627,36 @@ public class SpTranslator {
 // say if no DARK frame is in the observation.  Remove these commands,
 // recording the fact so they can be restored later.  Revise the count
 // of sequence commands.  The exact number of steps back in the sequence
-// depends on whether or there are OMP headers intervening or not.  This
-// is clunky and needs to be made more robust.
-               work = (String) sequence.elementAt( numElements - 3 );
-               if ( work.startsWith( "setHeader MSBID" ) ) {
-                  toWait = 5;
-               } else {
-                  toWait = 3;
+// depends on whether or there are OMP and polarimetry headers intervening
+// or not.  Therefore search through the sequence backwards from the end
+// to find the last (and should be only) "WAIT ALL" instruction.
+               toWait = 0;
+               for ( i = numElements - 1; i >= 0; i-- ) {
+                  work = (String) sequence.elementAt( i );
+                  if ( ! ( work.startsWith( "-WAIT ALL" ) ) ) {
+                     toWait++;
+
+                  } else {
+                     break;
+                  }
                }
 
-               work = (String) sequence.elementAt( numElements - toWait );
-               offsetCmd = (String) sequence.elementAt( numElements - toWait - 1 );
-               if ( work.startsWith( "-WAIT ALL" ) &&
-                    offsetCmd.startsWith( "offset" ) ) {
-                  moveOffset = true;
-                  sequence.removeElementAt( numElements - toWait );
-                  sequence.removeElementAt( numElements - toWait - 1 );
-                  numElements = sequence.size( );                  
+// Decide whether there are instructions to move.
+               moveOffset = false;
+               if ( toWait != 0 && ( numElements - toWait - 2 ) >= 0 ) {
+
+// Store the instructions which are expected to move.
+                  work = (String) sequence.elementAt( numElements - toWait - 1 );
+                  offsetCmd = (String) sequence.elementAt( numElements - toWait - 2 );
+
+// The instructions are as expected, so remove them and record the fact.
+                  if ( work.startsWith( "-WAIT ALL" ) &&
+                       offsetCmd.startsWith( "offset" ) ) {
+                     moveOffset = true;
+                     sequence.removeElementAt( numElements - toWait - 1 );
+                     sequence.removeElementAt( numElements - toWait - 2 );
+                     numElements = sequence.size( );                  
+                  }
                }
 
 // We can merely append the header commands.                  
