@@ -123,6 +123,7 @@ public class SpItemDOM {
       format.setIndent(2);
       format.setLineSeparator("\n" + indent);
       format.setOmitXMLDeclaration(false);
+      format.setEncoding("ISO-8859-1");
 
       StringWriter  stringOut = new StringWriter();        //Writer will be a String
       XMLSerializer    serial = new XMLSerializer( stringOut, format );
@@ -497,31 +498,33 @@ public class SpItemDOM {
       }
 
       // Deal with chop parameters
-      if(element.getElementsByTagName("chopping").item(0).getFirstChild().getNodeValue().equals("true")) {
-        ElementImpl chopElement = (ElementImpl)document.createElement("chop");
+      if(element.getElementsByTagName("chopping").item(0) != null) {
+        if(element.getElementsByTagName("chopping").item(0).getFirstChild().getNodeValue().equals("true")) {
+          ElementImpl chopElement = (ElementImpl)document.createElement("chop");
 
-        child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopAngle").item(0));
-        child.setAttribute("units", "degrees");
-        chopElement.appendChild(child);
+          child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopAngle").item(0));
+          child.setAttribute("units", "degrees");
+          chopElement.appendChild(child);
 
-        child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopThrow").item(0));
-        child.setAttribute("units", "arcseconds");
-        chopElement.appendChild(child);
+          child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopThrow").item(0));
+          child.setAttribute("units", "arcseconds");
+          chopElement.appendChild(child);
 
-        // Currently not needed
-//        child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
-//        chopElement.appendChild(child);
+          // Currently not needed
+//          child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+//          chopElement.appendChild(child);
 
-        element.appendChild(chopElement);
+          element.appendChild(chopElement);
+        }
+        else {
+          element.removeChild(element.getElementsByTagName("chopAngle").item(0));
+          element.removeChild(element.getElementsByTagName("chopThrow").item(0));
+	  // Currently not needed
+	  //element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+        }
+
+        element.removeChild(element.getElementsByTagName("chopping").item(0));
       }
-      else {
-        element.removeChild(element.getElementsByTagName("chopAngle").item(0));
-        element.removeChild(element.getElementsByTagName("chopThrow").item(0));
-	// Currently not needed
-	//element.removeChild(element.getElementsByTagName("chopSystem").item(0));
-      }
-
-      element.removeChild(element.getElementsByTagName("chopping").item(0));
     }
     // Make sure RuntimeExceptions are not ignored.
     catch(Exception e) {
