@@ -26,6 +26,10 @@ CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(JSKY_RE
 # Should NOT be changed as other packages might rely on the this name!
 JAR_FILE            = ot.jar
 
+# This variable is set to "scripts/ot_bat_install_all_source" on the command line if
+# "gmake install" is called in the orac3 directory.
+INSTALL_BAT_SCRIPT  = scripts/ot_bat_install_source
+
 all: classes cfg script
 
 
@@ -103,15 +107,15 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n\
 	\nset JAVA = $(JAVA)\
 	\n\
-	\n# The telescope names in this list should correspond to the directories in cfgdir.\
+	\n# The telescope names in this list should correspond to the directories in CFG_DIRS.\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
 	\n" > $@
 
 ifeq ($(CFG_DIRS),)
-	@printf "\nset cfgdir       = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg/" >> $@
+	@printf "\nset CFG_DIRS     = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg" >> $@
 else
-	@printf "\nset cfgdir       = $(CFG_DIRS)/" >> $@
+	@printf "\nset CFG_DIRS     = $(CFG_DIRS)" >> $@
 endif
 
 	@printf \
@@ -166,7 +170,7 @@ INSTALL_BIN_DIR     = $(INSTALL_ROOT)/bin
 INSTALL_CFG_DIR     = $(INSTALL_ROOT)/cfg
 
 
-install:
+install: all
 ifeq ($(INSTALL_ROOT),)
 	@echo Usage: gmake "INSTALL_ROOT=myinstall_directory" install
 else
@@ -272,15 +276,15 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n\
 	\nset JAVA = $(JAVA)\
 	\n\
-	\n# The telescope names in this list should correspond to the directories in cfgdir.\
+	\n# The telescope names in this list should correspond to the directories in CFG_DIRS.\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
 	\n" > $@
 
 ifeq ($(CFG_DIRS),)
-	@printf "\nset cfgdir       = \044{OT_HOME}/cfg/" >> $@
+	@printf "\nset CFG_DIRS     = \044{OT_HOME}/cfg" >> $@
 else
-	@printf "\nset cfgdir       = $(CFG_DIRS)/" >> $@
+	@printf "\nset CFG_DIRS     = $(CFG_DIRS)" >> $@
 endif
 
 	@printf \
@@ -295,8 +299,8 @@ endif
 	@chmod 755 $@
 
 
-$(INSTALL_ROOT)/bin/ot.bat: scripts/ot_bat_install_source
+$(INSTALL_ROOT)/bin/ot.bat: $(INSTALL_BAT_SCRIPT) $(CONF_HOME)/make.conf Makefile
 	@mkdir -p $(INSTALL_ROOT)/bin
-	@cp $< $@
+	@cp $(INSTALL_BAT_SCRIPT) $@
 	@echo Creating $@
 
