@@ -35,6 +35,7 @@ public class ObsGUI extends JPanel {
   DropDownListBoxWidgetExt remaining = new DropDownListBoxWidgetExt();
   JLabel xLabel = new JLabel();
   JLabel obsState = new JLabel();
+  CheckBoxWidgetExt optional = new CheckBoxWidgetExt();
 
     public ObsGUI() {
         try {
@@ -87,15 +88,17 @@ public class ObsGUI extends JPanel {
     obsState.setFont(new java.awt.Font("Dialog", 0, 12));
     obsState.setForeground(Color.black);
     obsState.setText("Not in Active Database");
+    optional.setText("Optional");
+    optional.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
     this.add(obsTitle, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     this.add(chained, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 5, 5), 0, 0));
-    this.add(historyBox, new GridBagConstraints(0, 5, 2, 1, 1.0, 1.0
+    this.add(jLabel5, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
+    this.add(historyBox, new GridBagConstraints(0, 6, 2, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
     this.add(msbPanel, new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
@@ -121,6 +124,8 @@ public class ObsGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 10, 0), 0, 0));
     this.add(obsState, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    this.add(optional, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 
     }
 }
