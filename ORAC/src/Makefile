@@ -3,7 +3,7 @@
 # Making
 #     class files          :  "gmake"         (output: CLASSES_DIR, set in CONF_HOME/make.conf)
 #     jar file with classes:  "gmake jar"     (output: JAR_DIR,     set in CONF_HOME/make.conf)
-#     javadoc html files   :  "gmake doc"     (output: DOC_DIR,    set in CONF_HOME/make.conf)
+#     javadoc html files   :  "gmake doc"     (output: DOC_DIR,     set in CONF_HOME/make.conf)
 #     clean                :  "gmake clean"   (deletes class files, jar files, api docs)
 #
 # The output directories are by default subdirectories of LOCAL_INSTALL_ROOT.
@@ -49,7 +49,12 @@ install:
 	@echo Use \"\gmake DOC_DIR=my_doc_dir doc\" to create html api javadocs in my_doc_dir.
 
 clean:
-	rm -f  $(CLASS_FILES)
-	rm -f  $(JAR_DIR)/$(JAR_FILE)
-	rm -rf $(DOC_DIR)/*
+	@echo " Delete these directories?\n"\
+	      "  $(CLASSES_DIR)\n"\
+	      "  $(JAR_DIR)\n"\
+	      "  $(DOC_DIR)\n"\
+	      "  $(LOCAL_INSTALL_ROOT)\n"\
+	      "Yes: return / Cancel: Ctrl-d"
+	@read a
+	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
 
