@@ -753,10 +753,12 @@ public final class EdCompTargetList extends OtItemEditor
 	       _w.l_or_mLabel.setText("L");
 	       _w.l_or_m.setVisible(true);
 	       _w.l_or_mLabel.setVisible(true);
+	       _w.l_or_mUnitsLabel.setVisible(true);
 
 	       _w.dm.setValue(_curPos.getConicSystemDailyMotion());
 	       _w.dm.setVisible(true);
 	       _w.dmLabel.setVisible(true);
+	       _w.dmUnitsLabel.setVisible(true);
 
 	       break;
 
@@ -773,10 +775,12 @@ public final class EdCompTargetList extends OtItemEditor
 	       _w.l_or_mLabel.setText("M");
 	       _w.l_or_m.setVisible(true);
 	       _w.l_or_mLabel.setVisible(true);
+	       _w.l_or_mUnitsLabel.setVisible(true);
 
 	       // No daily motion
 	       _w.dm.setVisible(false);
 	       _w.dmLabel.setVisible(false);
+	       _w.dmUnitsLabel.setVisible(false);
 
                break;
 
@@ -792,8 +796,10 @@ public final class EdCompTargetList extends OtItemEditor
                // No longitude, mean anomaly, daily motion
 	       _w.l_or_m.setVisible(false);
 	       _w.l_or_mLabel.setVisible(false);
+	       _w.l_or_mUnitsLabel.setVisible(false);
 	       _w.dm.setVisible(false);	       
 	       _w.dmLabel.setVisible(false);	       
+	       _w.dmUnitsLabel.setVisible(false);	       
       }
     }
 
