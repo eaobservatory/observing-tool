@@ -165,6 +165,21 @@ public interface SpJCMTConstants {
    public static final String ATTR_POSITIONS       = "positions";
    public static final String ATTR_START_POSITION  = "startPosition";
 
+   /**
+    * Noise Iterator.
+    *
+    * Noise source attribute.
+    */
+   public static final String ATTR_NOISE_SOURCE    = "noiseSource";
+
+   /**
+    * Noise Iterator.
+    *
+    * Noise sources: REFLECTOR, SKY, ZENITH, ECCOSORB.
+    */
+   public static final String [] NOISE_SOURCES     = { "REFLECTOR", "SKY", "ZENITH", "ECCOSORB" };
+
+
    public static final String ATTR_UNITS           = "units";
 
    /**
