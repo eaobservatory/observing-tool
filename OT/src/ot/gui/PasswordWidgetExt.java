@@ -241,7 +241,7 @@ public class PasswordWidgetExt extends JPasswordField
      * Return the current value.
      */
     public String getValue() {
-	return getText();
+	return new String(getPassword());
     }
 
     /**
