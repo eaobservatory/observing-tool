@@ -1,16 +1,13 @@
 <spDocument>
    <lb name=new type=lb subtype=none>
-      <av name=title descr="No Description">
-            <val value="UKIRT LIBRARY">
-      </av>
       <av name=.gui.collapsed descr="No Description">
             <val value="false">
       </av>
-      <av name=.gui.filename. descr="No Description">
-            <val value="UKIRT-Template.lib">
-      </av>
       <av name=.gui.filename descr="No Description">
             <val value="UKIRT-Template.lib">
+      </av>
+      <av name=title descr="No Description">
+            <val value="UKIRT LIBRARY">
       </av>
       <lf name=new type=lf subtype=none>
          <av name=.gui.collapsed descr="No Description">
@@ -6045,16 +6042,12 @@
                <ic name=new type=ic subtype=instCGS4>
                   <av name=iterConfigList descr="No Description">
                                     <val value="acqModeIter">
-                                    <val value="exposureTimeIter">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=acqModeIter descr="No Description">
                                     <val value="NDSTARE">
-                  </av>
-                  <av name=exposureTimeIter descr="No Description">
-                                    <val value="">
                   </av>
                </ic>
                <ic name=new type=ic subtype=darkObs>
@@ -16204,7 +16197,7 @@
             </no>
             <oc name=new type=oc subtype=DRRecipe>
                <av name=SkyRecipe descr="No Description">
-                              <val value="REDUCE_SINGLE_FRAME">
+                              <val value="REDUCE_SINGLE_FRAMES_ONLY">
                </av>
                <av name=FlatRecipe descr="No Description">
                               <val value="REDUCE_FLAT">
@@ -16216,7 +16209,7 @@
                               <val value="REDUCE_DARK">
                </av>
                <av name=title descr="No Description">
-                              <val value="REDUCE_SINGLE_FRAME">
+                              <val value="REDUCE_SINGLE_FRAMES_ONLY">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -16234,7 +16227,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="REDUCE_SINGLE_FRAME">
+                              <val value="REDUCE_SINGLE_FRAMES_ONLY">
                </av>
                <av name=DRRecipe descr="No Description">
                               <val value="JITTER_SELF_FLAT">
@@ -17045,7 +17038,7 @@
                               <val value="REDUCE_BIAS">
                </av>
                <av name=title descr="No Description">
-                              <val value="SBPOL_POINT_SOURCE">
+                              <val value="POINT_SOURCE_POL">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -17063,7 +17056,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="SBPOL_POINT_SOURCE">
+                              <val value="POINT_SOURCE_POL">
                </av>
                <av name=ArcInGroup descr="No Description">
                               <val value="false">
@@ -17408,7 +17401,7 @@
                               <val value="REDUCE_BIAS">
                </av>
                <av name=title descr="No Description">
-                              <val value="SBPOL_POINT_SOURCE">
+                              <val value="POINT_SOURCE_POL">
                </av>
                <av name=.unique descr="No Description">
                               <val value="true">
@@ -17426,7 +17419,7 @@
                               <val value="false">
                </av>
                <av name=ObjectRecipe descr="No Description">
-                              <val value="SBPOL_POINT_SOURCE">
+                              <val value="POINT_SOURCE_POL">
                </av>
                <av name=ArcInGroup descr="No Description">
                               <val value="false">
