@@ -36,7 +36,7 @@ public class SpIterPOL extends SpIterConfigObs {
 
 // Hardwire the allowed angles, so that they are accessible to all
 // instruments.
-   static final String ALLOWED_ANGLES[] = {"0", "22.5", "45", "67.5", "90", "135", "157.5", "180.0", "202.5", "225.0", "247.5", "270.0", "292.5", "315.0", "337.5"};
+   static final String ALLOWED_ANGLES[] = {"0", "22.5", "45", "67.5", "90", "112.5", "135", "157.5", "180.0", "202.5", "225.0", "247.5", "270.0", "292.5", "315.0", "337.5"};
 
 /**
  * Default constructor.
