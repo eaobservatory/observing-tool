@@ -368,9 +368,7 @@ public void setTargetSystem(int targetSystem) {
 	 break;
    }
 
-   // Remove obsolete attributes from AV table.
-
-   // Initialise target system specific attributes in AV table.
+   _notifyOfLocationUpdate();
 }
 
 
