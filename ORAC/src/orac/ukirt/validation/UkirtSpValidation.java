@@ -40,7 +40,7 @@ import orac.validation.*;
  *
  * @author M.Folger@roe.ac.uk UKATC
  */
-public class UkirtSpValidation implements SpValidation {
+public class UkirtSpValidation extends SpValidation {
 
   static String [] instruments = {
                                    "CGS4",
@@ -901,6 +901,8 @@ public class UkirtSpValidation implements SpValidation {
 */
 
     _isSpProgCheck = false;
+
+    super.checkSciProgram(spProg, report);
   }
 
   
