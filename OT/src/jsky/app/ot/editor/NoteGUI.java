@@ -25,6 +25,7 @@ public class NoteGUI extends JPanel {
     JLabel jLabel3 = new JLabel();
     JScrollPane jScrollPane1 = new JScrollPane();
     RichTextBoxWidgetExt note = new RichTextBoxWidgetExt();
+    CheckBoxWidgetExt observeInstruction = new CheckBoxWidgetExt();
 
     public NoteGUI() {
         try {
@@ -48,12 +49,16 @@ public class NoteGUI extends JPanel {
         jLabel3.setText("Note");
         note.setBorder(BorderFactory.createLoweredBevelBorder());
         jScrollPane1.setBorder(BorderFactory.createLoweredBevelBorder());
+	observeInstruction.setFont(new java.awt.Font("Dialog", 0, 12));
+	observeInstruction.setText("Show to the Observer");
         this.add(jPanel1, BorderLayout.NORTH);
         jPanel1.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 20, 5, 5), 0, 0));
         jPanel1.add(title, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 5, 0), 0, 0));
         jPanel1.add(imageLabel, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 20, 5, 20), 0, 0));
+	jPanel1.add(observeInstruction, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 20, 5, 20), 0, 0));
         this.add(jPanel2, BorderLayout.CENTER);
         jPanel2.add(jLabel3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0

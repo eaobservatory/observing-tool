@@ -17,6 +17,8 @@ import jsky.app.ot.gui.KeyPressWatcher;
 import jsky.app.ot.gui.RichTextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
 import gemini.sp.SpNote;
 
@@ -24,7 +26,7 @@ import gemini.sp.SpNote;
  * This is the editor for Note item.
  */
 public final class EdNote extends OtItemEditor
-    implements KeyPressWatcher, TextBoxWidgetWatcher {
+    implements KeyPressWatcher, TextBoxWidgetWatcher, CheckBoxWidgetWatcher {
 
     private NoteGUI             _w;         // the GUI layout panel
 
@@ -39,13 +41,7 @@ public final class EdNote extends OtItemEditor
 
 	URL url = ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/images/note.gif");
         _w.imageLabel.setIcon(new ImageIcon(url));
-    }
 
-    /**
-     * This method initializes the widgets in the presentation to reflect the
-     * current values of the items attributes.
-     */
-    protected void _init() {
 	// The title
 	TextBoxWidgetExt tbw = _w.title;
 	tbw.addWatcher(this);
@@ -54,6 +50,9 @@ public final class EdNote extends OtItemEditor
 	RichTextBoxWidgetExt rtbw;
 	rtbw = _w.note;
 	rtbw.addWatcher(this);
+
+	// The observe instruction check box.
+	_w.observeInstruction.addWatcher(this);
     }
 
 
@@ -82,6 +81,8 @@ public final class EdNote extends OtItemEditor
 	} else {
 	    rtbw.setText(noteText);
 	}
+
+	_w.observeInstruction.setValue(((SpNote)_spItem).isObserveInstruction());
     }
 
 
@@ -109,5 +110,9 @@ public final class EdNote extends OtItemEditor
      * @see TextBoxWidgetWatcher
      */
     public void	textBoxAction(TextBoxWidgetExt tbwe) {}
+
+    public void checkBoxAction(CheckBoxWidgetExt checkBoxWidgetExt) {
+	((SpNote)_spItem).setObserveInstruction(_w.observeInstruction.getBooleanValue());
+    }
 }
 
