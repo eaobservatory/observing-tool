@@ -25,6 +25,7 @@ import gemini.sp.SpInsertData;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpObs;
 import gemini.sp.SpNote;
+import gemini.sp.SpProg;
 import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -178,7 +179,8 @@ public class SpItemUtilities {
 	_insertReferenceIDsFor(findSiteQuality(spItem), spItem);
 	_insertReferenceIDsFor(findSchedConstraint(spItem), spItem);
 	_insertReferenceIDsFor(findDRRecipe(spItem), spItem);
-	_insertReferenceIDsFor(findNote(spItem), spItem);
+	_insertReferenceIDsFor(findProgramNotes(spItem.getRootItem(), new Vector()), spItem);
+// 	_insertReferenceIDsFor(findNote(spItem), spItem);
       }
       else {
         SpItem child = spItem.child();
@@ -234,9 +236,18 @@ public class SpItemUtilities {
     // and spItem (e.g. SpMSB/SpObs). 
     else {
        spObsComp.getTable().noNotifySet(ATTR_ID, "" + _idCounter, 0);
-       spItem.getTable().noNotifySet(
-         spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
-	 "" + _idCounter, 0);
+       if ( spObsComp.getClass().getName().indexOf("SpNote") == -1 ) {
+	   // This in NOT an SpNote
+	   spItem.getTable().noNotifySet(
+					 spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
+					 "" + _idCounter, 0);
+       }
+       else {
+	   // This is a note
+	   spItem.getTable().noNotifySet(
+					 spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX + _idCounter,
+					 "" + _idCounter, 0);
+       }
       _idCounter++;
     }  
   }
@@ -451,6 +462,24 @@ findNote(SpItem spItem)
       return findNote(parent);
    }
    return note;
+}
+
+public static Vector findProgramNotes(SpItem spItem, Vector notes) {
+
+    // Now get all the children
+    Enumeration e = spItem.children();
+    while ( e.hasMoreElements() ) {
+	SpItem child = (SpItem)e.nextElement();
+	if ( child instanceof gemini.sp.SpNote ) {
+	    if ( ((SpNote)child).isObserveInstruction() ){
+		notes.add(child);
+	    }
+	}
+	else if ( child instanceof gemini.sp.SpAND || child instanceof gemini.sp.SpOR ) {
+	    notes = findProgramNotes (child, notes);
+	}
+    }
+    return notes;
 }
 
 }
