@@ -214,9 +214,9 @@ public class SpInputXML extends DefaultHandler {
     // call to characters() inside a <value> element would cause extra elements to
     // be added to the attribute _currentElement of the SpAvTable, each of them containing
     // partial Strings.
-//     if((_currentElement != null) && (_valueArrayElement == null)){
-//       _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-//     }
+    if((_currentElement != null) && (_valueArrayElement == null)){
+      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+    }
   }
 
   public SpItem xmlToSpItem(String xml) throws Exception {
