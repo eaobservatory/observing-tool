@@ -76,10 +76,6 @@ public final class EdCompTargetList extends OtItemEditor
     private SpTelescopePos     _curPos;	// Position being edited
     private SpTelescopePosList _tpl;	// List of positions being edited
 
-    // Added by MFO (25 June 2001)
-    private TelescopePosEditor _tpe = null;
-
-
     private NameResolverFeedback _nameResolverFeedback;
 
     /**
@@ -709,11 +705,11 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
 	if (w == _w.plotButton) {
-	    if(_tpe == null) {
-	      _tpe = TpeManager.open(_spItem);
+	    try {
+		TpeManager.open(_spItem);
 	    }
-	    else {
-	      _resetPositionEditor();
+	    catch(Exception e) {
+		DialogUtil.error(e);
 	    }
 
 	    return;
