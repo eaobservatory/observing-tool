@@ -404,9 +404,9 @@ public final class EdCompTargetList extends OtItemEditor
     /**
      * Do one-time initialization of the editor.  This includes adding watchers.
      */
-    protected void _init() {
-        // is now all done in constructor (MFO, 12 October 2001)
-    }
+//    protected void _init() {
+//        // is now all done in constructor (MFO, 12 October 2001)
+//    }
 
     /**
      * Show the given SpTelescopePos.
