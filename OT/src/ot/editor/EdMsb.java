@@ -94,6 +94,10 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	_w.remaining.setSelectedIndex(((SpMSB)_spItem).getNumberRemaining() - 1);
 	ignoreActions = false;
 
+	// Note that the elapsed time is re-calculated every time _updateWidgets is called.
+	// It will not be written to or read from the SpMSB item until the Science Program
+	// is saved to disk or stored to database.
+	// Then OracUtilities.set
 	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpMSB)_spItem).getElapsedTime(), 1));
     }
 
