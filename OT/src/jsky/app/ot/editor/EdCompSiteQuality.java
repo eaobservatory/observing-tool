@@ -36,63 +36,44 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// add action listeners and group the buttons
 	ButtonGroup grp;
 
-	_w.iq20.addActionListener(this);
-	_w.iq50.addActionListener(this);
-	_w.iqIgnore.addActionListener(this);
+	_w.seeingExcellent.addActionListener(this);
+	_w.seeingGood.addActionListener(this);
+	_w.seeingPoor.addActionListener(this);
+	_w.seeingAny.addActionListener(this);
 
 	grp = new ButtonGroup();
-	grp.add(_w.iq20);
-	grp.add(_w.iq50);
-	grp.add(_w.iqIgnore);
+	grp.add(_w.seeingExcellent);
+	grp.add(_w.seeingGood);
+	grp.add(_w.seeingPoor);
+	grp.add(_w.seeingAny);
 
 
-	_w.ir20.addActionListener(this);
-	_w.ir50.addActionListener(this);
-	_w.irIgnore.addActionListener(this);
+	_w.csoVeryDry.addActionListener(this);
+	_w.csoAny.addActionListener(this);
 
 	grp = new ButtonGroup();
-	grp.add(_w.ir20);
-	grp.add(_w.ir50);
-	grp.add(_w.irIgnore);
+	grp.add(_w.csoVeryDry);
+	grp.add(_w.csoAny);
 
 
 	_w.moonDark.addActionListener(this);
-	_w.moonBright.addActionListener(this);
-	_w.moonIgnore.addActionListener(this);
+	_w.moonGrey.addActionListener(this);
+	_w.moonAny.addActionListener(this);
 
 	grp = new ButtonGroup();
 	grp.add(_w.moonDark);
-	grp.add(_w.moonBright);
-	grp.add(_w.moonIgnore);
+	grp.add(_w.moonGrey);
+	grp.add(_w.moonAny);
 
 
-	_w.skyPhotometric.addActionListener(this);
-	_w.skySpectroscopic.addActionListener(this);
-	_w.skyIgnore.addActionListener(this);
-
-	grp = new ButtonGroup();
-	grp.add(_w.skyPhotometric);
-	grp.add(_w.skySpectroscopic);
-	grp.add(_w.skyIgnore);
-
-
-	// OMP (MFO, 8 August 2001)
-	_w.tauBand1.addActionListener(this);
-	_w.tauBand2.addActionListener(this);
+	_w.cloudPhotometric.addActionListener(this);
+	_w.cloudThinCirrus.addActionListener(this);
+	_w.cloudAny.addActionListener(this);
 
 	grp = new ButtonGroup();
-	grp.add(_w.tauBand1);
-	grp.add(_w.tauBand2);
-
-
-	_w.seeing1.addActionListener(this);
-	_w.seeing2.addActionListener(this);
-	_w.seeing3.addActionListener(this);
-
-	grp = new ButtonGroup();
-	grp.add(_w.seeing1);
-	grp.add(_w.seeing2);
-	grp.add(_w.seeing3);
+	grp.add(_w.cloudPhotometric);
+	grp.add(_w.cloudThinCirrus);
+	grp.add(_w.cloudAny);
     }
 
     /**
@@ -105,26 +86,26 @@ public final class EdCompSiteQuality extends OtItemEditor
 	int i;
 
 	// Image Quality
-	i = sq.getImageQuality();
+	i = sq.getSeeing();
 	switch (i) {
-	case SpSiteQualityObsComp.IMAGE_QUALITY_20:
-	    ow = _w.iq20; break;
-	case SpSiteQualityObsComp.IMAGE_QUALITY_50:
-	    ow = _w.iq50; break;
+	case SpSiteQualityObsComp.SEEING_EXCELLENT:
+	    ow = _w.seeingExcellent; break;
+	case SpSiteQualityObsComp.SEEING_GOOD:
+	    ow = _w.seeingGood; break;
+	case SpSiteQualityObsComp.SEEING_POOR:
+	    ow = _w.seeingPoor; break;
 	default:
-	    ow = _w.iqIgnore; break;
+	    ow = _w.seeingAny; break;
 	}
 	ow.setValue(true);
 
 	// IR Background
-	i = sq.getIRBackground();
+	i = sq.getCsoTau();
 	switch (i) {
-	case SpSiteQualityObsComp.IR_BACKGROUND_20:
-	    ow = _w.ir20; break;
-	case SpSiteQualityObsComp.IR_BACKGROUND_50:
-	    ow = _w.ir50; break;
+	case SpSiteQualityObsComp.CSO_TAO_VERY_DRY:
+	    ow = _w.csoVeryDry; break;
 	default:
-	    ow = _w.irIgnore; break;
+	    ow = _w.csoAny; break;
 	}
 	ow.setValue(true);
 
@@ -133,53 +114,24 @@ public final class EdCompSiteQuality extends OtItemEditor
 	switch (i) {
 	case SpSiteQualityObsComp.MOON_DARK:
 	    ow = _w.moonDark; break;
-	case SpSiteQualityObsComp.MOON_BRIGHT:
-	    ow = _w.moonBright; break;
+	case SpSiteQualityObsComp.MOON_GREY:
+	    ow = _w.moonGrey; break;
 	default:
-	    ow = _w.moonIgnore; break;
+	    ow = _w.moonAny; break;
 	}
 	ow.setValue(true);
 
 	// Sky
-	i = sq.getSky();
+	i = sq.getCloud();
 	switch (i) {
-	case SpSiteQualityObsComp.SKY_PHOTOMETRIC:
-	    ow = _w.skyPhotometric; break;
-	case SpSiteQualityObsComp.SKY_SPECTROSCOPIC:
-	    ow = _w.skySpectroscopic; break;
+	case SpSiteQualityObsComp.CLOUD_PHOTOMETRIC:
+	    ow = _w.cloudPhotometric; break;
+	case SpSiteQualityObsComp.CLOUD_THIN_CIRRUS:
+	    ow = _w.cloudThinCirrus; break;
 	default:
-	    ow = _w.skyIgnore; break;
+	    ow = _w.cloudAny; break;
 	}
 	ow.setValue(true);
-
-	// OMP (MFO, 8 August 2001)
-
-	// Tau Band
-	i = sq.getTauBand();
-	switch (i) {
-	case 1:
-	    _w.tauBand1.setValue(true); break;
-	case 2:
-	    _w.tauBand2.setValue(true); break;
-	default:
-	    _w.tauBand1.setValue(false);
-	    _w.tauBand2.setValue(false); break;
-	}
-
-	// Seeing
-	i = sq.getSeeing();
-	switch (i) {
-	case 1:
-	    _w.seeing1.setValue(true); break;
-	case 2:
-	    _w.seeing2.setValue(true); break;
-	case 3:
-	    _w.seeing3.setValue(true); break;
-	default:
-	    _w.seeing1.setValue(false);
-	    _w.seeing2.setValue(false);
-	    _w.seeing3.setValue(false); break;
-	}
     }
 
 
@@ -191,31 +143,31 @@ public final class EdCompSiteQuality extends OtItemEditor
 	Object w = evt.getSource();
 	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
 
-	// Image Quality
-	if (w == _w.iq20) {
-	    sq.setImageQuality(SpSiteQualityObsComp.IMAGE_QUALITY_20);
+	// Seeing
+	if (w == _w.seeingExcellent) {
+	    sq.setSeeing(SpSiteQualityObsComp.SEEING_EXCELLENT);
 	    return;
 	}
-	if (w == _w.iq50) {
-	    sq.setImageQuality(SpSiteQualityObsComp.IMAGE_QUALITY_50);
+	if (w == _w.seeingGood) {
+	    sq.setSeeing(SpSiteQualityObsComp.SEEING_GOOD);
 	    return;
 	}
-	if (w == _w.iqIgnore) {
-	    sq.setImageQuality(SpSiteQualityObsComp.IMAGE_QUALITY_IGNORE);
+	if (w == _w.seeingPoor) {
+	    sq.setSeeing(SpSiteQualityObsComp.SEEING_POOR);
+	    return;
+	}
+	if (w == _w.seeingAny) {
+	    sq.setSeeing(SpSiteQualityObsComp.SEEING_ANY);
 	    return;
 	}
 
-	// IR Background
-	if (w == _w.ir20) {
-	    sq.setIRBackground(SpSiteQualityObsComp.IR_BACKGROUND_20);
+	// CSO Tau
+	if (w == _w.csoVeryDry) {
+	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAO_VERY_DRY);
 	    return;
 	}
-	if (w == _w.ir50) {
-	    sq.setIRBackground(SpSiteQualityObsComp.IR_BACKGROUND_50);
-	    return;
-	}
-	if (w == _w.irIgnore) {
-	    sq.setIRBackground(SpSiteQualityObsComp.IR_BACKGROUND_IGNORE);
+	if (w == _w.csoAny) {
+	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAO_ANY);
 	    return;
 	}
 
@@ -224,51 +176,27 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    sq.setMoon(SpSiteQualityObsComp.MOON_DARK);
 	    return;
 	}
-	if (w == _w.moonBright) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_BRIGHT);
+	if (w == _w.moonGrey) {
+	    sq.setMoon(SpSiteQualityObsComp.MOON_GREY);
 	    return;
 	}
-	if (w == _w.moonIgnore) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_IGNORE);
-	    return;
-	}
-
-	// Sky
-	if (w == _w.skyPhotometric) {
-	    sq.setSky(SpSiteQualityObsComp.SKY_PHOTOMETRIC);
-	    return;
-	}
-	if (w == _w.skySpectroscopic) {
-	    sq.setSky(SpSiteQualityObsComp.SKY_SPECTROSCOPIC);
-	    return;
-	}
-	if (w == _w.skyIgnore) {
-	    sq.setSky(SpSiteQualityObsComp.SKY_IGNORE);
+	if (w == _w.moonAny) {
+	    sq.setMoon(SpSiteQualityObsComp.MOON_ANY);
 	    return;
 	}
 
-	// OMP (MFO, 8 August 2001)
-
-	// Tau band
-	if (w == _w.tauBand1) {
-	    sq.setTauBand(1);
+	// Cloud
+	if (w == _w.cloudPhotometric) {
+	    sq.setCloud(SpSiteQualityObsComp.CLOUD_PHOTOMETRIC);
+	    return;
 	}
-
-	if (w == _w.tauBand2) {
-	    sq.setTauBand(2);
+	if (w == _w.cloudThinCirrus) {
+	    sq.setCloud(SpSiteQualityObsComp.CLOUD_THIN_CIRRUS);
+	    return;
 	}
-
-	// Seeing
-	if (w == _w.seeing1) {
-	    sq.setSeeing(1);
-	}
-
-	if (w == _w.seeing2) {
-	    sq.setSeeing(2);
-	}
-
-	if (w == _w.seeing3) {
-	    sq.setSeeing(3);
+	if (w == _w.cloudAny) {
+	    sq.setCloud(SpSiteQualityObsComp.CLOUD_ANY);
+	    return;
 	}
     }
 }
