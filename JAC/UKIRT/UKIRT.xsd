@@ -46,6 +46,7 @@
   <xsd:choice>
     <xsd:group ref="toml:MSBContents"/>
     <xsd:group ref="toml:instrumentGroup"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
   </xsd:choice>
 </xsd:group>
 
@@ -60,6 +61,7 @@
     <xsd:element ref="toml:SpIterUISTTargetAcq"/>
     <xsd:element ref="toml:SpIterUISTSpecIFU"/>
     <xsd:element ref="toml:SpIterMichelleCalObs"/>
+    <xsd:element ref="toml:SpIterMichelleTargetAcq"/>
     <xsd:element ref="toml:SpIterIRPOL"/>
     <xsd:element ref="toml:SpIterBiasObs"/>
     <xsd:element ref="toml:SpIterDarkObs"/>
