@@ -1,0 +1,77 @@
+A3
+B3
+W(C)
+W(D)
+
+211
+276
+1
+A3
+16
+214 82
+217 90
+221 67
+227 68
+232 60
+238 75
+244 86
+247 186
+251 185
+253 141
+256 121
+260 96
+262 66
+265 61
+268 64
+272 63
+0.91
+
+315
+370
+2
+B3
+16
+325 120
+327 120
+330 105
+332 115
+335 115
+337 120
+340 130
+342 120
+345 120
+350 100
+354 105
+357 120
+360 90
+363 120
+367 155
+369 170
+0.86
+
+430
+510
+2
+W(C)
+1
+480 150
+0.83
+
+630
+710
+2
+W(D)
+1
+660 600
+0.65
+
+For each receiver the format is:
+(The individual receiver entries are separated by a blank line,
+the order in which the entries appear are given at the top of the file.)
+lowest tuneable frequency
+highest tuneable frequency
+number of mixers
+name of bitmap file
+No. of entries for Trx
+Freq(GHz) Trx(K)
+nu_tel
