@@ -50,8 +50,8 @@ have the first two, so skip to step 3 (JCMT-OT).
 % java -version
 </pre>
     <p>
-If the answer is 1.4 you know you are ok as far as JRE is
-concerned. Skip to the next step (JAI). 
+If the answer is 1.4.0, 1.4.1-05 or later you know you are ok as far as JRE is
+concerned. Versions of 1.4.1 earlier than 05 have a bug which causes JAI to crash on some FITS images (note - currently Starlink ships with 1.4.1-02, which means it can not be used with the JCMT OT).  If you have a suitable version, skip to the next step (JAI). 
 
 If you get an older version or "command not found" you need to install
 JRE and JAI. To simplify the hassle of installing both the JRE and JAI
@@ -230,7 +230,7 @@ and <a href="ftp://ftp.jach.hawaii.edu/pub/jcmt/jcmtot/ot_latest.tar.gz">.tar.gz
     <address><a href="mailto:frossie@jach.hawaii.edu">Frossie</a>, <a href="mailto:b.cavanagh@jach.hawaii.edu">Brad Cavanagh</a></address>
 <!-- Created: Sat Jul  6 21:49:36 HST 2002 -->
 <!-- hhmts start -->
-Last modified: Tue Jan 13 16:52:53 HST 2004
+Last modified: Tue Jan 27 09:18:32 HST 2004
 <!-- hhmts end -->
   </body>
 </html>
