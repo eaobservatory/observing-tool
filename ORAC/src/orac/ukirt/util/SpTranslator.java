@@ -987,8 +987,8 @@ public class SpTranslator {
          project = spObs.getTable().get( "project" );
 
 	 // Get the eStar stuff
-	 remoteTriggerSrc = spObs.getTable().get("remote_trigger");
-	 remoteTriggerId  = spObs.getTable().get("remote_trigger:id");
+	 remoteTriggerSrc = spObs.getTable().get("remote_trigger_src");
+	 remoteTriggerId  = spObs.getTable().get("remote_trigger_id");
 
 // Code rearrangement by RDK (this section was after the "Define file name" stuff
 // Obtain the instrument name and base configuration.
