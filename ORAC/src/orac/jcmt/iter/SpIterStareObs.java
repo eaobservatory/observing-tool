@@ -57,9 +57,24 @@ public double getElapsedTime() {
     double totalIntegrationTime = 0.0;
 
     if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	// Go through all of this items parents to see if any are SpIterPOLs
+	boolean polPhot = false;
+	SpItem parent = parent();
+	while (parent != null) {
+	    if (parent instanceof SpIterPOL) {
+		polPhot = true;
+		break;
+	    }
+	}
 	overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
-	// 18 seconds per integration
-	totalIntegrationTime = 18 * getIntegrations();
+	if ( polPhot ) {
+	    // 8 seconds per integration
+	    totalIntegrationTime = 8 *  getIntegrations();
+	}
+	else {
+	    // 18 seconds per integration
+	    totalIntegrationTime = 18 * getIntegrations();
+	}
     }
     else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
 	totalIntegrationTime = getIntegrations() * getSecsPerCycle();
