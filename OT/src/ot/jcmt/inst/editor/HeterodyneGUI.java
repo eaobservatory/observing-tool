@@ -12,7 +12,6 @@ package ot.jcmt.inst.editor;
 
 import javax.swing.border.TitledBorder;
 import jsky.app.ot.gui.TableWidgetExt;
-import ot.jcmt.inst.editor.edfreq.FrontEnd;
 import java.awt.*;
 import javax.swing.*;
 
