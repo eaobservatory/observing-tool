@@ -5,6 +5,7 @@
 
 <xsd:redefine schemaLocation="../../TOMLtypes.xsd">
 
+<!--
 <xsd:group name="ProgInfoGroup">
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group" minOccurs="0"/>
@@ -30,6 +31,7 @@
     <xsd:group   ref="toml:observationGroup"/>
   </xsd:sequence>
 </xsd:group>
+-->
 
 
 <xsd:simpleType name="chopThrowLimits">
