@@ -265,9 +265,11 @@ public class DatabaseDialog implements ActionListener {
       ((SpProg)_spItemToBeSaved).setTimestamp(result.timestamp);
 
       String dialogString = result.summary +
+	                    "\nYour Program has been successfully submitted!" +
                             "\nPLEASE SAVE THE SCIENCE PROGRAM IN ORDER TO KEEP TIMESTAMP INFORMATION.";
 
-      new FormattedStringBox(dialogString, "Database Message");
+
+       new FormattedStringBox(dialogString, "Database Message");
     }
     catch(SpChangedOnDiskException e) {
       if(JOptionPane.showConfirmDialog(_w, e.getMessage() + "\n\n            Store anyway?", "Database Message",
