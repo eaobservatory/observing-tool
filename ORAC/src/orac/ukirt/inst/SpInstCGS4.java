@@ -397,6 +397,13 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	}
 	return exptime;
     }
+
+    /** Get the acquisition overhead.
+      * The value will be 5 minutes for all source
+      */
+    public double getAcqTime() {
+        return 5.0*60.0;
+    }
     
     /**
      * Get the default bias exposure time

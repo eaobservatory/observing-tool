@@ -373,6 +373,14 @@ getSlewTime()
    return 0.0;
 }
 
+/**
+  * returns time estimate in seconds for acquiring the source.  Should
+  * be overridden by subclasses
+  */
+public double getAcqTime() {
+    return 0.0;
+}
+
 
   /**
    * This is a helper class for time estimation.

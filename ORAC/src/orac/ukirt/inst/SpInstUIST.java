@@ -4493,4 +4493,36 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	}
     }
 // End of added by RDK
+
+/**
+  * This method gets the acquisition time.  It really is an estimate of how long
+  * users run movie for.  For UIST, we will return 5 minutes for objects fainter
+  * than 13th magnitude, 1 minute otherwise (or 0 is we are not in spectroscopy
+  * mode).
+  */
+public double getAcqTime() {
+    double rtn = 0.0;
+    if ( !isImaging() ) { // Only deal with spectroscopy
+        // Get the source magnitude
+        int mag;
+        String magString = getSourceMag();
+        String [] magArray = magString.split("[^0-9]");
+        try {
+            mag =  Integer.parseInt(magArray[0]);
+            if ( mag >= 13 ) {
+                rtn = 5 * 60.0;
+            }
+            else {
+                rtn = 1 * 60.0;
+            }
+        }
+        catch ( NumberFormatException e ) {
+            // We don't know what the magnitude is, so
+            // assume it is faint
+            rtn = 5 * 60.0;
+        }
+    }
+    return rtn;
+}
+
 }

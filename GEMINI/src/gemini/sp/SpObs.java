@@ -7,6 +7,7 @@
 package gemini.sp;
 
 import gemini.sp.iter.SpIterFolder;
+import gemini.sp.obsComp.SpInstObsComp;
 import java.util.Enumeration;
 
 /**
@@ -346,10 +347,24 @@ public double
 getElapsedTime()
 {
   SpIterFolder iterFolder = getIterFolder();
+
+  double acqTime = 0.0;
+  SpInstObsComp obsComp = SpTreeMan.findInstrument(this);
+  if ( obsComp != null ) {
+      // Is this is a standard, we dont need to do anything
+      // If it is optional we dont need to do anything
+      if ( getIsStandard() ) {
+      }
+      if ( isOptional() ) {
+      }
+      else {
+          acqTime = obsComp.getAcqTime();
+      }
+  }
   
 //   if(iterFolder != null && !isOptional()) {
   if(iterFolder != null) {
-    return iterFolder.getElapsedTime();
+    return iterFolder.getElapsedTime() + acqTime;
   }
   else {
     return 0.0;
