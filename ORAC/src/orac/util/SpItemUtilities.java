@@ -68,7 +68,7 @@ public class SpItemUtilities {
   public static final String ID_REF_SUFFIX	= "Ref:idref";
 
 
-  private int _idCounter = 0;
+  private static int _idCounter = 0;
 
   /**
    * This method calls saveElapsedTime() on all MSBs and Observations that are MSBs.
@@ -175,7 +175,7 @@ public class SpItemUtilities {
   /**
    * Find SpMSB's and SpObs's recursively and set references.
    */
-  public void setReferenceIDs(SpItem spItem) {
+  public static void setReferenceIDs(SpItem spItem) {
     if(spItem instanceof SpObsContextItem) {
       if(spItem instanceof SpMSB) { 
 	_insertReferenceIDsFor(SpTreeMan.findTargetList(spItem), spItem);
@@ -207,7 +207,7 @@ public class SpItemUtilities {
    *                  same kind of inheritance that applies to SpObsComp items
    *                  such as instrument components, site quality components etc.
    */
-  protected void _insertReferenceIDsFor(Vector spObsCompVector, SpItem spItem) {
+  protected static void _insertReferenceIDsFor(Vector spObsCompVector, SpItem spItem) {
     if(spObsCompVector == null) {
       return;
     }
@@ -224,7 +224,7 @@ public class SpItemUtilities {
    *                  same kind of inheritance that applies to SpObsComp items
    *                  such as instrument components, site quality components etc.
    */
-  protected void _insertReferenceIDsFor(SpItem spObsComp, SpItem spItem) {
+  protected static void _insertReferenceIDsFor(SpItem spObsComp, SpItem spItem) {
     if((spObsComp == null) || (spItem == null)) {
       return;
     }

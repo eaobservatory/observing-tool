@@ -258,7 +258,7 @@ public class SpClient extends SoapClient {
    public static SpStoreResult storeProgram(SpProg spProg, String pass, boolean force) throws Exception {
 
       SpItemUtilities.removeReferenceIDs(spProg);
-      (new SpItemUtilities()).setReferenceIDs(spProg);
+      SpItemUtilities.setReferenceIDs(spProg);
 
       // Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
       // SpObs components that are MSBs.
