@@ -27,9 +27,28 @@ else
 	gmake _jar
 endif
 
+.PHONY: install
 
-install:
-	@echo Usage: cd OT|OM; gmake [INSTALL_ROOT=my_install_dir] install
+# This top level install target assumes default locations in the sub directories
+install: install_dir
+	mkdir -p $(INSTALL_ROOT)/lib
+	(cd GEMINI/src; gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+	(cd ORAC/src;   gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+	(cd ODB/src;    gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+	(cd OM/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+	(cd OT/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+
+	mkdir -p $(INSTALL_ROOT)/tools
+	cp ORAC/tools/*.jar OT/tools/*.jar $(INSTALL_ROOT)/tools
+
+	mkdir -p $(INSTALL_ROOT)/bin
+	(cd ODB/src; gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/odb)
+	(cd OM/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/om)
+	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot)
+	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot.bat)
+
+install_dir:
+	@mkdir -p $(INSTALL_ROOT)
 
 doc:
 ifeq ($(DOC_DIR), )
