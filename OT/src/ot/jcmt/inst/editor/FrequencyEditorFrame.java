@@ -24,17 +24,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
-import orac.util.SpItemDOM;
 import orac.jcmt.inst.SpInstHeterodyne;
 import edfreq.FrontEnd;
 import edfreq.FrequencyEditorConstants;
 import ot.util.DialogUtil;
-
-import org.xml.sax.InputSource;
-import org.apache.xerces.dom.ElementImpl;
-import org.apache.xerces.parsers.DOMParser;
-import java.io.StringReader;
-
 
 /**
  * This class provides a frame for the FrontEnd panel of the Frequency Editor.
@@ -106,11 +99,10 @@ public class FrequencyEditorFrame extends JFrame implements ActionListener {
       }
     }
 
-
     _currentInstHeterodyne = newInstHeterodyne;
 
     try {
-      String xml = (new SpItemDOM(newInstHeterodyne)).toXML();
+      String xml = newInstHeterodyne.getFreqEditorXml();
       _frontEnd.update(xml);
       _currentXML = _frontEnd.toXML();
     }
@@ -120,26 +112,19 @@ public class FrequencyEditorFrame extends JFrame implements ActionListener {
     }
   }
 
+  public String getFreqEditorXml() {
+    return _frontEnd.toXML();
+  }
+
   public void apply() {
     try {
-      DOMParser parser = new DOMParser();
-      parser.parse(new InputSource(new StringReader(_frontEnd.toXML())));
-      ElementImpl element = (ElementImpl)parser.getDocument().getDocumentElement();
-
-      _currentInstHeterodyne.getTable().noNotifyRmAll();
-      SpItemDOM.fillAvTable("", element, _currentInstHeterodyne.getTable());
-
-      _currentInstHeterodyne.setFrontEndName(_currentInstHeterodyne.getTable().get(
-                                               FrequencyEditorConstants.XML_ELEMENT_HETERODYNE + ":" +
-                                               FrequencyEditorConstants.XML_ATTRIBUTE_FE_NAME));
-      _currentInstHeterodyne.getTable().edit();
+      _currentInstHeterodyne.setFreqEditorXml(_frontEnd.toXML());
     }
     catch(Exception e) {
       e.printStackTrace();
       DialogUtil.error(this, "Could not read data from frequency editor: " + e);
     }
 
-  
     _heterodyneEditor.updateFreqEditorSummaryDoc();
 
     _currentXML = _frontEnd.toXML();
