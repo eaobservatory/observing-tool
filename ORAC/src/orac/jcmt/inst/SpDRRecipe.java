@@ -81,13 +81,6 @@ public final class SpDRRecipe extends SpObsComp
 		}
 		else if (InstCfg.matchAttr (instInfo, "scuba")) {
 		    SCUBA = instInfo.getValueAsLUT();
-		    System.out.println("SCUBA LookUpTable:");
-		    for(int i = 0; i < SCUBA.getNumRows(); i++) {
-                      for(int j = 0; j < SCUBA.getNumColumns(); j++) {
-                        System.out.print("    " + SCUBA.elementAt(i, j));
-		      }
-		      System.out.println();
-		    }
 		}
 	    }
 	}catch (IOException e) {
