@@ -236,10 +236,8 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       // MFO trigger additional initialising.
       feChoiceAction(null);
       updateSideBandDisplay();
-      feMoleculeAction(null);
       feMolecule2Action(null);
-      feTransition2Action(null);
-      feTransitionAction(null);
+      feMoleculeAction(null);
    
       // Initialize parser (MFO, 29 November 2001)
       try {
@@ -354,6 +352,8 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
         new DefaultComboBoxModel ( species.objectList ) );
 
       moleculeFrequency.setText ( "0.0000" );
+
+      feTransitionAction(null);
    }
 
 
@@ -365,6 +365,8 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
         new DefaultComboBoxModel ( species.objectList ) );
 
       moleculeFrequency2.setText ( "0.0000" );
+
+      feTransition2Action(null);
    }
 
 
@@ -707,11 +709,19 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       // If there is no xml then trigger reset.
       if((xml == null) || xml.trim().equals("")) {
          feChoice.setSelectedIndex(0);
+	 feTransition2Action(null);
+	 feTransitionAction(null);
 	 return;
       }
  
       //try {
         _xmlReader.parse(new InputSource(new StringReader(xml)));
+
+
+        // Trigger frequency calculation, spectral line display and centering of sideband.
+//	feTransitionAction(null);
+//	feTransition2Action(null);
+
       //}
       //catch(Exception e) {
          // There seems to be a class cast exception at the first attempt to parse which
