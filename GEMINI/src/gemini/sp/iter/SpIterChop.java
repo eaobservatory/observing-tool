@@ -150,7 +150,7 @@ public class SpIterChop extends SpIterComp {
   }
 
   public void setThrow(double throwValue, int step) {
-    _avTable.set(ATTR_THROW, throwValue, step);
+    _avTable.set(ATTR_THROW, Math.rint(throwValue * 10.0) / 10.0, step);
   }
 
 
@@ -167,7 +167,7 @@ public class SpIterChop extends SpIterComp {
   }
 
   public void setAngle(double angle, int step) {
-    _avTable.set(ATTR_ANGLE, angle, step);
+    _avTable.set(ATTR_ANGLE, Math.rint(angle * 10.0) / 10.0, step);
   }
 
   public String getCoordFrame(int step) {
