@@ -74,9 +74,9 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel4.setForeground(Color.black);
     jLabel4.setText("Jiggles/Cycle");
-    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel5.setForeground(Color.black);
-    jLabel5.setText("No of Cycles");
+//     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+//     jLabel5.setForeground(Color.black);
+//     jLabel5.setText("No of Cycles");
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel6.setForeground(Color.black);
     jLabel6.setText("(arc sec)");
@@ -86,7 +86,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     jLabel7.setText("(msec)");
     sampleTime.setColumns(6);
     jigglesPerCycle.setColumns(6);
-    noOfCycles.setColumns(6);
+//     noOfCycles.setColumns(6);
     jiggleAtReference.setText("Jiggle at Reference");
     jiggleAtReference.setFont(new java.awt.Font("Dialog", 0, 12));
     cycleReversal.setText("Cycle Reversal");
@@ -132,8 +132,8 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     acsisPanel.add(jLabel4, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(jLabel5, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+//     acsisPanel.add(jLabel5, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     acsisPanel.add(jLabel6, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     acsisPanel.add(sampleTime, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
@@ -142,8 +142,8 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     acsisPanel.add(jigglesPerCycle, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(noOfCycles, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+//     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(jiggleAtReference, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
     acsisPanel.add(cycleReversal, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0

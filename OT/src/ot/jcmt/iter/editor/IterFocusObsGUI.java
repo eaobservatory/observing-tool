@@ -67,9 +67,9 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
     acsisPanel.setLayout(gridBagLayout2);
     cycleReversal.setText("Cycle Reversal");
     cycleReversal.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel2.setForeground(Color.black);
-    jLabel2.setText("No of Cycles");
+//     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+//     jLabel2.setForeground(Color.black);
+//     jLabel2.setText("No of Cycles");
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
     jLabel1.setText("Secs per Cycle");
@@ -98,10 +98,10 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    acsisPanel.add(noOfCycles, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+//     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+//     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(cycleReversal, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 20, 0), 0, 0));
   }

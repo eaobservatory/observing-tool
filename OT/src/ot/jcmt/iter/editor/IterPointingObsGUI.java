@@ -69,9 +69,9 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel4.setForeground(Color.black);
     jLabel4.setText("Secs/Cycle");
-    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel5.setForeground(Color.black);
-    jLabel5.setText("No of Cycles");
+//     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+//     jLabel5.setForeground(Color.black);
+//     jLabel5.setText("No of Cycles");
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel6.setForeground(Color.black);
     jLabel6.setText("Secs/Cycle");
@@ -90,7 +90,7 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     secsPerCycle.setColumns(2);
     secsPerObservation.setEditable(false);
     secsPerObservation.setColumns(2);
-    noOfCycles.setColumns(2);
+//     noOfCycles.setColumns(2);
     pointingMethod.setFont(new java.awt.Font("Dialog", 0, 12));
     automaticTarget.setPreferredSize(new Dimension(190, 50));
     automaticTarget.setText("Automatic target");
@@ -112,8 +112,8 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
 //             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(jLabel4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+//     acsisPanel.add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
 //     acsisPanel.add(jLabel6, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
 //             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     acsisPanel.add(jLabel7, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
@@ -122,8 +122,8 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
 //             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(noOfCycles, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+//     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
 //     acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
 //             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(secsPerObservation, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
