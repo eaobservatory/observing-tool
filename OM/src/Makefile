@@ -218,8 +218,11 @@ else
 endif
 
 
-_install: $(INSTALL_ROOT)/lib $(INSTALL_ROOT)/tools $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/ot_cfg $(INSTALL_ROOT)/bin/om
+_install: $(INSTALL_ROOT)/lib $(INSTALL_ROOT)/tools $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/ot_cfg $(INSTALL_ROOT)/bin/om $(INSTALL_ROOT)/om_images
 
+$(INSTALL_ROOT)/om_images: om/images
+	rm -rf $@
+	cp -r  $< $@
 
 $(INSTALL_ROOT)/tools/$(notdir $(JHTOOLS_JAR)): $(JHTOOLS_JAR)
 	cp $< $@
@@ -294,7 +297,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n\
 	\nset PRG       = \`which $$""0\`\
 	\nset PRG_HOME  = \`dirname $$""PRG\`\
-	\nset IMAG_PATH = \`(cd $$""PRG_HOME; cd ../classes/om/images; pwd)\`/\
+	\nset IMAG_PATH = \`(cd $$""PRG_HOME; cd ../om_images; pwd)\`/\
 	\n\
 	\ncleanup\
 	\n\
@@ -357,7 +360,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\nend\
 	\n\
 	\nset CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/om/$(CFG_DIR_SITE)/$(CFG_DIR_TELESCOPE)\
-	\nset OT_CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/ot_cfg/\
+	\nset OT_CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/ot/$(CFG_DIR_TELESCOPE)/\
 	\n\
 	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
