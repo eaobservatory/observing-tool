@@ -4691,7 +4691,7 @@ You can change the sky offset to your own patch of blank sky.</note>
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Michelle library</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>Imaging</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
@@ -4752,15 +4752,15 @@ You can change the sky offset to your own patch of blank sky.</note>
           <exposureTime>0.01</exposureTime>
         </SpInstMichelle>
         <SpDRRecipe id="80" type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_BIAS</DarkRecipe>
+          <SkyRecipe>ARRAY_TESTS</SkyRecipe>
+          <FlatRecipe>ARRAY_TESTS</FlatRecipe>
+          <ArcRecipe>ARRAY_TESTS</ArcRecipe>
+          <DarkRecipe>ARRAY_TESTS</DarkRecipe>
           <title>ARRAY_TESTS</title>
           <meta_unique>true</meta_unique>
           <BiasInGroup>false</BiasInGroup>
           <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <BiasRecipe>ARRAY_TESTS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <ObjectRecipe>ARRAY_TESTS</ObjectRecipe>
           <ArcInGroup>false</ArcInGroup>
@@ -4803,10 +4803,10 @@ You can change the sky offset to your own patch of blank sky.</note>
         <SpTelescopeObsCompRef idref="81"/>
         <SpDRRecipeRef idref="83"/>
         <chainedToPrev>false</chainedToPrev>
-        <title>Point Source Imaging</title>
+        <title>Standard star</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <standard>false</standard>
+        <standard>true</standard>
         <SpTelescopeObsComp id="81" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>15.07</chopThrow>
@@ -4857,7 +4857,7 @@ You can change the sky offset to your own patch of blank sky.</note>
           <pixelFOV>0.21 x 0.21</pixelFOV>
           <idlePeriod>0.01</idlePeriod>
           <configType>Normal</configType>
-          <scienceArea>68.3 x 51.2</scienceArea>
+          <scienceArea>51.2 x 68.3</scienceArea>
           <filterCategory>Nband</filterCategory>
           <darkFilter>Blank</darkFilter>
           <polarimetry>no</polarimetry>
@@ -4937,13 +4937,430 @@ You can change the sky offset to your own patch of blank sky.</note>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">10145.294569999978</estimatedDuration>
+        <estimatedDuration units="seconds">925.0245474999998</estimatedDuration>
         <SpInstMichelleRef idref="85"/>
         <SpTelescopeObsCompRef idref="84"/>
         <SpDRRecipeRef idref="86"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Bright point source</title>
+        <priority>Low</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="84" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <chopThrow>15.07</chopThrow>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="85" type="oc" subtype="inst.michelle">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>68.3 x 51.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="86" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>NOD_CHOP</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>NOD_CHOP</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>5</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 5X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">925.0245474999998</estimatedDuration>
+        <SpInstMichelleRef idref="88"/>
+        <SpTelescopeObsCompRef idref="87"/>
+        <SpDRRecipeRef idref="89"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Bright point source with photometry</title>
+        <priority>Low</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="87" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <chopThrow>15.07</chopThrow>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="88" type="oc" subtype="inst.michelle">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>51.2 x 68.3</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="89" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>NOD_CHOP_APHOT</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>NOD_CHOP_APHOT</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>5</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 5X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">3685.0981899999974</estimatedDuration>
+        <SpInstMichelleRef idref="91"/>
+        <SpTelescopeObsCompRef idref="90"/>
+        <SpDRRecipeRef idref="92"/>
+        <chainedToPrev>false</chainedToPrev>
+        <title>Faint point source</title>
+        <priority>Low</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="90" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <chopThrow>15.07</chopThrow>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="91" type="oc" subtype="inst.michelle">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <order>0</order>
+          <centralWavelength>10.5</centralWavelength>
+          <posAngle>0.0</posAngle>
+          <disperser>LowN</disperser>
+          <instPort>North</instPort>
+          <waveform>starev13big</waveform>
+          <meta_version>1</meta_version>
+          <instAper>
+            <value>-1.07</value>
+            <value>7.48</value>
+            <value>0.0</value>
+            <value>10.5</value>
+          </instAper>
+          <mode>CHOP</mode>
+          <obsTimeOT>20.0</obsTimeOT>
+          <filter>I105B53</filter>
+          <coadds>621</coadds>
+          <nreads>0</nreads>
+          <observationTime>40.501227375</observationTime>
+          <dutyCycle>0.3066573732446053</dutyCycle>
+          <chopFrequency>5.185028050029558</chopFrequency>
+          <maskAngle>0.0</maskAngle>
+          <mustIdles>0</mustIdles>
+          <meta_unique>true</meta_unique>
+          <sampling>1x1</sampling>
+          <nullReads>0</nullReads>
+          <waveplate>none</waveplate>
+          <nullCycles>3</nullCycles>
+          <pixelFOV>0.21 x 0.21</pixelFOV>
+          <idlePeriod>0.01</idlePeriod>
+          <configType>Normal</configType>
+          <scienceArea>68.3 x 51.2</scienceArea>
+          <filterCategory>Nband</filterCategory>
+          <darkFilter>Blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readInterval>0.01</readInterval>
+          <filterOT>F105B53</filterOT>
+          <chopDelay>0.015</chopDelay>
+          <mask>2_pixels</mask>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.01</resetDelay>
+          <nresets>2</nresets>
+          <camera>imaging</camera>
+          <exposureTime>0.01</exposureTime>
+        </SpInstMichelle>
+        <SpDRRecipe id="92" type="oc" subtype="DRRecipe">
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <title>NOD_CHOP_FAINT</title>
+          <meta_unique>true</meta_unique>
+          <BiasInGroup>false</BiasInGroup>
+          <DarkInGroup>false</DarkInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <ObjectRecipe>NOD_CHOP_FAINT</ObjectRecipe>
+          <ArcInGroup>false</ArcInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>20</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <title>Repeat 20X</title>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-7.5</DC1>
+                  <DC2>7.5</DC2>
+                </OFFSET>
+              </obsArea>
+              <SpIterObserve type="ic" subtype="observe">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterObserve>
+            </SpIterOffset>
+          </SpIterRepeat>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <obsArea>
+              <PA>0.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <chainedToNext>false</chainedToNext>
+        <estimatedDuration units="seconds">10145.294569999978</estimatedDuration>
+        <SpInstMichelleRef idref="94"/>
+        <SpTelescopeObsCompRef idref="93"/>
+        <SpDRRecipeRef idref="95"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
-        <title>Extended Source  with Point Sources (2x3 scan)</title>
+        <title>Extended source  with embedded point sources (2x3 scan)</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
@@ -4953,7 +5370,7 @@ You can change the sky offset to your own patch of blank sky.</note>
 
 </note>
         </SpNote>
-        <SpTelescopeObsComp id="84" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="93" type="oc" subtype="targetList">
           <chopThrow>3.8</chopThrow>
           <chopSystem>FK5 (J2000)</chopSystem>
           <BASE TYPE="Base">
@@ -4981,7 +5398,7 @@ You can change the sky offset to your own patch of blank sky.</note>
             </target>
           </BASE>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="85" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="94" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>0</order>
           <centralWavelength>10.5</centralWavelength>
@@ -5029,7 +5446,7 @@ You can change the sky offset to your own patch of blank sky.</note>
           <camera>imaging</camera>
           <exposureTime>0.01</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="86" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="95" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -5118,15 +5535,15 @@ You can change the sky offset to your own patch of blank sky.</note>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">284.0049095</estimatedDuration>
-        <SpInstMichelleRef idref="87"/>
-        <SpDRRecipeRef idref="88"/>
+        <SpInstMichelleRef idref="96"/>
+        <SpDRRecipeRef idref="97"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>Array Tests</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpInstMichelle id="87" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="96" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>0</order>
           <centralWavelength>10.5</centralWavelength>
@@ -5173,7 +5590,7 @@ You can change the sky offset to your own patch of blank sky.</note>
           <camera>imaging</camera>
           <exposureTime>0.01</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="88" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="97" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -5220,9 +5637,9 @@ You can change the sky offset to your own patch of blank sky.</note>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">210.92017821119998</estimatedDuration>
-        <SpInstMichelleRef idref="89"/>
-        <SpDRRecipeRef idref="90"/>
+        <estimatedDuration units="seconds">211.84035642240002</estimatedDuration>
+        <SpInstMichelleRef idref="98"/>
+        <SpDRRecipeRef idref="99"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>End of night Michelle emissivity</title>
@@ -5231,8 +5648,8 @@ You can change the sky offset to your own patch of blank sky.</note>
         <standard>false</standard>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <title>emissivity check</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This end of night observation does an emissivity check by measuring the sky and the dome flux in the thermal IR.  
 
 Before starting the sequence, move the telescope to zenith and make sure you are pointing at blank sky. Run the sequence and take the initial flatfield and sky observation (note: there is a break before the first flat - hit "continue" when this point is reached). The sequence then hits another break before taking the next observation. At this point, please close the dome and the mirror covers. When both are closed, hit "continue" and let the sequence run to the next break. 
@@ -5243,7 +5660,7 @@ At the final break, you can run down the sequence console and OM, there is no ne
 
 </note>
         </SpNote>
-        <SpInstMichelle id="89" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="98" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>6</order>
           <centralWavelength>12.1</centralWavelength>
@@ -5261,12 +5678,12 @@ At the final break, you can run down the sequence console and OM, there is no ne
           <mode>NDSTARE</mode>
           <obsTimeOT>20.0</obsTimeOT>
           <filter>I116B9</filter>
-          <coadds>3</coadds>
-          <nreads>601</nreads>
+          <coadds>6</coadds>
+          <nreads>301</nreads>
           <meta_gui_selected>false</meta_gui_selected>
           <spectralCoverage>12.07 - 12.13</spectralCoverage>
-          <observationTime>18.1150222764</observationTime>
-          <dutyCycle>0.9936504479737874</dutyCycle>
+          <observationTime>18.230044552800003</observationTime>
+          <dutyCycle>0.9873810208124439</dutyCycle>
           <chopFrequency>0.0</chopFrequency>
           <maskAngle>48.0912</maskAngle>
           <mustIdles>0</mustIdles>
@@ -5290,9 +5707,9 @@ At the final break, you can run down the sequence console and OM, there is no ne
           <resetDelay>0.01</resetDelay>
           <nresets>1</nresets>
           <camera>spectroscopy</camera>
-          <exposureTime>6.0</exposureTime>
+          <exposureTime>3.0</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="90" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="99" type="oc" subtype="DRRecipe">
           <DarkInGroup>false</DarkInGroup>
           <ArcInGroup>false</ArcInGroup>
           <SkyRecipe>EMISSIVITY</SkyRecipe>
@@ -5378,9 +5795,9 @@ At the final break, you can run down the sequence console and OM, there is no ne
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">246.0256136528</estimatedDuration>
-        <SpInstMichelleRef idref="92"/>
-        <SpTelescopeObsCompRef idref="91"/>
-        <SpDRRecipeRef idref="93"/>
+        <SpInstMichelleRef idref="101"/>
+        <SpTelescopeObsCompRef idref="100"/>
+        <SpDRRecipeRef idref="102"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>General Peakup</title>
@@ -5389,15 +5806,15 @@ At the final break, you can run down the sequence console and OM, there is no ne
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <title>What is this?</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This is a sequence for doing Michelle peakup without using movie. It scans a distance of 4 arcsecs across the slit in steps of 0.5 arcsecs.
 
 In order to use this sequence, you should make sure that the slit position angle, slit width, wavelength and grating are all changed to match the settings of your own observations. You will also need to keep the target component in the sequence as this will turn on chopping for you.
 
 Sampling, which is set to 1x1 in this sequence, and the observation time, which is set to 10 seconds, need not be altered. These have been changed from the default Michelle settings in order to speed up peakup. </note>
         </SpNote>
-        <SpTelescopeObsComp id="91" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="100" type="oc" subtype="targetList">
           <chopThrow>16</chopThrow>
           <chopSystem>FK5 (J2000)</chopSystem>
           <BASE TYPE="Base">
@@ -5416,7 +5833,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <chopping>true</chopping>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="92" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="101" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -5465,7 +5882,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="93" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="102" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -5552,9 +5969,9 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">430.0704009752</estimatedDuration>
-        <SpInstMichelleRef idref="95"/>
-        <SpTelescopeObsCompRef idref="94"/>
-        <SpDRRecipeRef idref="96"/>
+        <SpInstMichelleRef idref="104"/>
+        <SpTelescopeObsCompRef idref="103"/>
+        <SpDRRecipeRef idref="105"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>Echelle Peakup</title>
@@ -5563,15 +5980,15 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <title>What is this?</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <note>This is a sequence for doing Michelle peakup without using movie. It scans a distance of 4 arcsecs across the slit in steps of 0.5 arcsecs, and also performs an offset observation, along the slit, for sky subtraction purposes.
 
 In order to use this sequence, you should make sure that the slit position angle, slit width, wavelength and order are all changed to match the settings of your own observations. 
 
 Sampling, which is set to 1x1 in this sequence, and the observation time, which is set to 20 seconds, need not be altered. </note>
         </SpNote>
-        <SpTelescopeObsComp id="94" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="103" type="oc" subtype="targetList">
           <chopThrow>16</chopThrow>
           <chopSystem>FK5 (J2000)</chopSystem>
           <BASE TYPE="Base">
@@ -5590,7 +6007,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <chopping>false</chopping>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="95" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="104" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>7</order>
           <centralWavelength>10.5</centralWavelength>
@@ -5639,7 +6056,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>6.0</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="96" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="105" type="oc" subtype="DRRecipe">
           <DarkInGroup>false</DarkInGroup>
           <ArcInGroup>false</ArcInGroup>
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -5764,15 +6181,33 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">450.276171264</estimatedDuration>
-        <SpInstMichelleRef idref="97"/>
-        <SpDRRecipeRef idref="98"/>
+        <SpInstMichelleRef idref="107"/>
+        <SpTelescopeObsCompRef idref="106"/>
+        <SpDRRecipeRef idref="108"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>Flats and Arc</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpInstMichelle id="97" type="oc" subtype="inst.michelle">
+        <SpTelescopeObsComp id="106" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <chopThrow>16.01</chopThrow>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <chopping>true</chopping>
+          <chopAngle>0.0</chopAngle>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstMichelle id="107" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -5820,7 +6255,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="98" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="108" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -5896,24 +6331,24 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
-        <SpInstMichelleRef idref="100"/>
-        <SpTelescopeObsCompRef idref="99"/>
-        <SpDRRecipeRef idref="101"/>
+        <SpInstMichelleRef idref="110"/>
+        <SpTelescopeObsCompRef idref="109"/>
+        <SpDRRecipeRef idref="111"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Standard Star</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="99" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="109" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>16.01</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
-              <targetName>BS 99</targetName>
+              <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>00:26:17.051</c1>
-                <c2>-42:18:21.53</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
               </spherSystem>
             </target>
           </BASE>
@@ -5921,7 +6356,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>0.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="100" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="110" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -5969,7 +6404,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="101" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="111" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6025,24 +6460,24 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
-        <SpInstMichelleRef idref="103"/>
-        <SpTelescopeObsCompRef idref="102"/>
-        <SpDRRecipeRef idref="104"/>
+        <SpInstMichelleRef idref="113"/>
+        <SpTelescopeObsCompRef idref="112"/>
+        <SpDRRecipeRef idref="114"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Standard Star With Flats and Arc</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="102" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="112" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>16.01</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
-              <targetName>BS 99</targetName>
+              <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>00:26:17.051</c1>
-                <c2>-42:18:21.53</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
               </spherSystem>
             </target>
           </BASE>
@@ -6050,7 +6485,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>0.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="103" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="113" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -6098,7 +6533,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="104" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="114" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6206,24 +6641,24 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
-        <SpInstMichelleRef idref="106"/>
-        <SpTelescopeObsCompRef idref="105"/>
-        <SpDRRecipeRef idref="107"/>
+        <SpInstMichelleRef idref="116"/>
+        <SpTelescopeObsCompRef idref="115"/>
+        <SpDRRecipeRef idref="117"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Point Source</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="105" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="115" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>16.01</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
-              <targetName>BS 99</targetName>
+              <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>00:26:17.051</c1>
-                <c2>-42:18:21.53</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
               </spherSystem>
             </target>
           </BASE>
@@ -6231,7 +6666,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>0.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="106" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="116" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -6279,7 +6714,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="107" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="117" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6335,24 +6770,24 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
-        <SpInstMichelleRef idref="109"/>
-        <SpTelescopeObsCompRef idref="108"/>
-        <SpDRRecipeRef idref="110"/>
+        <SpInstMichelleRef idref="119"/>
+        <SpTelescopeObsCompRef idref="118"/>
+        <SpDRRecipeRef idref="120"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Point Source With Flats And Arcs</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="108" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="118" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>16.01</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="Base">
             <target>
-              <targetName>BS 99</targetName>
+              <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>00:26:17.051</c1>
-                <c2>-42:18:21.53</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
               </spherSystem>
             </target>
           </BASE>
@@ -6360,7 +6795,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>0.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="109" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="119" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -6408,7 +6843,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="110" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="120" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6516,15 +6951,15 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
-        <SpInstMichelleRef idref="112"/>
-        <SpTelescopeObsCompRef idref="111"/>
-        <SpDRRecipeRef idref="113"/>
+        <SpInstMichelleRef idref="122"/>
+        <SpTelescopeObsCompRef idref="121"/>
+        <SpDRRecipeRef idref="123"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Extended Source - Chop Along Slit</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="111" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="121" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>21.7</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6541,7 +6976,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>0.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="112" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="122" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -6589,7 +7024,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="113" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="123" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6645,15 +7080,15 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
-        <SpInstMichelleRef idref="115"/>
-        <SpTelescopeObsCompRef idref="114"/>
-        <SpDRRecipeRef idref="116"/>
+        <SpInstMichelleRef idref="125"/>
+        <SpTelescopeObsCompRef idref="124"/>
+        <SpDRRecipeRef idref="126"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Extended Source - Chop Along Slit with Flats And Arc</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="114" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="124" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>21.7</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6670,7 +7105,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>0.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="115" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="125" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -6718,7 +7153,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="116" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="126" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6826,15 +7261,15 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">700.5523425279999</estimatedDuration>
-        <SpInstMichelleRef idref="118"/>
-        <SpTelescopeObsCompRef idref="117"/>
-        <SpDRRecipeRef idref="119"/>
+        <SpInstMichelleRef idref="128"/>
+        <SpTelescopeObsCompRef idref="127"/>
+        <SpDRRecipeRef idref="129"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Extended Source - Chop And Nod Off Slit</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="117" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="127" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>21.7</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6851,7 +7286,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>90.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="118" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="128" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -6899,7 +7334,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="119" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="129" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -6955,15 +7390,15 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">1150.828513792</estimatedDuration>
-        <SpInstMichelleRef idref="121"/>
-        <SpTelescopeObsCompRef idref="120"/>
-        <SpDRRecipeRef idref="122"/>
+        <SpInstMichelleRef idref="131"/>
+        <SpTelescopeObsCompRef idref="130"/>
+        <SpDRRecipeRef idref="132"/>
         <chainedToPrev>false</chainedToPrev>
         <title>Extended Source - Chop And Nod Off Slit With Flats and Arcs</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpTelescopeObsComp id="120" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="130" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <chopThrow>21.7</chopThrow>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6980,7 +7415,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <chopAngle>90.0</chopAngle>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="121" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="131" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <order>1</order>
           <centralWavelength>10.5</centralWavelength>
@@ -7028,7 +7463,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
           <camera>spectroscopy</camera>
           <exposureTime>0.21</exposureTime>
         </SpInstMichelle>
-        <SpDRRecipe id="122" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="132" type="oc" subtype="DRRecipe">
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -7152,9 +7587,9 @@ NOTE:  All recipes require that separate flat-field observations be acquired bef
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">366.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="123"/>
-      <SpInstUFTIRef idref="124"/>
-      <SpDRRecipeRef idref="125"/>
+      <SpTelescopeObsCompRef idref="133"/>
+      <SpInstUFTIRef idref="134"/>
+      <SpDRRecipeRef idref="135"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>make_skyflat for each WP angle for Pol (UFTI)</title>
@@ -7175,10 +7610,10 @@ N.B.  All current polarimetry recipes require a separate flat field.</note>
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="123" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="133" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords</targetName>
@@ -7195,7 +7630,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="124" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="134" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -7227,7 +7662,7 @@ If you do not need flats at each waveplate angle, select the observation "make_s
 </note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="125" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="135" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -7271,8 +7706,8 @@ If you wish to observe at more than one wavelength, add filters to the "UFTI" co
             <value>exposureTimeIter</value>
             <value>coaddsIter</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <filterIter>H98</filterIter>
           <exposureTimeIter>10</exposureTimeIter>
           <SpNote type="no" subtype="none">
@@ -7453,9 +7888,9 @@ Guiding may be switched off at the telescope.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">238.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="126"/>
-      <SpInstUFTIRef idref="127"/>
-      <SpDRRecipeRef idref="128"/>
+      <SpTelescopeObsCompRef idref="136"/>
+      <SpInstUFTIRef idref="137"/>
+      <SpDRRecipeRef idref="138"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol jitter then angle (UFTI)</title>
@@ -7480,7 +7915,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="126" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="136" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -7499,7 +7934,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="127" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="137" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -7527,7 +7962,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="128" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="138" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -7555,9 +7990,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
             <IRPOLIter>
               <value>0</value>
@@ -7566,12 +8001,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>E-W jitter at each WP position.</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -7626,9 +8061,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">174.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="129"/>
-      <SpInstUFTIRef idref="130"/>
-      <SpDRRecipeRef idref="131"/>
+      <SpTelescopeObsCompRef idref="139"/>
+      <SpInstUFTIRef idref="140"/>
+      <SpDRRecipeRef idref="141"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>make_skyflat for Pol (UFTI)</title>
@@ -7649,10 +8084,10 @@ N.B.  All current Polarimetry recipes require a separate flat field (and dark).<
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="129" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="139" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -7669,7 +8104,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="130" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="140" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -7702,7 +8137,7 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
 </note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="131" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="141" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -7748,8 +8183,8 @@ required.</note>
             <value>exposureTimeIter</value>
             <value>coaddsIter</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <filterIter>H98</filterIter>
           <exposureTimeIter>10</exposureTimeIter>
           <SpNote type="no" subtype="none">
@@ -7883,9 +8318,9 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">229.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="132"/>
-      <SpInstUFTIRef idref="133"/>
-      <SpDRRecipeRef idref="134"/>
+      <SpTelescopeObsCompRef idref="142"/>
+      <SpInstUFTIRef idref="143"/>
+      <SpDRRecipeRef idref="144"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol angle then jitter (UFTI)</title>
@@ -7911,7 +8346,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="132" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="142" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -7930,7 +8365,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="133" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="143" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -7958,7 +8393,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="134" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="144" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -7986,13 +8421,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Jitter AFTER 4 WP positions</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
@@ -8022,8 +8457,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <SpIterObserve type="ic" subtype="observe">
                 <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -8057,9 +8492,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">430.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="135"/>
-      <SpInstUFTIRef idref="136"/>
-      <SpDRRecipeRef idref="137"/>
+      <SpTelescopeObsCompRef idref="145"/>
+      <SpInstUFTIRef idref="146"/>
+      <SpDRRecipeRef idref="147"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol extended (UFTI)</title>
@@ -8084,7 +8519,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="135" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="145" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -8103,7 +8538,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="136" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="146" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -8131,7 +8566,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="137" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="147" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -8159,13 +8594,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Obj-Sky pair at each WP position.</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
           </SpNote>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -8176,8 +8611,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>Obj-Sky nod 1</title>
@@ -8286,9 +8721,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">1198.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="138"/>
-      <SpInstUFTIRef idref="139"/>
-      <SpDRRecipeRef idref="140"/>
+      <SpTelescopeObsCompRef idref="148"/>
+      <SpInstUFTIRef idref="149"/>
+      <SpDRRecipeRef idref="150"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol extended 3x3 (UFTI)</title>
@@ -8313,7 +8748,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="138" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="148" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -8332,7 +8767,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="139" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="149" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -8360,7 +8795,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="140" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="150" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -8388,13 +8823,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Obj-Sky pair at each WP position.</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.
 
 This set is akin to the 3x3 extended observation with 50% overlaps on the target and a jitter on a sky region.</note>
@@ -8407,8 +8842,8 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>Obj-Sky nod 1</title>
@@ -8697,9 +9132,9 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">104.52000000000001</estimatedDuration>
-      <SpTelescopeObsCompRef idref="141"/>
-      <SpInstIRCAM3Ref idref="142"/>
-      <SpDRRecipeRef idref="143"/>
+      <SpTelescopeObsCompRef idref="151"/>
+      <SpInstIRCAM3Ref idref="152"/>
+      <SpDRRecipeRef idref="153"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>make_skyflat for Pol (IRCAM3)</title>
@@ -8720,10 +9155,10 @@ N.B.  All current Polarimetry recipes require a separate flat field (and dark).<
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="141" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="151" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -8740,7 +9175,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the IRCAM3 component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstIRCAM3 id="142" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="152" type="oc" subtype="inst.IRCAM3">
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
         <readoutArea>256x256</readoutArea>
@@ -8767,7 +9202,7 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
 </note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="143" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="153" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -8942,9 +9377,9 @@ the telescope to slide 0 0</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">366.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="144"/>
-      <SpInstIRCAM3Ref idref="145"/>
-      <SpDRRecipeRef idref="146"/>
+      <SpTelescopeObsCompRef idref="154"/>
+      <SpInstIRCAM3Ref idref="155"/>
+      <SpDRRecipeRef idref="156"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>make_skyflat for each WP angle for Pol (IRCAM3)</title>
@@ -8965,10 +9400,10 @@ N.B.  All current polarimetry recipes require a separate flat field.</note>
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="144" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="154" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -8985,7 +9420,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the IRCAM3 component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstIRCAM3 id="145" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="155" type="oc" subtype="inst.IRCAM3">
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
         <readoutArea>256x256</readoutArea>
@@ -9014,7 +9449,7 @@ If you do not need flats at each waveplate angle, select the observation "make_s
 </note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="146" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="156" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -9235,9 +9670,9 @@ Guiding may be switched off at the telescope.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">238.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="147"/>
-      <SpInstIRCAM3Ref idref="148"/>
-      <SpDRRecipeRef idref="149"/>
+      <SpTelescopeObsCompRef idref="157"/>
+      <SpInstIRCAM3Ref idref="158"/>
+      <SpDRRecipeRef idref="159"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol jitter then angle (IRCAM3)</title>
@@ -9263,7 +9698,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="147" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="157" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -9282,7 +9717,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the IRCAM3 component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstIRCAM3 id="148" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="158" type="oc" subtype="inst.IRCAM3">
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
         <readoutArea>256x256</readoutArea>
@@ -9308,7 +9743,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="149" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="159" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -9336,9 +9771,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
             <IRPOLIter>
               <value>0</value>
@@ -9347,12 +9782,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpNote type="no" subtype="none">
               <title>E-W jitter at each WP position.</title>
-              <meta_gui_selected>false</meta_gui_selected>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selected>false</meta_gui_selected>
               <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -9406,9 +9841,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">194.08</estimatedDuration>
-      <SpTelescopeObsCompRef idref="150"/>
-      <SpInstIRCAM3Ref idref="151"/>
-      <SpDRRecipeRef idref="152"/>
+      <SpTelescopeObsCompRef idref="160"/>
+      <SpInstIRCAM3Ref idref="161"/>
+      <SpDRRecipeRef idref="162"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol angle then jitter (IRCAM3)</title>
@@ -9434,7 +9869,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="150" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="160" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -9453,7 +9888,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the IRCAM3 component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstIRCAM3 id="151" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="161" type="oc" subtype="inst.IRCAM3">
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
         <readoutArea>256x256</readoutArea>
@@ -9479,7 +9914,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="152" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="162" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -9507,13 +9942,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Jitter AFTER 4 WP positions</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 7-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
@@ -9576,9 +10011,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">237.00000000000003</estimatedDuration>
-      <SpTelescopeObsCompRef idref="153"/>
-      <SpInstIRCAM3Ref idref="154"/>
-      <SpDRRecipeRef idref="155"/>
+      <SpTelescopeObsCompRef idref="163"/>
+      <SpInstIRCAM3Ref idref="164"/>
+      <SpDRRecipeRef idref="165"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol extended (IRCAM3)</title>
@@ -9603,7 +10038,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="153" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="163" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -9622,7 +10057,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the IRCAM3 component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstIRCAM3 id="154" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="164" type="oc" subtype="inst.IRCAM3">
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
         <readoutArea>256x256</readoutArea>
@@ -9648,7 +10083,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
         <title>Pol recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="155" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="165" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -9676,13 +10111,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
+          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
-          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Obj-Sky pair at each WP position.</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
           </SpNote>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -9693,8 +10128,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>Obj-sky nod 1</title>
@@ -9803,14 +10238,14 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">1157.4399999999998</estimatedDuration>
-      <SpTelescopeObsCompRef idref="156"/>
-      <SpDRRecipeRef idref="158"/>
+      <SpTelescopeObsCompRef idref="166"/>
+      <SpDRRecipeRef idref="168"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Pol nod along slit (CGS4)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstCGS4Ref idref="157"/>
+      <SpInstCGS4Ref idref="167"/>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -9821,7 +10256,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="156" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="166" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -9867,7 +10302,7 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
 </note>
         <title>cgs4+irpol</title>
       </SpNote>
-      <SpInstCGS4 id="157" type="oc" subtype="inst.CGS4">
+      <SpInstCGS4 id="167" type="oc" subtype="inst.CGS4">
         <order>1</order>
         <instPort>South</instPort>
         <disperser>40lpmm</disperser>
@@ -9900,7 +10335,7 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
 </note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="158" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="168" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
@@ -10068,14 +10503,14 @@ object</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">294.37594709760003</estimatedDuration>
-      <SpInstMichelleRef idref="159"/>
-      <SpDRRecipeRef idref="160"/>
+      <SpInstMichelleRef idref="169"/>
+      <SpDRRecipeRef idref="170"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Flats and Arc (MIchelle)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpInstMichelle id="159" type="oc" subtype="inst.michelle">
+      <SpInstMichelle id="169" type="oc" subtype="inst.michelle">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <order>1</order>
         <centralWavelength>10.5</centralWavelength>
@@ -10123,7 +10558,7 @@ object</note>
         <camera>spectroscopy</camera>
         <exposureTime>0.43</exposureTime>
       </SpInstMichelle>
-      <SpDRRecipe id="160" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="170" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -10206,16 +10641,16 @@ object</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">5740.030307123204</estimatedDuration>
-      <SpInstMichelleRef idref="162"/>
-      <SpTelescopeObsCompRef idref="161"/>
-      <SpDRRecipeRef idref="163"/>
+      <SpInstMichelleRef idref="172"/>
+      <SpTelescopeObsCompRef idref="171"/>
+      <SpDRRecipeRef idref="173"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Specpol - Standard Star (MIchelle)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpTelescopeObsComp id="161" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="171" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <chopThrow>15.07</chopThrow>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -10232,7 +10667,7 @@ object</note>
         <chopAngle>0.0</chopAngle>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstMichelle id="162" type="oc" subtype="inst.michelle">
+      <SpInstMichelle id="172" type="oc" subtype="inst.michelle">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <order>1</order>
         <centralWavelength>10.5</centralWavelength>
@@ -10281,7 +10716,7 @@ object</note>
         <camera>spectroscopy</camera>
         <exposureTime>0.43</exposureTime>
       </SpInstMichelle>
-      <SpDRRecipe id="163" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="173" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -10388,16 +10823,16 @@ object</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">5740.030307123204</estimatedDuration>
-      <SpInstMichelleRef idref="165"/>
-      <SpTelescopeObsCompRef idref="164"/>
-      <SpDRRecipeRef idref="166"/>
+      <SpInstMichelleRef idref="175"/>
+      <SpTelescopeObsCompRef idref="174"/>
+      <SpDRRecipeRef idref="176"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Specpol - Point Source (Michelle)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpTelescopeObsComp id="164" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="174" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <chopThrow>15.07</chopThrow>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -10414,7 +10849,7 @@ object</note>
         <chopAngle>0.0</chopAngle>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstMichelle id="165" type="oc" subtype="inst.michelle">
+      <SpInstMichelle id="175" type="oc" subtype="inst.michelle">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <order>1</order>
         <centralWavelength>10.5</centralWavelength>
@@ -10463,7 +10898,7 @@ object</note>
         <camera>spectroscopy</camera>
         <exposureTime>0.43</exposureTime>
       </SpInstMichelle>
-      <SpDRRecipe id="166" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="176" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -10570,16 +11005,16 @@ object</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">10725.314207999983</estimatedDuration>
-      <SpInstMichelleRef idref="168"/>
-      <SpTelescopeObsCompRef idref="167"/>
-      <SpDRRecipeRef idref="169"/>
+      <SpInstMichelleRef idref="178"/>
+      <SpTelescopeObsCompRef idref="177"/>
+      <SpDRRecipeRef idref="179"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Impol iterate angle then nod (Michelle)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpTelescopeObsComp id="167" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="177" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <chopThrow>15.07</chopThrow>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -10596,7 +11031,7 @@ object</note>
         <chopAngle>0.0</chopAngle>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstMichelle id="168" type="oc" subtype="inst.michelle">
+      <SpInstMichelle id="178" type="oc" subtype="inst.michelle">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <order>1</order>
         <centralWavelength>10.5</centralWavelength>
@@ -10645,7 +11080,7 @@ object</note>
         <camera>imaging</camera>
         <exposureTime>0.01</exposureTime>
       </SpInstMichelle>
-      <SpDRRecipe id="169" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="179" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -10768,16 +11203,16 @@ object</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">11205.314207999983</estimatedDuration>
-      <SpInstMichelleRef idref="171"/>
-      <SpTelescopeObsCompRef idref="170"/>
-      <SpDRRecipeRef idref="172"/>
+      <SpInstMichelleRef idref="181"/>
+      <SpTelescopeObsCompRef idref="180"/>
+      <SpDRRecipeRef idref="182"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Impol nod then angle (Michelle)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpTelescopeObsComp id="170" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="180" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <chopThrow>15.07</chopThrow>
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -10794,7 +11229,7 @@ object</note>
         <chopAngle>0.0</chopAngle>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstMichelle id="171" type="oc" subtype="inst.michelle">
+      <SpInstMichelle id="181" type="oc" subtype="inst.michelle">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <order>1</order>
         <centralWavelength>10.5</centralWavelength>
@@ -10843,7 +11278,7 @@ object</note>
         <camera>imaging</camera>
         <exposureTime>0.01</exposureTime>
       </SpInstMichelle>
-      <SpDRRecipe id="172" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="182" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -10978,8 +11413,8 @@ Copy the one you want to use to your science program and edit in the values you 
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">324.96</estimatedDuration>
-      <SpInstIRCAM3Ref idref="173"/>
-      <SpDRRecipeRef idref="174"/>
+      <SpInstIRCAM3Ref idref="183"/>
+      <SpDRRecipeRef idref="184"/>
       <chainedToPrev>false</chainedToPrev>
       <title>array tests</title>
       <priority>Low</priority>
@@ -10992,7 +11427,7 @@ Copy the one you want to use to your science program and edit in the values you 
 Recommended that this be run at the start of every IRCAM night.</note>
         <title>Usage</title>
       </SpNote>
-      <SpInstIRCAM3 id="173" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="183" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -11012,7 +11447,7 @@ Recommended that this be run at the start of every IRCAM night.</note>
         <acqMode>Standard+STARE</acqMode>
         <meta_gui_collapsed>false</meta_gui_collapsed>
       </SpInstIRCAM3>
-      <SpDRRecipe id="174" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="184" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -11095,9 +11530,9 @@ then a 60-second and a 10-second dark to calculate the dark current.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
-      <SpTelescopeObsCompRef idref="175"/>
-      <SpInstIRCAM3Ref idref="176"/>
-      <SpDRRecipeRef idref="177"/>
+      <SpTelescopeObsCompRef idref="185"/>
+      <SpInstIRCAM3Ref idref="186"/>
+      <SpDRRecipeRef idref="187"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Nod 4 /offsets of 10arcsec</title>
       <priority>Low</priority>
@@ -11118,7 +11553,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="175" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="185" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -11141,7 +11576,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="176" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="186" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -11170,7 +11605,7 @@ If you require aperture photometry of the positive and negative images too, sele
 Changing the total number of offsets will break the data-reduction recipe.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="177" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="187" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -11272,9 +11707,9 @@ Remember that changing the number of offsets will break the reduction recipe. </
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">370.91999999999996</estimatedDuration>
-      <SpTelescopeObsCompRef idref="178"/>
-      <SpInstIRCAM3Ref idref="179"/>
-      <SpDRRecipeRef idref="180"/>
+      <SpTelescopeObsCompRef idref="188"/>
+      <SpInstIRCAM3Ref idref="189"/>
+      <SpDRRecipeRef idref="190"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Nod 8 /offsets of 5arcsec</title>
       <priority>Low</priority>
@@ -11295,7 +11730,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="178" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="188" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -11316,7 +11751,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 The IRCAM3 component below uses a 0.2-second exposure time.   To change it move the highlight to "IRCAM3" below and change the exposure time - either enter the value you want to use, or enter the magnitude range of your target and a recommended exposure time will be automatically entered.</note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="179" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="189" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -11345,7 +11780,7 @@ If you require aperture photometry of the positive and negative images too, sele
 Changing the total number of offsets will break the data-reduction recipe.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="180" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="190" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -11461,9 +11896,9 @@ Remember that changing the number of offsets will break the reduction recipe. </
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">257.28</estimatedDuration>
-      <SpTelescopeObsCompRef idref="181"/>
-      <SpInstIRCAM3Ref idref="182"/>
-      <SpDRRecipeRef idref="183"/>
+      <SpTelescopeObsCompRef idref="191"/>
+      <SpInstIRCAM3Ref idref="192"/>
+      <SpDRRecipeRef idref="193"/>
       <chainedToPrev>false</chainedToPrev>
       <title>5pt jitter/offsets of 5arcsec</title>
       <priority>Low</priority>
@@ -11484,7 +11919,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="181" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="191" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -11507,7 +11942,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="182" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="192" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -11534,7 +11969,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 If you need to use a faster recipe then select JITTER_SELF_FLAT_BASIC. (This is a good idea if your exposure time is shorter than a second.)</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="183" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="193" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -11638,9 +12073,9 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">257.28</estimatedDuration>
-      <SpTelescopeObsCompRef idref="184"/>
-      <SpInstIRCAM3Ref idref="185"/>
-      <SpDRRecipeRef idref="186"/>
+      <SpTelescopeObsCompRef idref="194"/>
+      <SpInstIRCAM3Ref idref="195"/>
+      <SpDRRecipeRef idref="196"/>
       <chainedToPrev>false</chainedToPrev>
       <title>5pt jitter/offsets of 6arcsec</title>
       <priority>Low</priority>
@@ -11661,7 +12096,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="184" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="194" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -11684,7 +12119,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="185" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="195" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -11711,7 +12146,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 If you need to use a faster recipe then select JITTER_SELF_FLAT_BASIC.  (This is a good idea if your exposure time is shorter than a second.)</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="186" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="196" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -11815,9 +12250,9 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">408.79999999999995</estimatedDuration>
-      <SpTelescopeObsCompRef idref="187"/>
-      <SpInstIRCAM3Ref idref="188"/>
-      <SpDRRecipeRef idref="189"/>
+      <SpTelescopeObsCompRef idref="197"/>
+      <SpInstIRCAM3Ref idref="198"/>
+      <SpDRRecipeRef idref="199"/>
       <chainedToPrev>false</chainedToPrev>
       <title>9pt jitter/offsets of 6arcsec</title>
       <priority>Low</priority>
@@ -11838,7 +12273,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="187" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="197" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -11861,7 +12296,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="188" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="198" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -11888,7 +12323,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 If you need to use a faster recipe then select JITTER_SELF_FLAT_BASIC.  (This is a good idea if your exposure time is shorter than a second.)</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="189" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="199" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -12005,9 +12440,9 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">332.64000000000004</estimatedDuration>
-      <SpTelescopeObsCompRef idref="190"/>
-      <SpInstIRCAM3Ref idref="191"/>
-      <SpDRRecipeRef idref="192"/>
+      <SpTelescopeObsCompRef idref="200"/>
+      <SpInstIRCAM3Ref idref="201"/>
+      <SpDRRecipeRef idref="202"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>n-colour photometry</title>
@@ -12030,7 +12465,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="190" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="200" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -12049,7 +12484,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Set a default IRCAM3 setup to start from here.</note>
         <title>IRCAM set up</title>
       </SpNote>
-      <SpInstIRCAM3 id="191" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="201" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -12081,7 +12516,7 @@ Separate reduced files are generated for each colour.
 The algorithm is identical to JITTER_SELF_FLAT.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="192" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="202" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -12219,9 +12654,9 @@ Three darks are done here - one for each filter that will follow.  Set the expos
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">787.5999999999999</estimatedDuration>
-      <SpTelescopeObsCompRef idref="193"/>
-      <SpInstIRCAM3Ref idref="194"/>
-      <SpDRRecipeRef idref="195"/>
+      <SpTelescopeObsCompRef idref="203"/>
+      <SpInstIRCAM3Ref idref="204"/>
+      <SpDRRecipeRef idref="205"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Chop obj-sky with 9pt jitter</title>
       <priority>Low</priority>
@@ -12245,7 +12680,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="193" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="203" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -12268,7 +12703,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="194" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="204" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -12299,7 +12734,7 @@ N.B.  A matching dark exposure also required.
 If your observations are short, you may wish to substitute CHOP_SKY_JITTER_BASIC, which uses a no-frills algorithm.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="195" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="205" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -12461,9 +12896,9 @@ Changing the total number of offsets will break the data-reduction recipe.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">72.21000000000001</estimatedDuration>
-      <SpTelescopeObsCompRef idref="196"/>
-      <SpInstIRCAM3Ref idref="197"/>
-      <SpDRRecipeRef idref="198"/>
+      <SpTelescopeObsCompRef idref="206"/>
+      <SpInstIRCAM3Ref idref="207"/>
+      <SpDRRecipeRef idref="208"/>
       <chainedToPrev>false</chainedToPrev>
       <title>sky and jitter</title>
       <priority>Low</priority>
@@ -12478,7 +12913,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="196" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="206" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -12499,7 +12934,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 The IRCAM3 component below uses a 0.5-second exposure time.  To change it move the highlight to "IRCAM3" below and change the exposure time - either enter the value you want to use, or enter the magnitude range of your target and the recommended exposure time will be automatically entered.</note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="197" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="207" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -12524,7 +12959,7 @@ The IRCAM3 component below uses a 0.5-second exposure time.  To change it move t
         <note>The data-reduction recipe used assumes that a flat field has already been created.  It will not work unless you have done this.  Use the observation "make sky flats" to do this.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="198" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="208" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>SKY_AND_JITTER_APHOT</SkyRecipe>
@@ -12649,9 +13084,9 @@ Removing the offset to sky will break the recipe, as will changing the order.</n
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
-      <SpTelescopeObsCompRef idref="199"/>
-      <SpInstIRCAM3Ref idref="200"/>
-      <SpDRRecipeRef idref="201"/>
+      <SpTelescopeObsCompRef idref="209"/>
+      <SpInstIRCAM3Ref idref="210"/>
+      <SpDRRecipeRef idref="211"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Quadrant Jitter</title>
       <priority>Low</priority>
@@ -12671,7 +13106,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="199" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="209" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -12694,7 +13129,7 @@ The IRCAM3 component below uses a 0.2-second exposure time.   To change it move 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="200" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="210" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -12722,7 +13157,7 @@ If you need to use a more complete recipe then select QUADRANT_JITTER or QUADRAN
 </note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="201" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="211" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -12826,9 +13261,9 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">787.5999999999999</estimatedDuration>
-      <SpTelescopeObsCompRef idref="202"/>
-      <SpInstIRCAM3Ref idref="203"/>
-      <SpDRRecipeRef idref="204"/>
+      <SpTelescopeObsCompRef idref="212"/>
+      <SpInstIRCAM3Ref idref="213"/>
+      <SpDRRecipeRef idref="214"/>
       <chainedToPrev>false</chainedToPrev>
       <title>extended_3x3</title>
       <priority>Low</priority>
@@ -12856,7 +13291,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="202" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="212" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -12879,7 +13314,7 @@ The IRCAM component below uses a 0.2 second exposure time.   To change it move t
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="203" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="213" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -12904,7 +13339,7 @@ The IRCAM component below uses a 0.2 second exposure time.   To change it move t
         <note>The data-reduction recipe assumes the order in which the images are taken;  if you change this the recipe will not work.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="204" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="214" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -13059,9 +13494,9 @@ Changing the total number of offsets will break the data-reduction recipe.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">1999.7600000000027</estimatedDuration>
-      <SpTelescopeObsCompRef idref="205"/>
-      <SpInstIRCAM3Ref idref="206"/>
-      <SpDRRecipeRef idref="207"/>
+      <SpTelescopeObsCompRef idref="215"/>
+      <SpInstIRCAM3Ref idref="216"/>
+      <SpDRRecipeRef idref="217"/>
       <chainedToPrev>false</chainedToPrev>
       <title>extended_5x5</title>
       <priority>Low</priority>
@@ -13089,7 +13524,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="205" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="215" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -13112,7 +13547,7 @@ The IRCAM component below uses a 0.2 second exposure time.   To change it move t
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="206" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="216" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -13138,7 +13573,7 @@ The IRCAM component below uses a 0.2 second exposure time.   To change it move t
  if you change this the recipe will not work.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="207" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="217" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -13424,9 +13859,9 @@ Changing the total number of offsets will break the data-reduction recipe.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">156.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="208"/>
-      <SpInstIRCAM3Ref idref="209"/>
-      <SpDRRecipeRef idref="210"/>
+      <SpTelescopeObsCompRef idref="218"/>
+      <SpInstIRCAM3Ref idref="219"/>
+      <SpDRRecipeRef idref="220"/>
       <chainedToPrev>false</chainedToPrev>
       <title>make_skyflat</title>
       <priority>Low</priority>
@@ -13446,7 +13881,7 @@ The reduction recipe makes a flat that other reduction recipes can use.</note>
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="208" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="218" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -13469,7 +13904,7 @@ The IRCAM3 component below uses a 15-second exposure time.   To change it move t
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstIRCAM3 id="209" type="oc" subtype="inst.IRCAM3">
+      <SpInstIRCAM3 id="219" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
         <instPort>East</instPort>
         <meta_version>1.0</meta_version>
@@ -13494,7 +13929,7 @@ The IRCAM3 component below uses a 15-second exposure time.   To change it move t
         <note>This recipe generates a flat field that can be used by other data-reduction recipes.  It masks residual stars to reduce artifacts and biases in the flat.  If you do not want masking select recipe SKY_FLAT for object observation in the DRRecipe component below.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="210" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="220" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -13597,8 +14032,8 @@ exposure time matches that in your object.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">215.0</estimatedDuration>
-      <SpInstUFTIRef idref="211"/>
-      <SpDRRecipeRef idref="212"/>
+      <SpInstUFTIRef idref="221"/>
+      <SpDRRecipeRef idref="222"/>
       <chainedToPrev>false</chainedToPrev>
       <title>array_tests</title>
       <priority>Low</priority>
@@ -13608,7 +14043,7 @@ exposure time matches that in your object.</note>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>The UFTI configuration to use the blank filter in the component below.</note>
       </SpNote>
-      <SpInstUFTI id="211" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="221" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -13632,7 +14067,7 @@ exposure time matches that in your object.</note>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use the ARRAY_TESTS data-reduction recipe.</note>
       </SpNote>
-      <SpDRRecipe id="212" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="222" type="oc" subtype="DRRecipe">
         <DarkInGroup>true</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>ARRAY_TESTS</SkyRecipe>
@@ -13678,8 +14113,8 @@ exposure time matches that in your object.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">15.0</estimatedDuration>
-      <SpInstUFTIRef idref="213"/>
-      <SpDRRecipeRef idref="214"/>
+      <SpInstUFTIRef idref="223"/>
+      <SpDRRecipeRef idref="224"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Quick look with FP</title>
@@ -13701,7 +14136,7 @@ Short integration times are usually sufficient for FP alignment with the lamp.
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="213" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="223" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -13727,7 +14162,7 @@ Short integration times are usually sufficient for FP alignment with the lamp.
         <note>At present, only the QUICK_LOOK recipe is available for alignment purposes.</note>
         <title>DR recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="214" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="224" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -13759,8 +14194,8 @@ Short integration times are usually sufficient for FP alignment with the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPZ>-700</FPZ>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-200</FPY>
           <FPX>200</FPX>
           <SpIterObserve type="ic" subtype="observe">
@@ -13773,9 +14208,9 @@ Short integration times are usually sufficient for FP alignment with the lamp.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">2560.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="215"/>
-      <SpInstUFTIRef idref="216"/>
-      <SpDRRecipeRef idref="217"/>
+      <SpTelescopeObsCompRef idref="225"/>
+      <SpInstUFTIRef idref="226"/>
+      <SpDRRecipeRef idref="227"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>make_skyflat for FP</title>
@@ -13797,10 +14232,10 @@ Note - 500sec integration needed to get a few hundred counts on the array.</note
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="215" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="225" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
         <BASE TYPE="Base">
           <target>
             <targetName>Blank sky position</targetName>
@@ -13819,7 +14254,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 The UFTI component below uses a 120-second exposure time, which is necessary to get background limited when the FP is in the beam.  To change it move the highlight to "UFTI" below and change the exposure time.</note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="216" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="226" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -13845,7 +14280,7 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
         <note>The data-reduction recipe, SKY_FLAT_FP, expects a block of dithered blank-sky frames.   An equal number of frames on-line FPZ (x2), off-line (blue) FPZ and off-line (red) FPZ is recommended.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="217" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="227" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -13885,8 +14320,8 @@ Enter these new values into the "FP" component below.</note>
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-284</FPZ>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPZ>-284</FPZ>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
@@ -13897,8 +14332,8 @@ Enter these new values into the "FP" component below.</note>
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-284</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>0,0</title>
@@ -13919,8 +14354,8 @@ Enter these new values into the "FP" component below.</note>
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-484</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>20,20</title>
@@ -14002,8 +14437,8 @@ Enter these new values into the "FP" component below.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">200.0</estimatedDuration>
-      <SpInstUFTIRef idref="218"/>
-      <SpDRRecipeRef idref="219"/>
+      <SpInstUFTIRef idref="228"/>
+      <SpDRRecipeRef idref="229"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>FPY alignment</title>
@@ -14025,7 +14460,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="218" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="228" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -14051,7 +14486,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
         <note>At present, only the QUICK_LOOK recipe is available for alignment purposes.</note>
         <title>DR recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="219" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="229" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -14073,8 +14508,8 @@ Short integration times are usually sufficient for FP alignment on the lamp.
         <title>fpx, fpy set</title>
         <SpNote type="no" subtype="none">
           <title>FPX=0, FPY=-800</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <note></note>
         </SpNote>
         <SpNote type="no" subtype="none">
@@ -14099,14 +14534,14 @@ Short integration times are usually sufficient for FP alignment on the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selected>false</meta_gui_selected>
           <FPZ>0</FPZ>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-800</FPY>
           <FPX>0</FPX>
           <SpIterFP type="ic" subtype="instFP">
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>
               <value>-1400</value>
               <value>-1350</value>
@@ -14129,7 +14564,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
               <value>-500</value>
               <value>-450</value>
             </FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterObserve type="ic" subtype="observe">
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14141,8 +14576,8 @@ Short integration times are usually sufficient for FP alignment on the lamp.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">200.0</estimatedDuration>
-      <SpInstUFTIRef idref="220"/>
-      <SpDRRecipeRef idref="221"/>
+      <SpInstUFTIRef idref="230"/>
+      <SpDRRecipeRef idref="231"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>FPX alignment</title>
@@ -14164,7 +14599,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="220" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="230" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -14191,7 +14626,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
         <note>At present, only the QUICK_LOOK recipe is available for alignment purposes.</note>
         <title>DR recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="221" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="231" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -14238,14 +14673,14 @@ Short integration times are usually sufficient for FP alignment on the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selected>false</meta_gui_selected>
           <FPZ>0</FPZ>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>0</FPY>
           <FPX>1400</FPX>
           <SpIterFP type="ic" subtype="instFP">
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>
               <value>-1400</value>
               <value>-1350</value>
@@ -14268,7 +14703,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
               <value>-500</value>
               <value>-450</value>
             </FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterObserve type="ic" subtype="observe">
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14280,8 +14715,8 @@ Short integration times are usually sufficient for FP alignment on the lamp.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">150.0</estimatedDuration>
-      <SpInstUFTIRef idref="222"/>
-      <SpDRRecipeRef idref="223"/>
+      <SpInstUFTIRef idref="232"/>
+      <SpDRRecipeRef idref="233"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>FPZ alignment</title>
@@ -14303,7 +14738,7 @@ Short integration times are usually sufficient for FP alignment with the lamp.
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="222" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="232" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -14329,7 +14764,7 @@ Short integration times are usually sufficient for FP alignment with the lamp.
         <note>At present, only the QUICK_LOOK recipe is available for alignment purposes.</note>
         <title>DR recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="223" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="233" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -14362,9 +14797,9 @@ Short integration times are usually sufficient for FP alignment with the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selected>false</meta_gui_selected>
           <FPZ>0</FPZ>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-300</FPY>
           <FPX>300</FPX>
           <SpNote type="no" subtype="none">
@@ -14377,7 +14812,7 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>
               <value>-1100</value>
               <value>-1050</value>
@@ -14395,7 +14830,7 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
               <value>-450</value>
               <value>-400</value>
             </FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterObserve type="ic" subtype="observe">
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14407,9 +14842,9 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">1163.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="224"/>
-      <SpInstUFTIRef idref="225"/>
-      <SpDRRecipeRef idref="226"/>
+      <SpTelescopeObsCompRef idref="234"/>
+      <SpInstUFTIRef idref="235"/>
+      <SpDRRecipeRef idref="236"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Basic: online(obj,sky)-offline(sky,obj)</title>
       <priority>Low</priority>
@@ -14444,7 +14879,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="224" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="234" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -14465,7 +14900,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
 The UFTI component below uses a 120-second exposure time, which is necessary to get background limited when the FP is in the beam.  To change it move the highlight to "UFTI" below and change the exposure time.</note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="225" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="235" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -14491,7 +14926,7 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
         <note>The data-reduction recipe is matched to the observing sequence, i.e. for online-offline/object-sky reduction.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="226" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="236" type="oc" subtype="DRRecipe">
         <SkyRecipe>FP</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -14534,8 +14969,8 @@ down the sequence).
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-630</FPZ>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPZ>-630</FPZ>
           <FPY>-80</FPY>
           <FPX>300</FPX>
         </SpIterFP>
@@ -14546,8 +14981,8 @@ down the sequence).
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-500</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14582,8 +15017,8 @@ down the sequence).
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-430</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14691,9 +15126,9 @@ down the sequence).
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">2661.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="227"/>
-      <SpInstUFTIRef idref="228"/>
-      <SpDRRecipeRef idref="229"/>
+      <SpTelescopeObsCompRef idref="237"/>
+      <SpInstUFTIRef idref="238"/>
+      <SpDRRecipeRef idref="239"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Jitter 5 no sky: online(obj)-offline(obj)</title>
@@ -14725,7 +15160,7 @@ When you have done so you can use the "position editor" to select a guide star, 
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="227" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="237" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -14747,7 +15182,7 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="228" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="238" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -14773,7 +15208,7 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
         <note>The data-reduction recipe is matched to the observing sequence, i.e. for  online-off line reduction.  No sky frames are used (only dark subtraction).</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="229" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="239" type="oc" subtype="DRRecipe">
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -14814,8 +15249,8 @@ Enter these new values into the "FP" component below.</note>
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-630</FPZ>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPZ>-630</FPZ>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
@@ -14862,13 +15297,13 @@ Enter these new values into the "FP" component below.</note>
             <SpIterFP type="ic" subtype="instFP">
               <title>FPZ on line</title>
               <iterConfigList>FPZ</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>
                 <value>-284</value>
                 <value>-484</value>
                 <value>-284</value>
                 <value>-84</value>
               </FPZ>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterObserve type="ic" subtype="observe">
                 <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14897,9 +15332,9 @@ Enter these new values into the "FP" component below.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">5196.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="230"/>
-      <SpInstUFTIRef idref="231"/>
-      <SpDRRecipeRef idref="232"/>
+      <SpTelescopeObsCompRef idref="240"/>
+      <SpInstUFTIRef idref="241"/>
+      <SpDRRecipeRef idref="242"/>
       <meta_gui_selected>false</meta_gui_selected>
       <chainedToPrev>false</chainedToPrev>
       <title>Jitter 5: online(obj,sky)-offline(sky,obj)</title>
@@ -14935,7 +15370,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="230" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="240" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -14957,7 +15392,7 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="231" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="241" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -14983,7 +15418,7 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
         <note>The data-reduction recipe is matched to the observing sequence, i.e. for online-offline reduction of obj and sky images.  Five jittered cycles of eight frames are used by FP_JITTER.  That's forty frames in total.</note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="232" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="242" type="oc" subtype="DRRecipe">
         <SkyRecipe>FP_JITTER</SkyRecipe>
         <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ArcRecipe>REDUCE_ARC</ArcRecipe>
@@ -15024,8 +15459,8 @@ Enter these new values into the "FP" component below.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-264</FPZ>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPZ>-264</FPZ>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
@@ -15051,8 +15486,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-264</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>------ > 0,0</title>
@@ -15089,8 +15524,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-464</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>-----> -100,0</title>
@@ -15211,8 +15646,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-264</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>------ > 6,1</title>
@@ -15249,8 +15684,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-464</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>-----> -95,0</title>
@@ -15371,8 +15806,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-264</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>------ > -5,-1</title>
@@ -15409,8 +15844,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-464</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>-----> -105,0</title>
@@ -15531,8 +15966,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-264</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>------ > 1,5</title>
@@ -15569,8 +16004,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-464</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>-----> -100,10</title>
@@ -15691,8 +16126,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-264</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>------ > -1,-6</title>
@@ -15729,8 +16164,8 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-464</FPZ>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>-----> -100,-10</title>
@@ -15860,9 +16295,9 @@ Enter these new values into the "FP" component below.
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">446.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="233"/>
-      <SpInstUFTIRef idref="234"/>
-      <SpDRRecipeRef idref="235"/>
+      <SpTelescopeObsCompRef idref="243"/>
+      <SpInstUFTIRef idref="244"/>
+      <SpDRRecipeRef idref="245"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
       <priority>Low</priority>
@@ -15890,7 +16325,7 @@ When you have done so you can use the "position editor" to  select a guide star,
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="233" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="243" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
@@ -15913,7 +16348,7 @@ The UFTI component below uses a 5-second exposure time.  To change it move the h
 </note>
         <title>how to set the exposure time and filter</title>
       </SpNote>
-      <SpInstUFTI id="234" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="244" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -15941,7 +16376,7 @@ The UFTI component below uses a 5-second exposure time.  To change it move the h
 NOTE:  A separate flat must have been acquired and filed in the same filter (use "make_skyflats");  the recipe also requires a dark with the same integration time. </note>
         <title>DR Recipe Selection</title>
       </SpNote>
-      <SpDRRecipe id="235" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="245" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -15981,8 +16416,8 @@ Enter these new values into the "FP" component below.  FPZ will be over-written 
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-630</FPZ>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPZ>-630</FPZ>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
@@ -16067,8 +16502,8 @@ FP field-of-view.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">117.0</estimatedDuration>
-      <SpInstUFTIRef idref="236"/>
-      <SpDRRecipeRef idref="237"/>
+      <SpInstUFTIRef idref="246"/>
+      <SpDRRecipeRef idref="247"/>
       <chainedToPrev>false</chainedToPrev>
       <title>Flush Array</title>
       <priority>Low</priority>
@@ -16086,7 +16521,7 @@ Note:  These frames WILL be stored to disk.</note>
         <note>Sets the integration time and the filter to blank in the UFTI component.</note>
         <title>Set time and filter</title>
       </SpNote>
-      <SpInstUFTI id="236" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="246" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -16111,7 +16546,7 @@ Note:  These frames WILL be stored to disk.</note>
         <note>Use the QUICK_LOOK  data-reduction recipe, so that you can check that the images are "clean".</note>
         <title>DR recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="237" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="247" type="oc" subtype="DRRecipe">
         <DarkInGroup>true</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>ARRAY_TESTS</SkyRecipe>
@@ -16142,8 +16577,8 @@ Note:  These frames WILL be stored to disk.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <chainedToNext>false</chainedToNext>
       <estimatedDuration units="seconds">195.0</estimatedDuration>
-      <SpInstUFTIRef idref="238"/>
-      <SpDRRecipeRef idref="239"/>
+      <SpInstUFTIRef idref="248"/>
+      <SpDRRecipeRef idref="249"/>
       <chainedToPrev>false</chainedToPrev>
       <title>End of Night</title>
       <priority>Low</priority>
@@ -16157,7 +16592,7 @@ Also ensures that the blank is in place at the end of the night.
 </note>
         <title>Usage</title>
       </SpNote>
-      <SpInstUFTI id="238" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="248" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
         <instPort>West</instPort>
         <meta_version>1.0</meta_version>
@@ -16181,7 +16616,7 @@ Also ensures that the blank is in place at the end of the night.
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use the QUICK_LOOK data-reduction recipe.</note>
       </SpNote>
-      <SpDRRecipe id="239" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="249" type="oc" subtype="DRRecipe">
         <DarkInGroup>false</DarkInGroup>
         <ArcInGroup>false</ArcInGroup>
         <SkyRecipe>QUICK_LOOK</SkyRecipe>
