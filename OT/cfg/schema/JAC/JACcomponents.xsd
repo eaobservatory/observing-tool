@@ -55,7 +55,7 @@
     <xsd:attribute name="remaining">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
-          <xsd:pattern value="-999|[0-9]+"/>
+          <xsd:pattern value="(-)?[0-9]+"/>
         </xsd:restriction>
       </xsd:simpleType>
     </xsd:attribute>
@@ -76,7 +76,7 @@
     <xsd:attribute name="remaining">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
-          <xsd:pattern value="-999|[0-9]+"/>
+          <xsd:pattern value="(-)?[0-9]+"/>
         </xsd:restriction>
       </xsd:simpleType>
     </xsd:attribute>

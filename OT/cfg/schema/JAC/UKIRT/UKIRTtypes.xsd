@@ -33,6 +33,7 @@
     <xsd:element ref="toml:SpIterMicroStep"/>
     <xsd:element ref="toml:SpIterBiasObs"/>
     <xsd:element ref="toml:SpIterDarkObs"/>
+    <xsd:element ref="toml:SpIterFP"/>
     <xsd:element ref="toml:SpIterObserve"/>
     <xsd:element ref="toml:SpIterSky"/>
   </xsd:choice>
@@ -75,6 +76,7 @@
     <xsd:element ref="toml:SpIterRepeat"/>
     <xsd:element ref="toml:SpIterOffset"/>
     <xsd:element ref="toml:SpIterMicroStep"/>
+    <xsd:element ref="toml:SpIterFP"/>
   </xsd:choice>
 </xsd:group>
 
