@@ -354,6 +354,7 @@ public class AttributeEditor extends JDialog
 	_scaleFactorUsed = -1.0;
       }
       closeDialog();
+      System.out.println("Editing cancelled");
     } else if (source == OK) {
       if (makeChanges()) {
 	closeDialog();
