@@ -289,7 +289,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         int mi = IMAGERS.indexInColumn(DEFAULT_IMAGER,0);
         String mask = (String) IMAGERS.elementAt(mi,4);
         _avTable.noNotifySet(attr, mask, 0);
-        updateInstAper();
+        setInstAper();
 
         attr  = ATTR_MASK_WIDTH;
         _avTable.noNotifySet(attr, "0.0", 0);
@@ -1397,7 +1397,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     {
         _avTable.set(ATTR_MASK, mask);
         updateResolution();
-        updateInstAper();
+        setInstAper();
     }
 
     /**
@@ -2166,7 +2166,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     /**
      * Update the instrument aperture
      */
-    public void updateInstAper()
+    public void setInstAper()
     {
         int maskIndex = MASKS.indexInColumn (getMask(),0);
         setInstApX ((String) MASKS.elementAt(maskIndex,4));
