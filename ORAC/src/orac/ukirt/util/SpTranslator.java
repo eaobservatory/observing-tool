@@ -482,7 +482,7 @@ public class SpTranslator {
 // Need to increment the value of the observe counter.  Find the
 // character positions of the number.
             start = biw.next() + 1;
-            end = biw.next() + 1;
+            end = biw.next( 2 );
 
 // Extract the number as a string.  Note that it extracts a substring
 // from index start to index end-1, not end.
