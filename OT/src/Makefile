@@ -46,7 +46,7 @@ classes: $(CLASSES_DIR) $(CLASS_FILES)
 
 cfg: $(LOCAL_INSTALL_ROOT)/cfg $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg $(GIF_IMAGES) $(CFG_FILES)
 
-script: $(BIN_DIR)/ot $(BIN_DIR)/ot.bat
+script: $(BIN_DIR)/ot $(BIN_DIR)/ot.bat $(BIN_DIR)/ompvalidate
 
 $(LOCAL_INSTALL_ROOT):
 	@ -mkdir -p $(LOCAL_INSTALL_ROOT)
@@ -144,6 +144,10 @@ endif
 	@echo Creating $@
 	@chmod 775 $@
 
+$(BIN_DIR)/ompvalidate: scripts/ompvalidate
+	@mkdir -p $(BIN_DIR)
+	@cat $? >> $@
+	@chmod 775 $@
 
 $(BIN_DIR)/ot.bat: scripts/ot_bat_local_source
 	@mkdir -p $(BIN_DIR)
