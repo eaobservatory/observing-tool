@@ -19,6 +19,7 @@ import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstMichelle;
 
 import gemini.sp.*;
+import gemini.sp.obsComp.SpInstObsComp;
 import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -315,7 +316,7 @@ _init()
                 double et = Double.parseDouble(ets);
                 if (et > 0.00001) {
                     _instMichelle.setExpTime(ets);
-                    _updateWidgets();
+                    _updateWidgets(_w.dataAcq_exposureTime);
 		}
 	    }catch( Exception ex) {
 	        // ignore
@@ -346,7 +347,7 @@ _init()
                 if (ot > 0.00001) {
                     _instMichelle.setObservationTime(ot);
                     _instMichelle.setCoadds(0);
-                    _updateWidgets();
+                    _updateWidgets(_w.dataAcq_observationTime);
 		}
 	    }catch( Exception ex) {
 	        // ignore
@@ -381,12 +382,18 @@ setup(SpItem spItem)
    super.setup(spItem);
 }
 
+
 /**
  * Implements the _updateWidgets method from OtItemEditor in order to
  * setup the widgets to show the current values of the item.
  */
+protected void _updateWidgets()
+{
+    _updateWidgets(null);
+}
+
 protected void
-_updateWidgets()
+_updateWidgets(Object source)
 {
     if (!haveInitialised) {
         // Load drop down lists only first time in
@@ -409,12 +416,19 @@ _updateWidgets()
         _updateWavelengthCoverage();
         _updateSpecFilter();
     }
-    _updateAcquisition();
+    _updateAcquisition(source);
     _updateChopFreq();
     _updateDutyCycle();
 
-    super._updateWidgets();
+    //super._updateWidgets();
+    TextBoxWidgetExt tbwe;
+    tbwe = getPosAngleTextBox();
+    tbwe.setText( ((SpInstObsComp) _spItem).getPosAngleDegreesStr() );
 
+    if(_w.dataAcq_exposureTime != source) {
+      tbwe = getExposureTimeTextBox();
+      tbwe.setText( ((SpInstObsComp) _spItem).getExposureTimeAsString() );
+    }
 }
 
 //
@@ -590,13 +604,18 @@ _updateDutyCycle()
 // Update the acquisition
 //
 private void
-_updateAcquisition()
+_updateAcquisition(Object source)
 {
     _instMichelle.setAcquisition();
-    String ets = _instMichelle.getExpTimeString();
-    _w.dataAcq_exposureTime.setText(_instMichelle.getExpTimeString());
-    String ots = _instMichelle.getObservationTimeString();
-    _w.dataAcq_observationTime.setText(_instMichelle.getObservationTimeString());
+    if(_w.dataAcq_exposureTime != source) {
+      String ets = _instMichelle.getExpTimeString();
+      _w.dataAcq_exposureTime.setText(_instMichelle.getExpTimeString());
+    }
+
+    if(_w.dataAcq_observationTime != source) {
+      String ots = _instMichelle.getObservationTimeString();
+      _w.dataAcq_observationTime.setText(_instMichelle.getObservationTimeString());
+    }  
 }
 
 //
