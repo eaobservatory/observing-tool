@@ -15,6 +15,7 @@ import orac.util.TelescopeUtil;
 import orac.util.PreTranslator;
 import orac.util.SpItemDOM;
 import orac.validation.SpValidation;
+import orac.jcmt.validation.JcmtSpValidation;
 import orac.jcmt.SpJCMTConstants;
 
 /**
@@ -28,7 +29,7 @@ public class JcmtUtil implements TelescopeUtil {
 
   // There is no proper JCMT validation class yet.
   // Use the Generic class instead.
-  private SpValidation _spValidation =  new SpValidation();
+  private JcmtSpValidation _spValidation =  new JcmtSpValidation();
   private String []    _targetTags = { "SCIENCE", "REFERENCE" };
 
   public SpValidation getValidationTool() {
