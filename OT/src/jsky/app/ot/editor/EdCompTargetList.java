@@ -8,6 +8,7 @@ package jsky.app.ot.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
@@ -33,13 +34,31 @@ import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
 import jsky.util.gui.DialogUtil;
+import ot.OtConstants;
 
 
 /**
  * This is the editor for the target list component.
  */
 public final class EdCompTargetList extends OtItemEditor
-    implements TelescopePosWatcher, TableWidgetWatcher, ActionListener {
+    implements TelescopePosWatcher, TableWidgetWatcher, ActionListener, OtConstants {
+
+
+    /**
+     * Telescope string.
+     * MFO 23 May 2001: Allows for telescope specific code.
+     */
+    protected String _telescope = UKIRT;
+
+    /**
+     * The text displayed by the "new" (Gemini) button in the target editor.
+     *
+     * MFO 23 May 2001: Currently this is just set to "Add GUIDE" (as required by UKIRT).
+     * This will change when features for JCMT are implemented.
+     */
+    protected String newTargetButtonText = "Add GUIDE";
+
+    protected String GUIDE_STRING        = "GUIDE";
 
     // Frequently used widgets
     private DropDownListBoxWidgetExt _tag;	// Object ID/Type
@@ -63,6 +82,19 @@ public final class EdCompTargetList extends OtItemEditor
 	_presSource  = _w = new TelescopeGUI();
 	_description = "Use this editor to enter the base positon, WFS stars, and targets.";
 
+	// MFO 23 May 2001: Setting _telescope. Could be done somewhere more central like OtCfg.
+	if(System.getProperty("ot.cfgdir").endsWith("jcmt" + File.separatorChar) ||
+	   System.getProperty("ot.cfgdir").endsWith("jcmt")) {
+
+          _telescope = JCMT;
+	}
+	else {
+          _telescope = UKIRT;
+	}
+
+        // MFO 23 May 2001
+	_makeTelescopeSpecificChanges();
+
 	// *** buttons
 	_w.newButton.addActionListener(this);
 	_w.removeButton.addActionListener(this);
@@ -77,10 +109,19 @@ public final class EdCompTargetList extends OtItemEditor
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
 	String[] guideTags = SpTelescopePos.getGuideStarTags();
+
+	// MFO 23 May 2001 bug fix
+	_tag.clear();
+
 	_tag.addChoice(SpTelescopePos.BASE_TAG);
 	for(int i = 0; i < guideTags.length; i++)
 	    _tag.addChoice(guideTags[i]);
-	_tag.addChoice(SpTelescopePos.USER_TAG);
+
+	// MFO 23 May 2001
+	// USER_TAG not used for UKIRT (see changes in FreeBongo OT, orac2)
+	if(!(_telescope == UKIRT)) {
+	  _tag.addChoice(SpTelescopePos.USER_TAG);
+	}
 
 	_tag.addWatcher(new DropDownListBoxWidgetWatcher() {
 		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
@@ -100,6 +141,15 @@ public final class EdCompTargetList extends OtItemEditor
 			DialogUtil.error("You can't change the type of the Base Position.");
 			_tag.setValue(SpTelescopePos.BASE_TAG);
 			return;
+		    }
+
+		    // MFO 23 May 2001 bug fix. (This bug was never fixed in the FreeBongo OT for UKIRT)
+		    if(_telescope == UKIRT) {
+                      if(oldTag.equals(GUIDE_STRING)) {
+		        DialogUtil.error("You can't change the type of the GUIDE Position.");
+			_tag.setValue(GUIDE_STRING);
+                        return;
+		      }
 		    }
 
 		    _tpl.changeTag(_curPos, newTag);
@@ -272,6 +322,8 @@ public final class EdCompTargetList extends OtItemEditor
 	_tpTable.setColumnSelectionAllowed(false);
 	//_tpTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	_tpTable.addWatcher(this);
+    
+        //_makeTelescopeSpecificChanges();
     }
 
 
@@ -364,8 +416,12 @@ public final class EdCompTargetList extends OtItemEditor
 	    // Enable the folder widget
 	    JTabbedPane fwe;
 	    fwe = _w.extrasFolder;
-	    fwe.setEnabledAt(0, true);
-	    fwe.setEnabledAt(1, true);
+	    
+	    // MFO 23 May 2001: Keep choice between "Proper motion" and "Tracking Details" disabled for UKIRT.
+	    if(!(_telescope == UKIRT)) {
+	      fwe.setEnabledAt(0, true);
+	      fwe.setEnabledAt(1, true);
+            }
 
 	    // Set the Equinox and Proper Motion
 	    TextBoxWidgetExt tbw;
@@ -480,6 +536,20 @@ public final class EdCompTargetList extends OtItemEditor
     }
 
     /**
+     * Needed to customize EdCompTargetList for different Telescopes.
+     * 
+     * @author Martin Folger (M.Folger@roe.ac.uk)
+     */
+    protected void _makeTelescopeSpecificChanges() {
+      if(_telescope == UKIRT) {
+        _w.newButton.setText(newTargetButtonText);
+
+	_w.extrasFolder.setEnabledAt(0, false);
+	_w.extrasFolder.setEnabledAt(1, false);
+      }
+    }
+
+    /**
      * Method to handle button actions.
      */
     public void actionPerformed(ActionEvent evt) {
@@ -491,7 +561,11 @@ public final class EdCompTargetList extends OtItemEditor
 		return;
 	    }
 
-	    SpTelescopePos tp = _tpl.createBlankUserPosition();
+            // UKIRT-ORAC: Instead of user position try just creating a
+            // guide position AB 26Apr00 / MFO 23 May 2001
+	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
+            SpTelescopePos tp = _tpl.createPosition(GUIDE_STRING, base.getXaxis(), base.getYaxis());
+
 	    return;
 	}
 
