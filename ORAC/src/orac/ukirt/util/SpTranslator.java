@@ -1359,7 +1359,8 @@ public class SpTranslator {
 // ==========================
 
 // Need to keep track of the iterated components which contain
-// config information.  No need to update the config for a 
+// config information.  Note that Fabry-Perot configurations has
+// yet to be implemented.  No need to update the config for a 
 // polariser iterator.
                         if ( ( sis.title.equalsIgnoreCase( "config" ) ||
                                containsConfigInfo( sis.title ) ) && 
