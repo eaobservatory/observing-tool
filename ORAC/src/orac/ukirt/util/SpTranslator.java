@@ -2397,7 +2397,7 @@ public class SpTranslator {
 // observe.  This is currently only for CGS4.  Exclude the EMISSIVITY
 // special case, which does have a SKY before the first OBJECT, but no
 // peakup is required.
-            if ( !( drRecipeComp.getObjectRecipeName().equalsIgnoreCase( "EMISSIVITY" ) ) ) {
+            if ( (drRecipeComp != null) && !( drRecipeComp.getObjectRecipeName().equalsIgnoreCase( "EMISSIVITY" ) ) ) {
                insertPeakup( instrument, sequence );
             }
 
