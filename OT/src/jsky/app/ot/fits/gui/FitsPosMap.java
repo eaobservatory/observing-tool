@@ -611,9 +611,6 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
 	return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
       }
     }
-    else {
-      System.out.println("tp = " + tp);
-    }
 
     return _iw.telescopePosToImageWidget(tp);
   }
