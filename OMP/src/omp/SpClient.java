@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
-import orac.util.SpItemDOM;
+import orac.util.SpInputXML;
 import orac.util.SpItemUtilities;
 
 
@@ -101,7 +101,7 @@ public class SpClient extends SoapClient {
 
       String spXML = (String)doCall(url, "fetchProgram");
       
-      SpItem spItem = (new SpItemDOM(new StringReader(spXML))).getSpItem();
+      SpItem spItem = (new SpInputXML()).xmlToSpItem(spXML);
 
       if(spItem instanceof SpProg) {
          return (SpProg)spItem;
@@ -143,7 +143,7 @@ public class SpClient extends SoapClient {
       // SpObs components that are MSBs.
       SpItemUtilities.saveElapsedTimes(spProg);
 
-      String sp = (new SpItemDOM(spProg)).toXML();
+      String sp = spProg.toXML();
 
       String forceString;
       if(force) {
