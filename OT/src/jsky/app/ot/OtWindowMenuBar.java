@@ -437,7 +437,7 @@ public class OtWindowMenuBar extends JMenuBar {
 
 	b2.setSelected(true);
 	treeToolBar.setShowPictures(true);
-	treeToolBar.setShowText(false);
+	treeToolBar.setShowText(true);
 
 	menu.add(b1);
 	menu.add(b2);
