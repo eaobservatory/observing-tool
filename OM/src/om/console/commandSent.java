@@ -311,14 +311,16 @@ final public class commandSent extends UnicastRemoteObject
       
       // Unbind from the RMI registry
       try {
+        String inst = frame.getFrame().getInstrument();
+        Naming.unbind(System.getProperty(inst+"_OBJE"));
 
-        if (frame.getFrame().getInstrument().equals("UFTI")) {
-          Naming.unbind(System.getProperty("UFTI_OBJE"));
-        } else if (frame.getFrame().getInstrument().equals("Michelle")) {
-          Naming.unbind(System.getProperty("MICH_OBJE"));
-        } else if (frame.getFrame().getInstrument().equals("CGS4")) {
-          Naming.unbind(System.getProperty("CGS4_OBJE"));
-        }
+//         if (frame.getFrame().getInstrument().equals("UFTI")) {
+//           Naming.unbind(System.getProperty("UFTI_OBJE"));
+//         } else if (frame.getFrame().getInstrument().equals("Michelle")) {
+//           Naming.unbind(System.getProperty("MICH_OBJE"));
+//         } else if (frame.getFrame().getInstrument().equals("CGS4")) {
+//           Naming.unbind(System.getProperty("CGS4_OBJE"));
+//         }
 
         System.out.println("RMI Server for a OM console is unbinded "+"for "+frame.getFrame().getInstrument());
       } catch (RemoteException re) {
@@ -605,8 +607,35 @@ final public class commandSent extends UnicastRemoteObject
       }
 
 	
-      command=new String ("Dobey "+"QL_"+instName+" " + action + " rowvalue="+cutRow+" "+
-			  "x1value=1 y1value=2 x2value=3 y2value=4 ");
+      command=new String ("Dobey "+"QL_"+instName+" " + action + " 1 1 2 1 2");
+      
+      if((System.getProperty("DBUG_MESS") != null) &&
+	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
+        System.out.println("Sending command \"" + command + "\".");
+      }
+
+      try {
+        sendCommand();
+      } catch (RemoteException re) {
+	System.out.println ("Exception in sendCommand:"+re);
+      }
+    }
+
+  public void applyQlook(String cutRow, String x1, String x2, String y1, String y2, 
+                         String backFile, String mode)  throws RemoteException
+    {
+      System.out.println("applyQlook called with mode \"" + mode + "\"");
+      
+      String action;
+      if(mode.equalsIgnoreCase("spectroscopy")) {
+        action = "S_SETUP";
+      }
+      else {
+        action = "SETUP";
+      }
+
+	
+      command=new String ("Dobey "+"QL_"+instName+" " + action + " 1 1 2 1 2");
       
       if((System.getProperty("DBUG_MESS") != null) &&
 	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {

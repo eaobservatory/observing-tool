@@ -523,6 +523,15 @@ final public class sendCmds implements java.io.Serializable
         System.out.println ("Exception in sendCmds: "+re);
       }
     }
+  public void applyQlook (String cutRow, String x1, String x2, String y1,
+                          String y2, String backFile, String mode)
+    {
+      try {
+	c.applyQlook(cutRow, x1, x2, y1, y2, backFile, mode);
+      } catch (RemoteException re) {
+        System.out.println ("Exception in sendCmds: "+re);
+      }
+    }
   
   /**
    * Switch between imaging and spectroscopy mode.

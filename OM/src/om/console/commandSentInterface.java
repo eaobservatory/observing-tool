@@ -37,7 +37,10 @@ public interface commandSentInterface extends Remote
   public void call_Mask(String str) throws RemoteException;
   public void call_s_Mask(String str) throws RemoteException;
   public void applyQlook(String cutRow, String backFile) throws RemoteException;
-  public void applyQlook(String cutRow, String backFile, String mode) throws RemoteException;
+  public void applyQlook(String cutRow, String backFile, String mode) 
+    throws RemoteException;
+  public void applyQlook(String cutRow, String x1, String x2, String y1, String y2, 
+                         String backFile, String mode) throws RemoteException;
   public void switchMode(String mode) throws RemoteException;
   public void setTCSconnected() throws RemoteException;
   public void setTCSdisconnected() throws RemoteException;
