@@ -126,7 +126,7 @@
 
 <xsd:simpleType name="repeatLimits">
   <xsd:restriction base="xsd:nonNegativeInteger">
-    <xsd:maxInclusive value="99"/>
+    <xsd:maxInclusive value="100"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -167,6 +167,7 @@
     <xsd:enumeration value="J2000"/>
     <xsd:enumeration value="B1950"/>
     <xsd:enumeration value="Az/El"/>
+    <xsd:enumeration value="AZEL"/>
     <xsd:enumeration value="Galactic"/>
   </xsd:restriction>
 </xsd:simpleType>

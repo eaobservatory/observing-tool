@@ -38,7 +38,7 @@
     <xsd:enumeration value="Kprime"/>
     <xsd:enumeration value="1.644"/>
     <xsd:enumeration value="1.57"/>
-    <xsd:enumeration value="1.69CH4"/>
+    <xsd:enumeration value="1.69CH4_l"/>
     <xsd:enumeration value="2.122MK"/>
     <xsd:enumeration value="BrG"/>
     <xsd:enumeration value="BrGz"/>

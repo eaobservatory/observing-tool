@@ -9,6 +9,12 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="fpList">
+  <xsd:restriction base="xsd:string">
+    <xsd:pattern value="FP(X|Y|Z)"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
 <xsd:simpleType name="wfcamUStepPatternType">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="NONE"/>
@@ -27,6 +33,29 @@
     </xsd:restriction>
   </xsd:complexContent>
 </xsd:complexType>
+
+<xsd:complexType name="fpIterList" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value"  type="toml:fpList"
+                     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+
+<xsd:complexType name="fpValue" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="xsd:double" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+      
 
 <xsd:element name="SpIterNod">
   <xsd:complexType>
@@ -51,6 +80,22 @@
     </xsd:sequence>
     <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="microstep"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterFP">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element name="FPX" type="toml:fpValue" minOccurs="0"/>
+      <xsd:element name="FPY" type="toml:fpValue" minOccurs="0"/>
+      <xsd:element name="FPZ" type="toml:fpValue" minOccurs="0"/>
+      <xsd:element name="iterConfigList" type="toml:fpIterList" minOccurs="0"/>
+      <xsd:element name="title" type="xsd:string" minOccurs="0"/>
+      <xsd:group   ref="toml:instIterContent" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="toml:SpType" fixed="ic"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="instFP"/>
   </xsd:complexType>
 </xsd:element>
 
