@@ -1,353 +1,647 @@
+/*==============================================================*/
+/*                                                              */
+/*                UK Astronomy Technology Centre                */
+/*                 Royal Observatory, Edinburgh                 */
+/*                 Joint Astronomy Centre, Hilo                 */
+/*                   Copyright (c) PPARC 2000                   */
+/*                                                              */
+/*==============================================================*/
+//
 // Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
-// $Id$
+// author: Alan Pickup = dap@roe.ac.uk         2001 Feb
 //
 package ot.ukirt.inst.editor;
 
-import java.awt.Event;
-import java.util.Vector;
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
+import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstMichelle;
-import orac.ukirt.inst.SpInstMichelleConstants;
-import jsky.app.ot.gui.CheckBoxWidgetExt;
-import jsky.app.ot.gui.CheckBoxWidgetWatcher;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+
+import gemini.sp.*;
+import jsky.app.ot.gui.TableWidgetExt;
+import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import gemini.sp.SpItem;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher;
+import jsky.app.ot.gui.OptionWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.Vector;
+
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
-import jsky.app.ot.util.MathUtil;
+
+import java.awt.CardLayout;
 
 
 /**
- * This is the editor for Scheduling Info component.
+ * This is the editor for the Michelle instrument
  */
-public final class EdCompInstMichelle extends EdCompInstBase {
+public final class EdCompInstMichelle extends EdCompInstBase
+{
+  /*
     private EdChopCapability  _edChopCapability;
     private EdStareCapability _edStareCapability;
+  */
     private SpInstMichelle   _instMichelle;
+    private boolean haveInitialised = false;
 
-    private MichelleGUI _w;	// the GUI layout
+    private MichelleGUI _w;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdCompInstMichelle() {
-	_title       ="Michelle";
-	_presSource  = _w = new MichelleGUI();
-	_description ="The Michelle instrument is configured with this component.";
+/**
+ * The constructor initializes the title, description, and presentation source.
+ */
+public EdCompInstMichelle()
+{
+    _title       ="Michelle";
+    _presSource  = _w = new MichelleGUI();
+    _description ="The Michelle instrument is configured with this component.";
 
-	_edChopCapability  = new EdChopCapability();
-	_edStareCapability = new EdStareCapability();
-    }
+    /*
+    _edChopCapability  = new EdChopCapability();
+    _edStareCapability = new EdStareCapability();
+    */
+}
 
-    /**
-     * This method initializes the widgets in the presentation to reflect the
-     * current values of the items attributes.
-     */
-    protected void _init() {
-	CommandButtonWidgetExt   cbw;
-	DropDownListBoxWidgetExt ddlbw;
-	TextBoxWidgetExt         tbw;
-
-	//
-	// Camera
-	//
-	ddlbw = _w.camera;
-	ddlbw.setChoices(SpInstMichelleConstants.CAMERAS);
-
-	ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
-		public void
-		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
-
-		public void
-		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-		    _instMichelle.setCamera( val );
-		    _updateWidgets();
-
-		    TelescopePosEditor tpe = TpeManager.get(_instMichelle);
-		    if (tpe != null) tpe.repaint();
-		}
-	    });
-
-	//
-	// Disperser
-	//
-	ddlbw = _w.disperser;
-	ddlbw.setChoices(SpInstMichelleConstants.DISPERSERS);
-
-	ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
-		public void
-		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
-
-		public void
-		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-		    _instMichelle.setDisperser( val );
-		    _updateWidgets();
-		}
-	    });
-
-
-	//
-	// Mask
-	//
-	ddlbw = _w.mask;
-	ddlbw.setChoices(SpInstMichelleConstants.MASKS);
-
-	ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
-		public void
-		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
-
-		public void
-		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-		    _instMichelle.setMask( val );
-		    _updateWidgets();
-
-		    TelescopePosEditor tpe = TpeManager.get(_instMichelle);
-		    if (tpe != null) tpe.repaint();
-		}
-	    });
-
-
-	//
-	// Filter
-	//
-	ddlbw = _w.filter;
-	String[][] filts = SpInstMichelleConstants.FILTERS;
-	Vector         v = new Vector();
-	for (int i=0; i<filts.length; ++i) {
-	    v.addElement(filts[i][0] + " (" + filts[i][1] + ")");
-	}
-	ddlbw.setChoices(v);
-
-	ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
-		public void
-		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
-
-		public void
-		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-		    _instMichelle.setFilter( _filtTrimWavelength(val) );
-		}
-	    });
-
-	//
-	// Mode
-	//
-	CheckBoxWidgetExt cbwe;
-	cbwe = _w.mode;
-
-	cbwe.addWatcher( new CheckBoxWidgetWatcher() {
-		public void checkBoxAction(CheckBoxWidgetExt cb) {
-		    if (cb.getBooleanValue()) {
-			_instMichelle.setMode( SpInstMichelleConstants.CHOP_MODE );
-		    } else {
-			_instMichelle.setMode( SpInstMichelleConstants.STARE_MODE );
-		    }
-		    _updateWidgets();
-		}
-	    });
-
-	//
-	// Central Wavelength
-	//
-	tbw = _w.centralWavelength;
-	tbw.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-		    _instMichelle.setCentralWavelength( tbw.getText() );
-		    _updateWavelengthCoverage();
-		    _updateDefaultCentralWavelengthButton();
-		}
-
-		public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
-	    });
-
-	cbw = _w.defaultCentralWavelength;
-	cbw.addWatcher( new CommandButtonWidgetWatcher() {
-		public void commandButtonAction(CommandButtonWidgetExt cbw) {
-		    _instMichelle.useDefaultCentralWavelength();
-		    _updateWidgets();
-		}
-	    });
-
-	super._init();
-
-	_edChopCapability._init(_w, this);
-	_edStareCapability._init(this);
-    }
+/**
+ * This method initializes the widgets in the presentation to reflect the
+ * current values of the items attributes.
+ */
+protected void
+_init()
+{
 
     //
-    // Trim the wavelength off a filter selection
+    // Camera
     //
-    private String _filtTrimWavelength(String filter) {
-	return filter.substring(0, filter.lastIndexOf('(')).trim();
-    }
+    _w.camera.addItem("imaging");
+    _w.camera.addItem("spectroscopy");
+
+    _w.camera.addWatcher( new DropDownListBoxWidgetWatcher() {
+        public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+            _updateCamera(val);
+            _updateWidgets();
+
+            TelescopePosEditor tpe = TpeManager.get(_instMichelle);
+            if (tpe != null) tpe.repaint();
+        }
+    });
 
     //
-    // Add the wavelength to a filter selection
+    // Polarimetry
     //
-    private int _filtGetIndex(String filter) {
-	String[][] filts = SpInstMichelleConstants.FILTERS;
-	for (int i=0; i<filts.length; ++i) {
-	    if (filts[i][0].equals(filter)) {
-		return i;
+    _w.polarimetry.addWatcher( new CheckBoxWidgetWatcher() {
+        public void checkBoxAction(CheckBoxWidgetExt cb) {
+            if (cb.getBooleanValue()) {
+                _instMichelle.setPolarimetry("yes");
+	    } else {
+                _instMichelle.setPolarimetry("no");
 	    }
-	}
-	return 0;
-    }
-
-    /**
-     * Override setup to store away a reference to the SpInstMichelle item.
-     */
-    public void setup(SpItem spItem) {
-	_instMichelle = (SpInstMichelle) spItem;
-	super.setup(spItem);
-    }
-
-    /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-	DropDownListBoxWidgetExt ddlbw;
-	TextBoxWidgetExt         tbw;
-
-	ddlbw = _w.camera;
-	ddlbw.setValue( _instMichelle.getCamera() );
-
-	boolean disabled = false;
-	if (_instMichelle.isImaging()) {
-	    disabled = true;
-	}
-
-	ddlbw        = _w.disperser;
-	ddlbw.setValue( _instMichelle.getDisperser() );
-	ddlbw.setEnabled(!disabled);
-
-	ddlbw         = _w.mask;
-	ddlbw.setValue( _instMichelle.getMask() );
-	ddlbw.setEnabled(!disabled);
-
-	ddlbw         = _w.filter;
-	ddlbw.setValue( _filtGetIndex(_instMichelle.getFilter()) );
-
-	String mode = _instMichelle.getMode();
-
-	CheckBoxWidgetExt cbwe;
-	cbwe = _w.mode;
-
-	((TitledBorder)_w.chopPanel.getBorder()).setTitle(mode + " Control");
-
-	JPanel chopGW  = _w.chopControlGroup;
-	JPanel stareGW = _w.stareControlGroup;
-	// MFO JSKY // if (mode.equals(_instMichelle.STARE_MODE)) {
-	// MFO JSKY //    _w.chopPanel.remove(chopGW);
-	// MFO JSKY //     _w.chopPanel.add("Center", stareGW);
-	// MFO JSKY //     _edStareCapability._updateWidgets(this, _instMichelle.getStareCapability());
-	// MFO JSKY //     cbwe.setValue(false);
-	// MFO JSKY // } else {
-	    _w.chopPanel.remove(stareGW);
-	    _w.chopPanel.add("Center", chopGW);
-	    _edChopCapability._updateWidgets(_w, _instMichelle.getChopCapability());
-	    cbwe.setValue(true);
-	// MFO JSKY // }
-	_w.chopPanel.revalidate();
-	_w.getParent().repaint();
-
-	tbw = (TextBoxWidgetExt) _w.centralWavelength;
-	double centralWavelength = _instMichelle.getCentralWavelength();
-	if (centralWavelength == 0.0) {
-	    tbw.setText("");
-	    tbw.setEnabled(false);
-	} else {
-	    tbw.setText( Double.toString(centralWavelength) );
-	    tbw.setEnabled(true);
-	}
-
-	_updateScienceFOV();
-	_updateWavelengthCoverage();
-	_updateDefaultCentralWavelengthButton();
-
-	super._updateWidgets();
-
-    }
+            _instMichelle.useDefaultAcquisition();
+            _updateWidgets();
+        }
+    });
 
     //
-    // Update the science field of view based upon the camera and mask
-    // settings.
+    // GUIs in imaging group
     //
-    private void _updateScienceFOV() {
-	TextBoxWidgetExt tbw = _w.scienceFOV;   
-	double[] scienceArea = _instMichelle.getScienceArea();
 
-	double w = MathUtil.round(scienceArea[0], 2);
-	double h = MathUtil.round(scienceArea[1], 2);
+    //
+    // Filter category
+    //
+    _w.imaging_filterCategory.addWatcher( new DropDownListBoxWidgetWatcher() {
+        public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
 
-	tbw.setText(w + " x " + h);
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+            _instMichelle.setFilterCategory( val );
+            _updateFilterChoices();
+            _instMichelle.useDefaultAcquisition();
+            _updateWidgets();
+        }
+    });
+
+    //
+    // Filter
+    //
+    _w.imaging_filter.addWatcher( new DropDownListBoxWidgetWatcher() {
+        public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+            _instMichelle.setFilterOT( val );
+            _instMichelle.useDefaultCentralWavelength();
+            _instMichelle.useDefaultAcquisition();
+            _updateWidgets();
+        }
+    });
+
+
+    //
+    // GUIs in spectroscopy group
+    //
+
+    //
+    // Disperser
+    //
+    _w.spectroscopy_grating.addWatcher( new DropDownListBoxWidgetWatcher() {
+        public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+            _instMichelle.setDisperser( val );
+            _updateCentralWavelength();
+            _updateOrder();
+            _instMichelle.useDefaultAcquisition();
+            _updateWidgets();
+
+            TelescopePosEditor tpe = TpeManager.get(_instMichelle);
+           if (tpe != null) tpe.repaint();
+        }
+    });
+
+    //
+    // Wavelength
+    //
+    _w.spectroscopy_wavelength.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    try {
+                _instMichelle.setCentralWavelength( tbw.getText() );
+                _instMichelle.useDefaultAcquisition();
+                _updateWidgets();
+	    }catch( Exception ex) {
+	        // ignore
+            }
+        }
+
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Order
+    //
+    _w.spectroscopy_order.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    try {
+                _instMichelle.setOrder(Integer.parseInt(tbw.getText()));
+                _instMichelle.useDefaultAcquisition();
+                _updateWidgets();
+	    }catch( Exception ex) {
+	        // ignore
+            }
+        }
+
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Default order
+    //
+    _w.spectroscopy_default.addWatcher( new CommandButtonWidgetWatcher() {
+        public void commandButtonAction(CommandButtonWidgetExt cbw) {
+            _instMichelle.useDefaultOrder();
+            _updateOrder();
+            _instMichelle.useDefaultAcquisition();
+            _updateWidgets();
+        }
+    });
+
+    //
+    // Mask
+    //
+    /*
+    _w.spectroscopy_mask.setChoices(_instMichelle.getMaskList());
+    */
+
+    _w.spectroscopy_mask.addWatcher( new DropDownListBoxWidgetWatcher() {
+        public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+            _instMichelle.setMask( val );
+            _instMichelle.useDefaultAcquisition();
+            _updateWidgets();
+
+            TelescopePosEditor tpe = TpeManager.get(_instMichelle);
+           if (tpe != null) tpe.repaint();
+        }
+    });
+
+    //
+    // Position angle
+    //
+    _w.spectroscopy_posAngle.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+            _instMichelle.setPosAngleDegrees(Double.parseDouble(tbw.getText()));
+        }
+
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Pixel sampling
+    //
+    /*
+    _w.spectroscopy_sampling.setChoices(_instMichelle.SAMPLINGS);
+    */
+
+    _w.spectroscopy_sampling.addWatcher( new DropDownListBoxWidgetWatcher() {
+        public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+            _instMichelle.setPixelSampling( val );
+            _updateWidgets();
+        }
+    });
+
+    //
+    // GUIs in data acquisition group
+    //
+
+    //
+    // Chop frequency
+    //
+    _w.dataAcq_chopFrequency.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    try {
+	      //ignore
+	    }catch( Exception ex) {
+	        // ignore
+	    }
+        }
+
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Duty cycle
+    //
+    _w.dataAcq_dutyCycle.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    try {
+	      //ignore
+	    }catch( Exception ex) {
+	        // ignore
+	    }
+        }
+
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Exposure time
+    //
+    _w.dataAcq_exposureTime.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    try {
+                String ets = tbw.getText();
+                double et = Double.parseDouble(ets);
+                if (et > 0.00001) {
+                    _instMichelle.setExpTime(ets);
+                    _updateWidgets();
+		}
+	    }catch( Exception ex) {
+	        // ignore
+            }
+        }
+
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Default exposure time
+    //
+    _w.dataAcq_defaultExpTime.addWatcher( new CommandButtonWidgetWatcher() {
+        public void commandButtonAction(CommandButtonWidgetExt cbw) {
+            _instMichelle.useDefaultExposureTime();
+            _updateWidgets();
+        }
+    });
+
+    //
+    // Observation time
+    //
+    _w.dataAcq_observationTime.addWatcher( new TextBoxWidgetWatcher() {
+        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    try {
+                String ots = tbw.getText();
+                double ot = Double.parseDouble(ots);
+                if (ot > 0.00001) {
+                    _instMichelle.setObservationTime(ot);
+                    _instMichelle.setCoadds(0);
+                    _updateWidgets();
+		}
+	    }catch( Exception ex) {
+	        // ignore
+            }
+        }
+        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+    });
+
+    //
+    // Default observation time
+    //
+    _w.dataAcq_defaultObsTime.addWatcher( new CommandButtonWidgetWatcher() {
+        public void commandButtonAction(CommandButtonWidgetExt cbw) {
+            _instMichelle.useDefaultObservationTime();
+            _updateObsTime();
+            _updateWidgets();
+        }
+    });
+
+   super._init();
+
+}
+
+/**
+ * Override setup to store away a reference to the SpInstMichelle item.
+ */
+public void
+setup(SpItem spItem)
+{
+   _instMichelle = (SpInstMichelle) spItem;
+   haveInitialised = false;
+   super.setup(spItem);
+}
+
+/**
+ * Implements the _updateWidgets method from OtItemEditor in order to
+ * setup the widgets to show the current values of the item.
+ */
+protected void
+_updateWidgets()
+{
+    if (!haveInitialised) {
+        // Load drop down lists only first time in
+        _showCamera();
+        _updateFilterCategoryChoices();
+        _updateFilterCategory();
+        _updateFilterChoices();
+        _updateGratingChoices();
+        _updateMaskChoices();
+        _updateSamplingChoices();
+        _updatePolarimetry();
+        _updateCentralWavelength();
+        _updateFilter();
+        _updateObsTime();
+        haveInitialised = true;
     }
-
-    //
-    // Update the wavelength coverage based upon the grating and central
-    // wavelength.
-    //
-    private void _updateWavelengthCoverage() {
-	TextBoxWidgetExt tbwLow, tbwHigh;
-
-	tbwLow  = _w.wavelengthCoverageLow;
-	tbwHigh = _w.wavelengthCoverageHigh;
-
-	/* MFO JSKY
-	double[] range = _instMichelle.getWavelengthCoverage();
-	if ((range[0] == 0.0) || (range[1] == 0.0)) {
-	    tbwLow.setText("");
-	    tbwHigh.setText("");
-	} else {
-	    range[0] = MathUtil.round(range[0], 2);
-	    range[1] = MathUtil.round(range[1], 2);
-	    tbwLow.setText(Double.toString(range[0]));
-	    tbwHigh.setText(Double.toString(range[1]));
-	}
-	MFO JSKY */
+    _updateScienceFOV();
+    if (!_instMichelle.isImaging()) {
+        _updateResolvingPower();
+        _updateWavelengthCoverage();
+        _updateSpecFilter();
     }
+    _updateAcquisition();
+    _updateChopFreq();
+    _updateDutyCycle();
 
-    //
-    // Update the "Use Default" button based upon the current instrument
-    // mode and central wavelength.  If imaging, the button should be
-    // disabled.  If the current central wavelength is the default one,
-    // it should also be disabled.
-    //
-    private void _updateDefaultCentralWavelengthButton() {
-	CommandButtonWidgetExt cbw;
-	cbw = _w.defaultCentralWavelength;
+    super._updateWidgets();
 
-	boolean disabled = false;
-	if (_instMichelle.isImaging()) {
-	    disabled = true;
-	} else if (_instMichelle.getCentralWavelength() ==
-		   _instMichelle.getDefaultCentralWavelength()) {
-	    disabled = true;
-	}
-	cbw.setEnabled(!disabled);
+}
+
+//
+// Update the observation time
+//
+private void
+_updateObsTime()
+{
+    String obts = _instMichelle.getObservationTimeString();
+    _w.dataAcq_observationTime.setText(obts);
+}
+
+//
+// Update the polarimetry check box
+//
+private void
+_updatePolarimetry()
+{
+
+    String p = _instMichelle.getPolarimetry();
+    _w.polarimetry.setValue(p.equalsIgnoreCase("yes"));
+}
+
+//
+// Update the central wavelength
+//
+private void
+_updateCentralWavelength()
+{
+
+    _w.spectroscopy_wavelength.setText(_instMichelle.getCentralWavelengthString());
+    _updateOrder();
+}
+
+//
+// Update the order
+//
+private void
+_updateOrder()
+{
+
+    _w.spectroscopy_order.setText(_instMichelle.getOrderString());
+}
+
+//
+// Update the spectral resolving power
+//
+private void
+_updateResolvingPower()
+{
+    _w.spectroscopy_resolvingPower.setText(_instMichelle.getResolvingPowerString());
+}
+
+//
+// Update the science field of view displays on both the 
+// imaging and spectroscopy panes
+//
+private void
+_updateScienceFOV()
+{
+    String scienceArea = _instMichelle.getScienceAreaString();
+    _w.imaging_fieldOfView.setText(scienceArea);
+    _w.spectroscopy_fieldOfView.setText(scienceArea);
+}
+
+//
+// Update the wavelength coverage
+//
+private void
+_updateWavelengthCoverage()
+{
+    _w.spectroscopy_coverage.setText(_instMichelle.getSpectralCoverageString());
+}
+
+//
+// Update the imaging filter
+//
+private void
+_updateFilter()
+{
+    _w.imaging_filter.setValue(_instMichelle.getFilterOT());
+}
+
+//
+// Update the filter category
+//
+private void
+_updateFilterCategory()
+{
+    _w.imaging_filterCategory.setValue(_instMichelle.getFilterCategory());
+}
+
+//
+// Update the spectroscopy filter
+//
+private void
+_updateSpecFilter()
+{
+    _w.spectroscopy_filter.setValue(_instMichelle.getFilter());
+}
+
+
+//
+// Update the list of available filter categories
+//
+private void
+_updateFilterCategoryChoices()
+{
+    String choices[] = new String[_instMichelle.getFilterCategoryList().length];
+    choices = _instMichelle.getFilterCategoryList();
+    _w.imaging_filterCategory.setChoices(choices);
+}
+
+//
+// Update the list of available filters
+//
+private void
+_updateFilterChoices()
+{
+    _w.imaging_filter.setChoices(_instMichelle.getFilterList());
+    _updateFilter();
+}
+
+//
+// Update the list of available gratings/dispersers
+//
+private void
+_updateGratingChoices()
+{
+    _w.spectroscopy_grating.setChoices(_instMichelle.getDisperserList());
+    _w.spectroscopy_grating.setValue(_instMichelle.getDisperser());
+}
+
+//
+// Update the list of available masks
+//
+private void
+_updateMaskChoices()
+{
+    _w.spectroscopy_mask.setChoices(_instMichelle.getMaskList());
+    _w.spectroscopy_mask.setValue(_instMichelle.getMask());
+}
+
+//
+// Update the list of available samplings
+//
+private void
+_updateSamplingChoices()
+{
+    _w.spectroscopy_sampling.setChoices(_instMichelle.SAMPLINGS);
+    _w.spectroscopy_sampling.setValue(_instMichelle.getPixelSampling());
+}
+
+//
+// Update the chop frequency
+//
+private void
+_updateChopFreq()
+{
+    _w.dataAcq_chopFrequency.setText(_instMichelle.getChopFreqRound());
+}
+
+//
+// Update the duty cycle
+//
+private void
+_updateDutyCycle()
+{
+    _w.dataAcq_dutyCycle.setText(_instMichelle.getDutyCycleRound());
+}
+
+//
+// Update the acquisition
+//
+private void
+_updateAcquisition()
+{
+    _instMichelle.setAcquisition();
+    String ets = _instMichelle.getExpTimeString();
+    _w.dataAcq_exposureTime.setText(_instMichelle.getExpTimeString());
+    String ots = _instMichelle.getObservationTimeString();
+    _w.dataAcq_observationTime.setText(_instMichelle.getObservationTimeString());
+}
+
+//
+// Update camera
+//
+private void
+_updateCamera(String camera)
+{
+    _instMichelle.setCamera( camera );
+    _instMichelle.useDefaultCentralWavelength();
+    _updateCentralWavelength();
+    _instMichelle.useDefaultAcquisition();
+    _showCamera();
+}
+
+//
+// Show camera
+//
+private void
+_showCamera()
+{
+
+    String camera = _instMichelle.getCamera();
+    _w.camera.setValue(camera);
+    // Make the appropriate imaging or spectroscopy config area visible
+    if (camera.equals("imaging")) {
+        ((CardLayout)(_w.modePanel.getLayout())).show(_w.modePanel, "imaging");
+    } else {
+        ((CardLayout)(_w.modePanel.getLayout())).show(_w.modePanel, "spectroscopy");
     }
-
-    /** Return the coadds text box. */
-    public TextBoxWidgetExt getCoaddsTextBox() {
-	return _w.coadds;
-    }
+}
 
     /** Return the position angle text box */
     public TextBoxWidgetExt getPosAngleTextBox() {
-	return _w.posAngle;
+      return _w.spectroscopy_posAngle;
     }
 
     /** Return the exposure time text box */
     public TextBoxWidgetExt getExposureTimeTextBox() {
-	return _w.exposureTime;
+      return _w.dataAcq_exposureTime;
+    }
+
+    /** Return the coadds text box, or null if not available. */
+    public TextBoxWidgetExt getCoaddsTextBox() {
+      // Michelle does not have a coadds text box.
+      return new TextBoxWidgetExt();
     }
 }
