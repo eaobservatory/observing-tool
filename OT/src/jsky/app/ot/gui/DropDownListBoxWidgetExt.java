@@ -127,7 +127,10 @@ public class DropDownListBoxWidgetExt extends JComboBox
 	actionsEnabled = false;
 	setSelectedIndex(index);
 	actionsEnabled = true;
-	_notifySelect(index);  // XXX allan: called twice?
+	// Commented out by MFO (21 August 2001)
+	// _notifySelect should not be called here. It has been removed in later GEMINI ot
+	// versions too.
+	//_notifySelect(index);  // XXX allan: called twice?
     }
 
     /**
@@ -137,7 +140,10 @@ public class DropDownListBoxWidgetExt extends JComboBox
 	actionsEnabled = false;
 	setSelectedItem(o);
 	actionsEnabled = true;
-	_notifySelect(getSelectedIndex());  // XXX allan: called twice?
+	// Commented out by MFO (21 August 2001)
+	// _notifySelect should not be called here. It has been removed in later GEMINI ot
+	// versions too.
+	//_notifySelect(getSelectedIndex());  // XXX allan: called twice?
     }
 
     /**
