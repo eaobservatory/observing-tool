@@ -22,29 +22,25 @@ public class Sampler implements ItemListener
 {
    double centreFrequency;
    double bandWidth;
-   double lBandWidth;
-   double hBandWidth;
+   double [] bandWidthsArray;
    int channels = 0;
-   int lChannels;
-   int hChannels;
+   int [] channelsArray;
    int row;
    Vector swArray = new Vector();
-   JToggleButton jtb;
+   JComboBox bandWidthChoice;
 
-   public Sampler ( double centreFrequency, double lBandWidth, 
-     double hBandWidth, int lChannels, int hChannels, JToggleButton jtb )
+   public Sampler ( double centreFrequency, double [] bandWidthsArray, int [] channelsArray, JComboBox bandWidthChoice )
    {
       int j;
 
       this.centreFrequency = centreFrequency;
-      this.bandWidth = lBandWidth;
-      this.lBandWidth = lBandWidth;
-      this.hBandWidth = hBandWidth;
-      this.channels = lChannels;
-      this.lChannels = lChannels;
-      this.hChannels = hChannels;
-      this.jtb = jtb;
-      jtb.addItemListener ( this );
+      this.bandWidth = bandWidthsArray[0];
+      this.bandWidthsArray = bandWidthsArray;
+      this.channels = channelsArray[0];
+      this.channelsArray = channelsArray;
+      this.bandWidthChoice = bandWidthChoice;
+
+      bandWidthChoice.addItemListener ( this );
    }
 
    public void addSamplerWatcher ( SamplerWatcher sw )
@@ -72,41 +68,36 @@ public class Sampler implements ItemListener
       return centreFrequency;
    }
 
-   public void setBandWidth ( double bandWidth )
+   /**
+    * Sets new band width and sets the band width choice box to bandWidthStr.
+    *
+    * This method allows the FrontEnd panel to set a band width which restes the
+    * band widths of the individual Samplers.
+    *
+    * @see #setBandWidth(double)
+    */
+   public void setBandWidthAndGui( String bandWidthStr )
    {
-      this.bandWidth = bandWidth;
+      setBandWidth(Double.parseDouble(bandWidthStr) * 1.0E9);
+
+      bandWidthChoice.removeItemListener(this);
+      bandWidthChoice.setSelectedItem(bandWidthStr);
+      bandWidthChoice.addItemListener(this);
    }
 
-   public double getBandWidth ( )
-   {
-      return bandWidth;
-   }
-
-   public int getChannels ( )
-   {
-      return channels;
-   }
-
-   public void toggleBandWidth() {
-     jtb.doClick();
-   }
-
-   public void itemStateChanged ( ItemEvent ev )
+   /**
+    * Sets band width, notifies SamplerWatchers but does <b>not</b> change the band width choice box.
+    *
+    * This method is called either when the band choice box of this Sampler has changed or from
+    * when setBandWidthAndGui is called.
+    *
+    * @see #setBandWidthAndGui(java.lang.String)
+    */
+   public void setBandWidth(double value)
    {
       int j;
 
-      if ( bandWidth == lBandWidth )
-      {
-         bandWidth = hBandWidth;
-         channels = hChannels;
-         jtb.setText ( "" + ( bandWidth * 1.0E-9 ) );
-      }
-      else
-      {
-         bandWidth = lBandWidth;
-         channels = lChannels;
-         jtb.setText ( "" + ( bandWidth * 1.0E-9 ) );
-      }
+      bandWidth = value;
 
       if ( !swArray.isEmpty() )
       {
@@ -116,5 +107,35 @@ public class Sampler implements ItemListener
               centreFrequency, bandWidth, channels );
          }
       }
+   }
+
+   /**
+    * Returns the currently selected band width of this sampler.
+    */
+   public double getBandWidth ( )
+   {
+      return bandWidth;
+   }
+
+   /**
+    * Returns numbers the number of channels corresponding to the
+    * currently selected band width of this sampler.
+    */
+   public int getChannels ( )
+   {
+      return channels;
+   }
+
+   /**
+    * Returns an array of the band width options of this sampler.
+    */
+   public double [] getBandWidthOptions ( )
+   {
+      return bandWidthsArray;
+   }
+
+   public void itemStateChanged ( ItemEvent ev )
+   {
+      setBandWidth(Double.parseDouble((String)bandWidthChoice.getSelectedItem()) * 1.0E9);
    }
 }
