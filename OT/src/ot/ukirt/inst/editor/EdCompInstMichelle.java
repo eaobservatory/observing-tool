@@ -72,15 +72,6 @@ public EdCompInstMichelle()
 
     _w.camera.addItem("imaging");
     _w.camera.addItem("spectroscopy");
-}
-
-/**
- * This method initializes the widgets in the presentation to reflect the
- * current values of the items attributes.
- */
-protected void
-_init()
-{
 
     //
     // Camera
@@ -366,9 +357,6 @@ _init()
             _updateWidgets();
         }
     });
-
-   super._init();
-
 }
 
 /**

@@ -69,13 +69,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
       _w.filterSpecial.addActionListener(this);
       _w.acqMode.addActionListener(this);
       _w.readoutArea.addActionListener(this);
-   }
 
-/**
- * This method initializes the widgets in the presentation to reflect the
- * current values of the items attributes.
- */
-   protected void _init() {
+
       _ignoreActionEvents = true;
    
       DropDownListBoxWidgetExt ddlbw;
@@ -161,8 +156,6 @@ public final class EdCompInstUFTI extends EdCompInstBase
    
 //   cbw = (CheckBoxWidget) _w.useShutter;
 //   if (cbw != null) cbw.setDisabled(true );
-
-      super._init();
 
       // MFO: Watcher is now added here rather than in _edStareCapability._init
       // gw = (GroupWidget) _w.stareControlGroup;

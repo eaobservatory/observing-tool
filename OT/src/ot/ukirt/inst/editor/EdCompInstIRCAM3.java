@@ -69,13 +69,8 @@ import javax.swing.ButtonGroup;
       _w.filterSpecial.addActionListener(this);
       _w.acqMode.addActionListener(this);
       _w.readoutArea.addActionListener(this);
-   }
 
-/**
- * This method initializes the widgets in the presentation to reflect the
- * current values of the items attributes.
- */
-   protected void _init() {
+
       _ignoreActionEvents = true;
 
       _w.acqMode.setChoices( SpInstIRCAM3.MODES );
@@ -148,7 +143,6 @@ import javax.swing.ButtonGroup;
    
 //   if (_w.useShutter != null) _w.useShutter.setDisabled(true);
 
-      super._init();
 
       _edStareCapability._init(this);
    

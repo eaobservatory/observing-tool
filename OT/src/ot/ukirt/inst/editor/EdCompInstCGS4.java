@@ -58,15 +58,8 @@ public EdCompInstCGS4()
 
 //   _edChopCapability  = new EdChopCapability();
 //   _edStareCapability = new EdStareCapability();
-}
 
-/**
- * This method initializes the widgets in the presentation to reflect the
- * current values of the items attributes.
- */
-protected void
-_init()
-{
+
    CommandButtonWidgetExt   cbw;
    DropDownListBoxWidgetExt ddlbw;
    TextBoxWidgetExt         tbw;
@@ -268,7 +261,6 @@ _init()
       }
    });
 
-   super._init();
 
 // MFO: CHOP mode not supported anymore.
 /*
