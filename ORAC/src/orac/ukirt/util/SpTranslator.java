@@ -1505,17 +1505,17 @@ public class SpTranslator {
 
 // Obtain the component title.
                            title = sis.title;
-			   System.out.println("translator says title is " + title);
+			   //			   System.out.println("translator says title is " + title);
 
 // Obtain the attribute and value pairs.
-			   System.out.println("translator says there are " + sis.values.length + " elements in sis.values");
+			   //System.out.println("translator says there are " + sis.values.length + " elements in sis.values");
                            for ( j = 0; j < sis.values.length; ++j ) {
                               siv = (SpIterValue) sis.values[ j ];
 
 // Translate the OT attribute into a key in the InstConfig.
                               attribute = siv.attribute;
                               key = refConfig.OTToTranslator( title, attribute );
-			      System.out.println("translator says j " + j + " attribute " + attribute + " key " + key);
+			      //System.out.println("translator says j " + j + " attribute " + attribute + " key " + key);
 
 // Unlike the other configuration information, the instrument-aperture 
 // information is stored in its own data structure, so treat it as a
@@ -1556,7 +1556,7 @@ public class SpTranslator {
                                     }
 				    // End of added by RDK
                                     if ( ! siv.values[ 0 ].equals( "" ) ) {
-					System.out.println("translator says key " + key + " value " + siv.values[ 0 ]);
+					//System.out.println("translator says key " + key + " value " + siv.values[ 0 ]);
 					currConfig.put( key, siv.values[ 0 ] );
                                     }
 

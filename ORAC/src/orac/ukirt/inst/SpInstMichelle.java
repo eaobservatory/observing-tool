@@ -1081,7 +1081,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             filterCategory = getDefaultFilterCategory();
             setFilterCategory(filterCategory);
 	}
-	System.out.println("SpInstMichelle says filterCategory is " + filterCategory);
+	//	System.out.println("SpInstMichelle says filterCategory is " + filterCategory);
         return filterCategory;
     }
 
@@ -2141,17 +2141,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     getDefaultSkyExpTime(String obsType)
     {
         double set = TEXPBASE * getExpbaseMult(obsType) * KSKY;
-	System.out.println("TEXPBASE " + TEXPBASE + " Expbase " + getExpbaseMult(obsType) + " KSKY " + KSKY);
+	//	System.out.println("TEXPBASE " + TEXPBASE + " Expbase " + getExpbaseMult(obsType) + " KSKY " + KSKY);
         if (isPolarimetry()) set = KPOL * set;
         if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
 	    double mult = Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(obsType),5)).doubleValue();
-	    System.out.println("mult is " + mult);
+	    //	    System.out.println("mult is " + mult);
 	    set = mult * set;
 	}
-	    System.out.println("getCentralWavelength is " + getCentralWavelength(obsType));
+	//	    System.out.println("getCentralWavelength is " + getCentralWavelength(obsType));
         if (getCentralWavelength(obsType) < 15.0) set = KBAND * set;
         set = set * KWELL;
-	    System.out.println("KWELL is " + KWELL + " set is " + set);
+	//  System.out.println("KWELL is " + KWELL + " set is " + set);
         return set;
     }
 
@@ -2285,7 +2285,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     updateDADarkConf()
     {
-        System.out.println("updateDADarkConf> called");
+	//        System.out.println("updateDADarkConf> called");
         String obsType = "Dark";
         updateDAConf(obsType);
     }
@@ -2296,7 +2296,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     updateDAFlatConf()
     {
-        System.out.println("updateDAFlatConf> called");
+	//        System.out.println("updateDAFlatConf> called");
         String obsType = "Flat";
         updateDAConf(obsType);
     }
@@ -2307,7 +2307,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     updateDAArcConf()
     {
-        System.out.println("updateDAArcConf> called");
+        //System.out.println("updateDAArcConf> called");
         String obsType = "Arc";
         updateDAConf(obsType);
     }
@@ -2318,7 +2318,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     updateDATargetAcqConf()
     {
-        System.out.println("updateDATargetAcqConf> called");
+	//        System.out.println("updateDATargetAcqConf> called");
         String obsType = "TARGETACQ";
         updateDAConf(obsType);
     }
@@ -2376,7 +2376,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	} else if (obsType.equalsIgnoreCase("TARGETACQ")) {
             expTime = getTargetAcqExpTime();
             obsTime = getTargetAcqObservationTime();
-	    System.out.println("obsType is " + obsType + " expTime is " + expTime + "obTime is " +obsTime);
+	    //	    System.out.println("obsType is " + obsType + " expTime is " + expTime + "obTime is " +obsTime);
 	}
         double TDelay = 0.0;
         double actExpTime = 0.0;
@@ -2411,8 +2411,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         ri = MODES.indexInColumn(daconf,0);
         /* Lookup the W_* values */
         W_mode = (String)MODES.elementAt(ri,1);
-	System.out.println(" updateDAConf sys daconf is " + daconf);
-	System.out.println(" updateDAConf sys W_mode is " + W_mode);
+	//	System.out.println(" updateDAConf sys daconf is " + daconf);
+	//System.out.println(" updateDAConf sys W_mode is " + W_mode);
         W_waveform = (String)MODES.elementAt(ri,2);
         W_nresets = Integer.parseInt((String)MODES.elementAt(ri, 3));
         W_resetDelay = 
@@ -2542,7 +2542,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		}
                 /* Compute number of reads in the exposure time */
                 W_nreads = (int) Math.round(expTime/readT) + 1;
-		System.out.println("SpInstMichelle.updateDAConf has set W_nreads to " + W_nreads);
+		//		System.out.println("SpInstMichelle.updateDAConf has set W_nreads to " + W_nreads);
                 /* Increase TGone by time to take these, plus any nullReads 
                    minus the last read (which is appended below) */
                 TGone = TGone + ((W_nreads+W_nullReads-1) * readT);

@@ -212,10 +212,10 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 	getExposureTime()
     {
 	double et = _avTable.getDouble(SpInstConstants.ATTR_EXPOSURE_TIME, 0.0);
-	System.out.println("1 SpIterMichelleTargetAcq says et is " + et);
+	//System.out.println("1 SpIterMichelleTargetAcq says et is " + et);
 	if (et == 0.0) {
 	    et = getDefaultExposureTime();
-	System.out.println("2 SpIterMichelleTargetAcq says et is " + et);
+	    //System.out.println("2 SpIterMichelleTargetAcq says et is " + et);
 	    setExposureTime (Double.toString (MathUtil.round(et,2)));
 	}
 	return et;
@@ -308,7 +308,7 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 	    filter = getDefaultFilter();
 	    setFilter(filter);
 	}
-	System.out.println("SpIterMichelleTargetAcq says filter is " + filter);
+	//System.out.println("SpIterMichelleTargetAcq says filter is " + filter);
 	return filter;
     }
 
