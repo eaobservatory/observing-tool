@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
+import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpObs;
 import jsky.app.ot.util.DnDUtils;
@@ -228,10 +229,16 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	  }
 
           // force redrawing of the tree
-	  //   resetProg seems to have caused the gaps in the tree between obs components in a group.
-	  //   Unless other problems araise setCollapsed should be used instead.
-	  //_spTree.resetProg(_spTree.getProg());
-	  _spTree.updateNodeExpansions();
+	  // Latest attempt to fix gaps-between-tree-nodes bug (aka collapse/expand bug).
+	  // _spTree.resetProg(_spTree.getProg()) and
+	  // _spTree.updateNodeExpansions() didn't work although the latter
+	  // seemed to cause fewer problmes
+	  // See also revisions 1.6 of orac3/OT/src/jsky/app/ot/OtTreeDropTarget.java
+	  try { 
+	    _spTree.resetProg((SpRootItem)_spTree.getProg().deepCopy());
+	  catch(Exception e) {
+	    _spTree.updateNodeExpansions();
+	  }
 	}
 	catch(Exception e) {
           DialogUtil.error(_spTree, e);
