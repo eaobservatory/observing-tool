@@ -138,8 +138,10 @@ public final class EdCompTargetList extends OtItemEditor
         }
 
         _w.newButton.setText("Add " + OtCfg.telescopeUtil.getAdditionalTarget());
+	_w.newButton.setToolTipText(_w.newButton.getText());
 
 	_w.setBaseButton.setText("Set " + OtCfg.telescopeUtil.getBaseTag() + " To Image Centre");
+	_w.setBaseButton.setToolTipText(_w.setBaseButton.getText());
 
 	if(_w.setBaseButton.getText().length() > 24) {
 	  _w.setBaseButton.setFont(new java.awt.Font("Dialog", 0, 10));
