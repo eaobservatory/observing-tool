@@ -1166,11 +1166,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 /* Update choice of molecules */
 
       _w.moleculeChoice.removeActionListener(this);
-      SelectionList currentSelection = (SelectionList)_w.moleculeChoice.getSelectedItem();
+      SelectionList currentSelection = null;
       String currentSpecies = null;
-      if ( currentSelection != null) {
-	  currentSpecies = currentSelection.toString();
+      if ( _w.moleculeChoice.getSelectedItem() instanceof SelectionList ) {
+	  currentSelection = (SelectionList)_w.moleculeChoice.getSelectedItem();
+	  if ( currentSelection != null) {
+	      currentSpecies = currentSelection.toString();
+	  }
       }
+
       _w.moleculeChoice.setModel ( 
         new DefaultComboBoxModel ( 
         lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
