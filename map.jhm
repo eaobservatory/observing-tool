@@ -11,5 +11,6 @@
   <mapID target="details" url="Science_Program_Window_details.html" />
   <mapID target="library" url="Template_library_basics.html" />
   <mapID target="sitequal" url="Site_Quality_Editor.html" />
+  <mapID target="schedconstr" url="Scheduling_Constraints_Editor.html" />	
   <mapID target="download" url="download.html" />
 </map>
