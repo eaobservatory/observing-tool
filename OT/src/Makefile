@@ -61,12 +61,12 @@ $(BIN_DIR):
 # regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	rm -rf $@/*
-	cp -r ../cfg $(LOCAL_INSTALL_ROOT)
+	- cp -r ../cfg/ $(LOCAL_INSTALL_ROOT)
 # Hacky solution to adding scema locations to the config files...
-	@ echo "" >> $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
-	@ echo "schemaLocation: $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/jcmt/JCMTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
-	@ echo "" >> $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
-	@ echo "schemaLocation: $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/ukirt/UKIRTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
+	@ - echo "" >> $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
+	@ - echo "schemaLocation: $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/jcmt/JCMTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
+	@ - echo "" >> $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
+	@ - echo "schemaLocation: $(PWD)/$(LOCAL_INSTALL_ROOT)/cfg/ukirt/UKIRTSchema.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
 
 FORCE:
 
