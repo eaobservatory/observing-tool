@@ -1,4 +1,5 @@
 package orac.ukirt.util;
+
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -30,7 +31,6 @@ import orac.ukirt.inst.SpInstCGS4;
 import orac.ukirt.inst.SpInstIRCAM3;
 import orac.ukirt.inst.SpInstMichelle;
 import orac.ukirt.inst.SpInstUFTI;
-import orac.ukirt.inst.SpInstUIST;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
 //import ot_ukirt.util.InstApertures;
 //import ot_ukirt.util.InstConfig;
@@ -47,9 +47,8 @@ import java.util.Vector;
 /**
  * The SpTranslator class translates the instrument setup and observation
  * sequence into form suitable for UKIRT.  These are currently the
- * sequence text files for all UKIRT instruments, the new-style
- * attribute = value configuration text files for UFTI, Michelle, and
- * UIST; and old-style configuration text files for CGS4 and IRCAM3.
+ * the next config and sequence text files for UFTI, and old config and
+ * exec text files for CGS4.
  */
 public class SpTranslator {
 
@@ -86,8 +85,8 @@ public class SpTranslator {
 /**
  * Insert BREAK instructions into a sequence.
  *
- * @param String the instrument. So far CGS4, IRCAM3, MICHELLE
- *        UFTI, and UIST are supported.
+ * @param String the instrument (so far only CGS4, IRCAM3, MICHELLE
+ *        and UFTI supported).
  * @param Vector the sequence instructions (this is updated).
  */
    public void insertBreaks( String instrument, Vector sequence ) {
@@ -98,7 +97,6 @@ public class SpTranslator {
       if ( instrument.equalsIgnoreCase( "CGS4" ) ||
            instrument.equalsIgnoreCase( "MICHELLE" ) ||
            instrument.equalsIgnoreCase( "UFTI" ) ||
-           instrument.equalsIgnoreCase( "UIST" ) ||
            instrument.equalsIgnoreCase( "IRCAM3" ) ) {
 
 // Traverse the sequence.
@@ -107,7 +105,6 @@ public class SpTranslator {
 // Look for each "set FLAT" for CGS4.  Insert a break in the sequence
 // after that instruction.
             if ( instrument.equalsIgnoreCase( "CGS4" ) || 
-                 instrument.equalsIgnoreCase( "UIST" ) ||
                  instrument.equalsIgnoreCase( "MICHELLE" ) ) {
                if ( ( (String) sequence.elementAt( i ) ).equals( "set FLAT" ) ) {
                   sequence.insertElementAt( "break", ++i );
@@ -1320,7 +1317,6 @@ public class SpTranslator {
 // Store waveplate angles in sequence.
 // ===================================
                         polariserConfig = false;
-
                         if ( sis.title.equalsIgnoreCase( "config" ) ) {
 
 // Obtain the attribute and value pairs.
@@ -1436,10 +1432,9 @@ public class SpTranslator {
 
                            } else {
 
-// In the case of Michelle and UIST we *need* the initial base config.  So
-// never remove it.
-                              if ( ! ( instrument.equalsIgnoreCase( "Michelle" ) ||
-                                       instrument.equalsIgnoreCase( "UIST" ) ) ) {
+// In the case of Michelle we *need* the initial base config.  So never
+// remove it.
+                              if ( !instrument.equalsIgnoreCase( "Michelle" ) ) {
                                  prevSeqIns = (String) sequence.lastElement();
                                  removeConfig = prevSeqIns.startsWith( "loadConfig" ) || 
                                                 prevSeqIns.startsWith( setInst ) ||
@@ -1679,13 +1674,12 @@ public class SpTranslator {
 // in uppercase too.
                            observeCount( sequence, "OBJECT", drRecipeComp );
 
-// Special case for CGS4, Michelle, and UIST.  Need to add a break after a
-// "set OBJECT" before the do n _observe, whenever certain configuration
-// attributes have changed.  So look to see if any of the attributes
-// potentially requiring a break changed.
+// Special case for CGS4.  Need to add a break after a "set OBJECT"
+// before the do n _observe, whenever certain configuration attributes
+// have changed.  So look to see if any of the attributes potentially
+// requiring a break changed.
                            if ( instrument.equalsIgnoreCase( "CGS4" ) || 
-                                instrument.equalsIgnoreCase( "UIST" ) || 
-                                instrument.equalsIgnoreCase( "Michelle" ) ) {
+                                instrument.equalsIgnoreCase( "MICHELLE" ) ) {
                               if ( currConfig.changedAttribute(
                                    (InstConfig) configArray.lastElement(),
                                    breakAttribute ) ) {
@@ -1934,15 +1928,15 @@ public class SpTranslator {
  * one assumes the keyname and attribute name are the same, the other 
  * allows them to be different.
  */
-   private void writeAttribute( PrintWriter ow, InstConfig ic, 
-                                 String attrName, String keyName ) {
-     ow.print( keyName + " = " + ic.get( attrName ) + "\n" );
-   }
+  private void _writeAttribute( PrintWriter ow, InstConfig ic, 
+                                String attrName, String keyName ) {
+    ow.print( keyName +" = " + ic.get(attrName) + "\n" );
+  }
 
-   private void writeAttribute( PrintWriter ow, InstConfig ic, 
+  private void _writeAttribute ( PrintWriter ow, InstConfig ic, 
                                  String attrName) {
-     ow.print( attrName + " = " + ic.get( attrName ) + "\n" );
-   }
+    ow.print( attrName +" = " + ic.get(attrName) + "\n" );
+  }
 
 /**
   * Writes the instrument configurations to text files.
@@ -1983,8 +1977,7 @@ public class SpTranslator {
             workConfig = (InstConfig) econ.nextElement();
 
 // Determine whether or not the neutral-density filter is in place.
-            if ( !( instrum.equalsIgnoreCase( "Michelle" ) ||
-                    instrum.equalsIgnoreCase( "UIST" ) ) ) {
+            if ( !instrum.equalsIgnoreCase( "Michelle" ) ) {
                nd = Boolean.valueOf( (String) workConfig.get( "neutralDensity" ) );
 
 // Obtain the polariser. "none" means there is no polariser in place.
@@ -2010,9 +2003,6 @@ public class SpTranslator {
 
 // Need to add check for each new instrument to access the required keys
 // in the InstConfig.
-
-// UFTI
-// ----
             if ( instrum.equalsIgnoreCase( "UFTI" ) ) {
                conpw.print( "instrument  = " +
                             workConfig.get( "instrument" ) + "\n" );
@@ -2030,284 +2020,135 @@ public class SpTranslator {
                conpw.print( "darkNumExp  = " +
                             workConfig.get( "darkNumExp" ) + "\n" );
 
-// Michelle
-// --------
             } else if ( instrum.equalsIgnoreCase( "Michelle" ) ) {
 
-               writeAttribute( conpw, workConfig, "instrument" );
-               writeAttribute( conpw, workConfig, "version" );
-               writeAttribute( conpw, workConfig, "configType" );
-               writeAttribute( conpw, workConfig, "type" );
+               _writeAttribute( conpw, workConfig, "instrument" );
+               _writeAttribute( conpw, workConfig, "version" );
 
                if ( workConfig.get( "type" ).equals( "object" ) ) {
-                  writeAttribute( conpw, workConfig, "camera" );
-                  writeAttribute( conpw, workConfig, "polarimetry" );
-                  writeAttribute( conpw, workConfig, "slitWidth", "mask" );
-                  writeAttribute( conpw, workConfig, "maskAngle" );
-                  writeAttribute( conpw, workConfig, "positionAngle", "posAngle" );
-                  writeAttribute( conpw, workConfig, "disperser" );
-                  writeAttribute( conpw, workConfig, "order" );
-                  writeAttribute( conpw, workConfig, "sampling" );
-                  writeAttribute( conpw, workConfig, "centralWavelength" );
-                  writeAttribute( conpw, workConfig, "filter" );
-                  writeAttribute( conpw, workConfig, "waveplate" );
-                  writeAttribute( conpw, workConfig, "scienceArea" );
-                  writeAttribute( conpw, workConfig, "spectralCoverage" );
-                  writeAttribute( conpw, workConfig, "pixelFOV" );
-                  writeAttribute( conpw, workConfig, "nreads" );
-                  writeAttribute( conpw, workConfig, "mode" );
-                  writeAttribute( conpw, workConfig, "expTime", "exposureTime" );
-                  writeAttribute( conpw, workConfig, "readInterval" );
-                  writeAttribute( conpw, workConfig, "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "resetDelay" );
-                  writeAttribute( conpw, workConfig, "nresets" );
-                  writeAttribute( conpw, workConfig, "chopDelay" );
-                  writeAttribute( conpw, workConfig, "objNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "waveform" );
-                  writeAttribute( conpw, workConfig, "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "mustIdles" );
-                  writeAttribute( conpw, workConfig, "nullReads" );
-                  writeAttribute( conpw, workConfig, "nullExposures" );
-                  writeAttribute( conpw, workConfig, "nullCycles" );
-                  writeAttribute( conpw, workConfig, "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "observationTime" );
-                  writeAttribute( conpw, workConfig, "darkFilter" );
-                  writeAttribute( conpw, workConfig, "darkNumExp" );
+                  _writeAttribute( conpw, workConfig, "configType" );
+                  _writeAttribute( conpw, workConfig, "type" );
+                  _writeAttribute( conpw, workConfig, "camera" );
+                  _writeAttribute( conpw, workConfig, "polarimetry" );
+                  _writeAttribute( conpw, workConfig, "slitWidth", "mask" );
+                  _writeAttribute( conpw, workConfig, "maskAngle" );
+                  _writeAttribute( conpw, workConfig, "positionAngle", "posAngle" );
+                  _writeAttribute( conpw, workConfig, "disperser" );
+                  _writeAttribute( conpw, workConfig, "order" );
+                  _writeAttribute( conpw, workConfig, "sampling" );
+                  _writeAttribute( conpw, workConfig, "centralWavelength" );
+                  _writeAttribute( conpw, workConfig, "filter" );
+                  _writeAttribute( conpw, workConfig, "waveplate" );
+                  _writeAttribute( conpw, workConfig, "scienceArea" );
+                  _writeAttribute( conpw, workConfig, "spectralCoverage" );
+                  _writeAttribute( conpw, workConfig, "pixelFOV" );
+                  _writeAttribute( conpw, workConfig, "nreads" );
+                  _writeAttribute( conpw, workConfig, "mode" );
+                  _writeAttribute( conpw, workConfig, "expTime", "exposureTime" );
+                  _writeAttribute( conpw, workConfig, "readInterval" );
+                  _writeAttribute( conpw, workConfig, "chopFrequency" );
+                  _writeAttribute( conpw, workConfig, "resetDelay" );
+                  _writeAttribute( conpw, workConfig, "nresets" );
+                  _writeAttribute( conpw, workConfig, "chopDelay" );
+                  _writeAttribute( conpw, workConfig, "objNumExp", "coadds" );
+                  _writeAttribute( conpw, workConfig, "waveform" );
+                  _writeAttribute( conpw, workConfig, "dutyCycle" );
+                  _writeAttribute( conpw, workConfig, "mustIdles" );
+                  _writeAttribute( conpw, workConfig, "nullReads" );
+                  _writeAttribute( conpw, workConfig, "nullExposures" );
+                  _writeAttribute( conpw, workConfig, "nullCycles" );
+                  _writeAttribute( conpw, workConfig, "idlePeriod" );
+                  _writeAttribute( conpw, workConfig, "observationTime" );
+                  _writeAttribute( conpw, workConfig, "darkFilter" );
+                  _writeAttribute( conpw, workConfig, "darkNumExp" );
 
                } else if ( workConfig.get( "type" ).equals( "flat" ) ) {
-                  writeAttribute( conpw, workConfig, "flatSampling",
-                                  "sampling" );
-                  writeAttribute( conpw, workConfig, "flatSource" );
-                  writeAttribute( conpw, workConfig, "flatFilter", "filter" );
-                  writeAttribute( conpw, workConfig, "flatNreads", "nreads" );
-                  writeAttribute( conpw, workConfig, "flatMode", "mode" );
-                  writeAttribute( conpw, workConfig, "flatExpTime",
-                                  "exposureTime" );
-                  writeAttribute( conpw, workConfig, "flatReadInterval",
-                                  "readInterval" );
-                  writeAttribute( conpw, workConfig, "flatChopFrequency",
-                                  "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "flatResetDelay",
-                                  "resetDelay" );
-                  writeAttribute( conpw, workConfig, "flatNresets", "nresets" );
-                  writeAttribute( conpw, workConfig, "flatChopDelay",
-                                  "chopDelay" );
-                  writeAttribute( conpw, workConfig, "flatNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "flatWaveform",
-                                  "waveform" );
-                  writeAttribute( conpw, workConfig, "flatDutyCycle",
-                                  "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "flatMustIdles",
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "flatNullReads",
-                                  "nullReads" );
-                  writeAttribute( conpw, workConfig, "flatNullExposures",
-                                  "nullExposures" );
-                  writeAttribute( conpw, workConfig, "flatNullCycles",
-                                  "nullCycles" );
-                  writeAttribute( conpw, workConfig, "flatIdlePeriod",
-                                  "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "flatObsTime",
-                                  "observationTime" );
+                  _writeAttribute( conpw, workConfig, "configType" );
+                  _writeAttribute( conpw, workConfig, "type" );
+                  _writeAttribute( conpw, workConfig, "flatSampling",
+                                   "sampling" );
+                  _writeAttribute( conpw, workConfig, "flatSource" );
+                  _writeAttribute( conpw, workConfig, "flatFilter", "filter" );
+                  _writeAttribute( conpw, workConfig, "flatnreads", "nreads" );
+                  _writeAttribute( conpw, workConfig, "flatmode", "mode" );
+                  _writeAttribute( conpw, workConfig, "flatExpTime",
+                                   "exposureTime" );
+                  _writeAttribute( conpw, workConfig, "flatreadInterval",
+                                   "readInterval" );
+                  _writeAttribute( conpw, workConfig, "flatchopFrequency",
+                                   "chopFrequency" );
+                  _writeAttribute( conpw, workConfig, "flatresetDelay",
+                                   "resetDelay" );
+                  _writeAttribute( conpw, workConfig, "flatnresets", "nresets" );
+                  _writeAttribute( conpw, workConfig, "flatchopDelay",
+                                   "chopDelay" );
+                  _writeAttribute( conpw, workConfig, "flatNumExp", "coadds" );
+                  _writeAttribute( conpw, workConfig, "flatwaveform",
+                                   "waveform" );
+                  _writeAttribute( conpw, workConfig, "flatdutyCycle",
+                                   "dutyCycle" );
+                  _writeAttribute( conpw, workConfig, "flatmustIdles",
+                                   "mustIdles" );
+                  _writeAttribute( conpw, workConfig, "flatnullReads",
+                                   "nullReads" );
+                  _writeAttribute( conpw, workConfig, "flatnullExposures",
+                                   "nullExposures" );
+                  _writeAttribute( conpw, workConfig, "flatnullCycles",
+                                   "nullCycles" );
+                  _writeAttribute( conpw, workConfig, "flatidlePeriod",
+                                   "idlePeriod" );
+                  _writeAttribute( conpw, workConfig, "flatobsTime",
+                                   "observationTime" );
 
                } else if ( workConfig.get( "type" ).equals( "arc" ) ) {
-//          writeAttribute( conpw, workConfig, "arcSampling", "sampling" );
-                  writeAttribute( conpw, workConfig, "arcFilter", "filter" );
-                  writeAttribute( conpw, workConfig, "arcNreads", "nreads" );
-                  writeAttribute( conpw, workConfig, "arcMode", "mode" );
-                  writeAttribute( conpw, workConfig, "arcExpTime",
-                                  "exposureTime" );
-                  writeAttribute( conpw, workConfig, "arcReadInterval",
-                                  "readInterval" );
-                  writeAttribute( conpw, workConfig, "arcChopFrequency",
-                                  "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "arcResetDelay",
-                                  "resetDelay" );
-                  writeAttribute( conpw, workConfig, "arcNresets",
-                                  "nresets" );
-                  writeAttribute( conpw, workConfig, "arcChopDelay",
-                                  "chopDelay" );
-                  writeAttribute( conpw, workConfig, "arcNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "arcWaveform",
-                                  "waveform" );
-                  writeAttribute( conpw, workConfig, "arcDutyCycle",
+                  _writeAttribute( conpw, workConfig, "configType" );
+                  _writeAttribute( conpw, workConfig, "type" );
+//          _writeAttribute( conpw, workConfig, "arcSampling", "sampling" );
+                  _writeAttribute( conpw, workConfig, "arcFilter", "filter" );
+                  _writeAttribute( conpw, workConfig, "arcnreads", "nreads" );
+                  _writeAttribute( conpw, workConfig, "arcmode", "mode" );
+                  _writeAttribute( conpw, workConfig, "arcExpTime",
+                                   "exposureTime" );
+                  _writeAttribute( conpw, workConfig, "arcreadInterval",
+                                   "readInterval" );
+                  _writeAttribute( conpw, workConfig, "arcchopFrequency",
+                                   "chopFrequency" );
+                  _writeAttribute( conpw, workConfig, "arcresetDelay",
+                                   "resetDelay" );
+                  _writeAttribute( conpw, workConfig, "arcnresets",
+                                   "nresets" );
+                  _writeAttribute( conpw, workConfig, "arcchopDelay",
+                                   "chopDelay" );
+                  _writeAttribute( conpw, workConfig, "arcNumExp", "coadds" );
+                  _writeAttribute( conpw, workConfig, "arcwaveform",
+                                   "waveform" );
+                  _writeAttribute( conpw, workConfig, "arcdutyCycle",
                                   "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "arcMustIdles",
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "arcNullReads",
-                                  "nullReads" );
-                  writeAttribute( conpw, workConfig, "arcNullExposures",
-                                  "nullExposures" );
-                  writeAttribute( conpw, workConfig, "arcNullCycles",
-                                  "nullCycles" );
-                  writeAttribute( conpw, workConfig, "arcIdlePeriod",
-                                  "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "arcObsTime",
-                                  "observationTime" );
+                  _writeAttribute( conpw, workConfig, "arcmustIdles",
+                                   "mustIdles" );
+                  _writeAttribute( conpw, workConfig, "arcnullReads",
+                                   "nullReads" );
+                  _writeAttribute( conpw, workConfig, "arcnullExposures",
+                                   "nullExposures" );
+                  _writeAttribute( conpw, workConfig, "arcnullCycles",
+                                   "nullCycles" );
+                  _writeAttribute( conpw, workConfig, "arcidlePeriod",
+                                   "idlePeriod" );
+                  _writeAttribute( conpw, workConfig, "arcobsTime",
+                                   "observationTime" );
 
                } else if ( workConfig.get( "type" ).equals( "bias" ) ) {
-                  writeAttribute( conpw, workConfig, "biasExpTime",
-                                  "exposureTime" );
-                  writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "biasSavedInt", "nreads" );
+                  _writeAttribute( conpw, workConfig, "configType" );
+                  _writeAttribute( conpw, workConfig, "type" );
+                  _writeAttribute( conpw, workConfig, "biasExpTime",
+                                   "exposureTime" );
+                  _writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
+                  _writeAttribute( conpw, workConfig, "biasSavedInt", "nreads" );
                }
 
-// UIST
-// ----
-            } else if ( instrum.equalsIgnoreCase( "UIST" ) ) {
-
-               writeAttribute( conpw, workConfig, "instrument" );
-               writeAttribute( conpw, workConfig, "version" );
-               writeAttribute( conpw, workConfig, "configType" );
-               writeAttribute( conpw, workConfig, "type" );
-
-               if ( workConfig.get( "type" ).equals( "object" ) ) {
-                  writeAttribute( conpw, workConfig, "instPort" );
-                  writeAttribute( conpw, workConfig, "camera" );
-                  writeAttribute( conpw, workConfig, "imager" );
-                  writeAttribute( conpw, workConfig, "filter" );
-                  writeAttribute( conpw, workConfig, "focus" );
-                  writeAttribute( conpw, workConfig, "polarimetry" );
-                  writeAttribute( conpw, workConfig, "slitWidth", "mask" );
-                  writeAttribute( conpw, workConfig, "maskWidth" );
-                  writeAttribute( conpw, workConfig, "maskHeight" );
-                  writeAttribute( conpw, workConfig, "disperser" );
-                  writeAttribute( conpw, workConfig, "order" );
-                  writeAttribute( conpw, workConfig, "positionAngle", "posAngle" );
-                  writeAttribute( conpw, workConfig, "centralWavelength" );
-                  writeAttribute( conpw, workConfig, "resolution" );
-                  writeAttribute( conpw, workConfig, "dispersion" );
-                  writeAttribute( conpw, workConfig, "scienceArea" );
-                  writeAttribute( conpw, workConfig, "spectralCoverage" );
-                  writeAttribute( conpw, workConfig, "pixelFOV" );
-                  writeAttribute( conpw, workConfig, "pixelScale" );
-                  writeAttribute( conpw, workConfig, "nreads" );
-                  writeAttribute( conpw, workConfig, "mode" );
-                  writeAttribute( conpw, workConfig, "expTime", "exposureTime" );
-                  writeAttribute( conpw, workConfig, "readInterval" );
-                  writeAttribute( conpw, workConfig, "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "resetDelay" );
-                  writeAttribute( conpw, workConfig, "nresets" );
-                  writeAttribute( conpw, workConfig, "chopDelay" );
-                  writeAttribute( conpw, workConfig, "objNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "waveform" );
-                  writeAttribute( conpw, workConfig, "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "mustIdles" );
-                  writeAttribute( conpw, workConfig, "nullReads" );
-                  writeAttribute( conpw, workConfig, "nullExposures" );
-                  writeAttribute( conpw, workConfig, "nullCycles" );
-                  writeAttribute( conpw, workConfig, "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "observationTime" );
-                  writeAttribute( conpw, workConfig, "darkFilter" );
-                  writeAttribute( conpw, workConfig, "darkNumExp" );
-                  writeAttribute( conpw, workConfig, "arrayAngle" );
-                  writeAttribute( conpw, workConfig, "readArea" );
-                  writeAttribute( conpw, workConfig, "refPixelX" );
-                  writeAttribute( conpw, workConfig, "refPixelY" );
-                  writeAttribute( conpw, workConfig, "refPixelL" );
-                  writeAttribute( conpw, workConfig, "refPixelS" );
-
-               } else if ( workConfig.get( "type" ).equals( "flat" ) ) {
-                  writeAttribute( conpw, workConfig, "flatSource" );
-                  writeAttribute( conpw, workConfig, "flatFilter", "filter" );
-                  writeAttribute( conpw, workConfig, "flatNreads", "nreads" );
-                  writeAttribute( conpw, workConfig, "flatMode", "mode" );
-                  writeAttribute( conpw, workConfig, "flatExpTime",
-                                  "exposureTime" );
-                  writeAttribute( conpw, workConfig, "flatReadInterval",
-                                  "readInterval" );
-                  writeAttribute( conpw, workConfig, "flatChopFrequency",
-                                  "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "flatResetDelay",
-                                  "resetDelay" );
-                  writeAttribute( conpw, workConfig, "flatNresets", "nresets" );
-                  writeAttribute( conpw, workConfig, "flatChopDelay",
-                                  "chopDelay" );
-                  writeAttribute( conpw, workConfig, "flatNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "flatWaveform",
-                                  "waveform" );
-                  writeAttribute( conpw, workConfig, "flatDutyCycle",
-                                  "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "flatMustIdles",
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "flatNullReads",
-                                  "nullReads" );
-                  writeAttribute( conpw, workConfig, "flatNullExposures",
-                                  "nullExposures" );
-                  writeAttribute( conpw, workConfig, "flatNullCycles",
-                                  "nullCycles" );
-                  writeAttribute( conpw, workConfig, "flatIdlePeriod",
-                                  "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "flatObsTime",
-                                  "observationTime" );
-
-               } else if ( workConfig.get( "type" ).equals( "arc" ) ) {
-                  writeAttribute( conpw, workConfig, "arcFilter", "filter" );
-                  writeAttribute( conpw, workConfig, "arcOrder", "order" );
-                  writeAttribute( conpw, workConfig, "arcCentralWavelength",
-                                  "centralWavelength" );
-                  writeAttribute( conpw, workConfig, "arcSpectralCoverage",
-                                  "spectralCoverage" );
-                  writeAttribute( conpw, workConfig, "arcNreads", "nreads" );
-                  writeAttribute( conpw, workConfig, "arcMode", "mode" );
-                  writeAttribute( conpw, workConfig, "arcCalLamp", "arcSource" );
-                  writeAttribute( conpw, workConfig, "arcExpTime",
-                                  "exposureTime" );
-                  writeAttribute( conpw, workConfig, "arcReadInterval",
-                                  "readInterval" );
-                  writeAttribute( conpw, workConfig, "arcChopFrequency",
-                                  "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "arcResetDelay",
-                                  "resetDelay" );
-                  writeAttribute( conpw, workConfig, "arcNresets",
-                                  "nresets" );
-                  writeAttribute( conpw, workConfig, "arcChopDelay",
-                                  "chopDelay" );
-                  writeAttribute( conpw, workConfig, "arcNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "arcWaveform",
-                                  "waveform" );
-                  writeAttribute( conpw, workConfig, "arcDutyCycle",
-                                  "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "arcMustIdles",
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "arcNullReads",
-                                  "nullReads" );
-                  writeAttribute( conpw, workConfig, "arcNullExposures",
-                                  "nullExposures" );
-                  writeAttribute( conpw, workConfig, "arcNullCycles",
-                                  "nullCycles" );
-                  writeAttribute( conpw, workConfig, "arcIdlePeriod",
-                                  "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "arcObsTime",
-                                  "observationTime" );
-
-               } else if ( workConfig.get( "type" ).equals( "bias" ) ) {
-                  writeAttribute( conpw, workConfig, "biasExpTime",
-                                  "exposureTime" );
-                  writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "biasNResets", 
-                                  "nresets" );
-                  writeAttribute( conpw, workConfig, "biasWaveform", 
-                                  "waveform" );
-                  writeAttribute( conpw, workConfig, "biasIdlePeriod", 
-                                  "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "biasMustIdles", 
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "biasReadArea", 
-                                  "readArea" );
-                  writeAttribute( conpw, workConfig, "biasRefPixelX", 
-                                  "refPixelX" );
-                  writeAttribute( conpw, workConfig, "biasRefPixelY", 
-                                  "refPixelY" );
-                  writeAttribute( conpw, workConfig, "biasObsTime", 
-                                  "observationTime" );
-                  writeAttribute( conpw, workConfig, "biasDutyCycle", 
-                                  "dutyCycle" );
-               }
-
-            } else {
+   	    } else {
                // Throw exception
-            }
+	    }
 
 // Flush remaining output and close the config file.
             conpw.flush();
