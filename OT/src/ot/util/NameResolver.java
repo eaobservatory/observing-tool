@@ -11,6 +11,7 @@ import jsky.coords.HMS;
 import jsky.coords.DMS;
 
 import java.util.Iterator;
+//import java.net.URLEncoder;
 
 /**
  * Name resolver utility for target list.
@@ -27,6 +28,15 @@ public class NameResolver {
   protected String _dec;
 
   public NameResolver(String catalogName, String queryString) {
+    // Using  URLEncoder.encode would be nice but it replaces ' ' with '+' which
+    // doesn't do the trick. ' ' has to be replaced with "%20".
+    //queryString= URLEncoder.encode(queryString);
+    do {
+      queryString = queryString.substring(0, queryString.indexOf(' '))
+                  + "%20"
+                  + queryString.substring(queryString.indexOf(' ') + 1);
+    
+    } while(queryString.indexOf(' ') >= 0);
 
     Catalog catalog = SkycatConfigFile.getConfigFile(null).getCatalog(catalogName);
 
