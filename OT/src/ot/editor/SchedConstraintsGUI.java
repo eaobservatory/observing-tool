@@ -22,6 +22,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import jsky.app.ot.gui.*;
+import java.awt.event.*;
 
 public class SchedConstraintsGUI extends JPanel {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
@@ -42,6 +43,15 @@ public class SchedConstraintsGUI extends JPanel {
   JLabel jLabel7 = new JLabel();
   TextBoxWidgetExt period = new TextBoxWidgetExt();
   JLabel jLabel8 = new JLabel();
+  JLabel jLabel9 = new JLabel();
+  JLabel jLabel10 = new JLabel();
+  TextBoxWidgetExt maxElevation = new TextBoxWidgetExt();
+  JPanel jPanel1 = new JPanel();
+  OptionWidgetExt meridianApproachAny = new OptionWidgetExt();
+  OptionWidgetExt meridianApproachSetting = new OptionWidgetExt();
+  OptionWidgetExt meridianApproachRising = new OptionWidgetExt();
+  FlowLayout flowLayout1 = new FlowLayout();
+  JLabel jLabel11 = new JLabel();
 
     public SchedConstraintsGUI() {
         try {
@@ -75,40 +85,71 @@ public class SchedConstraintsGUI extends JPanel {
     jLabel2.setText("Latest Schedule Date");
     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel5.setForeground(Color.black);
-    jLabel5.setText("Minimum Elevation");
+    jLabel5.setText("Elevation Constraints");
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel6.setForeground(Color.black);
     jLabel6.setText("(degrees)");
     jLabel7.setForeground(Color.black);
     jLabel7.setText("Reschedule every");
     jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setForeground(Color.black);
     jLabel8.setText("days");
-    this.add(earliest, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
+    jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel9.setForeground(Color.black);
+    jLabel9.setText("Min");
+    jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel10.setForeground(Color.black);
+    jLabel10.setText("Max");
+    meridianApproachAny.setText("Don\'t Care");
+    meridianApproachAny.setFont(new java.awt.Font("Dialog", 0, 12));
+    meridianApproachSetting.setText("Setting    ");
+    meridianApproachSetting.setFont(new java.awt.Font("Dialog", 0, 12));
+    meridianApproachRising.setText("Rising    ");
+    meridianApproachRising.setFont(new java.awt.Font("Dialog", 0, 12));
+    jPanel1.setLayout(flowLayout1);
+    flowLayout1.setAlignment(FlowLayout.LEFT);
+    jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel11.setForeground(Color.black);
+    jLabel11.setText("Schedule when source is");
+    this.add(earliest, new GridBagConstraints(0, 1, 4, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(latest, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+    this.add(latest, new GridBagConstraints(0, 3, 4, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(jLabel3, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+    this.add(jLabel3, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(jLabel4, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+    this.add(jLabel4, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+    this.add(jLabel1, new GridBagConstraints(0, 0, 4, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    this.add(jLabel2, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+    this.add(jLabel2, new GridBagConstraints(0, 2, 4, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    this.add(jLabel5, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+    this.add(jLabel5, new GridBagConstraints(0, 6, 4, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    this.add(minElevation, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+    this.add(minElevation, new GridBagConstraints(1, 7, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(jLabel6, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
+    this.add(jLabel6, new GridBagConstraints(4, 7, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
     // Periodicity [timj kluge]
-    this.add(jLabel7, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+    this.add(jLabel7, new GridBagConstraints(0, 4, 4, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    this.add(period, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+    this.add(period, new GridBagConstraints(0, 5, 4, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    this.add(jLabel8, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+    this.add(jLabel8, new GridBagConstraints(4, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(jLabel9, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    this.add(jLabel10, new GridBagConstraints(2, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
+    this.add(maxElevation, new GridBagConstraints(3, 7, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    this.add(jPanel1, new GridBagConstraints(0, 9, 5, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel1.add(meridianApproachRising, null);
+    jPanel1.add(meridianApproachSetting, null);
+    jPanel1.add(meridianApproachAny, null);
+    this.add(jLabel11, new GridBagConstraints(0, 8, 4, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
     }
 }
