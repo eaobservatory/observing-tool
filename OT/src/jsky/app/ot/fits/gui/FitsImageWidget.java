@@ -403,6 +403,7 @@ public class FitsImageWidget extends ViewportImageWidget {
 	if (! before) {
 	    setBasePos(_imgInfo.ra, _imgInfo.dec);
 	}
+	updateImage();
     }
 
     /** Override base class version to create a blank image */
