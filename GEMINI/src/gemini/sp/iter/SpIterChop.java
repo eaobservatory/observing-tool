@@ -187,6 +187,30 @@ public class SpIterChop extends SpIterComp {
     _selectedIndex = selectedIndex;
   }
 
+  public Vector getStep(int i) {
+    if(getThrowAsString(i) == null) {
+      return null;
+    }
+
+    Vector result = new Vector();
+
+    result.add(getThrowAsString(i));
+    result.add(getAngleAsString(i));
+    result.add(getCoordFrame(i));
+
+    return result;
+  }
+
+  public Vector [] getAllSteps() {
+    Vector [] result = new Vector[getStepCount()];
+
+    for(int i = 0; i < getStepCount(); i++) {
+      result[i] = getStep(i);
+    }
+    
+    return result;
+  }
+
   public int getStepCount() {
     try {
       return _avTable.getAll(ATTR_THROW).size();
