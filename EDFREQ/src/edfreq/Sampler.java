@@ -154,6 +154,10 @@ public class Sampler implements ItemListener
       return bandWidthsArray;
    }
 
+   public int getResolution() {
+      return (int) ( 1.0E-3 * bandWidth / (double)channels );
+   }
+
    public void itemStateChanged ( ItemEvent ev )
    {
       setBandWidth(Double.parseDouble((String)bandWidthChoice.getSelectedItem()) * 1.0E9);
