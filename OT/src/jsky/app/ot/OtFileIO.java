@@ -336,7 +336,12 @@ save(SpRootItem spItem, FileInfo fi)
      fd.setFileFilter(sgmlFilter);
    }
 
-   fd.showSaveDialog(null);
+
+   int rtn = fd.showSaveDialog(null);
+   if (rtn == JFileChooser.CANCEL_OPTION) {
+       return false;
+   }
+
    //System.out.println("*** Default Dir.: " + fi.dir);
    //System.out.println("*** Default File: " + fi.filename);
 
