@@ -98,25 +98,4 @@ isObserveInstruction()
    return _avTable.getBool(ATTR_OBSERVE_INSTRUCTION);
 }
 
-/**
- * Converts Note text using HTML style character references.
- *
- * After after this SpNote was turned into XML the Note text is
- * converted back to ascii again.
- */
-protected void
-toXML(String indent, StringBuffer xmlBuffer)
-{
-   // Note text must be converted 
-   
-   // Set character references.
-   setNote(XmlUtil.asciiToXml(getNote()));
-
-   // Call super method
-   super.toXML(indent, xmlBuffer);
-
-   // Remove character references.
-   setNote(XmlUtil.xmlToAscii(getNote()));
-}
-
 }

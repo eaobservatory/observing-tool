@@ -7,6 +7,7 @@
 package gemini.sp;
 
 import gemini.util.Assert;
+import gemini.util.XmlUtil;
 
 import java.util.Enumeration;
 import java.util.Observable;
@@ -1094,7 +1095,7 @@ print(String indentStr)
 	       "</" + XML_META_PREFIX + avAttr.replace('.', '_') + ">";
       }
       else {
-        return "<" + avAttr + ">" + value + "</" + avAttr + ">";
+        return "<" + avAttr + ">" + XmlUtil.asciiToXml(value) + "</" + avAttr + ">";
       }	
     }
     else {
