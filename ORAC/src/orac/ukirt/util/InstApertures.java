@@ -72,7 +72,8 @@ public class InstApertures extends Hashtable implements Cloneable {
          concat = xAperture + " " + yAperture + " " + zAperture +
                   " " + lAperture;
       }
-      else if ( instrum.equalsIgnoreCase( "CGS4" ) ) {
+      else if ( instrum.equalsIgnoreCase( "CGS4" ) ||
+		instrum.equalsIgnoreCase( "Michelle" ) ) {
 
 // Get the individual values
          xAperture = (String) this.get( "instAperX" );
@@ -84,20 +85,6 @@ public class InstApertures extends Hashtable implements Cloneable {
          concat = xAperture + " " + yAperture + " " + zAperture +
                   " " + lAperture;
       }
-      // mfo test: Currently copy of CGS4!!!!!!!!!!!!!!!!!!!!!!
-      else if ( instrum.equalsIgnoreCase( "Michelle" ) ) {
-
-// Get the individual values
-         xAperture = (String) this.get( "instAperX" );
-         yAperture = (String) this.get( "instAperY" );
-         zAperture = (String) this.get( "instAperZ" );
-         lAperture = (String) this.get( "instAperL" );
-
-// Concatenate aperture values stored in the InstApertures Hashtable.
-         concat = xAperture + " " + yAperture + " " + zAperture +
-                  " " + lAperture;
-      }
-      
       return concat;
    }
 
@@ -111,7 +98,7 @@ public class InstApertures extends Hashtable implements Cloneable {
       if ( instrum.equalsIgnoreCase( "UFTI" ) ||
            instrum.equalsIgnoreCase( "IRCAM3" ) ) {
 
-// Initialise the UFTI instrument apertures.
+// Initialise the UFTI/IRCAM instrument apertures.
          put( "instAperX", "1" );        // X aperture
          put( "instAperY", "1" );        // Y aperture
          put( "instAperZ", "0" );        // Z aperture
@@ -127,11 +114,11 @@ public class InstApertures extends Hashtable implements Cloneable {
 
       } else if ( instrum.equalsIgnoreCase( "Michelle" ) ) {
 
-// Initialise the Michelle instrument apertures (mfo test: Currently copy of CGS4!!!!!!!!!!!!!!!!!!!!!!)
+// Initialise the Michelle instrument apertures.
          put( "instAperX", "1" );        // X aperture
          put( "instAperY", "1" );        // Y aperture
          put( "instAperZ", "0" );        // Z aperture
-         put( "instAperL", "2.2" );      // Lambda aperture
+         put( "instAperL", "15.0" );      // Lambda aperture
 
       }
    }

@@ -167,6 +167,7 @@ public class InstConfig extends Hashtable implements Cloneable {
 
          put( "scienceArea", "64.0 x 48.0" );  // Science area
          put( "spectralCoverage", "10.0 - 11.0" );  // Wavelength coverage
+         put( "pixelFOV", "1.00 x 1.00" );  // Pixel field of view
 
          put( "nreads", "1" );          // Number of reads
          put( "mode", "read" );         // Acquisition/read mode
@@ -217,7 +218,7 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "biasNumExp", "100" );    // Number of bias exposures (coadds)
 
 	 // Attributes for ARCS
-         put( "arcSampling", "1x1" );      // Arc sampling stepsize x range in pixel
+	 //         put( "arcSampling", "1x1" );      // Arc sampling stepsize x range in pixel
          put( "arcfilter", "Blank" );      // Flat filter
          put( "arcnreads", "1" );          // Number of reads
          put( "arcmode", "read" );         // Acquisition/read mode
@@ -311,7 +312,7 @@ public class InstConfig extends Hashtable implements Cloneable {
          else if ( lcAttribute.equals( "cvfwavelength" ) ) key = "arcCvfWavelength";
          else if ( lcAttribute.equals( "exposuretime" ) ) key ="arcexpTime";
          else if ( lcAttribute.equals( "observationtime" ) ) key ="arcobsTime";
-         else if ( lcAttribute.equals( "sampling" ) ) key = "arcSampling";
+	 //         else if ( lcAttribute.equals( "sampling" ) ) key = "arcSampling";
          else if ( lcAttribute.equals( "filter" ) ) key = "arcfilter";
          else if ( lcAttribute.equals( "lamp" ) ) key = "arcCalLamp";
 
