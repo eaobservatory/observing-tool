@@ -281,8 +281,7 @@ public class SpAvTableDOM {
 	    _treeWalker.setCurrentNode(nodeList.item(i));
 	    return;
 	  }
-	  }
-        }
+	}
 
       
       // Not returned yet? Or multiple tags intended? Then a node has to be created.
