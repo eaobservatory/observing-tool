@@ -230,6 +230,11 @@ public class SpTranslator {
 	  sequence.addElement( "setHeader RMTAGENT " + agent );
 	  sequence.addElement( "setHeader AGENTID " + agentId);
       }
+      else {
+	  System.out.println("No remote trigger");
+	  System.out.println("Src = "+agent);
+	  System.out.println("ID = "+agentId);
+      }
 
       if ( noffsetsInstruction != null ) {
 
@@ -973,7 +978,6 @@ public class SpTranslator {
       }
       if ( spObs != null ) {
 
-
 // Obtain OMP parameters.
 // ======================
 
@@ -987,8 +991,14 @@ public class SpTranslator {
          project = spObs.getTable().get( "project" );
 
 	 // Get the eStar stuff
-	 remoteTriggerSrc = spObs.getTable().get("remote_trigger_src");
-	 remoteTriggerId  = spObs.getTable().get("remote_trigger_id");
+	 if ( spObs.isMSB() ) {
+	     remoteTriggerSrc = spObs.getTable().get("remote_trigger_src");
+	     remoteTriggerId  = spObs.getTable().get("remote_trigger_id");
+	 }
+	 else {
+	     remoteTriggerSrc = spObs.parent().getTable().get("remote_trigger_src");
+	     remoteTriggerId  = spObs.parent().getTable().get("remote_trigger_id");
+	 }
 
 // Code rearrangement by RDK (this section was after the "Define file name" stuff
 // Obtain the instrument name and base configuration.
