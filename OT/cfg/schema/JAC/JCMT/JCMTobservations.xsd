@@ -100,7 +100,7 @@
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
       <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
-      <xsd:element name="pointingPixel"   type="toml:pointingPixelList"/>
+      <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="pointingObs"/>
