@@ -23,7 +23,9 @@ public class JcmtPreTranslator extends TcsPreTranslator {
 
   private static final String [] TCS_TARGET_TYPES      = { "science", "reference" };
 
-  public JcmtPreTranslator() throws Exception { }
+  public JcmtPreTranslator(String scienceTag, String referenceTag) throws Exception {
+    super(scienceTag, referenceTag);
+  }
 
   /**
    * Target types used by the JAC OCS TCS for JCMT XML.

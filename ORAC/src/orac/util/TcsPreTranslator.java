@@ -46,24 +46,9 @@ public abstract class TcsPreTranslator implements PreTranslator {
    */
   protected abstract String [] getTcsTargetTypes();
 
-  public TcsPreTranslator() throws Exception {
+  public TcsPreTranslator(String telescopeTarget1, String telescopeTarget2) throws Exception {
     // Set TELESCOPE_TARGET_TAGS
-    TELESCOPE_TARGET_TAGS = new String[2];
-
-    String baseTag = SpTelescopePos.getBaseTag();
-    if((baseTag == null) || (baseTag.equals(""))) {
-      throw new Exception(EXCECPTION_MESSAGE_PREFIX + "No base or science tag found.");
-    }
-
-    String [] guideStarTags = SpTelescopePos.getGuideStarTags();
-    if((guideStarTags    == null) || (guideStarTags.length < 1) ||
-       (guideStarTags[0] == null) || (guideStarTags[0].equals(""))) {
-
-      throw new Exception(EXCECPTION_MESSAGE_PREFIX + "No guide star or reference tag found.");
-    }
-
-    TELESCOPE_TARGET_TAGS[0] = baseTag;
-    TELESCOPE_TARGET_TAGS[1] = guideStarTags[0];
+    TELESCOPE_TARGET_TAGS = new String[] {telescopeTarget1, telescopeTarget2};
   }
 
   /**

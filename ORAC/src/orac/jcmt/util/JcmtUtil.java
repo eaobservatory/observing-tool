@@ -52,8 +52,14 @@ public class JcmtUtil implements TelescopeUtil {
     }
   }
 
+  /**
+   * Sets PreTranslator in SpItemDOM.
+   *
+   * Make sure at the time this method is called {@link #getBaseTag()} and
+   * {@link #getAdditionalTarget()} return correct values.
+   */
   public void installPreTranslator() throws Exception {
-    SpItemDOM.setPreTranslator(new JcmtPreTranslator());
+    SpItemDOM.setPreTranslator(new JcmtPreTranslator(getBaseTag(), getAdditionalTarget()));
   }
 }
 

@@ -23,7 +23,9 @@ public class UkirtPreTranslator extends TcsPreTranslator {
 
   private static final String [] TCS_TARGET_TYPES      = { "science", "guide" };
 
-  public UkirtPreTranslator() throws Exception { }
+  public UkirtPreTranslator(String baseTag, String guideTag) throws Exception {
+    super(baseTag, guideTag);
+  }
 
   /**
    * Target types used by the JAC OCS TCS for JCMT XML.
