@@ -54,6 +54,8 @@ public class SpMSB extends SpObsContextItem {
    /** This attribute records the number of remaining MSBs. */
    public static final String ATTR_REMAINING = ":remaining";
 
+    public static final String ATTR_CHECKSUM = ":checksum";
+
    /** This attribute records the estimated duration of the MSB. */
    public static final String ATTR_ELAPSED_TIME = "estimatedDuration";
 
@@ -207,6 +209,15 @@ public void
 setNumberRemaining(int remaining)
 {
    _avTable.set(ATTR_REMAINING, remaining);
+}
+
+public String getChecksum() {
+    if ( _avTable.exists( ATTR_CHECKSUM ) ) {
+	return _avTable.get( ATTR_CHECKSUM );
+    }
+    else {
+	return "";
+    }
 }
 
 /**
