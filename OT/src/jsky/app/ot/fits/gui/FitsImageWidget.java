@@ -46,8 +46,8 @@ public class FitsImageWidget extends ViewportImageWidget {
 
     private Vector _infoObs = new Vector();
 
-    public FitsImageWidget(Component parent, StatusPanel statusPanel) {
-	super(parent, statusPanel);
+    public FitsImageWidget(Component parent) { //, StatusPanel statusPanel) {
+	super(parent); //, statusPanel);
 	
 	// We need to use the Diva classes to get the correct mouse events 
 	// (see ancestor class DivaGraphicsImageDisplay)

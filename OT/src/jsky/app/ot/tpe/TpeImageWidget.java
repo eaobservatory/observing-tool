@@ -53,8 +53,8 @@ public class TpeImageWidget extends FitsImageWidget
 
     private boolean _baseOutOfView = false; // Base pos not visible
 
-    public TpeImageWidget(Component parent, StatusPanel statusPanel) {
-	super(parent, statusPanel);
+    public TpeImageWidget(Component parent) { //, StatusPanel statusPanel) {
+	super(parent); //, statusPanel);
     }
 
     /** 

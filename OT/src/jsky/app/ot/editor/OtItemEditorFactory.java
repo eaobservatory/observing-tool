@@ -46,7 +46,7 @@ public final class OtItemEditorFactory {
 		ed = (OtItemEditor) c.newInstance();
 		ht.put(spItem.getRootItem(), ed);
 	    } catch (Exception ex) {
-		DialogUtil.error("Problem instantiating: " + editorClassName, ex);
+		DialogUtil.error(null, "Problem instantiating: " + editorClassName + ", " +  ex);
 		return null;
 	    }
 	}

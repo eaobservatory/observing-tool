@@ -111,7 +111,8 @@ public class TpeBasePosFeature extends TpePositionFeature {
 	    _dragObject.screenPos.y = fme.yWidget;
  
 	    SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
-	    tp.noNotifySetXY(fme.ra, fme.dec);
+	    //tp.noNotifySetXY(fme.ra, fme.dec);
+	    tp.setXY(fme.ra, fme.dec);
 	}
     }
 }

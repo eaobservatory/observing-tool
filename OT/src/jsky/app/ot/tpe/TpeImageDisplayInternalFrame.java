@@ -78,7 +78,7 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
      * @param size the size (width, height) to use for the pan and zoom windows.
      */
     protected ImageDisplayControl makeImageDisplayControl(int size) {
-	return new TpeImageDisplayControl(this, statusPanel, size);
+	return new TpeImageDisplayControl(this, /*statusPanel,*/ size);
     }
 
     /** Make and return the toolbar */

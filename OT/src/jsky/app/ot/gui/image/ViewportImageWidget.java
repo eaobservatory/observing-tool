@@ -32,8 +32,8 @@ public class ViewportImageWidget extends NavigatorImageDisplay
     private Vector _mouseObs = new Vector();
     private Vector _viewObs  = new Vector();
 
-    public ViewportImageWidget(Component parent, StatusPanel statusPanel) {
-	super(parent, statusPanel);
+    public ViewportImageWidget(Component parent) {//, StatusPanel statusPanel) {
+	super(parent);//, statusPanel);
 	addMouseListener(this);
 	addMouseMotionListener(this);
     }
