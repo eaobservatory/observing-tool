@@ -207,10 +207,10 @@ public final class EdCompTargetList extends OtItemEditor
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 		    _curPos.setXYFromString(tbwe.getText(), _curPos.getYaxisAsString());
 		    _curPos.addWatcher(EdCompTargetList.this);
+
+		    _resetPositionEditor();
 		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {
-		  _resetPositionEditor();
-		}
+		public void textBoxAction(TextBoxWidgetExt tbwe) { }
 	    });
 
 	_yaxis  = _w.yaxisTBW;
@@ -219,11 +219,10 @@ public final class EdCompTargetList extends OtItemEditor
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 		    _curPos.setXYFromString(_curPos.getXaxisAsString(), tbwe.getText());
 		    _curPos.addWatcher(EdCompTargetList.this);
-
+		    
+		    _resetPositionEditor();
 		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {
-		  _resetPositionEditor();
-		}
+		public void textBoxAction(TextBoxWidgetExt tbwe) { }
 	    });
 
 	_system = _w.systemDDLBW;
