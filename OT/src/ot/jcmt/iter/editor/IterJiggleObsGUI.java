@@ -27,8 +27,6 @@ import jsky.app.ot.gui.*;
 public class IterJiggleObsGUI extends IterJCMTGenericGUI {
   JPanel acsisPanel = new JPanel();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
-  JLabel jLabel1 = new JLabel();
-  DropDownListBoxWidgetExt jigglePattern = new DropDownListBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
   JLabel jLabel3 = new JLabel();
   JLabel jLabel4 = new JLabel();
@@ -41,6 +39,10 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
   TextBoxWidgetExt secsPerJiggle = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerObs = new TextBoxWidgetExt();
   CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt();
+  JPanel jPanel1 = new JPanel();
+  JLabel jLabel1 = new JLabel();
+  DropDownListBoxWidgetExt jigglePattern = new DropDownListBoxWidgetExt();
+  GridBagLayout gridBagLayout2 = new GridBagLayout();
 
   public IterJiggleObsGUI() {
     try {
@@ -53,9 +55,6 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
 
   private void jbInit() throws Exception {
     acsisPanel.setLayout(gridBagLayout1);
-    jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel1.setForeground(Color.black);
-    jLabel1.setText("Jiggle Pattern");
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
     jLabel2.setText("Step Size");
@@ -94,15 +93,15 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     secsPerJiggle.setEditable(false);
     secsPerJiggle.setColumns(10);
     secsPerCycle.setEditable(false);
-    secsPerCycle.setColumns(10);
+    secsPerCycle.setColumns(5);
     defaultButton.setText("Default");
     secsPerObs.setEditable(false);
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel1.setForeground(Color.black);
+    jLabel1.setText("Jiggle Pattern");
     jigglePattern.setFont(new java.awt.Font("Dialog", 0, 12));
-    this.add(acsisPanel, BorderLayout.CENTER);
-    acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(jigglePattern, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel1.setLayout(gridBagLayout2);
+    this.add(acsisPanel, BorderLayout.SOUTH);
     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     acsisPanel.add(stepSize, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
@@ -139,7 +138,12 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(secsPerObs, new GridBagConstraints(4, 2, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(defaultButton, new GridBagConstraints(3, 4, 2, 1, 0.0, 0.0
+    acsisPanel.add(defaultButton, new GridBagConstraints(2, 4, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(jPanel1, BorderLayout.CENTER);
+    jPanel1.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel1.add(jigglePattern, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
   }
 }
