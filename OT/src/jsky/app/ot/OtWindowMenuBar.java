@@ -112,9 +112,9 @@ public class OtWindowMenuBar extends JMenuBar {
 	menu.add(createFileCloseMenuItem());
 
 	// check if using internal frames before adding exit item
-	JDesktopPane desktop = OT.getDesktop();
-	if (desktop == null) 
-	    menu.add(createFileExitMenuItem());
+	//MFO//JDesktopPane desktop = OT.getDesktop();
+	//MFO//if (desktop == null) 
+	//MFO//    menu.add(createFileExitMenuItem());
 	    
 	// disable/enable the "Save" and "Revert" choices depending
 	// upon whether the current program has been edited or saved
