@@ -64,6 +64,7 @@ public class FrequencyEditorCfg {
    */
   public static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 
+  public String[] frontEnds;
   public Hashtable frontEndTable = new Hashtable();
   public String [] velocityFrames = { "LSR", "Geocentric", "Heliocentric" };
   public boolean centreFrequenciesAdjustable;
@@ -75,6 +76,7 @@ public class FrequencyEditorCfg {
    * Constructor used if no xml configuration file is specified or found.
    */
   public FrequencyEditorCfg() {
+    frontEnds     = new String[] { "A3", "B3", "WC", "WD", "HARP-B" };
 
     // Put the default mode (dsb or ssb) first in the array.
     frontEndTable.put("A3",     new String[]{ "dsb" });
