@@ -98,6 +98,7 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf Makefile
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
+	\nonintr tidy\
 	\nset JAVA = $(JAVA)\
 	\n\
 	\nset PRG       = \`which $$""0\`\
@@ -174,6 +175,9 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf Makefile
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
+	\ntidy:\
+	\nonintr -\
+	\ncleanup\
 	\n" > $(BIN_DIR)/$(OM_SCRIPT)
 
 	@echo Creating $(BIN_DIR)/$(OM_SCRIPT)
@@ -188,6 +192,7 @@ $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf M
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
+	\nonintr tidy\
 	\nset JAVA = $(JAVA)\
 	\n\
 	\nset PRG       = \`which $$""0\`\
@@ -270,6 +275,9 @@ $(LOCAL_INSTALL_ROOT)/bin/os: $(LOCAL_INSTALL_ROOT)/bin $(CONF_HOME)/make.conf M
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.console.sequenceConsole $$""{CFG_DIR}/om.cfg $$""inst\
 	\n\
+	\ntidy:\
+	\nonintr -\
+	\ncleanup\
 	\n" > $(LOCAL_INSTALL_ROOT)/bin/os
 
 	@echo Creating $(LOCAL_INSTALL_ROOT)/bin/os
@@ -433,6 +441,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
+	\nonintr tidy\
 	\nset JAVA = $(JAVA)\
 	\n\
 	\nset PRG       = \`which $$""0\`\
@@ -507,6 +516,9 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
+	\ntidy:\
+	\nonintr -\
+	\ncleanup\
 	\n" > $(INSTALL_ROOT)/bin/om
 
 	@echo Creating $(INSTALL_ROOT)/bin/om
@@ -521,6 +533,7 @@ $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
+	\nonintr tidy\
 	\nset JAVA = $(JAVA)\
 	\n\
 	\nset PRG       = \`which $$""0\`\
@@ -602,6 +615,9 @@ $(INSTALL_ROOT)/bin/os: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.console.sequenceConsole $$""{CFG_DIR}/om.cfg $$""inst\
 	\n\
+	\ntidy:\
+	\nonintr -\
+	\ncleanup\
 	\n" > $(INSTALL_ROOT)/bin/os
 
 	@echo Creating $(INSTALL_ROOT)/bin/os
