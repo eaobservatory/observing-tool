@@ -76,6 +76,8 @@ public class TelescopeGUI extends JPanel {
   JLabel jLabel4 = new JLabel();
   JLabel jLabel19 = new JLabel();
   TextBoxWidgetExt chopAngle = new TextBoxWidgetExt();
+  DropDownListBoxWidgetExt chopSystem = new DropDownListBoxWidgetExt();
+  JLabel chopSystemLabel = new JLabel();
 
     public TelescopeGUI() {
         try {
@@ -189,6 +191,10 @@ public class TelescopeGUI extends JPanel {
     jLabel19.setForeground(Color.black);
     jLabel19.setText("(deg. E of N)");
     extrasFolder.setFont(new java.awt.Font("Dialog", 0, 12));
+    chopSystemLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    chopSystemLabel.setForeground(Color.black);
+    chopSystemLabel.setText("System");
+    chopSystem.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(objectGBW, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         objectGBW.add(nameTBW, new GridBagConstraints(1, 0, 3, 1, 1.0, 0.0                           // MFO
@@ -225,7 +231,7 @@ public class TelescopeGUI extends JPanel {
     chopPW.add(jLabel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
     chopPW.add(chopThrow, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
     chopPW.add(jLabel18, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     chopPW.add(chopping, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
@@ -235,7 +241,11 @@ public class TelescopeGUI extends JPanel {
     chopPW.add(jLabel19, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     chopPW.add(chopAngle, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
+    chopPW.add(chopSystem, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+    chopPW.add(chopSystemLabel, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         extrasFolder.add(propMotionPW, "Proper Motion");
         propMotionPW.add(jLabel14, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 49, 0, 0), 0, 0));
