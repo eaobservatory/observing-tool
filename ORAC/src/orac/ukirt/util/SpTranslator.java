@@ -857,6 +857,7 @@ public class SpTranslator {
       final String nOffsets = "-setHeader NOFFSETS";
       final String setInst = "-set_inst";
       final String setRot = "setrotator";
+      final String setRotOff = "setrot_offset";
 
       String apertures;                   // Space-separated list of
                                           // aperture values
@@ -1395,6 +1396,10 @@ public class SpTranslator {
             if ( slitAngle != null ) {
                sequence.addElement( setRot + " " + slitAngle );
             }
+	    if ( instrument.equalsIgnoreCase( "UIST" ) ||
+		 instrument.equalsIgnoreCase( "Michelle" ) ) {
+		sequence.addElement( setRotOff + " 0.0" );
+	    }
          }
 
 // Locate the data-reduction recipe component.
