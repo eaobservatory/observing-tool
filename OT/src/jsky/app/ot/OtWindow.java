@@ -58,6 +58,7 @@ import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
+import orac.util.OracUtilities;
 import ot.phase1.Phase1HTMLDocument;
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
@@ -364,7 +365,7 @@ public class OtWindow extends SpTreeGUI
 	    fileInfo = new FileInfo();
 	    SpAvTable avTab = spItem.getTable();
 
-	    String  dir          = System.getProperty("user.dir");
+	    String  dir          = OT.getOtUserDir();
 	    String  filename     = avTab.get(".gui.filename");
 	    boolean hasBeenSaved = avTab.getBool(".gui.hasBeenSaved");
 	    if ((dir != null) && (filename != null)) {
@@ -438,7 +439,7 @@ public class OtWindow extends SpTreeGUI
 	    fileInfo = new FileInfo();
 	    SpAvTable avTab = spItem.getTable();
 
-	    String  dir          = System.getProperty("user.dir");
+	    String  dir          = OT.getOtUserDir();
 	    String  filename     = avTab.get(".gui.filename");
 	    boolean hasBeenSaved = avTab.getBool(".gui.hasBeenSaved");
 	    if ((dir != null) && (filename != null)) {
@@ -581,6 +582,7 @@ public class OtWindow extends SpTreeGUI
 
       // Initialise sequence name
       String seqName = "None";
+      String seqDir  = "";
 
       // Check if this is an Observation.
       if ( !( spitem.type().equals( SpType.OBSERVATION ) ) ) {
@@ -596,7 +598,10 @@ public class OtWindow extends SpTreeGUI
         // Create a translator class and do the translation
         SpTranslator spt = new SpTranslator (spobs);
         try {
+	    spt.setConfigDirectory(OT.getOtUserDir());
+	    spt.setSequenceDirectory(OT.getOtUserDir());
 	    seqName = spt.translate();
+	    seqDir  = spt.getSequenceDirectory();
         }catch (Exception ex) {
 	    DialogUtil.error(this, "Exception whilst translating:\n "+ex.getMessage());
 	    return false;
@@ -608,7 +613,7 @@ public class OtWindow extends SpTreeGUI
         return false;
       }
 
-      DialogUtil.message(this, "Observation saved to " + seqName);
+      DialogUtil.message(this, "Observation saved to " + seqDir + seqName);
   
       return true;
     }
@@ -912,7 +917,7 @@ public class OtWindow extends SpTreeGUI
 		return;
 
 	    // open in this window
-	    JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+	    JFileChooser fileChooser = new JFileChooser(OT.getOtUserDir());
             fileChooser.addChoosableFileFilter(xmlFilter);
             fileChooser.addChoosableFileFilter(sgmlFilter);
 

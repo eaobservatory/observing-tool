@@ -72,6 +72,31 @@ public class OT extends JFrame {
 
 
     /**
+     * Default save directory.
+     *
+     * This system property key can be used to specify a default directory
+     * to which save by default or which is used as default directory for file
+     * save/open dialogs.
+     *
+     * The actual key/name to be used to set the system property is <b>ot.userdir</b>.
+     *
+     * ot.userdir can be used to specify the users working directory from which the a script
+     * is called. If the script changes the directory before starting java the original
+     * working directory would not be accessible from within java. the system property
+     * user.dir would point to the directory from which java was started.
+     *
+     * @see #getOracUserDir()
+     */
+    public static final String PROPERTY_OT_USERDIR = "ot.userdir";
+
+    /**
+     * @see #PROPERTY_OT_USERDIR
+     * @see #getOtUserDir()
+     */
+    private static String _otUserDir = null;
+
+
+    /**
      * Create the OT application using internal frames.
      */
     public OT() {
@@ -455,6 +480,36 @@ showNews()
     }
 
 // From ATC OT.java end
+
+    /**
+     * Get default user directory.
+     *
+     * Returns the directory specified by the system property PROPERTY_OT_USERDIR ("ot.userdir")
+     * if it is specified and exists or the users home directory otherwise.
+     *
+     * @see #PROPERTY_OT_USERDIR
+     */
+    public static String getOtUserDir() {
+      if(_otUserDir != null) {
+        return _otUserDir;
+      }
+
+      _otUserDir = System.getProperty(PROPERTY_OT_USERDIR);
+
+      if(_otUserDir != null) {
+        File dir = new File(_otUserDir);
+
+        if(!dir.isDirectory()) {
+          _otUserDir = System.getProperty("user.home");
+        }
+      }
+      else {
+        _otUserDir = System.getProperty("user.home");
+      }
+
+      return _otUserDir;
+   }
+
 
     /** 
      * Usage: java [-Djsky.catalog.skycat.config=$SKYCAT_CONFIG] OT [-[no]internalframes] [programFile]
