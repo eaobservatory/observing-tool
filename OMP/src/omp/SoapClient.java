@@ -34,8 +34,8 @@ public class SoapClient {
       params.add(new Parameter(name, type, val, null));
    }
 
-   protected String doCall(URL url, String methodName) throws Exception {
-      String result = "";
+   protected Object doCall(URL url, String methodName) throws Exception {
+      Object result = null;
       //try {
 	 Call call = new Call();
 	 call.setTargetObjectURI(soapAction);
@@ -52,7 +52,7 @@ public class SoapClient {
 	 // check response 
 	 if (!resp.generatedFault()) {
 	    Parameter ret = resp.getReturnValue();
-	    result = (String) ret.getValue();
+	    result = ret.getValue();
 	 }
 	 else {
 	    Fault fault = resp.getFault ();
