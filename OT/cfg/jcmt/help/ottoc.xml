@@ -5,12 +5,8 @@
 <toc version="1.0">
   <tocitem text="Observing Tool Help">
     <tocitem text="Introduction to the ORAC Observing Tool" target="top"/>
-    <tocitem text="Creating a Science Program" target="sciprog"/>
-    <tocitem text="Instrument Component" target="inst"/>
-    <tocitem text="Target Information and the Position Editor" target="tpe"/>
-    <tocitem text="Sequences and Iterators" target="iter"/>
-    <tocitem text="More Detailed Help" target="details"/>
     <tocitem text="Guide to the Library Contents" target="library" />
+    <tocitem text="Downloading and installing the OT" target="download" />
     <tocitem text="Known Bugs" target="bugs" />
     <tocitem text="Credits" target="Credits"/>
   </tocitem>
