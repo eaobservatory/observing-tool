@@ -1115,8 +1115,8 @@ public class OtWindow extends SpTreeGUI
    
       // checking whether an item has been selected that can be checked and
       // returning false otherwise.
-      if(!spItem.type().equals(SpType.SCIENCE_PROGRAM) && !spItem.type().equals(SpType.OBSERVATION)) {
-        new ReportBox("Please select an observation or science program.");
+      if(!(spItem instanceof SpProg) && !(spItem instanceof SpMSB)) {
+        new ReportBox("Please select an observation, MSB or science program.");
         return false;
       }
 
@@ -1136,17 +1136,14 @@ public class OtWindow extends SpTreeGUI
       }
       
       Vector          report    = new Vector();
-      String          component;
 
-      if(spItem instanceof SpObs) {
-        ErrorMessage.reset();
-        spValidation.checkObservation((SpObs)spItem, report);
-        component = "Observation";
+      ErrorMessage.reset();
+
+      if(spItem instanceof SpMSB) {
+        spValidation.checkMSB((SpMSB)spItem, report);
       }
       else { //if(spItem.type().equals(SpType.SCIENCE_PROGRAM))
-        ErrorMessage.reset();
         spValidation.checkSciProgram((SpProg)spItem, report);
-        component = "Science Program";
       }
    
       // at the moment there is no difference in how errors and warnings are handled.
@@ -1161,7 +1158,7 @@ public class OtWindow extends SpTreeGUI
         return false;
       }
       else {
-        new ReportBox(component + " settings are valid.", reportBoxTitle);
+        new ReportBox(spItem.type().getReadable() + " settings are valid.", reportBoxTitle);
      
         return true;
       }
