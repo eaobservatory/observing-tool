@@ -61,7 +61,6 @@ public class SideBandDisplay extends JFrame
 
       this.redshift = redshift;
 
-      addWindowListener ( new BasicWindowMonitor() );
       contentPane = getContentPane();
       contentPanel = Box.createHorizontalBox();
       contentPanel.add ( Box.createHorizontalGlue() );
