@@ -1,0 +1,192 @@
+<?jsx version="1"?>
+<edfreq.FrequencyEditorCfg alias-ID="0"
+ centreFrequenciesAdjustable="false">
+  <ArrayOf-java.lang.String alias-ID="1" obj-name="frontEnds" length="5">
+    <java.lang.String alias-ID="2" valueOf="A3"/>
+    <java.lang.String alias-ID="3" valueOf="B3"/>
+    <java.lang.String alias-ID="4" valueOf="WC"/>
+    <java.lang.String alias-ID="5" valueOf="WD"/>
+    <java.lang.String alias-ID="6" valueOf="no HARP-B"/>
+  </ArrayOf-java.lang.String>
+  <ArrayOf-java.lang.String alias-ID="7" obj-name="frontEndModes" length="2">
+    <java.lang.String alias-ID="8" valueOf="ssb"/>
+    <java.lang.String alias-ID="9" valueOf="dsb"/>
+  </ArrayOf-java.lang.String>
+  <java.util.Hashtable alias-ID="10" obj-name="receivers">
+    <java.lang.String alias-ID="11" valueOf="A3"/>
+    <edfreq.Receiver alias-ID="12"
+     loMin="2.15E11"
+     loMax="2.72E11"
+     feIF="4.0E9"
+     bandWidth="1.8E9">
+      <java.lang.String alias-ID="13" obj-name="name" valueOf="A3"/>
+      <java.util.Vector alias-ID="14" obj-name="bandspecs">
+        <edfreq.BandSpec alias-ID="15"
+         numBands="4"
+         loBandWidth="2.5E8"
+         loChannels="8192"
+         hiBandWidth="1.0E9"
+         hiChannels="2048">
+          <java.lang.String alias-ID="16" obj-name="name" valueOf="4-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="17"
+         numBands="8"
+         loBandWidth="2.5E8"
+         loChannels="4096"
+         hiBandWidth="1.0E9"
+         hiChannels="1024">
+          <java.lang.String alias-ID="18" obj-name="name" valueOf="8-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="19"
+         numBands="1"
+         loBandWidth="1.0E9"
+         loChannels="32768"
+         hiBandWidth="4.0E9"
+         hiChannels="8192">
+          <java.lang.String alias-ID="20" obj-name="name" valueOf="hybrid"/>
+        </edfreq.BandSpec>
+      </java.util.Vector>
+    </edfreq.Receiver>
+
+    <java.lang.String alias-ID="21" valueOf="B3"/>
+    <edfreq.Receiver alias-ID="22"
+     loMin="3.22E11"
+     loMax="3.73E11"
+     feIF="4.0E9"
+     bandWidth="1.8E9">
+      <java.lang.String alias-ID="23" obj-name="name" valueOf="B3"/>
+      <java.util.Vector alias-ID="24" obj-name="bandspecs">
+        <edfreq.BandSpec alias-ID="25"
+         numBands="4"
+         loBandWidth="2.5E8"
+         loChannels="8192"
+         hiBandWidth="1.0E9"
+         hiChannels="2048">
+          <java.lang.String alias-ID="26" obj-name="name" valueOf="4-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="27"
+         numBands="8"
+         loBandWidth="2.5E8"
+         loChannels="4096"
+         hiBandWidth="1.0E9"
+         hiChannels="1024">
+          <java.lang.String alias-ID="28" obj-name="name" valueOf="8-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="29"
+         numBands="1"
+         loBandWidth="1.0E9"
+         loChannels="32768"
+         hiBandWidth="4.0E9"
+         hiChannels="8192">
+          <java.lang.String alias-ID="30" obj-name="name" valueOf="hybrid"/>
+        </edfreq.BandSpec>
+      </java.util.Vector>
+    </edfreq.Receiver>
+
+    <java.lang.String alias-ID="31" valueOf="WD"/>
+    <edfreq.Receiver alias-ID="32"
+     loMin="6.3E11"
+     loMax="7.1E11"
+     feIF="4.0E9"
+     bandWidth="1.8E9">
+      <java.lang.String alias-ID="33" obj-name="name" valueOf="WD"/>
+      <java.util.Vector alias-ID="34" obj-name="bandspecs">
+        <edfreq.BandSpec alias-ID="35"
+         numBands="4"
+         loBandWidth="2.5E8"
+         loChannels="8192"
+         hiBandWidth="1.0E9"
+         hiChannels="2048">
+          <java.lang.String alias-ID="36" obj-name="name" valueOf="4-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="37"
+         numBands="8"
+         loBandWidth="2.5E8"
+         loChannels="4096"
+         hiBandWidth="1.0E9"
+         hiChannels="1024">
+          <java.lang.String alias-ID="38" obj-name="name" valueOf="8-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="39"
+         numBands="1"
+         loBandWidth="1.0E9"
+         loChannels="32768"
+         hiBandWidth="4.0E9"
+         hiChannels="8192">
+          <java.lang.String alias-ID="40" obj-name="name" valueOf="hybrid"/>
+        </edfreq.BandSpec>
+      </java.util.Vector>
+    </edfreq.Receiver>
+
+    <java.lang.String alias-ID="41" valueOf="HARP-B"/>
+    <edfreq.Receiver alias-ID="42"
+     loMin="3.25E11"
+     loMax="3.75E11"
+     feIF="5.0E9"
+     bandWidth="2.0E9">
+      <java.lang.String alias-ID="43" obj-name="name" valueOf="HARP-B"/>
+      <java.util.Vector alias-ID="44" obj-name="bandspecs">
+        <edfreq.BandSpec alias-ID="45"
+         numBands="1"
+         loBandWidth="2.5E8"
+         loChannels="8192"
+         hiBandWidth="1.0E9"
+         hiChannels="2048">
+          <java.lang.String alias-ID="46" obj-name="name" valueOf="1-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="47"
+         numBands="2"
+         loBandWidth="2.5E8"
+         loChannels="4096"
+         hiBandWidth="1.0E9"
+         hiChannels="1024">
+          <java.lang.String alias-ID="48" obj-name="name" valueOf="2-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="49"
+         numBands="1"
+         loBandWidth="5.0E8"
+         loChannels="8192"
+         hiBandWidth="2.0E9"
+         hiChannels="2048">
+          <java.lang.String alias-ID="50" obj-name="name" valueOf="hybrid"/>
+        </edfreq.BandSpec>
+      </java.util.Vector>
+    </edfreq.Receiver>
+
+    <java.lang.String alias-ID="51" valueOf="WC"/>
+    <edfreq.Receiver alias-ID="52"
+     loMin="4.3E11"
+     loMax="5.1E11"
+     feIF="4.0E9"
+     bandWidth="1.8E9">
+      <java.lang.String alias-ID="53" obj-name="name" valueOf="WC"/>
+      <java.util.Vector alias-ID="54" obj-name="bandspecs">
+        <edfreq.BandSpec alias-ID="55"
+         numBands="4"
+         loBandWidth="2.5E8"
+         loChannels="8192"
+         hiBandWidth="1.0E9"
+         hiChannels="2048">
+          <java.lang.String alias-ID="56" obj-name="name" valueOf="4-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="57"
+         numBands="8"
+         loBandWidth="2.5E8"
+         loChannels="4096"
+         hiBandWidth="1.0E9"
+         hiChannels="1024">
+          <java.lang.String alias-ID="58" obj-name="name" valueOf="8-system"/>
+        </edfreq.BandSpec>
+        <edfreq.BandSpec alias-ID="59"
+         numBands="1"
+         loBandWidth="1.0E9"
+         loChannels="32768"
+         hiBandWidth="4.0E9"
+         hiChannels="8192">
+          <java.lang.String alias-ID="60" obj-name="name" valueOf="hybrid"/>
+        </edfreq.BandSpec>
+      </java.util.Vector>
+    </edfreq.Receiver>
+  </java.util.Hashtable>
+</edfreq.FrequencyEditorCfg>
+
