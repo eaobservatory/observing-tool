@@ -30,7 +30,7 @@ import gemini.sp.obsComp.SpTelescopeObsComp;
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.util.Assert;
-import jsky.app.ot.util.CoordSys;
+import gemini.util.CoordSys;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
@@ -41,8 +41,8 @@ import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
 
 
-// Conic System (Orbital Elements) and Named System (named target such as planets, sun , moon etc)
-// Target specification using offsets added.
+// Conic System (Orbital Elements), Named System (named target such as planets, sun , moon etc)
+// and Target specification using offsets added.
 // Martin Folger (M.Folger@roe.ac.uk) February 27, 2002
 /**
  * This is the editor for the target list component.
@@ -53,7 +53,6 @@ public final class EdCompTargetList extends OtItemEditor
 
     public static final String LABEL_RA     = "Ra";
     public static final String LABEL_DEC    = "Dec";
-    public static final String LABEL_OFFSET = "Offset (arcsecs)";
 
     // Frequently used widgets
     private DropDownListBoxWidgetExt _tag;	// Object ID/Type
@@ -110,8 +109,8 @@ public final class EdCompTargetList extends OtItemEditor
 
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
-          _w.extrasFolder.setEnabledAt(0, false);
-	  _w.extrasFolder.setSelectedIndex(1);
+          _w.extrasFolder.setEnabledAt(2, false);
+	  _w.extrasFolder.setSelectedIndex(0);
         }
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
@@ -120,8 +119,8 @@ public final class EdCompTargetList extends OtItemEditor
         }
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
-          _w.extrasFolder.setEnabledAt(2, false);
-	  _w.extrasFolder.setSelectedIndex(0);
+          _w.extrasFolder.setEnabledAt(0, false);
+	  _w.extrasFolder.setSelectedIndex(2);
         }
 
 
@@ -142,8 +141,8 @@ public final class EdCompTargetList extends OtItemEditor
         _w.l_or_m.setToolTipText("Longitude or mean anomaly");
         _w.dm.setToolTipText("Daily motion");
 
-        _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPITON);
-        _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPITON);
+        _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION);
+        _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPTION);
 
 	// *** buttons
 	_w.newButton.addActionListener(this);
@@ -154,6 +153,7 @@ public final class EdCompTargetList extends OtItemEditor
 
         // chop mode tab added by MFO (3 August 2001)
 	_w.chopping.addActionListener(this);
+	_w.offsetCheckBox.addActionListener(this);
 
         //
 	_w.targetSystemsTabbedPane.addChangeListener(this);
@@ -231,15 +231,25 @@ public final class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 
-		    if(OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag())) {
-		      double xAxis = _tpl.getBasePosition().getXaxis();
+		    if(_curPos.isOffsetPosition()) {
+		      double xAxis = 0.0;
+		      double yAxis = 0.0;
 
 		      try {
-		        xAxis += (Double.parseDouble(tbwe.getText()) / 3600.0);
+		        xAxis = Double.parseDouble(_xaxis.getText());
 		      }
-		      catch(Exception e) { }
+		      catch(Exception e) {
+		        System.out.println("Could not parse x axis: " + _xaxis.getText());
+		      }
 
-		      _curPos.setXY(xAxis, _curPos.getYaxis());
+		      try {
+			yAxis = Double.parseDouble(_yaxis.getText());
+		      }
+		      catch(Exception e) {
+		        System.out.println("Could not parse y axis: " + _yaxis.getText());
+		      }
+
+		      _curPos.setXY(xAxis, yAxis);
 		    }
 		    else {
 		      _curPos.setXYFromString(tbwe.getText(), _curPos.getYaxisAsString());
@@ -257,15 +267,26 @@ public final class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 
-		    if(OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag())) {
-		      double yAxis = _tpl.getBasePosition().getYaxis();
+		    if(_curPos.isOffsetPosition()) {
+		      double xAxis = 0.0;
+		      double yAxis = 0.0;
 
 		      try {
-		        yAxis += (Double.parseDouble(tbwe.getText()) / 3600.0);
+		        xAxis = Double.parseDouble(_xaxis.getText());
 		      }
-		      catch(Exception e) { }
+		      catch(Exception e) { 
+		        System.out.println("Could not parse x axis: " + _xaxis.getText());
+		      }
 
-		      _curPos.setXY(_curPos.getXaxis(), yAxis);
+		      try {
+			yAxis = Double.parseDouble(_yaxis.getText());
+		      }
+		      catch(Exception e) { 
+		        System.out.println("Could not parse y axis :" + _yaxis.getText());
+		      }
+
+		      _curPos.setXY(xAxis, yAxis);
+
 		    }
 		    else {
 		      _curPos.setXYFromString(_curPos.getXaxisAsString(), tbwe.getText());
@@ -279,16 +300,17 @@ public final class EdCompTargetList extends OtItemEditor
 	    });
 
 	_system = _w.systemDDLBW;
-	_system.clear();
-	for (int i=0; i<CoordSys.COORD_SYS.length; ++i) {
-	    _system.addChoice(CoordSys.COORD_SYS[i]);
-	}
+	_system.setChoices(OtCfg.telescopeUtil.getCoordSys());
 	_system.addWatcher( new DropDownListBoxWidgetWatcher() {
 		public void
 		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
 		}
 		public void
 		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+
+                    _w.RA_Az_STW.setText(CoordSys.X_AXIS_LABEL[i]);
+                    _w.Dec_El_STW.setText(CoordSys.Y_AXIS_LABEL[i]);
+
 		    _updateCoordSystem();
 		}
 	    });
@@ -444,16 +466,6 @@ public final class EdCompTargetList extends OtItemEditor
 		}
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
-
-	// Added for SCUBA (MFO, 29 October 2001)
-	_w.chopSystem.setChoices(CoordSys.COORD_SYS);
-	_w.chopSystem.addWatcher(new DropDownListBoxWidgetWatcher() {
-		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) { }
-
-		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-		    ((SpTelescopeObsComp)_spItem).setChopSystem(validateChopAngle(_w.chopAngle.getText()));
-		}
-	    });
     }
 
 
@@ -494,19 +506,22 @@ public final class EdCompTargetList extends OtItemEditor
 
 	_name.setValue(   tp.getName()          );
 
-	if(OtCfg.telescopeUtil.isOffsetTarget(tp.getTag())) {
-	  _xaxis.setValue(Math.rint((tp.getXaxis() - _tpl.getBasePosition().getXaxis()) * 36000.0) / 10.0);
-	  _yaxis.setValue(Math.rint((tp.getYaxis() - _tpl.getBasePosition().getYaxis()) * 36000.0)  / 10.0);
+	if(tp.isOffsetPosition()) {
+	  _xaxis.setValue(tp.getXaxis());
+	  _yaxis.setValue(tp.getYaxis());
 	}
 	else {
 	  _xaxis.setValue(tp.getXaxisAsString());
 	  _yaxis.setValue(tp.getYaxisAsString());
 	}
 
+//	_xaxis.setValue(tp.getXaxisAsString());
+//	_yaxis.setValue(tp.getYaxisAsString());	
+
 	//_configureWidgets(tp);
 	_setCoordSys(tp);
 
-	if(tp.getTargetSystem() != SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG) {
+	if(tp.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL) {
           return;
 	}
 
@@ -560,10 +575,9 @@ public final class EdCompTargetList extends OtItemEditor
 	int sysIndex = tp.getCoordSys();
 	_system.setValue( sysIndex );
 
-	//_showCoordSystemSetup(true);
-
-	if(OtCfg.telescopeUtil.isOffsetTarget(tp.getTag())) {
-	  _setXYAxisBoxPrompts(LABEL_OFFSET, LABEL_OFFSET);
+	if(tp.isOffsetPosition()) {
+	  _setXYAxisBoxPrompts(CoordSys.X_AXIS_LABEL[_system.getIntegerValue()],
+	                       CoordSys.Y_AXIS_LABEL[_system.getIntegerValue()]);
 	  return;
 	}
 
@@ -624,16 +638,16 @@ public final class EdCompTargetList extends OtItemEditor
            _selectTargetSystemTab(_curPos);
 	}
 
-        if(_curPos.getTargetSystem() == SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG) {
-
+        if(_curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
+          _w.offsetCheckBox.setValue(_curPos.isOffsetPosition());
           // Update table (MFO, 12 June 2001)
-	  try {
-	    _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
-	  }
-	  catch(Exception e) {
-            System.out.println("Exception during _updateWidgets: " + e);
-	    e.printStackTrace();
-	  }
+//	  try {
+//	    _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
+//	  }
+//	  catch(Exception e) {
+//            System.out.println("Exception during _updateWidgets: " + e);
+//	    e.printStackTrace();
+//	  }
 	}
 	else {
           // update the conic or named system widgets depending on selection.
@@ -649,14 +663,8 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.chopping.setSelected( ((SpTelescopeObsComp)_spItem).isChopping() );
 	_w.chopThrow.setValue(   ((SpTelescopeObsComp)_spItem).getChopThrowAsString() );
 	_w.chopAngle.setValue(   ((SpTelescopeObsComp)_spItem).getChopAngleAsString() );
-	
-	if(((SpTelescopeObsComp)_spItem).getChopSystem() != null) {
-	  _w.chopSystem.setValue(  ((SpTelescopeObsComp)_spItem).getChopSystem() );
-	}  
-
 	_w.chopThrow.setEnabled(_w.chopping.isSelected());
 	_w.chopAngle.setEnabled(_w.chopping.isSelected());
-	_w.chopSystem.setEnabled(_w.chopping.isSelected());
     }
 
     /**
@@ -680,6 +688,14 @@ public final class EdCompTargetList extends OtItemEditor
 	_selectTargetSystemTab(_curPos);
         _updateTargetSystemPane(_curPos);
 	_avTab.set(".gui.selectedTelescopePos", _curPos.getTag());
+
+        if(OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag())) {
+	  _w.offsetCheckBox.setValue(_curPos.isOffsetPosition());
+          _w.offsetCheckBox.setVisible(true);
+        }
+	else {
+          _w.offsetCheckBox.setVisible(false);
+	}
     }
 
     /**
@@ -809,8 +825,8 @@ public final class EdCompTargetList extends OtItemEditor
      * depending on the target system of the selected target.
      */
     private void _updateTargetSystemPane(SpTelescopePos tp) {
-      switch(tp.getTargetSystem()) {
-        case SpTelescopePos.TARGET_SYSTEM_CONIC:
+      switch(tp.getSystemType()) {
+        case SpTelescopePos.SYSTEM_CONIC:
           _w.epoch.setValue(tp.getConicSystemEpoch());
           _w.orbinc.setValue(tp.getConicSystemInclination());
           _w.anode.setValue(tp.getConicSystemAnode());
@@ -819,13 +835,13 @@ public final class EdCompTargetList extends OtItemEditor
           _w.e.setValue(tp.getConicSystemE());
           _w.l_or_m.setValue(tp.getConicSystemLorM());
           _w.dm.setValue(tp.getConicSystemDailyMotion());
-          _w.conicSystemType.setValue(tp.getConicSystemTypeDescription());
+          _w.conicSystemType.setValue(tp.getConicOrNamedTypeDescription());
 
 	  _setConicSystemType(_w.conicSystemType.getIntegerValue());
 	  break;
 
-        case SpTelescopePos.TARGET_SYSTEM_NAMED:
-          _w.namedSystemType.setValue(tp.getNamedSystemTypeDescription());
+        case SpTelescopePos.SYSTEM_NAMED:
+          _w.namedSystemType.setValue(tp.getConicOrNamedTypeDescription());
 	  break;
       }
     }
@@ -835,16 +851,16 @@ public final class EdCompTargetList extends OtItemEditor
      * depending on the target system of the selected target.
      */
     private void _selectTargetSystemTab(SpTelescopePos tp) {
-      switch(tp.getTargetSystem()) {
-        case SpTelescopePos.TARGET_SYSTEM_CONIC:
+      switch(tp.getSystemType()) {
+        case SpTelescopePos.SYSTEM_CONIC:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
 	  break;
 
-        case SpTelescopePos.TARGET_SYSTEM_NAMED:
+        case SpTelescopePos.SYSTEM_NAMED:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
 	  break;
 
-        //case SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG:
+        // SpTelescopePos.SYSTEM_SPHERICAL:
 	default:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
 	  break;
@@ -882,6 +898,14 @@ public final class EdCompTargetList extends OtItemEditor
 	    // used ("GUIDE" for UKIRT, "Reference" for JCMT), MFO 21 January 2002.
 	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
             SpTelescopePos tp = _tpl.createPosition(OtCfg.telescopeUtil.getAdditionalTarget(), base.getXaxis(), base.getYaxis());
+
+            if(OtCfg.telescopeUtil.isOffsetTarget(tp.getTag())) {
+                 _w.offsetCheckBox.setValue(false);
+                 _w.offsetCheckBox.setVisible(true);
+            }
+	    else {
+                 _w.offsetCheckBox.setVisible(false);
+	    }
 
             // Select HMSDEG/DEGDEG pane.
             _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
@@ -943,12 +967,21 @@ public final class EdCompTargetList extends OtItemEditor
 	if(w == _w.chopping) {
 	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
 	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
-	    _w.chopSystem.setEnabled(_w.chopping.isSelected());
 
 	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
 	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
 	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
-	    ((SpTelescopeObsComp)_spItem).setChopSystem(_w.chopSystem.getStringValue());
+	}
+
+	if(w == _w.offsetCheckBox) {
+	  if(_w.offsetCheckBox.getBooleanValue()) {
+	    _curPos.setOffsetPosition(true);
+	  }
+	  else {
+	    _curPos.setOffsetPosition(false);
+	  }
+
+	  _curPos.setXY(0.0, 0.0);
 	}
     }
 
@@ -957,15 +990,15 @@ public final class EdCompTargetList extends OtItemEditor
       if(e.getSource() == _w.targetSystemsTabbedPane) {
 
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.objectGBW) {
-          _curPos.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG);
+          _curPos.setSystemType(SpTelescopePos.SYSTEM_SPHERICAL);
 	}
 
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.conicSystemPanel) {
-          _curPos.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_CONIC);
+          _curPos.setSystemType(SpTelescopePos.SYSTEM_CONIC);
 	}
 
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.namedSystemPanel) {
-          _curPos.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_NAMED);
+          _curPos.setSystemType(SpTelescopePos.SYSTEM_NAMED);
 	}
 
         _targetSystemsChange = true;
@@ -1023,7 +1056,7 @@ public final class EdCompTargetList extends OtItemEditor
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
       if(dd == _w.conicSystemType) {
-        _curPos.setConicSystemType(SpTelescopePos.CONIC_SYSTEM_TYPES_XML[i]);
+        _curPos.setConicOrNamedType(SpTelescopePos.CONIC_SYSTEM_TYPES[i]);
 
         _setConicSystemType(i);
 
@@ -1031,7 +1064,7 @@ public final class EdCompTargetList extends OtItemEditor
       }
 
       if(dd == _w.namedSystemType) {
-        _curPos.setNamedSystemType(SpTelescopePos.NAMED_SYSTEM_TYPES_XML[i]);
+        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[i]);
 	return;
       }
     }
