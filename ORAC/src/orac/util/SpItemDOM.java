@@ -466,7 +466,10 @@ public class SpItemDOM {
 
           // Add hmsdegSystem element and add type attribute.
           child = (ElementImpl)child.appendChild(document.createElement("hmsdegSystem"));
-          child.setAttribute("type", valueList.item(TARGET_SYSTEM_INDEX).getFirstChild().getNodeValue());
+          String system = valueList.item(TARGET_SYSTEM_INDEX).getFirstChild().getNodeValue();
+	  if(system.equals("FK4 (B1950)")) system = "B1950";
+	  if(system.equals("FK5 (J2000)")) system = "J2000";
+	  child.setAttribute("type", system);
 
           // Add c1 target with text node containing RA.
           child = (ElementImpl)child.appendChild(document.createElement("c1"));
@@ -571,6 +574,8 @@ public class SpItemDOM {
 
         // System
         value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0))).getAttribute("type");
+	if(value.equals("B1950")) value = "FK4 (B1950)";
+	if(value.equals("J2000")) value = "FK5 (J2000)";
         targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
     
 	// Replacing baseElement element immediately with targetListElement)
