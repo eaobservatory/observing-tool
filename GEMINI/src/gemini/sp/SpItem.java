@@ -1113,6 +1113,10 @@ print(String indentStr)
    * Convenience method.
    */
   protected final String avToXml(String avAttr, String value) {
+      // Special case for SpNoteRef - strip any trailing numeric before writing...
+      if ( avAttr.startsWith("SpNoteRef") ) {
+	  avAttr = "SpNoteRef:idref";
+      }
     if(avAttr.indexOf(':') < 0) {
       if(avAttr.startsWith(".")) {
         return "<"  + XML_META_PREFIX + avAttr.replace('.', '_') + ">" + value +
