@@ -6,616 +6,339 @@
                                                                         
                                                                         
                                                                         
-                                         
+                                                
   <meta http-equiv="content-type"
  content="text/html; charset=ISO-8859-1">
 </head>
   <body bgcolor="#fffffa" text="#000000" link="#0000ee" alink="#0000ee"
  vlink="#551a8b">
                                                                         
-  
+    
 <table border="0" width="100%" cellpadding="2" cellspacing="5">
-                            <tbody>
-                               <tr>
-                                 <td><font size="+3"><font
+                             <tbody>
+                                <tr>
+                                  <td><font size="+3"><font
  color="#ff0000">UKIRT</font></font><font size="+3"><font
  color="#ff0000"> OBSERVING PREPARATION</font></font></td>
-                                 <td align="right"><img
+                                  <td align="right"><img
  src="UKIRTheaderimage.png" alt="" width="138" height="86">
-                                 <br>
-                                 </td>
-                               </tr>
+                                  <br>
+                                  </td>
+                                </tr>
                                                                         
-                                   
-  </tbody>                           
+                                       
+  </tbody>                            
 </table>
-                           <br>
+                            <br>
                                                                         
-    
+      
 <hr width="100%" size="2" align="left"><br>
-                                                <br>
-                                                                 
-<div align="left">               This document describes the preparation 
-            of UKIRT observations       under the UKIRT Observing Tool. 
-  It     assumes that you have already downloaded and installed the     software
-(see our <a href="download.html">download page</a> - make     sure you have
-downloaded the latest version!). Of course if you are     using a JAC, UKIRT
-or JCMT machine, the software is already     installed. Email <a
- href="mailto:ukirtot@jach.hawaii.edu">ukirtot@jach.hawaii.edu</a> with questions
-or problems    
-<p>   This guide  is  intended      to be relatively complete         without
-  going into  the   details   of the science    libraries  on which     most
-     observing  is  based. Those  details  can be found   elsewhere  (in
-    the libraries     themselves and  on the <a
- href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/">instrument
-           web pages</a> (http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/). 
-        The topics covered apply equally whether you are preparing observations 
-         remotely or at the Observatory.  We suggest you read through sequentially, 
-     following the tours as they come up.                  <br>
-     <br>
-     We recommend that you use the online version of this document, stored
+                                                 <br>
+                                                                   
+<div align="left">               This document describes the preparation
+             of UKIRT observations       under the UKIRT Observing Tool.
+   It     assumes that you have already downloaded and installed the    
+software (see our <a href="download.html">download page</a> - make     sure
+you have downloaded the latest version!). Of course if you are     using
+a JAC, UKIRT or JCMT machine, the software is already     installed. Email
+<a href="mailto:ukirtot@jach.hawaii.edu">ukirtot@jach.hawaii.edu</a> with
+questions or problems     
+<p>   This guide  is  intended      to be relatively complete         without 
+  going into  the   details   of the science    libraries  on which     most 
+     observing  is  based. Those  details  can be found   elsewhere  (in 
+   the libraries     themselves and  on the <a
+ href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/">instrument 
+           web pages</a> (http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/).
+         The topics covered apply equally whether you are preparing observations
+          remotely or at the Observatory.  We suggest you read through sequentially,
+      following the tours as they come up.                  <br>
+      <br>
+      We recommend that you use the online version of this document, stored 
  on  the UKIRT web pages (<a
- href="http://www.jach.hawaii.edu/JAC/software/ukirtot">http://www.jach.hawaii.edu/JAC/software/ukirtot</a>) 
-  If, instead, you are reading   these notes within the OT's own help system,
-     be aware that the web version may be more up to date,  and that external
-  links will not be accessible. Also, the native java browser is not as user-friendly
+ href="http://www.jach.hawaii.edu/JAC/software/ukirtot">http://www.jach.hawaii.edu/JAC/software/ukirtot</a>)
+   If, instead, you are reading   these notes within the OT's own help system, 
+     be aware that the web version may be more up to date,  and that external 
+  links will not be accessible. Also, the native java browser is not as user-friendly 
   as Netscape, Mozilla or IE. <br>
-     <br>
-     Finally - please also be sure to read the list of  known issues with 
-the   current release.               </p>
-    </div>
-                                       <br>
-                                     <b><font color="#000099"><a
+      <br>
+      Finally - please also be sure to read the list of  known issues with
+ the   current release.               </p>
+     </div>
+                                        <br>
+                                      <b><font color="#000099"><a
  href="#intro">I.   </a>Introduction</font></b><br>
-                                     <br>
-                                       <font color="#000099"><b><a
+                                      <br>
+                                        <font color="#000099"><b><a
  href="#obsprep">II.   </a>The  Observing Tool<br>
-                                     </b></font>                        
-               
+                                      </b></font>                       
+                 
 <blockquote><a href="#Startup_screens"><img src="msb_icon.png" alt="*"
  width="18" height="19">
-                   </a>&nbsp; Startup screens<br>
-                                   <a
+                    </a>&nbsp; Startup screens<br>
+                                    <a
  href="#Tour:_the_Science_programme_window"><img src="msb_icon.png"
  alt="*" width="18" height="19">
-                   </a>&nbsp; The science program window <font
+                    </a>&nbsp; The science program window <font
  color="#ff0000">[tour]</font><br>
                                                                         
                                                                         
-         
+             
   <blockquote>                <a
  href="#Tour:_The_UKIRT_Template_Library_"><img
  src="observation_icon.png" alt="*" width="19" height="19">
-                     </a><i> &nbsp;The Template Library <font
+                      </a><i> &nbsp;The Template Library <font
  color="#ff0000">[tour]</font></i><br>
-                     <a href="#Minimum_Schedulable_Blocks">             
-               <img src="observation_icon.png" alt="*" width="19"
+                      <a href="#Minimum_Schedulable_Blocks">            
+                <img src="observation_icon.png" alt="*" width="19"
  height="19">
-                     </a><i> &nbsp;Minimum schedulable blocks</i><br>
-                    <a href="#Science_program_elements"><img
+                      </a><i> &nbsp;Minimum schedulable blocks</i><br>
+                     <a href="#Science_program_elements"><img
  src="observation_icon.png" alt="*" width="19" height="19">
-                    </a>     &nbsp;<i>Science Program Elements</i><br>
-                    <a href="#Inheritance"><img
+                     </a>     &nbsp;<i>Science Program Elements</i><br>
+                     <a href="#Inheritance"><img
  src="observation_icon.png" alt="*" width="19" height="19">
-                    </a> &nbsp;<i>Inheritance</i><br>
-                     <a href="#Administrative_components:_Scheduling"><img
+                     </a> &nbsp;<i>Inheritance</i><br>
+                      <a href="#Administrative_components:_Scheduling"><img
  src="observation_icon.png" alt="*" width="19" height="19">
-                     </a>                    &nbsp;<i>Administrative components<br>
-                                       </i>                             
-                                                                 
+                      </a>                    &nbsp;<i>Administrative components<br>
+                                        </i>                            
+                                                                       
     <blockquote><a href="#Scheduling_constraints"><img
  src="observe_icon.png" alt="*" width="23" height="17">
-                       </a><i> &nbsp;Scheduling constraints</i><br>
-                       <a href="#Site_Quality"><img
+                        </a><i> &nbsp;Scheduling constraints</i><br>
+                        <a href="#Site_Quality"><img
  src="observe_icon.png" alt="*" width="23" height="17">
-                       </a><i> &nbsp;Site quality constraints</i><br>
-                       <a href="#Using_inheritance_with_the"><img
+                        </a><i> &nbsp;Site quality constraints</i><br>
+                        <a href="#Using_inheritance_with_the"><img
  src="observe_icon.png" alt="*" width="23" height="17">
-                       </a> &nbsp;<i>Using inheritance with administrative
+                        </a> &nbsp;<i>Using inheritance with administrative 
  components</i><br>
-                     </blockquote>
-                                                    </blockquote>
-                                   <a
+                      </blockquote>
+                                                     </blockquote>
+                                    <a
  href="#Tour:_A_more_complete_science_programme"><img src="msb_icon.png"
  alt="*" width="18" height="19">
-                   </a>&nbsp; Example - a complete science program   <font
+                    </a>&nbsp; Example - a complete science program   <font
  color="#ff0000">[tour]</font><br>
-                                   <a
+                                    <a
  href="#Tour:_Using_the_Position_Editor"><img src="msb_icon.png" alt="*"
  width="19" height="19">
-                   </a>&nbsp; Use of the Position Editor <font
+                    </a>&nbsp; Use of the Position Editor <font
  color="#ff0000">[tour]</font><br>
                                                                         
-                                                                  
+                                                                      
   <blockquote>           <a href="#Notes_on_guide_stars_and_acquisition"><img
  src="observation_icon.png" alt="*" width="19" height="19">
-                     </a> <i>A note on guide stars and acquisition scenarios</i><br>
-                  </blockquote>
-                  <a href="#IMPORTANT_-_Program_Documentation"><img
+                      </a> <i>A note on guide stars and acquisition scenarios</i><br>
+                   </blockquote>
+                   <a href="#IMPORTANT_-_Program_Documentation"><img
  src="msb_icon.png" alt="*" width="19" height="19">
-                  </a>   &nbsp; IMPORTANT - Program Documentation<br>
-                                                        <a
+                   </a>   &nbsp; IMPORTANT - Program Documentation<br>
+                                                         <a
  href="#A_Typical_Programme_Setup_Sequence"><img src="msb_icon.png"
  alt="*" width="18" height="19">
-                   </a>&nbsp; CHECKLIST - what to look for in a typical program<br>
-                                   <a
+                    </a>&nbsp; CHECKLIST - what to look for in a typical
+program<br>
+                                    <a
  href="#Estimates_of_Execution_Time"><img src="msb_icon.png" alt="*"
  width="18" height="19">
-                   </a>&nbsp; Estimates of execution time<br>
-                                       </blockquote>
-                                               <font color="#000099"><b><a
+                    </a>&nbsp; Estimates of execution time<br>
+                                        </blockquote>
+                                                <font color="#000099"><b><a
  href="#advanced">III.    </a>Advanced Topics    and Usage Notes</b></font><br>
                                                                         
-    
+      
 <blockquote><a href="#AND_and_OR_logic"><img src="msb_icon.png" alt="*"
  width="19" height="19">
-                   </a>&nbsp; Programs with logic: AND and OR Folders<br>
-                       <a href="#Drag_and_drop"><img src="msb_icon.png"
+                    </a>&nbsp; Programs with logic: AND and OR Folders<br>
+                        <a href="#Drag_and_drop"><img src="msb_icon.png"
  alt="*" width="18" height="19">
-                   </a>&nbsp; Drag and Drop<br>
-                  <a href="#Generating_a_Program_from_a_Catalogue_on"><img
+                    </a>&nbsp; Drag and Drop<br>
+                   <a href="#Generating_a_Program_from_a_Catalogue_on"><img
  src="msb_icon.png" alt="*" width="18" height="19">
-                  </a>   &nbsp; Generating a program from a single MSB and
+                   </a>   &nbsp; Generating a program from a single MSB and 
  a  catalogue      on file<br>
-                                   <a
+                                    <a
  href="#Importing_ORAC-Classic_Programmes"><img src="msb_icon.png"
  alt="*" width="18" height="19">
-                   </a>&nbsp; Importing ORAC-Classic programs<br>
-           </blockquote>
-           <a href="#IV._Release-Specific_Notes">IV. </a>Release-specific 
-notes<br>
-                     
+                    </a>&nbsp; Importing ORAC-Classic programs<br>
+            </blockquote>
+            <a href="#IV._Release-Specific_Notes">IV. </a>Release-specific
+ notes<br>
+                       
 <blockquote><a href="#Known_Bugs"><img src="msb_icon.png" alt="*"
  width="18" height="19">
-             </a>        &nbsp; Known bugs<br>
-           </blockquote>
-                     
+              </a>        &nbsp; Known bugs<br>
+            </blockquote>
+                       
 <blockquote>                        <br>
-                   </blockquote>
+                    </blockquote>
                                                                         
-    
+      
 <hr width="100%" size="2"><br>
-                                     <br>
-                                                                         
-<h1 align="left"><font color="#333399"><a name="intro"></a>I. Introduction</font></h1>
-                                                                  The central 
-  system    in  UKIRT  Observing is a database of observations,        held 
-    at the   &nbsp;summit    of Mauna Kea. Observations are prepared using 
-      the Observing     Tool.   The science program is stored on disk locally 
-   to   the observer   (who   can  be anywhere in the world), and once complete,
-    submitted       into the summit  database. &nbsp;The observer at the
-summit     &nbsp;uses    a  database  query   tool to sort and extract observations
-   to be done;      details   of execution are instrument-specific  and we
- do not discuss them    here.  Once you are familiar with the information
- here, please consult the <a
- href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/">instrument
-          pages</a> on the UKIRT home page for information specific to the
- instrument     required by your program. You will also need to get a password
- for your database area, from the <a
- href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">Password Server</a>.
-  Your program id is u/03a/n where n is the id number of your PATT proposal.<br>
-                                                                 
-<div align="left">    <br>
-                                       
-<div align="left"><font color="#ff0000"><b>Note to 03A PIs: this is  the
-  first   semester of flexing at UKIRT, and we will necessarily be feeling
-     our way  to some extent. However, some requirements are clear already;
-   for   example,  we ask that you abide by the "latest submission date"
-which     we  will send you shortly, because a key to the success of this
-process   will  be that workable,  well-documented MSBs are in the database
-and ready   for  execution as early  as possible, particularly for those
-programs which   have  strict weather requirements.  </b></font><br>
-      <font color="#ff0000"><b>           </b></font></div>
-      <br>
-                                        </div>
-                                                <br>
-                 <br>
-                                 
-<hr width="100%" size="2" align="left">                                 
-<div align="left"><br>
-                                 <br>
-                                                              </div>
-                                                                 
-<h1 align="left"><font color="#333399"><a name="obsprep"></a>II. The Observing 
-        Tool</font></h1>
-                                                                 
-<div align="left"><br>
-                                 </div>
-                                                                 
-<h2 align="left"><a name="Startup_screens"></a>Startup screens</h2>
-                                                                 
-<div align="left">      
-<div align="left">The observing tool is used to fully specify observations 
-                to be  carried     out  at the telescope. You can download 
- it   from     the    "Observing at UKIRT" pages on the UKIRT Home Page (Linux, 
-    Solaris    and Windows versions are available). We suggest that users 
-at   Starlink sites   request their site manager to install a single, system-wide 
-   copy. When  you  run  the   OT (on UNIX, type <font color="#ff0000"><b>ukirtot</b></font> 
-       in an xterm)  you will  see  a splash    screen  which   gives authorship 
-       etc.; dismiss this  and you will be left    with the <b>OT main   window</b>:<br>
-      </div>
-                                              <br>
+                                      <br>
                                                                         
-   
+  
+<h1 align="left"><font color="#333399"><a name="intro"></a>I. Introduction</font></h1>
+                                                                   The central
+   system    in  UKIRT  Observing is a database of observations,        held
+     at the   &nbsp;summit    of Mauna Kea. Observations are prepared using
+       the Observing     Tool.   The science program is stored on disk locally
+    to   the observer   (who   can  be anywhere in the world), and once complete, 
+    submitted       into the summit  database. &nbsp;The observer at the summit
+    &nbsp;uses    a  database  query   tool to sort and extract observations 
+   to be done;      details   of execution are instrument-specific  and we 
+ do not discuss them    here.  Once you are familiar with the information 
+ here, please consult the <a
+ href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/">instrument 
+          pages</a> on the UKIRT home page for information specific to the 
+ instrument     required by your program. You will also need to get a password 
+ for your database area, from the <a
+ href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">Password Server</a>. 
+  Your program id is u/03a/n where n is the id number of your PATT proposal.<br>
+                                                                   
+<div align="left">    <br>
+                                         
+<div align="left"><font color="#ff0000"><b>Note to 03A PIs: this is  the 
+ first   semester of flexing at UKIRT, and we will necessarily be feeling 
+     our way  to some extent. However, some requirements are clear already; 
+   for   example,  we ask that you abide by the "latest submission date" which
+    we  will send you shortly, because a key to the success of this process
+  will  be that workable,  well-documented MSBs are in the database and ready
+  for  execution as early  as possible, particularly for those programs which
+  have  strict weather requirements.  </b></font><br>
+       <font color="#ff0000"><b>           </b></font></div>
+       <br>
+                                         </div>
+                                                 <br>
+                  <br>
+                                   
+<hr width="100%" size="2" align="left">                                  
+<div align="left"><br>
+                                  <br>
+                                                               </div>
+                                                                   
+<h1 align="left"><font color="#333399"><a name="obsprep"></a>II. The Observing
+         Tool</font></h1>
+                                                                   
+<div align="left"><br>
+                                  </div>
+                                                                   
+<h2 align="left"><a name="Startup_screens"></a>Startup screens</h2>
+                                                                   
+<div align="left">       
+<div align="left">The observing tool is used to fully specify observations
+                 to be  carried     out  at the telescope. You can download
+  it   from     the    "Observing at UKIRT" pages on the UKIRT Home Page
+(Linux,      Solaris    and Windows versions are available). We suggest that
+users  at   Starlink sites   request their site manager to install a single,
+system-wide     copy. When  you  run  the   OT (on UNIX, type <font
+ color="#ff0000"><b>ukirtot</b></font>         in an xterm)  you will  see
+ a splash    screen  which   gives authorship         etc.; dismiss this
+ and you will be left    with the <b>OT main   window</b>:<br>
+       </div>
+                                               <br>
+                                                                        
+     
 <div align="center"><img src="ukirtot_main.gif"
  alt="Main UKIRTOT window" width="289" height="268">
-                                             <br>
-                              </div>
-                                             <br>
-                              <br>
-                 When starting afresh, most of the useful actions   reside
+                                              <br>
+                               </div>
+                                              <br>
+                               <br>
+                  When starting afresh, most of the useful actions   reside 
     under       the   <b>"file"</b>   menu.<br>
-                                             <br>
-                                                                        
-  
-<div align="center"><img src="ukirtot_menu.gif"
- alt="file menu pulled down" width="273" height="244">
-                                             <br>
-                              <br>
-                              </div>
-                                             <br>
-                                                                     
-<table cellpadding="2" cellspacing="5" border="0" width="100%">
-                                <tbody>
-                                  <tr>
-                                    <td valign="top" bgcolor="#ffff99"
- align="center"><b>File     menu   Item<br>
-                                    </b></td>
-                                    <td valign="top" bgcolor="#ffff99"><b>Function<br>
-                                    </b></td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top" width="20%"
- align="center" bgcolor="#ffff99"><font color="#000000"><b>New Program<br>
-                                    </b></font></td>
-                                    <td valign="top">Creates a new science
- program.     This   is  the   first   thing you'll do when starting from
-scratch.<br>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top" width="20%"
- align="center" bgcolor="#ffff99"><font color="#000000"><b>New Library<br>
-                                    </b></font></td>
-                                    <td valign="top">Ignore this; it is for 
- JAC   staff    use   only.<br>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top" width="20%"
- align="center" bgcolor="#ffff99"><font color="#000000"><b>Open<br>
-                                    </b></font></td>
-                                    <td valign="top">Read in a science program
-   file   stored     locally     on  disk. Initially, your science program
- will  be  stored locally;     only    when  it is complete and validated
-will you  submit  to the database.<br>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top" width="20%"
- align="center" bgcolor="#ffff99"><font color="#000000"><b>Open...library<br>
-                                    </b></font></td>
-                                    <td valign="top">These five entries pop 
- open   windows     onto   the   UKIRT   libraries which store recommended 
- sequences   and standard     stars.<br>
-                                    </td>
-                                  </tr>
-                                                                        
-                                              
-  </tbody>                              
-</table>
-                                                           
-<h3><br>
-                              </h3>
-                                                           
-<h3>Which File Menu?</h3>
-           
-<div align="left">                        A word of caution - both the <b>File
-   </b>menus and  the   <b>Database       </b>menus    differ between the
-OT   main window and  the  Science Program      window. Here   are the respective
-   file menus:<br>
-      </div>
-                              <br>
-                                                           
-<table cellpadding="2" cellspacing="5" border="0" width="100%">
-                                <tbody>
-                                  <tr>
-                                    <td valign="top" width="25%"
- align="center" bgcolor="#ffff99"><b>OT    main window file menu</b><br>
-                                    </td>
-                                    <td valign="top" width="25%"
- align="center" bgcolor="#ffff99"><b>Science Program file menu</b><br>
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td valign="top" width="25%"
- align="center"><img src="ot_filemenu.gif" alt="OT file menu"
- width="218" height="270">
-                                    <br>
-                                    </td>
-                                    <td valign="top" width="25%"
- align="center"><img src="sp_filemenu.gif"
- alt="science programme file menu" width="211" height="228">
-                                    <br>
-                                    </td>
-                                  </tr>
-                                                                        
-                                              
-  </tbody>                              
-</table>
-                              <br>
-           
-<div align="left">                        So note that (sensibly, given the
-   ability to have more   than   one   science program open at a time) the
- file  menu which contains    "Save"     and "Save   as..."  is the one on
- the Science  Program window.   Similarly,    the Database   menu on  the
-OT main window  contains only "Fetch",   while  the  Database menu   on the
-Science Program  window contains only "Store".<br>
-      </div>
-                                       <br>
-                                            <br>
-                              <br>
-                              <br>
-                                            </div>
-                                                                 
-<h2 align="left"><a name="Tour:_the_Science_programme_window"></a><font
- color="#ff0000">Tour:</font> the Science Program window</h2>
-                                                                 
-<div align="left">      
-<div align="left">      <a name="blankprogramme"></a>  Click on <b>"New 
-            Program"</b> to create   a  new program. This produces   a window 
-        like     the   following  (click on the   image  for a description 
- of   the    various   component      parts).  The main areas are<br>
-      </div>
-                                                                         
-<ol>
-                                             <li>the menu and general tool
- bars   at  the   top           </li>
-                                       <li>the component tool bar down the
- lefthand     side         </li>
-                                       <li>the program display panel in the 
- middle            </li>
-                                       <li>the editor panel on the right
-   </li>
-                                                                         
-</ol>
-                                     <br>
-                                                                        
-  
-<div align="center"><a href="Science_Program_Window_basics.html"><img
- src="program_empty.gif" alt="new, empty science program" width="753"
- height="603">
-                           </a>                  <br>
-                              </div>
-                                             <br>
-                                                  </div>
-                                                                 
-<p align="left">   Initially, the only thing in your program panel is a "Science
-   Program"   line. You will add to the program later. For now, take    
-  the  time to fill   in its details in the Science Program editor panel
-  on   the right. The most important   field here is the Project ID field.
- <em>You   have to get this right, or   you will not be able to submit your
-  program   to the summit database</em>.  Your project ID was assigned when
- you submitted            your proposal for telescope  time. It is of the
-form <b>u/03a/</b>     followed       by a proposal  number. You can also
-find your proposal number    in our  web    page  of time allocations. Finally,
- note that the program    itself  calculates    an  estimate of the total
-time required and displays    this in  the administration      panel.</p>
-                                                           
-<p align="left"><br>
-                              <br>
-                                     </p>
-                                                               
-<h2><a name="Tour:_The_UKIRT_Template_Library_"></a><font
- color="#ff0000">Tour: </font>The UKIRT Template Library<br>
-                                     </h2>
-                                                                 
-<div align="left">      
-<div align="left">             While it is possible to build up observing 
-                sequences from scratch,    it  is  much quicker and less error-prone
-           to   adapt  one of the many "library     sequences"   found in
-the    <b>UKIRT       template    library</b> , which is fifth   on the list
-in   the <b>file</b>       menu. The  template  library window looks like
-  this,   with all the libraries      in their  initial  non-expanded state.
- Click  on the image for a short  tour    of the library  contents:<br>
-      </div>
-                                       <br>
-                                               <br>
+                                              <br>
                                                                         
     
-<div align="center"><a href="Template_library_basics.html"><img
- src="templatelibrary.png" alt="template library" width="845"
- height="686">
-                           </a>                    <br>
-                              </div>
-                                               <br>
-                                       <br>
-           
-<div align="left">                                         Typically, setting
-   up your UKIRT program     involves      opening     the   appropriate
-   library, finding within  it   a sequence   which   matches   your requirements,
-  and copy/pasting it     into your new    science program; then you are
-in   a position to alter instrument   configurations,  target lists and to
-fully   document the program for the observer's  benefit.  Refer back to
-the <a href="Science_Program_Window_basics.html">           Science program
-window           tour</a> for the locations of the cut,  copy    and   paste
-buttons     (or   look   at the figure above, where you'll  see  three buttons
-starting     with  the   scissors). An example of a more complete  science
-program is   given    below,     but first we'll introduce some of the essential 
-building   blocks.<br>
-      </div>
-                                             <br>
-                    <br>
-                                                                        
-                                  
-<h2 align="left"><a name="Minimum_Schedulable_Blocks"></a>Minimum Schedulable 
-                Blocks</h2>
-           
-<div align="left">                                                      The
-   basic quantum of  observing,      both  in classical and flexible   scheduling
-       (though more natural  to   think of in flexing), is the "minimum 
- schedulable       block". This  is the  smallest        part of the program
-which  is complete,  fully-reducible      and thus    stands    alone. <em>In
-most cases, an MSB  will&nbsp;   be   executed at the telescope in   its
-    entirety</em>.  For  example, a target     observation would be incomplete
-      without suitable   calibrations, and  so one might    define    the
-smallest spectroscopic   MSB as comprising  the spectrum of a target,  combined
-  with    sufficient   flats, arcs and a standard   star to be fully  reducible.
-  For efficiency,      the observing  system at the   summit allows the observer
-to skip   calibrations   if not    required (e.g. if executing   a number
- of similar  MSBs which  can share  the   calibration). Note that the UKIRT
-template library  contains   MSBs, not just Observations, so you will naturally
-be building up  from these.<br>
-      </div>
-                                               <br>
-           
-<div align="left">                                         You should aim
-   to produce a science   program      consisting      of  suitably-titled
-        MSBs. The title will  appear   in   the query tool     when  observing
-   at the  telescope,     so  try to  make  your titles as descriptive  
-    as possible.<br>
-      </div>
-                                               <br>
-                    <br>
-                                                                     
-<h2><a name="Science_program_elements"></a>Science program elements</h2>
-                                                             
-<p align="left">MSBs within your science program specify observing  conditions, 
-             instrument configurations, telescope offset sequences and  data 
-   reduction         recipes for all the observations you have been given 
-time    to carry   out.  They do this through combinations of the following 
-elements:<br>
-                               </p>
-                                                             
+<div align="center"><img src="ukirtot_menu.gif"
+ alt="file menu pulled down" width="273" height="244">
+                                              <br>
+                               <br>
+                               </div>
+                                              <br>
+                                                                       
 <table cellpadding="2" cellspacing="5" border="0" width="100%">
                                  <tbody>
                                    <tr>
-                                    <td valign="top" bgcolor="#ffff99"
- align="center"><b>Program&nbsp;icon<br>
-                                    </b></td>
-                                    <td valign="top" bgcolor="#ffff99"><b>Designated
-      item<br>
-                                    </b></td>
-                                  </tr>
-                                                 <tr>
-                                     <td valign="middle" width="20%"
- align="center" bgcolor="#ffffff"><img src="observation.gif"
- alt="observation icon" width="120" height="22">
-                                     <br>
-                                     </td>
-                                     <td valign="top">An <font
- color="#ff0000">"Observation"              </font>(e.g.      of a target 
-  or a standard star)<br>
+                                     <td valign="top" bgcolor="#cccccc"
+ align="center"><b>File     menu   Item<br>
+                                     </b></td>
+                                     <td valign="top" bgcolor="#cccccc"><b>Function<br>
+                                     </b></td>
+                                   </tr>
+                                   <tr>
+                                     <td valign="top" width="20%"
+ align="center" bgcolor="#ffff99"><font color="#000000"><b>New Program<br>
+                                     </b></font></td>
+                                     <td valign="top">Creates a new science 
+ program.     This   is  the   first   thing you'll do when starting from 
+scratch.<br>
                                      </td>
                                    </tr>
                                    <tr>
-                                     <td valign="middle" width="20%"
- align="center" bgcolor="#ffffff"><img src="instrument.gif"
- alt="component icon" width="110" height="22">
-                                     <br>
-                                     </td>
-                                     <td valign="top">A <font
- color="#ff0000">"Component"             </font>-     in  this  case an Instrument
-  component. These are  used     to "set scenes"  (in the illustrated  case,
-   one or more instrument  configurations     which will apply  within  
-an   Observation).<br>
+                                     <td valign="top" width="20%"
+ align="center" bgcolor="#ffff99"><font color="#000000"><b>New Library<br>
+                                     </b></font></td>
+                                     <td valign="top">Ignore this; it is
+for   JAC   staff    use   only.<br>
                                      </td>
                                    </tr>
                                    <tr>
-                                     <td valign="middle" width="20%"
- align="center" bgcolor="#ffffff"><img src="sequence.gif"
- alt="sequence icon" width="117" height="22">
-                                     <br>
-                                     </td>
-                                     <td valign="top">A <font
- color="#ff0000">"Sequence"             </font>-     this   contains the
-actions undertaken in an Observation       - for example,   offsetting  
- the telescope and taking data at each  offset     point. If you  omit a
-Sequence,    no amount of configuration components    will cause anything
- to actually happen    at the telescope.<br>
+                                     <td valign="top" width="20%"
+ align="center" bgcolor="#ffff99"><font color="#000000"><b>Open<br>
+                                     </b></font></td>
+                                     <td valign="top">Read in a science program 
+   file   stored     locally     on  disk. Initially, your science program 
+ will  be  stored locally;     only    when  it is complete and validated 
+will you  submit  to the database.<br>
                                      </td>
                                    </tr>
                                    <tr>
-                                     <td valign="middle" align="center"
- bgcolor="#ffffff"><img src="iterator_offset.gif"
- alt="offset iterator icon" width="111" height="22">
-                                    <br>
-                                     </td>
-                                     <td valign="top">An <font
- color="#ff0000">"Iterator"             </font>-     these   cause either 
-  the instrument, or the telescope,       to loop through  a  series of  different
-  configurations (in the case  of   the  telescope, the  loop  is through
-  Offset positions). Everything  inside   the  iterator is repeated    for
- each of  its settings.<br>
-                                     </td>
-                                   </tr>
-                                   <tr>
-                                     <td valign="middle" align="center"
- bgcolor="#ffffff"><img src="observe.gif" alt="observe icon" width="110"
- height="22">
-                                    <br>
-                                     </td>
-                                     <td valign="top">An <font
- color="#ff0000">"Observe"            </font>-     Each   Observe causes one
-data file to be produced.   If   there's no Observe   in your sequence, the
-telescope may well offset   and  the instrument may well   set to a configuration, 
-  but no data will result.<br>
+                                     <td valign="top" width="20%"
+ align="center" bgcolor="#ffff99"><font color="#000000"><b>Open...library<br>
+                                     </b></font></td>
+                                     <td valign="top">These five entries
+pop   open   windows     onto   the   UKIRT   libraries which store recommended
+  sequences   and standard     stars.<br>
                                      </td>
                                    </tr>
                                                                         
-                                                       
+                                                  
   </tbody>                               
 </table>
                                                              
-<p align="left"><br>
-      </p>
-           
-<div align="left">                     To read a science program you have
-   to understand its  hierarchy.       An  example:<br>
-                               </div>
+<h3><br>
+                               </h3>
+                                                             
+<h3>Which File Menu?</h3>
+             
+<div align="left">                        A word of caution - both the <b>File 
+   </b>menus and  the   <b>Database       </b>menus    differ between the 
+OT   main window and  the  Science Program      window. Here   are the respective 
+   file menus:<br>
+       </div>
+                               <br>
                                                              
 <table cellpadding="2" cellspacing="5" border="0" width="100%">
                                  <tbody>
                                    <tr>
-                                     <td valign="middle" width="25%"
- align="center" bgcolor="#ffff99">                                      
-                                                                        
-                                                                        
-    
-      <div align="center"><img src="hierarchy.gif"
- alt="science programme hierarchy" width="260" height="246">
-                                      <br>
-                                     </div>
-                                 </td>
-                                     <td valign="top">Here, everything is 
-      <i>more     indented</i>       than   the        <font
- color="#ff0000">Science Program</font>     icon,  therefore     everything 
-  is <i>part of</i> the Science Program.    By contrast,  the two   "dry target"
-      <font color="#ff0000">MSBs </font>are    at the same indent level, 
- so none is part      of any of the others. &nbsp;The    second       <font
- color="#ff0000">MSB </font>is      not "expanded" - its   contents are hidden 
-   pending a click on the lever  to   its left.<br>
+                                     <td valign="top" width="25%"
+ align="center" bgcolor="#cccccc"><b>OT    main window file menu</b><br>
+                                     </td>
+                                     <td valign="top" width="25%"
+ align="center" bgcolor="#cccccc"><b>Science Program file menu</b><br>
+                                     </td>
+                                   </tr>
+                                   <tr>
+                                     <td valign="top" width="25%"
+ align="center"><img src="ot_filemenu.gif" alt="OT file menu"
+ width="218" height="270">
                                      <br>
-                               Within the first <font color="#ff0000">MSB,
-       </font>and      hence    indented     further,  is an <font
- color="#ff0000">Observation,           </font>which    itself  contains
-  a Target        <font color="#ff0000">component, </font>an    Instrument
-        <font color="#ff0000">component </font>and a <font
- color="#ff0000">Sequence         </font>(all    three of these are at the
-    same indent relative to the         <font color="#ff0000">Observation</font>).
-     The sequence in turn contains   an offset          <font
- color="#ff0000">iterator </font>which      "contains"   an <font
- color="#ff0000">Observe. </font>Recall that the        <font
- color="#ff0000">Sequence             </font>is just a formality,   indicating
-      that everything <i>within          </i>it   is executable.   The <font
- color="#ff0000">Iterator, </font>however,     is a loop  - everything  
-within      it (usually but not always this is just    an        <font
- color="#ff0000">Observe<font color="#000000">) </font></font>is     done 
-      for   every setting of the telescope offset   iterator.<br>
-                                     <br>
-                               When executed at the telescope, this particular
-   Observation        sets   the  instrument up, moves to a target, then
-takes    data frames   at   each  position     of an offset pattern.<br>
+                                     </td>
+                                     <td valign="top" width="25%"
+ align="center"><img src="sp_filemenu.gif"
+ alt="science programme file menu" width="211" height="228">
                                      <br>
                                      </td>
                                    </tr>
@@ -624,830 +347,1118 @@ takes    data frames   at   each  position     of an offset pattern.<br>
   </tbody>                               
 </table>
                                <br>
-                    <br>
+             
+<div align="left">                        So note that (sensibly, given the 
+   ability to have more   than   one   science program open at a time) the 
+ file  menu which contains    "Save"     and "Save   as..."  is the one on 
+ the Science  Program window.   Similarly,    the Database   menu on  the 
+OT main window  contains only "Fetch",   while  the  Database menu   on the 
+Science Program  window contains only "Store".<br>
+       </div>
+                                        <br>
+                                             <br>
+                               <br>
+                               <br>
+                                             </div>
+                                                                   
+<h2 align="left"><a name="Tour:_the_Science_programme_window"></a><font
+ color="#ff0000">Tour:</font> the Science Program window</h2>
+                                                                   
+<div align="left">       
+<div align="left">      <a name="blankprogramme"></a>  Click on <b>"New  
+           Program"</b> to create   a  new program. This produces   a window
+         like     the   following  (click on the   image  for a description
+  of   the    various   component      parts).  The main areas are<br>
+       </div>
                                                                         
-                                
-<h2 align="left"><a name="Inheritance"></a>Inheritance</h2>
-           
-<div align="left">                                                     The
-   observing tool allows    MSBs   to  inherit properties      from the environment
-   they  find  themselves        in.  For example, if a  site    quality
-component    is present  at  the    top of a   science program (as in the
-example above),     then   none of the     MSBs within  the program    need
-to have  a site-quality      component    of their own;  they inherit it
-from    this global one. Conversely,     a site-quality        component
-within an MSB "trumps"   such a global  component.   This also   applies
-to Target components; a target given at the top of an MSB,  outside   the
-scope of Flat, Standard and Object Observations,  will apply to  all three
- (so when the flat/arc observation is run, the telescope   will slew  to
-your  science target). <b><u>This may or may not be what you   intend; check
-the  logic carefully (obviously in this example you would also  want to override
- the global target in the standard-star Observation).</u></b><br>
-      </div>
-                    <br>
-                    </div>
-                                       
-<div align="left"><br>
-                 <br>
-                                 
-<h2 align="left"><a name="Administrative_components:_Scheduling"></a>Administrative
-   components:      Scheduling and Site Quality</h2>
-                                 
-<h2>                                             </h2>
-                 </div>
+  
+<ol>
+                                              <li>the menu and general tool 
+ bars   at  the   top           </li>
+                                        <li>the component tool bar down the 
+ lefthand     side         </li>
+                                        <li>the program display panel in
+the   middle            </li>
+                                        <li>the editor panel on the right 
+   </li>
+                                                                        
+  
+</ol>
+                                      <br>
+                                                                        
+    
+<div align="center"><a href="Science_Program_Window_basics.html"><img
+ src="program_empty.gif" alt="new, empty science program" width="753"
+ height="603">
+                            </a>                  <br>
+                               </div>
+                                              <br>
+                                                   </div>
+                                                                   
+<p align="left">   Initially, the only thing in your program panel is a "Science 
+   Program"   line. You will add to the program later. For now, take     
+ the  time to fill   in its details in the Science Program editor panel 
+ on   the right. The most important   field here is the Project ID field. 
+ <em>You   have to get this right, or   you will not be able to submit your 
+  program   to the summit database</em>.  Your project ID was assigned when 
+ you submitted            your proposal for telescope  time. It is of the 
+form <b>u/03a/</b>     followed       by a proposal  number. You can also 
+find your proposal number    in our  web    page  of time allocations. Finally, 
+ note that the program    itself  calculates    an  estimate of the total 
+time required and displays    this in  the administration      panel.</p>
+                                                             
+<p align="left"><br>
+                               <br>
+                                      </p>
                                                                  
+<h2><a name="Tour:_The_UKIRT_Template_Library_"></a><font
+ color="#ff0000">Tour: </font>The UKIRT Template Library<br>
+                                      </h2>
+                                                                   
+<div align="left">       
+<div align="left">             While it is possible to build up observing
+                 sequences from scratch,    it  is  much quicker and less
+error-prone            to   adapt  one of the many "library     sequences"
+  found in the    <b>UKIRT       template    library</b> , which is fifth
+  on the list in   the <b>file</b>       menu. The  template  library window
+looks like   this,   with all the libraries      in their  initial  non-expanded
+state.  Click  on the image for a short  tour    of the library  contents:<br>
+       </div>
+                                        <br>
+                                                <br>
+                                                                        
+      
+<div align="center"><a href="Template_library_basics.html"><img
+ src="templatelibrary.png" alt="template library" width="845"
+ height="686">
+                            </a>                    <br>
+                               </div>
+                                                <br>
+                                        <br>
+             
+<div align="left">                                         Typically, setting 
+   up your UKIRT program     involves      opening     the   appropriate 
+  library, finding within  it   a sequence   which   matches   your requirements, 
+  and copy/pasting it     into your new    science program; then you are in
+  a position to alter instrument   configurations,  target lists and to fully
+  document the program for the observer's  benefit.  Refer back to the <a
+ href="Science_Program_Window_basics.html">           Science program window
+          tour</a> for the locations of the cut,  copy    and   paste buttons
+    (or   look   at the figure above, where you'll  see  three buttons starting
+    with  the   scissors). An example of a more complete  science program
+is   given    below,     but first we'll introduce some of the essential
+ building   blocks.<br>
+       </div>
+                                              <br>
+                     <br>
+                                                                        
+                                    
+<h2 align="left"><a name="Minimum_Schedulable_Blocks"></a>Minimum Schedulable
+                 Blocks</h2>
+             
+<div align="left">                                                      The 
+   basic quantum of  observing,      both  in classical and flexible   scheduling 
+       (though more natural  to   think of in flexing), is the "minimum  
+schedulable       block". This  is the  smallest        part of the program 
+which  is complete,  fully-reducible      and thus    stands    alone. <em>In 
+most cases, an MSB  will&nbsp;   be   executed at the telescope in   its 
+   entirety</em>.  For  example, a target     observation would be incomplete 
+      without suitable   calibrations, and  so one might    define    the 
+smallest spectroscopic   MSB as comprising  the spectrum of a target,  combined 
+  with    sufficient   flats, arcs and a standard   star to be fully  reducible. 
+  For efficiency,      the observing  system at the   summit allows the observer 
+to skip   calibrations   if not    required (e.g. if executing   a number 
+ of similar  MSBs which  can share  the   calibration). Note that the UKIRT 
+template library  contains   MSBs, not just Observations, so you will naturally 
+be building up  from these.<br>
+       </div>
+                                                <br>
+             
+<div align="left">                                         You should aim 
+   to produce a science   program      consisting      of  suitably-titled 
+        MSBs. The title will  appear   in   the query tool     when  observing 
+   at the  telescope,     so  try to  make  your titles as descriptive   
+   as possible.<br>
+       </div>
+                                                <br>
+                     <br>
+                                                                       
+<h2><a name="Science_program_elements"></a>Science program elements</h2>
+                                                               
+<p align="left">MSBs within your science program specify observing  conditions,
+              instrument configurations, telescope offset sequences and 
+data     reduction         recipes for all the observations you have been
+given  time    to carry   out.  They do this through combinations of the
+following  elements:<br>
+                                </p>
+                                                               
+<table cellpadding="2" cellspacing="5" border="0" width="100%">
+                                  <tbody>
+                                    <tr>
+                                     <td valign="top" bgcolor="#cccccc"
+ align="center"><b>Program&nbsp;icon<br>
+                                     </b></td>
+                                     <td valign="top" bgcolor="#cccccc"><b>Designated 
+      item<br>
+                                     </b></td>
+                                   </tr>
+                                                  <tr>
+                                      <td valign="middle" width="20%"
+ align="center" bgcolor="#ffff99"><img src="observation.gif"
+ alt="observation icon" width="120" height="22">
+                                      <br>
+                                      </td>
+                                      <td valign="top">An <font
+ color="#ff0000">"Observation"              </font>(e.g.      of a target
+   or a standard star)<br>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td valign="middle" width="20%"
+ align="center" bgcolor="#ffff99"><img src="instrument.gif"
+ alt="component icon" width="110" height="22">
+                                      <br>
+                                      </td>
+                                      <td valign="top">A <font
+ color="#ff0000">"Component"             </font>-     in  this  case an Instrument 
+  component. These are  used     to "set scenes"  (in the illustrated  case, 
+   one or more instrument  configurations     which will apply  within   an
+  Observation).<br>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td valign="middle" width="20%"
+ align="center" bgcolor="#ffff99"><img src="sequence.gif"
+ alt="sequence icon" width="117" height="22">
+                                      <br>
+                                      </td>
+                                      <td valign="top">A <font
+ color="#ff0000">"Sequence"             </font>-     this   contains the actions
+undertaken in an Observation       - for example,   offsetting    the telescope
+and taking data at each  offset     point. If you  omit a Sequence,    no
+amount of configuration components    will cause anything  to actually happen
+   at the telescope.<br>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td valign="middle" align="center"
+ bgcolor="#ffff99"><img src="iterator_offset.gif"
+ alt="offset iterator icon" width="111" height="22">
+                                     <br>
+                                      </td>
+                                      <td valign="top">An <font
+ color="#ff0000">"Iterator"             </font>-     these   cause either
+   the instrument, or the telescope,       to loop through  a  series of
+ different   configurations (in the case  of   the  telescope, the  loop
+ is through   Offset positions). Everything  inside   the  iterator is repeated
+   for  each of  its settings.<br>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td valign="middle" align="center"
+ bgcolor="#ffff99"><img src="observe.gif" alt="observe icon" width="110"
+ height="22">
+                                     <br>
+                                      </td>
+                                      <td valign="top">An <font
+ color="#ff0000">"Observe"            </font>-     Each   Observe causes
+one data file to be produced.   If   there's no Observe   in your sequence,
+the telescope may well offset   and  the instrument may well   set to a configuration,
+   but no data will result.<br>
+                                      </td>
+                                    </tr>
+                                                                        
+                                                           
+  </tbody>                                
+</table>
+                                                               
+<p align="left"><br>
+       </p>
+             
+<div align="left">                     To read a science program you have 
+   to understand its  hierarchy.       An  example:<br>
+                                </div>
+                                                               
+<table cellpadding="2" cellspacing="5" border="0" width="100%">
+                                  <tbody>
+                                    <tr>
+                                      <td valign="middle" width="25%"
+ align="center" bgcolor="#ffff99">                                       
+                                                                        
+                                                                        
+          
+      <div align="center"><img src="hierarchy.gif"
+ alt="science programme hierarchy" width="260" height="246">
+                                       <br>
+                                      </div>
+                                  </td>
+                                      <td valign="top">Here, everything is
+       <i>more     indented</i>       than   the        <font
+ color="#ff0000">Science Program</font>     icon,  therefore     everything
+   is <i>part of</i> the Science Program.    By contrast,  the two   "dry
+target"       <font color="#ff0000">MSBs </font>are    at the same indent
+level,   so none is part      of any of the others. &nbsp;The    second 
+     <font color="#ff0000">MSB </font>is      not "expanded" - its   contents
+are hidden     pending a click on the lever  to   its left.<br>
+                                      <br>
+                                Within the first <font color="#ff0000">MSB, 
+       </font>and      hence    indented     further,  is an <font
+ color="#ff0000">Observation,           </font>which    itself  contains 
+ a Target        <font color="#ff0000">component, </font>an    Instrument 
+        <font color="#ff0000">component </font>and a <font
+ color="#ff0000">Sequence         </font>(all    three of these are at the 
+    same indent relative to the         <font color="#ff0000">Observation</font>). 
+     The sequence in turn contains   an offset          <font
+ color="#ff0000">iterator </font>which      "contains"   an <font
+ color="#ff0000">Observe. </font>Recall that the        <font
+ color="#ff0000">Sequence             </font>is just a formality,   indicating 
+      that everything <i>within          </i>it   is executable.   The <font
+ color="#ff0000">Iterator, </font>however,     is a loop  - everything   within
+     it (usually but not always this is just    an        <font
+ color="#ff0000">Observe<font color="#000000">) </font></font>is     done
+       for   every setting of the telescope offset   iterator.<br>
+                                      <br>
+                                When executed at the telescope, this particular 
+   Observation        sets   the  instrument up, moves to a target, then takes
+   data frames   at   each  position     of an offset pattern.<br>
+                                      <br>
+                                      </td>
+                                    </tr>
+                                                                        
+                                                      
+  </tbody>                                
+</table>
+                                <br>
+                     <br>
+                                                                        
+                                  
+<h2 align="left"><a name="Inheritance"></a>Inheritance</h2>
+             
+<div align="left">                                                     The 
+   observing tool allows    MSBs   to  inherit properties      from the environment 
+   they  find  themselves        in.  For example, if a  site    quality component
+   is present  at  the    top of a   science program (as in the example above),
+    then   none of the     MSBs within  the program    need to have  a site-quality
+     component    of their own;  they inherit it from    this global one.
+Conversely,     a site-quality        component within an MSB "trumps"  
+such a global  component.   This also   applies to Target components; a target
+given at the top of an MSB,  outside   the scope of Flat, Standard and Object
+Observations,  will apply to  all three  (so when the flat/arc observation
+is run, the telescope   will slew  to your  science target). <b><u>This may
+or may not be what you   intend; check the  logic carefully (obviously in
+this example you would also  want to override  the global target in the standard-star
+Observation).</u></b><br>
+       </div>
+                     <br>
+                     </div>
+                                         
+<div align="left"><br>
+                  <br>
+                                   
+<h2 align="left"><a name="Administrative_components:_Scheduling"></a>Administrative 
+   components:      Scheduling and Site Quality</h2>
+                                   
+<h2>                                             </h2>
+                  </div>
+                                                                   
 <h3><a name="Scheduling_constraints"></a>Scheduling constraints</h3>
                                                                         
-       The scheduling constraint component allows you to determine      the 
-  scheduling of observing within your program by specifying both a  range 
-    of   dates    and  an elevation limit. Click the image below for more
-  information on the scheduling component's editor panel.    
+        The scheduling constraint component allows you to determine     
+the    scheduling of observing within your program by specifying both a 
+range      of   dates    and  an elevation limit. Click the image below for
+more   information on the scheduling component's editor panel.     
 <p>   <a href="Scheduling_Constraints_Editor.html"><img
  src="schedconstraints_inprog.png" alt="scheduling constraints"
  width="205" height="121">
-    </a>                                                           </p>
-       
+     </a>                                                           </p>
+         
 <h3><a name="Site_Quality"></a>Site Quality</h3>
-                        Four constraints relating to site quality       
- can    also   be  specified    by  making   the appropriate selections in 
-  the      site    quality  component. Click the image below for more information
-  on the Site      Quality  component's  editor panel.    
+                         Four constraints relating to site quality      
+  can    also   be  specified    by  making   the appropriate selections
+in    the      site    quality  component. Click the image below for more
+information   on the Site      Quality  component's  editor panel.     
 <p>  <a href="Site_Quality_Editor.html"> <img
  src="sitequality_inprog.png" alt="site quality component filled in"
  width="208" height="124">
-    </a>                         </p>
-       
-<h3><a name="Using_inheritance_with_the"></a>Using inheritance with the administrative 
-        components</h3>
-                                       The majority of programs will require
-  the   same   site    quality and scheduling     settings  for all MSBs.
-In  those   cases,   the inheritance mechanism can be used to avoid having
+     </a>                         </p>
+         
+<h3><a name="Using_inheritance_with_the"></a>Using inheritance with the administrative
+         components</h3>
+                                        The majority of programs will require 
+  the   same   site    quality and scheduling     settings  for all MSBs. 
+In  those   cases,   the inheritance mechanism can be used to avoid having 
 to  copy these   components    into every MSB.<br>
-                            <br>
-                                                       
+                             <br>
+                                                         
 <table cellpadding="2" cellspacing="5" border="0" width="100%">
-                              <tbody>
-                                <tr>
-                                  <td valign="top" width="30%"
+                               <tbody>
+                                 <tr>
+                                   <td valign="top" width="30%"
  align="center" bgcolor="#ffff99"><img src="sitequal_inherit.gif"
  alt="site quality inheritance" width="200" height="200">
-                                  <br>
-                                  </td>
-                                  <td valign="middle">In this (schematic
-and   incomplete)       example, the site quality component  at the top applies
-  to the    three      MSBs which don't have their own; only  "wet target"
+                                   <br>
+                                   </td>
+                                   <td valign="middle">In this (schematic 
+and   incomplete)       example, the site quality component  at the top applies 
+  to the    three      MSBs which don't have their own; only  "wet target" 
  overrides this   global     component.<br>
-                                  </td>
-                                </tr>
+                                   </td>
+                                 </tr>
                                                                         
-                                      
-  </tbody>                            
+                                          
+  </tbody>                             
 </table>
-                            <br>
-                              <br>
-                 <br>
+                             <br>
+                               <br>
+                  <br>
                                                                         
-                                               
+                                                 
 <h2 align="left"><a name="Tour:_A_more_complete_science_programme"></a><font
- color="#ff0000"><a name="completeprogramme"></a>Tour:</font> A more complete 
-                science program</h2>
-                                                                 
-<div align="left">      
-<div align="left">            The figure below shows a science program  
-           which is fairly straightforward       and a reasonable approximation 
-                to what one might expect to have to   set up for  either classical
-         or   flexible    observing. There are ways to give programs "Logic"
-   (different      combinations of MSBs, etc.) - these are discussed in "Advanced
-   Topics"   at   the end of this document, and your support scientist will
-  be happy to  help   with questions in this area. Most programs will not
-need   to use this  type   of logic, and supplying a flat set of MSBs as
-in this   example will  be fine.<br>
-      </div>
-                                       <br>
-                                             <br>
+ color="#ff0000"><a name="completeprogramme"></a>Tour:</font> A more complete
+                 science program</h2>
+                                                                   
+<div align="left">       
+<div align="left">            The figure below shows a science program   
+          which is fairly straightforward       and a reasonable approximation
+                 to what one might expect to have to   set up for  either
+classical          or   flexible    observing. There are ways to give programs
+"Logic"    (different      combinations of MSBs, etc.) - these are discussed
+in "Advanced    Topics"   at   the end of this document, and your support
+scientist will   be happy to  help   with questions in this area. Most programs
+will not need   to use this  type   of logic, and supplying a flat set of
+MSBs as in this   example will  be fine.<br>
+       </div>
+                                        <br>
+                                              <br>
                                                                         
-  
+    
 <div align="center"><a href="Science_Program_Window_details.html"><img
  src="program_compact.gif" alt="compact programme" width="800"
  height="561">
-                           </a>                  <br>
-                              </div>
+                            </a>                  <br>
+                               </div>
+                                              <br>
+                                              <br>
+                                        <br>
                                              <br>
-                                             <br>
-                                       <br>
-                                            <br>
-                                                      </div>
-                                                                 
+                                                       </div>
+                                                                   
 <h2 align="left"><a name="Tour:_Using_the_Position_Editor"></a><font
  color="#ff0000">Tour:</font> Using the Position Editor</h2>
-                                                                 
-<div align="left">      
-<div align="left">         The position editor is used to set up guide  
-           stars, science field orientations     (slit angles etc.) and display
-          catalogues     of sources in the field of your     observations.
- It   is started up   as described     in the <a
- href="#Tour:_the_Science_programme_window">tour of the science program  
-  window</a>,    above.  Click on the image     below to take a tour of the
-position  editor's      facilities.<br>
-      </div>
-                                       <br>
-                                          <br>
+                                                                   
+<div align="left">       
+<div align="left">         The position editor is used to set up guide   
+          stars, science field orientations     (slit angles etc.) and display 
+          catalogues     of sources in the field of your     observations. 
+ It   is started up   either by clicking the "plot" button in the target
+component page, or by clicking the "image" button on the main toolbar, as
+described     in the <a href="#Tour:_the_Science_programme_window">tour of
+the science program     window</a>,    above.  Click on the image     below
+to take a tour of the position  editor's      facilities.<br>
+       </div>
+                                        <br>
+                                           <br>
                                                                         
+ 
 <div align="center"><a href="Position_Editor_details.html"><img
  src="positioneditor.gif" alt="position editor" width="800" height="620">
-                           </a>              &nbsp; <br>
-                              </div>
-                                             <br>
-                                             <br>
-                                     <br>
-           
-<div align="left">                               By default the position
-editor loads images  from   the   digitized      sky   survey.    However
-it can also load any  FITS image  with  an appropriate      WCS,   from the
-   <b>File</b>       menu; this  has entries  for either   files   on  disk,
-or URLs    which  point to fits  files.         Two technical   notes   if
- you are planning     on generating        your  own image for import:  
-Firstly,    if you want to import   a        SCUBA  map in NDF format, convert
-  it to FITS   by using the starlink           convert  utility with the
-following   arguments:                                     </div>
-           
-<div align="left">      
+                            </a>              &nbsp; <br>
+                               </div>
+                                              <br>
+                                              <br>
+                                      <br>
+             
+<div align="left">                               By default the position editor
+loads images  from   the   digitized      sky   survey.    However it can
+also load any  FITS image  with  an appropriate      WCS,   from the    <b>File</b>
+      menu; this  has entries  for either   files   on  disk, or URLs   
+which  point to fits  files.         Two technical   notes   if  you are
+planning     on generating        your  own image for import:   Firstly,
+   if you want to import   a        SCUBA  map in NDF format, convert   it
+to FITS   by using the starlink           convert  utility with the following
+  arguments:                                     </div>
+             
+<div align="left">       
 <pre><font color="#ff0000"><b>convert encoding=FITS-IRAF bitpix=32 comp=D</b></font></pre>
-      </div>
-           
-<div align="left">                                     Secondly, there is
-   a bug (possibly in  JSky   itself)     which    we  have       not been
- able  to fix at the time  of writing.  If   you  read  in  an      image
-   that  is not exactly centered  at the co-ordinates     in the     target
- component,     the cross-hair icon  may be incorrectly      positioned.
-   This problem  fixes    itself at the  next redraw. To force         a
-redraw  you   can briefly zoom out    and back in again using the      buttons
-introduced     during the tour of the    position editor. <br>
-      </div>
-                                     <br>
-                                       </div>
-                                                                 
-<h3 align="left"><a name="Notes_on_guide_stars_and_acquisition"></a>Notes 
-                on guide stars and acquisition scenarios</h3>
-                                                                 
-<div align="left">      
-<div align="left">  Your guide star may be chosen from plate material which
-   is many years old,  and even if more recent it may have surprisingly poor
-   positional accuracy  (Guide Star Catalogue sources for instance can have
-  systematic errors of up to two arcseconds depending on their location).
-In  these cases, the details  of how you centre on your source and guide
-star                can be important depending  on your mode of observing,
-slit  width      etc. <br>
-      </div>
-                    <br>
-                    <u>CGS4</u><br>
-           
-<div align="left">              We have a set of recommended methods;  CGS4-specific
+       </div>
+             
+<div align="left">                                     Secondly, there is 
+   a bug (possibly in  JSky   itself)     which    we  have       not been 
+ able  to fix at the time  of writing.  If   you  read  in  an      image 
+   that  is not exactly centered  at the co-ordinates     in the     target 
+ component,     the cross-hair icon  may be incorrectly      positioned. 
+  This problem  fixes    itself at the  next redraw. To force         a redraw
+ you   can briefly zoom out    and back in again using the      buttons introduced
+    during the tour of the    position editor. <br>
+       </div>
+                                      <br>
+                                        </div>
+                                                                   
+<h3 align="left"><a name="Notes_on_guide_stars_and_acquisition"></a>Notes
+                 on guide stars and acquisition scenarios</h3>
+                                                                   
+<div align="left">       
+<div align="left">  Your guide star may be chosen from plate material which 
+   is many years old,  and even if more recent it may have surprisingly poor 
+   positional accuracy  (Guide Star Catalogue sources for instance can have 
+  systematic errors of up to two arcseconds depending on their location). 
+In  these cases, the details  of how you centre on your source and guide star
+               can be important depending  on your mode of observing, slit
+ width      etc. <br>
+       </div>
+                     <br>
+                     <u>CGS4</u><br>
+             
+<div align="left">              We have a set of recommended methods;  CGS4-specific 
    details  are   given       <a
- href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/optical/peakup.html">
-                   here,</a> and a more general flowchart for acquisition
+ href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/cgs4/optical/peakup.html"> 
+                   here,</a> and a more general flowchart for acquisition 
 modes      is   given    <a
- href="http://www.jach.hawaii.edu/%7Eadamson/Telescope">here</a>      (the
-    latter two links are available only through the online version of   this
-   page, referred to at the top of the document). You  should     identify
-   in an observation Note which of the scenarios identified     in the  
- flowchart     applies. <br>
-      </div>
-                                 <br>
-           
-<div align="left">                           For example, if you are observing
-   with CGS4, and  neither     your   guide   star nor your target have accurate
-   positions, but the relative     offset   between   them is accurate, 
-then    you should identify <a
+ href="http://www.jach.hawaii.edu/%7Eadamson/Telescope">here</a>      (the 
+    latter two links are available only through the online version of   this 
+   page, referred to at the top of the document). You  should     identify 
+   in an observation Note which of the scenarios identified     in the   
+flowchart     applies. <br>
+       </div>
+                                  <br>
+             
+<div align="left">                           For example, if you are observing 
+   with CGS4, and  neither     your   guide   star nor your target have accurate 
+   positions, but the relative     offset   between   them is accurate,  then
+   you should identify <a
  href="http://www.jach.hawaii.edu/%7Eadamson/Telescope/S15.txt"><b><font
- color="#ff0000">"S15"</font></b></a> as the acquisition scenario (in all 
-                cases you should assume that the aperture position is known 
-  or   has    been     recently  determined). <br>
-      </div>
-                    <br>
-                    <u>UIST</u><br>
-           
-<div align="left">              For UIST, acquisition is via the imaging
-mode  and peakup  is  not   in  general   necessary. More details of this
-process are given in the <a
- href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/uist/spectroscopy/acquisition.html">UIST
-          Acquisition page</a> on the UIST home page; the UIST Spectroscopy
+ color="#ff0000">"S15"</font></b></a> as the acquisition scenario (in all
+                 cases you should assume that the aperture position is known
+   or   has    been     recently  determined). <br>
+       </div>
+                     <br>
+                     <u>UIST</u><br>
+             
+<div align="left">              For UIST, acquisition is via the imaging mode
+ and peakup  is  not   in  general   necessary. More details of this process
+are given in the <a
+ href="http://www.jach.hawaii.edu/JACpublic/UKIRT/instruments/uist/spectroscopy/acquisition.html">UIST 
+          Acquisition page</a> on the UIST home page; the UIST Spectroscopy 
   templates    include the acquisition    sequences described there. <br>
-      </div>
-                    <br>
-                    <u>General</u>             </div>
-                                                                 
-<div align="left">      
+       </div>
+                     <br>
+                     <u>General</u>             </div>
+                                                                   
+<div align="left">       
 <div align="left">To help centring guide stars, the <font
  color="#ff0000"><b>pick object</b></font> option under <font
- color="#ff0000"><b>Catalogs</b></font> in the position editor is useful compared
-to positioning the cursor over the star and clicking. In general, stars selected
-this way come up relatively well centered and require little adjustment of
-the crosshead or telescope. This speeds observing still further and is particularly
-helpful for blind pointing to objects with good coordinates.<br>
-      </div>
-                    <br>
-                    <u>IRPOL</u><br>
-           
-<div align="left">              Polarimetry users should also be aware that
-   the waveplate holder    blocks    much of the available field of view
-for    off-axis guide stars,  as  described    in the <a
- href="/JACpublic/UKIRT/instruments/irpol/IRPOL_PARAMS.html#5">IRPOL   user 
-       manual.</a> <br>
-      </div>
-                    <br>
-                                 <br>
-                                 </div>
-                                                              
+ color="#ff0000"><b>Catalogs</b></font> in the position editor is useful
+compared to positioning the cursor over the star and clicking. In general,
+stars selected this way come up relatively well centered and require little
+adjustment of the crosshead or telescope. This speeds observing still further
+and is particularly helpful for blind pointing to objects with good coordinates.<br>
+       </div>
+                     <br>
+                     <u>IRPOL</u><br>
+             
+<div align="left">              Polarimetry users should also be aware that 
+   the waveplate holder    blocks    much of the available field of view for
+   off-axis guide stars,  as  described    in the <a
+ href="/JACpublic/UKIRT/instruments/irpol/IRPOL_PARAMS.html#5">IRPOL   user
+        manual.</a> <br>
+       </div>
+                     <br>
+                                  <br>
+                                  </div>
+                                                                
 <h2><a name="IMPORTANT_-_Program_Documentation"></a>IMPORTANT - Program Documentation</h2>
-                     
-<div align="left">       There are two levels at which you <i>must</i>  
-document your program's   MSBs.  These are (i) notes which the observer will
- see (one is allowed per   MSB) and (ii) notes which the support scientist
-   will use to vet the program.   We do not expect summit observers to access 
-     your program in the OT to find   out  what you're trying to do; instead, 
-    your MSBs, individually, can each   contain  one note (flagged as "show 
-  to  Observer") which will pop up on the   QT screen  at the summit. These 
-  notes  should clearly contain rather generic   information  about the program 
-  as  a whole, plus any specific items for this   particular  MSB; the following 
-    table gives examples of the two types of information.<br>
-           </div>
-                  &nbsp;                  
+                       
+<div align="left">       There are two levels at which you <i>must</i>   document
+your program's   MSBs.  These are (i) notes which the observer will  see
+(one is allowed per   MSB) and (ii) notes which the support scientist   
+will use to vet the program.   We do not expect summit observers to access
+      your program in the OT to find   out  what you're trying to do; instead,
+     your MSBs, individually, can each   contain  one note (flagged as "show
+   to  Observer") which will pop up on the   QT screen  at the summit. These
+   notes  should clearly contain rather generic   information  about the
+program    as  a whole, plus any specific items for this   particular  MSB;
+the following      table gives examples of the two types of information.<br>
+            </div>
+                   &nbsp;                   
+<table cellpadding="2" cellspacing="5" border="0" width="100%">
+                     <tbody>
+                       <tr>
+                         <td valign="middle" bgcolor="#ffff99"
+ align="center" width="20%"><b>Strategic     part<br>
+         </b>                      </td>
+                         <td valign="middle">This program does spectroscopy 
+of  both   faint    and   bright emission knots in galaxies, looking for good
+ detections   of  line  strengths   in emission. Standard ABBA jitters are
+ used. It is  more  important  to this   program that you get to all the
+targets,  than ensure  detection of each of   them. So, spend an hour on
+each target  unless the lines come in quickly (S/N  of 10 would do);&nbsp; 
+if nothing after 1 hour don't waste any more of my  allocated time, just move
+on to the next source (unless you believe there  is evidence that my conditions
+constraints are too relaxed, in which case  please let the support astronomer
+know). If you do see a line, stay on it  as long as is necessary (within
+reason) to get a good detection.       <br>
+                         </td>
+                       </tr>
+                       <tr>
+                         <td valign="middle" bgcolor="#ffff99"
+ align="center" width="20%"><b><br>
+ MSB-specific      part<br>
+       <br>
+         </b>                      </td>
+                         <td valign="middle">I'm not sure how bright the
+lines  in  this   particular     target are, but there's a chance that the
+exposure   time I've   given is too    long. Please watch for saturation
+in the line   peaks and reduce  exposure   time  if necessary.<br>
+                         </td>
+                       </tr>
+                                                                         
+ 
+  </tbody>                   
+</table>
+                   <br>
+                   You would place this Observer note in each of your MSBs, 
+ with   only   the MSB-specific   part changing from one to the next.<br>
+                   <br>
+                   <br>
+                   <br>
+                                                                        
+      
+<h2><a name="A_Typical_Programme_Setup_Sequence"></a>CHECKLIST - What to look
+out for in a Typical    Program</h2>
+                                                                   
+<div align="left">Within  a typical MSB, you should be attempting  to ensure 
+   that:<br>
+                                  </div>
+                                                                        
+      
+<ol>
+                                          <li><u><font color="#ff0000"><b>The 
+  MSB's    contents</b></font></u>      represent a complete, calibratable 
+    observation    of a science target.   In   general this means that all 
+ MSBs must    contain    Observations of a Standard     Star, though these 
+ observations can be   flagged  as Optional (as described     previously) 
+to allow the observer to skip   them if they are sure that  a  suitable standard 
+ already exists. Note that   time observing standards from      <i>your</i> 
+ MSBs is charged to     <i>your</i>  program, so it makes sense  to use this 
+ flag !</li>
+                     <li><font color="#ff0000"><u><b>The MSB is well-documented.</b></u></font> 
+         This means that you have used both informative notes within the details
+       of  the Observations, plus "Show to Observer" notes which will give
+ the    observer    a summary of what you expect. The JAC will arrange a
+web  page    with some  typical  data in your observing mode, but you should
+be  as clear    as possible  in the  notes which pop up for observers what
+your  expectations    are and whatever   issues you foresee. &nbsp;Your support
+ astronomer will    vet your program as  it enters the database, and will
+veto your observations    if they are insufficiently   well-documented.&nbsp;</li>
+                     <li><u><font color="#ff0000"><b>Instrument components</b></font></u> 
+         are consistent<u> </u>from observation    to  observation within 
+the    MSB       (this is usually, though not always, the intention). Note 
+that   for CGS4,     the instrument component is global to the MSB (see "Inheritance")
+      and so   does not need to be copied into each Observation. For UIST,
+ the    instrument    component is present in each Observation (this is due
+ to a  technical limitation    which we are working to remove) and each has
+ to be  consistent (exception:    the Acquisition Observation).&nbsp;</li>
+                                                     <li><u><font
+ color="#ff0000"><b>flats      and arcs</b></font></u>,  if present, have
+    all had their  settings   set    to the      default<u>         </u>for
+  the  instrument configuration  chosen    (beware of making a small change,
+  for  example altering a slit width, and   finding that your flats are overexposed).</li>
+                      <li><font color="#ff0000"><b><u>darks,</u></b></font> 
+ if  present,     have   had their settings set to the detault for the  instrument
+   configuration       chosen. For example, a change in the estimated magnitude
+   of an imaging    standard   can change the exposure time and this must
+be   reflected in the    dark.<br>
+                      </li>
+                                          <li><font color="#ff0000"><b><u>target
+    list   components</u>         </b></font>have been set up, with guide
+stars       in   the case  of  faint   objects<br>
+                                          </li>
+                                                                        
+      
+</ol>
+                     The best way to do this is to set up one MSB, adhering 
+ to  the   guidelines      above, and use the validation button to check it.
+ This  will   pick up common      faults like dark exposures being inconsistent.
+   If you're   still uncertain,      your support scientist is available
+to   help with queries.   Then (depending      on the details of your program)
+  you may be able to just  copy/paste the    MSB and   edit target and instrument
+   components to generate  the rest.                                    
+          
+<div align="left"><br>
+             
+<div align="left">                                 On completion of the program 
+   (and in general   it's   also  wise  to  do  this   as  you  go along), 
+ click  <b>file...save</b>    in  the program   window,  and   save  the program
+  to an xml file (name  it  <b>&lt;whatever&gt;.xml</b>         ; note that
+  if you want the .xml suffix  then you have to type it).   To   store  to
+ the summit database, click <b>database...store  </b>on the  program    window
+     and enter your project password, which you can obtain from the <a
+ href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">UKIRT   password server</a>.
+Once in the database, your support scientist will vet the program, using
+a checklist which covers the issues above. Check <a
+ href="http://www.jach.hawaii.edu/JACpublic/UKIRT/observing/MSB_vetting.html">here</a> 
+for the current vetting checklist.<br>
+                                            </div>
+       </div>
+                                                                   
+<p align="left"><font color="#ff0000">Tip: while editing your science program, 
+   its title   is displayed in italics, but it switches to normal font upon 
+  saving. When   you edit any component       of your Science Program its 
+title   changes font to indicate that       you need to save your work.</font><br>
+                                      </p>
+                                                                   
+<div align="left">       <br>
+                                  <br>
+                    </div>
+                                       
+<div align="left"><br>
+                    </div>
+                                                                        
+  
+<h2><a name="Estimates_of_Execution_Time"></a>Estimates of Execution Time</h2>
+                                      <br>
+                                      Your program builds up its total estimated
+    elapsed     time    in  stages.<br>
+                                      <br>
+                                                                        
+  
+<ul>
+                                             <li><img
+ src="observe_icon.png" alt="*" width="23" height="17">
+                                       Observes can be set to a number of 
+repeats;     generally      this   is  one   for   UKIRT  instruments such 
+as Michelle     and UIST.                                                
+                                                                        
+                                                                    
+    <p>        </p>
+                                        </li>
+                                        <li><img src="iterator_icon.png"
+ alt="*" width="20" height="20">
+                                       Repeat       iterators specify the 
+number    of  times    the   Observes     within    them are carried     
+ out.&nbsp;                                                             
+                                                                        
+                                                           
+    <p>        </p>
+                                        </li>
+                                        <li><img
+ src="observation_icon.png" alt="*" width="19" height="19">
+                                       Observations show you the estimated
+ time   of  the   sequence     they         contain.       <br>
+                                                                        
+                                                                        
+                                                                        
+        
+    <p>        </p>
+                                        </li>
+                                        <li><img src="msb_icon.png"
+ alt="*" width="18" height="19">
+                                       MSBs give you the estimated time of
+ the   Observations       they   contain     -        in this case the science
+ observation  plus   any    calibrations         observation.    To be clear:
+ this is the  estimated     time  of that       single   MSB.           
+                                                                        
+                                                                        
+                                
+    <p>        </p>
+                                        </li>
+                                        <li><img
+ src="scienceprogram_icon.png" alt="*" width="21" height="20">
+                                       Science Programs give you the estimated
+   time   of  all         MSBs   they   contain,   including the number of
+ repeats.    So if you   have   a       1hr MSB   and you set  the MSB counter
+ to 2,        your MSB   estimated    time   will be  1hr and your Science
+ Program         time will   show 2hrs.     </li>
+                                                                        
+  
+</ul>
+                                      <br>
+                                      <br>
+                                                                        
+      
+<hr width="100%" size="2">                             <br>
+                                                                  
+<h2 align="left"><br>
+                                              </h2>
+                                                                   
+<div align="left">                           </div>
+                                                                   
+<h1 align="left"><font color="#333399"><a name="advanced"></a>III. Advanced
+                 Topics and Usage Notes</font></h1>
+                                                                   
+<div align="left"><br>
+                                                </div>
+                                                                   
+<hr width="100%" size="2" align="left">                                  
+<div align="left"><br>
+             
+<div align="left">              Here we outline some facilities which are 
+   either more advanced   than   a  typical program is likely to require, 
+or   more than the beginner   user might   expect to use.<br>
+       </div>
+                     <br>
+                     <br>
+                                                        
+<h2><a name="AND_and_OR_logic"></a>AND and OR logic</h2>
+             
+<div align="left">               Most programs will be catered for by simply 
+   creating a set of  MSBs   and    at most specifying their relative priorities 
+   and perhaps some  scheduling     information. However, more complex programs 
+   can be built  up  using the logic    provided by "AND" and "OR" folders. 
+  The basic function   of these folders  is  as follows:<br>
+       </div>
+                      <br>
+                                           
+<table cellpadding="2" cellspacing="5" border="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td valign="top" bgcolor="#ffff99"><br>
+            &nbsp;<img src="folder_or.png" alt="" width="96" height="47">
+                       <br>
+                            <br>
+                            </td>
+                            <td valign="middle">Allows you to select one
+or  more   (default     is  one)  MSBs from a list. If the default is used, 
+then  once   an MSB from     the  folder  has been done, the rest are marked 
+as  unavailable.<br>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td valign="top" bgcolor="#ffff99"><br>
+                      &nbsp;<img src="folder_and.png" alt="" width="96"
+ height="50">
+                       <br>
+                            <br>
+                            </td>
+                            <td valign="middle">Allows you to simply group
+ MSBs   together.      In  general,  ANDs make most sense when contained
+within  an  OR folder,   allowing    you to have two completely separate
+programs  (potentially  with   many MSBs    each), only one of which gets
+done. For  example, you may have   a set of targets   in two separate star-forming 
+regions,  don't need data  in both but do need   one region to be completed. 
+ANDs inside  an OR is the  way to do this.<br>
+                            </td>
+                          </tr>
+                                                                        
+              
+  </tbody>                      
+</table>
+                      <br>
+                      <br>
+                      An example of the use of these folders:<br>
+                      <br>
+                                           
+<table cellpadding="2" cellspacing="5" border="0" width="100%">
+                        <tbody>
+                          <tr>
+                            <td valign="middle" bgcolor="#ffffcc"><img
+ src="and_or_program.png" alt="" width="385" height="347">
+                       <br>
+                            </td>
+                            <td valign="top">Here, for the sake of illustration,
+    a  PI  has   managed   to convince the TAG that there is merit in granting
+    time  to two   rather different   projects under the same banner. The
+resulting     science  program contains two   OR folders. These do not interact
+with  one   another;  completing the first  OR doesn't mean that the second
+OR (which   is at the  same indent level) does  not get done. All being well, 
+ the PI  will obtain  data on both sub-projects;  the details of what they 
+ get is catered for by  the AND and OR logic.<br>
+                            <br>
+                            <font color="#ff0000">Within the (simpler) second 
+  OR  folder</font>,       the PI has asked for two out of three MSBs to be
+  done.  Depending on the    timing,  these could be Oph-elias 29 and Oph-BK44,
+  or  some other pair from    the three.  The important point is that once
+ two are done, the third is  marked  as unavailable. Selection of the number
+ to do is done in the OR folder's   window.<br>
+                            <br>
+                            <font color="#ff0000">Within the first OR folder</font>,
+      the   PI  has  required only one of three things to happen: either
+(i)    the   single   MSB  on  NGC4594 knot 3, or (ii) one of the two programs
+ on  knots   in NGC4565   or NGC4321.  So the minute an MSB from the NGC4565
+ program   is  done, both  the NGC4594  single MSB and the NGC4321 program
+ is marked   as invalid.<br>
+                            </td>
+                          </tr>
+                                                                        
+              
+  </tbody>                      
+</table>
+                      <br>
+    <b><br>
+    Formally:</b>                              <br>
+    <br>
+    ANDs were designed specifically to go inside ORs (to allow you to group 
+ MSBs) but are also available to group MSBs in general (to allow them to share
+ instrument configs etc).<br>
+    <br>
+       
+<table border="0" width="100%" cellpadding="2" cellspacing="5">
+     <tbody>
+        <tr>
+          <td bgcolor="#ffff99" align="center"><b>Folder type</b></td>
+          <td bgcolor="#ffff99"><b>Can contain</b></td>
+        </tr>
+     <tr>
+          <td bgcolor="#ffff99" align="center"><img src="folder_or.png"
+ alt="" width="96" height="47">
+          </td>
+          <td>ANDs, MSBs, Observations or general components (inheritance 
+works  in an OR folder)</td>
+        </tr>
+     <tr>
+          <td bgcolor="#ffff99" align="center"><img src="folder_and.png"
+ alt="" width="96" height="50">
+          </td>
+          <td>Anything except an OR or AND</td>
+        </tr>
+                 
+  </tbody>    
+</table>
+    <br>
+    <br>
+                     </div>
+                                         
+<div align="left"><br>
+                                                <br>
+                                  <br>
+                                                             </div>
+                                                                   
+<h2 align="left"><a name="Drag_and_drop"></a>Drag and drop</h2>
+                                                                   
+<div align="left">       
+<div align="left">              Components, observations and entire MSBs
+             can be dragged from  place    to  place,  though many users
+will     find     the    cut and paste described  above   quite usable. 
+Drag and    drop works     in much   the  same  way as it does  in most 
+graphical user    interfaces,     but note  the following   points of protocol:<br>
+       </div>
+                                                <br>
+             
+<div align="left">                                         - press <b><font
+ color="#ff0000">ctrl</font></b>         <i>during</i>    (after commencing) 
+   a  drag   and  the <u>move</u>  becomes a <u>copy.</u> Note again that 
+the     key    press   has to   happen   <i>after</i>   you  commence dragging 
+  the object.<br>
+       </div>
+                                                <br>
+             
+<div align="left">                                         - click on one 
+   object, then hold down   <b><font color="#ff0000"> shift</font></b>   and
+   click on a second;  everything      between the first and second inclusive 
+    become selected.<br>
+       </div>
+                                                <br>
+                                  </div>
+                                         
+<div align="left">       
+<div align="left">What happens when you drop a dragged item is indicated
+     by an arrow symbol:<br>
+       </div>
+                  <br>
+                                   
 <table cellpadding="2" cellspacing="5" border="0" width="100%">
                     <tbody>
                       <tr>
-                        <td valign="middle" bgcolor="#ffff99"
- align="center" width="20%"><b>Strategic     part<br>
-        </b>                      </td>
-                        <td valign="middle">This program does spectroscopy
-of  both   faint    and   bright emission knots in galaxies, looking for
-good  detections   of  line  strengths   in emission. Standard ABBA jitters
-are  used. It is  more  important  to this   program that you get to all
-the targets,  than ensure  detection of each of   them. So, spend an hour
-on each target  unless the lines come in quickly (S/N  of 10 would do);&nbsp;
-if nothing after 1 hour don't waste any more of my  allocated time, just
-move on to the next source (unless you believe there  is evidence that my
-conditions constraints are too relaxed, in which case  please let the support
-astronomer know). If you do see a line, stay on it  as long as is necessary
-(within reason) to get a good detection.       <br>
+                        <td valign="middle" bgcolor="#ffff99"><img
+ src="drag_into.png" alt="" width="203" height="112">
+                        <br>
+                        </td>
+                        <td valign="middle">Dropping a dragged item (for
+example,     a  target    component) with the arrow pointing diagonally means
+that it   is dropped at   one indent level higher than, and therefore becomes 
+a part   of, the highlighted    item (in this case, the MSB).<br>
                         </td>
                       </tr>
                       <tr>
-                        <td valign="middle" bgcolor="#ffff99"
- align="center" width="20%"><b><br>
-MSB-specific      part<br>
-      <br>
-        </b>                      </td>
-                        <td valign="middle">I'm not sure how bright the lines
- in  this   particular     target are, but there's a chance that the exposure 
- time I've   given is too    long. Please watch for saturation in the line 
- peaks and reduce  exposure   time  if necessary.<br>
+                        <td valign="middle" bgcolor="#ffff99"><img
+ src="drag_under.png" alt="" width="206" height="119">
+                        <br>
+                        </td>
+                        <td valign="middle">Dropping a dragged item (for
+example,     an  Observation)    with the arrow pointing vertically down
+means that  it   is inserted into the   science program at the same indent
+level as the  highlighted   item (in this   case, the MSB).<br>
                         </td>
                       </tr>
                                                                        
   </tbody>                  
 </table>
                   <br>
-                  You would place this Observer note in each of your MSBs,
- with   only   the MSB-specific   part changing from one to the next.<br>
-                  <br>
-                  <br>
-                  <br>
-                                                                        
-    
-<h2><a name="A_Typical_Programme_Setup_Sequence"></a>CHECKLIST - What to
-look out for in a Typical    Program</h2>
-                                                                 
-<div align="left">Within  a typical MSB, you should be attempting  to ensure
-   that:<br>
-                                 </div>
-                                                                        
-    
-<ol>
-                                         <li><u><font color="#ff0000"><b>The
-  MSB's    contents</b></font></u>      represent a complete, calibratable
-    observation    of a science target.   In   general this means that all
- MSBs must    contain    Observations of a Standard     Star, though these
- observations can be   flagged  as Optional (as described     previously)
-to allow the observer to skip   them if they are sure that  a  suitable standard
- already exists. Note that   time observing standards from      <i>your</i>
- MSBs is charged to     <i>your</i>  program, so it makes sense  to use this
- flag !</li>
-                    <li><font color="#ff0000"><u><b>The MSB is well-documented.</b></u></font>
-         This means that you have used both informative notes within the
-details        of  the Observations, plus "Show to Observer" notes which
-will give  the    observer    a summary of what you expect. The JAC will
-arrange a web  page    with some  typical  data in your observing mode, but
-you should be  as clear    as possible  in the  notes which pop up for observers
-what your  expectations    are and whatever   issues you foresee. &nbsp;Your
-support  astronomer will    vet your program as  it enters the database,
-and will veto your observations    if they are insufficiently   well-documented.&nbsp;</li>
-                    <li><u><font color="#ff0000"><b>Instrument components</b></font></u>
-         are consistent<u> </u>from observation    to  observation within
-the    MSB       (this is usually, though not always, the intention). Note
-that   for CGS4,     the instrument component is global to the MSB (see "Inheritance") 
-     and so   does not need to be copied into each Observation. For UIST, 
-the    instrument    component is present in each Observation (this is due 
-to a  technical limitation    which we are working to remove) and each has 
-to be  consistent (exception:    the Acquisition Observation).&nbsp;</li>
-                                                    <li><u><font
- color="#ff0000"><b>flats      and arcs</b></font></u>,  if present, have 
-   all had their  settings   set    to the      default<u>         </u>for 
- the  instrument configuration  chosen    (beware of making a small change, 
- for  example altering a slit width, and   finding that your flats are overexposed).</li>
-                     <li><font color="#ff0000"><b><u>darks,</u></b></font>
- if  present,     have   had their settings set to the detault for the  instrument 
-  configuration       chosen. For example, a change in the estimated magnitude 
-  of an imaging    standard   can change the exposure time and this must be
-  reflected in the    dark.<br>
-                     </li>
-                                         <li><font color="#ff0000"><b><u>target 
-   list   components</u>         </b></font>have been set up, with guide stars
-      in   the case  of  faint   objects<br>
-                                         </li>
-                                                                        
-    
-</ol>
-                    The best way to do this is to set up one MSB, adhering
- to  the   guidelines      above, and use the validation button to check
-it.  This  will   pick up common      faults like dark exposures being inconsistent. 
-  If you're   still uncertain,      your support scientist is available to 
- help with queries.   Then (depending      on the details of your program) 
- you may be able to just  copy/paste the    MSB and   edit target and instrument 
-  components to generate  the rest.                                      
-       
-<div align="left"><br>
-           
-<div align="left">                                 On completion of the program
-   (and in general   it's   also  wise  to  do  this   as  you  go along),
- click  <b>file...save</b>    in  the program   window,  and   save  the
-program   to an xml file (name  it  <b>&lt;whatever&gt;.xml</b>         ;
-note that   if you want the .xml suffix  then you have to type it).   To
-  store  to  the summit database, click <b>database...store  </b>on the 
-program    window      and enter your project password, which you can obtain
-from the <a href="http://omp.jach.hawaii.edu/cgi-bin/issuepwd.pl">UKIRT 
- password server</a>. Once in the database, your support scientist will vet
-the program, using a checklist which covers the issues above. Check <a
- href="http://www.jach.hawaii.edu/JACpublic/UKIRT/observing/MSB_vetting.html">here</a>
-for the current vetting checklist.<br>
-                                           </div>
-      </div>
-                                                                 
-<p align="left"><font color="#ff0000">Tip: while editing your science program,
-   its title   is displayed in italics, but it switches to normal font upon
-  saving. When   you edit any component       of your Science Program its
-title   changes font to indicate that       you need to save your work.</font><br>
-                                     </p>
-                                                                 
-<div align="left">       <br>
-                                 <br>
-                   </div>
-                                     
-<div align="left"><br>
-                   </div>
-                                                                         
-<h2><a name="Estimates_of_Execution_Time"></a>Estimates of Execution Time</h2>
-                                     <br>
-                                     Your program builds up its total estimated 
-   elapsed     time    in  stages.<br>
-                                     <br>
-                                                                         
-<ul>
-                                            <li><img
- src="observe_icon.png" alt="*" width="23" height="17">
-                                      Observes can be set to a number of
-repeats;     generally      this   is  one   for   UKIRT  instruments such
-as Michelle     and UIST.                                               
-                                                                        
-                                                                
-    <p>        </p>
-                                       </li>
-                                       <li><img src="iterator_icon.png"
- alt="*" width="20" height="20">
-                                      Repeat       iterators specify the
-number    of  times    the   Observes     within    them are carried    
-  out.&nbsp;                                                            
-                                                                        
-                                                       
-    <p>        </p>
-                                       </li>
-                                       <li><img
- src="observation_icon.png" alt="*" width="19" height="19">
-                                      Observations show you the estimated 
-time   of  the   sequence     they         contain.       <br>
-                                                                        
-                                                                        
-                                                                        
-  
-    <p>        </p>
-                                       </li>
-                                       <li><img src="msb_icon.png"
- alt="*" width="18" height="19">
-                                      MSBs give you the estimated time of 
-the   Observations       they   contain     -        in this case the science 
-observation  plus   any    calibrations         observation.    To be clear: 
-this is the  estimated     time  of that       single   MSB.             
-                                                                        
-                                                                        
-                         
-    <p>        </p>
-                                       </li>
-                                       <li><img
- src="scienceprogram_icon.png" alt="*" width="21" height="20">
-                                      Science Programs give you the estimated 
-  time   of  all         MSBs   they   contain,   including the number of 
-repeats.    So if you   have   a       1hr MSB   and you set  the MSB counter 
-to 2,        your MSB   estimated    time   will be  1hr and your Science 
-Program         time will   show 2hrs.     </li>
-                                                                         
-</ul>
-                                     <br>
-                                     <br>
-                                                                        
-    
-<hr width="100%" size="2">                             <br>
-                                                                
-<h2 align="left"><br>
-                                             </h2>
-                                                                 
-<div align="left">                           </div>
-                                                                 
-<h1 align="left"><font color="#333399"><a name="advanced"></a>III. Advanced 
-                Topics and Usage Notes</font></h1>
-                                                                 
-<div align="left"><br>
-                                               </div>
-                                                                 
-<hr width="100%" size="2" align="left">                                 
-<div align="left"><br>
-           
-<div align="left">              Here we outline some facilities which are
-   either more advanced   than   a  typical program is likely to require,
-or   more than the beginner   user might   expect to use.<br>
-      </div>
-                    <br>
-                    <br>
-                                                      
-<h2><a name="AND_and_OR_logic"></a>AND and OR logic</h2>
-           
-<div align="left">               Most programs will be catered for by simply
-   creating a set of  MSBs   and    at most specifying their relative priorities
-   and perhaps some  scheduling     information. However, more complex programs
-   can be built  up  using the logic    provided by "AND" and "OR" folders.
-  The basic function   of these folders  is  as follows:<br>
-      </div>
-                     <br>
-                                         
-<table cellpadding="2" cellspacing="5" border="0" width="100%">
-                       <tbody>
-                         <tr>
-                           <td valign="top" bgcolor="#ffff99"><br>
-           &nbsp;<img src="folder_or.png" alt="" width="96" height="47">
-                      <br>
-                           <br>
-                           </td>
-                           <td valign="middle">Allows you to select one or
- more   (default     is  one)  MSBs from a list. If the default is used,
-then  once   an MSB from     the  folder  has been done, the rest are marked
-as  unavailable.<br>
-                           </td>
-                         </tr>
-                         <tr>
-                           <td valign="top" bgcolor="#ffff99"><br>
-                     &nbsp;<img src="folder_and.png" alt="" width="96"
- height="50">
-                      <br>
-                           <br>
-                           </td>
-                           <td valign="middle">Allows you to simply group 
-MSBs   together.      In  general,  ANDs make most sense when contained within
- an  OR folder,   allowing    you to have two completely separate programs
- (potentially  with   many MSBs    each), only one of which gets done. For
- example, you may have   a set of targets   in two separate star-forming
-regions,  don't need data  in both but do need   one region to be completed.
-ANDs inside  an OR is the  way to do this.<br>
-                           </td>
-                         </tr>
-                                                                        
-          
-  </tbody>                     
-</table>
-                     <br>
-                     <br>
-                     An example of the use of these folders:<br>
-                     <br>
-                                         
-<table cellpadding="2" cellspacing="5" border="0" width="100%">
-                       <tbody>
-                         <tr>
-                           <td valign="middle" bgcolor="#ffffcc"><img
- src="and_or_program.png" alt="" width="385" height="347">
-                      <br>
-                           </td>
-                           <td valign="top">Here, for the sake of illustration, 
-   a  PI  has   managed   to convince the TAG that there is merit in granting 
-   time  to two   rather different   projects under the same banner. The resulting
-    science  program contains two   OR folders. These do not interact with
- one   another;  completing the first  OR doesn't mean that the second OR
-(which   is at the  same indent level) does  not get done. All being well,
- the PI  will obtain  data on both sub-projects;  the details of what they
- get is catered for by  the AND and OR logic.<br>
-                           <br>
-                           <font color="#ff0000">Within the (simpler) second
-  OR  folder</font>,       the PI has asked for two out of three MSBs to
-be   done.  Depending on the    timing,  these could be Oph-elias 29 and
-Oph-BK44,   or  some other pair from    the three.  The important point is
-that once  two are done, the third is  marked  as unavailable. Selection
-of the number  to do is done in the OR folder's   window.<br>
-                           <br>
-                           <font color="#ff0000">Within the first OR folder</font>, 
-     the   PI  has  required only one of three things to happen: either (i) 
-  the   single   MSB  on  NGC4594 knot 3, or (ii) one of the two programs 
-on  knots   in NGC4565   or NGC4321.  So the minute an MSB from the NGC4565 
-program   is  done, both  the NGC4594  single MSB and the NGC4321 program 
-is marked   as invalid.<br>
-                           </td>
-                         </tr>
-                                                                        
-          
-  </tbody>                     
-</table>
-                     <br>
-   <b><br>
-   Formally:</b>                              <br>
-   <br>
-   ANDs were designed specifically to go inside ORs (to allow you to group
- MSBs) but are also available to group MSBs in general (to allow them to
-share  instrument configs etc).<br>
-   <br>
-     
-<table border="0" width="100%" cellpadding="2" cellspacing="5">
-    <tbody>
-       <tr>
-         <td bgcolor="#ffff99" align="center"><b>Folder type</b></td>
-         <td bgcolor="#ffff99"><b>Can contain</b></td>
-       </tr>
-    <tr>
-         <td bgcolor="#ffff99" align="center"><img src="folder_or.png"
- alt="" width="96" height="47">
-         </td>
-         <td>ANDs, MSBs, Observations or general components (inheritance
-works  in an OR folder)</td>
-       </tr>
-    <tr>
-         <td bgcolor="#ffff99" align="center"><img src="folder_and.png"
- alt="" width="96" height="50">
-         </td>
-         <td>Anything except an OR or AND</td>
-       </tr>
              
-  </tbody>   
-</table>
-   <br>
-   <br>
-                    </div>
-                                       
-<div align="left"><br>
-                                               <br>
-                                 <br>
-                                                            </div>
-                                                                 
-<h2 align="left"><a name="Drag_and_drop"></a>Drag and drop</h2>
-                                                                 
-<div align="left">      
-<div align="left">              Components, observations and entire MSBs 
-            can be dragged from  place    to  place,  though many users will
-    find     the    cut and paste described  above   quite usable.  Drag
-and    drop works     in much   the  same  way as it does  in most  graphical
-user    interfaces,     but note  the following   points of protocol:<br>
-      </div>
-                                               <br>
-           
-<div align="left">                                         - press <b><font
- color="#ff0000">ctrl</font></b>         <i>during</i>    (after commencing)
-   a  drag   and  the <u>move</u>  becomes a <u>copy.</u> Note again that
-the     key    press   has to   happen   <i>after</i>   you  commence dragging
-  the object.<br>
-      </div>
-                                               <br>
-           
-<div align="left">                                         - click on one
-   object, then hold down   <b><font color="#ff0000"> shift</font></b>  
-and    click on a second;  everything      between the first and second inclusive
-    become selected.<br>
-      </div>
-                                               <br>
-                                 </div>
-                                       
-<div align="left">      
-<div align="left">What happens when you drop a dragged item is indicated 
-    by an arrow symbol:<br>
-      </div>
+<div align="left">          You can control which of the symbols you get by
+horizontal movements    of  the dragging cursor; in the above example, you
+would find that the symbol    changed as the cursor was dragged past the
+"B" in "MSB Folder (1X)".<br>
+       </div>
                  <br>
-                                 
-<table cellpadding="2" cellspacing="5" border="0" width="100%">
-                   <tbody>
-                     <tr>
-                       <td valign="middle" bgcolor="#ffff99"><img
- src="drag_into.png" alt="" width="203" height="112">
-                       <br>
-                       </td>
-                       <td valign="middle">Dropping a dragged item (for example,
-    a  target    component) with the arrow pointing diagonally means that
-it   is dropped at   one indent level higher than, and therefore becomes
-a part   of, the highlighted    item (in this case, the MSB).<br>
-                       </td>
-                     </tr>
-                     <tr>
-                       <td valign="middle" bgcolor="#ffff99"><img
- src="drag_under.png" alt="" width="206" height="119">
-                       <br>
-                       </td>
-                       <td valign="middle">Dropping a dragged item (for example,
-    an  Observation)    with the arrow pointing vertically down means that
- it   is inserted into the   science program at the same indent level as
-the  highlighted   item (in this   case, the MSB).<br>
-                       </td>
-                     </tr>
-                                                                   
-  </tbody>                 
-</table>
                  <br>
-           
-<div align="left">          You can control which of the symbols you get
-by horizontal movements    of  the dragging cursor; in the above example,
-you would find that the symbol    changed as the cursor was dragged past
-the "B" in "MSB Folder (1X)".<br>
-      </div>
-                <br>
-                <br>
-                                               </div>
-                    <br>
-                                 
-<h2><a name="Generating_a_Program_from_a_Catalogue_on"></a>Generating a Program
+                                                </div>
+                     <br>
+                                   
+<h2><a name="Generating_a_Program_from_a_Catalogue_on"></a>Generating a Program 
         from a Single MSB and a Catalogue on File</h2>
-                 If you have many sources which you wish to observe in a
-similar     way   and   do not wish to go through the rigmarole of editing
-a target   component    for   each one, there is a way to generate a science
-program   from a template    MSB  and a text (ASCII) catalog file. This uses
-a service   at the JAC site    - so  you need an internet connection to do
-this.                
-<p>   Start with a science program which contains a template MSB with a blank
-        target component (for example, a template MSB you have retrieved
-from     the    SCUBA library). Your catalog file should be of the format:
- </p>
-                               
-<blockquote>                                                
+                  If you have many sources which you wish to observe in a 
+similar     way   and   do not wish to go through the rigmarole of editing 
+a target   component    for   each one, there is a way to generate a science 
+program   from a template    MSB  and a text (ASCII) catalog file. This uses 
+a service   at the JAC site    - so  you need an internet connection to do 
+this.                 
+<p>   Start with a science program which contains a template MSB with a blank 
+        target component (for example, a template MSB you have retrieved from
+    the    SCUBA library). Your catalog file should be of the format:  </p>
+                                 
+<blockquote>                                                   
   <pre>PKS0106         01 08 38.771 + 01 35 00.32 RJ<br>3C84            03 19 48.160 + 41 30 42.10 RJ<br>3C120           04 33 11.096 + 05 21 15.62 RJ<br>PKS0438         04 40 17.180 - 43 33 08.60 RJ</pre>
-                </blockquote>
-                  The catalog format is not blank space sensitive - if you
- have   existing     catalogues compatible with the JCMT sourceplot package,
- they&nbsp;   will   work  as is, provided they do not contain planets or
-objects     with  orbital   elements.                
-<p>  Under the edit menu (in the Science Program window), there is an option
-        called "Replicate from catalog". Choose this action and you will
-be   asked      for the location of the catalog file. Once you have done
-this,   the OT  will    contact our site and after a short delay will pop
-up a new   science  program    window containing multiple MSBs. So if you
-had an MSB   with one  blank target    component and a catalog file with
-12 sources, you  will get  back a science   program with 12 MSBs, whose target
-components  have been filled in using the  information from your catalog.</p>
-                               
-<p>  Of course you should tweak the MSBs further, such as giving them more
-        informative titles and tweaking the number of integrations on each
+                 </blockquote>
+                   The catalog format is not blank space sensitive - if you 
+ have   existing     catalogues compatible with the JCMT sourceplot package, 
+ they&nbsp;   will   work  as is, provided they do not contain planets or 
+objects     with  orbital   elements.                 
+<p>  Under the edit menu (in the Science Program window), there is an option 
+        called "Replicate from catalog". Choose this action and you will be
+  asked      for the location of the catalog file. Once you have done this,
+  the OT  will    contact our site and after a short delay will pop up a
+new   science  program    window containing multiple MSBs. So if you had
+an MSB   with one  blank target    component and a catalog file with 12 sources,
+you  will get  back a science   program with 12 MSBs, whose target components
+ have been filled in using the  information from your catalog.</p>
+                                 
+<p>  Of course you should tweak the MSBs further, such as giving them more 
+        informative titles and tweaking the number of integrations on each 
  source.<br>
-                <br>
-                </p>
-                               
+                 <br>
+                 </p>
+                                 
 <p>  <br>
-                                                                </p>
-                               
-<h2 align="left"><a name="Importing_ORAC-Classic_Programmes"></a>Importing 
-                ORAC-Classic Programs</h2>
-                                                                 
-<div align="left"> If you have science programs prepared within the ORAC
-      OT (i.e. before Semester 02B), you can import them into the OMP by
-following              these steps:<br>
-                                 </div>
-                                  <br>
-                                  <b><font color="#ff0000">Save your old-style
+                                                                 </p>
+                                 
+<h2 align="left"><a name="Importing_ORAC-Classic_Programmes"></a>Importing
+                 ORAC-Classic Programs</h2>
+                                                                   
+<div align="left"> If you have science programs prepared within the ORAC 
+     OT (i.e. before Semester 02B), you can import them into the OMP by following
+             these steps:<br>
+                                  </div>
+                                   <br>
+                                   <b><font color="#ff0000">Save your old-style 
    program     onto    an  sgml   file</font></b><br>
-                                                                   
+                                                                     
 <ul>
-                     <li>run the old ORAC OT (oracot3n)</li>
-                     <li>load your science program from the orac database</li>
-                     <li><b>file...save</b> the program as an sgml file</li>
-                     <li>exit the old OT.</li>
-                                     
+                      <li>run the old ORAC OT (oracot3n)</li>
+                      <li>load your science program from the orac database</li>
+                      <li><b>file...save</b> the program as an sgml file</li>
+                      <li>exit the old OT.</li>
+                                       
 </ul>
-                                  <b><font color="#ff0000">Read the file
+                                   <b><font color="#ff0000">Read the file 
 into   the   new   OT,   and   copy   observations     into MSBs</font></b><br>
-                                                                   
+                                                                     
 <ul>
-                     <li>run the new OT (ukirtot)</li>
-                     <li><b>file...open</b>, select "sgml" files and load 
-the   sgml     file     saved   above</li>
-                     <li><b>file...new</b> <b>program </b>to open a new program 
-      window</li>
-                     <li>create MSBs in the new window</li>
-                     <li>copy observations from the sgml file window into 
-MSBs    in   the     new program</li>
-                     <li>make sure you provide sufficient site quality and
+                      <li>run the new OT (ukirtot)</li>
+                      <li><b>file...open</b>, select "sgml" files and load
+ the   sgml     file     saved   above</li>
+                      <li><b>file...new</b> <b>program </b>to open a new
+program        window</li>
+                      <li>create MSBs in the new window</li>
+                      <li>copy observations from the sgml file window into
+ MSBs    in   the     new program</li>
+                      <li>make sure you provide sufficient site quality and 
  scheduling          components<br>
-                                    </li>
-                     <li><b>file...save</b> the new program as an xml file</li>
-                     <li><b>database...store</b> the new program<br>
-                                    </li>
-                                     
+                                     </li>
+                      <li><b>file...save</b> the new program as an xml file</li>
+                      <li><b>database...store</b> the new program<br>
+                                     </li>
+                                       
 </ul>
-                                               The above procedure, and in
- particular      the   action  of        copying old-style observations into
- MSBs, causes     the observation    components        to develop a "Flag
-as Optional" tick     box.<br>
-                                             <br>
-           <br>
+                                                The above procedure, and
+in  particular      the   action  of        copying old-style observations
+into  MSBs, causes     the observation    components        to develop a
+"Flag as Optional" tick     box.<br>
+                                              <br>
+            <br>
                                                                         
-    
+      
 <hr width="100%" size="2">                             <br>
-                                                                
+                                                                  
 <h2 align="left"><br>
-                                             </h2>
-                                                                 
+                                              </h2>
+                                                                   
 <div align="left">                           </div>
-                                                                 
+                                                                   
 <h1 align="left"><a name="IV._Release-Specific_Notes"></a><font
  color="#333399">IV. Release-Specific Notes</font></h1>
-                     
+                       
 <h1><a name="Known_Bugs"></a>Known Bugs</h1>
-           <br>
-                     
+            <br>
+                       
 <table border="0" width="100%" cellpadding="2" cellspacing="5">
-            <tbody>
-               <tr>
-                 <td bgcolor="#ff0000" align="center"><b>Memory Leak</b></td>
-                 <td>There is a known memory leak which causes the OT to
-crash;    you   can exercise this leak by repeatedly opening windows such
-as the Template     Library, Position Editor etc. This can cause a crash
-at what appears to   be  a random time, the symptoms of the crash being that
-the OT runs progressively    more slowly (as your computer runs out of memory) 
-and eventually simply  hangs  up. Other hints that you are sailing close to
-the wind may include  a failure  to update the position-editor display. If
-you let this go on and  end up &nbsp;in  the hung state, ctrl-c on the launching
-xterm, or killing  the process leader  (under UNIX) is the only way out,
-and any edits made since the last file...save  are lost. We advise you to
-save your work on the local file regularly, and  if you believe you detect
-the above symptoms just save your work, exit the  OT and restart it.<br>
-                <br>
-          Work is in progress on provision of automatic file backups. In
-the   meantime,    to minimize the chance of this problem occurring, we suggest
-  (i) do not  close  the position editor every time you have completed setting
-  up each object;  it will display subsequent fields perfectly well without
-  being restarted;    (ii) keep the UKIRT template library (and any other
+             <tbody>
+                <tr>
+                  <td bgcolor="#ff0000" align="center"><b>Memory Leak</b></td>
+                  <td>There is a known memory leak which causes the OT to 
+crash;    you   can exercise this leak by repeatedly opening windows such 
+as the Template     Library, Position Editor etc. This can cause a crash at
+what appears to   be  a random time, the symptoms of the crash being that 
+the OT runs progressively    more slowly (as your computer runs out of memory)
+ and eventually simply  hangs  up. Other hints that you are sailing close
+to the wind may include  a failure  to update the position-editor display.
+If you let this go on and  end up &nbsp;in  the hung state, ctrl-c on the
+launching xterm, or killing  the process leader  (under UNIX) is the only
+way out, and any edits made since the last file...save  are lost. We advise
+you to save your work on the local file regularly, and  if you believe you
+detect the above symptoms just save your work, exit the  OT and restart it.<br>
+                 <br>
+           Work is in progress on provision of automatic file backups. In 
+the   meantime,    to minimize the chance of this problem occurring, we suggest 
+  (i) do not  close  the position editor every time you have completed setting 
+  up each object;  it will display subsequent fields perfectly well without 
+  being restarted;    (ii) keep the UKIRT template library (and any other 
 libraries)  open throughout    your session.<br>
-                 </td>
-               </tr>
-                                             
-  </tbody>           
+                  </td>
+                </tr>
+                                                 
+  </tbody>            
 </table>
-           <br>
-           <br>
-                                                                 
+            <br>
+            <br>
+                                                                   
 <div align="left"><br>
-                                               </div>
-                                                      <br>
+                                                </div>
+                                                       <br>
                                                                         
-         
+           
 <hr width="100%" size="2"><br>
-                                     <i>Document date: 23-Jul-2002<br>
-                                     Document Author: &nbsp;Andy Adamson, 
-&nbsp;Frossie        Economou<br>
-                                     Last modification date: 13-Jan-2002<br>
-                                     Last modification Author: <a
+                                      <i>Document date: 23-Jul-2002<br>
+                                      Document Author: &nbsp;Andy Adamson,
+ &nbsp;Frossie        Economou<br>
+                                      Last modification date: 13-Jan-2002<br>
+                                      Last modification Author: <a
  href="mailto:a.adamson@jach.hawaii.edu">Andy Adamson</a><br>
-                                     </i><br>
-                                                                 
+                                      </i><br>
+                                                                   
 <hr width="100%" size="2"><br>
-                                                <br>
-                                                                <br>
+                                                 <br>
+                                                                 <br>
+                                <br>
                                <br>
                               <br>
                              <br>
                             <br>
-                           <br>
-                            <br>
+                             <br>
+                        <br>
                        <br>
                       <br>
                      <br>
                     <br>
                    <br>
-                  <br>
-                   <br>
+                    <br>
+               <br>
               <br>
              <br>
             <br>
            <br>
-          <br>
-            <br>
+             <br>
+      <br>
      <br>
     <br>
    <br>
