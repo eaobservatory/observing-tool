@@ -1,4 +1,4 @@
-package orac.util;
+package orac.ukirt.util;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -23,7 +23,7 @@ public class InstConfig extends Hashtable implements Cloneable {
                                  // Hashtable key
 
 /**
- *  Constructor.  Could have another with instrum defaulted and invoking
+ *  Constructor.  Couldhave another with instrum defaulted and invoking
  *  this constructor.
  */
    public InstConfig() {
@@ -151,10 +151,11 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "version", "TBD" );       // Version number
          put( "name", "TBD" );          // Name of configuration file
 	 put( "configType", "normal");  // Type of configuration: normal or eng
+	 put( "type", "object");        // Default "type" of Michelle config
 	 put( "camera", "imaging");     // Which camera is in use
 
          put( "polarimetry", "false" ); // Whether polarimetry is in use
-         put( "slitWidth", "TBD" );          // Mask (slit)  in use
+         put( "mask", "TBD" );          // Mask (slit)  in use
          put( "maskAngle", "0.0" );     // Mask position angle
          put( "positionAngle", "0.0" ); // Position angle (on sky)
          put( "disperser", "echelle" ); // Grating ruling or echelle
@@ -164,38 +165,77 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "filter", "Blank" );      // Filter name
          put( "waveplate", "TBD" );     // waveplate (type or angle?)
 
+         put( "scienceArea", "64.0 x 48.0" );  // Science area
+         put( "spectralCoverage", "10.0 - 11.0" );  // Wavelength coverage
+
          put( "nreads", "1" );          // Number of reads
-         put( "readMode", "read" );      // Acquisition/read mode
-         put( "expTime", "5.5" );  // Exposure time in seconds
+         put( "mode", "read" );         // Acquisition/read mode
+         put( "expTime", "5.5" );       // Exposure time in seconds
+         put( "expTime", "5.5" );       // Exposure time in seconds
          put( "readInterval", "0.0" );  // Read interval in seconds
          put( "chopFrequency", "0.0" ); // Chop frequency
          put( "resetDelay", "0.0" );    // reset delay (msecs?)
+         put( "nresets", "0" );         // No. of resets
          put( "chopDelay", "0.0" );     // Chop delay (msecs?)
          put( "objNumExp", "1" );       // Number of object exposures (coadds)
+         put( "waveform", "unknown" );  // Edict Waveform to be used
+         put( "dutyCycle", "0.0" );     // Dutycycle for the obs.
+         put( "mustIdles", "0" );       // Edict idling
+         put( "nullReads", "0" );       // Edict no. of null reads
+         put( "nullExposures", "0" );   // Edict no. of null exposures
+         put( "nullCycles", "0" );      // Edict no. of null cycles
+         put( "idlePeriod", "0.0" );    // Edict idle period
+         put( "observationTime", "5.5" );  // Complete obs. time in seconds
 
+	 // Attributes for FLATS
          put( "flatSampling", "1x1" );  // Flat sampling stepsize x range in pixel
-         put( "flatCalLamp", "1.3" );   // Flat black-body aperture
-         put( "flatReadMode", "NDSTARE" ); // Flat acquisition configuration
-         put( "flatExpTime", "0.2" );   // Flat exposure time
-                                        // filter is in place for flat
-         put( "flatNumExp", "30" );     // Number of flat exposures (coadds)
-         put( "flatSavedInt", "1" );    // Number of saved flat integrations
+         put( "flatSource", "1.3" );    // Flat cal. source
+         put( "flatfilter", "Blank" );      // Flat filter
+         put( "flatnreads", "1" );          // Number of reads
+         put( "flatmode", "read" );         // Acquisition/read mode
+         put( "flatexpTime", "5.5" );       // Exposure time in seconds
+         put( "flatreadInterval", "0.0" );  // Read interval in seconds
+         put( "flatchopFrequency", "0.0" ); // Chop frequency
+         put( "flatchopDelay", "0.0" );     // Chop delay
+         put( "flatresetDelay", "0.0" );    // reset delay (msecs?)
+         put( "flatnresets", "0" );         // No. of resets
+         put( "flatNumExp", "1" );       // Number of flat exposures (coadds)
+         put( "flatwaveform", "unknown" );  // Edict Waveform to be used
+         put( "flatdutyCycle", "0.0" );     // Dutycycle for the obs.
+         put( "flatmustIdles", "0" );       // Edict idling
+         put( "flatnullReads", "0" );       // Edict no. of null reads
+         put( "flatnullExposures", "0" );   // Edict no. of null exposures
+         put( "flatnullCycles", "0" );      // Edict no. of null cycles
+         put( "flatidlePeriod", "0.0" );    // Edict idle period
 
+	 // Darks (only filter used currently)
          put( "darkFilter", "Blank" );  // Filter name for darks
          put( "darkNumExp", "1" );      // Number of dark exposures (coadds)
-         put( "darkSavedInt", "1" );    // Number of saved dark integrations
 
-         put( "biasExpTime", "0.12" );  // Bias exposure time
+         // Biases (not currently used)
+	 put( "biasExpTime", "0.12" );  // Bias exposure time
          put( "biasNumExp", "100" );    // Number of bias exposures (coadds)
-         put( "biasSavedInt", "3" );    // Number of saved bias integrations
 
-         put( "arcCalLamp", "argon" );  // Full wavelength calibration
-         put( "arcFilter", "Blank" );   // Filter for arc
+	 // Attributes for ARCS
+         put( "arcSampling", "1x1" );      // Arc sampling stepsize x range in pixel
+         put( "arcfilter", "Blank" );      // Flat filter
+         put( "arcnreads", "1" );          // Number of reads
+         put( "arcmode", "read" );         // Acquisition/read mode
+         put( "arcexpTime", "5.5" );       // Exposure time in seconds
+         put( "arcreadInterval", "0.0" );  // Read interval in seconds
+         put( "arcchopFrequency", "0.0" ); // Chop frequency
+         put( "arcchopDelay", "0.0" );     // Chop delay
+         put( "arcresetDelay", "0.0" );    // reset delay (msecs?)
+         put( "arcnresets", "0" );         // No. of resets
+         put( "arcNumExp", "1" );       // Number of arc exposures (coadds)
+         put( "arcwaveform", "unknown" );  // Edict Waveform to be used
+         put( "arcdutyCycle", "0.0" );     // Dutycycle for the obs.
+         put( "arcmustIdles", "0" );       // Edict idling
+         put( "arcnullReads", "0" );       // Edict no. of null reads
+         put( "arcnullExposures", "0" );   // Edict no. of null exposures
+         put( "arcnullCycles", "0" );      // Edict no. of null cycles
+         put( "arcidlePeriod", "0.0" );    // Edict idle period
 
-         put( "arcExpTime", "0.12" );   // Arc exposure time
-         put( "arcNumExp", "100" );     // Number of arc exposures (coadds)
-         put( "arcReadMode", "stare" ); // Readout mode for arc
-         put( "arcSavedInt", "1" );     // Number of saved arc integrations
       }
    }
 
@@ -255,22 +295,40 @@ public class InstConfig extends Hashtable implements Cloneable {
       if ( lcTitle.equals( "config" ) ) {
 
 // Here might need to allow for changes of OT nomenclature.
-         if ( lcAttribute.equals( "acqmode" ) ) key = "readMode";
-         else if ( lcAttribute.equals( ".version" ) ) key = "version";
+         if ( lcAttribute.equals( ".version" ) ) key = "version";
+	 //	 else if ( lcAttribute.equals( "acqmode" ) ) key = "readMode";
          else if ( lcAttribute.equals( "readoutarea" ) ) key = "readArea";
          else if ( lcAttribute.equals( "exposuretime" ) ) key = "expTime";
          else if ( lcAttribute.equals( "coadds" ) ) key = "objNumExp";
          else if ( lcAttribute.equals( "instaper" ) ) key="instAper";
-         else if ( lcAttribute.equals( "posangle" ) ) key="positionAngle";
-         else if ( lcAttribute.equals( "mask" ) ) key = "slitWidth";
+	 else if ( lcAttribute.equals( "posangle" ) ) key="positionAngle";
+	 //         else if ( lcAttribute.equals( "mask" ) ) key = "slitWidth";
 
       } else if (  lcTitle.equals( "arc" ) ) {
-         if ( lcAttribute.equals( "acqmode" ) ) key = "arcReadMode";
-         else if ( lcAttribute.equals( "coadds" ) ) key = "arcNumExp";
+         if ( lcAttribute.equals( "coadds" ) ) key = "arcNumExp";
+         else if ( lcAttribute.equals( "caltype" ) ) key = "type";
+         //else if ( lcAttribute.equals( "acqmode" ) ) key = "arcReadMode";
          else if ( lcAttribute.equals( "cvfwavelength" ) ) key = "arcCvfWavelength";
-         else if ( lcAttribute.equals( "exposuretime" ) ) key ="arcExpTime";
-         else if ( lcAttribute.equals( "filter" ) ) key = "arcFilter";
+         else if ( lcAttribute.equals( "exposuretime" ) ) key ="arcexpTime";
+         else if ( lcAttribute.equals( "observationtime" ) ) key ="arcobsTime";
+         else if ( lcAttribute.equals( "sampling" ) ) key = "arcSampling";
+         else if ( lcAttribute.equals( "filter" ) ) key = "arcfilter";
          else if ( lcAttribute.equals( "lamp" ) ) key = "arcCalLamp";
+
+         else if ( lcAttribute.equals( "nreads" )) key = "arcnreads";
+         else if ( lcAttribute.equals( "mode" )) key = "arcmode";
+         else if ( lcAttribute.equals( "readinterval" )) key = "arcreadInterval";
+         else if ( lcAttribute.equals( "chopfrequency" )) key = "arcchopFrequency";
+         else if ( lcAttribute.equals( "chopdelay" )) key = "arcchopDelay";
+         else if ( lcAttribute.equals( "resetdelay" )) key = "arcresetDelay";
+         else if ( lcAttribute.equals( "nresets" )) key = "arcnresets";
+         else if ( lcAttribute.equals( "waveform" )) key= "arcwaveform";
+         else if ( lcAttribute.equals( "dutycycle" )) key = "arcdutyCycle";
+         else if ( lcAttribute.equals( "mustidles" )) key = "arcmustIdles";
+         else if ( lcAttribute.equals( "nullreads" )) key = "arcnullReads";
+         else if ( lcAttribute.equals( "nullexposures" )) key = "arcnullExposures";
+         else if ( lcAttribute.equals( "nullcycles" )) key = "arcnullCycles";
+         else if ( lcAttribute.equals( "idleperiod" )) key = "arcidlePeriod";
 
       } else if (  lcTitle.equals( "bias" ) ) {
          if ( lcAttribute.equals( "coadds" ) ) key = "biasNumExp";
@@ -279,14 +337,32 @@ public class InstConfig extends Hashtable implements Cloneable {
       } else if (  lcTitle.equals( "dark" ) ) {
          if ( lcAttribute.equals( "coadds" ) ) key = "darkNumExp";
          else if ( lcAttribute.equals( "exposuretime" ) ) key ="darkExpTime";
+         else if ( lcAttribute.equals( "filter" )) key = "darkFilter";
 
       } else if (  lcTitle.equals( "flat" ) ) {
-         if ( lcAttribute.equals( "acqmode" ) ) key = "flatReadMode";
-         else if ( lcAttribute.equals( "coadds" ) ) key = "flatNumExp";
-         else if ( lcAttribute.equals( "exposuretime" ) ) key ="flatExpTime";
-         else if ( lcAttribute.equals( "filter" ) ) key = "flatFilter";
+         if ( lcAttribute.equals( "coadds" ) ) key = "flatNumExp";
+         else if ( lcAttribute.equals( "caltype" ) ) key = "type";
+         // else if ( lcAttribute.equals( "acqmode" ) ) key = "flatReadMode";
+         else if ( lcAttribute.equals( "exposuretime" ) ) key ="flatexpTime";
+         else if ( lcAttribute.equals( "observationtime" ) ) key ="flatobsTime";
+         else if ( lcAttribute.equals( "sampling" ) ) key = "flatSampling";
+         else if ( lcAttribute.equals( "filter" ) ) key = "flatfilter";
          else if ( lcAttribute.equals( "lamp" ) ) key = "flatCalLamp";
          else if ( lcAttribute.equals( "neutraldensity" ) ) key = "flatNeutralDensity";
+         else if ( lcAttribute.equals( "nreads" )) key = "flatnreads";
+         else if ( lcAttribute.equals( "mode" )) key = "flatmode";
+         else if ( lcAttribute.equals( "readinterval" )) key = "flatreadInterval";
+         else if ( lcAttribute.equals( "chopfrequency" )) key = "flatchopFrequency";
+         else if ( lcAttribute.equals( "chopdelay" )) key = "flatchopDelay";
+         else if ( lcAttribute.equals( "resetdelay" )) key = "flatresetDelay";
+         else if ( lcAttribute.equals( "nresets" )) key = "flatnresets";
+         else if ( lcAttribute.equals( "waveform" )) key= "flatwaveform";
+         else if ( lcAttribute.equals( "dutycycle" )) key = "flatdutyCycle";
+         else if ( lcAttribute.equals( "mustidles" )) key = "flatmustIdles";
+         else if ( lcAttribute.equals( "nullreads" )) key = "flatnullReads";
+         else if ( lcAttribute.equals( "nullexposures" )) key = "flatnullExposures";
+         else if ( lcAttribute.equals( "nullcycles" )) key = "flatnullCycles";
+         else if ( lcAttribute.equals( "idleperiod" )) key = "flatidlePeriod";
 
       }
       return key;
@@ -296,7 +372,7 @@ public class InstConfig extends Hashtable implements Cloneable {
  * Compares two configs.  Returns true if they are identical.
  */
 
-   public boolean isSame( String instrum, InstConfig config ) {
+   boolean isSame( String instrum, InstConfig config ) {
 
       Enumeration ekey;        // Enumeration of the `this' config
       String key;              // A key in the hashTable
@@ -334,7 +410,7 @@ public class InstConfig extends Hashtable implements Cloneable {
  * nominated attributes are not identical in both..
  */
 
-   public boolean changedAttribute( InstConfig config, Vector attributes ) {
+   boolean changedAttribute( InstConfig config, Vector attributes ) {
 
       boolean change;          // Any selected config attribute has changed?
       Enumeration ekey;        // Enumeration of the `this' config
