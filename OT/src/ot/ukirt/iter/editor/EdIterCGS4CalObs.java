@@ -7,6 +7,7 @@
 package ot.ukirt.iter.editor;
 
 import java.util.*;
+import java.text.DecimalFormat;
 
 import orac.ukirt.inst.SpInstCGS4;
 import orac.ukirt.iter.SpIterCGS4CalObs;
@@ -182,10 +183,21 @@ _updateWidgets()
    SpItem _parent = _baseItem.parent();
    SpInstCGS4 _instCgs4 = (SpInstCGS4) SpTreeMan.findInstrument(_baseItem);
    String grat = _instCgs4.getDisperser();
-   if (grat.equalsIgnoreCase("echelle") && (ico.getCalType() == ARC)) {
-      // MFO: "ARC" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
-      ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "ARC");
-   }else{
+   if (grat.equalsIgnoreCase("echelle") ) {
+       if ( ico.getCalType() == ARC ) {
+          // MFO: "ARC" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
+          ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "ARC");
+       }
+       else if ( ico.getCalType() == FLAT ) {
+	   ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "FLAT");
+	   _w.flatCVFWavelength.setValue ( ico.getCvfWavelength() );
+	   double offset = ico.getCvfWavelength() - _instCgs4.getCentralWavelength() ;
+	   DecimalFormat df = new DecimalFormat();
+	   df.setMaximumFractionDigits(6);
+	   _w.flatCVFOffset.setValue( df.format(offset) );
+       }
+   }
+   else {
    
       // Deal with Flat Sampling according to state of inst & caltype
       String samp = _instCgs4.getSampling();
@@ -196,6 +208,8 @@ _updateWidgets()
    
          _w.flatSampling.setChoices( ico.getFlatSamplingChoices());
          _w.flatSampling.setValue( ico.getFlatSampling() );
+	 _w.flatCVFWavelength.setValue("n/a");
+	 _w.flatCVFOffset.setValue("n/a");
       }else{
          // MFO: "EMPTY" is hard-wired in IterCGS4CalObsGUI (as constraint strings a CardLayout).
          ((CardLayout)(_w.calTypesPanel.getLayout())).show(_w.calTypesPanel, "EMPTY");

@@ -258,6 +258,7 @@ public EdCompInstCGS4()
    cbw.addWatcher( new CommandButtonWidgetWatcher() {
       public void commandButtonAction(CommandButtonWidgetExt cbw) {
          _instCGS4.useDefaultAcquisition();
+	 _instCGS4.setCvfOffset(_instCGS4.getCentralWavelength());
          _updateWidgets();
       }
    });

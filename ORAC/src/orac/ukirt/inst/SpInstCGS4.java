@@ -795,7 +795,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	_avTable.rm(ATTR_COADDS);
 	_avTable.rm(ATTR_EXPOSURES_PER_CHOP_POSITION);
 	_avTable.rm(ATTR_CYCLES_PER_OBSERVE);
-	setCvfOffset(getCentralWavelength());;
+//	setCvfOffset(getCentralWavelength());
     }
     
     /**
