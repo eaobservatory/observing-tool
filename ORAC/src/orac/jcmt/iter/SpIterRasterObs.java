@@ -441,7 +441,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** JAC TCS XML parsing. */
   public void processXmlElementStart(String name) {
-/*MFO DEBUG*/System.out.println("processXmlElementStart(" + name + ")");
     if((name != null) && (!name.equals(TX_PA))) {
       _xmlPaAncestor = name;
     }
@@ -466,11 +465,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     if(name.equals(TX_PA)) {
       if((_xmlPaAncestor != null) && _xmlPaAncestor.equals(TX_SCAN)) {
         if(getScanAngles() == null) {
-/*MFO DEBUG*/System.out.println("setScanAngle(" + Format.toDouble(value) + ", 0)");
           setScanAngle(Format.toDouble(value), 0);
 	}
 	else {
-/*MFO DEBUG*/System.out.println("setScanAngle(" + Format.toDouble(value) + ", " + getScanAngles().size() + ")");
           setScanAngle(Format.toDouble(value), getScanAngles().size());
 	}
       }
