@@ -20,7 +20,6 @@ import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterOffset;
 import gemini.sp.iter.SpIterRepeat;
-import gemini.sp.iter.SpIterSky;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 import gemini.util.CoordSys;
@@ -937,13 +936,6 @@ public class SpTranslator {
                                           // not iterated
       Vector v;                           // Work Vector
       String value;                       // Attribute value
-      double offsetRA  = 0.0;
-      double offsetDec = 0.0;
-      Vector offsetV = new Vector();
-      double offsetScale = 1.0;
-      boolean scaleOffsets = true;
-      boolean addOffsetToSkyBase = false;
-      double [] currOffsets = {0.0, 0.0};
 
 
 // Check if this is an Observation.
@@ -1686,19 +1678,15 @@ public class SpTranslator {
 
 // Append the first value.
                               offsetCommand = offsetCommand.append( " " ).append( siv.values[ 0 ] );
-			      offsetV.add( siv.values[ 0 ]);
-			      currOffsets[j] = Double.parseDouble(siv.values[ 0 ]);
-// Add the offset value to the offset vector for use later
                            }
 
 // Add the offset instruction to the sequence buffer.
-			   instruction = offsetCommand.toString();
+                           instruction = offsetCommand.toString();
                            sequence.addElement( instruction );
-			   System.out.println("Adding offset instruction : "+offsetCommand.toString());
 
 // Also need a silent WAIT ALL to let the telescope finish moving before
 // taking an exposure.
-//                            sequence.addElement( "-WAIT ALL" );
+                           sequence.addElement( "-WAIT ALL" );
 
 // Store chopping commands in sequence.
 // ====================================
@@ -1765,11 +1753,6 @@ public class SpTranslator {
 // Store an observe command.
 // =========================
                         } else if ( sis.title.equalsIgnoreCase( "observe" ) ) {
-			    if (prevTitle.equals("sky")) addOffsetToSkyBase = false;
-			    System.out.println("Found an OBJECT in the sequence");
-
-			   sequence.add( "offset "+currOffsets[0]+" "+currOffsets[1] );
-			   sequence.add( "-WAIT ALL" );
 
 // Add startGroup before the first "set OBJECT".
                            if ( ! startGroup ) {
@@ -1786,7 +1769,6 @@ public class SpTranslator {
 // written in uppercase within the sequence so refer to the type here
 // in uppercase too.
                            observeCount( sequence, "OBJECT", drRecipeComp );
-			   // Insert the sets after the last "set OBJECT"
 
 // Special case for CGS4, Michelle, and UIST.  Need to add a break after a
 // "set OBJECT" before the do n _observe, whenever certain configuration
@@ -1815,39 +1797,7 @@ public class SpTranslator {
 // Store a sky command.
 // ====================
                         } else if ( sis.title.equalsIgnoreCase( "sky" ) ) {
-			    if (prevTitle.equals("offset")) addOffsetToSkyBase = true;
-			    System.out.println("Found an SKY in the sequence");
 
-			   // For later use, check if we are following the offset pattern of the object or not,
-			   // and get the scale factor/box size
-			   SpIterSky thisSky = (SpIterSky)sis.item;
-			   scaleOffsets = thisSky.getFollowPattern();
-			   if (scaleOffsets) {
-			       offsetScale = Double.parseDouble(thisSky.getOffsetScale());
-			   }
-			   else {
-			       offsetScale = Double.parseDouble(thisSky.getOffsetBoxSize());
-			   }
-
-			   double skyRAOffset;
-			   double skyDecOffset;
-			   if (isReferenceOffset) {
-			       if ( scaleOffsets ) {
-				   skyRAOffset  = offsetRA  + offsetScale*currOffsets[0];
-				   skyDecOffset = offsetDec + offsetScale*currOffsets[1];
-			       }
-			       else {
-				   skyRAOffset  = offsetRA  + ((int)((2.*(Math.random() - 0.5)) * offsetScale * 10.))/10.;
-				   skyDecOffset = offsetDec + ((int)((2.*(Math.random() - 0.5)) * offsetScale * 10.))/10.;
-			       }
-			   }
-			   else {
-			       skyRAOffset  = offsetRA  - currOffsets[0];
-			       skyDecOffset = offsetDec - currOffsets[1];
-			   }
-			   sequence.add( "offset "+skyRAOffset+" "+skyDecOffset);
-			   sequence.add( "-WAIT ALL" );
- 
 // Add startGroup before the first "set SKY".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
@@ -1859,12 +1809,10 @@ public class SpTranslator {
                                                   msbid, project );
                            }
 
-
 // Add the observe instructions to the sequence buffer.  Note the type
 // written in uppercase within the sequence so refer to the type here
 // in uppercase too.
                            observeCount( sequence, "SKY", drRecipeComp );
-			   
 
                         }
 
@@ -1924,18 +1872,6 @@ public class SpTranslator {
 // Move last "SET_CHOPBEAM A" that's before the startGroup, until after
 // the startGroup instruction.
             moveSetChopBeam( sequence );
-
-// Fix up any observe/sky instrunctions which do not have offsets.
-// These should only occur when the target component has a reference
-// 	    addOffsets (sequence, 
-// 			offsetV,
-// 			addOffsetToSkyBase,
-// 			isReferenceOffset, 
-// 			offsetRA, 
-// 			offsetDec,
-// 			scaleOffsets,
-// 			offsetScale);
-	    fixupOffsets(sequence);
 
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
@@ -3519,257 +3455,6 @@ public class SpTranslator {
       } 
    }
 
-/** 
- * Add offsets to objects and skys if none exist.  This can occur when a 
- * reference position is specified in the target component and a sky
- * iterator used outside of an offset.
- */
-    private void addOffsets(Vector sequence, 
-			    Vector offsets,
-			    boolean addOffsetToSky, 
-			    boolean isOffset, 
-			    double offsetRA, 
-			    double offsetDec,
-			    boolean scaleOffsets,
-			    double offsetScale) {
-	String waitStr      = "-WAIT ALL";
-	boolean firstObject = true;
-
-	// If there are no set SKY commands in the sequence then we do not need to do anything
-	if (sequence.indexOf("set SKY") == -1) {
-	    return;
-	}
-
-	// Count the number of set OBJECT and set SKY commands in the sequence
-	int observeCount = 0;
-	int nObjects = 0;
-	int nSkys = 0;
-	for (int i=0; i<sequence.size(); i++) {
-	    String tmp = (String)sequence.elementAt(i);
-	    if (tmp.equals("set OBJECT")) nObjects++;
-	    if (tmp.equals("set SKY")) nSkys++;
-	}
-	observeCount = nObjects+nSkys;
-
-	// Which is first? Target or Sky?
-	boolean objectFirst = ( sequence.indexOf("set OBJECT") < sequence.indexOf("set SKY") );
-
-	// If the given positions are not offsets, then we need to make them offsets from the
-	// current base position
-	if (!isOffset) {
-	    String targetElement = null;
-	    // First get the coordinates os the base position from the sequence
-	    for (int i=0; i<sequence.size(); i++) {
-		if ( ((String)sequence.elementAt(i)).startsWith("SET_TARGET") ) {
-		    targetElement = (String)sequence.elementAt(i);
-		    break;
-		}
-	    }
-	    if (targetElement == null) {
-		offsetRA  = 0.0;
-		offsetDec = 0.0;
-	    }
-	    else {
-		// Now parse the string and get the 3rd, 4th and 5th parameter
-		// which represent the equinox, RA and Dec respectively
-		StringTokenizer st = new StringTokenizer(targetElement);
-		int    token   = 0;
-		String baseRA  = null;
-		String baseDec = null;
-		String equinox = null;
-		while (st.hasMoreTokens()) {
-		    switch (token) {
-		    case 2:
-			equinox = st.nextToken();
-			token++;
-			break;
-		    case 3:
-			baseRA = st.nextToken();
-			token++;
-			break;
-		    case 4:
-			baseDec = st.nextToken();
-			token++;
-			break;
-		    default:
-			st.nextToken();
-			token++;
-			break;
-		    }
-		}
-		//  Now we have these, we should be able to calculate the RA and Dec offsets
-		double [] offsetArray = RADecMath.getOffset( offsetRA,
-							     offsetDec,
-							     (new Double (baseRA)).doubleValue()*15.0d,
-							     (new Double (baseDec)).doubleValue(),
-							     0.0);
-		offsetRA  = offsetArray[0];
-		offsetDec = offsetArray[1];
-	    }
-	}
-
-	System.out.println("After initialisation...");
-	System.out.println("Number of objects: "+nObjects);
-	System.out.println("Number of skys: "+nSkys);
-	System.out.println("Number of offsets: "+offsets.size()/2);
-	System.out.println("Add offsests to sky base? "+addOffsetToSky);
-	System.out.println("Object before sky? "+objectFirst);
-	System.out.println("Is base an offset? "+isOffset);
-
-	int index = 0;
-	int lastIndex = index;
-	String offsetStr;
-	while ( sequence.indexOf("set OBJECT", index) != -1 &&
-		sequence.indexOf("set SKY",    index) != 1) {
-	    if (objectFirst) {
-		// Find the next OBJECT
-		lastIndex = index;
-		index = sequence.indexOf("set OBJECT", index);
-		if (index != -1) {
-		    // Construct the offset string.
-		    if (offsets.size() == 0) {
-			// If there are no offsets specified, then assume (0,0)
-			offsetStr = "offset 0.0 0.0";
-		    }
-		    else {
-			// Use the first two specified offsets
-			offsetStr = "offset " + Double.parseDouble( (String)offsets.elementAt(0) ) +
-			    " " + Double.parseDouble( (String)offsets.elementAt(1) );
-		    }
-		    // DEBUG
-		    System.out.println("Adding to OBJECT: "+offsetStr);
-		    
-		    // Now add (or replace the current) offset string with the new one
-		    if ( firstObject ){
-			if ( ((String)sequence.elementAt(index+2)).startsWith("offset") ) {
-			    sequence.removeElementAt(index+2);
-			}
-			sequence.add( index+2, offsetStr);
-			if ( !((String)sequence.elementAt(index+3)).equals(waitStr) ) sequence.add( index+3, waitStr);
-			firstObject = false;
-		    }
-		    else {
-			if ( ((String)sequence.elementAt(index+1)).startsWith("offset") ) {
-			    sequence.removeElementAt(index+1);
-			}
-			sequence.add( index+1, offsetStr);
-			if ( !((String)sequence.elementAt(index+2)).equals(waitStr) ) sequence.add( index+2, waitStr);
-		    }
-		}
-		else {
-		    index = lastIndex+1;
-		}
-	    }
-
-	    // Now find the next sky
-	    lastIndex = index;
-	    index = sequence.indexOf("set SKY", index);
-	    if (index == -1) {
-		index = lastIndex+1;
-		continue;
-	    }
-	    // Construct the offset string.  This is slightly more complex in this case, since there are a number
-	    // of options that can affect what we write
-	    if (offsets.size() == 0) {
-		// Just use the base offset
-		offsetStr = "offset "+offsetRA+" "+offsetDec;
-	    }
-	    else if ( !isOffset ) {
-		// We want to make sure we are looking at the same position in the sky
-		// for each observation
-		double currentRAOffset  = offsetRA  - Double.parseDouble((String)offsets.elementAt(0));
-		double currentDecOffset = offsetDec - Double.parseDouble((String)offsets.elementAt(1));
-		offsetStr = "offset "+currentRAOffset+" "+currentDecOffset;
-// 		offsets.removeElementAt(1);
-// 		offsets.removeElementAt(0);
-	    }
-	    else if ( addOffsetToSky ) {
-		// We should have both object and sky offsets inside the offsest vector
-		double currentRAOffset  = offsetRA  + Double.parseDouble((String)offsets.elementAt(2));
-		double currentDecOffset = offsetDec + Double.parseDouble((String)offsets.elementAt(3));
-		offsetStr = "offset "+currentRAOffset+" "+currentDecOffset;
-		// Remove these two offsets
-// 		offsets.removeElementAt(3);
-// 		offsets.removeElementAt(2);
-// 		offsets.removeElementAt(1);
-// 		offsets.removeElementAt(0);
-	    }
-	    else if ( scaleOffsets ) {
-		// We just scale the base offsets and apply this to the sky
-		double currentRAOffset  = offsetRA  + offsetScale*Double.parseDouble((String)offsets.elementAt(0));
-		double currentDecOffset = offsetDec + offsetScale*Double.parseDouble((String)offsets.elementAt(1));
-		offsetStr = "offset "+currentRAOffset+" "+currentDecOffset;
-// 		offsets.removeElementAt(1);
-// 		offsets.removeElementAt(0);
-	    }
-	    else {
-		// If we get here then we are using a pseudo random pattern within a defined box
-		// In this case, the offsetScale is the box size
-		double currentRAOffset  = offsetRA  + ((int)((2.*(Math.random() - 0.5)) * offsetScale +10.))/10.; 
-		double currentDecOffset = offsetDec + ((int)((2.*(Math.random() - 0.5)) * offsetScale +10.))/10.;;
-		offsetStr = "offset "+currentRAOffset+" "+currentDecOffset;
-// 		offsets.removeElementAt(1);
-// 		offsets.removeElementAt(0);
-	    }
-	    // DEBUG
-	    System.out.println("Adding to SKY: "+offsetStr);
-
-	    // Now add/replace the sky offset string
-	    if ( ((String)sequence.elementAt(index+1)).startsWith("offset") ) sequence.removeElementAt(index+1);
-	    sequence.add (index+1, offsetStr);
-
-	    if (!objectFirst) {
-		// Find the next OBJECT
-		lastIndex = index;
-		index = sequence.indexOf("set OBJECT", index);
-		if (index != -1) {
-		    // Construct the offset string.
-		    if (offsets.size() == 0) {
-			// If there are no offsets specified, then assume (0,0)
-			offsetStr = "offset 0.0 0.0";
-		    }
-		    else {
-			// Use the first two specified offsets
-			offsetStr = "offset " + Double.parseDouble( (String)offsets.elementAt(0) ) +
-			    " " + Double.parseDouble( (String)offsets.elementAt(1) );
-		    }
-		    // DEBUG
-		    System.out.println("Adding to OBJECT: "+offsetStr);
-		    
-		    // Now add (or replace the current) offset string with the new one
-		    if ( firstObject ){
-			if ( ((String)sequence.elementAt(index+2)).startsWith("offset") ) {
-			    sequence.removeElementAt(index+2);
-			}
-			sequence.add( index+2, offsetStr);
-			if ( !((String)sequence.elementAt(index+3)).equals(waitStr) ) sequence.add( index+3, waitStr);
-			firstObject = false;
-		    }
-		    else {
-			if ( ((String)sequence.elementAt(index+1)).startsWith("offset") ) {
-			    sequence.removeElementAt(index+1);
-			}
-			sequence.add( index+1, offsetStr);
-			if ( !((String)sequence.elementAt(index+2)).equals(waitStr) ) sequence.add( index+2, waitStr);
-		    }
-		}
-		else {
-		    index = lastIndex+1;
-		}
-	    }
-	    // Now remove the current offset elements that we have used
-	    if (offsets.size() != 0) {
-		if ( addOffsetToSky ) {
-		    offsets.removeElementAt(3);
-		    offsets.removeElementAt(2);
-		}
-		offsets.removeElementAt(1);
-		offsets.removeElementAt(0);
-	    }
-	}
-    }
-
-
 /**
  *  Writes the sequence file from the sequence buffer.
  *
@@ -3884,115 +3569,6 @@ public class SpTranslator {
          return (SpObs) spItem;
       }
    }
-
-    private void fixupOffsets(Vector sequence) {
-
-	// If there are no SKYs don't do anything
-	if ( sequence.indexOf("set SKY") == -1) return; 
-
-	// If a "set SKY: command is preceded by a WAIT ALL, then the WAIT and preceding lines are redundant
-	int index = 0;
-	while ( (index = sequence.indexOf("set SKY", index)) != -1) {
-	    if ( ((String)sequence.elementAt(index-1)).equals ("-WAIT ALL") ) {
-		index = index-2;
-		for (int i=0; i<3;i++) sequence.removeElementAt(index);
-		// If the current line is still an offset, remove that as well
-		if ( ((String)sequence.elementAt(index-1)).startsWith("offset") ) {
-		    sequence.removeElementAt(index-1);
-		}
-	    }
-	    else {
-		index++;
-	    }
-	}
-	System.out.println("Completed fixing up SKY commands");
-
-	// Remove any redundant offsets
-	// These will probably have been introduced by the addition of a sky eye
-	// and use of a sky target component
-	String lastOffset = null;
-	String currOffset = null;
-	for (int i=0; i<sequence.size(); i++) {
-	    if ( ((String)sequence.elementAt(i)).startsWith("offset") ) {
-		// If the preceding line is an "observe" and the line after
-		// is a setHeader then this is probably a
-		// spurious value
-		if ( i < (sequence.size() -1) &&
-		     ((String)sequence.elementAt(i-1)).indexOf("_observe") != -1 &&
-		     ((String)sequence.elementAt(i+1)).startsWith("setHeader") ) {
-		    sequence.removeElementAt(i);
-		    continue;
-		}
-
-		currOffset = (String)sequence.elementAt(i);
-		if ( currOffset.equals(lastOffset) ) {
-		    sequence.removeElementAt(i);
-		    // Decrement so we find the same position agin in case of multiple repeats
-		    i--;
-		}
-		else {
-		    lastOffset = new String (currOffset);
-		}
-	    }
-	}
-	System.out.println("Completed removal of redundant offsets");
-
-	// Strip out all of the WAIT_ALL commands and reinsert them before every "do" command
-	// For safety
-	index = 0;
-	while ( (index = sequence.indexOf("-WAIT ALL")) != -1) {
-	    sequence.removeElementAt(index);
-	}
-	System.out.println("Removed add WAIT instructions");
-	// Now add the WAIT ALL command before each observation, and also see if
-	// we can combine ony observe requests by looking for consecutive "do"
-	// commands
-	for (int i=0; i<sequence.size(); i++) {
-	    if ( ((String)sequence.elementAt(i)).startsWith("do") ) {
-		// Does the next one start with a "do" as well
-		// Keep looping until the next statement is no longer a "do"
-		while ( ((String)sequence.elementAt(i+1)).startsWith("do") ) {
-		    // Get the current number of observes
-		    StringTokenizer st1 = new StringTokenizer ((String)sequence.elementAt(i));
-		    StringTokenizer st2 = new StringTokenizer ((String)sequence.elementAt(i+1));
-		    // Get rid of the first token from each string
-		    st1.nextToken();
-		    st2.nextToken();
-		    // Get the current and next number of observes and add them
-		    int newCount = Integer.parseInt(st1.nextToken()) + Integer.parseInt(st2.nextToken());
-		    String newLine = "do "+newCount+" _observe";
-		    sequence.removeElementAt(i+1);
-		    sequence.removeElementAt(i);
-		    sequence.add(i, newLine);
-		}
-		// Now just add the WAIT instruction
-		sequence.add(i, "-WAIT ALL");
-		i++;
-	    }
-	}
-	System.out.println("Added WAIT instructions");
-
-	// Finally, check the value of the NOFFSETS paramter
-	index = 0;
-	int    endIndex = sequence.indexOf("breakPoint");
-	if (endIndex < 0) endIndex = sequence.size();
-	int    offsetCount  = 0;
-	String offsetHeader = "-setHeader NOFFSETS ";
-	String defaultOffset = "offset 0 0";
-	for (int i=0; i<sequence.size(); i++) {
-	    if ( ((String)sequence.elementAt(i)).indexOf("NOFFSETS") != -1 ) {
-		index = i;
-		break;
-	    }
-	}
-	for (int i=0; i<endIndex; i++) {
-	    if ( ((String)sequence.elementAt(i)).startsWith("offset") && 
-		 !((String)sequence.elementAt(i)).equals(defaultOffset) ) offsetCount++;
-	}
-	offsetHeader = offsetHeader + offsetCount;
-	sequence.removeElementAt(index);
-	sequence.add(index, offsetHeader);
-    }
 
 }
 
