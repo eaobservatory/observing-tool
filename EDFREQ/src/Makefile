@@ -11,8 +11,7 @@ include $(CONF_HOME)/make.conf
 # compiled too, during the compilation of edfreq.FrontEnd. If earlier versions of the jdk are
 # not all dependencies are detected by the compiler. Compiling edfreq/FrontEnd.class first
 # improves compile time for these earlier jdk's though.
-CLASS_FILES = $(LOCAL_INSTALL_ROOT)/classes/edfreq/FrontEnd.class \
-              $(addprefix $(LOCAL_INSTALL_ROOT)/classes/,$(shell ls edfreq/*.java | sed -e 's/\.java/\.class/g'))
+CLASS_FILES = $(addprefix $(LOCAL_INSTALL_ROOT)/classes/,$(shell ls edfreq/*.java | sed -e 's/\.java/\.class/g'))
 
 CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
 
