@@ -967,8 +967,8 @@ public class SpTranslator {
                                           // not iterated
       Vector v;                           // Work Vector
       String value;                       // Attribute value
-      String remoteTriggerSrc;
-      String remoteTriggerId;
+      String remoteTriggerSrc = null;
+      String remoteTriggerId = null;
 
       boolean firstSlew = true;
 
