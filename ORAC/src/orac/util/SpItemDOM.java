@@ -64,7 +64,7 @@ public class SpItemDOM {
     _element = (ElementImpl)ownerDoc.createElement(classNameTag);
 
     // Parse av table and write result into _element.
-    (new SpAvTableDOM(spItem.getTable(), _element).parseAvTable());    
+    (new SpAvTableDOM(spItem.getTable(), _element)).parseAvTable();
     
     // Append children
     Enumeration children = spItem.children();
