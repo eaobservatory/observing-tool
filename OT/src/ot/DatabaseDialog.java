@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Component;
+import java.awt.Font;
 import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
@@ -234,7 +235,7 @@ public class DatabaseDialog implements ActionListener {
       return;
     }
 
-    JOptionPane.showMessageDialog(_dialogComponent, result, "Database Message", JOptionPane.INFORMATION_MESSAGE);
+    new FormattedStringBox(result, "Database Message");
   }
 
   /**
