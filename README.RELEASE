@@ -62,13 +62,22 @@ How to prepare an OT release
 
   tar zcvhf ot_YYYYMMDD.tar.gz ompot 
 
-- Copy the gzipped tar file to /local/jcmt/ftp/jcmtot
+- To appease some users it is also worth making a .zip
+  version.
+
+  zip -9 -r ot_YYYYMMDD.zip ompot
+
+- We rely on Brad to package the .sit Max OS X version.
+
+- Copy the [g]zipped tar file to /local/jcmt/ftp/jcmtot
   [note that the equivalent UKIRT directory points to this directory
    so there is no need to make an explicit UKIRT release]
 
 - Change the ot_latest.tar.gz soft link in that FTP directory 
   to point to the new version. Update info in the README file
   as required.
+
+- Update /local/jcmt/ftp/jcmtot/README.txt to include the release notes.
 
 - Tag the CVS release
 
