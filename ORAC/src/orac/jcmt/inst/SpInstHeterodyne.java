@@ -77,6 +77,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * But it can also be used for an arbitrary user defined frequency in the rest frame of the source.
    */
   public static final String ATTR_REST_FREQUENCY = "restFrequency";
+    public static final String ATTR_SKY_FREQUENCY = "skyFrequency";
 
   /** Overlap of multiple hybrid subbands. */
   public static final String ATTR_OVERLAP = "overlap";
@@ -382,6 +383,10 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    */
   public void setVelocity(double value) {
     _avTable.set(ATTR_VELOCITY, value);
+    // Caculate the sky frequency
+    double redshift = convertToRedshift ( RADIAL_VELOCITY_OPTICAL, value);
+    double skyFreq  = getRestFrequency (0) / ( 1+redshift);
+    _avTable.set (ATTR_SKY_FREQUENCY, skyFreq);
   }
 
   /**
@@ -498,6 +503,12 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    */
   public void setRestFrequency(double value, int subsystem) {
     _avTable.set(ATTR_REST_FREQUENCY, value, subsystem);
+    if ( subsystem == 0 ) {
+	// Calculate the sky frequency
+	double redshift = convertToRedshift( RADIAL_VELOCITY_OPTICAL, getVelocity() );
+	double skyFreq  = value / ( 1+redshift);
+	_avTable.set(ATTR_SKY_FREQUENCY, skyFreq);
+    }
   }
 
   /**
