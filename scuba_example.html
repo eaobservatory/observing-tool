@@ -9,6 +9,8 @@ ff0000">
 
 <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
 
+Here we'll work through setting up a straightforward jiggle map observation.  If you need specific help on other modes, on choosing parameter values or on other science queries, try consulting our <a href="/JACpublic/JCMT/Continuum_observing/SCUBA/ot_hints.html"> SCUBA Observing Tool FAQ</a>, or contact your Friend of Project. 
+
     <h2><a name="oe">Our example: preparing an 850/450 jiggle map</a></h2>
 
     Go to the JCMT root window, and open the SCUBA library:<p>
@@ -108,11 +110,15 @@ will take. The first estimate is without any observations that you have marked a
      You probably don't need to change anything here. The default
      value of tau of "Allocated" means that your MSB can be scheduled
      when the tau is in the range that was specified by your TAG for
-     your project The default value of the sub-millimetre seeing is
+     your project. The default value of the sub-millimetre seeing is
      "Don't Care". If you think you need to change these values, click
      on the note entitled "Note: Site Quality" which contains a
-     lengthy explanation, but don't get bogged down in this for
-     now. 
+     lengthy explanation.  DO NOT request a tau value outside your TAG allocation.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.<p>
+      
 
 
     <h2><a name="tsc">The SCUBA component</a></h2>
@@ -292,7 +298,11 @@ don't need to change any of those now.
       populated with the SIMBAD co-ordinates for the source. The
       SIMBAD name for the source will also be indicated next to the
       "Resolve Name" button.  And of course, double check that the
-      co-ordinates are those you intend to observe.<p>
+      co-ordinates are those you intend to observe. <p>
+
+<!--      N.B. Not all ACSII characters are allowed in the target name -
+      make sure your target name is built up of only the following
+      characters A-Z, a-z 0-9,+,- and _. <p>-->
 
       But wait - that's not all.<p>
 
@@ -315,6 +325,8 @@ don't need to change any of those now.
 
       It's now full of stars. The display application, by the way, is
       is based on JSky, for those familiar with it. <p>
+
+      If you're having problems with the position editor, the most likely explanation is that your version(s) of JRE, JAI and/or java may not be sufficiently up-to-date; check the <a href="download.html">download page</a> for more information.  If you are behind a firewall, you may need to check your <a href="advanced.html#proxy">proxy server settings</a>.<p>
 
       The DSS may not be the most useful survey for planning
       sub-millimetre observations, but you can read in any FITS image
@@ -453,12 +465,12 @@ taking your data! This note should describe the aim of the
   <li> "Stable weather is critical for this project, tau is less important
     i.e. can be done when weather is on the edge of the allocated band."
 
-  <li> pointing and focus are critical for this project. Please repeat
+  <li> "Pointing and focus are critical for this project. Please repeat
   any pointings with shifts in excess of 2 arcseconds.  Please repeat
   the Z-focus at least once every two hours and the X-, and Y-focus at
-  least at the start and middle of the shift.
+  least at the start and middle of the shift."
 
-<li> Precise calibration is/is not exremely important for this project
+<li> "Precise calibration is/is not exremely important for this project."
 
 </ul>
 
@@ -471,16 +483,12 @@ the left toolbar.  A note will be dropped in just below your
       <img src="images/note.gif" alt="Inserting a note"><p>
 
 You may then click on the note itself, which allows you to tick the
-"Show to observer" option and enter your comments. This will also turn
-the note red in your science programme window. 
+"Show to observer" option and enter your comments. Notes which are available to observers will appear in a dark blue colour in your science program window.  You can also then specify useful information like required S/N, which may help observers to avoid wasting time on your observations by going too deep.<p>
 
       <img src="images/note2.gif" alt="Show note to observer"><p>
 
 If you prefer, you can also put in an individual note in each MSB. If
-there is a "Show to observer" note inside an MSB, it will be shown
-<strong>instead</strong> of any note specified at the science program
-level (see <a href="#placement">A note about placement</a>) as only one
-	      note can be shown during observing.<p>
+there is a "Show to observer" note inside an MSB, as well as a "Show to observer" note higher up in the hierarchy, the two will be concatenated in the observer's display.  Hence you could, if you wished, put a general note beneath the program title and then a specific note within each MSB - both will be visible.<p>
 
 <hr>
 <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>

@@ -196,13 +196,10 @@ is likely that the whole scan will be lost. So doing three 30-minute
 scan maps is better than doing one 90-minute one. </small>
       <p>
 
-<h3><a name="andor">AND and OR Folders</a></h3>
+<h3><a name="andor">OR and AND Folders</a></h3>
 
- By default, all MSBs will be considered available for observation, unless their
- "Observe" counter has been set to "0" or "removed". The OMP software
- includes AND and OR folders, which can be inserted by clicking on the
- left hand toolbar, to modify this behaviour. They can be very useful
- for managing your observing programme as the semester progresses.<p>
+ Within a science program, you can use OR and AND folders to group your MSBs.  These folders can be very useful
+ for organising and managing your observing programme as the semester progresses.<p>
 
   An OR folder can contain N items, and you can set the "Select"
   counter on the OR folder to indicate that you'd like any subset of
@@ -210,7 +207,7 @@ scan maps is better than doing one 90-minute one. </small>
  detect the CO line in an object, but were not concerned in which
  transition (either 3-2 or 2-1), one could use a top level OR folder
  which contained a target information component and two MSBs as shown
-  below. The use should set the "Select" counter of the OR folder to 1
+  below. The user should set the "Select" counter of the OR folder to 1
   to indicate that just 1 of the MSBs should be executed (not both). <p>
 
 <img src="images/or_example.gif" alt="or example"><p>
@@ -232,19 +229,22 @@ scan maps is better than doing one 90-minute one. </small>
  light of past observations, results of data reduction and available
  telescope time.<p>
 
-  AND folders enable similar observations to be grouped together, and
-  to ensure that observations within the same group are more likely to
-  get observed than those from a different group. In the example
+
+  An AND folder <strong>does not</strong> influence the availability of its contents, as an OR folder can, once an MSB inside it has been observed.  Instead, they simply enable observations to be grouped together. In the example
   below, AND folders are used to indicate that the observer would
   prefer to end up with observations A and B or X and Y rather than A
-  and X and A and Y. Note, that the order of observations, and which
-  get done will still depend on project priority, source availability
+  and X and A and Y.  The order of observations, and which
+  get done, will still depend only on project priority, source availability
   and weather. If the observer absolutely needs two targets observed
   to get any meaningful scientific result, they should go in the same
   MSB rather than in an AND folder - do not forget MSBs are allowed to
   contain multiple targets. <p>
 
 <img src="images/and_example.gif" alt="and example"><p>
+
+An alternative use for an AND folder might be to avoid having to reproduce information that is common to several MSBs - the site quality component, for example.  An individual component can be pulled out of the MSBs and set into the hierarchy at the AND folder level.  In the following example, we have been allocated both bands 1 and 2 for our project; however, because of differences in their expected fluxes we want to observe targets A and B in band 1 and targets C and D in band 2.<p>
+
+<img src="images/and_example2.gif" alt="and example2"><p>
 
 <h3><a name="proxy">To those behind a firewall: Setting your proxy server</a></h3>
 
