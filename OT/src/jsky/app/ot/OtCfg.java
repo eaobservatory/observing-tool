@@ -92,18 +92,11 @@ public final class OtCfg
 	// Read the configuration information from the "ot.cfg" file.
 	_otCfgInfo = OtCfgReader.load(baseDir + "ot.cfg");
 
-        // Initialize telescope specific features
+        // Initialize telescope specific features. Has to be done before SpTelescopePos.setBaeTag().
+	// _initTelescope() must be called BEFORE _initStandardSpItems().
         _initTelescope(_otCfgInfo);
 
-	// Added by MFO, 20 December 2001 (changed on 18 January 2002)
-	// Base Position
-	// The base star tag has to be set BEFORE _initStandardSpItems is called.
-	SpTelescopePos.setBaseTag(telescopeUtil.getBaseTag());
-
 	_initStandardSpItems();
-
-	// Guide Stars
-	SpTelescopePos.setGuideStarTags(_otCfgInfo.guideTags);
 
 	// TpeImageFeature add-ons
 	_initTpeImageFeatures(_otCfgInfo);
@@ -222,6 +215,10 @@ public final class OtCfg
     }
 
     private static void _initTelescope(Info cfgInfo) throws Exception {
+
+      // Guide Stars.
+      SpTelescopePos.setGuideStarTags(cfgInfo.guideTags);
+
       if((cfgInfo.telescopeUtilClass != null) && (!cfgInfo.telescopeUtilClass.equals(""))) {
         try {
 	  telescopeUtil = (TelescopeUtil)Class.forName(cfgInfo.telescopeUtilClass).newInstance();
@@ -239,6 +236,12 @@ public final class OtCfg
           e.printStackTrace();
 	}
       }
+
+      // Base Position
+      // Set SpTelescopePos.BASE_TAG to telescope specific name:
+      // For example "Base" for UKIRT, "Science" for JCMT.
+      // The base star tag has to be set BEFORE _initStandardSpItems is called.
+      SpTelescopePos.setBaseTag(telescopeUtil.getBaseTag());
     }
 
     //
