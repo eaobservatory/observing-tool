@@ -1430,7 +1430,13 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             double disp = getDispersion();
             double cwl = getCentralWavelength();
             double w = getMaskWidthPixels();
-            rp = (disp * cwl * SPECT_FOCAL_LENGTH) / (w * PIXPITCH);
+            double ma = getMaskAngle() * Math.PI/180.0;
+            rp = (disp * cwl * SPECT_FOCAL_LENGTH * Math.cos(ma)) 
+              / (w * PIXPITCH);
+            if (rp > 20000.0) {
+	        /* Resolving power clipped at 20,000 */
+                rp = 20000.0;
+	    }
 	}
         return rp;
     }
