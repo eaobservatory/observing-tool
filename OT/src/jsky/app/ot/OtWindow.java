@@ -1119,26 +1119,18 @@ public class OtWindow extends SpTreeGUI
         return false;
       }
 
-      SpValidation spValidation = null;
+      if(OtCfg.telescopeUtil == null) {
+        new ReportBox("Could not find validation tool.\n" + 
+	              "Make sure a telescope cfg class is specified in the ot.cfg file.", reportBoxTitle);
+      
+        return false;
+      }
+      
+      SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool();
 
-      // Doing the validation.
-      try {
-        spValidation = (SpValidation)Class.forName(OtCfg.validationClass).newInstance();
-      }
-      catch(ClassNotFoundException e) {
-        new ReportBox("Could not find validation tool class " + OtCfg.validationClass + ".", reportBoxTitle);
-	return false;
-      }
-      catch(InstantiationException e) {
-        new ReportBox("Could not instantiate validation tool class " + OtCfg.validationClass + ".", reportBoxTitle);
-	return false;
-      }
-      catch(IllegalAccessException e) {
-        new ReportBox(e + " while trying to use validation tool class " + OtCfg.validationClass + ".", reportBoxTitle);
-	return false;
-      }
-      catch(NullPointerException e) {
-        new ReportBox("Please specify a telescope specific validation tool class\nin you configuration file.", reportBoxTitle);
+      if(spValidation == null) {
+        new ReportBox("Could not find validation tool.", reportBoxTitle);
+
 	return false;
       }
       
