@@ -59,7 +59,7 @@ import jsky.app.ot.editor.OtItemEditor;
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener,
-    DocumentListener, HeterodyneEditor {
+    DocumentListener, FocusListener, HeterodyneEditor {
 
   private String currentFE = "";
   private static SideBandDisplay sideBandDisplay = null;
@@ -138,6 +138,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       _w.velocity.setText ( "0.0" );
       _w.velocity.addActionListener ( this );
+      _w.velocity.addFocusListener ( this );
       _w.velocity.getDocument().addDocumentListener( this );
 
       _w.velocityDefinition.setModel(new DefaultComboBoxModel(_radialVelocityDefinitions));
@@ -1300,4 +1301,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   public void changedUpdate(DocumentEvent e) { _velocityChanged = true; }
   public void insertUpdate(DocumentEvent e)  { _velocityChanged = true; }
   public void removeUpdate(DocumentEvent e)  { _velocityChanged = true; }
+    public void focusGained(FocusEvent e) {}
+    public void focusLost(FocusEvent e) {feVelocityAction(null);}
 }
