@@ -99,7 +99,7 @@ public class SpClient extends SoapClient {
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
 
-      String spXML = (String)doCall(url, "fetchProgram");
+      String spXML = new String((byte[])doCall(url, "fetchProgram"));
       
       SpItem spItem = (new SpInputXML()).xmlToSpItem(spXML);
 
@@ -153,9 +153,9 @@ public class SpClient extends SoapClient {
         forceString = "0";
       }
 
-      addParameter("sp", String.class, sp);
-      addParameter("password", String.class, pass);
-      addParameter("force", String.class, forceString);
+      addParameter("sp", byte[].class, sp.getBytes());
+      addParameter("password", byte[].class, pass.getBytes());
+      addParameter("force", byte[].class, forceString.getBytes());
 
       return new SpStoreResult(doCall(url, "storeProgram"));
    }
@@ -201,7 +201,6 @@ public class SpClient extends SoapClient {
       public SpStoreResult() { }
 
       public SpStoreResult(Object resultObject) throws InstantiationException {
-         SpStoreResult result      = new SpStoreResult();
          Object []     resultArray = null;
 
          // Convert to array.
