@@ -24,6 +24,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
 import gemini.sp.iter.SpIterOffset;
+import gemini.sp.obsComp.SpInstObsComp;
 
 import jsky.app.ot.tpe.TpeCreateableFeature;
 import jsky.app.ot.tpe.TpeDraggableFeature;
@@ -40,6 +41,7 @@ import gemini.util.TelescopePos;
 import gemini.util.TelescopePosList;
 import gemini.util.TelescopePosSelWatcher;
 import orac.util.SpMapItem;
+import orac.ukirt.inst.SpInstUIST;
 
 /**
  * A TpeImageFeature extension to draw and manipulate offset positions on
@@ -248,6 +250,15 @@ public class EdIterOffsetFeature extends TpeImageFeature
 	while (e.hasMoreElements()) {
 	    FitsPosMapEntry pme = (FitsPosMapEntry) e.nextElement();
 	    Point2D.Double p   = pme.screenPos;
+	    // Rotate this point based on the current pos angle off the science area
+	    SpInstObsComp myInst = (SpInstObsComp) _iw.getInstrumentItem();
+	    if ( myInst instanceof SpInstUIST ) {
+		// Add a 90 degree rotation - not sure why, but it seem to work...
+		p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians + Math.PI/2.);
+	    }
+	    else {
+		p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians);
+	    }
 	    g.drawOval((int)(p.x - r), (int)(p.y - r), d, d);
 
 	    if (getDrawIndex()) {
