@@ -215,7 +215,8 @@ public class DatabaseDialog implements ActionListener {
       spItem = SpClient.fetchProgram(projectID, password);
     }
     catch(Exception e) {
-      JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(_dialogComponent, "Could not fetch Science Program.\n" + e.getMessage(),
+                                    "Database Error", JOptionPane.ERROR_MESSAGE);
       _stopAction.actionsFinished();
       hide();
       return;
@@ -271,7 +272,8 @@ public class DatabaseDialog implements ActionListener {
       }
     }
     catch(Exception e) {
-      JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(_dialogComponent, "Could not store Science Program.\n" + e.getMessage(),
+                                    "Database Error", JOptionPane.ERROR_MESSAGE);
       _stopAction.actionsFinished();
     }
   
