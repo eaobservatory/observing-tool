@@ -141,15 +141,17 @@ public class SpClient extends SoapClient {
 	    addParameter("Catalog", String.class, new String(contents));
 	    Object o = doCall(getURL(), SOAP_ACTION, "SpInsertCat");
 	    rtn = (String [])o;
-	    String spXML = new String (rtn[0]);
-	    if (spXML != null && !spXML.equals("")) {
-		System.out.println("Building replicated Science Program");
-		spItem = (new SpInputXML()).xmlToSpItem(spXML);
+	    if (rtn != null) {
+		String spXML = new String (rtn[0]);
+		if (spXML != null && !spXML.equals("")) {
+		    System.out.println("Building replicated Science Program");
+		    spItem = (new SpInputXML()).xmlToSpItem(spXML);
+		}
+		JOptionPane.showMessageDialog(null, 
+					      new String (rtn[1]),
+					      "Replication returned the following information",
+					      JOptionPane.INFORMATION_MESSAGE);
 	    }
-	    JOptionPane.showMessageDialog(null, 
-					  new String (rtn[1]),
-					  "Replication returned the following information",
-					  JOptionPane.INFORMATION_MESSAGE);
 	}
 	catch (java.io.FileNotFoundException e) {
 	    e.printStackTrace();
