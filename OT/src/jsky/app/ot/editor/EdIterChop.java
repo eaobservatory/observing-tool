@@ -13,6 +13,8 @@ import java.awt.event.ActionListener;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
+import java.util.Observer;
+import java.util.Observable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -33,6 +35,7 @@ import jsky.app.ot.tpe.TpeManager;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
+import gemini.sp.SpAvEditState;
 import gemini.sp.iter.SpIterChop;
 
 
@@ -45,7 +48,7 @@ import gemini.sp.iter.SpIterChop;
  */
 public class EdIterChop extends OtItemEditor
     implements DropDownListBoxWidgetWatcher, TextBoxWidgetWatcher,
-               TableWidgetWatcher, ActionListener, TableModelListener {
+               TableWidgetWatcher, ActionListener, TableModelListener, Observer {
     
     // The iteration table widget.
     private TableWidgetExt _iterTab;
@@ -120,8 +123,14 @@ public class EdIterChop extends OtItemEditor
      */
     public void setup(SpItem spItem) {
         _iterChop = (SpIterChop)spItem;
+
+	if (_iterChop != null) {
+	    _iterChop.getAvEditFSM().deleteObserver(this);
+	}
 	super.setup(spItem);
+	_iterChop.getAvEditFSM().addObserver(this);
     }
+
 
     /**
      * Update the widgets to display the values of the attributes in the
@@ -166,6 +175,17 @@ public class EdIterChop extends OtItemEditor
 	stw.setText(message);
     }
 
+    /**
+     * Observes the associated SpItem attribute table for changes to the
+     * chop parameters.
+     */
+    public void update(Observable o, Object arg) {
+
+	// Was it the spItem attributes?
+	if (o instanceof SpAvEditState) {
+	    _updateWidgets();
+	}
+    }
 
     /**
      * Add an iteration step.
@@ -390,6 +410,8 @@ public class EdIterChop extends OtItemEditor
       return;
     }
 
+    _iterChop.getAvEditFSM().deleteObserver(this);
+
     _iterChop.getTable().rmAll();
 
     for(int i = 0; i < _iterTab.getRowCount(); i++) {
@@ -397,6 +419,8 @@ public class EdIterChop extends OtItemEditor
       _iterChop.setAngle((String)_iterTab.getValueAt(i, 1), i);
       _iterChop.setCoordFrame((String)_iterTab.getValueAt(i, 2), i);
     }
+
+    _iterChop.getAvEditFSM().addObserver(this);
 
     // MFO
     // I think this is implemented in a different way in Gemini ot-2000B.12.
