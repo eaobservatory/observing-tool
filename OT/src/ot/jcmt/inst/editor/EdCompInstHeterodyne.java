@@ -161,6 +161,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
          for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
            sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
+           
+           // Since bandwidths are different for das and heterodyne there are no default
+           // bandwidths in _instHeterodyne. If a bandwidth is 0.0, i.e. it has not been initialised
+           // properly, then do so now.
+           if(_instHeterodyne.getBandWidth(i) == 0.0) {
+              _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E9, i);
+           }
+	   
            sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
 
            if(i > 0) {
