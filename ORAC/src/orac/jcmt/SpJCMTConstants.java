@@ -124,7 +124,7 @@ public interface SpJCMTConstants {
    public static final int CHOP_SYSTEM_TARCKING  = 0;
 
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
-   public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
+//    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
    public static final String ATTR_CYCLE_REVERSAL      = "cycleReversal";
    public static final String ATTR_JIGGLE_PATTERN      = "jigglePattern";
    public static final String ATTR_STEP_SIZE           = "stepSize";
