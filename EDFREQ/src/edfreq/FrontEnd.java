@@ -24,8 +24,6 @@ import java.awt.Point;
 import java.util.*;
 import java.io.*;
 
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
@@ -37,8 +35,7 @@ import org.xml.sax.InputSource;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorConstants,
-                                                DocumentListener
+public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorConstants
 {
 
    private JComboBox feChoice;
@@ -174,7 +171,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       moleculeFrequency.setColumns(12);
       moleculeFrequency.setText ( "0.0000" );
       moleculeFrequency.setForeground ( Color.red );
-      moleculeFrequency.getDocument().addDocumentListener(this);
+      moleculeFrequency.addActionListener(this);
       bandWidthChoice = new JComboBox();
       bandWidthChoice.addActionListener( this );
       mol1Panel = new JPanel(flowLayoutRight);
@@ -198,7 +195,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       moleculeFrequency2.setColumns(12);
       moleculeFrequency2.setText ( "0.0000" );
       moleculeFrequency2.setForeground ( Color.magenta );
-      moleculeFrequency2.getDocument().addDocumentListener(this);
+      moleculeFrequency2.addActionListener(this);
       mol2Panel = new JPanel(flowLayoutRight);
       mol2Panel.add ( moleculeChoice2 );
       mol2Panel.add ( transitionChoice2 );
@@ -316,6 +313,14 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       {
          feOverlapAction ( ae );
       }
+      else if ( ae.getSource() == moleculeFrequency )
+      {
+         moleculeFrequencyChanged();
+      }
+      else if ( ae.getSource() == moleculeFrequency2 )
+      {
+         moleculeFrequency2Changed();
+      }
       else if ( ae.getSource() == bandWidthChoice )
       {
          for(int i = 0; i < _samplerList.size(); i++) {
@@ -331,20 +336,6 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
          ((Sampler)_samplerList.get(i)).setBandWidthAndGui((String)bandWidthChoice.getSelectedItem());
       }
     }
-
-
-   public void changedUpdate(DocumentEvent e) { }
-
-   public void insertUpdate(DocumentEvent e) {
-      moleculeFrequencyChanged();
-      moleculeFrequency2Changed();
-   }
-  
-   public void removeUpdate(DocumentEvent e) {
-      moleculeFrequencyChanged();
-      moleculeFrequency2Changed();
-   }
-
 
 
    public void feBandAction ( ActionEvent ae )
