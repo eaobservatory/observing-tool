@@ -97,7 +97,7 @@ endif
 	\n   switch ($$""argv[1])\
 	\n      case -kill_dir:\
 	\n         shift\
-	\n         setenv PRG_HOME $1\
+	\n         setenv PRG_HOME $$1\
 	\n         shift\
 	\n         breaksw\
 	\n      default:\
@@ -236,7 +236,7 @@ endif
 	\n   switch ($$""argv[1])\
 	\n      case -kill_dir:\
 	\n         shift\
-	\n         setenv PRG_HOME $1\
+	\n         setenv PRG_HOME $$1\
 	\n         shift\
 	\n         breaksw\
 	\n      default:\
