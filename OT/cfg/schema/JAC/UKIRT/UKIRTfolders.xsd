@@ -1,0 +1,36 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+<xsd:simpleType name="nodPatternList">
+  <xsd:restriction base="xsd:string">
+    <xsd:pattern value="(A|B)"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:complexType name="nodPatternType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value" type="atx:nodPatternList"
+		     minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="SpIterNod">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element name="nodPattern" type="atx:nodPatternType"/>
+      <xsd:group   ref="atx:instIterContent" minOccurs="1" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="nod"/>
+  </xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

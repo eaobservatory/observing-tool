@@ -1,0 +1,58 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+<xsd:redefine schemaLocation="../../ATOMIXelements.xsd">
+
+<xsd:group name="ProgInfoGroup">
+    <xsd:sequence>
+      <xsd:group ref="atx:jac_meta_group"/>
+      <xsd:group ref="atx:ProgInfoGroup"/>
+    </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="schedBlockGroup">
+  <xsd:sequence>
+      <xsd:group ref="atx:jac_meta_group"/>
+    <xsd:element ref="atx:componentRef"   minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group ref="atx:schedBlockGroup"/>
+  </xsd:sequence>
+</xsd:group>
+
+<xsd:group name="observationGroup">
+  <xsd:sequence>
+      <xsd:group ref="atx:jac_meta_group"/>
+    <xsd:element ref="atx:componentRef"       minOccurs="0" maxOccurs="unbounded"/>
+    <xsd:group   ref="atx:observationGroup"/>
+  </xsd:sequence>
+</xsd:group>
+
+</xsd:redefine>
+
+<!--
+<xsd:redefine schemaLocation="../JACtypes.xsd">
+
+<xsd:group name="MSBContents">
+  <xsd:choice>
+    <xsd:group ref="atx:MSBContents"/>
+    <xsd:group ref="atx:instrumentGroup"/>
+  </xsd:choice>
+</xsd:group>
+
+</xsd:redefine>
+-->
+
+<xsd:include schemaLocation="../../ATOMIXtypes.xsd"/>
+<xsd:include schemaLocation="../JACelements.xsd"/>
+<xsd:include schemaLocation="../JACcomponents.xsd"/>
+<xsd:include schemaLocation="../JACfolders.xsd"/>
+
+<xsd:include schemaLocation="JCMTtypes.xsd"/>
+<xsd:include schemaLocation="JCMTelements.xsd"/>
+<xsd:include schemaLocation="JCMTfolders.xsd"/>
+<xsd:include schemaLocation="JCMTinstruments.xsd"/>
+<xsd:include schemaLocation="JCMTobservations.xsd"/>
+<xsd:include schemaLocation="JCMTcomponents.xsd"/>
+
+</xsd:schema>

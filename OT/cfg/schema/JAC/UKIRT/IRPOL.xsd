@@ -1,0 +1,61 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<!-- Primitive types used for IRPOL -->
+
+<xsd:simpleType name="irpolIterList">
+  <xsd:restriction base="xsd:double">
+    <xsd:enumeration value="0"/>
+    <xsd:enumeration value="22.5"/>
+    <xsd:enumeration value="45"/>
+    <xsd:enumeration value="67.5"/>
+    <xsd:enumeration value="90"/>
+    <xsd:enumeration value="135"/>
+    <xsd:enumeration value="157.5"/>
+    <xsd:enumeration value="180"/>
+    <xsd:enumeration value="202.5"/>
+    <xsd:enumeration value="225"/>
+    <xsd:enumeration value="247.5"/>
+    <xsd:enumeration value="270"/>
+    <xsd:enumeration value="292.5"/>
+    <xsd:enumeration value="315"/>
+    <xsd:enumeration value="337.5"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Complex types types used for IRPOL -->
+
+<xsd:complexType name="irpolIterType" mixed="true">
+  <xsd:complexContent>
+    <xsd:restriction base="xsd:anyType">
+      <xsd:choice>
+        <xsd:element name="value"  type="atx:irpolIterList"
+		     minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<!-- Groups used for IRPOL -->
+
+<!-- IRPOL elements -->
+<xsd:element name="SpIterIRPOL">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="atx:meta_unique"        minOccurs="0"/>
+      <xsd:element ref="atx:meta_version"       minOccurs="0"/>
+      <xsd:element name="IRPOLIter"       type="atx:irpolIterType"/>
+      <xsd:element name="iterConfigList"  type="xsd:string"  fixed="IRPOLIter"/>
+      <xsd:group   ref="atx:instIterContent"    minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="type"    type="atx:SpType" fixed="ic"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="instIRPOL"/>
+  </xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

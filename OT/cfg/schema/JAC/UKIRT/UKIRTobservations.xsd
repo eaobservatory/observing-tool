@@ -1,0 +1,60 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<xsd:element name="SpIterBiasObs">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected" minOccurs="0"/>
+      <xsd:element ref="atx:repeatCount"/>
+    </xsd:sequence>
+  <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="biasObs"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterDarkObs">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected" minOccurs="0"/>
+      <xsd:element ref="atx:coadds"/>
+      <xsd:element ref="atx:exposureTime"/>
+      <xsd:element ref="atx:repeatCount"/>
+    </xsd:sequence>
+  <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="darkObs"/>
+  </xsd:complexType>
+</xsd:element>
+
+
+<xsd:element name="SpIterObserve">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected" minOccurs="0"/>
+      <xsd:element ref="atx:repeatCount"/>
+      <xsd:element ref="atx:title"                  minOccurs="0"/>
+    </xsd:sequence>
+  <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="observe"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpIterSky">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected" minOccurs="0"/>
+      <xsd:element ref="atx:repeatCount"/>
+    </xsd:sequence>
+  <xsd:attribute name="type" type="atx:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="sky"/>
+  </xsd:complexType>
+</xsd:element>
+
+
+</xsd:schema>

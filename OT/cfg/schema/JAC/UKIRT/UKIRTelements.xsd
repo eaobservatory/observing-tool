@@ -1,0 +1,45 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+
+<xsd:element name="SpNote">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed"         minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"          minOccurs="0"/>
+      <xsd:element name="brightness" type="xsd:anyType" minOccurs="0"/>
+      <xsd:element name="coordDesc"  type="xsd:anyType" minOccurs="0"/>
+      <xsd:group   ref="atx:noteGroup"/>
+      <xsd:element name="snr"        type="xsd:anyType" minOccurs="0"/>
+      <xsd:element name="sourceDesc" type="xsd:string"  minOccurs="0"/>
+      <xsd:element ref="atx:title"                      minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute name="id"                 type="xsd:nonNegativeInteger" 
+		   use="optional"/>
+    <xsd:attribute name="type"               type="atx:SpType" fixed="no"/>
+    <xsd:attribute name="subtype"            type="xsd:string" fixed="none"/>
+    <xsd:attribute name="observeInstruction" type="xsd:boolean" use="optional"
+		   default="false"/>
+  </xsd:complexType>
+</xsd:element>
+
+<xsd:element name="SpSiteQualityObsComp">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:element ref="atx:meta_gui_collapsed" minOccurs="0"/>
+      <xsd:element ref="atx:meta_gui_selected"  minOccurs="0"/>
+      <xsd:element ref="atx:meta_unique"        minOccurs="0"/>
+      <xsd:element name="cloud" type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:element name="moon"  type="xsd:nonNegativeInteger" minOccurs="0"/>
+      <xsd:group   ref="atx:siteQualityGroup"/>
+    </xsd:sequence>
+    <xsd:attribute name="id"      type="xsd:nonNegativeInteger" use="optional"/>
+    <xsd:attribute name="type"    type="atx:SpType" fixed="oc"/>
+    <xsd:attribute name="subtype" type="xsd:string" fixed="schedInfo"/>
+  </xsd:complexType>
+</xsd:element>
+
+
+</xsd:schema>

@@ -1,0 +1,31 @@
+<xsd:schema targetNamespace="http://omp.jach.hawaii.edu/schema"
+	    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	    xmlns:atx="http://omp.jach.hawaii.edu/schema" 
+	    elementFormDefault="qualified">
+
+<xsd:include schemaLocation="CGS4.xsd"/>
+<xsd:include schemaLocation="UFTI.xsd"/>
+<xsd:include schemaLocation="Michelle.xsd"/>
+<xsd:include schemaLocation="UIST.xsd"/>
+<xsd:include schemaLocation="IRPOL.xsd"/>
+
+<xsd:group name="instrumentGroup">
+  <xsd:choice>
+    <xsd:element ref="atx:SpInstCGS4"/>
+    <xsd:element ref="atx:SpInstUFTI"/>
+    <xsd:element ref="atx:SpInstMichelle"/>
+    <xsd:element ref="atx:SpInstUIST"/>
+  </xsd:choice>
+</xsd:group>
+
+
+<xsd:element name="SpInstCGS4Ref" type="atx:compRefType"
+	     substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpInstUFTIRef" type="atx:compRefType"
+	     substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpInstMichelleRef" type="atx:compRefType"
+	     substitutionGroup="atx:componentRef"/>
+<xsd:element name="SpInstUISTRef" type="atx:compRefType"
+	     substitutionGroup="atx:componentRef"/>
+
+</xsd:schema>
