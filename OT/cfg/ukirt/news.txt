@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ February 28th 2003
+
+  - Added Proxy setup to config file for site wide installations
+
 +++ Jannuary 29th 2003
 
   - Configure SOAP calls to use proxy server
