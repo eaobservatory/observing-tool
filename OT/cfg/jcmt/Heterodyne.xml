@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SpLibrary type="lb" subtype="none">
+  <meta_gui_collapsed>false</meta_gui_collapsed>
+  <meta_gui_filename>het_library.xml</meta_gui_filename>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <SpSiteQualityObsCompRef idref="1"/>
+      <SpInstHeterodyneRef idref="0"/>
+      <title>Beam-switch sample</title>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <SpInstHeterodyne id="0" type="oc" subtype="inst.Heterodyne">
+        <restFrequency>2.30538E11</restFrequency>
+        <bandMode>1-system</bandMode>
+        <band>usb</band>
+        <mixers>Single Mixer</mixers>
+        <feName>A3</feName>
+        <overlap>3.5E7</overlap>
+        <transition>2  - 1</transition>
+        <meta_unique>true</meta_unique>
+        <centreFrequency>4.0E9</centreFrequency>
+        <channels>2048</channels>
+        <molecule>CO</molecule>
+        <bandWidth>1.25E8</bandWidth>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <velocity>0.0</velocity>
+        <mode>dsb</mode>
+        <velocityDefinition>radio</velocityDefinition>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <jcmt_config>
+          <frontend_configure>
+            <rest_frequency units="GHz" value="2.30538E17"/>
+            <if_centre_freq units="GHz" value="0.0"/>
+            <sideband value="1"/>
+            <sb_mode value="DSB"/>
+            <freq_offset_scale units="MHz" value="???"/>
+            <dopple_tracking value="ON"/>
+            <optimize value="DISABLE"/>
+          </frontend_configure>
+
+          <line_list>
+            <rest_frequency id="CO 2  - 1" units="GHz">2.30538E11</rest_frequency>
+          </line_list>
+
+          <acsis_spw_list>
+            <doppler_field ref="TCS.RV.DOPPLER???"/>
+            <spectral_window_id_field ref="SPECTRAL_WINDOW_ID???"/>
+            <front_end_lo_freq_field ref="FE.STATE.LO_FREQ"/>
+            <spectral_window id="SPW1">
+              <spw_bandwidth_mode mode="1GHzx1024"/>
+              <spw_window type="truncate"/>
+              <rest_frequency_ref ref="CO 2  - 1"/>
+              <front_end_sideband sideband="1"/>
+              <spw_if_coordinate>
+                <spw_reference_if_frequency units="GHz">4.0E9</spw_reference_if_frequency>
+                <spw_reference_pixel>4064.0???</spw_reference_pixel>
+                <spw_if_channel_width units="Hz">1.25E8</spw_if_channel_width>
+                <spw_number_if_channel>2048</spw_number_if_channel>
+              </spw_if_coordinate>
+              <!-- <base_line_fit> etc. not implemented yet. -->
+            </spectral_window>
+
+          </acsis_spw_list>
+        </jcmt_config>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="1" type="oc" subtype="schedInfo">
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+        <meta_unique>true</meta_unique>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+      </SpSiteQualityObsComp>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <title>Science target</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <standard>false</standard>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <switchingMode>Beam</switchingMode>
+                <noOfCycles>0</noOfCycles>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <integrations>1</integrations>
+                <secsPerCycle>60</secsPerCycle>
+                <cycleReversal>true</cycleReversal>
+                <continuousCal>true</continuousCal>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <SpSiteQualityObsCompRef idref="3"/>
+      <SpInstHeterodyneRef idref="2"/>
+      <title>Position-switch sample</title>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <SpInstHeterodyne id="2" type="oc" subtype="inst.Heterodyne">
+        <restFrequency>2.30538E11</restFrequency>
+        <bandMode>1-system</bandMode>
+        <band>usb</band>
+        <mixers>Single Mixer</mixers>
+        <feName>A3</feName>
+        <overlap>3.5E7</overlap>
+        <transition>2  - 1</transition>
+        <meta_unique>true</meta_unique>
+        <centreFrequency>4.0E9</centreFrequency>
+        <channels>2048</channels>
+        <molecule>CO</molecule>
+        <bandWidth>1.25E8</bandWidth>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <velocity>0.0</velocity>
+        <mode>dsb</mode>
+        <velocityDefinition>radio</velocityDefinition>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <jcmt_config>
+          <frontend_configure>
+            <rest_frequency units="GHz" value="2.30538E17"/>
+            <if_centre_freq units="GHz" value="0.0"/>
+            <sideband value="1"/>
+            <sb_mode value="DSB"/>
+            <freq_offset_scale units="MHz" value="???"/>
+            <dopple_tracking value="ON"/>
+            <optimize value="DISABLE"/>
+          </frontend_configure>
+
+          <line_list>
+            <rest_frequency id="CO 2  - 1" units="GHz">2.30538E11</rest_frequency>
+          </line_list>
+
+          <acsis_spw_list>
+            <doppler_field ref="TCS.RV.DOPPLER???"/>
+            <spectral_window_id_field ref="SPECTRAL_WINDOW_ID???"/>
+            <front_end_lo_freq_field ref="FE.STATE.LO_FREQ"/>
+            <spectral_window id="SPW1">
+              <spw_bandwidth_mode mode="1GHzx1024"/>
+              <spw_window type="truncate"/>
+              <rest_frequency_ref ref="CO 2  - 1"/>
+              <front_end_sideband sideband="1"/>
+              <spw_if_coordinate>
+                <spw_reference_if_frequency units="GHz">4.0E9</spw_reference_if_frequency>
+                <spw_reference_pixel>4064.0???</spw_reference_pixel>
+                <spw_if_channel_width units="Hz">1.25E8</spw_if_channel_width>
+                <spw_number_if_channel>2048</spw_number_if_channel>
+              </spw_if_coordinate>
+              <!-- <base_line_fit> etc. not implemented yet. -->
+            </spectral_window>
+
+          </acsis_spw_list>
+        </jcmt_config>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="3" type="oc" subtype="schedInfo">
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+        <meta_unique>true</meta_unique>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+      </SpSiteQualityObsComp>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <title>Science target</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <standard>false</standard>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>800.0</DC1>
+              <DC2>800.0</DC2>
+            </OFFSET>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterStareObs type="ic" subtype="stareObs">
+              <switchingMode>Position</switchingMode>
+              <noOfCycles>0</noOfCycles>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+              <secsPerCycle>60</secsPerCycle>
+              <cycleReversal>true</cycleReversal>
+              <continuousCal>true</continuousCal>
+            </SpIterStareObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <SpSiteQualityObsCompRef idref="5"/>
+      <SpInstHeterodyneRef idref="4"/>
+      <title>Fast Frequency-switch sample</title>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <SpInstHeterodyne id="4" type="oc" subtype="inst.Heterodyne">
+        <restFrequency>2.30538E11</restFrequency>
+        <bandMode>1-system</bandMode>
+        <band>usb</band>
+        <mixers>Single Mixer</mixers>
+        <feName>A3</feName>
+        <overlap>3.5E7</overlap>
+        <transition>2  - 1</transition>
+        <meta_unique>true</meta_unique>
+        <centreFrequency>4.0E9</centreFrequency>
+        <channels>2048</channels>
+        <molecule>CO</molecule>
+        <bandWidth>1.25E8</bandWidth>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <velocity>0.0</velocity>
+        <mode>dsb</mode>
+        <velocityDefinition>radio</velocityDefinition>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <jcmt_config>
+          <frontend_configure>
+            <rest_frequency units="GHz" value="2.30538E17"/>
+            <if_centre_freq units="GHz" value="0.0"/>
+            <sideband value="1"/>
+            <sb_mode value="DSB"/>
+            <freq_offset_scale units="MHz" value="???"/>
+            <dopple_tracking value="ON"/>
+            <optimize value="DISABLE"/>
+          </frontend_configure>
+
+          <line_list>
+            <rest_frequency id="CO 2  - 1" units="GHz">2.30538E11</rest_frequency>
+          </line_list>
+
+          <acsis_spw_list>
+            <doppler_field ref="TCS.RV.DOPPLER???"/>
+            <spectral_window_id_field ref="SPECTRAL_WINDOW_ID???"/>
+            <front_end_lo_freq_field ref="FE.STATE.LO_FREQ"/>
+            <spectral_window id="SPW1">
+              <spw_bandwidth_mode mode="1GHzx1024"/>
+              <spw_window type="truncate"/>
+              <rest_frequency_ref ref="CO 2  - 1"/>
+              <front_end_sideband sideband="1"/>
+              <spw_if_coordinate>
+                <spw_reference_if_frequency units="GHz">4.0E9</spw_reference_if_frequency>
+                <spw_reference_pixel>4064.0???</spw_reference_pixel>
+                <spw_if_channel_width units="Hz">1.25E8</spw_if_channel_width>
+                <spw_number_if_channel>2048</spw_number_if_channel>
+              </spw_if_coordinate>
+              <!-- <base_line_fit> etc. not implemented yet. -->
+            </spectral_window>
+
+          </acsis_spw_list>
+        </jcmt_config>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+        <meta_unique>true</meta_unique>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+      </SpSiteQualityObsComp>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <title>Science target</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <standard>false</standard>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterStareObs type="ic" subtype="stareObs">
+              <frequencyOffset.throw>8.3</frequencyOffset.throw>
+              <integrations>1</integrations>
+              <secsPerCycle>60</secsPerCycle>
+              <noOfCycles>0</noOfCycles>
+              <cycleReversal>true</cycleReversal>
+              <continuousCal>true</continuousCal>
+              <switchingMode>Frequency</switchingMode>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <frequencyOffset.rate>0.5</frequencyOffset.rate>
+            </SpIterStareObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <SpSiteQualityObsCompRef idref="7"/>
+      <SpInstHeterodyneRef idref="6"/>
+      <title>Slow Frequency-switch sample</title>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">60.0</estimatedDuration>
+      <SpInstHeterodyne id="6" type="oc" subtype="inst.Heterodyne">
+        <restFrequency>2.30538E11</restFrequency>
+        <bandMode>1-system</bandMode>
+        <band>usb</band>
+        <mixers>Single Mixer</mixers>
+        <feName>A3</feName>
+        <overlap>3.5E7</overlap>
+        <transition>2  - 1</transition>
+        <meta_unique>true</meta_unique>
+        <centreFrequency>4.0E9</centreFrequency>
+        <channels>2048</channels>
+        <molecule>CO</molecule>
+        <bandWidth>1.25E8</bandWidth>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <velocity>0.0</velocity>
+        <mode>dsb</mode>
+        <velocityDefinition>radio</velocityDefinition>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <jcmt_config>
+          <frontend_configure>
+            <rest_frequency units="GHz" value="2.30538E17"/>
+            <if_centre_freq units="GHz" value="0.0"/>
+            <sideband value="1"/>
+            <sb_mode value="DSB"/>
+            <freq_offset_scale units="MHz" value="???"/>
+            <dopple_tracking value="ON"/>
+            <optimize value="DISABLE"/>
+          </frontend_configure>
+
+          <line_list>
+            <rest_frequency id="CO 2  - 1" units="GHz">2.30538E11</rest_frequency>
+          </line_list>
+
+          <acsis_spw_list>
+            <doppler_field ref="TCS.RV.DOPPLER???"/>
+            <spectral_window_id_field ref="SPECTRAL_WINDOW_ID???"/>
+            <front_end_lo_freq_field ref="FE.STATE.LO_FREQ"/>
+            <spectral_window id="SPW1">
+              <spw_bandwidth_mode mode="1GHzx1024"/>
+              <spw_window type="truncate"/>
+              <rest_frequency_ref ref="CO 2  - 1"/>
+              <front_end_sideband sideband="1"/>
+              <spw_if_coordinate>
+                <spw_reference_if_frequency units="GHz">4.0E9</spw_reference_if_frequency>
+                <spw_reference_pixel>4064.0???</spw_reference_pixel>
+                <spw_if_channel_width units="Hz">1.25E8</spw_if_channel_width>
+                <spw_number_if_channel>2048</spw_number_if_channel>
+              </spw_if_coordinate>
+              <!-- <base_line_fit> etc. not implemented yet. -->
+            </spectral_window>
+
+          </acsis_spw_list>
+        </jcmt_config>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="7" type="oc" subtype="schedInfo">
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+        <meta_unique>true</meta_unique>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+      </SpSiteQualityObsComp>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <title>Science target</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <standard>false</standard>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterStareObs type="ic" subtype="stareObs">
+              <switchingMode>Frequency</switchingMode>
+              <noOfCycles>0</noOfCycles>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+              <secsPerCycle>60</secsPerCycle>
+              <cycleReversal>true</cycleReversal>
+              <frequencyOffset.throw>8.3</frequencyOffset.throw>
+              <continuousCal>true</continuousCal>
+            </SpIterStareObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+  </SpLibraryFolder>
+</SpLibrary>
