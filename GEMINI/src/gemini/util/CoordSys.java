@@ -18,15 +18,44 @@ public class CoordSys
    // The possible coordinate systems.
    public static final int FK5      = 0;
    public static final int FK4      = 1;
-   public static final int APPARENT = 2;
-   public static final int AZ_EL    = 3;
+   public static final int AZ_EL    = 2;
+   public static final int GAL      = 3;
+//   public static final int APPARENT = 4;
 
+   /**
+    * Readable coordinate system strings.
+    */
    public static final String[] COORD_SYS = {
       "FK5 (J2000)",
       "FK4 (B1950)",
-      "Apparent",
-      "Az/El"
+      "Az/El",
+      "Galactic"
    };
+
+
+   // MFO (March 08, 2002)
+   /**
+    * Coordinate System x axis labels.
+    */
+   public static final String[] X_AXIS_LABEL = {
+      "Ra",
+      "Ra",
+      "Az",
+      "Long"
+   };
+
+
+   // MFO (March 08, 2002)
+   /**
+    * Coordinate System y axis labels.
+    */
+   public static final String[] Y_AXIS_LABEL = {
+      "Dec",
+      "Dec",
+      "El",
+      "Lat"
+   };
+
 
 /**
  * Get an integer representing a coordinate system from its associated
@@ -43,9 +72,11 @@ getSystem(String coordSysString)
       return FK4;
    } else if (coordSysString.indexOf("AZ") != -1) {
       return AZ_EL;
-   } else if (coordSysString.indexOf("APP") != -1) {
-      return APPARENT;
+   } else if (coordSysString.indexOf("GAL") != -1) {
+      return GAL;
    }
+//   } else if (coordSysString.indexOf("APP") != -1) {
+//      return APPARENT;
 
    return -1;
 
