@@ -18,7 +18,7 @@ import javax.swing.ButtonGroup;
 import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.editor.OtItemEditor;
 
-import orac.jcmt.obsComp.SpSiteQualityObsComp;
+import gemini.sp.obsComp.SpSiteQualityObsComp;
 
 
 /**
@@ -43,18 +43,18 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// add action listeners and group the buttons
 	ButtonGroup grp;
 
-	_w.weatherBand1.addActionListener(this);
-	_w.weatherBand2.addActionListener(this);
-	_w.weatherBand3.addActionListener(this);
-	_w.weatherBand4.addActionListener(this);
-	_w.weatherBand5.addActionListener(this);
+	_w.tauBand1.addActionListener(this);
+	_w.tauBand2.addActionListener(this);
+	_w.tauBand3.addActionListener(this);
+	_w.tauBand4.addActionListener(this);
+	_w.tauBand5.addActionListener(this);
 
 	grp = new ButtonGroup();
-	grp.add(_w.weatherBand1);
-	grp.add(_w.weatherBand2);
-	grp.add(_w.weatherBand3);
-	grp.add(_w.weatherBand4);
-	grp.add(_w.weatherBand5);
+	grp.add(_w.tauBand1);
+	grp.add(_w.tauBand2);
+	grp.add(_w.tauBand3);
+	grp.add(_w.tauBand4);
+	grp.add(_w.tauBand5);
 
 
 	_w.seeing1.addActionListener(this);
@@ -67,27 +67,6 @@ public final class EdCompSiteQuality extends OtItemEditor
 	grp.add(_w.seeing2);
 	grp.add(_w.seeing3);
 	grp.add(_w.seeing4);
-
-/*
-	_w.moonDark.addActionListener(this);
-	_w.moonBright.addActionListener(this);
-	_w.moonIgnore.addActionListener(this);
-
-	grp = new ButtonGroup();
-	grp.add(_w.moonDark);
-	grp.add(_w.moonBright);
-	grp.add(_w.moonIgnore);
-
-
-	_w.skyPhotometric.addActionListener(this);
-	_w.skySpectroscopic.addActionListener(this);
-	_w.skyIgnore.addActionListener(this);
-
-	grp = new ButtonGroup();
-	grp.add(_w.skyPhotometric);
-	grp.add(_w.skySpectroscopic);
-	grp.add(_w.skyIgnore);
-*/	
     }
 
     /**
@@ -98,55 +77,46 @@ public final class EdCompSiteQuality extends OtItemEditor
 	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
 	OptionWidgetExt ow;
 	int i;
-/* MFO: TO BE IMPLEMENTED
-	// Image Quality
-	i = sq.getImageQuality();
-	switch (i) {
-	case SpSiteQualityObsComp.IMAGE_QUALITY_20:
-	    ow = _w.iq20; break;
-	case SpSiteQualityObsComp.IMAGE_QUALITY_50:
-	    ow = _w.iq50; break;
-	default:
-	    ow = _w.iqIgnore; break;
-	}
-	ow.setValue(true);
 
-	// IR Background
-	i = sq.getIRBackground();
+	// Tau Band
+	i = sq.getTauBand();
 	switch (i) {
-	case SpSiteQualityObsComp.IR_BACKGROUND_20:
-	    ow = _w.ir20; break;
-	case SpSiteQualityObsComp.IR_BACKGROUND_50:
-	    ow = _w.ir50; break;
+	case 1:
+	    _w.tauBand1.setValue(true); break;
+	case 2:
+	    _w.tauBand2.setValue(true); break;
+	case 3:
+	    _w.tauBand3.setValue(true); break;
+	case 4:
+	    _w.tauBand4.setValue(true); break;
+	case 5:
+	    _w.tauBand5.setValue(true); break;
 	default:
-	    ow = _w.irIgnore; break;
+	    _w.tauBand1.setValue(false);
+	    _w.tauBand2.setValue(false);
+	    _w.tauBand3.setValue(false);
+	    _w.tauBand4.setValue(false);
+	    _w.tauBand5.setValue(false); break;
 	}
-	ow.setValue(true);
 
-	// Moon
-	i = sq.getMoon();
+	// Seeing
+	i = sq.getSeeing();
 	switch (i) {
-	case SpSiteQualityObsComp.MOON_DARK:
-	    ow = _w.moonDark; break;
-	case SpSiteQualityObsComp.MOON_BRIGHT:
-	    ow = _w.moonBright; break;
+	case 1:
+	    _w.seeing1.setValue(true); break;
+	case 2:
+	    _w.seeing2.setValue(true); break;
+	case 3:
+	    _w.seeing3.setValue(true); break;
+	case 4:
+	    _w.seeing4.setValue(true); break;	    
 	default:
-	    ow = _w.moonIgnore; break;
+	    _w.seeing1.setValue(false);
+	    _w.seeing2.setValue(false);
+	    _w.seeing3.setValue(false);
+	    _w.seeing4.setValue(false); break;
 	}
-	ow.setValue(true);
 
-	// Sky
-	i = sq.getSky();
-	switch (i) {
-	case SpSiteQualityObsComp.SKY_PHOTOMETRIC:
-	    ow = _w.skyPhotometric; break;
-	case SpSiteQualityObsComp.SKY_SPECTROSCOPIC:
-	    ow = _w.skySpectroscopic; break;
-	default:
-	    ow = _w.skyIgnore; break;
-	}
-	ow.setValue(true);
-*/	
     }
 
 
@@ -155,65 +125,46 @@ public final class EdCompSiteQuality extends OtItemEditor
      */
     public void actionPerformed(ActionEvent evt) {
 
-/* MFO: TO BE IMPLEMENTED
 	Object w = evt.getSource();
 	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
 
-	// Image Quality
-	if (w == _w.iq20) {
-	    sq.setImageQuality(SpSiteQualityObsComp.IMAGE_QUALITY_20);
-	    return;
-	}
-	if (w == _w.iq50) {
-	    sq.setImageQuality(SpSiteQualityObsComp.IMAGE_QUALITY_50);
-	    return;
-	}
-	if (w == _w.iqIgnore) {
-	    sq.setImageQuality(SpSiteQualityObsComp.IMAGE_QUALITY_IGNORE);
-	    return;
+	// Tau band
+	if (w == _w.tauBand1) {
+	    sq.setTauBand(1);
 	}
 
-	// IR Background
-	if (w == _w.ir20) {
-	    sq.setIRBackground(SpSiteQualityObsComp.IR_BACKGROUND_20);
-	    return;
-	}
-	if (w == _w.ir50) {
-	    sq.setIRBackground(SpSiteQualityObsComp.IR_BACKGROUND_50);
-	    return;
-	}
-	if (w == _w.irIgnore) {
-	    sq.setIRBackground(SpSiteQualityObsComp.IR_BACKGROUND_IGNORE);
-	    return;
+	if (w == _w.tauBand2) {
+	    sq.setTauBand(2);
 	}
 
-	// Moon
-	if (w == _w.moonDark) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_DARK);
-	    return;
-	}
-	if (w == _w.moonBright) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_BRIGHT);
-	    return;
-	}
-	if (w == _w.moonIgnore) {
-	    sq.setMoon(SpSiteQualityObsComp.MOON_IGNORE);
-	    return;
+	if (w == _w.tauBand3) {
+	    sq.setTauBand(3);
 	}
 
-	// Sky
-	if (w == _w.skyPhotometric) {
-	    sq.setSky(SpSiteQualityObsComp.SKY_PHOTOMETRIC);
-	    return;
+	if (w == _w.tauBand4) {
+	    sq.setTauBand(4);
 	}
-	if (w == _w.skySpectroscopic) {
-	    sq.setSky(SpSiteQualityObsComp.SKY_SPECTROSCOPIC);
-	    return;
+
+	if (w == _w.tauBand5) {
+	    sq.setTauBand(5);
 	}
-	if (w == _w.skyIgnore) {
-	    sq.setSky(SpSiteQualityObsComp.SKY_IGNORE);
-	    return;
+
+
+	// Seeing
+	if (w == _w.seeing1) {
+	    sq.setSeeing(1);
 	}
-*/
+
+	if (w == _w.seeing2) {
+	    sq.setSeeing(2);
+	}
+
+	if (w == _w.seeing3) {
+	    sq.setSeeing(3);
+	}
+
+	if (w == _w.seeing4) {
+	    sq.setSeeing(4);
+	}
     }
 }
