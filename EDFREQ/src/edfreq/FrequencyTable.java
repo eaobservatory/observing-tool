@@ -19,9 +19,8 @@ import javax.swing.table.*;
 
 import java.util.Vector;
 
-import org.xml.sax.helpers.ParserAdapter;
-import org.xml.sax.helpers.XMLReaderAdapter;
-import org.xml.sax.helpers.XMLFilterImpl;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -176,7 +175,10 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 
       // Initialize parser (MFO, 29 November 2001)
       try {
-         _xmlReader = new XMLFilterImpl() {
+         _xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+	 
+	 _xmlReader.setContentHandler(new DefaultHandler() {
+	 
             public void startElement(String namespaceURI,
                                      String localName,
                                      String qName,
@@ -204,7 +206,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 		  }   
                }	 
 	    }
-         };
+         });
       }
       //catch(SAXException e) { //ParserConfigurationException e) {
       catch(Exception e) { //ParserConfigurationException e) {
@@ -218,7 +220,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
    /**
     * Not used anymore.
     *
-    * Use {@link #toXML()} instead.
+    * @deprecated replaced by {@link #toXML()}.
     */
    public void saveAsASCII ( PrintWriter out )
    {

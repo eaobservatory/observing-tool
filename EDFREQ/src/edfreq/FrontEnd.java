@@ -23,9 +23,8 @@ import java.awt.Point;
 import java.util.*;
 import java.io.*;
 
-import org.xml.sax.helpers.ParserAdapter;
-import org.xml.sax.helpers.XMLReaderAdapter;
-import org.xml.sax.helpers.XMLFilterImpl;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -204,7 +203,9 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    
       // Initialize parser (MFO, 29 November 2001)
       try {
-         _xmlReader = new XMLFilterImpl() {
+         _xmlReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+	 
+	 _xmlReader.setContentHandler(new DefaultHandler() {
 
             public void startElement(String namespaceURI,
                                      String localName,
@@ -226,7 +227,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
                   transitionChoice2.setSelectedItem(getObject(transitionChoice2, atts.getValue(XML_ATTRIBUTE_TRANSITION2)));
 	       }
             }
-         };
+         });
       }
       //catch(SAXException e) {
       catch(Exception e) {
@@ -493,7 +494,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    /**
     * Not used anymore.
     *
-    * Use {@link #toXML()} instead.
+    * @deprecated replaced by {@link #toXML()}.
     */
    public void saveAsASCII ( PrintWriter out )
    {
