@@ -176,6 +176,7 @@ public class SpItemUtilities {
    * Find SpMSB's and SpObs's recursively and set references.
    */
   public static void setReferenceIDs(SpItem spItem) {
+      _idCounter = 0;
     if(spItem instanceof SpObsContextItem) {
       if(spItem instanceof SpMSB) { 
 	_insertReferenceIDsFor(SpTreeMan.findTargetList(spItem), spItem);
