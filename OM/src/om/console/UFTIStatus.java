@@ -174,12 +174,12 @@ public final class UFTIStatus extends instrumentStatusPanel
       return;
     }
 
-    if (name.equals("FPZ")) {
+    if (name.equals("fpZ")) {
       st[7].getValu().setText(value);
       return;
     }
 
-    if (name.equals("irpol_ang")) {
+    if (name.equals("irpolAngle")) {
       st[8].getValu().setText(value);
       return;
     }
