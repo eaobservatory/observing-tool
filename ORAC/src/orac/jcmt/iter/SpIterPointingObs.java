@@ -57,7 +57,8 @@ public class SpIterPointingObs extends SpIterJCMTObs {
   public SpIterPointingObs() {
     super(SP_TYPE);
 
-   _avTable.noNotifySet(ATTR_POINTING_PIXEL, POINTING_PIXEL_AUTOMATIC, 0);
+    _avTable.noNotifySet(ATTR_POINTING_PIXEL, POINTING_PIXEL_AUTOMATIC, 0);
+    _avTable.noNotifySet(ATTR_AUTOMATIC_TARGET, "false", 0);
   }
 
   public String getSpectralMode() {
