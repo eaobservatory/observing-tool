@@ -35,6 +35,7 @@ public class IterJCMTGenericGUI extends JPanel {
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JLabel jLabel1 = new JLabel();
   DropDownListBoxWidgetExt noOfIntegrations = new DropDownListBoxWidgetExt();
+  CheckBoxWidgetExt doAtCurrentAzDDLBWE = new CheckBoxWidgetExt();
   JLabel switchingModeLabel = new JLabel();
   DropDownListBoxWidgetExt switchingMode = new DropDownListBoxWidgetExt();
   JLabel jLabel4 = new JLabel();
@@ -68,6 +69,8 @@ public class IterJCMTGenericGUI extends JPanel {
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
     jLabel1.setText("No of Integrations");
+    doAtCurrentAzDDLBWE.setText("Do Skydip at Current Azimuth?");
+    doAtCurrentAzDDLBWE.setFont(new java.awt.Font("Dialog", 0, 12));
     this.setLayout(borderLayout1);
     jPanel1.setLayout(gridBagLayout1);
     switchingModeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -107,6 +110,8 @@ public class IterJCMTGenericGUI extends JPanel {
     jPanel1.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 5, 0, 0), 0, 0));
     jPanel1.add(noOfIntegrations, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
+    jPanel1.add(doAtCurrentAzDDLBWE, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
     jPanel1.add(switchingModeLabel, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
