@@ -11,13 +11,19 @@
 </xsd:simpleType>
 
 <xsd:simpleType name="nonNegativeDecimal">
-  <xsd:restriction base="xsd:decimal">
+  <xsd:restriction base="xsd:double">
     <xsd:minInclusive value="0.0"/>
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="positiveDecimal">
+  <xsd:restriction base="xsd:double">
+    <xsd:minExclusive value="0.0">
+  </xsd:restriction>
+</xsd:simpleType>
+
 <xsd:simpleType name="degreeRangeTo180">
-  <xsd:restriction base="xsd:decimal">
+  <xsd:restriction base="xsd:double">
     <xsd:minInclusive value="-180.0"/>
     <xsd:maxInclusive value="180.0"/>
   </xsd:restriction>
@@ -282,7 +288,7 @@
     <xsd:element name="anode">
       <xsd:complexType>
         <xsd:simpleContent>
-          <xsd:extension base="xsd:decimal">
+          <xsd:extension base="xsd:double">
             <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
           </xsd:extension>
         </xsd:simpleContent>
@@ -291,7 +297,7 @@
     <xsd:element name="perihelion">
       <xsd:complexType>
         <xsd:simpleContent>
-          <xsd:extension base="xsd:decimal">
+          <xsd:extension base="xsd:double">
             <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
           </xsd:extension>
         </xsd:simpleContent>
@@ -300,7 +306,7 @@
     <xsd:element name="aorq">
       <xsd:complexType>
         <xsd:simpleContent>
-          <xsd:extension base="xsd:decimal">
+          <xsd:extension base="xsd:double">
             <xsd:attribute name="units" type="xsd:string" fixed="au"/>
           </xsd:extension>
         </xsd:simpleContent>
@@ -309,7 +315,7 @@
     <xsd:element name="LorM">
       <xsd:complexType>
         <xsd:simpleContent>
-          <xsd:extension base="xsd:decimal">
+          <xsd:extension base="xsd:double">
             <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
           </xsd:extension>
         </xsd:simpleContent>
@@ -318,7 +324,7 @@
     <xsd:element name="n">
       <xsd:complexType>
         <xsd:simpleContent>
-          <xsd:extension base="xsd:decimal">
+          <xsd:extension base="xsd:double">
             <xsd:attribute name="units" type="xsd:string" fixed="degrees/day"/>
           </xsd:extension>
         </xsd:simpleContent>
@@ -327,13 +333,13 @@
     <xsd:element name="epochPerih" minOccurs="0">
       <xsd:complexType>
         <xsd:simpleContent>
-          <xsd:extension base="xsd:decimal">
+          <xsd:extension base="xsd:double">
             <xsd:attribute name="units" type="xsd:string" fixed="days"/>
           </xsd:extension>
         </xsd:simpleContent>
       </xsd:complexType>
     </xsd:element>
-    <xsd:element name="e" type="xsd:decimal"/>
+    <xsd:element name="e" type="xsd:double"/>
   </xsd:all>
 </xsd:complexType>
 
@@ -397,7 +403,8 @@
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="Beam"/>
       <xsd:enumeration value="Position"/>
-      <xsd:enumeration value="Frequency"/>
+      <xsd:enumeration value="Frequency-Slow"/>
+      <xsd:enumeration value="Frequency-Fast"/>
       <xsd:enumeration value="None"/>
     </xsd:restriction>
   </xsd:simpleType>
@@ -899,8 +906,8 @@
       <xsd:element ref="switchingMode" minOccurs="0"/>
       <xsd:element name="noOfCycles"            type="xsd:nonNegativeInteger" minOccurs="0"/>
       <xsd:element name="secsPerCycle"          type="xsd:nonNegativeInteger" minOccurs="0"/>
-      <xsd:element name="frequencyOffset.rate"  type="nonNegativeDecimal"     minOccurs="0"/>
-      <xsd:element name="frequencyOffset.throw" type="nonNegativeDecimal"     minOccurs="0"/>
+      <xsd:element name="frequencyOffset.rate"  type="positiveDecimal"     minOccurs="0"/>
+      <xsd:element name="frequencyOffset.throw" type="positiveDecimal"     minOccurs="0"/>
       <xsd:element name="cycleReversal"         type="xsd:boolean"            minOccurs="0"/>
       <xsd:element name="continuousCal"         type="xsd:boolean"            minOccurs="0"/>
     </xsd:all>
@@ -1189,7 +1196,7 @@
         </xsd:simpleType>
       </xsd:element>
       <xsd:element name="channels" type="xsd:integer"/>
-      <xsd:element name="centreFrequency" type="xsd:decimal"/>
+      <xsd:element name="centreFrequency" type="xsd:double"/>
       <xsd:element name="overlap">
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
@@ -1216,7 +1223,7 @@
       </xsd:element>
       <xsd:element name="molecule"      type="xsd:string"/>
       <xsd:element name="transition"    type="xsd:string"/>
-      <xsd:element name="restFrequency" type="xsd:decimal"/>
+      <xsd:element name="restFrequency" type="xsd:double"/>
       <xsd:element name="velocity"      type="xsd:decimal"/>
       <xsd:element ref="jcmt_config"/>
     </xsd:all>
