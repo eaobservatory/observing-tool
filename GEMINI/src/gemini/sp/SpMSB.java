@@ -18,11 +18,19 @@ package gemini.sp;
  */
 public class SpMSB extends SpObsContextItem {
 
+   /** This attribute records the number of remaining MSBs. */
+   public static final String ATTR_REMAINING = ":remaining";
+
+   /** This attribute records the number of completed MSBs. */
+   public static final String ATTR_DONE      = ":done";
+
   /**
    * Default constructor.
    */
   protected SpMSB() {
     super(SpType.MSB_FOLDER);
+    _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
+    _avTable.noNotifySet(ATTR_DONE,      "0", 0);
   }
 
 /**
@@ -70,25 +78,56 @@ setPriority(int priority)
    _avTable.set(SpObs.ATTR_PRIORITY, SpObs.PRIORITIES[priority]);
 }
 
+
 /**
- * Get status attribute.
+ * Get the number of observations done.
  *
- * @return country or "" if attribute hasn't been set.
+ * Added for OMP (MFO, 9 August 2001)
+ *
+ * @return number of observations done or 0 if the attribute has not been set.
  */
-public boolean
-isDone()
+public int
+getNumberDone()
 {
-   return _avTable.getBool(SpObs.ATTR_STATUS_DONE);
+   return _avTable.getInt(ATTR_DONE, 0);
 }
 
 /**
  * Set status attribute.
+ *
+ * Added for OMP (MFO, 9 August 2001)
  */
 public void
-setDone(boolean status)
+setNumberDone(int done)
 {
-   _avTable.set(SpObs.ATTR_STATUS_DONE, status);
+   _avTable.set(ATTR_DONE, done);
 }
+
+
+/**
+ * Get the number of observations remaining to be observed.
+ *
+ * Added for OMP (MFO, 9 August 2001)
+ *
+ * @return number of observations remaining to be observed or 1 if the attribute has not been set.
+ */
+public int
+getNumberRemaining()
+{
+   return _avTable.getInt(ATTR_REMAINING, 1);
+}
+
+/**
+ * Set status attribute.
+ *
+ * Added for OMP (MFO, 9 August 2001)
+ */
+public void
+setNumberRemaining(int remaining)
+{
+   _avTable.set(ATTR_REMAINING, remaining);
+}
+
 
 }
 

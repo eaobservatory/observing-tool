@@ -40,6 +40,11 @@ public final class EdObservation extends OtItemEditor
     private ObsGUI         _w;       // the GUI layout panel
 
     /**
+     * If true, ignore action events.
+     */
+    private boolean ignoreActions = false;
+
+    /**
      * The constructor initializes the title, description, and presentation source.
      */
     public EdObservation() {
@@ -64,9 +69,27 @@ public final class EdObservation extends OtItemEditor
 	_w.priorityHigh.addActionListener(this);
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
-	_w.obsDone.addActionListener(this); // Added for OMP (MFO, 7 August 2001)
 	_w.chained.addActionListener(this);
 	_w.chained.setVisible(false); // XXX allan: remove it?
+
+	for(int i = 0; i < 100; i++) {
+	  _w.remaining.addItem("" + (i + 1));
+	}
+
+	_w.remaining.addActionListener(this);
+
+        if(System.getProperty("OMP") != null) {
+          _w.obsStateLabel.setVisible(false);
+          _w.obsState.setVisible(false);
+        }
+        else {
+          _w.remaining.setVisible(false);
+          _w.remainingLabel.setVisible(false);
+          _w.done.setVisible(false);
+          _w.doneLabel.setVisible(false);
+          _w.estimatedTime.setVisible(false);
+          _w.estimatedTimeLabel.setVisible(false);
+        }
     }
 
     /**
@@ -132,7 +155,11 @@ public final class EdObservation extends OtItemEditor
 	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
     
          // Added for OMP (MFO, 7 August 2001)
-	_w.obsDone.setSelected(((SpObs)_spItem).isDone());
+	ignoreActions = true;
+	_w.remaining.setSelectedIndex(((SpObs)_spItem).getNumberRemaining() - 1);
+	ignoreActions = false;
+
+	_w.done.setText("" + ((SpObs)_spItem).getNumberDone());
     }
 
     /**
@@ -169,14 +196,17 @@ public final class EdObservation extends OtItemEditor
      * Handle standard action events.
      */
     public void actionPerformed(ActionEvent evt) {
+	if(ignoreActions)
+	  return;
+
 	Object w  = evt.getSource();
 	SpObs spObs = (SpObs) _spItem;
 
-	 // Added for OMP (MFO, 7 August 2001)
-	if(w == _w.obsDone) {
-	    spObs.setDone(_w.obsDone.isSelected());
+	// Added for OMP (MFO, 7 August 2001)
+	if(w == _w.remaining) {
+            spObs.setNumberRemaining(_w.remaining.getSelectedIndex() + 1);
 	}
-
+	 
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
 	    return;
 	

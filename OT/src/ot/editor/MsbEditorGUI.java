@@ -27,12 +27,14 @@ public class MsbEditorGUI extends JPanel {
     TextBoxWidgetExt nameBox = new TextBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
   JLabel jLabel3 = new JLabel();
-  CheckBoxWidgetExt obsDone = new CheckBoxWidgetExt();
   JToggleButton priorityHigh = new JToggleButton();
   JToggleButton priorityMedium = new JToggleButton();
   JToggleButton priorityLow = new JToggleButton();
   JLabel jLabel4 = new JLabel();
   TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt();
+  DropDownListBoxWidgetExt remaining = new DropDownListBoxWidgetExt();
+  JLabel jLabel5 = new JLabel();
+  TextBoxWidgetExt done = new TextBoxWidgetExt();
 
     public MsbEditorGUI() {
         try {
@@ -51,12 +53,10 @@ public class MsbEditorGUI extends JPanel {
         this.setLayout(gridBagLayout1);
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
-    jLabel2.setText("Status");
+    jLabel2.setText("To be observed");
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Priority");
-    obsDone.setText("Done");
-    obsDone.setFont(new java.awt.Font("Dialog", 0, 12));
     priorityHigh.setText("High");
     priorityHigh.setFont(new java.awt.Font("Dialog", 0, 12));
     priorityMedium.setText("Medium");
@@ -67,6 +67,10 @@ public class MsbEditorGUI extends JPanel {
     jLabel4.setForeground(Color.black);
     jLabel4.setText("Estimated Time");
     estimatedTime.setEditable(false);
+    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel5.setForeground(Color.black);
+    jLabel5.setText("Completed");
+    done.setEditable(false);
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
         this.add(nameBox, new GridBagConstraints(1, 0, 3, 1, 1.0, 0.0
@@ -75,8 +79,6 @@ public class MsbEditorGUI extends JPanel {
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     this.add(jLabel3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(obsDone, new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
     this.add(priorityHigh, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
     this.add(priorityMedium, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
@@ -87,5 +89,11 @@ public class MsbEditorGUI extends JPanel {
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
     this.add(estimatedTime, new GridBagConstraints(1, 3, 3, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(15, 5, 5, 5), 0, 0));
+    this.add(remaining, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
+    this.add(jLabel5, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(done, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 0, 0));
     }
 }

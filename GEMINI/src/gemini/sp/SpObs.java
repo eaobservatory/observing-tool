@@ -34,9 +34,6 @@ public class SpObs extends SpObsContextItem
    /** This attribute records the observation priority. */
    public static final String ATTR_PRIORITY = "priority";
 
-   /** This attribute records the observation status. */
-   public static final String ATTR_STATUS_DONE = "status";
-   
 
    /**
     * High observation priority, relative to the other observations in
@@ -66,8 +63,14 @@ public class SpObs extends SpObsContextItem
 protected SpObs()
 {
    super(SpType.OBSERVATION);
-   _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
-   _avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
+   if(System.getProperty("OMP") != null) {
+      _avTable.noNotifySet(SpMSB.ATTR_REMAINING, "1", 0);
+      _avTable.noNotifySet(SpMSB.ATTR_DONE,      "0", 0);
+   }
+   else {
+      _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
+      _avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
+   }   
    _avTable.noNotifySet(ATTR_STANDARD, "false", 0);
 }
 
@@ -87,8 +90,10 @@ protected Object
 clone()
 {
    SpItem spClone = (SpItem) super.clone();
-   spClone._avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
-   spClone._avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
+   if(System.getProperty("OMP") == null) {
+      spClone._avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
+      spClone._avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
+   }   
    return spClone;
 }
 
@@ -271,27 +276,52 @@ setPriority(int priority)
 }
 
 /**
- * Get status attribute.
+ * Get the number of observations done.
  *
- * Added for OMP (MFO, 7 August 2001)
+ * Added for OMP (MFO, 9 August 2001)
  *
- * @return country or "" if attribute hasn't been set.
+ * @return number of observations done or 0 if the attribute has not been set.
  */
-public boolean
-isDone()
+public int
+getNumberDone()
 {
-   return _avTable.getBool(ATTR_STATUS_DONE);
+   return _avTable.getInt(SpMSB.ATTR_DONE, 0);
 }
 
 /**
  * Set status attribute.
  *
- * Added for OMP (MFO, 7 August 2001)
+ * Added for OMP (MFO, 9 August 2001)
  */
 public void
-setDone(boolean status)
+setNumberDone(int done)
 {
-   _avTable.set(ATTR_STATUS_DONE, status);
+   _avTable.set(SpMSB.ATTR_DONE, done);
+}
+
+
+/**
+ * Get the number of observations remaining to be observed.
+ *
+ * Added for OMP (MFO, 9 August 2001)
+ *
+ * @return number of observations remaining to be observed or 1 if the attribute has not been set.
+ */
+public int
+getNumberRemaining()
+{
+   return _avTable.getInt(SpMSB.ATTR_REMAINING, 1);
+}
+
+/**
+ * Set status attribute.
+ *
+ * Added for OMP (MFO, 9 August 2001)
+ */
+public void
+setNumberRemaining(int remaining)
+{
+   _avTable.set(SpMSB.ATTR_REMAINING, remaining);
 }
 
 }

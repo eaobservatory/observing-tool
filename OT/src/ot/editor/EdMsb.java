@@ -31,6 +31,11 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
     private MsbEditorGUI _w;   // the GUI layout
 
     /**
+     * If true, ignore action events.
+     */
+    private boolean ignoreActions = false;
+
+    /**
      * The constructor initializes the title, description, and presentation source.
      */
     public EdMsb() {
@@ -46,7 +51,12 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	_w.priorityHigh.addActionListener(this);
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
-	_w.obsDone.addActionListener(this);
+
+	for(int i = 0; i < 100; i++) {
+	  _w.remaining.addItem("" + (i + 1));
+	}
+
+	_w.remaining.addActionListener(this);
     }
 
     /**
@@ -79,7 +89,11 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	default:                    _w.priorityLow.setSelected(true);
 	}
 
-        _w.obsDone.setSelected(((SpMSB)_spItem).isDone());
+	ignoreActions = true;
+	_w.remaining.setSelectedIndex(((SpMSB)_spItem).getNumberRemaining() - 1);
+	ignoreActions = false;
+
+	_w.done.setText("" + ((SpMSB)_spItem).getNumberDone());
     }
 
     /**
@@ -98,12 +112,14 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 
 
     public void actionPerformed(ActionEvent evt) {
+	if(ignoreActions)
+	  return;
+
 	Object w  = evt.getSource();
 	SpMSB spMSB = (SpMSB) _spItem;
 
-	if(w == _w.obsDone) {
-	    spMSB.setDone(_w.obsDone.isSelected());
-	    return;
+	if(w == _w.remaining) {
+            spMSB.setNumberRemaining(_w.remaining.getSelectedIndex() + 1);
 	}
 
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
