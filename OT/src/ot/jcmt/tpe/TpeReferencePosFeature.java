@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
+import gemini.util.CoordSys;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTelescopePos;
 import jsky.app.ot.OtCfg;
@@ -22,7 +23,6 @@ import jsky.app.ot.tpe.TpeImageWidget;
 import jsky.app.ot.tpe.TpePositionMap;
 import jsky.app.ot.tpe.feat.TpePositionFeature;
 import jsky.app.ot.util.BasicPropertyList;
-import jsky.app.ot.util.CoordSys;
 import jsky.app.ot.util.PropertyWatcher;
 import jsky.app.ot.util.RADecMath;
 
@@ -39,6 +39,7 @@ public class TpeReferencePosFeature extends TpePositionFeature
 	_props.setBoolean(PROP_SHOW_TAGS, true);
     }
 
+    private Point2D.Double _offsetPoint = new Point2D.Double();
 
     /**
      * Construct the feature with its name and description. 
@@ -202,6 +203,12 @@ public class TpeReferencePosFeature extends TpePositionFeature
     }
 
     /**
+     * Draw Reference Position.
+     *
+     * Used if the reference position is specified in coordinate systems
+     * such as FK5, FK4 etc.
+     *
+     * @see #_drawReferencePosition(java.awt.Graphics,double,java.lang.String)
      */
     private final void _drawReferencePosition(Graphics g, Point2D.Double p, int size, String tag) {
 	g.setColor(Color.green);
@@ -213,6 +220,31 @@ public class TpeReferencePosFeature extends TpePositionFeature
 	    g.drawString(tag, (int)(p.x + size), (int)(p.y + size));
 	}
     }
+
+
+    /**
+     * Draw Reference Position as Circle.
+     *
+     * Used if the reference position is specified in coordinate systems
+     * such as Az/El.
+     *
+     * @see #_drawReferencePosition(java.awt.Graphics,java.awt.geom.Point2D.Double,int,java.lang.String)
+     */
+    private final void _drawReferencePosition(Graphics g, Point2D.Double p, int size, String tag, Point2D.Double base) {
+	g.setColor(Color.green);
+	double radius = Math.sqrt(((p.x - base.x) * (p.x - base.x)) + 
+		                  ((p.y - base.y) * (p.y - base.y)));
+
+	g.drawArc((int)(base.x - radius), (int)(base.y - radius), (int)(2.0 * radius), (int)(2.0 * radius), 0, 360);
+
+
+	if (getDrawTags()) {
+	    // Draw the tag--should use font metrics to position the tag
+	    g.setFont(FONT);
+	    g.drawString(tag, (int)(p.x + size), (int)(p.y + size));
+	}
+    }
+
 
     /**
      */
@@ -231,7 +263,25 @@ public class TpeReferencePosFeature extends TpePositionFeature
 	String referenceTag = OtCfg.telescopeUtil.getAdditionalTarget();
 	p = pm.getLocationFromTag(referenceTag);
 	if (p != null) {
+	  SpTelescopePosList tpl = getSpTelescopePosList();
+	  SpTelescopePos tp = null;
+	  
+	  if(tpl != null) {
+	    tp = (SpTelescopePos) tpl.getPosition(referenceTag);
+	  }
+
+	  if(tp != null) {
+	    switch(tp.getCoordSys()) {
+	      case CoordSys.AZ_EL:
+	        _drawReferencePosition(g, p, size, referenceTag, fii.baseScreenPos);
+	        break;
+	      default:
+	        _drawReferencePosition(g, p, size, referenceTag);
+	    }
+	  }
+	  else {
 	    _drawReferencePosition(g, p, size, referenceTag);
+	  }
 	}
     }
 
