@@ -25,7 +25,7 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstHeterodyne;
 import ot.util.DialogUtil;
 
 /**
@@ -45,17 +45,23 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
 
     _title       ="Photom/Stare";
     _presSource  = _w = (IterStareObsGUI)super._w;
-    _description ="Photom/Stare Observation Mode";
+    _description ="Photometry/Stare Observation Mode";
   }
 
 //  public void textBoxKeyPress(TextBoxWidgetExt e) {
 //    super.textBoxKeyPress(tbwe);
 //  }
 
+
   public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-      DialogUtil.error(_w, "Stare Iterator cannot be used with SCUBA.\nUse Photom Iterator instead.");
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+      _w.acsisPanel.setVisible(true);
     }
+    else {
+      _w.acsisPanel.setVisible(false);
+    }
+
+    super.setInstrument(spInstObsComp);
   }
 }
 
