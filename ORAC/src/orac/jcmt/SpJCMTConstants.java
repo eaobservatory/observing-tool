@@ -74,7 +74,6 @@ public interface SpJCMTConstants {
    public static final String ATTR_SCANAREA_Y0             = "SCAN_AREA.AREA:Y0";
    public static final String ATTR_SCANAREA_WIDTH          = "SCAN_AREA.AREA:WIDTH";
    public static final String ATTR_SCANAREA_HEIGHT         = "SCAN_AREA.AREA:HEIGHT";
-   public static final String ATTR_SCANAREA_SYSTEM         = "SCAN_AREA.AREA:SYSTEM";
    public static final String ATTR_SCANAREA_TYPE           = "SCAN_AREA.AREA:TYPE";
    public static final String ATTR_SCANAREA_PA             = "SCAN_AREA.AREA.PA";
    public static final String ATTR_SCANAREA_SCAN_VELOCITY  = "SCAN_AREA.SCAN:VELOCITY";
@@ -83,25 +82,26 @@ public interface SpJCMTConstants {
    public static final String ATTR_SCANAREA_SCAN_REVERSAL  = "SCAN_AREA.SCAN:REVERSAL";
    public static final String ATTR_SCANAREA_SCAN_TIMESTEP  = "SCAN_AREA.SCAN:TIME_STEP";
    public static final String ATTR_SCANAREA_SCAN_TYPE      = "SCAN_AREA.SCAN:TYPE";
+   public static final String ATTR_SCANAREA_SCAN_PA        = "SCAN_AREA.SCAN:PA";
 
 
    /**
-    * Systems for scan area map.
+    * Scan Systems.
     *
     * "TRACKING", "AZEL", "MOUNT", "FPLANE".
     *
-    * Default is SCANAREA_SYSTEMS[0] = "TRACKING".
+    * Default (for SCUBA) is SCAN_SYSTEMS[3] = "FPLANE".
     *
     * Corresponding TCS XML:
     * Refers to TCS XML:
     * <pre>
     * &lt;SCAN_AREA&gt;
-    *   &lt;AREA SYSTEM="TRACKING"&gt;
-    *   &lt;/AREA&gt;
+    *   &lt;SCAN SYSTEM="FPLANE"&gt;
+    *   &lt;/SCAN&gt;
     * &lt;SCAN_AREA&gt;
     * </pre>
     */
-   public static final String [] SCANAREA_SYSTEMS = { "TRACKING", "AZEL", "MOUNT", "FPLANE" };
+   public static final String [] SCAN_SYSTEMS = { "TRACKING", "AZEL", "MOUNT", "FPLANE" };
 
    /**
     * Systems for chopping.
