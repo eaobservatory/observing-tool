@@ -132,6 +132,14 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
            instSCUBA.getBolometers().contains("LONG") &&
            instSCUBA.getBolometers().contains("SHORT");
   }
+
+    public void setupForHeterodyne() {
+	// Currently not expecting to use Jiggle for Heterodyne
+    }
+
+    public void setupForSCUBA() {
+	
+    }
 }
 
 
