@@ -45,7 +45,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       this.sideBandGui = sideBandGui;
       this.pixratio = pixratio;
       sideBandGui.addAdjustmentListener ( this );
-      sideBandGui.addMouseListener( this );
+
       if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
          _currentSideBandGuiValue   = sideBandGui.getValue();
          _currentSideBandGuiExtend  = sideBandGui.getVisibleAmount();
