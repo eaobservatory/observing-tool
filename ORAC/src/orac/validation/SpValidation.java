@@ -207,7 +207,7 @@ public class SpValidation {
 
     if (!observeNoteFound) {
 	report.add(new ErrorMessage (ErrorMessage.WARNING,
-				     "MSB \"" + spMSB.getTitle() + "\" does not have an observe instruction",
+				     "MSB \"" + spMSB.getTitle() + "\" does not have an Show-to Observer Note",
 				     "Recommend MSBs have an observe instruction"));
     }
 
