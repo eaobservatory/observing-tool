@@ -1,6 +1,6 @@
 <?jsx version="1"?>
 <edfreq.FrequencyEditorCfg alias-ID="0"
- centreFrequenciesAdjustable="true">
+ centreFrequenciesAdjustable="false">
   <ArrayOf-java.lang.String alias-ID="1" obj-name="frontEnds" length="4">
     <java.lang.String alias-ID="2" valueOf="A3"/>
     <java.lang.String alias-ID="3" valueOf="B3"/>
