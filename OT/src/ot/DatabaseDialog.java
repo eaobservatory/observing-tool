@@ -306,11 +306,11 @@ public class DatabaseDialog implements ActionListener {
 
       if(_mode == ACCESS_MODE_STORE) {
         //  loginTextBox contains the proejctID aka Science Program name.
-        storeProgram(_w.passwordTextBox.getText());
+        storeProgram(new String(_w.passwordTextBox.getPassword()));
       }
       else {
         //  loginTextBox contains the proejctID aka Science Program name.
-        fetchProgram(_w.loginTextBox.getText(), _w.passwordTextBox.getText());
+        fetchProgram(_w.loginTextBox.getText(), new String(_w.passwordTextBox.getPassword()));
       }
 
       databaseAccessFinished();
