@@ -146,6 +146,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _w.switchingMode.setValue(IterJCMTGenericGUI.BEAM);
     _w.switchingMode.setEnabled(false);
     _w.rowReversal.setValue(_iterObs.getRowReversal());
+    _w.sampleTime.setValue(_iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length);
 
     if(SpIterRasterObs.RASTER_MODE_ALONG_ROW.equals(_iterObs.getRasterMode())) {
       _w.alongRow.setSelected(true);
@@ -233,45 +234,46 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _iterObs.getAvEditFSM().addObserver(this);
   }
 
-  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    _iterObs.getAvEditFSM().deleteObserver(this);
+    public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
+	_iterObs.getAvEditFSM().deleteObserver(this);
 
-    if(ddlbwe == _w.scanSystem) {
-      _iterObs.setScanSystem(SpJCMTConstants.SCAN_SYSTEMS[index]);
-      return;  
-    }
+	if(ddlbwe == _w.scanSystem) {
+	    _iterObs.setScanSystem(SpJCMTConstants.SCAN_SYSTEMS[index]);
+	    return;  
+	}
 
-    if(ddlbwe == _w.scanAngle) {
-      if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[0])) {
-        _w.scanAngle.setEditable(false);
+	if(ddlbwe == _w.scanAngle) {
+	    if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[0])) {
+		_w.scanAngle.setEditable(false);
 
-	_iterObs.setScanAngles(null);
-      }
+		_iterObs.setScanAngles(null);
+	    }
       
-      if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[1])) {
-        _w.scanAngle.setEditable(true);
-	_w.scanAngle.setValue("");
+	    if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[1])) {
+		_w.scanAngle.setEditable(true);
+		_w.scanAngle.setValue("");
 
-	_iterObs.setScanSystem(_w.scanSystem.getStringValue());
-      }
+		_iterObs.setScanSystem(_w.scanSystem.getStringValue());
+	    }
 
-      if (ddlbwe == _w.sampleTime) {
-	  _iterObs.setSampleTime(_w.sampleTime.getStringValue());
-      }
 
-      return;
+	    return;
+	}
+
+	if (ddlbwe == _w.sampleTime) {
+	    _iterObs.setSampleTime(_w.sampleTime.getStringValue());
+	}
+
+	if(ddlbwe == _w.scanSystem) {
+	    _iterObs.setScanAngles(_w.scanSystem.getStringValue());
+
+	    return;
+	}
+
+	super.dropDownListBoxAction(ddlbwe, index, val);
+
+	_iterObs.getAvEditFSM().addObserver(this);
     }
-
-    if(ddlbwe == _w.scanSystem) {
-      _iterObs.setScanAngles(_w.scanSystem.getStringValue());
-
-      return;
-    }
-
-    super.dropDownListBoxAction(ddlbwe, index, val);
-
-    _iterObs.getAvEditFSM().addObserver(this);
-  }
 
 
   public void keyPressed(java.awt.event.KeyEvent e)  { }
@@ -311,9 +313,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   public void setInstrument(SpInstObsComp spInstObsComp) {
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.heterodynePanel.setVisible(true);
+      _w.scanSystem.setValue(SpJCMTConstants.SCAN_SYSTEMS[0]);
+      _w.scanPanel.setVisible(false);
     }
     else {
       _w.heterodynePanel.setVisible(false);
+      _w.scanPanel.setVisible(true);
     }
 
     super.setInstrument(spInstObsComp);
