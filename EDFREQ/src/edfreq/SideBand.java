@@ -12,6 +12,7 @@ package edfreq;
 
 import java.awt.event.*;
 import javax.swing.*;
+import java.awt.Color;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
@@ -25,6 +26,9 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
    Sampler sampler;
    JScrollBar sideBandGui;
    AdjustmentListener _adjustmentListener = null;
+
+   Color _scrollBarKnobColor  = new Color(156, 154, 206);
+   Color _scrollBarBackground = null;
 
    /**
     * The lineButton argument has been so that its text can be reset to "No Line" when the
@@ -66,6 +70,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       this.emissionLines = emissionLines;
       sideBandGui.addAdjustmentListener ( this );
       sideBandGui.addMouseListener( this );
+      _scrollBarBackground = sideBandGui.getBackground();
 
       if(!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
          _currentSideBandGuiValue   = sideBandGui.getValue();
@@ -191,15 +196,23 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       sideBandGui.removeAdjustmentListener ( this );
 
       sw = getScaledWidth();
+
+      if(sw > (pixratio * (highLimit - lowLimit))) {
+         sideBandGui.setBackground(_scrollBarKnobColor);
+      }
+      else {
+         sideBandGui.setBackground(_scrollBarBackground);
+      }
+
       sc = getScaledCentre();
-      sideBandGui.setValues ( sc, sw, (int)(pixratio*lowLimit)+20,
-        (int)(pixratio*highLimit)-20 );
+      sideBandGui.setValues ( sc, sw, (int)(pixratio*lowLimit),
+        (int)(pixratio*highLimit));
 
       if(!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
          _currentSideBandGuiValue   = sc;
          _currentSideBandGuiExtend  = sw;
-         _currentSideBandGuiMinimum = (int)(pixratio*lowLimit)+20;
-         _currentSideBandGuiMaximum = (int)(pixratio*highLimit)-20;
+         _currentSideBandGuiMinimum = (int)(pixratio*lowLimit);
+         _currentSideBandGuiMaximum = (int)(pixratio*highLimit);
       }
 
       sideBandGui.addAdjustmentListener ( this );
