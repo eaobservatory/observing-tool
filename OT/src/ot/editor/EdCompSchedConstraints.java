@@ -90,7 +90,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       }
 
       if(tbw == _w.latest) {
-        String latest   = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.earliest.getText()));
+        String latest   = OracUtilities.toISO8601(OracUtilities.parseISO8601(_w.latest.getText()));
         _schedConstObsComp.setLatest(latest);
       }
 
