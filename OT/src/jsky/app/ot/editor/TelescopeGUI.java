@@ -113,6 +113,8 @@ public class TelescopeGUI extends JPanel {
   JLabel dmUnitsLabel = new JLabel();
   DropDownListBoxWidgetExt dropDownListBoxWidgetExt1 = new DropDownListBoxWidgetExt();
   CheckBoxWidgetExt offsetCheckBox = new CheckBoxWidgetExt();
+  JLabel xUnitsLabel = new JLabel();
+  JLabel yUnitsLabel = new JLabel();
 
     public TelescopeGUI() {
         try {
@@ -296,6 +298,12 @@ public class TelescopeGUI extends JPanel {
     offsetCheckBox.setText("Offset");
     offsetCheckBox.setFont(new java.awt.Font("Dialog", 0, 12));
     offsetCheckBox.setVerticalAlignment(SwingConstants.BOTTOM);
+    xUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
+    xUnitsLabel.setForeground(Color.black);
+    xUnitsLabel.setText("(degrees)");
+    yUnitsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
+    yUnitsLabel.setForeground(Color.black);
+    yUnitsLabel.setText("(degrees)");
     this.add(nameTagPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
     nameTagPanel.add(jLabel1, null);
@@ -324,6 +332,10 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
     objectGBW.add(offsetCheckBox, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    objectGBW.add(xUnitsLabel, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    objectGBW.add(yUnitsLabel, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         this.add(extrasFolder, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 
