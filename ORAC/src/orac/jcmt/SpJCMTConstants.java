@@ -105,6 +105,7 @@ public interface SpJCMTConstants {
     * Systems for chopping.
     *
     * "TRACKING", "AZEL", "MOUNT", "FPLANE", "SCAN".
+
     *
     * Default is CHOP_SYSTEMS[0] = "TRACKING".
     *
@@ -131,6 +132,7 @@ public interface SpJCMTConstants {
    public static final String ATTR_SAMPLE_TIME         = "sampleTime";
    public static final String ATTR_JIGGLES_PER_CYCLE   = "jigglePerCycle";
    public static final String ATTR_AUTOMATIC_TARGET    = "autoTarget";
+   public static final String ATTR_CONT_CAL            = "continuousCal";
    public static final String ATTR_DO_AT_CURRENT_AZ    = "useCurrentAz";
 
 
@@ -144,6 +146,7 @@ public interface SpJCMTConstants {
    public static final String SPECTRAL_MODE_CONTINUUM  = "continuum";
    public static final String SPECTRAL_MODE_SPECTRAL_LINE = "spectralLine";
    public static final String ATTR_POINTING_PIXEL      = "pointingPixel";
+    public static final String ATTR_POINTING_METHOD     = "pointingMethod";  // SdW - 01/10/03
    public static final String POINTING_PIXEL_AUTOMATIC = "Automatic";
    public static final String POINTING_PIXEL_MANUAL    = "Manual";
 
