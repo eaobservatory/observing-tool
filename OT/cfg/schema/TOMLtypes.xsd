@@ -38,6 +38,11 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="nameType">
+  <xsd:restriction base="xsd:string">
+    <xsd:pattern value="[A-za-z0-9_\+\- ]*"/>
+  </xsd:restriction>
+</xsd:simpleType>
 
 <xsd:simpleType name="dms">
   <xsd:restriction base="xsd:string">
@@ -97,7 +102,7 @@
 <xsd:simpleType name="chopAngleLimits">
   <xsd:restriction base="xsd:double">
     <xsd:minInclusive value="-180.0"/>
-    <xsd:maxInclusive value="180.0"/>
+    <xsd:maxInclusive value="360.0"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -203,7 +208,7 @@
 
 <xsd:complexType name="targetDefinition">
   <xsd:sequence>
-    <xsd:element name="targetName" type="xsd:string"/>
+    <xsd:element name="targetName" type="toml:nameType"/>
     <xsd:choice>
       <xsd:element ref="toml:namedSystem"/>
       <xsd:element ref="toml:spherSystem"/>
