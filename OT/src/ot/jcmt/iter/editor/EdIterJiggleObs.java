@@ -125,8 +125,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
     }
   }
 
-  protected double calculateNoise(int integrations, double wavelength,
-				  double decRadians, double latRadians, double csoTau, int [] status) {
+  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
 
     String mode       = "JIG16";
 
@@ -135,7 +134,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
       mode = "JIG64";
     }
 
-    return ScubaNoise.noise_level(integrations, wavelength, mode, decRadians, latRadians, csoTau, status);
+    return ScubaNoise.noise_level(integrations, wavelength, mode, nefd, status);
   }
 }
 

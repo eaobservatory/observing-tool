@@ -296,10 +296,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _updateWidgets();
   }
 
-  protected double calculateNoise(int integrations, double wavelength,
-				  double decRadians, double latRadians, double csoTau, int [] status) {
+  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
 
-    return ScubaNoise.noise_level(integrations, wavelength, "SCAN", decRadians, latRadians, csoTau, status,
+    return ScubaNoise.noise_level(integrations, wavelength, "SCAN", nefd, status,
 				  _iterObs.getHeight(), _iterObs.getWidth());
   }
 }

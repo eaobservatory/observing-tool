@@ -65,10 +65,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
     super.setInstrument(spInstObsComp);
   }
 
-  protected double calculateNoise(int integrations, double wavelength,
-				  double decRadians, double latRadians, double csoTau, int [] status) {
+  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
 
-    return ScubaNoise.noise_level(integrations, wavelength, "PHOT", decRadians, latRadians, csoTau, status);
+    return ScubaNoise.noise_level(integrations, wavelength, "PHOT", nefd, status);
   }
 }
 
