@@ -11,6 +11,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import jsky.util.gui.LookAndFeelMenu;
 import ot.OtWasteBin;
@@ -18,7 +20,7 @@ import ot.OtWasteBin;
 /** 
  * Provides a top level window and menubar for the OtWindow class.
  */
-public class OtWindowFrame extends JFrame {
+public class OtWindowFrame extends JFrame implements WindowListener {
     
     /** main panel */ 
     protected OtWindow editor;
@@ -26,6 +28,7 @@ public class OtWindowFrame extends JFrame {
     // These are used make new frames visible by putting them in different locations
     private static int openFrameCount = 0;
     private static final int xOffset = 30, yOffset = 30;
+    private static ArrayList openFrames = new ArrayList();
 
 
     /**
@@ -57,18 +60,38 @@ public class OtWindowFrame extends JFrame {
 
         pack();
 	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-	addWindowListener(new WindowAdapter() {
-		public void windowClosing(WindowEvent e) {
-		    editor.close();
-		}
-	    });
+// 	addWindowListener(new WindowAdapter() {
+// 		public void windowClosing(WindowEvent e) {
+//                     openFrameCount --;
+//                     openFrames.remove(this);
+// 		    editor.close();
+// 		}
+// 	    });
         setVisible(true);
 
 	// include this top level window in any future look and feel changes
 	LookAndFeelMenu.addWindow(this);
+        openFrames.add(this);
     }
 
     /** Return the main science program editor panel */
     public OtWindow getEditor() {return editor;}
+
+    public static ArrayList getWindowFrames() {
+        return openFrames;
+    }
+
+    public void windowActivated( WindowEvent e ) {};
+    public void windowClosed( WindowEvent e ) {};
+    public void windowDeactivated( WindowEvent e ) {};
+    public void windowDeiconified( WindowEvent e ) {};
+    public void windowIconified( WindowEvent e ) {};
+    public void windowOpened( WindowEvent e ) {};
+    public void windowClosing( WindowEvent e ) {
+        openFrameCount--;
+        openFrames.remove(this);
+        editor.close();
+    };
+    
 }
 

@@ -353,7 +353,7 @@ public class OT extends JFrame {
     public static void exit() {
 	// If the user wants to be prompted before closing when there are edited
 	// programs, look for edited programs and prompt
-	if (OtProps.isSaveShouldPrompt()) {
+// 	if (OtProps.isSaveShouldPrompt()) {
 	  if(desktop != null) {
 	    JInternalFrame[] ar = desktop.getAllFrames();
 	    for (int i = 0; i < ar.length; i++) {
@@ -366,19 +366,13 @@ public class OT extends JFrame {
 	    }
 	  }
 	  else {	    
-	    int current_number_of_frames = _otWindowFrames.size();
-	    for (int i = 0; i < current_number_of_frames; i++) {
-		if(_otWindowFrames.get(0) != null) {
-		    if(!((OtWindowFrame)_otWindowFrames.get(0)).getEditor().closeApp()) {
-			return;
-		    }
-		}
-		else {
-		    System.out.println("Frames " + i + " does not exist anymore.");
-		}
-	    }
-	  }
-	}
+              for ( int i=0; i< OtWindowFrame.getWindowFrames().size(); i++ ) {
+                  if(!((OtWindowFrame)OtWindowFrame.getWindowFrames().get(i)).getEditor().closeApp()) {
+                      return;
+                  }
+              }
+          }
+// 	}
 
 	// XXX allan saveProperties();
 
