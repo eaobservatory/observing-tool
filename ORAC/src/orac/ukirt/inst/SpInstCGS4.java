@@ -188,18 +188,20 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		    try {
 			int row = DISPERSERS.indexInColumn("ORDERS1", 2);
 			DISPERSERS.setElementAt (ORDERS1, row, 2);
-			row = DISPERSERS.indexInColumn("ORDERS2", 2);
-			DISPERSERS.setElementAt (ORDERS2, row, 2);
+			//row = DISPERSERS.indexInColumn("ORDERS2", 2);
+			//DISPERSERS.setElementAt (ORDERS2, row, 2);
 			row = DISPERSERS.indexInColumn("ORDERS3", 2);
 			DISPERSERS.setElementAt (ORDERS3, row, 2);
-			row = DISPERSERS.indexInColumn("EXPTIMES150", 3);
-			DISPERSERS.setElementAt (EXPTIMES150, row, 3);
+                        
+			//row = DISPERSERS.indexInColumn("EXPTIMES150", 3);
+			//DISPERSERS.setElementAt (EXPTIMES150, row, 3);
 			row = DISPERSERS.indexInColumn("EXPTIMES40", 3);
 			DISPERSERS.setElementAt (EXPTIMES40, row, 3);
 			row = DISPERSERS.indexInColumn("EXPTIMESECH", 3);
 			DISPERSERS.setElementAt (EXPTIMESECH, row, 3);
-			row = DISPERSERS.indexInColumn("FILTERS150", 4);
-			DISPERSERS.setElementAt (FILTERS150, row, 4);
+
+			//row = DISPERSERS.indexInColumn("FILTERS150", 4);
+			//DISPERSERS.setElementAt (FILTERS150, row, 4);
 			row = DISPERSERS.indexInColumn("FILTERS40", 4);
 			DISPERSERS.setElementAt (FILTERS40, row, 4);
 			row = DISPERSERS.indexInColumn("FILTERSECH", 4);
