@@ -22,6 +22,12 @@ import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
  */
 public class SpIterFolder extends SpItem
 {
+   /**
+    * Time needed by the telescope to move to another offset position.
+    *
+    * 5 seconds.
+    */
+   private static final double OFFSET_TIME = 5.0;
 
 /**
  * Default constructor.
@@ -137,12 +143,19 @@ printSummary()
 
       for(int j = 0; j < iterStepSubVector.size(); j++) {
         spIterStep = (SpIterStep)iterStepSubVector.get(j);
-
         iterationTracker.update(spIterStep);
 
         if(spIterStep.item instanceof SpIterObserveBase) {
           elapsedTime += iterationTracker.getObserveStepTime();
         }  
+
+        if(spIterStep.item instanceof SpIterOffset) {
+          if((OFFSET_TIME - instrument.getExposureOverhead()) > 0.0) {
+            // If for each OFFSET_TIME added an exposure overhead can be
+            // subtracted since this is done while the telescope moves.
+            elapsedTime += (OFFSET_TIME - instrument.getExposureOverhead());
+          }
+        }
       }
     }
   
