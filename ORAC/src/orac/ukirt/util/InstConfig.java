@@ -146,6 +146,7 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "arcNumExp", "100" );     // Number of arc exposures (coadds)
          put( "arcReadMode", "stare" ); // Readout mode for arc
          put( "arcSavedInt", "1" );     // Number of saved arc integrations
+
       } else if ( instrum.equalsIgnoreCase( "Michelle" ) ) {
          put( "instrument", instrum );  // Instrument name
          put( "version", "TBD" );       // Version number
@@ -155,7 +156,7 @@ public class InstConfig extends Hashtable implements Cloneable {
 	 put( "camera", "imaging");     // Which camera is in use
 
          put( "polarimetry", "false" ); // Whether polarimetry is in use
-         put( "mask", "TBD" );          // Mask (slit)  in use
+         put( "slitWidth", "2_pixels" ); // Mask (slit) in use
          put( "maskAngle", "0.0" );     // Mask position angle
          put( "positionAngle", "0.0" ); // Position angle (on sky)
          put( "disperser", "echelle" ); // Grating ruling or echelle
@@ -297,23 +298,23 @@ public class InstConfig extends Hashtable implements Cloneable {
 
 // Here might need to allow for changes of OT nomenclature.
          if ( lcAttribute.equals( ".version" ) ) key = "version";
-	 //	 else if ( lcAttribute.equals( "acqmode" ) ) key = "readMode";
+	 else if ( lcAttribute.equals( "acqmode" ) ) key = "readMode";
          else if ( lcAttribute.equals( "readoutarea" ) ) key = "readArea";
          else if ( lcAttribute.equals( "exposuretime" ) ) key = "expTime";
          else if ( lcAttribute.equals( "coadds" ) ) key = "objNumExp";
          else if ( lcAttribute.equals( "instaper" ) ) key="instAper";
 	 else if ( lcAttribute.equals( "posangle" ) ) key="positionAngle";
-	 //         else if ( lcAttribute.equals( "mask" ) ) key = "slitWidth";
+	 else if ( lcAttribute.equals( "mask" ) ) key = "slitWidth";
 
       } else if (  lcTitle.equals( "arc" ) ) {
          if ( lcAttribute.equals( "coadds" ) ) key = "arcNumExp";
          else if ( lcAttribute.equals( "caltype" ) ) key = "type";
-         //else if ( lcAttribute.equals( "acqmode" ) ) key = "arcReadMode";
+         else if ( lcAttribute.equals( "acqmode" ) ) key = "arcReadMode";
          else if ( lcAttribute.equals( "cvfwavelength" ) ) key = "arcCvfWavelength";
-         else if ( lcAttribute.equals( "exposuretime" ) ) key ="arcexpTime";
+         else if ( lcAttribute.equals( "exposuretime" ) ) key ="arcExpTime";
          else if ( lcAttribute.equals( "observationtime" ) ) key ="arcobsTime";
-	 //         else if ( lcAttribute.equals( "sampling" ) ) key = "arcSampling";
-         else if ( lcAttribute.equals( "filter" ) ) key = "arcfilter";
+	 //else if ( lcAttribute.equals( "sampling" ) ) key = "arcSampling";
+         else if ( lcAttribute.equals( "filter" ) ) key = "arcFilter";
          else if ( lcAttribute.equals( "lamp" ) ) key = "arcCalLamp";
 
          else if ( lcAttribute.equals( "nreads" )) key = "arcnreads";
@@ -343,11 +344,11 @@ public class InstConfig extends Hashtable implements Cloneable {
       } else if (  lcTitle.equals( "flat" ) ) {
          if ( lcAttribute.equals( "coadds" ) ) key = "flatNumExp";
          else if ( lcAttribute.equals( "caltype" ) ) key = "type";
-         // else if ( lcAttribute.equals( "acqmode" ) ) key = "flatReadMode";
-         else if ( lcAttribute.equals( "exposuretime" ) ) key ="flatexpTime";
+	 else if ( lcAttribute.equals( "acqmode" ) ) key = "flatReadMode";
+         else if ( lcAttribute.equals( "exposuretime" ) ) key ="flatExpTime";
          else if ( lcAttribute.equals( "observationtime" ) ) key ="flatobsTime";
          else if ( lcAttribute.equals( "sampling" ) ) key = "flatSampling";
-         else if ( lcAttribute.equals( "filter" ) ) key = "flatfilter";
+         else if ( lcAttribute.equals( "filter" ) ) key = "flatFilter";
          else if ( lcAttribute.equals( "lamp" ) ) key = "flatCalLamp";
          else if ( lcAttribute.equals( "neutraldensity" ) ) key = "flatNeutralDensity";
          else if ( lcAttribute.equals( "nreads" )) key = "flatnreads";
