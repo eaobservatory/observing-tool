@@ -1328,6 +1328,8 @@
     <xsd:all>
       <xsd:element name="title" type="xsd:string" minOccurs="0"/>
       <xsd:element name="meta_gui_collapsed" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="completionParameter" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="binning" type="xsd:string" minOccurs="0"/>
       <xsd:element name="note" type="xsd:string"/>
     </xsd:all>
     <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
