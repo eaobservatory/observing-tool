@@ -273,11 +273,13 @@ public final class OtCfg
 	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdNote");
 	SpFactory.NOTE.setClientData(clientData);
 
+        // MFO: Is now specified in the config file because UKIRT and JCMT use
+	// different site quality components.
 	// Observation Component: Site Quality
-	tnw        = new OtSimpleTreeNodeWidget();
-	tnw.setBothImageSrc("images/component.gif");
-	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdCompSiteQuality");
-	SpFactory.OBSERVATION_COMPONENT_SITE_QUALITY.setClientData(clientData);
+	//tnw        = new OtSimpleTreeNodeWidget();
+	//tnw.setBothImageSrc("images/component.gif");
+	//clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdCompSiteQuality");
+	//SpFactory.OBSERVATION_COMPONENT_SITE_QUALITY.setClientData(clientData);
 
 	// Observation Component: Target List
 	tnw        = new OtSimpleTreeNodeWidget();
@@ -285,19 +287,21 @@ public final class OtCfg
 	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdCompTargetList");
 	SpFactory.OBSERVATION_COMPONENT_TARGET_LIST.setClientData(clientData);
 
+	// MFO: Sky and Observe are now specified in the config file
+	//      because they are not needed in JCMT.
 	// Iterator Component: Observe
-	tnw        = new OtSimpleTreeNodeWidget();
-	tnw.setBothImageSrc("images/iterObs.gif");
-	clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdIterObserve");
-	SpFactory.ITERATOR_COMPONENT_OBSERVE.setClientData(clientData);
-	obsIteratorTypes.addElement(SpType.ITERATOR_COMPONENT_OBSERVE);
+	//tnw        = new OtSimpleTreeNodeWidget();
+	//tnw.setBothImageSrc("images/iterObs.gif");
+	//clientData = new OtClientData(tnw, "jsky.app.ot.editor.EdIterObserve");
+	//SpFactory.ITERATOR_COMPONENT_OBSERVE.setClientData(clientData);
+	//obsIteratorTypes.addElement(SpType.ITERATOR_COMPONENT_OBSERVE);
 
 	// Iterator Component: Sky
-	tnw        = new OtSimpleTreeNodeWidget();
-	tnw.setBothImageSrc("images/iterObs.gif");
-	clientData = new OtClientData(tnw, "ot.editor.EdIterSky");
-	SpFactory.ITERATOR_COMPONENT_SKY.setClientData(clientData);
-	obsIteratorTypes.addElement(SpType.ITERATOR_COMPONENT_SKY);
+	//tnw        = new OtSimpleTreeNodeWidget();
+	//tnw.setBothImageSrc("images/iterObs.gif");
+	//clientData = new OtClientData(tnw, "ot.editor.EdIterSky");
+	//SpFactory.ITERATOR_COMPONENT_SKY.setClientData(clientData);
+	//obsIteratorTypes.addElement(SpType.ITERATOR_COMPONENT_SKY);
 
 	// Iterator Component: Offset
 	tnw        = new OtSimpleTreeNodeWidget();
