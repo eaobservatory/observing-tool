@@ -972,7 +972,6 @@ print(String indentStr)
    * @param xmlBuffer StringBuffer to which the XML representation of this SpAvTable is appended
    */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
-      System.out.println("Found attribute "+avAttr);
       if (avAttr.indexOf("xmlns") != -1) {
 	  return;
       }
