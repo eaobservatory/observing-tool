@@ -14,52 +14,55 @@ import gemini.sp.SpType;
  */
 public class SpSiteQualityObsComp extends SpObsComp
 {
-   public static final String ATTR_IMAGE_QUALITY = "imageQuality";
-   public static final String ATTR_IR_BACKGROUND = "irBackground";
-   public static final String ATTR_MOON          = "moon";
-   public static final String ATTR_SKY           = "sky";
+   public static final String ATTR_SEEING_MIN   = "seeing.min";
+   public static final String ATTR_SEEING_MAX   = "seeing.max";
+   public static final String ATTR_CSO_TAU_MIN  = "csoTau.min";
+   public static final String ATTR_CSO_TAU_MAX  = "csoTau.max";
+   public static final String ATTR_MOON         = "moon";
+   public static final String ATTR_CLOUD        = "cloud";
 
-   // OMP (MFO, 8 August 2001)
-   public static final String ATTR_TAU_BAND      = "tauBand";
-   public static final String ATTR_SEEING        = "seeing";
-   public static final int NO_VALUE              = 0;
+   public static final int SEEING_EXCELLENT     = 0;
+   public static final int SEEING_GOOD          = 1;
+   public static final int SEEING_POOR          = 2;
+   public static final int SEEING_ANY           = 3;
 
-   public static final int IMAGE_QUALITY_20     = 0;
-   public static final int IMAGE_QUALITY_50     = 1;
-   public static final int IMAGE_QUALITY_IGNORE = 2;
-
-   public static final String[] IMAGE_QUALITY_OPTIONS = {
-      "20", "50", "ignore"
+   public static final double [][] SEEING_RANGES = {
+      {0.0, 0.4},
+      {0.4, 0.6},
+      {0.6, 0.8}
    };
 
-   public static final int IR_BACKGROUND_20     = 0;
-   public static final int IR_BACKGROUND_50     = 1;
-   public static final int IR_BACKGROUND_IGNORE = 2;
+   public static final int CSO_TAO_VERY_DRY = 0;
+   public static final int CSO_TAO_ANY      = 1;
 
-   public static final String[] IR_BACKGROUND_OPTIONS = {
-      "20", "50", "ignore"
+   public static final double [][] CSO_TAO_RANGES = {
+      {0.0, 0.09}
    };
 
-   public static final int MOON_DARK   = 0;
-   public static final int MOON_BRIGHT = 1;
-   public static final int MOON_IGNORE = 2;
+   public static final int MOON_DARK = 0;
+   public static final int MOON_GREY = 1;
+   public static final int MOON_ANY  = 2;
 
-   public static final String[] MOON_OPTIONS = {
-      "dark", "bright", "ignore"
-   };
+   /** Number of Moon options. */
+   public static final int MOON_OPTIONS_LENGTH = 3;
 
-   public static final int SKY_PHOTOMETRIC   = 0;
-   public static final int SKY_SPECTROSCOPIC = 1;
-   public static final int SKY_IGNORE        = 2;
+//   public static final String[] MOON_OPTIONS = {
+//      "dark", "bright", "ignore"
+//   };
 
-   public static final String[] SKY_OPTIONS = {
-      "photometric", "spectroscopic", "ignore"
-   };
+   public static final int CLOUD_PHOTOMETRIC = 0;
+   public static final int CLOUD_THIN_CIRRUS = 1;
+   public static final int CLOUD_ANY         = 2;
 
-   public static final String SUBTYPE = "schedInfo";
+   /** Number of Cloud options. */
+   public static final int CLOUD_OPTIONS_LENGTH = 3;
+
+//   public static final String[] SKY_OPTIONS = {
+//      "photometric", "spectroscopic", "ignore"
+//   };
 
    public static final SpType SP_TYPE =
-   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Site Quality");
+   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo", "Site Quality");
 
    // Register the prototype.
    static {
@@ -75,236 +78,179 @@ public SpSiteQualityObsComp()
    // MFO: Changed because UKIRT and JCMT use different site quality components.
    super(SP_TYPE);
    //super( SpType.OBSERVATION_COMPONENT_SITE_QUALITY );
-
-   // OMP change (MFO, 8 August 2001)
-   if(System.getProperty("OMP") != null) {
-      _avTable.noNotifySet(ATTR_TAU_BAND, "1", 0);
-      _avTable.noNotifySet(ATTR_SEEING,   "1", 0);
-   }
-   else {
-      _avTable.noNotifySet(ATTR_IMAGE_QUALITY, IMAGE_QUALITY_OPTIONS[IMAGE_QUALITY_IGNORE], 0);
-      _avTable.noNotifySet(ATTR_IR_BACKGROUND, IR_BACKGROUND_OPTIONS[IR_BACKGROUND_IGNORE], 0);
-      _avTable.noNotifySet(ATTR_MOON, MOON_OPTIONS[MOON_IGNORE], 0);
-      _avTable.noNotifySet(ATTR_SKY,  SKY_OPTIONS[SKY_IGNORE],   0);
-   }   
 }
 
 /**
- * Set the image quality.
- */
-public void
-setImageQuality(int iq)
-{
-   if ((iq<0) || (iq>=IMAGE_QUALITY_OPTIONS.length)) {
-      return;
-   }
-   _avTable.set(ATTR_IMAGE_QUALITY, IMAGE_QUALITY_OPTIONS[iq]);
-}
-
-/**
- * Get the image quality.
- */
-public int
-getImageQuality()
-{
-   String iq = _avTable.get(ATTR_IMAGE_QUALITY);
-   if (iq == null) return IMAGE_QUALITY_IGNORE;
-
-   for (int i=0; i<IMAGE_QUALITY_OPTIONS.length; ++i) {
-      if (iq.equals(IMAGE_QUALITY_OPTIONS[i])) {
-         return i;
-      }
-   }
-   return IMAGE_QUALITY_IGNORE;
-}
-
-/**
- * Get the image quality as a string.
- */
-public String
-getImageQualityAsString()
-{
-   String iq = _avTable.get(ATTR_IMAGE_QUALITY);
-   if (iq == null) iq = IMAGE_QUALITY_OPTIONS[ IMAGE_QUALITY_IGNORE ];
-   return iq;
-}
-
-/**
- * Set the ir background.
- */
-public void
-setIRBackground(int ir)
-{
-   if ((ir<0) || (ir>=IR_BACKGROUND_OPTIONS.length)) {
-      return;
-   }
-   _avTable.set(ATTR_IR_BACKGROUND, IR_BACKGROUND_OPTIONS[ir]);
-}
-
-/**
- * Get the ir background.
- */
-public int
-getIRBackground()
-{
-   String ir = _avTable.get(ATTR_IR_BACKGROUND);
-   if (ir == null) return IR_BACKGROUND_IGNORE;
-
-   for (int i=0; i<IR_BACKGROUND_OPTIONS.length; ++i) {
-      if (ir.equals(IR_BACKGROUND_OPTIONS[i])) {
-         return i;
-      }
-   }
-   return IR_BACKGROUND_IGNORE;
-}
-
-/**
- * Get the ir background as a string.
- */
-public String
-getIRBackgroundAsString()
-{
-   String ir = _avTable.get(ATTR_IR_BACKGROUND);
-   if (ir == null) ir = IR_BACKGROUND_OPTIONS[ IR_BACKGROUND_IGNORE ];
-   return ir;
-}
-
-/**
- * Set the moon.
- */
-public void
-setMoon(int moon)
-{
-   if ((moon<0) || (moon>=MOON_OPTIONS.length)) {
-      return;
-   }
-   _avTable.set(ATTR_MOON, MOON_OPTIONS[moon]);
-}
-
-/**
- * Get the moon.
- */
-public int
-getMoon()
-{
-   String moon = _avTable.get(ATTR_MOON);
-   if (moon == null) return MOON_IGNORE;
-
-   for (int i=0; i<MOON_OPTIONS.length; ++i) {
-      if (moon.equals(MOON_OPTIONS[i])) {
-         return i;
-      }
-   }
-   return MOON_IGNORE;
-}
-
-/**
- * Get the moon as a string.
- */
-public String
-getMoonAsString()
-{
-   String moon = _avTable.get(ATTR_MOON);
-   if (moon == null) moon = MOON_OPTIONS[ MOON_IGNORE ];
-   return moon;
-}
-
-/**
- * Set the sky.
- */
-public void
-setSky(int sky)
-{
-   if ((sky<0) || (sky>=SKY_OPTIONS.length)) {
-      return;
-   }
-   _avTable.set(ATTR_SKY, SKY_OPTIONS[sky]);
-}
-
-/**
- * Get the sky.
- */
-public int
-getSky()
-{
-   String sky = _avTable.get(ATTR_SKY);
-   if (sky == null) return SKY_IGNORE;
-
-   for (int i=0; i<SKY_OPTIONS.length; ++i) {
-      if (sky.equals(SKY_OPTIONS[i])) {
-         return i;
-      }
-   }
-   return SKY_IGNORE;
-}
-
-/**
- * Get the sky as a string.
- */
-public String
-getSkyAsString()
-{
-   String sky = _avTable.get(ATTR_SKY);
-   if (sky == null) sky = SKY_OPTIONS[ SKY_IGNORE ];
-   return sky;
-}
-
-
-/**
- * Set tau band.
+ * Set Seeing index.
  *
- * The argument tauBand refers directly to a tau band (band 1 = "low" and band 2 = "high") and
- * <i>not</i> to  an index for an array of tau band options.
- * Therefore the smallest meaningful value is 1 and <i>not</i> 0 as in {@link setSky}.
- *
- * Added for OMP (MFO, 8 August 2001).
- */
-public void
-setTauBand(int tauBand)
-{
-   _avTable.set(ATTR_TAU_BAND, tauBand);
-}
-
-/**
- * Get the tau band.
- *
- * Added for OMP (MFO, 8 August 2001).
- *
- * @return tau band (not an index for an array of tau band options)
- */
-public int
-getTauBand()
-{
-   return _avTable.getInt(ATTR_TAU_BAND, NO_VALUE);
-}
-
-
-/**
- * Set seeing.
- *
- * The argument seeing refers directly to the "state" (e.g. 1 (< 0.4), 2 (0.4 .. 0.8), 3 (> 0.4) etc) and
- * <i>not</i> to  an index for an array of seeing options.
- * Therefore the smallest meaningful value is 1 and <i>not</i> 0 as in {@link setSky}.
- *
- * Added for OMP (MFO, 8 August 2001).
+ * @param seeing One of {@link #SEEING_EXCELLENT}, {@link #SEEING_GOOD}, {@link #SEEING_POOR}, {@link #SEEING_ANY}.
  */
 public void
 setSeeing(int seeing)
 {
-   _avTable.set(ATTR_SEEING, seeing);
+   if ((seeing < 0) || (seeing >= (SEEING_RANGES.length) || (seeing == SEEING_ANY))) {
+      _avTable.rm(ATTR_SEEING_MIN);
+      _avTable.rm(ATTR_SEEING_MAX);
+   }
+   else {
+      _avTable.set(ATTR_SEEING_MIN, SEEING_RANGES[seeing][0]);
+      _avTable.set(ATTR_SEEING_MAX, SEEING_RANGES[seeing][1]);
+   }
 }
 
 /**
- * Get seeing.
+ * Get Seeing index.
  *
- * Added for OMP (MFO, 8 August 2001).
- *
- * @return seeing state (not an index for an array of seeing options)
+ * @return One of {@link #SEEING_EXCELLENT}, {@link #SEEING_GOOD}, {@link #SEEING_POOR}, {@link #SEEING_ANY}.
  */
 public int
 getSeeing()
 {
-   return _avTable.getInt(ATTR_SEEING, NO_VALUE);
+   if(_avTable.get(ATTR_SEEING_MIN) == null) {
+      return SEEING_ANY;
+   }
+   
+   // Default -1.0 ensure that no range minimum matches and SEEING_ANY is returned.
+   double min = _avTable.getDouble(ATTR_SEEING_MIN, -1.0);
+
+   if(min == SEEING_RANGES[SEEING_EXCELLENT][0]) return SEEING_EXCELLENT;
+   if(min == SEEING_RANGES[SEEING_GOOD][0])      return SEEING_GOOD;
+   if(min == SEEING_RANGES[SEEING_POOR][0])      return SEEING_POOR;
+   
+   return SEEING_ANY;
+}
+
+/**
+ * Get Seeing range as array of two doubles.
+ */
+public double []
+getSeeingRange()
+{
+   double [] result = new double[]{
+      _avTable.getDouble(ATTR_SEEING_MIN, -1), _avTable.getDouble(ATTR_SEEING_MAX, -1)
+   };
+
+   if((result[0] == -1) || (result[1] == -1)) {
+      return null;
+   }
+   else {
+      return result;
+   }
+}
+
+//--
+
+/**
+ * Set CSO Tau index.
+ *
+ * @param csoTau One of {@link #CSO_TAO_VERY_DRY}, {@link #CSO_TAO_ANY}.
+ */
+public void
+setCsoTau(int csoTau)
+{
+   if ((csoTau < 0) || (csoTau >= (CSO_TAO_RANGES.length) || (csoTau == CSO_TAO_ANY))) {
+      _avTable.rm(ATTR_CSO_TAU_MIN);
+      _avTable.rm(ATTR_CSO_TAU_MAX);
+   }
+   else {
+      _avTable.set(ATTR_CSO_TAU_MIN, CSO_TAO_RANGES[csoTau][0]);
+      _avTable.set(ATTR_CSO_TAU_MAX, CSO_TAO_RANGES[csoTau][1]);
+   }
+}
+
+/**
+ * Get CSO Tau index.
+ *
+ * @return One of {@link #CSO_TAO_VERY_DRY}, {@link #CSO_TAO_ANY}.
+ */
+public int
+getCsoTau()
+{
+   if(_avTable.get(ATTR_CSO_TAU_MIN) == null) {
+      return CSO_TAO_ANY;
+   }
+
+   // Default -1.0 ensure that no range minimum matches and CSO_TAO_ANY is returned.
+   double min = _avTable.getDouble(ATTR_SEEING_MIN, -1.0);
+
+   if(min == CSO_TAO_RANGES[CSO_TAO_VERY_DRY][0]) return CSO_TAO_VERY_DRY;
+   
+   return CSO_TAO_ANY;
+}
+
+/**
+ * Get CSO Tau range as array of two doubles.
+ */
+public double []
+getCsoTauRange()
+{
+   double [] result = new double[]{
+      _avTable.getDouble(ATTR_CSO_TAU_MIN, -1), _avTable.getDouble(ATTR_CSO_TAU_MAX, -1)
+   };
+
+   if((result[0] == -1) || (result[1] == -1)) {
+      return null;
+   }
+   else {
+      return result;
+   }
+}
+
+
+/**
+ * Set Moon index.
+ *
+ * @param moon One of {@link #MOON_DARK}, {@link #MOON_GREY}, {@link #MOON_ANY}.
+ */
+public void
+setMoon(int moon)
+{
+   if ((moon < 0) || (moon >= MOON_OPTIONS_LENGTH) || (moon == MOON_ANY)) {
+      _avTable.rm(ATTR_MOON);
+   }
+   else {
+      _avTable.set(ATTR_MOON, moon);
+   }
+}
+
+/**
+ * Get Moon index.
+ *
+ * @return One of {@link #MOON_DARK}, {@link #MOON_GREY}, {@link #MOON_ANY}.
+ */
+public int
+getMoon()
+{
+   return _avTable.getInt(ATTR_MOON, MOON_ANY);
+}
+
+
+/**
+ * Set Cloud index.
+ *
+ * @param cloud One of {@link #CLOUD_PHOTOMETRIC}, {@link #CLOUD_THIN_CIRRUS}, {@link #CLOUD_ANY}.
+ *
+ */
+public void
+setCloud(int cloud)
+{
+   if ((cloud < 0) || (cloud >= CLOUD_OPTIONS_LENGTH) || (cloud == CLOUD_ANY)) {
+      _avTable.rm(ATTR_CLOUD);
+   }
+   else {
+      _avTable.set(ATTR_CLOUD, cloud);
+   }
+}
+
+/**
+ * Get Cloud index.
+ *
+ * @return One of {@link #CLOUD_PHOTOMETRIC}, {@link #CLOUD_THIN_CIRRUS}, {@link #CLOUD_ANY}.
+ */
+public int
+getCloud()
+{
+   return _avTable.getInt(ATTR_CLOUD, CLOUD_ANY);
 }
 
 }
