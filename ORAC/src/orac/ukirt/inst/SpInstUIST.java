@@ -100,7 +100,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static double DETANGLE;
     public static double PIXPITCH;
     public static String DARKFILTER;
-    public static String DEFAULT_FOCUS;
     public static String[] CAMERAS;
     public static String[] CAMERAS_POL;
     public static String DEFAULT_CAMERA;
@@ -112,6 +111,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String[] POLARIMETRY;
     public static String DEFAULT_POLARIMETRY;
     public static String DEFAULT_SOURCE_MAG;
+    public static String DEFAULT_PIXEL_FOV;
+    public static String DEFAULT_SCIENCE_AREA;
     // Imaging
     public static String DEFAULT_IMAGER;
     public static String GRISM_IMAGING;
@@ -142,7 +143,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String DEFAULT_MAG8;
     public static String DEFAULT_FILTER_CATEGORY;
     public static LookUpTable FILTERS;
-    public static String DEFAULT_CENTRAL_WAVELENGTH;
     // Spectroscopy
     public static double SPECT_FOCAL_LENGTH;
     public static double[] SPECT_FIELD_OF_VIEW;
@@ -158,7 +158,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String[] MASKS1;
     public static String[] MASKS2;
     public static LookUpTable MASKS;
-    public static String DEFAULT_MASK;
     public static String DEFAULT_MASK1;
     public static String DEFAULT_MASK2;
     public static String PUPIL_SCALE;
@@ -280,8 +279,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         _avTable.noNotifySet(attr, value, 0);
 
         attr  = ATTR_MASK;
-        value = DEFAULT_MASK;
-        _avTable.noNotifySet(attr, value, 0);
+        int mi = IMAGERS.indexInColumn(DEFAULT_IMAGER,0);
+        String mask = (String) IMAGERS.elementAt(mi,4);
+        _avTable.noNotifySet(attr, mask, 0);
 
         attr  = ATTR_MASK_WIDTH;
         _avTable.noNotifySet(attr, "0.0", 0);
@@ -298,10 +298,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 
         attr  = ATTR_ORDER;
         _avTable.noNotifySet(attr, "0", 0);
-
-        attr  = ATTR_CENTRAL_WAVELENGTH;
-        value = DEFAULT_CENTRAL_WAVELENGTH;
-        _avTable.noNotifySet(attr, value, 0);
 
         attr  = ATTR_DISPERSION;
         _avTable.noNotifySet(attr, "0.0", 0);
@@ -325,15 +321,26 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         value = DARKFILTER;
         _avTable.noNotifySet(attr, value, 0);
 
+        int fi = FILTERS.indexInColumn(DEFAULT_FILTERS1,0);
+        String cwl = (String) FILTERS.elementAt(fi,1);
+        attr  = ATTR_CENTRAL_WAVELENGTH;
+        _avTable.noNotifySet(attr, cwl, 0);
+        String sc = (String) FILTERS.elementAt(fi,2);
+        attr  = ATTR_SPECTRAL_COVERAGE;
+        _avTable.noNotifySet(attr, sc, 0);
+
         attr  = ATTR_FOCUS;
-	value = DEFAULT_FOCUS;
-        _avTable.noNotifySet(attr, value, 0);
+        fi = FILTERS1.indexInColumn(DEFAULT_FILTERS1,0);
+        String focus = (String) FILTERS1.elementAt(fi,1);
+        _avTable.noNotifySet(attr, focus, 0);
 
         attr  = ATTR_SCIENCE_AREA;
-        _avTable.noNotifySet(attr, "0.0 x 0.0", 0);
+        value = DEFAULT_SCIENCE_AREA;
+        _avTable.noNotifySet(attr, value, 0);
 
         attr  = ATTR_PIXEL_FOV;
-        _avTable.noNotifySet(attr, "0.0 x 0.0", 0);
+        value = DEFAULT_PIXEL_FOV;
+        _avTable.noNotifySet(attr, value, 0);
 
         attr  = ATTR_PIXEL_SCALE;
         _avTable.noNotifySet(attr, "0.12", 0);
@@ -518,6 +525,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     PUPIL_SCALE  = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "pupil_fov")) {
                     PUPIL_FOV  = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_pixel_fov")) {
+                    DEFAULT_PIXEL_FOV  = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_science_area")) {
+                    DEFAULT_SCIENCE_AREA  = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "filters1")) {
                     FILTERS1 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "filters2")) {
@@ -570,10 +581,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     DEFAULT_FILTER_CATEGORY = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "filters")) {
                     FILTERS = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "default_focus")) {
-                    DEFAULT_FOCUS = instInfo.getValue();
-		} else if (InstCfg.matchAttr (instInfo, "default_central_wavelength")) {
-                    DEFAULT_CENTRAL_WAVELENGTH = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "spect_focal_length")) {
                     SPECT_FOCAL_LENGTH = Double.valueOf(instInfo.getValue()).doubleValue();
 		} else if (InstCfg.matchAttr (instInfo, "flat_sources")) {
@@ -612,8 +619,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     MASKS2 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks")) {
                     MASKS = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "default_mask")) {
-                    DEFAULT_MASK = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask1")) {
                     DEFAULT_MASK1 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask2")) {
@@ -1038,10 +1043,19 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     getDefaultFocus()
     {
         String focus;
-        int fi = getFilterIndex();
         if (isImaging()) {
-            focus = (String) FILTERS.elementAt(fi,3);
+            // For imaging, focus comes from FILTERS* lut
+            // with choice depending on polarimetry
+            LookUpTable filterLUT= getFilterLUT();
+            String filter = getFilter();
+            int fi = filterLUT.indexInColumn(filter, 0);
+            if (isPolarimetry()) {
+                focus = (String) filterLUT.elementAt(fi,2);
+            } else {
+                focus = (String) filterLUT.elementAt(fi,1);
+	    }
 	} else {
+            int fi = getFilterIndex();
             focus = (String) SPECTFILTERS.elementAt(fi,5);;
 	}
         return focus;
@@ -1602,10 +1616,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public String[]
     getFilterMagsFromLUT(LookUpTable filterLUT)
     {
-        int nmags = filterLUT.getNumColumns() - 1;
+        int nmags = filterLUT.getNumColumns() - 4;
         String filterMags[] = new String[nmags];
         for (int i=0; i<nmags; i++) {
-                filterMags[i] = (String)filterLUT.elementAt(0,i+1);
+                filterMags[i] = (String)filterLUT.elementAt(0,i+4);
 	}
         return filterMags;
     }
@@ -1715,7 +1729,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     setFilter(String filter)
     {
         int findex;
-        String focus;
         String spectralCoverage;
         double cwl;
         int order = 0;
@@ -1724,7 +1737,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
             _avTable.set(ATTR_FILTER, filter);
             if (isImaging()) {
                 findex = FILTERS.indexInColumn(filter,0);
-                focus = (String) FILTERS.elementAt(findex,3);
                 cwl = new Double((String) FILTERS.elementAt(findex,1)).doubleValue();
                 spectralCoverage = (String) FILTERS.elementAt(findex,2);
 	    } else {
@@ -1733,17 +1745,17 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                 int di = getDisperserIndex();
                 String OTFilter = (String) DISPERSERS.elementAt(di,2);
                 findex = SPECTFILTERS.indexInColumn(OTFilter, 0);
-                focus = (String) SPECTFILTERS.elementAt(findex,5);;
                 cwl = new Double((String) SPECTFILTERS.elementAt(findex,3)).doubleValue();
                 order = Integer.valueOf((String)SPECTFILTERS.elementAt(findex,2)).intValue();
                 spectralCoverage = 
                     (String) SPECTFILTERS.elementAt(findex,4);
 	    }
-            setFocus(focus);
             setCentralWavelength(cwl);
             setOrder(order);
             setSpectralCoverage(spectralCoverage);
             updateResolution();
+            String focus = getDefaultFocus();
+            setFocus(focus);
 	} catch  (ArrayIndexOutOfBoundsException ex) {
 	    System.out.println ("setFilter> Filter not recognised: " + filter + 
                 " in lut");
@@ -2052,7 +2064,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	if (isImaging()) {
             //  get default flat from FILTERS lut
             int findex = getFilterIndex();
-            defaultFlatSource = (String) FILTERS.elementAt(findex,4);
+            defaultFlatSource = (String) FILTERS.elementAt(findex,3);
 	} else {
             //  get default flat from DISPERSERS lut
             int dindex = getDisperserIndex();
@@ -2881,9 +2893,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     {
         double fet;
         if (isImaging()) {
-            // Get flat exposure time from FILTERS LUT
-            fet = Double.valueOf((String)FILTERS
-                .elementAt(getFilterIndex(),5)).doubleValue();
+            // Get flat exposure time from FILTERS* LUT
+            LookUpTable filterLUT= getFilterLUT();
+            String filter = getFilter();
+            int fi = filterLUT.indexInColumn(filter, 0);
+            fet = Double.valueOf((String)filterLUT
+                .elementAt(fi,3)).doubleValue();
 	} else {
             // Get flat exposure time from DISPERSERS LUT
             fet = Double.valueOf((String)DISPERSERS
