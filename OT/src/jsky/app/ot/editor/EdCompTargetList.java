@@ -393,6 +393,16 @@ public final class EdCompTargetList extends OtItemEditor
 		}
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
+
+	// Added for SCUBA (MFO, 29 October 2001)
+	_w.chopSystem.setChoices(CoordSys.COORD_SYS);
+	_w.chopSystem.addWatcher(new DropDownListBoxWidgetWatcher() {
+		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) { }
+
+		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+		    ((SpTelescopeObsComp)_spItem).setChopSystem(validateChopAngle(_w.chopAngle.getText()));
+		}
+	    });
     }
 
 
@@ -500,10 +510,10 @@ public final class EdCompTargetList extends OtItemEditor
 	    fwe = _w.extrasFolder;
 	    
 	    // MFO 23 May 2001: Keep choice between "Proper motion" and "Tracking Details" disabled for UKIRT.
-	    if(!(_telescope == UKIRT)) {
+	    if(_telescope != UKIRT) {
 	      fwe.setEnabledAt(1, true);
 	      fwe.setEnabledAt(2, true);
-            }
+	    }  
 
 	    // Set the Equinox and Proper Motion
 	    TextBoxWidgetExt tbw;
@@ -564,10 +574,14 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.chopping.setSelected( ((SpTelescopeObsComp)_spItem).isChopping() );
 	_w.chopThrow.setValue(   ((SpTelescopeObsComp)_spItem).getChopThrowAsString() );
 	_w.chopAngle.setValue(   ((SpTelescopeObsComp)_spItem).getChopAngleAsString() );
+	
+	if(((SpTelescopeObsComp)_spItem).getChopSystem() != null) {
+	  _w.chopSystem.setValue(  ((SpTelescopeObsComp)_spItem).getChopSystem() );
+	}  
 
 	_w.chopThrow.setEnabled(_w.chopping.isSelected());
 	_w.chopAngle.setEnabled(_w.chopping.isSelected());
-
+	_w.chopSystem.setEnabled(_w.chopping.isSelected());
     }
 
     /**
@@ -658,6 +672,9 @@ public final class EdCompTargetList extends OtItemEditor
 
 	_w.extrasFolder.setEnabledAt(1, false);
 	_w.extrasFolder.setEnabledAt(2, false);
+
+	_w.chopSystemLabel.setVisible(false);
+	_w.chopSystem.setVisible(false);
       }
     }
 
@@ -745,10 +762,12 @@ public final class EdCompTargetList extends OtItemEditor
 	if(w == _w.chopping) {
 	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
 	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
+	    _w.chopSystem.setEnabled(_w.chopping.isSelected());
 
 	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
 	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
 	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
+	    ((SpTelescopeObsComp)_spItem).setChopSystem(_w.chopSystem.getStringValue());
 	}
     }
 
