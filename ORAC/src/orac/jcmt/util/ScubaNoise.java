@@ -750,7 +750,7 @@ Module created by Edward Chapin, echapin@jach.hawaii.edu
 
       double [] coefficients = (double[])tauRelation.get("" + ((int)wavelength));
 
-      return (coefficients[0] * csoTau) + coefficients[1];
+      return coefficients[0] * (csoTau + coefficients[1]);
     }
 
 
