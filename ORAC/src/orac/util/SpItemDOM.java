@@ -524,17 +524,23 @@ public class SpItemDOM {
         if(element.getElementsByTagName("chopping").item(0).getFirstChild().getNodeValue().equals("true")) {
           ElementImpl chopElement = (ElementImpl)document.createElement("chop");
 
-          child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopAngle").item(0));
-          child.setAttribute("units", "degrees");
-          chopElement.appendChild(child);
+          if(element.getElementsByTagName("chopAngle").item(0) != null) {
+	    child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopAngle").item(0));
+            child.setAttribute("units", "degrees");
+            chopElement.appendChild(child);
+          }  
 
-          child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopThrow").item(0));
-          child.setAttribute("units", "arcseconds");
-          chopElement.appendChild(child);
+          if(element.getElementsByTagName("chopThrow").item(0) != null) {
+            child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopThrow").item(0));
+            child.setAttribute("units", "arcseconds");
+            chopElement.appendChild(child);
+	  }  
 
           // Currently not needed
-//          child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
-//          chopElement.appendChild(child);
+//          if(element.getElementsByTagName("chopSystem").item(0) != null) {
+//            child = (ElementImpl)element.removeChild(element.getElementsByTagName("chopSystem").item(0));
+//            chopElement.appendChild(child);
+//          }
 
           element.appendChild(chopElement);
         }
