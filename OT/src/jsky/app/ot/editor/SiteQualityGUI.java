@@ -70,7 +70,7 @@ public class SiteQualityGUI extends JPanel {
         jPanel4.setLayout(gridBagLayout5);
         seeingGood.setText("Good (<= 0.6)");
         seeingGood.setFont(new java.awt.Font("Dialog", 0, 12));
-        seeingPoor.setText("Poor (<= 0.4)");
+        seeingPoor.setText("Poor (<= 0.8)");
         seeingPoor.setFont(new java.awt.Font("Dialog", 0, 12));
         seeingAny.setText("Don\'t Care (any)");
         seeingAny.setFont(new java.awt.Font("Dialog", 0, 12));
