@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <title>SCUBA Libraries</title>
   <meta_gui_filename>SCUBA.xml</meta_gui_filename>
+  <title>SCUBA Libraries</title>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
@@ -11,12 +11,14 @@
       <title>SCUBA Photometry MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="1"/>
+        <SpNoteRef idref="2"/>
         <SpInstSCUBARef idref="0"/>
         <title>850/450 um photometry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1336.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1262.0</estimatedDuration>
+        <SpNote id="2" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -62,7 +64,6 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="1" type="oc" subtype="schedInfo">
           <seeing>
@@ -72,6 +73,7 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="0" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
@@ -96,11 +98,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 850/450 um photometry observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -148,7 +150,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850/450 um photometry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1080.0</estimatedDuration>
+          <estimatedDuration units="seconds">1202.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -204,13 +206,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="3"/>
-        <SpInstSCUBARef idref="2"/>
+        <SpSiteQualityObsCompRef idref="4"/>
+        <SpNoteRef idref="5"/>
+        <SpInstSCUBARef idref="3"/>
         <title>850/450 um 2-bol photometry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1336.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1262.0</estimatedDuration>
+        <SpNote id="5" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -256,9 +260,8 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="3" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="4" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>1.0</max>
@@ -266,8 +269,9 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="2" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="3" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>H7</value>
@@ -289,11 +293,11 @@ The following parameters have been set:
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 850/450 um photometry observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -341,201 +345,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850/450 um 2-bol photometry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1080.0</estimatedDuration>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="SCIENCE">
-              <target>
-                <targetName></targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
-
-If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
-</note>
-              <title>Pointing information</title>
-            </SpNote>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>1</repeatCount>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>2</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterRepeat type="ic" subtype="repeat">
-                <repeatCount>1</repeatCount>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterChop type="ic" subtype="chop">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <SECONDARY>
-                    <CHOP SYSTEM="AZEL">
-                      <THROW>60.0</THROW>
-                      <PA>90.0</PA>
-                    </CHOP>
-                  </SECONDARY>
-                  <SpIterStareObs type="ic" subtype="stareObs">
-                    <integrations>40</integrations>
-                    <meta_gui_collapsed>false</meta_gui_collapsed>
-                  </SpIterStareObs>
-                </SpIterChop>
-              </SpIterRepeat>
-            </SpIterRepeat>
-          </SpIterFolder>
-        </SpObs>
-      </SpMSB>
-      <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="5"/>
-        <SpInstSCUBARef idref="4"/>
-        <title>750/350 um photometry</title>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
-        <priority>Low</priority>
-        <estimatedDuration units="seconds">1336.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The Site Quality component below specifies the weather
-conditions that will affect the MSB's scheduling.
-
-Weather Band: 
--------------
-By default, "Allocated" is selected. This means
-your MSB may be scheduled when conditions match the
-range of tau allocated to you by your national TAG.
-
-You can, if you wish, schedule your MSBs in subsets of
-your allocated time. For example, if you were allocated
-Band 2 (0.05&lt;tau&lt;0.08) you may request a tau range
-of 0.05&lt;tau&lt;0.06 for an MSB that needs to be observed
-on the upper end of the scale.
-
-DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
-Your MSB will never be carried out if you do, since
-the scheduling software requires firstly, that the current tau  
-is within your TAG allocation and then, only once this condition 
-has been met, that the current tau is within your range of personal preference.
-
-For those who best think in bands, the tau range of the
-JCMT Bands are:
-
-Band 1: tau&lt;0.05
-Band 2: 0.05&lt;tau&lt;0.08
-Band 3: 0.08&lt;tau&lt;0.12
-Band 4: 0.12&lt;tau&lt;0.20
-Band 5: 0.2&lt;tau
-
-The field labeled "tau for noise calculation" has a value
-that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
-
-Seeing
-------
-This is the submillimetre seeing in arcseconds. The
-general recommendation is for you to use:
-
-&lt;=0.5 for polarimetry observations
-&lt;=1.0 for photometry observations
-
-and "Don't Care" for maps.
-
-</note>
-          <title>Site Quality</title>
-        </SpNote>
-        <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
-          <seeing>
-            <min>0.0</min>
-            <max>1.0</max>
-          </seeing>
-          <noiseCalculationTau>0.08</noiseCalculationTau>
-          <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-        </SpSiteQualityObsComp>
-        <SpInstSCUBA id="4" type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>H7</primaryBolometer>
-          <bolometers>
-            <value>C14</value>
-            <value>H7</value>
-          </bolometers>
-          <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <filter>350:750</filter>
-        </SpInstSCUBA>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This MSB provides an example of photometry at 750/350 um. Two observations are combined within the MSB: a calibration and a science observation. 
- 
-The following parameters have been set: 
-- the on-source bolometers have been set to H7 on the LONG array and C14 on the SHORT array, with the 750/350 um filter wheel setting selected (by way of the 
-SCUBA component).  Both the calibration and the science observations will inherit this setup  
-- a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
-- 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
- 
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
-          <title>A calibrated 750/350 um photometry observation</title>
-        </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>750/350 um photometry calibration</title>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpIterSkydipObs type="ic" subtype="skydipObs">
-              <positions>1</positions>
-              <startPosition>Zenith</startPosition>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <integrations>1</integrations>
-            </SpIterSkydipObs>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>2</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterFocusObs type="ic" subtype="focusObs">
-              <steps>0.3</steps>
-              <axis>z</axis>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <focusPoints>5</focusPoints>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-            </SpIterFocusObs>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>2</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <integrations>6</integrations>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-              </SpIterStareObs>
-            </SpIterChop>
-          </SpIterFolder>
-        </SpObs>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>750/350 um photometry</title>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <standard>false</standard>
-          <estimatedDuration units="seconds">1080.0</estimatedDuration>
+          <estimatedDuration units="seconds">1202.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -592,12 +402,14 @@ If you want to point on your source because you know for a fact that it is brigh
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="7"/>
+        <SpNoteRef idref="8"/>
         <SpInstSCUBARef idref="6"/>
-        <title>2000 um photometry</title>
+        <title>750/350 um photometry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1336.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1262.0</estimatedDuration>
+        <SpNote id="8" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -643,14 +455,209 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
         <SpSiteQualityObsComp id="7" type="oc" subtype="schedInfo">
+          <seeing>
+            <min>0.0</min>
+            <max>1.0</max>
+          </seeing>
+          <noiseCalculationTau>0.08</noiseCalculationTau>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
+        </SpSiteQualityObsComp>
+        <SpInstSCUBA id="6" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>H7</primaryBolometer>
+          <bolometers>
+            <value>C14</value>
+            <value>H7</value>
+          </bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>350:750</filter>
+        </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of photometry at 750/350 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the on-source bolometers have been set to H7 on the LONG array and C14 on the SHORT array, with the 750/350 um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 750/350 um photometry observation</title>
+        </SpNote>
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+          <title>750/350 um photometry calibration</title>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>true</standard>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>2</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.3</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>2</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <integrations>6</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+          <title>750/350 um photometry</title>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>false</standard>
+          <estimatedDuration units="seconds">1202.0</estimatedDuration>
+          <SpTelescopeObsComp type="oc" subtype="targetList">
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>In the pointing "eye" below, "auto-target" is selected (ticked) by default. This means that when your MSB is carried out, the TSS/observer will pick an appropriate pointing source at their discretion.
+
+If you want to point on your source because you know for a fact that it is bright enough, has accurate coordinates and is not extended, simply untick the auto-target box. Your pointing will then be done at whatever coordinates are specified in the Target component.
+</note>
+              <title>Pointing information</title>
+            </SpNote>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterPointingObs type="ic" subtype="pointingObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <autoTarget>true</autoTarget>
+                <integrations>2</integrations>
+                <pointingPixel>Automatic</pointingPixel>
+              </SpIterPointingObs>
+              <SpIterRepeat type="ic" subtype="repeat">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <SpIterChop type="ic" subtype="chop">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <SECONDARY>
+                    <CHOP SYSTEM="AZEL">
+                      <THROW>60.0</THROW>
+                      <PA>90.0</PA>
+                    </CHOP>
+                  </SECONDARY>
+                  <SpIterStareObs type="ic" subtype="stareObs">
+                    <integrations>40</integrations>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterStareObs>
+                </SpIterChop>
+              </SpIterRepeat>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+      </SpMSB>
+      <SpMSB remaining="1" type="og" subtype="msb">
+        <SpSiteQualityObsCompRef idref="10"/>
+        <SpNoteRef idref="11"/>
+        <SpInstSCUBARef idref="9"/>
+        <title>2000 um photometry</title>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <priority>Low</priority>
+        <estimatedDuration units="seconds">1262.0</estimatedDuration>
+        <SpNote id="11" type="no" subtype="none">
+          <title>Site Quality</title>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05&lt;tau&lt;0.08) you may request a tau range
+of 0.05&lt;tau&lt;0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau&lt;0.05
+Band 2: 0.05&lt;tau&lt;0.08
+Band 3: 0.08&lt;tau&lt;0.12
+Band 4: 0.12&lt;tau&lt;0.20
+Band 5: 0.2&lt;tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+&lt;=0.5 for polarimetry observations
+&lt;=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+        </SpNote>
+        <SpSiteQualityObsComp id="10" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="6" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="9" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -669,11 +676,11 @@ The following parameters have been set:
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 2000 um photometry observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>2000 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -721,7 +728,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>2000 um photometry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1080.0</estimatedDuration>
+          <estimatedDuration units="seconds">1202.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation is an example of the sequence of tasks required to make a photometry observation using the 2000 um bolometer. </note>
@@ -782,13 +789,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="9"/>
-        <SpInstSCUBARef idref="8"/>
+        <SpSiteQualityObsCompRef idref="13"/>
+        <SpNoteRef idref="14"/>
+        <SpInstSCUBARef idref="12"/>
         <title>1350 um photometry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1336.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1262.0</estimatedDuration>
+        <SpNote id="14" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -834,25 +843,24 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="9" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="13" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="8" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="12" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>1350 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation provides an example of calibration at 1350 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
@@ -910,7 +918,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>1350 um photometry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1080.0</estimatedDuration>
+          <estimatedDuration units="seconds">1202.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -966,13 +974,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="11"/>
-        <SpInstSCUBARef idref="10"/>
+        <SpSiteQualityObsCompRef idref="16"/>
+        <SpNoteRef idref="17"/>
+        <SpInstSCUBARef idref="15"/>
         <title>1100 um photometry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1336.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1262.0</estimatedDuration>
+        <SpNote id="17" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -1018,25 +1028,24 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="11" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="16" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="10" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="15" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1100</primaryBolometer>
           <bolometers>P1100</bolometers>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>1100 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation provides an example of calibration at 1100 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
@@ -1094,7 +1103,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>1100 um photometry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1080.0</estimatedDuration>
+          <estimatedDuration units="seconds">1202.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation is an example of the sequence of tasks required to make a photometry observation at 1100 um. </note>
@@ -1159,13 +1168,15 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA Jiggle Map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="13"/>
-        <SpInstSCUBARef idref="12"/>
+        <SpSiteQualityObsCompRef idref="19"/>
+        <SpNoteRef idref="20"/>
+        <SpInstSCUBARef idref="18"/>
         <title>850/450 um jiggle map (fully sampled at both 850/450 um)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">2108.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1862.0</estimatedDuration>
+        <SpNote id="20" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -1211,14 +1222,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="13" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="19" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="12" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="18" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>
             <value>SHORT</value>
@@ -1242,11 +1252,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 850/450 um jiggle map observation, fully sampled at both 850/450 um</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">368.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 64-position jiggle pattern will be employed to obtain a fully sampled map at both LONG and SHORT wavelengths. A number of parameters have been assumed/predetermined, as listed below:
@@ -1305,7 +1315,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850/450 um jiggle map (fully sampled at both 850/450 um )</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1680.0</estimatedDuration>
+          <estimatedDuration units="seconds">1802.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1362,13 +1372,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="15"/>
-        <SpInstSCUBARef idref="14"/>
+        <SpSiteQualityObsCompRef idref="22"/>
+        <SpNoteRef idref="23"/>
+        <SpInstSCUBARef idref="21"/>
         <title>750/350 um jiggle map (fully sampled at both 750/350 um)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">2108.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1862.0</estimatedDuration>
+        <SpNote id="23" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -1414,14 +1426,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="15" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="22" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="14" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="21" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>
             <value>SHORT</value>
@@ -1445,11 +1456,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 750/350 um jiggle map observation, fully sampled at both 750/350 um</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>750/350 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">368.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -1498,7 +1509,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>750/350 um jiggle map (fully sampled at both 750/350 um )</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1680.0</estimatedDuration>
+          <estimatedDuration units="seconds">1802.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1555,13 +1566,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="17"/>
-        <SpInstSCUBARef idref="16"/>
+        <SpSiteQualityObsCompRef idref="25"/>
+        <SpNoteRef idref="26"/>
+        <SpInstSCUBARef idref="24"/>
         <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <SpNote id="26" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -1607,14 +1620,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="25" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="16" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="24" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -1635,11 +1647,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 850 um jiggle map observation, fully sampled at 850 um ONLY</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">122.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -1688,7 +1700,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">450.0</estimatedDuration>
+          <estimatedDuration units="seconds">572.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1745,13 +1757,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="19"/>
-        <SpInstSCUBARef idref="18"/>
+        <SpSiteQualityObsCompRef idref="28"/>
+        <SpNoteRef idref="29"/>
+        <SpInstSCUBARef idref="27"/>
         <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <SpNote id="29" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -1797,14 +1811,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="19" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="28" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="18" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="27" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>SHORT</primaryBolometer>
           <bolometers>SHORT</bolometers>
           <meta_unique>true</meta_unique>
@@ -1825,11 +1838,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 450 um jiggle map observation, fully sampled at 450 um ONLY</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>450 um jiggle map calibration</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">122.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -1878,7 +1891,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">450.0</estimatedDuration>
+          <estimatedDuration units="seconds">572.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1935,13 +1948,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="21"/>
-        <SpInstSCUBARef idref="20"/>
+        <SpSiteQualityObsCompRef idref="31"/>
+        <SpNoteRef idref="32"/>
+        <SpInstSCUBARef idref="30"/>
         <title>2000 um jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1015.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">972.0</estimatedDuration>
+        <SpNote id="32" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -1987,14 +2002,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="21" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="31" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="20" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -2015,11 +2029,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 2000 um jiggle map observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>2000 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">165.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -2075,7 +2089,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>2000 um jiggle map (7x7)</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">790.0</estimatedDuration>
+          <estimatedDuration units="seconds">912.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2132,13 +2146,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="23"/>
-        <SpInstSCUBARef idref="22"/>
+        <SpSiteQualityObsCompRef idref="34"/>
+        <SpNoteRef idref="35"/>
+        <SpInstSCUBARef idref="33"/>
         <title>1350 um jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1015.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">972.0</estimatedDuration>
+        <SpNote id="35" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -2184,14 +2200,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="23" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="34" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="22" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="33" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -2212,11 +2227,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 1350 um jiggle map observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>1350 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">165.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -2272,7 +2287,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>1350 um jiggle map (7x7)</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">790.0</estimatedDuration>
+          <estimatedDuration units="seconds">912.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2329,13 +2344,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="25"/>
-        <SpInstSCUBARef idref="24"/>
+        <SpSiteQualityObsCompRef idref="37"/>
+        <SpNoteRef idref="38"/>
+        <SpInstSCUBARef idref="36"/>
         <title>1100 um jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1015.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">972.0</estimatedDuration>
+        <SpNote id="38" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -2381,14 +2398,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="25" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="37" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="24" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="36" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1100</primaryBolometer>
           <bolometers>P1100</bolometers>
           <meta_unique>true</meta_unique>
@@ -2409,11 +2425,11 @@ SCUBA component).  Both the calibration and the science observations will inheri
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
           <title>A calibrated 1100 um jiggle map observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>1100 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">165.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -2469,7 +2485,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>1100 um jiggle map (7x7)</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">790.0</estimatedDuration>
+          <estimatedDuration units="seconds">912.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2530,13 +2546,15 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA scan map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="27"/>
-        <SpInstSCUBARef idref="26"/>
+        <SpSiteQualityObsCompRef idref="40"/>
+        <SpNoteRef idref="41"/>
+        <SpInstSCUBARef idref="39"/>
         <title>850/450 um scan map</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">3665.25</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">3189.5</estimatedDuration>
+        <SpNote id="41" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -2582,14 +2600,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="27" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="40" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="26" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>
             <value>SHORT</value>
@@ -2605,11 +2622,11 @@ and "Don't Care" for maps.
   </note>
           <title>A calibrated 850/450 um scan map observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">597.75</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -2689,7 +2706,7 @@ and "Don't Care" for maps.
           <title>850/450 um scan map</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">3007.5</estimatedDuration>
+          <estimatedDuration units="seconds">3129.5</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2769,13 +2786,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="29"/>
-        <SpInstSCUBARef idref="28"/>
+        <SpSiteQualityObsCompRef idref="43"/>
+        <SpNoteRef idref="44"/>
+        <SpInstSCUBARef idref="42"/>
         <title>2000 um scan map</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1459.9285714285713</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">779.75</estimatedDuration>
+        <SpNote id="44" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -2821,14 +2840,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="29" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="43" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="28" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="42" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -2850,11 +2868,11 @@ you should consider doing an EKH scan instead.
   </note>
           <title>A calibrated 2000 um scan map observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>2000 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">802.1785714285713</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -2934,7 +2952,7 @@ you should consider doing an EKH scan instead.
           <title>2000 um scan map</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">597.75</estimatedDuration>
+          <estimatedDuration units="seconds">719.75</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3014,13 +3032,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="31"/>
-        <SpInstSCUBARef idref="30"/>
+        <SpSiteQualityObsCompRef idref="46"/>
+        <SpNoteRef idref="47"/>
+        <SpInstSCUBARef idref="45"/>
         <title>850um fast scan map</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1188.9</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">975.5</estimatedDuration>
+        <SpNote id="47" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -3066,14 +3086,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="31" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="46" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -3087,11 +3106,11 @@ and "Don't Care" for maps.
 For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corresponding to a sample spacing of 7.5 arcsec. Additionally the array is moved 2 arcmin between scans.</note>
           <title>A calibrated 850 um fast scan map observation</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">335.4</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -3171,7 +3190,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
           <title>850um fast scan map</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">793.5</estimatedDuration>
+          <estimatedDuration units="seconds">915.5</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3256,13 +3275,13 @@ If you want to point on your source because you know for a fact that it is brigh
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA miscellaneous observations</title>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="32"/>
-      <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <SpInstSCUBARef idref="48"/>
+      <estimatedDuration units="seconds">487.8</estimatedDuration>
       <title>SCUBA instrument test</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpInstSCUBA id="32" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="48" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -3293,13 +3312,13 @@ If you want to point on your source because you know for a fact that it is brigh
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="33"/>
-      <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <SpInstSCUBARef idref="49"/>
+      <estimatedDuration units="seconds">700.0</estimatedDuration>
       <title>SCUBA telescope set up (850/450)</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>true</standard>
-      <SpInstSCUBA id="33" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="49" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -3350,30 +3369,34 @@ If you want to point on your source because you know for a fact that it is brigh
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="35"/>
-      <estimatedDuration units="seconds">1472.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="34"/>
+      <SpNoteRef idref="52"/>
+      <SpInstSCUBARef idref="51"/>
+      <estimatedDuration units="seconds">2135.0</estimatedDuration>
+      <SpTelescopeObsCompRef idref="50"/>
       <title>850 um photometry: instrumental polarization calibration</title>
       <priority>Medium</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpNote type="no" subtype="none">
+      <SpNote id="52" type="no" subtype="none">
+        <title>Instrumental polarization observation notes</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
-        <title>Instrumental polarization observation notes</title>
       </SpNote>
-      <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="50" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
           <target>
             <targetName>Mars</targetName>
-            <namedSystem type="major"/>
+            <spherSystem SYSTEM="J2000">
+              <c1>0:00:00</c1>
+              <c2>0:00:00</c2>
+            </spherSystem>
           </target>
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstSCUBA id="35" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="51" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>H7</primaryBolometer>
         <bolometers>H7</bolometers>
         <meta_unique>true</meta_unique>
@@ -3450,30 +3473,34 @@ If you want to point on your source because you know for a fact that it is brigh
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpInstSCUBARef idref="37"/>
-      <estimatedDuration units="seconds">1472.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="36"/>
+      <SpNoteRef idref="55"/>
+      <SpInstSCUBARef idref="54"/>
+      <estimatedDuration units="seconds">2135.0</estimatedDuration>
+      <SpTelescopeObsCompRef idref="53"/>
       <title>450 um photometry: instrumental polarization calibration</title>
       <priority>Medium</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpNote type="no" subtype="none">
+      <SpNote id="55" type="no" subtype="none">
+        <title>Instrumental polarization observation notes</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
-        <title>Instrumental polarization observation notes</title>
       </SpNote>
-      <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="53" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
           <target>
             <targetName></targetName>
-            <namedSystem type="major"/>
+            <spherSystem SYSTEM="J2000">
+              <c1>0:00:00</c1>
+              <c2>0:00:00</c2>
+            </spherSystem>
           </target>
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
-      <SpInstSCUBA id="37" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="54" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>C14</primaryBolometer>
         <bolometers>C14</bolometers>
         <meta_unique>true</meta_unique>
@@ -3550,22 +3577,23 @@ If you want to point on your source because you know for a fact that it is brigh
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <SpSiteQualityObsCompRef idref="40"/>
-      <SpInstSCUBARef idref="39"/>
-      <estimatedDuration units="seconds">1232.5</estimatedDuration>
-      <SpTelescopeObsCompRef idref="38"/>
+      <SpSiteQualityObsCompRef idref="58"/>
+      <SpNoteRef idref="59"/>
+      <SpInstSCUBARef idref="57"/>
+      <estimatedDuration units="seconds">1354.5</estimatedDuration>
+      <SpTelescopeObsCompRef idref="56"/>
       <title>450/850 um scan map flatfield</title>
       <priority>Low</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
-      <SpNote type="no" subtype="none">
+      <SpNote id="59" type="no" subtype="none">
+        <title>scan map flatfielding</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This observation specifies an observation used to calculate the flatfield using a scan map observation where the scan overlap is small enough to enable a fully-sampled image of the beam to be generated for each bolometer on the array.
 The observation must be done in extremely stable conditions (both for tau and seeing).
 Only relative calibration matters for a flatfield. Make sure that the telescope is focussed but there is no need for an accurate absolute flux calibration.
 Note that we use EKH scanning here - emersonII scanning would take to long.
 This observation requires a point source target (uranus is selected by default).</note>
-        <title>scan map flatfielding</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3615,7 +3643,7 @@ and "Don't Care" for maps.
 </note>
         <title>Site Quality</title>
       </SpNote>
-      <SpSiteQualityObsComp id="40" type="oc" subtype="schedInfo">
+      <SpSiteQualityObsComp id="58" type="oc" subtype="schedInfo">
         <seeing>
           <min>0.0</min>
           <max>0.5</max>
@@ -3623,8 +3651,9 @@ and "Don't Care" for maps.
         <noiseCalculationTau>0.08</noiseCalculationTau>
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <min>0.0</min>
       </SpSiteQualityObsComp>
-      <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
+      <SpInstSCUBA id="57" type="oc" subtype="inst.SCUBA">
         <primaryBolometer>LONG</primaryBolometer>
         <bolometers>
           <value>SHORT</value>
@@ -3634,13 +3663,16 @@ and "Don't Care" for maps.
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <filter>450W:850W</filter>
       </SpInstSCUBA>
-      <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="56" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
           <target>
             <targetName>Uranus</targetName>
-            <namedSystem type="major"/>
+            <spherSystem SYSTEM="J2000">
+              <c1>0:00:00</c1>
+              <c2>0:00:00</c2>
+            </spherSystem>
           </target>
         </BASE>
         <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -3695,13 +3727,15 @@ The 450um IPs are uncertain. Please talk to your support scientist before attemp
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: photometry mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="42"/>
-        <SpInstSCUBARef idref="41"/>
+        <SpSiteQualityObsCompRef idref="61"/>
+        <SpNoteRef idref="62"/>
+        <SpInstSCUBARef idref="60"/>
         <title>850/450 um photometry polarimetry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">3392.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">3318.0</estimatedDuration>
+        <SpNote id="62" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -3747,9 +3781,8 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="42" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="61" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -3757,8 +3790,9 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="41" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="60" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>C14</value>
@@ -3774,11 +3808,11 @@ and "Don't Care" for maps.
 </note>
           <title>850um phot pol</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -3826,7 +3860,7 @@ and "Don't Care" for maps.
           <title>850/450um photometry polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">3136.0</estimatedDuration>
+          <estimatedDuration units="seconds">3258.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3900,13 +3934,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="44"/>
-        <SpInstSCUBARef idref="43"/>
+        <SpSiteQualityObsCompRef idref="64"/>
+        <SpNoteRef idref="65"/>
+        <SpInstSCUBARef idref="63"/>
         <title>1350um photometry polarimetry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">3392.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">3318.0</estimatedDuration>
+        <SpNote id="65" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -3952,14 +3988,13 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="44" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="64" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="43" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="63" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -3971,11 +4006,11 @@ and "Don't Care" for maps.
           <note>A 1350 micron photometry polarimetry observation using 16 waveplate positions and a chop throw of 120 arcsec. There are 6 integrations for each waveplate position. Includes an optional  flux calibration observation.</note>
           <title>1350um phot pol</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>1350 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">196.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation provides an example of calibration at 1350 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
@@ -4033,7 +4068,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>1350 um photometry polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">3136.0</estimatedDuration>
+          <estimatedDuration units="seconds">3258.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation is an example of the sequence of tasks required to make an 1350um polarimetry photometry observation. </note>
@@ -4116,13 +4151,15 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: jiggle map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="46"/>
-        <SpInstSCUBARef idref="45"/>
+        <SpSiteQualityObsCompRef idref="67"/>
+        <SpNoteRef idref="68"/>
+        <SpInstSCUBARef idref="66"/>
         <title>850 um pol jiggle map (fully sampled 850, under-sampled 450um)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1724.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1478.0</estimatedDuration>
+        <SpNote id="68" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -4168,9 +4205,8 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="46" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="67" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -4178,8 +4214,9 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="66" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -4193,11 +4230,11 @@ and "Don't Care" for maps.
 This observation uses 16 waveplate positions and a 150 arcsec chop throw.</note>
           <title>Jiggle map polarimetry</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850/450 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">368.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 64-position jiggle pattern will be employed to obtain a fully sampled map at both LONG and SHORT wavelengths. A number of parameters have been assumed/predetermined, as listed below:
@@ -4266,7 +4303,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <title>850um pol jiggle map (fully sampled 850, under-sampled 450 um )</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1296.0</estimatedDuration>
+          <estimatedDuration units="seconds">1418.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4341,13 +4378,15 @@ If you want to point on your source because you know for a fact that it is brigh
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="48"/>
-        <SpInstSCUBARef idref="47"/>
+        <SpSiteQualityObsCompRef idref="70"/>
+        <SpNoteRef idref="71"/>
+        <SpInstSCUBARef idref="69"/>
         <title>1350um pol jiggle map (7x7)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">2865.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">2822.0</estimatedDuration>
+        <SpNote id="71" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -4393,9 +4432,8 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="48" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="70" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -4403,8 +4441,9 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="47" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="69" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -4416,11 +4455,11 @@ and "Don't Care" for maps.
           <note>This is a 7x7 jiggle map polarimetry observation using 16 waveplate angles and a 150 arcsec chop throw. It includes an optional flux calibration.</note>
           <title>1350 um jiggle pol</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>1350 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">165.0</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -4476,7 +4515,7 @@ and "Don't Care" for maps.
           <title>1350 um pol jiggle map (7x7 )</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">2640.0</estimatedDuration>
+          <estimatedDuration units="seconds">2762.0</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4555,13 +4594,15 @@ If you want to point on your source because you know for a fact that it is brigh
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs: scan map mode</title>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <SpSiteQualityObsCompRef idref="50"/>
-        <SpInstSCUBARef idref="49"/>
+        <SpSiteQualityObsCompRef idref="73"/>
+        <SpNoteRef idref="74"/>
+        <SpInstSCUBARef idref="72"/>
         <title>850 um fast scan map polarimetry</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
-        <estimatedDuration units="seconds">1177.9999999999998</estimatedDuration>
-        <SpNote type="no" subtype="none">
+        <estimatedDuration units="seconds">1076.3999999999996</estimatedDuration>
+        <SpNote id="74" type="no" subtype="none">
+          <title>Site Quality</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>The Site Quality component below specifies the weather
 conditions that will affect the MSB's scheduling.
@@ -4607,9 +4648,8 @@ general recommendation is for you to use:
 and "Don't Care" for maps.
 
 </note>
-          <title>Site Quality</title>
         </SpNote>
-        <SpSiteQualityObsComp id="50" type="oc" subtype="schedInfo">
+        <SpSiteQualityObsComp id="73" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
             <max>0.5</max>
@@ -4617,8 +4657,9 @@ and "Don't Care" for maps.
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <min>0.0</min>
         </SpSiteQualityObsComp>
-        <SpInstSCUBA id="49" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="72" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -4632,11 +4673,11 @@ and "Don't Care" for maps.
 Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to obtain a single Q or U Stokes parameter in the shortest possible time.</note>
           <title>Scan map polarimetry</title>
         </SpNote>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
           <title>850um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
-          <estimatedDuration units="seconds">223.6</estimatedDuration>
+          <estimatedDuration units="seconds">0.0</estimatedDuration>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -4708,7 +4749,7 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
           <title>850um fast scan map polarimetry</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">894.3999999999997</estimatedDuration>
+          <estimatedDuration units="seconds">1016.3999999999997</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note> Scan map polarimetry is a difficult observing mode in which to obtain high quality 
