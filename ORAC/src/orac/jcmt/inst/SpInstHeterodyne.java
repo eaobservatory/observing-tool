@@ -853,37 +853,37 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 	  //   bandWidth
 	  int size;
 	  if ( (size = _avTable.size(ATTR_REST_FREQUENCY)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_REST_FREQUENCY, i);
 	      }
 	  }
 	  if ( (size = _avTable.size(ATTR_TRANSITION)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_TRANSITION, i);
 	      }
 	  }
 	  if ( (size = _avTable.size(ATTR_MOLECULE)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_MOLECULE, i);
 	      }
 	  }
 	  if ( (size = _avTable.size(ATTR_OVERLAP)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_OVERLAP, i);
 	      }
 	  }
 	  if ( (size = _avTable.size(ATTR_CENTRE_FREQUENCY)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_CENTRE_FREQUENCY, i);
 	      }
 	  }
 	  if ( (size = _avTable.size(ATTR_CHANNELS)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_CHANNELS, i);
 	      }
 	  }
 	  if ( (size = _avTable.size(ATTR_BANDWIDTH)) > 1 ) {
-	      for (int i=1; i<size; i++) {
+	      for (int i=size-1; i>0; i--) {
 		  _avTable.rm ( ATTR_BANDWIDTH, i);
 	      }
 	  }
