@@ -101,6 +101,7 @@
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
       <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
+      <xsd:element name="useCurrentAz"   type="xsd:boolean" minOccurs="0"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="pointingObs"/>
@@ -138,15 +139,16 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="continuousCal"   type="xsd:boolean"               minOccurs="0"/>
-      <xsd:element name="cycleReversal"   type="xsd:boolean"               minOccurs="0"/>
+      <xsd:element name="continuousCal"   type="xsd:boolean"                minOccurs="0"/>
+      <xsd:element name="cycleReversal"   type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
-      <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"    minOccurs="0"/>
+      <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"     minOccurs="0"/>
       <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
-      <xsd:element name="widePhotometry"  type="xsd:boolean"               minOccurs="0"/>
+      <xsd:element name="useCurrentAz"    type="xsd:boolean"                minOccurs="0"/>
+      <xsd:element name="widePhotometry"  type="xsd:boolean"                minOccurs="0"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="stareObs"/>
