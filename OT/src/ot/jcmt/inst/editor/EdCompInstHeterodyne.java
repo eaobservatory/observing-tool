@@ -632,8 +632,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
                _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
                _instHeterodyne.setRestFrequency(transition.frequency, 0);
                _instHeterodyne.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
-
-               _instHeterodyne.setLO1(sideBandDisplay.getLO1());
             }
          }
       }
@@ -662,8 +660,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             _instHeterodyne.setRestFrequency(transition.frequency, i);
             _instHeterodyne.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), i);
          }
-
-         _instHeterodyne.setLO1(sideBandDisplay.getLO1());
       }
 
       // Skip top system, start with i = 1
@@ -721,10 +717,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             {
                sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
             }
-         }
-
-         if(!_ignoreSpItem) {
-            _instHeterodyne.setLO1(sideBandDisplay.getLO1());
          }
 
          for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
@@ -1242,8 +1234,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     _w.transitionChoice.setSelectedItem(NO_LINE + " ");
     _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E6));
     _ignoreEvents = false;
-
-    _instHeterodyne.setLO1(lo1);
 
     for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
       _instHeterodyne.setMolecule(NO_LINE, i);
