@@ -379,6 +379,25 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     _avTable.set(ATTR_SCANAREA_PA, posAngle);
   }
 
+  public double getSecsPerIntegration() {
+    double overhead = 40 + (8 * getIntegrations());
+
+    // Get information specified by user in the OT.
+    double mapWidth           = getWidth();
+    double mapHeight          = getHeight();
+    double sampleDX           = getScanDx();  
+    double sampleDY           = getScanDy();
+
+    // Calculate seconds per integration.
+    double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
+    double noOfRows           = Math.ceil(mapHeight / sampleDY);
+    double lengthOfRow        = mapWidth + SCUBA_ARRAY_DIAMETER;
+    double secsPerRow         = lengthOfRow / scanRate;
+    double secsPerIntegration = noOfRows * secsPerRow;
+
+    // Overhead is 50 percent for scan map.
+    return SCUBA_STARTUP_TIME +  (1.5 * secsPerIntegration);
+  }
 
   /** Creates JAC TCS XML. */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
