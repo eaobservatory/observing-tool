@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 1.0//EN"
+         "http://java.sun.com/products/javahelp/toc_1_0.dtd">
+<toc version="1.0">
+  <tocitem text="Observing Tool Help">
+    <tocitem text="Introduction to the ORAC Observing Tool" target="top"/>
+    <tocitem text="Creating a Science Program" target="sciprog"/>
+    <tocitem text="Instrument Component" target="inst"/>
+    <tocitem text="Target Information and the Position Editor" target="tpe"/>
+    <tocitem text="Sequences and Iterators" target="iter"/>
+    <tocitem text="More Detailed Help" target="details"/>
+    <tocitem text="Guide to the Library Contents" target="library" />
+    <tocitem text="Known Bugs" target="bugs" />
+    <tocitem text="Credits" target="Credits"/>
+  </tocitem>
+</toc>
