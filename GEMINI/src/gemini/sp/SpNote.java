@@ -12,47 +12,7 @@ package gemini.sp;
  */
 public class SpNote extends SpItem
 {
-   /**
-    * Using ATTR_NOTE constant String "PCDATA" instead of "note".
-    *
-    * change by M.Folger@roe.ac.uk.
-    * 
-    * Using the {@link keyword orac.util.AvTableToDom} "PCDATA" instead of "note" will cause
-    * AvTableToDom to create XML output that looks like
-    *
-    * <!--
-    * 
-    * <SpNote>
-    *   Some text.
-    * </SpNote>
-    *
-    * rather than
-    *
-    * <SpNote>
-    *   <note>
-    *     Some text.
-    *   </note>
-    * </SpNote>
-    * 
-    * -->
-    * 
-    * <!-- for javadoc -->
-    * <pre>
-    * &lt;SpNote&gt;
-    *   Some text.
-    * &lt;/SpNote&gt;
-    *
-    * rather than
-    *
-    * &lt;SpNote&gt;
-    *   &lt;note&gt;
-    *     Some text.
-    *   &lt;/note&gt;
-    * &lt;/SpNote&gt;
-    * </pre>
-    * @see orac.util.AvTableToDom
-    */
-   public static final String ATTR_NOTE  = "PCDATA";
+   public static final String ATTR_NOTE  = "note";
 
 /**
  * Default constructor.
