@@ -288,6 +288,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	      boolean tmpIgnoreEvents = _ignoreEvents;
 	      _ignoreEvents = true;
               _w.bandWidthChoice.setSelectedItem(getObject(_w.bandWidthChoice, "" + (_instHeterodyne.getBandWidth(0) / 1.0E9)));
+	      if ( ((String)_w.bandWidthChoice.getSelectedItem()).equals("1.84") ) {
+		  _w.feMixers.setEnabled(false);
+	      }
+	      else {
+		  _w.feMixers.setEnabled(true);
+	      }
               _ignoreEvents = tmpIgnoreEvents;
 	   }
 
@@ -413,7 +419,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          if(!_ignoreSpItem) {
             _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E9, i);
 	 }
-
+	 // Special check for wideband mode
+	 if (((String)_w.bandWidthChoice.getSelectedItem()).equals("1.84")) {
+	     _w.feMixers.setSelectedIndex(0);
+	     _w.feMixers.setEnabled(false);
+	 }
+	 else {
+	     _w.feMixers.setEnabled(true);
+	 }
          sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
       }
 
@@ -733,7 +746,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    {
       try {
          double frequency = Double.parseDouble(_w.moleculeFrequency.getText()) * 1.0E6;
-         
+
 	 String band = (String)_w.feBand.getSelectedItem();
 
          if ( sideBandDisplay != null )
