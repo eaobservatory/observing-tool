@@ -51,7 +51,7 @@ protected SpObs()
    if(System.getProperty("OMP") != null) {
       _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
       _avTable.noNotifySet(ATTR_OPTIONAL, "false", 0);
-      _avTable.noNotifySet(ATTR_PRIORITY, PRIORITIES[PRIORITY_LOW], 0);
+      _avTable.noNotifySet(ATTR_PRIORITY, "99", 0);
    }
    else {
       _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
