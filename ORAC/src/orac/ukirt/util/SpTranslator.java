@@ -428,7 +428,7 @@ public class SpTranslator {
 	SpTelescopeObsComp target = (SpTelescopeObsComp) SpTreeMan.findTargetList( obs );
 	if (target != null) {
 	    SpAvTable targetList = (SpAvTable) target.getTable();
-	    if (!targetList.exists("REFERENCE")) {
+	    if ( !targetList.exists("REFERENCE") && !targetList.exists("SKY") ) {
 		return implicitCount;
 	    }
 	}
@@ -983,7 +983,7 @@ public class SpTranslator {
       String targetName;                  // Name of the target
       boolean targetPresent = false;      // Target information is present?
       StringBuffer targetRecord;          // Builds a sequence target instruction
-      String targetTypes [] = { "Base", "GUIDE", "REFERENCE" };  // Types of target
+      String targetTypes [] = { "Base", "GUIDE", "REFERENCE", "SKY" };  // Types of target
                                           // information required
       Vector targetValues;                // Values of base or guide position
       SpAvTable tavl;                     // Target attribute value table
@@ -1164,7 +1164,7 @@ public class SpTranslator {
 
 // Define a useful boolean.
                   isGuideTarget = targetAttribute.equalsIgnoreCase( "GUIDE" );
-		  isReferenceTarget = targetAttribute.equalsIgnoreCase( "REFERENCE" );
+		  isReferenceTarget = ( targetAttribute.equalsIgnoreCase( "REFERENCE" ) || targetAttribute.equalsIgnoreCase( "SKY" ) );
 
 // Obtain the values of the position as a Vector.
                   targetValues = tavl.getAll( targetAttribute );
