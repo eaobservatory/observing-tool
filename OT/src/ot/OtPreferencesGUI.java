@@ -17,18 +17,34 @@ import jsky.app.ot.gui.*;
 
 public class OtPreferencesGUI extends JPanel {
   JTabbedPane jTabbedPane1 = new JTabbedPane();
+
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JPanel generalPanel = new JPanel();
-  OptionWidgetExt closeNoSaveOption = new OptionWidgetExt();
-  JPanel backgroundPanel = new JPanel();
   JLabel jLabel1 = new JLabel();
   OptionWidgetExt closePromptOption = new OptionWidgetExt();
+  OptionWidgetExt closeNoSaveOption = new OptionWidgetExt();
+
+  JPanel backgroundPanel = new JPanel();
+
   BorderLayout borderLayout1 = new BorderLayout();
   CommandButtonWidgetExt okButton = new CommandButtonWidgetExt();
   GridBagLayout gridBagLayout2 = new GridBagLayout();
   JPanel buttonPanel = new JPanel();
   CommandButtonWidgetExt applyButton = new CommandButtonWidgetExt();
   CommandButtonWidgetExt cancelButton = new CommandButtonWidgetExt();
+
+    // All of the following is for setting up procy hosts....
+    JPanel proxyPanel = new JPanel();
+    JTextArea proxyTextArea1 = new JTextArea();
+    GridBagLayout gridBagLayout3 = new GridBagLayout();
+    JLabel proxyLabel1 = new JLabel();
+    JTextField proxyServerField = new JTextField();
+    JLabel proxyLabel2 = new JLabel();
+    JTextField proxyPortField = new JTextField();
+    JTextArea proxyTextArea2 = new JTextArea();
+    JLabel proxyLabel3 = new JLabel();
+    JTextField nonProxyHostsField = new JTextField();
+    // End of proxy stuff  
 
   public OtPreferencesGUI() {
     try {
@@ -55,6 +71,30 @@ public class OtPreferencesGUI extends JPanel {
     buttonPanel.setLayout(gridBagLayout2);
     applyButton.setText("Apply");
     cancelButton.setText("Cancel");
+
+    // Initialise proxy stuff
+    proxyPanel.setLayout(gridBagLayout3);
+    proxyTextArea1.setBackground(new Color(204, 204, 204));
+    proxyTextArea1.setEditable(false);
+    proxyTextArea1.setText("If your host is behind a firewall, you may need to use a proxy server " +
+			   "to access remote catalogs via HTTP. Please enter the hostname and " +
+			   "port number for the proxy server:");
+    proxyTextArea1.setLineWrap(true);
+    proxyTextArea1.setWrapStyleWord(true);
+    proxyLabel1.setLabelFor(proxyServerField);
+    proxyLabel1.setText("HTTP Proxy Server:");
+    proxyLabel2.setLabelFor(proxyPortField);
+    proxyLabel2.setText("Port:");
+    proxyTextArea2.setBackground(new Color(204, 204, 204));
+    proxyTextArea2.setEditable(false);
+    proxyTextArea2.setText("The value below can be a list of hosts, each seperated by a |. " +
+		       "In addition, a wildcard character (*) can be used for matching. For " +
+		       "example: *.foo.com|localhost :");
+    proxyTextArea2.setLineWrap(true);
+    proxyTextArea2.setWrapStyleWord(true);
+    proxyLabel3.setLabelFor(nonProxyHostsField);
+    proxyLabel3.setText("No Proxy for:");
+    // end of proxy stuff
     this.add(jTabbedPane1, BorderLayout.CENTER);
     jTabbedPane1.add(generalPanel, "General");
     generalPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
@@ -63,6 +103,39 @@ public class OtPreferencesGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     generalPanel.add(closeNoSaveOption, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jTabbedPane1.add(proxyPanel, "Proxy Server");
+    proxyPanel.add(proxyTextArea1, new GridBagConstraints(0, 0, 4, 1, 1.0, 0.0,
+							  GridBagConstraints.WEST, 
+							  GridBagConstraints.HORIZONTAL, 
+							  new Insets(11, 11, 0, 11), 0, 0));
+    proxyPanel.add(proxyLabel1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+						       GridBagConstraints.WEST, 
+						       GridBagConstraints.NONE, 
+						       new Insets(11, 11, 0, 0), 0, 0));
+    proxyPanel.add(proxyServerField, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0,
+							    GridBagConstraints.WEST, 
+							    GridBagConstraints.HORIZONTAL, 
+							    new Insets(11, 11, 0, 0), 0, 0));
+    proxyPanel.add(proxyLabel2, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
+						       GridBagConstraints.WEST, 
+						       GridBagConstraints.HORIZONTAL, 
+						       new Insets(11, 11, 0, 0), 0, 0));
+    proxyPanel.add(proxyPortField, new GridBagConstraints(3, 1, 1, 1, 1.0, 0.0,
+							  GridBagConstraints.WEST, 
+							  GridBagConstraints.HORIZONTAL, 
+							  new Insets(11, 11, 0, 11), 0, 0));
+    proxyPanel.add(proxyTextArea2, new GridBagConstraints(0, 2, 4, 1, 1.0, 0.0,
+							  GridBagConstraints.WEST, 
+							  GridBagConstraints.HORIZONTAL, 
+							  new Insets(11, 11, 0, 11), 0, 0));
+    proxyPanel.add(proxyLabel3, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
+						       GridBagConstraints.WEST, 
+						       GridBagConstraints.NONE, 
+						       new Insets(11, 11, 0, 0), 0, 0));
+    proxyPanel.add(nonProxyHostsField, new GridBagConstraints(1, 3, 3, 1, 1.0, 0.0,
+							      GridBagConstraints.WEST, 
+							      GridBagConstraints.HORIZONTAL, 
+							      new Insets(11, 11, 0, 11), 0, 0));
     jTabbedPane1.add(backgroundPanel, "Background");
     this.add(buttonPanel, BorderLayout.SOUTH);
     buttonPanel.add(okButton, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
@@ -72,6 +145,6 @@ public class OtPreferencesGUI extends JPanel {
     buttonPanel.add(cancelButton, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 43, 0));
   
-    jTabbedPane1.setEnabledAt(1, false);
+    jTabbedPane1.setEnabledAt(2, false);
   }
 }
