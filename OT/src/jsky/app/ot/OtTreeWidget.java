@@ -166,7 +166,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      * Collapses/expands tree nodes recursively according to the
      * .gui.collapsed value of their SpItem. 
      */
-    public void setCollapsed() {
+    public void updateNodeExpansions() {
 
 	Enumeration allOffsprings = _otTNW.depthFirstEnumeration();
 	OtTreeNodeWidget otTreeNodeWidget = null;

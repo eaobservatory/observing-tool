@@ -843,7 +843,7 @@ public class OtWindow extends SpTreeGUI
 
 	// Update collapsed/expanded display for tree nodes so that the SpIterFolder inside
 	// the Observation is displayed as expanded.
-	_tw.setCollapsed();
+	_tw.updateNodeExpansions();
     }
 
     /** Add a note to the tree. */
