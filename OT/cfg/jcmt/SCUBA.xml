@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
+  <meta_gui_filename>scuba.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
-  <meta_gui_filename>tweak.xml</meta_gui_filename>
   <SpNote type="no" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <note> The intention of this library is to provide a series of templates which can be used by investigators  to prepare their observing programs. The library is split into two sections: 
@@ -17,7 +17,7 @@
   </SpNote>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
-    <title>SCUBA Observation blocks (MSBs)</title>
+    <title>SCUBA MSBs</title>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA Photometry MSBs</title>
@@ -688,7 +688,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <title>SCUBA jiggle map MSBs</title>
+      <title>SCUBA Jiggle Map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="11"/>
         <SpInstSCUBARef idref="10"/>
@@ -696,6 +696,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">2108.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out in that case since
+the scheduling software takes a join between your TAG
+allocation and your personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has the value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not
+represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimeter seeing in arcseconds. The
+general recommendation is for you to use
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="11" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1084,6 +1132,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="16" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>SHORT</primaryBolometer>
@@ -1795,6 +1844,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         <SpSiteQualityObsComp id="27" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="26" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
