@@ -337,5 +337,50 @@
   <shift>     0.2025          </shift>  
 </configuration>
 
+<configuration>
+  <name>      NS_CH3OH_125AB  </name>
+  <frontEnd>  B3              </frontEnd>
+  <frequency> 338.5228        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    2               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 125.0           </bandwidth>
+  <shift>     -0.14625         </shift>
+  <shift>     0.14625          </shift>  
+  <shift>     -0.14625         </shift>
+  <shift>     0.14625          </shift>  
+</configuration>
+
+<configuration>
+  <name>      NS_JANW1_125X4USB  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 219.9795        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 125.0           </bandwidth>
+  <shift>     -0.41875        </shift>
+  <shift>     -0.03           </shift>  
+  <shift>     -0.03           </shift>  
+  <shift>     0.41875         </shift>
+</configuration>
+
+<configuration>
+  <name>      NS_JANW1_125X4LSB  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 219.9795        </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 125.0           </bandwidth>
+  <shift>     -0.41875        </shift>
+  <shift>     0.03            </shift>  
+  <shift>     0.03            </shift>  
+  <shift>     0.41875         </shift>
+</configuration>
+
 </specialConfigs>
 
