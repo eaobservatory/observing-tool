@@ -7,6 +7,9 @@ import jsky.catalog.QueryArgs;
 import jsky.catalog.TableQueryResult;
 import jsky.catalog.skycat.SkycatConfigFile;
 
+import jsky.coords.HMS;
+import jsky.coords.DMS;
+
 import java.util.Iterator;
 
 /**
@@ -54,8 +57,35 @@ public class NameResolver {
     }
 
     _id  = "" + tableQueryResult.getValueAt(0, 0);
-    _ra  = "" + tableQueryResult.getValueAt(0, 1);
-    _dec = "" + tableQueryResult.getValueAt(0, 2);
+
+    try {
+      double raDegDouble = Double.parseDouble("" + tableQueryResult.getValueAt(0, 1));
+      double raDouble    = (raDegDouble * 24) / 360;
+    
+      _ra = (new HMS(raDouble)).toString();
+    }
+    catch(NumberFormatException e) {
+      _ra  = "";
+    }
+
+    try{
+      double decDouble   = Double.parseDouble("" + tableQueryResult.getValueAt(0, 2));
+
+      _dec = (new DMS(decDouble)).toString();
+    }
+    catch(NumberFormatException e) {
+      _dec = "";
+    }
+
+    if(System.getProperty("DEBUG") != null) {
+      System.out.println("Complete query result table for catalog " + catalogName + ":");
+      for(int i = 0; i < tableQueryResult.getRowCount(); i++) {
+        for(int j = 0; j < tableQueryResult.getColumnCount(); j++) {
+          System.out.print("(" + i + ", " + j + ") = " + tableQueryResult.getValueAt(i, j) + ";    ");
+        }
+        System.out.println("");
+      }
+    }
   }
 
   public String getId()  { return _id;  }
