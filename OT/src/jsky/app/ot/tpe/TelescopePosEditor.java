@@ -525,7 +525,7 @@ public class TelescopePosEditor extends JSkyCat
 	    loadFileImage();
 	} else {
 	    // XXX allan
-	    throw new RuntimeException("XXX fetch image from image server: " + server + ": not implemented");;
+	    throw new RuntimeException("XXX fetch image from image server: " + server + ": not implemented");
 	}
     }
 
