@@ -229,7 +229,7 @@ public final class EdCompTargetList extends OtItemEditor
 		    }
 		}
 	    });
-	_type.setSelectedIndex(0);
+// 	_type.setSelectedIndex(0);
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
@@ -1026,15 +1026,18 @@ public final class EdCompTargetList extends OtItemEditor
       switch(tp.getSystemType()) {
         case SpTelescopePos.SYSTEM_CONIC:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
+	  _w.targetTypeDDList.setSelectedIndex(1);
 	  break;
 
         case SpTelescopePos.SYSTEM_NAMED:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
+	  _w.targetTypeDDList.setSelectedIndex(2);
 	  break;
 
         // SpTelescopePos.SYSTEM_SPHERICAL:
 	default:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
+	  _w.targetTypeDDList.setSelectedIndex(0);
 	  break;
       }
 
