@@ -23,8 +23,10 @@ CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP)
 # Should NOT be changed as other packages might rely on the this name!
 JAR_FILE            = odb.jar
 
+#
+RMI_GENERATED_CLASSES = $(CLASSES_DIR)/ODBServer_Stub.class $(CLASSES_DIR)/ODBServer_Skel.class
 
-all: $(CLASSES_DIR) $(CLASS_FILES)
+all: $(CLASSES_DIR) $(CLASS_FILES) $(RMI_GENERATED_CLASSES)
 
 $(CLASSES_DIR):
 	@ -mkdir -p $(CLASSES_DIR)
@@ -60,4 +62,7 @@ clean:
 	      "Yes: return / Cancel: Ctrl-d"
 	@read a
 	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
+
+$(RMI_GENERATED_CLASSES):
+	$(RMIC) -classpath $(CLASSPATH) -d $(CLASSES_DIR) ODBServer
 
