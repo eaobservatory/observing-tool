@@ -10,6 +10,10 @@
 
 package orac.util;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.StringTokenizer;
+
 /**
  * Various utility methods
  *
@@ -65,6 +69,93 @@ public class OracUtilities {
 
     return result;
   }
+
+  /**
+   * Converts java.util.Date to date string (ISO8601 format).
+   */
+  public static String toISO8601(Date date) {
+    StringBuffer result = new StringBuffer();
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+
+    if(calendar.get(Calendar.YEAR) < 100) {
+      result.append("20");
+      if(calendar.get(Calendar.YEAR) < 10) {
+        result.append("0");
+      }
+    }  
+    result.append(calendar.get(Calendar.YEAR));
+    result.append("-");
+    if((calendar.get(Calendar.MONTH) + 1) < 10) {
+      result.append("0");
+    }
+    result.append(calendar.get(Calendar.MONTH) + 1);
+    result.append("-");
+    if(calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+      result.append("0");
+    }
+    result.append(calendar.get(Calendar.DAY_OF_MONTH));
+    result.append("T");
+    if(calendar.get(Calendar.HOUR_OF_DAY) < 10) {
+      result.append("0");
+    }
+    result.append(calendar.get(Calendar.HOUR_OF_DAY));
+    result.append(":");
+    if(calendar.get(Calendar.MINUTE) < 10) {
+      result.append("0");
+    }    
+    result.append(calendar.get(Calendar.MINUTE));
+    result.append(":");
+    if(calendar.get(Calendar.SECOND) < 10) {
+      result.append("0");
+    }
+    result.append(calendar.get(Calendar.SECOND));
+    
+    return result.toString();
+  }
+
+  /**
+   * Converts date string (ISO8601 format) to java.util.Date.
+   */
+  public static Date parseISO8601(String dateISO8601) {
+    Calendar calendar = Calendar.getInstance();
+
+    // Including `;`, `.`, `,`, ` ` among the deliminators causes lenient parsing.
+    StringTokenizer stringTokenizer = new StringTokenizer(dateISO8601, "-T:;, ");
+
+    int [] dateIntegers = { 2000,  // default year
+                               1,  // default month
+			       1,  // default day
+			       0,  // default hour
+			       0,  // default minute
+			       0}; // default second
+
+    try {
+      for(int i = 0; i < dateIntegers.length; i++) {
+        if(stringTokenizer.hasMoreTokens()) {
+          dateIntegers[i] = Integer.parseInt((String)stringTokenizer.nextToken());
+        }
+        else {
+          break;
+        }
+      }
+
+      calendar.set(
+        dateIntegers[0],
+        dateIntegers[1] - 1, // subtract 1 because Calendar.MONTH range is 0..1
+        dateIntegers[2],
+        dateIntegers[3],
+        dateIntegers[4],
+        dateIntegers[5]
+      );
+
+      return calendar.getTime();
+    }
+    catch(Exception e) {
+      throw new IllegalArgumentException("Could not parse \"" + dateISO8601 + "\": " + e);
+    }
+  }
+
 
   /**
    * Debug method.
