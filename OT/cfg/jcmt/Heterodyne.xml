@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <ot_version>2003-05-30</ot_version>
   <meta_gui_filename>Heterodyne.xml</meta_gui_filename>
+  <ot_version>20031209</ot_version>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Samples</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="1"/>
-      <SpInstHeterodyneRef idref="0"/>
-      <title>Beam-switch sample</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="0"/>
+      <SpSiteQualityObsCompRef idref="1"/>
+      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <title>Beam-switch sample</title>
+      <totalDuration units="seconds">132.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -69,27 +69,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="0" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -133,20 +134,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="1" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">60.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">72.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -156,13 +158,12 @@ Things that shouldn't appear in notes
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -172,13 +173,13 @@ Things that shouldn't appear in notes
                 </CHOP>
               </SECONDARY>
               <SpIterStareObs type="ic" subtype="stareObs">
-                <switchingMode>Beam</switchingMode>
-                <noOfCycles>0</noOfCycles>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <secsPerCycle>60</secsPerCycle>
-                <integrations>1</integrations>
-                <cycleReversal>true</cycleReversal>
                 <continuousCal>true</continuousCal>
+                <cycleReversal>true</cycleReversal>
+                <integrations>1</integrations>
+                <noOfCycles>0</noOfCycles>
+                <secsPerCycle>60</secsPerCycle>
+                <switchingMode>Beam</switchingMode>
               </SpIterStareObs>
             </SpIterChop>
           </SpIterRepeat>
@@ -186,15 +187,15 @@ Things that shouldn't appear in notes
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="3"/>
-      <SpInstHeterodyneRef idref="2"/>
-      <title>Position-switch sample</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="2"/>
+      <SpSiteQualityObsCompRef idref="3"/>
+      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <title>Position-switch sample</title>
+      <totalDuration units="seconds">132.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -248,27 +249,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="2" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -312,30 +314,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="3" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">60.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">72.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-              </spherSystem>
-            </target>
-          </BASE>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -349,35 +342,44 @@ Things that shouldn't appear in notes
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <switchingMode>Position</switchingMode>
-              <noOfCycles>0</noOfCycles>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <secsPerCycle>60</secsPerCycle>
-              <integrations>1</integrations>
-              <cycleReversal>true</cycleReversal>
               <continuousCal>true</continuousCal>
+              <cycleReversal>true</cycleReversal>
+              <integrations>1</integrations>
+              <noOfCycles>0</noOfCycles>
+              <secsPerCycle>60</secsPerCycle>
+              <switchingMode>Position</switchingMode>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="5"/>
-      <SpInstHeterodyneRef idref="4"/>
-      <title>Fast Frequency-switch sample</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="4"/>
+      <SpSiteQualityObsCompRef idref="5"/>
+      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <title>Fast Frequency-switch sample</title>
+      <totalDuration units="seconds">132.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -431,27 +433,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="4" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -495,20 +498,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">60.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">72.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -518,38 +522,37 @@ Things that shouldn't appear in notes
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterStareObs type="ic" subtype="stareObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <continuousCal>false</continuousCal>
+              <cycleReversal>true</cycleReversal>
+              <frequencyOffset.rate>0.5</frequencyOffset.rate>
               <frequencyOffset.throw>8.3</frequencyOffset.throw>
               <integrations>1</integrations>
-              <secsPerCycle>60</secsPerCycle>
               <noOfCycles>0</noOfCycles>
-              <cycleReversal>true</cycleReversal>
-              <continuousCal>false</continuousCal>
+              <secsPerCycle>60</secsPerCycle>
               <switchingMode>Frequency-Fast</switchingMode>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <frequencyOffset.rate>0.5</frequencyOffset.rate>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="7"/>
-      <SpInstHeterodyneRef idref="6"/>
-      <title>Slow Frequency-switch sample</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="6"/>
+      <SpSiteQualityObsCompRef idref="7"/>
+      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <title>Slow Frequency-switch sample</title>
+      <totalDuration units="seconds">132.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -603,27 +606,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="6" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -667,20 +671,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="7" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">60.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">72.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -690,22 +695,21 @@ Things that shouldn't appear in notes
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterStareObs type="ic" subtype="stareObs">
-              <switchingMode>Frequency-Slow</switchingMode>
-              <noOfCycles>0</noOfCycles>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <integrations>1</integrations>
-              <secsPerCycle>60</secsPerCycle>
+              <continuousCal>false</continuousCal>
               <cycleReversal>true</cycleReversal>
               <frequencyOffset.throw>8.3</frequencyOffset.throw>
-              <continuousCal>false</continuousCal>
+              <integrations>1</integrations>
+              <noOfCycles>0</noOfCycles>
+              <secsPerCycle>60</secsPerCycle>
+              <switchingMode>Frequency-Slow</switchingMode>
             </SpIterStareObs>
           </SpIterRepeat>
         </SpIterFolder>
@@ -716,15 +720,15 @@ Things that shouldn't appear in notes
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Grids</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="9"/>
-      <SpInstHeterodyneRef idref="8"/>
-      <title>Beam-switch grid</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="8"/>
+      <SpSiteQualityObsCompRef idref="9"/>
+      <estimatedDuration units="seconds">137.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <title>Beam-switch grid</title>
+      <totalDuration units="seconds">137.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -778,27 +782,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="8" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -842,20 +847,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="9" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">65.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">77.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -865,13 +871,12 @@ Things that shouldn't appear in notes
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -881,6 +886,7 @@ Things that shouldn't appear in notes
                 </CHOP>
               </SECONDARY>
               <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -888,15 +894,14 @@ Things that shouldn't appear in notes
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterStareObs type="ic" subtype="stareObs">
-                  <switchingMode>Beam</switchingMode>
-                  <noOfCycles>0</noOfCycles>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <secsPerCycle>60</secsPerCycle>
-                  <integrations>1</integrations>
-                  <cycleReversal>true</cycleReversal>
                   <continuousCal>true</continuousCal>
+                  <cycleReversal>true</cycleReversal>
+                  <integrations>1</integrations>
+                  <noOfCycles>0</noOfCycles>
+                  <secsPerCycle>60</secsPerCycle>
+                  <switchingMode>Beam</switchingMode>
                 </SpIterStareObs>
               </SpIterOffset>
             </SpIterChop>
@@ -905,15 +910,15 @@ Things that shouldn't appear in notes
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="11"/>
-      <SpInstHeterodyneRef idref="10"/>
-      <title>Position-switch grid</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="10"/>
+      <SpSiteQualityObsCompRef idref="11"/>
+      <estimatedDuration units="seconds">137.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <title>Position-switch grid</title>
+      <totalDuration units="seconds">137.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -967,27 +972,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="10" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -1031,30 +1037,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="11" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">65.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">77.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-              </spherSystem>
-            </target>
-          </BASE>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -1068,13 +1065,23 @@ Things that shouldn't appear in notes
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -1082,15 +1089,14 @@ Things that shouldn't appear in notes
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterStareObs type="ic" subtype="stareObs">
-                <switchingMode>Position</switchingMode>
-                <noOfCycles>0</noOfCycles>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <secsPerCycle>60</secsPerCycle>
-                <integrations>1</integrations>
-                <cycleReversal>true</cycleReversal>
                 <continuousCal>true</continuousCal>
+                <cycleReversal>true</cycleReversal>
+                <integrations>1</integrations>
+                <noOfCycles>0</noOfCycles>
+                <secsPerCycle>60</secsPerCycle>
+                <switchingMode>Position</switchingMode>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
@@ -1098,15 +1104,15 @@ Things that shouldn't appear in notes
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="13"/>
-      <SpInstHeterodyneRef idref="12"/>
-      <title>Fast Frequency-switch grid</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="12"/>
+      <SpSiteQualityObsCompRef idref="13"/>
+      <estimatedDuration units="seconds">137.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <title>Fast Frequency-switch grid</title>
+      <totalDuration units="seconds">137.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -1160,27 +1166,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="12" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -1224,20 +1231,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="13" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">65.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">77.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1247,14 +1255,14 @@ Things that shouldn't appear in notes
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -1262,17 +1270,16 @@ Things that shouldn't appear in notes
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterStareObs type="ic" subtype="stareObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <continuousCal>false</continuousCal>
+                <cycleReversal>true</cycleReversal>
+                <frequencyOffset.rate>0.5</frequencyOffset.rate>
                 <frequencyOffset.throw>8.3</frequencyOffset.throw>
                 <integrations>1</integrations>
-                <secsPerCycle>60</secsPerCycle>
                 <noOfCycles>0</noOfCycles>
-                <cycleReversal>true</cycleReversal>
-                <continuousCal>false</continuousCal>
+                <secsPerCycle>60</secsPerCycle>
                 <switchingMode>Frequency-Fast</switchingMode>
-                <frequencyOffset.rate>0.5</frequencyOffset.rate>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
@@ -1280,15 +1287,15 @@ Things that shouldn't appear in notes
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="15"/>
-      <SpInstHeterodyneRef idref="14"/>
-      <title>Slow Frequency-switch grid</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="14"/>
+      <SpSiteQualityObsCompRef idref="15"/>
+      <estimatedDuration units="seconds">137.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">125.0</estimatedDuration>
+      <title>Slow Frequency-switch grid</title>
+      <totalDuration units="seconds">137.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -1342,27 +1349,28 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="14" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -1406,20 +1414,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="15" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">65.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">77.0</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1429,14 +1438,14 @@ Things that shouldn't appear in notes
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -1444,16 +1453,15 @@ Things that shouldn't appear in notes
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterStareObs type="ic" subtype="stareObs">
-                <switchingMode>Frequency-Slow</switchingMode>
-                <noOfCycles>0</noOfCycles>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <integrations>1</integrations>
-                <secsPerCycle>60</secsPerCycle>
+                <continuousCal>false</continuousCal>
                 <cycleReversal>true</cycleReversal>
                 <frequencyOffset.throw>8.3</frequencyOffset.throw>
-                <continuousCal>false</continuousCal>
+                <integrations>1</integrations>
+                <noOfCycles>0</noOfCycles>
+                <secsPerCycle>60</secsPerCycle>
+                <switchingMode>Frequency-Slow</switchingMode>
               </SpIterStareObs>
             </SpIterOffset>
           </SpIterRepeat>
@@ -1465,15 +1473,15 @@ Things that shouldn't appear in notes
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Raster</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="17"/>
-      <SpInstHeterodyneRef idref="16"/>
-      <title>Position-switch raster</title>
-      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpInstHeterodyneRef idref="16"/>
+      <SpSiteQualityObsCompRef idref="17"/>
+      <estimatedDuration units="seconds">7504.701365235532</estimatedDuration>
+      <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <estimatedDuration units="seconds">Infinity</estimatedDuration>
+      <title>Position-switch raster</title>
+      <totalDuration units="seconds">7504.701365235532</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>Please read</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
 -------------------
@@ -1527,27 +1535,29 @@ Things that shouldn't appear in notes
    of the MSB will not be reflected in the notes, leading to conflicts
    between the notes and the MSB components resulting in confusion at
    the telescope.</note>
+        <title>Please read</title>
       </SpNote>
       <SpInstHeterodyne id="16" type="oc" subtype="inst.Heterodyne">
-        <restFrequency>2.30538E11</restFrequency>
-        <bandMode>1-system</bandMode>
-        <band>usb</band>
-        <mixers>Single Mixer</mixers>
-        <feName>A3</feName>
-        <overlap>3.5E7</overlap>
-        <transition>2  - 1</transition>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <band>usb</band>
+        <bandMode>1-system</bandMode>
+        <bandWidth>1.25E8</bandWidth>
+        <beName>das</beName>
         <centreFrequency>4.0E9</centreFrequency>
         <channels>2048</channels>
-        <molecule>CO</molecule>
-        <bandWidth>1.25E8</bandWidth>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <velocityFrame>LSR</velocityFrame>
-        <referenceFrameVelocity>0.0</referenceFrameVelocity>
-        <velocity>0.0</velocity>
+        <feName>A3</feName>
+        <mixers>Single Mixer</mixers>
         <mode>dsb</mode>
-        <beName>das</beName>
+        <molecule>CO</molecule>
+        <overlap>3.5E7</overlap>
+        <referenceFrameVelocity>0.0</referenceFrameVelocity>
+        <restFrequency>2.30538E11</restFrequency>
+        <skyFrequency>2.30538E11</skyFrequency>
+        <transition>2  - 1</transition>
+        <velocity>0.0</velocity>
         <velocityDefinition>radio</velocityDefinition>
+        <velocityFrame>LSR</velocityFrame>
 
         <!-- - - - - - - - - - - - - - - - - - - - - -->
         <!--          ACSIS Configuration XML        -->
@@ -1591,30 +1601,21 @@ Things that shouldn't appear in notes
 
       </SpInstHeterodyne>
       <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">Infinity</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Science target</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <chainedToNext>false</chainedToNext>
+        <chainedToPrev>false</chainedToPrev>
+        <estimatedDuration units="seconds">7444.701365235532</estimatedDuration>
         <standard>false</standard>
+        <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-              </spherSystem>
-            </target>
-          </BASE>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
               <targetName></targetName>
@@ -1628,26 +1629,35 @@ Things that shouldn't appear in notes
               <DC2>800.0</DC2>
             </OFFSET>
           </BASE>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
         </SpTelescopeObsComp>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpIterRasterObs type="ic" subtype="rasterObs">
-              <rowsPerRef>1</rowsPerRef>
-              <integrations>1</integrations>
-              <sampleTime>4</sampleTime>
-              <switchingMode>Position</switchingMode>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
                 <SCAN_AREA>
                   <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                  <SCAN DY="0.0" VELOCITY="0.0" SYSTEM="TRACKING">
+                  <SCAN DY="5.0" VELOCITY="1.25" SYSTEM="TRACKING">
                   </SCAN>
                 </SCAN_AREA>
               </obsArea>
+              <integrations>1</integrations>
+              <rowsPerRef>1</rowsPerRef>
+              <sampleTime>4</sampleTime>
+              <switchingMode>Position</switchingMode>
             </SpIterRasterObs>
           </SpIterRepeat>
         </SpIterFolder>
