@@ -76,6 +76,9 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
+	\n# If there is no appropriate jdk1.3 java in your PATH then set one here.\
+        \nset JAVA = java\
+	\n\
 	\nsource $$""{DRAMA}/drama.csh\
 	\ncleanup\
 	\n#source /ukirt_sw/bin/loadORAC UFTI -noql\
@@ -127,7 +130,7 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n\
 	\nset CFG_DIR = $(shell cd $(CFG_DIR); pwd)\
 	\n\
-	\n$(JAVA) $(JAVA_FLAGS) -classpath \
+	\n$$""{JAVA} $(JAVA_FLAGS) -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g')\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n" > $(BIN_DIR)/$(OM_SCRIPT)
@@ -247,6 +250,9 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
+	\n# If there is no appropriate jdk1.3 java in your PATH then set one here.\
+        \nset JAVA = java\
+	\n\
 	\nsource $$""{DRAMA}/drama.csh\
 	\ncleanup\
 	\n#source /ukirt_sw/bin/loadORAC UFTI -noql\
@@ -298,7 +304,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n\
 	\nset CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg\
 	\n\
-	\n$(JAVA) $(JAVA_FLAGS) -classpath\
+	\n$$""{JAVA} $(JAVA_FLAGS) -classpath\
 	$(shell echo $(addprefix ../tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix ../lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n" > $(INSTALL_ROOT)/bin/om
