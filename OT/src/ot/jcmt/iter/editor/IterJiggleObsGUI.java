@@ -13,6 +13,7 @@ package ot.jcmt.iter.editor;
 import javax.swing.*;
 import java.awt.*;
 import jsky.app.ot.gui.*;
+import javax.swing.border.*;
 
 /**
  * Title:        <p>
@@ -43,6 +44,14 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel1 = new JLabel();
   DropDownListBoxWidgetExt jigglePattern = new DropDownListBoxWidgetExt();
   GridBagLayout gridBagLayout2 = new GridBagLayout();
+  JPanel jPanel2 = new JPanel();
+  TitledBorder titledBorder1;
+  JLabel jLabel11 = new JLabel();
+  GridBagLayout gridBagLayout3 = new GridBagLayout();
+  TextBoxWidgetExt textBoxWidgetExt1 = new TextBoxWidgetExt();
+  JLabel jLabel12 = new JLabel();
+  JLabel jLabel13 = new JLabel();
+  DropDownListBoxWidgetExt dropDownListBoxWidgetExt1 = new DropDownListBoxWidgetExt();
 
   public IterJiggleObsGUI() {
     try {
@@ -54,6 +63,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
   }
 
   private void jbInit() throws Exception {
+    titledBorder1 = new TitledBorder("");
     acsisPanel.setLayout(gridBagLayout1);
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
@@ -101,6 +111,18 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     jLabel1.setText("Jiggle Pattern");
     jigglePattern.setFont(new java.awt.Font("Dialog", 0, 12));
     jPanel1.setLayout(gridBagLayout2);
+    jPanel2.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Map"));
+    jPanel2.setLayout(gridBagLayout3);
+    jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel11.setForeground(Color.black);
+    jLabel11.setText("PA");
+    textBoxWidgetExt1.setColumns(5);
+    jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel12.setForeground(Color.black);
+    jLabel12.setText("(degrees)");
+    jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel13.setForeground(Color.black);
+    jLabel13.setText("System");
     this.add(acsisPanel, BorderLayout.SOUTH);
     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
@@ -140,10 +162,22 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(defaultButton, new GridBagConstraints(2, 4, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    acsisPanel.add(jPanel2, new GridBagConstraints(4, 4, 1, 3, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jLabel11, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 0), 0, 0));
+    jPanel2.add(textBoxWidgetExt1, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
+    jPanel2.add(jLabel12, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jLabel13, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(dropDownListBoxWidgetExt1, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
     this.add(jPanel1, BorderLayout.CENTER);
     jPanel1.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-    jPanel1.add(jigglePattern, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    jPanel1.add(jigglePattern, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
   }
 }
