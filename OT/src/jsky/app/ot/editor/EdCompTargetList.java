@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
@@ -962,6 +963,8 @@ public final class EdCompTargetList extends OtItemEditor
      * depending on the target system of the selected target.
      */
     private void _selectTargetSystemTab(SpTelescopePos tp) {
+      _w.targetSystemsTabbedPane.removeChangeListener(this);
+
       switch(tp.getSystemType()) {
         case SpTelescopePos.SYSTEM_CONIC:
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
@@ -976,6 +979,8 @@ public final class EdCompTargetList extends OtItemEditor
           _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
 	  break;
       }
+
+      _w.targetSystemsTabbedPane.addChangeListener(this);
     }
 
 
@@ -1107,6 +1112,27 @@ public final class EdCompTargetList extends OtItemEditor
     public void stateChanged(ChangeEvent e) {
 
       if(e.getSource() == _w.targetSystemsTabbedPane) {
+
+	// Changing the target system type ("RA/Dec" v "Orbital Elements" v "Planets, Sun, Moon") results
+	// in some settings being reset. This is because different target system share attributes
+	// (e.g. Minor/Major in named system and conic system)
+	// Most importantly they all share the name attribute. This has to be deleted when the target sytem
+	// type changes because you cannot specify "Uranus" or "Moon" in terms of RA/Dec, say.
+	// Nor can you have "Vega" as a named target.
+	// So warn the user of this and all canceling.
+	int option = JOptionPane.showConfirmDialog(_w,
+			"Changing the system type (\"RA/Dec\", \"Orbital Elements\", \"Planets, Sun, Moon\")\n"      +
+			"     will result in partial loss of the settings for the current system type.\n"            +
+			"E.g. the \"Orbital Elements\" -> Major/Minor/Comets menu will be set to \"Comets\" and\n\n" +
+			"                          THE TARGET NAME WILL BE DELETED.\n\n"                             +
+			"                             Do you want to go ahead anyway?",
+			"Change System Type?",
+			JOptionPane.OK_CANCEL_OPTION);
+
+	if(option == JOptionPane.CANCEL_OPTION) {
+	  _selectTargetSystemTab(_curPos);
+	  return;
+	}
 
         if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.objectGBW) {
           _curPos.setSystemType(SpTelescopePos.SYSTEM_SPHERICAL);
