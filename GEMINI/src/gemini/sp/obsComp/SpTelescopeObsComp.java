@@ -28,6 +28,7 @@ public class SpTelescopeObsComp extends SpObsComp
    public static final String ATTR_CHOPPING	= "chopping";
    public static final String ATTR_CHOP_THROW	= "chopThrow";
    public static final String ATTR_CHOP_ANGLE	= "chopAngle";
+   public static final String ATTR_CHOP_SYSTEM	= "chopSystem";
 
 
    protected SpTelescopePosList _posList;
@@ -234,6 +235,32 @@ public void
 setChopAngle(String chopAngleStr)
 {
    _avTable.set(ATTR_CHOP_ANGLE, chopAngleStr);
+   // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
+   // (for TelescopesPosWatcher or TelescopePosListWatcher).
+   //_notifyOfGenericUpdate();
+}
+
+
+/**
+ * Get chop system.
+ *
+ * Added by MFO (29 October 2001)
+ */
+public String
+getChopSystem()
+{
+   return _avTable.get(ATTR_CHOP_SYSTEM);
+}
+
+/**
+ * Set chop system.
+ *
+ * Added by MFO (29 October 2001)
+ */
+public void
+setChopSystem(String chopSystem)
+{
+   _avTable.set(ATTR_CHOP_SYSTEM, chopSystem);
    // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
    // (for TelescopesPosWatcher or TelescopePosListWatcher).
    //_notifyOfGenericUpdate();
