@@ -153,7 +153,7 @@ public final class EdCompTargetList extends OtItemEditor
         _w.perih.setToolTipText("Argument or Longitude of perihelion");
         _w.orbinc.setToolTipText("Inclination of the orbit ");
         _w.epoch.setToolTipText("Epoch of the orbital elements");
-        _w.epochPerih.setToolTipText("Epoch of perihelion");
+        _w.epochPerih.setToolTipText("Time of perihelion passage");
         _w.l_or_m.setToolTipText("Longitude or mean anomaly");
         _w.dm.setToolTipText("Daily motion");
 

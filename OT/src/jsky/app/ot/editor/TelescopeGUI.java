@@ -255,7 +255,7 @@ public class TelescopeGUI extends JPanel {
     epochLabel.setText("t0");
     epochPerihLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     epochPerihLabel.setForeground(Color.black);
-    epochPerihLabel.setText("T");    
+    epochPerihLabel.setText("TP");    
     orbincLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     orbincLabel.setForeground(Color.black);
     orbincLabel.setText("i");
