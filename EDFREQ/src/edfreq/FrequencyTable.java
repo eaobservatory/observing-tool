@@ -228,43 +228,104 @@ public class FrequencyTable extends JPanel implements ActionListener
 
    public void setLineText(String lineText, int subsystem) {
       lineButtons[subsystem].setText(lineText);
+      lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
    }
 
+   public void resetModeAndBand(String mode, String band)
+   {
+      if(mode.equalsIgnoreCase("ssb")) {
+         if(band.equalsIgnoreCase("lsb")) {
+            for(int i = 0; i < data.length; i++) {
+               ((SideBand)data[i][0]).on();
+               ((SideBand)data[i][2]).off();
+	    }
+         }
+
+         if(band.equalsIgnoreCase("usb")) {
+            for(int i = 0; i < data.length; i++) {
+               ((SideBand)data[i][2]).on();
+               ((SideBand)data[i][0]).off();
+	    }
+	 }
+      }
+      else {
+         for(int i = 0; i < data.length; i++) {
+            ((SideBand)data[i][0]).on();
+            ((SideBand)data[i][2]).on();
+	 }
+      }
+   }
 
    public void actionPerformed(ActionEvent e)
    {
-      int i = Integer.parseInt(e.getActionCommand());
+      int subsystem = Integer.parseInt(e.getActionCommand());
 
       // emissionLines.getSelectedLine() can be null if no line has been selected.
       LineDetails lineDetails = emissionLines.getSelectedLine();
 
+      resetLineDetails(lineDetails, subsystem);
+   }
+
+   protected void resetLineDetails(LineDetails lineDetails, int subsystem)
+   {
       if(lineDetails != null) {
 
          double obsFrequency = (lineDetails.frequency * 1.0E6) / 
               ( 1.0 + hetEditor.getRedshift() );
 
-         double centreFrequency = Math.abs(obsFrequency - sideBandDisplay.getLO1());
+         double centreFrequencyDerivedFromLine = Math.abs(obsFrequency - sideBandDisplay.getLO1());
 
-         samplers[i].setCentreFrequency(centreFrequency);
+         samplers[subsystem].setCentreFrequency(centreFrequencyDerivedFromLine);
 
-         hetEditor.updateLineDetails(lineDetails, i);
-         hetEditor.updateCentreFrequency(centreFrequency, i);
+         // Check whether the line is in the band by comparing centreFrequencyDerivedFromLine as calculated above
+         // and the actual centre frequency of the sampler. Note the sampler[i].setCentreFrequency
+         // adjusts the centre frequency if the sideband would be out of the allowed range otherwise.
 
+	 // ssb vs dsb
+	 String mode = hetEditor.getMode();
 
-         if(lineDetails != null) {
-            lineButtons[i].setText( lineDetails.name       + "  " +
+	 // lsb vs usb
+	 String band = hetEditor.getFeBand();
+
+         boolean lineInBand = true;
+
+         if(Math.abs(samplers[subsystem].getCentreFrequency() - centreFrequencyDerivedFromLine) >
+	   (samplers[subsystem].getBandWidth() / 2.0))
+         {
+            lineInBand = false;
+         }
+
+         // If the instrument is in single side band mode (ssb) then
+         // the line also has to be in the correct sideband.
+         if(mode.equalsIgnoreCase("ssb")) {
+            if(band.equalsIgnoreCase("usb") && (obsFrequency < sideBandDisplay.getLO1())) {
+               lineInBand = false;
+	    }
+
+            if(band.equalsIgnoreCase("lsb") && (obsFrequency > sideBandDisplay.getLO1())) {
+               lineInBand = false;
+	    }
+	 }
+
+	 if(lineInBand) {
+            lineButtons[subsystem].setText( lineDetails.name       + "  " +
                                     lineDetails.transition + "  " +
                                     lineDetails.frequency);
-
-            lineButtons[i].setToolTipText(lineButtons[i].getText());
-
-            this.lineDetails[i] = lineDetails;
-         }
+	 }
          else {
-            lineButtons[i].setText(HeterodyneEditor.NO_LINE);
-            this.lineDetails[i] = null;
+            lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
+            hetEditor.updateLineDetails(null, subsystem);
          }
+
+         lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
       }
+
+      this.lineDetails[subsystem] = lineDetails;
+
+      hetEditor.updateLineDetails(lineDetails, subsystem);
+      hetEditor.updateCentreFrequency(samplers[subsystem].getCentreFrequency(), subsystem);
+
+      lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
    }
 
 
@@ -272,6 +333,7 @@ public class FrequencyTable extends JPanel implements ActionListener
       // Skip first button
       for(int i = 1; i < lineButtons.length; i++) {
          lineButtons[i].setText(HeterodyneEditor.NO_LINE);
+         lineButtons[i].setToolTipText(lineButtons[i].getText());
       }
    }
 
@@ -297,14 +359,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 	 // a change of the centreFrequency.
 	 hetEditor.updateCentreFrequency(samplers[_number].getCentreFrequency(), _number);
 
-         if((lineDetails != null) &&
-           (lineDetails[_number] != null) &&
-           (lineDetails[_number].frequency != samplers[_number].getCentreFrequency())) {
-
-            lineDetails[_number] = null;
-            lineButtons[_number].setText(HeterodyneEditor.NO_LINE);
-            hetEditor.updateLineDetails(null, _number);
-         }
+         resetLineDetails(lineDetails[_number], _number);
       }
    }
 
@@ -343,6 +398,8 @@ public class FrequencyTable extends JPanel implements ActionListener
             hetEditor.updateLineDetails(null, _number);
 	    lineButtons[_number].setText(HeterodyneEditor.NO_LINE);
 	 }
+
+         lineButtons[_number].setToolTipText(lineButtons[_number].getText());
       }
 
       public void mouseClicked(MouseEvent e)  { }
