@@ -854,7 +854,13 @@ print(String indentStr)
     }
 
     // Add type and subtype as XML attributes
-    xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">");
+    if (typeStr().startsWith("p")) {
+	xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\"\n");
+	xmlBuffer.append("\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n");
+    }
+    else {
+	xmlBuffer.append(" type=\"" + typeStr() + "\" subtype=\"" + subtypeStr() + "\">");
+    }
 
     // Now get hold of and process all AV table attributes.
     // The once starting with the character ':' have been dealt with already
