@@ -18,6 +18,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
+import javax.swing.JFrame;
 
 
 /**
@@ -39,12 +40,17 @@ public class OtPreferencesDialog implements ActionListener {
   private JInternalFrame _internalFrame;
 
   /**
+   * Is only used if the OT is started with internal frames.
+   */
+  private JFrame _preferencesDialogFrame;
+
+  /**
    *
    */
   private String _title;
 
   public OtPreferencesDialog() {
-    _title = "Preferences";
+    _title = "OT Preferences";
     /*_presSource  =*/
     _w = new OtPreferencesGUI();
     //_description ="The preferences are set with this component.";
@@ -80,6 +86,25 @@ public class OtPreferencesDialog implements ActionListener {
     _w.setVisible(true);
   }
 
+  /**
+   * For use in no-internal-frames mode.
+   */
+  public void show() {
+    boolean saveShouldPrompt = OtProps.isSaveShouldPrompt();
+    _w.closePromptOption.setSelected(saveShouldPrompt);
+    _w.closeNoSaveOption.setSelected(!saveShouldPrompt);
+    
+    if(_preferencesDialogFrame == null) {
+      _preferencesDialogFrame = new JFrame("OT Preferences");
+      _preferencesDialogFrame.getContentPane().add(_w);
+      _preferencesDialogFrame.setLocation(100, 100);
+      _preferencesDialogFrame.pack();
+    }
+
+    _preferencesDialogFrame.setVisible(true);
+  }
+
+
   public void apply() {
     if(_w.closeNoSaveOption.isSelected()) {
       OtProps.setSaveShouldPrompt(false);
@@ -90,7 +115,12 @@ public class OtPreferencesDialog implements ActionListener {
   }
 
   public void hide() {
-    _internalFrame.dispose();
+    if(_internalFrame != null) {
+      _internalFrame.dispose();
+    }
+    else {
+      _preferencesDialogFrame.setVisible(false);
+    }
   }
 
 

@@ -64,7 +64,7 @@ public class OT extends JFrame {
     private static SplashScreen _splash;
 
     /** Preferences Dialog */
-    private OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog();
+    private static OtPreferencesDialog _preferencesDialog = new OtPreferencesDialog();
 
 
     /**
@@ -259,8 +259,13 @@ public class OT extends JFrame {
     /** 
      * Display a preferences dialog.
      */
-    public void preferences() {
-      _preferencesDialog.show(desktop);
+    public static void preferences() {
+      if(desktop != null) {
+        _preferencesDialog.show(desktop);
+      }
+      else {
+        _preferencesDialog.show();
+      }
     }
 
     /** 
