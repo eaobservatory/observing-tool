@@ -2348,7 +2348,9 @@ public class SpTranslator {
                   writeAttribute( conpw, workConfig, "observationTime" );
 // Commented by RDK
 //                  writeAttribute( conpw, workConfig, "darkFilter" );
-//                  writeAttribute( conpw, workConfig, "darkNumExp" );
+// End of commented by RDK
+// Commented by RDK
+                 writeAttribute( conpw, workConfig, "darkNumExp" );
 //                  writeAttribute( conpw, workConfig, "arrayAngle" );
 //                  writeAttribute( conpw, workConfig, "readArea" );
 //                   writeAttribute( conpw, workConfig, "refPixelX" );
