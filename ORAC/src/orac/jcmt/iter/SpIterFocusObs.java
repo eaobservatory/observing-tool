@@ -24,6 +24,8 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 
+import gemini.util.Format;
+
 import java.util.Enumeration;
 
 import orac.jcmt.SpJCMTConstants;
@@ -75,7 +77,7 @@ public class SpIterFocusObs extends SpIterJCMTObs {
   }
   
   public void setSteps(String stepsStr) {
-    _avTable.set(ATTR_STEPS, toDouble(stepsStr));
+    _avTable.set(ATTR_STEPS, Format.toDouble(stepsStr));
   }
 
   public int getFocusPoints() {
@@ -87,7 +89,7 @@ public class SpIterFocusObs extends SpIterJCMTObs {
   }
 
   public void setFocusPoints(String focusPointsStr) {
-    _avTable.set(ATTR_FOCUS_POINTS, toInt(focusPointsStr));
+    _avTable.set(ATTR_FOCUS_POINTS, Format.toInt(focusPointsStr));
   }
 }
 

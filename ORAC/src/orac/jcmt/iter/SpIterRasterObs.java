@@ -24,6 +24,7 @@ import gemini.sp.iter.SpIterOffset;
 import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
+import gemini.util.Format;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.inst.SpInstHeterodyne;
@@ -80,7 +81,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** Set map width. */
   public void setWidth(String widthStr) {
-    setWidth(toDouble(widthStr));
+    setWidth(Format.toDouble(widthStr));
   }
 
   /** Get map height. */
@@ -95,7 +96,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** Set map height. */
   public void setHeight(String heightStr) {
-    setHeight(toDouble(heightStr));
+    setHeight(Format.toDouble(heightStr));
   }
 
   /** Get scan velocity. */
@@ -121,7 +122,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** Set scan velocity. */
   public void setScanVelocity(String value) {
-    _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, toDouble(value));
+    _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, Format.toDouble(value));
   }
 
 
@@ -183,7 +184,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
                                                "Needed for calculation of scan velocity.");
     }
     else {
-      _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * toDouble(dx));
+      _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * Format.toDouble(dx));
     }   
   }
 
@@ -210,7 +211,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** Set scan dy. */
   public void setScanDy(String dy) {
-    _avTable.set(ATTR_SCANAREA_SCAN_DY, toDouble(dy));
+    _avTable.set(ATTR_SCANAREA_SCAN_DY, Format.toDouble(dy));
   }
 
 
@@ -263,7 +264,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
    * </pre>
    */
   public void setPosAngle(String thetaStr) {
-    setPosAngle(toDouble(thetaStr));
+    setPosAngle(Format.toDouble(thetaStr));
   }
 
   /**
