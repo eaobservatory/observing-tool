@@ -20,6 +20,9 @@ import jsky.app.ot.editor.OtItemEditor;
 import gemini.sp.SpItem;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpInstObsComp;
+import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.OracUtilities;
 
 /**
@@ -112,7 +115,17 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	// It will not be written to or read from the SpMSB item until the Science Program
 	// is saved to disk or stored to database.
 	// Then OracUtilities.set
-	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpMSB)_spItem).getElapsedTime(), 1));
+	// See what instrument we have...
+	SpInstObsComp instrument = SpTreeMan.findInstrumentInContext(_spItem);
+	if (instrument == null) {
+	    instrument = SpTreeMan.findInstrument(_spItem.parent());
+	}
+	if (instrument == null || instrument instanceof SpInstHeterodyne) {
+	    _w.estimatedTime.setText(OracUtilities.secsToHHMMSS(0, 1));
+	}
+	else {
+	    _w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpMSB)_spItem).getElapsedTime(), 1));
+	}
     }
 
     /**
