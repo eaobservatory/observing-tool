@@ -86,8 +86,8 @@ public SpSiteQualityObsComp()
    super(SP_TYPE);
    _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "true", 0);
    _avTable.noNotifySet(ATTR_SEEING_ALLOCATED, "true", 0);
-   _avTable.noNotifySet(ATTR_MOON, "2", 0);
-   _avTable.noNotifySet(ATTR_CLOUD, "2", 0);
+//    _avTable.noNotifySet(ATTR_MOON, "2", 0);
+//    _avTable.noNotifySet(ATTR_CLOUD, "2", 0);
    //super( SpType.OBSERVATION_COMPONENT_SITE_QUALITY );
 }
 
