@@ -32,6 +32,7 @@ import jsky.app.ot.util.CoordSys;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
+import jsky.util.gui.ProgressException;
 import ot.util.DialogUtil;
 import ot.OtConstants;
 import ot.util.NameResolver;
@@ -80,7 +81,6 @@ public final class EdCompTargetList extends OtItemEditor
 
 
     private NameResolverFeedback _nameResolverFeedback;
-    private boolean _resolvingName = false;
 
     /**
      * The constructor initializes the title, description, and presentation source.
@@ -743,18 +743,8 @@ public final class EdCompTargetList extends OtItemEditor
 
 	// Added by MFO
 	if(w == _w.resolveButton) {
-	    if(_resolvingName) {
-		_nameResolverFeedback.deActivate();
-		_resolvingName = false;
-		_w.resolveButton.setText("Resolve");
-		_w.resolveButton.setBackground(Color.lightGray);
-		_w.resolveButton.setEnabled(true);
-	    }
-	    else {
-		_resolvingName = true;
-		_nameResolverFeedback = new NameResolverFeedback();
-		_nameResolverFeedback.start();
-	    }
+	    _nameResolverFeedback = new NameResolverFeedback();
+	    _nameResolverFeedback.start();
 	}
 
         // chop mode tab added by MFO (3 August 2001)
@@ -808,34 +798,16 @@ public final class EdCompTargetList extends OtItemEditor
     }
 
     /**
-     * This class changes the color and text of the "Resolve" button that starts the name rsolver.
-     *
-     * During name resolving the button turns red and the text "Stop" replaces the string "Resolve".
-     * This allows the user to interrupt the name resolving process if it takes too long.
-     *
-     * Note: When "Stop" is clickeed by the user, the NameResolverFeedback Thread continues as usual until the
-     * NameResolver constructor returns. But then NameResolverFeedback.run() returns, ignoring the NameResolver
-     * results and the GUI is not updated.
+     * Thread for name resolving.
      *
      * Added by MFO (10 Oct 2001).
      */
     class NameResolverFeedback extends Thread {
-	private boolean _active = true;
-
-	public void deActivate() {
-	    _active = false;
-	}
     
 	public void run() {
-	  _w.resolveButton.setText("Stop");
-	  _w.resolveButton.setBackground(Color.red);
 
           try {
 	    NameResolver nameResolver = new NameResolver((String)_w.nameResolversDDLBW.getSelectedItem(), _w.nameTBW.getText());
-
-	    if(_active == false) {
-	      return;
-	    }
 
 	    _w.nameTBW.setText(nameResolver.getId());
 	    _w.xaxisTBW.setText(nameResolver.getRa());
@@ -861,6 +833,10 @@ public final class EdCompTargetList extends OtItemEditor
 
             _resetPositionEditor();
 	  }
+	  catch(ProgressException e) {
+            // User has interrupted query. Do nothing.
+            System.out.println("Query interrupted by OT user.");
+	  }
 	  catch(RuntimeException e) {
             if(System.getProperty("DEBUB") != null) {
               e.printStackTrace();
@@ -868,11 +844,6 @@ public final class EdCompTargetList extends OtItemEditor
 
             DialogUtil.error(_w, "Error while trying to resolve name \"" + _w.nameTBW.getText() + "\"\n" + e.getMessage());
 	  }
-
-	  _w.resolveButton.setText("Resolve");
-	  _w.resolveButton.setBackground(Color.lightGray);
-
-	  _resolvingName = false;
 	}
     }
 }
