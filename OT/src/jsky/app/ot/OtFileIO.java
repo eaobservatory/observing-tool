@@ -234,8 +234,12 @@ open()
    }
 
    fd.showOpenDialog(null);
-   String dir      = fd.getSelectedFile().getParent(); // getDirectory();
-   String filename = fd.getSelectedFile().getName();   // getFile();
+   if(fd.getSelectedFile() == null) {
+     return;
+   }
+
+   String dir      = fd.getSelectedFile().getParent();
+   String filename = fd.getSelectedFile().getName();
    if (filename == null) {
       return;
    }
