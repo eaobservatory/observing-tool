@@ -16,6 +16,8 @@ import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
+import orac.util.OracUtilities;
+
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
 
@@ -104,6 +106,8 @@ public final class EdProgram extends OtItemEditor
 	_w.projectIdBox.setText(((SpProg)_spItem).getProjectID());	
 
 	_showPropKind(_avTab.get(KIND));
+
+	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpProg)_spItem).getElapsedTime(), 1));
     }
 
     /**
