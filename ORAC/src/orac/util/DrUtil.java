@@ -38,13 +38,13 @@ public class DrUtil {
   /**
    * Calculates an airmass estimate based on dec of target and telescope latitude.
    *
-   * @param  dec      Dec of target
-   * @param  latitude Latitude of telescope
+   * @param  dec      Dec of target in degrees
+   * @param  latitude Latitude of telescope in degrees
    *
    * @return airmass estimate
    */
   public static double airmass(double dec, double latitude) {
-    return 1.0 / Math.sin(0.9 * Math.abs(dec - latitude));
+    return 1.0 / Math.cos(0.9 * (((dec - latitude) * Math.PI) / 180.0));
   }
 
 
