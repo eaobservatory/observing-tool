@@ -8,6 +8,9 @@ package jsky.app.ot.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Enumeration;
 
 import javax.swing.ImageIcon;
 
@@ -15,6 +18,7 @@ import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.util.gui.DialogUtil;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpOffsetPos;
@@ -23,19 +27,23 @@ import gemini.sp.iter.SpIterOffset;
 
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
+import jsky.app.ot.OtCfg;
 
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
+import orac.jcmt.iter.SpIterRasterObs;
 
 /**
  * This is the editor for Offset Iterator component.  It allows a list of
  * offset positions to be entered and ordered.
  *
  * @see SpOffsetPos
+ *
+ * @author modified for JCMT OT by Martin Folger (MFO, M.Folger@roe.ac.uk)
  */
 public final class EdIterOffset extends OtItemEditor
     implements TableWidgetWatcher,  TextBoxWidgetWatcher, 
-	       TelescopePosWatcher, ActionListener {
+	       TelescopePosWatcher, ActionListener, MouseListener {
 
     private TextBoxWidgetExt     _xOffTBW;
     private TextBoxWidgetExt     _yOffTBW;
@@ -45,6 +53,9 @@ public final class EdIterOffset extends OtItemEditor
     private SpOffsetPosList	 _opl;		// Position list being edited
 
     private IterOffsetGUI        _w;             // the GUI layout panel
+
+    private String BUTTON_TEXT_ROTATION_FALSE = "Display Rotated Offsets";
+    private String BUTTON_TEXT_ROTATION_TRUE  = "Offsets Rotated";
 
     /**
      * The constructor initializes the title, description, and presentation source.
@@ -62,6 +73,13 @@ public final class EdIterOffset extends OtItemEditor
         _w.downButton.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/down.gif")));
 	_w.pqItem.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/pq.gif")));
 
+        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_OFFSET_GRID_PA)) {
+          _w.paLabel.setVisible(false);
+	  _w.paTextBox.setVisible(false);
+	  _w.displayRotatedOffsets.setVisible(false);
+	  _w.setSpacingButton.setVisible(false);
+	}
+
 	_w.newButton.addActionListener(this);
 	_w.removeAllButton.addActionListener(this);
 	_w.removeButton.addActionListener(this);
@@ -71,6 +89,10 @@ public final class EdIterOffset extends OtItemEditor
 	_w.bottomButton.addActionListener(this);
 	_w.createGridButton.addActionListener(this);
 	_w.centreOnBaseButton.addActionListener(this);
+	_w.displayRotatedOffsets.addMouseListener(this);
+
+        _w.paTextBox.addWatcher(this);
+	_w.setSpacingButton.addActionListener(this);
     }
 
 
@@ -94,13 +116,8 @@ public final class EdIterOffset extends OtItemEditor
 	_offTW.addWatcher(this);
 	_offTW.setColumnHeaders(new String[]{"#", "p Offset", "q Offset"});
 	_offTW.setBackground(_w.getBackground());
-
-	// Added by MFO (22 August 2001)
-	_w.gridXSpacing.addWatcher(this);
-	_w.gridYSpacing.addWatcher(this);
-	_w.gridCols.addWatcher(this);
-	_w.gridRows.addWatcher(this);
     }
+
 
     /**
      * Show the given SpOffsetPos
@@ -134,7 +151,16 @@ public final class EdIterOffset extends OtItemEditor
 	// rather then to the selectedRow. (MFO, 6 December 2001)
 	int selIndex = _avTab.getInt(".gui.selectedOffsetPos", 0);
 	_offTW.selectPos(selIndex);
-    
+
+        _w.paTextBox.setValue(sio.getPosAngle());
+
+        // added by MFO (19 February 2002)
+//	if(containsScanMap(sio)) {
+//            _w.createScanMosaicButton.setEnabled(true);
+//	}
+//	else {
+//            _w.createScanMosaicButton.setEnabled(false);
+//	}
     }
 
     /**
@@ -189,6 +215,18 @@ public final class EdIterOffset extends OtItemEditor
 	else if (tbwe == _w.titleTBW) {
 	    _spItem.setTitleAttr(tbwe.getText().trim());
 	}
+	else if (tbwe == _w.paTextBox) {
+	    iterOffset.setPosAngle(tbwe.getText().trim());
+
+	    // Added by MFO, 15 February 2002
+	    // I think this is implemented in a different way in Gemini ot-2000B.12.
+	    try {
+	      TpeManager.get(_spItem).reset(_spItem);
+	    }
+	    catch(NullPointerException e) {
+	    // ignore
+	    }
+	}	
     }
  
     /**
@@ -394,8 +432,36 @@ public final class EdIterOffset extends OtItemEditor
 	if (w == _w.centreOnBaseButton) {
 	    setGridOffsets();
 	    return;
-	}	
+	}
+
+	// Take Scan Area width and height as spacing paramters.
+	if (w == _w.setSpacingButton) {
+          SpIterRasterObs iterRaster = getRasterObsIterator(_spItem);
+
+	  if(iterRaster == null) {
+            DialogUtil.error(_w, "No Scan/Raster Observe found.");
+	  }
+	  else {
+            _w.gridXSpacing.setValue(iterRaster.getWidth());
+            _w.gridYSpacing.setValue(iterRaster.getHeight());
+	  }
+	}
     }
+
+  // Added by MFO (20 February 2002)
+  public void mouseClicked(MouseEvent e) { }
+  public void mouseEntered(MouseEvent e) { }
+  public void mouseExited(MouseEvent e) { }
+  public void mousePressed(MouseEvent e) {
+    setOffsetsRotation(true);
+    _w.displayRotatedOffsets.setText(BUTTON_TEXT_ROTATION_TRUE);
+  }
+
+  public void mouseReleased(MouseEvent e) {
+    setOffsetsRotation(false);
+    _w.displayRotatedOffsets.setText(BUTTON_TEXT_ROTATION_FALSE);
+  }
+
 
     /**
      * Centers the pattern around (0, 0).
@@ -426,6 +492,48 @@ public final class EdIterOffset extends OtItemEditor
       _w.gridYOffset.setValue(gridOffset);
 
       _createGrid();
+    }
+
+    public void setOffsetsRotation(boolean rotated) {
+      if(rotated) {
+        _w.paTextBox.setValue("0.0");
+
+	// Get the current offset list
+        SpOffsetPosList	rotatedOpl = ((SpIterOffset)_spItem).getRotatedPosList();
+        for(int i = 0; i < rotatedOpl.size(); i++) {
+          _offTW.setValueAt("" + (Math.rint(rotatedOpl.getPositionAt(i).getXaxis() * 10) / 10), i, 1);
+          _offTW.setValueAt("" + (Math.rint(rotatedOpl.getPositionAt(i).getYaxis() * 10) / 10), i, 2);
+        }
+      }
+      // Undo the rotation
+      else {
+        _updateWidgets();
+      }
+    }
+
+    /**
+     * Checks whether this offset iterator contains a Scan/Raster map.
+     *
+     * Returns true if there is an instance of {@link orac.jcmt.iter.SpIterRasterObs}
+     * inside the offset iterator item.
+     */
+    private static SpIterRasterObs getRasterObsIterator(SpItem spItem) {
+      Enumeration children   = spItem.children();
+      SpItem  child          = null;
+      SpIterRasterObs result = null;
+
+      while(children.hasMoreElements() && (result == null)) {
+        child = (SpItem)children.nextElement();
+
+        if(child instanceof SpIterRasterObs) {
+          result = (SpIterRasterObs)child;
+	}
+	else {
+          result = getRasterObsIterator(child);
+	}
+      }
+
+      return result;
     }
 }
 

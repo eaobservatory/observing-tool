@@ -13,8 +13,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import javax.swing.border.*;
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.*;
 
 public class IterOffsetGUI extends JPanel {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
@@ -58,6 +57,10 @@ public class IterOffsetGUI extends JPanel {
     TextBoxWidgetExt gridCols = new TextBoxWidgetExt();
     CommandButtonWidgetExt createGridButton = new CommandButtonWidgetExt();
   CommandButtonWidgetExt centreOnBaseButton = new CommandButtonWidgetExt();
+  TextBoxWidgetExt paTextBox = new TextBoxWidgetExt();
+  JLabel paLabel = new JLabel();
+  CommandButtonWidgetExt displayRotatedOffsets = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt setSpacingButton = new CommandButtonWidgetExt();
 
     public IterOffsetGUI() {
         try {
@@ -148,6 +151,11 @@ public class IterOffsetGUI extends JPanel {
         downButton.setPreferredSize(new Dimension(20, 20));
         bottomButton.setPreferredSize(new Dimension(20, 20));
         centreOnBaseButton.setText("Create/Centre On Base");
+    paLabel.setFont(new java.awt.Font("Dialog", 2, 12));
+    paLabel.setForeground(Color.black);
+    paLabel.setText("PA");
+    displayRotatedOffsets.setText("Display Rotated Offsets");
+    setSpacingButton.setText("Set Spacing from Scan Area");
     this.add(pqItem, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
         this.add(jLabel1, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
@@ -180,7 +188,7 @@ public class IterOffsetGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         this.add(downButton, new GridBagConstraints(3, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(gridGBW, new GridBagConstraints(0, 8, 4, 1, 0.0, 0.0
+        this.add(gridGBW, new GridBagConstraints(0, 9, 4, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
         gridGBW.add(jLabel7, new GridBagConstraints(3, 1, 2, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 15), 0, 0));
@@ -217,10 +225,18 @@ public class IterOffsetGUI extends JPanel {
         gridGBW.add(gridCols, new GridBagConstraints(6, 4, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         gridGBW.add(createGridButton, new GridBagConstraints(5, 5, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
-    gridGBW.add(centreOnBaseButton, new GridBagConstraints(1, 5, 4, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
+    gridGBW.add(centreOnBaseButton, new GridBagConstraints(2, 5, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    gridGBW.add(setSpacingButton, new GridBagConstraints(2, 6, 5, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 5, 5), 0, 0));
         this.add(bottomButton, new GridBagConstraints(3, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(paTextBox, new GridBagConstraints(1, 8, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(paLabel, new GridBagConstraints(0, 8, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+    this.add(displayRotatedOffsets, new GridBagConstraints(2, 8, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         jScrollPane1.getViewport().add(offsetTable, null);
     }
