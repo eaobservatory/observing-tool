@@ -58,11 +58,28 @@ public class Sampler implements ItemListener
       swArray.addElement ( sw );
    }
 
+   /**
+    * Set centre frequency to a value in the allowed range.
+    *
+    * The centre frequency is adjusted if necessary so that the sideband fits into the frontend bandwidth.
+    */
    public void setCentreFrequency ( double centreFrequency )
    {
       int j;
 
       this.centreFrequency = centreFrequency;
+
+      // Check whether the centreFrequency has to be adjusted in order to
+      // make the new bandWidth fit into the frontend bandwidth.
+
+      if(centreFrequency > (feIF + (0.5 * (feBandWidth - bandWidth)))) {
+         this.centreFrequency = (feIF + (0.5 * (feBandWidth - bandWidth)));
+      }
+
+      if(centreFrequency < (feIF - (0.5 * (feBandWidth - bandWidth)))) {
+         this.centreFrequency = (feIF - (0.5 * (feBandWidth - bandWidth)));
+      }
+
       if ( !swArray.isEmpty() )
       {
          for ( j=0; j<swArray.size(); j++ )
@@ -88,26 +105,20 @@ public class Sampler implements ItemListener
 
       bandWidth = value;
 
+      // Adjust centre frequency if necessary so that the sideband fits into the frontend bandwidth.
+      setCentreFrequency(getCentreFrequency());
 
-      // Check whether the centreFrequency has to be adjusted in order to
-      // make the new bandWidth fit into the frontend bandwidth.
+      // The above call to setCentreFrequency triggers a notification of the SamplerWatchers.
+      // So the following can be commented out.
 
-      if(centreFrequency > (feIF + (0.5 * (feBandWidth - bandWidth)))) {
-         centreFrequency = (feIF + (0.5 * (feBandWidth - bandWidth)));
-      }
-
-      if(centreFrequency < (feIF - (0.5 * (feBandWidth - bandWidth)))) {
-         centreFrequency = (feIF - (0.5 * (feBandWidth - bandWidth)));
-      }
-
-      if ( !swArray.isEmpty() )
-      {
-         for ( j=0; j<swArray.size(); j++ )
-         {
-            ((SamplerWatcher)swArray.elementAt(j)).updateSamplerValues ( 
-              centreFrequency, bandWidth, channels );
-         }
-      }
+//      if ( !swArray.isEmpty() )
+//      {
+//         for ( j=0; j<swArray.size(); j++ )
+//         {
+//            ((SamplerWatcher)swArray.elementAt(j)).updateSamplerValues ( 
+//              centreFrequency, bandWidth, channels );
+//         }
+//      }
 
       bandWidthChoice.removeItemListener(this);
       bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6) / 1000.0));
