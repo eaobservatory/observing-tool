@@ -29,16 +29,18 @@ public class NameResolver {
   public NameResolver(String catalogName, String queryString) {
 
     Catalog catalog = SkycatConfigFile.getConfigFile(null).getCatalog(catalogName);
-      
+
+    if((catalogName == null) || (System.getProperty("DEBUG") != null)) {
+      System.out.println("NameResolver(\"" + catalogName + "\", \"" + queryString + "\") called.");
+      int n = SkycatConfigFile.getConfigFile(null).getNumCatalogs();
+      System.out.println("There are " + n + " catalogs available.");
+      System.out.println("Pick one of the following catalogs:");
+      for(int i = 0; i < n; i++) {
+        System.out.println("    " + SkycatConfigFile.getConfigFile(null).getCatalog(i));
+      }
+    }
+
     if(catalog == null) {
-      if(System.getProperty("DEBUG") != null) {
-	int n = SkycatConfigFile.getConfigFile(null).getNumCatalogs();
-        System.out.println("There are " + n + " catalogs available.");
-	System.out.println("Pick one of the following catalogs:");
-	for(int i = 0; i < n; i++) {
-          System.out.println("    " + SkycatConfigFile.getConfigFile(null).getCatalog(i));
-	}
-      }  
       throw new RuntimeException("Could not create catalog \"" + catalogName + "\"");
     }
 
@@ -91,6 +93,10 @@ public class NameResolver {
   public String getId()  { return _id;  }
   public String getRa()  { return _ra;  }
   public String getDec() { return _dec; }
+
+  public static boolean isAvailableAsCatalog(String catalogName) {
+    return (SkycatConfigFile.getConfigFile(null).getCatalog(catalogName) != null);
+  }
 
   public static void main(String [] args) {
     try {
