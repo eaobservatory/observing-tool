@@ -1,15 +1,15 @@
-package om.sciProgram;                   
+package sciProgram;                   
 
-import om.console.*;      //this is for the sequence console
-import om.frameList.*;    //import frameList Java bean
-import om.dramaSocket.*;
+import console.*;      //this is for the sequence console
+import frameList.*;    //import frameList Java bean
+import dramaSocket.*;
 
 import gemini.sp.*;
 import gemini.sp.SpItem;
 import gemini.sp.ipc.*;
-import orac.ukirt.inst.*;
-import orac.ukirt.iter.*;
-import orac.ukirt.util.SpTranslator;
+import ot_ukirt.inst.*;
+import ot_ukirt.iter.*;
+import ot_ukirt.util.SpTranslator;
 
 import java.util.*;
 import java.io.*;
@@ -224,8 +224,8 @@ final public class programTree extends JPanel
 	    }
 	  else if(inst.type().getReadable().equals("Michelle"))
 	    {
-	      Naming.rebind(System.getProperty("Michelle_OBJE"),frame);
-	      Naming.rebind(System.getProperty("Michelle_OBJE")+"-COMM",frame.getCommandSent());
+	      Naming.rebind(System.getProperty("MICH_OBJE"),frame);
+	      Naming.rebind(System.getProperty("MICH_OBJE")+"-COMM",frame.getCommandSent());
 	      System.out.println("RMI Server for the Michelle console is ready.");
 	    }
 	  else if(inst.type().getReadable().equals("CGS4"))
@@ -251,7 +251,6 @@ final public class programTree extends JPanel
 	  System.out.println("MalformedURLException in programTree:" + e);
 	}  catch (NullPointerException e) {
 	  System.out.println("NullPointerException in programTree:" + e);
-	  e.printStackTrace();
 	}
       
       
