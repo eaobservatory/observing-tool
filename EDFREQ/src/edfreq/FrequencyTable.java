@@ -44,11 +44,12 @@ public class FrequencyTable extends JPanel implements ActionListener
    private boolean _notifyHeterodyneEditor = true;
 
    public FrequencyTable ( double feIF, double feBandWidth,
-     double [] bandWidths, int [] channels, 
-     int samplerCount, int displayWidth,
-     SideBandDisplay sideBandDisplay,
-     HeterodyneEditor hetEditor,
-     EmissionLines emissionLines)
+			   double [] bandWidths, int [] channels, 
+			   int samplerCount, int displayWidth,
+			   SideBandDisplay sideBandDisplay,
+			   HeterodyneEditor hetEditor,
+			   EmissionLines emissionLines,
+			   int nMixers)
    {
 
       super ( );
@@ -174,7 +175,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 
          samplerDisplay = new SamplerDisplay ( String.valueOf ( feIF ) );
          resolutionDisplay = new ResolutionDisplay ( channels[0],
-           bandWidths[0] );
+           bandWidths[0], nMixers );
 	 Vector bandWidthItems = new Vector();
 	 for(int k = 0; k < bandWidths.length; k++) {
             bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6) / 1000.0));
@@ -230,6 +231,7 @@ public class FrequencyTable extends JPanel implements ActionListener
    {
       return samplers;   
    }
+
 
    public void setLineText(String lineText, int subsystem) {
       lineButtons[subsystem].setText(lineText);

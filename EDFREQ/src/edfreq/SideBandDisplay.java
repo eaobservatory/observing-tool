@@ -61,11 +61,11 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
    }
 
    public void updateDisplay ( String feName, 
-     double lRangeLimit, double uRangeLimit, 
-     double feIF, double feBandWidth,
-     double redshift, 
-     double [] bandWidths, int [] channels, 
-     int samplerCount )
+			       double lRangeLimit, double uRangeLimit, 
+			       double feIF, double feBandWidth, int nMixers,
+			       double redshift, 
+			       double [] bandWidths, int [] channels, 
+			       int samplerCount )
    {
 
       setTitle ( "Frequency editor: front end = " + feName );
@@ -93,7 +93,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
       jt = new FrequencyTable ( feIF, feBandWidth,
         bandWidths, channels,
-        samplerCount, displayWidth, this, hetEditor, el);
+        samplerCount, displayWidth, this, hetEditor, el, nMixers);
 
       dataPanel.add ( jt, BorderLayout.CENTER );
 
@@ -311,6 +311,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       jt.resetModeAndBand(mode, band);
    }
 
+
    public static void main(String args[]) 
    {
       // Create SideBandDisplay with anonymous HeterodyneEditor implementation
@@ -329,7 +330,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       } );
 
       sbt.updateDisplay( "Frequency editor test",
-        365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 0.0,
+			 365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 1, 0.0, 
         new double[] { 0.25E9, 1.0E9 }, new int [] { 8192, 2048 }, 8 );
       sbt.setVisible(true);
    }

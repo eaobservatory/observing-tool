@@ -29,6 +29,9 @@ public class Sampler implements ItemListener
    /** Instantaneous bandwidth of frontend. */
    double feBandWidth;
 
+    /** Number of mixers selected on heterodyne panel */
+    int nMixers = 1;
+
    /**
     * Bandwidth options for this sampler.
     *
@@ -181,8 +184,12 @@ public class Sampler implements ItemListener
    }
 
    public int getResolution() {
-      return (int) ( 1.0E-3 * bandWidth / (double)channels );
+      return nMixers*((int) ( 1.0E-3 * bandWidth / (double)channels ));
    }
+
+    public void setNumberOfMixers(int nMixers) {
+	this.nMixers = nMixers;
+    }
 
    public void itemStateChanged ( ItemEvent ev )
    {

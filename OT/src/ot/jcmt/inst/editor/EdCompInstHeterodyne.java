@@ -316,8 +316,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          // LineCatalog.
          _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
          _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
-
-         _w.resolution.setText("" + sideBandDisplay.getResolution(0));
+	 if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) {
+	     _w.resolution.setText("" + (2*sideBandDisplay.getResolution(0)));
+	 }
+	 else {
+	     _w.resolution.setText("" + sideBandDisplay.getResolution(0));
+	 }
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -481,6 +485,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
     public void feMixersAction (ActionEvent ae) {
 	_instHeterodyne.setMixer((String)_w.feMixers.getSelectedItem());
+	updateSideBandDisplay();
+	_updateWidgets();
     }
 
     public void velocityFrameAction (ActionEvent ae) {
@@ -858,6 +864,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       double loRange[];
       double mid;
       int subBandCount;
+      int mixerCount = 1;
       BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
 
       if(currentBandSpec == null) {
@@ -876,12 +883,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       subBandCount = currentBandSpec.numBands;
       subBandWidth = currentBandSpec.getDefaultOverlapBandWidths()[0]; //getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
 
+      if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) mixerCount = 2;
+
       sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
-        feIF, feBandWidth,
-        redshift,
-        currentBandSpec.getDefaultOverlapBandWidths(), //getBandWidths(feOverlap),
-        currentBandSpec.getDefaultOverlapChannels(),   //getChannels(  feOverlap),
-        subBandCount );
+				      feIF, feBandWidth, mixerCount,
+				      redshift,
+				      currentBandSpec.getDefaultOverlapBandWidths(), //getBandWidths(feOverlap),
+				      currentBandSpec.getDefaultOverlapChannels(),   //getChannels(  feOverlap),
+				      subBandCount );
 
       _ignoreEvents = true;
       sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
@@ -1250,7 +1259,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
     }
 
-    System.out.println("updateBandWidth: Setting overlap to "+currentBandSpec.defaultOverlaps[index]);
     _instHeterodyne.setOverlap(currentBandSpec.defaultOverlaps[index], subsystem);
 
     if(subsystem == 0) {
@@ -1268,6 +1276,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     // then update the resolution display.
     if(subsystem == 0) {
       int topSubSystemResolution = (int) ( 1.0E-3 * _instHeterodyne.getBandWidth(0) / (double)channels );
+      if (((String)_w.feMixers.getSelectedItem()).startsWith("Dual")) {
+	  topSubSystemResolution = 2*topSubSystemResolution;
+      }
       _w.resolution.setText("" + topSubSystemResolution);
     }
 
