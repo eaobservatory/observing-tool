@@ -21,9 +21,7 @@ import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 
 /**
- * This is a temporary editor for a few of the more important items that
- * don't have custom editors yet.  For instance, the Observation Folder
- * currently uses this editor.
+ * MSB folder editor.
  *
  * @author Martin Folger (M.Folger@roe.ac.uk),
  *         based on jsky/app/ot/editor/EdTitle.java
