@@ -35,6 +35,7 @@ public class FrequencyTable extends JPanel implements ActionListener
    private Object[][] data;
 
    private JButton [] lineButtons;
+   private LineDetails [] lineDetails;
 
    private SideBandDisplay sideBandDisplay;
    private HeterodyneEditor hetEditor;
@@ -133,6 +134,7 @@ public class FrequencyTable extends JPanel implements ActionListener
       samplers = new Sampler [samplerCount];
 
       lineButtons = new JButton[samplerCount];
+      lineDetails = new LineDetails[samplerCount];
 
       for ( j=0; j<samplerCount; j++ )
       {
@@ -255,9 +257,12 @@ public class FrequencyTable extends JPanel implements ActionListener
                                     lineDetails.frequency);
 
             lineButtons[i].setToolTipText(lineButtons[i].getText());
+
+            this.lineDetails[i] = lineDetails;
          }
          else {
             lineButtons[i].setText(HeterodyneEditor.NO_LINE);
+            this.lineDetails[i] = null;
          }
       }
    }
@@ -286,6 +291,20 @@ public class FrequencyTable extends JPanel implements ActionListener
       public void itemStateChanged(ItemEvent e) {
          hetEditor.updateBandWidth(samplers[_number].getBandWidth(), _number);
          hetEditor.updateChannels(samplers[_number].getChannels(), _number);
+
+	 // Sometimes, if the bandwidth is increased, the band has to be moved
+	 // towards the middle of the allowed range in order to fit. This means
+	 // a change of the centreFrequency.
+	 hetEditor.updateCentreFrequency(samplers[_number].getCentreFrequency(), _number);
+
+         if((lineDetails != null) &&
+           (lineDetails[_number] != null) &&
+           (lineDetails[_number].frequency != samplers[_number].getCentreFrequency())) {
+
+            lineDetails[_number] = null;
+            lineButtons[_number].setText(HeterodyneEditor.NO_LINE);
+            hetEditor.updateLineDetails(null, _number);
+         }
       }
    }
 
