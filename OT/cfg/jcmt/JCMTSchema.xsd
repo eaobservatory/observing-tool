@@ -493,7 +493,7 @@
           <xsd:complexType>
             <xsd:complexContent>
               <xsd:extension base="conicSystemType">
-                <xsd:attribute name="type">
+                <xsd:attribute name="TYPE">
                   <xsd:simpleType>
                     <xsd:restriction base="xsd:string">
                       <xsd:enumeration value="major"/>
