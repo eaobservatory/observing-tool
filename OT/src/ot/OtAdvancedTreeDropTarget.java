@@ -20,8 +20,8 @@ import jsky.app.ot.OtDragDropObject;
 import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtTreeNodeWidget;
 import java.awt.Image;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 
@@ -37,7 +37,7 @@ import javax.swing.SwingUtilities;
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class OtAdvancedTreeDropTarget extends OtTreeDropTarget {
+public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyListener {
   protected String INSERT_INSIDE_GIF = "ot/images/insert_inside.gif";
   protected String INSERT_AFTER_GIF  = "ot/images/insert_after.gif";
   protected String INSERT_NO_GIF     = "ot/images/insert_no.gif";
@@ -91,6 +91,8 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget {
     insertImage[INSERT_INSIDE] = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_INSIDE_GIF))).getImage();
     insertImage[INSERT_AFTER]  = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_AFTER_GIF ))).getImage();
     insertImage[INSERT_NO]     = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_NO_GIF    ))).getImage();
+  
+    tree.addKeyListener(this);
   }
 
   public void dragExit(DropTargetEvent dte) {
@@ -249,5 +251,20 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget {
 
     return spID;
   }
+
+  public void keyPressed(KeyEvent e) {
+    if((e.getKeyCode() == KeyEvent.VK_DELETE) || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
+      if (_spTree.multipleItemsSelected()) {
+        _spTree.rmMultiSelectedItems();
+      } else {
+        _spTree.rmSelectedItem();
+      }
+    }
+  }
+  
+  public void keyReleased(KeyEvent e) { }
+  
+  public void keyTyped(KeyEvent e) { }    
+
 }
 
