@@ -153,6 +153,10 @@ public interface SpJCMTConstants {
    /** Sub-instrument */
    public static final String ATTR_SUB_INSTRUMENT     = "subInstrument";
 
+   /** Primary sub-instrument */
+   public static final String ATTR_PRIMARY_SUB_INSTRUMENT = "primarySubInstrument";
+
+
    /** Bolometer */
    public static final String ATTR_BOLOMETER          = "bolometer";
 
