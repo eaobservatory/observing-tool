@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import gemini.sp.*;
-import orac.ukirt.util.*;
-import orac.ukirt.inst.*;
-import orac.ukirt.iter.*;
+import orac.jcmt.util.*;
+import orac.jcmt.inst.*;
+import orac.jcmt.iter.*;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.iter.SpIterConfigBase;
@@ -41,6 +41,32 @@ import orac.validation.ErrorMessage;
  * @author M.Folger@roe.ac.uk (M.Folger@roe.ac.uk)
  */
 public class JcmtSpValidation extends SpValidation {
+
+    public void checkObservation( SpObs spObs, Vector report ) {
+        if ( report == null ) report = new Vector();
+        
+        SpInstObsComp obsComp = SpTreeMan.findInstrument(spObs);
+        Vector observes       = SpTreeMan.findAllInstances(spObs, "orac.jcmt.iter.SpIterJCMTObs");
+        // Give a warning for heterodyne if integration times > 40 seconds
+        // and frequency > 400 GHz
+        for ( int count = 0; count < observes.size(); count++ ) {
+            if ( obsComp != null && obsComp instanceof SpInstHeterodyne ) {
+                if ( ((SpInstHeterodyne)obsComp).getSkyFrequency() > 4.0E11 &&
+                      ((SpIterJCMTObs)observes.elementAt(count)).getSecsPerCycle() > 40.0 ) {
+                    report.add( new ErrorMessage( 
+                                ErrorMessage.WARNING,
+                                spObs.getTitle(),
+                                "Observations > 4GHz should be done with < 40 secs/cycle")
+                            );
+                }
+            }
+        }
+
+        super.checkObservation(spObs, report);
+    }
+            
+
+    
     /*
   public void checkMSB(SpMSB spMSB,  Vector report) {
     checkMSBgeneric(spMSB, report);
