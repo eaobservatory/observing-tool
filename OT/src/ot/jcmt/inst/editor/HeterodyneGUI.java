@@ -26,7 +26,7 @@ public class HeterodyneGUI extends JPanel {
   JButton editButton = new JButton();
   FlowLayout flowLayout1 = new FlowLayout();
   JScrollPane jScrollPane1 = new JScrollPane();
-  JTextPane summaryTextPane = new JTextPane();
+  JTextArea summaryTextComponent = new JTextArea();
 
   public HeterodyneGUI() {
     try {
@@ -42,10 +42,12 @@ public class HeterodyneGUI extends JPanel {
     editButton.setText("Edit");
     jPanel1.setLayout(flowLayout1);
     flowLayout1.setAlignment(FlowLayout.RIGHT);
+    summaryTextComponent.setDisabledTextColor(Color.black);
+    summaryTextComponent.setBackground(Color.lightGray);
     this.add(jPanel1, BorderLayout.SOUTH);
     jPanel1.add(editButton, null);
     this.add(jScrollPane1, BorderLayout.CENTER);
-    jScrollPane1.getViewport().add(summaryTextPane, null);
+    jScrollPane1.getViewport().add(summaryTextComponent, null);
   }
 
 }
