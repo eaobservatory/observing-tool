@@ -64,7 +64,7 @@ install: all install_dir
 	(cd OT/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 
 	mkdir -p $(INSTALL_ROOT)/tools
-	cp OT/tools/*.jar ORAC/tools/*.jar OMP/tools/*.jar $(INSTALL_ROOT)/tools
+	cp OT/tools/*.jar ORAC/tools/*.jar OMP/tools/*.jar EDFREQ/tools/*.jar $(INSTALL_ROOT)/tools
 
 	mkdir -p $(INSTALL_ROOT)/cfg
 
@@ -74,6 +74,9 @@ install: all install_dir
 	cp -r ODB/install/cfg $(INSTALL_ROOT)/cfg/odb
 	cp -r  OM/install/cfg $(INSTALL_ROOT)/cfg/om
 	cp -r  OT/install/cfg $(INSTALL_ROOT)/cfg/ot
+
+# Copy the frequency editor cfg directory edfreq into the installed cfg ot subdirectory.
+	cp -r EDFREQ/install/cfg/edfreq $(INSTALL_ROOT)/cfg/ot/jcmt
 
 	(cd OM/src; gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/om_images)
 
