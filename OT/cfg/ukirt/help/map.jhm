@@ -7,7 +7,7 @@
   <mapID target="top" url="OMP_preparation_UKIRT.html" />
   <mapID target="Credits" url="credits.html" />
   <mapID target="tpe" url="Position_Editor_details.html" />
-  <mapID target="basics"  url="Science_Program_Window_basics.html.html" />
+  <mapID target="basics"  url="Science_Program_Window_basics.html" />
   <mapID target="details" url="Science_Program_Window_details.html" />
   <mapID target="library" url="Template_library_basics.html" />
   <mapID target="sitequal" url="Site_Quality_Editor.html" />
