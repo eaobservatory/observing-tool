@@ -37,8 +37,12 @@ import jsky.app.ot.tpe.TpeManager;
  */
 public final class EdCompInstCGS4 extends EdCompInstBase
 {
-   private EdChopCapability  _edChopCapability;
-   private EdStareCapability _edStareCapability;
+// MFO: CHOP mode not supported anymore.
+//   private EdChopCapability  _edChopCapability;
+
+// MFO _edStareCapability never used.  
+//   private EdStareCapability _edStareCapability;
+
    private SpInstCGS4 _instCGS4;
 
    private Cgs4GUI _w;		// the GUI layout
@@ -265,37 +269,38 @@ _init()
    });
 
    super._init();
-// mf ??    GroupWidget gw;
-// mf ?? 
-// mf ??    gw = (GroupWidget) _w.chopControlGroup;
-// mf ?? //   _edChopCapability._init(gw, this);
-// mf ??    tbw = (TextBoxWidgetExt) gw.getWidget("expPerChopPos"); 
-// mf ??    tbw.addWatcher( new TextBoxWidgetWatcher() {
-// mf ??       public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-// mf ??          _instCGS4.setExpPerChopPos(tbw.getText());
-// mf ??       }
-// mf ?? 
-// mf ??       public void textBoxAction(TextBoxWidgetExt tbw) {}
-// mf ??    });
-// mf ??    tbw = (TextBoxWidgetExt) gw.getWidget("cyclesPerObs"); 
-// mf ??    tbw.addWatcher( new TextBoxWidgetWatcher() {
-// mf ??       public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-// mf ??          _instCGS4.setCyclesPerObs(tbw.getText());
-// mf ??       }
-// mf ?? 
-// mf ??       public void textBoxAction(TextBoxWidgetExt tbw) {}
-// mf ??    });
-// mf ?? 
-// mf ??    gw = (GroupWidget) _w.stareControlGroup;
-// mf ?? //   _edStareCapability._init(gw, this);
-// mf ??    tbw = (TextBoxWidgetExt) gw.getWidget("coadds");
-// mf ??    tbw.addWatcher( new TextBoxWidgetWatcher() {
-// mf ??       public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-// mf ??          _instCGS4.setNoCoadds(tbw.getText());
-// mf ??       }
-// mf ?? 
-// mf ??       public void textBoxAction(TextBoxWidgetExt tbw) {}
-// mf ??    });
+
+// MFO: CHOP mode not supported anymore.
+/*
+   GroupWidget gw;
+   gw = (GroupWidget) _w.chopControlGroup;
+//   _edChopCapability._init(gw, this);
+   tbw = (TextBoxWidgetExt) gw.getWidget("expPerChopPos"); 
+   tbw.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+         _instCGS4.setExpPerChopPos(tbw.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbw) {}
+   });
+   tbw = (TextBoxWidgetExt) gw.getWidget("cyclesPerObs"); 
+   tbw.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+         _instCGS4.setCyclesPerObs(tbw.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbw) {}
+   });
+*/
+
+ //   _edStareCapability._init(gw, this);
+    _w.coadds.addWatcher( new TextBoxWidgetWatcher() {
+       public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+          _instCGS4.setNoCoadds(tbw.getText());
+       }
+ 
+       public void textBoxAction(TextBoxWidgetExt tbw) {}
+    });
 
 
 }
@@ -373,8 +378,8 @@ _updateWidgets()
    int order = _instCGS4.getOrder();
    tbw.setText( Integer.toString(order) );
 
-// mf ??    tbw = (TextBoxWidgetExt) _w.filter;
-// mf ??    tbw.setText(_instCGS4.getFilter());
+   tbw = (TextBoxWidgetExt) _w.filter;
+   tbw.setText(_instCGS4.getFilter());
 
    cbwe = (CheckBoxWidgetExt) _w.useND;
    cbwe.setValue(_instCGS4.getNdFilter());
@@ -445,53 +450,51 @@ _updateExpInfo()
    tbw.setText (e);
 
    String mode = _instCGS4.getMode();
-   if (mode.equals("CHOP")) {
-// mf ??       GroupWidget chopGW  = (GroupWidget) _pres.getWidget("chopControlGroup");
-// mf ??       tbw = (TextBoxWidgetExt) chopGW.getWidget("expPerChopPos"); 
-// mf ??       int expPCP = _instCGS4.getExpPerChopPos();
-// mf ??       _instCGS4.setExpPerChopPos(expPCP);
-// mf ??       tbw.setText (Integer.toString(expPCP));
-// mf ??       tbw = (TextBoxWidgetExt) chopGW.getWidget("cyclesPerObs"); 
-// mf ??       int cycPO = _instCGS4.getCyclesPerObs();
-// mf ??       _instCGS4.setCyclesPerObs(cycPO);
-// mf ??       tbw.setText (Integer.toString(cycPO));
-   }else{
-// mf ??       GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
-// mf ??       tbw = (TextBoxWidgetExt) stareGW.getWidget("coadds"); 
-// mf ??       int coadds = _instCGS4.getNoCoadds();
-// mf ??       _instCGS4.setNoCoadds(coadds);
-// mf ??       tbw.setText (Integer.toString(coadds));
+// MFO: CHOP mode not supported anymore.
+//   if (mode.equals("CHOP")) {
+//     GroupWidget chopGW  = (GroupWidget) _pres.getWidget("chopControlGroup");
+//     tbw = (TextBoxWidgetExt) chopGW.getWidget("expPerChopPos"); 
+//     int expPCP = _instCGS4.getExpPerChopPos();
+//     _instCGS4.setExpPerChopPos(expPCP);
+//     tbw.setText (Integer.toString(expPCP));
+//     tbw = (TextBoxWidgetExt) chopGW.getWidget("cyclesPerObs"); 
+//     int cycPO = _instCGS4.getCyclesPerObs();
+//     _instCGS4.setCyclesPerObs(cycPO);
+//     tbw.setText (Integer.toString(cycPO));
+//   }else{
+       tbw = _w.coadds; 
+       int coadds = _instCGS4.getNoCoadds();
+       _instCGS4.setNoCoadds(coadds);
+       tbw.setText (Integer.toString(coadds));
 
-/* mf ?? */      tbw = (TextBoxWidgetExt) _w.coadds; 
-/* mf ?? */      int coadds = _instCGS4.getNoCoadds();
-/* mf ?? */      _instCGS4.setNoCoadds(coadds);
-/* mf ?? */      tbw.setText (Integer.toString(coadds));
-
-   }
+//   }
 
 }
 
 //
 // Update the secondary acqmode items based upon the acq Mode.
+// MFO: CHOP mode not supported anymore.
 //
 private void
 _updateSecondaryAcqMode()
 {
+/*
    String mode = _instCGS4.getMode();
 
    DropDownListBoxWidgetExt ddlwe;
 
-// mf ??    GroupWidget chopGW  = (GroupWidget) _pres.getWidget("chopControlGroup");
-// mf ??    GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
-// mf ??    if (mode.equals("CHOP")) {
-// mf ??       chopGW.setVisible(true);
-// mf ??       stareGW.setVisible(false);
-//      _edChopCapability._updateWidgets(chopGW, _instCGS4.getChopCapability());
-// mf ??    } else {
-// mf ??       chopGW.setVisible(false);
-// mf ??       stareGW.setVisible(true);
-// mf ?? //      _edStareCapability._updateWidgets(stareGW, _instCGS4.getStareCapability());
-// mf ??   }
+   GroupWidget chopGW  = (GroupWidget) _pres.getWidget("chopControlGroup");
+   GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
+   if (mode.equals("CHOP")) {
+      chopGW.setVisible(true);
+      stareGW.setVisible(false);
+       _edChopCapability._updateWidgets(chopGW, _instCGS4.getChopCapability());
+   } else {
+      chopGW.setVisible(false);
+      stareGW.setVisible(true);
+      _edStareCapability._updateWidgets(stareGW, _instCGS4.getStareCapability());
+   }
+*/   
 }
 
 //
@@ -535,7 +538,7 @@ public TextBoxWidgetExt getExposureTimeTextBox() {
 }
 
 public TextBoxWidgetExt getPosAngleTextBox() {
-  return new TextBoxWidgetExt();
+  return _w.posAngle;
 }
 
 }
