@@ -228,27 +228,6 @@ public EdCompInstUIST()
     // GUIs in spectroscopy group
     //
 
-// Added by RDK
-    //
-    // Target acquistion mode
-    //
-    _w.spectroscopy_targetAcqMode.addWatcher( new CheckBoxWidgetWatcher() {
-        public void checkBoxAction(CheckBoxWidgetExt cb) {
-            if (cb.getBooleanValue()) {
-                _instUIST.setTargetAcq("yes");
-	    } else {
-                _instUIST.setTargetAcq("no");
-	    }
-            _updateDisperserChoices();
-            _updateMaskChoices();
-            _updateTargetAcqMode();
-            _instUIST.useDefaultReadMode();
-            _instUIST.useDefaultReadArea();
-            _updateWidgets();
-        }
-    });
-// End of added by RDK
-
     //
     // Dispersers = Grisms
     //
@@ -606,7 +585,6 @@ _updateWidgets(Object source)
         _updateDisperser();
         _updateMaskChoices();
         _updatePolarimetry();
-        _updateTargetAcqMode();
         _updatePupilCamera();
         _updateFilter();
 // Commented out by RDK
@@ -739,18 +717,13 @@ _updatePupilCamera()
 
     String p = _instUIST.getPupilImaging();
     _w.imaging_pupilCamera.setValue(p.equalsIgnoreCase("yes"));
-}
-//
-// Update the target acquisition check box
-//
-private void
-_updateTargetAcqMode()
-{
+    if (p.equalsIgnoreCase("yes")) {
+        _w.polarimetry.setEnabled(false);
+    } else {
+        _w.polarimetry.setEnabled(true);
+    }
 
-    String t = _instUIST.getTargetAcq();
-    _w.spectroscopy_targetAcqMode.setValue(t.equalsIgnoreCase("yes"));
 }
-
 // End of added by RDK
 
 //

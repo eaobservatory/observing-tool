@@ -223,7 +223,7 @@ public class EdIterGenericConfig extends OtItemEditor
     implements CellSelectTableWatcher, ListBoxWidgetWatcher, ActionListener {
     
     // The iteration table widget.
-    private CellSelectTableWidget _iterTab;
+    protected CellSelectTableWidget _iterTab;
 	
     // Maps attribute names to IterConfigItems.
     private Hashtable             _iterItems;
@@ -461,7 +461,7 @@ public class EdIterGenericConfig extends OtItemEditor
     //
     // Given a column index, get the IterConfigItem associated with it.
     //
-    private IterConfigItem _getConfigItem(int colIndex) {
+    protected IterConfigItem _getConfigItem(int colIndex) {
 	return (IterConfigItem) _iterItems.get(_iterTab.getColumnName(colIndex));
     }
 

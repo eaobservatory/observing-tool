@@ -524,6 +524,17 @@ public class InstConfig extends Hashtable implements Cloneable {
          else if ( lcAttribute.equals( "nullcycles" ) ) key = "flatNullCycles";
          else if ( lcAttribute.equals( "idleperiod" ) ) key = "flatIdlePeriod";
 
+      } else if (  lcTitle.equals( "targetacq" ) ) {
+          if ( lcAttribute.equals( "coadds" ) ) key = "targetAcqNumExp";
+          else if ( lcAttribute.equals( "exposuretime" ) ) key ="targetAcqExpTime";
+          else if ( lcAttribute.equals( "filter" ) ) key ="targetAcqFilter";
+          else if ( lcAttribute.equals( "mask" ) ) key ="targetAcqMask";
+          else if ( lcAttribute.equals( "maskwidth" ) ) key ="targetAcqMaskWidth";
+          else if ( lcAttribute.equals( "maskheight" ) ) key ="targetAcqMaskHeight";
+          else if ( lcAttribute.equals( "disperser" ) ) key ="targetAcqDisperser";
+          else if ( lcAttribute.equals( "resolution" ) ) key ="targetAcqResolution";
+          else if ( lcAttribute.equals( "dispersion" ) ) key ="targetAcqDispersion";
+          else if ( lcAttribute.equals( "sciencearea" ) ) key ="targetAcqScienceArea";
       }
       return key;
    }

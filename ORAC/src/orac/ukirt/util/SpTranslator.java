@@ -85,7 +85,8 @@ public class SpTranslator {
       return title.equalsIgnoreCase( "flat" ) ||
              title.equalsIgnoreCase( "dark" ) ||
              title.equalsIgnoreCase( "bias" ) ||
-             title.equalsIgnoreCase( "arc" );
+             title.equalsIgnoreCase( "arc" )  ||
+	     title.equalsIgnoreCase( "TargetAcq" );
     }
 
 /**
@@ -117,6 +118,11 @@ public class SpTranslator {
                if ( ( (String) sequence.elementAt( i ) ).equals( "set FLAT" ) ) {
                   sequence.insertElementAt( "break", ++i );
                }
+	       // Added by RDK
+	       if ( ( (String) sequence.elementAt( i ) ).equalsIgnoreCase( "set TargetAcq" ) ) {
+		   sequence.insertElementAt( "breakForMovie", ++i );
+	       }
+	       // End of added by RDK
             }
 
 // Look for first "set OBJECT".
@@ -721,7 +727,11 @@ public class SpTranslator {
                sequence.addElement( offsetCmd );
                sequence.addElement( "-WAIT ALL" );
             }
-            sequence.addElement( "do 1 _observe" );
+	    // Don't need to do an observe if doing target aqcuisition, because observer
+	    // will be running movie (added by RDK)
+	    if (!type.equalsIgnoreCase("TargetAcq")) {
+		sequence.addElement( "do 1 _observe" );
+	    }
 
 // Same types but intervening instruction.
 // =======================================
@@ -733,7 +743,11 @@ public class SpTranslator {
 // demarcate when counting observations.
          } else {
             sequence.addElement( "set " + type.toUpperCase() );
-            sequence.addElement( "do 1 _observe" );
+	    // Don't need to do an observe if doing target aqcuisition, because observer
+	    // will be running movie (added by RDK)
+	    if (!type.equalsIgnoreCase("TargetAcq")) {
+		sequence.addElement( "do 1 _observe" );
+	    }
 
          }
 
@@ -746,7 +760,11 @@ public class SpTranslator {
          }
          sequence.addElement( "setHeader RECIPE " + drRecipe );
          sequence.addElement( "set " + type.toUpperCase() );
-         sequence.addElement( "do 1 _observe" );
+	 // Don't need to do an observe if doing target aqcuisition, because observer
+	 // will be running movie (added by RDK)
+	 if (!type.equalsIgnoreCase("TargetAcq")) {
+	     sequence.addElement( "do 1 _observe" );
+	 }
       }
    }
 
@@ -1495,9 +1513,17 @@ public class SpTranslator {
                                        currConfig.put( "type", "bias" );
                                     } else if ( title.equalsIgnoreCase( "Dark" ) ) {
                                        currConfig.put( "type", "object" );
+				    } else if ( title.equalsIgnoreCase( "TargetAcq" ) ) {
+					currConfig.put( "type", title.toUpperCase() );
+				    }
+				    // Added by RDK
+				    if (instrument.equalsIgnoreCase( "UIST" ) &&
+					title.equalsIgnoreCase( "config" )) {
+					currConfig.put( "type", "object" );
                                     }
+				    // End of added by RDK
                                     if ( ! siv.values[ 0 ].equals( "" ) ) {
-                                       currConfig.put( key, siv.values[ 0 ] );
+					currConfig.put( key, siv.values[ 0 ] );
                                     }
 
                                  } else {
@@ -2449,6 +2475,17 @@ public class SpTranslator {
                                   "observationTime" );
                   writeAttribute( conpw, workConfig, "biasDutyCycle", 
                                   "dutyCycle" );
+	       } else if ( ((String)workConfig.get( "type" )).equalsIgnoreCase( "TargetAcq" ) ) {
+		   writeAttribute( conpw, workConfig, "targetAcqExpTime", "exposureTime" );
+		   writeAttribute( conpw, workConfig, "targetAcqNumExp", "coadds" );	
+		   writeAttribute( conpw, workConfig, "targetAcqFilter", "filter" );
+		   writeAttribute( conpw, workConfig, "targetAcqMask", "mask" );
+		   writeAttribute( conpw, workConfig, "targetAcqMaskWidth", "maskWidth" );
+		   writeAttribute( conpw, workConfig, "targetAcqMaskHeight", "maskHeight" );
+		   writeAttribute( conpw, workConfig, "targetAcqDisperser", "disperser" );
+		   writeAttribute( conpw, workConfig, "targetAcqResolution", "resolution" );
+		   writeAttribute( conpw, workConfig, "targetAcqDispersion", "dispersion" );
+		   writeAttribute( conpw, workConfig, "targetAcqScienceArea", "scienceArea" );
                }
 
             } else {

@@ -23,10 +23,9 @@ import java.util.*;
  */
 public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT {
   
-   public static final SpType SP_TYPE =
+    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instUISTSpecIFU", "UIST Spec/IFU");
 
-   private IterConfigItem iciInstAperL;
 
 // Register the prototype.
    static {
@@ -57,11 +56,44 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT {
    }
 
 /**
- * Override adding a configuration item to the set to add the instrument
- * aperture items.
+ * Override adding a configuration item to the set to set exposure time based on source magnitude, if available
  */
    public void addConfigItem( IterConfigItem ici, int size ) {
-      super.addConfigItem( ici, size );
+
+       if (ici.attribute.equals("exposureTimeIter")) {
+	   if (size > 0) {
+	       super.addConfigItemNoDef( ici, size );
+	       for (int index = 0; index < size; index++) {
+		   String sourceMag = getConfigStep(SpInstUIST.ATTR_SOURCE_MAG + "Iter", index);
+		   if (sourceMag != null) {
+		       setDefaultSkyExposureTime(sourceMag, index);
+		   }
+	       }
+	   } else {
+	       super.addConfigItem( ici, size );
+	   }
+       } else if (ici.attribute.equals(SpInstUIST.ATTR_SOURCE_MAG + "Iter")) {
+	   super.addConfigItem( ici, size );
+	   String expTime = getConfigStep("exposureTimeIter", 0);
+	   if (expTime == null) {
+	       super.addConfigItemNoDef( getExposureTimeConfigItem(), size );
+	       if (size > 0) {
+		   for (int index = 0; index < size; index++) {
+		       String sourceMag = getConfigStep(SpInstUIST.ATTR_SOURCE_MAG + "Iter", index);
+		       if (sourceMag != null) {
+			   setDefaultSkyExposureTime(sourceMag, index);
+		       }
+		   }
+	       } else {
+		   String sourceMag = getConfigStep(SpInstUIST.ATTR_SOURCE_MAG + "Iter", 0);
+		   if (sourceMag != null) {
+		       setDefaultSkyExposureTime(sourceMag, 0);
+		   }
+	       }
+	   }
+       } else {
+	   super.addConfigItem( ici, size );
+       }
    }
 
 
@@ -82,6 +114,12 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT {
    public void setConfigStep( String attribute, String value,
                               int index ) {
       _avTable.set( attribute, value, index );
+
+      if ( attribute.equals( SpInstUIST.ATTR_SOURCE_MAG + "Iter") ) {
+	  if (getConfigStep("exposureTimeIter", index) != null) {
+	      setDefaultSkyExposureTime(value, index);
+	  }
+      }
    }
 
 
@@ -97,37 +135,39 @@ public class SpIterUISTSpecIFU extends SpIterConfigObsUKIRT {
  */
    public IterConfigItem[] getAvailableItems() {
 
-       SpInstUIST inst =  (SpInstUIST) getInstrumentItem();
-       boolean instAvailable = (inst == null)? false: true;
-       IterConfigItem iciDisperser;
-
-       if (instAvailable) {
-          String [] dispersers = inst.getDisperserList();
-
-          // Dispersers.
-          iciDisperser = new IterConfigItem(
-            "Grism", SpInstUIST.ATTR_DISPERSER + "Iter", dispersers );
-       
-       } else {
-          Vector vDispersers = SpInstUIST.DISPERSERS.getColumn(0);
-          int n = vDispersers.size();
-
-          String [] dispersers = new String[n];
-          for (int i = 0; i < n; i++)
-          {
-              dispersers[i] = (String) vDispersers.elementAt(i);
-          }
-
-          // Dispersers.
-          iciDisperser = new IterConfigItem(
-            "Grism", SpInstUIST.ATTR_DISPERSER + "Iter", dispersers );
+       // Source magnitude
+       int nmags = SpInstUIST.SPECMAGS.getNumColumns() - 1;
+       String specMags[] = new String[nmags];
+       for (int i=0; i<nmags; i++) {
+	   specMags[i] = (String)SpInstUIST.SPECMAGS.elementAt(0,i+1);
        }
+       
+       IterConfigItem iciSourceMag = new IterConfigItem(
+	   "Source Magnitude", SpInstUIST.ATTR_SOURCE_MAG + "Iter", specMags );
 
        // Specify configuration items which can be iterated. 
-       IterConfigItem[] iciA = {
-         iciDisperser,
+       IterConfigItem[] iciA = {iciSourceMag,
          getExposureTimeConfigItem(), getCoaddsConfigItem()
        };
        return iciA;
    }
+
+    private void setDefaultSkyExposureTime(String sourceMag, int index) {
+
+	SpInstUIST inst =  (SpInstUIST) getInstrumentItem();
+	boolean instAvailable = (inst == null)? false: true;
+
+	String disperser = null;
+	if (instAvailable) {
+	    disperser = inst.getDisperser();
+	} else {
+	    disperser = SpInstUIST.DEFAULT_DISPERSER;	      
+	}
+
+	int row = SpInstUIST.SPECMAGS.indexInColumn(disperser,0);
+	int column = SpInstUIST.SPECMAGS.indexInRow(sourceMag,0);
+
+	String set = (String)SpInstUIST.SPECMAGS.elementAt(row,column);
+	_avTable.set( "exposureTimeIter", set, index );
+    }
 }

@@ -19,14 +19,12 @@ import gemini.sp.iter.IterConfigItem;
 import java.util.*;
 
 /**
- * The UIST configuration iterator.
+ * The UIST configuration iterator (Imaging).
  */
 public class SpIterUISTImaging extends SpIterConfigObsUKIRT {
   
    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instUISTImaging", "UIST Imaging");
-
-//    private IterConfigItem iciInstAperL;
 
 // Register the prototype.
    static {
@@ -101,7 +99,16 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT {
  
        IterConfigItem iciFilter;
        if (instAvailable) {
-           String [] filters = inst.getFilterList();
+	   String filtersBroadband[] = inst.getFilterList(true);
+	   String filtersNarrowband[] = inst.getFilterList(false);
+	   String filters[] = new String[filtersBroadband.length + filtersNarrowband.length];
+	   for (int i = 0; i < filtersBroadband.length; i++) {
+	       filters[i] = filtersBroadband[i];
+	   }
+	   for (int i = 0; i < filtersNarrowband.length; i++) {
+	       filters[filtersBroadband.length + i] = filtersNarrowband[i];
+	   }
+
            // Filters.
            iciFilter = new IterConfigItem(
                "Filter", SpInstUIST.ATTR_FILTER + "Iter", filters );

@@ -61,8 +61,6 @@ public class UistGUI extends JPanel {
   JLabel jLabel5 = new JLabel();
   TextBoxWidgetExt imaging_bandpass = new TextBoxWidgetExt();
   TextBoxWidgetExt spectroscopy_order = new TextBoxWidgetExt();
-// Added spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
-  CheckBoxWidgetExt spectroscopy_targetAcqMode  = new CheckBoxWidgetExt();
 // Added imaging_pupilCamera for testing by RDK 30 Dec 2002
   CheckBoxWidgetExt imaging_pupilCamera  = new CheckBoxWidgetExt();
   GridBagLayout gridBagLayout3 = new GridBagLayout();
@@ -111,10 +109,6 @@ public class UistGUI extends JPanel {
     polarimetry.setText("Polarimetry");
     polarimetry.setHorizontalAlignment(SwingConstants.RIGHT);
     polarimetry.setFont(new java.awt.Font("Dialog", 0, 12));
-// Added spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
-    spectroscopy_targetAcqMode.setText("Target acquisition mode");
-    spectroscopy_targetAcqMode.setHorizontalAlignment(SwingConstants.RIGHT);
-    spectroscopy_targetAcqMode.setFont(new java.awt.Font("Dialog", 0, 12));
     jPanel2.setBorder(titledBorder1);
     jPanel2.setMinimumSize(new Dimension(369, 180));
     jPanel2.setPreferredSize(new Dimension(369, 180));
@@ -359,7 +353,7 @@ public class UistGUI extends JPanel {
     jPanel1.add(camera, null);
     jPanel1.add(polarimetry, null);
     this.add(modePanel,  BorderLayout.CENTER);
-// Added spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
+// Added imaging_pupilCamera for testing by RDK 30 Dec 2002
     imagingPanel.add(imaging_pupilCamera,  new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 // Incremented by 1 row numbers of all imagingPanel items to make room for imaging_pupilCamera for testing by RDK 30 Dec 2002
@@ -389,45 +383,43 @@ public class UistGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     this.add(jPanel2, BorderLayout.SOUTH);
     modePanel.add(spectroscopyPanel,    "spectroscopyPanel");
-// Added spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
-    spectroscopyPanel.add(spectroscopy_targetAcqMode,  new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+
 // Incremented by 1 row numbers of all spectroscopyPanel items to make room for  spectroscopy_targetAcqMode for testing by RDK 30 Dec 2002
-    spectroscopyPanel.add(jLabel12b,  new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel12b,  new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_grism,  new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_grism,  new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 18), 0, 0));
-    spectroscopyPanel.add(jLabel17,  new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel17,  new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_fieldOfView,  new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_fieldOfView,  new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 0, 0), 0, 0));
-    spectroscopyPanel.add(jLabel20,  new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel20,  new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_coverage,  new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_coverage,  new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 0, 0), 0, 0));
-    spectroscopyPanel.add(jLabel18,  new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel18,  new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-    spectroscopyPanel.add(jLabel19,  new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel19,  new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_order,  new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_order,  new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_mask,  new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_mask,  new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 18), 0, 0));
-    spectroscopyPanel.add(jLabel15,  new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel15,  new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_posAngle,  new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_posAngle,  new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 0, 40), 0, 0));
-    spectroscopyPanel.add(maskLabel,  new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(maskLabel,  new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_filter,  new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_filter,  new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 20), 0, 0));
-    spectroscopyPanel.add(spectroscopy_resolution,  new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_resolution,  new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(jLabel21,  new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel21,  new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    spectroscopyPanel.add(spectroscopy_sourceMag,  new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(spectroscopy_sourceMag,  new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 20, 0));
-    spectroscopyPanel.add(jLabel22,  new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+    spectroscopyPanel.add(jLabel22,  new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     modePanel.add(imagingPanel, "imagingPanel");
   }
