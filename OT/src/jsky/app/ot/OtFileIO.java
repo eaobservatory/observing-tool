@@ -405,7 +405,7 @@ save(SpRootItem spItem, FileInfo fi)
          return false;
       }
 
-      String m = "'" + dir + filename + "' already exists.  Replace it?";
+      String m = "'" + dir + File.separator + filename + "' already exists.  Replace it?";
       //AlertBox ab = new AlertBox(m, "Replace", "Cancel");
       //if (ab.getChoice().equals("Cancel")) {
       if (JOptionPane.showConfirmDialog(null, m, "Replace file?", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
