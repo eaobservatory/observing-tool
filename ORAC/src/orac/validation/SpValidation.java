@@ -444,7 +444,7 @@ public class SpValidation {
 
 	for ( int i=0; i<position.length; i++ ) {
 	    SpTelescopePos pos = (SpTelescopePos)position[i];
-	    if ( (pos.getXaxis() == 0) && (pos.getYaxis() == 0) ) {
+	    if ( (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) && (pos.getXaxis() == 0) && (pos.getYaxis() == 0) ) {
 		report.add ( new ErrorMessage ( ErrorMessage.WARNING,
 			                       "Telescope target " + pos.getName(),
 			                       "Both Dec and RA are 0:00:00"));
