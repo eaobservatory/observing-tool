@@ -160,11 +160,13 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String[] MASKS2;
     public static String[] MASKS3;
     public static String[] MASKS4;
+    public static String[] MASKS5;
     public static LookUpTable MASKS;
     public static String DEFAULT_MASK1;
     public static String DEFAULT_MASK2;
     public static String DEFAULT_MASK3;
     public static String DEFAULT_MASK4;
+    public static String DEFAULT_MASK5;
     public static String PUPIL_SCALE;
     public static String PUPIL_FOV;
     public static double DEFAULT_SPECT_POS_ANGLE;
@@ -172,7 +174,6 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String POL_MASK_IMAGING;
     public static String POL_GRISM_IMAGING;
     public static String POL_MASK_SPECTROSCOPY;
-    public static String IFU_MASK;
     // Data acquisition - general
     public static double ARRAY_ANGLE;
     public static LookUpTable READOUTS_IM;
@@ -625,6 +626,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     MASKS3 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks4")) {
                     MASKS4 = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "masks5")) {
+                    MASKS5 = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "masks")) {
                     MASKS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask1")) {
@@ -635,8 +638,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                     DEFAULT_MASK3 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask4")) {
                     DEFAULT_MASK4 = instInfo.getValue();
-		} else if (InstCfg.matchAttr (instInfo, "IFU_mask")) {
-                    IFU_MASK = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask5")) {
+                    DEFAULT_MASK5 = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "chops")) {
                     CHOPS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "array_angle")) {
@@ -1340,11 +1343,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                 String maskList[] = new String[1];
                 maskList[0] = POL_MASK_SPECTROSCOPY;
                 return maskList;
-	    } else if (isIFU()) {
-                String maskList[] = new String[1];
-                maskList[0] = IFU_MASK;
-                return maskList;
             } else {
+                // Either spectroscopy or ifu
                 int maskSet = getMaskSet();
                 if (maskSet == 1) {
                    return MASKS1;
@@ -1354,6 +1354,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                    return MASKS3;
 		} else if (maskSet == 4) {
                    return MASKS4;
+		} else if (maskSet == 5) {
+                   return MASKS5;
 		} else {
 		   // Should not happen
                    return MASKS1;
@@ -1416,9 +1418,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	    } else {
                 if (isPolarimetry()) {
                     mask = POL_MASK_SPECTROSCOPY;
-                } else if (isIFU()) {
-                    mask = IFU_MASK;
-		} else {
+                } else {
                     int maskSet = getMaskSet();
                     if (maskSet==1) {
                         mask = DEFAULT_MASK1;
@@ -1428,6 +1428,8 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                         mask = DEFAULT_MASK3;
                     } else if (maskSet==4) {
                         mask = DEFAULT_MASK4;
+                    } else if (maskSet==5) {
+                        mask = DEFAULT_MASK5;
                     }
 	        }
 	    }
