@@ -277,6 +277,7 @@ public EdCompInstUIST()
     //
     _w.spectroscopy_posAngle.addWatcher( new TextBoxWidgetWatcher() {
         public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    _instUIST.getAvEditFSM().setEachEditNotifies(false);
             String pas = tbw.getText();
             double pa = Double.parseDouble(pas);
 	    _instUIST.getAvEditFSM().deleteObserver(EdCompInstUIST.this);

@@ -239,6 +239,8 @@ public EdCompInstMichelle()
     //
     _w.spectroscopy_posAngle.addWatcher( new TextBoxWidgetWatcher() {
         public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+	    System.out.println("In text box watcher...");
+	    _instMichelle.getAvEditFSM().setEachEditNotifies(false);
             _instMichelle.getAvEditFSM().deleteObserver(EdCompInstMichelle.this);
             _instMichelle.setPosAngleDegrees(Double.parseDouble(tbw.getText()));
             _instMichelle.getAvEditFSM().addObserver(EdCompInstMichelle.this);
