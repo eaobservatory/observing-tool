@@ -29,7 +29,7 @@ import gemini.sp.SpItem;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpTreeMan;
-import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterJCMTObs;
 
 
@@ -186,12 +186,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
    * is different for different instruments.
    */
   public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-      _w.switchingMode.setVisible(false);
-      _w.switchingModeLabel.setVisible(false);
-      _w.frequencyPanel.setVisible(false);
-    }
-    else {
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.switchingMode.setVisible(true);
       _w.switchingModeLabel.setVisible(true);
 
@@ -201,6 +196,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
       else {
         _w.frequencyPanel.setVisible(false);
       }
+    }
+    else {
+      _w.switchingMode.setVisible(false);
+      _w.switchingModeLabel.setVisible(false);
+      _w.frequencyPanel.setVisible(false);    
     }
   }
 }
