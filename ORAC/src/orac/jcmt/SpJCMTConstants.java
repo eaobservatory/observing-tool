@@ -119,6 +119,11 @@ public interface SpJCMTConstants {
     */
    public static final String [] CHOP_SYSTEMS     = { "TRACKING", "AZEL", "MOUNT", "FPLANE", "SCAN" };
 
+   /**
+    * Index for {@link #CHOP_SYSTEMS}.
+    */
+   public static final int CHOP_SYSTEM_TARCKING  = 0;
+
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
    public static final String ATTR_CYCLE_REVERSAL      = "cycleReversal";
