@@ -62,6 +62,8 @@ public class Cgs4GUI extends JPanel {
   GridBagLayout gridBagLayout4 = new GridBagLayout();
   JPanel jPanel1 = new JPanel();
   GridBagLayout gridBagLayout2 = new GridBagLayout();
+  JLabel jLabel21 = new JLabel();
+  TextBoxWidgetExt filter = new TextBoxWidgetExt();
 
     public Cgs4GUI() {
         try {
@@ -119,12 +121,12 @@ public class Cgs4GUI extends JPanel {
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Exposure Time");
-    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel7.setForeground(Color.black);
     jLabel7.setText("(sec)");
-    jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel8.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel8.setForeground(Color.black);
-    jLabel8.setText("(exp./observe)");
+    jLabel8.setText("(exp/observe)");
     jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel9.setForeground(Color.black);
     jLabel9.setText("Sampling");
@@ -140,7 +142,7 @@ public class Cgs4GUI extends JPanel {
         centralWavelength_actionPerformed(e);
       }
     });
-    jLabel15.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel15.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel15.setForeground(Color.black);
     jLabel15.setText("(um)");
     jLabel16.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -165,8 +167,9 @@ public class Cgs4GUI extends JPanel {
         wavelengthCoverage_actionPerformed(e);
       }
     });
+    wavelengthCoverage.setBorder(BorderFactory.createLoweredBevelBorder());
     wavelengthCoverage.setEditable(false);
-    jLabel19.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel19.setFont(new java.awt.Font("Dialog", 0, 10));
     jLabel19.setForeground(Color.black);
     jLabel19.setText("(um)");
     jLabel20.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -183,19 +186,28 @@ public class Cgs4GUI extends JPanel {
     jPanel2.setBorder(BorderFactory.createEtchedBorder());
     jPanel1.setBorder(BorderFactory.createEtchedBorder());
     jPanel4.setBorder(BorderFactory.createEtchedBorder());
+    disperser.setFont(new java.awt.Font("Dialog", 0, 10));
+    sampling.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel21.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel21.setForeground(Color.black);
+    jLabel21.setText("Filter");
+    jLabel21.setVisible(false);
+    filter.setVisible(false);
+    resolution.setBackground(new Color(204, 204, 204));
+    resolution.setBorder(BorderFactory.createLoweredBevelBorder());
+    resolution.setEditable(false);
+    polariser.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(jPanel2, BorderLayout.CENTER);
     jPanel2.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPanel2.add(mask, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, -15, 0, 15), 0, 0));
-    jPanel2.add(posAngle, new GridBagConstraints(4, 1, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -3, 0, 7), 60, 0));
+    jPanel2.add(posAngle, new GridBagConstraints(4, 1, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -3, 0, 7), 112, 0));
     jPanel2.add(jLabel13, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(-1, -15, 1, 15), 0, 10));
     jPanel2.add(polariser, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, -16, 0, 16), 0, 0));
-    jPanel2.add(jLabel2, new GridBagConstraints(4, 0, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPanel2.add(jLabel11, new GridBagConstraints(5, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 13), 0, 0));
     jPanel2.add(scienceFOV, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
@@ -205,63 +217,69 @@ public class Cgs4GUI extends JPanel {
     jPanel2.add(jLabel4, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, -2, 0, 2), 0, 0));
     jPanel2.add(sourceMag, new GridBagConstraints(2, 1, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 17), 0, 0));
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 3), 0, 0));
     jPanel2.add(useND, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(jLabel2, new GridBagConstraints(4, 0, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, -1, 0, 41), 0, 0));
     this.add(jPanel4, BorderLayout.SOUTH);
-    jPanel4.add(acqMode, new GridBagConstraints(0, 1, 2, 1, 1.0, 0.0
+    jPanel4.add(acqMode, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(4, 1, 0, 3), 0, 0));
-    jPanel4.add(jLabel9, new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 0, 0, 0), 0, 0));
-    jPanel4.add(sampling, new GridBagConstraints(0, 3, 4, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel4.add(jLabel6, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 32, 0));
-    jPanel4.add(coadds, new GridBagConstraints(5, 1, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(1, -1, 9, 1), 0, 0));
+    jPanel4.add(sampling, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 4, 0));
     jPanel4.add(jLabel8, new GridBagConstraints(6, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 11, -1));
-    jPanel4.add(jLabel12, new GridBagConstraints(3, 2, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 1), 0, 0));
-    jPanel4.add(exposureTime, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 67, 0));
-    jPanel4.add(jLabel3, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -6, 0, 0), 11, -1));
+    jPanel4.add(jLabel6, new GridBagConstraints(5, 0, 4, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(8, -11, 2, 11), 26, 0));
+    jPanel4.add(coadds, new GridBagConstraints(5, 1, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(1, -10, 9, 10), 46, 0));
+    jPanel4.add(cvfOffset, new GridBagConstraints(5, 3, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -10, 0, 12), 45, 0));
+    jPanel4.add(jLabel12, new GridBagConstraints(5, 2, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, -11, 0, 12), 0, 0));
+    jPanel4.add(jLabel9, new GridBagConstraints(0, 2, 5, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel4.add(exposureTime, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 54, 0));
+    jPanel4.add(jLabel7, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 10), 13, 0));
     jPanel4.add(jLabel5, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, -1, 0, 1), 0, 0));
-    jPanel4.add(cvfOffset, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -1, 0, 2), 45, 0));
-    jPanel4.add(jLabel7, new GridBagConstraints(3, 1, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -10, 0, 10), 13, 0));
-    jPanel4.add(defaultAcquisition, new GridBagConstraints(6, 3, 1, 2, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(-1, 0, 0, 0), 0, 0));
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(8, 2, 2, 4), 30, 0));
+    jPanel4.add(jLabel3, new GridBagConstraints(1, 0, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 2, 0, 14), 13, -2));
+    jPanel4.add(defaultAcquisition, new GridBagConstraints(8, 3, 2, 3, 0.0, 0.0
+            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(-1, -1, 0, 2), 0, 0));
     this.add(jPanel1, BorderLayout.NORTH);
     jPanel1.add(centralWavelength, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 74, 0));
-    jPanel1.add(jLabel15, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
+    jPanel1.add(jLabel15, new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 6), 13, 0));
     jPanel1.add(jLabel14, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 51), 0, 0));
-    jPanel1.add(jLabel16, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel1.add(disperser, new GridBagConstraints(4, 1, 1, 2, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, -37, 0, 0), 0, 0));
-    jPanel1.add(order, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 42, 0));
-    jPanel1.add(jLabel18, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 0, 1, 0), 0, 0));
-    jPanel1.add(jLabel20, new GridBagConstraints(3, 3, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel1.add(resolution, new GridBagConstraints(3, 4, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 56, 0));
+            ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
+    jPanel1.add(order, new GridBagConstraints(5, 1, 1, 2, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 42, 4));
+    jPanel1.add(jLabel18, new GridBagConstraints(0, 3, 4, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 0, 1, 29), 0, 0));
     jPanel1.add(wavelengthCoverage, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 78, 0));
-    jPanel1.add(defaultOrder, new GridBagConstraints(6, 1, 1, 3, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 21, 0, 13), 0, 0));
-    jPanel1.add(jLabel19, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 2, 0, 0), 0, 0));
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 107, 0));
     jPanel1.add(jLabel17, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 14, 0));
+    jPanel1.add(defaultOrder, new GridBagConstraints(6, 1, 1, 3, 0.0, 0.0
+            ,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 21, 0, 13), 0, 0));
+    jPanel1.add(disperser, new GridBagConstraints(4, 1, 1, 2, 1.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, -35, 0, 18), 70, 0));
+    jPanel1.add(jLabel16, new GridBagConstraints(3, 0, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 7, 0, 6), 22, 0));
+    jPanel1.add(jLabel19, new GridBagConstraints(2, 4, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 2), 0, 0));
+    jPanel1.add(resolution, new GridBagConstraints(4, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 13), 56, 0));
+    jPanel1.add(jLabel20, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 12), 0, 0));
+    jPanel1.add(jLabel21, new GridBagConstraints(5, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel1.add(filter, new GridBagConstraints(5, 4, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 75, 0));
     }
 
   void centralWavelength_actionPerformed(ActionEvent e) {

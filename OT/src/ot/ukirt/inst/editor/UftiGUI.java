@@ -22,9 +22,9 @@ public class UftiGUI extends JPanel {
     TextBoxWidgetExt exposureTime = new TextBoxWidgetExt();
     JLabel jLabel3 = new JLabel();
     JLabel jLabel4 = new JLabel();
-    DropDownListBoxWidgetExt sourceMagnitude = new DropDownListBoxWidgetExt();
+    DropDownListBoxWidgetExt sourceMag = new DropDownListBoxWidgetExt();
     JLabel jLabel5 = new JLabel();
-    DropDownListBoxWidgetExt acquisitionMode = new DropDownListBoxWidgetExt();
+    DropDownListBoxWidgetExt acqMode = new DropDownListBoxWidgetExt();
     JLabel jLabel6 = new JLabel();
     TextBoxWidgetExt coadds = new TextBoxWidgetExt();
     JLabel jLabel8 = new JLabel();
@@ -35,7 +35,6 @@ public class UftiGUI extends JPanel {
     TitledBorder titledBorder1;
     GridBagLayout gridBagLayout2 = new GridBagLayout();
     JLabel jLabel12 = new JLabel();
-    JLabel filter = new JLabel();
     JLabel jLabel14 = new JLabel();
     OptionWidgetExt filterBroadBand = new OptionWidgetExt();
     OptionWidgetExt filterNarrowBand = new OptionWidgetExt();
@@ -44,7 +43,8 @@ public class UftiGUI extends JPanel {
     TableWidgetExt filterTable = new TableWidgetExt();
   JLabel jLabel13 = new JLabel();
   DropDownListBoxWidgetExt polariser = new DropDownListBoxWidgetExt();
-  CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt defaultAcquisition = new CommandButtonWidgetExt();
+  TextBoxWidgetExt filter = new TextBoxWidgetExt();
 
     public UftiGUI() {
         try {
@@ -88,6 +88,7 @@ public class UftiGUI extends JPanel {
         jLabel10.setText("Science FOV");
         scienceFOV.setBackground(new Color(204, 204, 204));
         scienceFOV.setBorder(BorderFactory.createLoweredBevelBorder());
+    scienceFOV.setPreferredSize(new Dimension(4, 40));
         scienceFOV.setEditable(false);
         jLabel11.setFont(new java.awt.Font("Dialog", 0, 10));
         jLabel11.setForeground(Color.black);
@@ -97,9 +98,6 @@ public class UftiGUI extends JPanel {
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel12.setForeground(Color.black);
         jLabel12.setText("Selected Filter");
-        filter.setFont(new java.awt.Font("Dialog", 0, 12));
-        filter.setForeground(Color.black);
-        filter.setText("none");
         jLabel14.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel14.setForeground(Color.black);
         jLabel14.setText("Filter Category");
@@ -113,14 +111,16 @@ public class UftiGUI extends JPanel {
         filterTable.setIntercellSpacing(new Dimension(3, 3));
         filterTable.setShowHorizontalLines(false);
         readoutArea.setFont(new java.awt.Font("Dialog", 0, 12));
-        sourceMagnitude.setFont(new java.awt.Font("Dialog", 0, 12));
-        acquisitionMode.setFont(new java.awt.Font("Dialog", 0, 12));
+        sourceMag.setFont(new java.awt.Font("Dialog", 0, 12));
+        acqMode.setFont(new java.awt.Font("Dialog", 0, 12));
         coadds.setBorder(BorderFactory.createLoweredBevelBorder());
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel13.setForeground(Color.black);
     jLabel13.setText("Polariser");
-    jLabel13.setVerticalAlignment(SwingConstants.BOTTOM);
-    defaultButton.setText("Default");
+    defaultAcquisition.setText("Default");
+    filter.setBackground(new Color(204, 204, 204));
+    filter.setBorder(BorderFactory.createLoweredBevelBorder());
+    polariser.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(jLabel1, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
         this.add(jLabel2, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
@@ -133,11 +133,11 @@ public class UftiGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
         this.add(jLabel4, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
-        this.add(sourceMagnitude, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0
+        this.add(sourceMag, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         this.add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
-        this.add(acquisitionMode, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0
+        this.add(acqMode, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         this.add(jLabel6, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 20, 0, 0), 0, 0));
@@ -147,32 +147,32 @@ public class UftiGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
         this.add(jLabel10, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
-        this.add(scienceFOV, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 5));
-        this.add(jLabel11, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
         this.add(jPanel1, new GridBagConstraints(0, 8, 4, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(10, 5, 5, 5), 0, 0));
-        jPanel1.add(jLabel12, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+        jPanel1.add(jLabel12, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        jPanel1.add(filter, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        jPanel1.add(jLabel14, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 0, 0, 0), 0, 0));
-        jPanel1.add(filterBroadBand, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+        jPanel1.add(jLabel14, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(7, 0, 0, 0), 0, 5));
+        jPanel1.add(filterBroadBand, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 16, 0, 0), 0, 0));
-        jPanel1.add(filterNarrowBand, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+        jPanel1.add(filterNarrowBand, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 16, 0, 0), 0, 0));
-        jPanel1.add(filterSpecial, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+        jPanel1.add(filterSpecial, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 16, 0, 0), 0, 0));
-        jPanel1.add(jScrollPane1, new GridBagConstraints(1, 0, 1, 8, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        jPanel1.add(jScrollPane1, new GridBagConstraints(2, 0, 1, 8, 1.0, 1.0
+            ,GridBagConstraints.NORTHEAST, GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 211, 0));
     jPanel1.add(jLabel13, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 27));
-    jPanel1.add(polariser, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(defaultButton, new GridBagConstraints(3, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 6));
+    jPanel1.add(filter, new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 68, 0));
+    jPanel1.add(polariser, new GridBagConstraints(1, 6, 1, 2, 0.0, 0.0
+            ,GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(-1, 5, 1, 0), 43, 0));
+    this.add(defaultAcquisition, new GridBagConstraints(3, 7, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(scienceFOV, new GridBagConstraints(0, 7, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 120, 5));
+    this.add(jLabel11, new GridBagConstraints(2, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 1, 0, 2), 0, 0));
         jScrollPane1.getViewport().add(filterTable, null);
     }
 }
