@@ -170,6 +170,14 @@ public double getElapsedTime()
     if(spItem instanceof SpMSB) {
       elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
     }
+
+    if(spItem instanceof SpAND) {
+      elapsedTime += ((SpAND)spItem).getElapsedTime();
+    }
+
+    if(spItem instanceof SpOR) {
+      elapsedTime += ((SpOR)spItem).getElapsedTime();
+    }
   }
 
   return elapsedTime;
