@@ -12,7 +12,6 @@ package orac.util;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpMSB;
-import gemini.sp.SpObs;
 import gemini.sp.SpObsContextItem;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpRootItem;
@@ -66,7 +65,7 @@ public class SpItemUtilities {
    */
   public void setReferenceIDs(SpItem spItem) {
     if(spItem instanceof SpObsContextItem) {
-      if((spItem instanceof SpMSB) || (spItem instanceof SpObs)) { 
+      if(spItem instanceof SpMSB) { 
 	_insertReferenceIDsFor(SpTreeMan.findTargetList(spItem), spItem);
 	_insertReferenceIDsFor(SpTreeMan.findInstrument(spItem), spItem);
 	_insertReferenceIDsFor(findSiteQuality(spItem), spItem);
