@@ -2497,7 +2497,20 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         extra_oh = 30.0;
       }
 
-      return getActualObservationTime() + extra_oh;
+      int sampling_x = Integer.valueOf(getPixelSampling().substring(0, 1)).intValue();
+      int sampling_y = Integer.valueOf(getPixelSampling().substring(2, 3)).intValue();
+
+      // Integration over head;
+      double int_oh = 0.0;
+
+      if((sampling_x * sampling_y) > 1) {
+        int_oh = 1.0;
+      }
+
+      // In the future a Michelle specific observation overhead
+      // might be added, possibly replacing _obs_oh.
+
+      return (sampling_x * sampling_y * getActualObservationTime()) + int_oh +  + _obs_oh extra_oh;
     }
   }
 
