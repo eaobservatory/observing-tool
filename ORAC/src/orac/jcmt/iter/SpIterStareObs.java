@@ -35,7 +35,7 @@ import java.util.Enumeration;
 public class SpIterStareObs extends SpIterJCMTObs
 {
    public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "stareObs", "Stare");
+        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "stareObs", "Photom/Stare");
 
 // Register the prototype.
 static {
