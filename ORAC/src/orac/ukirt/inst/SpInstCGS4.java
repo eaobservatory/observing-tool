@@ -1139,13 +1139,12 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	// Need a functional fit to wavelength and order. (n*lambda vs.
 	// inst. aper for a 0 degree slit. ? Probably also a small term.
 	
-	// Get distance between peak and central in mm. Remember 
-	// there's a minus sign in YARCSECPERMM.
-	double d = - (spatialScale/YARCSECPERMM)*(PEAK_ROW-CENT_ROW);
+	// Get distance between peak and central in arcsec.
+	double d = spatialScale*(PEAK_ROW-CENT_ROW);
 	
 	double paRad = Angle.degreesToRadians (pa);
-	double x = x0 + d*(Angle.sinRadians(paRad));
-	double y = y0 - d*(Angle.cosRadians(paRad)-1);
+	double x = x0 - d*(Angle.sinRadians(paRad));
+	double y = y0 + d*(Angle.cosRadians(paRad)-1);
 	setInstApX (String.valueOf(x));
 	setInstApY (String.valueOf(y));
 	setInstApL (String.valueOf(cwl));

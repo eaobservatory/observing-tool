@@ -120,8 +120,8 @@ public class TpeDichroicFeature extends TpeImageFeature {
 
 // Get the instrument-aperture X & Y.  These offset the origin of the dichroic
 // in the opposite direction..
-         double xoff = -1.0 * _inst.getInstApXarcsec();
-         double yoff = -1.0 * _inst.getInstApYarcsec();
+         double xoff = -1.0 * _inst.getInstApXra();
+         double yoff = -1.0 * _inst.getInstApYdec();
          xoffpix = (int) ( fii.pixelsPerArcsec * xoff + 0.5 );
          yoffpix = (int) ( fii.pixelsPerArcsec * yoff + 0.5 );
 
