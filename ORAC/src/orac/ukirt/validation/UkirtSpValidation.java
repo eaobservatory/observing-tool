@@ -695,7 +695,7 @@ public class UkirtSpValidation extends SpValidation {
             double [] offsets = RADecMath.getOffset(guidePos.getXaxis(), guidePos.getYaxis(),
                     basePos.getXaxis(), basePos.getYaxis());
             for ( int i=0; i<offsets.length; i++ ) {
-                if ( offsets[i] > 210 ) {
+                if ( Math.abs(offsets[i]) > 210 ) {
                     report.add( new ErrorMessage( ErrorMessage.ERROR,
                                 basePos.getName(),
                                 "Guide star is more than 210 arcsecs from the base"));
