@@ -14,17 +14,20 @@ import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
-
+import gemini.sp.SpPosAngleObserver;
+import gemini.sp.SpObsData;
 import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
-
+import gemini.sp.iter.SpIterOffset;
 import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
-
-import gemini.util.CoordSys;
+import orac.jcmt.inst.SpJCMTInstObsComp;
+import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstHeterodyne;
+import orac.util.SpMapItem;
 
 import java.util.Enumeration;
 
@@ -40,7 +43,8 @@ import java.util.Enumeration;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterRasterObs extends SpIterJCMTObs {
+public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver, SpMapItem {
+
   public static final SpType SP_TYPE =
     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "rasterObs", "Scan/Raster");
 
@@ -55,98 +59,241 @@ public class SpIterRasterObs extends SpIterJCMTObs {
    */
   public SpIterRasterObs() {
     super(SP_TYPE);
+    
+    _avTable.noNotifySet(ATTR_SCANAREA_WIDTH,  "0.0", 0);
+    _avTable.noNotifySet(ATTR_SCANAREA_HEIGHT, "0.0", 0);
 
-    _avTable.noNotifySet(ATTR_X_CENTER,     "0.0", 0);
-    _avTable.noNotifySet(ATTR_X_CENTER     + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
-    _avTable.noNotifySet(ATTR_Y_CENTER,     "0.0", 0);
-    _avTable.noNotifySet(ATTR_Y_CENTER     + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
-    _avTable.noNotifySet(ATTR_WIDTH,        "0.0", 0);
-    _avTable.noNotifySet(ATTR_WIDTH        + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
-    _avTable.noNotifySet(ATTR_HEIGHT,       "0.0", 0);
-    _avTable.noNotifySet(ATTR_HEIGHT       + ":" + ATTR_UNITS, VALUE_ARC_SECONDS, 0);
-    _avTable.noNotifySet(ATTR_RECTANGLE_PA, "0.0", 0);
-    _avTable.noNotifySet(ATTR_RECTANGLE_PA + ":" + ATTR_UNITS, VALUE_DEGREES, 0);
-    _avTable.noNotifySet(ATTR_OFF_SYSTEM, CoordSys.COORD_SYS[CoordSys.FK5], 0);
-  }
-
-  /** Get map x center. */
-  public double getXCenter() {
-    return _avTable.getDouble(ATTR_X_CENTER, 0.0);
-  }
-
-  /** Set map x center. */
-  public void setXCenter(double x) {
-    _avTable.set(ATTR_X_CENTER, x);
-  }
-
-  /** Set map x center. */
-  public void setXCenter(String xStr) {
-    _avTable.set(ATTR_X_CENTER, toDouble(xStr));
-  }
-
-  /** Get map y center. */
-  public double getYCenter() {
-    return _avTable.getDouble(ATTR_Y_CENTER, 0.0);
-  }
-
-  /** Set map y center. */
-  public void setYCenter(double y) {
-    _avTable.set(ATTR_Y_CENTER, y);
-  }
-
-  /** Set map y center. */
-  public void setYCenter(String yStr) {
-    _avTable.set(ATTR_Y_CENTER, toDouble(yStr));
+    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
+    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,       "0.0", 0);
+    _avTable.noNotifySet(ATTR_SCANAREA_SYSTEM, SCANAREA_SYSTEMS[0], 0);
   }
 
   /** Get map width. */
   public double getWidth() {
-    return _avTable.getDouble(ATTR_WIDTH, 0.0);
+    return _avTable.getDouble(ATTR_SCANAREA_WIDTH, 0.0);
   }
 
   /** Set map width. */
   public void setWidth(double width) {
-    _avTable.set(ATTR_WIDTH, width);
+    _avTable.set(ATTR_SCANAREA_WIDTH, width);
   }
 
   /** Set map width. */
   public void setWidth(String widthStr) {
-    _avTable.set(ATTR_WIDTH, toDouble(widthStr));
+    setWidth(toDouble(widthStr));
   }
 
   /** Get map height. */
   public double getHeight() {
-    return _avTable.getDouble(ATTR_HEIGHT, 0.0);
+    return _avTable.getDouble(ATTR_SCANAREA_HEIGHT, 0.0);
   }
 
   /** Set map height. */
   public void setHeight(double height) {
-    _avTable.set(ATTR_HEIGHT, height);
+    _avTable.set(ATTR_SCANAREA_HEIGHT, height);
   }
 
   /** Set map height. */
   public void setHeight(String heightStr) {
-    _avTable.set(ATTR_HEIGHT, toDouble(heightStr));
+    setHeight(toDouble(heightStr));
   }
 
-  public double getRectanglePA() {
-    return _avTable.getDouble(ATTR_RECTANGLE_PA, 0.0);
+  /** Get scan velocity. */
+  public double getScanVelocity() {
+
+    // No scan velocity set yet. Try to calculate of the default velocity
+    // according to the instrument used.
+    if(_avTable.getDouble(ATTR_SCANAREA_SCAN_VELOCITY, 0.0) == 0.0) {
+      SpInstObsComp inst = SpTreeMan.findInstrument(this);
+      if(inst != null) {
+	double scanVelocity = ((SpJCMTInstObsComp)inst).getDefaultScanVelocity();
+          _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "" + scanVelocity, 0);
+      }
+    }
+
+    return _avTable.getDouble(ATTR_SCANAREA_SCAN_VELOCITY, 0.0);
   }
 
-  public void setRectanglePA(double theta) {
-    _avTable.set(ATTR_RECTANGLE_PA, theta);
+  /** Set scan velocity. */
+  public void setScanVelocity(double value) {
+    _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, value);
   }
 
-  public void setRectanglePA(String thetaStr) {
-    _avTable.set(ATTR_RECTANGLE_PA, toDouble(thetaStr));
+  /** Set scan velocity. */
+  public void setScanVelocity(String value) {
+    _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, toDouble(value));
   }
 
-  public String getOffSystem() {
-    return _avTable.get(ATTR_OFF_SYSTEM);
+
+  /**
+   * Get scan dx.
+   *
+   * Calculates scan dx in an instrument specific way.
+   *
+   * @throws java.lang.UnsupportedOperationException No instrument in scope.
+   */
+  public double getScanDx() throws UnsupportedOperationException {
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if(inst == null) {
+      throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
+                                               "Needed for calculation of scan dx.");
+    }
+    else {
+      if(inst instanceof SpInstSCUBA) {
+        return getScanVelocity() / ((SpInstSCUBA)inst).getChopFrequency();
+      }
+
+      if(inst instanceof SpInstHeterodyne) {
+        // to be implemented
+      }
+
+      return 0.0;
+    }
   }
 
-  public void setOffSystem(String system) {
-    _avTable.set(ATTR_OFF_SYSTEM, system);
+  /**
+   * Set scan dx.
+   *
+   * Sets scan in an instrument specific way.
+
+   * @throws java.lang.UnsupportedOperationException No instrument in scope.
+   */
+  public void setScanDx(double dx) throws UnsupportedOperationException {
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if(inst == null) {
+      throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
+                                               "Needed for calculation of scan velocity.");
+    }
+    else {
+      _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * dx);
+    }
+  }
+
+  /**
+   * Set scan dx.
+   *
+   * Sets scan in an instrument specific way.
+   *
+   * @throws java.lang.UnsupportedOperationException No instrument in scope.
+   */
+  public void setScanDx(String dx) throws UnsupportedOperationException {
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if(inst == null) {
+      throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
+                                               "Needed for calculation of scan velocity.");
+    }
+    else {
+      _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * toDouble(dx));
+    }   
+  }
+
+  /** Get scan dy. */
+  public double getScanDy() {
+    // No scan velocity set yet. Try to calculate of the default velocity
+    // according to the instrument used.
+    if(_avTable.getDouble(ATTR_SCANAREA_SCAN_DY, 0.0) == 0.0) {
+      SpInstObsComp inst = SpTreeMan.findInstrument(this);
+      if(inst != null) {
+	  double scanDy = ((SpJCMTInstObsComp)inst).getDefaultScanDy();
+          _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY, "" + scanDy, 0);
+      }
+    }
+
+    return _avTable.getDouble(ATTR_SCANAREA_SCAN_DY, 0.0);
+  }
+
+
+  /** Set scan dy. */
+  public void setScanDy(double dy) {
+    _avTable.set(ATTR_SCANAREA_SCAN_DY, dy);
+  }
+
+  /** Set scan dy. */
+  public void setScanDy(String dy) {
+    _avTable.set(ATTR_SCANAREA_SCAN_DY, toDouble(dy));
+  }
+
+
+  /**
+   * Get Area PA.
+   *
+   * Refers to TCS XML:
+   * <pre>
+   * &lt;SCAN_AREA&gt;
+   *   &lt;AREA&gt;
+   *     &lt;PA&gt;0.0&lt;/PA&gt;
+   *   &lt;/AREA&gt;
+   * &lt;SCAN_AREA&gt;
+   * </pre>
+   */
+  public double getPosAngle() {
+    return _avTable.getDouble(ATTR_SCANAREA_PA, 0.0);
+  }
+
+  /**
+   * Set Area PA.
+   *
+   * Refers to TCS XML:
+   * <pre>
+   * &lt;SCAN_AREA&gt;
+   *   &lt;AREA&gt;
+   *     &lt;PA&gt;0.0&lt;/PA&gt;
+   *   &lt;/AREA&gt;
+   * &lt;SCAN_AREA&gt;
+   * </pre>
+   */
+  public void setPosAngle(double theta) {
+    _avTable.set(ATTR_SCANAREA_PA, theta);
+
+    if(_parent instanceof SpIterOffset) {
+      ((SpIterOffset)_parent).setPosAngle(theta);
+    }
+  }
+
+  /**
+   * Set Area PA.
+   *
+   * Refers to TCS XML
+   * <pre>
+   * &lt;SCAN_AREA&gt;
+   *   &lt;AREA&gt;
+   *     <b>&lt;PA&gt;0.0&lt;/PA&gt;</b>
+   *   &lt;/AREA&gt;
+   * &lt;SCAN_AREA&gt;
+   * </pre>
+   */
+  public void setPosAngle(String thetaStr) {
+    setPosAngle(toDouble(thetaStr));
+  }
+
+  /**
+   * Get Area System.
+   *
+   * Refers to TCS XML:
+   * <pre>
+   * &lt;SCAN_AREA&gt;
+   *   &lt;AREA <b>SYSTEM="TRACKING"</b>&gt;
+   *   &lt;/AREA&gt;
+   * &lt;SCAN_AREA&gt;
+   * </pre>
+   */
+  public String getScanAreaSystem() {
+    return _avTable.get(ATTR_SCANAREA_SYSTEM);
+  }
+
+  /**
+   * Set Area System.
+   *
+   * Refers to TCS XML:
+   * <pre>
+   * &lt;SCAN_AREA&gt;
+   *   &lt;AREA <b>SYSTEM="TRACKING"</b>&gt;
+   *   &lt;/AREA&gt;
+   * &lt;SCAN_AREA&gt;
+   * </pre>
+   */
+  public void setScanAreaSystem(String system) {
+    _avTable.set(ATTR_SCANAREA_SYSTEM, system);
   }
 
   public String getRasterMode() {
@@ -179,6 +326,13 @@ public class SpIterRasterObs extends SpIterJCMTObs {
 
   public void setRowReversal(boolean value) {
     _avTable.set(ATTR_ROW_REVERSAL, value);
+  }
+
+  public void posAngleUpdate(double posAngle) {
+    // Do not use setPosAngle(posAngle) here as it would reset the posAngle of the class
+    // calling posAngleUpdate(posAngle) which would then call posAngleUpdate(posAngle)
+    // again an so on causing an infinite loop.
+    _avTable.set(ATTR_SCANAREA_PA, posAngle);
   }
 }
 
