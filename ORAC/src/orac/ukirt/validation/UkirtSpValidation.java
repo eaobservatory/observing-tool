@@ -288,6 +288,8 @@ public class UkirtSpValidation extends SpValidation {
         }
 
         // Checking for invalid instrument component / IRPOL iterator combinations.
+	// SDW - Removed - IRPOL can be used with everything except WFCAM!
+	/*
         if(currentIterator instanceof SpIterIRPOL) {
           if( currentInstObsComp instanceof SpInstMichelle ||
               currentInstObsComp instanceof SpInstUIST ||
@@ -298,6 +300,7 @@ public class UkirtSpValidation extends SpValidation {
 	                                currentInstrument + "."));
 	  }
         }
+	*/
       }
     }
   }
