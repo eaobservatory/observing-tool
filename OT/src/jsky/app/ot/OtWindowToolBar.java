@@ -75,7 +75,7 @@ public class OtWindowToolBar extends GenericToolBar {
 	if (saveButton == null)
 	    saveButton = makeButton("Save changes.", editor.getSaveAction(), false);
 	
-	updateButton(saveButton, "Save", "jsky/app/ot/images/pencilSmall.gif", null, null);
+	updateButton(saveButton, "Save", "jsky/app/ot/images/disk.gif", null, null);
 	return saveButton;
     }
 
