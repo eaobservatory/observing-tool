@@ -10,6 +10,8 @@
 
 package orac.jcmt;
 
+import gemini.sp.SpMSB;
+
 /**
  * Constants for JCMT instrument components and iterators.
  *
@@ -36,17 +38,13 @@ public interface SpJCMTConstants {
    public static final String ATTR_INTEGRATIONS    = "integrations";
 
    /**
-    * Total time of one integrations.
+    * This attribute records the estimated duration of the Observe ("Eye").
     *
-    * This attribute will probably not be stored in an SpAvTable but
-    * calculated on the fly in an Observe iterator specific way
-    * whenever needed.
-    *
-    * @see orac.jcmt.iter.SpIterJCMTObs.getTotalIntegrationTime()
+    * Note that the returned duration takes into account the number of integrations and overheads.
+    * So the duration does <b>not</b> have to be multiplied by the number of integrations.
     */
-   public static final String ATTR_SECS_PER_INTEGRATION = "secsPerIntegration";
+   public static final String ATTR_ELAPSED_TIME = SpMSB.ATTR_ELAPSED_TIME;
 
-   
    // Generic JCMT iterator. Many of the attribute are actually only used for the
    // Heterodyne instrument.
 
@@ -218,19 +216,8 @@ public interface SpJCMTConstants {
    /** Vector with all bolometers */
    public static final String ATTR_BOLOMETERS        = "bolometers";
 
-   // SCUBA constants for time estimation
 
-   /** Seconds per integration, SCUBA photom mode. */
-   public static final int SECS_PER_INTEGRATION_PHOT  = 18;
-
-   /** Seconds per integration, SCUBA 16pt jiggle mode. */
-   public static final int SECS_PER_INTEGRATION_JIG16 = 32;
-
-   /** Seconds per integration, SCUBA 64 pt jiggle mode. */
-   public static final int SECS_PER_INTEGRATION_JIG64 = 64;
-
-
-   /** SCUBA start up time. */
+   /** SCUBA start up time. SCUBA constants for time estimation. */
    public static final double SCUBA_STARTUP_TIME      = 40;
 
    /** Scuba scan map chop frequency in Hz. */

@@ -38,14 +38,10 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
    *
    * @see gemini.sp.obsComp.SpInstObsComp
    */
-  private class IterTrackerJCMT extends IterationTracker {
-    double currentSecsPerIntegration = 0.0;;
-
-    // Number of Integrations
-    int currentIntegrations = 1;
+  public class IterTrackerJCMT extends IterationTracker {
+    double currentElapsedTime = 0.0;
 
     public void update(SpIterStep spIterStep) {
-      SpIterValue spIterValue = null;
 
       try {
         String attribute = null;
@@ -57,12 +53,8 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
           attribute = spIterStep.values[i].attribute;
 	  value     = spIterStep.values[i].values[0];
 	
-          if(attribute.equals(ATTR_SECS_PER_INTEGRATION)) {
-            currentSecsPerIntegration = Double.valueOf(value).doubleValue();
-          }
-
-          if(attribute.equals(ATTR_INTEGRATIONS)) {
-            currentIntegrations = Integer.valueOf(value).intValue();
+          if(attribute.equals(ATTR_ELAPSED_TIME)) {
+            currentElapsedTime = Double.valueOf(value).doubleValue();
           }
 	}  
       }
@@ -73,7 +65,7 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
     }
 
     public double getObserveStepTime () {
-      return currentIntegrations * currentSecsPerIntegration;
+      return currentElapsedTime;
     }
   }
 
