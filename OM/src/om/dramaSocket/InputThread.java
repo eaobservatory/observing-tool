@@ -61,17 +61,7 @@ final public class InputThread extends Thread implements java.io.Serializable
     try {
       String temp="";
       while(true) {
-	int i = -1;
-	while(true) {
-	  try {
-	    i = is.read();
-	    System.out.println("i = " + i);
-	    break;
-	  }
-	  catch(SocketException e) {
-            System.err.println(e + ", still trying, i = " + i);
-	  }
-	}  
+	int i= is.read();
 
 	if(i==-1) {
 	  break;
@@ -103,7 +93,7 @@ final public class InputThread extends Thread implements java.io.Serializable
       }
       
     } catch (IOException e) {
-      e.printStackTrace(); //System.err.println(e);
+      System.err.println(e);
     }
   }
 
