@@ -26,52 +26,13 @@ import java.util.Vector;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 /**
- * Enumerater for the elements of the Observe iterator.
- */
-class SpIterNodObsEnumeration extends SpIterEnumeration
-{
-   private int _curCount = 0;
-   private int _maxCount;
-   private SpIterValue[] _values;
-
-SpIterNodObsEnumeration(SpIterNodObs iterObserve)
-{
-   super(iterObserve);
-   _maxCount    = iterObserve.getCount();
-}
-
-protected boolean
-_thisHasMoreElements()
-{
-   return (_curCount < _maxCount);
-}
-
-protected SpIterStep
-_thisFirstElement()
-{
-   SpIterNodObs ibo   = (SpIterNodObs) _iterComp;
-   String expTimeValue = String.valueOf(ibo.getExposureTime());
-   String coaddsValue  = String.valueOf(ibo.getCoadds());
-
-   _values = new SpIterValue[2];
-   _values[0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, expTimeValue);
-   _values[1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
-
-   return _thisNextElement();
-}
-
-protected SpIterStep
-_thisNextElement()
-{
-   return new SpIterStep("nod", _curCount++, _iterComp, _values);
-}
-   
-}
-
-/**
  * Nod Iterator item.
  *
+ * {@link #elements()} not implemented.
+ *
  * @author modified as Nod Iterator by Martin Folger (M.Folger@roe.ac.uk)
+ *
+ * @deprecated replaced by {@link orac.ukirt.iter.SpIterNod}
  */
 public class SpIterNodObs extends SpIterObserveBase
 {
@@ -118,11 +79,14 @@ getTitle()
 }
 
 /**
+ * Not implemented.
+ *
+ * @return null.
  */
 public SpIterEnumeration
 elements()
 {
-   return new SpIterNodObsEnumeration(this);
+   return null; //new SpIterNodObsEnumeration(this);
 }
 
 /**
