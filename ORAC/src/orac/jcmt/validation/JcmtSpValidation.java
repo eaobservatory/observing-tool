@@ -41,6 +41,7 @@ import orac.validation.ErrorMessage;
  * @author M.Folger@roe.ac.uk (M.Folger@roe.ac.uk)
  */
 public class JcmtSpValidation extends SpValidation {
+    /*
   public void checkMSB(SpMSB spMSB,  Vector report) {
     checkMSBgeneric(spMSB, report);
 
@@ -79,5 +80,6 @@ public class JcmtSpValidation extends SpValidation {
                                   "Target information is missing.")); 
     }
   }
+    */
 }
 
