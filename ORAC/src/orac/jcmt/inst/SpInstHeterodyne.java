@@ -69,9 +69,6 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Overlap of multiple hybrid subbands. */
   public static final String ATTR_OVERLAP = "overlap";
 
-  /** LO1. */
-  public static final String ATTR_LO1 = "lo1";
-
 
   // FrequencyTable
 
@@ -145,9 +142,6 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * SpInstHeterodyne item have been initialised (by calling {@link #valuesInitialised()}).
    * If they have not then the initialiseValues() can be used to fill in the values
    * from the above configuration files.<p>
-   *
-   * Note that the LO1 value is not set in this method. It should be calculated from
-   * The top subsystem line rest frequency and the IF (depending on upper/lower sideband).
    */
   public void initialiseValues(
       String defaultFeName,
@@ -564,35 +558,6 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     setOverlap(Format.toDouble(value), subsystem);
   }
 
-
-  /**
-   * Get LO1.
-   *
-   * The local oscillator (LO1) is only saved to setup the Frequency Editor.
-   * During observing it is recalculated using the rest frequency and centre frequency
-   * of the top subsystem (subsystem 0) and the velocity (or redshift).
-   */
-  public double getLO1() {
-    return _avTable.getDouble(ATTR_LO1, 0.0);
-  }
-
-  /**
-   * Set LO1.
-   *
-   * @see #getLO1()
-   */
-  public void setLO1(double value) {
-    _avTable.set(ATTR_LO1, value);
-  }
-
-  /**
-   * Set LO1.
-   *
-   * @see #getLO1()
-   */
-  public void setLO1(String value) {
-    setLO1(Format.toDouble(value));
-  }
 
   public int getNumSubSystems() {
     return _avTable.size(ATTR_CENTRE_FREQUENCY);
