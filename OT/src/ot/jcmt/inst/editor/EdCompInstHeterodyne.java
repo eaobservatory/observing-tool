@@ -29,7 +29,7 @@ import gemini.sp.SpItem;
 //import orac.util.SpItemDOM;
 import orac.jcmt.inst.SpInstHeterodyne;
 import ot.util.DialogUtil;
-import ot.jcmt.inst.editor.edfreq.FrequencyEditorConstants;
+import edfreq.FrequencyEditorConstants;
 import jsky.app.ot.editor.OtItemEditor;
 
 /**
