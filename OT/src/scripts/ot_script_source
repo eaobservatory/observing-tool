@@ -7,7 +7,7 @@
 # this directory and edit the copy.                                                     # 
 ######################################################################################### 
  
-#set OT_USERDIR=$HOME
+set OT_USERDIR=$HOME
  
 #cd `dirname $0` 
  
