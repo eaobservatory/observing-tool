@@ -2350,12 +2350,28 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     }
 
     /**
-     * Set target_acq to yes or no
+     * Set target_acq to yes or no and choose matching disperser
      */
     public void
     setTargetAcq(String target_acq)
     {
+	String dispOld = getDisperser();
+	String dispListOld[] = getDisperserList();
+	int dispIndexOld = 0;
+	for (dispIndexOld = 0; dispIndexOld < dispListOld.length; dispIndexOld++) {
+	    if (dispOld.equalsIgnoreCase(dispListOld[dispIndexOld])) {
+		break;
+	    }
+	}
+
         _avTable.set(ATTR_TARGET_ACQ, target_acq);
+	    
+	String dispListNew[] = getDisperserList();
+	if (dispIndexOld < dispListNew.length) {
+	    setDisperser(dispListNew[dispIndexOld]);
+	} else {
+	    useDefaultDisperser();
+	}
     }
 
     /**

@@ -239,7 +239,6 @@ public EdCompInstUIST()
 	    } else {
                 _instUIST.setTargetAcq("no");
 	    }
-            _instUIST.setDisperser( _instUIST.getDefaultDisperser() );
             _updateDisperserChoices();
             _updateMaskChoices();
             _updateTargetAcqMode();
