@@ -27,6 +27,7 @@ public class AttributeTableModel extends javax.swing.table.AbstractTableModel {
   final boolean [] isNumber;
   final boolean [] isChanged;
   final Object  [] originalValue;
+  private boolean isEditable = true;
   
   private boolean isANumber(String s) {
     try {
@@ -107,6 +108,10 @@ public class AttributeTableModel extends javax.swing.table.AbstractTableModel {
     return isNumber[row];
   }
 
+  public void setEditable(boolean editable) {
+    isEditable = editable;
+  }
+
   //   public Class getColumnClass(int c) {
   //     return getValueAt(0, c).getClass();
   //   }
@@ -118,7 +123,11 @@ public class AttributeTableModel extends javax.swing.table.AbstractTableModel {
   public boolean isCellEditable(int row, int col) {
     //Note that the data/cell address is constant,
     //no matter where the cell appears onscreen.
-    return (col == 1);
+    if (col == 1) {
+      return isEditable;
+    } else {
+      return false;
+    }
   }
 
 
