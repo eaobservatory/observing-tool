@@ -61,16 +61,19 @@ public class HeterodyneGUI extends JPanel {
   JButton freqEditorButton = new JButton("Show Frequency Editor");
   JButton hideFreqEditorButton = new JButton("Hide Frequency Editor");
   JLabel label = null;
-//  private JScrollPane scrollPanel;
+
   private FlowLayout flowLayoutLeft  = new FlowLayout(FlowLayout.LEFT);
   private FlowLayout flowLayoutRight = new FlowLayout(FlowLayout.RIGHT);
   // Changed to avoid security exception in applet.
   private String defaultStoreDirectory = ".;"; //System.getProperty("user.dir");
   private boolean editFlag = false;
+
   // Commented out to avoid security exception in applet.
   // private JFileChooser fileChooser = new JFileChooser ( );
 
   //private JButton sideBandButton = new JButton("Show Side Band Display");
+
+    JComboBox   feMixers;
 
 
   public HeterodyneGUI() {
@@ -106,9 +109,14 @@ public class HeterodyneGUI extends JPanel {
       feBandModeChoice.setForeground(Color.black);
       //feBandModeChoice.addActionListener ( this );
 
+      feMixers = new JComboBox();
+      feMixers.setFont(new Font("Dialog", 0, 12));
+      feMixers.setForeground(Color.black);
+
       fePanel.add ( feChoice );
       fePanel.add ( feMode );
       fePanel.add ( feBandModeChoice );
+      fePanel.add ( feMixers );
 
 /* Create the display */
 
