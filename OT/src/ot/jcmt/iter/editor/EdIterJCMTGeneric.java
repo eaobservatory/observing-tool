@@ -95,6 +95,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     _w.switchingMode.addWatcher(this);
     _w.noOfIntegrations.addWatcher(this);
+    _w.doAtCurrentAzDDLBWE.addWatcher(this);
     _w.frequencyOffset_throw.addWatcher(this);
     _w.frequencyOffset_rate.addWatcher(this);
     _w.secsPerCycle.addWatcher(this);
@@ -195,6 +196,11 @@ public class EdIterJCMTGeneric extends OtItemEditor
       _iterObs.setAutomaticTarget(_w.automaticTarget.getBooleanValue());
       return;
     }
+
+    if(cbwe == _w.doAtCurrentAzDDLBWE) {
+      _iterObs.setDoAtCurrentAz(_w.doAtCurrentAzDDLBWE.getBooleanValue());
+      return;
+    }
   }
 
   protected void _updateWidgets() {
@@ -206,6 +212,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
     _w.secsPerCycle.setValue(_iterObs.getSecsPerCycle());
     _w.noOfCycles.setValue(_iterObs.getNoOfCycles());
     _w.cycleReversal.setValue(_iterObs.getCycleReversal());
+    _w.doAtCurrentAzDDLBWE.setValue(_iterObs.getDoAtCurrentAz());
     _w.stepSize.setValue(_iterObs.getStepSize());
     _w.jiggleAtReference.setValue(_iterObs.getJiggleAtReference());
     _w.jigglesPerCycle.setValue(_iterObs.getJigglesPerCycle());
