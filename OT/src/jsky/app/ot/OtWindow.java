@@ -513,7 +513,9 @@ public class OtWindow extends SpTreeGUI
 	    oldItem.getEditFSM().deleteEditChangeObserver(this); 
 	}
 
-	_tw.resetProg(spItem);
+	if(spItem != oldItem) {
+	  _tw.resetProg(spItem);
+	}
 
 	// Initialize the title
 	_updateEditPencil( spItem.getEditState() );
