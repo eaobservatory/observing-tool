@@ -436,11 +436,10 @@ public class SpValidation {
      */
     public void schemaValidate(String xmlString, String schema, Vector report) {
 	// Make sure the schema exists
-	File schemaFile = new File(schema);
-	if (! schemaFile.exists()) {
+	if ( schema == null ) {
 	    report.add( new ErrorMessage(ErrorMessage.WARNING,
 					 "Schema Validation not performed",
-					 schema+" does not exist."));
+					 "Unable to locate both web service and local version"));
 	    return;
 	}
 	SAXParser parser = new SAXParser();
@@ -452,8 +451,7 @@ public class SpValidation {
 	try {
     	    parser.setFeature("http://xml.org/sax/features/validation", true);
    	    parser.setFeature("http://apache.org/xml/features/validation/schema", true);
-	    parser.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation",
-			       schema);
+	    parser.setProperty("http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", schema);
 	    parser.parse(new InputSource(new StringReader(xmlString)));
 // 	    doc = parser.getDocument();
 	}
