@@ -24,6 +24,8 @@ import ODBServerPackage.ProgKeyHolder;
 import ODBServerPackage.ODBServerMethods;
 import ODBAccess.*;
 import gemini.sp.*;
+import gemini.sp.iter.SpIterObserve;
+import gemini.sp.iter.SpIterSky;
 import orac.ukirt.util.*;
 import orac.ukirt.inst.*;
 import orac.ukirt.iter.*;
@@ -72,11 +74,8 @@ class ODBServer extends UnicastRemoteObject implements ODBServerMethods
     spItem = new SpIterFP();
     spItem = new SpIterIRPOL();
     spItem = new SpIterNod();
-    spItem = new SpIterIterObserve();
-    spItem = new SpIterIterSky();
-    spItem = new SpMSB();
-    spItem = new SpAND();
-    spItem = new SpOR();
+    spItem = new SpIterObserve();
+    spItem = new SpIterSky();
   }
 
 
