@@ -18,11 +18,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
 import java.awt.Container;
 import java.awt.Point;
 import java.util.*;
 import java.io.*;
 
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.XMLReader;
@@ -34,7 +37,8 @@ import org.xml.sax.InputSource;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorConstants
+public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorConstants,
+                                                DocumentListener
 {
 
    private JComboBox feChoice;
@@ -52,14 +56,14 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    private JLabel highFreq;
    private JTextField velocity;
    private JTextField overlap;
-   private SideBandDisplay sideBandDisplay = new SideBandDisplay();
+   private SideBandDisplay sideBandDisplay = new SideBandDisplay(this);
    private LineCatalog lineCatalog = new LineCatalog();
    private JComboBox feBand;
    private JComboBox feMode;
    private JComboBox moleculeChoice;
    private JComboBox moleculeChoice2;
-   private JLabel moleculeFrequency;
-   private JLabel moleculeFrequency2;
+   private JTextField moleculeFrequency;
+   private JTextField moleculeFrequency2;
    private JComboBox transitionChoice;
    private JComboBox transitionChoice2;
    private JScrollPane scrollPanel;
@@ -72,6 +76,8 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    private double feBandWidth;
    private double feOverlap = 0.0;
    private String defaultStoreFile = "hetsetup.txt";
+   private FlowLayout flowLayoutLeft  = new FlowLayout(FlowLayout.LEFT);
+   private FlowLayout flowLayoutRight = new FlowLayout(FlowLayout.RIGHT);
    // Changed to avoid security exception in applet.
    private String defaultStoreDirectory = ".;"; //System.getProperty("user.dir");
    private boolean editFlag = false;
@@ -89,7 +95,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       setLayout(new BorderLayout());
 /* Create the choice of frontends */
 
-      fePanel = new JPanel();
+      fePanel = new JPanel(flowLayoutLeft);
       fePanel.add ( new JLabel ( "Choose Front End" ) );
 
       feChoice = new JComboBox ( new String[] { "A3", "B3", "WC", "WD",
@@ -123,7 +129,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
 /* Create the display */
 
-      displayPanel = new JPanel();
+      displayPanel = new JPanel(flowLayoutLeft);
       displayPanel.add ( new JLabel ( "Low Limit (GHz)" ) );
       displayPanel.add ( lowFreq );
       displayPanel.add ( new JLabel ( "High Limit (GHz)" ) );
@@ -136,7 +142,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       displayPanel.add ( velocity );
 
       rangePanel = new JPanel();
-      feBand = new JComboBox ( new String[] { "usb", "lsb" } );
+      feBand = new JComboBox ( new String[] { "usb", "lsb", "optimum" } );
       feBand.addActionListener ( this );
 
 /* Main molecular line choice - used to set front-end LO1 to put the line
@@ -148,13 +154,17 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       transitionChoice = new JComboBox();
       transitionChoice.setForeground ( Color.red );
       transitionChoice.addActionListener ( this );
-      moleculeFrequency = new JLabel ( "0.0000" );
+      moleculeFrequency = new JTextField();
+      moleculeFrequency.setColumns(12);
+      moleculeFrequency.setText ( "0.0000" );
       moleculeFrequency.setForeground ( Color.red );
-      mol1Panel = new JPanel();
+      moleculeFrequency.getDocument().addDocumentListener(this);
+      mol1Panel = new JPanel(flowLayoutRight);
       mol1Panel.add ( feBand );
       mol1Panel.add ( moleculeChoice );
       mol1Panel.add ( transitionChoice );
       mol1Panel.add ( moleculeFrequency );
+      mol1Panel.add ( new JLabel("MHz") );
 
 /* Secondary moleculare line choice - displayed just for convenience of
    astronomer */
@@ -165,12 +175,16 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       transitionChoice2 = new JComboBox();
       transitionChoice2.setForeground ( Color.magenta );
       transitionChoice2.addActionListener ( this );
-      moleculeFrequency2 = new JLabel ( "0.0000" );
+      moleculeFrequency2 = new JTextField();
+      moleculeFrequency2.setColumns(12);
+      moleculeFrequency2.setText ( "0.0000" );
       moleculeFrequency2.setForeground ( Color.magenta );
-      mol2Panel = new JPanel();
+      moleculeFrequency2.getDocument().addDocumentListener(this);
+      mol2Panel = new JPanel(flowLayoutRight);
       mol2Panel.add ( moleculeChoice2 );
       mol2Panel.add ( transitionChoice2 );
       mol2Panel.add ( moleculeFrequency2 );
+      mol2Panel.add ( new JLabel("MHz") );
 
       linePanel = Box.createVerticalBox();
       linePanel.add ( mol1Panel );
@@ -200,6 +214,10 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       // MFO trigger additional initialising.
       feChoiceAction(null);
       updateSideBandDisplay();
+      feMoleculeAction(null);
+      feMolecule2Action(null);
+      feTransition2Action(null);
+      feTransitionAction(null);
    
       // Initialize parser (MFO, 29 November 2001)
       try {
@@ -279,6 +297,19 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       }
    }
 
+   public void changedUpdate(DocumentEvent e) { }
+
+   public void insertUpdate(DocumentEvent e) {
+      moleculeFrequencyChanged();
+      moleculeFrequency2Changed();
+   }
+  
+   public void removeUpdate(DocumentEvent e) {
+      moleculeFrequencyChanged();
+      moleculeFrequency2Changed();
+   }
+
+
 
    public void feBandAction ( ActionEvent ae )
    {
@@ -315,7 +346,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       if ( transition != null )
       {
 
-         moleculeFrequency.setText ( "" + transition.frequency/1.0E6 +"MHz" );
+         moleculeFrequency.setText ( "" + transition.frequency/1.0E6 );
          String band = (String)feBand.getSelectedItem();
 
          if ( sideBandDisplay != null )
@@ -346,7 +377,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       if ( transition != null )
       {
 
-         moleculeFrequency2.setText ( "" + transition.frequency/1.0E6 +"MHz" );
+         moleculeFrequency2.setText ( "" + transition.frequency/1.0E6 );
 
          if ( sideBandDisplay != null )
          {
@@ -355,6 +386,55 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
          }
 
+      }
+   }
+
+
+   public void moleculeFrequencyChanged()
+   {
+      try {
+         double frequency = Double.parseDouble(moleculeFrequency.getText()) * 1.0E6;
+         
+	 String band = (String)feBand.getSelectedItem();
+
+         if ( sideBandDisplay != null )
+         {
+
+            sideBandDisplay.setMainLine ( frequency );
+
+            double obsFrequency = frequency / 
+              ( 1.0 + redshift );
+            if ( band.equals ( "usb" ) )
+            {
+               sideBandDisplay.setLO1 ( obsFrequency - feIF );
+            }
+            else
+            {
+               sideBandDisplay.setLO1 ( obsFrequency + feIF );
+            }
+         }
+
+      }
+      catch(NumberFormatException e) {
+        // ignore
+      }
+   }
+
+
+   public void moleculeFrequency2Changed()
+   {
+      try {
+         double frequency = Double.parseDouble(moleculeFrequency2.getText()) * 1.0E6;
+      
+         if ( sideBandDisplay != null )
+         {
+            sideBandDisplay.setSideLine ( frequency );
+
+         }
+
+      }
+      catch(NumberFormatException e) {
+        // ignore
       }
    }
 
@@ -369,6 +449,11 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       int subBandCount;
 
       BandSpec currentBandSpec = (BandSpec)feBandModeChoice.getSelectedItem();
+
+      if(currentBandSpec == null) {
+         feBandModeChoice.setSelectedIndex(0);
+	 currentBandSpec = (BandSpec)feBandModeChoice.getSelectedItem();
+      }
 
 
 /* Update display of sidebands and subbands */
@@ -628,5 +713,15 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
    public void setSideBandDisplayLocation(int x, int y) {
       sideBandDisplay.setLocation(x, y);
+   }
+
+   // Added by MFO (8 January 2002)
+   /**
+    * Returns "usb" (Upper Side Band) or "lsb" (Lower Side Band).
+    *
+    * Needed by {@link edfreq.SideBand} to shift LO1 when top SideBands are changed.
+    */
+   protected String getFeBand() {
+      return (String)feBand.getSelectedItem();
    }
 }
