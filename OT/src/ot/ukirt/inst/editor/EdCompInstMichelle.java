@@ -239,7 +239,9 @@ public EdCompInstMichelle()
     //
     _w.spectroscopy_posAngle.addWatcher( new TextBoxWidgetWatcher() {
         public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+            _instMichelle.getAvEditFSM().deleteObserver(EdCompInstMichelle.this);
             _instMichelle.setPosAngleDegrees(Double.parseDouble(tbw.getText()));
+            _instMichelle.getAvEditFSM().addObserver(EdCompInstMichelle.this);
         }
 
         public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
@@ -358,6 +360,13 @@ public EdCompInstMichelle()
         }
     });
 }
+
+/**
+ * Override method in super class to avoid exposure time and position angle text box watchers
+ * being added twice.
+ */
+protected void _init() { }
+
 
 /**
  * Override setup to store away a reference to the SpInstMichelle item.
