@@ -216,7 +216,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     // Polarimetry
     public static String POL_MASK_IMAGING;
     public static String POL_GRISM_IMAGING;
-    public static String POL_MASK_SPECTROSCOPY;
+    public static String [] POL_MASK_SPECTROSCOPY;
     // Data acquisition - general
 // Commented out by RDK
 //     public static double ARRAY_ANGLE;
@@ -753,7 +753,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		} else if (InstCfg.matchAttr (instInfo, "pol_grism_imaging")) {
                     POL_GRISM_IMAGING = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "pol_mask_spectroscopy")) {
-                    POL_MASK_SPECTROSCOPY = instInfo.getValue();
+                    POL_MASK_SPECTROSCOPY = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "central_row")) {
                     CENTRAL_ROW = Integer.parseInt(instInfo.getValue());
 		} else if (InstCfg.matchAttr (instInfo, "peak_row")) {
@@ -1608,8 +1608,11 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
             return maskList;
 	} else {
             if (isPolarimetry()) {
-                String maskList[] = new String[1];
-                maskList[0] = POL_MASK_SPECTROSCOPY;
+                // Modified by SDW
+                String [] maskList = new String [POL_MASK_SPECTROSCOPY.length];
+                System.arraycopy( POL_MASK_SPECTROSCOPY, 0, maskList, 0, POL_MASK_SPECTROSCOPY.length );
+                //String maskList[] = new String[1];
+                //maskList[0] = POL_MASK_SPECTROSCOPY;
                 return maskList;
             } else {
                 // Either spectroscopy or ifu
@@ -1702,7 +1705,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
                 }
 	    } else {
                 if (isPolarimetry()) {
-                    mask = POL_MASK_SPECTROSCOPY;
+                    mask = POL_MASK_SPECTROSCOPY[0];
                 } else {
                     int maskSet = getMaskSet();
                     if (maskSet==1) {
