@@ -26,10 +26,11 @@ public class ScubaGUI extends JPanel {
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
   ListBoxWidgetExt filterList = new ListBoxWidgetExt();
-  ListBoxWidgetExt subInstList = new ListBoxWidgetExt();
   JScrollPane bolometerScrollPane = new JScrollPane();
   ListBoxWidgetExt bolometerList = new ListBoxWidgetExt();
   CheckBoxWidgetExt explicitBolometer = new CheckBoxWidgetExt();
+  ListBoxWidgetExt subInstList = new ListBoxWidgetExt();
+  JTextArea jTextArea1 = new JTextArea();
 
   public ScubaGUI() {
     try {
@@ -54,6 +55,12 @@ public class ScubaGUI extends JPanel {
     jLabel2.setForeground(Color.black);
     jLabel2.setText("Sub-Instrument");
     explicitBolometer.setText("Explicit Pixel");
+    jTextArea1.setLineWrap(true);
+    jTextArea1.setDisabledTextColor(Color.black);
+    jTextArea1.setBackground(Color.lightGray);
+    jTextArea1.setEnabled(false);
+    jTextArea1.setText("The primary sub-instrument is displayed in a bold red font.\nUse the right mouse button to change the primary sub-instrument in a multiple selection.");
+    jTextArea1.setEditable(false);
     this.add(jPanel1, BorderLayout.NORTH);
     jPanel1.add(jLabel1, null);
     jPanel1.add(jLabel2, null);
@@ -62,6 +69,7 @@ public class ScubaGUI extends JPanel {
     jPanel2.add(filterList, null);
     jPanel2.add(subInstList, null);
     jPanel2.add(bolometerScrollPane, null);
+    this.add(jTextArea1, BorderLayout.SOUTH);
     bolometerScrollPane.getViewport().setView(bolometerList);
   }
 

@@ -20,8 +20,19 @@ import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.Arrays;
+import java.awt.Component;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.ListCellRenderer;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.SwingUtilities;
 
 /**
  * This is the editor for the Scuba instrument component.
@@ -50,7 +61,8 @@ import javax.swing.event.ListSelectionEvent;
  */
 public final class EdCompInstSCUBA extends OtItemEditor implements ListSelectionListener,
                                                                    ListBoxWidgetWatcher,
-								   CheckBoxWidgetWatcher {
+								   CheckBoxWidgetWatcher,
+								   MouseListener {
 
   private SpInstSCUBA _instSCUBA;
 
@@ -88,11 +100,15 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
 //    _ignoreActions = false;
 
 
+    _w.subInstList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+    _w.subInstList.setCellRenderer(new SubInstListCellRenderer(_w.subInstList.getCellRenderer()));
+
 //    _w.filterList.addListSelectionListener(this);
 //    _w.subInstList.addListSelectionListener(this);
 //    _w.bolometerList.addListSelectionListener(this);
     _w.filterList.addWatcher(this);
     _w.subInstList.addWatcher(this);
+    _w.subInstList.addMouseListener(this);
     _w.bolometerList.addWatcher(this);
     _w.explicitBolometer.addWatcher(this);
   }
@@ -117,28 +133,46 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
 
     String [] subInstruments = SpInstSCUBA.getSubInstrumentsFor(_instSCUBA.getFilter());
     _w.subInstList.setChoices(subInstruments);
-    _w.subInstList.setValue(_instSCUBA.getSubInstrument());
+
+    String [] selectedSubInstruments = _instSCUBA.getSubInstruments();
+    for(int i = 0; i < selectedSubInstruments.length; i++) {
+      for(int j = 0; j < subInstruments.length; j++) {
+        if(selectedSubInstruments[i].equals(subInstruments[j])) {
+	  _w.subInstList.addSelectionInterval(j, j);
+	}
+      }
+    }
       
     if(_w.subInstList.getSelectedIndex() == -1) {
       _w.subInstList.setValue(0);
-      _instSCUBA.setSubInstrument(_w.subInstList.getStringValue());
-      _instSCUBA.setBolometer(null);
+      _instSCUBA.setPrimarySubInstrument(_w.subInstList.getStringValue());
+//      _instSCUBA.setBolometer(null);
     }
 
-    if((SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()) != null) && (_instSCUBA.getBolometer() != null)) {
-      Vector bolometers = SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument());
-      _w.explicitBolometer.setValue(true);
-      _w.explicitBolometer.setVisible(true);
+    if((SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument()) != null) &&
+       (_instSCUBA.getBolometer() != null)) {
+
+      Vector bolometers = SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument());
+//      _w.explicitBolometer.setValue(true);
+//      _w.explicitBolometer.setVisible(true);
       _w.bolometerList.setChoices(bolometers);
-      _w.bolometerList.setSelectedValue(_instSCUBA.getBolometer(), true);
+      _w.bolometerList.setValue(_instSCUBA.getBolometer());
       _w.bolometerScrollPane.setVisible(true);
     }
     else {
-      _w.explicitBolometer.setValue(false);
+//      _w.explicitBolometer.setValue(false);
       _w.bolometerScrollPane.setVisible(false);
     }  
 
-    if(SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()) != null) {
+    if(_instSCUBA.getBolometer() != null) {
+      _w.explicitBolometer.setValue(true);
+    }
+    else {
+      _w.explicitBolometer.setValue(false);
+    }
+    
+
+    if(SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument()) != null) {
       _w.explicitBolometer.setVisible(true);
     }
     else {
@@ -154,9 +188,10 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
   
   public void listBoxAction(ListBoxWidgetExt lbwe, int index, java.lang.String val) {
     if(System.getProperty("DEBUG") != null) {
-      System.out.println("in listBoxAction, value = " + val);
+      System.out.println("in listBoxAction, value = " + val + ", NOT ignoring");
     }
   }
+
 
   public void listBoxSelect(ListBoxWidgetExt lbwe, int index, java.lang.String val) {
     if(_ignoreActions) {
@@ -175,10 +210,22 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
 
     if(lbwe == _w.filterList) {
       _instSCUBA.setFilter(_w.filterList.getStringValue());
+
+      // Setting the sub-instruments to the empty String array will cause _updateWidgets()
+      // to make the first entry of the sub-instrument list the primary sub-instrument
+      //  and the only sub-instrument selected. These settings put into _instSCUBA as well.
+      _instSCUBA.setSubInstruments(new String[]{});
     }
 
     if(lbwe == _w.subInstList) {
-      _instSCUBA.setSubInstrument(_w.subInstList.getStringValue());
+      _instSCUBA.setSubInstruments(_w.subInstList.getSelectedValues());
+
+      // If the primary sub-instrument is not amoung the newly selected sub-instruments
+      // then make the first one of the selected sub-instruments the primary one.
+      if(!Arrays.asList(_instSCUBA.getSubInstruments()).contains(_instSCUBA.getPrimarySubInstrument())) {
+        _instSCUBA.setPrimarySubInstrument(_w.subInstList.getStringValue());
+      }
+
     }
 
     if(lbwe == _w.bolometerList) {
@@ -202,10 +249,9 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
       System.out.println("in checkBoxAction, NOT ignoring");
     }
 
-
     if(cbwe.getBooleanValue() == true) {
-      if(SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()) != null) {
-        _instSCUBA.setBolometer((String)SpInstSCUBA.getBolometersFor(_instSCUBA.getSubInstrument()).get(0));
+      if(SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument()) != null) {
+        _instSCUBA.setBolometer((String)SpInstSCUBA.getBolometersFor(_instSCUBA.getPrimarySubInstrument()).get(0));
       }
     }
     else {
@@ -213,6 +259,67 @@ public final class EdCompInstSCUBA extends OtItemEditor implements ListSelection
     }
 
     _updateWidgets();
+  }
+
+  public void mouseClicked(MouseEvent e) {
+    if(_ignoreActions) {
+      if(System.getProperty("DEBUG") != null) {
+        System.out.println("in mouseClicked, IGNORING");
+      }
+
+      return;
+    }
+
+    if(System.getProperty("DEBUG") != null) {
+      System.out.println("in mouseClicked, NOT ignoring");
+    }
+
+
+    if(SwingUtilities.isRightMouseButton(e)) {
+      String clickedSubInstrument =
+                (String)_w.subInstList.getModel().getElementAt(
+	          _w.subInstList.locationToIndex(e.getPoint()));
+
+      if(Arrays.asList(_instSCUBA.getSubInstruments()).contains(clickedSubInstrument)) {
+        _instSCUBA.setPrimarySubInstrument(clickedSubInstrument);
+      }
+        
+      _w.subInstList.repaint();
+    }
+  }
+
+
+  public void mouseEntered(MouseEvent e)  { }
+  public void mouseExited(MouseEvent e)   { }
+  public void mousePressed(MouseEvent e)  { }
+  public void mouseReleased(MouseEvent e) { } 
+  
+
+  private class SubInstListCellRenderer implements ListCellRenderer {
+
+    ListCellRenderer _listCellRenderer;
+
+    public SubInstListCellRenderer(ListCellRenderer listCellRenderer) {
+      _listCellRenderer = listCellRenderer;
+    }
+
+    public Component getListCellRendererComponent(JList list,
+                                                  Object value,
+                                                  int index,
+                                                  boolean isSelected,
+                                                  boolean cellHasFocus) {
+
+      DefaultListCellRenderer defaultListCellRenderer =
+        (DefaultListCellRenderer)_listCellRenderer.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+      if(((String)value).equals(_instSCUBA.getPrimarySubInstrument())) {
+        //defaultListCellRenderer.setBackground(Color.magenta);
+	defaultListCellRenderer.setFont(defaultListCellRenderer.getFont().deriveFont(Font.BOLD));
+	defaultListCellRenderer.setForeground(Color.red);
+      }
+
+      return defaultListCellRenderer;
+    }
   }
 }
 

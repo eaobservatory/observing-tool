@@ -17,6 +17,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.Arrays;
 
 import orac.jcmt.SpJCMTConstants;
 import orac.util.InstCfg;
@@ -77,8 +78,9 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     }
 
     try {
-      _avTable.noNotifySet(ATTR_FILTER,         _filters[0][0], 0);
-      _avTable.noNotifySet(ATTR_SUB_INSTRUMENT, _filters[1][0], 0);
+      _avTable.noNotifySet(ATTR_FILTER,                 _filters[0][0], 0);
+      _avTable.noNotifySet(ATTR_PRIMARY_SUB_INSTRUMENT, _filters[1][0], 0);
+      _avTable.noNotifySet(ATTR_SUB_INSTRUMENT,         _filters[1][0], 0);
 
       // By default no explicit bolometer.
     }
@@ -208,7 +210,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    * @return String array of jiggle pattern options.
    */
   public String [] getJigglePatterns() {
-    return (String[])_jigglePatternTable.get(getSubInstrument());
+    return (String[])_jigglePatternTable.get(getPrimarySubInstrument());
   }
 
 
@@ -220,12 +222,46 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
     _avTable.set(ATTR_FILTER, filter);
   }
 
-  public String getSubInstrument() {
-    return _avTable.get(ATTR_SUB_INSTRUMENT);
+  public String [] getSubInstruments() {
+    Enumeration subInstNames  = _avTable.attributes(ATTR_SUB_INSTRUMENT);
+    Vector      subInstVector = new Vector();
+    String []   result = null;
+
+    while(subInstNames.hasMoreElements()) {
+      subInstVector.add(_avTable.get((String)subInstNames.nextElement()));
+    }
+
+    result = new String[subInstVector.size()];
+    subInstVector.toArray(result);
+    
+    return result;
   }
 
-  public void setSubInstrument(String subInstrument) {
-    _avTable.set(ATTR_SUB_INSTRUMENT, subInstrument);
+
+  /**
+   * @param subInstrument Object[] rather then String[] is used to simplify GUI.
+   */
+  public void setSubInstruments(Object [] subInstruments) {
+    
+    // Remove all existing sub-instruments from table.
+    Enumeration subInstNames  = _avTable.attributes(ATTR_SUB_INSTRUMENT);
+    while(subInstNames.hasMoreElements()) {
+      _avTable.rm((String)subInstNames.nextElement());
+    }
+
+    // Add new sub-instruments.
+    for(int i = 0; i < subInstruments.length; i++) {
+      _avTable.set(ATTR_SUB_INSTRUMENT + "#" + i, (String)subInstruments[i]);
+    }
+  }
+
+
+  public String getPrimarySubInstrument() {
+    return _avTable.get(ATTR_PRIMARY_SUB_INSTRUMENT);
+  }
+
+  public void setPrimarySubInstrument(String primarySubInstrument) {
+    _avTable.set(ATTR_PRIMARY_SUB_INSTRUMENT, primarySubInstrument);
   }
 
   /**
