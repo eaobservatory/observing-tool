@@ -223,7 +223,7 @@ public class InstConfig extends Hashtable implements Cloneable {
 
 // Attributes for darks (only filter used currently)
          put( "darkFilter", "Blank" );    // Filter name for darks
-         put( "darkNumExp", "1" );        // Number of dark exposures (coadds)
+         put( "darkNumExp", "400" );      // Number of dark exposures (coadds)
 
 // Attributes for biases 
          put( "biasExpTime", "0.020" );   // Bias exposure time
@@ -405,12 +405,14 @@ public class InstConfig extends Hashtable implements Cloneable {
 
 // Check that the key is present in the second config.
             if ( ! config.containsKey( key ) ) {
+            System.out.println( "Missing key: " + key ); 
                same = false;
                break;
             }
 
 // Compare the values in the two configs.
             if ( ! get( key ).equals( config.get( key ) ) ) {
+            System.out.println( "Changed key: " + key ); 
                same = false;
                break;
             }
