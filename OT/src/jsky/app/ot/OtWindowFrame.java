@@ -51,7 +51,7 @@ public class OtWindowFrame extends JFrame {
 	setJMenuBar(new OtWindowMenuBar(editor, toolbar, treeToolbar));
 	
 	// set default window size
-        editor.setPreferredSize(new Dimension(650, 500));
+        editor.setPreferredSize(new Dimension(900, 600));
 	openFrameCount++;
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
 
