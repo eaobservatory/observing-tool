@@ -180,9 +180,11 @@ public class ReportBox extends JFrame {
   }
 
   public void printButton_actionPerformed(ActionEvent e) {
-	    PrintJob pj = getToolkit().getPrintJob(ReportBox.this, "mfo print test", null);
-	                                           //new JobAttributes(),
-						   //new PageAttributes());
+	    JobAttributes  jobAttributes  = new JobAttributes();
+	    PageAttributes pageAttributes = new PageAttributes();
+	    pageAttributes.setOrigin(PageAttributes.OriginType.PRINTABLE);
+	    PrintJob pj = getToolkit().getPrintJob(ReportBox.this, "OT validation report",
+	                                           jobAttributes, pageAttributes);
 	    Graphics pg = pj.getGraphics();
 	    //pg.setFont(fnt);
 	    
