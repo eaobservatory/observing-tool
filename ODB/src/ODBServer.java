@@ -26,6 +26,7 @@ import ODBAccess.*;
 import gemini.sp.*;
 import gemini.sp.iter.SpIterObserve;
 import gemini.sp.iter.SpIterSky;
+import gemini.sp.obsComp.SpSiteQualityObsComp;
 import orac.ukirt.util.*;
 import orac.ukirt.inst.*;
 import orac.ukirt.iter.*;
@@ -76,6 +77,7 @@ class ODBServer extends UnicastRemoteObject implements ODBServerMethods
     spItem = new SpIterNod();
     spItem = new SpIterObserve();
     spItem = new SpIterSky();
+    spItem = new SpSiteQualityObsComp();
   }
 
 
