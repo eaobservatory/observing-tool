@@ -179,6 +179,41 @@ public class SpTranslator {
    }
 
 /**
+ * Insert essential group headers which must appear after the
+ * startGroup.  For now assume that this is invoked immediately after
+ * the startGroup instruction.  If placed before the first loadConfig,
+ * observers may miss these instructions when they "start from highlight"
+ * in ORAC-OM, i.e. when they do not need to slew.
+ *
+ * @param Vector the sequence instructions (this is updated).
+ * @param String the "setHeader NOFFSETs <n>" instruction
+ * @param String the minimum-schedulable-block identification
+ * @param String the project name
+ */
+   public void insertGroupHeaders( Vector sequence, String noffsetsInstruction,
+                                   String msbid, String project ) {
+
+// Store minimum schedulable block identifier and project name to headers.
+// These are delayed to be after the first loadConfig, so that
+// observer do not by pass them in they are already on source.
+      if ( msbid != null ) {
+
+// Add the msbid-related instruction to the sequence buffer.
+         sequence.addElement( "setHeader MSBID " + msbid );
+      }
+
+      if ( project != null ) {
+
+// Add the project instruction to the sequence buffer.
+         sequence.addElement( "setHeader PROJECT " + project );
+      }
+
+// Finally insert the nOffsets.
+      sequence.addElement( noffsetsInstruction );
+
+   }
+   
+/**
  * Insert a loadConfig instruction before the first set OBJECT in a
  * sequence, unless there are no preceeding "set <obstype>" commands,
  * or there is a "loadConfig" instruction following the last 
@@ -839,30 +874,18 @@ public class SpTranslator {
       }
       if ( spObs != null ) {
 
-// Store minimum schedulable block identifier to a header.
-// =======================================================
+
+// Obtain OMP parameters.
+// ======================
 
 // SpObs is a subclass of SpMSB so SpObs objects are instances of SpMSB
 // as well as SpObs.
 
 // Obtain the minimum-schedulable-block identification.
          msbid = spObs.getTable().get( "msbid" );
-         if ( msbid != null ) {
-
-// Add the msbid-related instruction to the sequence buffer.
-            sequence.addElement( "setHeader MSBID " + msbid );
-         }
-
-// Store project name to a header.
-// ===============================
 
 // Obtain the project information.
          project = spObs.getTable().get( "project" );
-         if ( project != null ) {
-
-// Add the project instruction to the sequence buffer.
-            sequence.addElement( "setHeader PROJECT " + project );
-         }
 
 // Define file name.
 // =================
@@ -1521,8 +1544,10 @@ public class SpTranslator {
                                  sequence.addElement( "startGroup" );
                                  startGroup = true;
 
-// Finally insert the nOffsets.
-                                 sequence.addElement( noffsetsInstruction );
+// Insert the msbid, project, and nOffsets instructions afterr the new
+// group so that they will not be missed by a expereienced observer.
+                                 insertGroupHeaders( sequence, noffsetsInstruction,
+                                                     msbid, project );
                               }
 
                               observeCount( sequence, (sis.title).toUpperCase(),
@@ -1593,8 +1618,10 @@ public class SpTranslator {
                               sequence.addElement( "startGroup" );
                               startGroup = true;
 
-// Finally insert the nOffsets.
-                              sequence.addElement( noffsetsInstruction );
+// Insert the msbid, project, and nOffsets instructions afterr the new
+// group so that they will not be missed by a expereienced observer.
+                              insertGroupHeaders( sequence, noffsetsInstruction,
+                                                  msbid, project );
                            }
 
 // Here we just need the values of the nod positions, not the attribute.  Append
@@ -1623,8 +1650,10 @@ public class SpTranslator {
                               sequence.addElement( "startGroup" );
                               startGroup = true;
 
-// Finally insert the nOffsets.
-                              sequence.addElement( noffsetsInstruction );
+// Insert the msbid, project, and nOffsets instructions afterr the new
+// group so that they will not be missed by a expereienced observer.
+                              insertGroupHeaders( sequence, noffsetsInstruction,
+                                                  msbid, project );
                            }
 
 // Add the observe instructions to the sequence buffer.  Note the type
@@ -1664,8 +1693,10 @@ public class SpTranslator {
                               sequence.addElement( "startGroup" );
                               startGroup = true;
 
-// Finally insert the nOffsets.
-                              sequence.addElement( noffsetsInstruction );
+// Insert the msbid, project, and nOffsets instructions afterr the new
+// group so that they will not be missed by a expereienced observer.
+                              insertGroupHeaders( sequence, noffsetsInstruction,
+                                                  msbid, project );
                            }
 
 // Add the observe instructions to the sequence buffer.  Note the type
