@@ -1358,10 +1358,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       // The call to feVelocityAction() ensures that the current value in
       // the _w.velocity text field is registered even if the user
       // has never hit return (i.e. causing an ActionEvent) in the _w.velocity text field.
-
-      if(_velocityChanged) {
-         feVelocityAction( null );
-      }
+       if ( _velocityChanged ) {
+	   feVelocityAction( null );
+       }
+       _instHeterodyne.setRefFrameVelocity ( SpInstHeterodyne.convertRedshiftTo ((String)_w.velocityDefinition.getSelectedItem(), redshift ) );
 
       // After the feVelocityAction() call this.redshift is updated.
       _updateVelocityTextField((String)_w.velocityDefinition.getSelectedItem());
