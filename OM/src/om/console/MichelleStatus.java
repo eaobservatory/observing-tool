@@ -27,105 +27,108 @@ public final class MichelleStatus extends instrumentStatusPanel
   */
   public MichelleStatus()
   {
-      Border border=BorderFactory.createMatteBorder(2, 2,
-            2,2, Color.white);
+    Border border=BorderFactory.createMatteBorder(2, 2, 2, 2, Color.white);
 
+    setBorder(new TitledBorder(border,
+			       "Michelle Status",0,0,
+			       new Font("Roman",Font.BOLD,14),Color.black));
+    
+    setLayout(new BorderLayout(10,10));
 
-      setBorder(new TitledBorder(border,
-      "Michelle Status",0,0,
-      new Font("Roman",Font.BOLD,14),Color.black));
+    JPanel topPanel=new JPanel (new GridLayout(1,2,8,8));
 
-      setLayout(new BorderLayout(10,10));
+    top=new statusPanel("Michelle State:","Unknown ...");
 
-      JPanel topPanel=new JPanel (new GridLayout(1,2,8,8));
+    topPanel.add(top);
 
-      top=new statusPanel("Michelle State:","Unknown ...");
+    remaining=new statusPanel("Remaining:","");
+    topPanel.add(remaining);
 
-      topPanel.add(top);
+    add(topPanel,"South");
 
-      remaining=new statusPanel("Remaining:","");
-      topPanel.add(remaining);
+    dataPanel=new JPanel(new GridLayout(10,2,8,8));
+    dataPanel.setBorder(new MatteBorder(4,4,4,4,Color.lightGray));
 
-      add(topPanel,"South");
+    st=new statusPanel[names.length];
+    values =new String[names.length];
 
-      dataPanel=new JPanel(new GridLayout(9,2,8,8));
-      dataPanel.setBorder(new MatteBorder(4,4,4,4,Color.lightGray));
+    for(int i=0; i<names.length;i++) {
+      values[i]=new String();
+      st[i]=new statusPanel(names[i],values[i]);
+      dataPanel.add(st[i]);
+    }
+    add(dataPanel);
 
-      st=new statusPanel[names.length];
-      values =new String[names.length];
+    bottom=new myTextField("");
+    bottom.setColumns(32);
 
-      for(int i=0; i<names.length;i++)
-      {
-        values[i]=new String();
-        st[i]=new statusPanel(names[i],values[i]);
-        dataPanel.add(st[i]);
-      }
-      add(dataPanel);
+    JPanel mPanel=new JPanel();
+    mPanel.setBorder(new TitledBorder(new MatteBorder(4,4,4,4,Color.lightGray),
+				      "Message:",0,0,
+				      new Font("Roman",Font.BOLD,12), 
+				      Color.black));
 
-      bottom=new myTextField("");
-      bottom.setColumns(32);
-
-      /**
-       * mfo: for testing and debugging.
-       */
-      bottom.addMouseListener(new MouseAdapter() {
-          public void mouseClicked(MouseEvent evt) {
-	    MichelleStatusTest.setParameters(MichelleStatus.this);
-	  }
-	}
-      );
-
-
-
-      JPanel mPanel=new JPanel();
-      mPanel.setBorder(new TitledBorder(new MatteBorder(4,4,4,4,Color.lightGray),
-      "Message:",0,0,
-      new Font("Roman",Font.BOLD,12),Color.black));
-
-      mPanel.add(bottom);
-      add(mPanel,"North");
-   }
+    mPanel.add(bottom);
+    add(mPanel,"North");
+  }
 
 
   /**  public void messageString (String u) is a public method.
-    to retrun a textfield.
-
-    @param String u
-    @return  none
-    @throws none
+       to return a textfield.
+       
+       @param String u
+       @return  none
+       @throws none
   */
   public myTextField getStatusFrameValue (){ return top.getValu();}
 
-   /**  public void messageString (String u) is a public method.
-    to reponse the incoming message.
-
-    @param String u
-    @return  none
-    @throws none
+  /**  public void messageString (String u) is a public method.
+       to reponse the incoming message.
+       
+       @param String u
+       @return  none
+       @throws none
   */
-  public void messageString (String name, String value)
-  {
+  public void messageString (String name, String value) {
 
-    //System.out.println("MESS:"+u);
-    if(name.equals("State"))
-    {
-      top.getValu().setText(value);
+    if (name.equals("mchState")) {
+      String state = "UNKNOWN";
+      try {
+	int code = Integer.parseInt (value);
+	switch (code) {
+	case 0:
+	  state = "IDLE";
+	  break;
+	case 1:
+	  state = "PAUSED";
+	  break;
+	case 2:
+	  state = "BUSY";
+	  break;
+	case 3:
+	  state = "ERROR";
+	  break;
+	default:
+	  state = "UNKNOWN";
+	  break;
+	}
+      } catch (NumberFormatException e) {}
+      top.getValu().setText(state);
       return;
     }
 
-    if(name.equals("Message"))
-    {
+    if(name.equals("message")) {
       bottom.setText(value);
       return;
     }
 
-    for(int i = 0; i < parameters.length; i++) {
-      if(name.equals(parameters[i])) {
+    for(int i = 0; i < dramaParameters.length; i++) {
+      if(name.equals(dramaParameters[i])) {
         st[i].setValue(value);
       }
     }
-
-    if(name.equals("Camera")) {
+    
+    if(name.equals("camera")) {
       if(value.equals("imaging")) {
         setImaging();
       }
@@ -133,58 +136,17 @@ public final class MichelleStatus extends instrumentStatusPanel
         setSpectroscopy();
       }
     }
-/*    
-    if(name.equals("Filter"))
-    {
-      st[0].getValu().setText(value);
-      return;
-    }
 
-    if(name.equals("readMode"))
-    {
-      st[1].getValu().setText(value);
-      return;
+    if(name.equals("polarimetry")) {
+      if(value.equals("no")) {
+        setPolarimetry(false);
+      }
+      else {
+        setPolarimetry(true);
+      }
     }
-
-    if(name.equals("expTime"))
-    {
-      st[2].getValu().setText(value);
-      return;
-    }
-
-    if(name.equals("Coadds"))
-    {
-      st[3].getValu().setText(value);
-      return;
-    }
-
-    if(name.equals("readArea"))
-    {
-      st[4].getValu().setText(value);
-      return;
-    }
-
-    if(name.equals("ConfigType"))
-    {
-      st[5].getValu().setText(value);
-      return;
-    }
-
-    if(name.equals("PixelScale"))
-    {
-      st[6].getValu().setText(value);
-      return;
-    }
-
-    if(name.equals("FieldSize"))
-    {
-      st[7].getValu().setText(value);
-      return;
-    }
-*/
     
-    if(name.equals("Remaining"))
-    {
+    if(name.equals("countdown")) {
       remaining.getValu().setText(value);
       return;
     }
@@ -249,16 +211,26 @@ public final class MichelleStatus extends instrumentStatusPanel
 
   protected void setImaging() {
     st[3].setEnabled(false);
+    st[4].setEnabled(false);
     st[5].setEnabled(false);
     st[6].setEnabled(false);
     st[7].setEnabled(false);
+    st[12].setEnabled(false);
+    st[19].setEnabled(false);
   }
   
   protected void setSpectroscopy() {
     st[3].setEnabled(true);
+    st[4].setEnabled(true);
     st[5].setEnabled(true);
     st[6].setEnabled(true);
     st[7].setEnabled(true);
+    st[12].setEnabled(true);
+    st[19].setEnabled(true);
+  }
+
+  protected void setPolarimetry(boolean pol) {
+    st[18].setEnabled(pol);
   }
  
   private myTextField bottom;
@@ -269,9 +241,9 @@ public final class MichelleStatus extends instrumentStatusPanel
   private String[] values;
 
   /**
-   * List of parameters used in GUI.
+   * List of parameter labels used in GUI.
    *
-   * In terms of number and order of elements the names array has to correspond to {@link parameters}.
+   * In terms of number and order of elements the names array has to correspond to {@link dramaParameters}.
    */
   private String [] names={"Camera",
                            "Polarimetry",
@@ -281,44 +253,45 @@ public final class MichelleStatus extends instrumentStatusPanel
                            "Focal Plane Mask",
                            "Position Angle",
                            "Pixel Sampling",
-                           "Pixel Size",
+                           "Pixel FOV",
                            "Coadds",
                            "Config Type",
                            "Science FOV",
-                           "Spectral Cov",
+                           "Spectral Cover",
                            "Chop Frequency",
                            "Exposure Time",
                            "Obs Time",
                            "Acq Mode",
-                           "Det Duty Cycle"};
+                           "Det Duty Cycle",
+                           "Waveplate Pos.",
+                           "Detector Pos."};
 
   /**
-   * List of parameters used in DRAMA tasks.
+   * List of parameter strings used in DRAMA tasks.
    *
-   * In terms of number and order of elements the parameters array has to correspond to {@link names}.
+   * In terms of number and order of elements the dramaParameters array has to correspond to {@link names}.
    */
-  private String [] parameters=
-                          {"Camera",			// "Camera",
-                           "Polarimetry",		// "Polarimetry",
-                           "Filter",			// "Filter",
-                           "Grating",			// "Grating",
-                           "Wavelength",		// "Wavelength",
-                           "FocalPlaneMask",		// "Focal Plane Mask",
-                           "PositionAngle",		// "Position Angle",
-                           "PixelSampling",		// "Pixel Sampling",
-                           "PixelSize",			// "Pixel Size",
-                           "Coadds",			// "Coadds",
-                           "ConfigurationType", 	// "Configuration Type",
-                           "ScienceFieldOfView",	// "Science Field of View",
-                           "SpectralCoverage",		// "Spectral Coverage",
-                           "ChopFrequency",		// "Chop Frequency",
-                           "expTime",			// "Exposure Time",
-                           "ObservationTime",		// "Observation Time",
-                           "AcquisitionMode",		// "Acquisition Mode",
-                           "DetectorDutyCycle"};	// "Detector Duty Cycle"};
-
+  private String [] dramaParameters =
+                          {"camera",		   // "Camera",
+                           "polarimetry",          // "Polarimetry",
+                           "filtName",	           // "Filter",
+                           "gratName",	           // "Grating",
+                           "gratPos",	           // "Wavelength",
+                           "slitName",	           // "Focal Plane Mask",
+                           "posAngle",             // "Position Angle",
+                           "pixelSampling",        // "Pixel Sampling",
+                           "pixelSize",	           // "Pixel Size",
+                           "numExp",	           // "Coadds",
+                           "obsType",              // "Observation Type",
+                           "fieldOfView",          // "Science Field of View",
+                           "specCoverage",         // "Spectral Coverage",
+                           "chopFrequency",        // "Chop Frequency",
+                           "expTime",	           // "Exposure Time",
+                           "obsTime",	           // "Observation Time",
+                           "acqMode",	           // "Acquisition Mode",
+                           "dutyCycle",            // "Detector Duty Cycle"
+                           "wavepos",              // Position of waveplate
+                           "tPixel"};              // Position of detector
 			   
-			   //"","Acquisition Mode","Exposure Time","Coadds","Readout area",
-                           //"Config Type", "Pixel Size:",   "Science FOV",""};
 }
 

@@ -53,23 +53,26 @@ final public class commandSent extends UnicastRemoteObject
   */
   public synchronized void sendCommand () throws RemoteException
     {
-
-      if (ssocket.getSocket()!=null) {
-	try {
-	  OutputStream os=ssocket.getSocket().getOutputStream();
-	  
-	  OutputThread ot =new OutputThread(os,command);
-	  ot.start();
-	  
+      
+      // Check command before sending
+      if (command != null) {
+	if (ssocket.getSocket()!=null) {
 	  try {
-	    ot.join();
-	  } catch (InterruptedException e) {
-	    System.out.println ("Failure connecting to socket output thread");
+	    OutputStream os=ssocket.getSocket().getOutputStream();
+	    
+	    OutputThread ot =new OutputThread(os,command);
+	    ot.start();
+	    
+	    try {
+	      ot.join();
+	    } catch (InterruptedException e) {
+	      System.out.println ("Failure connecting to socket output thread");
+	      System.err.println(e);
+	    }
+	  } catch (IOException e) {
+	    System.out.println ("Failure creating socket output thread");
 	    System.err.println(e);
 	  }
-	} catch (IOException e) {
-	  System.out.println ("Failure creating socket output thread");
-	  System.err.println(e);
 	}
       }
     }
@@ -91,12 +94,7 @@ final public class commandSent extends UnicastRemoteObject
       }
 
       command = new String
-	("Dobey OOS_"+instName+" init  Argument1="+instName+" ");
-
-      if(instName.equals("UFTI"))
-	command=new String("Dobey OOS_"+instName+" init Argument1=ufti ");
-      if(instName.equals("CGS4"))
-	command=new String("Dobey OOS_"+instName+" init Argument1=cgs4 ");
+	("Dobey OOS_"+instName+" init ");
 
       try {
 	sendCommand();
@@ -188,18 +186,6 @@ final public class commandSent extends UnicastRemoteObject
       } catch (RemoteException re) {
 	System.out.println ("Exception in sendCommand:"+re);
       }
-
-
-    //comment these out and move it into messageServer class
-    //it runs *after* the GETP action is done. It seems there
-    //is timing problem there
-    //command=new String("Dobey MONITOR_"+instName+" START ");
-
-   // try {
-   //    sendCommand();
-   // }   catch (RemoteException re) {
-   //     System.out.println ("Exception in sendCommand:"+re);
-   // }
 
       command = new String
 	("Dobey DHSPOOL_"+instName+" setHeader Argument1=OBSERVER Argument2=\""+
@@ -516,7 +502,16 @@ final public class commandSent extends UnicastRemoteObject
  */
   public void startMovie (String sec)
     {
-      command=new String("Dobey "+instName+" START_MOVIE Argument1="+sec+" ");
+      // Set up command (hate the hardcoding here...)
+      String instTask = System.getProperty (instName, instName);
+      if (instName.equalsIgnoreCase("michelle")) {
+	command=new String("Dobey "+instTask+" startMovie Argument1="+sec+" ");
+      } else if (instName.equalsIgnoreCase("ufti")) {
+	command=new String("Dobey "+instTask+" START_MOVIE Argument1="+sec+" ");
+      } else {
+	command = null;
+      }
+      // And send it
       try {
 	sendCommand();
       }   catch (RemoteException re) {
@@ -527,7 +522,8 @@ final public class commandSent extends UnicastRemoteObject
   public void call_Back(String str) {
       command=new String("Dobey "+"QL_"+instName+" BACK Argument1="+str+" ");
       
-      if((System.getProperty("DBUG_MESS") != null) && System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
+      if((System.getProperty("DBUG_MESS") != null) &&
+	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
         System.out.println("Sending command \"" + command + "\".");
       }
       
@@ -541,7 +537,8 @@ final public class commandSent extends UnicastRemoteObject
   public void call_s_Back(String str) {
       command=new String("Dobey "+"QL_"+instName+" S_BACK Argument1="+str+" ");
       
-      if((System.getProperty("DBUG_MESS") != null) && System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
+      if((System.getProperty("DBUG_MESS") != null) &&
+	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
         System.out.println("Sending command \"" + command + "\".");
       }
       
@@ -555,7 +552,8 @@ final public class commandSent extends UnicastRemoteObject
   public void call_Mask(String str) {
       command=new String("Dobey "+"QL_"+instName+" MASK Argument1="+str+" ");
 
-      if((System.getProperty("DBUG_MESS") != null) && System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
+      if((System.getProperty("DBUG_MESS") != null) &&
+	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
         System.out.println("Sending command \"" + command + "\".");
       }
       
@@ -569,7 +567,8 @@ final public class commandSent extends UnicastRemoteObject
   public void call_s_Mask(String str) {
       command=new String("Dobey "+"QL_"+instName+" S_MASK Argument1="+str+" ");
 
-      if((System.getProperty("DBUG_MESS") != null) && System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
+      if((System.getProperty("DBUG_MESS") != null) &&
+	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
         System.out.println("Sending command \"" + command + "\".");
       }
       
@@ -609,7 +608,8 @@ final public class commandSent extends UnicastRemoteObject
       command=new String ("Dobey "+"QL_"+instName+" " + action + " rowvalue="+cutRow+" "+
 			  "x1value=1 y1value=2 x2value=3 y2value=4 ");
       
-      if((System.getProperty("DBUG_MESS") != null) && System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
+      if((System.getProperty("DBUG_MESS") != null) &&
+	 System.getProperty("DBUG_MESS").equalsIgnoreCase("ON")) {
         System.out.println("Sending command \"" + command + "\".");
       }
 
@@ -645,7 +645,17 @@ final public class commandSent extends UnicastRemoteObject
   */
   public void stopMovie ( )
     {
-      command=new String("Dobey "+instName+" STOP_MOVIE ");
+      // Set up command (hate the hardcoding here...)
+      String instTask = System.getProperty (instName, instName);
+      if (instName.equalsIgnoreCase("michelle")) {
+	command=new String("Dobey "+instTask+" endMovie");
+      } else if (instName.equalsIgnoreCase("ufti")) {
+	command=new String("Dobey "+instTask+" STOP_MOVIE ");
+      } else {
+	command = null;
+      }
+
+      // And send it
       try {
 	sendCommand();
       }   catch (RemoteException re) {
@@ -712,16 +722,11 @@ final public class commandSent extends UnicastRemoteObject
       @return none
       @throws RemoteException
   */
-   public void setTitle (String s) throws RemoteException
-     {
-//       command=new String("Dobey MONITOR_"+instName+" MESSAGE Argument1="+s+" ");
-      
-//       try {
-// 	sendCommand();
-//       } catch (RemoteException re) {
-// 	System.out.println ("Exception in sendCommand:"+re);
-//       }
-     }
+//    public void setTitle (String s) throws RemoteException
+//      {
+//        // Do nothing. Used to do something stupid, now superceded by
+//        // something more sensible...
+//      }
   
  /**
     public void setStop (int tag)
@@ -843,7 +848,7 @@ final public class commandSent extends UnicastRemoteObject
   private int controlTag=0;
   private remoteFrame frame;
   private DramaSocket ssocket;
-  private String command, instName;
+  private String command=null, instName;
   private Process p;
   private FrameList listFrames;
 }

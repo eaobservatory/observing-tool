@@ -34,6 +34,7 @@ public interface messageServerInterface extends Remote
   public void linkCGS4Status (CGS4Status s) throws RemoteException;
   public void linkIRCAM3Status (IRCAM3Status s) throws RemoteException;
   public void linkMichelleStatus (MichelleStatus s) throws RemoteException;
+  public void linkUISTStatus (UISTStatus s) throws RemoteException;
 
 
   public void linkMovieFrame (movie m) throws RemoteException;

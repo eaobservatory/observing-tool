@@ -54,7 +54,7 @@ public class ErrorLogDialog extends JDialog {
     this.getContentPane().add(jScrollPane1, BorderLayout.CENTER);
     jScrollPane1.getViewport().add(errorMessages, null);
 
-    setBounds(100, 100, 400, 400);
+    setBounds(100, 100, 800, 400);
   }
 
   public void addMessage(String message) {

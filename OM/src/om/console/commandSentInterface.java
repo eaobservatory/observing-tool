@@ -29,7 +29,6 @@ public interface commandSentInterface extends Remote
   public void setStop (int i) throws RemoteException;
   public void setComment (String s,int i)  throws RemoteException;
   public void setTag (int i) throws RemoteException;
-  public void setTitle (String s) throws RemoteException;
   public void setMovie(int i) throws RemoteException;
   public void startMovie(String s) throws RemoteException;
   public void stopMovie() throws RemoteException;

@@ -37,32 +37,32 @@ final public class remoteFrame extends UnicastRemoteObject
   */
   public remoteFrame(String name, String title,FrameList frs)
     throws RemoteException
-    {
-      super ();
+  {
+    super ();
+    
+    m = new messageServer(name,frs);
       
-      m=new messageServer(name,frs);
+    dsocket = new DramaSocket(1234,(messageServerInterface)m);
       
-      dsocket=new DramaSocket(1234,(messageServerInterface)m);
+    com = new commandSent(name,dsocket,frs);
+    com.linkRemoteFrame(this);
       
-      com=new commandSent(name,dsocket,frs);
-      com.linkRemoteFrame(this);
+    //try {
+    //  Naming.rebind("commandSent"+name,com);
+    //}
+    //catch (MalformedURLException e) {
+    // System.out.println("MalformedURLException in RemoteFrame object:" + e);
+    //}
       
-      //try {
-      //  Naming.rebind("commandSent"+name,com);
-      //}
-      //catch (MalformedURLException e) {
-      // System.out.println("MalformedURLException in RemoteFrame object:" + e);
-      //}
+    sendCmds cmd = new sendCmds( (commandSentInterface) com);
+    frame = new sequenceFrame(name,title,cmd);
+    frame.setLinks ( (messageServerInterface) m);
       
-      sendCmds cmd=new sendCmds((commandSentInterface)com);
-      frame = new sequenceFrame(name,title,cmd);
-      frame.setLinks((messageServerInterface)m);
+    frame.show();
+    dsocket.start();
       
-      frame.show();
-      dsocket.start();
-      
-      System.out.println("RMI Server for the "+name+" console is not ready!");
-    }
+    System.out.println("RMI Server for the "+name+" console is not ready!");
+  }
   
   
   /** public sequenceFrame getConsole () is a public method to return

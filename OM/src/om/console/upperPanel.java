@@ -17,7 +17,8 @@ import om.util.OracColor;
     @version 1.0 1st June 1999
     @author M.Tan@roe.ac.uk
 */
-final public class upperPanel extends JPanel implements messageInterface,java.io.Serializable
+final public class upperPanel extends JPanel 
+  implements messageInterface, java.io.Serializable
 {
   /** public upperPanel(String instName) is
     the class constructor. The class has only one constructor so far.
@@ -31,16 +32,11 @@ final public class upperPanel extends JPanel implements messageInterface,java.io
 
   public upperPanel(String instName)
   {
-    //Border border=BorderFactory.createMatteBorder(12, 12,
-      //      12,12, Color.lightGray);
 
-     Border border=BorderFactory.createMatteBorder(2, 2,
-            2,2, Color.white); //a new border required by gsw on April 07, 2000
+    Border border=BorderFactory.createMatteBorder(2, 2, 2, 2, Color.white);
 
-
-    setBorder(new TitledBorder(border,
-      "",0,0,
-      new Font("Roman",Font.BOLD,14),Color.black));
+    setBorder(new TitledBorder(border, "", 0, 0,
+			       new Font("Roman",Font.BOLD,14),Color.black));
 
     setLayout(new GridLayout(1,8,0,6));
 

@@ -304,6 +304,8 @@ final public class sequenceFrame extends JFrame
 	  m.linkIRCAM3Status( (IRCAM3Status) status);
 	}else if (inst.equals("Michelle")) {
 	  m.linkMichelleStatus( (MichelleStatus) status);
+	}else if (inst.equals("UIST")) {
+	  m.linkUISTStatus( (UISTStatus) status);
 	}
 
 	m.linkCommandSent(comSent);

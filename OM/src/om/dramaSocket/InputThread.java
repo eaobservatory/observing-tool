@@ -85,8 +85,18 @@ final public class InputThread extends Thread implements java.io.Serializable
 		System.out.println("InputThread object has "+ e.toString());
 	      }
 	    }
-	    if(socketMessage) System.out.println(temp);
-	    
+
+	    // If this is an internal Java-Drama comms message then
+	    // only print it if debugs are turned on.
+	    if (temp.startsWith("msg: PARA:") || 
+		temp.startsWith("msg: Untreated") ||
+		temp.startsWith("EXECLIST::") ||
+		temp.startsWith("msg: EXEC")) {
+	      if (socketMessage) System.out.println(temp);
+	    } else {
+	      // Otherwise always print it
+	      System.out.println (temp);
+	    }
 	    temp = "";    //set it empty
 	  }
 	}

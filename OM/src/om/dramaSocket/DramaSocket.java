@@ -93,41 +93,29 @@ final public class DramaSocket extends Thread implements java.io.Serializable
         System.out.println("Connection established with: \n " + connection);
 
         //starting a message input monitoring thread object
-System.out.println("MFO DEBUG2 in DramaSocket 1");
         it =new InputThread(connection.getInputStream(),mess);
-System.out.println("MFO DEBUG2 in DramaSocket 2");
         it.start();
-System.out.println("MFO DEBUG2 in DramaSocket 3");
 
         try
         {
-System.out.println("MFO DEBUG2 in DramaSocket 4");
           it.join();
-System.out.println("MFO DEBUG2 in DramaSocket 5");
         }
         catch (InterruptedException e)
         {
-System.out.println("MFO DEBUG2 in DramaSocket 6");
           System.err.println(e);
-System.out.println("MFO DEBUG2 in DramaSocket 7");
         }
 
-System.out.println("MFO DEBUG2 in DramaSocket 8");
       }
 
     }
     catch (IOException e) { //it is also catched when the socket is closed.
 
-System.out.println("MFO DEBUG2 in DramaSocket 9");
       thePort++; //use another post number if the default is not working
 
-System.out.println("MFO DEBUG2 in DramaSocket 10");
       if(reRun)
         run();
       else
         System.err.println(ss+" has "+e);
-
-System.out.println("MFO DEBUG2 in DramaSocket 11");
     }
   }
 

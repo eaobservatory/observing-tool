@@ -1,6 +1,5 @@
 package om.console;
 
-import om.sciProgram.AlertBox;
 import om.frameList.*;
 import java.util.*;
 import java.io.*;
@@ -14,6 +13,7 @@ import java.rmi.server.*;
 import java.rmi.*;
 
 import om.dramaMessage.*;
+import om.util.ErrorLogDialog;
 
 /** messageServer class is about
     providing service to process message from a socket.
@@ -50,7 +50,8 @@ final public class messageServer extends UnicastRemoteObject implements messageS
  */
   public void initSequence() throws RemoteException
   {
-    cSent.setInit();
+    // setInit removed here: Absolutely no need for it! AB 2001/07/02
+    //    cSent.setInit();
     cSent.setLink("SOCK_"+instName);
   }
 
@@ -65,8 +66,8 @@ final public class messageServer extends UnicastRemoteObject implements messageS
   public void processMessage(String m) throws RemoteException
   {
 
-
-    if((System.getProperty("DEBUG_PARSER") != null) && System.getProperty("DEBUG_PARSER").equalsIgnoreCase("ON")) {
+    if((System.getProperty("DEBUG_PARSER") != null) && 
+       System.getProperty("DEBUG_PARSER").equalsIgnoreCase("ON")) {
       System.out.println ("(original message)"+m);
     }	
 
@@ -82,7 +83,8 @@ final public class messageServer extends UnicastRemoteObject implements messageS
       message = MessageParser.parse(m);
     }
     catch(MessageParseException e) {
-      new AlertBox("" + e);
+      //new AlertBox("" + e);
+      errorLog.addMessage("Alert: " + e);
     }
 
   
@@ -124,8 +126,9 @@ final public class messageServer extends UnicastRemoteObject implements messageS
       }
       
       if(dramaMessage.type == DramaMessage.MESSAGE) {
-	if(dramaMessage.value.equals("entered uftiStartMovie")) {
-	  movieMessage(dramaMessage.value); //the movie messsage
+	// Catch the special case of the UFTI startmovie message (yuegh).
+	if(dramaMessage.value.equals("entered uftiStartMovie, status OK")) {
+	  movieOn (true);
 	  return;
 	}
 
@@ -143,8 +146,9 @@ final public class messageServer extends UnicastRemoteObject implements messageS
       }
       
       if(dramaMessage.type == DramaMessage.ERROR) {
-	//show error messages from drama tasks
-	ErrorBox err=new ErrorBox("Error in the Drama tasks:"+m.substring(5));
+
+	// Add message tgo the error log.
+	errorLog.addMessage("DRAMA ERROR: " + dramaMessage.value);
 	return;
       }
     }
@@ -152,16 +156,34 @@ final public class messageServer extends UnicastRemoteObject implements messageS
     if(message.getClass().getName().equals("dramaMessage.CompletionMessage")) {
       CompletionMessage completionMessage = (CompletionMessage)message;
       
-      if((System.getProperty("DEBUG_PARSER") != null) && System.getProperty("DEBUG_PARSER").equalsIgnoreCase("ON")) {
-        System.out.println("(from parser     )" + completionMessage.toMsgString());
+      if((System.getProperty("DEBUG_PARSER") != null) && 
+	 System.getProperty("DEBUG_PARSER").equalsIgnoreCase("ON")) {
+        System.out.println("(from parser     )" + 
+			   completionMessage.toMsgString());
       }
       
       if(completionMessage.status == 0) {
+
         if(completionMessage.type.equals("obeyw")) {
-          if(completionMessage.taskName.equals(instName)) {
-	    if(completionMessage.action.equals("START_MOVIE")) {
-	      movieMessage(m);
+
+	  String instTask = System.getProperty (instName, instName);
+          if(completionMessage.taskName.equals(instTask)) {
+
+	    // In the case of Michelle, when startMovie finishes then the
+	    // movie is now running (on). For UFTI there is NO completion
+	    // message when movie is started: The movie is known to be on
+	    // when a specific msgout is received (see ...)
+	    //
+	    // For movie completion: When Michelle movie finishes the
+	    // completion comes from endMovie, when UFTI movie finishes
+	    // the completion comes from START_MOVIE (!)
+	    if(completionMessage.action.equals("startMovie")) {
+	      movieOn(true);
 	      return;
+
+	    } else if (completionMessage.action.equals("START_MOVIE") ||
+		       completionMessage.action.equals("endMovie") ) {
+	      movieOn(false);
 	    }
 	  }
 
@@ -173,8 +195,9 @@ final public class messageServer extends UnicastRemoteObject implements messageS
 	        mLink--;
 	      } else if(mLink==1) {
 		// Set link to DES task: get name from property list or
-		// default to just "DES".
-	        String taskName = System.getProperty ("DES", "DES");
+		// default to "DES_<instName>".
+	        String taskName = System.getProperty ("DES_"+instName,
+						      "DES_"+instName);
 		System.out.println ("Setting link to "+taskName);
 	        cSent.setLink(taskName);
 	        mLink--;
@@ -269,7 +292,8 @@ final public class messageServer extends UnicastRemoteObject implements messageS
           if(completionMessage.taskName.equals("OOS_"+instName)) {
 	    if(completionMessage.action.equals("target")) {
 
-	      new AlertBox("Failed in a TCS connection attempt");
+	      //new AlertBox("Failed in a TCS connection attempt");
+	      errorLog.addMessage("Alert: Failed in a TCS connection attempt");
 	      return;
 	    }
           }
@@ -278,16 +302,18 @@ final public class messageServer extends UnicastRemoteObject implements messageS
     }
   }
     
-  /** public void movieMessage(String s) is a public method to
-    process messages about the movie status.
+  /** public void movieOn(boolean on) is a public method to
+    inform the model about the movie status. Also informs the
+    movie user interface.
 
-    @param String m
+    @param boolean on
     @return  none
     @throws RemoteException
  */
-  public void movieMessage(String s) throws RemoteException
+  public void movieOn (boolean on) throws RemoteException
   {
-    items.Movie(s);
+    items.Movie(on);
+    _movie.setMovieOn(on);
   }
 
 
@@ -388,7 +414,7 @@ final public class messageServer extends UnicastRemoteObject implements messageS
   public void instMessage(String name, String value) throws RemoteException
   {
 
-    System.out.println ("Got message " + name + " " + value);
+    //    System.out.println ("Got message " + name + " " + value);
     if(name.equals("expTime"))
     {
       _movie.setExposureTime(value);
@@ -603,6 +629,11 @@ final public class messageServer extends UnicastRemoteObject implements messageS
       sFrame=s;
     }
 
+  public void linkUISTStatus (UISTStatus s) throws RemoteException
+    {
+      sFrame=s;
+    }
+
   /** public void linkTargetPanel(targetPanel t) is a public method to
     link the messageServer with a targetPanel object
 
@@ -664,4 +695,5 @@ final public class messageServer extends UnicastRemoteObject implements messageS
   private Vector seqData=new Vector();
   private FrameList consoleList;
   private int mLink=4;  //no of drama tasks to be linked with the drama monitor task e.g.3
+  private ErrorLogDialog errorLog = new ErrorLogDialog();
 }

@@ -19,7 +19,8 @@ import om.sciProgram.AlertBox;
     @version 1.0 1st Sept 1999
     @author M.Tan@roe.ac.uk
 */
-public final class movie extends JFrame implements ActionListener, ItemListener, java.io.Serializable
+public final class movie extends JFrame 
+  implements ActionListener, ItemListener, java.io.Serializable
 {
   /** public movie(sendCmds c) is
     the class constructor.
@@ -38,7 +39,7 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
    */
   public movie(sendCmds c, boolean spectrometer)
   {
-      cSent=c;
+      cSent = c;
       setTitle("Quick Look Feature Control");
 
       setLocation(800,400);
@@ -49,65 +50,76 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
             }
          } );
 
-      Border border=BorderFactory.createMatteBorder(8, 8,
+      Border border = BorderFactory.createMatteBorder(8, 8,
             8,8, Color.lightGray);
+      Border buttonBorder = new BevelBorder(BevelBorder.RAISED);
 
-      Container contentPane = getContentPane();
+      Container contentPane  =  getContentPane();
       contentPane.setLayout(new BorderLayout(10,10));
 
-
-      Start=new JButton("Start");
-      Stop=new JButton("Stop");
-      Dismiss=new JButton("Dismiss");
+      Start = new JButton("Start");
+      Stop = new JButton("Stop");
+      Dismiss = new JButton("Dismiss");
 
       Stop.setEnabled(false);
-      Start.setBorder(border);
-      Stop.setBorder(border);
-      Dismiss.setBorder(border);
+      Start.setBorder(buttonBorder);
+      Start.setBackground(Color.green);
+      //      Start.setMinimumSize (new Dimension (120,30));
+      Stop.setBorder(buttonBorder);
+      Stop.setBackground(Color.red);
+      //      Stop.setMinimumSize (new Dimension (120,30));
+      Dismiss.setBorder(buttonBorder);
+      //      Dismiss.setMinimumSize (new Dimension (120,30));
 
-      contentPane.add(Start,"West");
-      contentPane.add(Stop);
-      contentPane.add(Dismiss,"East");
+      JPanel controlButtons = new JPanel();
+      controlButtons.setBorder(border);
+      controlButtons.setLayout(new GridLayout(1,3,20,10));
 
-      expTime=new statusPanel("Exposure Time:","");
+      controlButtons.add(Start,"West");
+      controlButtons.add(Stop);
+      controlButtons.add(Dismiss,"East");
+      contentPane.add(controlButtons);
+
+      expTime = new statusPanel("Movie Time:","");
       expTime.setBorder(border);
       expTime.getValu().setEditable(true);
+      expTime.getValu().setBorder (new BevelBorder(BevelBorder.LOWERED));
       contentPane.add(expTime,"North");
 
-      JPanel bPanel=new JPanel();
+      JPanel bPanel = new JPanel();
       bPanel.setBorder(border);
       bPanel.setLayout(new GridLayout(6,1,4,4));
 
-      cutRow=new statusPanel("Cut Row to Display:","");
+      cutRow = new statusPanel("Display Cut Row:","");
       
       cutRow.setBorder(border);
 
-      JPanel backGround=new JPanel();
+      JPanel backGround = new JPanel();
       backGround.setLayout(new GridLayout(1,2,4,4));
 
-      JPanel maskPixel=new JPanel();
+      JPanel maskPixel = new JPanel();
       maskPixel.setLayout(new GridLayout(1,2,4,4));
 
       bGroundOn = new JCheckBox("Frame to subtract:");
-      bGround=new JButton("Load");
+      bGround = new JButton("Load");
       
       backGround.add(bGroundOn);
       backGround.add(bGround);
       backGround.setBorder(border);
       
       bPixelOn = new JCheckBox("Bad pixel mask:");
-      bPixel=new JButton("Load");
+      bPixel = new JButton("Load");
       maskPixel.add(bPixelOn);
       maskPixel.add(bPixel);
       maskPixel.setBorder(border);
 
-      Apply=new JButton("Apply Changes");
+      Apply = new JButton("Apply Changes");
 
       modePanel = new statusPanel("Mode", _modes[_currentMode]);
       modePanel.getValu().setEditable(false);
       modePanel.setBorder(border);
 
-      switchModeButton=new JButton("Switch to \"" + _modes[(_currentMode+1)%2] + "\"");
+      switchModeButton = new JButton("Switch to \"" + _modes[(_currentMode+1)%2] + "\"");
 
       // if the instrument is (also) a spectrometer (the instrument can take data in spectroscopy mode)
       // then set widgets enabled/editable according to _currentMode and leave switchModeButton enabled.
@@ -172,84 +184,68 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
   {
      Object source =evt.getSource();
 
-     if (source==Start)
-     {
-        period=new String(expTime.getValu().getText());
+     if (source==Start) {
+       period = new String(expTime.getValu().getText());
 
-        //add in a error catching here so that the observer cannot attempt
-        //to start it without a value being entered.so that the observer can
-	//not attempt to start
-        //this is a requirement from gsw on 16 March 2000
-	// Rewritten to allow double values. AB 6May00
+       //add in a error catching here so that the observer cannot attempt
+       //to start it without a value being entered.so that the observer can
+       //not attempt to start
+       //this is a requirement from gsw on 16 March 2000
+       // Rewritten to allow double values. AB 6May00
+       
+       double time = 0.0;
 
-        double time=0.0;
+       try {
+	 time = (Double.valueOf(period)).doubleValue();
+       } catch (NumberFormatException e) {
+	 ErrorBox err = new ErrorBox("Error starting movie, illegal exptime: "+e);
+	 return;
+       }
 
-        try
-        {
-          time=(Double.valueOf(period)).doubleValue();
-        }
-        catch (NumberFormatException e)
-        {
-            ErrorBox err=new ErrorBox("Error starting movie, illegal exptime: "+e);
-            return;
-        }
+       if (time<=0) {
+	 ErrorBox err = new ErrorBox("Error in starting movie, exp. time= "+time);
+	 return;
+       }
 
-        if(time>0)
-        ;
-        else
-        {
-            ErrorBox err=new ErrorBox("Error in starting movie, exp. time= "+time);
-            return;
-
-        }
-
-        cSent.startMovie(period);
-        Stop.setEnabled(true);
-
-        expTime.getValu().setEditable(false);
-
-        Dismiss.setEnabled(false);
-        Start.setEnabled(false);
-        return;
-     }
-
-     if (source==Stop)
-     {
-       cSent.stopMovie();
-       Stop.setEnabled(false);
-       Start.setEnabled(true);
-       Dismiss.setEnabled(true);
-       expTime.getValu().setEditable(true);
-        
+       cSent.startMovie(period);
+       //        Stop.setEnabled(true);
+       //        expTime.getValu().setEditable(false);
+       //        Dismiss.setEnabled(false);
+       //        Start.setEnabled(false);
        return;
      }
 
-     if(source==Dismiss)
-     {
+     if (source==Stop) {
+       cSent.stopMovie();
+       //        Stop.setEnabled(false);
+       //        Start.setEnabled(true);
+       //        Dismiss.setEnabled(true);
+       //        expTime.getValu().setEditable(true);
+       
+       return;
+     }
+
+     if (source==Dismiss) {
        this.setVisible(false);
      }
 
-     if(source==Apply)
-     {
+     if (source==Apply) {
        try {
          int tmpCutRow = Integer.parseInt(cutRow.getValu().getText());
 	 if(tmpCutRow < 0) {
            cutRow.getValu().setText("0");
 	 }
-       }
-       catch(NumberFormatException e) {
+       } catch(NumberFormatException e) {
          cutRow.getValu().setText("0");
        }
 
        cSent.applyQlook(cutRow.getValu().getText(), _currentBackground, getMode());
      }
      
-     if(source==switchModeButton)
-     { 
+     if (source==switchModeButton) { 
        if(switchModeButton.getActionCommand().equals(_modes[IMAGING])) {
 	 _currentMode = IMAGING;
-       }
-       else {
+       } else {
          _currentMode = SPECTROSCOPY;
        }
 
@@ -267,38 +263,36 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
        switchModeButton.setText("Switch to \"" + _modes[(_currentMode+1)%2] + "\"");
      }
 
-     if(source==bGround)
-     {
+     if (source==bGround) {
      
-        // Create an instance of the file chooser dialog
-        Properties temp=System.getProperties();
+       // Create an instance of the file chooser dialog
+       Properties temp = System.getProperties();
       
-      String dataBaseDir      = temp.getProperty("DATA_BASE_DIR",     "");
-      String dataTypeSubDir   = temp.getProperty("DATA_TYPE_SUB_DIR", "");
+       String dataBaseDir      = temp.getProperty("DATA_BASE_DIR",     "");
+       String dataTypeSubDir   = temp.getProperty("DATA_TYPE_SUB_DIR", "");
       
-      String exec_path = dataBaseDir + "/" + UT.getUT() + "/" + dataTypeSubDir;
+       String exec_path = dataBaseDir + "/" + UT.getUT() + "/" + dataTypeSubDir;
 
-      if(System.getProperty("DBUG_MESS").equals("ON"))
+      if (System.getProperty("DBUG_MESS").equals("ON"))
         System.out.println("EXEC_PATH:"+exec_path);
 
-  		myFileChooser fileChooser= new myFileChooser(exec_path);
+      myFileChooser fileChooser =  new myFileChooser(exec_path);
 
-		fileChooser.setDialogTitle("Open frame to subtract");
-  		int returnValue = fileChooser.showOpenDialog(null);
+      fileChooser.setDialogTitle("Open frame to subtract");
+      int returnValue = fileChooser.showOpenDialog(null);
 
-			if( returnValue == 0 )  // User selected OK
-			{
-				// Figure out what file the user selected
+      // User selected OK
+      if ( returnValue == 0 ) {
+
+	// Figure out what file the user selected
 	_currentBackground = fileChooser.getSelectedFile().getPath();
         bGround.setText(fileChooser.getSelectedFile().getName());
-			}
-			else
-			{
-        if(System.getProperty("DBUG_MESS").equals("ON"))
-				  System.out.println("User cancelled operation" );
-			}
+      } else {
+        if (System.getProperty("DBUG_MESS").equals("ON"))
+	  System.out.println("User cancelled operation" );
+      }
       
-      fileChooser=null;
+      fileChooser = null;
 
       if(bGroundOn.isSelected()) {
         if(_currentMode == IMAGING) {
@@ -310,84 +304,74 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
       }
      }
 
+     if (source==bPixel) {
+       // Create an instance of the file chooser dialog
+       Properties temp = System.getProperties();
 
-     if(source==bPixel)
-     {
-      // Create an instance of the file chooser dialog
-      Properties temp=System.getProperties();
+       String exec_path = temp.getProperty("EXEC_PATH");
 
-      String exec_path=temp.getProperty("EXEC_PATH");
+       if (System.getProperty("DBUG_MESS").equals("ON"))
+	 System.out.println("EXEC_PATH:"+exec_path);
 
-      if(System.getProperty("DBUG_MESS").equals("ON"))
-        System.out.println("EXEC_PATH:"+exec_path);
+       myFileChooser fileChooser =  new myFileChooser(exec_path);
 
-  		myFileChooser fileChooser= new myFileChooser(exec_path);
-
-		fileChooser.setDialogTitle("Open bad pixel mask");
-  		int returnValue = fileChooser.showOpenDialog(null);
+       fileChooser.setDialogTitle("Open bad pixel mask");
+       int returnValue = fileChooser.showOpenDialog(null);
 		
-			if( returnValue == 0 )  // User selected OK
-			{
-				// Figure out what file the user selected
-	_currentBadPixelMask = fileChooser.getSelectedFile().getPath();
-        bPixel.setText(fileChooser.getSelectedFile().getName());
-			}
-			else
-			{
-        if(System.getProperty("DBUG_MESS").equals("ON"))
-				  System.out.println("User cancelled operation" );
-			}
-        
-      fileChooser=null;
+       // User selected OK
+       if ( returnValue == 0 ) {
 
-      if(bPixelOn.isSelected()) {
-	if(_currentMode == IMAGING) {
-          cSent.call_Mask(_currentBadPixelMask);
-        }
-        else {
-          cSent.call_s_Mask(_currentBadPixelMask);
-        }
-      }
+	 // Figure out what file the user selected
+	 _currentBadPixelMask = fileChooser.getSelectedFile().getPath();
+	 bPixel.setText(fileChooser.getSelectedFile().getName());
+       } else {
+	 if(System.getProperty("DBUG_MESS").equals("ON"))
+	   System.out.println("User cancelled operation" );
+       }
+        
+       fileChooser = null;
+
+       if (bPixelOn.isSelected()) {
+	 if(_currentMode == IMAGING) {
+	   cSent.call_Mask(_currentBadPixelMask);
+	 } else {
+	   cSent.call_s_Mask(_currentBadPixelMask);
+	 }
+       }
      }
   }
 
   public void itemStateChanged(ItemEvent evt) {
-    Object source =evt.getSource();
+    Object source  = evt.getSource();
 
-    if(source==bGroundOn) {
-      if(bGroundOn.isSelected()) {
-        if(_currentMode == IMAGING) {
+    if (source==bGroundOn) {
+      if (bGroundOn.isSelected()) {
+        if (_currentMode == IMAGING) {
           cSent.call_Back(_currentBackground);
-        }
-        else {
+        } else {
           cSent.call_s_Back(_currentBackground);
         }
-      }	
-      else {
-        if(_currentMode == IMAGING) {
+      } else {
+        if (_currentMode == IMAGING) {
           cSent.call_Back(NO_FILE_SPECIFIED);
-        }
-        else {
+        } else {
           cSent.call_s_Back(NO_FILE_SPECIFIED);
         }
 	
       }
     }
 
-    if(source==bPixelOn) {
-      if(bPixelOn.isSelected()) {
-        if(_currentMode == IMAGING) {
+    if (source==bPixelOn) {
+      if (bPixelOn.isSelected()) {
+        if (_currentMode == IMAGING) {
           cSent.call_Mask(_currentBadPixelMask);
-        }
-        else {
+        } else {
           cSent.call_s_Mask(_currentBadPixelMask);
         }
-      }
-      else {
-        if(_currentMode == IMAGING) {
+      } else {
+        if (_currentMode == IMAGING) {
           cSent.call_Mask(NO_FILE_SPECIFIED);
-        }
-        else {
+        } else {
           cSent.call_s_Mask(NO_FILE_SPECIFIED);
         }
       }
@@ -403,22 +387,45 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
   */
   private String getFileName (String file)
   {
-    int i=0;
+    int i = 0;
     int j;
 
-    if(file.length()>5)
-    for(i=0;i<file.length()-5;i++)
-    if(file.substring(i,i+5).equals(".exec"))
-    break;
+    if (file.length()>5)
+      for(i=0;i<file.length()-5;i++)
+	if (file.substring(i,i+5).equals(".exec"))
+	  break;
 
-    for(j=i;j>0;j--)
-    if(file.substring(j-1,j).equals("/"))
-    break;
+    for (j=i;j>0;j--)
+      if (file.substring(j-1,j).equals("/"))
+	break;
 
     return file.substring(j);
   }
 
+  /** Set screen according to whether movie has been turned on or off.
+      @param boolean
+      @return none
+  */
+  public void setMovieOn (boolean on)
+  {
+    if (on) {
+      Stop.setEnabled(true);
+      Start.setEnabled(false);
+      Dismiss.setEnabled(false);
+      expTime.getValu().setEditable(false);
+    } else {
+      Stop.setEnabled(false);
+      Start.setEnabled(true);
+      Dismiss.setEnabled(true);
+      expTime.getValu().setEditable(true);
+    }        
 
+  }
+
+  /** set the exposure time to be used by movies
+      @param String
+      @return none
+  */
   public void setExposureTime(String t)
   {
     expTime.getValu().setText(t);
@@ -428,7 +435,8 @@ public final class movie extends JFrame implements ActionListener, ItemListener,
   /**
    * Mode: IMAGING or SPECTROSCOPY.
    * 
-   * Is initialised to IMAGING assuming that in dhdriver too "mode" is initially set to "imaging".
+   * Is initialised to IMAGING assuming that in dhdriver too "mode" is
+   * initially set to "imaging".
    *
    * @see console.movie.IMAGING
    * @see console.movie.SPECTROSCOPY

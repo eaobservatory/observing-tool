@@ -415,24 +415,6 @@ final public class sendCmds implements java.io.Serializable
     }
   
   /**
-     public void setTitle ()
-     calls the related method in a commandSend object
-     
-     @param none
-     @return none
-     @throws RemoteException
-  */
-  public void setTitle (String s)
-    {
-      try {
-	c.setTitle(s);
-      }   catch (RemoteException re) {
-	System.out.println ("Exception in sendCmds: "+re);
-      }
-    }
-  
-  
-  /**
      public void setMovie ()
      sets a movie mode
      

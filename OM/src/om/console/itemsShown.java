@@ -372,40 +372,37 @@ final public class itemsShown extends JComponent implements java.io.Serializable
   /**public void Movie is a public method to
      set up item display when the movie is on or off.
 
-    @param String
+    @param boolean
     @return none
     @throws none
   */
-  public void Movie(String m)
+  public void Movie(boolean movieon)
   {
-    if(m.substring(0,3).equals("msg")) //movie is on
-    {
-      for (int i=0;i<7;i++) //movie is on
-      {
+    if (movieon) {
+    // Movie is on, disable sequence control commands
+      for (int i=0;i<7;i++) {
         commP.getButton(i).setEnabled(false);
         mBar.getMenuItem(i).setEnabled(false);
       }
 
-    } else //movie is off
-    {
+    } else {
+      // movie is off. Enable the commands that are allowed in the current
+      // OOS state.
 
-      if(upp.getStatus().getText().equals("Stopped"))
-      {
-         Stop(); //back to stopped state
-      }
-
-      else     //back to pause state
-      {
+      if (upp.getStatus().getText().equals("Stopped")) {
+	//back to stopped state
+	Stop();
+      } else {
+	//back to paused state
         mBar.getMenuItem(0).setEnabled(false);
         mBar.getMenuItem(1).setEnabled(false);
         mBar.getMenuItem(6).setEnabled(false);
-
+	
         commP.getButton(0).setEnabled(false);
         commP.getButton(1).setEnabled(false);
         commP.getButton(6).setEnabled(false);
-
-        for(int i=2; i<6;i++)
-        {
+	
+        for(int i=2; i<6;i++) {
           commP.getButton(i).setEnabled(true);
           mBar.getMenuItem(i).setEnabled(true);
         }
