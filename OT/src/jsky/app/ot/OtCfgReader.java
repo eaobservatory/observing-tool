@@ -39,7 +39,7 @@ class OtCfgReader
     
     public static final String LIBRARY_TAG	= "library";
 
-    public static final String VALIDATION_TAG	= "validation";
+    public static final String TELESCOPE_UTIL_TAG	= "telescope util";
 
     public static final String NAME_RESOLVERS_TAG	= "name resolvers";
 
@@ -140,15 +140,16 @@ class OtCfgReader
                                                info.libraryTags = _parseCommaList(_getValue(line));
                                            } else
 
-					      // validation class (added by MFO)
-					      if (line.startsWith(VALIDATION_TAG)) {
-                                                  info.validationClass = _getValue(line);
+					      // telescope utility class (added by MFO, 10 January 2002)
+					      if (line.startsWith(TELESCOPE_UTIL_TAG)) {
+                                                  info.telescopeUtilClass = _getValue(line);
 					      } else
 
-					         // name rsolvers (added by MFO, May 30, 2001)
+					         // name resolvers (added by MFO, May 30, 2001)
 						 if(line.startsWith(NAME_RESOLVERS_TAG)) {
                                                     info.nameResolvers = _parseCommaList(_getValue(line));
 						 }
+
 	    }
 
 	    // Add the last config class

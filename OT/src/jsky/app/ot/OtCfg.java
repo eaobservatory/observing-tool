@@ -15,6 +15,7 @@ import gemini.sp.SpTelescopePos;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterComp;
 import gemini.sp.obsComp.SpObsComp;
+import orac.util.TelescopeUtil;
 
 import jsky.app.ot.tpe.TelescopePosEditor;
 
@@ -24,6 +25,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Vector;
+import javax.swing.JOptionPane;
 
 /**
  * A class to initialize and configure the OT.
@@ -36,7 +38,7 @@ public final class OtCfg
     public static Vector iteratorTypes    = new Vector();
     public static Vector obsIteratorTypes = new Vector();
 
-    public static String validationClass  = null;
+    public static TelescopeUtil telescopeUtil = null;
 
     /**
      * Describes the configuration of an add-on SpItem.
@@ -67,8 +69,8 @@ public final class OtCfg
 	String          phase1Class;
 	TpeFeatureCfg[]	tpeFeatureCfgA;
 	SpItemCfg[]	spItemCfgA;
-	String          validationClass; // Added by MFO
 	String []       nameResolvers;   // Added May 30, 2001 by MFO
+	String          telescopeUtilClass; // Added by MFO, 9 January 2002
     }
 
     /**
@@ -78,7 +80,7 @@ public final class OtCfg
      * OT.  This method will expect to find the configuration file in a file
      * called "cfg/ot.cfg" relative to this dir.
      */
-    public static synchronized void init() {
+    public static synchronized void init() throws Exception {
 	// Only call this method once, at startup.
 	if (_otCfgInfo != null) {
 	    return;
@@ -108,8 +110,8 @@ public final class OtCfg
 	// SpItem add-ons
 	_initSpItems(_otCfgInfo);
 
-        // Validation tool
-        _initValidationTool(_otCfgInfo);
+        // Initialize telescope specific features
+        _initTelescope(_otCfgInfo);
     }
 
     public static String[] getLibraries() {
@@ -123,7 +125,7 @@ public final class OtCfg
      */
     public static String[] getNameResolvers() {
       return _otCfgInfo.nameResolvers;
-    }    
+    }
 
     public static synchronized boolean	phase1Available() {
 	if ((_otCfgInfo == null) || (_otCfgInfo.phase1Class == null)) {
@@ -148,10 +150,7 @@ public final class OtCfg
 	}
 	return doc;
     }
-/*
-    public static synchronized SpValidation getValidationTool() {
-    }
-*/
+
     //
     // Setup an-on TpeImageFeatures.  See the ot.cfg file in the OT "base"
     // directory for more information.
@@ -223,8 +222,24 @@ public final class OtCfg
 	}
     }
 
-    private static void _initValidationTool(Info cfgInfo) {
-      validationClass = cfgInfo.validationClass;
+    private static void _initTelescope(Info cfgInfo) throws Exception {
+      if((cfgInfo.telescopeUtilClass != null) && (!cfgInfo.telescopeUtilClass.equals(""))) {
+        try {
+	  telescopeUtil = (TelescopeUtil)Class.forName(cfgInfo.telescopeUtilClass).newInstance();
+	  telescopeUtil.installPreTranslator();
+	}
+	catch(Exception e) {
+          JOptionPane.showMessageDialog(null, "Problem instantiating telescope utility class:\n" +
+					"  " + e + "\n" +
+					"Science Program validation and telescope specific changes to XML format\n" +
+					"will not be available.\n" +
+					"Make sure you specify a valid telescope utility class in your ot.cfg file\n" +
+					"to avoid these problems.",
+					"Telescope specific features",
+                                        JOptionPane.WARNING_MESSAGE);
+          e.printStackTrace();
+	}
+      }
     }
 
     //
