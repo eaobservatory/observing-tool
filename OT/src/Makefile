@@ -101,6 +101,9 @@ $(BIN_DIR)/$(OT_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n# If there is no appropriate jdk1.3 java in your PATH then set one here.\
 	\nset JAVA = java\
 	\n\
+	\n# Set server to ATC, HILO, HOME or DEPLOYED.\
+	\nset SERVER = $(SERVER)\
+	\n\
 	\n# Make sure the telescope names in this list correspond to directories in $(CFG_DIRS)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
 	\nset TELESCOPE = \"\"\
@@ -137,7 +140,7 @@ $(BIN_DIR)/$(OT_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n\
 	\nset CFG_TELESCOPE_DIR = $(shell cd $(CFG_DIRS); pwd)/$$""{TELESCOPE}\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -Dot.cfgdir=$$""{CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -classpath \
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$$""{SERVER} -Dot.cfgdir=$$""{CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$$""{CFG_TELESCOPE_DIR}\
 	jsky.app.ot.OT $$""{INTERNAL_FRAMES}\n"	> $(BIN_DIR)/$(OT_SCRIPT)
 
@@ -192,7 +195,7 @@ else
 endif
 
 
-_install: $(INSTALL_ROOT)/lib $(INSTALL_ROOT)/tools $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/bin/ot
+_install: $(INSTALL_ROOT)/lib $(INSTALL_ROOT)/tools $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/bin/ot $(INSTALL_ROOT)/bin/ot.bat
 
 
 $(INSTALL_ROOT)/tools/$(notdir $(JHTOOLS_JAR)): $(JHTOOLS_JAR)
@@ -266,9 +269,6 @@ endif
 $(INSTALL_ROOT)/cfg: $(CFG_DIRS)
 	cp -r $< $@
 
-$(INSTALL_ROOT)/bin:
-	mkdir -p $(INSTALL_ROOT)/bin
-
 $(INSTALL_ROOT)/lib:
 	mkdir -p $(INSTALL_ROOT)/lib
 
@@ -277,7 +277,8 @@ $(INSTALL_ROOT)/tools:
 
 
 
-$(INSTALL_ROOT)/bin/ot: $(INSTALL_ROOT)/bin
+$(INSTALL_ROOT)/bin/ot:
+	@mkdir -p $(INSTALL_ROOT)/bin
 	@printf \
 	"#!/bin/csh -f\
 	\n#########################################################################################\
@@ -285,10 +286,13 @@ $(INSTALL_ROOT)/bin/ot: $(INSTALL_ROOT)/bin
 	\n# $(CONF_HOME)/make.conf. Modifications can be lost after a new make.                    \
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
- 	\n\
+	\n\
 	\n# If there is no appropriate jdk1.3 java in your PATH then set one here.\
 	\nset JAVA = java\
         \n\
+	\n# Set server to ATC, HILO, HOME or DEPLOYED.\
+	\nset SERVER = $(SERVER)\
+	\n\
 	\ncd \`dirname $$""0\`\
 	\n\
 	\n# Make sure the telescope names in this list correspond to directories in ../cfg\
@@ -327,12 +331,16 @@ $(INSTALL_ROOT)/bin/ot: $(INSTALL_ROOT)/bin
 	\nset CFG_TELESCOPE_DIR = \`cd ..; pwd\`/cfg/$$""{TELESCOPE}\
 	\n\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -Dot.cfgdir=$$""{CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -classpath\
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$$""{SERVER} -Dot.cfgdir=$$""{CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -classpath\
 	$(shell echo $(addprefix ../tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix ../lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g'):$$""{CFG_TELESCOPE_DIR}\
 	jsky.app.ot.OT $$""{INTERNAL_FRAMES}\n" > $(INSTALL_ROOT)/bin/ot
 
 	@echo Creating $(INSTALL_ROOT)/bin/ot
-	chmod 755 $(INSTALL_ROOT)/bin/ot
+	@chmod 755 $(INSTALL_ROOT)/bin/ot
 
+$(INSTALL_ROOT)/bin/ot.bat: ot.bat
+	@mkdir -p $(INSTALL_ROOT)/bin
+	@cp -r $< $@
 
+	@echo Creating $@
 
