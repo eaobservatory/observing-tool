@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <ot_version>2003-05-30</ot_version>
+  <ot_version>20030827</ot_version>
   <meta_gui_filename>CGS4-Template.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -29,12 +29,12 @@ Scheduling constraint components are also not included by default, since they ar
       <title>Contents and how to use them</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <estimatedDuration units="seconds">6267.200000000001</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <SpTelescopeObsCompRef idref="0"/>
       <title>point source, nod along slit</title>
-      <priority>99</priority>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">6267.200000000001</estimatedDuration>
+      <SpTelescopeObsCompRef idref="0"/>
       <SpInstCGS4Ref idref="1"/>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -63,7 +63,6 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
           <value>2.1</value>
         </instAper>
         <filter>B2</filter>
-        <cvfOffset>0.0</cvfOffset>
         <acqMode>NDSTARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>8-9</sourceMag>
@@ -72,6 +71,7 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
         <neutralDensity>false</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>2x2</sampling>
+        <cvfWavelength>2.1</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
@@ -284,7 +284,7 @@ If you wish to specify a standard star in advance, fill in the target component 
         <estimatedDuration units="seconds">5787.200000000001</estimatedDuration>
         <chainedToPrev>false</chainedToPrev>
         <title>Science Target</title>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -351,12 +351,12 @@ This is the "Point Source, nod along slit" science target.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <estimatedDuration units="seconds">6220.4000000000015</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <SpTelescopeObsCompRef idref="2"/>
       <title>point source, nod to blank sky</title>
-      <priority>99</priority>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">6220.4000000000015</estimatedDuration>
+      <SpTelescopeObsCompRef idref="2"/>
       <SpInstCGS4Ref idref="3"/>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -385,7 +385,6 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
           <value>2.1</value>
         </instAper>
         <filter>B2</filter>
-        <cvfOffset>0.0</cvfOffset>
         <acqMode>NDSTARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>8-9</sourceMag>
@@ -394,6 +393,7 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
         <neutralDensity>false</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>2x2</sampling>
+        <cvfWavelength>2.1</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
@@ -618,7 +618,7 @@ This is the "Point source, nod to blank sky" science target. By default, it goes
           <title>Science Target</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <SkyRecipe>POINT_SOURCE</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
@@ -632,7 +632,7 @@ This is the "Point source, nod to blank sky" science target. By default, it goes
           <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
           <ArcInGroup>false</ArcInGroup>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>false</SkyInGroup>
+          <SkyInGroup>true</SkyInGroup>
           <ObjectInGroup>true</ObjectInGroup>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
@@ -691,12 +691,12 @@ This is the "Point source, nod to blank sky" science target. By default, it goes
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <estimatedDuration units="seconds">6220.4000000000015</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <SpTelescopeObsCompRef idref="4"/>
       <title>extended source, nod to blank sky</title>
-      <priority>99</priority>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">6220.4000000000015</estimatedDuration>
+      <SpTelescopeObsCompRef idref="4"/>
       <SpInstCGS4Ref idref="5"/>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -725,7 +725,6 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
           <value>2.1</value>
         </instAper>
         <filter>B2</filter>
-        <cvfOffset>0.0</cvfOffset>
         <acqMode>NDSTARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>8-9</sourceMag>
@@ -734,6 +733,7 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
         <neutralDensity>false</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>2x2</sampling>
+        <cvfWavelength>2.1</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
@@ -958,7 +958,7 @@ This is the "Extended source, nod to blank sky" science target. By default, it g
           <title>Science Target</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <SkyRecipe>EXTENDED_SOURCE</SkyRecipe>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ArcRecipe>REDUCE_ARC</ArcRecipe>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
@@ -972,7 +972,7 @@ This is the "Extended source, nod to blank sky" science target. By default, it g
           <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
           <ArcInGroup>false</ArcInGroup>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>false</SkyInGroup>
+          <SkyInGroup>true</SkyInGroup>
           <ObjectInGroup>true</ObjectInGroup>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
@@ -1031,12 +1031,12 @@ This is the "Extended source, nod to blank sky" science target. By default, it g
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <estimatedDuration units="seconds">8973.600000000002</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <SpTelescopeObsCompRef idref="6"/>
       <title>extended source, infrequent nod to blank sky</title>
-      <priority>99</priority>
+      <library_version>$Revision$</library_version>
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <priority>99</priority>
+      <estimatedDuration units="seconds">8973.600000000002</estimatedDuration>
+      <SpTelescopeObsCompRef idref="6"/>
       <SpInstCGS4Ref idref="7"/>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1079,7 +1079,6 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
           <value>2.1</value>
         </instAper>
         <filter>B2</filter>
-        <cvfOffset>0.0</cvfOffset>
         <acqMode>NDSTARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>8-9</sourceMag>
@@ -1088,6 +1087,7 @@ NB: Use ND_STARE mode for integer exposure times greater than 1 second. Use STAR
         <neutralDensity>false</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>2x2</sampling>
+        <cvfWavelength>2.1</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
@@ -1403,7 +1403,6 @@ You can change the number of object frames that follow each sky frame by editing
           <value>2.1</value>
         </instAper>
         <filter>B2</filter>
-        <cvfOffset>0.0</cvfOffset>
         <acqMode>STARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>none</sourceMag>
@@ -1411,6 +1410,7 @@ You can change the number of object frames that follow each sky frame by editing
         <neutralDensity>0</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>1x1</sampling>
+        <cvfWavelength>2.1</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
@@ -1511,7 +1511,6 @@ You can change the number of object frames that follow each sky frame by editing
           <value>2.1</value>
         </instAper>
         <filter>B2</filter>
-        <cvfOffset>0.0</cvfOffset>
         <acqMode>NDSTARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>none</sourceMag>
@@ -1519,6 +1518,7 @@ You can change the number of object frames that follow each sky frame by editing
         <neutralDensity>0</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>1x1</sampling>
+        <cvfWavelength>2.1</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
@@ -1597,7 +1597,6 @@ Finally the sequence does a DARK, which is the best place to leave the filter wh
           <value>3.5</value>
         </instAper>
         <filter>open</filter>
-        <cvfOffset>0.03</cvfOffset>
         <acqMode>NDSTARE</acqMode>
         <meta_unique>true</meta_unique>
         <sourceMag>none</sourceMag>
@@ -1605,6 +1604,7 @@ Finally the sequence does a DARK, which is the best place to leave the filter wh
         <neutralDensity>0</neutralDensity>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <sampling>1x2</sampling>
+        <cvfWavelength>3.5</cvfWavelength>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
