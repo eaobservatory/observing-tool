@@ -149,7 +149,7 @@ public class AttributeEditor extends javax.swing.JDialog
       av[i][1] = avTable.get(av[i][0]);
       if (av[i][1] == null) av[i][1] = "No such attribute";
       i++;
-    }    
+    }
 
     return av;
 
@@ -174,19 +174,25 @@ public class AttributeEditor extends javax.swing.JDialog
 
     // See if any of the specified iterators are present and
     // if they have the attributes
-    String iterList = "darkObs"; // get from property.
+    String iterList = "darkObs instUFTI"; // should get from property.
 
     StringTokenizer tokil = new StringTokenizer (iterList);
-    System.out.println ("Size = "+tokil.countTokens()+" X "+tokal.countTokens());
     String[][] av = new String[tokil.countTokens()*tokal.countTokens()][3];
 
+    String[] al = new String[tokal.countTokens()];
     int i = 0;
+    while (tokal.hasMoreElements()) {
+        al[i] = tokal.nextToken();
+        i++;
+    }
+
+    i = 0;
     while (tokil.hasMoreElements()) {
       String iterName = tokil.nextToken();
       System.out.println (iterName);
-      while (tokal.hasMoreElements()) {
+      for (int j=0; j<al.length; j++) {
         av[i][0] = iterName;
-        av[i][1] = tokal.nextToken();
+        av[i][1] = al[j];
         System.out.println ("Iter: "+av[i][0]+":"+av[i][1]);
         i++;
       }

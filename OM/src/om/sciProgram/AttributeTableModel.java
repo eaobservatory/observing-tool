@@ -30,13 +30,14 @@ public class AttributeTableModel extends javax.swing.table.AbstractTableModel {
     data = new Object[avPairs.length+iterAvPairs.length][2];
     int index=0;
     for (int i = 0; i < avPairs.length; i++) {
-      data[index][0] = avPairs[index][0];
-      data[index][1] = avPairs[index][1];
+      data[index][0] = avPairs[i][0];
+      data[index][1] = avPairs[i][1];
       index++;
     }
+
     for (int i = 0; i < iterAvPairs.length; i++) {
-      data[index][0] = iterAvPairs[index][0]+":"+iterAvPairs[index][1];
-      data[index][1] = iterAvPairs[index][2];
+      data[index][0] = iterAvPairs[i][0]+":"+iterAvPairs[i][1];
+      data[index][1] = iterAvPairs[i][2];
       index++;
     }
 
