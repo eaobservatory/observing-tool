@@ -41,21 +41,21 @@ public class TpeDichroicFeature extends TpeImageFeature {
 // The units for all is arcseconds.  The West and North port each 
 // had their lower and upper values interchanged to match the
 // plans.
-   public static final double FOV_HEIGHTU_WEST  = 132.0;
-   public static final double FOV_HEIGHTL_WEST  = 117.0;
-   public static final double FOV_HEIGHTU_NORTH = 141.0;
-   public static final double FOV_HEIGHTL_NORTH = 108.0;
-   public static final double FOV_HEIGHTU_EAST  = 124.0;
-   public static final double FOV_HEIGHTL_EAST  = 125.0;
-   public static final double FOV_HEIGHTU_SOUTH = 116.0;
-   public static final double FOV_HEIGHTL_SOUTH = 133.0;
+   public static final double FOV_HEIGHTU_WEST  = 117.4;
+   public static final double FOV_HEIGHTL_WEST  = 132.5;
+   public static final double FOV_HEIGHTU_NORTH = 108.0;
+   public static final double FOV_HEIGHTL_NORTH = 141.8;
+   public static final double FOV_HEIGHTU_EAST  = 125.6;
+   public static final double FOV_HEIGHTL_EAST  = 124.2;
+   public static final double FOV_HEIGHTU_SOUTH = 133.6;
+   public static final double FOV_HEIGHTL_SOUTH = 116.3;
 
 // The out-of-bounds limits for the top and bottom arms.
 // The units is again arcseconds.
    public static final double OOBT_WIDTH = 468.0;
-   public static final double OOBT_HEIGHT = 18.0;
+   public static final double OOBT_HEIGHT = 20.9;
    public static final double OOBB_WIDTH = 468.0;
-   public static final double OOBB_HEIGHT = 22.0;
+   public static final double OOBB_HEIGHT = 16.9;
 
    private PolygonD _fovAreaPD;
    private PolygonD _oobtArea;
@@ -118,9 +118,10 @@ public class TpeDichroicFeature extends TpeImageFeature {
 
       if ( _inst != null ) {
 
-// Get the instrument-aperture X & Y.  These offset the origin of the dichroic.
-         double xoff = -1*_inst.getInstApXarcsec();
-         double yoff = -1*_inst.getInstApYarcsec();
+// Get the instrument-aperture X & Y.  These offset the origin of the dichroic
+// in the opposite direction..
+         double xoff = -1.0 * _inst.getInstApXarcsec();
+         double yoff = -1.0 * _inst.getInstApYarcsec();
          xoffpix = (int) ( fii.pixelsPerArcsec * xoff + 0.5 );
          yoffpix = (int) ( fii.pixelsPerArcsec * yoff + 0.5 );
 
