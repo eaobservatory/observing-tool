@@ -310,11 +310,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	// libraries
 	if (_spProg instanceof SpLibrary) {
 	    if (newItem.typeStr().equals("og")) {
-		System.out.println("newItem is an instance of SpMSB");
+// 		System.out.println("newItem is an instance of SpMSB");
 		((SpMSB)newItem).setLibraryRevision();
 	    }
 	    else if ( newItem.typeStr().equals("ob") && ((SpObs)newItem).isMSB() ) {
-		System.out.println("newItem is an instance of SpObs");
+// 		System.out.println("newItem is an instance of SpObs");
 		((SpObs)newItem).setLibraryRevision();
 	    }
 	    else {
