@@ -30,7 +30,7 @@ endif
 .PHONY: install
 
 # This top level install target assumes default locations in the sub directories
-install: install_dir
+install: all install_dir
 	mkdir -p $(INSTALL_ROOT)/lib
 	(cd GEMINI/src; gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd ORAC/src;   gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
@@ -41,11 +41,30 @@ install: install_dir
 	mkdir -p $(INSTALL_ROOT)/tools
 	cp ORAC/tools/*.jar OT/tools/*.jar $(INSTALL_ROOT)/tools
 
+	mkdir -p $(INSTALL_ROOT)/cfg
+
+	cp -r ODB/install/cfg $(INSTALL_ROOT)/cfg/odb
+	cp -r  OM/install/cfg $(INSTALL_ROOT)/cfg/om
+	cp -r  OT/install/cfg $(INSTALL_ROOT)/cfg/ot
+
 	mkdir -p $(INSTALL_ROOT)/bin
-	(cd ODB/src; gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/odb)
+	(cd ODB/src; gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
+	                   CFG_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/cfg/odb \
+			   OT_CFG_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/cfg/ot \
+		           $(shell (cd $(INSTALL_ROOT); pwd))/bin/odb)
+
+#       The om script generation differs slightly form the generation of the ot and odb scripts.
+#       It assumes that CFG_DIR is set to the absolute path of a cfg directory.
 	(cd OM/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/om)
-	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot)
-	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot.bat)
+
+	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
+	                   CFG_DIRS=$(shell (cd $(INSTALL_ROOT); pwd))/cfg/ot \
+			   $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot)
+
+	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
+	                   INSTALL_BAT_SCRIPT=scripts/ot_bat_install_all_source \
+			   $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot.bat)
+
 
 install_dir:
 	@mkdir -p $(INSTALL_ROOT)
@@ -57,12 +76,15 @@ else
 	gmake _doc
 endif
 
+# Note that if JAR_DIR or DOC_DIR are set to a directory outside INSTALL_ROOT they will not be
+# deleted by clean.
 clean:
 	(cd GEMINI/src; gmake clean)
 	(cd ORAC/src;   gmake clean)
 	(cd ODB/src;    gmake clean)
 	(cd OM/src;     gmake clean)
 	(cd OT/src;     gmake clean)
+	rm -rf $(INSTALL_ROOT)
 
 _jar: $(JAR_DIR)
 	(cd GEMINI/src; gmake jar)
