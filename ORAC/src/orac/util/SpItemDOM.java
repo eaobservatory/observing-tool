@@ -1,3 +1,13 @@
+/*==============================================================*/
+/*                                                              */
+/*                UK Astronomy Technology Centre                */
+/*                 Royal Observatory, Edinburgh                 */
+/*                 Joint Astronomy Centre, Hilo                 */
+/*                   Copyright (c) PPARC 2001                   */
+/*                                                              */
+/*==============================================================*/
+// $Id$
+
 package orac.util;
 
 import gemini.sp.SpItem;
@@ -19,6 +29,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.traversal.TreeWalker;
 import java.util.Vector;
 import java.util.StringTokenizer;
 import java.util.Enumeration;
@@ -78,6 +89,7 @@ public class SpItemDOM {
     // Insert item data node as first child.
     _element.insertBefore(itemData, _element.getFirstChild());
 
+    // TCS XML conversion
     if(spItem instanceof SpTelescopeObsComp) {
       if(System.getProperty("NO_TCS_XML") == null) {
         // This method is UKIRT specific. JCMT will probably have a different telescope observation component.
@@ -325,6 +337,16 @@ public class SpItemDOM {
     
     SpItem spItem = SpFactory.createShallow(spType);
     spItem.name(itemDataElement.getAttribute(SP_ITEM_NAME));
+
+    // Deal with attributes in SpItem XML Element (the ones who are represented
+    // by attribute names starting with ":" in the SpAvTable)
+    if((element.getAttributes() != null) && (element.getAttributes().getLength() > 0)) {
+      NamedNodeMap nodeMap = element.getAttributes();
+      for(int i = 0; i < nodeMap.getLength(); i++) {
+        spItem.getTable().set(":" + nodeMap.item(i).getNodeName(),
+                                    nodeMap.item(i).getNodeValue());
+      }
+    }
 
 
     NodeList nodeList = element.getChildNodes();
