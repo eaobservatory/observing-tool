@@ -415,7 +415,9 @@ public class SpTranslator {
 // Insert the additional commands to enable a peakup on the object.
             sequence.insertElementAt( "offset 0 0", skyIndex );
             sequence.insertElementAt( "set OBJECT", skyIndex + 1 );
-            sequence.insertElementAt( "break", skyIndex + 2 );
+//             if ( !(((String)sequence.get(i+2)).equals("break")) ) {
+                sequence.insertElementAt( "break", skyIndex + 2 );
+//             }
          }   
       }
    }
@@ -2428,7 +2430,7 @@ public class SpTranslator {
 // associated processes have completed.
             sequence.addElement( "-ready" );
             
-            addOffsets(sequence);
+            addOffsets2(sequence);
             sortOutSkys( sequence );
 
 // Insert a peakup sequence when SKY comes before the first OBJECT
@@ -4246,6 +4248,161 @@ public class SpTranslator {
       return false;
    }
 
+/**
+  * Try an alternate approach to fixinf up offsets.
+  */
+
+public void addOffsets2 (Vector sequence) {
+    String offsetPattern = "^(-)?offset.*";
+    String objectPattern = "^set OBJECT";
+    // Only deal with old style skys - new styles id dealt with elsewhere
+    String skyPattern    = "^set SKY";
+
+    boolean firstSet    = true;
+    boolean setCmdFound = false;
+    String  offsetLine  = null;
+
+    for ( int i=0; i<sequence.size(); i++ ) {
+        if ( !setCmdFound && ((String)sequence.get(i)).matches(offsetPattern) ) {
+            // We have found a "floating" offset - not associated with a sky or object
+            // In this case, we delete the thing from the sequence and will put it in
+            // with the next set command.  We need to move it because CGS4 will insert 
+            // peakup, which will reset of required offset to 0
+            offsetLine = (String)sequence.get(i);
+            if ( sequence.get(i+1) != null && ((String)sequence.get(i+1)).equals("-WAIT ALL") ) {
+                sequence.remove(i+1);
+            }
+            sequence.remove(i);
+            // Plonk it after the nest set OBJECT
+            for ( int j=i+1; j<sequence.size(); j++ ) {
+                if ( ((String)sequence.get(j)).matches("set .+") ) {
+                    // If the next thing is a break, put it after that, otherwise
+                    // put it after the set OBJECT
+                    if ( ((String)sequence.get(j+1)).equals("break") ) {
+                        sequence.add( j+2, offsetLine);
+                    }
+                    else {
+                        sequence.add( j+1, offsetLine);
+                    }
+                    break;
+                }
+            }
+        }
+        else if ( ((String)sequence.get(i)).matches(objectPattern) ) {
+           setCmdFound = true;
+           if ( firstSet ) {
+               firstSet = false;
+               // See if there is an offset before the next 'set' command.  If not, and
+               // offsetLine is not null, insert the offset line
+               // If there is no offset and the line is null, add a default offset
+               for ( int j=i+1; j<sequence.size(); j++ ) {
+                   String line = (String)sequence.get(j);
+                   if ( line.matches(offsetPattern) ) {
+                       // We have a good offset, don't do anything
+                       break;
+                   }
+                   else if ( line != null && (line.matches(objectPattern) || line.matches(skyPattern)) ) {
+                       // There was no good offset instruction, so insert one at the current 
+                       // point in the loop
+                       if ( offsetLine != null ) {
+                           sequence.add( i+1, offsetLine);
+                       }
+                       else {
+                           sequence.add( i+1, "offset 0.0 0.0" );
+                       }
+                       sequence.add( i+2, "-WAIT ALL");
+                       break;
+                   }
+                   else if ( j == sequence.size()-1 ) {
+                       // Add a default
+                       sequence.add( i+1, "offset 0.0 0.0" );
+                       break;
+                   }
+               } // close for loop
+               offsetLine = null;
+           }  // End if (firstSet)
+           else {
+               // See if this has an offset pattern associated with it.  It should be either in the
+               // next position or the one after that
+               if ( !( ((String)sequence.get(i+1)).matches(offsetPattern) || (((String)sequence.get(i+1)).equals("break") && ((String)sequence.get(i+2)).matches(offsetPattern) ) ) ) {
+                   // Go back and see if we can find a previous object, and get the offset pattern associated with this
+                   int lastObjectIndex = sequence.lastIndexOf( "set OBJECT", i-1 );
+                   if ( lastObjectIndex == -1 ) {
+                       // No previous oberve, so use a default
+                       offsetLine = "offset 0.0 0.0";
+                   }
+                   else {
+                       for ( int j=lastObjectIndex+1; j != i; j++ ) {
+                           if ( ((String)sequence.get(j)).matches(offsetPattern) ) {
+                               offsetLine = (String)sequence.get(j);
+                           }
+                           else if ( ((String)sequence.get(j)).startsWith("set") ) {
+                               // Break out at this point
+                               break;
+                           }
+                       } // end of for
+                   }
+                   if ( offsetLine != null ) {
+                       sequence.add( i+1, offsetLine );
+                   }
+                   else {
+                       sequence.add( i+1, "offset 0.0 0.0");
+                   }
+               }// end of if
+               else {
+               }
+           }
+        } // end objectPattern
+        else if ( ((String)sequence.get(i)).matches(skyPattern) ) {
+           setCmdFound = true;
+           if ( firstSet ) {
+               firstSet = false;
+               // See if there is an offset before the next set command.  If not, and
+               // offsetLine is not null, insert the offset line
+               // If there is no offset and the line is null, add a default offset
+               for ( int j=i+1; j<sequence.size(); j++ ) {
+                   String line = (String)sequence.get(j);
+                   if ( line.matches(offsetPattern) ) {
+                       // We have a good offset, don't do anything
+                       break;
+                   }
+                   else if ( line != null && (line.matches(objectPattern) || line.matches(skyPattern)) ) {
+                       // There was no good offset instruction, so insert one at the current 
+                       // point in the loop
+                       if ( offsetLine != null ) {
+                           sequence.add( i+1, offsetLine);
+                       }
+                       else {
+                           sequence.add( i+1, "offset 0.0 0.0" );
+                       }
+                       sequence.add( i+2, "-WAIT ALL");
+                       break;
+                   }
+               } // close for loop
+               offsetLine = null;
+           }  // End if (firstSet)
+         }
+    }
+       // Finally (hopefully), go through all of the offsets.  If there is no observe
+       // before the next offset, then the command can probably be deleted
+       String observePattern = "do \\d+ _observe";
+       boolean hasObserve = false;
+       
+       for ( int i=0; i<sequence.size(); i++ ) {
+           if ( ((String)sequence.get(i)).matches(offsetPattern) ) {
+               for ( int j=i+1; j<sequence.size(); j++ ) {
+                   if ( ((String)sequence.get(j)).matches(observePattern) ) {
+                       break;
+                   }
+                   else if ( ((String)sequence.get(j)).matches(offsetPattern) ) {
+                       sequence.remove(i);
+                       break;
+                   }
+               }
+           }
+       }
+}
+
    /**
      * Fix up offsets.  In using the new style header, we may need to reset
      * OBJECT offsets.
@@ -4256,34 +4413,42 @@ public class SpTranslator {
        // Get the first OBJECT and find it's offset.  This should be on the line after
        // the "set OBJECT" command or possibly the line after that if there is a break.  
        int objectIndex = sequence.indexOf("set OBJECT");
-       String line1 = (String)sequence.get(objectIndex+1);
-       String line2 = (String)sequence.get(objectIndex+2);
-       String lastOffset = "offset 0.0 0.0"; 
-       boolean matched = false;
-       if ( line1.matches(offsetPattern) ) {
-           lastOffset = line1;
-           matched = true;
+       int searchIndex = 0;
+       boolean isObject = true;
+       for ( int i=0; i<sequence.size(); i++ ) {
+           String line = (String) sequence.get(i);
+           if ( line.equals("set OBJECT") || line.startsWith("set SKY") ) {
+               searchIndex = i;
+               isObject = line.equals("set OBJECT");
+               break;
+           }
        }
-       else if ( line2.matches(offsetPattern) ) {
+       String line1 = (String)sequence.get(searchIndex+1);
+       String line2 = (String)sequence.get(searchIndex+2);
+       String lastOffset = "offset 0.0 0.0"; 
+       if ( line1.matches(offsetPattern) && isObject ) {
+           lastOffset = line1;
+       }
+       else if ( line2.matches(offsetPattern) && isObject ) {
            lastOffset = line2;
-           matched = true;
        }
        else {
            // See if there is an earlier offset that we should move into here
-           for ( int i=objectIndex; i >= 0; i-- ) {
+           for ( int i=searchIndex; i >= 0; i-- ) {
                if ( ((String)sequence.get(i)).matches(offsetPattern) ) {
-                   lastOffset = (String)sequence.get(i);
+                   String thisString = (String)sequence.get(i);
                    // Check if the next line is a wait command
                    boolean waitNext = ((String)sequence.get(i+1)).equalsIgnoreCase("-WAIT ALL");
                    // Move the lines to below the set OBJECT
                    if ( line1.equalsIgnoreCase("break") ) {
-                       sequence.add( objectIndex+2, "-WAIT ALL");
-                       sequence.add( objectIndex+2, lastOffset);
+                       sequence.add( searchIndex+2, "-WAIT ALL");
+                       sequence.add( searchIndex+2, thisString);
                    }
                    else {
-                       sequence.add( objectIndex+1, "-WAIT ALL");
-                       sequence.add( objectIndex+1, lastOffset);
+                       sequence.add( searchIndex+1, "-WAIT ALL");
+                       sequence.add( searchIndex+1, thisString);
                    }
+                   if ( isObject ) lastOffset = thisString;
                    sequence.remove(i+1);
                    sequence.remove(i);
                    break;
@@ -4291,6 +4456,10 @@ public class SpTranslator {
            }
        }
        objectIndex = sequence.indexOf("set OBJECT");
+       if ( !(((String)sequence.get(objectIndex+1)).matches(offsetPattern)) &&
+            !(((String)sequence.get(objectIndex+2)).matches(offsetPattern)) ) {
+           sequence.add (objectIndex+1, lastOffset);
+       }
        // If this is not an offset
 //        if ( !(lastOffset.matches(offsetPattern)) ) {
 //            // Add a default offset 0f 0.0
@@ -4323,6 +4492,7 @@ public class SpTranslator {
                }
            }
        }
+
    }
 
 
@@ -4405,17 +4575,31 @@ public class SpTranslator {
                    if ( skyBeforeObject ) {
                        // search forward
                        objectIndex = sequence.indexOf("set OBJECT", i);
+                       // Search forward to find the next offset
+                       for ( int j=objectIndex; j<sequence.size(); j++ ) {
+                           if ( ((String)sequence.get(j)).matches(offPattern) ) {
+                               nextLine = (String)sequence.get(j);
+                               break;
+                           }
+                       }
                    }
                    else {
                        // Search backwards
                        objectIndex = sequence.lastIndexOf("set OBJECT", i);
+                       // Search from here forward to the current position and record the last
+                       // known offset
+                       for ( int j=objectIndex; j != i; j++ ) {
+                           if ( ((String)sequence.get(j)).matches(offPattern) ) {
+                               nextLine = (String)sequence.get(j);
+                           }
+                       }
                    }
-                   nextLine = (String)sequence.get(objectIndex + 1);
-                   if ( nextLine.equalsIgnoreCase("break") ) {
-                       // This can happen on the first observe of a sequence, in which
-                       // case the offset should be the nest line
-                       nextLine = (String)sequence.get(objectIndex + 2);
-                   }
+//                    nextLine = (String)sequence.get(objectIndex + 1);
+//                    if ( nextLine.equalsIgnoreCase("break") ) {
+//                        // This can happen on the first observe of a sequence, in which
+//                        // case the offset should be the nest line
+//                        nextLine = (String)sequence.get(objectIndex + 2);
+//                    }
 
                    if ( nextLine.matches(offPattern) ) {
                        // Add the base offset
