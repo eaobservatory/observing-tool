@@ -134,7 +134,7 @@ public class SpTranslator {
 
       boolean firstConfig = false;        // First "loadConfig" encountered?
       boolean firstObject = false;        // First "set OBJECT" encountered?
-      boolean firstSet = false;           // First "set x" encountered?
+      boolean firstSet = false;           // First "set <obstype>" encountered?
       int i;                              // Loop counter
       String instruction = " ";           // Sequence instruction
 
@@ -387,7 +387,7 @@ public class SpTranslator {
       boolean otherPresent = false;       // Is there an another (not "set"
                                           // or "do N _observe") command before
                                           // the previous "set" instruction?
-      String previousType;                // Penultimate instruction (set x)
+      String previousType;                // Penultimate instruction (set <obstype>)
       String previousInst;                // Previous instruction (do n _observe)
       int start;                          // Char position of start of number
       boolean typeInGroup;                // Frames of supplied type part of
@@ -451,7 +451,7 @@ public class SpTranslator {
       numElements = sequence.size();
       if ( numElements >= 2 ) {
 
-// Search through the sequence from the end to find the last "set <type>"
+// Search through the sequence from the end to find the last "set <obstype>"
 // instruction.  Hence obtain the values of the last type and "do N _observe"
 // instructions.  An offset ends the scope for object type.
          previousType = "undef";
@@ -557,7 +557,7 @@ public class SpTranslator {
 // The types are the same, but there is another instruction (offset or
 // loadConfig) offset between.  So set the type and observe in the
 // sequence, but not change the recipe or group-membership headers.
-// Is the repeated set <type> (usually an object) necessary?  Yes to
+// Is the repeated set <obstype> (usually an object) necessary?  Yes to
 // demarcate when counting observations.
          } else {
             sequence.addElement( "set " + type.toUpperCase() );
@@ -1415,7 +1415,7 @@ public class SpTranslator {
 // in uppercase too.
                            if ( ! sis.title.equalsIgnoreCase( "config" ) ) {
 
-// Add startGroup before the first "set <type>".
+// Add startGroup before the first "set <obstype>".
                               if ( ! startGroup ) {
                                  sequence.addElement( "startGroup" );
                                  startGroup = true;
@@ -1458,7 +1458,7 @@ public class SpTranslator {
                         } else if ( sis.title.equalsIgnoreCase( "nod" ) 
                                     && chopping ) {
 
-// Add startGroup before the first "set object".
+// Add startGroup before the first "set OBJECT".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
                               startGroup = true;
@@ -1488,7 +1488,7 @@ public class SpTranslator {
 // =========================
                         } else if ( sis.title.equalsIgnoreCase( "observe" ) ) {
 
-// Add startGroup before the first "set object".
+// Add startGroup before the first "set OBJECT".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
                               startGroup = true;
@@ -1528,7 +1528,7 @@ public class SpTranslator {
 // ====================
                         } else if ( sis.title.equalsIgnoreCase( "sky" ) ) {
 
-// Add startGroup before the first "set sky".
+// Add startGroup before the first "set SKY".
                            if ( ! startGroup ) {
                               sequence.addElement( "startGroup" );
                               startGroup = true;
@@ -1588,6 +1588,9 @@ public class SpTranslator {
 // Insert a loadConfig before the first "set OBJECT", where there is a 
 // preceding "set <obstype>".
             insertObjectConfig( sequence );
+
+// Remove superfluous "set OBJECT" entries from the sequence.
+            removeDupSetObject( sequence );
 
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
@@ -1671,6 +1674,55 @@ public class SpTranslator {
 // It's different, so make it the current define_inst command.
                   currentDefInst = instruct;
                }
+            }
+         }
+      }
+   }
+
+
+/**
+ * Remove superfluous "set OBJECT" instructions from a sequence.
+ *
+ * @param Vector the sequence instructions (this is updated).
+ */
+   public void removeDupSetObject( Vector sequence ) {
+
+      int i;                              // Loop counter
+      String instruct;                    // An instruction from the sequence
+      boolean nextSetObj = false;         // First "set OBJECT" encountered?
+      int numInstruct;                    // Number of instructions in the
+                                          // sequence
+
+// Traverse the sequence.
+      numInstruct = sequence.size();
+      for ( i = 0; i < numInstruct; ++i ) {
+         instruct = (String) sequence.elementAt( i );
+
+// Look for the next "set OBJECT" command.  Once one is found, record 
+// the fact, and go to the next instruction.
+         if ( ! nextSetObj ) {
+            if ( instruct.startsWith( "set OBJECT" ) ) {
+               nextSetObj = true;
+               continue;
+            }
+         }
+
+// Look for the next "set <obstype>" command if we currently are
+// set to OBJECT obstype.
+         if ( nextSetObj ) {
+
+// Is it another "set OBJECT"?
+            if ( instruct.equals( "set OBJECT" ) ) {
+
+// It is, so we want to remove it to reduce overheads.
+               sequence.removeElementAt( i );
+               numInstruct -= 1;
+
+            } else if ( instruct.startsWith( "set " ) ) {
+
+// It's a different "set <obstype>", so we retain the "set " command,
+// and flip the switch to look for the next "set OBJECT".
+               nextSetObj = false;
             }
          }
       }
