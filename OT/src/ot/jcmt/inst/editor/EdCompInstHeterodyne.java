@@ -1215,7 +1215,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
       else {
 	  boolean foundMatch = false;
-	  for ( int count=0; count<specModel.getSize(); count++ ) {
+	  // Use 1 less than the size of specModel since the last element, no-line,
+	  // is not a SelectionList object, just a string.
+	  for ( int count=0; count<specModel.getSize() - 1; count++ ) {
 	      if ( currentSpecies == null ) break;
 	      if ( ((SelectionList)specModel.getElementAt(count)).toString().equals(currentSpecies) ) {
 		  _w.moleculeChoice.setSelectedIndex(count);
