@@ -135,6 +135,8 @@ public interface SpJCMTConstants {
    public static final String ATTR_CONT_CAL            = "continuousCal";
    public static final String ATTR_DO_AT_CURRENT_AZ    = "useCurrentAz";
 
+    public static final String ATTR_WIDE_PHOTOMETRY    = "widePhotometry";
+
 
    /** Focus Iterator. */
    public static final String ATTR_AXIS                = "axis";

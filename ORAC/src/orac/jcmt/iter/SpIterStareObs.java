@@ -51,6 +51,18 @@ public SpIterStareObs()
    super(SP_TYPE);
 }
 
+    public void setWidePhotom (boolean flag) {
+	_avTable.set( ATTR_WIDE_PHOTOMETRY, flag );
+    }
+
+    public boolean getWidePhotom () {
+	boolean isSet = false;
+	if ( _avTable.exists( ATTR_WIDE_PHOTOMETRY ) && _avTable.getBool ( ATTR_WIDE_PHOTOMETRY ) ) {
+	    isSet = true;
+	}
+	return isSet;
+    }
+
 public double getElapsedTime() {
     SpInstObsComp instrument = SpTreeMan.findInstrument(this);
     double overhead = 0.0;
