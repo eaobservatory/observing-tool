@@ -54,6 +54,11 @@ public interface TelescopeUtil {
    */
   public static final int FEATURE_OFFSET_GRID_PA          = 3;
 
+  /**
+   * "Flag as standard" option on Observation component.
+   */
+  public static final int FEATURE_FLAG_AS_STANDARD        = 4;
+
   public SpValidation getValidationTool();
 
   public String [] getTargetTags();
@@ -86,6 +91,14 @@ public interface TelescopeUtil {
    * </pre> 
    */
   public String getAdditionalTargetFeatClass();
+
+  /**
+   * Returns true if the user input for targetTag
+   * should be interpreted as offsets.
+   *
+   * E.g. "reference" position for ACSIS/JCMT.
+   */
+  public boolean isOffsetTarget(String targetTag);
 
   public boolean supports(int feature);
 

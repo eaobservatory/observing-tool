@@ -59,9 +59,17 @@ public class UkirtUtil implements TelescopeUtil {
     return "jsky.app.ot.tpe.feat.TpeGuidePosFeature";
   }
 
+  /**
+   * @return always false for UKIRT
+   */
+  public boolean isOffsetTarget(String targetTag) {
+    return false;
+  }
+
   public boolean supports(int feature) {
     switch(feature) {
       case FEATURE_TARGET_INFO_CHOP:        return true;
+      case FEATURE_FLAG_AS_STANDARD:        return true;
       case FEATURE_TARGET_INFO_PROP_MOTION: return false;
       case FEATURE_TARGET_INFO_TRACKING:    return false;
       default:                              return false;
