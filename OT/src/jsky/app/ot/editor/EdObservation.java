@@ -64,6 +64,7 @@ public final class EdObservation extends OtItemEditor
 	_w.priorityHigh.addActionListener(this);
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
+	_w.obsDone.addActionListener(this); // Added for OMP (MFO, 7 August 2001)
 	_w.chained.addActionListener(this);
 	_w.chained.setVisible(false); // XXX allan: remove it?
     }
@@ -129,6 +130,9 @@ public final class EdObservation extends OtItemEditor
 	// Set the chained state
 	CheckBoxWidgetExt cbw = _w.chained;
 	cbw.setValue( ((SpObs) _spItem).getChainedToNext() );
+    
+         // Added for OMP (MFO, 7 August 2001)
+	_w.obsDone.setSelected(((SpObs)_spItem).isDone());
     }
 
     /**
@@ -167,7 +171,12 @@ public final class EdObservation extends OtItemEditor
     public void actionPerformed(ActionEvent evt) {
 	Object w  = evt.getSource();
 	SpObs spObs = (SpObs) _spItem;
-	
+
+	 // Added for OMP (MFO, 7 August 2001)
+	if(w == _w.obsDone) {
+	    spObs.setDone(_w.obsDone.isSelected());
+	}
+
 	if ((w instanceof AbstractButton) && ! ((AbstractButton)w).isSelected())
 	    return;
 	
@@ -195,6 +204,31 @@ public final class EdObservation extends OtItemEditor
 	    cbw.setValue( spObs.getChainedToNext() );
 	    return;
 	}
+    }
+
+    /**
+     * Sets status and priority widgets visible.
+     *
+     * These widegets are visible by default. So this methods is only needed after
+     * {@link #hideMsbParameters} has been called.
+     *
+     * This method is needed for the OMP.
+     *
+     * Added for OMP. (MFO, 1 August 2001)
+     */
+    public void showMsbParameters() {
+      _w.msbPanel.setVisible(true);
+    }
+
+    /**
+     * Hides status and priority widgets.
+     *
+     * This method is needed for the OMP.
+     *
+     * Added for OMP. (MFO, 1 August 2001)
+     */
+    public void hideMsbParameters() {
+      _w.msbPanel.setVisible(false);
     }
 }
 

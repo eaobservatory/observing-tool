@@ -17,6 +17,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
 import gemini.sp.SpItem;
+import gemini.sp.SpProg;
 
 /**
  * This is the editor for the Science Program component.  At this point,
@@ -26,8 +27,9 @@ public final class EdProgram extends OtItemEditor
     implements TextBoxWidgetWatcher, ActionListener {
 
     // Attributes edited by this editor
-    private static final String PI	= "piFull";
-    private static final String COUNTRY	= "country";
+    // changed for OMP by MFO, 7 August 2001
+    //private static final String PI	= "piFull";
+    //private static final String COUNTRY	= "country";
     private static final String KIND	= "kind";
 
     private ProgramGUI         _w;       // the GUI layout panel
@@ -47,6 +49,17 @@ public final class EdProgram extends OtItemEditor
 	grp.add(_w.classicalOption);
 	_w.queueOption.addActionListener(this);
 	_w.classicalOption.addActionListener(this);
+
+	if(System.getProperty("OMP") != null) {
+	  _w.propKindLabel.setVisible(false);
+	  _w.queueOption.setVisible(false);
+	  _w.classicalOption.setVisible(false);
+	}
+	else {
+ 	  _w.piBox.setEnabled(false);
+	  _w.countryBox.setEnabled(false);
+	  _w.projectIdBox.setEnabled(false);
+	}
     }
 
     /**
@@ -55,6 +68,11 @@ public final class EdProgram extends OtItemEditor
     protected void _init() {
 	TextBoxWidgetExt tbwe = _w.titleBox;
 	tbwe.addWatcher(this);
+
+        // added for OMP by MFO, 7 August 2001
+	_w.piBox.addWatcher(this);
+	_w.countryBox.addWatcher(this);
+	_w.projectIdBox.addWatcher(this);
     }
  
 
@@ -75,25 +93,14 @@ public final class EdProgram extends OtItemEditor
 	    tbwe.setText(val);
 	}
 
-	JLabel stbw;
+	// PI (changed for OMP by MFO, 7 August 2001)
+	_w.piBox.setText(((SpProg)_spItem).getPI());
 
-	// PI 
-	stbw = _w.piBox;
-	val  = _avTab.get(PI);
-	if (val == null) {
-	    stbw.setText("");
-	} else {
-	    stbw.setText(val);
-	}
+	// Country (changed for OMP by MFO, 7 August 2001)
+	_w.countryBox.setText(((SpProg)_spItem).getCountry());
 
-	// Country
-	stbw = _w.countryBox;
-	val  = _avTab.get(COUNTRY);
-	if (val == null) {
-	    stbw.setText("");
-	} else {
-	    stbw.setText(val);
-	}
+	// Project ID (added for OMP by MFO, 7 August 2001)
+	_w.projectIdBox.setText(((SpProg)_spItem).getProjectID());	
 
 	_showPropKind(_avTab.get(KIND));
     }
@@ -120,6 +127,18 @@ public final class EdProgram extends OtItemEditor
     public void textBoxKeyPress(TextBoxWidgetExt tbwe){
 	if (tbwe == _w.titleBox) {
 	    _spItem.setTitleAttr(tbwe.getText().trim());
+	}
+
+	if (tbwe == _w.piBox) {
+	    ((SpProg)_spItem).setPI(tbwe.getText().trim());
+	}
+
+	if (tbwe == _w.countryBox) {
+	    ((SpProg)_spItem).setCountry(tbwe.getText().trim());
+	}
+
+	if (tbwe == _w.projectIdBox) {
+	    ((SpProg)_spItem).setProjectID(tbwe.getText().trim());
 	}
     }
  
