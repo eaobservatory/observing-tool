@@ -65,6 +65,7 @@ public double getElapsedTime() {
 		polPhot = true;
 		break;
 	    }
+	    parent = parent.parent();
 	}
 	overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
 	if ( polPhot ) {
