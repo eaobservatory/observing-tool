@@ -5,6 +5,7 @@ import java.net.*;
 import gemini.sp.SpItem;
 import gemini.sp.SpProg;
 import orac.util.SpItemDOM;
+import orac.util.SpItemUtilities;
 
 
 /**
@@ -114,6 +115,14 @@ public class SpClient extends SoapClient {
 
 
    public SpStoreResult storeProgram(SpProg spProg, String pass) throws Exception {
+
+      SpItemUtilities.removeReferenceIDs(spProg);
+      (new SpItemUtilities()).setReferenceIDs(spProg);
+
+      // Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
+      // SpObs components that are MSBs.
+      SpItemUtilities.saveElapsedTimes(spProg);
+
       String sp = (new SpItemDOM(spProg)).toXML();
    
       addParameter("sp", String.class, sp);
