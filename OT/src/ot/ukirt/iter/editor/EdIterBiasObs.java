@@ -6,119 +6,136 @@
 //
 package ot.ukirt.iter.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
-import jsky.app.ot.editor.OtItemEditor;
-
 import orac.ukirt.iter.SpIterBiasObs;
+
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
-import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
+import gemini.sp.SpAvTable;
+
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JComboBox;
+
+import jsky.app.ot.editor.OtItemEditor;
 
 /**
  * This is the editor for Bias Observe iterator component.
  */
 public final class EdIterBiasObs extends OtItemEditor
-    implements TextBoxWidgetWatcher, ActionListener {
+                              implements TextBoxWidgetWatcher, ActionListener
+{
 
-    private IterBiasObsGUI _w;       // the GUI layout panel
+   private IterBiasObsGUI _w;
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+   /**
+    * If true, ignore action events.
+    */
+   private boolean ignoreActions = false;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterBiasObs() {
-	_title       ="Bias Iterator";
-	_presSource  = _w = new IterBiasObsGUI();
-	_description ="Take the specified number of bias exposures.";
 
-	// Note: The original bongo code used a SpinBoxWidget, but since Swing
-	// doesn't have one, try using a JComboBox instead...
-	Object[] ar = new Object[99];
-	for (int i = 0; i < 99; i++)
-	    ar[i] = new Integer(i+1);
-	_w.repeatComboBox.setModel(new DefaultComboBoxModel(ar));
-	_w.repeatComboBox.addActionListener(this);
-    }
+/**
+ * The constructor initializes the title, description, and presentation source.
+ */
+public EdIterBiasObs()
+{
+   _title       ="Bias Iterator";
+   _presSource  = _w = new IterBiasObsGUI();
+   _description ="Take the specified number of bias exposures.";
 
-    /**
-     */
-    protected void _init() {
-	TextBoxWidgetExt tbwe;
+   for(int i = 0; i < 100; i++) {
+     _w.repeatComboBox.addItem("" + (i + 1));
+   }
+
+   _w.repeatComboBox.addActionListener(this);
+}
+
+/**
+ */
+protected void
+_init()
+{
+   // Exposure time
+   //_w.exposureTime.addWatcher( this );
  
-	// Coadds
-	tbwe = _w.coadds;
-	tbwe.addWatcher( this );
+   // Coadds
+   _w.coadds.setEnabled(false);
+   _w.coadds.setDisabledTextColor(Color.black);
+   //   tbwe.addWatcher( this );
  
-	super._init();
-    }
+   super._init();
+}
 
 
-    /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-	ignoreActions = true;
+/**
+ * Implements the _updateWidgets method from OtItemEditor in order to
+ * setup the widgets to show the current values of the item.
+ */
+protected void
+_updateWidgets()
+{
+   ignoreActions = true;
 
-	//try {
-	    SpIterBiasObs iterObs = (SpIterBiasObs) _spItem;
+   SpIterBiasObs iterObs = (SpIterBiasObs) _spItem;
 
-	    // Repetitions
-	    JComboBox sbw = _w.repeatComboBox;
-	    sbw.getModel().setSelectedItem(new Integer(iterObs.getCount()));
+   // Repetitions
+   _w.repeatComboBox.setSelectedIndex( iterObs.getCount() - 1);
 
-	    TextBoxWidgetExt tbwe;
+   // Exposure Time
+   _w.exposureTime.setValue( iterObs.getExposureTime() );
+
+   // Coadds
+   _w.coadds.setValue( iterObs.getCoadds() );
+
+   ignoreActions = false;
+}
+
+/**
+ * Watch changes to text boxes
+ */
+public void
+textBoxKeyPress(TextBoxWidgetExt tbwe)
+{
+   SpIterBiasObs iterObs = (SpIterBiasObs) _spItem;
+
+//   if (tbwe.getName().equals("exposureTime")) {
+//      iterObs.setExposureTime( tbwe.getText() );
+//   }
+//    if (tbwe.getName().equals("coadds")) {
+//      iterObs.setCoadds( tbwe.getText() );
+//    }
+}
  
-	    // Coadds
-	    tbwe = _w.coadds;
-	    tbwe.setValue( iterObs.getCoadds() );
-	//}
-	//catch(Exception e) {
-	//    throw new RuntimeException(e.toString());
-	//}
-
-	ignoreActions = false;
-    }
-
-    /**
-     * Watch changes to text boxes
-     */
-    public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-	SpIterBiasObs iterObs = (SpIterBiasObs) _spItem;
-
-	if (tbwe == _w.coadds) {
-	    iterObs.setCoadds( tbwe.getText() );
-	}
-    }
- 
-    /**
-     * Text box action.
-     */
-    public void textBoxAction(TextBoxWidgetExt tbwe) {}
+/**
+ * Text box action.
+ */
+public void
+textBoxAction(TextBoxWidgetExt tbwe) {}
 
 
-    /**
-     * Called when the value in the combo box is changed.
-     */
-    public void actionPerformed(ActionEvent evt) {
-	if (ignoreActions)
-	    return;
+/**
+ *
+ */
+public void
+actionPerformed(ActionEvent evt)
+{
+   if(ignoreActions)
+      return;
 
-	SpIterBiasObs iterObs = (SpIterBiasObs) _spItem;
+   Object w  = evt.getSource();
 
-	JComboBox sbw = _w.repeatComboBox;
-	int i = ((Integer)(sbw.getSelectedItem())).intValue();
-	iterObs.setCount(i);
-    }
+   SpIterBiasObs iterObs = (SpIterBiasObs) _spItem;
+
+   if (w == _w.repeatComboBox) {
+      int i = _w.repeatComboBox.getSelectedIndex() + 1;
+      iterObs.setCount(i);
+      return;
+   }
+}
+
 }
 
