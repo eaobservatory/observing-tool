@@ -92,7 +92,6 @@ storeSp(SpRootItem spItem, File f)
          }
         try {
 	  (new SpItemUtilities()).setReferenceIDs(spItem);
-	  SpItemUtilities.setMsbAttribute(spItem);
           (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
 	}
 	catch(Exception e) {

@@ -220,30 +220,5 @@ findDRRecipe(SpItem spItem)
    return drr;
 }
 
-  /**
-   * Find SpMSB's and SpObs's recursively and set references.
-   */
-  public static void setMsbAttribute(SpItem spItem) {
-    if(spItem instanceof SpObsContextItem) {
-      if(spItem instanceof SpObs) {
-        SpObs spObs = (SpObs)spItem;
-        if(spObs.parent() instanceof SpMSB) {
-	  spObs.setIsMSB(false);
-        }
-        else {
-	  spObs.setIsMSB(true);
-        }
-      }
-      else {
-        SpItem firstChild;
-        SpItem child = spItem.child();
-
-        while(child != null) {
-          setMsbAttribute(child);
-          child = child.next();
-        }
-      }	
-    }  
-  }
 }
 
