@@ -62,6 +62,7 @@ import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 import orac.util.OracUtilities;
+import orac.util.SpInputXML;
 import ot.phase1.Phase1HTMLDocument;
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
@@ -1194,6 +1195,41 @@ public class OtWindow extends SpTreeGUI
       }
     }
 
+    /**
+     * @return true  if selected component has been checked and found valid.
+     *         false if the component has been checked and found invalid
+     *               OR if the component has not been checked because it is neither an observation nor a science program.
+     */
+    public static Vector doValidation(SpItem spItem) {  
+   
+       Vector report = new Vector();
+        
+      if(OtCfg.telescopeUtil == null) {
+        String message = "No Validation performed - Error getting TelescopeUtil";
+        report.add(message);
+        return report;
+      }
+      
+      SpValidation spValidation = OtCfg.telescopeUtil.getValidationTool();
+
+      if(spValidation == null) {
+        String message = "No validation performed - Could not find validation tool.";
+        report.add(message);
+	return report;
+      }
+      
+      ErrorMessage.reset();
+
+      spValidation.checkSciProgram((SpProg)spItem, report);
+
+      // ADDED BY SDW...
+      if (spItem instanceof SpProg || spItem instanceof SpLibrary) {
+	  spValidation.schemaValidate(spItem.toXML(), OtCfg.getSchemaURL(), OtCfg.getSchemaLocation(), report);
+      }
+   
+      return report;
+    }
+
 
     /** 
      * Display a file chooser so that the user can select the name of a file to
@@ -1366,6 +1402,26 @@ public class OtWindow extends SpTreeGUI
 		open(file);
 	    }
 	}
+    }
+
+    public static void main (String [] args ) {
+        // Need one input, the name of an XML file
+        if ( args.length != 1 ) {
+            System.out.println( "No file name specified" );
+            System.exit(0);
+        }
+
+        try {
+            OtCfg.init();
+            FileReader rdr = new FileReader(args[0]);
+            SpItem item = (new SpInputXML()).xmlToSpItem(rdr);
+            Vector report = OtWindow.doValidation(item);
+            System.out.println(report);
+        }
+        catch (Exception e) {
+            System.out.println("Error in validation");
+            e.printStackTrace();
+        }
     }
 }
 

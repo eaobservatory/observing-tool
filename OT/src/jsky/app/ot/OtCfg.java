@@ -102,7 +102,6 @@ public final class OtCfg
 	String baseDir = System.getProperty("ot.resource.cfgdir", "jsky/app/ot/cfg/");
 
 	// Read the configuration information from the "ot.cfg" file.
-	System.out.println("Loading config file from "+baseDir);
 	_otCfgInfo = OtCfgReader.load(baseDir + "ot.cfg");
 
         // Initialize telescope specific features. Has to be done before SpTelescopePos.setBaeTag().
