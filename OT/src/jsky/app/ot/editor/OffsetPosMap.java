@@ -12,9 +12,12 @@ import jsky.app.ot.fits.gui.FitsImageInfoObserver;
 import jsky.app.ot.fits.gui.FitsPosMap;
 import jsky.app.ot.fits.gui.FitsPosMapEntry;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
+import jsky.app.ot.tpe.TpeImageWidget;
 import gemini.util.TelescopePos;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
+import gemini.sp.obsComp.SpInstObsComp;
+import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 import java.awt.geom.Point2D;
 
@@ -33,7 +36,7 @@ public class OffsetPosMap extends FitsPosMap
     public OffsetPosMap(FitsImageWidget iw) {
 	super(iw);
 	iw.addInfoObserver(this);
-    }
+   }
 
     /**
      */
@@ -91,6 +94,10 @@ public class OffsetPosMap extends FitsPosMap
         double xaxis    = tp.getXaxis();
 	double yaxis    = tp.getYaxis();
 	double posAngle = (((SpOffsetPosList)_tpl).getPosAngle() * Math.PI) / 180.0;
+	SpInstObsComp myInst = (SpInstObsComp) ((TpeImageWidget)_iw).getInstrumentItem();
+	if ( myInst instanceof SpUKIRTInstObsComp ) {
+	    posAngle = myInst.getPosAngleRadians();
+	}
 
         // Rotate temporarily by position angle of telescope position.
         ((SpOffsetPos)tp).noNotifySetXY((xaxis *   Math.cos(posAngle) ) + (yaxis * Math.sin(posAngle)),
@@ -105,4 +112,3 @@ public class OffsetPosMap extends FitsPosMap
 	return result;
     }
 }
-

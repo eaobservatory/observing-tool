@@ -41,7 +41,7 @@ import gemini.util.TelescopePos;
 import gemini.util.TelescopePosList;
 import gemini.util.TelescopePosSelWatcher;
 import orac.util.SpMapItem;
-import orac.ukirt.inst.SpInstUIST;
+import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 /**
  * A TpeImageFeature extension to draw and manipulate offset positions on
@@ -252,6 +252,7 @@ public class EdIterOffsetFeature extends TpeImageFeature
 	    Point2D.Double p   = pme.screenPos;
 	    // Rotate this point based on the current pos angle off the science area
 	    SpInstObsComp myInst = (SpInstObsComp) _iw.getInstrumentItem();
+	    /*
 	    if ( myInst instanceof SpInstUIST ) {
 		if ( ((SpInstUIST)myInst).isIFU() ) {
 		    p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians - Math.PI/4. );
@@ -262,8 +263,9 @@ public class EdIterOffsetFeature extends TpeImageFeature
 		}
 	    }
 	    else {
-		p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians);
+		//p = _iw.skyRotate(p.x, p.y, _iw.getSciArea().posAngleRadians);
 	    }
+	    */
 	    g.drawOval((int)(p.x - r), (int)(p.y - r), d, d);
 
 	    if (getDrawIndex()) {
