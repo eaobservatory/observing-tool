@@ -49,6 +49,9 @@ import ot.OtPreferencesDialog;
 import ot.DatabaseDialog;
 import orac.helptool.JHLauncher;
 import gemini.sp.ipc.SpServer;
+import gemini.sp.SpTreeMan;
+import orac.ukirt.iter.SpIterMichelleCalObs;
+import orac.ukirt.inst.SpInstMichelle;
 
 public class OT extends JFrame {
 
@@ -314,6 +317,14 @@ public class OT extends JFrame {
       }
 
       if ((spItem != null) && (spItem instanceof SpLibrary)) {
+	  Vector mco = SpTreeMan.findAllItems(spItem, "orac.ukirt.iter.SpIterMichelleCalObs");
+	  for (int i=0; i<mco.size(); i++) {
+	      SpIterMichelleCalObs obs = (SpIterMichelleCalObs)mco.elementAt(i);
+	      obs.useDefaults();
+// 	      obs.setFlatSource("shutter");
+// 	      obs.setSampling("as object");
+	      obs.updateDAConf();
+	  }
 	// Changed by MFO, 22 August 2001
 	OtWindow.create(spItem, new FileInfo());
 	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) spItem));
