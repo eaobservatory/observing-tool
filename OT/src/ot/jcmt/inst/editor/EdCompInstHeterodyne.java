@@ -260,23 +260,25 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
    public void feMoleculeAction ( ActionEvent ae )
    {
-      SelectionList species = (SelectionList)_w.moleculeChoice.getSelectedItem();
+      if(_w.moleculeChoice.getSelectedItem() instanceof SelectionList) {
+         SelectionList species = (SelectionList)_w.moleculeChoice.getSelectedItem();
 
-      _w.transitionChoice.setModel ( 
-        new DefaultComboBoxModel ( species.objectList ) );
+         _w.transitionChoice.setModel ( 
+           new DefaultComboBoxModel ( species.objectList ) );
 
-      _ignoreEvents = true;
-      if(_w.transitionChoice.getItemAt(_w.transitionChoice.getItemCount() - 1) != null) {
-         _w.transitionChoice.addItem(NO_LINE);
+         _ignoreEvents = true;
+         if(_w.transitionChoice.getItemAt(_w.transitionChoice.getItemCount() - 1) != null) {
+            _w.transitionChoice.addItem(NO_LINE);
+         }
+         _w.transitionChoice.setSelectedIndex(0);
+         _ignoreEvents = false;
+
+         _w.moleculeFrequency.setText ( "0.0000" );
+
+         _ignoreEvents = true;
+         feTransitionAction(null);
+         _ignoreEvents = false;
       }
-      _w.transitionChoice.setSelectedIndex(0);
-      _ignoreEvents = false;
-
-      _w.moleculeFrequency.setText ( "0.0000" );
-
-      _ignoreEvents = true;
-      feTransitionAction(null);
-      _ignoreEvents = false;
 
       if(!_ignoreSpItem) {
          _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), 0);
@@ -591,6 +593,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 /* Update choice of molecules */
 
+      _ignoreEvents = true;
+
       _w.moleculeChoice.setModel ( 
         new DefaultComboBoxModel ( 
         lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
@@ -599,6 +603,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
         new DefaultComboBoxModel ( 
         lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
         obsmax*(1.0+redshift) ) ) );
+
+      _ignoreEvents = false;
 
 /* Update display of sidebands */
 
