@@ -1008,11 +1008,7 @@ print(String indentStr)
    *
    * @see #processXmlElementContent(java.lang.String,java.lang.String,int)
    */
-  public void processXmlElementStart(String name) { 
-      if ( _avTable != null ) {
-	  _avTable.noNotifyRmAll();
-      }
-  }
+  public void processXmlElementStart(String name) { }
 
   /**
    * This method can be called by an external XML parser when an XML element is parsed.
