@@ -521,6 +521,15 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     setRestFrequency(Format.toDouble(value), subsystem);
   }
 
+  /**
+    * Get the sky frequency.  Currently only the prime
+    * value is stored - that relating to the rest frequency of
+    * subsystem 0
+    */
+  public double getSkyFrequency() {
+      return _avTable.getDouble( ATTR_SKY_FREQUENCY, getRestFrequency(0) );
+  }
+
 
   /**
    * Get centre frequency (IF) of specified subsystem.
