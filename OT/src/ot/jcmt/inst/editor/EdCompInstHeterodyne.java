@@ -708,10 +708,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
 
       // Skip top system, start with i = 1
-      for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
-         sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-                                     _instHeterodyne.getTransition(i) + "  " +
-                                     _instHeterodyne.getRestFrequency(i), i);
+      if ( _instHeterodyne != null ) {
+	  for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
+	      sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
+					  _instHeterodyne.getTransition(i) + "  " +
+					  _instHeterodyne.getRestFrequency(i), i);
+	  }
       }
    }
 
