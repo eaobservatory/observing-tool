@@ -302,7 +302,7 @@ save(SpRootItem spItem, FileInfo fi)
    JFileChooser fd = new JFileChooser(fi.dir); //FileBox.getFileDialog(FileDialog.SAVE);
    fd.addChoosableFileFilter(xmlFilter);
    fd.addChoosableFileFilter(sgmlFilter);
-   fd.showOpenDialog(null);
+   fd.showSaveDialog(null);
    //System.out.println("*** Default Dir.: " + fi.dir);
    //System.out.println("*** Default File: " + fi.filename);
 
