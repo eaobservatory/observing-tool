@@ -135,6 +135,7 @@ public class SpClient extends SoapClient {
     * @return Science Program item.
     */
    public static SpProg fetchProgram(String id, String pass) throws Exception {
+      flushParameter();
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
 
@@ -159,6 +160,7 @@ public class SpClient extends SoapClient {
     * @return Science Program as XML String.
     */
    public static String fetchProgramString(String id, String pass) throws Exception {
+      flushParameter();
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
       
@@ -192,6 +194,7 @@ public class SpClient extends SoapClient {
         forceString = "0";
       }
 
+      flushParameter();
       addParameter("sp", byte[].class, sp.getBytes());
       addParameter("password", byte[].class, pass.getBytes());
       addParameter("force", byte[].class, forceString.getBytes());
@@ -216,6 +219,7 @@ public class SpClient extends SoapClient {
         forceString = "0";
       }
 
+      flushParameter();
       addParameter("sp", String.class, sp);
       addParameter("password", String.class, pass);
       addParameter("force", String.class, forceString);
