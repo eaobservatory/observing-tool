@@ -1,0 +1,4 @@
+Important Note:
+
+   In order to use these files, you must add gsl.sql.jar to your
+   $CLASSPATH. This file should be located in the current directory.
