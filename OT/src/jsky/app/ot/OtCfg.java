@@ -76,6 +76,8 @@ public final class OtCfg
 	String []       namedTargets;       // Added by MFO, June 05, 2002
 	String          telescopeLatitude;   // Added by MFO, June 13, 2002
 	String          schemaLocation;      // Added by SdW, Sept. 2002
+	String          proxyServer;         // Added by Sdw, Feb 2003
+	String          proxyPort;           // Added by Sdw, Feb 2003
     }
 
     /**
@@ -157,6 +159,18 @@ public final class OtCfg
      */
     public static String getSchemaLocation() {
       return System.getProperty("ot.cfgdir")+_otCfgInfo.schemaLocation;
+    }
+
+    // Added by SdW. Feb 2003
+    /**
+     * Get the name of the proxy server
+     */
+    public static String getProxyServer() {
+	return _otCfgInfo.proxyServer;
+    }
+
+    public static String getProxyPort() {
+	return _otCfgInfo.proxyPort;
     }
 
     public static synchronized boolean	phase1Available() {

@@ -54,6 +54,11 @@ class OtCfgReader
 
     public static final String SCHEMA_LOCATION          = "schemaLocation";
 
+    public static final String PROXY_SERVER             = "Proxy Server";
+    private static final String PROP_PROXY_SERVER       = "http.proxyHost";
+    public static final String PROXY_PORT               = "Proxy Port";
+    private static final String PROP_PROXY_PORT         = "http.proxyPort";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -177,6 +182,20 @@ class OtCfgReader
 						    }
 						    if(line.startsWith(SCHEMA_LOCATION)) {
                                                        info.schemaLocation = _getValue(line);
+						    }
+						    if (line.startsWith(PROXY_SERVER)) {
+							info.proxyServer = _getValue(line);
+							if (info.proxyServer != null &&
+							    info.proxyServer.length() != 0 ) {
+							    System.setProperty(PROP_PROXY_SERVER, info.proxyServer);
+							}
+						    }
+						    if (line.startsWith(PROXY_PORT)) {
+							info.proxyPort = _getValue(line);
+							if (info.proxyPort != null &&
+							    info.proxyPort.length() != 0) {
+							    System.setProperty(PROP_PROXY_PORT, info.proxyPort);
+							}
 						    }
 	    }
 
