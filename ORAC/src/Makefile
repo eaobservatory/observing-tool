@@ -49,12 +49,5 @@ install:
 	@echo Use \"\gmake DOC_DIR=my_doc_dir doc\" to create html api javadocs in my_doc_dir.
 
 clean:
-	@echo " Delete these directories?\n"\
-	      "  $(CLASSES_DIR)\n"\
-	      "  $(JAR_DIR)\n"\
-	      "  $(DOC_DIR)\n"\
-	      "  $(LOCAL_INSTALL_ROOT)\n"\
-	      "Yes: return / Cancel: Ctrl-d"
-	@read a
 	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
 
