@@ -115,23 +115,18 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     // Disperser 1
     public static LookUpTable ORDERS1;
     public static LookUpTable BLOCKERS1;
-    public static double[] ZERO1;
     // Disperser 2
     public static LookUpTable ORDERS2;
     public static LookUpTable BLOCKERS2;
-    public static double[] ZERO2;
     // Disperser 3
     public static LookUpTable ORDERS3;
     public static LookUpTable BLOCKERS3;
-    public static double[] ZERO3;
     // Disperser 4
     public static LookUpTable ORDERS4;
     public static LookUpTable BLOCKERS4;
-    public static double[] ZERO4;
     // Disperser 5
     public static LookUpTable ORDERS5;
     public static LookUpTable BLOCKERS5;
-    public static double[] ZERO5;
     // Data acquisition - general
     public static LookUpTable CHOPS;
     public static String DEFAULT_CHOPFREQ;
@@ -418,52 +413,22 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     ORDERS1 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "blockers1")) {
                     BLOCKERS1 = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "zero1")) {
-                    String starray[] = instInfo.getValueAsArray();
-                    ZERO1 = new double[starray.length];
-                    for (i=0;i<starray.length;i++) {
-                        ZERO1[i] = Double.valueOf(starray[i]).doubleValue();
-		    }
 		} else if (InstCfg.matchAttr (instInfo, "orders2")) {
                     ORDERS2 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "blockers2")) {
                     BLOCKERS2 = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "zero2")) {
-                    String starray[] = instInfo.getValueAsArray();
-                    ZERO2 = new double[starray.length];
-                    for (i=0;i<starray.length;i++) {
-                        ZERO2[i] = Double.valueOf(starray[i]).doubleValue();
-		    }
 		} else if (InstCfg.matchAttr (instInfo, "orders3")) {
                     ORDERS3 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "blockers3")) {
                     BLOCKERS3 = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "zero3")) {
-                    String starray[] = instInfo.getValueAsArray();
-                    ZERO3 = new double[starray.length];
-                    for (i=0;i<starray.length;i++) {
-                        ZERO3[i] = Double.valueOf(starray[i]).doubleValue();
-		    }
 		} else if (InstCfg.matchAttr (instInfo, "orders4")) {
                     ORDERS4 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "blockers4")) {
                     BLOCKERS4 = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "zero4")) {
-                    String starray[] = instInfo.getValueAsArray();
-                    ZERO4 = new double[starray.length];
-                    for (i=0;i<starray.length;i++) {
-                        ZERO4[i] = Double.valueOf(starray[i]).doubleValue();
-		    }
 		} else if (InstCfg.matchAttr (instInfo, "orders5")) {
                     ORDERS5 = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "blockers5")) {
                     BLOCKERS5 = instInfo.getValueAsLUT();
-		} else if (InstCfg.matchAttr (instInfo, "zero5")) {
-                    String starray[] = instInfo.getValueAsArray();
-                    ZERO5 = new double[starray.length];
-                    for (i=0;i<starray.length;i++) {
-                        ZERO5[i] = Double.valueOf(starray[i]).doubleValue();
-		    }
 		} else if (InstCfg.matchAttr (instInfo, "dispersers")) {
 		    DISPERSERS = instInfo.getValueAsLUT();
 		    // insert the order tables
@@ -488,6 +453,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 			DISPERSERS.setElementAt (BLOCKERS4, row, 5);
 			row = DISPERSERS.indexInColumn("BLOCKERS5", 5);
 			DISPERSERS.setElementAt (BLOCKERS5, row, 5);
+			/*
 			row = DISPERSERS.indexInColumn("ZERO1", 6);
 			DISPERSERS.setElementAt (ZERO1, row, 6);
 			row = DISPERSERS.indexInColumn("ZERO2", 6);
@@ -498,6 +464,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 			DISPERSERS.setElementAt (ZERO4, row, 6);
 			row = DISPERSERS.indexInColumn("ZERO5", 6);
 			DISPERSERS.setElementAt (ZERO5, row, 6);
+			*/
 		    }catch (NoSuchElementException ex) {
 			System.out.println ("Error indexing in dispersers table in Michelle cfg file");
 			System.out.println (ex);
@@ -696,6 +663,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     setCamera(String camera)
     {
         _avTable.set(ATTR_CAMERA, camera);
+        setInstAper();
     }
 
     /**
@@ -747,6 +715,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     {
         _avTable.set(ATTR_DISPERSER, disperser);
         useDefaultCentralWavelength();
+        setInstAper();
     }
 
     /**
@@ -1553,7 +1522,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         if (!isImaging()) {
             int di = getDisperserIndex();
             fo = 
-                Integer.valueOf((String) DISPERSERS.elementAt(di,7)).intValue();
+                Integer.valueOf((String) DISPERSERS.elementAt(di,10)).intValue();
 	}
         switch (fo) {
         case 0: {
@@ -1601,6 +1570,26 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     setChopFreq(String chopFreq)
     {
         _avTable.set(ATTR_CHOP_FREQUENCY, chopFreq);
+    }
+
+    /**
+     * Set the instrument aperture
+     */
+    public void setInstAper()
+    {
+        if (isImaging()) {
+	    setInstApX (INSTRUMENT_APER[XAP_INDEX]);
+	    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
+	    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
+	    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
+	} else
+	{
+            int di = getDisperserIndex();
+	    setInstApX ((String) DISPERSERS.elementAt(di,6));
+	    setInstApY ((String) DISPERSERS.elementAt(di,7));
+	    setInstApZ ((String) DISPERSERS.elementAt(di,8));
+	    setInstApL ((String) DISPERSERS.elementAt(di,9));
+	}
     }
 
     /**
@@ -2134,6 +2123,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	double cfd = Double.valueOf(getDefaultChopFrequency()).doubleValue();
 
         double dwellTime = 0.0;
+
         int numCycles = 0;
         if (cfd > 0.0) {
             dwellTime = 0.5/cfd;
