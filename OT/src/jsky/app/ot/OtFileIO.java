@@ -8,7 +8,6 @@ package jsky.app.ot;
 
 //import jsky.app.ot.gui.FileBox;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.JOptionPane;
 //import jsky.app.ot.gui.util.AlertBox;
 //import jsky.app.ot.gui.util.ErrorBox;
@@ -37,6 +36,8 @@ import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtWindow;
 
 import orac.util.SpItemDOM;
+import orac.util.FileFilterSGML;
+import orac.util.FileFilterXML;
 
 
 /**
@@ -48,68 +49,16 @@ import orac.util.SpItemDOM;
  */
 public class OtFileIO
 {
-   private static String _lastDir;
-
-   public static final String []  xmlExtension = { ".xml" };
-   public static final String [] sgmlExtension = { ".sgml", ".ot", ".sp" };
-
-   public static final String  xmlDescription = "Science Program XML (*.xml)";
-   public static final String sgmlDescription = "Science Program SGML (*.sgml, *.ot, *.sp)";
-
-   private static boolean _io_xml = false;
+   private static String _lastDir = System.getProperty("user.dir");
    
-   public static FileFilter xmlFilter = new FileFilter() {
-     public boolean accept(File file) {
-       if(file.isDirectory()) {
-         //_io_xml = true;
-	 
-         return true;
-       }
+   /** Determines whether to save as SGML (*.ot, *.sp, *.sgml) or XML (*.xml). MFO, 2001 */
+   private static boolean _io_xml;
 
-       for(int i = 0; i < xmlExtension.length; i++) {
-         if(file.getName().endsWith(xmlExtension[i])) {
-           _io_xml = true;
-	 
-           return true;
-         }
-       }
-       
-       //_io_xml = false;
-       
-       return false;
-     }
-      
-     public String getDescription() {
-       return xmlDescription;
-     }
-   };
+   /** XML file filter (*.xml). MFO 2001 */
+   protected static FileFilterXML   xmlFilter = new FileFilterXML();
 
-   public static FileFilter sgmlFilter = new FileFilter() {
-     public boolean accept(File file) {
-       if(file.isDirectory()) {
-         //_io_xml = false;
-	 
-         return true;
-       }
-
-       for(int i = 0; i < sgmlExtension.length; i++) {
-         if(file.getName().endsWith(sgmlExtension[i])) {
-           _io_xml = false;
-	 
-           return true;
-         }
-       }
-       
-       //_io_xml = true;
-       
-       return false;
-     }
-      
-     public String getDescription() {
-       return sgmlDescription;
-     }
-   };
-
+   /** SGML file filter (*.ot, *.sp, *.sgml). MFO 2001 */
+   protected static FileFilterSGML sgmlFilter = new FileFilterSGML();
 
 /**
  * Store the Science Program rooted at the given SpItem into the file
@@ -135,11 +84,25 @@ storeSp(SpRootItem spItem, File f)
       FileOutputStream fis = new FileOutputStream(f);
       OutputStream os = new BufferedOutputStream(fis);
 
+      // MFO (next 16 lines)
       if(_io_xml) {
-        (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
+         if(System.getProperty("DEBUG") != null) { 
+            System.out.println("xml = " + getXML());
+         }
+        //try {
+          (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
+	//}
+	//catch(Exception e) {
+        //  JOptionPane.showMessageDialog(null, e.getMessage(), "Could not open " + f.getName(), JOptionPane.ERROR_MESSAGE);
+	//  return false;
+	//}
       }
       else {
-        spItem.printDocument(os);
+         if(System.getProperty("DEBUG") != null) { 
+            System.out.println("xml = " + getXML());
+         }
+
+         spItem.printDocument(os);
       }
 
       os.flush();
@@ -212,10 +175,26 @@ fetchSp(String dir, String filename)
 public static SpRootItem
 fetchSp(Reader rdr)
 {
+  // MFO (next 18 lines)
   if(_io_xml) {
-    return (new SpItemDOM(rdr)).getSpItem();
+    if(System.getProperty("DEBUG") != null) { 
+      System.out.println("xml = " + getXML());
+    }
+
+    try {
+      return (new SpItemDOM(rdr)).getSpItem();
+    }
+    catch(Exception e) {
+      JOptionPane.showMessageDialog(null, "Could not load Science Programme: " + e.getMessage(),
+                                    "Error", JOptionPane.ERROR_MESSAGE);        
+      return null;
+    }
   }
   else {
+    if(System.getProperty("DEBUG") != null) { 
+      System.out.println("xml = " + getXML());
+    }
+
     SpInputSGML inSGML = new SpInputSGML( rdr );
 
     // Read the science program
@@ -244,14 +223,28 @@ open()
    fd.addChoosableFileFilter(xmlFilter);
    fd.addChoosableFileFilter(sgmlFilter);
    //if (_lastDir != null) {
-   //   fd.setDirectory(_lastDir);
+   //   fd.setCurrentDirectory(_lastDir);
    //}
+
+   if(System.getProperty("OMP") != null) {
+     fd.setFileFilter(xmlFilter);
+   }
+   else {
+     fd.setFileFilter(sgmlFilter);
+   }
 
    fd.showOpenDialog(null);
    String dir      = fd.getSelectedFile().getParent(); // getDirectory();
    String filename = fd.getSelectedFile().getName();   // getFile();
    if (filename == null) {
       return;
+   }
+
+   if(fd.getFileFilter() instanceof FileFilterXML) {
+     _io_xml = true;
+   }
+   else {
+     _io_xml = false;
    }
 
    if (dir != null) _lastDir = dir;
@@ -302,6 +295,14 @@ save(SpRootItem spItem, FileInfo fi)
    JFileChooser fd = new JFileChooser(fi.dir); //FileBox.getFileDialog(FileDialog.SAVE);
    fd.addChoosableFileFilter(xmlFilter);
    fd.addChoosableFileFilter(sgmlFilter);
+
+   if(System.getProperty("OMP") != null) {
+     fd.setFileFilter(xmlFilter);
+   }
+   else {
+     fd.setFileFilter(sgmlFilter);
+   }
+
    fd.showSaveDialog(null);
    //System.out.println("*** Default Dir.: " + fi.dir);
    //System.out.println("*** Default File: " + fi.filename);
@@ -335,7 +336,34 @@ save(SpRootItem spItem, FileInfo fi)
    String      dir = f.getParent();
    String filename = f.getName();
 
+   if(fd.getFileFilter() instanceof FileFilterXML) {
+     _io_xml = true;
+   }
+   else {
+     _io_xml = false;
+   }
+   /*MFO DEBUG*/System.out.println("_io_xml = " + _io_xml);
+
    if (dir != null) _lastDir = dir;
+
+   // Check whether user is about to confuse file formats.
+   if(!_io_xml && filename.endsWith(".xml")) {
+      if (JOptionPane.showConfirmDialog(null,
+                                        "Are you sure you want to save in SGML format\n" +
+					"to a file with *.xml suffix?", "Incorrect file suffix",
+					JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+         return false;
+      }     
+   }
+
+   if(_io_xml && !filename.endsWith(".xml")) {
+      if (JOptionPane.showConfirmDialog(null,
+                                        "Are you sure you want to save in XML format\n" +
+					"to a file without *.xml suffix?", "Incorrect file suffix",
+					JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+         return false;
+      }     
+   }
    
    // Make sure we aren't going to over-write an existing file.
    if (f.exists()) {
@@ -420,6 +448,13 @@ revertToSaved(FileInfo fi)
    return fetchSp(fi.dir, fi.filename);
 }
 
+public static void setXML(boolean xml) {
+   _io_xml = xml;
+}
+
+public static boolean getXML() {
+   return _io_xml;
+}
 
 }
 
