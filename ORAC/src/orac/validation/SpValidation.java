@@ -91,7 +91,9 @@ public class SpValidation {
 	checkIterator(doc, "SpIterChop", "Chop Iterator", report);
 	checkIterator(doc, "SpIterPOL", "POL Iterator", report);
         checkIterator(doc, "SpIterRepeat", "Repeat Iterator", report);
-	checkIterator(doc, "SpIterOffset", "Offset Iterator",report);
+	if (System.getProperty("ot.cfgdir").indexOf("ukirt") == -1) {
+	    checkIterator(doc, "SpIterOffset", "Offset Iterator",report);
+	}
 	checkIterator(doc, "SpIterFrequency", "Frequency Iterator", report);
 
 	// Other rules:
