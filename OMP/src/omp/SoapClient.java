@@ -10,6 +10,8 @@ import org.apache.soap.encoding.SOAPMappingRegistry;
 import org.apache.soap.encoding.literalxml.XMLParameterSerializer;
 import org.apache.soap.rpc.*;
 import org.apache.soap.util.xml.QName;
+import org.apache.soap.transport.http.SOAPHTTPConnection;
+
 
 
 /**
@@ -92,6 +94,14 @@ public class SoapClient {
       if (header != null)
 	call.setHeader(header);
       soapAction +="#" + methodName;
+      if (System.getProperty("http.proxyHost") != null &&
+	  System.getProperty("http.proxyHost").length() > 0) {
+	  System.out.println("Using proxy server");
+	  SOAPHTTPConnection st = new SOAPHTTPConnection();
+	  st.setProxyHost(System.getProperty("http.proxyHost"));
+	  st.setProxyPort( Integer.parseInt(System.getProperty("http.proxyPort")));
+	  call.setSOAPTransport(st);
+      }
 
       //Let's dump the envelope
       //Envelope env = call.buildEnvelope();
