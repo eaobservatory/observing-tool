@@ -51,14 +51,19 @@ public interface TelescopeUtil {
   public SpValidation getValidationTool();
 
   public String [] getTargetTags();
+
+  /**
+   * Get telescope specific base tag.
+   *
+   * For example "Base" for UKIRT and "Science" for JCMT.
+   */
   public String    getBaseTag();
 
   /**
    * Returns the tag for the target that can be added to the Target List
    * in addition to Base/Science.
    *
-   * "GUIDE" for UKIRT<br>
-   * "Reference" for JCMT 
+   * For example "GUIDE" for UKIRT and "Reference" for JCMT.
    */
   public String    getAdditionalTarget();
 
