@@ -85,7 +85,7 @@ storeSp(SpRootItem spItem, File f)
       FileOutputStream fis = new FileOutputStream(f);
       OutputStream os = new BufferedOutputStream(fis);
 
-      // MFO (next 16 lines)
+      // MFO (store to XML)
       if(_io_xml) {
          if(System.getProperty("DEBUG") != null) { 
             System.out.println("xml = " + isXML());
@@ -108,6 +108,9 @@ storeSp(SpRootItem spItem, File f)
 	  // Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
 	  // SpObs components that are MSBs.
 	  SpItemUtilities.saveElapsedTimes(spItem);
+
+          // Make sure the msb attributes are set correctly.
+          SpItemUtilities.updateMsbAttributes(spItem);
 
           (new PrintStream(os)).print((new SpItemDOM(spItem)).toXML());
 	}
@@ -230,6 +233,10 @@ fetchSp(Reader rdr)
     if (newItem instanceof SpPhase1) {
       newItem = ((SpPhase1) newItem).createProgram();
     }
+
+    // Old science programs and libraries won't have their the MSB attributes set.
+    // Set them now. (MFO, 04 March 2002)
+    SpItemUtilities.updateMsbAttributes(newItem);
 
     return newItem;
   }
