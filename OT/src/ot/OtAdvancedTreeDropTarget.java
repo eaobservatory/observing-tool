@@ -223,10 +223,12 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 	    }
 	    newItems = _spTree.addItems( spID );
 	  }
+
           // force redrawing of the tree
 	  //   resetProg seems to have caused the gaps in the tree between obs components in a group.
-	  //   Unless other problems araise it should remain commented out.
+	  //   Unless other problems araise setCollapsed should be used instead.
 	  //_spTree.resetProg(_spTree.getProg());
+	  _spTree.setCollapsed();
 	}
 	catch(Exception e) {
           DialogUtil.error(e);
