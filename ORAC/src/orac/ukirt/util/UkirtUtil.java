@@ -26,7 +26,8 @@ import orac.ukirt.validation.UkirtSpValidation;
 public class UkirtUtil implements TelescopeUtil {
 
   private static final String [] COORD_SYS_FK5_FK4 = { CoordSys.COORD_SYS[CoordSys.FK5],
-                                                       CoordSys.COORD_SYS[CoordSys.FK4]};
+                                                       CoordSys.COORD_SYS[CoordSys.FK4],
+                                                       CoordSys.COORD_SYS[CoordSys.AZ_EL] };
 
 
   private static final String [] CHOP_SYSTEM = { CoordSys.COORD_SYS[CoordSys.FK5] };
@@ -46,18 +47,13 @@ public class UkirtUtil implements TelescopeUtil {
    * @return always false for UKIRT
    */
   public boolean isOffsetTarget(String targetTag) {
-    if((targetTag != null) && (targetTag.equalsIgnoreCase("reference"))) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return false;
   }
 
   public boolean supports(int feature) {
     switch(feature) {
-      case FEATURE_TARGET_INFO_CHOP:        return true;
-      case FEATURE_FLAG_AS_STANDARD:        return true;
+      case FEATURE_TARGET_INFO_CHOP:        return false;
+      case FEATURE_FLAG_AS_STANDARD:        return false;
       case FEATURE_TARGET_INFO_PROP_MOTION: return false;
       case FEATURE_TARGET_INFO_TRACKING:    return false;
       default:                              return false;
