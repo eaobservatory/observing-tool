@@ -189,7 +189,6 @@ public final class EdNote extends OtItemEditor
     public void	textBoxAction(TextBoxWidgetExt tbwe) {}
 
     public void checkBoxAction(CheckBoxWidgetExt checkBoxWidgetExt) {
-	System.out.println("In checkbox action listener");
 	((SpNote)_spItem).setObserveInstruction(_w.observeInstruction.getBooleanValue());
 	_updateWidgets();
     }
