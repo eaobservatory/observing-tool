@@ -75,6 +75,7 @@ public final class OtCfg
 	String []       chopDefaults;       // Added by MFO, May 13, 2002
 	String []       namedTargets;       // Added by MFO, June 05, 2002
 	String          telescopeLatitude;   // Added by MFO, June 13, 2002
+	String          schemaLocation;      // Added by SdW, Sept. 2002
     }
 
     /**
@@ -94,6 +95,7 @@ public final class OtCfg
 	String baseDir = System.getProperty("ot.resource.cfgdir", "jsky/app/ot/cfg/");
 
 	// Read the configuration information from the "ot.cfg" file.
+	System.out.println("Loading config file from "+baseDir);
 	_otCfgInfo = OtCfgReader.load(baseDir + "ot.cfg");
 
         // Initialize telescope specific features. Has to be done before SpTelescopePos.setBaeTag().
@@ -143,6 +145,15 @@ public final class OtCfg
      */
     public static String getTelescopeLatitude() {
       return _otCfgInfo.telescopeLatitude;
+    }
+
+    // Added by SdW. Sept 2002
+    /**
+     * Get the location of the schema.
+     * @return  The fully qualified file name for the installed schema file
+     */
+    public static String getSchemaLocation() {
+      return _otCfgInfo.schemaLocation;
     }
 
     public static synchronized boolean	phase1Available() {
