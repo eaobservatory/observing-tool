@@ -440,6 +440,10 @@ mJy. The second is a scalar containing the exit status of the function:
 
   public static double noise_level(double integrations, double wavelength, String mode, double nefd,
                                    int [] status, double length, double width) {
+
+      // This is really the integration time per beam for phot and jiggle
+      // For scan map it is a bit more complicated
+      double integrationTime = integrations;
 /*
   my $int = $_[0];
   my $filter = $_[1];
@@ -473,9 +477,21 @@ mJy. The second is a scalar containing the exit status of the function:
       return 0.0;
     }
 
+    // First need to translate the mode and integrations number
+    // into an actual time.
+    if (mode.equalsIgnoreCase("PHOT")) {
+	// Assume a 9pt jiggle pattern
+	integrationTime = 18.0 * integrations;
+    } else if (mode.equalsIgnoreCase("JIG16")) {
+	integrationTime = 32 * integrations;
+    } else if (mode.equalsIgnoreCase("JIG64")) {
+	integrationTime = 128 * integrations;
+    }
+
+
     // Basic noise calculation
 
-    double noise = nefd / StrictMath.sqrt(integrations);
+    double noise = nefd / StrictMath.sqrt(integrationTime);
 
     // Now we have special factors for different modes:
 
