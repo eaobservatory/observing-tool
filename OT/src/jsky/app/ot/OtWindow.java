@@ -1261,6 +1261,7 @@ public class OtWindow extends SpTreeGUI
 		SpItem replicatedItem = SpClient.replicateSp((SpItem)getItem(), file);
 		if (replicatedItem != null) {
 		    OtWindow.create((SpRootItem)replicatedItem, (FileInfo)null);
+		    OtProps.setSaveShouldPrompt(true);
 		}
 	    }
 	    catch (Exception e) {
