@@ -21,6 +21,14 @@ public class IterJCMTGenericGUI extends JPanel {
   public static final String FREQUENCY = "Frequency";
   public static final String NONE      = "None";
 
+  TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
+  TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
+  TextBoxWidgetExt stepSize = new TextBoxWidgetExt();
+  TextBoxWidgetExt jigglesPerCycle = new TextBoxWidgetExt();
+  TextBoxWidgetExt sampleTime = new TextBoxWidgetExt();
+  CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt jiggleAtReference = new CheckBoxWidgetExt();
+
   BorderLayout borderLayout1 = new BorderLayout();
   JPanel jPanel1 = new JPanel();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
@@ -132,6 +140,7 @@ public class IterJCMTGenericGUI extends JPanel {
     this.setBorder(border1);
     switchingMode.setFont(new java.awt.Font("Dialog", 0, 12));
     noOfIntegrations.setFont(new java.awt.Font("Dialog", 0, 12));
+    referenceOffset_system.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(jPanel1, BorderLayout.NORTH);
     jPanel1.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 5, 0, 0), 0, 0));

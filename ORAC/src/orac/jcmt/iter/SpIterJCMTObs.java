@@ -24,6 +24,8 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 
+import gemini.util.CoordSys;
+
 import java.util.Enumeration;
 
 import orac.jcmt.SpJCMTConstants;
@@ -107,6 +109,8 @@ public SpIterJCMTObs(SpType spType)
    // is appended to the name of the iterator in the Science Prrogram tree
    // is the number of iterations, ATTR_INTEGRATIONS.
    _avTable.rm(ATTR_COUNT);
+
+   _avTable.noNotifySet(ATTR_REFERENCE_OFFSET_SYSTEM, CoordSys.COORD_SYS[CoordSys.FK5], 0);
 }
 
 /** Get the number of desired integrations. */
@@ -154,6 +158,147 @@ public void setCount() {
 public SpIterEnumeration elements() {
    return new SpIterJCMTObsEnumeration(this);
 }
+
+
+/**
+ *
+ */
+public String getSwitchingMode() {
+   return _avTable.get(ATTR_SWITCHING_MODE);
+}
+
+/**
+ *
+ */
+public void setSwitchingMode(String switchingMode) {
+   _avTable.set(ATTR_SWITCHING_MODE, switchingMode);
+}
+
+/**
+ *
+ */
+public double getReferenceOffsetX() {
+   return _avTable.getDouble(ATTR_REFERENCE_OFFSET_X, 0.0);
+}
+
+/**
+ *
+ */
+public void setReferenceOffsetX(String value) {
+   _avTable.set(ATTR_REFERENCE_OFFSET_X, toDouble(value));
+}
+
+/**
+ *
+ */
+public double getReferenceOffsetY() {
+   return _avTable.getDouble(ATTR_REFERENCE_OFFSET_Y, 0.0);
+}
+
+/**
+ *
+ */
+public void setReferenceOffsetY(String value) {
+   _avTable.set(ATTR_REFERENCE_OFFSET_Y, toDouble(value));
+}
+
+/**
+ *
+ */
+public String getReferenceOffsetSystem() {
+   return _avTable.get(ATTR_REFERENCE_OFFSET_SYSTEM);
+}
+
+/**
+ *
+ */
+public void setReferenceOffsetSystem(String value) {
+   _avTable.set(ATTR_REFERENCE_OFFSET_SYSTEM, value);
+}
+
+/**
+ *
+ */
+public double getFrequencyOffsetThrow() {
+   return _avTable.getDouble(ATTR_FREQUENCY_OFFSET_THROW, 0.0);
+}
+
+/**
+ *
+ */
+public void setFrequencyOffsetThrow(String value) {
+   _avTable.set(ATTR_FREQUENCY_OFFSET_THROW, toDouble(value));
+}
+
+/**
+ *
+ */
+public double getFrequencyOffsetRate() {
+   return _avTable.getDouble(ATTR_FREQUENCY_OFFSET_RATE, 0.0);
+}
+
+
+/**
+ *
+ */
+public void setFrequencyOffsetRate(String value) {
+   _avTable.set(ATTR_FREQUENCY_OFFSET_RATE, toDouble(value));
+}
+
+  public int getSecsPerCycle() {
+    return _avTable.getInt(ATTR_SECS_PER_CYCLE, 0);
+  }
+
+  public void setSecsPerCycle(String value) {
+    _avTable.set(ATTR_SECS_PER_CYCLE, value);
+  }
+
+  public int getNoOfCycles() {
+    return _avTable.getInt(ATTR_NO_OF_CYCLES, 0);
+  }
+
+  public void setNoOfCycles(String value) {
+    _avTable.set(ATTR_NO_OF_CYCLES, value);
+  }
+
+  public boolean getCycleReversal() {
+    return _avTable.getBool(ATTR_CYCLE_REVERSAL);
+  }
+
+  public void setCycleReversal(boolean value) {
+    _avTable.set(ATTR_CYCLE_REVERSAL, value);
+  }
+
+  public double getStepSize() {
+    return _avTable.getDouble(ATTR_STEP_SIZE, 0.0);
+  }
+
+  public void setStepSize(String value) {
+    _avTable.set(ATTR_STEP_SIZE, value);
+  }
+
+  public boolean getJiggleAtReference() {
+    return _avTable.getBool(ATTR_JIGGLE_AT_REFERENCE);
+  }
+
+  public void setJiggleAtReference(boolean value) {
+    _avTable.set(ATTR_JIGGLE_AT_REFERENCE, value);
+  }
+
+  public int getJigglesPerCycle() {
+    return _avTable.getInt(ATTR_JIGGLES_PER_CYCLE, 1);
+  }
+  public void setJigglesPerCycle(String value) {
+    _avTable.set(ATTR_JIGGLES_PER_CYCLE, value);
+  }
+
+  public double getSampleTime() {
+    return _avTable.getDouble(ATTR_SAMPLE_TIME, 0.0);
+  }
+
+  public void setSampleTime(String value) {
+    _avTable.set(ATTR_SAMPLE_TIME, value);
+  }
 
 /**
  * Override getExposureTime. Get the value from the instrument in

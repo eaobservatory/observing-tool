@@ -34,11 +34,8 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel5 = new JLabel();
   JLabel jLabel6 = new JLabel();
   TextBoxWidgetExt focusPoints = new TextBoxWidgetExt();
-  TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
   GridBagLayout gridBagLayout2 = new GridBagLayout();
   JPanel acsisPanel = new JPanel();
-  CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
-  TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
   JLabel jLabel1 = new JLabel();
 

@@ -30,21 +30,14 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel1 = new JLabel();
   DropDownListBoxWidgetExt jigglePattern = new DropDownListBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
-  TextBoxWidgetExt stepSize = new TextBoxWidgetExt();
   JLabel jLabel3 = new JLabel();
   JLabel jLabel4 = new JLabel();
   JLabel jLabel5 = new JLabel();
   JLabel jLabel6 = new JLabel();
-  TextBoxWidgetExt sampleTime = new TextBoxWidgetExt();
   JLabel jLabel7 = new JLabel();
-  TextBoxWidgetExt jigglesPerCycle = new TextBoxWidgetExt();
-  TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
-  CheckBoxWidgetExt jiggleAtReference = new CheckBoxWidgetExt();
-  CheckBoxWidgetExt checkBoxWidgetExt1 = new CheckBoxWidgetExt();
   JLabel jLabel8 = new JLabel();
   JLabel jLabel9 = new JLabel();
   JLabel jLabel10 = new JLabel();
-  TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerJiggle = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerObs = new TextBoxWidgetExt();
   CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt();
@@ -87,8 +80,8 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     noOfCycles.setColumns(6);
     jiggleAtReference.setText("Jiggle at Reference");
     jiggleAtReference.setFont(new java.awt.Font("Dialog", 0, 12));
-    checkBoxWidgetExt1.setText("Cycle Reversal");
-    checkBoxWidgetExt1.setFont(new java.awt.Font("Dialog", 0, 12));
+    cycleReversal.setText("Cycle Reversal");
+    cycleReversal.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setForeground(Color.black);
     jLabel8.setText("secs/cycle");
@@ -104,6 +97,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     secsPerCycle.setColumns(10);
     defaultButton.setText("Default");
     secsPerObs.setEditable(false);
+    jigglePattern.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
@@ -131,7 +125,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(jiggleAtReference, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
-    acsisPanel.add(checkBoxWidgetExt1, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0
+    acsisPanel.add(cycleReversal, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
     acsisPanel.add(jLabel8, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));

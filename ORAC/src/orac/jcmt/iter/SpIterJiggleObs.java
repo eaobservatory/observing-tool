@@ -32,33 +32,33 @@ import java.util.Enumeration;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterJiggleObs extends SpIterJCMTObs
-{
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "jiggleObs", "Jiggle");
+public class SpIterJiggleObs extends SpIterJCMTObs {
+  public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
 
-// Register the prototype.
-static {
-   SpFactory.registerPrototype(new SpIterJiggleObs());
-}
+  public static final SpType SP_TYPE =
+    SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "jiggleObs", "Jiggle");
+
+  // Register the prototype.
+  static {
+    SpFactory.registerPrototype(new SpIterJiggleObs());
+  }
 
 
-/**
- * Default constructor.
- */
-public SpIterJiggleObs()
-{
-   super(SP_TYPE);
-}
+  /**
+   * Default constructor.
+   */
+  public SpIterJiggleObs() {
+    super(SP_TYPE);
+  }
 
-public double getSecsPerIntegration() {
-   SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+  public double getSecsPerIntegration() {
+    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
 
-   if(instrument == null) {
+    if(instrument == null) {
       return 0.0;
-   }
+    }
 
-   if(instrument instanceof SpInstSCUBA) {
+    if(instrument instanceof SpInstSCUBA) {
       // For now JIG16 is assumed.
       double overhead = SCUBA_STARTUP_TIME + (9 * getIntegrations());
       return (getIntegrations() * SECS_PER_INTEGRATION_JIG16) + overhead;
@@ -66,14 +66,21 @@ public double getSecsPerIntegration() {
       // JIG64
       //double overhead = SCUBA_STARTUP_TIME + (36 * getIntegrations());
       //return (getIntegrations() * SECS_PER_INTEGRATION_JIG64) + overhead;
-   }
+    }
 //   else {
      // Heterodyne
 //   }
 
-   return 0.0;
-}
+    return 0.0;
+  }
 
+  public String getJigglePattern() {
+    return _avTable.get(ATTR_JIGGLE_PATTERN);
+  }
+
+  public void setJigglePattern(String value) {
+    _avTable.set(ATTR_JIGGLE_PATTERN, value);
+  }
 }
 
 

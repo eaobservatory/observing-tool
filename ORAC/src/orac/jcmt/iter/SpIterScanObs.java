@@ -32,6 +32,12 @@ import java.util.Enumeration;
 /**
  * Scan iterator for SCUBA/JCMT.
  *
+ * The Raster iterator (ACSIS) and the Scan iterator share a lot of fuctionality
+ * and should in future be either made the same class or share code by other
+ * means such as inheritance.
+ *
+ * @see orac.jcmt.iter.SpIterRasterObs
+ * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class SpIterScanObs extends SpIterJCMTObs

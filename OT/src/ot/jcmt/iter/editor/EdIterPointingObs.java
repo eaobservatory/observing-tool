@@ -14,18 +14,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.CardLayout;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.MenuElement;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-import jsky.app.ot.editor.OtItemEditor;
-
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.OptionWidgetExt;
+import jsky.app.ot.gui.OptionWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.iter.SpIterPointingObs;
 
 /**
  * This is the editor for Pointing Observe Mode iterator component.
@@ -33,41 +42,114 @@ import orac.jcmt.inst.SpInstSCUBA;
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
 public final class EdIterPointingObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, ActionListener {
+  implements CommandButtonWidgetWatcher, OptionWidgetWatcher, ActionListener {
 
-    private IterPointingObsGUI _w;       // the GUI layout panel
+  private IterPointingObsGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+  private SpIterPointingObs _iterObs;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterPointingObs() {
-        super(new IterPointingObsGUI());
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdIterPointingObs() {
+    super(new IterPointingObsGUI());
 
-	_title       ="Pointing Iterator";
-	_presSource  = _w = (IterPointingObsGUI)super._w;
-	_description ="Pointing Observation Mode";
+    _title       ="Pointing Iterator";
+    _presSource  = _w = (IterPointingObsGUI)super._w;
+    _description ="Pointing Observation Mode";
+
+    ButtonGroup grp = new ButtonGroup();
+    grp.add(_w.continuum);
+    grp.add(_w.spectralLine);
+
+    _w.continuum.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM);
+    _w.spectralLine.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_SPECTRAL_LINE);
+
+    _w.pointingMethod.setChoices(SpIterPointingObs.POINTING_METHODS);
+
+    MenuElement [] menuElements = _w.pointingPixelPopupMenu.getSubElements();
+    MenuElement [] subElements  = null;
+
+    Font font = new Font("Dialog", Font.PLAIN, 12);
+    JMenuItem menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXELS_AUTOMATIC);
+    menuItem.setFont(font);
+    menuItem.addActionListener(this);
+    _w.pointingPixelPopupMenu.add(menuItem);
+
+    JMenu menu = new JMenu(SpIterPointingObs.POINTING_PIXELS_MANUAL);
+    menu.setFont(font);
+    menu.addActionListener(this);
+    _w.pointingPixelPopupMenu.add(menu);
+
+    for(int i = 0; i < SpIterPointingObs.POINTING_PIXELS_MANUAL_CHOICES.length; i++) {
+      menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXELS_MANUAL_CHOICES[i]);
+      menuItem.setFont(font);
+      menuItem.addActionListener(this);
+      menu.add(menuItem);
     }
 
-    public void actionPerformed(ActionEvent e) { }
-    public void textBoxKeyPress(TextBoxWidgetExt e) { }
-    public void textBoxAction(TextBoxWidgetExt e) { }
+    _w.pointingPixelButton.addWatcher(this);
+    _w.continuum.addWatcher(this);
+    _w.spectralLine.addWatcher(this);
+  }
 
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-      super.setInstrument(spInstObsComp);
+  /**
+   * Override setup to store away a reference to the Pointing Iterator.
+   */
+  public void setup(SpItem spItem) {
+    _iterObs = (SpIterPointingObs) spItem;
+    super.setup(spItem);
+  }
 
-      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-        //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	//((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	//_w.switchingMode.setEnabled(false);
-        _w.acsisPanel.setVisible(false);
-      }
-      else {
-        //_w.switchingMode.setEnabled(true);
-        _w.acsisPanel.setVisible(true);
-      }
+  protected void _updateWidgets() {
+    _w.pointingPixelButton.setText(_iterObs.getPointingPixel());
+
+    if(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM.equals(_iterObs.getSpectralMode())) {
+      _w.continuum.setSelected(true);
     }
+    else {
+      _w.spectralLine.setSelected(true);
+    }
+
+    super._updateWidgets();
+  }
+
+
+//  public void textBoxAction(TextBoxWidgetExt tbwe) {
+//    super.textBoxAction(tbwe);
+//  }
+
+  public void commandButtonAction(CommandButtonWidgetExt cbwe) {
+    _w.pointingPixelPopupMenu.show(_w.pointingPixelButton, 0, 0);
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    if(e.getSource() instanceof JMenuItem) {
+      _w.pointingPixelButton.setText(((JMenuItem)(e.getSource())).getText());
+      _iterObs.setPointingPixel(((JMenuItem)(e.getSource())).getText());
+      return;
+    }
+//    System.out.println("ChangeEvent.toString() = " + e.toString());
+//    System.out.println("PopupMenuEvent.getSource() = " + e.getSource());
+  }
+ 
+  public void optionAction(OptionWidgetExt owe) {
+    _iterObs.setSpectralMode(owe.getActionCommand());
+  }
+
+  public void setInstrument(SpInstObsComp spInstObsComp) {
+    super.setInstrument(spInstObsComp);
+
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+      //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+      //((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+      //_w.switchingMode.setEnabled(false);
+      _w.acsisPanel.setVisible(false);
+    }
+    else {
+      //_w.switchingMode.setEnabled(true);
+      _w.acsisPanel.setVisible(true);
+    }
+  }
 }
 

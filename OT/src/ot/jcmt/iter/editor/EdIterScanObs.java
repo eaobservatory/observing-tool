@@ -17,13 +17,10 @@ import java.awt.CardLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
-import jsky.app.ot.editor.OtItemEditor;
 import jsky.app.ot.util.CoordSys;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
@@ -38,16 +35,11 @@ import ot.util.DialogUtil;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterScanObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher {
+public final class EdIterScanObs extends EdIterJCMTGeneric {
 
   private IterScanObsGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-//    private boolean ignoreActions = false;
-
   private SpIterScanObs _iterObs;
-
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -93,25 +85,52 @@ public final class EdIterScanObs extends EdIterJCMTGeneric
     super._updateWidgets();
   }
 
-//    public void actionPerformed(ActionEvent e) { }
-
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    if (tbwe == _w.x)        { _iterObs.setX(_w.x.getValue()); }
-    if (tbwe == _w.y)        { _iterObs.setY(_w.y.getValue()); }
-    if (tbwe == _w.theta)    { _iterObs.setTheta(_w.theta.getValue()); }
-    if (tbwe == _w.deltaX)   { _iterObs.setDeltaX(_w.deltaX.getValue()); }
-    if (tbwe == _w.deltaY)   { _iterObs.setDeltaY(_w.deltaY.getValue()); }
-    if (tbwe == _w.posAngle) { _iterObs.setPosAngle(_w.posAngle.getValue()); }
-  }
+    if(tbwe == _w.x) {
+      _iterObs.setX(_w.x.getValue());
+      return;
+    }
 
-  public void textBoxAction(TextBoxWidgetExt tbwe) { }
+    if(tbwe == _w.y) {
+      _iterObs.setY(_w.y.getValue());
+    }
+
+    if(tbwe == _w.theta) {
+      _iterObs.setTheta(_w.theta.getValue());
+      return;
+    }
+
+    if(tbwe == _w.deltaX) {
+      _iterObs.setDeltaX(_w.deltaX.getValue());
+      return;
+    }
+
+    if(tbwe == _w.deltaY) {
+      _iterObs.setDeltaY(_w.deltaY.getValue());
+      return;
+    }
+
+    if(tbwe == _w.posAngle) {
+      _iterObs.setPosAngle(_w.posAngle.getValue());
+      return;
+    }
+
+    super.textBoxKeyPress(tbwe);
+  }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if (ddlbwe == _w.system)     { _iterObs.setSystem(CoordSys.COORD_SYS[index]); }
-    if (ddlbwe == _w.coordFrame) { _iterObs.setCoordFrame(CoordSys.COORD_SYS[index]); }
+    if(ddlbwe == _w.system) {
+      _iterObs.setSystem(CoordSys.COORD_SYS[index]);
+      return;  
+    }
+
+    if(ddlbwe == _w.coordFrame) {
+      _iterObs.setCoordFrame(CoordSys.COORD_SYS[index]);
+      return;
+    }
+
+    super.dropDownListBoxAction(ddlbwe, index, val);
   }
-    
-  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {

@@ -34,8 +34,7 @@ import orac.jcmt.SpJCMTConstants;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterFocusObs extends SpIterJCMTObs
-{
+public class SpIterFocusObs extends SpIterJCMTObs {
   public static String [] AXES = { "x", "y", "z" };
 
   public static final SpType SP_TYPE =

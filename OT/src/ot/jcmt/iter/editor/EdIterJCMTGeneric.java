@@ -16,11 +16,13 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
 import jsky.app.ot.editor.OtItemEditor;
-
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.util.CoordSys;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
@@ -37,92 +39,180 @@ import orac.jcmt.iter.SpIterJCMTObs;
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
 public class EdIterJCMTGeneric extends OtItemEditor
-    implements TextBoxWidgetWatcher {
+  implements DropDownListBoxWidgetWatcher, TextBoxWidgetWatcher, CheckBoxWidgetWatcher {
 
-    protected IterJCMTGenericGUI _w;       // the GUI layout panel
+  protected IterJCMTGenericGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+  // If true, ignore action events
+//  private boolean ignoreActions = false;
 
-    protected static String [] SWITCHING_MODES = { IterJCMTGenericGUI.NOD,
-                                                   IterJCMTGenericGUI.CHOP,
-                                                   IterJCMTGenericGUI.FREQUENCY,
-                                                   IterJCMTGenericGUI.NONE };
+  protected static String [] SWITCHING_MODES = { IterJCMTGenericGUI.NOD,
+                                                 IterJCMTGenericGUI.CHOP,
+                                                 IterJCMTGenericGUI.FREQUENCY,
+                                                 IterJCMTGenericGUI.NONE };
 
-    protected static int SWITCHING_MODE_CHOP = 1;
+  protected static int SWITCHING_MODE_CHOP = 1;
 
+  private SpIterJCMTObs _iterObs;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterJCMTGeneric(IterJCMTGenericGUI w) {
-	_title       ="JCMT Iterator";
-	_presSource  = _w = w;
-	_description ="Iterator Component for JCMT";
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdIterJCMTGeneric(IterJCMTGenericGUI w) {
+    _title       ="JCMT Iterator";
+    _presSource  = _w = w;
+    _description ="Iterator Component for JCMT";
 
-	for(int i = 0; i < 100; i++) {
-	  _w.noOfIntegrations.addItem("" + (i + 1));
-	}
-
-	for(int i = 0; i < SWITCHING_MODES.length; i++) {
-	  _w.switchingMode.addItem(SWITCHING_MODES[i]);
-	}
-
-
-	_w.switchingMode.addWatcher(new DropDownListBoxWidgetWatcher() {
-	  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-            ((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, val);
-	  }
-
-	  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
-	});
-
-
-	_w.noOfIntegrations.addWatcher(new DropDownListBoxWidgetWatcher() {
-	  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-            //try { 
-	    ((SpIterJCMTObs)_spItem).setIntegrations(val);
-	    //}
-	    //catch(Exception e) {
-	    //  ((SpIterObserveBase)_spItem).setCount(val);
-	    //}
-	  }
-
-	  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
-	});	
+    for(int i = 0; i < 100; i++) {
+      _w.noOfIntegrations.addItem("" + (i + 1));
     }
 
-
-    public void textBoxKeyPress(TextBoxWidgetExt tbwe) { }
-    public void textBoxAction(TextBoxWidgetExt tbwe) { }
-
-    protected void _updateWidgets() {
-      setInstrument(SpTreeMan.findInstrument(_spItem));
-
-      //try {
-      _w.noOfIntegrations.setValue(((SpIterJCMTObs)_spItem).getIntegrations() - 1);
-      //}
-      //catch(Exception e) {
-      //  _w.noOfIntegrations.setValue(((SpIterObserveBase)_spItem).getCount() - 1);
-      //}
+    for(int i = 0; i < SWITCHING_MODES.length; i++) {
+      _w.switchingMode.addItem(SWITCHING_MODES[i]);
     }
 
-    /**
-     * This method should be overwritten by sub classes representing iterators whose appearance
-     * is different for different instruments.
-     */
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-	_w.switchingMode.setVisible(false);
-        _w.switchingModeLabel.setVisible(false);
-        _w.switchingModePanel.setVisible(false);
-      }
-      else {
-	_w.switchingMode.setVisible(true);
-        _w.switchingModeLabel.setVisible(true);      
-        _w.switchingModePanel.setVisible(true);
-      }
+    _w.referenceOffset_system.setChoices(CoordSys.COORD_SYS);
+//    _w.referenceOffset_system.setValue(CoordSys.FK5);
+
+    _w.switchingMode.addWatcher(this);
+    _w.noOfIntegrations.addWatcher(this);
+    _w.referenceOffset_x.addWatcher(this);
+    _w.referenceOffset_y.addWatcher(this);
+    _w.referenceOffset_system.addWatcher(this);
+    _w.frequencyOffset_throw.addWatcher(this);
+    _w.frequencyOffset_rate.addWatcher(this);
+    _w.secsPerCycle.addWatcher(this);
+    _w.noOfCycles.addWatcher(this);
+    _w.cycleReversal.addWatcher(this);
+    _w.stepSize.addWatcher(this);
+    _w.jiggleAtReference.addWatcher(this);
+    _w.jigglesPerCycle.addWatcher(this);
+    _w.sampleTime.addWatcher(this);
+  }  
+
+  /**
+   * Override setup to store away a reference to the Scan Iterator.
+   */
+  public void setup(SpItem spItem) {
+    _iterObs = (SpIterJCMTObs)spItem;
+    super.setup(spItem);
+  }
+
+  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
+    if(ddlbwe == _w.switchingMode) {
+      ((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, val);
+      _iterObs.setSwitchingMode(val);
+
+      return; 
     }
 
+    if(ddlbwe == _w.noOfIntegrations) {
+      _iterObs.setIntegrations(val);
+      return;
+    }
+
+    if(ddlbwe == _w.referenceOffset_system) {
+      _iterObs.setReferenceOffsetSystem(val);
+      return;
+    }
+  }
+
+  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
+
+  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+    if(tbwe == _w.referenceOffset_x) {
+      _iterObs.setReferenceOffsetX(tbwe.getValue());
+      return;
+    }
+
+    if(tbwe == _w.referenceOffset_y) {
+      _iterObs.setReferenceOffsetY(tbwe.getValue());
+      return;
+    }
+
+    if(tbwe == _w.frequencyOffset_throw) {
+      _iterObs.setFrequencyOffsetThrow(tbwe.getValue());
+      return;
+    }
+
+    if(tbwe == _w.frequencyOffset_rate) {
+      _iterObs.setFrequencyOffsetRate(tbwe.getValue());
+      return;
+    }
+
+    if (tbwe == _w.secsPerCycle) {
+      _iterObs.setSecsPerCycle(_w.secsPerCycle.getValue());
+      return;
+    }
+
+    if (tbwe == _w.noOfCycles) {
+      _iterObs.setNoOfCycles(_w.noOfCycles.getValue());
+      return;
+    }
+
+    if(tbwe == _w.jigglesPerCycle) {
+      _iterObs.setJigglesPerCycle(_w.jigglesPerCycle.getValue());
+      return;
+    }
+
+    if(tbwe == _w.stepSize) {
+      _iterObs.setStepSize(_w.stepSize.getValue());
+      return;
+    }
+
+    if(tbwe == _w.sampleTime) {
+      _iterObs.setSampleTime(_w.sampleTime.getValue());
+      return;
+    }
+  }
+
+  public void textBoxAction(TextBoxWidgetExt tbwe) { }
+
+  public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+     if (cbwe == _w.cycleReversal) {
+      _iterObs.setCycleReversal(_w.cycleReversal.getBooleanValue());
+      return;
+    }
+
+    if(cbwe == _w.jiggleAtReference) {
+      _iterObs.setJiggleAtReference(_w.jiggleAtReference.getBooleanValue());
+      return;
+    }
+  }
+
+  protected void _updateWidgets() {
+    setInstrument(SpTreeMan.findInstrument(_spItem));
+
+    _w.noOfIntegrations.setValue(_iterObs.getIntegrations() - 1);
+    _w.referenceOffset_x.setValue(_iterObs.getReferenceOffsetX());
+    _w.referenceOffset_y.setValue(_iterObs.getReferenceOffsetY());
+    _w.referenceOffset_system.setValue(_iterObs.getReferenceOffsetSystem());
+    _w.frequencyOffset_throw.setValue(_iterObs.getFrequencyOffsetThrow());
+    _w.frequencyOffset_rate.setValue(_iterObs.getFrequencyOffsetRate());
+    _w.secsPerCycle.setValue(_iterObs.getSecsPerCycle());
+    _w.noOfCycles.setValue(_iterObs.getNoOfCycles());
+    _w.cycleReversal.setValue(_iterObs.getCycleReversal());
+    _w.stepSize.setValue(_iterObs.getStepSize());
+    _w.jiggleAtReference.setValue(_iterObs.getJiggleAtReference());
+    _w.jigglesPerCycle.setValue(_iterObs.getJigglesPerCycle());
+    _w.sampleTime.setValue(_iterObs.getSampleTime());
+  }
+
+  /**
+   * This method should be overwritten by sub classes representing iterators whose appearance
+   * is different for different instruments.
+   */
+  public void setInstrument(SpInstObsComp spInstObsComp) {
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+      _w.switchingMode.setVisible(false);
+      _w.switchingModeLabel.setVisible(false);
+      _w.switchingModePanel.setVisible(false);
+    }
+    else {
+      _w.switchingMode.setVisible(true);
+      _w.switchingModeLabel.setVisible(true);      
+      _w.switchingModePanel.setVisible(true);
+    }
+  }
 }
 

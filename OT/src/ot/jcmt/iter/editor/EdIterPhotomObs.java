@@ -33,37 +33,33 @@ import ot.util.DialogUtil;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterPhotomObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, ActionListener {
+public final class EdIterPhotomObs extends EdIterJCMTGeneric {
 
-    private IterPhotomObsGUI _w;       // the GUI layout panel
+  private IterPhotomObsGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdIterPhotomObs() {
+    super(new IterPhotomObsGUI());
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterPhotomObs() {
-	super(new IterPhotomObsGUI());
+    _title       ="Photom Iterator (SCUBA)";
+    _presSource  = _w = (IterPhotomObsGUI)super._w;
+    _description ="Photom Observation Mode (SCUBA)";
+  }
 
-	_title       ="Photom Iterator (SCUBA)";
-	_presSource  = _w = (IterPhotomObsGUI)super._w;
-	_description ="Photom Observation Mode (SCUBA)";
+//  public void textBoxAction(TextBoxWidgetExt tbwe) {
+//    super.textBoxAction(tbwe);
+//  }
+
+  public void setInstrument(SpInstObsComp spInstObsComp) {
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+      DialogUtil.error(_w, "Photom Iterator cannot be used with Heterodyne.\nUse Stare Iterator instead.");
     }
-
-    public void actionPerformed(ActionEvent e) { }
-    public void textBoxKeyPress(TextBoxWidgetExt e) { }
-    public void textBoxAction(TextBoxWidgetExt e) { }
-
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-	DialogUtil.error(_w, "Photom Iterator cannot be used with Heterodyne.\nUse Stare Iterator instead.");
-      }
       
-      _w.switchingMode.setVisible(false);
-      _w.switchingModeLabel.setVisible(false);
-      _w.switchingModePanel.setVisible(false);
-    }
+    _w.switchingMode.setVisible(false);
+    _w.switchingModeLabel.setVisible(false);
+    _w.switchingModePanel.setVisible(false);
+  }
 }
 

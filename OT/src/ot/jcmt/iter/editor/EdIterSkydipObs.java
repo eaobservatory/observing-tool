@@ -34,15 +34,11 @@ import orac.jcmt.inst.SpInstSCUBA;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterSkydipObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher {
+public final class EdIterSkydipObs extends EdIterJCMTGeneric {
 
   private IterSkydipObsGUI _w;       // the GUI layout panel
 
   private SpIterSkydipObs _iterObs;
-
-  // If true, ignore action events
-//  private boolean ignoreActions = false;
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -77,17 +73,23 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric
   }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    if (tbwe == _w.positions) { _iterObs.setPositions(_w.positions.getValue()); }
-  }
+    if (tbwe == _w.positions) {
+      _iterObs.setPositions(_w.positions.getValue());
+      return;
+    }
 
-  public void textBoxAction(TextBoxWidgetExt tbwe) { }
+    super.textBoxKeyPress(tbwe);
+  }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if (ddlbwe == _w.startPosition) { _iterObs.setStartPosition(SpIterSkydipObs.START_POSITIONS[index]); }
+    if (ddlbwe == _w.startPosition) {
+      _iterObs.setStartPosition(SpIterSkydipObs.START_POSITIONS[index]);
+      return;
+    }
+
+    super.dropDownListBoxAction(ddlbwe, index, val);
   }
     
-  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
-
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);
 

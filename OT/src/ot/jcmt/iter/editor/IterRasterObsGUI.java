@@ -37,20 +37,19 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel2 = new JLabel();
   JLabel jLabel3 = new JLabel();
   JLabel jLabel4 = new JLabel();
-  DropDownListBoxWidgetExt dropDownListBoxWidgetExt1 = new DropDownListBoxWidgetExt();
-  TextBoxWidgetExt textBoxWidgetExt1 = new TextBoxWidgetExt();
-  TextBoxWidgetExt textBoxWidgetExt2 = new TextBoxWidgetExt();
-  TextBoxWidgetExt textBoxWidgetExt3 = new TextBoxWidgetExt();
+  DropDownListBoxWidgetExt system = new DropDownListBoxWidgetExt();
+  TextBoxWidgetExt x = new TextBoxWidgetExt();
+  TextBoxWidgetExt y = new TextBoxWidgetExt();
+  TextBoxWidgetExt theta = new TextBoxWidgetExt();
   JLabel jLabel5 = new JLabel();
   OptionWidgetExt alongRow = new OptionWidgetExt();
-  OptionWidgetExt interleafed = new OptionWidgetExt();
+  OptionWidgetExt interleaved = new OptionWidgetExt();
   CheckBoxWidgetExt rowReversal = new CheckBoxWidgetExt();
   JLabel jLabel6 = new JLabel();
   JLabel jLabel7 = new JLabel();
   TextBoxWidgetExt rowsPerCal = new TextBoxWidgetExt();
   TextBoxWidgetExt rowsPerRef = new TextBoxWidgetExt();
   JLabel jLabel8 = new JLabel();
-  JTextField sampleTime = new JTextField();
   JLabel jLabel9 = new JLabel();
   CommandButtonWidgetExt defaultButton = new CommandButtonWidgetExt();
   JLabel jLabel10 = new JLabel();
@@ -95,8 +94,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     jLabel5.setText("(arc min)");
     alongRow.setText("Along Row");
     alongRow.setFont(new java.awt.Font("Dialog", 0, 12));
-    interleafed.setText("Interleafed");
-    interleafed.setFont(new java.awt.Font("Dialog", 0, 12));
+    interleaved.setText("Interleaved");
+    interleaved.setFont(new java.awt.Font("Dialog", 0, 12));
     rowReversal.setText("Row Reversal");
     rowReversal.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -128,10 +127,11 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     secsBetweenRefs.setEditable(false);
     secsBetweenCals.setEditable(false);
     secsPerObservation.setEditable(false);
+    system.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(alongRow, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
-    acsisPanel.add(interleafed, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    acsisPanel.add(interleaved, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 10, 5), 0, 0));
     acsisPanel.add(rowReversal, new GridBagConstraints(1, 0, 2, 2, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, 5, 5), 0, 0));
@@ -176,13 +176,13 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     scubaAcsisPanel.add(jLabel4, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
-    scubaAcsisPanel.add(dropDownListBoxWidgetExt1, new GridBagConstraints(0, 4, 3, 1, 0.0, 1.0
+    scubaAcsisPanel.add(system, new GridBagConstraints(0, 4, 3, 1, 0.0, 1.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
-    scubaAcsisPanel.add(textBoxWidgetExt1, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
+    scubaAcsisPanel.add(x, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaAcsisPanel.add(textBoxWidgetExt2, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(y, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    scubaAcsisPanel.add(textBoxWidgetExt3, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+    scubaAcsisPanel.add(theta, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     scubaAcsisPanel.add(jLabel5, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));

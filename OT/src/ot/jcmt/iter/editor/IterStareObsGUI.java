@@ -29,10 +29,7 @@ public class IterStareObsGUI extends IterJCMTGenericGUI {
   JPanel acsisPanel = new JPanel();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JLabel jLabel1 = new JLabel();
-  TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
-  TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
-  CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
 
   public IterStareObsGUI() {
     try {

@@ -20,9 +20,7 @@ import javax.swing.JComboBox;
 import jsky.app.ot.editor.OtItemEditor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
-import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
@@ -35,16 +33,11 @@ import orac.jcmt.inst.SpInstSCUBA;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterFocusObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher {
+public final class EdIterFocusObs extends EdIterJCMTGeneric {
 
   private IterFocusObsGUI _w;       // the GUI layout panel
 
-  // If true, ignore action events
-  //private boolean ignoreActions = false;
-
   private SpIterFocusObs _iterObs;
-
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -80,17 +73,27 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric
   }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    if (tbwe == _w.steps)       { _iterObs.setSteps(_w.steps.getValue()); }
-    if (tbwe == _w.focusPoints) { _iterObs.setFocusPoints(_w.focusPoints.getValue()); }
-  }
+    if (tbwe == _w.steps)       {
+      _iterObs.setSteps(_w.steps.getValue());
+      return;
+    }
 
-  public void textBoxAction(TextBoxWidgetExt tbwe) { }
+    if (tbwe == _w.focusPoints) {
+      _iterObs.setFocusPoints(_w.focusPoints.getValue());
+      return;
+    }
+
+    super.textBoxKeyPress(tbwe);
+  }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if (ddlbwe == _w.axis) { _iterObs.setAxis(SpIterFocusObs.AXES[index]); }
+    if(ddlbwe == _w.axis) {
+      _iterObs.setAxis(SpIterFocusObs.AXES[index]);
+      return;
+    }
+
+    super.dropDownListBoxAction(ddlbwe, index, val);
   }
-    
-  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);

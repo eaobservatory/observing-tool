@@ -20,77 +20,76 @@ import javax.swing.JComboBox;
 import jsky.app.ot.editor.OtItemEditor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.iter.SpIterJiggleObs;
 
 /**
  * This is the editor for Jiggle Observe Mode iterator component.
  * 
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterJiggleObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, ActionListener {
+public final class EdIterJiggleObs extends EdIterJCMTGeneric {
 
-    private IterJiggleObsGUI _w;       // the GUI layout panel
+  private IterJiggleObsGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+  private SpIterJiggleObs _iterObs;
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterJiggleObs() {
-        super(new IterJiggleObsGUI());
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdIterJiggleObs() {
+    super(new IterJiggleObsGUI());
 
-	_title       ="Jiggle Iterator";
-	_presSource  = _w = (IterJiggleObsGUI)super._w;
-	_description ="Jiggle Observation Mode";
+    _title       ="Jiggle Iterator";
+    _presSource  = _w = (IterJiggleObsGUI)super._w;
+    _description ="Jiggle Observation Mode";
 
-/*
-        System.out.println("_w = " + _w);
-        System.out.println("super._w = " + super._w);
-        System.out.println("_w.getClass() = " + _w.getClass());
-        System.out.println("super._w.getClass() = " + super._w.getClass());
-        System.out.println("_w.jigglesPerCycle.getText() = " + _w.jigglesPerCycle.getText());
+    _w.jigglePattern.setChoices(SpIterJiggleObs.JIGGLE_PATTERNS);
 
-	//initGenericWidgets();
-/*
-	for(int i = 0; i < 100; i++) {
-	  _w.noOfIntegrations.addItem("" + (i + 1));
-	}
+    _w.jigglePattern.addWatcher(this);
+  }
 
-	for(int i = 0; i < SWITCHING_MODES.length; i++) {
-	  _w.switchingMode.addItem(SWITCHING_MODES[i]);
-	}
+  /**
+   * Override setup to store away a reference to the Focus Iterator.
+   */
+  public void setup(SpItem spItem) {
+    _iterObs = (SpIterJiggleObs) spItem;
+    super.setup(spItem);
+  }
 
-	_w.noOfIntegrations.addActionListener(this);
-	_w.switchingMode.addActionListener(this);
-*/
+  protected void _updateWidgets() {
+    _w.jigglePattern.setValue(_iterObs.getJigglePattern());
+
+    super._updateWidgets();
+  }
+
+  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
+    if(ddlbwe == _w.jigglePattern) {
+      _iterObs.setJigglePattern(val);
+      return;
     }
 
+    super.dropDownListBoxAction(ddlbwe, index, val);
+  }
 
-    public void actionPerformed(ActionEvent e) { }
+  public void setInstrument(SpInstObsComp spInstObsComp) {
+    super.setInstrument(spInstObsComp);
 
-    public void textBoxKeyPress(TextBoxWidgetExt e) { }
-    public void textBoxAction(TextBoxWidgetExt e) { }
-
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-      super.setInstrument(spInstObsComp);
-
-      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-        //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	//((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-	//_w.switchingMode.setEnabled(false);
-        _w.acsisPanel.setVisible(false);
-      }
-      else {
-        //_w.switchingMode.setEnabled(true);
-        _w.acsisPanel.setVisible(true);
-      }
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+      //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+      //((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+      //_w.switchingMode.setEnabled(false);
+      _w.acsisPanel.setVisible(false);
     }
+    else {
+      //_w.switchingMode.setEnabled(true);
+      _w.acsisPanel.setVisible(true);
+    }
+  }
 }
 

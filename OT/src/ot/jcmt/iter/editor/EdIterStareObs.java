@@ -33,33 +33,29 @@ import ot.util.DialogUtil;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterStareObs extends EdIterJCMTGeneric
-    implements TextBoxWidgetWatcher, ActionListener {
+public final class EdIterStareObs extends EdIterJCMTGeneric {
 
-    private IterStareObsGUI _w;       // the GUI layout panel
+  private IterStareObsGUI _w;       // the GUI layout panel
 
-    // If true, ignore action events
-    private boolean ignoreActions = false;
+  /**
+   * The constructor initializes the title, description, and presentation source.
+   */
+  public EdIterStareObs() {
+    super(new IterStareObsGUI());
 
-    /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterStareObs() {
-	super(new IterStareObsGUI());
+    _title       ="Stare Iterator (Heterodyne)";
+    _presSource  = _w = (IterStareObsGUI)super._w;
+    _description ="Stare Observation Mode (Heterodyne)";
+  }
 
-	_title       ="Stare Iterator (Heterodyne)";
-	_presSource  = _w = (IterStareObsGUI)super._w;
-	_description ="Stare Observation Mode (Heterodyne)";
+//  public void textBoxKeyPress(TextBoxWidgetExt e) {
+//    super.textBoxKeyPress(tbwe);
+//  }
+
+  public void setInstrument(SpInstObsComp spInstObsComp) {
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+      DialogUtil.error(_w, "Stare Iterator cannot be used with SCUBA.\nUse Photom Iterator instead.");
     }
-
-    public void actionPerformed(ActionEvent e) { }
-    public void textBoxKeyPress(TextBoxWidgetExt e) { }
-    public void textBoxAction(TextBoxWidgetExt e) { }
-
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-	DialogUtil.error(_w, "Stare Iterator cannot be used with SCUBA.\nUse Photom Iterator instead.");
-      }
-    }
+  }
 }
 

@@ -31,21 +31,17 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
   DropDownListBoxWidgetExt pointingMethod = new DropDownListBoxWidgetExt();
-  TextBoxWidgetExt stepSize = new TextBoxWidgetExt();
   JLabel jLabel3 = new JLabel();
-  OptionWidgetExt jiggleAtReference = new OptionWidgetExt();
   JLabel jLabel4 = new JLabel();
   JLabel jLabel5 = new JLabel();
   JLabel jLabel6 = new JLabel();
   JLabel jLabel7 = new JLabel();
-  TextBoxWidgetExt jigglesPerCycle = new TextBoxWidgetExt();
-  TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
-  TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
   OptionWidgetExt continuum = new OptionWidgetExt();
   OptionWidgetExt spectralLine = new OptionWidgetExt();
   JLabel jLabel8 = new JLabel();
-  CommandButtonWidgetExt pointinPixelButton = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt pointingPixelButton = new CommandButtonWidgetExt();
+  JPopupMenu pointingPixelPopupMenu = new JPopupMenu();
 
   public IterPointingObsGUI() {
     try {
@@ -89,9 +85,10 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setForeground(Color.black);
     jLabel8.setText("Pointing Pixel");
-    pointinPixelButton.setText("Automatic");
+    pointingPixelButton.setText("Automatic");
     secsPerCycle.setEditable(false);
     secsPerObservation.setEditable(false);
+    pointingMethod.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
@@ -127,7 +124,7 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
     acsisPanel.add(jLabel8, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
-    acsisPanel.add(pointinPixelButton, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
+    acsisPanel.add(pointingPixelButton, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
   }
 
