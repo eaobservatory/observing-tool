@@ -91,6 +91,18 @@ storeSp(SpRootItem spItem, File f)
             System.out.println("xml = " + isXML());
          }
         try {
+          if(System.getProperty("DEBUG") != null) { 
+            System.out.println("Before removing id/idref\n");
+            spItem.print();
+          }
+
+          SpItemUtilities.removeReferenceIDs(spItem);
+
+          if(System.getProperty("DEBUG") != null) { 
+            System.out.println("After removing id/idref\n");
+            spItem.print();
+          } 
+
 	  (new SpItemUtilities()).setReferenceIDs(spItem);
 
 	  // Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
@@ -191,18 +203,6 @@ fetchSp(Reader rdr)
 
     try {
       SpRootItem spRootItem = (new SpItemDOM(rdr)).getSpItem();
-
-      if(System.getProperty("DEBUG") != null) { 
-        System.out.println("Before removing id/idref\n");
-        spRootItem.print();
-      }
-
-      SpItemUtilities.removeReferenceIDs(spRootItem);
-
-      if(System.getProperty("DEBUG") != null) { 
-        System.out.println("After removing id/idref\n");
-        spRootItem.print();
-      }
 
       return spRootItem;
     }
