@@ -7,7 +7,7 @@
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2142,7 +2142,7 @@ and requires sky and object to have the recipe selected</note>
       </SpMSB>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>Non-Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
