@@ -443,7 +443,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	double timeOnRow  = (double)samplesPerRow * getSampleTime();
 	double timeOffRow = Math.sqrt((double)samplesPerRow) * getSampleTime();
-	return getIntegrations()*( (timeOnRow + timeOffRow) * noOfRows);
+	double overheadFactor=1.2;
+	return getIntegrations()*( (timeOnRow + timeOffRow) * noOfRows * overheadFactor);
     }
     return 0.0;
   }

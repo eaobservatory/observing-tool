@@ -90,7 +90,8 @@ public double getElapsedTime() {
 	}
     }
     else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-	totalIntegrationTime = getIntegrations() * getSecsPerCycle();
+	double overheadFactor = 1.2;
+	totalIntegrationTime = getIntegrations() * getSecsPerCycle() * overheadFactor;
     }
    return (overhead + totalIntegrationTime);
 }
