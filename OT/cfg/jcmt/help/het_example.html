@@ -511,40 +511,58 @@ run down. <p>
 
     I hope that makes sense.
 <!-- ############################################################################ -->
-<h2> <a name="het_note">Adding  a note</a></h2>
+<h2> <a name="het_note">Adding information in "Note" elements </a></h2>
 
-  One potentially important part of a heterodyne MSB is not included
- in the template from the heterodyne library - the "Note"
- element. This consists of a text window where you can include textual
- information, with the option of showing the note to the observer and
- TSS at the time the observation is made. Let's add a note at the
- beginning of our MSB. <p>
 
- <img src="het_images/note1.gif" alt="adding a note (1)"><p>
+  By default, the heterodyne library MSBs contain one note element at
+ the beginning of the MSB. This consists of a text window where you
+ can include textual information, with the option of showing the note
+ to the observer and TSS at the time the observation is made. If you
+ click on the note icon, the right hand panel allows you to enter the
+ name of the note and the main text body of the note. The
+ "Show to observer" check-box should be checked if you want the
+ note to be visible for the observer/TSS at the time of
+ observation. It is strongly recommended that each of your MSBs
+ contains at least one "Show to observer" note. All of the information
+ about the observation not covered by other elements of the MSB should
+ be included in "show to observer" notes. This would be much of the
+ material which would have previously gone into the "Overall Strategy"
+ and "Observing Cookbook" sections of heterodyne observing
+ templates. It is important to note that calibration details are
+ not explicitly included in heterodyne MSBs as they are for SCUBA MSBs, so
+ the heterodyne observer should spell out the required calibration
+ observations in a "show to observer" note.<p>
 
-If you select the outer MSB icon, and then click on the note icon on
-the left hand bar of the window, a note appears in the MSB as shown
-above. Ideally we want this note to be the first item in the MSB, so
-you move it by dragging it with the mouse and dropping it just below
-the outer MSB icon. The repositioned note should now appear as below. <p>
+ <img src="het_images/het_note.gif" alt="A note example"><p>
 
- <img src="het_images/note2.gif" alt="adding a note (2)"><p>
 
- If you click on the note icon, the right hand panel allows you to
- enter the name of the note and the main text body of the note. There
- is also a "Show to observer" checkbox which should be checked if you
- want the note to be visible for the observer/TSS at the time of
- observation. All of the information about the observation not covered
- by other elements of the MSB should be included in "show to observer"
- notes. This would be much of the material which would have previously gone
- into the "Overall Strategy" and "Observing Cookbook" sections of
- heterodyne observing templates. It is important to note that
- calibration details are explicity included in heterodyne
- MSBs as they are for SCUBA MSBs, so the heterodyne observer should
- spell out the required calibration observations in a "show to observer"
- note.<p>
+ Setting the "Show to observer" tick box brings up a "Completion
+ Parameter" and "binning" field. These should contain information which
+ enables the observer and TSS to decide when to consider your
+ observation to be complete. The "Completion
+ Parameter" should include a value for the total
+ expired time, or a required signals-to-noise or RMS noise value. The
+ assumed bin size, either in km/s or MHz, should be entered in the
+ "Binning" field. The above screenshot shows an example of a typical "Show to
+ observer"  for an extragalactic spectral line observation.<p>
+
+ Additional notes can be inserted at any point in the MSB from the
+ icon menu and you may have more than one "show to observer" notes in
+ an MSB. For example, you could choose to insert a "show to observer"
+ note above the "chop" element to clarify the use of an unusual
+ chopping scheme.<p>  
+
+    Finally, there is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.<p>
+ 
 <!-- ############################################################################ -->
-<h2><a name="het_summary">Summary: Making your heterodyne MSB.</a></h2>
+<h2><a name="het_summary">Summary: Making your heterodyne MSB</a></h2>
 
  So far, I have described, the various elements of the MSB. I'd like
  to summarise the general procedure for making your own.<p>
@@ -583,8 +601,7 @@ and co-add the spectra as you go along. In general, if you want to
 build up long integrations, you will want the basic sample length to
 be around 10 minutes for RxW and RxB and around 15-20 minutes for RxA.
 
-
-<li> Add a "show to observer" note. This should contain additional
+<li> Add at least one "show to observer" note. This should contain additional
 information on the overall aims of your science program, details of
 required calibrations and any other special notices you want the
 observer and TSS to act upon when the observation is made.
