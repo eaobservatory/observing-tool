@@ -16,6 +16,7 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -311,17 +312,31 @@ public final class EdObservation extends OtItemEditor
 	}
 
         if (checkBoxWidgetExt == _w.standard) {
-            _spItem.getAvEditFSM().deleteObserver(this);
-            ((SpObs)_spItem).setIsStandard( _w.standard.getBooleanValue() );
-            _spItem.getAvEditFSM().addObserver(this);
+	    // We can onlt do this if the observation is inside an MSB
+	    SpItem parent = _spItem.parent();
+	    while (parent != null) {
+		if (parent instanceof gemini.sp.SpMSB) {
+		    _spItem.getAvEditFSM().deleteObserver(this);
+		    ((SpObs)_spItem).setIsStandard( _w.standard.getBooleanValue() );
+		    _spItem.getAvEditFSM().addObserver(this);
 
-           _w.standard.setValue( ((SpObs)_spItem).getIsStandard() );
+		    _w.standard.setValue( ((SpObs)_spItem).getIsStandard() );
 
-           if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
-	       _w.optional.setValue(_w.standard.getBooleanValue());
-               ((SpObs)_spItem).setOptional(_w.standard.getBooleanValue());
-	   }
-
+		    if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
+			_w.optional.setValue(_w.standard.getBooleanValue());
+			((SpObs)_spItem).setOptional(_w.standard.getBooleanValue());
+		    }
+		    return;
+		}
+		else {
+		    parent = parent.parent();
+		}
+	    }
+	    // If we get to here, then this is not inside an MSB so we can't do this
+	    JOptionPane.showMessageDialog(null,
+					  "This can only be flagged as a calibration if it is inside an MSB.",
+					  "Operation not valid here",
+					  JOptionPane.ERROR_MESSAGE);
            return;
         }
     }
