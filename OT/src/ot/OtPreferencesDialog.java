@@ -19,6 +19,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -29,125 +30,167 @@ import javax.swing.JFrame;
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class OtPreferencesDialog implements ActionListener {
-  /**
-   * This is a subclass of JPanel so it can be used for internal as well as other frames.
-   */
-  private OtPreferencesGUI _w;
+    /**
+     * This is a subclass of JPanel so it can be used for internal as well as other frames.
+     */
+    private OtPreferencesGUI _w;
 
-  /**
-   * Is only used if the OT is started with internal frames.
-   */
-  private JInternalFrame _internalFrame;
+    /**
+     * Is only used if the OT is started with internal frames.
+     */
+    private JInternalFrame _internalFrame;
 
-  /**
-   * Is only used if the OT is started with internal frames.
-   */
-  private JFrame _preferencesDialogFrame;
+    /**
+     * Is only used if the OT is started with internal frames.
+     */
+    private JFrame _preferencesDialogFrame;
 
-  /**
-   *
-   */
-  private String _title;
+    /**
+     *
+     */
+    private String _title;
 
-  public OtPreferencesDialog() {
-    _title = "OT Preferences";
-    /*_presSource  =*/
-    _w = new OtPreferencesGUI();
-    //_description ="The preferences are set with this component.";
+    // Keys to use for proxy server settings
+    private static final String PROXY_HOST = "http.proxyHost";
+    private static final String PROXY_PORT = "http.proxyPort";
+    private static final String NON_PROXY_HOSTS = "http.nonProxyHosts";
 
-    ButtonGroup grp = new ButtonGroup();
-    grp.add(_w.closePromptOption);
-    grp.add(_w.closeNoSaveOption);
+    public OtPreferencesDialog() {
+	_title = "OT Preferences";
+	/*_presSource  =*/
+	_w = new OtPreferencesGUI();
+	//_description ="The preferences are set with this component.";
 
-    _w.okButton.addActionListener(this);
-    _w.applyButton.addActionListener(this);
-    _w.cancelButton.addActionListener(this);
-  }
+	ButtonGroup grp = new ButtonGroup();
+	grp.add(_w.closePromptOption);
+	grp.add(_w.closeNoSaveOption);
+
+	_w.okButton.addActionListener(this);
+	_w.applyButton.addActionListener(this);
+	_w.cancelButton.addActionListener(this);
+    }
 
 
-  /**
-   * For ise with internal frames.
-   */
-  public void show(JDesktopPane desktop) {
-    if(desktop != null) {
-      boolean saveShouldPrompt = OtProps.isSaveShouldPrompt();
-      _w.closePromptOption.setSelected(saveShouldPrompt);
-      _w.closeNoSaveOption.setSelected(!saveShouldPrompt);
+    /**
+     * For ise with internal frames.
+     */
+    public void show(JDesktopPane desktop) {
+	if(desktop != null) {
+	    boolean saveShouldPrompt = OtProps.isSaveShouldPrompt();
+	    _w.closePromptOption.setSelected(saveShouldPrompt);
+	    _w.closeNoSaveOption.setSelected(!saveShouldPrompt);
     
-      _internalFrame = new JInternalFrame(_title);
-      _internalFrame.getContentPane().add(_w);
-      desktop.add(_internalFrame, JLayeredPane.MODAL_LAYER);
-      _w.setVisible(true);
-      _internalFrame.setVisible(true);
-      _internalFrame.setLocation(100, 100);
-      _internalFrame.pack();
+	    _internalFrame = new JInternalFrame(_title);
+	    _internalFrame.getContentPane().add(_w);
+	    desktop.add(_internalFrame, JLayeredPane.MODAL_LAYER);
+	    _w.setVisible(true);
+	    _internalFrame.setVisible(true);
+	    _internalFrame.setLocation(100, 100);
+	    _internalFrame.pack();
+	}
+
+	_w.setVisible(true);
     }
 
-    _w.setVisible(true);
-  }
-
-  /**
-   * For use in no-internal-frames mode.
-   */
-  public void show() {
-    boolean saveShouldPrompt = OtProps.isSaveShouldPrompt();
-    _w.closePromptOption.setSelected(saveShouldPrompt);
-    _w.closeNoSaveOption.setSelected(!saveShouldPrompt);
+    /**
+     * For use in no-internal-frames mode.
+     */
+    public void show() {
+	boolean saveShouldPrompt = OtProps.isSaveShouldPrompt();
+	_w.closePromptOption.setSelected(saveShouldPrompt);
+	_w.closeNoSaveOption.setSelected(!saveShouldPrompt);
     
-    if(_preferencesDialogFrame == null) {
-      _preferencesDialogFrame = new JFrame("OT Preferences");
-      _preferencesDialogFrame.getContentPane().add(_w);
-      _preferencesDialogFrame.setLocation(100, 100);
-      _preferencesDialogFrame.pack();
+	if(_preferencesDialogFrame == null) {
+	    _preferencesDialogFrame = new JFrame("OT Preferences");
+	    _preferencesDialogFrame.getContentPane().add(_w);
+	    _preferencesDialogFrame.setLocation(100, 100);
+	    _preferencesDialogFrame.pack();
+	}
+
+	_preferencesDialogFrame.setVisible(true);
+	_preferencesDialogFrame.setState(JFrame.NORMAL);
     }
 
-    _preferencesDialogFrame.setVisible(true);
-    _preferencesDialogFrame.setState(JFrame.NORMAL);
-  }
 
-
-  public void apply() {
-    if(_w.closeNoSaveOption.isSelected()) {
-      OtProps.setSaveShouldPrompt(false);
+    public void apply() {
+	if (_w.jTabbedPane1.getSelectedIndex() == 0) {
+	    if(_w.closeNoSaveOption.isSelected()) {
+		OtProps.setSaveShouldPrompt(false);
+	    }
+	    else {
+		OtProps.setSaveShouldPrompt(true);
+	    }
+	}
+	else if (_w.jTabbedPane1.getSelectedIndex() == 1) {
+	    setProxyHost();
+	}
     }
-    else {
-      OtProps.setSaveShouldPrompt(true);
-    }
-  }
 
-  public void hide() {
-    if(_internalFrame != null) {
-      _internalFrame.dispose();
+    public void hide() {
+	if(_internalFrame != null) {
+	    _internalFrame.dispose();
+	}
+	else {
+	    _preferencesDialogFrame.setVisible(false);
+	}
     }
-    else {
-      _preferencesDialogFrame.setVisible(false);
-    }
-  }
 
 
-  /**
-   * The standard actionPerformed method to handle the "ok", "apply", and "cancel"
-   * buttons.
-   */
-  public void actionPerformed(ActionEvent evt) {
+    /**
+     * The standard actionPerformed method to handle the "ok", "apply", and "cancel"
+     * buttons.
+     */
+    public void actionPerformed(ActionEvent evt) {
  
-    Object w  = evt.getSource();
+	Object w  = evt.getSource();
 
-    if (w == _w.okButton) {
-      apply();
-      hide();
-      return;
+	if (w == _w.okButton) {
+	    apply();
+	    hide();
+	    return;
+	}
+
+	if (w == _w.applyButton) {
+	    apply();
+	    return;
+	}
+
+	if (w == _w.cancelButton) {
+	    hide();
+	    return;
+	}
     }
 
-    if (w == _w.applyButton) {
-      apply();
-      return;
-    }
+    private void setProxyHost() {
+	String host = _w.proxyServerField.getText();
+	if (host == null || host.length() == 0) {
+	    System.getProperties().remove(PROXY_HOST);
+	    System.getProperties().remove(PROXY_PORT);
+	    System.getProperties().remove(NON_PROXY_HOSTS);
+	    return;
+	}
+	int port = 0;
+	String s    = _w.proxyPortField.getText();
+	if (s != null && s.length() != 0) {
+	    try {
+		port = Integer.parseInt(s);
+	    }
+	    catch (Exception e) {
+		JOptionPane.showMessageDialog(null, 
+					      "Invalid proxy port number. Will assume 80.",
+					      "InvalidPort",
+					      JOptionPane.WARNING_MESSAGE);
+		port = 80;
+	    }
+	}
+	else {
+	    port = 80;
+	}
+	String nonProxyHosts = _w.nonProxyHostsField.getText();
 
-    if (w == _w.cancelButton) {
-      hide();
-      return;
+	System.setProperty(PROXY_HOST, host);
+	System.setProperty(PROXY_PORT, String.valueOf(port));
+	System.setProperty(NON_PROXY_HOSTS, nonProxyHosts);
     }
-  }
 }
 
