@@ -11,6 +11,7 @@
 package ot.editor;
 
 import java.awt.*;
+import java.util.Vector;
 import javax.swing.*;
 import jsky.app.ot.gui.*;
 
@@ -27,6 +28,9 @@ public class MsbEditorGUI extends JPanel {
     TextBoxWidgetExt nameBox = new TextBoxWidgetExt();
   JLabel jLabel2 = new JLabel();
   JLabel jLabel3 = new JLabel();
+    JComboBox jComboBox1;
+    Vector priorities = new Vector();
+    final int nPriorities = 99;
   JToggleButton priorityHigh = new JToggleButton();
   JToggleButton priorityMedium = new JToggleButton();
   JToggleButton priorityLow = new JToggleButton();
@@ -37,6 +41,10 @@ public class MsbEditorGUI extends JPanel {
 
     public MsbEditorGUI() {
         try {
+	    for (int i=1; i<=nPriorities; i++) {
+		priorities.add(new Integer(i));
+	    }
+	    jComboBox1 = new JComboBox(priorities);
             jbInit();
         }
         catch(Exception ex) {
@@ -77,12 +85,14 @@ public class MsbEditorGUI extends JPanel {
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     this.add(jLabel3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(priorityHigh, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+    this.add(jComboBox1, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
-    this.add(priorityMedium, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(priorityLow, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+//     this.add(priorityHigh, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
+//     this.add(priorityMedium, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+//     this.add(priorityLow, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     this.add(jLabel4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
     this.add(estimatedTime, new GridBagConstraints(1, 3, 3, 1, 0.0, 0.0
