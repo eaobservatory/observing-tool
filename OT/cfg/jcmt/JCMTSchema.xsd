@@ -1306,6 +1306,7 @@
       <xsd:element name="referenceFrameVelocity" type="xsd:double" minOccurs="0"/>
       <xsd:element name="configuration" type="xsd:string" minOccurs="0"/>
       <xsd:element name="velocityFrame" type="velocityFrameReferenceType"/>
+      <xsd:element name="skyFrequency"  type="xsd:double" minOccurs="0"/>
       <xsd:element name="beName">
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
