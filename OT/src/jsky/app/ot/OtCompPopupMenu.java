@@ -26,7 +26,8 @@ class OtCompPopupMenu extends JPopupMenu {
      * component.
      */
     public OtCompPopupMenu(OtTreeWidget treeWidget) {
-	_add(treeWidget, SpType.OBSERVATION_COMPONENT_SITE_QUALITY);
+        // MFO: Changed because UKIRT and JCMT use different site quality components.
+	_add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo")); //OBSERVATION_COMPONENT_SITE_QUALITY);
 	_add(treeWidget, SpType.OBSERVATION_COMPONENT_TARGET_LIST);
 	addSeparator();
 

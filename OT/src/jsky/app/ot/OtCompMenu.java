@@ -27,7 +27,8 @@ class OtCompMenu extends JMenu {
      */
     public OtCompMenu(OtTreeWidget treeWidget) {
 	super("Create an Observation Component");
-	_add(treeWidget, SpType.OBSERVATION_COMPONENT_SITE_QUALITY);
+	// MFO: Changed because UKIRT and JCMT use different site quality components.
+	_add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, "schedInfo")); //OBSERVATION_COMPONENT_SITE_QUALITY);
 	_add(treeWidget, SpType.OBSERVATION_COMPONENT_TARGET_LIST);
 	addSeparator();
 
