@@ -19,7 +19,7 @@ CLASSES_DIR_FOR_SED = $(shell echo $(CLASSES_DIR) | sed -e 's/\./\\\./g' | sed -
 CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
 GIF_IMAGES          = $(addprefix $(CLASSES_DIR)/, $(shell find . -name "*.gif"))
-CFG_FILES           = $(addprefix $(CFG_DIRS)/, $(shell cd ../cfg; find .))
+CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
 
 CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(JSKY_RELATED_CP)
 
@@ -31,7 +31,7 @@ all: classes cfg script
 
 classes: $(CLASSES_DIR) $(CLASS_FILES)
 
-cfg: $(CFG_DIRS) $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg $(GIF_IMAGES) $(CFG_FILES)
+cfg: $(LOCAL_INSTALL_ROOT)/cfg $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg $(GIF_IMAGES) $(CFG_FILES)
 
 script: $(BIN_DIR)/ot $(BIN_DIR)/ot.bat
 
@@ -44,7 +44,9 @@ $(CLASSES_DIR):
 $(BIN_DIR):
 	@ -mkdir -p $(BIN_DIR)	
 
-$(CFG_DIRS): ../cfg
+# The following rule copies the cfg directories into LOCAL_INSTALL_ROOT
+# regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
+$(LOCAL_INSTALL_ROOT)/cfg: ../cfg
 	cp -r ../cfg $(LOCAL_INSTALL_ROOT)
 
 $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg: jsky/app/ot/cfg
@@ -101,17 +103,23 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n\
 	\nset JAVA = $(JAVA)\
 	\n\
-	\n# Make sure the telescope names in this list correspond to directories in $(CFG_DIRS)\
+	\n# The telescope names in this list should correspond to the directories in cfgdir.\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
-	\n\
-	\n# (generated from $(CONF_HOME)/make.conf)\
-	\nset CFG_DIRS = $(shell cd $(CFG_DIRS); pwd)\
-	\n\
+	\n" > $@
+
+ifeq ($(CFG_DIRS),)
+	@printf "\nset cfgdir       = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg/" >> $@
+else
+	@printf "\nset cfgdir       = $(CFG_DIRS)/" >> $@
+endif
+
+	@printf \
+	"\n\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset CLASSPATH = $(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g')\
         \n\
-	\n" > $@
+	\n" >> $@
 
 	@cat scripts/ot_script_source >> $@
 
@@ -237,7 +245,7 @@ endif
 
 
 
-$(INSTALL_ROOT)/cfg: $(CFG_DIRS)
+$(INSTALL_ROOT)/cfg: ../cfg
 	cp -r $< $@
 
 $(INSTALL_ROOT)/lib:
@@ -260,19 +268,26 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
-	\ncd \`dirname $$""0\`\
+	\nset OT_HOME = $(shell cd $(INSTALL_ROOT); pwd)\
 	\n\
 	\nset JAVA = $(JAVA)\
 	\n\
-	\n# Make sure the telescope names in this list correspond to directories in ../cfg\
+	\n# The telescope names in this list should correspond to the directories in cfgdir.\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
-	\n\
-	\nset CFG_DIRS = `cd ..; pwd`/cfg/\
-	\n\
-	\nset CLASSPATH = $(shell echo $(addprefix ../tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix ../lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
-	\n\
 	\n" > $@
+
+ifeq ($(CFG_DIRS),)
+	@printf "\nset cfgdir       = \044{OT_HOME}/cfg/" >> $@
+else
+	@printf "\nset cfgdir       = $(CFG_DIRS)/" >> $@
+endif
+
+	@printf \
+	"\n\
+	\nset CLASSPATH = $(shell echo $(addprefix "\044{OT_HOME}/tools/", $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix "\044{OT_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
+	\n\
+	\n" >> $@
 
 	@cat scripts/ot_script_source >> $@
 
