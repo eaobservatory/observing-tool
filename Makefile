@@ -134,7 +134,7 @@ _jar: $(JAR_DIR)
 
 
 _doc: $(DOC_DIR)
-	$(JAVADOC) -J-mx50m -classpath $(CLASSPATH) -sourcepath $(SOURCEPATH) -d $(DOC_DIR) $(PACKAGES)
+	$(JAVADOC) -J-mx100m -classpath $(CLASSPATH) -sourcepath $(SOURCEPATH) -d $(DOC_DIR) $(PACKAGES)
 
 
 $(JAR_DIR):

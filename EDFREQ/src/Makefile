@@ -65,7 +65,7 @@ _jar:
 
 doc:
 	-mkdir -p $(DOC_DIR)
-	$(JAVADOC) -J-mx50m -d $(DOC_DIR) edfreq/*.java
+	$(JAVADOC) -J-mx100m -d $(DOC_DIR) edfreq/*.java
 
 
 $(LOCAL_INSTALL_ROOT)/bin/freqEditor: Makefile

@@ -56,7 +56,7 @@ $(CLASSES_DIR)/MANIFEST.MF: $(CONF_HOME)/MANIFEST.MF
 
 doc:
 	-mkdir -p $(DOC_DIR)
-	$(JAVADOC) -J-mx50m -d $(DOC_DIR) `find . -name "*.java"`
+	$(JAVADOC) -J-mx100m -d $(DOC_DIR) `find . -name "*.java"`
 
 
 $(LOCAL_INSTALL_ROOT)/bin/odb: scripts/odb_script_source $(CONF_HOME)/make.conf Makefile

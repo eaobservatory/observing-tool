@@ -43,7 +43,7 @@ $(CLASSES_DIR)/MANIFEST.MF: $(CONF_HOME)/MANIFEST.MF
 
 doc:
 	-mkdir -p $(DOC_DIR)
-	$(JAVADOC) -J-mx50m -d $(DOC_DIR) `find . -name "*.java"`
+	$(JAVADOC) -J-mx100m -d $(DOC_DIR) `find . -name "*.java"`
 
 install: all
 	@echo Use \"\gmake JAR_DIR=my_jar_dir jar\" to create $(JAR_FILE) in my_jar_dir.
