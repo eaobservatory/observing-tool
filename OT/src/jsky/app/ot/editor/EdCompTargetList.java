@@ -740,7 +740,6 @@ public final class EdCompTargetList extends OtItemEditor
 	_updateXYUnitsLabels();
 
 	// Set the type based on the current contents of the component
-	System.out.println( _curPos.toString() );
 	_type.setSelectedIndex ( _curPos.getSystemType() );
     }
 
@@ -1076,6 +1075,9 @@ public final class EdCompTargetList extends OtItemEditor
             }
 
             SpTelescopePos tp = _tpl.createPosition(nextTag, base.getXaxis(), base.getYaxis());
+	    if ( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR ) {
+		tp.setName(base.getName());
+	    }
             _w.removeButton.setEnabled(true);
 
 
@@ -1329,7 +1331,6 @@ public final class EdCompTargetList extends OtItemEditor
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
       if(dd == _w.conicSystemType) {
-	  System.out.println("Inside dropDownListBoxAction, passed value of "+val);
 	  _curPos.setSystemType(SpTelescopePos.SYSTEM_CONIC);
 	  _curPos.setConicOrNamedType(SpTelescopePos.CONIC_SYSTEM_TYPES[i]);
 
