@@ -6,11 +6,7 @@
 <map version="1.0">
   <mapID target="top" url="otintro.html" />
   <mapID target="Credits" url="credits.html" />
-  <mapID target="sciprog" url="sciprog.html" />
-  <mapID target="inst" url="inst.html" />
-  <mapID target="tpe" url="tpe.html" />
-  <mapID target="iter" url="iter.html" />
-  <mapID target="details" url="details.html" />
   <mapID target="library" url="library.html" />
   <mapID target="bugs" url="bugs.html" />
+  <mapID target="download" url="download.html" />
 </map>
