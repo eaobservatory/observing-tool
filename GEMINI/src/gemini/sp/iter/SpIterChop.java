@@ -94,21 +94,21 @@ public class SpIterChop extends SpIterComp {
    *
    * Each vector element represents one chop iterator step.
    */
-  public static String ATTR_THROW       = "throw";
+  public static String ATTR_THROW       = "THROW";
 
   /**
    * Records a vector of chop angles.
    *
    * Each vector element represents one chop iterator step.
    */
-  public static String ATTR_ANGLE       = "angle";
+  public static String ATTR_ANGLE       = "PA";
 
   /**
    * Records a vector of chop coordinates frames.
    *
    * Each vector element represents one chop iterator step.
    */
-  public static String ATTR_COORD_FRAME = "coordFrame";
+  public static String ATTR_COORD_FRAME = "SYSTEM";
 
   /**
    * Index of step that is currently selected in the chop iterator editor.
@@ -170,7 +170,6 @@ public class SpIterChop extends SpIterComp {
     _avTable.set(ATTR_ANGLE, angle, step);
   }
 
-
   public String getCoordFrame(int step) {
     return _avTable.get(ATTR_COORD_FRAME, step);
   }
@@ -218,6 +217,92 @@ public class SpIterChop extends SpIterComp {
     catch(Exception e) {
       return 0;
     }
+  }
+
+  protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
+    // ATTR_THROW, ATTR_ANGLE and ATTR_COORD_FRAME each occur once in a SpIterOffset's AV table.
+    // each of them contains a Vector of values. There is one entry for each iteration step in each
+    // of these Vectors.
+    // When processAvAttribute is called with ATTR_THROW as avAttr then append the entire
+    // TCS XML representation of this chop iterator to the xmlBuffer and ignore
+    // ATTR_ANGLE and ATTR_COORD_FRAME.
+    // They other attributes are delegated to the super class.
+    if(avAttr.equals(ATTR_THROW)) {
+      // Append <SECONDARY> element.
+      xmlBuffer.append("\n" + indent + "  <SECONDARY>");
+
+      for(int i = 0; i < getStepCount(); i++) {
+        xmlBuffer.append("\n" + indent + "    <CHOP " + ATTR_COORD_FRAME + "=\"" + getCoordFrame(i) + "\">");
+        xmlBuffer.append("\n" + indent + "      <" + ATTR_THROW + ">" + getThrow(i) + "</" + ATTR_THROW + ">");
+        xmlBuffer.append("\n" + indent + "      <" + ATTR_ANGLE + ">" + getAngle(i) + "</" + ATTR_ANGLE + ">");
+        xmlBuffer.append("\n" + indent + "    </CHOP>");
+      }
+
+      xmlBuffer.append("\n" + indent + "  </SECONDARY>");
+
+      return;
+    }
+
+
+    if(avAttr.equals(ATTR_ANGLE) || avAttr.startsWith(ATTR_COORD_FRAME)) {
+      // Ignore. Dealt with in <SECONDARY> element (see above).
+      return;
+    }
+
+    super.processAvAttribute(avAttr, indent, xmlBuffer);
+  }
+
+
+  public void processXmlElementContent(String name, String value) {
+
+    if(name.equals("SECONDARY") || name.equals("CHOP")) {
+      // ignore
+      return;
+    }
+
+    if(name.equals(ATTR_THROW)) {
+      int n = 0;
+
+      if(_avTable.getAll(ATTR_THROW) != null) {
+        n = _avTable.getAll(ATTR_THROW).size();
+      }
+
+      _avTable.noNotifySet(ATTR_THROW, value, n);
+
+      return;
+    }
+
+    if(name.equals(ATTR_ANGLE)) {
+      int n = 0;
+
+      if(_avTable.getAll(ATTR_ANGLE) != null) {
+        n = _avTable.getAll(ATTR_ANGLE).size();
+      }
+
+      _avTable.noNotifySet(ATTR_ANGLE, value, n);
+
+      return;
+    }
+   
+    super.processXmlElementContent(name, value);
+  }
+
+  public void processXmlAttribute(String elementName, String attributeName, String value) {
+
+    // Check for coordinate frame (system) in <CHOP SYSTEM="system">
+    if(elementName.equals("CHOP") && attributeName.equals(ATTR_COORD_FRAME)) {
+      int n = 0;
+
+      if(_avTable.getAll(ATTR_COORD_FRAME) != null) {
+        n = _avTable.getAll(ATTR_COORD_FRAME).size();
+      }
+
+      _avTable.noNotifySet(ATTR_COORD_FRAME, value, n);
+
+      return;
+    }
+
+    super.processXmlAttribute(elementName, attributeName, value);
   }
 }
 
