@@ -61,12 +61,14 @@ public final class EdCompSiteQuality extends OtItemEditor
 	_w.seeing2.addActionListener(this);
 	_w.seeing3.addActionListener(this);
 	_w.seeing4.addActionListener(this);
+	_w.seeingAny.addActionListener(this);
 
 	grp = new ButtonGroup();
 	grp.add(_w.seeing1);
 	grp.add(_w.seeing2);
 	grp.add(_w.seeing3);
 	grp.add(_w.seeing4);
+	grp.add(_w.seeingAny);
     }
 
     /**
@@ -81,15 +83,15 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// Tau Band
 	i = sq.getTauBand();
 	switch (i) {
-	case 1:
+	case 0:
 	    _w.tauBand1.setValue(true); break;
-	case 2:
+	case 1:
 	    _w.tauBand2.setValue(true); break;
-	case 3:
+	case 2:
 	    _w.tauBand3.setValue(true); break;
-	case 4:
+	case 3:
 	    _w.tauBand4.setValue(true); break;
-	case 5:
+	case 4:
 	    _w.tauBand5.setValue(true); break;
 	default:
 	    _w.tauBand1.setValue(false);
@@ -102,19 +104,23 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// Seeing
 	i = sq.getSeeing();
 	switch (i) {
-	case 1:
+	case 0:
 	    _w.seeing1.setValue(true); break;
-	case 2:
+	case 1:
 	    _w.seeing2.setValue(true); break;
-	case 3:
+	case 2:
 	    _w.seeing3.setValue(true); break;
-	case 4:
+	case 3:
 	    _w.seeing4.setValue(true); break;	    
+	case 4:
+	    _w.seeingAny.setValue(true); break;
 	default:
 	    _w.seeing1.setValue(false);
 	    _w.seeing2.setValue(false);
 	    _w.seeing3.setValue(false);
-	    _w.seeing4.setValue(false); break;
+	    _w.seeing4.setValue(false);
+	    _w.seeingAny.setValue(false);
+	    break;
 	}
 
     }
@@ -130,40 +136,44 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 	// Tau band
 	if (w == _w.tauBand1) {
-	    sq.setTauBand(1);
+	    sq.setTauBand(0);
 	}
 
 	if (w == _w.tauBand2) {
-	    sq.setTauBand(2);
+	    sq.setTauBand(1);
 	}
 
 	if (w == _w.tauBand3) {
-	    sq.setTauBand(3);
+	    sq.setTauBand(2);
 	}
 
 	if (w == _w.tauBand4) {
-	    sq.setTauBand(4);
+	    sq.setTauBand(3);
 	}
 
 	if (w == _w.tauBand5) {
-	    sq.setTauBand(5);
+	    sq.setTauBand(4);
 	}
 
 
 	// Seeing
 	if (w == _w.seeing1) {
-	    sq.setSeeing(1);
+	    sq.setSeeing(0);
 	}
 
 	if (w == _w.seeing2) {
-	    sq.setSeeing(2);
+	    sq.setSeeing(1);
 	}
 
 	if (w == _w.seeing3) {
-	    sq.setSeeing(3);
+	    sq.setSeeing(2);
 	}
 
 	if (w == _w.seeing4) {
+	    sq.setSeeing(3);
+	}
+
+	if (w == _w.seeingAny) {
 	    sq.setSeeing(4);
 	}
     }

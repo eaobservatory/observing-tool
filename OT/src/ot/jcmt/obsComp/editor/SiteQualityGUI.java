@@ -43,6 +43,7 @@ public class SiteQualityGUI extends JPanel {
   OptionWidgetExt tauBand4 = new OptionWidgetExt();
   OptionWidgetExt tauBand5 = new OptionWidgetExt();
   OptionWidgetExt seeing4 = new OptionWidgetExt();
+  OptionWidgetExt seeingAny = new OptionWidgetExt();
 
     public SiteQualityGUI() {
         try {
@@ -84,6 +85,8 @@ public class SiteQualityGUI extends JPanel {
     tauBand5.setText("5 (\u03C4 > 0.2)");
     seeing4.setText("> 3");
     seeing4.setFont(new java.awt.Font("Dialog", 0, 12));
+    seeingAny.setText("Don\'t care");
+    seeingAny.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(jPanel1, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
         jPanel1.add(tauBand1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
@@ -106,5 +109,7 @@ public class SiteQualityGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     jPanel2.add(seeing4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(seeingAny, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
 }
