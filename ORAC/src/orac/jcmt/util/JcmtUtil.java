@@ -48,6 +48,18 @@ public class JcmtUtil implements TelescopeUtil {
     return "ot.jcmt.tpe.TpeReferencePosFeature";
   }
 
+  /**
+   * @return always false for UKIRT
+   */
+  public boolean isOffsetTarget(String targetTag) {
+    if((targetTag != null) && (targetTag.equalsIgnoreCase("reference"))) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   public boolean supports(int feature) {
     switch(feature) {
       case FEATURE_TARGET_INFO_CHOP:        return false;
