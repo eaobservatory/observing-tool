@@ -616,8 +616,8 @@ public final class EdCompTargetList extends OtItemEditor
 
 	   String seltag = _avTab.get(".gui.selectedTelescopePos");
 	   _tpTable.selectPos(seltag);
-        
-	   _updateTargetSystemPane(_curPos);
+
+           _selectTargetSystemTab(_curPos);
 	}
 
         if(_curPos.getTargetSystem() == SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG) {
@@ -630,6 +630,10 @@ public final class EdCompTargetList extends OtItemEditor
             System.out.println("Exception during _updateWidgets: " + e);
 	    e.printStackTrace();
 	  }
+	}
+	else {
+          // update the conic or named system widgets depending on selection.
+	  _updateTargetSystemPane(_curPos);
 	}
  
 
@@ -669,6 +673,7 @@ public final class EdCompTargetList extends OtItemEditor
 	_curPos = _tpTable.getSelectedPos();
 	_curPos.addWatcher(this);
 	showPos(_curPos);
+	_selectTargetSystemTab(_curPos);
         _updateTargetSystemPane(_curPos);
 	_avTab.set(".gui.selectedTelescopePos", _curPos.getTag());
     }
@@ -719,33 +724,48 @@ public final class EdCompTargetList extends OtItemEditor
     }
 
     /**
-     * Updates the target system pane selection and the conic or named system widgets
+     * Updates the the conic or named system widgets
      * depending on the target system of the selected target.
      */
     private void _updateTargetSystemPane(SpTelescopePos tp) {
+      switch(tp.getTargetSystem()) {
+        case SpTelescopePos.TARGET_SYSTEM_CONIC:
+          _w.epoch.setValue(tp.getConicSystemEpoch());
+          _w.orbinc.setValue(tp.getConicSystemInclination());
+          _w.anode.setValue(tp.getConicSystemAnode());
+          _w.perih.setValue(tp.getConicSystemPerihelion());
+          _w.aorq.setValue(tp.getConicSystemAorQ());
+          _w.e.setValue(tp.getConicSystemE());
+          _w.conicSystemType.setValue(tp.getConicSystemType());
+	  break;
 
-      if(tp.getTargetSystem() == SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG) {
-         _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
-      }
-
-      if(tp.getTargetSystem() == SpTelescopePos.TARGET_SYSTEM_CONIC) {
-        _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
-
-        _w.epoch.setValue(tp.getConicSystemEpoch());
-        _w.orbinc.setValue(tp.getConicSystemInclination());
-        _w.anode.setValue(tp.getConicSystemAnode());
-        _w.perih.setValue(tp.getConicSystemPerihelion());
-        _w.aorq.setValue(tp.getConicSystemAorQ());
-        _w.e.setValue(tp.getConicSystemE());
-        _w.conicSystemType.setValue(tp.getConicSystemType());
-      }
-
-      if(tp.getTargetSystem() == SpTelescopePos.TARGET_SYSTEM_NAMED) {
-        _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
-
-        _w.namedSystemType.setValue(tp.getNamedSystemType());
+        case SpTelescopePos.TARGET_SYSTEM_NAMED:
+          _w.namedSystemType.setValue(tp.getNamedSystemType());
+	  break;
       }
     }
+
+    /**
+     * Updates the target system pane selection
+     * depending on the target system of the selected target.
+     */
+    private void _selectTargetSystemTab(SpTelescopePos tp) {
+      switch(tp.getTargetSystem()) {
+        case SpTelescopePos.TARGET_SYSTEM_CONIC:
+          _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
+	  break;
+
+        case SpTelescopePos.TARGET_SYSTEM_NAMED:
+          _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
+	  break;
+
+        //case SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG:
+	default:
+          _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
+	  break;
+      }
+    }
+
 
     private void _resetPositionEditor() {
 	// MFO: copied from ot-1.0.1 (18 June 2001)
@@ -777,6 +797,9 @@ public final class EdCompTargetList extends OtItemEditor
 	    // used ("GUIDE" for UKIRT, "Reference" for JCMT), MFO 21 January 2002.
 	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
             SpTelescopePos tp = _tpl.createPosition(OtCfg.telescopeUtil.getAdditionalTarget(), base.getXaxis(), base.getYaxis());
+
+            // Select HMSDEG/DEGDEG pane.
+            _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
 
 	    return;
 	}
