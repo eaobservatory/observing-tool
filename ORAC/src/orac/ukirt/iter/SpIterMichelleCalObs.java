@@ -347,8 +347,8 @@ public String[]
 getSamplingChoices()
 {
   String choices[] = new String[2];
-  choices[0] = "1x1";
-  choices[1] = "as object";
+  choices[0] = "as object";
+  choices[1] = "1x1";
   return choices;
 }
 
@@ -365,6 +365,7 @@ getSampling()
    return sam;
 }
 
+
 /**
  * Set the flat sampling for the flat
  */
@@ -373,6 +374,7 @@ setSampling(String sam)
 {
    _avTable.set(SpMichelleCalConstants.ATTR_SAMPLING, sam);
 }
+
 
 /**
  * Get the flat source
