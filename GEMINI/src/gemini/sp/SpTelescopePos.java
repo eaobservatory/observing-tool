@@ -37,8 +37,7 @@ import gemini.util.TelescopePos;
  * {@link #GUIDE_TAGS}.
  * This is because the OT was originally developed for Optical/IR telescopes (Gemini/UKIRT)
  * But the strings used in the user interfaces and in the XML output can be changed to
- * other telescope specific names. For JCMT BASE_TAG is set to "science" and GUIDE_TAGS[0]
- * is set to "reference".
+ * other telescope specific names. Example: For JCMT BASE_TAG is set to "Science".
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
