@@ -273,6 +273,7 @@ public void rmFrequencyOffsetValues() {
     _avTable.set(ATTR_SECS_PER_CYCLE, value);
   }
 
+/*
   public int getNoOfCycles() {
     return _avTable.getInt(ATTR_NO_OF_CYCLES, 0);
   }
@@ -280,6 +281,7 @@ public void rmFrequencyOffsetValues() {
   public void setNoOfCycles(String value) {
     _avTable.set(ATTR_NO_OF_CYCLES, value);
   }
+*/
 
   public boolean getCycleReversal() {
     return _avTable.getBool(ATTR_CYCLE_REVERSAL);
