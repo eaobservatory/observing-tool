@@ -70,6 +70,7 @@ public final class EdIterOffset extends OtItemEditor
 	_w.downButton.addActionListener(this);
 	_w.bottomButton.addActionListener(this);
 	_w.createGridButton.addActionListener(this);
+	_w.centreOnBaseButton.addActionListener(this);
     }
 
 
@@ -179,14 +180,6 @@ public final class EdIterOffset extends OtItemEditor
 	} 
 	else if (tbwe == _w.titleTBW) {
 	    _spItem.setTitleAttr(tbwe.getText().trim());
-	}
-	// Added by MFO (22 August 2001)
-	else if ((tbwe == _w.gridXSpacing) ||
-	         (tbwe == _w.gridYSpacing) ||
-	         (tbwe == _w.gridRows)     ||
-	         (tbwe == _w.gridCols)) {
-
-	    setGridOffsets();
 	}
     }
  
@@ -379,6 +372,12 @@ public final class EdIterOffset extends OtItemEditor
 	    _createGrid();
 	    return;
 	}
+
+	// Centre grid on base position (MFO, 24 August 2001)
+	if (w == _w.centreOnBaseButton) {
+	    setGridOffsets();
+	    return;
+	}	
     }
 
     /**

@@ -57,6 +57,7 @@ public class IterOffsetGUI extends JPanel {
     TextBoxWidgetExt gridRows = new TextBoxWidgetExt();
     TextBoxWidgetExt gridCols = new TextBoxWidgetExt();
     CommandButtonWidgetExt createGridButton = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt centreOnBaseButton = new CommandButtonWidgetExt();
 
     public IterOffsetGUI() {
         try {
@@ -146,7 +147,8 @@ public class IterOffsetGUI extends JPanel {
         upButton.setPreferredSize(new Dimension(20, 20));
         downButton.setPreferredSize(new Dimension(20, 20));
         bottomButton.setPreferredSize(new Dimension(20, 20));
-        this.add(pqItem, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+        centreOnBaseButton.setText("Centre On Base");
+    this.add(pqItem, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
         this.add(jLabel1, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 5, 5, 5), 0, 0));
@@ -214,8 +216,10 @@ public class IterOffsetGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         gridGBW.add(gridCols, new GridBagConstraints(6, 4, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
-        gridGBW.add(createGridButton, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
+        gridGBW.add(createGridButton, new GridBagConstraints(4, 5, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 0, 5, 0), 0, 0));
+    gridGBW.add(centreOnBaseButton, new GridBagConstraints(1, 5, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         this.add(bottomButton, new GridBagConstraints(3, 7, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         jScrollPane1.getViewport().add(offsetTable, null);
