@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -23,14 +23,23 @@ import java.awt.Point;
 import java.util.*;
 import java.io.*;
 
+import org.xml.sax.helpers.ParserAdapter;
+import org.xml.sax.helpers.XMLReaderAdapter;
+import org.xml.sax.helpers.XMLFilterImpl;
+import org.xml.sax.XMLReader;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
+
+
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class FrontEnd extends JPanel implements ActionListener
+public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorConstants
 {
+
    private JComboBox feChoice;
    private JComboBox feBandModeChoice;
-   private Hashtable feBandModeHashtable = new Hashtable();
    private String currentFE = "";
    private Hashtable feDetails = new Hashtable();
    private JPanel fePanel;
@@ -44,7 +53,7 @@ public class FrontEnd extends JPanel implements ActionListener
    private JLabel highFreq;
    private JTextField velocity;
    private JTextField overlap;
-   private SideBandDisplay sideBandDisplay = null;
+   private SideBandDisplay sideBandDisplay = new SideBandDisplay();
    private LineCatalog lineCatalog = new LineCatalog();
    private JComboBox feBand;
    private JComboBox feMode;
@@ -70,7 +79,10 @@ public class FrontEnd extends JPanel implements ActionListener
    // Commented out to avoid security exception in applet.
    // private JFileChooser fileChooser = new JFileChooser ( );
 
-   private JButton sideBandButton = new JButton("Show Side Band Display");
+   //private JButton sideBandButton = new JButton("Show Side Band Display");
+
+   /** Parser for XML input/output. (MFO, 29 November 2001) */
+   private XMLReader _xmlReader = null;
 
    public FrontEnd ( )
    {
@@ -164,9 +176,9 @@ public class FrontEnd extends JPanel implements ActionListener
       linePanel = Box.createVerticalBox();
       linePanel.add ( mol1Panel );
       linePanel.add ( mol2Panel );
-      linePanel.add ( sideBandButton );
+      //linePanel.add ( sideBandButton );
 
-      sideBandButton.addActionListener(this);
+      //sideBandButton.addActionListener(this);
 
 /* Assemble the display */
 
@@ -188,7 +200,41 @@ public class FrontEnd extends JPanel implements ActionListener
    
       // MFO trigger additional initialising.
       feChoiceAction(null);
-      createSideBandDisplay();
+      updateSideBandDisplay();
+   
+      // Initialize parser (MFO, 29 November 2001)
+      try {
+         _xmlReader = new XMLFilterImpl() {
+
+            public void startElement(String namespaceURI,
+                                     String localName,
+                                     String qName,
+                                     Attributes atts) throws SAXException {
+
+               if(qName.equals(XML_ELEMENT_HETERODYNE)) {
+
+                  feChoice.setSelectedItem(atts.getValue(XML_ATTRIBUTE_FE_NAME));
+                  feMode.setSelectedItem(atts.getValue(XML_ATTRIBUTE_MODE));
+                  feBandModeChoice.setSelectedItem(getObject(feBandModeChoice, atts.getValue(XML_ATTRIBUTE_BAND_MODE)));
+                  double overlapGuiValue = Double.parseDouble(atts.getValue(XML_ATTRIBUTE_OVERLAP)) / 1.0E6;
+	          overlap.setText("" + overlapGuiValue);
+                  velocity.setText(atts.getValue(XML_ATTRIBUTE_VELOCITY));
+                  feBand.setSelectedItem(atts.getValue(XML_ATTRIBUTE_BAND));
+                  moleculeChoice.setSelectedItem(getObject(moleculeChoice, atts.getValue(XML_ATTRIBUTE_MOLECULE)));
+                  transitionChoice.setSelectedItem(getObject(transitionChoice, atts.getValue(XML_ATTRIBUTE_TRANSITION)));
+                  moleculeChoice2.setSelectedItem(getObject(moleculeChoice2, atts.getValue(XML_ATTRIBUTE_MOLECULE2)));
+                  transitionChoice2.setSelectedItem(getObject(transitionChoice2, atts.getValue(XML_ATTRIBUTE_TRANSITION2)));
+	       }
+            }
+         };
+      }
+      //catch(SAXException e) {
+      catch(Exception e) {
+          JOptionPane.showMessageDialog(this,
+	                                "Could not initialize XMLReader: " + e,
+					"XMLReader problem.", JOptionPane.ERROR_MESSAGE);
+
+      }
    }
 
    public void actionPerformed ( ActionEvent ae )
@@ -229,25 +275,6 @@ public class FrontEnd extends JPanel implements ActionListener
       else if ( ae.getSource() == overlap )
       {
          feOverlapAction ( ae );
-      }
-      else if ( ae.getActionCommand() == "Save" )
-      {
-         // Commented out to avoid security exception in applet.
-         //save ( );
-      }
-      else if ( ae.getSource() == sideBandButton) {
-        // This should not happen.
-        if(sideBandDisplay == null) {
-          JOptionPane.showMessageDialog(this,
-	                                "Frequency Editor does not seem to be fully initialized.\n" +
-	                                "Please change (or repeat) some of your settings",
-					"Problem", JOptionPane.ERROR_MESSAGE);
-	}
-	else {
-          //createSideBandDisplay();
-          sideBandDisplay.setVisible ( true );
-	  sideBandDisplay.requestFocus();
-	}  
       }
    }
 
@@ -332,42 +359,33 @@ public class FrontEnd extends JPanel implements ActionListener
 
 
    public void feBandModeChoiceAction ( ActionEvent ae ) {
-      createSideBandDisplay();
+      updateSideBandDisplay();
    }
 
-   public void createSideBandDisplay() {
-
+   public void updateSideBandDisplay() {
       double loRange[];
       double mid;
       int subBandCount;
 
-      BandSpec currentBandSpec = (BandSpec)feBandModeHashtable.get((String)feBandModeChoice.getSelectedItem());
+      BandSpec currentBandSpec = (BandSpec)feBandModeChoice.getSelectedItem();
 
 
 /* Update display of sidebands and subbands */
       Point sideBandDisplayLocation = new Point(100, 100);
-
-      if ( sideBandDisplay != null )
-      {
-	 sideBandDisplayLocation = sideBandDisplay.getLocation();
-
-         sideBandDisplay.dispose ( );
-      }
 
       mid = 0.5 * ( loMin + loMax );
 
       subBandCount = currentBandSpec.numBands;
       subBandWidth = currentBandSpec.loBandWidth;
 
-      sideBandDisplay = new SideBandDisplay ( currentFE, loMin, loMax,
+      sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
         feIF, feBandWidth,
         redshift,
         currentBandSpec.loBandWidth, currentBandSpec.loChannels,
         currentBandSpec.hiBandWidth, currentBandSpec.hiChannels,
         subBandCount );
-      //sideBandDisplay.setVisible ( true );
-      sideBandDisplay.setLocation(sideBandDisplayLocation);
    }
+
 
    public void feChoiceAction ( ActionEvent ae )
    {
@@ -383,7 +401,6 @@ public class FrontEnd extends JPanel implements ActionListener
       currentFE = newFE;
       r = (Receiver)receiverList.receivers.get ( currentFE );
 
-
       loMin = r.loMin;
       loMax = r.loMax;
       feIF = r.feIF;
@@ -394,19 +411,9 @@ public class FrontEnd extends JPanel implements ActionListener
 
 /* Update choice of sub-band configurations */
 
-      feBandModeChoice.removeActionListener(this);
-      //feBandModeChoice.setModel ( 
-      //  new DefaultComboBoxModel ( r.bandspecs ) );
+      feBandModeChoice.setModel ( 
+        new DefaultComboBoxModel ( r.bandspecs ) );
 
-      feBandModeChoice.removeAllItems();
-      feBandModeHashtable.clear();
-
-      for(int i = 0; i < r.bandspecs.size(); i++) {
-        feBandModeChoice.addItem(((BandSpec)r.bandspecs.get(i)).toString());
-	feBandModeHashtable.put(((BandSpec)r.bandspecs.get(i)).toString(), (BandSpec)r.bandspecs.get(i));
-      }
-
-      feBandModeChoice.addActionListener(this);
 
       obsmin = loMin - feIF - ( feBandWidth * 0.5 );
       obsmax = loMax + feIF + ( feBandWidth * 0.5 );
@@ -430,7 +437,7 @@ public class FrontEnd extends JPanel implements ActionListener
 
 /* Update display of sidebands and subbands */
 
-      createSideBandDisplay();
+      updateSideBandDisplay();
       //if ( sideBandDisplay != null )
       //{
       //   sideBandDisplay.dispose ( );
@@ -483,58 +490,11 @@ public class FrontEnd extends JPanel implements ActionListener
       feOverlap = 1.0E6 * dvalue;
    }
 
-// Commented out to avoid security exception in applet.
-/*
-   public void save ( )
-   {
-      fileChooser.setCurrentDirectory ( 
-        new File ( defaultStoreDirectory ) );
-      fileChooser.setSelectedFile ( 
-        new File ( defaultStoreFile ) );
-
-      fileChooser.setDialogType ( JFileChooser.SAVE_DIALOG );
-
-      int option = fileChooser.showSaveDialog ( this );
-      if ( ( option == JFileChooser.APPROVE_OPTION ) &&
-        ( fileChooser.getSelectedFile() != null ) )
-      {
-         String fname = fileChooser.getSelectedFile().getName() ;
-         String dname = fileChooser.getSelectedFile().getParent() ;
-         File file = new File ( dname, fname );
-         try 
-         {
-
-// create the single OutputStream
-
-            FileOutputStream f = new FileOutputStream ( file );
-            PrintWriter out = new PrintWriter ( f );
-
-// Write the details of this object to disk, but do NOT write the links
-//   between this bean and other beans.
-
-            saveAsASCII ( out );
-            out.close();
-
-// Update the default file name
-
-            defaultStoreFile = fname;
-            defaultStoreDirectory = dname;
-
-// Unset the edited flag
-
-            editFlag = false;
-
-         }
-         catch ( IOException ioe )
-         {
-//            error ( "Save failed", ioe );
-         }
-
-
-      }
-   }
-*/
-
+   /**
+    * Not used anymore.
+    *
+    * Use {@link #toXML()} instead.
+    */
    public void saveAsASCII ( PrintWriter out )
    {
       out.println ( "<heterodyne" );
@@ -562,15 +522,19 @@ public class FrontEnd extends JPanel implements ActionListener
 
    }
 
-
+   /**
+    * Creates XML representation of the frequency editor settings.
+    *
+    * (MFO, November 2001)
+    */
    public String toXML() {
       StringBuffer stringBuffer = new StringBuffer();
       String value = "";
 
-      stringBuffer.append ( "<heterodyne\n" );
+      stringBuffer.append ("<" + XML_ELEMENT_HETERODYNE + "\n" );
 
-      stringBuffer.append ( " feName=\"" + (String)feChoice.getSelectedItem() + "\"");
-      stringBuffer.append ( " mode=\"" + (String)feMode.getSelectedItem() + "\"");
+      stringBuffer.append ("    " + XML_ATTRIBUTE_FE_NAME + "=\"" + (String)feChoice.getSelectedItem() + "\"\n");
+      stringBuffer.append ("    " + XML_ATTRIBUTE_MODE + "=\"" + (String)feMode.getSelectedItem() + "\"\n");
       try {
         value = feBandModeChoice.getSelectedItem().toString();
       }
@@ -581,16 +545,16 @@ public class FrontEnd extends JPanel implements ActionListener
 	// and many things in the frequency editor are currently only initialised after the user has made
 	// some choices/settings.
       }
-      stringBuffer.append ( " bandMode=\"" + value + "\"");
+      stringBuffer.append("    " + XML_ATTRIBUTE_BAND_MODE + "=\"" + value + "\"\n");
 
-      stringBuffer.append ( " velocity=\"" + velocity.getText() + "\"");
-      stringBuffer.append ( " band=\"" + (String)feBand.getSelectedItem() + "\"");
+      stringBuffer.append("    " + XML_ATTRIBUTE_VELOCITY + "=\"" + velocity.getText() + "\"\n");
+      stringBuffer.append("    " + XML_ATTRIBUTE_BAND + "=\"" + (String)feBand.getSelectedItem() + "\"\n");
 
       String svalue = overlap.getText();
       double dvalue = (Double.valueOf(svalue)).doubleValue();
       feOverlap = 1.0E6 * dvalue;
 
-      stringBuffer.append ( " overlap=\"" + feOverlap + "\"");
+      stringBuffer.append("    " + XML_ATTRIBUTE_OVERLAP + "=\"" + feOverlap + "\"\n");
 
       try {
 	value = "" + sideBandDisplay.getLO1();
@@ -602,136 +566,66 @@ public class FrontEnd extends JPanel implements ActionListener
 	// and many things in the frequency editor are currently only initialised after the user has made
 	// some choices/settings.
       }
-      stringBuffer.append ( " LO1=\"" + value + "\"");
+      stringBuffer.append("    " + XML_ATTRIBUTE_LO1 + "=\"" + value + "\"\n");
 
-      stringBuffer.append ( ">\n" );
+      stringBuffer.append("    " + XML_ATTRIBUTE_MOLECULE    + "=\"" + moleculeChoice.getSelectedItem()     + "\"\n");
+      stringBuffer.append("    " + XML_ATTRIBUTE_TRANSITION  + "=\"" + transitionChoice.getSelectedItem()   + "\"\n");
+      stringBuffer.append("    " + XML_ATTRIBUTE_MOLECULE_FREQUENCY  + "=\"" + moleculeFrequency.getText()  + "\"\n");
+      stringBuffer.append("    " + XML_ATTRIBUTE_MOLECULE2 + "=\"" + moleculeChoice2.getSelectedItem()      + "\"\n");
+      stringBuffer.append("    " + XML_ATTRIBUTE_TRANSITION2 + "=\"" + transitionChoice2.getSelectedItem()  + "\"\n");
+      stringBuffer.append("    " + XML_ATTRIBUTE_MOLECULE_FREQUENCY2 + "=\"" + moleculeFrequency2.getText() + "\"");
+      stringBuffer.append(">\n");
 
       stringBuffer.append(sideBandDisplay.toXML() + "\n");
 
-      stringBuffer.append ( "</heterodyne>" );
+      stringBuffer.append ( "</" + XML_ELEMENT_HETERODYNE + ">\n" );
 
       return stringBuffer.toString();
    }
 
+   /**
+    * Set FrequencyTable from XML.
+    *
+    * Added by Martin Folger (14 November 2001)
+    */
+   public void update(String xml) throws Exception
+   {
+      //try {
+        _xmlReader.parse(new InputSource(new StringReader(xml)));
+      //}
+      //catch(Exception e) {
+         // There seems to be a class cast exception at the first attempt to parse which
+	 // disappears at the second attempt.
+	 // This problem will disappear with jdk1.4
+	// System.out.println("FrontEnd.update(): SAXParser.parse bug in jdk1.3. Ignore.");
+	 //_parser.parse(new InputSource(new StringReader(xml)));
+      //}
+
+      updateSideBandDisplay();
+      sideBandDisplay.update(xml);
+   }
+
    public static void main ( String args[] )
    {
-      FrontEnd fe = new FrontEnd();
-      fe.setVisible ( true );
+      new FrontEndFrame(new FrontEnd());
    }
 
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getFeComboBox() {
-      return feChoice;
+
+   private Object getObject(JComboBox comboBox, String name) {
+     for(int i = 0; i < comboBox.getItemCount(); i++) {
+       if(comboBox.getItemAt(i).toString().equals(name)) {
+         return comboBox.getItemAt(i);
+       }
+     }
+
+     return null;
    }
 
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getFeBandModeComboBox() {
-      return feBandModeChoice;
+   public void setSideBandDisplayVisible(boolean visible) {
+      sideBandDisplay.setVisible(visible);
    }
 
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JTextField getVelocityTextField() {
-      return velocity;
+   public void setSideBandDisplayLocation(int x, int y) {
+      sideBandDisplay.setLocation(x, y);
    }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JTextField getOverlapTextField() {
-      return overlap;
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getFeBandComboBox() {
-      return feBand;
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getFeModeComboBox() {
-      return feMode;
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getMoleculeComboBox() {
-      return moleculeChoice;
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getMolecule2ComboBox() {
-      return moleculeChoice2; 
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getTransitionComboBox() {
-      return transitionChoice;
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public JComboBox getTransition2ComboBox() {
-      return transitionChoice2;
-   }
-
-   /**
-    * Returns frequency editor widget.
-    * 
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.    *
-    */
-   public JButton getSideBandButton() {
-      return sideBandButton;
-   }
-
-   /**
-    * Returns vector with all input widgets of sideBandDisplay and its child components.
-    * The input widgets are of type JSlider, JScrollBar and JButton.
-    *
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
-    */
-   public Vector getSideBandDisplayWidgets() {
-      if(sideBandDisplay != null) {
-        return sideBandDisplay.getAllWidgets();
-      }
-      // if sideBandDisplay is null return an empty Vector.
-      else {
-        return new Vector();
-      }
-   }
-
 }

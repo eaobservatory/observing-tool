@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -108,6 +108,12 @@ ChangeListener
       if ( buffer == null )
       {
          buffer = createImage ( xSize, ySize );
+
+	 // added by MFO, 16 November 2001
+	 if(buffer == null) {
+            return;
+	 }
+
          ig = buffer.getGraphics();
       }
 

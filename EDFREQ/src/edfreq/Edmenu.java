@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -16,7 +16,7 @@ import javax.swing.*;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
-public class Edmenu extends JMenuBar implements ActionListener
+public class Edmenu extends JMenuBar //implements ActionListener
 {
    public JMenuItem save;
 
@@ -24,15 +24,26 @@ public class Edmenu extends JMenuBar implements ActionListener
    {
       super();
 
-      JMenu fileMenu = new JMenu ( "File" );
-      JMenuItem save = new JMenuItem ( "Save" );
-      save.addActionListener ( target );
+      JMenu fileMenu   = new JMenu ( "File" );
+      JMenuItem open   = new JMenuItem ( "Open" );
+      JMenuItem save   = new JMenuItem ( "Save" );
+      JMenuItem saveAs = new JMenuItem ( "Save As ..." );
+      JMenuItem exit   = new JMenuItem ( "Exit" );
+      open.addActionListener   ( target );
+      save.addActionListener   ( target );
+      saveAs.addActionListener ( target );
+      exit.addActionListener   ( target );
+      fileMenu.add ( open );
       fileMenu.add ( save );
+      fileMenu.add ( saveAs );
+      fileMenu.add ( new JSeparator() );
+      fileMenu.add ( exit );
+
       add ( fileMenu );
    }
 
-   public void actionPerformed ( ActionEvent e )
-   {
-System.out.println ( "Edmenu: got event" );
-   }
+//   public void actionPerformed ( ActionEvent e )
+//   {
+//System.out.println ( "Edmenu: got event" );
+//   }
 }

@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 
 import java.awt.*;
@@ -19,10 +19,18 @@ import javax.swing.table.*;
 
 import java.util.Vector;
 
+import org.xml.sax.helpers.ParserAdapter;
+import org.xml.sax.helpers.XMLReaderAdapter;
+import org.xml.sax.helpers.XMLFilterImpl;
+import org.xml.sax.XMLReader;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
+
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class FrequencyTable extends JPanel
+public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 {
 
    private double lLowLimit;
@@ -32,8 +40,8 @@ public class FrequencyTable extends JPanel
    Object[] samplers;
    Object[][] data;
 
-   private Vector widgetVector  = new Vector();
-
+   /** Parser for XML input/output. (MFO, 29 November 2001) */
+   private XMLReader _xmlReader = null;
 
    public FrequencyTable ( double feIF, double feBandWidth,
      double loBandWidth, int loChannels, 
@@ -126,7 +134,6 @@ public class FrequencyTable extends JPanel
            (int)( gigToPix * lLowLimit ) + 20, 
            (int)( gigToPix * lHighLimit ) - 20 );
          lowBar.setUnitIncrement ( 1 );
-	 widgetVector.add(lowBar);
 
          highBar = new JScrollBar ( JScrollBar.HORIZONTAL,
            (int)( gigToPix * (feIF-0.5*loBandWidth) ), 
@@ -134,13 +141,11 @@ public class FrequencyTable extends JPanel
            (int)( gigToPix * uLowLimit ) + 20, 
            (int)( gigToPix * uHighLimit ) - 20 );
          highBar.setUnitIncrement ( 1 );
-	 widgetVector.add(highBar);
 
          samplerDisplay = new SamplerDisplay ( String.valueOf ( feIF ) );
          resolutionDisplay = new ResolutionDisplay ( loChannels,
            loBandWidth );
          widthButton = new JToggleButton ( "" + ( loBandWidth * 1.0E-9 ) );
-	 widgetVector.add(widthButton);
          samplers[j] = new Sampler ( feIF, loBandWidth, hiBandWidth, 
            loChannels, hiChannels, widthButton );
 
@@ -168,8 +173,53 @@ public class FrequencyTable extends JPanel
          columns[5].add ( highBar );
       }
 
-  }
 
+      // Initialize parser (MFO, 29 November 2001)
+      try {
+         _xmlReader = new XMLFilterImpl() {
+            public void startElement(String namespaceURI,
+                                     String localName,
+                                     String qName,
+                                     Attributes atts) throws SAXException {
+               if(qName.equals(XML_ELEMENT_BANDSYSTEM)) {
+                  // ignore count attribute
+	          return;
+	       }
+
+               if(qName.equals(XML_ELEMENT_SUBSYSTEM)) {
+	          int i                  = Integer.parseInt(atts.getValue(XML_ATTRIBUTE_BANDNUM));
+	          double centreFrequency = Double.parseDouble(atts.getValue(XML_ATTRIBUTE_CENTRE_FREQUENCY));
+	          double bandWidth       = Double.parseDouble(atts.getValue(XML_ATTRIBUTE_BANDWIDTH));
+                  SideBand sideband = (SideBand)data[i][0];
+
+                  sideband.setSubBandCentre(centreFrequency);
+                  sideband.setSubBandWidth(bandWidth);
+	          sideband.updateCentreFrequency();
+                  // channels (-1) is not used
+	          sideband.updateSamplerValues(centreFrequency, bandWidth, 0);
+	          //sideband.updateScrollBarValue();
+               
+	          if(bandWidth == 1.0E9) {
+	             ((Sampler)samplers[i]).toggleBandWidth();
+		  }   
+               }	 
+	    }
+         };
+      }
+      //catch(SAXException e) { //ParserConfigurationException e) {
+      catch(Exception e) { //ParserConfigurationException e) {
+          JOptionPane.showMessageDialog(this,
+	                                "Could not initialize XMLReader: " + e,
+					"XMLReader problem.", JOptionPane.ERROR_MESSAGE);
+
+      }
+   }
+
+   /**
+    * Not used anymore.
+    *
+    * Use {@link #toXML()} instead.
+    */
    public void saveAsASCII ( PrintWriter out )
    {
       int j;
@@ -203,34 +253,44 @@ public class FrequencyTable extends JPanel
    
       int j;
 
-      stringBuffer.append ( "  <bandSystem" );
+      stringBuffer.append ( "  <" + XML_ELEMENT_BANDSYSTEM);
 
-      stringBuffer.append ( " count=\"" + samplers.length + "\">\n");
+      stringBuffer.append ( " " + XML_ATTRIBUTE_COUNT + "=\"" + samplers.length + "\">\n");
 
       for ( j=0; j<samplers.length; j++ )
       {
-         stringBuffer.append ( "    <subSystem" );
+         stringBuffer.append ( "    <" + XML_ELEMENT_SUBSYSTEM);
 
-         stringBuffer.append ( " bandNum=\"" + j + "\"");
-         stringBuffer.append ( " centreFrequency=\"" +
+         stringBuffer.append ( " " + XML_ATTRIBUTE_BANDNUM + "=\"" + j + "\"");
+         stringBuffer.append ( " " + XML_ATTRIBUTE_CENTRE_FREQUENCY + "=\"" +
            ((Sampler)samplers[j]).getCentreFrequency() + "\"");
-         stringBuffer.append ( " bandWidth=\"" + 
+         stringBuffer.append ( " " + XML_ATTRIBUTE_BANDWIDTH + "=\"" + 
            ((Sampler)samplers[j]).getBandWidth() + "\"");
-         stringBuffer.append ( " channels=\"" + 
+         stringBuffer.append ( " " + XML_ATTRIBUTE_CHANNELS + "=\"" + 
            ((Sampler)samplers[j]).getChannels() + "\"/>\n" );
+
       }
-      stringBuffer.append ( "  </bandSystem>" );
+      stringBuffer.append ( "  </" + XML_ELEMENT_BANDSYSTEM + ">" );
    
       return stringBuffer.toString();
    }
 
    /**
-    * Returns vector with all low scroll bars.
+    * Set FrequencyTable from XML.
     *
-    * Allows other classes (such as {@link ot.jcmt.inst.editor.EdCompInstHeterodyne}) to add listeners.
+    * Added by Martin Folger (14 November 2001)
     */
-   public Vector getAllWidgets() {
-     return widgetVector;
+   public void update(String xml) throws Exception
+   {
+      //try {
+         _xmlReader.parse(new InputSource(new StringReader(xml)));
+      //}
+      //catch(ClassCastException e) {
+         // There seems to be a class cast exception at the first attempt to parse which
+	 // disappears at the second attempt.
+	 // This problem will disappear with jdk1.4
+	// System.out.println("FrontEnd.update(): SAXParser.parse bug in jdk1.3. Ignore.");
+	//_parser.parse(new InputSource(new StringReader(xml)));
+      //}
    }
-
 }
