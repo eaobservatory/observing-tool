@@ -1,0 +1,121 @@
+<spDocument>
+   <pr name=new type=pr subtype=none>
+      <av name=.gui.filename descr="No Description">
+            <val value="cgs4example.ot">
+      </av>
+      <av name=title descr="No Description">
+            <val value="cgs4 example">
+      </av>
+      <ob name=new type=ob subtype=none>
+         <av name=chainedToNext descr="No Description">
+                  <val value="false">
+         </av>
+         <av name=chainedToPrev descr="No Description">
+                  <val value="false">
+         </av>
+         <av name=.gui.collapsed descr="No Description">
+                  <val value="false">
+         </av>
+         <oc name=new type=oc subtype=inst.CGS4>
+            <av name=polariser descr="No Description">
+                        <val value="none">
+            </av>
+            <av name=sampling descr="No Description">
+                        <val value="1x1">
+            </av>
+            <av name=.unique descr="No Description">
+                        <val value="true">
+            </av>
+            <av name=sourceMag descr="No Description">
+                        <val value="5-6">
+            </av>
+            <av name=filter descr="No Description">
+                        <val value="B2">
+            </av>
+            <av name=mask descr="No Description">
+                        <val value="1pixel">
+            </av>
+            <av name=centralWavelength descr="No Description">
+                        <val value="1.667">
+            </av>
+            <av name=coadds descr="No Description">
+                        <val value="3">
+            </av>
+            <av name=order descr="No Description">
+                        <val value="2">
+            </av>
+            <av name=disperser descr="No Description">
+                        <val value="150lpmm">
+            </av>
+            <av name=exposureTime descr="No Description">
+                        <val value="2.3">
+            </av>
+            <av name=acqMode descr="No Description">
+                        <val value="NDSTARE">
+            </av>
+            <av name=cvfOffset descr="No Description">
+                        <val value="0.0">
+            </av>
+            <av name=neutralDensity descr="No Description">
+                        <val value="0">
+            </av>
+         </oc>
+         <if name=new type=if subtype=none>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="false">
+            </av>
+            <ic name=new type=ic subtype=CGS4calUnitObs>
+               <av name=repeatCount descr="No Description">
+                              <val value="1">
+               </av>
+               <av name=calType descr="No Description">
+                              <val value="Flat">
+               </av>
+               <av name=acqMode descr="No Description">
+                              <val value="NDSTARE">
+               </av>
+               <av name=lamp descr="No Description">
+                              <val value="Black Body (0.8)">
+               </av>
+               <av name=filter descr="No Description">
+                              <val value="B2">
+               </av>
+               <av name=exposureTime descr="No Description">
+                              <val value="0.1">
+               </av>
+               <av name=coadds descr="No Description">
+                              <val value="5">
+               </av>
+            </ic>
+            <ic name=new type=ic subtype=CGS4calUnitObs>
+               <av name=repeatCount descr="No Description">
+                              <val value="1">
+               </av>
+               <av name=calType descr="No Description">
+                              <val value="Arc">
+               </av>
+               <av name=acqMode descr="No Description">
+                              <val value="NDSTARE">
+               </av>
+               <av name=lamp descr="No Description">
+                              <val value="Krypton Arc">
+               </av>
+               <av name=filter descr="No Description">
+                              <val value="B2">
+               </av>
+               <av name=exposureTime descr="No Description">
+                              <val value="0.1">
+               </av>
+               <av name=coadds descr="No Description">
+                              <val value="5">
+               </av>
+            </ic>
+            <ic name=new type=ic subtype=observe>
+               <av name=repeatCount descr="No Description">
+                              <val value="1">
+               </av>
+            </ic>
+         </if>
+      </ob>
+   </pr>
+</spDocument>

@@ -1,0 +1,1413 @@
+
+(object Petal
+    version    	42
+    _written   	"Rose 4.5.8163.3"
+    charSet    	0)
+
+(object Design "Logical View"
+    is_unit    	TRUE
+    is_loaded  	TRUE
+    defaults   	(object defaults
+	rightMargin 	0.250000
+	leftMargin 	0.250000
+	topMargin  	0.250000
+	bottomMargin 	0.500000
+	pageOverlap 	0.250000
+	clipIconLabels 	TRUE
+	autoResize 	TRUE
+	snapToGrid 	TRUE
+	gridX      	16
+	gridY      	16
+	defaultFont 	(object Font
+	    size       	10
+	    face       	"Arial"
+	    bold       	FALSE
+	    italics    	FALSE
+	    underline  	FALSE
+	    strike     	FALSE
+	    color      	0
+	    default_color 	TRUE)
+	showMessageNum 	1
+	showClassOfObject 	TRUE
+	notation   	"Unified")
+    root_usecase_package 	(object Class_Category "Use Case View"
+	quid       	"3A6D51AA005E"
+	exportControl 	"Public"
+	global     	TRUE
+	logical_models 	(list unit_reference_list)
+	logical_presentations 	(list unit_reference_list
+	    (object UseCaseDiagram "Main"
+		quid       	"3A6D51AB03D0"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    root_category 	(object Class_Category "Logical View"
+	quid       	"3A6D51AA005D"
+	exportControl 	"Public"
+	global     	TRUE
+	subsystem  	"Component View"
+	quidu      	"3A6D51AA005F"
+	logical_models 	(list unit_reference_list
+	    (object Class_Category "gemini"
+		quid       	"3A6D51CF03D0"
+		documentation 	"Except gemini.sp.ipc (which depends on ODBServerPackage) the gemini is undependend of any other package."
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class_Category "sp"
+			quid       	"3A6D51D60344"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list
+			    (object Class_Category "ipc"
+				quid       	"3A6D520800CF"
+				visible_categories 	(list visibility_relationship_list
+				    (object Visibility_Relationship
+					quid       	"3A6D5B630079"
+					supplier   	"Logical View::ODBServerPackage"
+					quidu      	"3A6D54150156"))
+				exportControl 	"Public"
+				logical_models 	(list unit_reference_list)
+				logical_presentations 	(list unit_reference_list))
+			    (object Class_Category "iter"
+				quid       	"3A6D520D0339"
+				exportControl 	"Public"
+				logical_models 	(list unit_reference_list)
+				logical_presentations 	(list unit_reference_list))
+			    (object Class_Category "obscomp"
+				quid       	"3A6D52120160"
+				exportControl 	"Public"
+				logical_models 	(list unit_reference_list)
+				logical_presentations 	(list unit_reference_list)))
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "util"
+			quid       	"3A6D51DA01A5"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list)))
+		logical_presentations 	(list unit_reference_list))
+	    (object Class_Category "ODBServerPackage"
+		quid       	"3A6D54150156"
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			quid       	"3A6D5475015E"
+			supplier   	"Logical View::ot_ukirt::util"
+			quidu      	"3A6D54490129")
+		    (object Visibility_Relationship
+			quid       	"3A6D5AA40287"
+			supplier   	"Logical View::gemini::sp"
+			quidu      	"3A6D51D60344"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list)
+		logical_presentations 	(list unit_reference_list))
+	    (object Class_Category "ot_ukirt"
+		quid       	"3A6D54200026"
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			quid       	"3A6D83190113"
+			supplier   	"Logical View::ot"
+			quidu      	"3A6D5D740160")
+		    (object Visibility_Relationship
+			quid       	"3A6D8323017C"
+			supplier   	"Logical View::gemini"
+			quidu      	"3A6D51CF03D0"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class_Category "util"
+			quid       	"3A6D54490129"
+			visible_categories 	(list visibility_relationship_list
+			    (object Visibility_Relationship
+				quid       	"3A6D788F0218"
+				supplier   	"Logical View::javahelp"
+				quidu      	"3A6D772E01B6"))
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list
+			    (object Class "LookUpTable"
+				quid       	"3A6D54BD0266"
+				stereotype 	"from ot_ukirt.util"
+				language   	"Java"))
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "validation"
+			quid       	"3A6D6F4E021C"
+			visible_categories 	(list visibility_relationship_list
+			    (object Visibility_Relationship
+				quid       	"3A6D6F690148"
+				supplier   	"Logical View::ot::validation"
+				quidu      	"3A6D5D7C003F"))
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "inst"
+			quid       	"3A6D725D03D0"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "iter"
+			quid       	"3A6D7274015C"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "tpe"
+			quid       	"3A6D7FBF011A"
+			visible_categories 	(list visibility_relationship_list
+			    (object Visibility_Relationship
+				quid       	"3A6D804000CF"
+				documentation 	"More specifically ot_ukirt.tpe.TpeDichroicFeature depends on jsky.jar and diva.jar"
+				supplier   	"Logical View::Libraries needed by jsky"
+				quidu      	"3A6D771302EE"))
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list
+			    (object Class "TpeDichroicFeature"
+				quid       	"3A6D800C01E3"
+				language   	"Java"))
+			logical_presentations 	(list unit_reference_list)))
+		logical_presentations 	(list unit_reference_list))
+	    (object Class_Category "ot"
+		quid       	"3A6D5D740160"
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			quid       	"3A6D83D500BA"
+			supplier   	"Logical View::gemini"
+			quidu      	"3A6D51CF03D0"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class_Category "validation"
+			quid       	"3A6D5D7C003F"
+			documentation 	
+|At the moment the package ot.validation is ot_ukirt specific. It would be nice to split it up into
+|
+|ot.validation.SpValidation.class
+|ot.validation.InstrumentValidation.class
+|ot.validation.ErrorMessage.class
+|
+|and
+|
+|ot_ukirt.validation.CGS4Validation.class
+|ot_ukirt.validation.IRCAM3Validation.class
+|ot_ukirt.validation.MICHELLEValidation.class
+|ot_ukirt.validation.UFTIValidation.class
+|
+|where the three ot.validation classes would be independent of ot_ukirt.
+			
+			visible_categories 	(list visibility_relationship_list
+			    (object Visibility_Relationship
+				quid       	"3A6D60D70397"
+				supplier   	"Logical View::gemini"
+				quidu      	"3A6D51CF03D0"))
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "phase1"
+			quid       	"3A6D5D97017E"
+			visible_categories 	(list visibility_relationship_list
+			    (object Visibility_Relationship
+				quid       	"3A6D5DAD00E0"
+				documentation 	"Depends on gemini.sp.SpItem and gemini.util.HTMLAnchor."
+				supplier   	"Logical View::gemini"
+				quidu      	"3A6D51CF03D0"))
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list)))
+		logical_presentations 	(list unit_reference_list))
+	    (object Class_Category "jsky"
+		quid       	"3A6D76E1026A"
+		stereotype 	"only classes needed by ATC OT"
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			quid       	"3A6D773D01CC"
+			supplier   	"Logical View::Libraries needed by jsky"
+			quidu      	"3A6D771302EE")
+		    (object Visibility_Relationship
+			quid       	"3A6D784B0238"
+			supplier   	"Logical View::ot"
+			quidu      	"3A6D5D740160")
+		    (object Visibility_Relationship
+			quid       	"3A6D784D03AE"
+			supplier   	"Logical View::gemini"
+			quidu      	"3A6D51CF03D0")
+		    (object Visibility_Relationship
+			quid       	"3A6D78510359"
+			supplier   	"Logical View::ot_ukirt::util"
+			quidu      	"3A6D54490129"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list)
+		logical_presentations 	(list unit_reference_list))
+	    (object Class_Category "Libraries needed by jsky"
+		quid       	"3A6D771302EE"
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class_Category "diva"
+			quid       	"3A6D7DB7011E"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "graph"
+			quid       	"3A6D7DB7011F"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "jacl"
+			quid       	"3A6D7DB70120"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "jdom-b4"
+			quid       	"3A6D7DB70121"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "junit"
+			quid       	"3A6D7DB70122"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "tcljava"
+			quid       	"3A6D7DB70123"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "xerces"
+			quid       	"3A6D7DB70124"
+			documentation 	"XML classes"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list))
+		    (object Class_Category "jsky"
+			quid       	"3A6D7DB70125"
+			documentation 	"jsky package of JSky Project (without ot-0.5)"
+			stereotype 	"without OT"
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list)))
+		logical_presentations 	(list unit_reference_list
+		    (object ClassDiagram "Main"
+			quid       	"3A6D7DB5014B"
+			title      	"Main"
+			zoom       	100
+			max_height 	28350
+			max_width  	21600
+			origin_x   	92
+			origin_y   	0
+			items      	(list diagram_item_list
+			    (object CategoryView "Logical View::Libraries needed by jsky::diva" @1
+				location   	(320, 272)
+				label      	(object ItemLabel
+				    Parent_View 	@1
+				    location   	(176, 188)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"diva")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB7011E"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::graph" @2
+				location   	(768, 272)
+				label      	(object ItemLabel
+				    Parent_View 	@2
+				    location   	(624, 188)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"graph")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB7011F"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::jacl" @3
+				location   	(1232, 272)
+				label      	(object ItemLabel
+				    Parent_View 	@3
+				    location   	(1088, 188)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"jacl")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB70120"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::jdom-b4" @4
+				location   	(1680, 272)
+				label      	(object ItemLabel
+				    Parent_View 	@4
+				    location   	(1536, 188)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"jdom-b4")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB70121"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::junit" @5
+				location   	(2128, 272)
+				label      	(object ItemLabel
+				    Parent_View 	@5
+				    location   	(1984, 188)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"junit")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB70122"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::tcljava" @6
+				location   	(320, 592)
+				label      	(object ItemLabel
+				    Parent_View 	@6
+				    location   	(176, 508)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"tcljava")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB70123"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::xerces" @7
+				location   	(800, 624)
+				label      	(object ItemLabel
+				    Parent_View 	@7
+				    location   	(656, 540)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	288
+				    justify    	0
+				    label      	"xerces")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB70124"
+				width      	300
+				height     	180)
+			    (object CategoryView "Logical View::Libraries needed by jsky::jsky" @8
+				location   	(1280, 640)
+				label      	(object ItemLabel
+				    Parent_View 	@8
+				    location   	(1102, 606)
+				    fill_color 	13434879
+				    nlines     	2
+				    max_width  	356
+				    justify    	0
+				    label      	"jsky")
+				stereotype 	(object ItemLabel
+				    Parent_View 	@8
+				    location   	(1102, 556)
+				    fill_color 	13434879
+				    anchor     	10
+				    nlines     	1
+				    max_width  	356
+				    justify    	0
+				    label      	"<<without OT>>")
+				icon_style 	"Icon"
+				line_color 	3342489
+				fill_color 	13434879
+				quidu      	"3A6D7DB70125"
+				width      	369
+				height     	181)))))
+	    (object Class_Category "javahelp"
+		quid       	"3A6D772E01B6"
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list)
+		logical_presentations 	(list unit_reference_list)))
+	logical_presentations 	(list unit_reference_list
+	    (object ClassDiagram "Main"
+		quid       	"3A6D51AC0005"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object CategoryView "Logical View::gemini" @9
+			location   	(1664, 1744)
+			label      	(object ItemLabel
+			    Parent_View 	@9
+			    location   	(1520, 1660)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"gemini")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D51CF03D0"
+			width      	300
+			height     	180)
+		    (object CategoryView "Logical View::ot_ukirt" @10
+			location   	(528, 160)
+			label      	(object ItemLabel
+			    Parent_View 	@10
+			    location   	(384, 76)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"ot_ukirt")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D54200026"
+			width      	300
+			height     	180)
+		    (object CategoryView "Logical View::ODBServerPackage" @11
+			location   	(1536, 1008)
+			label      	(object ItemLabel
+			    Parent_View 	@11
+			    location   	(1155, 924)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	762
+			    justify    	0
+			    label      	"ODBServerPackage")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D54150156"
+			width      	775
+			height     	181)
+		    (object CategoryView "Logical View::ot" @12
+			location   	(544, 1104)
+			label      	(object ItemLabel
+			    Parent_View 	@12
+			    location   	(400, 1020)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"ot")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D5D740160"
+			width      	300
+			height     	180)
+		    (object CategoryView "Logical View::jsky" @13
+			location   	(848, 1696)
+			label      	(object ItemLabel
+			    Parent_View 	@13
+			    location   	(445, 1662)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	806
+			    justify    	0
+			    label      	"jsky")
+			stereotype 	(object ItemLabel
+			    Parent_View 	@13
+			    location   	(445, 1612)
+			    fill_color 	13434879
+			    anchor     	10
+			    nlines     	1
+			    max_width  	806
+			    justify    	0
+			    label      	"<<only classes needed by ATC OT>>")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D76E1026A"
+			width      	819
+			height     	181)
+		    (object CategoryView "Logical View::Libraries needed by jsky" @14
+			location   	(848, 2112)
+			label      	(object ItemLabel
+			    Parent_View 	@14
+			    location   	(703, 2028)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	290
+			    justify    	0
+			    label      	"Libraries needed by jsky")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D771302EE"
+			width      	302
+			height     	180)
+		    (object CategoryView "Logical View::javahelp" @15
+			location   	(2160, 112)
+			label      	(object ItemLabel
+			    Parent_View 	@15
+			    location   	(2016, 28)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"javahelp")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D772E01B6"
+			width      	300
+			height     	180)
+		    (object NoteView @16
+			location   	(1216, 240)
+			label      	(object ItemLabel
+			    Parent_View 	@16
+			    location   	(1072, 159)
+			    fill_color 	13434879
+			    nlines     	3
+			    max_width  	253
+			    label      	"Only because of JHLauncher")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	313
+			height     	175)
+		    (object CategoryView "Logical View::gemini::sp" @17
+			location   	(1904, 1696)
+			label      	(object ItemLabel
+			    Parent_View 	@17
+			    location   	(1760, 1612)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"sp")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D51D60344"
+			width      	300
+			height     	180)
+		    (object ImportView "" @18
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D5AA40287"
+			client     	@11
+			supplier   	@17
+			line_style 	0)
+		    (object CategoryView "Logical View::ot_ukirt::util" @19
+			location   	(800, 96)
+			label      	(object ItemLabel
+			    Parent_View 	@19
+			    location   	(656, 12)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"util")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D54490129"
+			width      	300
+			height     	180)
+		    (object ImportView "" @20
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D5475015E"
+			client     	@11
+			supplier   	@19
+			line_style 	0)
+		    (object ImportView "" @21
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D788F0218"
+			client     	@19
+			supplier   	@15
+			line_style 	0)
+		    (object AttachView "" @22
+			stereotype 	TRUE
+			line_color 	3342489
+			client     	@16
+			supplier   	@21
+			line_style 	0)
+		    (object ImportView "" @23
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D773D01CC"
+			client     	@13
+			supplier   	@14
+			line_style 	0)
+		    (object ImportView "" @24
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D784B0238"
+			client     	@13
+			supplier   	@12
+			line_style 	0)
+		    (object ImportView "" @25
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D784D03AE"
+			client     	@13
+			supplier   	@9
+			line_style 	0)
+		    (object ImportView "" @26
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D78510359"
+			client     	@13
+			supplier   	@19
+			line_style 	0)
+		    (object AttachView "" @27
+			stereotype 	TRUE
+			line_color 	3342489
+			client     	@16
+			supplier   	@26
+			line_style 	0)
+		    (object NoteView @28
+			location   	(1584, 624)
+			label      	(object ItemLabel
+			    Parent_View 	@28
+			    location   	(1409, 558)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	315
+			    label      	"Only becauce of LookUpTable")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	375
+			height     	144)
+		    (object CategoryView "Logical View::gemini::sp::ipc" @29
+			location   	(2128, 1584)
+			label      	(object ItemLabel
+			    Parent_View 	@29
+			    location   	(1984, 1500)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"ipc")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D520800CF"
+			width      	300
+			height     	180)
+		    (object ImportView "" @30
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D5B630079"
+			client     	@29
+			supplier   	@11
+			line_style 	0)
+		    (object CategoryView "Logical View::ot_ukirt::tpe" @31
+			location   	(256, 224)
+			label      	(object ItemLabel
+			    Parent_View 	@31
+			    location   	(112, 140)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"tpe")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3A6D7FBF011A"
+			width      	300
+			height     	180)
+		    (object NoteView @32
+			location   	(272, 2144)
+			label      	(object ItemLabel
+			    Parent_View 	@32
+			    location   	(72, 2072)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	365
+			    label      	"Only because of TpeDichroicFeature")
+			line_color 	3342489
+			fill_color 	13434879
+			width      	425
+			height     	156)
+		    (object ImportView "" @33
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D804000CF"
+			client     	@31
+			supplier   	@14
+			vertices   	(list Points
+			    (262, 314)
+			    (400, 1966)
+			    (696, 2061))
+			line_style 	0)
+		    (object AttachView "" @34
+			stereotype 	TRUE
+			line_color 	3342489
+			client     	@32
+			supplier   	@33
+			line_style 	0)
+		    (object ImportView "" @35
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D83190113"
+			client     	@10
+			supplier   	@12
+			line_style 	0)
+		    (object ImportView "" @36
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D8323017C"
+			client     	@10
+			supplier   	@9
+			vertices   	(list Points
+			    (557, 250)
+			    (878, 1200)
+			    (1513, 1639))
+			line_style 	0)
+		    (object ImportView "" @37
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6D83D500BA"
+			client     	@12
+			supplier   	@9
+			line_style 	0)
+		    (object AttachView "" @38
+			stereotype 	TRUE
+			line_color 	3342489
+			client     	@28
+			supplier   	@20
+			line_style 	0)))))
+    root_subsystem 	(object SubSystem "Component View"
+	quid       	"3A6D51AA005F"
+	physical_models 	(list unit_reference_list)
+	physical_presentations 	(list unit_reference_list
+	    (object Module_Diagram "Main"
+		quid       	"3A6D51AB03CF"
+		title      	"Main"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    process_structure 	(object Processes
+	quid       	"3A6D51AA0060"
+	ProcsNDevs 	(list
+	    (object Process_Diagram "Deployment View"
+		quid       	"3A6D51AA0066"
+		title      	"Deployment View"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list))))
+    properties 	(object Properties
+	attributes 	(list Attribute_Set
+	    (object Attribute
+		tool       	"DDL"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"DDL"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DataBase"
+			value      	("DataBaseSet" 800))
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DataBaseSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"DDL"
+				name       	"ANSI"
+				value      	800)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Oracle"
+				value      	801)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"SQLServer"
+				value      	802)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Sybase"
+				value      	803)
+			    (object Attribute
+				tool       	"DDL"
+				name       	"Watcom"
+				value      	804)))
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKeyColumnName"
+			value      	"Id")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKeyColumnType"
+			value      	"NUMBER(5)")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"ViewName"
+			value      	"V_")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"TableName"
+			value      	"T_")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"InheritSuffix"
+			value      	"_V")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DropClause"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"BaseViews"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"DDLScriptFilename"
+			value      	"DDL1.SQL")))
+	    (object Attribute
+		tool       	"DDL"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"DDL"
+			name       	"ColumnType"
+			value      	"VARCHAR")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Length"
+			value      	"")
+		    (object Attribute
+			tool       	"DDL"
+			name       	"NullsOK"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"PrimaryKey"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"Unique"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"CompositeUnique"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"DDL"
+			name       	"CheckConstraint"
+			value      	"")))
+	    (object Attribute
+		tool       	"DDL"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"IDL"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CreateMissingDirectories"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"StopOnError"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GeneratePreserveRegions"
+			value      	TRUE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"ImplementationType"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"ConstValue"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDefaultSpecifier"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DefaultSpecifier"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IDLElement"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IDLSpecificationType"
+			value      	("IDLSpecSet" 22))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IDLSpecSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Interface"
+				value      	22)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Typedef"
+				value      	54)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Enumeration"
+				value      	8)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Const"
+				value      	71)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Exception"
+				value      	61)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Struct"
+				value      	51)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Union"
+				value      	81)))))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateIDLModule"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"InclusionProtectionSymbol"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Module-Body"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CmIdentification"
+			value      	(value Text "  %X% %Q% %Z% %W%"))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"FileName"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"AdditionalIncludes"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IncludeBySimpleName"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"OperationIsOneWay"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Context"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Raises"
+			value      	"")))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"CaseSpecifier"
+			value      	"")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsConst"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"ConstValue"
+			value      	"")))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Has"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"NameIfUnlabeled"
+			value      	"the_$supplier")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateForwardReference"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"BoundedHasRelType"
+			value      	("HasRelTypeSet" 47))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"HasRelTypeSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Array"
+				value      	24)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Sequence"
+				value      	47)))))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"NameIfUnlabeled"
+			value      	"the_$supplier")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"DataMemberName"
+			value      	"$relationship")
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateForwardReference"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"IsReadOnly"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"IDL"
+			name       	"BoundedRoleType"
+			value      	("AssocTypeSet" 47))
+		    (object Attribute
+			tool       	"IDL"
+			name       	"AssocTypeSet"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Array"
+				value      	24)
+			    (object Attribute
+				tool       	"IDL"
+				name       	"Sequence"
+				value      	47)))))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Uses"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"GenerateForwardReference"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"default__Subsystem"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"IDL"
+			name       	"Directory"
+			value      	"AUTO GENERATE")))
+	    (object Attribute
+		tool       	"IDL"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"Java"
+		name       	"propertyId"
+		value      	"809135966")
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Project"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"CreateMissingDirectories"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"StopOnError"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Directory"
+			value      	"AUTO GENERATE")
+		    (object Attribute
+			tool       	"Java"
+			name       	"UsePrefixes"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"InstanceVariablePrefix"
+			value      	"m_")
+		    (object Attribute
+			tool       	"Java"
+			name       	"ClassVariablePrefix"
+			value      	"s_")
+		    (object Attribute
+			tool       	"Java"
+			name       	"DefaultAttributeDataType"
+			value      	"int")
+		    (object Attribute
+			tool       	"Java"
+			name       	"DefaultOperationReturnType"
+			value      	"void")))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Class"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDefaultConstructor"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ConstructorIs"
+			value      	("Ctor_Set" 62))
+		    (object Attribute
+			tool       	"Java"
+			name       	"Ctor_Set"
+			value      	(list Attribute_Set
+			    (object Attribute
+				tool       	"Java"
+				name       	"Public"
+				value      	62)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Protected"
+				value      	63)
+			    (object Attribute
+				tool       	"Java"
+				name       	"Private"
+				value      	64)))
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateFinalizer"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateStaticInitializer"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateInstanceInitializer"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Module-Spec"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"CmIdentification"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"AdditionalImports"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Module-Body"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Generate"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"CmIdentification"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"CopyrightNotice"
+			value      	(value Text ""))
+		    (object Attribute
+			tool       	"Java"
+			name       	"AdditionalImports"
+			value      	(value Text ""))))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Operation"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"Abstract"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Static"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Native"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Synchronized"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Attribute"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"default__Role"
+		value      	(list Attribute_Set
+		    (object Attribute
+			tool       	"Java"
+			name       	"GenerateDataMember"
+			value      	TRUE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"ContainerClass"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"InitialValue"
+			value      	"")
+		    (object Attribute
+			tool       	"Java"
+			name       	"Final"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Transient"
+			value      	FALSE)
+		    (object Attribute
+			tool       	"Java"
+			name       	"Volatile"
+			value      	FALSE)))
+	    (object Attribute
+		tool       	"Java"
+		name       	"HiddenTool"
+		value      	FALSE)
+	    (object Attribute
+		tool       	"SCC"
+		name       	"HiddenTool"
+		value      	FALSE))
+	quid       	"3A6D51AA0061"))

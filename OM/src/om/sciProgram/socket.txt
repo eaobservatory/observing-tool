@@ -1,0 +1,378 @@
+MFO DEBUG MESSAGE:
+OOS_UFTI
+init
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+LINK
+MFO DEBUG MESSAGE:
+OOS_UFTI
+target
+msg: OOS initialising for instrument: ufti
+
+msg: monitor> Link action started
+
+
+msg: Simulating connection to target Epics
+
+msg: Lookin for path to SOCK_UFTI
+
+msg: Simulating connection to target Tel
+
+msg: monitor> Got a path 0
+
+
+msg: Simulating connection to target Irpol
+
+0: obeyw MONITOR_UFTI LINK  
+
+msg: Simulating connection to target Fp
+
+msg: Commands enabled to target Tel
+
+
+0: obeyw OOS_UFTI target  
+
+msg: All paths found
+
+0: obeyw OOS_UFTI init  
+
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+LINK
+msg: monitor> Link action started
+
+
+msg: Lookin for path to UFTI
+
+msg: monitor> Got a path 1
+
+
+0: obeyw MONITOR_UFTI LINK  
+
+MFO DEBUG MESSAGE:
+OOS_UFTI
+target
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+LINK
+msg: Commands enabled to target Tel
+
+
+0: obeyw OOS_UFTI target  
+
+msg: monitor> Link action started
+
+
+msg: Lookin for path to OOS_UFTI
+
+msg: Setting replybytes for OOS
+
+msg: monitor> Got a path 2
+
+
+0: obeyw MONITOR_UFTI LINK  
+
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+LINK
+msg: monitor> Link action started
+
+
+msg: Lookin for path to DHSPOOL_UFTI
+
+msg: monitor> Got a path 3
+
+
+0: obeyw MONITOR_UFTI LINK  
+
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+LINK
+msg: monitor> Link action started
+
+
+msg: Lookin for path to DES
+
+msg: monitor> Got a path 4
+
+
+0: obeyw MONITOR_UFTI LINK  
+
+MFO DEBUG MESSAGE:
+DHSPOOL_UFTI
+setHeader
+0: obeyw DHSPOOL_UFTI setHeader  
+
+MFO DEBUG MESSAGE:
+DHSPOOL_UFTI
+setHeader
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+GETP
+MFO DEBUG MESSAGE:
+DHSPOOL_UFTI
+setHeader
+0: obeyw DHSPOOL_UFTI setHeader  
+
+0: obeyw DHSPOOL_UFTI setHeader  
+
+msg: monitor> Getting current params
+
+
+msg: monitor> ContinuePar called
+
+
+msg: PARA:INST@Message::Completed
+
+msg: PARA:INST@Filter:: 
+
+msg: PARA:INST@expTime::1.0
+
+msg: PARA:INST@State::Idle
+
+msg: PARA:INST@readMode::NDSTARE+normal
+
+msg: PARA:INST@Coadds:: 
+
+msg: PARA:INST@readArea::1024x1024
+
+msg: PARA:INST@PixelScale::0.09088
+
+msg: PARA:INST@FieldSize::93.06 x 93.06
+
+msg: PARA:INST@ConfigType::
+
+msg: PARA:INST@Remaining::0
+
+0: obeyw MONITOR_UFTI GETP  
+
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+START
+msg: monitor> Monitor is turning on
+
+
+msg: No arguments
+
+
+msg: Untreated parameter type: 0, status:0
+
+msg: Untreated drama parameter: ArgStructure, status:0
+
+msg: Untreated parameter type: 0, status:0
+
+msg: the monitor is ready.
+
+msg: No arguments
+
+
+MFO DEBUG MESSAGE:
+OOS_UFTI
+load
+msg: PARA:EXECLIST
+
+EXECLIST::start_execlist
+
+EXECLIST::define_inst UFTI 8.13 -0.23 0.0 2.150
+
+EXECLIST::-set_inst UFTI
+
+EXECLIST::setHeader STANDARD F
+
+EXECLIST::SET_TARGET fs27 J2000 16.678211 36.353444
+
+EXECLIST::title Slew then pause
+
+EXECLIST::-targetSlew
+
+EXECLIST::-pause
+
+EXECLIST::SET_GUIDE unknown J2000 16.678211 36.353444
+
+EXECLIST::title SlewGuider & pause
+
+EXECLIST::-guideSlew
+
+EXECLIST::-pause
+
+EXECLIST::GUIDE ON
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::loadConfig orac977418247226_1
+
+EXECLIST::define_inst UFTI 8.13 -0.23 0.0 2.150
+
+EXECLIST::-set_inst UFTI
+
+EXECLIST::startGroup
+
+EXECLIST::-setHeader NOFFSETS 6
+
+EXECLIST::setHeader GRPMEM F
+
+EXECLIST::setHeader RECIPE REDUCE_DARK
+
+EXECLIST::set DARK
+
+EXECLIST::title Observe
+
+EXECLIST::-newObs
+
+EXECLIST::-headers start
+
+EXECLIST::-uftiobserve
+
+EXECLIST::-wait 5
+
+EXECLIST::-headers end
+
+EXECLIST::-endObs
+
+EXECLIST::offset 0.0 0.0
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::setHeader GRPMEM T
+
+EXECLIST::setHeader RECIPE JITTER5_SELF_FLAT
+
+EXECLIST::set OBJECT
+
+EXECLIST::break
+
+EXECLIST::title Observe
+
+EXECLIST::-newObs
+
+EXECLIST::-headers start
+
+EXECLIST::-uftiobserve
+
+EXECLIST::-wait 5
+
+EXECLIST::-headers end
+
+EXECLIST::-endObs
+
+EXECLIST::offset -10.0 11.0
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::set OBJECT
+
+EXECLIST::title Observe
+
+EXECLIST::-newObs
+
+EXECLIST::-headers start
+
+EXECLIST::-uftiobserve
+
+EXECLIST::-wait 5
+
+EXECLIST::-headers end
+
+EXECLIST::-endObs
+
+EXECLIST::offset -12.0 -10.0
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::set OBJECT
+
+EXECLIST::title Observe
+
+EXECLIST::-newObs
+
+EXECLIST::-headers start
+
+EXECLIST::-uftiobserve
+
+EXECLIST::-wait 5
+
+EXECLIST::-headers end
+
+EXECLIST::-endObs
+
+EXECLIST::offset 11.0 -11.0
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::set OBJECT
+
+EXECLIST::title Observe
+
+EXECLIST::-newObs
+
+EXECLIST::-headers start
+
+EXECLIST::-uftiobserve
+
+EXECLIST::-wait 5
+
+EXECLIST::-headers end
+
+EXECLIST::-endObs
+
+EXECLIST::offset 11.0 10.0
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::set OBJECT
+
+EXECLIST::title Observe
+
+EXECLIST::-newObs
+
+EXECLIST::-headers start
+
+EXECLIST::-uftiobserve
+
+EXECLIST::-wait 5
+
+EXECLIST::-headers end
+
+EXECLIST::-endObs
+
+EXECLIST::breakPoint
+
+EXECLIST::offset 0.0 0.0
+
+EXECLIST::-WAIT ALL
+
+EXECLIST::breakPoint
+
+EXECLIST::set DARK
+
+EXECLIST::-ready
+
+EXECLIST::Completed:87
+
+msg: PARA:CmdIndex::1
+
+0: obeyw OOS_UFTI load  
+
+msg: Untreated drama parameter: ExecName, status:0
+
+msg: PARA:CmdIndex::1
+
+msg: Untreated drama parameter: EXECPAR, status:0
+
+msg: PARA:State::Stopped
+
+MFO DEBUG MESSAGE:
+OOS_UFTI
+target
+MFO DEBUG MESSAGE:
+MONITOR_UFTI
+EXIT
+2: obeyw MONITOR_UFTI EXIT  
+
+2: obeyw MONITOR_UFTI START  
+
+msg: Commands disabled to target Tel
+
+
+0: obeyw OOS_UFTI target  
+

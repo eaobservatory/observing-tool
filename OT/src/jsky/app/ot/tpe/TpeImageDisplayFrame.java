@@ -1,0 +1,101 @@
+/*
+ * Copyright 2000 Association for Universities for Research in Astronomy, Inc.,
+ * Observatory Control System, Gemini Telescopes Project.
+ *
+ * $Id$
+ */
+
+package jsky.app.ot.tpe;
+
+import jsky.navigator.NavigatorImageDisplayFrame;
+import jsky.image.gui.DivaMainImageDisplay;
+import jsky.util.gui.GenericToolBar;
+import jsky.image.gui.ImageDisplayMenuBar;
+import jsky.image.gui.ImageDisplayControl;
+
+/**
+ * Extends NavigatorImageDisplayFrame to add OT/TPE specific features.
+ *
+ * @version $Revision$
+ * @author Allan Brighton
+ */
+public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame {
+
+    /** Tool bar with Tpe specific commands */
+    TelescopePosEditorToolBar tpeToolBar;
+
+
+    /**
+     * Create a top level window containing an ImageDisplayControl panel.
+     *
+     * @param size   the size (width, height) to use for the pan and zoom windows.
+     */
+    public TpeImageDisplayFrame(int size) {
+	super(size);
+    }
+
+    /**
+     * Create a top level window containing an ImageDisplayControl panel
+     * with the default settings.
+     */
+    public TpeImageDisplayFrame() {
+	super();
+    }
+
+
+    /**
+     * Create a top level window containing an ImageDisplayControl panel.
+     *
+     * @param size   the size (width, height) to use for the pan and zoom windows.
+     * @param fileOrUrl The file name or URL of an image to display.
+     */
+    public TpeImageDisplayFrame(int size, String fileOrUrl) {
+	super(size, fileOrUrl);
+    }
+
+    /**
+     * Create a top level window containing an ImageDisplayControl panel.
+     *
+     * @param fileOrUrl The file name or URL of an image to display.
+     */
+    public TpeImageDisplayFrame(String fileOrUrl) {
+	super(fileOrUrl);
+    }
+
+    /** Make and return the menubar */
+    protected ImageDisplayMenuBar makeMenuBar(DivaMainImageDisplay mainImageDisplay, GenericToolBar toolBar) {
+	return new TpeImageDisplayMenuBar(mainImageDisplay, toolBar);
+    }
+
+    /**
+     * Make and return the image display control frame.
+     *
+     * @param size the size (width, height) to use for the pan and zoom windows.
+     */
+    protected ImageDisplayControl makeImageDisplayControl(int size) {
+	return new TpeImageDisplayControl(this, statusPanel, size);
+    }
+
+    /** Make and return the toolbar */
+    protected GenericToolBar makeToolBar(DivaMainImageDisplay mainImageDisplay) {
+	// add the Tpe tool bar while we are at it...
+	addTpeToolBar();
+	
+	// Dragging can cause problems with two tool bars...
+	GenericToolBar toolBar = super.makeToolBar(mainImageDisplay);
+	toolBar.setFloatable(false);
+	return toolBar;
+    }
+    
+    /** Add a tool bar for OT/TPE specific operations. */
+    protected void addTpeToolBar() {
+	TpeImageWidget imageDisplay = (TpeImageWidget)imageDisplayControl.getImageDisplay();
+	tpeToolBar = new TelescopePosEditorToolBar(imageDisplay);
+        getContentPane().add("West", tpeToolBar);
+    }
+
+    /** Return the Tool bar with OT/TPE specific commands */
+    TelescopePosEditorToolBar getTpeToolBar() {return tpeToolBar;}
+
+}
+

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<spDocument>
+  <program name="pr1" type="pr" subtype="none">
+    <av name=".gui.filename">
+      <value>off.sp</value>
+    </av>
+    <av name=".gui.dir">
+      <value>test-progs</value>
+    </av>
+    <av name=".gui.selected">
+      <value>true</value>
+    </av>
+    <av name=".gui.hasBeenSaved">
+      <value>true</value>
+    </av>
+    <av name="title">
+      <value>Test Program</value>
+    </av>
+    <item name="new" type="no" subtype="none">
+      <av name=".unique">
+        <value>false</value>
+      </av>
+      <av name="note">
+        <value></value>
+      </av>
+      <av name="title">
+        <value>Special Instructions</value>
+      </av>
+    </item>
+    <item name="og64" type="og" subtype="none">
+      <av name=".gui.selected">
+        <value>false</value>
+      </av>
+      <item name="oc72" type="oc" subtype="inst.NIRI">
+        <av name="filter">
+          <value>Pa-gamma</value>
+        </av>
+        <av name=".unique">
+          <value>true</value>
+        </av>
+        <av name="coadds">
+          <value>1</value>
+        </av>
+        <av name="posAngle">
+          <value>0</value>
+        </av>
+        <av name="camera">
+          <value>f/32 (0.02 arcsec/pix)</value>
+        </av>
+        <av name="disperser">
+          <value>R=2000 J-band</value>
+        </av>
+        <av name="scienceArea">
+          <value>123x123</value>
+        </av>
+        <av name="exposureTime">
+          <value>0</value>
+        </av>
+        <av name="mask">
+          <value>Wollaston mask</value>
+        </av>
+      </item>
+      <item name="oc71" type="oc" subtype="targetList">
+        <av name=".unique">
+          <value>true</value>
+        </av>
+        <av name="User10">
+          <value>User10</value>
+          <value></value>
+          <value>0:00:00</value>
+          <value>0:00:15</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name="User8">
+          <value>User8</value>
+          <value></value>
+          <value>23:59:59</value>
+          <value>0:00:00</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name=".gui.selectedTelescopePos">
+          <value>Base</value>
+        </av>
+        <av name="Base">
+          <value>Base</value>
+          <value></value>
+          <value>23:59:27.867</value>
+          <value>0:06:58</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name="PWFS1">
+          <value>PWFS1</value>
+          <value></value>
+          <value>23:59:49.067</value>
+          <value>0:01:19</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name="userPositions">
+          <value>User0</value>
+          <value>User5</value>
+          <value>User8</value>
+          <value>User10</value>
+        </av>
+        <av name="User5">
+          <value>User5</value>
+          <value></value>
+          <value>0:00:00</value>
+          <value>-0:00:15</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name="User0">
+          <value>User0</value>
+          <value></value>
+          <value>0:00:01</value>
+          <value>0:00:00</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+      </item>
+      <item name="ob22" type="ob" subtype="none">
+        <av name="chainedToNext">
+          <value>true</value>
+        </av>
+        <av name="chainedToPrev">
+          <value>false</value>
+        </av>
+        <av name="priority">
+          <value>high</value>
+        </av>
+        <av name="title">
+          <value>Hello</value>
+        </av>
+        <item name="if66" type="if" subtype="none">
+          <av name=".gui.collapsed">
+            <value>false</value>
+          </av>
+          <item name="ic69" type="ic" subtype="instNIRI">
+            <av name="exposureTimeIter">
+              <value>10</value>
+              <value>20</value>
+              <value>30</value>
+            </av>
+            <av name="filterIter">
+              <value>Br-alpha cont</value>
+              <value>Br-alpha</value>
+              <value>hydrocarbon</value>
+            </av>
+            <av name="iterConfigList">
+              <value>filterIter</value>
+              <value>exposureTimeIter</value>
+            </av>
+            <item name="ic70" type="ic" subtype="observe">
+              <av name="repeatCount">
+                <value>1</value>
+              </av>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item name="ob21" type="ob" subtype="none">
+        <av name="chainedToPrev">
+          <value>true</value>
+        </av>
+        <av name="chainedToNext">
+          <value>true</value>
+        </av>
+        <item name="if65" type="if" subtype="none">
+          <item name="ic67" type="ic" subtype="offset">
+            <av name="offsetPositions">
+              <value>Offset0</value>
+              <value>Offset1</value>
+              <value>Offset2</value>
+              <value>Offset3</value>
+            </av>
+            <av name="Offset3">
+              <value>0</value>
+              <value>60</value>
+            </av>
+            <av name="Offset2">
+              <value>0</value>
+              <value>0</value>
+            </av>
+            <av name="Offset1">
+              <value>60</value>
+              <value>0</value>
+            </av>
+            <av name=".gui.selectedOffsetPos">
+              <value>Offset0</value>
+            </av>
+            <av name="Offset0">
+              <value>60</value>
+              <value>60</value>
+            </av>
+            <item name="ic68" type="ic" subtype="observe">
+              <av name="repeatCount">
+                <value>1</value>
+              </av>
+            </item>
+          </item>
+        </item>
+      </item>
+    </item>
+  </program>
+</spDocument>

@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<spDocument>
+  <program name="pr18" type="pr" subtype="none">
+    <av name=".gui.filename">
+      <value>example.sp</value>
+    </av>
+    <av name=".gui.dir">
+      <value>test-progs</value>
+    </av>
+    <av name=".gui.selected">
+      <value>true</value>
+    </av>
+    <av name=".gui.hasBeenSaved">
+      <value>true</value>
+    </av>
+    <av name="title">
+      <value>Eliptical Abundances</value>
+    </av>
+    <item name="new" type="no" subtype="none">
+      <av name=".unique">
+        <value>false</value>
+      </av>
+      <av name="note">
+        <value>Here   is a \ test and another \\
+
+Here're "some" tokens from the SGML format, is it okay that they appear in this text?:
+
+&lt;av name=scienceArea&gt;
+
+--joe astronomer</value>
+      </av>
+      <av name="title">
+        <value>Special Instructions</value>
+      </av>
+    </item>
+    <item name="oc988" type="oc" subtype="inst.NIRI">
+      <av name="filter">
+        <value>He I_A</value>
+      </av>
+      <av name=".unique">
+        <value>true</value>
+      </av>
+      <av name="coadds">
+        <value>2</value>
+      </av>
+      <av name="posAngle">
+        <value>52</value>
+      </av>
+      <av name="camera">
+        <value>f/6  (0.12 arcsec/pix)</value>
+      </av>
+      <av name="disperser">
+        <value>R=2000 J-band</value>
+      </av>
+      <av name="scienceArea">
+        <value>123x123</value>
+      </av>
+      <av name="exposureTime">
+        <value>10</value>
+      </av>
+      <av name="mask">
+        <value>Wollaston mask</value>
+      </av>
+    </item>
+    <item name="fo960" type="fo" subtype="none">
+      <av name="title">
+        <value>NGC Folder</value>
+      </av>
+      <av name=".gui.collapsed">
+        <value>false</value>
+      </av>
+      <item name="new" type="oc" subtype="inst.michelle">
+        <av name="filter">
+          <value>none</value>
+        </av>
+        <av name="exposuresPerChopPosition">
+          <value>2</value>
+        </av>
+        <av name=".unique">
+          <value>true</value>
+        </av>
+        <av name="coadds">
+          <value>2</value>
+        </av>
+        <av name="mode">
+          <value>Chop</value>
+        </av>
+        <av name="posAngle">
+          <value>51.0</value>
+        </av>
+        <av name="camera">
+          <value>imaging</value>
+        </av>
+        <av name="disperser">
+          <value>R=200 N-band</value>
+        </av>
+        <av name="nodCyclesPerObserve">
+          <value>4</value>
+        </av>
+        <av name="exposureTime">
+          <value>10</value>
+        </av>
+        <av name="chopCyclesPerNod">
+          <value>3</value>
+        </av>
+        <av name="mask">
+          <value>0.54 arcsec slit (3 pix)</value>
+        </av>
+      </item>
+      <item name="ob233" type="ob" subtype="none">
+        <av name="chainedToNext">
+          <value>false</value>
+        </av>
+        <av name="chainedToPrev">
+          <value>false</value>
+        </av>
+        <av name="observeType">
+          <value>Object</value>
+        </av>
+        <av name="priority">
+          <value>high</value>
+        </av>
+        <av name="title">
+          <value>NGC 1275</value>
+        </av>
+        <av name=".gui.collapsed">
+          <value>true</value>
+        </av>
+        <item name="oc969" type="oc" subtype="inst.NIRI">
+          <av name="filter">
+            <value>Pa-gamma</value>
+          </av>
+          <av name=".unique">
+            <value>true</value>
+          </av>
+          <av name="coadds">
+            <value>6</value>
+          </av>
+          <av name="posAngle">
+            <value>282.0</value>
+          </av>
+          <av name="camera">
+            <value>f/6  (0.12 arcsec/pix)</value>
+          </av>
+          <av name="disperser">
+            <value>R=2000 J-band</value>
+          </av>
+          <av name="scienceArea">
+            <value>123x123</value>
+          </av>
+          <av name="exposureTime">
+            <value>0</value>
+          </av>
+          <av name="mask">
+            <value>0.1 arcsec slit</value>
+          </av>
+        </item>
+        <item name="oc968" type="oc" subtype="targetList">
+          <av name="Base">
+            <value>Base</value>
+            <value>Base Name</value>
+            <value>3:19:46.75</value>
+            <value>41:30:32.32</value>
+            <value>FK5</value>
+            <value>30</value>
+            <value>10</value>
+            <value>FK4 (B1950)</value>
+            <value>2001</value>
+            <value>20</value>
+            <value>40</value>
+          </av>
+          <av name=".unique">
+            <value>true</value>
+          </av>
+          <av name=".gui.selectedTelescopePos">
+            <value>Base</value>
+          </av>
+        </item>
+        <item name="if961" type="if" subtype="none">
+          <av name="title">
+            <value></value>
+          </av>
+          <av name=".gui.collapsed">
+            <value>false</value>
+          </av>
+          <item name="ic962" type="ic" subtype="offset">
+            <av name="offsetPositions">
+              <value>Offset0</value>
+              <value>Offset1</value>
+              <value>Offset2</value>
+              <value>Offset3</value>
+            </av>
+            <av name="Offset3">
+              <value>30</value>
+              <value>-30</value>
+            </av>
+            <av name="Offset2">
+              <value>-30</value>
+              <value>-30</value>
+            </av>
+            <av name=".gui.selectedOffsetPos">
+              <value>Offset0</value>
+            </av>
+            <av name="Offset1">
+              <value>-30</value>
+              <value>30</value>
+            </av>
+            <av name="Offset0">
+              <value>30</value>
+              <value>30</value>
+            </av>
+            <av name=".gui.selected">
+              <value>false</value>
+            </av>
+            <item name="ic963" type="ic" subtype="observe">
+              <av name="repeatCount">
+                <value>1</value>
+              </av>
+            </item>
+          </item>
+        </item>
+      </item>
+      <item name="ob232" type="ob" subtype="none">
+        <av name="chainedToNext">
+          <value>false</value>
+        </av>
+        <av name="chainedToPrev">
+          <value>false</value>
+        </av>
+        <av name="observeType">
+          <value>Object</value>
+        </av>
+        <av name="priority">
+          <value>Low</value>
+        </av>
+        <av name="title">
+          <value>NGC 90210</value>
+        </av>
+        <av name=".gui.collapsed">
+          <value>false</value>
+        </av>
+        <item name="oc964" type="oc" subtype="targetList">
+          <av name="Base">
+            <value>Base</value>
+            <value></value>
+            <value>12:34:21.78</value>
+            <value>2:12:44.84</value>
+            <value>FK5</value>
+            <value>false</value>
+          </av>
+          <av name=".unique">
+            <value>true</value>
+          </av>
+          <av name=".gui.selectedTelescopePos">
+            <value>Base</value>
+          </av>
+        </item>
+        <item name="new" type="oc" subtype="inst.michelle">
+          <av name="filter">
+            <value>none</value>
+          </av>
+          <av name="exposuresPerChopPosition">
+            <value>2</value>
+          </av>
+          <av name=".unique">
+            <value>true</value>
+          </av>
+          <av name="coadds">
+            <value>2</value>
+          </av>
+          <av name="mode">
+            <value>Chop</value>
+          </av>
+          <av name="posAngle">
+            <value>51.0</value>
+          </av>
+          <av name="camera">
+            <value>imaging</value>
+          </av>
+          <av name="disperser">
+            <value>R=200 N-band</value>
+          </av>
+          <av name="nodCyclesPerObserve">
+            <value>4</value>
+          </av>
+          <av name="exposureTime">
+            <value>10</value>
+          </av>
+          <av name="chopCyclesPerNod">
+            <value>5</value>
+          </av>
+          <av name="nodding">
+            <value>true</value>
+          </av>
+          <av name="mask">
+            <value>0.54 arcsec slit (3 pix)</value>
+          </av>
+        </item>
+        <item name="if965" type="if" subtype="none">
+          <av name=".gui.collapsed">
+            <value>false</value>
+          </av>
+          <item name="new" type="ic" subtype="calUnit">
+            <av name="filterIter">
+              <value>x300 NDF + CBF</value>
+              <value>CBF</value>
+            </av>
+            <av name="iterConfigList">
+              <value>filterIter</value>
+              <value>diffuserIter</value>
+            </av>
+            <av name="diffuserIter">
+              <value>visible</value>
+              <value>nir</value>
+            </av>
+            <item name="new" type="ic" subtype="calUnitObs">
+              <av name="exposureTime">
+                <value>0</value>
+              </av>
+              <av name="diffuser">
+                <value>nir</value>
+              </av>
+              <av name="repeatCount">
+                <value>1</value>
+              </av>
+              <av name="filter">
+                <value>x300 NDF + CBF</value>
+              </av>
+              <av name="coadds">
+                <value>2</value>
+              </av>
+              <av name="lamp">
+                <value>Black Body (1173K)</value>
+              </av>
+            </item>
+          </item>
+          <item name="ic966" type="ic" subtype="instNIRI">
+            <av name="exposureTimeIter">
+              <value>10</value>
+              <value>20</value>
+              <value>30</value>
+            </av>
+            <av name="filterIter">
+              <value>H2O ice</value>
+              <value>hydrocarbon</value>
+              <value>Br-alpha</value>
+            </av>
+            <av name="iterConfigList">
+              <value>filterIter</value>
+              <value>exposureTimeIter</value>
+            </av>
+            <item name="ic967" type="ic" subtype="observe">
+              <av name="repeatCount">
+                <value>1</value>
+              </av>
+            </item>
+          </item>
+        </item>
+      </item>
+    </item>
+  </program>
+</spDocument>

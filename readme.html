@@ -1,0 +1,144 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; SunOS 5.7 sun4u) [Netscape]">
+   <meta name="Author" content="Martin Folger (M.Folger@roe.ac.uk)">
+   <title>Orac Java Build Notes</title>
+</head>
+<body>
+
+<h2>
+ORAC JAVA BUILD MANUAL</h2>
+<a href="#BUILD OT">Quick start</a>
+<p>Troubleshooting
+<p>The following notes and examples refer to the default settings as defined
+in the unchanged make.conf files. The directories defined in these make.conf
+can be changed by users to fit their local requirements.
+<p>The orac java code has been devided into 5 modules: GEMINI, ORAC, ODB,
+OT and OM which are located in
+<p><tt>MyCheckOutDir/orac3/GEMINI</tt>
+<br><tt>MyCheckOutDir/orac3/ORAC</tt>
+<br><tt>MyCheckOutDir/orac3/ODB</tt>
+<br><tt>MyCheckOutDir/orac3/OT</tt>
+<br><tt>MyCheckOutDir/orac3/OM</tt>
+<p>(These files are in MyCheckOutDir/orac3)
+<p><b><u>Configuration files:</u></b>
+<p><tt>MyCheckOutDir/orac3/GEMINI/conf/make.conf</tt>
+<br><tt>MyCheckOutDir/orac3/ORAC/conf/make.conf</tt>
+<br><tt>MyCheckOutDir/orac3/ODB/conf/make.conf</tt>
+<br><tt>MyCheckOutDir/orac3/OT/conf/make.conf</tt>
+<br><tt>MyCheckOutDir/orac3/OM/conf/make.conf</tt>
+<br>&nbsp;
+<p><b>Note: Unless the classpath variables in the respective make.conf
+files are set according to local locations of the classes/jar files you
+will have to check out/export the whole orac3 directory from cvs as the
+default classpath settings assume this directory structure.</b>
+<br>&nbsp;
+<p><b><u>COMPILE, JAR, DOC OF MODULES</u></b>
+<p><tt>cd &lt;MODULE>/src&nbsp;&nbsp;&nbsp; </tt>(where &lt;MODULE> is
+GEMINI | ORAC | ODB | OT | OM)
+<br>&nbsp;
+<p><tt>Making</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; class files&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+:&nbsp; "gmake"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (output:
+CLASSES_DIR, set in CONF_HOME/make.conf)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; jar file with classes:&nbsp; "gmake jar"&nbsp;&nbsp;&nbsp;&nbsp;
+(output: JAR_DIR,&nbsp;&nbsp;&nbsp;&nbsp; set in CONF_HOME/make.conf)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; javadoc html files&nbsp;&nbsp; :&nbsp; "gmake
+doc"&nbsp;&nbsp;&nbsp;&nbsp; (output: DOC_DIR,&nbsp;&nbsp;&nbsp;&nbsp;
+set in CONF_HOME/make.conf)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; install&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+:&nbsp; "gmake install" (output: see CONF_HOME/make.conf)</tt>
+<br><tt>&nbsp;&nbsp;&nbsp; clean (not tested)&nbsp;&nbsp; :&nbsp; "gmake
+clean"&nbsp;&nbsp; (deletes class files, jar files, api docs)</tt>
+<p>The output directories are by default subdirectories of<tt> LOCAL_INSTALL_ROOT
+(&lt;MODULE>/install).</tt>
+<br>They can be edited in <tt>CONF_HOME/make.conf</tt> or changed on the
+command line. E.g. "<tt>gmake JAR_DIR=my_jar_dir jar</tt>"
+<br>creates a jar file of the module in<tt> my_jar_dir.</tt>
+<p><b>Note: For the modules OT and OM "gmake" will also create a script
+OT/bin/ot (OM/bin/ot) that can be used to run the OT (OM).</b>
+<br><b>It uses the settings specified in the OT/conf/make.conf (OM/conf/make.conf)</b>
+<br>&nbsp;
+<br>&nbsp;
+<p><b><tt><u>INSTALLING OT and OM</u></tt></b>
+<p><tt>gmake install </tt>can be used to bundle up
+<ul>
+<li>
+OT (OM) application</li>
+
+<li>
+cfg files</li>
+
+<li>
+resources (images etc)</li>
+
+<li>
+the shared classes (GEMINI, ORAC, ODB)</li>
+
+<li>
+all third party libraries</li>
+
+<li>
+a script for running the OT</li>
+</ul>
+in one directory (INSTALL_ROOT)
+<p>Currently "gmake install" does not create the api docs. Use "<tt>gmake
+DOC_DIR=my_doc_dir doc</tt>" instead.
+<p>Make sure the variable <tt>INSTALL_ROOT</tt> is set to the directory
+where you want the software to be installed. Set <tt>INSTALL_ROOT</tt>
+in the O<tt>T/conf/make.conf (OM/conf/make.conf) </tt>or on the command
+line: <tt>gmake INSTALL_ROOT=my_install_directory install.</tt>
+<br>&nbsp;
+<p><tt>[cd MyCheckOutDir/orac3</tt>
+<br><tt>&nbsp;gmake]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</tt>(compiles all the modules, optional but recommened if other modules
+have not been compiled yet,
+<br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</tt>otherwise all the compiling would have to be done during gmake install.)<tt></tt>
+<p><tt>cd MyCheckOutDir/orac3/OT/src&nbsp;&nbsp; </tt>or<tt>&nbsp;&nbsp;
+cd MyCheckOutDir/orac3/OM/src</tt>
+<br><tt>gmake [INSTALL_ROOT=my_install_directory] install</tt>
+<br>&nbsp;
+<br>&nbsp;<b><u></u></b>
+<p><b><u>COMPILING EVERYTHING IN ONE GO</u></b>
+<p>"<tt>gmake</tt>" can also be called in <tt>MyCheckOutDir/orac3:</tt>
+<p><tt>cd MyCheckOutDir/orac3</tt>
+<br><tt>gmake</tt>
+<br><tt></tt>&nbsp;<tt></tt>
+<p><b><tt><u>GETTING API JAVA DOCS FOR&nbsp;ALL JAVA CLASSES</u></tt></b><tt></tt>
+<p><tt>cd MyCheckOutDir/orac3</tt>
+<br><tt>gmake [DOC_DIR=my_doc_dir] doc</tt><tt></tt>
+<p><a NAME="BUILD OT"></a>
+<br><b><u>QUICK START: HOW&nbsp;TO&nbsp;BUILD THE&nbsp;OT&nbsp;FROM&nbsp;SCRATCH
+AND RUN IT</u></b>
+<p><tt>HOW TO CHECK OUT, BUILD AND&nbsp;RUN THE OT:</tt><tt></tt>
+<p><tt>mkdir MyCheckOutDir</tt>
+<br><tt>cd MyCheckOutDir</tt>
+<br><tt>cvs co orac3</tt>
+<br><tt>cd orac3</tt>
+<br><tt>gmake</tt>
+<br><tt>OT/bin/ot &amp;</tt><tt></tt>
+<p><tt>HOW TO CHECK OUT, BUILD, INSTALL AND&nbsp;RUN THE OT:</tt><tt></tt>
+<p><tt>mkdir MyCheckOutDir</tt>
+<br><tt>cd MyCheckOutDir</tt>
+<br><tt>cvs co orac3</tt>
+<br><tt>cd orac3</tt>
+<br><tt>gmake</tt>
+<br><tt>cd OT/src</tt>
+<br><tt>gmake INSTALL_ROOT=my_install_directory install</tt>
+<br><tt>cd my_install_directory/bin</tt>
+<br><tt>ot &amp;</tt>
+<br><tt></tt>&nbsp;<tt></tt>
+<p><b><u>TROUBLESHOOTING</u></b>
+<br>&nbsp;
+<ul>
+<li>
+Note that cofiguration directories that used to be called <tt>cfg/</tt>
+is now called <tt>cfg/ukirt </tt>or <tt>cfg/jcmt</tt> etc. E.g. <tt>-Dot.cfgdir=some_directory/cfg/</tt>
+in the script is now&nbsp; <tt>-Dot.cfgdir=some_directory/cfg/ukirt/</tt></li>
+</ul>
+
+</body>
+</html>

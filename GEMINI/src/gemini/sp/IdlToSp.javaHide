@@ -1,0 +1,99 @@
+// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
+// Observatory Control System, Gemini Telescopes Project.
+// See the file COPYRIGHT for complete details.
+//
+// $Id$
+//
+package gemini.sp;
+
+import gemini.util.Assert;
+import java.util.*;
+import ScienceProgram.*;
+
+
+/**
+ * This class converts from an IDL representation of a Science Program (Plan)
+ * to the Java representation.
+ *
+ * <b>This class will change when we move away from Joe.</b>
+ */
+public final class IdlToSp
+{
+
+//
+// Convert the attributes of an item.
+//
+private static void
+convertAV(ScienceProgram.Item idlItem, SpItem spItem)
+{
+   ScienceProgram.AvPair[] idlAvList = idlItem.av;
+
+   SpAvTable avTab = spItem.getTable();
+
+   for (int i=0; i<idlAvList.length; ++i) {
+      ScienceProgram.AvPair idlAvPair = idlAvList[i];
+
+      String[] values = idlAvPair.value;
+
+      Vector v = new Vector( Math.max(values.length, 10) );
+      for (int j=0; j<values.length; ++j) {
+         v.addElement(values[j]);
+      }
+
+      avTab.noNotifySetAll(idlAvPair.name, v);
+      avTab.noNotifySetDescription(idlAvPair.name, idlAvPair.description);
+   }
+}
+
+
+//
+// Convert the children of an item.
+//
+private static void
+convertChildren(ScienceProgram.Item idlItem, SpItem spParent)
+{
+   ScienceProgram.Item[] idlChildren = idlItem.children;
+   if ((idlChildren == null) || (idlChildren.length < 1)) {
+      return;
+   }
+
+   SpItem[]                  spItemA = new SpItem[ idlChildren.length ];
+
+   for (int i=0; i<idlChildren.length; ++i) {
+      spItemA[i] = IdlToSp.convert(idlChildren[i]);
+   }
+
+   SpInsertData spID = SpTreeMan.evalInsertInside(spItemA, spParent);
+   if (spID == null) {
+      System.out.println("ILLEGAL PROGRAM RETURNED FROM DATABASE!");
+      Thread.dumpStack();
+   } else {
+      SpTreeMan.insert(spID);
+   }
+}
+
+
+/**
+ * Convert an item to its Java representation.
+ */
+public static SpItem
+convert(ScienceProgram.Item idlItem)
+{
+   /**
+    * Create the item, but do not allow it to initialize itself.  This will
+    * be done in the subsequent calls to convertAV and convertChildren.
+    */
+   SpType spType = SpType.get(idlItem.type, idlItem.subtype);
+   Assert.notNull(spType);
+   SpItem spItem = SpFactory.createShallow(spType);
+   Assert.notNull(spItem);
+
+   spItem.name(idlItem.name);
+
+   convertAV(idlItem, spItem);
+   convertChildren(idlItem, spItem);
+
+   return spItem;
+}
+
+}

@@ -1,0 +1,191 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.72 [en] (X11; U; SunOS 5.7 sun4u) [Netscape]">
+</head>
+<body>
+
+<h1>
+Notes regarding the adoption of the ot-0.5 Swing GUI (Gemini, jsky)&nbsp;
+for the ATC version of the OT</h1>
+
+<ul>
+<li>
+In August 2000 I came up with an OT version which was based on <tt>ot-0.3</tt>
+plus the ATC's instrument and telescope specific classes (mainly the package
+<tt>ot_ukirt</tt>)</li>
+</ul>
+
+<ul>
+<li>
+The new ATC ORAC OT should be based on the ATC's current ORAC OT minus
+freebongo plus the swing based GUI of the ot-0.5 It turned out to be necessary
+to use rather many of the jsky ot-0.5 (See table below)</li>
+</ul>
+
+<ul>
+<li>
+While I was working with version ot-0.5 a later version, ot-0.6, was releaded.
+I did not adopt ot-0.6 for the time being because it adopted a new Science
+Program model without Folders and Groups.</li>
+</ul>
+
+<h3>
+Package use</h3>
+Colour code:
+<ul>
+<li>
+<font color="#009900">High level package (which might contain some subpackages
+that are used and others that are not).</font></li>
+
+<li>
+<font color="#FF0000">Use to be decided.</font></li>
+
+<li>
+<font color="#999999">Mostly unused.</font></li>
+
+<li>
+Mostly used.</li>
+</ul>
+
+<table BORDER COLS=2 WIDTH="100%" NOSAVE >
+<tr NOSAVE>
+<td VALIGN=TOP NOSAVE><tt><font color="#009900">jsky</font></tt>
+<br><tt><font color="#009900">jsky/app</font></tt>
+<br><tt><font color="#000000">jsky/app/ot</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/OtFileOT.class</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/phase1</font></tt>
+<p><tt><font color="#000000">jsky/app/ot/gui</font></tt>
+<br><tt><font color="#000000">jsky/app/ot/gui/image</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/nsp</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/nsp/obscomp</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/nsp/ipc</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/nsp/iter</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/util</font></tt>
+<p><tt>jsky/app/ot/tpe</tt>
+<br><tt>jsky/app/ot/tpe/feat</tt>
+<br><tt><font color="#FF0000">jsky/app/ot/cat</font></tt>
+<br><tt>jsky/app/ot/editor</tt>
+<br><tt>jsky/app/ot/fits</tt>
+<br><tt>jsky/app/ot/fits/gui</tt>
+<p><tt><font color="#000000">jsky/app/ot/job</font></tt>
+<br><tt><font color="#FF0000">jsky/app/ot/cfg</font></tt>
+<p><tt><font color="#FF0000">jsky/app/ot/images</font></tt>
+<p><tt><font color="#000000">jsky/app/ot/gemini</font></tt>
+<br><tt><font color="#000000">jsky/app/ot/gemini/inst</font></tt>
+<br><tt>jsky/app/ot/gemini/inst/editor</tt>
+<br><tt><font color="#000000">jsky/app/ot/gemini/iter</font></tt>
+<br><tt><font color="#000000">jsky/app/ot/gemini/iter/editor</font></tt>
+<br><tt><font color="#000000">jsky/app/ot/gemini/phase1</font></tt>
+<br><tt>jsky/app/ot/gemini/tpe</tt>
+<p><tt><font color="#999999">jsky/app/ot/io</font></tt>
+<p><tt><font color="#009900">jsky/app/ot/util</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/util/TelescopePos.class</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/util/TelescopePosList.class</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/util/TelescopePosListWatcher.class</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/util/TelescopePosSelWatcher.class</font></tt>
+<br><tt><font color="#999999">jsky/app/ot/util/TelescopePosWatcher.class</font></tt>
+<br><tt><font color="#000000">jsky/app/ot/util/Angle.class</font></tt>
+<br><tt><font color="#000000">jsky/app/ot/util/PolygonD.class</font></tt>
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<br>&nbsp;
+<p><tt>jsky/app/ot/fits/gui&nbsp;</tt></td>
+
+<td><tt><font color="#999999">ot</font></tt>
+<br><tt><font color="#000000">ot/OtFileOT.class</font></tt>
+<br><tt><font color="#000000">ot/phase1</font></tt>
+<p><tt><font color="#999999">gemini/gui</font></tt>
+<br><tt><font color="#999999">gemini/gui/image</font></tt>
+<br><tt><font color="#000000">classes/gemini/sp</font></tt>
+<br><tt><font color="#000000">classes/gemini/sp/obsComp</font></tt>
+<br><tt><font color="#000000">classes/gemini/sp/ipc</font></tt>
+<br><tt><font color="#000000">classes/gemini/sp/iter</font></tt>
+<br><tt><font color="#000000">classes/gemini/util</font></tt>
+<p><tt><font color="#999999">ot/tpe</font></tt>
+<br><tt><font color="#999999">ot/tpe/feat</font></tt>
+<p><tt><font color="#999999">ot/editor</font></tt>
+<br><tt><font color="#999999">gemini/fits</font></tt>
+<br><tt><font color="#999999">gemini/fits/gui</font></tt>
+<p><tt><font color="#999999">gemini/job</font></tt>
+<br><tt><font color="#FF0000">apps/ot/cfg</font></tt>
+<br><tt><font color="#FF0000">apps/ot/cfg/gui</font></tt>
+<br><tt><font color="#FF0000">apps/ot/cfg/images</font></tt>
+<p><tt><font color="#999999">ot_gemini</font></tt>
+<br><tt><font color="#999999">ot_gemini/inst</font></tt>
+<br><tt><font color="#999999">ot_gemini/inst/editor</font></tt>
+<br><tt><font color="#999999">ot_gemini/iter</font></tt>
+<br><tt><font color="#999999">ot_gemini/iter/editor</font></tt>
+<br><tt><font color="#999999">ot_gemini/phase1</font></tt>
+<br><tt><font color="#999999">ot_gemini/tpe</font></tt>
+<br>&nbsp;
+<p><tt><font color="#009900">gemini</font></tt>
+<br><tt><font color="#009900">gemini/util</font></tt>
+<br><tt><font color="#000000">gemini/util/TelescopePos.class</font></tt>
+<br><tt><font color="#000000">gemini/util/TelescopePosList.class</font></tt>
+<br><tt><font color="#000000">gemini/util/TelescopePosListWatcher.class</font></tt>
+<br><tt><font color="#000000">gemini/util/TelescopePosSelWatcher.class</font></tt>
+<br><tt><font color="#000000">gemini/util/TelescopePosWatcher.class</font></tt>
+<br><tt><font color="#999999">gemini/Angle.class</font></tt>
+<br><tt><font color="#999999">gemini/PolygonD.class</font></tt>
+<p><tt><font color="#FF0000">gemini/util/sort</font></tt>
+<br><tt><font color="#FF0000">gemini/gui</font></tt>
+<br><tt><font color="#FF0000">gemini/gui/image</font></tt>
+<br><tt><font color="#FF0000">gemini/gui/util</font></tt>
+<br><tt><font color="#FF0000">gemini/cat</font></tt>
+<br><tt><font color="#FF0000">gemini/fits</font></tt>
+<br><tt><font color="#FF0000">gemini/fits/coord</font></tt>
+<br><tt><font color="#999999">gemini/fits/gui</font></tt>
+<br><tt><font color="#FF0000">gemini/fits/image</font></tt>
+<br><tt><font color="#FF0000">gemini/job</font></tt>
+<br><tt><font color="#FF0000">gemini/corba</font></tt>
+<br><tt><font color="#FF0000">gemini/corba/namesutil</font></tt>
+<br><tt>gemini/sp</tt>
+<br><tt>gemini/sp/iter</tt>
+<br><tt>gemini/sp/obsComp</tt>
+<br><tt><font color="#FF0000">gemini/sp/ipc</font></tt>
+<br><tt><font color="#FF0000">ScienceProgram</font></tt>
+<br><tt><font color="#FF0000">ScienceProgram/ServerPackage</font></tt>
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br>&nbsp;
+<h3>
+New Classes</h3>
+These are classes that had to be added during the merger of the Jsky OT
+and the ATC OT.
+<br>&nbsp;
+<table BORDER COLS=3 WIDTH="100%" NOSAVE >
+<tr>
+<td><b>New class</b></td>
+
+<td><b>Code derived from</b></td>
+
+<td><b>Functionally derived from</b></td>
+</tr>
+
+<tr>
+<td><tt>jsky.app.ot.editor.EdIterSky</tt></td>
+
+<td><tt>jsky.app.ot.editor.EdIterObserve</tt></td>
+
+<td><tt>ot.editor.EdIterSky</tt></td>
+</tr>
+
+<tr>
+<td><tt>jsky.app.ot.editor.IterSkyGUI</tt></td>
+
+<td><tt>jsky.app.ot.editor.IterObserveGUI</tt></td>
+
+<td>&nbsp;-</td>
+</tr>
+</table>
+
+</body>
+</html>

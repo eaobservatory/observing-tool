@@ -1,0 +1,139 @@
+// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
+// Observatory Control System, Gemini Telescopes Project.
+// See the file COPYRIGHT for complete details.
+//
+// $Id$
+//
+package jsky.app.ot.ukirt.inst.editor;
+
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetWatcher;
+
+import jsky.app.ot.nsp.obscomp.SpInstObsComp;
+import jsky.app.ot.nsp.obscomp.SpChopCapability;
+
+import org.freebongo.gui.GroupWidget;
+import org.freebongo.gui.StaticTextWidget;
+
+import jsky.app.ot.editor.OtItemEditor;
+
+/**
+ * Support for exposures/chop pos, chop cycles/nod, and nod cycles/obs.
+ */
+public class EdChopCapability
+{
+
+/**
+ * Get the SpChopCapability from an item editor.
+ */
+private SpChopCapability
+_getChopCap(OtItemEditor itemEditor)
+{
+   SpInstObsComp spInst = (SpInstObsComp) itemEditor.getCurrentSpItem();
+   String name = SpChopCapability.CAPABILITY_NAME;
+   return (SpChopCapability) spInst.getCapability(name);
+}
+
+/**
+ * This method initializes the widgets in the presentation to reflect the
+ * current values of the chopping attributes.
+ */
+protected void
+_init(final JComponent gw, final OtItemEditor itemEditor)
+{
+   CheckBoxWidgetExt cbwe;
+
+/*
+   cbwe = (CheckBoxWidgetExt) gw.getWidget("nodding");
+   cbwe.addWatcher( new CheckBoxWidgetWatcher() {
+      public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+         boolean nodding = cbwe.getBooleanValue();
+         SpChopCapability chopCap = _getChopCap(itemEditor);
+         chopCap.setNodding(nodding);
+         _updateWidgets(gw, chopCap);
+      }
+   });
+*/
+   TextBoxWidgetExt tbwe;
+
+   tbwe = (TextBoxWidgetExt) gw.getWidget("expPerChopPos");
+   tbwe.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+         _getChopCap(itemEditor).setExposuresPerChopPosition(tbwe.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
+   });
+/*
+   tbwe = (TextBoxWidgetExt) gw.getWidget("chopCyclesPerNod");
+   tbwe.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+         _getChopCap(itemEditor).setChopCyclesPerNod(tbwe.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
+   });
+*/
+   tbwe = (TextBoxWidgetExt) gw.getWidget("cyclesPerObs");
+   tbwe.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+         _getChopCap(itemEditor).setCyclesPerObserve(tbwe.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
+   });
+}
+
+/**
+ * Update the chop control widgets that depend upon the value of the
+ * nodding? attribute.
+ */
+/*protected void
+_updateNoddingWidgets(GroupWidget gw, boolean nodding)
+{
+   TextBoxWidgetExt tbwe;
+   tbwe = (TextBoxWidgetExt) gw.getWidget("chopCyclesPerNod");
+   tbwe.setDisabled(!nodding);
+
+   StaticTextWidget stw;
+   stw = (StaticTextWidget) gw.getWidget("cyclesPerObsLabel");
+   if (nodding) {
+      stw.setText("(nod cycles/obs)");
+   } else {
+      stw.setText("(chop cycles/obs)");
+   }
+}
+*/
+/**
+ * Override _updateWidgets to show the value of the chopping attributes.
+ */
+protected void
+_updateWidgets(GroupWidget gw, SpChopCapability chopCap)
+{
+/*
+   boolean nodding = chopCap.getNodding();
+
+   CheckBoxWidgetExt cbwe;
+   cbwe = (CheckBoxWidgetExt) gw.getWidget("nodding");
+   cbwe.setValue( nodding );
+   _updateNoddingWidgets(gw, nodding);
+*/
+   TextBoxWidgetExt tbwe;
+   tbwe = (TextBoxWidgetExt) gw.getWidget("expPerChopPos");
+   tbwe.setText( chopCap.getExposuresPerChopPositionAsString() );
+/*
+   tbwe = (TextBoxWidgetExt) gw.getWidget("chopCyclesPerNod");
+   if (nodding) {
+      tbwe.setText( chopCap.getChopCyclesPerNodAsString() );
+   } else {
+      tbwe.setText( "" );
+   }
+*/
+   tbwe = (TextBoxWidgetExt) gw.getWidget("cyclesPerObs");
+   tbwe.setText( chopCap.getCyclesPerObserveAsString() );
+}
+
+}
+

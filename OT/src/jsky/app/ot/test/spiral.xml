@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<spDocument>
+  <program name="pr3" type="pr" subtype="none">
+    <av name=".gui.filename">
+      <value>puxley.sp</value>
+    </av>
+    <av name=".gui.dir">
+      <value>/ocs2/ocs2/dev/ocsService/ot/src/</value>
+    </av>
+    <av name=".gui.selected">
+      <value>true</value>
+    </av>
+    <av name=".gui.hasBeenSaved">
+      <value>true</value>
+    </av>
+    <av name="title">
+      <value>Spiral Galaxies</value>
+    </av>
+    <item name="oc45" type="oc" subtype="schedInfo">
+      <av name="moon">
+        <value>ignore</value>
+      </av>
+      <av name="imageQuality">
+        <value>50</value>
+      </av>
+      <av name="sky">
+        <value>ignore</value>
+      </av>
+      <av name=".unique">
+        <value>true</value>
+      </av>
+      <av name="irBackground">
+        <value>ignore</value>
+      </av>
+    </item>
+    <item name="ob30" type="ob" subtype="none">
+      <av name="chainedToPrev">
+        <value>false</value>
+      </av>
+      <av name="title">
+        <value>NGC 1275</value>
+      </av>
+      <av name="chainedToNext">
+        <value>false</value>
+      </av>
+      <item name="oc44" type="oc" subtype="targetList">
+        <av name="PWFS1">
+          <value>PWFS1</value>
+          <value>GSC 10245</value>
+          <value>18 00 00</value>
+          <value>+40 34 03</value>
+        </av>
+        <av name="Base">
+          <value>Base</value>
+          <value></value>
+          <value>18 00 00</value>
+          <value>+40 30 20</value>
+          <value>FK5</value>
+        </av>
+        <av name=".gui.selectedTelescopePos">
+          <value>User0</value>
+        </av>
+        <av name="User0">
+          <value>User0</value>
+          <value>Blank 1</value>
+          <value>18 00 00</value>
+          <value>+41 00 00</value>
+          <value>FK5</value>
+        </av>
+        <av name=".unique">
+          <value>true</value>
+        </av>
+        <av name="userPositions">
+          <value>User0</value>
+        </av>
+        <av name="PWFS2">
+          <value>PWFS2</value>
+          <value>GSC 10256</value>
+          <value>18 03 21</value>
+          <value>+40 31 00</value>
+        </av>
+      </item>
+    </item>
+    <item name="ob29" type="ob" subtype="none">
+      <av name="chainedToPrev">
+        <value>false</value>
+      </av>
+      <av name="title">
+        <value>NGC 90210</value>
+      </av>
+      <av name="chainedToNext">
+        <value>false</value>
+      </av>
+    </item>
+    <item name="ob28" type="ob" subtype="none">
+      <av name="chainedToPrev">
+        <value>false</value>
+      </av>
+      <av name="title">
+        <value>NGC 911</value>
+      </av>
+      <av name="chainedToNext">
+        <value>false</value>
+      </av>
+    </item>
+  </program>
+</spDocument>

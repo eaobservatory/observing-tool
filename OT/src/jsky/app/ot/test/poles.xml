@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<spDocument>
+  <program name="new" type="pr" subtype="none">
+    <item name="new" type="oc" subtype="inst.NIRI">
+      <av name="scienceArea">
+        <value>123x123</value>
+      </av>
+      <av name="exposureTime">
+        <value>0</value>
+      </av>
+      <av name="filter">
+        <value>None</value>
+      </av>
+      <av name="camera">
+        <value>f/6  (0.12 arcsec/pix)</value>
+      </av>
+      <av name="coadds">
+        <value>1</value>
+      </av>
+      <av name=".unique">
+        <value>true</value>
+      </av>
+      <av name="posAngle">
+        <value>0</value>
+      </av>
+    </item>
+    <item name="new" type="ob" subtype="none">
+      <av name="chainedToPrev">
+        <value>false</value>
+      </av>
+      <av name="title">
+        <value>North Pole</value>
+      </av>
+      <av name="chainedToNext">
+        <value>false</value>
+      </av>
+      <item name="new" type="oc" subtype="targetList">
+        <av name="Base">
+          <value>Base</value>
+          <value></value>
+          <value>0:00:00</value>
+          <value>90:00:00</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name=".gui.selectedTelescopePos">
+          <value>Base</value>
+        </av>
+        <av name="User0">
+          <value>User0</value>
+          <value></value>
+          <value>0:00:00</value>
+          <value>90:00:00</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name=".unique">
+          <value>true</value>
+        </av>
+        <av name="userPositions">
+          <value>User0</value>
+        </av>
+      </item>
+      <item name="new" type="if" subtype="none">
+        <item name="new" type="ic" subtype="offset">
+          <av name=".gui.selectedOffsetPos">
+            <value>Offset0</value>
+          </av>
+          <av name="offsetPositions">
+            <value>Offset0</value>
+          </av>
+          <av name="Offset0">
+            <value>61</value>
+            <value>61</value>
+          </av>
+          <item name="new" type="ic" subtype="observe">
+            <av name="repeatCount">
+              <value>1</value>
+            </av>
+          </item>
+        </item>
+      </item>
+    </item>
+    <item name="new" type="ob" subtype="none">
+      <av name="chainedToPrev">
+        <value>false</value>
+      </av>
+      <av name="title">
+        <value>South Pole</value>
+      </av>
+      <av name="chainedToNext">
+        <value>false</value>
+      </av>
+      <item name="new" type="oc" subtype="targetList">
+        <av name="Base">
+          <value>Base</value>
+          <value></value>
+          <value>0:00:00</value>
+          <value>-90:00:00</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name=".gui.selectedTelescopePos">
+          <value>User0</value>
+        </av>
+        <av name="User0">
+          <value>User0</value>
+          <value></value>
+          <value>0:00:00</value>
+          <value>-90:00:00</value>
+          <value>FK5</value>
+          <value>false</value>
+        </av>
+        <av name=".unique">
+          <value>true</value>
+        </av>
+        <av name="userPositions">
+          <value>User0</value>
+        </av>
+      </item>
+      <item name="new" type="if" subtype="none">
+        <item name="new" type="ic" subtype="offset">
+          <av name=".gui.selectedOffsetPos">
+            <value>Offset0</value>
+          </av>
+          <av name="offsetPositions">
+            <value>Offset0</value>
+          </av>
+          <av name="Offset0">
+            <value>61</value>
+            <value>61</value>
+          </av>
+          <item name="new" type="ic" subtype="observe">
+            <av name="repeatCount">
+              <value>1</value>
+            </av>
+          </item>
+        </item>
+      </item>
+    </item>
+  </program>
+</spDocument>

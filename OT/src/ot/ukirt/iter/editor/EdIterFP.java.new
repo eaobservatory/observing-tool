@@ -1,0 +1,142 @@
+// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
+// Observatory Control System, Gemini Telescopes Project.
+// See the file COPYRIGHT for complete details.
+//
+// $Id$
+//
+package ot_ukirt.iter.editor;
+
+import ot_ukirt.iter.SpIterFP;
+
+import gemini.gui.TextBoxWidgetExt;
+import gemini.gui.TextBoxWidgetWatcher;
+
+import gemini.sp.SpItem;
+import gemini.sp.SpAvTable;
+
+import java.awt.Event;
+
+import org.freebongo.gui.SpinBoxWidget;
+import org.freebongo.gui.Widget;
+
+import ot.editor.OtItemEditor;
+
+/**
+ * This is the editor for the FP iterator component.
+ */
+public final class EdIterFP extends OtItemEditor
+                              implements TextBoxWidgetWatcher
+{
+
+/**
+ * The constructor initializes the title, description, and presentation source.
+ */
+public EdIterFP()
+{
+   _title       ="Dark Iterator";
+   _presSource  ="~gemini/cfg/gui/iterFP.gui";
+   _description ="Set up the FP X, Y and Z iterations.";
+}
+
+/**
+ */
+protected void
+_init()
+{
+   TextBoxWidgetExt tbwe;
+ 
+   // Exposure time
+   tbwe = (TextBoxWidgetExt) _pres.getWidget("exposureTime");
+   tbwe.addWatcher( this );
+ 
+   // Coadds
+   tbwe = (TextBoxWidgetExt) _pres.getWidget("coadds");
+   tbwe.addWatcher( this );
+ 
+   super._init();
+}
+
+
+/**
+ * Implements the _updateWidgets method from OtItemEditor in order to
+ * setup the widgets to show the current values of the item.
+ */
+protected void
+_updateWidgets()
+{
+   SpinBoxWidget sbw;
+
+   SpIterFP iterFP = (SpIterFP) _spItem;
+
+   // x start
+   sbw = (SpinBoxWidget) _pres.getWidget("fpxStart");
+   sbw.setValue( iterFP.getFpxStart() );
+   // x stop
+   sbw = (SpinBoxWidget) _pres.getWidget("fpxStop");
+   sbw.setValue( iterFP.getFpxStop() );
+   // x increment
+   sbw = (SpinBoxWidget) _pres.getWidget("fpxIncrement");
+   sbw.setValue( iterFP.getFpxIncrement() );
+   // y start
+   sbw = (SpinBoxWidget) _pres.getWidget("fpyStart");
+   sbw.setValue( iterFP.getFpyStart() );
+   // y stop
+   sbw = (SpinBoxWidget) _pres.getWidget("fpyStop");
+   sbw.setValue( iterFP.getFpyStop() );
+   // y increment
+   sbw = (SpinBoxWidget) _pres.getWidget("fpyIncrement");
+   sbw.setValue( iterFP.getFpyIncrement() );
+   // z start
+   sbw = (SpinBoxWidget) _pres.getWidget("fpzStart");
+   sbw.setValue( iterFP.getFpzStart() );
+   // z stop
+   sbw = (SpinBoxWidget) _pres.getWidget("fpzStop");
+   sbw.setValue( iterFP.getFpzStop() );
+   // z increment
+   sbw = (SpinBoxWidget) _pres.getWidget("fpzIncrement");
+   sbw.setValue( iterFP.getFpzIncrement() );
+
+}
+
+/**
+ *
+ */
+public boolean 
+action(Event evt, Object arg)
+{
+   if ((evt.id != Event.ACTION_EVENT) || !(evt.target instanceof Widget)) {
+      return false;
+   }
+ 
+   Widget w  = (Widget) evt.target;
+   String name = w.getName();
+   if (name == null) {
+      return false;
+   }
+
+   SpIterFP iterFP = (SpIterFP) _spItem;
+
+   if (name.equals("fpxStart")) {
+      SpinBoxWidget sbw = (SpinBoxWidget) w;
+      int i = sbw.getIntegerValue();
+      iterFP.setFpxStart(i);
+      return true;
+   }
+   if (name.equals("fpxStop")) {
+      SpinBoxWidget sbw = (SpinBoxWidget) w;
+      int i = sbw.getIntegerValue();
+      iterFP.setFpxStop(i);
+      return true;
+   }
+   if (name.equals("fpxIncrement")) {
+      SpinBoxWidget sbw = (SpinBoxWidget) w;
+      int i = sbw.getIntegerValue();
+      iterFP.setFpxIncrement(i);
+      return true;
+   }
+
+   return false;
+}
+
+}
+

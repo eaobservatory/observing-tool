@@ -1,0 +1,433 @@
+/*==============================================================*/
+/*                                                              */
+/*                UK Astronomy Technology Centre                */
+/*                 Royal Observatory, Edinburgh                 */
+/*                 Joint Astronomy Centre, Hilo                 */
+/*                   Copyright (c) PPARC 1999                   */
+/*                                                              */
+/*==============================================================*/
+
+package ot_ukirt.inst.editor;
+
+import ot_ukirt.util.*;
+import ot_ukirt.inst.SpInstUFTI;
+
+import jsky.app.ot.nsp.*;
+import jsky.app.ot.gui.TableWidgetExt;
+import jsky.app.ot.gui.TableWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher;
+
+import java.awt.Event;
+import java.util.Vector;
+import org.freebongo.gui.*;
+
+import jsky.app.ot.tpe.TelescopePosEditor;
+import jsky.app.ot.tpe.TpeManager;
+
+
+/**
+ * This is the editor for the UFTI instrument.
+ */
+public final class EdCompInstUFTI extends EdCompInstBase
+                               implements TableWidgetWatcher
+{
+
+   private EdStareCapability _edStareCapability;
+   private SpInstUFTI        _instUFTI;
+
+/**
+ * The constructor initializes the title, description, and presentation source.
+ */
+public EdCompInstUFTI()
+{
+   _title       ="UKIRT Fast Track Imager";
+   _presSource  ="~gemini/cfg/gui/ufti.gui";
+   _description ="The UFTI instrument is configured with this component.";
+
+   _edStareCapability = new EdStareCapability();
+}
+
+/**
+ * This method initializes the widgets in the presentation to reflect the
+ * current values of the items attributes.
+ */
+protected void
+_init()
+{
+   DropDownListBoxWidgetExt ddlbw;
+   CheckBoxWidget cbw;
+
+   ddlbw = (DropDownListBoxWidgetExt) _pres.getWidget("acqMode");
+   ddlbw.setChoices(SpInstUFTI.MODES);
+
+   ddlbw = (DropDownListBoxWidgetExt) _pres.getWidget("readoutArea");
+   ddlbw.setChoices(SpInstUFTI.READAREAS);
+
+   TableWidgetExt twe;
+   twe = (TableWidgetExt) _pres.getWidget("filterTable");
+   twe.addWatcher(this);
+
+   //
+   // Polariser
+   //
+   ddlbw = (DropDownListBoxWidgetExt) _pres.getWidget("polariser");
+   ddlbw.setChoices(SpInstUFTI.POLARISERS);
+
+   ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
+      public void
+      dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+      public void
+      dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+         _instUFTI.setPolariser( val );
+         _updateWidgets();
+      }
+   });
+
+   //
+   // source magnitude
+   //
+   ddlbw = (DropDownListBoxWidgetExt) _pres.getWidget("sourceMag");
+   ddlbw.setChoices(SpInstUFTI.SRCMAGS);
+
+   ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
+      public void
+      dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+      public void
+      dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+// 	System.out.println ("SM Watcher called");
+	_instUFTI.setSourceMagnitude( val );
+	_instUFTI.useDefaultAcquisition();
+	_updateExpWidgets();
+	_updateExpInfo();
+      }
+   });
+
+   TextBoxWidgetExt tbw = (TextBoxWidgetExt) _pres.getWidget("exposureTime");
+   tbw.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+         _instUFTI.setExpTime(tbw.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbw) {}
+   });
+
+   GroupWidget gw = (GroupWidget) _pres.getWidget("stareControlGroup");
+   //   _edStareCapability._init(gw, this);
+   tbw = (TextBoxWidgetExt) gw.getWidget("coadds");
+   tbw.addWatcher( new TextBoxWidgetWatcher() {
+      public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+         _instUFTI.setNoCoadds(tbw.getText());
+      }
+
+      public void textBoxAction(TextBoxWidgetExt tbw) {}
+   });
+
+
+   CommandButtonWidgetExt cbwe = (CommandButtonWidgetExt) _pres.getWidget("defaultAcquisition");
+   cbwe.addWatcher( new CommandButtonWidgetWatcher() {
+     public void commandButtonAction(CommandButtonWidgetExt cbwe) {
+// 	System.out.println ("DEF Watcher called");
+       _instUFTI.useDefaultAcquisition();
+       _updateExpWidgets();
+       _updateExpInfo();
+     }
+   });
+   
+//   cbw = (CheckBoxWidget) _pres.getWidget("useShutter");
+//   if (cbw != null) cbw.setDisabled(true);
+
+   super._init();
+
+   gw = (GroupWidget) _pres.getWidget("stareControlGroup");
+   _edStareCapability._init(gw, this);
+}
+
+/**
+ * Initialize the Filter table widget according to the selected
+ * filter category.
+ */
+private void
+_showFilterType(LookUpTable filters)
+{
+  Vector[] rowsV = new Vector[filters.getNumRows()];
+  rowsV = filters.getAsVectorArray();
+  TableWidget tw = (TableWidget) _pres.getWidget("filterTable");
+  tw.setRows(rowsV);
+}
+
+/**
+ * Get the index of the filter in the given array, or -1 if the filter
+ * isn't in the array.
+ */
+private int
+_getFilterIndex(String filter, LookUpTable farray)
+{
+  int fi = -1;
+  try {
+    fi = farray.indexInColumn (filter, 0);
+  }catch (Exception ex) {
+  }
+  return fi;
+}
+
+/**
+ * Update the filter choice related widgets.
+ */
+private void
+_updateFilterWidgets()
+{
+   // First fill in the text box.
+   StaticTextWidget stw;
+   stw = (StaticTextWidget) _pres.getWidget("filter");
+   String filter = _instUFTI.getFilter();
+   stw.setValue(filter);
+
+   // See which type of filter the selected filter is, if any.
+   LookUpTable  farray = null;
+   OptionWidget ow     = null;
+
+   int index = -1;
+   if (filter == null || filter.equals("None")) {
+     farray = SpInstUFTI.BROAD_BAND_FILTERS;
+     ow     = (OptionWidget) _pres.getWidget("filterBroadBand");
+
+   } else {
+
+     farray = SpInstUFTI.BROAD_BAND_FILTERS;
+     index = _getFilterIndex(filter, farray);
+     if (index != -1) {
+       ow = (OptionWidget) _pres.getWidget("filterBroadBand");
+     } else {
+       farray = SpInstUFTI.NARROW_BAND_FILTERS;
+       index = _getFilterIndex(filter, farray);
+       if (index != -1) {
+	 ow = (OptionWidget) _pres.getWidget("filterNarrowBand");
+       } else {
+	 farray = SpInstUFTI.SPECIAL_FILTERS;
+	 index = _getFilterIndex(filter, farray);
+	 if (index != -1) {
+	   ow = (OptionWidget) _pres.getWidget("filterSpecial");
+	 } else {
+	   farray = SpInstUFTI.BROAD_BAND_FILTERS;
+	   ow = (OptionWidget) _pres.getWidget("filterBroadBand");
+	 }
+       }
+     }
+   }
+   
+   // Show the correct filters, and select the option widget for the type
+   _showFilterType(farray);
+   ow.setValue(true);
+
+   // Select the filter in the table
+   if ((filter != null) && (index != -1)) {
+      TableWidget tw = (TableWidget) _pres.getWidget("filterTable");
+      tw.selectRowAt(index);
+      tw.focusAtRow(index);
+   }
+}
+
+/**
+ * Override setup to store away a reference to the SpInstUFTI item.
+ */
+public void
+setup(SpItem spItem)
+{
+  _instUFTI = (SpInstUFTI) spItem;
+   super.setup(spItem);
+}
+
+
+/**
+ * Implements the _updateWidgets method from OtItemEditor in order to
+ * setup the widgets to show the current values of the item.
+ */
+protected void
+_updateWidgets()
+{
+   DropDownListBoxWidget ddlbw;
+
+   ddlbw         = (DropDownListBoxWidgetExt) _pres.getWidget("polariser");
+   ddlbw.setValue( _instUFTI.getPolariser() );
+
+   ddlbw = (DropDownListBoxWidget) _pres.getWidget("acqMode");
+   ddlbw.setValue( _instUFTI.getAcqMode() );
+
+   ddlbw        = (DropDownListBoxWidget) _pres.getWidget("readoutArea");
+   ddlbw.setValue( _instUFTI.getReadoutArea() );
+
+   GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
+   _edStareCapability._updateWidgets(stareGW, _instUFTI.getStareCapability());
+
+   ddlbw         = (DropDownListBoxWidgetExt) _pres.getWidget("sourceMag");
+   ddlbw.setValue( _instUFTI.getSourceMagnitude () );
+
+   _updateScienceFOV();
+
+   super._updateWidgets();
+
+   _updateFilterWidgets();
+   _updateExpWidgets();
+
+}
+
+//
+// Update the exposure time and coadds widgets
+//
+private void
+_updateExpWidgets()
+{
+   TextBoxWidgetExt tbw = (TextBoxWidgetExt) _pres.getWidget("exposureTime");
+   double d = _instUFTI.getExpTime();
+   String e = Double.toString(d);
+   //   _instUFTI.setExpTime(e);
+   tbw.setText (e);
+
+   GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
+   tbw = (TextBoxWidgetExt) stareGW.getWidget("coadds"); 
+   int coadds = _instUFTI.getNoCoadds();
+   // _instUFTI.setNoCoadds(coadds);
+   tbw.setText (Integer.toString(coadds));
+
+}
+
+//
+// Update the exposure time and coadds attributes
+//
+private void
+_updateExpInfo()
+{
+   TextBoxWidgetExt tbw = (TextBoxWidgetExt) _pres.getWidget("exposureTime");
+   _instUFTI.setExpTime(tbw.getText());
+
+   GroupWidget stareGW = (GroupWidget) _pres.getWidget("stareControlGroup");
+   tbw = (TextBoxWidgetExt) stareGW.getWidget("coadds"); 
+   _instUFTI.setNoCoadds(tbw.getText());
+
+}
+
+//
+// Update the science field of view based upon the readout area
+//
+private void
+_updateScienceFOV()
+{
+   TextBoxWidget    tbw = (TextBoxWidget) _pres.getWidget("scienceFOV");   
+   double[] scienceArea = _instUFTI.getScienceArea();
+   tbw.setText(scienceArea[0] + " x " + scienceArea[1]);
+}
+
+/**
+ * Observer of TableWidget selections.
+ */
+public void
+tableRowSelected(TableWidgetExt twe, int rowIndex)
+{
+
+   String  filter = (String) twe.getCell(0, rowIndex);
+   String  lambda = (String) twe.getCell(1, rowIndex);
+//    System.out.println ("Tab Watcher called");
+
+   // Don't set the value if the new selection is the same as the old
+   // (otherwise, we'd fool the OT into thinking a change had been made)
+   String curValue = _instUFTI.getFilter();
+   if ((curValue != null) && (curValue.equals(filter))) {
+      return;
+   }
+
+   // Set filter and also set the lambda inst. aper value
+   _instUFTI.setFilter(filter);
+   _instUFTI.setInstApL(lambda);
+
+   StaticTextWidget stw = (StaticTextWidget) _pres.getWidget("filter");
+   stw.setText(filter);
+   _instUFTI.useDefaultAcquisition();
+   _updateExpWidgets();
+   _updateExpInfo();
+}
+
+/**
+ * Must watch table widget actions as part of the TableWidgetWatcher
+ * interface, but don't care about them.
+ */
+public void
+tableAction(TableWidgetExt twe, int colIndex, int rowIndex) {}
+
+/**
+ * The given filter list was selected.  Show it, and if the current
+ * filter is in the list, highlight it.
+ */
+private void
+_selectFilterType(LookUpTable farray)
+{
+   _showFilterType(farray);
+   String filter = _instUFTI.getFilter();
+   if (filter != null) {
+      int index = _getFilterIndex(filter, farray);
+      if (index != -1) {
+         TableWidget tw = (TableWidget) _pres.getWidget("filterTable");
+         tw.selectRowAt(index);
+         tw.focusAtRow(index);
+      }
+   }
+}
+
+
+/**
+ *
+ */
+public boolean 
+action(Event evt, Object arg)
+{
+   //if ((evt.id != Event.ACTION_EVENT) || !(evt.target instanceof Widget)) {
+   if (!(evt.target instanceof Widget)) {
+      return false;
+   }
+
+   Widget w  = (Widget) evt.target;
+
+   String name = w.getName();
+
+   if ("acqMode".equals(name)) {
+      DropDownListBoxWidget ddlbw = (DropDownListBoxWidget) w;
+      _instUFTI.setAcqMode( ddlbw.getStringValue() );
+
+      return true;
+   }
+
+   if ("readoutArea".equals(name)) {
+      DropDownListBoxWidget ddlbw = (DropDownListBoxWidget) w;
+      _instUFTI.setReadoutArea( ddlbw.getStringValue() );
+      _updateScienceFOV();
+      TelescopePosEditor tpe = TpeManager.get(_instUFTI);
+      if (tpe != null) tpe.repaint();
+
+      return true;
+   }
+
+   if ("filterBroadBand".equals(name)) {
+      _selectFilterType( SpInstUFTI.BROAD_BAND_FILTERS );
+      return true;
+   } else
+
+   if ("filterNarrowBand".equals(name)) {
+      _selectFilterType(SpInstUFTI.NARROW_BAND_FILTERS);
+      return true;
+   } else
+
+   if ("filterSpecial".equals(name)) {
+      _selectFilterType(SpInstUFTI.SPECIAL_FILTERS);
+      return true;
+   }
+
+   return false;
+}
+
+}

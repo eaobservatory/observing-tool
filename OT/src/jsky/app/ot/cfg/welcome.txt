@@ -1,0 +1,9 @@
+Welcome to the Gemini Observing Tool Beta release.  Like the telescope
+itself, this software is still under construction.  The Beta release
+provides an opportunity for a select group of scientists and others to
+get a feel for how the OT will work in order to help spot any major
+flaws and guide its continuing development.
+
+Not all features are present and many others are still being developed.
+
+

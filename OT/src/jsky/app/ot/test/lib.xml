@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<spDocument>
+  <item name="new" type="lb" subtype="none">
+    <av name=".gui.filename">
+      <value>lib.sp</value>
+    </av>
+    <item name="new" type="lf" subtype="none" />
+    <item name="new" type="lf" subtype="none">
+      <item name="new" type="no" subtype="none">
+        <av name="note">
+          <value></value>
+        </av>
+      </item>
+      <item name="new" type="lf" subtype="none">
+        <av name="title">
+          <value>Folder 1</value>
+        </av>
+        <item name="new" type="no" subtype="none">
+          <av name="note">
+            <value></value>
+          </av>
+        </item>
+      </item>
+      <item name="new" type="lf" subtype="none">
+        <av name="title">
+          <value>Folder 2</value>
+        </av>
+      </item>
+    </item>
+  </item>
+</spDocument>
