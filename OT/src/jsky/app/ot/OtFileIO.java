@@ -31,12 +31,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.BufferedReader;
 
 import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtWindow;
 
 import orac.util.SpItemUtilities;
 import orac.util.SpItemDOM;
+import orac.util.SpInputXML;
 import orac.util.FileFilterSGML;
 import orac.util.FileFilterXML;
 
@@ -60,6 +62,14 @@ public class OtFileIO
 
    /** SGML file filter (*.ot, *.sp, *.sgml). MFO 2001 */
    protected static FileFilterSGML sgmlFilter = new FileFilterSGML();
+
+   /**
+    * Used to check whether XML format is old (SpItemDOM based) or new.
+    *
+    * First 200 characters of XML file are read into this buffer to check format.
+    */
+   private static char [] _xmlBuffer = new char[200];
+
 
 /**
  * Store the Science Program rooted at the given SpItem into the file
@@ -112,7 +122,7 @@ storeSp(SpRootItem spItem, File f)
           // Make sure the msb attributes are set correctly.
           SpItemUtilities.updateMsbAttributes(spItem);
 
-          (new PrintStream(os)).print((new SpItemDOM(spItem)).toXML());
+          (new PrintStream(os)).print(spItem.toXML());
 	}
 	catch(Exception e) {
 	  e.printStackTrace();
@@ -205,13 +215,25 @@ fetchSp(Reader rdr)
     }
 
     try {
-      SpRootItem spRootItem = (new SpItemDOM(rdr)).getSpItem();
-
-      return spRootItem;
+      // A BufferedReader is only need to reset the stream
+      // inside isOldXmlFormat(BufferedReader). Once there
+      // are no Science Programs in the old XML format in
+      // circulation anymore things like
+      // isOldXmlFormat, SpItemDOM can go and the normal
+      // Reader rdr can be used instead of the BufferedReader.
+      BufferedReader bufferedReader = new BufferedReader(rdr);
+      if(isOldXmlFormat(bufferedReader)) {
+        System.out.println("Converting old XML format.");
+        return (new SpItemDOM(bufferedReader)).getSpItem();
+      }
+      else {
+        return (SpRootItem)(new SpInputXML()).xmlToSpItem(bufferedReader);
+      }
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(null, "Could not load Science Programme: " + e.getMessage(),
                                     "Error", JOptionPane.ERROR_MESSAGE);        
+      e.printStackTrace();
       return null;
     }
   }
@@ -487,6 +509,34 @@ public static void setXML(boolean xml) {
 
 public static boolean isXML() {
    return _io_xml;
+}
+
+
+/**
+ * Checks whether XML format is old (based on SpItemDOM conversion).
+ *
+ * @param reader buffered reader to read XML.
+ *
+ * @return true if file contains old XML format (based on SpItemDOM conversion)
+ */
+public static boolean isOldXmlFormat(BufferedReader reader) {
+
+   try {
+      reader.mark(_xmlBuffer.length + 10);
+      reader.read(_xmlBuffer, 0, _xmlBuffer.length);
+      reader.reset();
+
+      String xmlStart = new String(_xmlBuffer);
+
+      if((xmlStart != null) && (xmlStart.indexOf("ItemData") >= 0)) {
+        return true;
+      }
+   }
+   catch(IOException e) {
+      System.out.println("Problem while checking XML format: " + e + ". Using new XML format.");
+   }
+    
+   return false;
 }
 
 }
