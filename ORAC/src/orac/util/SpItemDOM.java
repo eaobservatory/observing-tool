@@ -7,6 +7,7 @@ import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
+import gemini.sp.obsComp.SpTelescopeObsComp;
 import org.apache.xerces.dom.ElementImpl;
 import org.apache.xerces.dom.TextImpl;
 import org.apache.xerces.dom.DocumentImpl;
@@ -36,16 +37,25 @@ public class SpItemDOM {
   public static final String SP_ITEM_NAME     = "name";
   public static final String SP_ITEM_PACKAGE  = "package";
 
+  public static final String [] UKIRT_TARGET_TAGS = { "Base",    "GUIDE" };
+  public static final String [] TCS_TARGET_TYPES  = { "science", "guide" };
+
+  public static final int TARGET_TAGS_INDEX   = 0;
+  public static final int TARGET_NAME_INDEX   = 1;
+  public static final int TARGET_RA_INDEX     = 2;
+  public static final int TARGET_DEC_INDEX    = 3;
+  public static final int TARGET_SYSTEM_INDEX = 4;
+
   /**
    * The root of the DOM sub tree that represents the SpItem of this class.
    */
   protected ElementImpl _element;
 
-  public SpItemDOM(SpItem spItem) {
+  public SpItemDOM(SpItem spItem) throws Exception {
     this(spItem, new DocumentImpl());
   }
 
-  public SpItemDOM(SpItem spItem, DocumentImpl ownerDoc) {
+  public SpItemDOM(SpItem spItem, DocumentImpl ownerDoc) throws Exception {
   
     String classNameTag = spItem.getClass().getName().substring(spItem.getClass().getName().lastIndexOf(".") + 1);
     _element = (ElementImpl)ownerDoc.createElement(classNameTag);
@@ -70,7 +80,15 @@ public class SpItemDOM {
     // Insert item data node as first child.
     _element.insertBefore(itemData, _element.getFirstChild());
 
-
+    if(spItem instanceof SpTelescopeObsComp) {
+      if(System.getProperty("NO_TCS_XML") == null) {
+        // This method is UKIRT specific. JCMT will probably have a different telescope observation component.
+        convertToTcsXml(_element);
+      }
+      else {
+        System.out.println("convertToTcsXml switched off. Remove system property NO_TCS_XML (flag -DNO_TCS_XML) to switch it on.");
+      }
+    }  
   }
 
   public SpItemDOM(Reader xmlReader) throws Exception { //SAXException, IOException {
@@ -85,6 +103,15 @@ public class SpItemDOM {
     //}
 
     _element = (ElementImpl)parser.getDocument().getDocumentElement();
+
+
+    // This method is UKIRT specific. JCMT will probably have a different telescope observation component.
+    if(System.getProperty("NO_TCS_XML") == null) {
+      convertAllFromTcsXml(_element);
+    }
+    else {
+      System.out.println("convertAllFromTcsXml switched off. Remove system property NO_TCS_XML (flag -DNO_TCS_XML) to switch it on.");
+    }
   }
 
   ElementImpl getElement() {
@@ -261,7 +288,11 @@ public class SpItemDOM {
   public SpRootItem getSpItem() {
     /*MFO TODO: better error handling.*/
     try {
-      return (SpRootItem)getSpItem(_element);
+      SpRootItem spRootItem = (SpRootItem)getSpItem(_element);
+      
+      // return deepCopy of spRootItem instead of spRootItem to prevent bug that cases
+      // GUIDE row in target list table not to be displayed.
+      return (SpRootItem)spRootItem.deepCopy();
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -379,6 +410,219 @@ public class SpItemDOM {
     //System.out.println((new AvTableToDom(table, "TestTable", new DocumentImpl())).toString("    "));
   }
 
+  /**
+   * Converts DOM/XML representaion of SpTelescopeObsComp.
+   *
+   * From: DOM Element based on XML generated from SpAvTable in SpTelescopeObsComp (UKIRT)
+   * To:   DOM Element based on XML as used in the TCS.
+   *
+   * The DTD/XML used in the TCS is based on the Gemini Phase 1 Tool.
+   * See document OCS/ICD/006.2 (Except: Element target contains (science | guide))
+   *
+   * This method is UKIRT specific. It will need adjusting for JCMT. But JCMT will eith have a
+   * telescope observation component which produces the TCS style XML and does not need
+   * this conversion or this method will need modification.
+   *
+   * @see #convertFromTcsXml(org.apache.xerces.dom.ElementImpl)
+   */
+  private static void convertToTcsXml(ElementImpl element) throws Exception {
+    // TODO: In case their is going to be a different SpTelescopeObsComp for JCMT (from another package)
+    // which produces TCS style XML anyway, then the the following if should be more precise so that
+    // the conversion would not be applied in such case.
+    if(!element.getTagName().equals("SpTelescopeObsComp")) {
+      return;
+    }
 
+    try {
+      DocumentImpl document = (DocumentImpl)element.getOwnerDocument();
+
+      // Elements before conversion.
+      ElementImpl targetListElement;
+      NodeList    valueList;
+    
+      // Converted elements.
+      ElementImpl baseElement = null;
+      ElementImpl child;
+    
+      for(int i = 0; i < UKIRT_TARGET_TAGS.length; i++) {
+        targetListElement = (ElementImpl)element.getElementsByTagName(UKIRT_TARGET_TAGS[i]).item(0);
+      
+        if(targetListElement != null) {
+          valueList = targetListElement.getElementsByTagName("value");
+
+          // Don't confuse TCS tag "Base" (JCMT speak) with Ukirt tag "Base" (as in "Base vs GUIDE")
+          baseElement = (ElementImpl)document.createElement("base");
+
+          // Add target element and add type attribute.
+          child = (ElementImpl)baseElement.appendChild(document.createElement("target"));
+          child.setAttribute("type", TCS_TARGET_TYPES[i]);
+
+          // Add targetName element with text node containing the target name.
+          child = (ElementImpl)child.appendChild(document.createElement("targetName"));
+          child.appendChild(document.createTextNode(valueList.item(TARGET_NAME_INDEX).getFirstChild().getNodeValue()));
+
+          // Set child to target element again.
+          child = (ElementImpl)child.getParentNode();
+
+          // Add hmsdegSystem element and add type attribute.
+          child = (ElementImpl)child.appendChild(document.createElement("hmsdegSystem"));
+          child.setAttribute("type", valueList.item(TARGET_SYSTEM_INDEX).getFirstChild().getNodeValue());
+
+          // Add c1 target with text node containing RA.
+          child = (ElementImpl)child.appendChild(document.createElement("c1"));
+          child.appendChild(document.createTextNode(valueList.item(TARGET_RA_INDEX).getFirstChild().getNodeValue()));
+
+          // Set child to hmsdegSystem element again.
+          child = (ElementImpl)child.getParentNode();
+
+          // Add c2 target with text node containing Dec.
+          child = (ElementImpl)child.appendChild(document.createElement("c2"));
+          child.appendChild(document.createTextNode(valueList.item(TARGET_DEC_INDEX).getFirstChild().getNodeValue()));
+    
+          // Replace old target list element (UKIRT/Sp style value array)
+          // with new base element (TCS XML)
+          element.replaceChild(baseElement, targetListElement);
+        }	
+      }
+    }
+    // Make sure RuntimeExceptions are not ignored.
+    catch(Exception e) {
+      e.printStackTrace();
+      throw new Exception("Problem while converting target information to TCS XML format.");
+    }
+  }
+
+  /**
+   * Converts DOM/XML representaion of SpTelescopeObsComp.
+   *
+   * From: DOM Element based on XML as used in the TCS.
+   * To:   DOM Element based on XML generated from SpAvTable in SpTelescopeObsComp (UKIRT)
+   *
+   * The DTD/XML used in the TCS is based on the Gemini Phase 1 Tool.
+   * See document OCS/ICD/006.2 (Except: Element target contains (science | guide))
+   * 
+   * This method is UKIRT specific. It will need adjusting for JCMT. But JCMT will eith have a
+   * telescope observation component which produces the TCS style XML and does not need
+   * this conversion or this method will need modification.
+   *
+   * @see #convertToTcsXml(org.apache.xerces.dom.ElementImpl)
+   */
+  private static void convertFromTcsXml(ElementImpl element) throws Exception {
+    // TODO: In case their is going to be a different SpTelescopeObsComp for JCMT (from another package)
+    // which produces TCS style XML anyway, then the the following if should be more precise so that
+    // the conversion would not be applied in such case.
+    if(!element.getTagName().equals("SpTelescopeObsComp")) {
+      return;
+    }
+
+    try {
+      DocumentImpl document = (DocumentImpl)element.getOwnerDocument();
+
+      // Elements before conversion.
+      NodeList baseNodes = element.getElementsByTagName("base");
+      ElementImpl baseElement;
+
+      // Converted elements.
+      ElementImpl targetListElement = null;
+      String value = null;
+      String type  = null;
+      Vector targetElementVector = new Vector();
+    
+      // There should be one base node of type "science" and optionally another one of type "guide".
+      for(int i = 0; i < baseNodes.getLength(); i++) {
+        baseElement = (ElementImpl)baseNodes.item(i);
+
+        // tag
+	type = ((ElementImpl)baseElement.getElementsByTagName("target").item(0)).getAttribute("type");
+
+        if(type.equals(TCS_TARGET_TYPES[0])) {
+          value = UKIRT_TARGET_TAGS[0];
+        }
+        else if(type.equals(TCS_TARGET_TYPES[1])) {
+          value = UKIRT_TARGET_TAGS[1];
+        }
+        // The tag should always be one of TCS_TARGET_TYPES ("science", "guide") which
+        // is then converted to the respective String in UKIRT_TARGET_TAGS ("Base", "GUIDE")
+        // If baseNodes.getAttribute("type") isn't either "science" or "guide" different then
+        // use it as it is as UKIRT tag (without convcersion).
+        else {
+          value = type;
+        }
+	
+	// Create Element, "Base" or "GUIDE".
+	targetListElement = (ElementImpl)document.createElement(value);
+        
+	// Set text of first value element to "Base" or "GUIDE" too.
+        targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
+
+        // target name
+        value = baseElement.getElementsByTagName("targetName").item(0).getFirstChild().getNodeValue();
+        targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
+
+        // RA
+        value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0)))
+                                          .getElementsByTagName("c1").item(0).getFirstChild().getNodeValue();
+        targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
+
+        // Dec
+        value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0)))
+                                          .getElementsByTagName("c2").item(0).getFirstChild().getNodeValue();
+        targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
+
+        // System
+        value = ((ElementImpl)(baseElement.getElementsByTagName("hmsdegSystem").item(0))).getAttribute("type");
+        targetListElement.appendChild(document.createElement("value")).appendChild(document.createTextNode(value));
+    
+	// Replacing baseElement element immediately with targetListElement)
+	// seems to cause problems because all baseElement nodes seem to be removed as they all have
+	// the same node name. So add targetListElement to targetElementVector and do the replacing later.
+	targetElementVector.add(targetListElement);
+      }
+
+      // Remove all TCS XML "base" elements children
+      while(baseNodes.getLength() > 0) {
+        element.removeChild(baseNodes.item(0));
+      }
+
+      // Add UKIRT / Sp "Base" and "GUIDE" (if there is one) element.
+      for(int i = 0; i < targetElementVector.size(); i++) {
+        element.appendChild((ElementImpl)targetElementVector.get(i));
+      }
+    }
+    // Make sure RuntimeExceptions are not ignored.
+    catch(Exception e) {
+      e.printStackTrace();
+      throw new Exception("Problem while converting TCS XML to value array.");
+    }
+  }
+
+  /**
+   * Converts all child nodes represent SpTelescopeObsComp's.
+   * 
+   * @see #convertToTcsXml(ElementImpl)
+   */
+  private static void convertAllToTcsXml(ElementImpl element) throws Exception {
+    NodeList telescopeObsCompList = element.getElementsByTagName("SpTelescopeObsComp");
+  
+    for(int i = 0; i < telescopeObsCompList.getLength(); i++) {
+      convertToTcsXml((ElementImpl)telescopeObsCompList.item(i));
+    }
+  }
+
+  /**
+   * Converts all child nodes that represent SpTelescopeObsComp's.
+   *
+   * @see #convertFromTcsXml(ElementImpl)
+   */
+  private static void convertAllFromTcsXml(ElementImpl element) throws Exception {
+    NodeList telescopeObsCompList = element.getElementsByTagName("SpTelescopeObsComp");
+
+    for(int i = 0; i < telescopeObsCompList.getLength(); i++) {
+      convertFromTcsXml((ElementImpl)telescopeObsCompList.item(i));
+    }
+  }
+
+
+  
 }
 
