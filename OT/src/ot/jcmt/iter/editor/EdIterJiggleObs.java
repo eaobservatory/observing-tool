@@ -71,17 +71,19 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
 
     if(instObsComp != null) {
       _w.jigglePattern.setChoices(instObsComp.getJigglePatterns());
-      _w.jigglePattern.setValue(_iterObs.getJigglePattern());
     }
     else {
       _w.jigglePattern.setChoices(_noJigglePatterns);
+    }
+
+    if(_iterObs.getJigglePattern() == null) {
+      _iterObs.setJigglePattern((String)_w.jigglePattern.getValue());
     }
 
     super._updateWidgets();
   }
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-/*MFO DEBUG*/System.out.println("in dropDownListBoxAction");
     if(ddlbwe == _w.jigglePattern) {
       _iterObs.setJigglePattern(val);
       return;
