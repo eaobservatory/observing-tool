@@ -99,6 +99,8 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
+	\nset JAVA = $(JAVA)\
+	\n\
 	\n# Make sure the telescope names in this list correspond to directories in $(CFG_DIRS)\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
@@ -124,14 +126,8 @@ $(BIN_DIR)/ot.bat: scripts/ot_bat_local_source
 
 
 clean:
-	@echo " Delete these directories?\n"\
-	      "  $(CLASSES_DIR)\n"\
-	      "  $(JAR_DIR)\n"\
-	      "  $(DOC_DIR)\n"\
-	      "  $(LOCAL_INSTALL_ROOT)\n"\
-	      "Yes: return / Cancel: Ctrl-d"
-	@read a
-	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
+	rm -rf $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
+	rm -f  $(BIN_DIR)/ot $(BIN_DIR)/ot.bat
 
 
 ###################################################################
@@ -266,14 +262,14 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n\
 	\ncd \`dirname $$""0\`\
 	\n\
+	\nset JAVA = $(JAVA)\
+	\n\
 	\n# Make sure the telescope names in this list correspond to directories in ../cfg\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset TELESCOPE_LIST = \"$(TELESCOPE_LIST)\"\
 	\n\
-	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset CFG_DIRS = `cd ..; pwd`/cfg/\
 	\n\
-	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nset CLASSPATH = $(shell echo $(addprefix ../tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix ../lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
 	\n\
 	\n" > $@

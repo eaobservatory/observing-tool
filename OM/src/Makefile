@@ -76,8 +76,7 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
-	\n# If there is no appropriate jdk1.3 java in your PATH then set one here.\
-        \nset JAVA = java\
+        \nset JAVA = $(JAVA)\
 	\n\
 	\nsource $$""{DRAMA}/drama.csh\
 	\ncleanup\
@@ -133,6 +132,7 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n$$""{JAVA} $(JAVA_FLAGS) -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g')\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
+	\n\
 	\n" > $(BIN_DIR)/$(OM_SCRIPT)
 
 	@echo Creating $(BIN_DIR)/$(OM_SCRIPT)
@@ -140,14 +140,8 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 
 
 clean:
-	@echo " Delete these directories?\n"\
-	      "  $(CLASSES_DIR)\n"\
-	      "  $(JAR_DIR)\n"\
-	      "  $(DOC_DIR)\n"\
-	      "  $(LOCAL_INSTALL_ROOT)\n"\
-	      "Yes: return / Cancel: Ctrl-d"
-	@read a
-	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
+	rm -rf $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
+	rm -f  $(BIN_DIR)/$(OM_SCRIPT)
 
 
 ###################################################################
@@ -250,8 +244,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
-	\n# If there is no appropriate jdk1.3 java in your PATH then set one here.\
-        \nset JAVA = java\
+        \nset JAVA = $(JAVA)\
 	\n\
 	\nsource $$""{DRAMA}/drama.csh\
 	\ncleanup\
@@ -307,6 +300,7 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n$$""{JAVA} $(JAVA_FLAGS) -classpath\
 	$(shell echo $(addprefix ../tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix ../lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
+	\n\
 	\n" > $(INSTALL_ROOT)/bin/om
 
 	@echo Creating $(INSTALL_ROOT)/bin/om
