@@ -73,7 +73,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       _ignoreSpItem = true;
 
-      _w.feChoice.setModel(new DefaultComboBoxModel(new Vector(cfg.frontEndTable.keySet())));
+      _w.feChoice.setModel(new DefaultComboBoxModel(cfg.frontEnds));
       _w.feChoice.addActionListener ( this );
 
       _w.feMode.setModel(new DefaultComboBoxModel((String[])cfg.frontEndTable.get(_w.feChoice.getItemAt(0))));
@@ -89,7 +89,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.velocity.addActionListener ( this );
 
 
-      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "usb", "lsb", "optimum" } ));
+      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "usb", "lsb" } ));
       _w.feBand.addActionListener ( this );
 
 /* Main molecular line choice - used to set front-end LO1 to put the line
@@ -690,12 +690,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
       _ignoreEvents = false;
 
-      _w.moleculeChoice.setSelectedIndex(0); // MFO: This line used to be after the one
+      _w.moleculeChoice.addActionListener(this);
+      _w.moleculeChoice.setSelectedIndex(0); // MFO: This line used to be after, then before the one
                                            // where the ActionListener is added again
 					   // but that (sometimes) caused a NullPointerException.
-					   // Try doing something else that selectes a line when
+					   // Now its after the adding of the ActionListener.
+					   // If there are still NullPointerException then
+					   // something else has do be done that selectes a line when
 					   // the EdCompInstHeterodyne is created.
-      _w.moleculeChoice.addActionListener(this);
 
       _w.moleculeChoice2.removeActionListener(this);
       _w.moleculeChoice2.setModel ( 
