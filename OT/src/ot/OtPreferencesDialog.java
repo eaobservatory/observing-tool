@@ -102,6 +102,7 @@ public class OtPreferencesDialog implements ActionListener {
     }
 
     _preferencesDialogFrame.setVisible(true);
+    _preferencesDialogFrame.setState(JFrame.NORMAL);
   }
 
 
