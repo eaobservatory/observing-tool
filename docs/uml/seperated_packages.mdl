@@ -65,12 +65,20 @@
 			quidu      	"3A6EED820185")
 		    (object Visibility_Relationship
 			quid       	"3A7021D102D7"
-			supplier   	"Logical View::EXTERNAL::Libraries needed by jsky"
+			supplier   	"::EXTERNAL::Libraries needed by jsky"
 			quidu      	"3A6D771302EE")
 		    (object Visibility_Relationship
 			quid       	"3A8188C3021A"
 			supplier   	"Logical View::ODB"
-			quidu      	"3A81881C0274"))
+			quidu      	"3A81881C0274")
+		    (object Visibility_Relationship
+			quid       	"3C1DE014001E"
+			supplier   	"Logical View::EDFREQ"
+			quidu      	"3C1DDFE9024D")
+		    (object Visibility_Relationship
+			quid       	"3C1DE14000F1"
+			supplier   	"Logical View::OT::Tools"
+			quidu      	"3C1DE0F301E1"))
 		exportControl 	"Public"
 		logical_models 	(list unit_reference_list
 		    (object Class_Category "jsky"
@@ -79,7 +87,7 @@
 			visible_categories 	(list visibility_relationship_list
 			    (object Visibility_Relationship
 				quid       	"3A6D773D01CC"
-				supplier   	"Logical View::EXTERNAL::Libraries needed by jsky"
+				supplier   	"::EXTERNAL::Libraries needed by jsky"
 				quidu      	"3A6D771302EE")
 			    (object Visibility_Relationship
 				quid       	"3A6D784B0238"
@@ -189,7 +197,7 @@
 |More specifically ot_ukirt.tpe.TpeDichroicFeature depends on jsky.jar and diva.jar
 |
 						
-						supplier   	"Logical View::EXTERNAL::Libraries needed by jsky"
+						supplier   	"::EXTERNAL::Libraries needed by jsky"
 						quidu      	"3A6D771302EE"))
 					exportControl 	"Public"
 					logical_models 	(list unit_reference_list
@@ -207,7 +215,16 @@
 				max_width  	21600
 				origin_x   	0
 				origin_y   	0
-				items      	(list diagram_item_list)))))
+				items      	(list diagram_item_list))))
+		    (object Class_Category "Tools"
+			quid       	"3C1DE0F301E1"
+			documentation 	
+|Third party jar files.
+|
+			
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list)))
 		logical_presentations 	(list unit_reference_list
 		    (object ClassDiagram "Main"
 			quid       	"3A7A89050387"
@@ -298,8 +315,12 @@
 			quidu      	"3A6EED980231")
 		    (object Visibility_Relationship
 			quid       	"3A755BF70298"
-			supplier   	"Logical View::EXTERNAL::javahelp"
-			quidu      	"3A6D772E01B6"))
+			supplier   	"::EXTERNAL::javahelp"
+			quidu      	"3A6D772E01B6")
+		    (object Visibility_Relationship
+			quid       	"3C1DE12E000F"
+			supplier   	"Logical View::ORAC::Tools"
+			quidu      	"3C1DE0EA02CF"))
 		exportControl 	"Public"
 		logical_models 	(list unit_reference_list
 		    (object Class_Category "orac"
@@ -387,7 +408,7 @@
 				    (object Visibility_Relationship
 					quid       	"3A6D788F0218"
 					documentation 	"Only because of JHLauncher"
-					supplier   	"Logical View::EXTERNAL::javahelp"
+					supplier   	"::EXTERNAL::javahelp"
 					quidu      	"3A6D772E01B6")
 				    (object Visibility_Relationship
 					quid       	"3A6EF36C0395"
@@ -469,7 +490,16 @@
 					fill_color 	13434879
 					quidu      	"3A6EF3170338"
 					width      	300
-					height     	180))))))
+					height     	180)))))
+		    (object Class_Category "Tools"
+			quid       	"3C1DE0EA02CF"
+			documentation 	
+|Third party jar files.
+|
+			
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list)))
 		logical_presentations 	(list unit_reference_list
 		    (object ClassDiagram "Main"
 			quid       	"3A7A88BB0331"
@@ -945,210 +975,6 @@
 				client     	@23
 				supplier   	@28
 				line_style 	0)))))
-	    (object Class_Category "EXTERNAL"
-		quid       	"3A6EEDEF0376"
-		exportControl 	"Public"
-		logical_models 	(list unit_reference_list
-		    (object Class_Category "javahelp"
-			quid       	"3A6D772E01B6"
-			exportControl 	"Public"
-			logical_models 	(list unit_reference_list)
-			logical_presentations 	(list unit_reference_list))
-		    (object Class_Category "Libraries needed by jsky"
-			quid       	"3A6D771302EE"
-			exportControl 	"Public"
-			logical_models 	(list unit_reference_list
-			    (object Class_Category "diva"
-				quid       	"3A6D7DB7011E"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "graph"
-				quid       	"3A6D7DB7011F"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "jacl"
-				quid       	"3A6D7DB70120"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "jdom-b4"
-				quid       	"3A6D7DB70121"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "junit"
-				quid       	"3A6D7DB70122"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "tcljava"
-				quid       	"3A6D7DB70123"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "xerces"
-				quid       	"3A6D7DB70124"
-				documentation 	"XML classes"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list))
-			    (object Class_Category "jsky"
-				quid       	"3A6D7DB70125"
-				documentation 	"jsky package of JSky Project (without ot-0.5)"
-				stereotype 	"without OT"
-				exportControl 	"Public"
-				logical_models 	(list unit_reference_list)
-				logical_presentations 	(list unit_reference_list)))
-			logical_presentations 	(list unit_reference_list
-			    (object ClassDiagram "Main"
-				quid       	"3A6D7DB5014B"
-				title      	"Main"
-				zoom       	100
-				max_height 	28350
-				max_width  	21600
-				origin_x   	92
-				origin_y   	0
-				items      	(list diagram_item_list
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::diva" @32
-					location   	(320, 272)
-					label      	(object ItemLabel
-					    Parent_View 	@32
-					    location   	(176, 188)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"diva")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB7011E"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::graph" @33
-					location   	(768, 272)
-					label      	(object ItemLabel
-					    Parent_View 	@33
-					    location   	(624, 188)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"graph")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB7011F"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::jacl" @34
-					location   	(1232, 272)
-					label      	(object ItemLabel
-					    Parent_View 	@34
-					    location   	(1088, 188)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"jacl")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB70120"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::jdom-b4" @35
-					location   	(1680, 272)
-					label      	(object ItemLabel
-					    Parent_View 	@35
-					    location   	(1536, 188)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"jdom-b4")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB70121"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::junit" @36
-					location   	(2128, 272)
-					label      	(object ItemLabel
-					    Parent_View 	@36
-					    location   	(1984, 188)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"junit")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB70122"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::tcljava" @37
-					location   	(320, 592)
-					label      	(object ItemLabel
-					    Parent_View 	@37
-					    location   	(176, 508)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"tcljava")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB70123"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::xerces" @38
-					location   	(800, 624)
-					label      	(object ItemLabel
-					    Parent_View 	@38
-					    location   	(656, 540)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	288
-					    justify    	0
-					    label      	"xerces")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB70124"
-					width      	300
-					height     	180)
-				    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky::jsky" @39
-					location   	(1280, 640)
-					label      	(object ItemLabel
-					    Parent_View 	@39
-					    location   	(1126, 605)
-					    fill_color 	13434879
-					    nlines     	2
-					    max_width  	308
-					    justify    	0
-					    label      	"jsky")
-					stereotype 	(object ItemLabel
-					    Parent_View 	@39
-					    location   	(1126, 555)
-					    fill_color 	13434879
-					    anchor     	10
-					    nlines     	1
-					    max_width  	308
-					    justify    	0
-					    label      	"<<without OT>>")
-					icon_style 	"Icon"
-					line_color 	3342489
-					fill_color 	13434879
-					quidu      	"3A6D7DB70125"
-					width      	320
-					height     	182))))))
-		logical_presentations 	(list unit_reference_list))
 	    (object Class_Category "ODB"
 		quid       	"3A81881C0274"
 		visible_categories 	(list visibility_relationship_list
@@ -1226,10 +1052,10 @@
 			origin_x   	0
 			origin_y   	0
 			items      	(list diagram_item_list
-			    (object CategoryView "Logical View::ODB::ODBServerPackage" @40
+			    (object CategoryView "Logical View::ODB::ODBServerPackage" @32
 				location   	(640, 240)
 				label      	(object ItemLabel
-				    Parent_View 	@40
+				    Parent_View 	@32
 				    location   	(412, 146)
 				    fill_color 	13434879
 				    nlines     	2
@@ -1242,10 +1068,10 @@
 				quidu      	"3A6D54150156"
 				width      	469
 				height     	200)
-			    (object CategoryView "Logical View::ODB::gemini::sp::ipc" @41
+			    (object CategoryView "Logical View::ODB::gemini::sp::ipc" @33
 				location   	(1376, 240)
 				label      	(object ItemLabel
-				    Parent_View 	@41
+				    Parent_View 	@33
 				    location   	(1232, 156)
 				    fill_color 	13434879
 				    nlines     	2
@@ -1258,17 +1084,17 @@
 				quidu      	"3A6D520800CF"
 				width      	300
 				height     	180)
-			    (object ImportView "" @42
+			    (object ImportView "" @34
 				stereotype 	TRUE
 				line_color 	3342489
 				quidu      	"3A6D5B630079"
-				client     	@41
-				supplier   	@40
+				client     	@33
+				supplier   	@32
 				line_style 	0)
-			    (object CategoryView "Logical View::ODB::ODBAccess" @43
+			    (object CategoryView "Logical View::ODB::ODBAccess" @35
 				location   	(608, 688)
 				label      	(object ItemLabel
-				    Parent_View 	@43
+				    Parent_View 	@35
 				    location   	(464, 604)
 				    fill_color 	13434879
 				    nlines     	2
@@ -1281,13 +1107,13 @@
 				quidu      	"3A82989401FE"
 				width      	300
 				height     	180)
-			    (object ClassView "Class" "Logical View::ODB::ODBServer" @44
+			    (object ClassView "Class" "Logical View::ODB::ODBServer" @36
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
 				location   	(1328, 608)
 				label      	(object ItemLabel
-				    Parent_View 	@44
+				    Parent_View 	@36
 				    location   	(1211, 557)
 				    fill_color 	13434879
 				    nlines     	1
@@ -1302,13 +1128,13 @@
 				height     	126
 				annotation 	8
 				autoResize 	TRUE)
-			    (object ClassView "Class" "Logical View::ODB::ODBAdmin" @45
+			    (object ClassView "Class" "Logical View::ODB::ODBAdmin" @37
 				ShowCompartmentStereotypes 	TRUE
 				IncludeAttribute 	TRUE
 				IncludeOperation 	TRUE
 				location   	(1312, 864)
 				label      	(object ItemLabel
-				    Parent_View 	@45
+				    Parent_View 	@37
 				    location   	(1196, 813)
 				    fill_color 	13434879
 				    nlines     	1
@@ -1322,7 +1148,31 @@
 				width      	250
 				height     	126
 				annotation 	8
-				autoResize 	TRUE))))))
+				autoResize 	TRUE)))))
+	    (object Class_Category "EDFREQ"
+		quid       	"3C1DDFE9024D"
+		documentation 	
+|Frequency Editor  for ACSIS.
+|
+		
+		visible_categories 	(list visibility_relationship_list
+		    (object Visibility_Relationship
+			quid       	"3C1DE1340217"
+			documentation 	
+|This dependenct will disappear when jdk1.4 or higher is used. At the moment the frequency editor needs an external xerces.jar file for saving and loading XML.
+|
+			
+			supplier   	"Logical View::ORAC::Tools"
+			quidu      	"3C1DE0EA02CF"))
+		exportControl 	"Public"
+		logical_models 	(list unit_reference_list
+		    (object Class_Category "edfreq"
+			quid       	"3C1DE1D300F3"
+			documentation 	"Frequency package java package."
+			exportControl 	"Public"
+			logical_models 	(list unit_reference_list)
+			logical_presentations 	(list unit_reference_list)))
+		logical_presentations 	(list unit_reference_list)))
 	logical_presentations 	(list unit_reference_list
 	    (object ClassDiagram "Main"
 		quid       	"3A6D51AC0005"
@@ -1339,10 +1189,10 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object CategoryView "Logical View::OT" @46
+		    (object CategoryView "Logical View::OT" @38
 			location   	(1200, 1824)
 			label      	(object ItemLabel
-			    Parent_View 	@46
+			    Parent_View 	@38
 			    location   	(1056, 1740)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1355,10 +1205,10 @@
 			quidu      	"3A6EED7D020A"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::ORAC" @47
+		    (object CategoryView "Logical View::ORAC" @39
 			location   	(1264, 704)
 			label      	(object ItemLabel
-			    Parent_View 	@47
+			    Parent_View 	@39
 			    location   	(1120, 620)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1371,10 +1221,10 @@
 			quidu      	"3A6EED820185"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::OM" @48
+		    (object CategoryView "Logical View::OM" @40
 			location   	(416, 1808)
 			label      	(object ItemLabel
-			    Parent_View 	@48
+			    Parent_View 	@40
 			    location   	(272, 1724)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1387,10 +1237,10 @@
 			quidu      	"3A6EED8F03D3"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::GEMINI" @49
+		    (object CategoryView "Logical View::GEMINI" @41
 			location   	(736, 112)
 			label      	(object ItemLabel
-			    Parent_View 	@49
+			    Parent_View 	@41
 			    location   	(592, 28)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1403,42 +1253,10 @@
 			quidu      	"3A6EED980231"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::EXTERNAL::javahelp" @50
-			location   	(1760, 672)
-			label      	(object ItemLabel
-			    Parent_View 	@50
-			    location   	(1548, 562)
-			    fill_color 	13434879
-			    nlines     	2
-			    max_width  	424
-			    justify    	0
-			    label      	"javahelp")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"3A6D772E01B6"
-			width      	437
-			height     	232)
-		    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky" @51
-			location   	(1568, 1488)
-			label      	(object ItemLabel
-			    Parent_View 	@51
-			    location   	(1278, 1394)
-			    fill_color 	13434879
-			    nlines     	2
-			    max_width  	580
-			    justify    	0
-			    label      	"Libraries needed by jsky")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"3A6D771302EE"
-			width      	593
-			height     	200)
-		    (object CategoryView "Logical View::ODB" @52
+		    (object CategoryView "Logical View::ODB" @42
 			location   	(768, 992)
 			label      	(object ItemLabel
-			    Parent_View 	@52
+			    Parent_View 	@42
 			    location   	(624, 908)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1451,82 +1269,144 @@
 			quidu      	"3A81881C0274"
 			width      	300
 			height     	180)
-		    (object ImportView "" @53
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A6EEF9801D3"
-			client     	@46
-			supplier   	@47
-			line_style 	0)
-		    (object ImportView "" @54
+		    (object ImportView "" @43
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEF9E0109"
-			client     	@48
-			supplier   	@47
+			client     	@40
+			supplier   	@39
 			line_style 	0)
-		    (object ImportView "" @55
+		    (object ImportView "" @44
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEF930031"
-			client     	@48
-			supplier   	@49
+			client     	@40
+			supplier   	@41
+			line_style 	0)
+		    (object ImportView "" @45
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A818843023E"
+			client     	@42
+			supplier   	@41
+			line_style 	0)
+		    (object ImportView "" @46
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A8188C0019D"
+			client     	@40
+			supplier   	@42
+			line_style 	0)
+		    (object ImportView "" @47
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A818A6D014A"
+			client     	@42
+			supplier   	@39
+			line_style 	0)
+		    (object CategoryView "Logical View::EDFREQ" @48
+			location   	(1552, 1408)
+			label      	(object ItemLabel
+			    Parent_View 	@48
+			    location   	(1408, 1324)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"EDFREQ")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3C1DDFE9024D"
+			width      	300
+			height     	180)
+		    (object ImportView "" @49
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6EEF9801D3"
+			client     	@38
+			supplier   	@39
+			line_style 	0)
+		    (object ImportView "" @50
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A6EEF8C0280"
+			client     	@38
+			supplier   	@41
+			line_style 	0)
+		    (object ImportView "" @51
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3A8188C3021A"
+			client     	@38
+			supplier   	@42
+			line_style 	0)
+		    (object ImportView "" @52
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3C1DE014001E"
+			client     	@38
+			supplier   	@48
+			line_style 	0)
+		    (object CategoryView "Logical View::ORAC::Tools" @53
+			location   	(1728, 448)
+			label      	(object ItemLabel
+			    Parent_View 	@53
+			    location   	(1584, 364)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"Tools")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3C1DE0EA02CF"
+			width      	300
+			height     	180)
+		    (object CategoryView "Logical View::OT::Tools" @54
+			location   	(2192, 1408)
+			label      	(object ItemLabel
+			    Parent_View 	@54
+			    location   	(2048, 1324)
+			    fill_color 	13434879
+			    nlines     	2
+			    max_width  	288
+			    justify    	0
+			    label      	"Tools")
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"3C1DE0F301E1"
+			width      	300
+			height     	180)
+		    (object ImportView "" @55
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"3C1DE14000F1"
+			client     	@38
+			supplier   	@54
 			line_style 	0)
 		    (object ImportView "" @56
 			stereotype 	TRUE
 			line_color 	3342489
-			quidu      	"3A6EEFCE027B"
-			client     	@47
-			supplier   	@49
+			quidu      	"3C1DE1340217"
+			client     	@48
+			supplier   	@53
 			line_style 	0)
 		    (object ImportView "" @57
 			stereotype 	TRUE
 			line_color 	3342489
-			quidu      	"3A6EEF8C0280"
-			client     	@46
-			supplier   	@49
+			quidu      	"3A6EEFCE027B"
+			client     	@39
+			supplier   	@41
 			line_style 	0)
 		    (object ImportView "" @58
 			stereotype 	TRUE
 			line_color 	3342489
-			quidu      	"3A755BF70298"
-			client     	@47
-			supplier   	@50
-			line_style 	0)
-		    (object ImportView "" @59
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A7021D102D7"
-			client     	@46
-			supplier   	@51
-			line_style 	0)
-		    (object ImportView "" @60
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A818843023E"
-			client     	@52
-			supplier   	@49
-			line_style 	0)
-		    (object ImportView "" @61
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A8188C0019D"
-			client     	@48
-			supplier   	@52
-			line_style 	0)
-		    (object ImportView "" @62
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A8188C3021A"
-			client     	@46
-			supplier   	@52
-			line_style 	0)
-		    (object ImportView "" @63
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A818A6D014A"
-			client     	@52
-			supplier   	@47
+			quidu      	"3C1DE12E000F"
+			client     	@39
+			supplier   	@53
 			line_style 	0)))
 	    (object ClassDiagram "OldJavaPackageDependencies"
 		quid       	"3A6EED5401CF"
@@ -1537,10 +1417,10 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object CategoryView "Logical View::GEMINI::gemini" @64
+		    (object CategoryView "Logical View::GEMINI::gemini" @59
 			location   	(176, 400)
 			label      	(object ItemLabel
-			    Parent_View 	@64
+			    Parent_View 	@59
 			    location   	(32, 316)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1553,10 +1433,10 @@
 			quidu      	"3A6D51CF03D0"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::OT::ot::ukirt" @65
+		    (object CategoryView "Logical View::OT::ot::ukirt" @60
 			location   	(1856, 1840)
 			label      	(object ItemLabel
-			    Parent_View 	@65
+			    Parent_View 	@60
 			    location   	(1712, 1756)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1569,10 +1449,10 @@
 			quidu      	"3A6D54200026"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::ODB::ODBServerPackage" @66
+		    (object CategoryView "Logical View::ODB::ODBServerPackage" @61
 			location   	(992, 512)
 			label      	(object ItemLabel
-			    Parent_View 	@66
+			    Parent_View 	@61
 			    location   	(848, 428)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1585,10 +1465,10 @@
 			quidu      	"3A6D54150156"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::OT::ot" @67
+		    (object CategoryView "Logical View::OT::ot" @62
 			location   	(1552, 2128)
 			label      	(object ItemLabel
-			    Parent_View 	@67
+			    Parent_View 	@62
 			    location   	(1408, 2044)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1601,10 +1481,10 @@
 			quidu      	"3A6D5D740160"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::OT::jsky" @68
+		    (object CategoryView "Logical View::OT::jsky" @63
 			location   	(752, 2128)
 			label      	(object ItemLabel
-			    Parent_View 	@68
+			    Parent_View 	@63
 			    location   	(405, 2093)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1612,7 +1492,7 @@
 			    justify    	0
 			    label      	"jsky")
 			stereotype 	(object ItemLabel
-			    Parent_View 	@68
+			    Parent_View 	@63
 			    location   	(405, 2043)
 			    fill_color 	13434879
 			    anchor     	10
@@ -1626,42 +1506,10 @@
 			quidu      	"3A6D76E1026A"
 			width      	706
 			height     	182)
-		    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky" @69
-			location   	(2384, 1232)
-			label      	(object ItemLabel
-			    Parent_View 	@69
-			    location   	(2187, 1148)
-			    fill_color 	13434879
-			    nlines     	2
-			    max_width  	394
-			    justify    	0
-			    label      	"Libraries needed by jsky")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"3A6D771302EE"
-			width      	406
-			height     	181)
-		    (object CategoryView "Logical View::EXTERNAL::javahelp" @70
-			location   	(2384, 912)
-			label      	(object ItemLabel
-			    Parent_View 	@70
-			    location   	(2190, 793)
-			    fill_color 	13434879
-			    nlines     	2
-			    max_width  	388
-			    justify    	0
-			    label      	"javahelp")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"3A6D772E01B6"
-			width      	400
-			height     	250)
-		    (object CategoryView "Logical View::GEMINI::gemini::sp" @71
+		    (object CategoryView "Logical View::GEMINI::gemini::sp" @64
 			location   	(512, 400)
 			label      	(object ItemLabel
-			    Parent_View 	@71
+			    Parent_View 	@64
 			    location   	(368, 316)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1674,10 +1522,10 @@
 			quidu      	"3A6D51D60344"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::ODB::gemini::sp::ipc" @72
+		    (object CategoryView "Logical View::ODB::gemini::sp::ipc" @65
 			location   	(480, 704)
 			label      	(object ItemLabel
-			    Parent_View 	@72
+			    Parent_View 	@65
 			    location   	(336, 620)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1690,10 +1538,10 @@
 			quidu      	"3A6D520800CF"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::OT::ot::ukirt::tpe" @73
+		    (object CategoryView "Logical View::OT::ot::ukirt::tpe" @66
 			location   	(1968, 2144)
 			label      	(object ItemLabel
-			    Parent_View 	@73
+			    Parent_View 	@66
 			    location   	(1824, 2060)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1706,10 +1554,10 @@
 			quidu      	"3A6D7FBF011A"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::GEMINI::util" @74
+		    (object CategoryView "Logical View::GEMINI::util" @67
 			location   	(1120, 176)
 			label      	(object ItemLabel
-			    Parent_View 	@74
+			    Parent_View 	@67
 			    location   	(976, 92)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1722,31 +1570,24 @@
 			quidu      	"3A6ECA8A010A"
 			width      	300
 			height     	180)
-		    (object ImportView "" @75
+		    (object ImportView "" @68
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D83D500BA"
-			client     	@67
-			supplier   	@64
+			client     	@62
+			supplier   	@59
 			line_style 	0)
-		    (object ImportView "" @76
+		    (object ImportView "" @69
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D5B630079"
-			client     	@72
-			supplier   	@66
+			client     	@65
+			supplier   	@61
 			line_style 	0)
-		    (object ImportView "" @77
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A6D804000CF"
-			client     	@73
-			supplier   	@69
-			line_style 	0)
-		    (object CategoryView "Logical View::OM::om::sciProgram" @78
+		    (object CategoryView "Logical View::OM::om::sciProgram" @70
 			location   	(208, 1536)
 			label      	(object ItemLabel
-			    Parent_View 	@78
+			    Parent_View 	@70
 			    location   	(64, 1452)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1759,17 +1600,17 @@
 			quidu      	"3A6EF1810046"
 			width      	300
 			height     	180)
-		    (object ImportView "" @79
+		    (object ImportView "" @71
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EF19703D6"
-			client     	@78
-			supplier   	@72
+			client     	@70
+			supplier   	@65
 			line_style 	0)
-		    (object CategoryView "Logical View::ORAC::orac::helptool" @80
+		    (object CategoryView "Logical View::ORAC::orac::helptool" @72
 			location   	(1504, 912)
 			label      	(object ItemLabel
-			    Parent_View 	@80
+			    Parent_View 	@72
 			    location   	(1360, 828)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1782,17 +1623,10 @@
 			quidu      	"3A6EF3170338"
 			width      	300
 			height     	180)
-		    (object ImportView "" @81
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A6D788F0218"
-			client     	@80
-			supplier   	@70
-			line_style 	0)
-		    (object CategoryView "Logical View::OM::om" @82
+		    (object CategoryView "Logical View::OM::om" @73
 			location   	(160, 1792)
 			label      	(object ItemLabel
-			    Parent_View 	@82
+			    Parent_View 	@73
 			    location   	(16, 1708)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1805,38 +1639,38 @@
 			quidu      	"3A6EF17A023A"
 			width      	300
 			height     	180)
-		    (object ImportView "" @83
+		    (object ImportView "" @74
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EF36C0395"
-			client     	@80
-			supplier   	@82
+			client     	@72
+			supplier   	@73
 			line_style 	0)
-		    (object ImportView "" @84
+		    (object ImportView "" @75
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EF4340360"
-			client     	@72
-			supplier   	@71
+			client     	@65
+			supplier   	@64
 			line_style 	0)
-		    (object ImportView "" @85
+		    (object ImportView "" @76
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D5AA40287"
-			client     	@66
-			supplier   	@71
+			client     	@61
+			supplier   	@64
 			line_style 	0)
-		    (object ImportView "" @86
+		    (object ImportView "" @77
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D5475015E"
-			client     	@66
-			supplier   	@74
+			client     	@61
+			supplier   	@67
 			line_style 	0)
-		    (object CategoryView "Logical View::ORAC" @87
+		    (object CategoryView "Logical View::ORAC" @78
 			location   	(1664, 704)
 			label      	(object ItemLabel
-			    Parent_View 	@87
+			    Parent_View 	@78
 			    location   	(1520, 620)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1849,61 +1683,54 @@
 			quidu      	"3A6EED820185"
 			width      	300
 			height     	180)
-		    (object ImportView "" @88
+		    (object ImportView "" @79
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D784B0238"
-			client     	@68
-			supplier   	@67
+			client     	@63
+			supplier   	@62
 			line_style 	0)
-		    (object ImportView "" @89
+		    (object ImportView "" @80
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D784D03AE"
-			client     	@68
-			supplier   	@64
+			client     	@63
+			supplier   	@59
 			line_style 	0)
-		    (object ImportView "" @90
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A6D773D01CC"
-			client     	@68
-			supplier   	@69
-			line_style 	0)
-		    (object ImportView "" @91
+		    (object ImportView "" @81
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EF3400247"
-			client     	@68
-			supplier   	@80
+			client     	@63
+			supplier   	@72
 			line_style 	0)
-		    (object ImportView "" @92
+		    (object ImportView "" @82
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EF633036F"
-			client     	@68
-			supplier   	@72
+			client     	@63
+			supplier   	@65
 			line_style 	0)
-		    (object ImportView "" @93
+		    (object ImportView "" @83
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D8323017C"
-			client     	@65
-			supplier   	@64
+			client     	@60
+			supplier   	@59
 			line_style 	0)
-		    (object ImportView "" @94
+		    (object ImportView "" @84
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6D83190113"
-			client     	@65
-			supplier   	@67
+			client     	@60
+			supplier   	@62
 			line_style 	0)
-		    (object ImportView "" @95
+		    (object ImportView "" @85
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6F0A5F01C6"
-			client     	@65
-			supplier   	@66
+			client     	@60
+			supplier   	@61
 			line_style 	0)))
 	    (object ClassDiagram "Old"
 		quid       	"3A87C3FA0357"
@@ -1914,10 +1741,10 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object CategoryView "Logical View::OT" @96
+		    (object CategoryView "Logical View::OT" @86
 			location   	(944, 1472)
 			label      	(object ItemLabel
-			    Parent_View 	@96
+			    Parent_View 	@86
 			    location   	(800, 1388)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1930,10 +1757,10 @@
 			quidu      	"3A6EED7D020A"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::ORAC" @97
+		    (object CategoryView "Logical View::ORAC" @87
 			location   	(944, 816)
 			label      	(object ItemLabel
-			    Parent_View 	@97
+			    Parent_View 	@87
 			    location   	(800, 732)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1946,10 +1773,10 @@
 			quidu      	"3A6EED820185"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::OM" @98
+		    (object CategoryView "Logical View::OM" @88
 			location   	(336, 1456)
 			label      	(object ItemLabel
-			    Parent_View 	@98
+			    Parent_View 	@88
 			    location   	(192, 1372)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1962,10 +1789,10 @@
 			quidu      	"3A6EED8F03D3"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::GEMINI" @99
+		    (object CategoryView "Logical View::GEMINI" @89
 			location   	(336, 112)
 			label      	(object ItemLabel
-			    Parent_View 	@99
+			    Parent_View 	@89
 			    location   	(192, 28)
 			    fill_color 	13434879
 			    nlines     	2
@@ -1978,86 +1805,40 @@
 			quidu      	"3A6EED980231"
 			width      	300
 			height     	180)
-		    (object CategoryView "Logical View::EXTERNAL::javahelp" @100
-			location   	(1344, 432)
-			label      	(object ItemLabel
-			    Parent_View 	@100
-			    location   	(1132, 322)
-			    fill_color 	13434879
-			    nlines     	2
-			    max_width  	424
-			    justify    	0
-			    label      	"javahelp")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"3A6D772E01B6"
-			width      	437
-			height     	232)
-		    (object CategoryView "Logical View::EXTERNAL::Libraries needed by jsky" @101
-			location   	(1312, 1136)
-			label      	(object ItemLabel
-			    Parent_View 	@101
-			    location   	(1022, 1042)
-			    fill_color 	13434879
-			    nlines     	2
-			    max_width  	580
-			    justify    	0
-			    label      	"Libraries needed by jsky")
-			icon_style 	"Icon"
-			line_color 	3342489
-			fill_color 	13434879
-			quidu      	"3A6D771302EE"
-			width      	593
-			height     	200)
-		    (object ImportView "" @102
+		    (object ImportView "" @90
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEF9801D3"
-			client     	@96
-			supplier   	@97
+			client     	@86
+			supplier   	@87
 			line_style 	0)
-		    (object ImportView "" @103
+		    (object ImportView "" @91
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEF9E0109"
-			client     	@98
-			supplier   	@97
+			client     	@88
+			supplier   	@87
 			line_style 	0)
-		    (object ImportView "" @104
+		    (object ImportView "" @92
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEF930031"
-			client     	@98
-			supplier   	@99
+			client     	@88
+			supplier   	@89
 			line_style 	0)
-		    (object ImportView "" @105
+		    (object ImportView "" @93
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEFCE027B"
-			client     	@97
-			supplier   	@99
+			client     	@87
+			supplier   	@89
 			line_style 	0)
-		    (object ImportView "" @106
+		    (object ImportView "" @94
 			stereotype 	TRUE
 			line_color 	3342489
 			quidu      	"3A6EEF8C0280"
-			client     	@96
-			supplier   	@99
-			line_style 	0)
-		    (object ImportView "" @107
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A755BF70298"
-			client     	@97
-			supplier   	@100
-			line_style 	0)
-		    (object ImportView "" @108
-			stereotype 	TRUE
-			line_color 	3342489
-			quidu      	"3A7021D102D7"
-			client     	@96
-			supplier   	@101
+			client     	@86
+			supplier   	@89
 			line_style 	0)))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"3A6D51AA005F"
@@ -2101,10 +1882,10 @@
 		origin_x   	0
 		origin_y   	0
 		items      	(list diagram_item_list
-		    (object SubSysView "Component View::OT" @109
+		    (object SubSysView "Component View::OT" @95
 			location   	(960, 1232)
 			label      	(object ItemLabel
-			    Parent_View 	@109
+			    Parent_View 	@95
 			    location   	(816, 1163)
 			    fill_color 	13434879
 			    nlines     	2
@@ -2117,10 +1898,10 @@
 			quidu      	"3A87C5F200BD"
 			width      	300
 			height     	150)
-		    (object SubSysView "Component View::ORAC" @110
+		    (object SubSysView "Component View::ORAC" @96
 			location   	(848, 480)
 			label      	(object ItemLabel
-			    Parent_View 	@110
+			    Parent_View 	@96
 			    location   	(704, 411)
 			    fill_color 	13434879
 			    nlines     	2
@@ -2133,10 +1914,10 @@
 			quidu      	"3A87C62A00EF"
 			width      	300
 			height     	150)
-		    (object SubSysView "Component View::OM" @111
+		    (object SubSysView "Component View::OM" @97
 			location   	(240, 1232)
 			label      	(object ItemLabel
-			    Parent_View 	@111
+			    Parent_View 	@97
 			    location   	(96, 1163)
 			    fill_color 	13434879
 			    nlines     	2
@@ -2149,10 +1930,10 @@
 			quidu      	"3A87C62F0381"
 			width      	300
 			height     	150)
-		    (object SubSysView "Component View::GEMINI" @112
+		    (object SubSysView "Component View::GEMINI" @98
 			location   	(224, 192)
 			label      	(object ItemLabel
-			    Parent_View 	@112
+			    Parent_View 	@98
 			    location   	(80, 123)
 			    fill_color 	13434879
 			    nlines     	2
@@ -2165,10 +1946,10 @@
 			quidu      	"3A87C635033A"
 			width      	300
 			height     	150)
-		    (object SubSysView "Component View::ODB" @113
+		    (object SubSysView "Component View::ODB" @99
 			location   	(432, 784)
 			label      	(object ItemLabel
-			    Parent_View 	@113
+			    Parent_View 	@99
 			    location   	(288, 715)
 			    fill_color 	13434879
 			    nlines     	2
