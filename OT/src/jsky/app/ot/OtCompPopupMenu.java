@@ -41,7 +41,10 @@ class OtCompPopupMenu extends JPopupMenu {
 
 	// Add each type
 	for (int i=0; i<sst.length; ++i) {
-	    _add(treeWidget, sst[i].spType);
+	    // Site quality (shedInfo) has been added already (above the separator), MFO, May 31, 2001
+	    if(!sst[i].spType.getSubtype().equals("schedInfo")) {
+	        _add(treeWidget, sst[i].spType);
+	    }	
 	}
     }
 
