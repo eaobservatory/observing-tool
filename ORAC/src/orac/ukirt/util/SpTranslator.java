@@ -1880,6 +1880,7 @@ public class SpTranslator {
                   _writeAttribute( conpw, workConfig, "idlePeriod" );
                   _writeAttribute( conpw, workConfig, "observationTime" );
                   _writeAttribute( conpw, workConfig, "darkFilter" );
+                  _writeAttribute( conpw, workConfig, "darkNumExp" );
 
                } else if ( workConfig.get( "type" ).equals( "flat" ) ) {
                   _writeAttribute( conpw, workConfig, "configType" );
