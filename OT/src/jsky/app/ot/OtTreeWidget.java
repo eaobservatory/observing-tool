@@ -347,7 +347,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget
     SpInsertData spID = SpTreeMan.evalInsertAfter(newItem, getSelectedItem());
 
     if(spID == null) {
-      return null;
+	spID = SpTreeMan.evalInsertInside(newItem, getSelectedItem());
+	if (spID == null) {
+	    return null;
+	}
     }
 
     return addItems( spID );
