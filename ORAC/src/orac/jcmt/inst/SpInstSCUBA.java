@@ -66,7 +66,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
   private static double _chopFrequency = 8.0;
 
   /**
-   * @see #getDefaultScanDx()
+   * @see #getDefaultScanVelocity()
    */
   private static double _defaultScanDx = 3.0;
 
@@ -282,8 +282,8 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    *
    * The default value is 3.0. This can be changed in the scuba.cfg file.
    */
-  public double getDefaultScanDx() {
-    return _defaultScanDx;
+  public double getDefaultScanVelocity() {
+    return _chopFrequency * _defaultScanDx;
   }
 
   /**
