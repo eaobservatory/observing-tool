@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>michelle_final_library.xml</meta_gui_filename>
-  <ot_version>20040307</ot_version>
+  <meta_gui_filename>michelle_final_library_thk.xml</meta_gui_filename>
+  <ot_version>20040311</ot_version>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>Michelle</title>
@@ -2388,11 +2388,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -2404,7 +2404,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -2488,7 +2488,7 @@ Note that chop parameters are set up in this target component.</note>
             <title>POINT_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -2499,11 +2499,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -2515,7 +2515,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -2729,7 +2729,7 @@ Be sure to hit the default button in the flat editor if you change the configura
             <title>STANDARD_STAR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -2740,11 +2740,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -2756,7 +2756,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -2838,7 +2838,7 @@ Note that chop parameters are set up in this target component.</note>
             <title>POINT_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -2849,11 +2849,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -2865,7 +2865,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -3093,7 +3093,7 @@ Be sure to hit the default button in the flat editor if you change the configura
             <title>STANDARD_STAR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -3104,11 +3104,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -3120,7 +3120,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -3202,7 +3202,7 @@ It the Michelle configuration from the components at the start of this MSB but s
             <title>POINT_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -3213,11 +3213,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -3229,7 +3229,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -3277,11 +3277,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstMichelleRef idref="12"/>
         <SpTelescopeObsCompRef idref="11"/>
-        <estimatedDuration units="seconds">774.0522384276001</estimatedDuration>
+        <estimatedDuration units="seconds">756.0852450404</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Echelle point source spectroscopy</title>
-        <totalDuration units="seconds">774.0522384276001</totalDuration>
+        <totalDuration units="seconds">756.0852450404</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes echelle spectroscopy of an extended source. First it slews to a standard star, takes flat observations, and then takes science data at the target. Chopping is switched off; nodding is along the slit.</note>
@@ -3300,12 +3300,12 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <centralWavelength>10.0</centralWavelength>
           <chopDelay>0.015</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>7</coadds>
+          <coadds>3</coadds>
           <configType>Normal</configType>
           <darkFilter>Blank</darkFilter>
           <disperser>Echelle</disperser>
-          <dutyCycle>0.9864918408118798</dutyCycle>
-          <exposureTime>2.8000000000000003</exposureTime>
+          <dutyCycle>0.9871114894822929</dutyCycle>
+          <exposureTime>6.0</exposureTime>
           <filter>I97B10</filter>
           <filterCategory>Nband</filterCategory>
           <filterOT>F105B53</filterOT>
@@ -3325,18 +3325,18 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <maskAngle>66.4047</maskAngle>
           <mode>NDSTARE</mode>
           <mustIdles>0</mustIdles>
-          <nreads>281</nreads>
+          <nreads>121</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>1</nullReads>
           <obsTimeOT>20.0</obsTimeOT>
-          <observationTime>19.868385311600004</observationTime>
+          <observationTime>18.235022276400006</observationTime>
           <order>8</order>
           <pixelFOV>0.95 x 0.15</pixelFOV>
           <polarimetry>no</polarimetry>
           <posAngle>0.0</posAngle>
-          <readInterval>0.01</readInterval>
+          <readInterval>0.05</readInterval>
           <resetDelay>0.01</resetDelay>
           <sampling>1x1</sampling>
           <scienceArea>1.9 x 36.51</scienceArea>
@@ -3368,11 +3368,11 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
           </BASE>
           <chopAngle>0.0</chopAngle>
           <chopThrow>10.36</chopThrow>
-          <chopping>false</chopping>
+          <chopping>true</chopping>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">50.36838531160001</estimatedDuration>
+          <estimatedDuration units="seconds">48.7350222764</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -3408,22 +3408,22 @@ Be sure to hit the default button in the flat editor if you change the configura
               <calType>Flat</calType>
               <chopDelay>0.015</chopDelay>
               <chopFrequency>0.0</chopFrequency>
-              <coadds>7</coadds>
-              <dutyCycle>0.9864918408118798</dutyCycle>
-              <exposureTime>2.8000000000000003</exposureTime>
+              <coadds>3</coadds>
+              <dutyCycle>0.9871114894822929</dutyCycle>
+              <exposureTime>6.0</exposureTime>
               <filter>I97B10</filter>
               <flatSource>shutter</flatSource>
               <idlePeriod>0.03</idlePeriod>
               <mode>NDSTARE</mode>
               <mustIdles>0</mustIdles>
-              <nreads>281</nreads>
+              <nreads>121</nreads>
               <nresets>1</nresets>
               <nullCycles>0</nullCycles>
               <nullExposures>0</nullExposures>
               <nullReads>1</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>19.868385311600004</observationTime>
-              <readInterval>0.01</readInterval>
+              <observationTime>18.235022276400006</observationTime>
+              <readInterval>0.05</readInterval>
               <repeatCount>1</repeatCount>
               <resetDelay>0.01</resetDelay>
               <sampling>as object</sampling>
@@ -3433,7 +3433,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">121.84192655800003</estimatedDuration>
+          <estimatedDuration units="seconds">113.67511138200003</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3466,11 +3466,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>Echelle</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -3482,7 +3482,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -3527,7 +3527,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">121.84192655800003</estimatedDuration>
+          <estimatedDuration units="seconds">113.67511138200003</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -3580,7 +3580,7 @@ Note that chop parameters are set up in this target component.</note>
             <title>POINT_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -3591,11 +3591,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>Echelle</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -3607,7 +3607,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -3655,11 +3655,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstMichelleRef idref="14"/>
         <SpTelescopeObsCompRef idref="13"/>
-        <estimatedDuration units="seconds">774.0522384276001</estimatedDuration>
+        <estimatedDuration units="seconds">756.0852450404</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Echelle extended source spectroscopy</title>
-        <totalDuration units="seconds">774.0522384276001</totalDuration>
+        <totalDuration units="seconds">756.0852450404</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes echelle spectroscopy of an extended source. First it slews to a standard star, takes flat observations, and then takes science data at the target. Chopping is switched off; nodding is off the slit by 90 arcseconds.</note>
@@ -3678,12 +3678,12 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <centralWavelength>10.0</centralWavelength>
           <chopDelay>0.015</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>7</coadds>
+          <coadds>3</coadds>
           <configType>Normal</configType>
           <darkFilter>Blank</darkFilter>
           <disperser>Echelle</disperser>
-          <dutyCycle>0.9864918408118798</dutyCycle>
-          <exposureTime>2.8000000000000003</exposureTime>
+          <dutyCycle>0.9871114894822929</dutyCycle>
+          <exposureTime>6.0</exposureTime>
           <filter>I97B10</filter>
           <filterCategory>Nband</filterCategory>
           <filterOT>F105B53</filterOT>
@@ -3703,18 +3703,18 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <maskAngle>66.4047</maskAngle>
           <mode>NDSTARE</mode>
           <mustIdles>0</mustIdles>
-          <nreads>281</nreads>
+          <nreads>121</nreads>
           <nresets>1</nresets>
           <nullCycles>0</nullCycles>
           <nullExposures>0</nullExposures>
           <nullReads>1</nullReads>
           <obsTimeOT>20.0</obsTimeOT>
-          <observationTime>19.868385311600004</observationTime>
+          <observationTime>18.235022276400006</observationTime>
           <order>8</order>
           <pixelFOV>0.95 x 0.15</pixelFOV>
           <polarimetry>no</polarimetry>
           <posAngle>0.0</posAngle>
-          <readInterval>0.01</readInterval>
+          <readInterval>0.05</readInterval>
           <resetDelay>0.01</resetDelay>
           <sampling>1x1</sampling>
           <scienceArea>1.9 x 36.51</scienceArea>
@@ -3746,11 +3746,11 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
           </BASE>
           <chopAngle>0.0</chopAngle>
           <chopThrow>10.36</chopThrow>
-          <chopping>false</chopping>
+          <chopping>true</chopping>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">50.36838531160001</estimatedDuration>
+          <estimatedDuration units="seconds">48.7350222764</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -3786,22 +3786,22 @@ Be sure to hit the default button in the flat editor if you change the configura
               <calType>Flat</calType>
               <chopDelay>0.015</chopDelay>
               <chopFrequency>0.0</chopFrequency>
-              <coadds>7</coadds>
-              <dutyCycle>0.9864918408118798</dutyCycle>
-              <exposureTime>2.8000000000000003</exposureTime>
+              <coadds>3</coadds>
+              <dutyCycle>0.9871114894822929</dutyCycle>
+              <exposureTime>6.0</exposureTime>
               <filter>I97B10</filter>
               <flatSource>shutter</flatSource>
               <idlePeriod>0.03</idlePeriod>
               <mode>NDSTARE</mode>
               <mustIdles>0</mustIdles>
-              <nreads>281</nreads>
+              <nreads>121</nreads>
               <nresets>1</nresets>
               <nullCycles>0</nullCycles>
               <nullExposures>0</nullExposures>
               <nullReads>1</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>19.868385311600004</observationTime>
-              <readInterval>0.01</readInterval>
+              <observationTime>18.235022276400006</observationTime>
+              <readInterval>0.05</readInterval>
               <repeatCount>1</repeatCount>
               <resetDelay>0.01</resetDelay>
               <sampling>as object</sampling>
@@ -3811,7 +3811,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">121.84192655800003</estimatedDuration>
+          <estimatedDuration units="seconds">113.67511138200003</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3833,7 +3833,7 @@ Be sure to hit the default button in the flat editor if you change the configura
             <title>STANDARD_STAR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -3844,11 +3844,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>Echelle</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -3860,7 +3860,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -3905,7 +3905,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">121.84192655800003</estimatedDuration>
+          <estimatedDuration units="seconds">113.67511138200003</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -3956,7 +3956,7 @@ It the Michelle configuration from the components at the start of this MSB but s
             <title>POINT_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -3967,11 +3967,11 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>3.3579248485948874</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>3.599673511196391</chopFrequency>
+              <coadds>30</coadds>
               <disperser>Echelle</disperser>
-              <dutyCycle>0.8226156142150437</dutyCycle>
-              <exposureTime>0.1</exposureTime>
+              <dutyCycle>0.809568982976449</dutyCycle>
+              <exposureTime>0.09</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mask>16_pixels</mask>
@@ -3983,7 +3983,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
               <nullExposures>0</nullExposures>
               <nullReads>0</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>40.7990071777</observationTime>
+              <observationTime>40.8370368987</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -4861,7 +4861,6 @@ Note that the chop parameters are also set up in this component.</note>
           <exposureTime>0.43</exposureTime>
           <filter>NPBlock</filter>
           <filterCategory>Nband</filterCategory>
-          <filterOT>F105B53</filterOT>
           <idlePeriod>0.03</idlePeriod>
           <instAper>
             <value>0.59</value>
@@ -4946,7 +4945,7 @@ Be sure to hit the default button in the flat editor if you change the configura
             <title>REDUCE_SINGLE_FRAME</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterMichelleCalObs type="ic" subtype="MichelleCalObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <calType>Flat</calType>
@@ -4982,7 +4981,7 @@ Be sure to hit the default button in the flat editor if you change the configura
           <standard>true</standard>
           <title>Standard star</title>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>TARGET ACQUISITION - new as of Semester 04A
@@ -4993,22 +4992,22 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>1.8633024749425429</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>1.9354282395178906</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8068602838890193</dutyCycle>
-              <exposureTime>0.2</exposureTime>
+              <dutyCycle>0.8008863637007411</dutyCycle>
+              <exposureTime>0.19</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mode>NDCHOP</mode>
               <mustIdles>0</mustIdles>
-              <nreads>21</nreads>
+              <nreads>20</nreads>
               <nresets>1</nresets>
               <nullCycles>3</nullCycles>
               <nullExposures>0</nullExposures>
               <nullReads>1</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>41.861158372800006</observationTime>
+              <observationTime>41.334521408</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
@@ -5105,22 +5104,22 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
             <SpIterMichelleTargetAcq type="ic" subtype="instMichelleTargetAcq">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <chopDelay>0.015</chopDelay>
-              <chopFrequency>1.8633024749425429</chopFrequency>
-              <coadds>1</coadds>
+              <chopFrequency>1.9354282395178906</chopFrequency>
+              <coadds>30</coadds>
               <disperser>LowN</disperser>
-              <dutyCycle>0.8068602838890193</dutyCycle>
-              <exposureTime>0.2</exposureTime>
+              <dutyCycle>0.8008863637007411</dutyCycle>
+              <exposureTime>0.19</exposureTime>
               <filter>F116B9</filter>
               <idlePeriod>0.03</idlePeriod>
               <mode>NDCHOP</mode>
               <mustIdles>0</mustIdles>
-              <nreads>21</nreads>
+              <nreads>20</nreads>
               <nresets>1</nresets>
               <nullCycles>3</nullCycles>
               <nullExposures>0</nullExposures>
               <nullReads>1</nullReads>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>41.861158372800006</observationTime>
+              <observationTime>41.334521408</observationTime>
               <pixelFOV>0.2135 x 0.2135</pixelFOV>
               <readInterval>0.01</readInterval>
               <repeatCount>1</repeatCount>
