@@ -21,6 +21,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.DefaultListSelectionModel;
 
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.ListBoxWidgetWatcher;
@@ -30,7 +31,6 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.tpe.TpeManager;
 
-import orac.jcmt.SpJCMTConstants;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.iter.SpIterChop;
@@ -87,7 +87,10 @@ public class EdIterChop extends OtItemEditor
 
         // MFO: This is probaly JCMT specific. Might need modification
 	// when the Chop iterator is used with UKIRT.
-        _w.coordFrameListBox.setChoices(SpJCMTConstants.CHOP_SYSTEMS);
+        _w.coordFrameListBox.setChoices(OtCfg.telescopeUtil.getCoordSysFor(OtCfg.telescopeUtil.CHOP));
+	if(_w.coordFrameListBox.getItemCount() < 2) {
+	  _w.coordFrameListBox.setEnabled(false);
+	}
 
 	_w.throwTextBox.addWatcher(this);
 	_w.angleTextBox.addWatcher(this);
@@ -178,7 +181,7 @@ public class EdIterChop extends OtItemEditor
 	  Vector rowVector = new Vector();
 	  rowVector.add("0.0");
 	  rowVector.add("0.0");
-	  rowVector.add(SpJCMTConstants.CHOP_SYSTEMS[0]);
+	  rowVector.add(OtCfg.telescopeUtil.getCoordSysFor(OtCfg.telescopeUtil.CHOP)[0]);
 
 	  _iterTab.absInsertRowAt(rowVector, ++rowIndex);
 //	}
@@ -296,12 +299,9 @@ public class EdIterChop extends OtItemEditor
       }
 
       _ignoreGuiEvents = false;
-    
-      /*MFO DEBUG*/System.out.println("in tableRowSelected");
     }
 
     public void tableAction(TableWidgetExt w, int colIndex, int rowIndex) {
-/*MFO DEBUG*/System.out.println("in tableAction");
 	// Don't care ...
     }
 
@@ -386,13 +386,10 @@ public class EdIterChop extends OtItemEditor
 
 
   public void tableChanged(TableModelEvent e) {
-/*MFO DEBUG*/System.out.println("      IN tableChanged, ignoring?");
-
     if(_ignoreGuiEvents) {
       return;
     }
 
-/*MFO DEBUG*/System.out.println("            NOT ignoring");
     _iterChop.getTable().rmAll();
 
     for(int i = 0; i < _iterTab.getRowCount(); i++) {
