@@ -88,6 +88,18 @@ public class SpIterSkydipObs extends SpIterJCMTObs {
 	}
 	return time;
     }
+
+    public void setupForHeterodyne() {
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_POSITIONS, "0", 0);
+	_avTable.noNotifySet(ATTR_START_POSITION, START_POSITIONS[0], 0);
+    }
+
+    public void setupForSCUBA() {
+	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
+	_avTable.noNotifyRm(ATTR_POSITIONS);
+	_avTable.noNotifyRm(ATTR_START_POSITION);
+    }
 }
 
 

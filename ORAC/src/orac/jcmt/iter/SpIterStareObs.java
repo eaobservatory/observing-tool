@@ -35,7 +35,7 @@ import java.util.Enumeration;
 public class SpIterStareObs extends SpIterJCMTObs
 {
    public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "stareObs", "Photom/Stare");
+        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "stareObs", "Photom/Sample");
 
 // Register the prototype.
 static {
@@ -65,6 +65,22 @@ public double getElapsedTime() {
     }
    return (overhead + totalIntegrationTime);
 }
+
+    public void setupForHeterodyne() {
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "0", 0);
+	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
+	_avTable.set(ATTR_CONT_CAL, false);
+	_avTable.set(ATTR_CYCLE_REVERSAL, false);
+    }
+
+    public void setupForSCUBA() {
+	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
+	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
+	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
+	_avTable.noNotifyRm(ATTR_CONT_CAL);
+	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
+    }
 
 }
 

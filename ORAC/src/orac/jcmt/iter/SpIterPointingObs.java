@@ -57,7 +57,7 @@ public class SpIterPointingObs extends SpIterJCMTObs {
   public SpIterPointingObs() {
     super(SP_TYPE);
 
-    _avTable.noNotifySet(ATTR_POINTING_PIXEL, POINTING_PIXEL_AUTOMATIC, 0);
+//     _avTable.noNotifySet(ATTR_POINTING_PIXEL, POINTING_PIXEL_AUTOMATIC, 0);
     _avTable.noNotifySet(ATTR_AUTOMATIC_TARGET, "true", 0);
   }
 
@@ -89,6 +89,22 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
 	}
 	return (overhead + totalIntegrationTime);
+    }
+
+    public void setupForHeterodyne() {
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_POINTING_METHOD, "5-point", 0);
+	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "0", 0);
+	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
+	_avTable.noNotifySet(ATTR_SPECTRAL_MODE, SPECTRAL_MODE_SPECTRAL_LINE, 0);
+    }
+
+    public void setupForSCUBA() {
+	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
+	_avTable.noNotifyRm(ATTR_POINTING_METHOD);
+	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
+	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
+	_avTable.noNotifyRm(ATTR_SPECTRAL_MODE);
     }
 }
 

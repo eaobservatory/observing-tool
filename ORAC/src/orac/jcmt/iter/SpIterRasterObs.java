@@ -380,23 +380,28 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   }
 
   public double getElapsedTime() {
-    double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
+    
+    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+    if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
+    
+	// Get information specified by user in the OT.
+	double mapWidth           = getWidth();
+	double mapHeight          = getHeight();
+	double sampleDX           = getScanDx();  
+	double sampleDY           = getScanDy();
+	
+	// Calculate seconds per integration.
+	double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
+	double noOfRows           = Math.ceil(mapHeight / sampleDY);
+	double lengthOfRow        = mapWidth + SCUBA_ARRAY_DIAMETER;
+	double secsPerRow         = lengthOfRow / scanRate;
+	double secsPerIntegration = noOfRows * secsPerRow;
 
-    // Get information specified by user in the OT.
-    double mapWidth           = getWidth();
-    double mapHeight          = getHeight();
-    double sampleDX           = getScanDx();  
-    double sampleDY           = getScanDy();
-
-    // Calculate seconds per integration.
-    double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
-    double noOfRows           = Math.ceil(mapHeight / sampleDY);
-    double lengthOfRow        = mapWidth + SCUBA_ARRAY_DIAMETER;
-    double secsPerRow         = lengthOfRow / scanRate;
-    double secsPerIntegration = noOfRows * secsPerRow;
-
-    // Overhead is 50 percent for scan map.
-    return SCUBA_STARTUP_TIME +  (1.5 * secsPerIntegration);
+	// Overhead is 50 percent for scan map.
+	return SCUBA_STARTUP_TIME +  (1.5 * secsPerIntegration);
+    }
+    return 0.0;
   }
 
   /** Creates JAC TCS XML. */
@@ -527,5 +532,19 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
     super.processXmlAttribute(elementName, attributeName, value);
   }
+
+    public void setupForHeterodyne() {
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_ROWS_PER_CAL, null, 0);
+	_avTable.noNotifySet(ATTR_ROWS_PER_REF, "1", 0);
+	_avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
+    }
+
+    public void setupForSCUBA() {
+	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
+	_avTable.noNotifyRm(ATTR_ROWS_PER_CAL);
+	_avTable.noNotifyRm(ATTR_ROWS_PER_REF);
+	_avTable.noNotifyRm(ATTR_SAMPLE_TIME);
+    }
 }
 
