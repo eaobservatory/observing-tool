@@ -58,6 +58,7 @@ public class SpIterFocusObs extends SpIterJCMTObs {
     _avTable.noNotifySet(ATTR_STEPS,        "" + getDefaultSteps(AXES[2]), 0);
     _avTable.noNotifySet(ATTR_FOCUS_POINTS, "5", 0);
     _avTable.noNotifySet(ATTR_AUTOMATIC_TARGET, "true", 0);
+
   }
 
 
@@ -112,6 +113,20 @@ public class SpIterFocusObs extends SpIterJCMTObs {
 	    time = 0.0;
 	}
 	return time;
+    }
+
+    public void setupForHeterodyne() {
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "0", 0);
+	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
+	_avTable.set(ATTR_CYCLE_REVERSAL, false);
+    }
+
+    public void setupForSCUBA() {
+	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
+	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
+	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
+	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
     }
 }
 
