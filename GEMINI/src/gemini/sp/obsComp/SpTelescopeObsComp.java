@@ -505,6 +505,16 @@ processXmlElementContent(String name, String value)
       return;
    }
 
+   if ( name.equals(TX_PM1) ) {
+       _currentPosition.setPropMotionRA(value);
+       return;
+   }
+
+   if ( name.equals(TX_PM2) ) {
+       _currentPosition.setPropMotionDec(value);
+       return;
+   }
+
 
 // ---- Sperical System --------------------------------------------------------
 
@@ -708,7 +718,9 @@ processXmlAttribute(String elementName, String attributeName, String value)
       elementName.equals(TX_AORQ)        ||
       elementName.equals(TX_E)           ||
       elementName.equals(TX_LORM)        ||
-      elementName.equals(TX_N)) {
+      elementName.equals(TX_N)           ||
+      elementName.equals(TX_PM1)         ||
+      elementName.equals(TX_PM2)) {
 
       // ignore
       return;
