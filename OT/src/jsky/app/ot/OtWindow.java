@@ -364,7 +364,7 @@ public class OtWindow extends SpTreeGUI
 	    fileInfo = new FileInfo();
 	    SpAvTable avTab = spItem.getTable();
 
-	    String  dir          = avTab.get(".gui.dir");
+	    String  dir          = System.getProperty("user.dir");
 	    String  filename     = avTab.get(".gui.filename");
 	    boolean hasBeenSaved = avTab.getBool(".gui.hasBeenSaved");
 	    if ((dir != null) && (filename != null)) {
@@ -374,7 +374,7 @@ public class OtWindow extends SpTreeGUI
 	    }
 	    // Added by MFO (04 June 2001)
 	    else {
-                fileInfo.dir          = System.getProperty("user.dir");
+                fileInfo.dir          = avTab.get(".gui.dir");
 	    }
 	}
 	_progInfo.file = fileInfo;
@@ -438,13 +438,16 @@ public class OtWindow extends SpTreeGUI
 	    fileInfo = new FileInfo();
 	    SpAvTable avTab = spItem.getTable();
 
-	    String  dir          = avTab.get(".gui.dir");
+	    String  dir          = System.getProperty("user.dir");
 	    String  filename     = avTab.get(".gui.filename");
 	    boolean hasBeenSaved = avTab.getBool(".gui.hasBeenSaved");
 	    if ((dir != null) && (filename != null)) {
 		fileInfo.dir          = dir;
 		fileInfo.filename     = filename;
 		fileInfo.hasBeenSaved = hasBeenSaved;
+	    }
+	    else {
+		dir = avTab.get(".gui.dir");
 	    }
 	}
 	_progInfo.file = fileInfo;
