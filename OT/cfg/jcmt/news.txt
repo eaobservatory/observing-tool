@@ -11,6 +11,9 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
+  - Fixed problem with accurate display of offset Reference positions
+
+
 +++ December 2003
 
   [Semester 04A release]
