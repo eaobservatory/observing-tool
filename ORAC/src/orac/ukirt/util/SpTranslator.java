@@ -1028,7 +1028,9 @@ public class SpTranslator {
                   if ( isGuideTarget ) {
                       sequence.addElement( "do 1 _slew_guide" );
                       sequence.addElement( "GUIDE ON" );
-                      sequence.addElement( "-WAIT ALL" );
+                      if ( ! instrument.equalsIgnoreCase( "CGS4" ) ) {
+                         sequence.addElement( "-WAIT ALL" );
+                      }
                   } else {
                       sequence.addElement( "do 1 _slew_all" );
                   }
