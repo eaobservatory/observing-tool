@@ -27,6 +27,7 @@ import javax.swing.filechooser.FileFilter;
 import orac.util.SpItemDOM;
 import orac.jcmt.inst.SpInstHeterodyne;
 import edfreq.FrontEnd;
+import edfreq.FrequencyEditorConstants;
 import ot.util.DialogUtil;
 
 import org.xml.sax.InputSource;
@@ -125,8 +126,13 @@ public class FrequencyEditorFrame extends JFrame implements ActionListener {
       parser.parse(new InputSource(new StringReader(_frontEnd.toXML())));
       ElementImpl element = (ElementImpl)parser.getDocument().getDocumentElement();
 
-      _currentInstHeterodyne.getTable().rmAll();
+      _currentInstHeterodyne.getTable().noNotifyRmAll();
       SpItemDOM.fillAvTable("", element, _currentInstHeterodyne.getTable());
+
+      _currentInstHeterodyne.setFrontEndName(_currentInstHeterodyne.getTable().get(
+                                               FrequencyEditorConstants.XML_ELEMENT_HETERODYNE + ":" +
+                                               FrequencyEditorConstants.XML_ATTRIBUTE_FE_NAME));
+      _currentInstHeterodyne.getTable().edit();
     }
     catch(Exception e) {
       e.printStackTrace();
