@@ -592,7 +592,7 @@ findConflictingObsComp(SpItem parent, SpObsComp spObsComp)
    // See if this obs comp must be unique a scope.
    // If not, nothing can conflict with it.
    if (!spObsComp.mustBeUnique()) return null;
-
+   
    // Evaluate the scope to see whether a component of the given subtype
    // already exists at this scope.
    SpType    type = spObsComp.type();
@@ -630,13 +630,14 @@ findObsCompSubtype(SpItem parent, SpType type)
    Enumeration children = parent.children();
    while (children.hasMoreElements()) {
       SpItem child = (SpItem) children.nextElement();
+
       if (child instanceof SpObsComp) {
          SpObsComp oc = (SpObsComp) child;
          if (oc.type().equals(type)) {
             return oc;
          }
       } else {
-         break;
+         continue;
       }
    }
 
@@ -897,7 +898,6 @@ evalInsertInside(SpItem[] newItems, SpItem parent)
    // to make sure that all the items stay together.  They could be
    // separated otherwise, for instance if the group contains an obs
    // comp and an obs and is being inserted inside a group.
-
    SpInsertInfo spII = doEvalInsertInside(newItems[newItems.length-1], parent);
    return _completeEvalInsert(newItems, spII);
 }
