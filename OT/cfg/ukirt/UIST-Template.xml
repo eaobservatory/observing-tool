@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
-  <ot_version>20040423</ot_version>
+  <ot_version>20040618</ot_version>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
@@ -4132,6 +4132,15 @@ with the 4 pixel slit:
 Note: use short exposures and coadds for faint sources, rather than one very long exposure.  This is to avoid (1) saturating on the sky, and (2) residual signal in spectra from the bright sky background encountered during acquisition.</note>
         <title>Acquisition</title>
       </SpNote>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>Please note - 
+
+If you change ANYTHING in the UIST component (grism, position angle, etc.) then you MUST click on the flat and arc "eyeball" and click on "set default".  
+
+Otherwise the flat and arc observation WON'T pick up the change!!!</note>
+        <title>IMPORTANT - Flats and Arcs</title>
+      </SpNote>
       <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="25"/>
@@ -4388,10 +4397,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -4508,10 +4517,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5.0</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -4831,10 +4840,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -4951,10 +4960,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5274,10 +5283,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5394,10 +5403,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5736,10 +5745,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5856,10 +5865,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6198,10 +6207,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6318,10 +6327,10 @@ NOTE:  Its better to use a few coadds and short exposures than one long exposure
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>3</coadds>
-              <disperser>aq_longH</disperser>
+              <disperser>aq_HK</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>5</exposureTime>
-              <filter>H_spectral</filter>
+              <filter>B2</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6410,15 +6419,20 @@ If you're not sure about the best exposure time to use, select a source magnitud
       <title>IFU templates</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>Observing Extended Sources
-==================
+        <note>Observing Extended Sources:
+=================
 
-"IFU nod to blank sky" is the default for observing small, extended objects. Here, the 3.3"x6.0" IFU field-of-view is nodded completely off source so that the target is only on the IFU in 50% of the frames.  
+"IFU nod to blank sky" is the default for observing small, extended objects. Here, the 3.3"x6.0" IFU field-of-view is nodded completely off source so that the target is only on the IFU in 50% of the frames.  The sequence simply nods back and forth between 0,0 and blank sky.  This is the simplest mode with the IFU.
 
-"IFU map extended source" demonstrates how the IFU may be mapped across a more extended target.
+"IFU, nod to blank sky with jitters" is a variant of the above.  Here the frames taken on the target are jittered slightly to fill in bad pixels.  THIS MODE IS RECOMMENDED FOR SMALL TARGETS THAT DON'T OVERFILL THE IFU 3.3"x6.0" FIELD-OF-VIEW.
+
+"IFU map extended source" demonstrates how the IFU may be used to map across a more extended target, i.e. one that is larger than the IFU field-of-view.
+
+Observing "Point" Sources:
+===============
 
 If the science target is only very slightly extended (almost a point source) then it might be worth trying to slide the source within the IFU field (edit the offsets accordingly; q is along the IFU 6" long axis).  However, note that the avaiable field is only 6" long, so it might not be worth the risk, especially for standards where only a small fraction of your observing time will be used on the extra blank skies!</note>
-        <title>Which MSB should I use??</title>
+        <title>Which MSB should I use (IFU)??</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6445,6 +6459,15 @@ with the IFU+2-pixel slit:
 
 Note: use short exposures and coadds for faint sources, rather than one very long exposure.  This is to avoid (1) saturating on the sky, and (2) residual signal in spectra from the bright sky background encountered during acquisition.</note>
         <title>Acquisition</title>
+      </SpNote>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>Please note - 
+
+If you change ANYTHING in the UIST component (grism, position angle, etc.) then you MUST click on the flat and arc "eyeball" and click on "set default".  
+
+Otherwise the flat and arc observation WON'T pick up the change!!!</note>
+        <title>IMPORTANT - Flats and Arcs</title>
       </SpNote>
       <SpMSB checksum="1d16ab2fbf70247fbf0fda6def3e2d64" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -6981,7 +7004,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         <estimatedDuration units="seconds">10223.11968</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
-        <title>IFU, map extended source</title>
+        <title>IFU, nod to blank sky with jitters</title>
         <totalDuration units="seconds">10525.51928</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -7016,6 +7039,536 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <title>Configuration information</title>
         </SpNote>
         <SpInstUIST id="37" type="oc" subtype="inst.UIST">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>3</meta_version>
+          <DAConf>ND1</DAConf>
+          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpTime>0.81</DAConfMinExpTime>
+          <arrayAngle>0.54</arrayAngle>
+          <biasDutyCycle>0.507</biasDutyCycle>
+          <biasIdlePeriod>0.0022</biasIdlePeriod>
+          <biasMustIdles>100</biasMustIdles>
+          <biasNResets>2</biasNResets>
+          <biasObsTime>9.468</biasObsTime>
+          <biasReadArea>1024x1024</biasReadArea>
+          <biasRefPixelX>512.5</biasRefPixelX>
+          <biasRefPixelY>512.5</biasRefPixelY>
+          <biasWaveform>uist_starev11</biasWaveform>
+          <camera>ifu</camera>
+          <centralWavelength>1.9534</centralWavelength>
+          <chopDelay>0.0</chopDelay>
+          <chopFrequency>0.0</chopFrequency>
+          <coadds>1</coadds>
+          <configType>Normal</configType>
+          <darkFilter>black_blank</darkFilter>
+          <disperser>HK+ifu</disperser>
+          <dispersion>0.00109</dispersion>
+          <dutyCycle>0.7658676843224697</dutyCycle>
+          <expTimeOT>7.0</expTimeOT>
+          <exposureTime>7.0</exposureTime>
+          <filter>B2</filter>
+          <filterCategory>broad</filterCategory>
+          <focus>4.50</focus>
+          <idlePeriod>0.0022</idlePeriod>
+          <imager>0.12</imager>
+          <instAper>
+            <value>-0.36</value>
+            <value>-0.63</value>
+            <value>0.00</value>
+            <value>2.00</value>
+          </instAper>
+          <instPntgOffset>
+            <value>17.24</value>
+            <value>8.2076</value>
+          </instPntgOffset>
+          <instPort>South</instPort>
+          <mask>IFU_pickoff</mask>
+          <maskHeight>6.0</maskHeight>
+          <maskWidth>36.0</maskWidth>
+          <mode>NDSTARE</mode>
+          <mustIdles>100</mustIdles>
+          <nreads>8</nreads>
+          <nresets>1</nresets>
+          <nullCycles>0</nullCycles>
+          <nullExposures>0</nullExposures>
+          <nullReads>1</nullReads>
+          <obsTimeOT>5.0</obsTimeOT>
+          <observationTime>9.13996</observationTime>
+          <order>1</order>
+          <pixelFOV>0.1205 x 0.1205</pixelFOV>
+          <pixelScale>0.12</pixelScale>
+          <polarimetry>no</polarimetry>
+          <posAngle>-90.0</posAngle>
+          <pupil_imaging>no</pupil_imaging>
+          <readArea>1024x1024</readArea>
+          <readInterval>1.0</readInterval>
+          <readMode>NDSTARE</readMode>
+          <readout>NDSTARE</readout>
+          <readoutOT>NDSTARE 1024x1024</readoutOT>
+          <refPixelL>512.5</refPixelL>
+          <refPixelS>480.5</refPixelS>
+          <refPixelX>480.5</refPixelX>
+          <refPixelY>480.5</refPixelY>
+          <resetDelay>0.11</resetDelay>
+          <resolution>896.0550458715596</resolution>
+          <scienceArea>3.36 x 6.0 arcsec</scienceArea>
+          <source_mag>6-7</source_mag>
+          <spectralCoverage>1.395um-2.506um</spectralCoverage>
+          <target_acq>no</target_acq>
+          <waveform>uist_starev11</waveform>
+        </SpInstUIST>
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <estimatedDuration units="seconds">29.279920000000004</estimatedDuration>
+          <standard>true</standard>
+          <title>Flat and arc</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This flat and arc observation will inherit the coordinates and UIST configuration information entered above. In other words, the telescope will slew to the standard, where you can then do the flat and arc before observing the standard itself.</note>
+            <title>coords and UIST config</title>
+          </SpNote>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>STANDARD_STAR</SkyRecipe>
+            <title>REDUCE_SINGLE_FRAME</title>
+          </SpDRRecipe>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <arcSource>undefined</arcSource>
+              <calType>Flat</calType>
+              <centralWavelength>1.953</centralWavelength>
+              <chopDelay>0.0</chopDelay>
+              <chopFrequency>0.0</chopFrequency>
+              <coadds>1</coadds>
+              <dutyCycle>0.7002840352046791</dutyCycle>
+              <expTimeOT>4.8</expTimeOT>
+              <exposureTime>5.0</exposureTime>
+              <filter>B2</filter>
+              <flatSource>BB_5.0mm</flatSource>
+              <focus>4.50</focus>
+              <idlePeriod>0.0022</idlePeriod>
+              <mode>NDSTARE</mode>
+              <mustIdles>100</mustIdles>
+              <nreads>6</nreads>
+              <nresets>1</nresets>
+              <nullCycles>0</nullCycles>
+              <nullExposures>0</nullExposures>
+              <nullReads>1</nullReads>
+              <obsTimeOT>20.0</obsTimeOT>
+              <observationTime>7.139959999999999</observationTime>
+              <order>1</order>
+              <readInterval>1.0</readInterval>
+              <repeatCount>1</repeatCount>
+              <resetDelay>0.11</resetDelay>
+              <waveform>uist_starev11</waveform>
+            </SpIterUISTCalObs>
+            <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <arcSource>argon</arcSource>
+              <calType>Arc</calType>
+              <centralWavelength>1.9534</centralWavelength>
+              <chopDelay>0.0</chopDelay>
+              <chopFrequency>0.0</chopFrequency>
+              <coadds>1</coadds>
+              <dutyCycle>0.8937455685115562</dutyCycle>
+              <expTimeOT>18.0</expTimeOT>
+              <exposureTime>18.0</exposureTime>
+              <filter>B2</filter>
+              <flatSource>undefined</flatSource>
+              <focus>4.50</focus>
+              <idlePeriod>0.0022</idlePeriod>
+              <mode>NDSTARE</mode>
+              <mustIdles>100</mustIdles>
+              <nreads>19</nreads>
+              <nresets>1</nresets>
+              <nullCycles>0</nullCycles>
+              <nullExposures>0</nullExposures>
+              <nullReads>1</nullReads>
+              <obsTimeOT>15.0</obsTimeOT>
+              <observationTime>20.13996</observationTime>
+              <order>1</order>
+              <readInterval>1.0</readInterval>
+              <repeatCount>1</repeatCount>
+              <resetDelay>0.11</resetDelay>
+              <waveform>uist_starev11</waveform>
+            </SpIterUISTCalObs>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <estimatedDuration units="seconds">273.11968</estimatedDuration>
+          <standard>true</standard>
+          <title>Bright (standard) star</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This standard star observation will inherit the coordinates and UIST configuration information entered above the flat/arc observation.</note>
+            <title>coords and UIST config</title>
+          </SpNote>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>STANDARD_STAR</SkyRecipe>
+            <title>STANDARD_STAR</title>
+          </SpDRRecipe>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
+
+Note about the standard:  
+================
+
+Chances are, the bright standard will be too bright for imaging acquisition (it may leave a latent image on the array after imaging acquisition).  To get around this the TSS will in actual fact acquire a nearby 9-10 mag star.  Once this is done, the relative offset between the optical and infrared beams will be calibrated (for on-axis guiding); s/he will then slew back to the brighter standand and, because the standard is also the guide star (again on-axis guiding),  simply switching on the guider will put the star down the UIST slit.   THIS IS WHY THE BRIGHTESTS SELECTABLE SOURCE MAG FOR TARGET ACQUISITION IS 9TH.  SO CHOOSE 9-10 FOR YOUR STANDARD.</note>
+              <title>Imaging Acquisition</title>
+            </SpNote>
+            <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
+              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <coadds>1</coadds>
+              <disperser>aq_HK+ifu</disperser>
+              <dispersion>0.0</dispersion>
+              <exposureTime>1.0</exposureTime>
+              <filter>B2</filter>
+              <mask>IFU_aperture</mask>
+              <maskHeight>120.0</maskHeight>
+              <maskWidth>1024.0</maskWidth>
+              <repeatCount>1</repeatCount>
+              <resolution>0.0</resolution>
+              <scienceArea>122.88 x 120.0 arcsec</scienceArea>
+              <source_mag>9-10</source_mag>
+            </SpIterUISTTargetAcq>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
+
+After imaging acquisition for the standard you will probably see a weak, residual image of the star on subsequent frames, at the 1% level.  This signal will appear in the first few IFU spectroscopy frames and may "overlap" spectra from the standard star (though it should to some extent "subtract-off" with sky subtraction).   
+To offset the effect this artifact may have on your data, use the darks below to "flush" the array.  The overhead associated with this flushing is about 10-15 seconds (for five 1sec darks).
+
+NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
+              <title>Flush array (RECOMMENDED)</title>
+            </SpNote>
+            <SpIterDarkObs type="ic" subtype="darkObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <coadds>1</coadds>
+              <exposureTime>1</exposureTime>
+              <repeatCount>5</repeatCount>
+            </SpIterDarkObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>2</repeatCount>
+              <title>Repeat 2X</title>
+              <SpNote type="no" subtype="none">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <note>If you want offsets to sky of less than 30 arcsec it is essential that observation types are set to OBJECT and SKY so that the data reduction software can identify sky frames. In this case you will have to use an offset iterator for every position, each containing just an OBJECT or a SKY observe.
+
+Note:  p and q are perpendicular to and along the IFU long axis.</note>
+                <title>IFU offsets</title>
+              </SpNote>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>-90.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <SpIterObserve type="ic" subtype="observe">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
+                </SpIterObserve>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>-90.0</PA>
+                  <OFFSET>
+                    <DC1>30.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <SpIterSky type="ic" subtype="sky">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>2</repeatCount>
+                </SpIterSky>
+              </SpIterOffset>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>-90.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <SpIterObserve type="ic" subtype="observe">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
+                </SpIterObserve>
+              </SpIterOffset>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <estimatedDuration units="seconds">10043.11968</estimatedDuration>
+          <standard>false</standard>
+          <title>Science target --  nod to blank sky with jitter</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>Enter your science target co-ordinates below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field, etc.
+
+These coordinates will be used by this observation INSTEAD OF the standard star coordinates entered above.
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+            <title>Science Target information</title>
+          </SpNote>
+          <SpTelescopeObsComp type="oc" subtype="targetList">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+            <meta_unique>true</meta_unique>
+            <BASE TYPE="Base">
+              <target>
+                <targetName>Science Target</targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <BASE TYPE="GUIDE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00.0</c1>
+                  <c2>0:00:00.0</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+          </SpTelescopeObsComp>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>MAP_EXTENDED_SOURCE</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>MAP_EXTENDED_SOURCE</SkyRecipe>
+            <title>MAP_EXTENDED_SOURCE</title>
+          </SpDRRecipe>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST IFU web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
+              <title>Imaging Acquisition</title>
+            </SpNote>
+            <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
+              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <coadds>3</coadds>
+              <disperser>aq_HK+ifu</disperser>
+              <dispersion>0.0</dispersion>
+              <exposureTime>5</exposureTime>
+              <filter>B2</filter>
+              <mask>IFU_aperture</mask>
+              <maskHeight>120.0</maskHeight>
+              <maskWidth>1024.0</maskWidth>
+              <repeatCount>1</repeatCount>
+              <resolution>0.0</resolution>
+              <scienceArea>122.88 x 120.0 arcsec</scienceArea>
+              <source_mag>&gt;13</source_mag>
+            </SpIterUISTTargetAcq>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
+
+After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
+
+This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MANY PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
+
+However, for IFU spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
+
+NB - don't click on default in the darks - a few seconds is best for flushing...</note>
+              <title>Flush array (OPTIONAL)</title>
+            </SpNote>
+            <SpIterDarkObs type="ic" subtype="darkObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <coadds>1</coadds>
+              <exposureTime>3.0</exposureTime>
+              <repeatCount>5</repeatCount>
+            </SpIterDarkObs>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>Chances are you will want a longer exposure time on the science target than on the standard.
+
+Use the UIST iterator below to "update" the configuration set in the main UIST component; only the exposure time and/or coadds should be changed, however.  Everything else should be exactly the same (for the flat, arc, standard and science target observations).  
+
+If you're not sure about the best exposure time to use, select a source magnitude (first column) and sensible values will appear in the exposure time and coadds columns.  If you want a different exposure time, enter these manual.  At the end of the day, its the numbers under exposure time and coadds that will be used.  Everything else (grism, ifu angle, etc.) will be the same as for the standard star.</note>
+              <title>Exp time on science target</title>
+            </SpNote>
+            <SpIterUISTSpecIFU type="ic" subtype="instUISTSpecIFU">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <coaddsIter>1</coaddsIter>
+              <exposureTimeIter>240.0</exposureTimeIter>
+              <iterConfigList>
+                <value>source_magIter</value>
+                <value>exposureTimeIter</value>
+                <value>coaddsIter</value>
+              </iterConfigList>
+              <source_magIter>&gt;13</source_magIter>
+              <SpIterRepeat type="ic" subtype="repeat">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>5</repeatCount>
+                <title>Repeat 5X</title>
+                <SpNote type="no" subtype="none">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <note>The idea here is that the frames on the target are jittered slightly up and down the long (6.0") axis of the IFU.  This is to fill in bad pixels.  This should give slightly cleaner data than the simple "nod to blank sky" sequence, which simply nods back and forth between 0,0 and blank sky, without any offsetting when on the target.
+
+Note that the pixel scale is 0.12" along the long (q) axis of the IFU - so jitters should be multiples of 0.12".  Small jitters are recommended, since bigger jitters will give a smaller overlap region in the final data.  
+
+Jitters in p are possible, although the width of the IFU field-of-view is much smaller in this axis (only 3.3").
+
+Note that this mode uses the MAP_EXTENDED_SOURCE recipe to reduce the data, rather than the EXTENDED_SOURCE recipe.  This is so that the sky-subtracted data on the source are correctly mosaiced in the data cube.</note>
+                  <title>IFU offsets</title>
+                </SpNote>
+                <SpIterOffset type="ic" subtype="offset">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                  <obsArea>
+                    <PA>-90.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>60.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>60.0</DC1>
+                      <DC2>0.24</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.24</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>-0.24</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>60.0</DC1>
+                      <DC2>-0.24</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>60.0</DC1>
+                      <DC2>0.12</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.12</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterOffset>
+              </SpIterRepeat>
+            </SpIterUISTSpecIFU>
+          </SpIterFolder>
+        </SpObs>
+      </SpMSB>
+      <SpMSB checksum="1d16ab2fbf70247fbf0fda6def3e2d64" remaining="1" type="og" subtype="msb">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <SpInstUISTRef idref="39"/>
+        <SpTelescopeObsCompRef idref="38"/>
+        <estimatedDuration units="seconds">10223.11968</estimatedDuration>
+        <library_version>$Revision$</library_version>
+        <priority>99</priority>
+        <title>IFU, map extended source</title>
+        <totalDuration units="seconds">10525.51928</totalDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
+
+These coordinates will be inherited by the  three observations (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component inside the observation.  Obviously, this should be the case for the science target.   .
+
+Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
+          <title>Target information - standard</title>
+        </SpNote>
+        <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Standard star</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This example sets up the HK grism with the IFU orientated E-W.  Select  grism, angle, etc. the drop down menus.  
+
+NOTE THAT THE EXPOSURE TIME IS SET FOR THE STANDARD STAR.
+
+These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) for the science target observation.</note>
+          <title>Configuration information</title>
+        </SpNote>
+        <SpInstUIST id="39" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
