@@ -1,15 +1,15 @@
-package sciProgram;                   
+package om.sciProgram;                   
 
-import console.*;      //this is for the sequence console
-import frameList.*;    //import frameList Java bean
-import dramaSocket.*;
+import om.console.*;      //this is for the sequence console
+import om.frameList.*;    //import frameList Java bean
+import om.dramaSocket.*;
 
 import gemini.sp.*;
 import gemini.sp.SpItem;
 import gemini.sp.ipc.*;
-import ot_ukirt.inst.*;
-import ot_ukirt.iter.*;
-import ot_ukirt.util.SpTranslator;
+import orac.ukirt.inst.*;
+import orac.ukirt.iter.*;
+import orac.ukirt.util.SpTranslator;
 
 import java.util.*;
 import java.io.*;
