@@ -72,7 +72,7 @@ echo "Use ot -h for information on how to change these settings."
 set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
 
 echo on
-%JAVA% -ms5m -mx50m %OMP_FLAG% -DSERVER=%SERVER% -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
+%JAVA% -ms5m -mx100m %OMP_FLAG% -DSERVER=%SERVER% -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
 echo off
 
 GOTO END
