@@ -75,14 +75,6 @@ _thisNextElement()
 public class SpIterOffset extends SpIterComp
 {
    /**
-    * Position Angle.
-    *
-    * This attribute is only used for JCMT. Its String "PA" is taken from
-    * the TCS XML element &lt;PA&gt;.
-    */
-   public static String ATTR_POS_ANGLE = "PA";
-
-   /**
     * Data structure for maintaining position angle and SpPosAngleObservers.
     *
     * Note that this is <b>not</b> the SpObsData object that is returned by getObsData().
@@ -121,63 +113,60 @@ public SpIterOffset()
 }
 
 /**
- * Get the position list data structure for the offset positions in
- * the attribute table, creating it if necessary.
+ * Create and return the position list data structure for the offset positions in
+ * the attribute table.
+ *
+ * Modified by AB, 3-Aug-00 to <b>ALWAYS</b> create a new list. This solved a bug
+ * whereby if an offset iterator list was copied <b>after</b> being edited and
+ * then pasted, the new pasted version would <b>retain</b> the old 
+ * spOffSetList, thus edits would go to both.  Note that this did <b>not</b>
+ * occur if the original was not edited first. It is the act of editing
+ * that invokes this method and caused the problem.
+ *
+ * @see #getCurrentPosList()
  */
 public SpOffsetPosList
 getPosList()
 {
-    // Modified by AB, 3-Aug-00 to ALWAYS create a new list. This solved a bug
-    // whereby if an offset iterator list was copied *after* being edited and
-    // then pasted, the new pasted version would *retain* the old 
-    // spOffSetList, thus edits would go to both.  Note that this did *not*
-    // occur if the original was not edited first. It is the act of editing
-    // that invokes this method and caused the problem.
-
+    // See comment above
     //   if (_posList== null) {
     _posList = new SpOffsetPosList(_avTable);
     //}
    return _posList;
 }
 
-// Added by MFO, 15 February 2002
 /**
- * This method returns a copy of the offset position list where all
- * the offset positions are rotated by the position angle.
+ * Get the current position list data structure for the offset positions in
+ * the attribute table, creating it <b>only</b> if necessary.
  *
- * The SpIterOffset item itself however maintains the unrotated list
- * plus a postion angle.
- * So this method is for classes that want to display the the positions
- * that result from rotating them by the position angle.
+ * This method is used by the Telescope Position Editor (TPE). Using
+ * {@link #getPosList()} in the TPE would break the link between the
+ * offset iterator and the TPE so that updating one from the other
+ * would no longer work.
+ *
+ * @see #getPosList()
  */
 public SpOffsetPosList
-getRotatedPosList()
+getCurrentPosList()
 {
-   SpOffsetPosList rotatedPosList = new SpOffsetPosList(new SpAvTable());
-  
-   double xAxis, yAxis;
-   double pa = ((getPosAngle() * Math.PI) / 180.0);
-   for(int i = 0; i < _posList.size(); i++) {
-      xAxis = (_posList.getPositionAt(i).getXaxis() *   Math.cos(pa))  + (_posList.getPositionAt(i).getYaxis() * Math.sin(pa));
-      yAxis = (_posList.getPositionAt(i).getXaxis() * (-Math.sin(pa))) + (_posList.getPositionAt(i).getYaxis() * Math.cos(pa));
+    if (_posList== null) {
+      _posList = new SpOffsetPosList(_avTable);
+    }
 
-      rotatedPosList.createPosition(xAxis, yAxis);
-   }
-
-   return rotatedPosList;
+   return _posList;
 }
 
 
 /** Get the Position Angle. */
 public double getPosAngle()
 {
-   return _avTable.getDouble(ATTR_POS_ANGLE, 0.0);
+   return getCurrentPosList().getPosAngle();
 }
 
 /** Set the Position Angle as double. */
 public void setPosAngle(double pa)
 {
-   _avTable.set(ATTR_POS_ANGLE, pa);
+   getCurrentPosList().setPosAngle(pa);
 
    _posAngleObsData.setPosAngle(pa);
 }
@@ -276,7 +265,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    // When processAvAttribute is called with "offsetPositions" as avAttr then append the entire
    // TCS XML representation of this item to the xmlBuffer.
    // For all other calls to processAvAttribute ignore the AV attributes
-   // "PA" (ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
+   // "PA" (SpOffsetPosList.ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
    // as their information has already been dealt with in the TCS XML representation of
    // this item.
    // The other attributes are delegated to the super class.
@@ -285,10 +274,10 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
       xmlBuffer.append("\n" + indent + "  <obsArea>");
       xmlBuffer.append("\n" + indent + "    <PA>" + getPosAngle() + "</PA>");
 
-      for(int i = 0; i < getPosList().size(); i++) {
+      for(int i = 0; i < _posList.size(); i++) {
          xmlBuffer.append("\n" + indent + "    <OFFSET>");
-         xmlBuffer.append("\n" + indent + "      <DC1>" + getPosList().getPositionAt(i).getXaxis() + "</DC1>");
-         xmlBuffer.append("\n" + indent + "      <DC2>" + getPosList().getPositionAt(i).getYaxis() + "</DC2>");
+         xmlBuffer.append("\n" + indent + "      <DC1>" + _posList.getPositionAt(i).getXaxis() + "</DC1>");
+         xmlBuffer.append("\n" + indent + "      <DC2>" + _posList.getPositionAt(i).getYaxis() + "</DC2>");
          xmlBuffer.append("\n" + indent + "    </OFFSET>");
       }
 
@@ -298,7 +287,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    }
 
 
-   if(avAttr.equals(ATTR_POS_ANGLE) || avAttr.startsWith(SpOffsetPos.OFFSET_TAG)) {
+   if(avAttr.equals(SpOffsetPosList.ATTR_POS_ANGLE) || avAttr.startsWith(SpOffsetPos.OFFSET_TAG)) {
       // Ignore. Dealt with in <obsArea> element (see above).
       return;
    }
@@ -352,7 +341,7 @@ public void
 processXmlElementEnd(String name)
 {
    if(name.equals("OFFSET")) {
-      getPosList().createPosition(xOffNew, yOffNew);
+      _posList.createPosition(xOffNew, yOffNew);
       xOffNew = 0.0;
       yOffNew = 0.0;
 
@@ -368,6 +357,7 @@ processXmlElementEnd(String name)
 
    super.processXmlElementEnd(name);
 }
+
 
 }
 
