@@ -47,7 +47,7 @@ public class OtTreeDragSource implements DragGestureListener, DragSourceListener
     protected JTree _tree;
 
     /** Saved reference to drag object, for use in OtTreeDropTarget */
-    static OtDragDropObject _dragObject;
+    public static OtDragDropObject _dragObject;
 
     /**
      * Constructor
@@ -99,7 +99,7 @@ public class OtTreeDragSource implements DragGestureListener, DragSourceListener
 
 	        if (spItems != null && spItems.length > 0) {
 		    _dragObject = new OtDragDropObject(spItems, _spTree);
-		    try {dge.startDrag(null, _dragObject, this);} catch(Exception ex) {
+		    try {dge.startDrag(DragSource.DefaultMoveNoDrop, _dragObject, this);} catch(Exception ex) {
 		      DnDUtils.debugPrintln("OtTreeDragSource.dragGestureRecognized: " + ex);
 		    }
 	        }
