@@ -13,6 +13,8 @@ import gemini.sp.SpAvTable;
 import gemini.sp.SpObsData;
 import gemini.sp.SpType;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.iter.SpIterStep;
+import gemini.sp.iter.SpIterValue;
 
 import gemini.util.Angle;
 
@@ -240,6 +242,61 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     {
 	return 50;
     }
-    
-    
+
+  /**
+   * Generic Iteration Tracker for UKIRT.
+   *
+   * This IterationTracker is used as it is by IRCAM3 and UFTI.
+   * Michelle and CGS4 instrument components have to subclass it.
+   *
+   * Added for OMP by MFO, 1 Novemeber 2001
+   *
+   * @see gemini.sp.obsComp.SpInstObsComp
+   */
+  public class IterTrackerUKIRT extends IterationTracker {
+    double currentExposureTime = getExpTime();
+    int    currentNoCoadds     = 1;
+
+    public void update(SpIterStep spIterStep) {
+      // If the iteration step is not a config step then do nothing.
+      if(!spIterStep.title.equals("config")) {
+        return;
+      }
+
+      SpIterValue spIterValue = null;
+
+      try {
+        String attribute = null;
+        String value     = null;
+
+        for(int i = 0; i < spIterStep.values.length; i++) {
+          // SpIterStep.values     is an array of SpIterValue
+          // SpIterValue.values    is an array of String the first of which contains
+          attribute = spIterStep.values[i].attribute;
+	  value     = spIterStep.values[i].values[0];
+
+
+          if(attribute.equals(ATTR_EXPOSURE_TIME)) {
+            currentExposureTime = Double.valueOf(value).doubleValue();
+          }
+
+          if(attribute.equals(ATTR_COADDS)) {
+            currentNoCoadds = Integer.valueOf(value).intValue();
+          }
+	}  
+      }
+      catch(Exception e) {
+        System.out.println("Could not process iteration step "
+	                 + spIterStep + " for time estimation.");
+      }
+    }
+
+    public double getObserveStepTime () {
+      return currentNoCoadds * currentExposureTime;
+    }
+  }
+
+  public IterationTracker createIterationTracker() {
+    return new IterTrackerUKIRT();
+  }
 }

@@ -26,6 +26,7 @@ import gemini.sp.SpType;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpChopCapability;
 import gemini.sp.obsComp.SpStareCapability;
+import gemini.sp.iter.SpIterStep;
 
 /**
  * The Michelle instrument.
@@ -1840,6 +1841,21 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Get the actual observation time (as opposed to the OT observation time) in seconds.
+     *
+     * Added for OMP by MFO (5 November 2001).
+     */
+    public double
+    getActualObservationTime()
+    {
+        updateDAObjConf();
+
+        return _avTable.getDouble(ATTR_OBSERVATION_TIME, 0.0);
+    }
+
+
+
+    /**
      * Set the flat observation time in seconds
      */
     public void
@@ -2428,6 +2444,28 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         updateDAObjConf();
     }
 
+  /**
+   * Iteration Tracker for Michelle.
+   *
+   * Added for OMP by MFO, 6 Novemeber 2001
+   *
+   * @see gemini.sp.obsComp.SpInstObsComp
+   */
+  public class IterTrackerMichelle extends IterationTracker {
+
+    public void update(SpIterStep spIterStep) {
+      // Do nothing.
+    }
+
+
+    public double getObserveStepTime () {
+      return getActualObservationTime();
+    }
+  }
+
+  public IterationTracker createIterationTracker() {
+    return new IterTrackerMichelle();
+  }
 
 
 }
