@@ -63,7 +63,7 @@ final public class commandPanel extends JPanel implements ActionListener,java.io
           else if (i==5)
               button[i].setIcon(new ImageIcon(System.getProperty("IMAG_PATH")+"abort.gif"));
           else if (i==6)
-              button[i].setIcon(new ImageIcon(System.getProperty("IMAG_PATH")+"ql.gif"));
+              button[i].setIcon(new ImageIcon(System.getProperty("IMAG_PATH")+"movie.gif"));
 
 
         button[i].setBackground(Color.getHSBColor(204,204,204));
