@@ -133,7 +133,7 @@ INSTALL_DOC_DIR     = $(INSTALL_ROOT)/html/api
 INSTALL_BIN_DIR     = $(INSTALL_ROOT)/bin
 INSTALL_CFG_DIR     = $(INSTALL_ROOT)/cfg
 
-install:
+install: all
 ifeq ($(INSTALL_ROOT),)
 	@echo Usage: gmake "INSTALL_ROOT=myinstall_directory" install
 else
@@ -141,7 +141,7 @@ else
 endif
 
 
-_install: $(INSTALL_ROOT)/lib $(INSTALL_ROOT)/tools $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/bin/odb
+_install: $(INSTALL_ROOT)/lib $(ALL_LIBS) $(ALL_TOOLS) $(INSTALL_ROOT)/cfg $(INSTALL_ROOT)/bin/odb
 
 
 # Rules for Orac libraries in default location
