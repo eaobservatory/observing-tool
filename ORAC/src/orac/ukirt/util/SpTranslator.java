@@ -970,6 +970,8 @@ public class SpTranslator {
       String remoteTriggerSrc;
       String remoteTriggerId;
 
+      boolean firstSlew = true;
+
 
 // Check if this is an Observation.
       if ( !( spObs.type().equals( SpType.OBSERVATION ) ) ) {
@@ -1295,6 +1297,10 @@ public class SpTranslator {
                       }
                   } else {
                       sequence.addElement( "-system " + equinox +" ALL" );
+		      if ( firstSlew ) {
+			  sequence.addElement("break");
+			  firstSlew = false;
+		      }
                       sequence.addElement( "do 1 _slew_all" );
                   }
                }
