@@ -39,6 +39,9 @@ public class SchedConstraintsGUI extends JPanel {
   JLabel jLabel5 = new JLabel();
   TextBoxWidgetExt minElevation = new TextBoxWidgetExt();
   JLabel jLabel6 = new JLabel();
+  JLabel jLabel7 = new JLabel();
+  TextBoxWidgetExt period = new TextBoxWidgetExt();
+  JLabel jLabel8 = new JLabel();
 
     public SchedConstraintsGUI() {
         try {
@@ -76,6 +79,11 @@ public class SchedConstraintsGUI extends JPanel {
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel6.setForeground(Color.black);
     jLabel6.setText("(degrees)");
+    jLabel7.setForeground(Color.black);
+    jLabel7.setText("Reschedule every");
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel8.setForeground(Color.black);
+    jLabel8.setText("days");
     this.add(earliest, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     this.add(latest, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
@@ -93,6 +101,14 @@ public class SchedConstraintsGUI extends JPanel {
     this.add(minElevation, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     this.add(jLabel6, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+
+    // Periodicity [timj kluge]
+    this.add(jLabel7, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 5, 0, 0), 0, 0));
+    this.add(period, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    this.add(jLabel8, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
 }

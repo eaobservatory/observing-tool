@@ -46,6 +46,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
     _w.earliest.addWatcher(this);
     _w.latest.addWatcher(this);
     _w.minElevation.addWatcher(this);
+    _w.period.addWatcher(this);
   }
 
   public void setup(SpItem spItem) {
@@ -74,6 +75,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
       _w.earliest.setValue(_schedConstObsComp.getEarliest());
       _w.latest.setValue(_schedConstObsComp.getLatest());
       _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
+      _w.period.setValue(_schedConstObsComp.getPeriod());
   }
 
   /**
@@ -96,6 +98,10 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 
       if(tbw == _w.minElevation) {
         _schedConstObsComp.setMinElevation(_w.minElevation.getDoubleValue(0.0));
+      }
+
+      if(tbw == _w.period) {
+        _schedConstObsComp.setPeriod(_w.period.getDoubleValue(0.0));
       }
     }
     catch(Exception e) {

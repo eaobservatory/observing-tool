@@ -29,6 +29,9 @@ public class SpSchedConstObsComp extends SpObsComp {
   /** This attribute records the minimum elevation. */
   public static final String ATTR_MIN_ELEVATION = "minEl";
 
+  /** This attribute records the monitoring period */
+  public static final String ATTR_PERIOD = "period";
+
   public static final String NO_VALUE = "none";
 
   public static final String SUBTYPE = "schedConstraints";
@@ -112,17 +115,33 @@ public class SpSchedConstObsComp extends SpObsComp {
   }
 
   /**
-   * Get latest scheduling date.
+   * Get min elevation
    */
   public String getMinElevation() {
     return _avTable.get(ATTR_MIN_ELEVATION);
   }
     
   /**
-   * Set latest scheduling date.
+   * Set min elevation.
    */
   public void setMinElevation(double minEl) {
     _avTable.set(ATTR_MIN_ELEVATION, minEl);
   }
+
+  /**
+   * Get resheculing period
+   */
+  public String getPeriod() {
+    return _avTable.get(ATTR_PERIOD);
+  }
+    
+  /**
+   * Set rescheduling period.
+   */
+  public void setPeriod(double period) {
+    _avTable.set(ATTR_PERIOD, period);
+  }
 }
+
+
 
