@@ -24,6 +24,8 @@ import gemini.util.TelescopePos;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterOffset;
 import gemini.sp.iter.SpIterObserve;
+import gemini.sp.iter.SpIterSky;
+import gemini.sp.obsComp.SpSiteQualityObsComp;
 import orac.validation.*;
 
 /**
@@ -1162,6 +1164,10 @@ print(SpItem spItem, String indentStr)
     spItem = new SpIterCGS4CalObs();
     spItem = new SpIterFP();
     spItem = new SpIterIRPOL();
+    spItem = new SpIterNod();
+    spItem = new SpIterObserve();
+    spItem = new SpIterSky();
+    spItem = new SpSiteQualityObsComp();
 
     SpRootItem root = null;
     SpInputSGML inSGML = null;

@@ -8,6 +8,9 @@ import gemini.sp.*;
 import gemini.sp.ipc.SpServer;
 import orac.ukirt.inst.*;
 import orac.ukirt.iter.*;
+import gemini.sp.iter.SpIterObserve;
+import gemini.sp.iter.SpIterSky;
+import gemini.sp.obsComp.SpSiteQualityObsComp;
 
 
 /** final public class mainTest has a special method main,
@@ -55,7 +58,11 @@ final public class oracOM
       spItem = new SpIterMichelleCalObs();
       spItem = new SpIterFP();
       spItem = new SpIterIRPOL();
-      
+      spItem = new SpIterNod();
+      spItem = new SpIterObserve();
+      spItem = new SpIterSky();
+      spItem = new SpSiteQualityObsComp();
+
       // Select the SpServer to use (default to DEPLOYED)
       int serverType = SpServer.DEPLOYED;
       String server = System.getProperty ("SERVER", "DEPLOYED");
