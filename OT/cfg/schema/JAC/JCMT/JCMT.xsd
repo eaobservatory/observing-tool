@@ -30,7 +30,7 @@
 
 </xsd:redefine>
 
-<xsd:include schemaLocation="../../TOMLelements.xsd"/>
+<xsd:include schemaLocation="../../TOMLtypes.xsd"/>
 <xsd:include schemaLocation="../JACelements.xsd"/>
 <xsd:include schemaLocation="../JACcomponents.xsd"/>
 <xsd:include schemaLocation="../JACfolders.xsd"/>
