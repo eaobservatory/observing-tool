@@ -17,9 +17,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
 import javax.swing.JLabel;
 
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
-
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
@@ -75,6 +75,11 @@ public final class EdObservation extends OtItemEditor
 	_w.standard.addWatcher(this);
 //	_w.chained.addActionListener(this);
 //	_w.chained.setVisible(false); // XXX allan: remove it?
+
+        // Added by MFO (22 February 2002)
+	if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
+          _w.standard.setVisible(false);
+	}
 
 	for(int i = 0; i < 100; i++) {
 	  _w.remaining.addItem("" + (i + 1));
