@@ -125,8 +125,9 @@ public class SpTranslator {
 
 /**
  * Insert a loadConfig instruction before the first set OBJECT in a
- * sequence, unless there are no preceeding "set <obstype>" commands.
- * 
+ * sequence, unless there are no preceeding "set <obstype>" commands,
+ * or there is a "loadConfig" instruction following the last 
+ * "set <obstype>" command.
  *
  * @param String the instrument (so far only CGS4, IRCAM3 and UFTI supported).
  * @param Vector the sequence instructions (this is updated).
@@ -173,6 +174,16 @@ public class SpTranslator {
 
 // It's found, so record the fact.
             firstSet = true;
+         
+// Look for a loadConfig from another instrument configuration following
+// the last "set <obstype>", where <obstype> is not OBJECT.  In that
+// case we want to use that configuration, unless that's associated with
+// another "set <obstype>" (dealt by the previous clause).
+         } else if ( ( (String) sequence.elementAt( i ) ).startsWith( "loadConfig " ) &&
+                     firstSet ) {
+
+// There is a config loaded, so use that rather than the original.
+            firstSet = false;
          
          }
       }
