@@ -173,9 +173,9 @@ But in order to be able to run this on other machines you might want it be.
 <b>Solution:</b><br>
 <pre>
     slogin &lt;machine_where_you_want_to_run_the_OT&gt;
-    rm &lt;LOCAL_INSTALL_ROOT&gt;/bin/ot                   (by default: rm ../install/bin/ot)
     cd orac3/OT/src
-    gmake &lt;LOCAL_INSTALL_ROOT&gt;/bin/ot                (by default: gmake ../install/bin/ot)
+    rm &lt;LOCAL_INSTALL_ROOT&gt;/bin/ot                   (by default: rm ../install/bin/ot)
+    gmake
     &lt;LOCAL_INSTALL_ROOT&gt;/bin/ot ukirt | jcmt         (by default: ../install/bin/ot ukirt | jcmt)
 </pre>
 </ul>
