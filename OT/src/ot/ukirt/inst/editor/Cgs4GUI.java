@@ -132,7 +132,7 @@ public class Cgs4GUI extends JPanel {
     jLabel9.setText("Sampling");
     jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel12.setForeground(Color.black);
-    jLabel12.setText("CVF Offset");
+    jLabel12.setText("CVF Wavelength");
     jLabel14.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel14.setForeground(Color.black);
     jLabel14.setText("Central Wavelength");
