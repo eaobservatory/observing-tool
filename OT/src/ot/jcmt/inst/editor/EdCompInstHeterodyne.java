@@ -125,6 +125,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.feMode.setModel(new DefaultComboBoxModel((String[])cfg.frontEndTable.get(_w.feChoice.getItemAt(0))));
       _w.feMode.addActionListener( this );
       _w.feBandModeChoice.addActionListener ( this );
+      _w.feMixers.setModel(new DefaultComboBoxModel((String[])cfg.frontEndMixers.get(_w.feChoice.getItemAt(0))));
+      _w.feMixers.addActionListener(this);
 
       _w.overlap.setText ( "0.0" );
       _w.overlap.addActionListener ( this );
@@ -218,6 +220,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          frontEndName,						// front end
          ((String[])cfg.frontEndTable.get(frontEndName))[0],	// mode
          bandSpec.toString(),					// band mode
+         ((String[])cfg.frontEndMixers.get(frontEndName))[0],	// mode
          "" + bandSpec.defaultOverlaps[0],			// overlap
          "0.0",							// velocity
          SpInstHeterodyne.RADIAL_VELOCITY_RADIO,		// velocity definitio
@@ -257,6 +260,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          _w.feChoice.setSelectedItem(_instHeterodyne.getFrontEnd());
          _w.feMode.setSelectedItem(_instHeterodyne.getMode());
          _w.feBandModeChoice.setSelectedItem(getObject(_w.feBandModeChoice, _instHeterodyne.getBandMode()));
+         _w.feMixers.setSelectedItem(getObject(_w.feMixers, _instHeterodyne.getMixer()));
          _w.overlap.setText("" + (_instHeterodyne.getOverlap(0) / 1.0E6));
          _w.velocityDefinition.setSelectedItem("" + _instHeterodyne.getVelocityDefinition());
 
@@ -350,6 +354,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       {
          feBandModeChoiceAction ( ae );
       }
+      else if ( ae.getSource() == _w.feMixers )
+      {
+         feMixersAction ( ae );
+      }
       else if ( ae.getSource() == _w.velocity )
       {
          feVelocityAction ( ae );
@@ -441,6 +449,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          }
       }
    }
+
+    public void feMixersAction (ActionEvent ae) {
+    }
 
 
    public void feMoleculeAction ( ActionEvent ae )
@@ -873,6 +884,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.feMode.removeActionListener(this);
       _w.feMode.setModel(new DefaultComboBoxModel((String[])cfg.frontEndTable.get(newFE)));
       _w.feMode.addActionListener(this);
+
+      _w.feMixers.removeActionListener(this);
+      _w.feMixers.setModel(new DefaultComboBoxModel((String[])cfg.frontEndMixers.get(newFE)));
+      _w.feMixers.addActionListener(this);
 
 /* Update choice of sub-band configurations */
 
