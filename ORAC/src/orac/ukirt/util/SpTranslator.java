@@ -15,6 +15,7 @@ import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
+import gemini.sp.iter.SpIterChop;
 import gemini.sp.iter.SpIterComp;
 import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterFolder;
@@ -1552,6 +1553,35 @@ public class SpTranslator {
 // Also need a silent WAIT ALL to let the telescope finish moving before
 // taking an exposure.
                            sequence.addElement( "-WAIT ALL" );
+
+// Store chopping commands in sequence.
+// ====================================
+                        } else if ( sis.title.equalsIgnoreCase( "chop" ) ) {
+
+// Add chopping instructions.
+// ==========================
+
+// Record that there was some chopping so that the beam may be reset at
+// the end.
+                           if ( !chopping ) {
+                              chopping = true;
+                           }
+
+// Obtain the chop throw in arcseconds and its orientation.  This
+// isn't the OO way, but will doas a stop-gap measure.
+                           siv = (SpIterValue) sis.values[ 0 ];
+                           chopThrow = (String) siv.values[ 0 ];
+                           siv = (SpIterValue) sis.values[ 1 ];
+                           chopAngle = (String) siv.values[ 0 ];
+
+// Write sequence instructions.
+                           sequence.addElement( "-CHOP ChopOff" );
+                           sequence.addElement( "SET_CHOPTHROW " + chopThrow );
+                           sequence.addElement( "SET_CHOPPA " + chopAngle );
+                           sequence.addElement( "-DEFINE_BEAMS " + chopAngle + " " + chopThrow );
+                           sequence.addElement( "-CHOP ChopOn" );
+                           sequence.addElement( "-CHOP_EXTERNAL" );
+                           sequence.addElement( "SET_CHOPBEAM A" );
 
 // Store nodding observe commands.
 // ===============================
