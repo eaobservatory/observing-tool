@@ -83,6 +83,8 @@ public final class EdCompTargetList extends OtItemEditor
     private SpTelescopePos     _curPos;	// Position being edited
     private SpTelescopePosList _tpl;	// List of positions being edited
 
+    private String [] _guideTags;
+
     private NameResolverFeedback _nameResolverFeedback;
 
     private boolean _targetSystemsChange = false;
@@ -137,11 +139,7 @@ public final class EdCompTargetList extends OtItemEditor
           _w.extrasFolder.setSelectedIndex(0);
         }
 
-        _w.newButton.setText("Add " + OtCfg.telescopeUtil.getAdditionalTarget());
-	_w.newButton.setToolTipText(_w.newButton.getText());
-
-	_w.setBaseButton.setText("Set " + OtCfg.telescopeUtil.getBaseTag() + " To Image Centre");
-	_w.setBaseButton.setToolTipText(_w.setBaseButton.getText());
+	_w.setBaseButton.setText("Set " + SpTelescopePos.BASE_TAG + " To Image Centre");
 
 	if(_w.setBaseButton.getText().length() > 24) {
 	  _w.setBaseButton.setFont(new java.awt.Font("Dialog", 0, 10));
@@ -235,15 +233,22 @@ public final class EdCompTargetList extends OtItemEditor
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
-	//String[] guideTags = SpTelescopePos.getGuideStarTags();
+	_tag.addChoice(SpTelescopePos.BASE_TAG);
 
-	// MFO 30 May 2001
-	//_tag.setChoices(guideTags);
-	//_tag.addChoice(SpTelescopePos.BASE_TAG);
-	_tag.setChoices(OtCfg.telescopeUtil.getTargetTags());
+	_guideTags = SpTelescopePos.getGuideStarTags();
 
-	// Currently it is not allowed to change the tag of a target. (MFO, April 24, 2002)
-	_tag.setEnabled(false);
+	if((_guideTags != null) && (_guideTags[0] != null)) {
+          _w.newButton.setText("Add " + _guideTags[0]);
+	  for(int i = 0; i < _guideTags.length; i++)
+	      _tag.addChoice(_guideTags[i]);
+	}
+	else {
+	  // Set the button text to "Add" so that it looks more consistent.
+	  // But the button will be disabled all the time if
+	  // _guideTags is null or empty.
+	  _w.newButton.setText("Add");
+	}
+
 
 	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
 	//_tag.addChoice(SpTelescopePos.USER_TAG);
@@ -252,32 +257,7 @@ public final class EdCompTargetList extends OtItemEditor
 		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
 
 		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
-		    String oldTag = _curPos.getTag();
-
-		    if (oldTag.startsWith(SpTelescopePos.USER_TAG)) {
-			oldTag = SpTelescopePos.USER_TAG;
-		    }
-
-		    if (oldTag.equals(newTag)) return;
-
-		    // Don't allow changes from BASE_TAG to anything else.  We always
-		    // want to have a Base.
-		    if (oldTag.equals(SpTelescopePos.BASE_TAG)) {
-			DialogUtil.error(_w, "You can't change the tag of the " + SpTelescopePos.BASE_TAG + " Position.");
-			_tag.setValue(SpTelescopePos.BASE_TAG);
-			return;
-		    }
-
-		    // MFO 23 May 2001 bug fix. (This bug was never fixed in the FreeBongo OT for UKIRT)
-                    if(oldTag.equals(OtCfg.telescopeUtil.getAdditionalTarget())) {
-		      DialogUtil.error(_w, "You can't change the tag of the " +
-			                   OtCfg.telescopeUtil.getAdditionalTarget() +
-					   " Position.");
-		      _tag.setValue(OtCfg.telescopeUtil.getAdditionalTarget());
-                      return;
-		    }
-
-		    _tpl.changeTag(_curPos, newTag);
+		    _changeTag(newTag);
 		}
 	    });
 
@@ -758,21 +738,25 @@ public final class EdCompTargetList extends OtItemEditor
 
 	_updateXYUnitsLabels();
 
+/*
 	// update remove button
-	if(_curPos.getTag().equals(OtCfg.telescopeUtil.getBaseTag())) {
+	if(_curPos.getTag().equals(SpTelescopePos.BASE_TAG)) {
 	  _w.removeButton.setEnabled(false);
 	}
 	else {
 	  _w.removeButton.setEnabled(true);
 	}
 
-	// update add button
-	if(_tpl.size() < 2) {
-	  _w.newButton.setEnabled(true);
+
+	// Make sure the tag selection is disabled while the base position is selected.
+	// The base position tag cannot be changed.
+	if(_tag.getValue().equals(SpTelescopePos.BASE_TAG)) {
+	  _tag.setEnabled(false);
 	}
 	else {
-	  _w.newButton.setEnabled(false);
+	  _tag.setEnabled(true);
 	}
+*/
     }
 
     /**
@@ -807,19 +791,40 @@ public final class EdCompTargetList extends OtItemEditor
 
 	_updateXYUnitsLabels();
 
-	if(_curPos.getTag().equals(OtCfg.telescopeUtil.getBaseTag())) {
+	if(_curPos.getTag().equals(SpTelescopePos.BASE_TAG)) {
 	  _w.removeButton.setEnabled(false);
 	}
 	else {
 	  _w.removeButton.setEnabled(true);
 	}
 
-	if(_tpl.size() < 2) {
-	  _w.newButton.setEnabled(true);
+
+	// Make sure the tag selection is disabled while the base position is selected.
+	// The base position tag cannot be changed.
+	if(_tag.getValue().equals(SpTelescopePos.BASE_TAG) || _nextTag() == null) {
+	  _tag.setEnabled(false);
 	}
 	else {
-	  _w.newButton.setEnabled(false);
+	  _tag.setEnabled(true);
 	}
+
+
+        String nextTag = _nextTag();
+
+        // Make sure the tag selection and newButton are disabled when all possible tags
+        // have been added.
+        if(nextTag != null) {
+          _w.newButton.setEnabled(true);
+          _w.newButton.setText("Add " + nextTag);
+        }
+        else {
+          _w.newButton.setEnabled(false);
+        }
+
+
+        if(_tpl.size() < 2) {
+          _w.removeButton.setEnabled(false);
+        }
     }
 
     /**
@@ -1077,12 +1082,17 @@ public final class EdCompTargetList extends OtItemEditor
 		return;
 	    }
 
-            // UKIRT-ORAC: Instead of user position try just creating a
-            // guide position AB 26Apr00 / MFO 23 May 2001
-	    // UKIRT/JCMT: Instead of creating a guide position create an additional target according to the telescope
-	    // used ("GUIDE" for UKIRT, "Reference" for JCMT), MFO 21 January 2002.
-	    // SpTelescopePos tp = _tpl.createBlankUserPosition();
-            SpTelescopePos tp = _tpl.createPosition(OtCfg.telescopeUtil.getAdditionalTarget(), base.getXaxis(), base.getYaxis());
+
+            String nextTag = _nextTag();
+
+            // This should not happen since _w.newButton should be disabled if there are no more tags.
+            if(nextTag == null) {
+              return;
+            }
+
+            SpTelescopePos tp = _tpl.createPosition(nextTag, base.getXaxis(), base.getYaxis());
+            _w.removeButton.setEnabled(true);
+
 
             if(OtCfg.telescopeUtil.isOffsetTarget(tp.getTag())) {
                  _w.offsetCheckBox.setValue(false);
@@ -1095,9 +1105,6 @@ public final class EdCompTargetList extends OtItemEditor
             // Select HMSDEG/DEGDEG pane.
             _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
 
-            _w.newButton.setEnabled(false);
-	    _w.removeButton.setEnabled(true);
-
 	    return;
 	}
 
@@ -1108,9 +1115,6 @@ public final class EdCompTargetList extends OtItemEditor
 	    }
 
 	    _tpl.removePosition(_curPos);
-
-            _w.newButton.setEnabled(true);
-	    _w.removeButton.setEnabled(false);
 
 	    return;
 	}
@@ -1460,6 +1464,55 @@ public final class EdCompTargetList extends OtItemEditor
             DialogUtil.error(_w, "Error while trying to resolve name \"" + _w.nameTBW.getText() + "\"\n" + e.getMessage());
 	  }
 	}
+    }
+
+    private void _changeTag(String newTag) {
+      String oldTag = _curPos.getTag();
+
+      if(_tpl.exists(newTag)) {
+        DialogUtil.error(newTag + " exists.");
+        _tag.setValue(oldTag);
+        return;
+      }
+
+      if(oldTag.startsWith(SpTelescopePos.USER_TAG)) {
+        oldTag = SpTelescopePos.USER_TAG;
+      }
+
+      if (oldTag.equals(newTag)) return;
+
+      // Don't allow changes from BASE_TAG to anything else.  We always
+      // want to have a Base.
+      if(oldTag.equals(SpTelescopePos.BASE_TAG)) {
+        DialogUtil.error("You can't change the type of the Base Position.");
+        _tag.setValue(SpTelescopePos.BASE_TAG);
+          return;
+      }
+
+      _tpl.changeTag(_curPos, newTag);
+
+      // Update newButton
+
+      String nextTag = _nextTag();
+
+      if(nextTag != null) {
+        _w.newButton.setText("Add " + _nextTag());
+      }
+      else {
+        _w.newButton.setEnabled(false);
+      }
+    }
+
+    private String _nextTag() {
+      if((_guideTags != null) && (_guideTags[0] != null)) {
+        for(int i = 0; i < _guideTags.length; i++) {
+          if(!_tpl.exists(_guideTags[i])) {
+            return _guideTags[i];
+          }
+        }
+      }	
+
+      return null;
     }
 }
 
