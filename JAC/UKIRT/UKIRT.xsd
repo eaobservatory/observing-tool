@@ -32,6 +32,12 @@
   </xsd:sequence>
 </xsd:group>
 
+<xsd:simpleType name="chopThrowLimits">
+  <xsd:restriction base="toml:chopThrowLimits">
+    <xsd:maxInclusive value="30.0"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
 </xsd:redefine>
 
 <xsd:redefine schemaLocation="../JACtypes.xsd">
