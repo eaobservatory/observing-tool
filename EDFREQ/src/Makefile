@@ -130,7 +130,7 @@ _install:
 	jar cf $(INSTALL_ROOT)/lib/edfreq.jar -C $(LOCAL_INSTALL_ROOT)/classes .
 
 	@mkdir -p $(INSTALL_ROOT)/tools
-	cp -i ../../ORAC/tools/xerces.jar $(INSTALL_ROOT)/tools 
+	cp ../../ORAC/tools/xerces.jar $(INSTALL_ROOT)/tools 
 
 	@mkdir -p $(INSTALL_ROOT)/bin
 	@printf \

@@ -163,7 +163,7 @@ install-jars:
 	@mkdir -p $(INSTALL_ROOT)/tools
 	@mkdir -p $(INSTALL_ROOT)/lib
 
-	@cp -i $(EXTERNAL_JAR_FILES) $(INSTALL_ROOT)/tools
+	@cp $(EXTERNAL_JAR_FILES) $(INSTALL_ROOT)/tools
 
 	(cd ../../GEMINI/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../ORAC/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
