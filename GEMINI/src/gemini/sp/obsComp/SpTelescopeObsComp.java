@@ -12,6 +12,7 @@ import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpType;
 import gemini.util.CoordSys;
 
+import java.util.Enumeration;
 
 /**
  * A class for telescope observation component items.  Maintains a
@@ -313,6 +314,23 @@ setChopSystem(String chopSystem)
    //_notifyOfGenericUpdate();
 }
 
+public String writeTCSXML() {
+    StringBuffer xmlString = new StringBuffer("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");
+    xmlString.append("<OCS_CONFIG>");
+    xmlString.append("\n  <TCS_CONFIG>");
+    String indent="  ";
+    Enumeration avAttributes = _avTable.attributes();
+    while (avAttributes.hasMoreElements()) {
+	String currAttr = (String)avAttributes.nextElement();
+	if ( ! currAttr.startsWith(".") ) {
+	    this.processAvAttribute( currAttr, indent, xmlString);
+	}
+    }
+    xmlString.append("\n  </TCS_CONFIG>");
+    xmlString.append("\n</OCS_CONFIG>");
+    return xmlString.toString();
+}
+
 /**
  * This method creates JAC TCS XML from those attributes of the
  * SpAvTable that equal a target tag such as BASE, SCIENCE, GUIDE, REFERENCE.
@@ -366,27 +384,27 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
      case SpTelescopePos.SYSTEM_CONIC:
        xmlBuffer.append("\n      " + indent + "<" + TX_CONIC_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\""
                                                   + targetPos.getConicOrNamedType() + "\">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH + " units=\"days\">" + targetPos.getConicSystemEpoch()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH + ">" + targetPos.getConicSystemEpoch()
                                               + "</" + TX_EPOCH + ">");
 
        if(targetPos.getConicOrNamedType().equals(SpTelescopePos.CONIC_SYSTEM_TYPES[SpTelescopePos.TYPE_COMET])) {
-         xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH_PERIH + " units=\"days\">" + targetPos.getConicSystemEpochPerih()
+         xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH_PERIH + ">" + targetPos.getConicSystemEpochPerih()
                                                 + "</" + TX_EPOCH_PERIH + ">");
        }
 
-       xmlBuffer.append("\n        " + indent + "<"  + TX_INCLINATION + " units=\"degrees\">" + targetPos.getConicSystemInclination()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_INCLINATION + ">" + targetPos.getConicSystemInclination()
                                               + "</" + TX_INCLINATION + ">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_ANODE + " units=\"degrees\">" + targetPos.getConicSystemAnode()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_ANODE + ">" + targetPos.getConicSystemAnode()
                                               + "</" + TX_ANODE + ">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_PERIHELION + " units=\"degrees\">" + targetPos.getConicSystemPerihelion()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_PERIHELION + ">" + targetPos.getConicSystemPerihelion()
                                               + "</" + TX_PERIHELION + ">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_AORQ + " units=\"au\">" + targetPos.getConicSystemAorQ()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_AORQ + ">" + targetPos.getConicSystemAorQ()
                                               + "</" + TX_AORQ + ">");
        xmlBuffer.append("\n        " + indent + "<"  + TX_E + ">" + targetPos.getConicSystemE()
                                               + "</" + TX_E + ">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_LORM + " units=\"degrees\">" + targetPos.getConicSystemLorM()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_LORM + ">" + targetPos.getConicSystemLorM()
                                               + "</" + TX_LORM + ">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_N + " units=\"degrees/day\">" + targetPos.getConicSystemDailyMotion()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_N + ">" + targetPos.getConicSystemDailyMotion()
                                               + "</" + TX_N + ">");
        xmlBuffer.append("\n      " + indent + "</" + TX_CONIC_SYSTEM + ">");
        break;
@@ -422,15 +440,15 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
        }       
 
        if((pm1 != 0.0) || (pm2 != 0.0)) {
-         xmlBuffer.append("\n        " + indent + "<" + TX_PM1 + " units=\"arcsecs/year\">" + pm1 + "</" + TX_PM1 + ">");
-         xmlBuffer.append("\n        " + indent + "<" + TX_PM2 + " units=\"arcsecs/year\">" + pm2 + "</" + TX_PM2 + ">");
+         xmlBuffer.append("\n        " + indent + "<" + TX_PM1 + ">" + pm1 + "</" + TX_PM1 + ">");
+         xmlBuffer.append("\n        " + indent + "<" + TX_PM2 + ">" + pm2 + "</" + TX_PM2 + ">");
        }
 
        try {
          double rv = Double.parseDouble(targetPos.getTrackingRadialVelocity());
 
          if(rv != 0.0) {
-           xmlBuffer.append("\n        " + indent + "<" + TX_RV + " units=\"km/sec\">" + rv + "</rv>");
+           xmlBuffer.append("\n        " + indent + "<" + TX_RV + ">" + rv + "</rv>");
          }
        } 
        catch(Exception e) {
