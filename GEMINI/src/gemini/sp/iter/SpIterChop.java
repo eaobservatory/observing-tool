@@ -31,7 +31,7 @@ SpIterChopEnumeration(SpIterChop iterChop)
    super(iterChop);
 
    _iterChop   = iterChop;
-   _totalSteps = iterChop.getTable().getAll(SpIterChop.ATTR_THROW).size();
+   _totalSteps = iterChop.getStepCount();
 }
 
 protected boolean
@@ -187,65 +187,13 @@ public class SpIterChop extends SpIterComp {
     _selectedIndex = selectedIndex;
   }
 
-  public Vector getStep(int i) {
-    if(getThrowAsString(i) == null) {
-      return null;
+  public int getStepCount() {
+    try {
+      return _avTable.getAll(ATTR_THROW).size();
     }
-
-    Vector result = new Vector();
-
-    result.add(getThrowAsString(i));
-    result.add(getAngleAsString(i));
-    result.add(getCoordFrame(i));
-
-    return result;
-  }
-
-
-  public Vector [] getAllSteps() {
-    int n = 0;
-
-    while(getThrowAsString(n) != null) {
-      n++;
-    }
-
-    Vector [] result = new Vector[n];
-
-    for(int i = 0; i < n; i++) {
-      result[i] = getStep(i);
-    }
-    
-    return result;
-  }
-
-
-/*  
-  public void addStep() {
-
-  }
-*/
-/*
-  public int getNumberOfSteps() {
-    int i = 0;
-
-    while(getThrow(i)) {
-      i++;
+    catch(Exception e) {
+      return 0;
     }
   }
-*/
-
-/*
-  public IterConfigItem[] getAvailableItems() {
-    return new IterConfigItem[]{
-      new IterConfigItem("Throw",       ATTR_THROW       + "Iter"),
-      new IterConfigItem("Angle",       ATTR_ANGLE       + "Iter"),
-      new IterConfigItem("Coord Frame", ATTR_COORD_FRAME + "Iter"),
-    };
-  }
-
-  public String getItemName() {
-    return "Chop";
-  }
-*/
 }
 
