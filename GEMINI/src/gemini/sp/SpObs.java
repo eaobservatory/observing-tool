@@ -307,7 +307,7 @@ getElapsedTime()
 {
   SpIterFolder iterFolder = getIterFolder();
   
-  if(iterFolder != null) {
+  if(iterFolder != null && !isOptional()) {
     return iterFolder.getElapsedTime();
   }
   else {
