@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>scuba.xml</meta_gui_filename>
+  <meta_gui_filename>SCUBA.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
-  <SpNote type="no" subtype="none">
-    <meta_gui_collapsed>false</meta_gui_collapsed>
-    <note> The intention of this library is to provide a series of templates which can be used by investigators  to prepare their observing programs. The library is split into two sections: 
-
- (a) templates for a selection of routine observations that can be dragged and copied over to 
-     be used to create an observing program. 
- (b) examples of how existing (shortened) SCUBA programs (previously referred to as observing          templates) translate into OT-based MSBs. 
-
-  The templates and examples should be relatively self-explanatory, and of course can be readily
- taylored to fit the exact requirements of the SCUBA science program.  </note>
-    <title>Introductory note on SCUBA libraries and examples</title>
-  </SpNote>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA MSBs</title>
@@ -28,6 +16,54 @@
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1336.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="1" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
@@ -48,23 +84,24 @@
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of photometry at 850/450 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the on-source bolometers have been set to H7 on the LONG array and C14 on the SHORT array, with the 850W/450W um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 850/450 um photometry observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850/450 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">196.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration at 850/450um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-A number of parameters have been assumed/predetermined, as listed below:
-- the bolometers to be calibrated have been set to H7 on the LONG array and C14 on the SHORT array, with the 850W/450W um filter wheel setting selected. 
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-- 6 integrations (set in the PHOTOM eye)
-
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last FOCUS/SKYDIPs were made.  
-  </note>
-            <title>Template notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
@@ -88,7 +125,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -113,11 +150,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1080.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -125,15 +157,15 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <target>
                 <targetName></targetName>
                 <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
+                  <c1>12:00:00</c1>
+                  <c2>+25:00:00</c2>
                 </spherSystem>
               </target>
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
@@ -167,6 +199,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1336.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="3" type="oc" subtype="schedInfo">
           <seeing>
             <min>0.0</min>
@@ -187,26 +267,28 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>350:750</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of photometry at 750/350 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the on-source bolometers have been set to H7 on the LONG array and C14 on the SHORT array, with the 750/350 um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 750/350 um photometry observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>750/350 um photometry calibration</title>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">196.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration at 750/350um of the photometry observing mode. Here,  the choice of calibration source and the precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-A number of parameters have been assumed/predetermined, as listed below:
-- the bolometers to be calibrated have been set to H7 on the LONG array and C14 on the SHORT array, with the 750W/350W um filter wheel setting selected. 
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-- 6 integrations (set in the PHOTOM eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Template notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>60.0</THROW>
@@ -226,7 +308,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -248,14 +330,9 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>750/350 um photometry</title>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1080.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make a 750/350 um photometry observation. </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -305,6 +382,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1336.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -317,21 +442,23 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of photometry at 2000 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the observing bolometer has been set to P2000 .  Both the calibration and the science observations will inherit this setup  
+- a chop throw of 60"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 6 integrations (set in the PHOTOM eye) and 40 integrations in the calibration/science observations accordingly
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 2000 um photometry observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>2000 um photometry calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">196.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration at 2000 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
-- the bolometer to be calibrated is the 2000 um pixel. 
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-- 6 integrations (set in the PHOTOM eye)
-A pointing,  z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Template notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
@@ -355,7 +482,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -434,6 +561,54 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1336.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="7" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -459,7 +634,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
 - 6 integrations (set in the PHOTOM eye)
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
-            <title>Observation notes</title>
+            <title>Photometry calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -484,7 +659,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -509,11 +684,6 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1080.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make a photometry observation using the 1350 um bolometer. </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -563,6 +733,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1336.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="9" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -588,7 +806,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
 - 6 integrations (set in the PHOTOM eye)
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
-            <title>Observation notes</title>
+            <title>Photometry calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -613,7 +831,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -709,35 +927,35 @@ range of tau allocated to you by your national TAG.
 
 You can, if you wish, schedule your MSBs in subsets of
 your allocated time. For example, if you were allocated
-Band 2 (0.05&lt;tau&lt;0.08) you may request a tau range
-of 0.05&lt;tau&lt;0.06 for an MSB that needs to be observed
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
 on the upper end of the scale.
 
 DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
-Your MSB will never be carried out in that case since
-the scheduling software takes a join between your TAG
-allocation and your personal preference.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
 
 For those who best think in bands, the tau range of the
 JCMT Bands are:
 
-Band 1: tau&lt;0.05
-Band 2: 0.05&lt;tau&lt;0.08
-Band 3: 0.08&lt;tau&lt;0.12
-Band 4: 0.12&lt;tau&lt;0.20
-Band 5: 0.2&lt;tau
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
 
-The field labeled "tau for noise calculation" has the value
-that is used in other components for the RMS noise estimation of your observation. Change it if it does not
-represent the typical value of your allocation.
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
 
 Seeing
 ------
-This is the submillimeter seeing in arcseconds. The
-general recommendation is for you to use
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
 
-&lt;=0.5 for polarimetry observations
-&lt;=1.0 for photometry observations
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
 
 and "Don't Care" for maps.
 
@@ -759,6 +977,20 @@ and "Don't Care" for maps.
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the jiggle map mode at 850/450 um, producing fully sampled maps at both short and long wavelengths. Data from both the LONG and SHORT arrays will be stored. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the 850W/450W um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 64-position jiggle to realise fully sampled maps with both the LONG and SHORT arrays 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 850/450 um jiggle map observation, fully sampled at both 850/450 um</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850/450 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -772,12 +1004,12 @@ and "Don't Care" for maps.
 - 2 integrations (set in the JIGGLE eye)
 A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
-            <title>Observation notes</title>
+            <title>Jiggle map calibration</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>120.0</THROW>
@@ -797,7 +1029,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -869,10 +1101,58 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="13"/>
         <SpInstSCUBARef idref="12"/>
-        <title>750/350 um jiggle map (fully sampled at both 850/450 um)</title>
+        <title>750/350 um jiggle map (fully sampled at both 750/350 um)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">2108.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="13" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -888,25 +1168,29 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>350:750</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the jiggle map mode at 750/350 um, producing fully sampled maps at both short and long wavelengths. Data from both the LONG and SHORT arrays will be stored. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the 750/350 um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 64-position jiggle to realise fully sampled maps with both the LONG and SHORT arrays 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 750/350 um jiggle map observation, fully sampled at both 750/350 um</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>850/450 um jiggle map calibration</title>
+          <title>750/350 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">368.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 64-position jiggle pattern will be employed to obtain a fully sampled map at both LONG and SHORT wavelengths. A number of parameters have been assumed/predetermined, as listed below:
-- maps map with both arrays will be fully sampled 
-- a chop throw of 120"  in azimuth (set in CHOP sequence)
-- 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
                 <CHOP SYSTEM="AZEL">
                   <THROW>120.0</THROW>
@@ -926,7 +1210,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -948,7 +1232,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>850/450 um jiggle map (fully sampled at both 850/450 um )</title>
+          <title>750/350 um jiggle map (fully sampled at both 750/350 um )</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1680.0</estimatedDuration>
@@ -1002,6 +1286,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="15" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1014,22 +1346,25 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the jiggle map mode at 850/450 um, producing fully sampled maps with the LONG array ONLY. Data from both the LONG and SHORT arrays will be stored. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the 850W/450W um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 16-position jiggle to realise a fully sampled maps with the LONG array ONLY 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 850 um jiggle map observation, fully sampled at 850 um ONLY</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">122.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 16-position jiggle pattern will be employed, so ONLY data taken with the LONG array will be fully sampled. A number of parameters have been assumed/predetermined, as listed below:
-- only the map taken with the LONG array will be fully sampled 
-- a chop throw of 120"  in azimuth (set in CHOP sequence)
-- 2 integrations (set in the JIGGLE eye)
-
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined  at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
@@ -1053,7 +1388,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -1129,6 +1464,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">632.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1141,23 +1524,27 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the jiggle map mode at 850/450 um, producing fully sampled maps with the SHORT array ONLY. Data from both the LONG and SHORT arrays will be stored. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the 850W/450W um filter wheel setting selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 16-position jiggle to realise a fully sampled maps with the SHORT array ONLY 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 450 um jiggle map observation, fully sampled at 450 um ONLY</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>450 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">122.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 16-position jiggle pattern will be employed, so ONLY data taken with the SHORT array will be fully sampled. A number of parameters have been assumed/predetermined, as listed below:
-- only the map taken with the SHORT array will be fully sampled 
-- a chop throw of 120"  in azimuth (set in CHOP sequence)
-- 2 integrations (set in the JIGGLE eye)
-A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined  at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <SECONDARY>
@@ -1179,7 +1566,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -1255,6 +1642,54 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1015.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="19" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1267,21 +1702,25 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the pseudo-jiggle map mode at 2000 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the P2000 bolometer selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 7 x 7 jiggle to realise a fully sampled map 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 2000 um jiggle map observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>2000 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">165.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration at 2000 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
-- the bolometer to be calibrated is the 2000 um pixel. 
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-- 6 integrations (set in the PHOTOM eye)
-A pointing,  z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Template notes</title>
-          </SpNote>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -1290,7 +1729,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1312,7 +1751,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -1388,6 +1827,54 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1015.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="21" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1400,21 +1887,25 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the pseudo-jiggle map mode at 1350 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the P1350 bolometer selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 7 x 7 jiggle to realise a fully sampled map 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 1350 um jiggle map observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>1350 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">165.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration at 2000 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
-- the bolometer to be calibrated is the 2000 um pixel. 
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-- 6 integrations (set in the PHOTOM eye)
-A pointing,  z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Template notes</title>
-          </SpNote>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -1423,7 +1914,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
             <filter>PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1445,7 +1936,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -1521,6 +2012,54 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1015.0</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="23" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1533,21 +2072,25 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of the pseudo-jiggle map mode at 1100 um. Two observations are combined within the MSB: a calibration and a science observation. 
+ 
+The following parameters have been set: 
+- the P1100 bolometer selected (by way of the 
+SCUBA component).  Both the calibration and the science observations will inherit this setup  
+- a 7 x 7 jiggle to realise a fully sampled map 
+- a chop throw of 120"  in azimuth (set in CHOP sequence). Note that there is a chop iterator in each observation (calibration and science target). These should match, and therefore if you chose to change the value of one, you should also change the value of the other  
+- 2 jiggles (set in the JIGGLE eye) and 10 jiggles in the calibration/science observations respectively
+ 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual scheduling and sequencing of the calibration observation, including the choice of calibrator to be observed,  will be determined at the time of observing by the TSS/observer. This will depend upon which calibrators are available and when the last FOCUS/SKYDIPs were made. It is possible to  request a specific calibrator by including TARGET INFORMATION within the calibration observation.     </note>
+          <title>A calibrated 1100 um jiggle map observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>1100 um jiggle map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">165.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration at 2000 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
-- the bolometer to be calibrated is the 2000 um pixel. 
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-- 6 integrations (set in the PHOTOM eye)
-A pointing,  z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Template notes</title>
-          </SpNote>
           <SpInstSCUBA type="oc" subtype="inst.SCUBA">
             <primaryBolometer>P2000</primaryBolometer>
             <bolometers>P2000</bolometers>
@@ -1578,7 +2121,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterFocusObs type="ic" subtype="focusObs">
-                <steps>0.0</steps>
+                <steps>0.3</steps>
                 <axis>z</axis>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <focusPoints>5</focusPoints>
@@ -1649,7 +2192,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
       </SpMSB>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>SCUBA scan map MSBs</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <SpSiteQualityObsCompRef idref="25"/>
@@ -1658,6 +2201,54 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">3665.25</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="25" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1673,19 +2264,19 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation provides an example of a calibrated scan map observation using the LONG and SHORT arrays, with the filter wheel set at the 850W/450W um position. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence, in addition to the specific choice of calibrator,  will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+  </note>
+          <title>A calibrated 850/450 um scan map observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>850/450 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">597.75</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration of the scan map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850/450 um filter selected. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
               <positions>1</positions>
               <startPosition>Zenith</startPosition>
@@ -1699,7 +2290,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
-              <steps>0.0</steps>
+              <steps>0.3</steps>
               <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
@@ -1790,7 +2381,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterChop type="ic" subtype="chop">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_collapsed>true</meta_gui_collapsed>
                 <SECONDARY>
                   <CHOP SYSTEM="TRACKING">
                     <THROW>30.0</THROW>
@@ -1841,6 +2432,54 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>Low</priority>
         <estimatedDuration units="seconds">1459.9285714285713</estimatedDuration>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+          <title>Site Quality</title>
+        </SpNote>
         <SpSiteQualityObsComp id="27" type="oc" subtype="schedInfo">
           <noiseCalculationTau>0.08</noiseCalculationTau>
           <meta_unique>true</meta_unique>
@@ -1853,17 +2492,17 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>PHOT</filter>
         </SpInstSCUBA>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This MSB provides an example of a calibrated scan map observation using the 2000 um bolometer. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence, in addition to the specific choice of calibrator,  will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+  </note>
+          <title>A calibrated 2000 um scan map observation</title>
+        </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>2000 um scan map calibration</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>true</standard>
           <estimatedDuration units="seconds">802.1785714285713</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation provides an example of calibration of the scan map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data is taken using the 2000 um bolometer. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
-  </note>
-            <title>Observation notes</title>
-          </SpNote>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterSkydipObs type="ic" subtype="skydipObs">
@@ -1879,7 +2518,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
-              <steps>0.0</steps>
+              <steps>0.3</steps>
               <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
@@ -1941,7 +2580,7 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>2000 um scan map</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">597.75</estimatedDuration>
           <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -2019,10 +2658,6 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>SCUBA miscellaneous observations</title>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>This section provides standard instrumental routines that are not usually part of schedulable MSBs.</note>
-    </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <title>SCUBA instrument test</title>
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -2125,11 +2760,8 @@ A pointing,  z-focus and repoint will be made prior to the calibration observati
       <standard>false</standard>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation is an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly.  Here an unpolarized source is required,
-ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop
-setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS
-respectively) as is a skydip.         </note>
-        <title>Observation notes</title>
+        <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
+        <title>Instrumental polarization observation notes</title>
       </SpNote>
       <SpTelescopeObsComp id="29" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
@@ -2164,7 +2796,7 @@ respectively) as is a skydip.         </note>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterFocusObs type="ic" subtype="focusObs">
-          <steps>0.0</steps>
+          <steps>0.3</steps>
           <axis>z</axis>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <focusPoints>5</focusPoints>
@@ -2228,18 +2860,15 @@ respectively) as is a skydip.         </note>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This observation is an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly.  Here an unpolarized source is required,
-ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop
-setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS
-respectively) as is a skydip.         </note>
-        <title>Observation notes</title>
+        <note>This observation provides an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly. An unpolarized source is required, ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS respectively) as is a skydip.         </note>
+        <title>Instrumental polarization observation notes</title>
       </SpNote>
       <SpTelescopeObsComp id="31" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
           <target>
-            <targetName>Mars</targetName>
+            <targetName></targetName>
             <namedSystem type="major"/>
           </target>
         </BASE>
@@ -2267,7 +2896,7 @@ respectively) as is a skydip.         </note>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterFocusObs type="ic" subtype="focusObs">
-          <steps>0.0</steps>
+          <steps>0.3</steps>
           <axis>z</axis>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <focusPoints>5</focusPoints>
@@ -2337,6 +2966,55 @@ The observation must be done in extremely stable conditions (both for tau and se
 Only relative calibration matters for a flatfield. Make sure that the telescope is focussed but there is no need for an accurate absolute flux calibration.
 Note that we use EKH scanning here - emersonII scanning would take to long.
 This observation requires a point source target (uranus is selected by default).</note>
+        <title>scan map flatfielding</title>
+      </SpNote>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>The Site Quality component below specifies the weather
+conditions that will affect the MSB's scheduling.
+
+Weather Band: 
+-------------
+By default, "Allocated" is selected. This means
+your MSB may be scheduled when conditions match the
+range of tau allocated to you by your national TAG.
+
+You can, if you wish, schedule your MSBs in subsets of
+your allocated time. For example, if you were allocated
+Band 2 (0.05<tau<0.08) you may request a tau range
+of 0.05<tau<0.06 for an MSB that needs to be observed
+on the upper end of the scale.
+
+DO NOT REQUEST A TAU OUTSIDE YOUR TAG ALLOCATION.
+Your MSB will never be carried out if you do, since
+the scheduling software requires firstly, that the current tau  
+is within your TAG allocation and then, only once this condition 
+has been met, that the current tau is within your range of personal preference.
+
+For those who best think in bands, the tau range of the
+JCMT Bands are:
+
+Band 1: tau<0.05
+Band 2: 0.05<tau<0.08
+Band 3: 0.08<tau<0.12
+Band 4: 0.12<tau<0.20
+Band 5: 0.2<tau
+
+The field labeled "tau for noise calculation" has a value
+that is used in other components for the RMS noise estimation of your observation. Change it if it does not represent the typical value of your allocation.
+
+Seeing
+------
+This is the submillimetre seeing in arcseconds. The
+general recommendation is for you to use:
+
+<=0.5 for polarimetry observations
+<=1.0 for photometry observations
+
+and "Don't Care" for maps.
+
+</note>
+        <title>Site Quality</title>
       </SpNote>
       <SpSiteQualityObsComp id="35" type="oc" subtype="schedInfo">
         <seeing>
@@ -2363,7 +3041,7 @@ This observation requires a point source target (uranus is selected by default).
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="SCIENCE">
           <target>
-            <targetName>Uranus</targetName>
+            <targetName></targetName>
             <namedSystem type="major"/>
           </target>
         </BASE>
@@ -2462,7 +3140,7 @@ There is usually no need to provide an instrumental polarization observation as 
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterPOL type="ic" subtype="instPOL">
                   <iterConfigList>POLIter</iterConfigList>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_collapsed>true</meta_gui_collapsed>
                   <POLIter>
                     <value>0</value>
                     <value>22.5</value>
@@ -2888,7 +3566,7 @@ There is usually no need to provide an instrumental polarization observation as 
         </SpObs>
       </SpLibraryFolder>
       <SpLibraryFolder type="lf" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <title>SCUBA polarimetry: photometry mode</title>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
           <SpInstSCUBARef idref="49"/>
@@ -3066,7 +3744,7 @@ There is usually no need to provide an instrumental polarization observation as 
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+            <note>This observation is an example of the sequence of tasks required to make an 1350um polarimetry photometry observation. </note>
             <title>Observation notes</title>
           </SpNote>
           <SpTelescopeObsComp id="52" type="oc" subtype="targetList">
@@ -3141,7 +3819,7 @@ There is usually no need to provide an instrumental polarization observation as 
         </SpObs>
       </SpLibraryFolder>
       <SpLibraryFolder type="lf" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <title>SCUBA polarimetry: scan map mode</title>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
           <SpInstSCUBARef idref="55"/>
@@ -3155,7 +3833,7 @@ There is usually no need to provide an instrumental polarization observation as 
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note> Scan map polarimetry is a difficult observing mode in which to obtain high quality 
  data. The limiting factor becomes that of sky variability. In this mode we have 
- assumed that it is optimal to make 4 raster scans instead of the usual 6 that are employed for the Emerson2 scanning scheme, and that the 4 scans are made for each of  the polarization grid angles. Under some circumstances it may be preferable to make       observations at each of the grid angles before moving to a different scan throw/angle.     
+ assumed that it is optimal to make 4 raster scans instead of the usual 6 that are employed for the Emerson2 scanning scheme, and that the 4 scans are made for each of  the polarization grid angles. Under some circumstances it may be preferable to make observations at each of the grid angles before moving to a different scan throw/angle.     
   </note>
           </SpNote>
           <SpTelescopeObsComp id="54" type="oc" subtype="targetList">
@@ -3251,7 +3929,7 @@ There is usually no need to provide an instrumental polarization observation as 
       </SpLibraryFolder>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA polarimetry MSBs</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
