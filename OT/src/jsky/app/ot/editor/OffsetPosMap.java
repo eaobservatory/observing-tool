@@ -10,6 +10,13 @@ import jsky.app.ot.fits.gui.FitsImageWidget;
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.fits.gui.FitsImageInfoObserver;
 import jsky.app.ot.fits.gui.FitsPosMap;
+import jsky.app.ot.fits.gui.FitsPosMapEntry;
+import jsky.app.ot.fits.gui.FitsMouseEvent;
+import gemini.util.TelescopePos;
+import gemini.sp.SpOffsetPos;
+import gemini.sp.SpOffsetPosList;
+
+import java.awt.geom.Point2D;
 
 /**
  * An auxiliary class used to maintain a mapping between telescope positions
@@ -52,6 +59,50 @@ public class OffsetPosMap extends FitsPosMap
 
 	    _updateScreenLocations();
 	}
+    }
+
+
+    /**
+     * Takes the position angle of the offset iterator into account.
+     */
+    public void updatePosition(FitsPosMapEntry pme, FitsMouseEvent fme) {
+	pme.screenPos.x = fme.xWidget;
+	pme.screenPos.y = fme.yWidget;
+ 
+	TelescopePos tp = pme.telescopePos;
+ 
+	tp.deleteWatcher(this);
+
+	double posAngle   = (((SpOffsetPosList)_tpl).getPosAngle() * Math.PI) / 180.0;
+	double unrotatedX = (fme.xOffset *   Math.cos(-posAngle) ) + (fme.yOffset * Math.sin(-posAngle));
+	double unrotatedY = (fme.xOffset * (-Math.sin(-posAngle))) + (fme.yOffset * Math.cos(-posAngle));
+
+	tp.setXY(unrotatedX, unrotatedY);
+ 
+	tp.addWatcher(this);
+ 
+	_iw.repaint();
+    }
+
+    /**
+     * Takes the position angle of the offset iterator into account.
+     */
+    public Point2D.Double telescopePosToImageWidget(TelescopePos tp) {
+        double xaxis    = tp.getXaxis();
+	double yaxis    = tp.getYaxis();
+	double posAngle = (((SpOffsetPosList)_tpl).getPosAngle() * Math.PI) / 180.0;
+
+        // Rotate temporarily by position angle of telescope position.
+        ((SpOffsetPos)tp).noNotifySetXY((xaxis *   Math.cos(posAngle) ) + (yaxis * Math.sin(posAngle)),
+	                                (xaxis * (-Math.sin(posAngle))) + (yaxis * Math.cos(posAngle)));
+
+	// Let the method of the super class do the conversion to image widget.
+	Point2D.Double result = super.telescopePosToImageWidget(tp);
+
+	// Undo rotation.
+	((SpOffsetPos)tp).noNotifySetXY(xaxis, yaxis);
+
+	return result;
     }
 }
 
