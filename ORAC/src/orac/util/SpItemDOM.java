@@ -21,8 +21,10 @@ import org.w3c.dom.NamedNodeMap;
 import java.util.Vector;
 import java.util.StringTokenizer;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.io.StringWriter;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.IOException;
 
 
@@ -56,6 +58,7 @@ public class SpItemDOM {
   }
 
   public SpItemDOM(SpItem spItem, DocumentImpl ownerDoc) throws Exception {
+  
   
     String classNameTag = spItem.getClass().getName().substring(spItem.getClass().getName().lastIndexOf(".") + 1);
     _element = (ElementImpl)ownerDoc.createElement(classNameTag);
@@ -215,12 +218,17 @@ public class SpItemDOM {
     return table;
   }
 */
-  protected void fillAvTable(String nameSoFar, ElementImpl remainingTree, SpAvTable avTab) {
+  public static void fillAvTable(String nameSoFar, ElementImpl remainingTree, SpAvTable avTab) {
     // Ignore ItemData
     if((remainingTree.getNodeName().equals("ItemData"))) {
       return;
     }
-  
+
+    String nodeName = remainingTree.getNodeName();
+    if(remainingTree.getUserData() != null) {
+      nodeName += remainingTree.getUserData();
+    }
+
     String prefix;
     if((nameSoFar != null) && (nameSoFar.trim() != "")) {
       if(nameSoFar.equals(SpAvTableDOM.META_DATA_TAG)) {
@@ -238,14 +246,19 @@ public class SpItemDOM {
     if(remainingTree.getAttributes() != null && remainingTree.getAttributes().getLength() > 0) {
       NamedNodeMap nodeMap = remainingTree.getAttributes();
       for(int i = 0; i < nodeMap.getLength(); i++) {
-       avTab.set(prefix          + remainingTree.getNodeName()
+       avTab.set(prefix          + nodeName
                            + ":" + nodeMap.item(i).getNodeName(),
 			           nodeMap.item(i).getNodeValue());
       }
     }
 
-    
+    // Deal with child nodes
     NodeList nodeList = remainingTree.getChildNodes();
+
+    // Check whether there are siblings with the same node name (tag name) and set user data to
+    // string "#" + number
+    setNumbers(nodeList);
+
     Vector valueVector = new Vector();
     for(int i = 0; i < nodeList.getLength(); i++) {
       if(nodeList.item(i) instanceof ElementImpl) {
@@ -258,7 +271,7 @@ public class SpItemDOM {
 	  }
 	}
 	else {
-	  fillAvTable(prefix + remainingTree.getNodeName(),
+	  fillAvTable(prefix + nodeName,
                       (ElementImpl)nodeList.item(i),
 		      avTab);
 	}	      
@@ -267,7 +280,7 @@ public class SpItemDOM {
         // Ignore extra items beginning with "\n" created by DOMParser.parse().
         if(!nodeList.item(i).getNodeValue().startsWith("\n")) {
           
-	  avTab.set(prefix + remainingTree.getNodeName(),
+	  avTab.set(prefix + nodeName,
 	                         nodeList.item(i).getNodeValue());
 	}
 	else {
@@ -280,7 +293,7 @@ public class SpItemDOM {
     
     // adding value vector
     if(valueVector.size() > 0) {
-      avTab.setAll(prefix + remainingTree.getNodeName(), valueVector);
+      avTab.setAll(prefix + nodeName, valueVector);
     }
   
   }
@@ -627,7 +640,38 @@ public class SpItemDOM {
     }
   }
 
+  /**
+   * Checks whether there are siblings with the same node name (tag name) and set user data to
+   * string "#" + number so they can be save under different names in the av table.
+   */
+  public static void setNumbers(NodeList siblings) {
+    if(siblings == null) {
+      return;
+    }
 
-  
+    Hashtable elementTable = new Hashtable();
+
+    for(int i = 0; i < siblings.getLength(); i++) {
+      if(elementTable.get(siblings.item(i).getNodeName()) == null) {
+        elementTable.put(siblings.item(i).getNodeName(), new Vector());
+      }
+
+      ((Vector)(elementTable.get(siblings.item(i).getNodeName()))).add(siblings.item(i));
+    }
+
+    Enumeration tableEntries = elementTable.elements();
+    Vector elementVector;
+    while(tableEntries.hasMoreElements()) {
+      elementVector = (Vector)tableEntries.nextElement();
+
+      if(elementVector.size() > 1) {
+        for(int i = 0; i < elementVector.size(); i++) {
+          if(elementVector.get(i) instanceof ElementImpl) {
+	    ((ElementImpl)elementVector.get(i)).setUserData("#" + i);
+	  }
+	}
+      }
+    }
+  }
 }
 
