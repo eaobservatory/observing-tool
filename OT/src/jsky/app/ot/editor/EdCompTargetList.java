@@ -106,7 +106,7 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.resolveButton.addActionListener(this);
 
         // chop mode tab added by MFO (3 August 2001)
-	_w.chopMode.addActionListener(this);
+	_w.chopping.addActionListener(this);
     }
 
     /**
@@ -364,24 +364,26 @@ public final class EdCompTargetList extends OtItemEditor
         // chop mode tab added by MFO (3 August 2001)
 	_w.chopThrow.addWatcher( new TextBoxWidgetWatcher() {
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setChopThrow( _w.chopThrow.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
+		    // MFO TODO: see TODO in SpTelescopeObsComp.
+		    //_curPos.deleteWatcher(EdCompTargetList.this);
+		    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
+		    // MFO TODO: see TODO in SpTelescopeObsComp. Check whether deleteWatcher or addWatcher
+		    // is needed. deleteWatcher is used twice in all the cases but that is probably a bug.
+		    //_curPos.deleteWatcher(EdCompTargetList.this);
 		}
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
 
 	_w.chopAngle.addWatcher( new TextBoxWidgetWatcher() {
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setChopAngle( _w.chopAngle.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
+		    // MFO TODO: see TODO in SpTelescopeObsComp.
+		    //_curPos.deleteWatcher(EdCompTargetList.this);
+		    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
+		    // MFO TODO: see TODO in SpTelescopeObsComp.
+		    //_curPos.deleteWatcher(EdCompTargetList.this);
 		}
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
-
-	_w.chopThrow.setEnabled(_w.chopMode.isSelected());
-	_w.chopAngle.setEnabled(_w.chopMode.isSelected());
     }
 
 
@@ -442,10 +444,6 @@ public final class EdCompTargetList extends OtItemEditor
 	tbwe = _w.detailsEffWavelengthTBW;
 	tbwe.setValue( tp.getTrackingEffectiveWavelength() );
 
-        // chop mode tab added by MFO (3 August 2001)
-	_w.chopMode.setSelected( tp.getChopMode() );
-	_w.chopThrow.setValue( tp.getChopThrowAsString() );
-	_w.chopAngle.setValue( tp.getChopAngleAsString() );
     }
 
     //
@@ -539,6 +537,16 @@ public final class EdCompTargetList extends OtItemEditor
 
 	TelescopePosEditor tpe = TpeManager.get(_spItem);
 	if (tpe != null) tpe.reset(_spItem);
+
+
+        // chop mode tab added by MFO (3 August 2001)
+	_w.chopping.setSelected( ((SpTelescopeObsComp)_spItem).isChopping() );
+	_w.chopThrow.setValue(   ((SpTelescopeObsComp)_spItem).getChopThrowAsString() );
+	_w.chopAngle.setValue(   ((SpTelescopeObsComp)_spItem).getChopAngleAsString() );
+
+	_w.chopThrow.setEnabled(_w.chopping.isSelected());
+	_w.chopAngle.setEnabled(_w.chopping.isSelected());
+
     }
 
     /**
@@ -732,11 +740,11 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
         // chop mode tab added by MFO (3 August 2001)
-	if(w == _w.chopMode) {
-	    _curPos.setChopMode(_w.chopMode.isSelected());
+	if(w == _w.chopping) {
+	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
 
-	    _w.chopThrow.setEnabled(_w.chopMode.isSelected());
-	    _w.chopAngle.setEnabled(_w.chopMode.isSelected());
+	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
+	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
 	}
     }
 }
