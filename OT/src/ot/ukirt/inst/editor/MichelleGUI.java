@@ -13,252 +13,287 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import jsky.app.ot.gui.*;
+import java.awt.event.*;
 
 public class MichelleGUI extends JPanel {
-    GridBagLayout gridBagLayout1 = new GridBagLayout();
-    JLabel jLabel1 = new JLabel();
-    JLabel jLabel2 = new JLabel();
-    DropDownListBoxWidgetExt camera = new DropDownListBoxWidgetExt();
-    TextBoxWidgetExt exposureTime = new TextBoxWidgetExt();
-    JLabel jLabel3 = new JLabel();
-    JLabel jLabel4 = new JLabel();
-    DropDownListBoxWidgetExt filter = new DropDownListBoxWidgetExt();
-    JLabel jLabel7 = new JLabel();
-    TextBoxWidgetExt posAngle = new TextBoxWidgetExt();
-    JLabel jLabel9 = new JLabel();
-    JLabel jLabel10 = new JLabel();
-    TextBoxWidgetExt scienceFOV = new TextBoxWidgetExt();
-    JLabel jLabel11 = new JLabel();
-    TitledBorder titledBorder1;
-    CheckBoxWidgetExt mode = new CheckBoxWidgetExt();
-    JPanel spectroscopyPanel = new JPanel();
-    DropDownListBoxWidgetExt disperser = new DropDownListBoxWidgetExt();
-    DropDownListBoxWidgetExt mask = new DropDownListBoxWidgetExt();
-    JLabel jLabel8 = new JLabel();
-    JLabel jLabel12 = new JLabel();
-    TextBoxWidgetExt centralWavelength = new TextBoxWidgetExt();
-    TextBoxWidgetExt wavelengthCoverageLow = new TextBoxWidgetExt();
-    CommandButtonWidgetExt defaultCentralWavelength = new CommandButtonWidgetExt();
-    JLabel jLabel16 = new JLabel();
-    TextBoxWidgetExt wavelengthCoverageHigh = new TextBoxWidgetExt();
-    JPanel chopPanel = new JPanel();
-    GridBagLayout gridBagLayout2 = new GridBagLayout();
-    JLabel chopCyclesPerNodLabel = new JLabel();
-    TextBoxWidgetExt cyclesPerObs = new TextBoxWidgetExt();
-    JLabel nodCyclesPerObs = new JLabel();
-    JPanel chopControlGroup = new JPanel();
-    JLabel cyclesPerObsLabel = new JLabel();
-    TextBoxWidgetExt coadds = new TextBoxWidgetExt();
-    TextBoxWidgetExt chopCyclesPerNod = new TextBoxWidgetExt();
-    CheckBoxWidgetExt nodding = new CheckBoxWidgetExt();
-    BorderLayout borderLayout1 = new BorderLayout();
-    TitledBorder titledBorder2;
-    JPanel stareControlGroup = new JPanel();
-    JLabel nodCyclesPerObs2 = new JLabel();
-    TextBoxWidgetExt expPerChopPos = new TextBoxWidgetExt();
-    GridBagLayout gridBagLayout3 = new GridBagLayout();
-    JLabel jLabel5 = new JLabel();
-    JLabel jLabel6 = new JLabel();
-    JLabel jLabel13 = new JLabel();
-    JLabel jLabel14 = new JLabel();
-    GridBagLayout gridBagLayout4 = new GridBagLayout();
+  JPanel jPanel1 = new JPanel();
+  BorderLayout borderLayout1 = new BorderLayout();
+  JLabel jLabel1 = new JLabel();
+  DropDownListBoxWidgetExt camera = new DropDownListBoxWidgetExt();
+  CheckBoxWidgetExt polarimetry = new CheckBoxWidgetExt();
+  JPanel jPanel2 = new JPanel();
+  TitledBorder titledBorder1;
+  JPanel modePanel = new JPanel();
+  CardLayout cardLayout1 = new CardLayout();
+  JPanel imagingPanel = new JPanel();
+  TitledBorder titledBorder2;
+  JPanel spectroscopyPanel = new JPanel();
+  TitledBorder titledBorder3;
+  GridBagLayout gridBagLayout1 = new GridBagLayout();
+  JLabel jLabel2 = new JLabel();
+  DropDownListBoxWidgetExt imaging_filterCategory = new DropDownListBoxWidgetExt();
+  JLabel jLabel3 = new JLabel();
+  DropDownListBoxWidgetExt imaging_filter = new DropDownListBoxWidgetExt();
+  JLabel jLabel4 = new JLabel();
+  JLabel jLabel5 = new JLabel();
+  TextBoxWidgetExt imaging_fieldOfView = new TextBoxWidgetExt();
+  GridBagLayout gridBagLayout2 = new GridBagLayout();
+  TextBoxWidgetExt dataAcq_dutyCycle = new TextBoxWidgetExt();
+  TextBoxWidgetExt dataAcq_chopFrequency = new TextBoxWidgetExt();
+  JLabel jLabel6 = new JLabel();
+  JLabel jLabel7 = new JLabel();
+  JLabel jLabel8 = new JLabel();
+  JLabel jLabel9 = new JLabel();
+  JLabel jLabel10 = new JLabel();
+  JLabel jLabel11 = new JLabel();
+  TextBoxWidgetExt dataAcq_exposureTime = new TextBoxWidgetExt();
+  TextBoxWidgetExt dataAcq_observationTime = new TextBoxWidgetExt();
+  CommandButtonWidgetExt dataAcq_defaultExpTime = new CommandButtonWidgetExt();
+  CommandButtonWidgetExt dataAcq_defaultObsTime = new CommandButtonWidgetExt();
+  GridBagLayout gridBagLayout3 = new GridBagLayout();
+  JLabel jLabel12b = new JLabel();
+  DropDownListBoxWidgetExt spectroscopy_grating = new DropDownListBoxWidgetExt();
+  JLabel jLabel13 = new JLabel();
+  DropDownListBoxWidgetExt spectroscopy_mask = new DropDownListBoxWidgetExt();
+  JLabel jLabel14 = new JLabel();
+  DropDownListBoxWidgetExt spectroscopy_sampling = new DropDownListBoxWidgetExt();
+  JLabel jLabel12 = new JLabel();
+  JLabel jLabel15 = new JLabel();
+  JLabel jLabel16 = new JLabel();
+  TextBoxWidgetExt spectroscopy_wavelength = new TextBoxWidgetExt();
+  TextBoxWidgetExt spectroscopy_posAngle = new TextBoxWidgetExt();
+  TextBoxWidgetExt spectroscopy_resolvingPower = new TextBoxWidgetExt();
+  JLabel jLabel17 = new JLabel();
+  JLabel jLabel18 = new JLabel();
+  TextBoxWidgetExt spectroscopy_fieldOfView = new TextBoxWidgetExt();
+  TextBoxWidgetExt spectroscopy_coverage = new TextBoxWidgetExt();
+  JLabel jLabel19 = new JLabel();
+  TextBoxWidgetExt spectroscopy_filter = new TextBoxWidgetExt();
+  JLabel jLabel20 = new JLabel();
+  TextBoxWidgetExt spectroscopy_order = new TextBoxWidgetExt();
+  CommandButtonWidgetExt spectroscopy_default = new CommandButtonWidgetExt();
+  JLabel jLabel21 = new JLabel();
 
-    public MichelleGUI() {
-        try {
-            jbInit();
-        }
-        catch(Exception ex) {
-            ex.printStackTrace();
-        }
+  public MichelleGUI() {
+    try {
+      jbInit();
     }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-    void jbInit() throws Exception {
-        titledBorder1 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(142, 142, 142)),"Spectroscopy");
-        titledBorder2 = new TitledBorder(new EtchedBorder(EtchedBorder.RAISED,Color.white,new Color(142, 142, 142)),"Chop Control");
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel1.setForeground(Color.black);
-        jLabel1.setText("Camera");
-        this.setMinimumSize(new Dimension(355, 366));
-        this.setPreferredSize(new Dimension(355, 366));
-        this.setLayout(gridBagLayout1);
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel2.setForeground(Color.black);
-        jLabel2.setText("Exposure Time");
-        exposureTime.setBorder(BorderFactory.createLoweredBevelBorder());
-        exposureTime.setToolTipText("");
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel3.setForeground(Color.black);
-        jLabel3.setText("(sec)");
-        jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel4.setForeground(Color.black);
-        jLabel4.setText("Filter");
-        jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel7.setForeground(Color.black);
-        jLabel7.setText("Position Angle");
-        jLabel9.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel9.setForeground(Color.black);
-        jLabel9.setText("(degrees E of N)");
-        jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel10.setForeground(Color.black);
-        jLabel10.setText("Science FOV");
-        scienceFOV.setBackground(new Color(204, 204, 204));
-        scienceFOV.setBorder(BorderFactory.createLoweredBevelBorder());
-        scienceFOV.setEditable(false);
-        jLabel11.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel11.setForeground(Color.black);
-        jLabel11.setText("(arcsec)");
-        camera.setFont(new java.awt.Font("Dialog", 0, 12));
-        filter.setFont(new java.awt.Font("Dialog", 0, 12));
-        mode.setText("Chopping?");
-        mode.setFont(new java.awt.Font("Dialog", 0, 12));
-        spectroscopyPanel.setLayout(gridBagLayout3);
-        spectroscopyPanel.setBorder(titledBorder1);
-        spectroscopyPanel.setOpaque(false);
-        disperser.setFont(new java.awt.Font("Dialog", 0, 12));
-        mask.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel8.setText("Disperser");
-        jLabel8.setForeground(Color.black);
-        jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel12.setForeground(Color.black);
-        jLabel12.setText("Focal Plane Mask");
-        defaultCentralWavelength.setFont(new java.awt.Font("Dialog", 0, 12));
-        defaultCentralWavelength.setMargin(new Insets(2, 5, 2, 5));
-        defaultCentralWavelength.setText("Default");
-        jLabel16.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel16.setForeground(Color.black);
-        jLabel16.setText("to");
-        wavelengthCoverageLow.setBackground(new Color(204, 204, 204));
-        wavelengthCoverageLow.setBorder(BorderFactory.createLoweredBevelBorder());
-        wavelengthCoverageLow.setMinimumSize(new Dimension(55, 21));
-        wavelengthCoverageLow.setPreferredSize(new Dimension(55, 21));
-        wavelengthCoverageHigh.setBackground(new Color(204, 204, 204));
-        wavelengthCoverageHigh.setBorder(BorderFactory.createLoweredBevelBorder());
-        wavelengthCoverageHigh.setMinimumSize(new Dimension(55, 21));
-        wavelengthCoverageHigh.setPreferredSize(new Dimension(55, 21));
-        chopCyclesPerNodLabel.setFont(new java.awt.Font("Dialog", 0, 10));
-        chopCyclesPerNodLabel.setForeground(Color.black);
-        chopCyclesPerNodLabel.setText("(chop cycles / nod)");
-        cyclesPerObs.setBorder(BorderFactory.createLoweredBevelBorder());
-        cyclesPerObs.setMinimumSize(new Dimension(55, 21));
-        cyclesPerObs.setPreferredSize(new Dimension(55, 21));
-        nodCyclesPerObs.setFont(new java.awt.Font("Dialog", 0, 10));
-        nodCyclesPerObs.setForeground(Color.black);
-        nodCyclesPerObs.setText("(exp / obs)");
-        chopControlGroup.setLayout(gridBagLayout2);
-        cyclesPerObsLabel.setFont(new java.awt.Font("Dialog", 0, 10));
-        cyclesPerObsLabel.setForeground(Color.black);
-        cyclesPerObsLabel.setText("(chop cycles/obs)");
-        coadds.setBorder(BorderFactory.createLoweredBevelBorder());
-        coadds.setMaximumSize(new Dimension(999, 999));
-        coadds.setMinimumSize(new Dimension(55, 21));
-        coadds.setPreferredSize(new Dimension(55, 21));
-        nodding.setText("Nodding?");
-        nodding.setFont(new java.awt.Font("Dialog", 0, 12));
-        chopPanel.setLayout(borderLayout1);
-        centralWavelength.setBorder(BorderFactory.createLoweredBevelBorder());
-        centralWavelength.setMinimumSize(new Dimension(55, 21));
-        centralWavelength.setPreferredSize(new Dimension(55, 21));
-        chopPanel.setBorder(titledBorder2);
-        nodCyclesPerObs2.setText("(exp / obs)");
-        nodCyclesPerObs2.setForeground(Color.black);
-        nodCyclesPerObs2.setFont(new java.awt.Font("Dialog", 0, 10));
-        expPerChopPos.setPreferredSize(new Dimension(55, 21));
-        chopCyclesPerNod.setBorder(BorderFactory.createLoweredBevelBorder());
-        chopCyclesPerNod.setMinimumSize(new Dimension(55, 21));
-        chopCyclesPerNod.setPreferredSize(new Dimension(55, 21));
-        posAngle.setBorder(BorderFactory.createLoweredBevelBorder());
-        jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel5.setForeground(Color.black);
-        jLabel5.setText("Central Wavelength");
-        jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel6.setForeground(Color.black);
-        jLabel6.setToolTipText("");
-        jLabel6.setText("Wavelength Coverage");
-        jLabel13.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel13.setForeground(Color.black);
-        jLabel13.setText("(um)");
-        jLabel14.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel14.setForeground(Color.black);
-        jLabel14.setText("(um)");
-        stareControlGroup.setLayout(gridBagLayout4);
-        this.add(jLabel1, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-        this.add(jLabel2, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 20, 0, 0), 0, 0));
-        this.add(camera, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-        this.add(exposureTime, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 0, 0), 0, 0));
-        this.add(jLabel3, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
-        this.add(jLabel4, new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 0, 0), 0, 0));
-        this.add(filter, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-        this.add(jLabel7, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 20, 0, 0), 0, 0));
-        this.add(posAngle, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 20, 0, 0), 0, 0));
-        this.add(jLabel9, new GridBagConstraints(4, 3, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
-        this.add(jLabel10, new GridBagConstraints(3, 4, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 20, 0, 0), 0, 0));
-        this.add(scienceFOV, new GridBagConstraints(3, 5, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 0, 0), 0, 5));
-        this.add(jLabel11, new GridBagConstraints(5, 5, 1, 1, 0.0, 0.0
+  private void jbInit() throws Exception {
+    titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Data Aquisition");
+    titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Imaging Configuration");
+    titledBorder3 = new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Spectroscopy Configuration");
+    this.setLayout(borderLayout1);
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel1.setForeground(Color.black);
+    jLabel1.setText("Camera");
+    polarimetry.setText("Polarimetry");
+    polarimetry.setHorizontalAlignment(SwingConstants.RIGHT);
+    polarimetry.setFont(new java.awt.Font("Dialog", 0, 12));
+    jPanel2.setBorder(titledBorder1);
+    jPanel2.setLayout(gridBagLayout2);
+    modePanel.setLayout(cardLayout1);
+    imagingPanel.setBorder(titledBorder2);
+    imagingPanel.setLayout(gridBagLayout1);
+    spectroscopyPanel.setBorder(titledBorder3);
+    spectroscopyPanel.setLayout(gridBagLayout3);
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel2.setForeground(Color.black);
+    jLabel2.setText("Filter Category");
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel3.setForeground(Color.black);
+    jLabel3.setText("Filter");
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel4.setForeground(Color.black);
+    jLabel4.setText("Field of View");
+    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel5.setForeground(Color.black);
+    jLabel5.setText("(arcsec)");
+    imaging_fieldOfView.setBackground(new Color(204, 204, 204));
+    imaging_fieldOfView.setBorder(BorderFactory.createLoweredBevelBorder());
+    imaging_fieldOfView.setEditable(false);
+    dataAcq_dutyCycle.setBorder(BorderFactory.createLoweredBevelBorder());
+    dataAcq_dutyCycle.setEditable(false);
+    dataAcq_dutyCycle.setBackground(new Color(204, 204, 204));
+    dataAcq_chopFrequency.setBorder(BorderFactory.createLoweredBevelBorder());
+    dataAcq_chopFrequency.setEditable(false);
+    dataAcq_chopFrequency.setBackground(new Color(204, 204, 204));
+    jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel6.setForeground(Color.black);
+    jLabel6.setText("Chop Frequency");
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel7.setForeground(Color.black);
+    jLabel7.setText("Detector Duty Cycle");
+    jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel8.setForeground(Color.black);
+    jLabel8.setText("Hz");
+    jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel9.setForeground(Color.black);
+    jLabel9.setText("%");
+    jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel10.setForeground(Color.black);
+    jLabel10.setText("Exposure Time (sec)");
+    jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel11.setForeground(Color.black);
+    jLabel11.setText("Observation Time (sec)");
+    dataAcq_defaultExpTime.setText("Default");
+    dataAcq_defaultObsTime.setText("Default");
+    jLabel12b.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel12b.setForeground(Color.black);
+    jLabel12b.setText("Grating");
+    jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel13.setForeground(Color.black);
+    jLabel13.setText("Focal Plane Mask");
+    jLabel14.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel14.setForeground(Color.black);
+    jLabel14.setText("Pixel Sampling");
+    jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel12.setForeground(Color.black);
+    jLabel12.setText("Wavelength");
+    jLabel15.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel15.setForeground(Color.black);
+    jLabel15.setText("Position Angle");
+    jLabel16.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel16.setForeground(Color.black);
+    jLabel16.setText("Resolving Power");
+    spectroscopy_resolvingPower.setBackground(new Color(204, 204, 204));
+    spectroscopy_resolvingPower.setBorder(BorderFactory.createLoweredBevelBorder());
+    spectroscopy_resolvingPower.setEditable(false);
+    jLabel17.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel17.setForeground(Color.black);
+    jLabel17.setText("Field of View");
+    jLabel18.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel18.setForeground(Color.black);
+    jLabel18.setText("Spectral Coverage");
+    spectroscopy_coverage.setBackground(new Color(204, 204, 204));
+    spectroscopy_coverage.setBorder(BorderFactory.createLoweredBevelBorder());
+    spectroscopy_coverage.setEditable(false);
+    spectroscopy_fieldOfView.setBackground(new Color(204, 204, 204));
+    spectroscopy_fieldOfView.setBorder(BorderFactory.createLoweredBevelBorder());
+    spectroscopy_fieldOfView.setEditable(false);
+    jLabel19.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel19.setForeground(Color.black);
+    jLabel19.setText("Filter");
+    spectroscopy_filter.addActionListener(new java.awt.event.ActionListener() {
+
+      public void actionPerformed(ActionEvent e) {
+        spectroscopy_filter_actionPerformed(e);
+      }
+    });
+    jLabel20.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel20.setForeground(Color.black);
+    jLabel20.setText("Order");
+    spectroscopy_filter.setBackground(new Color(204, 204, 204));
+    spectroscopy_filter.setBorder(BorderFactory.createLoweredBevelBorder());
+    spectroscopy_filter.setEditable(false);
+    spectroscopy_default.setText("Default");
+    jLabel21.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel21.setForeground(Color.black);
+    jLabel21.setText("(deg E of N)");
+    imaging_filterCategory.setFont(new java.awt.Font("Dialog", 0, 12));
+    imaging_filter.setFont(new java.awt.Font("Dialog", 0, 12));
+    camera.setFont(new java.awt.Font("Dialog", 0, 12));
+    spectroscopy_grating.setFont(new java.awt.Font("Dialog", 0, 12));
+    spectroscopy_mask.setFont(new java.awt.Font("Dialog", 0, 12));
+    spectroscopy_sampling.setFont(new java.awt.Font("Dialog", 0, 12));
+    this.add(jPanel1, BorderLayout.NORTH);
+    jPanel1.add(jLabel1, null);
+    jPanel1.add(camera, null);
+    jPanel1.add(polarimetry, null);
+    this.add(jPanel2, BorderLayout.SOUTH);
+    jPanel2.add(dataAcq_dutyCycle, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 72, 0));
+    jPanel2.add(dataAcq_chopFrequency, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 72, 0));
+    jPanel2.add(jLabel6, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        this.add(mode, new GridBagConstraints(1, 5, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-        this.add(chopPanel, new GridBagConstraints(0, 6, 6, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
-        chopPanel.add(chopControlGroup, BorderLayout.CENTER);
-        chopControlGroup.add(coadds, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), -20, 0));
-        chopControlGroup.add(cyclesPerObs, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
-        chopControlGroup.add(nodCyclesPerObs, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 5, 0), 0, 0));
-        chopControlGroup.add(cyclesPerObsLabel, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 5, 0), 0, 0));
-        chopControlGroup.add(nodding, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 10, 5, 0), 0, 0));
-        chopControlGroup.add(chopCyclesPerNod, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 10, 5, 0), 0, 0));
-        chopControlGroup.add(chopCyclesPerNodLabel, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 3, 5, 0), 0, 0));
-        this.add(spectroscopyPanel, new GridBagConstraints(0, 8, 6, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 5, 0, 5), 0, 0));
-        spectroscopyPanel.add(disperser, new GridBagConstraints(0, 1, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 1));
-        spectroscopyPanel.add(jLabel12, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
-        spectroscopyPanel.add(mask, new GridBagConstraints(0, 3, 1, 1, 1.0, 0.0
+    jPanel2.add(jLabel7, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(9, 0, 0, 0), 0, 0));
+    jPanel2.add(jLabel8, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 36), 0, 0));
+    jPanel2.add(jLabel9, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        spectroscopyPanel.add(centralWavelength, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 6));
-        spectroscopyPanel.add(wavelengthCoverageLow, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 20, 0, 0), 0, 0));
-        spectroscopyPanel.add(jLabel8, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+    jPanel2.add(jLabel10, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        spectroscopyPanel.add(wavelengthCoverageHigh, new GridBagConstraints(3, 3, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 0, 0));
-        spectroscopyPanel.add(defaultCentralWavelength, new GridBagConstraints(3, 1, 3, 1, 0.0, 0.0
+    jPanel2.add(jLabel11, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(dataAcq_exposureTime, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(dataAcq_observationTime, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(dataAcq_defaultExpTime, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    jPanel2.add(dataAcq_defaultObsTime, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(modePanel, BorderLayout.CENTER);
+    modePanel.add(imagingPanel, "imaging");
+    imagingPanel.add(jLabel2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        spectroscopyPanel.add(jLabel16, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 10, 0, 10), 0, 0));
-        spectroscopyPanel.add(jLabel5, new GridBagConstraints(1, 0, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-        spectroscopyPanel.add(jLabel6, new GridBagConstraints(1, 2, 4, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 20, 0, 0), 0, 0));
-        spectroscopyPanel.add(jLabel13, new GridBagConstraints(4, 0, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
-        spectroscopyPanel.add(jLabel14, new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 3, 0, 0), 0, 0));
-	// chopPanel.add(stareControlGroup, BorderLayout.CENTER);
-        stareControlGroup.add(expPerChopPos, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 0, 0, 0), 0, 0));
-        stareControlGroup.add(nodCyclesPerObs2, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
-    }
+    imagingPanel.add(imaging_filterCategory, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 28), 0, 0));
+    imagingPanel.add(jLabel3, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    imagingPanel.add(imaging_filter, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    imagingPanel.add(jLabel4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(40, 0, 0, 0), 0, 0));
+    imagingPanel.add(jLabel5, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    imagingPanel.add(imaging_fieldOfView, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 103, 0));
+    modePanel.add(spectroscopyPanel, "spectroscopy");
+    spectroscopyPanel.add(jLabel12b, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(spectroscopy_grating, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 18), 0, 0));
+    spectroscopyPanel.add(jLabel13, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(9, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(spectroscopy_mask, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(jLabel14, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(8, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(spectroscopy_sampling, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(jLabel12, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(jLabel15, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(jLabel16, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(spectroscopy_wavelength, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 90, 0));
+    spectroscopyPanel.add(spectroscopy_posAngle, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 90, 0));
+    spectroscopyPanel.add(spectroscopy_resolvingPower, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 90, 0));
+    spectroscopyPanel.add(jLabel17, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(9, 0, 0, 49), 0, 0));
+    spectroscopyPanel.add(jLabel18, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
+    spectroscopyPanel.add(spectroscopy_fieldOfView, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 90, 0));
+    spectroscopyPanel.add(spectroscopy_coverage, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 90, 0));
+    spectroscopyPanel.add(jLabel19, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 26), 0, 0));
+    spectroscopyPanel.add(spectroscopy_filter, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(jLabel20, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(spectroscopy_order, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(spectroscopy_default, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    spectroscopyPanel.add(jLabel21, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+  }
+
+  void spectroscopy_filter_actionPerformed(ActionEvent e) {
+
+  }
+
 }
