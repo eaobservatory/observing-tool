@@ -10,6 +10,7 @@
 
 package gemini.sp;
 
+import java.util.Enumeration;
 
 /**
  * OMP class.
@@ -44,6 +45,38 @@ public class SpOR extends SpObsContextItem {
    */
   public int getNumberOfItems() {
     return _avTable.getInt(ATTR_NUMBER_OF_ITEMS, 1);
+  }
+
+  /**
+   * Calculates the duration of this OR folder.
+   *
+   * Returns the elapsed time for the child item with the longest duration.
+   */
+  public double getElapsedTime() {
+    double maxElapsedTime = 0.0;
+    double elapsedTime = 0.0;
+    Enumeration children = children();
+    SpItem spItem = null;
+
+    while(children.hasMoreElements()) {
+      spItem = (SpItem)children.nextElement();
+
+      elapsedTime = 0.0;
+
+      if(spItem instanceof SpMSB) {
+        elapsedTime = (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+      }
+
+      if(spItem instanceof SpAND) {
+        elapsedTime = ((SpAND)spItem).getElapsedTime();
+      }
+
+      if(elapsedTime > maxElapsedTime) {
+        maxElapsedTime = elapsedTime;
+      }
+    }
+
+    return maxElapsedTime;
   }
 }
 

@@ -10,6 +10,7 @@
 
 package gemini.sp;
 
+import java.util.Enumeration;
 
 /**
  * OMP class.
@@ -23,6 +24,25 @@ public class SpAND extends SpObsContextItem {
    */
   protected SpAND() {
     super(SpType.AND_FOLDER);
+  }
+
+  /**
+   * Calculates the duration of this AND folder.
+   */
+  public double getElapsedTime() {
+    double elapsedTime = 0.0;
+    Enumeration children = children();
+    SpItem spItem = null;
+
+    while(children.hasMoreElements()) {
+      spItem = (SpItem)children.nextElement();
+
+      if(spItem instanceof SpMSB) {
+        elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+      }
+    }
+
+    return elapsedTime;
   }
 }
 
