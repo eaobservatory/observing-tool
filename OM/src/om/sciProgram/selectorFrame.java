@@ -113,7 +113,7 @@ final class selectorFrame extends JFrame implements KeyListener,ActionListener
       contentPane.add(progPanel,"West");
 
       program=new programTree(menu);
-      contentPane.add(program);
+      contentPane.add(program,"Center");
 
       statusBar=new myLabel("Current Status:  No science program fetched");
       statusBar.setBorder(border1);
