@@ -25,7 +25,7 @@ import gemini.sp.ipc.SpAccess;
 import gemini.sp.ipc.SpProgKey;
 import gemini.sp.ipc.SpServerAsync;
 import jsky.app.ot.util.Assert;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 /**
  * The program hierarchy edit OtWindow subclass for science programs,
@@ -184,7 +184,7 @@ public final class OtProgWindow extends OtWindow
     public synchronized void spServerError(String problem, SpServerAsync ssa) {
 	_stopODBAccess();
 	_progInfo.progKey = null;
-	DialogUtil.error("Problem communicating with ODB: " + problem);
+	DialogUtil.error(this, "Problem communicating with ODB: " + problem);
     }
  
     /**
@@ -202,7 +202,7 @@ public final class OtProgWindow extends OtWindow
 	    // view, and show the user the key.
 	    _progInfo.progKey = key;
 
-	    DialogUtil.message("This program's key is \"" + key.key + "\".");
+	    DialogUtil.message(this, "This program's key is \"" + key.key + "\".");
 	    
 	    // Update the LastLogin information so that the next time we store
 	    // a new program, we'll have a guess as to what the username and
@@ -242,7 +242,7 @@ public final class OtProgWindow extends OtWindow
 
 	// Make sure this program has been sent to the database before
 	if (!_previouslyStored()) {
-	    DialogUtil.error("This program has never been stored.");
+	    DialogUtil.error(this, "This program has never been stored.");
 	    return false;
 	}
 

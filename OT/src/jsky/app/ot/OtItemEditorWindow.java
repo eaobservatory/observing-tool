@@ -28,7 +28,7 @@ import gemini.sp.ipc.SpAccess;
 import gemini.sp.ipc.SpProgKey;
 import gemini.sp.ipc.SpServer;
 import jsky.app.ot.util.Assert;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 // for OMP (MFO, 7 August 2001)
 import gemini.sp.SpObs;
@@ -304,7 +304,7 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer {
 	    // XXX allan WindowManager.setIdle();
 
 	    if (!ok) {
-		DialogUtil.error("Couldn't replace the attributes: " + server.getProblemDescr());
+		DialogUtil.error(this, "Couldn't replace the attributes: " + server.getProblemDescr());
 		return;
 	    }
 	}

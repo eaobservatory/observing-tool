@@ -10,7 +10,7 @@ import gemini.sp.SpCloneableClientData;
 import gemini.sp.SpItem;
 import jsky.app.ot.tpe.TpeFeatureClientData;
 import jsky.app.ot.tpe.TpeImageFeature;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 /**
  * This class groups information that should be stored with each SpItem
@@ -94,7 +94,7 @@ public final class OtClientData
 		 Class  c = Class.forName(tpeImageFeatureClass);
 		 _feature = (TpeImageFeature) c.newInstance();
 	     } catch (Exception ex) {
-		 DialogUtil.error("Problem instantiating: " + tpeImageFeatureClass, ex);
+		 DialogUtil.error(tnw.getTreeWidget(), "Problem instantiating: " + tpeImageFeatureClass, ex);
 		 _feature = null;
 	     }
 	 }

@@ -32,7 +32,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 
 import jsky.app.ot.util.DnDUtils;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 
 /**
  * Drag&Drop target for the OT tree widget.
@@ -299,7 +299,7 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	  _spTree.resetProg(_spTree.getProg());
 	}
 	catch(Exception e) {
-          DialogUtil.error(e);
+          DialogUtil.error(ownerTW, e);
 	}
 	
 	if (newItems == null) 

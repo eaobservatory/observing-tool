@@ -25,7 +25,7 @@ import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpObsComp;
 import jsky.app.ot.util.Assert;
 import jsky.app.ot.util.ClipboardHelper;
-import jsky.util.gui.DialogUtil;
+import ot.util.DialogUtil;
 import ot.OtAdvancedTreeDropTarget;
 import ot.OtAdvancedTreeDragSource;
 import javax.swing.event.TreeExpansionListener;
@@ -300,7 +300,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 		String noun = "item";
 		if (newItems.length > 1) noun += "s";
 
-		DialogUtil.error("Couldn't add the new " + noun + " at this point.");
+		DialogUtil.error(this, "Couldn't add the new " + noun + " at this point.");
 		return null;
 	    }
 	}
@@ -429,11 +429,11 @@ public final class OtTreeWidget extends MultiSelTreeWidget
     public SpItem rmSelectedItem() {
 	OtTreeNodeWidget tnw = (OtTreeNodeWidget) getSelectedNode();
 	if (tnw == null) {
-	    DialogUtil.error("You have to select an item to delete.");
+	    DialogUtil.error(this, "You have to select an item to delete.");
 	    return null;
 	}
 	if (tnw == (OtTreeNodeWidget) getRoot()) {
-	    DialogUtil.error("You can't delete the Science Program!");
+	    DialogUtil.error(this, "You can't delete the Science Program!");
 	    return null;
 	}
 
