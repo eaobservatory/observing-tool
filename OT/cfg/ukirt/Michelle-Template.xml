@@ -9,6 +9,56 @@
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Imaging</title>
+      <SpInstMichelle id="3" type="oc" subtype="inst.michelle">
+        <meta_unique>true</meta_unique>
+        <meta_version>1</meta_version>
+        <camera>spectroscopy</camera>
+        <centralWavelength>10.0</centralWavelength>
+        <chopDelay>0.015</chopDelay>
+        <chopFrequency>0.11406766813171032</chopFrequency>
+        <coadds>20</coadds>
+        <configType>Normal</configType>
+        <darkFilter>Blank</darkFilter>
+        <disperser>MedN1</disperser>
+        <dutyCycle>0.9647713655029567</dutyCycle>
+        <exposureTime>1.05</exposureTime>
+        <filter>NBlock</filter>
+        <filterCategory>Nband</filterCategory>
+        <idlePeriod>0.03</idlePeriod>
+        <instAper>
+          <value>0.14</value>
+          <value>-10.02</value>
+          <value>0.0</value>
+          <value>10.5</value>
+        </instAper>
+        <instPntgOffset>
+          <value>0.0</value>
+          <value>0.0</value>
+        </instPntgOffset>
+        <instPort>North</instPort>
+        <mask>2_pixels</mask>
+        <maskAngle>2.1995</maskAngle>
+        <mode>NDCHOP</mode>
+        <mustIdles>0</mustIdles>
+        <nreads>106</nreads>
+        <nresets>1</nresets>
+        <nullCycles>0</nullCycles>
+        <nullExposures>0</nullExposures>
+        <nullReads>1</nullReads>
+        <obsTimeOT>20.0</obsTimeOT>
+        <observationTime>43.83363035199999</observationTime>
+        <order>1</order>
+        <pixelFOV>0.38 x 0.38</pixelFOV>
+        <polarimetry>no</polarimetry>
+        <posAngle>0.0</posAngle>
+        <readInterval>0.01</readInterval>
+        <resetDelay>0.01</resetDelay>
+        <sampling>1x2</sampling>
+        <scienceArea>0.76 x 91.13</scienceArea>
+        <spectralCoverage>9.22 - 10.78</spectralCoverage>
+        <waveform>mch_ndr_sw</waveform>
+        <waveplate>none</waveplate>
+      </SpInstMichelle>
       <SpMSB checksum="bf183a16a7eb12a8b30b73271788c369" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstMichelleRef idref="1"/>
@@ -283,12 +333,13 @@ It inherits the Target Information and Michelle configuration from the component
       </SpMSB>
       <SpMSB checksum="666aae685394ebb666251ddc1445c2f3A" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <SpInstMichelleRef idref="3"/>
         <SpTelescopeObsCompRef idref="2"/>
-        <estimatedDuration units="seconds">2281.069280236</estimatedDuration>
+        <estimatedDuration units="seconds">2761.069280236</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Point Source Imaging - Si filters</title>
-        <totalDuration units="seconds">2281.069280236</totalDuration>
+        <totalDuration units="seconds">2761.069280236</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This series of Observations takes photometry of a standard star and science target in each of the 7.9, 8.8, 9.7, 10.3, 11.6 and 12.5 micron "Silicate" filters. It assumes that all the Observations are sent from the QT to the Queue and executed sequentially. 
@@ -1902,8 +1953,8 @@ Note that the chop parameters are also set up in this component.</note>
       </SpMSB>
       <SpMSB checksum="bf183a16a7eb12a8b30b73271788c369" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstMichelleRef idref="4"/>
-        <SpTelescopeObsCompRef idref="3"/>
+        <SpInstMichelleRef idref="5"/>
+        <SpTelescopeObsCompRef idref="4"/>
         <estimatedDuration units="seconds">1199.0294569999996</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -1919,7 +1970,7 @@ Note that the chop parameters are also set up in this component.</note>
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpInstMichelle id="4" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="5" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>1</meta_version>
@@ -1982,7 +2033,7 @@ b) you do no need to copy this in to the science target observation as it will b
 Note that the chop parameters are also set up in this component.</note>
           <title>This Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="3" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="4" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -2195,13 +2246,13 @@ Each scan position will consist of 4 chopped frames.</note>
       <title>Spectroscopy</title>
       <SpMSB checksum="a2a61f81c7901d82becab84eb51eed41" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstMichelleRef idref="6"/>
-        <SpTelescopeObsCompRef idref="5"/>
-        <estimatedDuration units="seconds">1418.259470976</estimatedDuration>
+        <SpInstMichelleRef idref="7"/>
+        <SpTelescopeObsCompRef idref="6"/>
+        <estimatedDuration units="seconds">961.379735488</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Low &amp; medium resolution point source spectroscopy</title>
-        <totalDuration units="seconds">1418.259470976</totalDuration>
+        <totalDuration units="seconds">961.379735488</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes non-echelle spectroscopy of a point source. First it slews to a standard star, takes flat and arc observations, and then takes science data at the target. Because the target is assumed pointlike, the telescope nods along the slit.</note>
@@ -2212,7 +2263,7 @@ Each scan position will consist of 4 chopped frames.</note>
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpInstMichelle id="6" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="7" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>1</meta_version>
@@ -2258,7 +2309,7 @@ Each scan position will consist of 4 chopped frames.</note>
           <posAngle>0.0</posAngle>
           <readInterval>0.01</readInterval>
           <resetDelay>0.01</resetDelay>
-          <sampling>1x2</sampling>
+          <sampling>1x1</sampling>
           <scienceArea>0.76 x 91.2</scienceArea>
           <spectralCoverage>6.02 - 13.98</spectralCoverage>
           <waveform>mch_ndr_sw</waveform>
@@ -2275,7 +2326,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
 Note that chop parameters are set up in this target component.</note>
           <title>Standard Star Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="5" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="6" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -2294,7 +2345,7 @@ Note that chop parameters are set up in this target component.</note>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">112.569042816</estimatedDuration>
+          <estimatedDuration units="seconds">71.034521408</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -2355,7 +2406,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">412.84521408</estimatedDuration>
+          <estimatedDuration units="seconds">205.17260704</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2435,7 +2486,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">412.84521408</estimatedDuration>
+          <estimatedDuration units="seconds">205.17260704</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -2547,13 +2598,13 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
       </SpMSB>
       <SpMSB checksum="a2a61f81c7901d82becab84eb51eed41" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstMichelleRef idref="8"/>
-        <SpTelescopeObsCompRef idref="7"/>
-        <estimatedDuration units="seconds">1273.121385344</estimatedDuration>
+        <SpInstMichelleRef idref="9"/>
+        <SpTelescopeObsCompRef idref="8"/>
+        <estimatedDuration units="seconds">899.310692672</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Low &amp; medium resolution,  extended source, chop along slit</title>
-        <totalDuration units="seconds">1273.121385344</totalDuration>
+        <totalDuration units="seconds">899.310692672</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes non-echelle spectroscopy of an extended source. First it slews to a standard star, takes flat observations, and then takes science data at the target. Because the target is extended, the telescope nods off to a sky position (90 arcseconds away by default). Chop is along the slit, by the maximum available guided throw.</note>
@@ -2564,7 +2615,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpInstMichelle id="8" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="9" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>1</meta_version>
@@ -2610,7 +2661,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <posAngle>0.0</posAngle>
           <readInterval>0.01</readInterval>
           <resetDelay>0.01</resetDelay>
-          <sampling>1x2</sampling>
+          <sampling>1x1</sampling>
           <scienceArea>0.76 x 91.2</scienceArea>
           <spectralCoverage>6.02 - 13.98</spectralCoverage>
           <waveform>mch_ndr_sw</waveform>
@@ -2627,7 +2678,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
 Note that chop parameters are set up in this target component.</note>
           <title>Standard Star Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="7" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="8" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -2646,7 +2697,7 @@ Note that chop parameters are set up in this target component.</note>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">112.569042816</estimatedDuration>
+          <estimatedDuration units="seconds">71.034521408</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -2707,7 +2758,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">247.70712844800002</estimatedDuration>
+          <estimatedDuration units="seconds">123.10356422400001</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -2785,7 +2836,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">432.84521408</estimatedDuration>
+          <estimatedDuration units="seconds">225.17260704</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -2911,13 +2962,13 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
       </SpMSB>
       <SpMSB checksum="a2a61f81c7901d82becab84eb51eed41" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstMichelleRef idref="10"/>
-        <SpTelescopeObsCompRef idref="9"/>
-        <estimatedDuration units="seconds">1438.259470976</estimatedDuration>
+        <SpInstMichelleRef idref="11"/>
+        <SpTelescopeObsCompRef idref="10"/>
+        <estimatedDuration units="seconds">981.379735488</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Low &amp; medium resolution,  extended source, chop &amp; nod off slit</title>
-        <totalDuration units="seconds">1438.259470976</totalDuration>
+        <totalDuration units="seconds">981.379735488</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes non-echelle spectroscopy of an extended source. First it slews to a standard star, takes flat observations, and then takes science data at the target. Because the target is extended, the telescope nods off to a sky position (90 arcseconds away by default). Chop is also off the slit, by the maximum available guided throw.</note>
@@ -2928,7 +2979,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpInstMichelle id="10" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="11" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>1</meta_version>
@@ -2974,7 +3025,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <posAngle>0.0</posAngle>
           <readInterval>0.01</readInterval>
           <resetDelay>0.01</resetDelay>
-          <sampling>1x2</sampling>
+          <sampling>1x1</sampling>
           <scienceArea>0.76 x 91.2</scienceArea>
           <spectralCoverage>6.02 - 13.98</spectralCoverage>
           <waveform>mch_ndr_sw</waveform>
@@ -2991,7 +3042,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
 Note that chop parameters are set up in this target component.</note>
           <title>Standard Star Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="9" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="10" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -3010,7 +3061,7 @@ Note that chop parameters are set up in this target component.</note>
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">112.569042816</estimatedDuration>
+          <estimatedDuration units="seconds">71.034521408</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -3071,7 +3122,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">412.84521408</estimatedDuration>
+          <estimatedDuration units="seconds">205.17260704</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3151,7 +3202,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">432.84521408</estimatedDuration>
+          <estimatedDuration units="seconds">225.17260704</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -3275,13 +3326,13 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
       </SpMSB>
       <SpMSB checksum="a2a61f81c7901d82becab84eb51eed41" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstMichelleRef idref="12"/>
-        <SpTelescopeObsCompRef idref="11"/>
-        <estimatedDuration units="seconds">965.0304900808</estimatedDuration>
+        <SpInstMichelleRef idref="13"/>
+        <SpTelescopeObsCompRef idref="12"/>
+        <estimatedDuration units="seconds">754.7652450404</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Echelle point source spectroscopy</title>
-        <totalDuration units="seconds">965.0304900808</totalDuration>
+        <totalDuration units="seconds">754.7652450404</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes echelle spectroscopy of an extended source. First it slews to a standard star, takes flat observations, and then takes science data at the target. Chopping is switched off; nodding is along the slit.</note>
@@ -3292,7 +3343,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpInstMichelle id="12" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="13" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>1</meta_version>
@@ -3338,7 +3389,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <posAngle>0.0</posAngle>
           <readInterval>0.01</readInterval>
           <resetDelay>0.01</resetDelay>
-          <sampling>1x2</sampling>
+          <sampling>1x1</sampling>
           <scienceArea>1.9 x 36.51</scienceArea>
           <spectralCoverage>9.99 - 10.01</spectralCoverage>
           <waveform>mch_ndr_sw</waveform>
@@ -3353,7 +3404,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Standard Star Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="11" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -3372,7 +3423,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">67.7300445528</estimatedDuration>
+          <estimatedDuration units="seconds">48.6150222764</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -3433,7 +3484,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">208.650222764</estimatedDuration>
+          <estimatedDuration units="seconds">113.075111382</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3527,7 +3578,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">208.650222764</estimatedDuration>
+          <estimatedDuration units="seconds">113.075111382</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -3653,13 +3704,13 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
       </SpMSB>
       <SpMSB checksum="a2a61f81c7901d82becab84eb51eed41" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpInstMichelleRef idref="14"/>
-        <SpTelescopeObsCompRef idref="13"/>
-        <estimatedDuration units="seconds">965.0304900808</estimatedDuration>
+        <SpInstMichelleRef idref="15"/>
+        <SpTelescopeObsCompRef idref="14"/>
+        <estimatedDuration units="seconds">754.7652450404</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Echelle extended source spectroscopy</title>
-        <totalDuration units="seconds">965.0304900808</totalDuration>
+        <totalDuration units="seconds">754.7652450404</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes echelle spectroscopy of an extended source. First it slews to a standard star, takes flat observations, and then takes science data at the target. Chopping is switched off; nodding is off the slit by 90 arcseconds.</note>
@@ -3670,7 +3721,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpInstMichelle id="14" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="15" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <meta_version>1</meta_version>
@@ -3716,7 +3767,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
           <posAngle>0.0</posAngle>
           <readInterval>0.01</readInterval>
           <resetDelay>0.01</resetDelay>
-          <sampling>1x2</sampling>
+          <sampling>1x1</sampling>
           <scienceArea>1.9 x 36.51</scienceArea>
           <spectralCoverage>9.99 - 10.01</spectralCoverage>
           <waveform>mch_ndr_sw</waveform>
@@ -3731,7 +3782,7 @@ These coordinates will be inherited by the  three observations (standard star, t
 Note - for the standard, you don't need to specify a guide star;  the telescope will know to guide on the standard itself.</note>
           <title>Standard Star Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="13" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="14" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -3750,7 +3801,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
         </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">67.7300445528</estimatedDuration>
+          <estimatedDuration units="seconds">48.6150222764</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -3811,7 +3862,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">208.650222764</estimatedDuration>
+          <estimatedDuration units="seconds">113.075111382</estimatedDuration>
           <standard>true</standard>
           <title>standard star</title>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -3905,7 +3956,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">208.650222764</estimatedDuration>
+          <estimatedDuration units="seconds">113.075111382</estimatedDuration>
           <standard>false</standard>
           <title>Science Target</title>
           <SpNote type="no" subtype="none">
@@ -4033,9 +4084,9 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
       <title>Imaging Polarimetry</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpDRRecipeRef idref="17"/>
-        <SpInstMichelleRef idref="16"/>
-        <SpTelescopeObsCompRef idref="15"/>
+        <SpDRRecipeRef idref="18"/>
+        <SpInstMichelleRef idref="17"/>
+        <SpTelescopeObsCompRef idref="16"/>
         <estimatedDuration units="seconds">3134.0785520000013</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -4063,7 +4114,7 @@ b) you do no need to copy this in to the science target observation as it will b
 Note that the chop parameters are also set up in this component.</note>
           <title>This Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="15" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="16" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -4080,7 +4131,7 @@ Note that the chop parameters are also set up in this component.</note>
           <chopThrow>15</chopThrow>
           <chopping>true</chopping>
         </SpTelescopeObsComp>
-        <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="18" type="oc" subtype="DRRecipe">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
@@ -4097,7 +4148,7 @@ Note that the chop parameters are also set up in this component.</note>
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
           <title>POL_NOD_CHOP</title>
         </SpDRRecipe>
-        <SpInstMichelle id="16" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="17" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
           <meta_unique>true</meta_unique>
@@ -4384,9 +4435,9 @@ Note that the chop parameters are also set up in this component.</note>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpDRRecipeRef idref="20"/>
-        <SpInstMichelleRef idref="19"/>
-        <SpTelescopeObsCompRef idref="18"/>
+        <SpDRRecipeRef idref="21"/>
+        <SpInstMichelleRef idref="20"/>
+        <SpTelescopeObsCompRef idref="19"/>
         <estimatedDuration units="seconds">4222.117828000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
@@ -4414,7 +4465,7 @@ b) you do no need to copy this in to the science target observation as it will b
 Note that the chop parameters are also set up in this component.</note>
           <title>This Target component</title>
         </SpNote>
-        <SpTelescopeObsComp id="18" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="19" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -4431,7 +4482,7 @@ Note that the chop parameters are also set up in this component.</note>
           <chopThrow>15</chopThrow>
           <chopping>true</chopping>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="19" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="20" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
           <meta_unique>true</meta_unique>
@@ -4484,7 +4535,7 @@ Note that the chop parameters are also set up in this component.</note>
           <waveform>mch_str_bw</waveform>
           <waveplate>wp_N</waveplate>
         </SpInstMichelle>
-        <SpDRRecipe id="20" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="21" type="oc" subtype="DRRecipe">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
@@ -4809,14 +4860,14 @@ Note that the chop parameters are also set up in this component.</note>
       <title>Spectropolarimetry</title>
       <SpMSB remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <SpDRRecipeRef idref="23"/>
-        <SpInstMichelleRef idref="22"/>
-        <SpTelescopeObsCompRef idref="21"/>
-        <estimatedDuration units="seconds">6086.268257694399</estimatedDuration>
+        <SpDRRecipeRef idref="24"/>
+        <SpInstMichelleRef idref="23"/>
+        <SpTelescopeObsCompRef idref="22"/>
+        <estimatedDuration units="seconds">3281.3841288471995</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Point Source Spectropolarimetry</title>
-        <totalDuration units="seconds">6086.268257694399</totalDuration>
+        <totalDuration units="seconds">3281.3841288471995</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This template MSB takes spectroscopic polarimetry of a point source (nod size is 7.5 arcseconds, chop size 15). The sequence completes a sky-subtaction pair before moving the waveplate.</note>
@@ -4827,7 +4878,7 @@ Note that the chop parameters are also set up in this component.</note>
           <note></note>
           <title>Observer Notes</title>
         </SpNote>
-        <SpTelescopeObsComp id="21" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="22" type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
@@ -4844,7 +4895,7 @@ Note that the chop parameters are also set up in this component.</note>
           <chopThrow>10.36</chopThrow>
           <chopping>true</chopping>
         </SpTelescopeObsComp>
-        <SpInstMichelle id="22" type="oc" subtype="inst.michelle">
+        <SpInstMichelle id="23" type="oc" subtype="inst.michelle">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
           <meta_unique>true</meta_unique>
@@ -4891,13 +4942,13 @@ Note that the chop parameters are also set up in this component.</note>
           <posAngle>0.0</posAngle>
           <readInterval>0.01</readInterval>
           <resetDelay>0.01</resetDelay>
-          <sampling>1x2</sampling>
+          <sampling>1x1</sampling>
           <scienceArea>0.76 x 91.2</scienceArea>
           <spectralCoverage>6.52 - 14.48</spectralCoverage>
           <waveform>mch_ndr_sw</waveform>
           <waveplate>wp_N</waveplate>
         </SpInstMichelle>
-        <SpDRRecipe id="23" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="24" type="oc" subtype="DRRecipe">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
@@ -4916,7 +4967,7 @@ Note that the chop parameters are also set up in this component.</note>
         </SpDRRecipe>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">113.2278844432</estimatedDuration>
+          <estimatedDuration units="seconds">71.3639422216</estimatedDuration>
           <standard>false</standard>
           <title>flat</title>
           <SpNote type="no" subtype="none">
@@ -4978,7 +5029,7 @@ Be sure to hit the default button in the flat editor if you change the configura
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
-          <estimatedDuration units="seconds">2746.5201866255993</estimatedDuration>
+          <estimatedDuration units="seconds">1365.0100933127997</estimatedDuration>
           <standard>true</standard>
           <title>Standard star</title>
           <SpIterFolder type="if" subtype="none">
@@ -5073,7 +5124,7 @@ The "eye" below sets the system into a 10-micron imaging mode and allows the obs
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
-          <estimatedDuration units="seconds">2746.5201866255993</estimatedDuration>
+          <estimatedDuration units="seconds">1365.0100933127997</estimatedDuration>
           <standard>false</standard>
           <title>Target</title>
           <SpTelescopeObsComp type="oc" subtype="targetList">
