@@ -226,15 +226,14 @@ public class SpTranslator {
 
       // Add the agent information if it exists.  Both fields must exist in order 
       // to write this information
-      if ( agent != null && agentId!= null ) {
-	  sequence.addElement( "setHeader RMTAGENT " + agent );
-	  sequence.addElement( "setHeader AGENTID " + agentId);
+      if ( agent.equals("none") && agentId.equals("none") ) {
+	  sequence.addElement( "-setHeader RMTAGENT " + agent );
+	  sequence.addElement( "-setHeader AGENTID " + agentId);
       }
       else {
-	  System.out.println("No remote trigger");
-	  System.out.println("Src = "+agent);
-	  System.out.println("ID = "+agentId);
-      }
+	  sequence.addElement( "setHeader RMTAGENT " + agent );
+	  sequence.addElement( "setHeader AGENTID " + agentId);
+     }
 
       if ( noffsetsInstruction != null ) {
 
@@ -998,6 +997,10 @@ public class SpTranslator {
 	 else {
 	     remoteTriggerSrc = spObs.parent().getTable().get("remote_trigger_src");
 	     remoteTriggerId  = spObs.parent().getTable().get("remote_trigger_id");
+	 }
+	 if ( remoteTriggerSrc == null || remoteTriggerId == null) {
+	   remoteTriggerSrc = "none";
+	   remoteTriggerId = "none";
 	 }
 
 // Code rearrangement by RDK (this section was after the "Define file name" stuff
