@@ -3,11 +3,10 @@ package ot.util;
 import jsky.catalog.Catalog;
 import jsky.catalog.CatalogFactory;
 import jsky.catalog.QueryArgs;
-
 import jsky.catalog.TableQueryResult;
 import jsky.catalog.skycat.SkycatConfigFile;
 import jsky.catalog.skycat.SkycatConfigEntry;
-
+import jsky.util.gui.ProgressException;
 import jsky.coords.HMS;
 import jsky.coords.DMS;
 
@@ -29,7 +28,7 @@ public class NameResolver {
   protected String _ra;
   protected String _dec;
 
-  public NameResolver(String catalogName, String queryString) {
+  public NameResolver(String catalogName, String queryString) throws ProgressException {
     // Using  URLEncoder.encode would be nice but it replaces ' ' with '+' which
     // doesn't do the trick. ' ' has to be replaced with "%20".
     //queryString= URLEncoder.encode(queryString);
@@ -63,6 +62,10 @@ public class NameResolver {
     
     try {
       tableQueryResult = (TableQueryResult)catalog.query(queryArgs);
+    }
+    catch(ProgressException e) {
+      // query interrupted by user. Handle exception in the calling class.
+      throw e;
     }
     catch(Exception e) {
       // Exception is handled in the following code because tableQueryResult is still null.
