@@ -16,7 +16,7 @@ include $(CONF_HOME)/make.conf
 CLASSES_DIR_FOR_SED = $(shell echo $(CLASSES_DIR) | sed -e 's/\./\\\./g' | sed -e 's/\//\\\//g')
 CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
-CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(JAVAHELP_CP)
+CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(JAVAHELP_CP):$(XERCES_CP)
 
 # Should NOT be changed as other packages might rely on the this name!
 JAR_FILE            = orac.jar
