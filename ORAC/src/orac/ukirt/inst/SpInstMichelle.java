@@ -331,6 +331,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                 instInfo = new InstCfg (block);
 		if (InstCfg.matchAttr (instInfo, "instrument_port")) {
                     INSTRUMENT_PORT = instInfo.getValue();
+                    setPort (INSTRUMENT_PORT);
 		} else if (InstCfg.matchAttr (instInfo, "config_type")) {
                     CONFIG_TYPE = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "version")) {
