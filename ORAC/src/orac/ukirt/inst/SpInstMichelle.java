@@ -10,7 +10,6 @@
 // and Alan Bridger's work on the CGS4 instrument
 // author: Alan Pickup = dap@roe.ac.uk         2001 Feb
 
-
 package orac.ukirt.inst;
 import java.io.*;
 import java.util.*;
@@ -1983,6 +1982,27 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Get the default bias exposure time
+     */
+    public double getDefaultBiasExpTime() {
+	
+	if ( DEFBIASEXPTIME == 0.0 ) {
+	    return super.getDefaultBiasExpTime();
+	}
+	return DEFBIASEXPTIME;
+    }
+    /**
+     * Get the default bias coadds
+     */
+    public int getDefaultBiasCoadds() {
+	
+	if ( DEFBIASCOADDS == 0 ) {
+	    return super.getDefaultBiasCoadds();
+	}
+	return DEFBIASCOADDS;
+    }
+
+    /**
      * Set the mode
      */
     public void
@@ -2061,7 +2081,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void
     updateDAObjConf()
     {
-        System.out.println("updateDAObjConf> called");
         String obsType = "Object";
         updateDAConf(obsType);
         _avTable.set(ATTR_MODE,W_mode);
@@ -2156,7 +2175,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             || W_mode.equalsIgnoreCase("NDCHOP");
         boolean ifND = W_mode.equalsIgnoreCase("NDSTARE")
             || W_mode.equalsIgnoreCase("NDCHOP");
-        System.out.println("     > mode="+W_mode+" ifChop="+ifChop+" ifND="+ifND);
 
         /* Perform WAVEFORMS lookup */
         ri = WAVEFORMS.indexInColumn(W_waveform,0);
@@ -2203,7 +2221,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             else
                 TGone = W_idlePeriod * W_mustIdles;
 	}
-        System.out.println("     > After mustIdles - TGone = " + TGone);
 
         /* Handle initial chop delay */
         if (ifChop) {
@@ -2330,7 +2347,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             cfd = 0.5/dwellTime;
             String cfs = Double.toString(cfd);
             W_chopFrequency = cfs;
-            System.out.println("     > Replacement chop frequency ="+cfd);
             numCycles = (int) Math.round(obsTime*cfd*2.0);
             if (numCycles < 1) numCycles = 1;
             numExp = numExpBeam * numCycles;
@@ -2345,20 +2361,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	} else {
             W_obsTime = TGone;
 	}
-        System.out.println("     > Actual observation time = "+W_obsTime);
 
 
         /* Update the number of required coadds */
         W_coadds = numExp;
 
         /* Compute duty cycle */
-        System.out.println("     > expTime="+expTime+" obsTime="+obsTime);
-        System.out.println("     > nresets="+W_nresets+" resetDelay="+W_resetDelay);
-        System.out.println("     > readInterval="+W_readInterval+
-            " daconf="+daconf);
-        System.out.println("     > numExp="+numExp+" nreads="+W_nreads+" nullExp="+
-            W_nullExposures);
-        System.out.println("     > numCycles="+numCycles);
         if (ifChop) {
             totalExposure = numExp * 2.0 * actExpTime;
             double totalChopDelay = 2.0 * (numCycles+W_nullCycles) * actChopDelay;
@@ -2367,7 +2375,6 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             totalExposure = actExpTime * numExp;
             W_dutyCycle = totalExposure/W_obsTime;
 	}
-        System.out.println("     > Duty cycle = "+W_dutyCycle);
 
     }
 
