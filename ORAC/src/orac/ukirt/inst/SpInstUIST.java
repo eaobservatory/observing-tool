@@ -1199,7 +1199,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         _avTable.set(ATTR_IMAGER, imager);
 //         useDefaultFilter();
 //         useDefaultFilterCategory();
-//         useDefaultMask();
+         useDefaultMask();
 //         useDefaultSourceMag();
     }
 
