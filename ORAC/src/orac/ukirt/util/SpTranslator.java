@@ -1479,11 +1479,6 @@ public class SpTranslator {
 // Add the observe instruction to the sequence buffer.
                               instruction = nodCommand.toString();
                               sequence.addElement( instruction );
-
-// Add the observe instructions to the sequence buffer.  Note the type
-// written in uppercase within the sequence so refer to the type here
-// in uppercase too.
-                              observeCount( sequence, "OBJECT", drRecipeComp );
                            }
 
 // Store an observe command.
