@@ -65,7 +65,7 @@ public class ScubaGUI extends JPanel {
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
 //    jLabel3.setForeground(Color.darkGray);
-    jLabel3.setText("Primary Bolometer");
+    jLabel3.setText("Reference Bolometer");
     additionalBolometers.setEnabled(false);
     additionalBolometers.setPreferredSize(new Dimension(50, 50));
     jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));

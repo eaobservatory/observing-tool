@@ -343,7 +343,7 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
     label.setForeground(Bolometer.COLOR_SELECTED);
     descriptionPanel.add(label);
 
-    label = new JLabel("  Primary Bolometer (Right Mouse Button)");
+    label = new JLabel("  Reference Bolometer (Right Mouse Button)");
     label.setForeground(Bolometer.COLOR_PRIMARY);
     descriptionPanel.add(label);
 
