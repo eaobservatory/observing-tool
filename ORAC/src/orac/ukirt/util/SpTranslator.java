@@ -46,7 +46,6 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 /**
@@ -408,64 +407,9 @@ public class SpTranslator {
          count = countOffsets( child, count );
 
       }
-      
       return count;
    }
 
-    /**
-     * Count the number of "implicit" offsets.  These occur when we have
-     * observe/sky iterators not inside of an offset iterator, and only
-     * if the target component has a reference position specified.
-     *
-     * @params The observation we are trying to sequence
-     * @return The number of implicit offsets
-     */
-    private int countImplicitOffsets(SpObs obs) {
-	int       implicitCount = 0;
-
-	// First get the target and find out if it has a reference position
-	// specified.
-	SpTelescopeObsComp target = (SpTelescopeObsComp) SpTreeMan.findTargetList( obs );
-	if (target != null) {
-	    SpAvTable targetList = (SpAvTable) target.getTable();
-	    if ( !targetList.exists("REFERENCE") && !targetList.exists("SKY") ) {
-		return implicitCount;
-	    }
-	}
-
-	// If we get here, then the target does have a reference.
-	// Get all of the observe and sky iters...
-	Vector observes = SpTreeMan.findAllItems(obs, "gemini.sp.iter.SpIterObserve");
-	for (int i=0; i<observes.size(); i++) {
-	    SpItem observe = (SpItem) observes.elementAt(i);
-	    SpItem parent = observe.parent();
-	    while (parent != null) {
-		if (parent instanceof SpIterOffset) {
-		    break;
-		}
-		parent = parent.parent();
-	    }
-	    // If we got all the way up the tree, then we have not
-	    // found an enclosing offset iterator.
-	    if (parent == null) implicitCount++;
-	}
-
-	// Now do the same for Sky iterators
-	observes = SpTreeMan.findAllItems(obs, "gemini.sp.iter.SpIterSky");
-	for (int i=0; i<observes.size(); i++) {
-	    SpItem observe = (SpItem) observes.elementAt(i);
-	    SpItem parent = observe.parent();
-	    while (parent != null) {
-		if (parent instanceof SpIterOffset) {
-		    break;
-		}
-		parent = parent.parent();
-	    }
-	    if (parent == null) implicitCount++;
-	}
-
-	return implicitCount;
-    }
 
 /**
  *  Removes all occurrences of a character from a string.
@@ -599,7 +543,6 @@ public class SpTranslator {
       boolean typeInGroup;                // Frames of supplied type part of
                                           // group?
       String work;                        // Work variable
-
 
 // Determine the data-reduction recipe name for this type of frame.
 // ================================================================
@@ -918,9 +861,6 @@ public class SpTranslator {
       String instrument;                  // Instrument for the sequence
       boolean isGuideTarget;              // Does the target attribute apply 
                                           // to the guide star?
-      boolean isReferenceTarget = false;
-      boolean isReferenceOffset = true;
-      boolean skyInOffset = false;
       boolean isLegacyInstrum = true;     // Does the instrument use the old-style
                                           // execs and configs?
       int j;                              // Loop counter
@@ -983,7 +923,7 @@ public class SpTranslator {
       String targetName;                  // Name of the target
       boolean targetPresent = false;      // Target information is present?
       StringBuffer targetRecord;          // Builds a sequence target instruction
-      String targetTypes [] = { "Base", "GUIDE", "REFERENCE", "SKY" };  // Types of target
+      String targetTypes [] = { "Base", "GUIDE" };  // Types of target
                                           // information required
       Vector targetValues;                // Values of base or guide position
       SpAvTable tavl;                     // Target attribute value table
@@ -996,8 +936,6 @@ public class SpTranslator {
                                           // not iterated
       Vector v;                           // Work Vector
       String value;                       // Attribute value
-      double offsetRA  = 0.0;
-      double offsetDec = 0.0;
 
 
 // Check if this is an Observation.
@@ -1164,20 +1102,9 @@ public class SpTranslator {
 
 // Define a useful boolean.
                   isGuideTarget = targetAttribute.equalsIgnoreCase( "GUIDE" );
-		  isReferenceTarget = ( targetAttribute.equalsIgnoreCase( "REFERENCE" ) || targetAttribute.equalsIgnoreCase( "SKY" ) );
 
 // Obtain the values of the position as a Vector.
                   targetValues = tavl.getAll( targetAttribute );
-
-		  // If target is a reference, see if if the coordinates are
-		  // offsets or fixed
-		  if (isReferenceTarget) {
-		      isReferenceOffset = new Boolean ((String)targetValues.elementAt(targetValues.size()-1)).booleanValue();
-		      if (isReferenceOffset) {
-			  offsetRA  = new Double(((String)targetValues.elementAt(2)).trim()).doubleValue();
-			  offsetDec = new Double(((String)targetValues.elementAt(3)).trim()).doubleValue();
-		      }
-		  }
 
 // Obtain the raw mandatory strings.  Assume that the order is constant
 // and that at least the first five (including zeroth "Base") are always
@@ -1246,25 +1173,37 @@ public class SpTranslator {
 // The strings have to be manipulated to correct format.  They are
 // decimal hours and decimal degrees.
                   skyCoords = null;
-                  skyCoords = RADecMath.string2Degrees( RA, Dec,
-                              CoordSys.getSystem( coordSystem ) );
+		  // Only get the skyCoords if we are not in RA/Dec
+		  if ( !(coordSystem.equalsIgnoreCase("AZ/EL")) ) {
+		      skyCoords = RADecMath.string2Degrees( RA, Dec,
+							    CoordSys.getSystem( coordSystem ) );
+		  }
+		  else {
+		      skyCoords = new double [2];
+		      skyCoords[0] = Double.parseDouble(RA);
+		      skyCoords[1] = Double.parseDouble(Dec);
+		  }
 
-// Validate the returned co-ordinates.
-                  if ( Double.isNaN( skyCoords[ 0 ] ) ) {
-                     System.out.println( "Error in R.A. sexagesimal format." );
-                     return seqName;
-                  }
-
-                  if ( Double.isNaN( skyCoords[ 1 ] ) ) {
-                     System.out.println( "Error in Dec. sexagesimal format." );
-                     return seqName;
-                  }
+		  // Validate the returned co-ordinates.
+		  if ( Double.isNaN( skyCoords[ 0 ] ) ) {
+		      System.out.println( "Error in R.A. sexagesimal format." );
+		      return seqName;
+		  }
+		  
+		  if ( Double.isNaN( skyCoords[ 1 ] ) ) {
+		      System.out.println( "Error in Dec. sexagesimal format." );
+		      return seqName;
+		  }
 
 // Need the equinox, not the FK number.  So look for the enclosing
 // parentheses.
                   if ( coordSystem.equals( "" ) ) { 
                      equinox = "J2000";
-                  } else {
+                  } 
+		  else if (coordSystem.equalsIgnoreCase("AZ/EL")) {
+		      equinox = "AZ/EL";
+		  }
+		  else {
                      start = coordSystem.indexOf( "(" ) + 1;
                      end = coordSystem.indexOf( ")" );
                      equinox = coordSystem.substring( start, end );
@@ -1275,12 +1214,7 @@ public class SpTranslator {
                   targetRecord = new StringBuffer( 100 );
                   if ( isGuideTarget ) {
                      targetRecord.append( "SET_GUIDE ");
-                  } 
-		  else if ( isReferenceTarget && !isReferenceOffset ) {
-		      offsetRA  = skyCoords[ 0 ];
-		      offsetDec = skyCoords[ 1 ];
-		  }
-		  else {
+                  } else {
                      targetRecord.append( "SET_TARGET ");
                   }
                   targetRecord.append( targetName ).append( " " );
@@ -1292,7 +1226,12 @@ public class SpTranslator {
 
 // HHMMSS returns a two-element array of decimal degrees.  PTCS
 // wants decimal hours for right ascension.
-                  targetRecord.append( dfEq.format( skyCoords[ 0 ] / 15.0d ) );
+		  if ( !(equinox.equals("AZ/EL")) ) {
+		      targetRecord.append( dfEq.format( skyCoords[ 0 ] / 15.0d ) );
+		  }
+		  else {
+		      targetRecord.append( dfEq.format( skyCoords[ 0 ] ));
+		  }
                   targetRecord.append( " " );
                   targetRecord.append( dfEq.format( skyCoords[ 1 ] ) );
 
@@ -1303,9 +1242,7 @@ public class SpTranslator {
                   }
 
 // Write the set-target instruction to the sequence.
-		  if (!isReferenceTarget) {
-		      sequence.addElement( targetRecord.toString() );
-		  }
+                  sequence.addElement( targetRecord.toString() );
 
 // Write the slew and guiding instructions.
 // ========================================
@@ -1315,14 +1252,13 @@ public class SpTranslator {
                       if ( ! instrument.equalsIgnoreCase( "CGS4" ) ) {
                          sequence.addElement( "-WAIT ALL" );
                       }
-                  } 
-		  else if ( isReferenceTarget ) {
-		      // Do nothing
-		  }
-		  else {
+                  } else {
                       sequence.addElement( "do 1 _slew_all" );
                   }
                }
+	       else {
+		   System.out.println("Table does not contain recognised target type");
+	       }
             }
 
 // Add chopping instructions.
@@ -1430,7 +1366,6 @@ public class SpTranslator {
 // with a leading hyphen.
             numberOffsets = 0;
             numberOffsets = countOffsets( (SpItem) itf, numberOffsets );
-	    numberOffsets += countImplicitOffsets (spObs);
             noffsetsInstruction = nOffsets + " " + numberOffsets;
 
 //  Note while adding the instruction here is the clean (and original
@@ -1937,10 +1872,6 @@ public class SpTranslator {
 // Move last "SET_CHOPBEAM A" that's before the startGroup, until after
 // the startGroup instruction.
             moveSetChopBeam( sequence );
-
-// Fix up any observe/sky instrunctions which do not have offsets.
-// These should only occur when the target component has a reference
-	    addOffsets (sequence, isReferenceOffset, offsetRA, offsetDec);
 
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
@@ -3522,113 +3453,6 @@ public class SpTranslator {
          System.out.println( "IO error writing sequence file " + seqName );
          System.out.println( "Error was: " + ioe );
       } 
-   }
-
-/** 
- * Add offsets to objects and skys if none exist.  This can occur when a 
- * reference position is specified in the target component and a sky
- * iterator used outside of an offset.
- */
-    private void addOffsets(Vector sequence, 
-			    boolean isOffset, 
-			    double offsetRA, 
-			    double offsetDec) {
-	String waitString   = "-WAIT ALL";
-	boolean firstObject = true;
-
-	// If the given positions are not offsets, then we need to make them offsets from the
-	// current base position
-	if (!isOffset) {
-	    String targetElement = null;
-	    // First get the coordinates os the base position from the sequence
-	    for (int i=0; i<sequence.size(); i++) {
-		if ( ((String)sequence.elementAt(i)).startsWith("SET_TARGET") ) {
-		    targetElement = (String)sequence.elementAt(i);
-		    break;
-		}
-	    }
-	    if (targetElement == null) {
-		offsetRA  = 0.0;
-		offsetDec = 0.0;
-	    }
-	    else {
-		// Now parse the string and get the 3rd, 4th and 5th parameter
-		// which represent the equinox, RA and Dec respectively
-		StringTokenizer st = new StringTokenizer(targetElement);
-		int    token   = 0;
-		String baseRA  = null;
-		String baseDec = null;
-		String equinox = null;
-		while (st.hasMoreTokens()) {
-		    switch (token) {
-		    case 2:
-			equinox = st.nextToken();
-			token++;
-			break;
-		    case 3:
-			baseRA = st.nextToken();
-			token++;
-			break;
-		    case 4:
-			baseDec = st.nextToken();
-			token++;
-			break;
-		    default:
-			st.nextToken();
-			token++;
-			break;
-		    }
-		}
-		//  Now we have these, we should be able to calculate the RA and Dec offsets
-		double [] offsetArray = RADecMath.getOffset( offsetRA,
-							     offsetDec,
-							     (new Double (baseRA)).doubleValue()*15.0d,
-							     (new Double (baseDec)).doubleValue(),
-							     0.0);
-		offsetRA  = offsetArray[0];
-		offsetDec = offsetArray[1];
-	    }
-	}
-
-	String offsetString = "offset "+offsetRA+" "+offsetDec;
-
-	// Loop through until there are not more SKY/OBJECTs
-	for (int i=0; i<sequence.size(); i++) {
-	    if ( ((String)sequence.elementAt(i)).equals("set SKY") ) {
-		// See is this has an offset
-		if ( !((String)sequence.elementAt(i+1)).startsWith("offset") ) {
-		    sequence.add(i+1, offsetString);
-		    sequence.add(i+2, waitString);
-		}
-		// Now ignore anything until the next set OBJECT command
-		i = sequence.indexOf("set OBJECT", i+1);
-		if (i == -1) break;
-		i--;
-		continue;
-	    }
-	    else if ( ((String)sequence.elementAt(i)).equals("set OBJECT") ) {
-		// See if this has an offset... It should be at the i+2 position
-		if (firstObject) {
-		    if ( !((String)sequence.elementAt(i+2)).startsWith("offset") ) {
-			sequence.add(i+2, "offset 0.0 0.0");
-			sequence.add(i+3, waitString);
-		    }
-		    firstObject = false;
-		}
-		else {
-		    if ( !((String)sequence.elementAt(i+1)).startsWith("offset") ) {
-			sequence.add(i+1, "offset 0.0 0.0");
-			sequence.add(i+2, waitString);
-		    }
-		}
-		
-		// Now ignore everything until the next SKY command
-		i = sequence.indexOf("set SKY", i+1);
-		if (i == -1) break;
-		i--;
-		continue;
-	    }
-	}
    }
 
 /**
