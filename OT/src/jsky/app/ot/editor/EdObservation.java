@@ -78,7 +78,9 @@ public final class EdObservation extends OtItemEditor
 
         // Added by MFO (22 February 2002)
 	if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
-          _w.standard.setVisible(false);
+          _w.standard.setText("Flag as Calibration");
+	  _w.optional.setVisible(false);
+	  _w.optional.deleteWatcher(this);
 	}
 
 	for(int i = 0; i <= 100; i++) {
@@ -207,7 +209,9 @@ public final class EdObservation extends OtItemEditor
       else {
         _w.msbPanel.setVisible(false);
 	
-	if(System.getProperty("OMP") != null) {
+	if((System.getProperty("OMP") != null) &&
+	   (OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD))) {
+
 	  _w.optional.setVisible(true);
 	}  
       }
@@ -312,6 +316,12 @@ public final class EdObservation extends OtItemEditor
             _spItem.getAvEditFSM().addObserver(this);
 
            _w.standard.setValue( ((SpObs)_spItem).getIsStandard() );
+
+           if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD)) {
+	       _w.optional.setValue(_w.standard.getBooleanValue());
+               ((SpObs)_spItem).setOptional(_w.standard.getBooleanValue());
+	   }
+
            return;
         }
     }
