@@ -57,6 +57,7 @@ public class HeterodyneGUI extends JPanel {
   JComboBox transitionChoice;
   JComboBox transitionChoice2;
   JComboBox bandWidthChoice;
+  JLabel resolution;
   JButton freqEditorButton = new JButton("Show Frequency Editor");
   JButton hideFreqEditorButton = new JButton("Hide Frequency Editor");
   JLabel label = null;
@@ -123,6 +124,15 @@ public class HeterodyneGUI extends JPanel {
       displayPanel.add ( label );
       displayPanel.add ( highFreq );
 
+      label = new JLabel("    Resolution (KHz)");
+      label.setFont(new Font("Dialog", 0, 12));
+      label.setForeground(Color.black);
+      resolution = new JLabel();
+      resolution.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+      resolution.setFont(new Font("Dialog", 0, 12));
+      resolution.setForeground(Color.black);
+      displayPanel.add(label);
+      displayPanel.add(resolution);
 
       // Bandwidth and Overlap
       overlapBandwidthPanel = new JPanel(flowLayoutLeft);
