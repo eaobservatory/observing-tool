@@ -246,7 +246,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 	    }
          }
 
-         if(band.equalsIgnoreCase("usb")) {
+         if( band.equalsIgnoreCase("usb") || band.equalsIgnoreCase("best") ) {
             for(int i = 0; i < data.length; i++) {
                ((SideBand)data[i][2]).on();
                ((SideBand)data[i][0]).off();
@@ -303,7 +303,8 @@ public class FrequencyTable extends JPanel implements ActionListener
          // If the instrument is in single side band mode (ssb) then
          // the line also has to be in the correct sideband.
          if(mode.equalsIgnoreCase("ssb")) {
-            if(band.equalsIgnoreCase("usb") && (obsFrequency < sideBandDisplay.getLO1())) {
+            if( (band.equalsIgnoreCase("usb") || band.equalsIgnoreCase("best") ) && 
+		(obsFrequency < sideBandDisplay.getLO1())) {
                lineInBand = false;
 	    }
 

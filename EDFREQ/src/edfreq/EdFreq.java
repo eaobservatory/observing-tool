@@ -55,7 +55,7 @@ public class EdFreq
     * @return observe frequency in GHz 
     */
    public static double getObsFrequency(double lo1, double intermFreq, String band) {
-      if ( band.equals ( "usb" ) ) {
+      if ( band.equals ( "usb" ) || band.equals("best") ) {
          return lo1 + intermFreq;
       }
       else {
@@ -88,7 +88,7 @@ public class EdFreq
     * @param band         lsb (lower side band) vs usb (upperd side band)
     */
    public static double getLO1(double obsFrequency, double intermFreq, double redshift, String band) {
-      if ( band.equals ( "usb" ) ) {
+      if ( band.equals ( "usb" ) || band.equals ("best" ) ) {
          return obsFrequency - intermFreq;
       }
       else {
