@@ -62,8 +62,8 @@ public class UkirtUtil implements TelescopeUtil {
   /**
    * Sets PreTranslator in SpItemDOM.
    *
-   * Make sure at the time this method is called {@link #getBaseTag()} and
-   * {@link #getAdditionalTarget()} return correct values.
+   * Make sure at the time this method is called SpTelescopePos.BASE_TAG and
+   * SpTelescopePos.GUIDE_TAGS[0] are set to correct values.
    */
   public void installPreTranslator() throws Exception {
     SpItemDOM.setPreTranslator(new UkirtPreTranslator(SpTelescopePos.BASE_TAG, SpTelescopePos.GUIDE_TAGS[0]));
