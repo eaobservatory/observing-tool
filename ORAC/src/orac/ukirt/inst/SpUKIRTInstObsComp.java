@@ -15,8 +15,15 @@ import gemini.sp.SpType;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterComp;
+import gemini.sp.iter.SpIterConfigObs;
 
 import gemini.util.Angle;
+
+import orac.ukirt.iter.SpIterBiasObs;
+import orac.ukirt.iter.SpIterDarkObs;
+import orac.ukirt.iter.SpIterCGS4CalObs;
+import orac.ukirt.iter.SpIterMichelleCalObs;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -49,8 +56,32 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     public static final String ATTR_INSTRUMENT_PORT = "instPort";
     public static final String ATTR_INSTRUMENT_APER = "instAper";
     public static final String ATTR_VERSION = ".version";
-    
-    
+
+    /**
+     * Integration overhead.
+     *
+     * Number of integrations for UKIRT (according to Paul Hirst, email, 24/05/2002)
+     * <BLOCKQUOTE>
+     * Most of the time, the number of integrations will be == 1,
+     * except with cgs4 and michelle - these instruments should have a number of integrations
+     * parameter, which will often be == sampling_x * sampling_y - except for
+     * example in a cgs4 BIAS frame, it's explicitly set to 3.
+     * </BLOCKQUOTE>
+     *
+     * This variable is used for MSB duration estimation. Subclasses can set this to an
+     * instrument specific value. Currently 0.5 is used for all instruments.
+     */
+    protected double _int_oh = 0.5;
+
+    /**
+     * Overhead per observe iteration ("Eye").
+     *
+     * This variable is used for MSB duration estimation. Subclasses can set this to an
+     * instrument specific value. Currently 0.5 is used for all instruments.
+     */
+    protected double _obs_oh = 0.5;
+
+
     /**
      * Constructor. Sets default values for attributes.
      */
@@ -243,6 +274,18 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	return 50;
     }
 
+    /**
+     * Returns a time estimate in seconds for slewing the telescope for UKIRT imaging: 3 minutes.
+     *
+     * Should overriden by classes for instrument that do spectroscopy.
+     */
+    public double
+	getSlewTime()
+    {
+	return 3.0 * 60.0;
+    }
+
+
   /**
    * Generic Iteration Tracker for UKIRT.
    *
@@ -256,6 +299,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
   public class IterTrackerUKIRT extends IterationTracker {
     double currentExposureTime = getExpTime();
     int    currentNoCoadds     = 1;
+    SpIterComp currentIterStepItem = null;
 
     IterTrackerUKIRT() {
       if(_avTable.exists(ATTR_COADDS)) {
@@ -266,6 +310,8 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     public void update(SpIterStep spIterStep) {
 
       SpIterValue spIterValue = null;
+
+      currentIterStepItem = spIterStep.item;
 
       try {
         String attribute = null;
@@ -298,7 +344,22 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     }
 
     public double getObserveStepTime () {
-      return currentNoCoadds * currentExposureTime;
+      // extra_oh is a constant overheads related to certain observe iterators:
+      // 30 seconds for dark, arc, flat or bias (in addition to the times to do
+      // their respective eye), and 30 secs each time an instrument iterator changes a filter.  
+      double extra_oh = 0.0;
+
+      if((currentIterStepItem != null) &&
+         ((currentIterStepItem instanceof SpIterBiasObs) ||
+          (currentIterStepItem instanceof SpIterDarkObs) ||
+          (currentIterStepItem instanceof SpIterCGS4CalObs) ||
+          (currentIterStepItem instanceof SpIterMichelleCalObs) ||
+	  (currentIterStepItem instanceof SpIterConfigObs))) {
+
+        extra_oh = 30.0;
+      }
+
+      return (((currentNoCoadds * (currentExposureTime + getExposureOverhead())) + _int_oh) + _obs_oh) + extra_oh;
     }
   }
 
