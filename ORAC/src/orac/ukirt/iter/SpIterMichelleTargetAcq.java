@@ -71,7 +71,7 @@ class SpIterMichelleTargetAcqEnumeration extends SpIterEnumeration {
 	String chopDelayValue = String.valueOf(ibo.W_chopDelay);
 	String obsTimeValue = String.valueOf(ibo.W_obsTime);
 	
-	//System.out.println("SpIterMichelleTargetAcq._thisFirstElement expTime " +  ibo.getExposureTimeString() + " coadds " + coaddsValue + " disperser " + ibo.getDisperser());
+	//System.out.println("SpIterMichelleTargetAcq._thisFirstElement expTime " +  exposureTimeValue + " coadds " + coaddsValue + " " + ibo.getDisperser());
 	_values = new SpIterValue[23];
 	_values[ 0] = new SpIterValue(SpInstConstants.ATTR_EXPOSURE_TIME, exposureTimeValue);
 	_values[ 1] = new SpIterValue(SpInstConstants.ATTR_COADDS, coaddsValue);
@@ -475,6 +475,7 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 	W_chopFrequency = inst.W_chopFrequency;
 	W_chopDelay     = inst.W_chopDelay;
 	W_obsTime       = inst.W_obsTime;
+        W_coadds        = inst.W_coadds;
 	
 	/* Update attributes from instance variables */
 	_avTable.noNotifySet(SpMichelleTargetAcqConstants.ATTR_MODE,W_mode,0);
@@ -509,6 +510,8 @@ public class SpIterMichelleTargetAcq extends SpIterObserveBase
 			     getFilter(),0);
 	_avTable.noNotifySet(SpMichelleTargetAcqConstants.ATTR_SAMPLING,
 			     getSampling(),0);
+	_avTable.noNotifySet(SpInstConstants.ATTR_COADDS,
+			     Integer.toString(W_coadds),0);
     }
 }
 
