@@ -28,6 +28,7 @@ import java.awt.Image;
  */
 public class GraphScale extends JPanel implements ChangeListener
 {
+   private static final int MIN_LABEL_SPACING = 60;
 
    private int orientation;
    private Rectangle tickRect = new Rectangle();
@@ -167,6 +168,7 @@ public class GraphScale extends JPanel implements ChangeListener
       {
 
          int xPos = 0;
+         int xPosPrevious = 0;
 
          if ( minorIncrement > 0.0 ) 
          {
@@ -185,8 +187,12 @@ public class GraphScale extends JPanel implements ChangeListener
             {
                xPos = xPositionForValue ( maj );
 
-               g.drawLine ( xPos, 0, xPos, tickBounds.height - 2 );
-               drawLabelX ( g, xPos, tickBounds.height, maj, exponent );
+               if((xPos - xPosPrevious) >= MIN_LABEL_SPACING) {
+                  g.drawLine ( xPos, 0, xPos, tickBounds.height - 2 );
+                  drawLabelX ( g, xPos, tickBounds.height, maj, exponent );
+
+                  xPosPrevious = xPos;
+               }
 
                maj += majorIncrement;
             }
