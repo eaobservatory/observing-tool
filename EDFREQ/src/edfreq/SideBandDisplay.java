@@ -296,11 +296,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener
       jt.resetModeAndBand(mode, band);
    }
 
-   public void initModeAndBand(String mode, String band)
-   {
-      jt.initModeAndBand(mode, band);
-   }
-
    public static void main(String args[]) 
    {
       // Create SideBandDisplay with anonymous HeterodyneEditor implementation
