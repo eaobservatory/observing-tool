@@ -21,6 +21,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 import jsky.app.ot.editor.OtItemEditor;
@@ -57,8 +58,9 @@ public EdIterNodObs()
 
    // If the choices can change depending on other settings then the adding of
    // choice items will have to be done in _init or _updateWidgets (see other editor components)
-   for(int i = 0; i < SpIterNodObs.NOD_PATTERNS.length; i++) {
-     _w.nodPattern.addItem(SpIterNodObs.getNodPattern(i));
+   Enumeration nodPatterns = SpIterNodObs.patterns();
+   while(nodPatterns.hasMoreElements()) {
+     _w.nodPattern.addItem((Vector)nodPatterns.nextElement());
    }  
 
    _w.repeatComboBox.addActionListener(this);
