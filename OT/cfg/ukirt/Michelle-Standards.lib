@@ -48881,7 +48881,7 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="BS6746 LowN (18:05 +03)">
+                        <val value="BS6746 LowN (18:05 -30)">
             </av>
             <av name=chainedToNext descr="No Description">
                         <val value="false">
@@ -48948,7 +48948,7 @@
                               <val value="North">
                </av>
                <av name=waveform descr="No Description">
-                              <val value="ndrv11big">
+                              <val value="ndrv11small">
                </av>
                <av name=.version descr="No Description">
                               <val value="1">
@@ -49160,7 +49160,7 @@
          </ob>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
-                        <val value="BS6746 LowQ (18:05 +03)">
+                        <val value="BS6746 LowQ (18:05 -30)">
             </av>
             <av name=chainedToNext descr="No Description">
                         <val value="false">
@@ -49227,7 +49227,7 @@
                               <val value="North">
                </av>
                <av name=waveform descr="No Description">
-                              <val value="ndrv11big">
+                              <val value="ndrv11small">
                </av>
                <av name=.version descr="No Description">
                               <val value="1">
