@@ -1197,8 +1197,23 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     setImager(String imager)
     {
         _avTable.set(ATTR_IMAGER, imager);
-//         useDefaultFilter();
-//         useDefaultFilterCategory();
+
+	// Added by RDK 19 Nov 2003: When we change plate scale, check the existing filter
+	// to make sure it exists in the filter table for the new plate scale. If so, call
+	// setFilter with the current value to re-set all filter-dependent values. If the 
+	// current filter does not exist in the filter table for the new plate scale, 
+	// use the default filter and filter category.
+	
+	String currentFilter = getFilter();
+	LookUpTable filterLUT = getFilterLUT();
+	try {
+	    int fi = filterLUT.indexInColumn(currentFilter, 0);
+	    setFilter(currentFilter);
+	} catch (NoSuchElementException ex) {
+	    useDefaultFilter();
+	    useDefaultFilterCategory();
+	}
+
          useDefaultMask();
 //         useDefaultSourceMag();
     }
