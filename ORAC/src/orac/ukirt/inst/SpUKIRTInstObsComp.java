@@ -257,6 +257,12 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     double currentExposureTime = getExpTime();
     int    currentNoCoadds     = 1;
 
+    IterTrackerUKIRT() {
+      if(_avTable.exists(ATTR_COADDS)) {
+        currentNoCoadds = _avTable.getInt(ATTR_COADDS, 1);
+      }
+    }  
+
     public void update(SpIterStep spIterStep) {
 
       SpIterValue spIterValue = null;
