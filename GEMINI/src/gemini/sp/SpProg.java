@@ -21,6 +21,9 @@ public class SpProg extends SpRootItem
    /** The project ID. */
    public static final String ATTR_PROJECT_ID = "projectID";
 
+   /** The timestamp. */
+   public static final String ATTR_TIMESTAMP = ":timestamp";
+
    // The Phase 1 proposal item.  It stores all the information entered
    // during the Phase 1 proposal definition.
    private SpPhase1 _phase1Item;
@@ -129,7 +132,7 @@ getProjectID()
 }
 
 /**
- * Set country attribute.
+ * Set project ID.
  *
  * Added for OMP (MFO, 7 August 2001)
  */
@@ -138,6 +141,25 @@ setProjectID(String projectID)
 {
    _avTable.set(ATTR_PROJECT_ID, projectID);
 }
+
+/**
+ * Set timestamp.
+ *
+ * Note that calling this method does not effect the state machine of this
+ * Science Program item.
+ * This is because a call to setTimestamp() is not the result editing the item.
+ * It is called after a program has been stored to database to set the timestamp
+ * of the Science Program to the timestamp that is returned when omp.SpClient.storeProgram
+ * is called.
+ *
+ * Added for OMP (MFO, 12 November 2001)
+ */
+public void
+setTimestamp(int timestamp)
+{
+   _avTable.noNotifySet(ATTR_TIMESTAMP, timestamp, 0);
+}
+
 
 }
 
