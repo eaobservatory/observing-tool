@@ -60,7 +60,9 @@ install: all install_dir
 
 #       The om script generation differs slightly form the generation of the ot and odb scripts.
 #       It assumes that CFG_DIR is set to the absolute path of a cfg directory.
-	(cd OM/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/om)
+	(cd OM/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/om;\
+	cd OM/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/os;\
+	cd OM/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/mon)
 
 	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
 	                   CFG_DIRS=$(shell (cd $(INSTALL_ROOT); pwd))/cfg/ot \
