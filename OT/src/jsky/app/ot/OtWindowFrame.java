@@ -59,7 +59,8 @@ public class OtWindowFrame extends JFrame implements WindowListener {
         setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
 
         pack();
-	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+ 	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(this);
 // 	addWindowListener(new WindowAdapter() {
 // 		public void windowClosing(WindowEvent e) {
 //                     openFrameCount --;
@@ -71,6 +72,7 @@ public class OtWindowFrame extends JFrame implements WindowListener {
 
 	// include this top level window in any future look and feel changes
 	LookAndFeelMenu.addWindow(this);
+        System.out.println("Adding a windowFrame from ctor");
         openFrames.add(this);
     }
 
@@ -88,6 +90,7 @@ public class OtWindowFrame extends JFrame implements WindowListener {
     public void windowIconified( WindowEvent e ) {};
     public void windowOpened( WindowEvent e ) {};
     public void windowClosing( WindowEvent e ) {
+        System.out.println("Removing a windowFrame");
         openFrameCount--;
         openFrames.remove(this);
         editor.close();
