@@ -1,6 +1,3 @@
- 
-# If there is no appropriate jdk1.3 java in your PATH then set one here. 
-set JAVA = java 
 
 # Specify a server (science program database)
 # ATC		(ATC Development)
@@ -76,3 +73,4 @@ echo "Use ot -h for information on how to change these settings."
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
  
 ${JAVA} -ms5m -mx50m -oss5m ${OMP_FLAG} -DSERVER=${SERVER} -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
+
