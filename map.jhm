@@ -12,5 +12,6 @@
   <mapID target="iter" url="iter.html" />
   <mapID target="details" url="details.html" />
   <mapID target="library" url="library.html" />
+  <mapID target="validate" url="validate.html" />
   <mapID target="bugs" url="bugs.html" />
 </map>
