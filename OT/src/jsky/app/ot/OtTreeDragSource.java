@@ -89,7 +89,7 @@ public class OtTreeDragSource implements DragGestureListener, DragSourceListener
 
 	    // Get the list of selected nodes and create a Transferable
 	    // The list of nodes is saved for use when the drop completes.
-	    TreePath [] paths = _tree.getSelectionPaths();
+	    TreePath [] paths = _spTree.getSelectionPaths();
 	    if (paths != null && paths.length > 0) {
 		SpItem[] spItems = new SpItem[paths.length];
 		for (int i = 0; i < paths.length; i++) {
