@@ -22,7 +22,7 @@ import java.io.*;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SideBandDisplay extends JFrame implements ChangeListener
+public class SideBandDisplay extends JFrame implements ChangeListener, MouseListener
 {
 
    private double subBandWidth;
@@ -138,6 +138,17 @@ public class SideBandDisplay extends JFrame implements ChangeListener
       slider.addChangeListener ( (ChangeListener)targetScale );
       slider.addChangeListener ( (ChangeListener)localScale );
       slider.addChangeListener   ( this );
+
+      // LO1 slider will be activeted by pressing the right mouse. This is
+      // to prevent accidental LO1 adjustments caused by user clicking on
+      // the lower edge of the SideBandDisplay (frequency editor) in order
+      // to get it into the foreground. (The entire bottom section of the
+      // SideBandDisplay is the LO1 slider, i.e. each click there would
+      // result in an LO1 adjustment.)
+      slider.setEnabled(false);
+      slider.setToolTipText("To change LO1 press right mouse button and keep it pressed. " +
+                            "Then drag LO1 with left mouse button.");
+      slider.addMouseListener(this);
 
       targetPanel = Box.createVerticalBox();
       targetPanel.add ( Box.createVerticalGlue() );
@@ -328,5 +339,21 @@ public class SideBandDisplay extends JFrame implements ChangeListener
       _lo1 = (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
 
       hetEditor.updateLO1(getLO1());
+   }
+
+   public void mouseClicked(MouseEvent e) { }
+   public void mouseEntered(MouseEvent e) { }
+   public void mouseExited(MouseEvent e) { }
+
+   public void mousePressed(MouseEvent e) {
+      if(SwingUtilities.isRightMouseButton(e)) {
+         slider.setEnabled(true);
+      }
+   }
+
+   public void mouseReleased(MouseEvent e) {
+      if(SwingUtilities.isRightMouseButton(e)) {
+         slider.setEnabled(false);
+      }
    }
 }
