@@ -31,8 +31,7 @@ import jsky.app.ot.tpe.TpeSciArea;
 import java.awt.geom.Point2D;
 
 /**
- * An implementation class used to simplify the job of rotating science
- * areas.
+ * An implementation class used to simplify the job of rotating.
  */
 final class TpeChopDragObject
 {
@@ -110,7 +109,10 @@ getAngle(int x, int y)
 
 
 /**
- * Draws the Science Area, the detector or slit.
+ * Draws the Chop position.
+ *
+ * @author Modified for JCMT OT by Martin Folger (M.Folger@roe.ac.uk),
+ *         based on Gemini Science Area feature.
  */
 public class TpeChopFeature extends TpeImageFeature
                             implements TpeDraggableFeature
