@@ -49,12 +49,19 @@ import JSX.ObjIn;
  * sure you invent appropriate <tt>alias-ID</tt> attributes for each added xml
  * element.</b> I think alias-IDs must not be duplicated. I am not sure
  * whether all alias-ID taken together must form a contiguous. I do not think
- * they have to appear in the right order in the xml configuration file.
+ * they have to appear in the right order in the xml configuration file.<p>
+ *
+ * If no configuration xml file is specified (see {@link #FREQ_EDITOR_CFG_PROPERTY}) or found
+ * then the {@link #FrequencyEditorCfg() default constructor} is used.
  *
  * @author Martin Folger
  */
 public class FrequencyEditorCfg {
 
+  /**
+   * System property containing the location of the xml configuration file
+   * as a resource in the classpath.
+   */
   public static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 
   public Hashtable frontEndTable = new Hashtable();
@@ -64,6 +71,9 @@ public class FrequencyEditorCfg {
 
   private static FrequencyEditorCfg _frequencyEditorCfg = null;
 
+  /**
+   * Constructor used if no xml configuration file is specified or found.
+   */
   public FrequencyEditorCfg() {
 
     // Put the default mode (dsb or ssb) first in the array.
