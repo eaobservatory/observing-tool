@@ -289,7 +289,7 @@ endif
 
 	@printf \
 	"\n\
-	\nset CLASSPATH = $(shell echo $(addprefix DOLLAR{OT_HOME}/tools/", $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g'):$(shell echo $(addprefix DOLLAR{OT_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
+	\nset CLASSPATH = $(shell echo $(addprefix DOLLAR{OT_HOME}/tools/, $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g'):$(shell echo $(addprefix DOLLAR{OT_HOME}/lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
 	\n\
 	\n" >> $@
 

@@ -246,7 +246,7 @@ endif
 	\n   endsw\
 	\nend\
 	\n\
-        \nsetenv CLASSPATH $(shell echo $(addprefix "DOLLAR{ODB_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
+	\nsetenv CLASSPATH $(shell echo $(addprefix DOLLAR{ODB_HOME}/lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
 	\n\
 	\n" >> $@
 
