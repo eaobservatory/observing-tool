@@ -506,6 +506,30 @@ public void
 tableRowSelected(TableWidgetExt twe, int rowIndex)
 {
    _currentRecipeSelected = (String) twe.getCell(0, rowIndex);
+   String _defaultRecipe = "QUICK_LOOK";
+
+// Allow for blank lines and headings.  The latter is defined to contain
+// at least two lowercase letters or any space (testing for a colon
+// might also be useful).  Merely substitute the default recipe.   
+   if ( _currentRecipeSelected.length() == 0 ) {
+      _currentRecipeSelected = _defaultRecipe;
+
+   } else {
+      int count = 0;
+      for ( int i = 0; i < _currentRecipeSelected.length(); i++ ) {
+          if ( Character.isWhitespace( _currentRecipeSelected.charAt( i ) ) ) {
+             _currentRecipeSelected = _defaultRecipe;
+             break;
+
+          } else if ( Character.isLowerCase( _currentRecipeSelected.charAt( i ) ) ) {
+             count++;
+             if ( count > 1 ) {
+                _currentRecipeSelected = _defaultRecipe;
+                break;
+             }
+          }
+       }
+    }
 
    // Don't set the value if the new selection is the same as the old
    // (otherwise, we'd fool the OT into thinking a change had been made)
