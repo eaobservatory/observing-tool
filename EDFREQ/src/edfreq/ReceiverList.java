@@ -33,7 +33,7 @@ public class ReceiverList
       r.bandspecs.add ( new BandSpec ( "2-system", 2, 0.25E9, 4096,
         1.0E9, 1024 ) );
 
-      r.bandspecs.add ( new BandSpec ( "synth", 1, 0.5E9, 8192,
+      r.bandspecs.add ( new BandSpec ( "hybrid", 1, 0.5E9, 8192,
         2.0E9, 2048 ) );
 
       receivers.put ( "HARP-B", r );
@@ -45,7 +45,7 @@ public class ReceiverList
         1.0E9, 2048 ) );
       r.bandspecs.add ( new BandSpec ( "8-system", 8, 0.25E9, 4096,
         1.0E9, 1024 ) );
-      r.bandspecs.add ( new BandSpec ( "synth", 1, 1.0E9, 32768,
+      r.bandspecs.add ( new BandSpec ( "hybrid", 1, 1.0E9, 32768,
         4.0E9, 8192 ) );
 
       receivers.put ( "A3", r );
@@ -57,7 +57,7 @@ public class ReceiverList
         1.0E9, 2048 ) );
       r.bandspecs.add ( new BandSpec ( "8-system", 8, 0.25E9, 4096,
         1.0E9, 1024 ) );
-      r.bandspecs.add ( new BandSpec ( "synth", 1, 1.0E9, 32768,
+      r.bandspecs.add ( new BandSpec ( "hybrid", 1, 1.0E9, 32768,
         4.0E9, 8192 ) );
 
       receivers.put ( "B3", r );
@@ -69,7 +69,7 @@ public class ReceiverList
         1.0E9, 2048 ) );
       r.bandspecs.add ( new BandSpec ( "8-system", 8, 0.25E9, 4096,
         1.0E9, 1024 ) );
-      r.bandspecs.add ( new BandSpec ( "synth", 1, 1.0E9, 32768,
+      r.bandspecs.add ( new BandSpec ( "hybrid", 1, 1.0E9, 32768,
         4.0E9, 8192 ) );
 
       receivers.put ( "WC", r );
@@ -81,7 +81,7 @@ public class ReceiverList
         1.0E9, 2048 ) );
       r.bandspecs.add ( new BandSpec ( "8-system", 8, 0.25E9, 4096,
         1.0E9, 1024 ) );
-      r.bandspecs.add ( new BandSpec ( "synth", 1, 1.0E9, 32768,
+      r.bandspecs.add ( new BandSpec ( "hybrid", 1, 1.0E9, 32768,
         4.0E9, 8192 ) );
 
       receivers.put ( "WD", r );
