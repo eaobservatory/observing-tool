@@ -280,5 +280,36 @@
   <shift>     -0.125         </shift>
   <shift>     0.125          </shift>  
 </configuration>
+
+<configuration>
+  <name>      NS_CNCN_125AB  </name>
+  <frontEnd>  B3              </frontEnd>
+  <frequency> 340.1398        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    2               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 125.0           </bandwidth>
+  <shift>     -0.1075         </shift>
+  <shift>     0.1075          </shift>  
+  <shift>     -0.1075         </shift>
+  <shift>     0.1075          </shift>  
+</configuration>
+
+<configuration>
+  <name>      NS_COPCOP_125AB  </name>
+  <frontEnd>  B3              </frontEnd>
+  <frequency> 353.8778        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    2               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 125.0           </bandwidth>
+  <shift>     -0.13625         </shift>
+  <shift>     0.13625          </shift>  
+  <shift>     -0.13625         </shift>
+  <shift>     0.13625          </shift>  
+</configuration>
+
 </specialConfigs>
 
