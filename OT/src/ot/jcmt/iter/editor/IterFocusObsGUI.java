@@ -102,7 +102,7 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
 //             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 //     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
 //             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(cycleReversal, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 20, 0), 0, 0));
+//     acsisPanel.add(cycleReversal, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 20, 0), 0, 0));
   }
 }

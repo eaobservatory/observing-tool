@@ -94,9 +94,9 @@ public double getElapsedTime() {
 	if (_avTable.get(ATTR_CONT_CAL) == null ||
 	    _avTable.get(ATTR_CONT_CAL).equals(""))
 	    _avTable.set(ATTR_CONT_CAL, true);
-	if (_avTable.get(ATTR_CYCLE_REVERSAL) == null ||
-	    _avTable.get(ATTR_CYCLE_REVERSAL).equals(""))
-	    _avTable.set(ATTR_CYCLE_REVERSAL, true);
+// 	if (_avTable.get(ATTR_CYCLE_REVERSAL) == null ||
+// 	    _avTable.get(ATTR_CYCLE_REVERSAL).equals(""))
+// 	    _avTable.set(ATTR_CYCLE_REVERSAL, true);
     }
 
     public void setupForSCUBA() {
@@ -104,7 +104,7 @@ public double getElapsedTime() {
 	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
 // 	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
 	_avTable.noNotifyRm(ATTR_CONT_CAL);
-	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
+// 	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
     }
 
 }
