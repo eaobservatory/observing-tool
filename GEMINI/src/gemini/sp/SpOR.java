@@ -19,7 +19,7 @@ package gemini.sp;
 public class SpOR extends SpObsContextItem {
 
   /** This attribute records the number of items in the OR folder. */
-  public static final String ATTR_NUMBER_OF_ITEMS = "numberOfItems";
+  public static final String ATTR_NUMBER_OF_ITEMS = ":numberOfItems";
 
 
   /**
