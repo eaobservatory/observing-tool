@@ -30,6 +30,26 @@ import orac.jcmt.inst.SpInstHeterodyne;
 import edfreq.*;
 import jsky.app.ot.editor.OtItemEditor;
 
+//------- NOTES -------------
+//
+// Transition Strings is GUI and SpInstHeterodyne
+// 
+// All the transitions Strings in the LineCatalog end with a white space " ".
+// The XML methods of SpItem remove this white space when SpInstHeterodyne is
+// saved to XML and read back in again. But when the setSelectedItem() method of
+// the _w.transitionChoice JComboBox is called with this trimmed String it wound find
+// the right String to select.
+// It therefore important to make sure that an white space is added to the
+// transition String obtained via _instHeterodyne.getTransition(0) before it is used
+// in the GUI, e.g.
+//   _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
+//
+// And before a transition String fron the GUI is saved to the _instHeterodyne the white space
+// should be removed by trimming the String, e.g.
+//  _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
+//
+// --------------------------------------------------------
+
 /**
  * Heterodyne Editor.
  *
@@ -263,23 +283,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          }
 
 
-         String molecule = _instHeterodyne.getMolecule(0);
-         if((molecule == null) && (molecule.trim().equals(""))) {
-            molecule = NO_LINE;
-	 }
-
-         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, molecule));
-
-
-         String transition = _instHeterodyne.getTransition(0);
-         if((transition == null) && (transition.trim().equals(""))) {
-            transition = NO_LINE;
-	 }
+         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
 
          // Whenever a transition is obtained from via _instHeterodyne.getTransition(int) a white space must
          // be added so that the transition String matches the format of the transition Strings in the
          // LineCatalog.
-         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, transition + " "));
+         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
          _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E6));
 
          _w.resolution.setText("" + sideBandDisplay.getResolution(0));
@@ -440,7 +449,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          String oldMolecule = null;
 
          if(!_ignoreSpItem) {
-            transition  = _instHeterodyne.getTransition(0) + " ";
+            transition  = _instHeterodyne.getTransition(0);
+
+            if(transition != null) {
+               transition += " ";
+            }
+
             oldMolecule = _instHeterodyne.getMolecule(0);
 	 }
 
@@ -449,7 +463,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
          _ignoreEvents = true;
          if(((DefaultComboBoxModel)_w.transitionChoice.getModel()).getIndexOf(NO_LINE) == -1) {
-            _w.transitionChoice.addItem(NO_LINE);
+            _w.transitionChoice.addItem(NO_LINE + " ");
          }
 
          // Check whether the transition previously selected is still in range.
@@ -513,7 +527,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       _ignoreEvents = true;
       if(((DefaultComboBoxModel)_w.transitionChoice2.getModel()).getIndexOf(NO_LINE) == -1) {
-         _w.transitionChoice2.addItem(NO_LINE);
+         _w.transitionChoice2.addItem(NO_LINE + " ");
       }
       _w.transitionChoice2.setSelectedIndex(0);
       _ignoreEvents = false;
@@ -1198,8 +1212,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     }
 
     if(lineDetails == null) {
-      _instHeterodyne.setMolecule("", subsystem);
-      _instHeterodyne.setTransition("", subsystem);
+      _instHeterodyne.setMolecule(NO_LINE, subsystem);
+      _instHeterodyne.setTransition(NO_LINE, subsystem);
       _instHeterodyne.setRestFrequency(getRestFrequency(subsystem), subsystem);
     }
     else {
@@ -1215,7 +1229,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     if((subsystem == 0) && (lineDetails == null)) {
       _ignoreEvents = true;
       _w.moleculeChoice.setSelectedItem(NO_LINE);
-      _w.transitionChoice.setSelectedItem(NO_LINE);
+      _w.transitionChoice.setSelectedItem(NO_LINE + " ");
       _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E6));
       _ignoreEvents = false;
     }
@@ -1225,15 +1239,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   public void updateLO1(double lo1) {
     _ignoreEvents = true;
     _w.moleculeChoice.setSelectedItem(NO_LINE);
-    _w.transitionChoice.setSelectedItem(NO_LINE);
+    _w.transitionChoice.setSelectedItem(NO_LINE + " ");
     _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E6));
     _ignoreEvents = false;
 
     _instHeterodyne.setLO1(lo1);
 
     for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-      _instHeterodyne.setMolecule("", i);
-      _instHeterodyne.setTransition("", i);
+      _instHeterodyne.setMolecule(NO_LINE, i);
+      _instHeterodyne.setTransition(NO_LINE, i);
       _instHeterodyne.setRestFrequency(getRestFrequency(i), i);
     }
 
