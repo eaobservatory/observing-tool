@@ -215,8 +215,18 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          transitionName = transition.name.trim();
          frequency      = "" + transition.frequency;
       }
+
+      // Find out which backend we are using
+      String beName = System.getProperty("FREQ_EDITOR_CFG");
+      if (beName.indexOf("das") != -1) {
+	  beName = "das";
+      }
+      else {
+	  beName = "acsis";
+      }
  
       _instHeterodyne.initialiseValues(
+	 beName,                                                // Back end name
          frontEndName,						// front end
          ((String[])cfg.frontEndTable.get(frontEndName))[0],	// mode
          bandSpec.toString(),					// band mode
