@@ -333,7 +333,7 @@ public class SpItemDOM {
       
 
     }
-    System.out.println((new AvTableToDom(table, "TestTable", new DocumentImpl())).toString("    "));
+    //System.out.println((new AvTableToDom(table, "TestTable", new DocumentImpl())).toString("    "));
   }
 
 
