@@ -12,36 +12,68 @@ package orac.jcmt.inst;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
+import gemini.util.Format;
+
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * The Heterodyne instrument Observation Component.
- *
- * This class differs from other instrument items in that its SpAvTable contains just one
- * entry: the XML representation of this instrument item.
- * <p>
- * <b>Other instruments items</b> use the method processAvAttribute() to convert the SpAvTable entries to XML
- * and the methods processXmlElement...() to convert XML to the SpAvTable entries.
- * <p>
- * <b>SpInstHeterodyne on the other hand</b> overrides these methods so that
- * {@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer)} effectively pastes
- * the existing XML representation of its SpInstHeterodyne item (as stored in the SpAvTable
- * under the attribute ATTR_FREQ_EDITOR_XML) into the XML of the Science Program.<br>
- * Similarly the {@link #processXmlElementStart(java.lang.String) processXmlElement...()} are used to
- * bit by bit filter the XML for this SpInstHeterodyne item out of the Science Program XML and then
- * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
+  public static double LIGHTSPEED = 2.99792458E5;
+
+  // FrontEnd
+
+  /** Front end name. */
+  public static final String ATTR_FE_NAME = "feName";
+
+  /** Receiver: Central IF. */
+  public static final String ATTR_FE_IF = "feIF";
+
+  /** Mode: single side band (ssb), double side band (dsb). */
+  public static final String ATTR_MODE = "mode";
+
+  /** Band mode: 1-system, 2-system etc.  */
+  public static final String ATTR_BAND_MODE = "bandMode";
+
+  /** Radial velocity. */
+  public static final String ATTR_VELOCITY = "velocity";
+
+  /** Band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).  */
+  public static final String ATTR_BAND = "band";
+
+  /** Molecule. */
+  public static final String ATTR_MOLECULE = "molecule";
+
+  /** Transition. */
+  public static final String ATTR_TRANSITION = "transition";
+
+  /** Overlap of multiple hybrid subbands. */
+  public static final String ATTR_OVERLAP = "overlap";
+
+  /** LO1. */
+  public static final String ATTR_LO1 = "lo1";
+
+
+  // FrequencyTable
+
+  /** Array of  */
+  public static final String ATTR_CENTRE_FREQUENCY = "centreFrequency";
+
+  /** */
+  public static final String ATTR_BANDWIDTH = "bandWidth";
+
+  /** */
+  public static final String ATTR_CHANNELS = "channels";
+
+
+
   public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
-
-  /** This attribute records the entire XML representation of the frequency editor settings. */
-  public static String ATTR_FREQ_EDITOR_XML = "edfreqXml";
-
-  private StringBuffer _freqEditorXmlBuffer = new StringBuffer();
-
-  private String _defaultFreqEditorXml = null;
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.Heterodyne", "Het Setup" );
@@ -53,6 +85,21 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public SpInstHeterodyne() {
     super( SP_TYPE );
+
+    // Set defaults. Make sure all these values exist in the frequency editor widgets.
+    // Trailing white space need to be exactly as they are in the frequency editor
+    // widgets (see ATTR_TRANSITION)
+    _avTable.noNotifySet(ATTR_FE_NAME,          "A3",                      0);
+    _avTable.noNotifySet(ATTR_MODE,             "ssb",                     0);
+    _avTable.noNotifySet(ATTR_BAND_MODE,        "1-system",                0);
+    _avTable.noNotifySet(ATTR_OVERLAP,          "0.0",                     0);
+    _avTable.noNotifySet(ATTR_BAND,             "usb",                     0);
+    _avTable.noNotifySet(ATTR_LO1,              "2.2229E11",               0);
+    _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY, "" + 4.0E9,                0);
+    _avTable.noNotifySet(ATTR_BANDWIDTH,        "" + 1.0E9,                0);
+    _avTable.noNotifySet(ATTR_CHANNELS,         "32768",                   0);
+    _avTable.noNotifySet(ATTR_MOLECULE,         "CN, v = 0, 1",            0);
+    _avTable.noNotifySet(ATTR_TRANSITION,       "2 0 2 1  - 1 0 2 1 ",     0);
   }
 
 
@@ -61,48 +108,16 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    */
   public String getTitle() {
 
-    String freqEditorXml = getFreqEditorXml();
-    if(freqEditorXml == null) {
+    String frontEndName = getTable().get(ATTR_FE_NAME);
+
+    if(frontEndName == null) {
       return super.getTitle();
     }
-
-    int a = freqEditorXml.indexOf("feName=\"");
-
-    if(a < 0) {
-      return super.getTitle();
-
+    else {
+      return super.getTitle() + " (" + frontEndName + ")";
     }
-
-    // Set a to '"' in "feName=\""
-    a += 8;
-
-    int b = freqEditorXml.indexOf("\"", a);
-
-    if(b < 0) {
-      return super.getTitle();
-    }
-
-    return super.getTitle() + " (" + freqEditorXml.substring(a, b) + ")";
-
   }
 
-  /**
-   */
-  public String getFreqEditorXml() {
-    return _avTable.get(ATTR_FREQ_EDITOR_XML);
-  }
-
-  /**
-   */
-  public void setFreqEditorXml(String xml) {
-    _avTable.set(ATTR_FREQ_EDITOR_XML, xml.trim());
-  }
-
-  /**
-   */
-  public void noNotifySetFreqEditorXml(String xml) {
-    _avTable.noNotifySet(ATTR_FREQ_EDITOR_XML, xml.trim(), 0);
-  }
 
   /**
    * Get jiggle pattern options.
@@ -123,110 +138,443 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     return 0.0;
   }
 
+
   /**
-   * Pastes the existing XML representation of its SpInstHeterodyne item (as stored in the SpAvTable
-   * under the attribute ATTR_FREQ_EDITOR_XML) into the XML of the Science Program.
-   *
-   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   * Get front end name.
    */
-  protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
-    if(avAttr.equals(ATTR_FREQ_EDITOR_XML)) {
-      // Ignore indent for now.
-      xmlBuffer.append("\n  " + indent + indent(_avTable.get(ATTR_FREQ_EDITOR_XML), "  " + indent));
+  public String getFrontEnd() {
+    return _avTable.get(ATTR_FE_NAME);
+  }
+
+  /**
+   * Set front end name.
+   */
+  public void setFrontEnd(String value) {
+    _avTable.set(ATTR_FE_NAME, value);
+  }
+
+
+  /**
+   * Get receiver's central IF.
+   */
+  public double getFeIF() {
+    return _avTable.getDouble(ATTR_FE_IF, 0.0);
+  }
+
+  /**
+   * Set receiver's central IF.
+   */
+  public void setFeIF(double value) {
+    _avTable.set(ATTR_FE_IF, value);
+  }
+
+  /**
+   * Set receiver's central IF.
+   */
+  public void setFeIF(String value) {
+    setFeIF(Format.toDouble(value));
+  }
+
+  /**
+   * Get mode: single side band (ssb), double side band (dsb).
+   */
+  public String getMode() {
+    return _avTable.get(ATTR_MODE);
+  }
+
+  /**
+   * Set  mode: single side band (ssb), double side band (dsb).
+   */
+  public void setMode(String value) {
+    _avTable.set(ATTR_MODE, value);
+  }
+
+
+  /**
+   * Get band mode: 1-system, 2-system etc. 
+   */
+  public String getBandMode() {
+    return _avTable.get(ATTR_BAND_MODE);
+  }
+
+  /**
+   * Set band mode: 1-system, 2-system etc.
+   */
+  public void setBandMode(String value) {
+    _avTable.set(ATTR_BAND_MODE, value);
+  }
+
+
+  /**
+   * Get velocity.
+   */
+  public double getVelocity() {
+    return _avTable.getDouble(ATTR_VELOCITY, 0.0);
+  }
+
+  /**
+   * Set velocity.
+   */
+  public void setVelocity(double value) {
+    _avTable.set(ATTR_VELOCITY, value);
+  }
+
+  /**
+   * Set velocity.
+   */
+  public void setVelocity(String value) {
+    setVelocity(Format.toDouble(value));
+  }
+
+  public double getRedshift() {
+    return getVelocity() / LIGHTSPEED;
+  }
+
+  /**
+   * Get band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).
+   */
+  public String getBand() {
+    return _avTable.get(ATTR_BAND);
+  }
+
+  /**
+   * Set band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).
+   */
+  public void setBand(String value) {
+    _avTable.set(ATTR_BAND, value);
+  }
+
+
+  /**
+   * Get molecule of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public String getMolecule(int subsystem) {
+    return _avTable.get(ATTR_MOLECULE, subsystem);
+  }
+
+  /**
+   * Set molecule of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setMolecule(String value, int subsystem) {
+    _avTable.set(ATTR_MOLECULE, value, subsystem);
+  }
+
+
+  /**
+   * Get transition of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public String getTransition(int subsystem) {
+    return _avTable.get(ATTR_TRANSITION, subsystem);
+  }
+
+  /**
+   * Set transition of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setTransition(String value, int subsystem) {
+    _avTable.set(ATTR_TRANSITION, value, subsystem);
+  }
+
+
+  /**
+   * Get frequency of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public double getFrequency(int subsystem) {
+    if(getBand().toLowerCase().equals("usb")) {
+      return (getLO1() + getCentreFrequency(subsystem)) * (1.0 + getRedshift());
     }
     else {
-      super.processAvAttribute(avAttr, indent, xmlBuffer);
+      return (getLO1() - getCentreFrequency(subsystem)) * (1.0 + getRedshift());
     }
   }
 
   /**
-   * Filters out the XML for this SpInstHeterodyne item from the Science Program XML and then
-   * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
+   * Set frequency of specified subsystem.
    *
-   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   * @param Number of subsystems (starting at 0).
    */
-  public void processXmlElementStart(String name) {
-    String prefix = "";
+  public void setFrequency(double value, int subsystem) {
+    double centreFrequency = (value / (1.0 + getRedshift())) - getLO1();
 
-    if(name.equals("heterodyne")) {
-      _freqEditorXmlBuffer.setLength(0);
-
-      prefix = "";
+    if(!getBand().toLowerCase().equals("usb")) {
+      centreFrequency *= -1;
     }
-
-    if(name.equals("bandSystem")) {
-      prefix = "  ";
-
-      // Close <heterodyne> tag
-      _freqEditorXmlBuffer.append(">\n");
-    }
-
-    if(name.equals("subSystem")) {
-      prefix = "    ";
-
-      // Close <bandSystem> tag
-      _freqEditorXmlBuffer.append(">\n");
-    }    
-
-    _freqEditorXmlBuffer.append(prefix + "<" + name);    
+    
+    setCentreFrequency(centreFrequency, subsystem);
   }
 
   /**
-   * Filters out the XML for this SpInstHeterodyne item from the Science Program XML and then
-   * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
+   * Set frequency of specified subsystem.
    *
-   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   * @param Number of subsystems (starting at 0).
    */
-  public void processXmlElementEnd(String name) {
-    if(name.equals("subSystem")) {
-      // Close <subSystem> tag
-      _freqEditorXmlBuffer.append("/>");
-    }
+  public void setFrequency(String value, int subsystem) {
+    setFrequency(Format.toDouble(value), subsystem);
+  }
 
-    if(name.equals("bandSystem")) {
-      // Add </bandSystem> tag
-      _freqEditorXmlBuffer.append("\n  </bandSystem>");
-    }
 
-    if(name.equals("heterodyne")) {
-      // Add </heterodyne> tag
-      _freqEditorXmlBuffer.append("</heterodyne>\n");
-
-      noNotifySetFreqEditorXml(_freqEditorXmlBuffer.toString());
-    }
+  /**
+   * Get centre frequency (IF) of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public double getCentreFrequency(int subsystem) {
+    return _avTable.getDouble(ATTR_CENTRE_FREQUENCY, subsystem, 0.0);
   }
 
   /**
-   * Filters out the XML for this SpInstHeterodyne item from the Science Program XML and then
-   * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
+   * Set centre frequency (IF) of specified subsystem.
    *
-   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   * @param Number of subsystems (starting at 0).
    */
-  public void processXmlAttribute(String elementName, String attributeName, String value) {
-
-    if(elementName.equals(_className)) {
-      super.processXmlAttribute(elementName, attributeName, value);
-    }
-    else {
-      if(elementName.equals("heterodyne")) {
-        _freqEditorXmlBuffer.append("\n    " + attributeName + "=\"" + value + "\"");
-      }
-      else {
-        _freqEditorXmlBuffer.append(" " + attributeName + "=\"" + value + "\"");
-      }
-    }
+  public void setCentreFrequency(double value, int subsystem) {
+    _avTable.set(ATTR_CENTRE_FREQUENCY, value, subsystem);
   }
 
-  private static String indent(String xml, String indent) {
-    StringBuffer xmlBuffer = new StringBuffer(xml);
+  /**
+   * Set centre frequency (IF) of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setCentreFrequency(String value, int subsystem) {
+    setCentreFrequency(Format.toDouble(value), subsystem);
+  }
 
-    for(int i = 0; i < xmlBuffer.length(); i++) {
-      if(xmlBuffer.charAt(i) == '\n') {
-        xmlBuffer.insert(i + 1, indent);
-      }
+
+  /**
+   * Get bandwidth of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public double getBandWidth(int subsystem) {
+    return _avTable.getDouble(ATTR_BANDWIDTH, subsystem, 0.0);
+  }
+
+  /**
+   * Set bandwidth of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setBandWidth(double value, int subsystem) {
+    _avTable.set(ATTR_BANDWIDTH, value, subsystem);
+  }
+
+  /**
+   * Set bandwidth of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setBandWidth(String value, int subsystem) {
+    setBandWidth(Format.toDouble(value), subsystem);
+  }
+
+
+  /**
+   * Get channels of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public int getChannels(int subsystem) {
+    return _avTable.getInt(ATTR_CHANNELS, subsystem, 0);
+  }
+
+  /**
+   * Set channels of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setChannels(int value, int subsystem) {
+    _avTable.set(ATTR_CHANNELS, value, subsystem);
+  }
+
+
+  /**
+   * Get overlap of multiple subbands in one subsystem.
+   */
+  public double getOverlap() {
+    return _avTable.getDouble(ATTR_OVERLAP, 0.0);
+  }
+
+  /**
+   * Set overlap of multiple subbands in one subsystem.
+   */
+  public void setOverlap(double value) {
+    _avTable.set(ATTR_OVERLAP, value);
+  }
+
+  /**
+   * Set overlap of multiple subbands in one subsystem.
+   */
+  public void setOverlap(String value) {
+    setOverlap(Format.toDouble(value));
+  }
+
+
+  /**
+   * Get LO1.
+   */
+  public double getLO1() {
+    return _avTable.getDouble(ATTR_LO1, 0.0);
+  }
+
+  /**
+   * Set LO1.
+   */
+  public void setLO1(double value) {
+    _avTable.set(ATTR_LO1, value);
+  }
+
+  /**
+   * Set LO1.
+   */
+  public void setLO1(String value) {
+    setLO1(Format.toDouble(value));
+  }
+
+  /**
+   * Creates parts of ACSIS configuration file.
+   */
+  public String toConfigXML(String indent) {
+    String restFrequencyId = _avTable.get(ATTR_MOLECULE + "  " + _avTable.get(ATTR_TRANSITION));
+    String sidebandString  = _avTable.get(ATTR_BAND);
+
+    int sideband = 0;
+
+    if(sidebandString.equals("lsb"))     { sideband = -1; }
+    if(sidebandString.equals("usb"))     { sideband =  1; }
+    if(sidebandString.equals("optimum")) { sideband =  0; } // will have to set to -1 or 1 by the OT/Frequency Editor
+							    // And sidebandString must be set to "lsb" or "usb"
+							    // for the front end configuration XML.
+
+    //String indent = "";
+
+
+    // ------------------- Front end configuration ------------------------------------
+    StringBuffer xmlBuffer = new StringBuffer();
+    xmlBuffer.append( 
+        indent + "<frontend_configure>\n" +
+        indent + "  <rest_frequency units=\"GHz\" value=\"" +
+                 (getFrequency(0) * 1.0E6) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
+        indent + "  <if_centre_freq units=\"GHz\" value=\"" + _avTable.getDouble(ATTR_FE_IF, 0.0) + "\"/>\n" +
+        indent + "  <sideband value=\"" + sideband + "\"/>\n" +
+        indent + "  <sb_mode value=\"" + _avTable.get(ATTR_MODE).toUpperCase() + "\"/>\n" +
+        indent + "  <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" +
+        indent + "  <dopple_tracking value=\"ON\"/>\n" +	// Options are ON | OFF. Default to ON for now.
+        indent + "  <optimize value=\"DISABLE\"/>\n"		// Options are ENABLE | DISABLE. Default to DIABLE for now.
+    );
+
+    if(_avTable.get(ATTR_FE_NAME).equals("HARP-B")) {
+      xmlBuffer.append(
+        indent + "  <channel_mask>\n" + // Array of (OFF | ON | NEED). Use Pixeltool to switch pixels ON/OFF. NEED???
+        indent + "    <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"01\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"02\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"03\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"04\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"05\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"06\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"07\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"08\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"09\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"10\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"11\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"12\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"13\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"14\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"15\" VALUE=\"ON\"/>\n" +
+        indent + "  </channel_mask>\n"
+      );
     }
+
+    xmlBuffer.append(
+        indent + "</frontend_configure>\n\n"
+    );
+
+    
+    xmlBuffer.append(
+
+      // ------------------- ACSIS configuration ----------------------------------------
+
+      // Line list
+      indent + "<line_list>\n" +
+      indent + "  <rest_frequency id=\"" + restFrequencyId + "\" units=\"GHz\">" +
+        getFrequency(0) +
+        "</rest_frequency>\n" +
+      indent + "</line_list>\n\n" +
+
+      // Acsis spectral windows list
+      indent + "<acsis_spw_list>\n" +
+      indent + "  <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" +
+      indent + "  <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\">\n" +
+      indent + "  <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\">\n"
+    );
+
+    // Spectral windows
+
+    for(int i = 0; i < _avTable.getAll(ATTR_BANDWIDTH).size(); i++) {
+       xmlBuffer.append(spectralWindowToXML(i, restFrequencyId, sideband,
+      "<!-- <base_line_fit> etc. not implemented yet. -->", indent + "  ") + "\n");
+    }
+
+    xmlBuffer.append(
+      indent + "</acsis_spw_list>\n"
+    );
 
     return xmlBuffer.toString();
+  }
+
+
+  public String spectralWindowToXML(int subsystemIndex,
+				    String restFrequencyId,
+				    int sideband,
+				    String dataReductionXML,
+				    String indent) {
+    return 
+      indent + "<spectral_window id=\"SPW" + (subsystemIndex + 1) + "\">\n" +
+      indent + "  <spw_bandwidth_mode mode=\"1GHzx1024\"/>\n" +
+      indent + "  <spw_window type=\"truncate\"/>\n" +
+      indent + "  <rest_frequency_ref ref=\"" + restFrequencyId +"\"/>\n" +
+      indent + "  <front_end_sideband sideband=\"" + sideband + "\"/>\n" +
+      indent + "  <spw_if_coordinate>\n" +
+      indent + "    <spw_reference_if_frequency units=\"GHz\">" +
+        _avTable.get(ATTR_CENTRE_FREQUENCY, subsystemIndex) +
+        "</spw_reference_if_frequency>\n" +
+      indent + "    <spw_reference_pixel>" +
+        "4064.0???" +
+        "</spw_reference_pixel>\n" +
+      indent + "    <spw_if_channel_width units=\"Hz\">" +
+        _avTable.get(ATTR_BANDWIDTH, subsystemIndex) +
+        "</spw_if_channel_width>\n" +
+      indent + "    <spw_number_if_channel>" +
+        _avTable.get(ATTR_CHANNELS, subsystemIndex) +
+        "</spw_number_if_channel>\n" +
+      indent + "  </spw_if_coordinate>\n" +
+      indent + dataReductionXML + "\n" +
+      indent + "</spectral_window>\n";
+   }
+
+
+  /**
+   */
+  protected void toXML(String indent, StringBuffer xmlBuffer) {
+    super.toXML(indent, xmlBuffer);
+
+    int offset = xmlBuffer.length() - (indent.length() + _className.length() + 4);
+
+    xmlBuffer.insert(offset, "\n\n" +
+                             indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
+                             indent + "<!--          ACSIS Configuration XML        -->\n" + 
+                             indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n\n");// + 
+                             //toConfigXML(indent + "  "));
   }
 }
 
