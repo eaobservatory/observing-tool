@@ -1771,7 +1771,8 @@ public class SpTranslator {
   */
 
    private void writeConfig( String instrum, Vector configArray,
-                             String rootConfigName ) {
+                             String rootConfigName )
+			     throws IOException {
 
       FileWriter conf;                    // File identifier for config
       int configNumber = 1;               // Config number
@@ -1984,6 +1985,7 @@ public class SpTranslator {
          } catch ( IOException ioe ) {
             System.out.println( "IO error writing config file " + conName );
             System.out.println( "Error was: " + ioe );
+            throw ioe;
          } 
 
 // Keep a count for the file name.
