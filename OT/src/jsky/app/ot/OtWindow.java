@@ -50,6 +50,7 @@ import gemini.sp.SpEditState;
 import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
+import gemini.sp.SpLibrary;
 import gemini.sp.SpMSB;
 import gemini.sp.SpObs;
 import gemini.sp.SpObsFolder;
@@ -65,6 +66,7 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.tpe.TpeManagerWatcher;
 import jsky.app.ot.util.CloseableApp;
+import jsky.app.ot.OtCfg;
 import ot.util.DialogUtil;
 
 import orac.helptool.JHLauncher;
@@ -1144,6 +1146,15 @@ public class OtWindow extends SpTreeGUI
       }
       else { //if(spItem.type().equals(SpType.SCIENCE_PROGRAM))
         spValidation.checkSciProgram((SpProg)spItem, report);
+      }
+
+      // ADDED BY SDW...
+      if (spItem instanceof SpProg || spItem instanceof SpLibrary) {
+	  report = spValidation.schemaValidate(spItem.toXML(), OtCfg.getSchemaLocation());
+      }
+      if (report.size() != 0) {
+	  new ReportBox (ErrorMessage.messagesToString(report.elements()), reportBoxTitle);
+	  return false;
       }
    
       // at the moment there is no difference in how errors and warnings are handled.
