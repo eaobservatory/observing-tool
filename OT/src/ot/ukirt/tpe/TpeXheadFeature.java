@@ -17,7 +17,9 @@ import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpTreeMan;
+
 import jsky.app.ot.fits.gui.FitsImageInfo;
+import jsky.app.ot.util.Angle;
 import jsky.app.ot.util.PolygonD;
 
 /**
@@ -33,17 +35,22 @@ public class TpeXheadFeature extends TpeImageFeature {
 // The units for all is arcseconds.
    public static final double XHEAD_OUTER_RADIUS = 274.6;
    public static final double XHEAD_INNER_RADIUS = 265.0; 
-   public static final double XHEAD_X_CENTRE     =  -1.4; 
-   public static final double XHEAD_Y_CENTRE     = -11.2; 
-   public static final double XHEAD_HALF_SQUARE  = 234.0; 
+   public static final double XHEAD_X_CENTRE     =   1.4; 
+   public static final double XHEAD_Y_CENTRE     =  11.2;
+
+// Define crosshead limits in arcseconds.
+   public static final double NORTH_LIMIT  =  234.1;
+   public static final double EAST_LIMIT   =  234.1; 
+   public static final double SOUTH_LIMIT  = -234.1;
+   public static final double WEST_LIMIT   = -234.1;
 
    private Rectangle _xheadi = new Rectangle();
    private Rectangle _xheado = new Rectangle();
    private boolean  _valid = false;
-   private int _xlimits[] = new int[ 8 ];   // Interesection co-oridnates of the
-   private int _ylimits[] = new int[ 8 ];   // square with the inner circle in
-                                            // pixels
-   private int _halflimit;                  // Square limit in pixels
+   private PolygonD _oobtLine;
+   private PolygonD _oobbLine;
+   private PolygonD _ooblLine;
+   private PolygonD _oobrLine;
 
 /**
  * Construct the feature with its name and description. 
@@ -67,111 +74,160 @@ public class TpeXheadFeature extends TpeImageFeature {
    private void _calc( FitsImageInfo fii ) {
 
       int radius, size;
-      double _topRoot, _bottomRoot, _rightRoot, _leftRoot;
+      double _NLimitRoot, _SLimitRoot, _WLimitRoot, _ELimitRoot;
 
 // Get the instrument aperture X & Y.  These offset the origin of the
 // x-head range.
-      int xoffpix = 0;
-      int yoffpix = 0;
+      double xoff = 0.0;
+      double yoff = 0.0;
+
       SpUKIRTInstObsComp _inst = (SpUKIRTInstObsComp) _iw.getInstrumentItem();
       if ( _inst != null ) {
-         double xoff = -1*_inst.getInstApXarcsec();
-         double yoff = -1*_inst.getInstApYarcsec();
-         xoffpix = (int) ( fii.pixelsPerArcsec * xoff + 0.5 );
-         yoffpix = (int) ( fii.pixelsPerArcsec * yoff + 0.5 );
+         xoff = -1.0 * _inst.getInstApXarcsec();
+         yoff = -1.0 * _inst.getInstApYarcsec();
       }
+
+// Obtain the origin in image pixel co-ordinates.
+      int xbase = (int) fii.baseScreenPos.x;
+      int ybase = (int) fii.baseScreenPos.y;
+
+// Find the displacements of the outer circle allowing for the
+// instrument apertures and crosshead centre.  Combine arcsecond units
+// together before scaling to display pixels to reduce rounding errors.
+      int xdisp = (int) ( fii.pixelsPerArcsec * ( xoff - XHEAD_OUTER_RADIUS - XHEAD_X_CENTRE ) + 0.5 );
+      int ydisp = (int) ( fii.pixelsPerArcsec * ( yoff - XHEAD_OUTER_RADIUS - XHEAD_Y_CENTRE ) + 0.5 );
 
 // Specify the parameters of the outer circle.
       radius = (int) ( fii.pixelsPerArcsec * XHEAD_OUTER_RADIUS + 0.5 );
-      int xoriginpix = (int) ( fii.pixelsPerArcsec * XHEAD_X_CENTRE + 0.5 );
-      int yoriginpix = (int) ( fii.pixelsPerArcsec * XHEAD_Y_CENTRE + 0.5 );
       size = 2 * radius;
 
-// Obtain the origin in image pixel co-ordinates, allowing for the
-// instrument apertures.. 
-      int xbase = (int) fii.baseScreenPos.x + xoffpix;
-      int ybase = (int) fii.baseScreenPos.y + yoffpix;
-
-// Specify the parameters of the inner circle.
-      _xheado.x      = xbase - radius - xoriginpix;
-      _xheado.y      = ybase - radius - yoriginpix;
+// Set the drawOval parameters.
+      _xheado.x      = xbase + xdisp;
+      _xheado.y      = ybase + ydisp;
       _xheado.width  = size;
       _xheado.height = size;
 
+// Find the displacements of the inner circle allowing for the
+// instrument apertures and crosshead centre.  Combine arcsecond units
+// together before scaling to display pixels to reduce rounding errors.
+      xdisp = (int) ( fii.pixelsPerArcsec * ( xoff - XHEAD_INNER_RADIUS - XHEAD_X_CENTRE ) + 0.5 );
+      ydisp = (int) ( fii.pixelsPerArcsec * ( yoff - XHEAD_INNER_RADIUS - XHEAD_Y_CENTRE ) + 0.5 );
+
+// Specify the parameters of the inner circle.
       radius = (int) ( fii.pixelsPerArcsec * XHEAD_INNER_RADIUS + 0.5 );
       size = 2 * radius;
-      _xheadi.x      = xbase - radius - xoriginpix;
-      _xheadi.y      = ybase - radius - yoriginpix;
+
+// Set the drawOval parameters.
+      _xheadi.x      = xbase + xdisp;
+      _xheadi.y      = ybase + ydisp;
       _xheadi.width  = size;
       _xheadi.height = size;
       _valid = true;
 
-// Specify the parameters of the square.
-// -------------------------------------
+// Specify the parameters of the rectangular limits.
+// -------------------------------------------------
 
 // Find the intersection points of the edge of the square accessible
 // region with the inner circle.
 
-// Find the two roots for the intersection of the square of width
-// XHEAD_HALF_SQUARE with the inner circle.  The circle is not quite
+// Create polygons for each out of bounds line.
+      if ( _oobtLine == null ) {
+         _oobtLine = new PolygonD();
+         _oobtLine.xpoints = new double[ 2 ];
+         _oobtLine.ypoints = new double[ 2 ];
+         _oobtLine.npoints = 2;
+      }
+
+      if ( _oobbLine == null ) {
+         _oobbLine = new PolygonD();
+         _oobbLine.xpoints = new double[ 2 ];
+         _oobbLine.ypoints = new double[ 2 ];
+         _oobbLine.npoints = 2;
+      }
+      if ( _ooblLine == null ) {
+         _ooblLine = new PolygonD();
+         _ooblLine.xpoints = new double[ 2 ];
+         _ooblLine.ypoints = new double[ 2 ];
+         _ooblLine.npoints = 2;
+      }
+      if ( _oobrLine == null ) {
+         _oobrLine = new PolygonD();
+         _oobrLine.xpoints = new double[ 2 ];
+         _oobrLine.ypoints = new double[ 2 ];
+         _oobrLine.npoints = 2;
+      }
+
+// Apply to the instrument apertures to the crosshead limits.
+      double _NLimit = NORTH_LIMIT;
+      double _ELimit = EAST_LIMIT;
+      double _SLimit = SOUTH_LIMIT;
+      double _WLimit = WEST_LIMIT;
+
+// Find the two roots for the intersection of each line of the 
+// rectangular limits with the inner circle.  The circle is not quite
 // concentric with the optical axis, being offset by (XHEAD_X_CENTRE,
 // XHEAD_Y_CENTRE).  Record the co-ordinates of each intersection.  Convert
 // to the integer pixel co-ordinate system of the graphics.
-      _halflimit = (int) ( fii.pixelsPerArcsec * XHEAD_HALF_SQUARE + 0.5 );
 
-// Line for y = XHEAD_HALF_SQUARE.
-      _topRoot = Math.sqrt( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
-                          ( ( -XHEAD_HALF_SQUARE - XHEAD_Y_CENTRE ) *
-                            ( -XHEAD_HALF_SQUARE - XHEAD_Y_CENTRE ) ) );
+// Line for y = _NLimit
+      _NLimitRoot = Math.sqrt( Math.max( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
+                          ( ( - _NLimit - XHEAD_Y_CENTRE ) *
+                            ( - _NLimit - XHEAD_Y_CENTRE ) ), 0.0 ) );
 
-      _xlimits[ 0 ] = (int) ( fii.pixelsPerArcsec *
-                      ( -XHEAD_X_CENTRE + Math.abs( _topRoot ) + 0.5 ) + xbase );
-      _ylimits[ 0 ] = _halflimit + ybase;
+      _oobtLine.xpoints[ 0 ] = (int) ( fii.pixelsPerArcsec *
+                      ( - XHEAD_X_CENTRE + Math.abs( _NLimitRoot ) + xoff + 0.5 ) + xbase );
+      _oobtLine.ypoints[ 0 ] = (int) ( fii.pixelsPerArcsec * ( _NLimit + yoff + 0.5 ) + ybase );
+      _oobtLine.xpoints[ 1 ] = (int) ( fii.pixelsPerArcsec * 
+                      ( - XHEAD_X_CENTRE - Math.abs( _NLimitRoot ) + xoff + 0.5 ) + xbase );
+      _oobtLine.ypoints[ 1 ] = _oobtLine.ypoints[ 0 ];
 
-      _xlimits[ 1 ] = (int) ( fii.pixelsPerArcsec * 
-                      ( -XHEAD_X_CENTRE - Math.abs( _topRoot ) + 0.5 ) + xbase );
-      _ylimits[ 1 ] = _ylimits[ 0 ];
+// Line for y = _SLimit
+      _SLimitRoot = Math.sqrt( Math.max( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
+                             ( ( - _SLimit - XHEAD_Y_CENTRE ) *
+                               ( - _SLimit - XHEAD_Y_CENTRE ) ), 0.0 ) );
 
-// Line for y = -XHEAD_HALF_SQUARE.
-      _bottomRoot = Math.sqrt( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
-                             ( ( XHEAD_HALF_SQUARE - XHEAD_Y_CENTRE ) *
-                               ( XHEAD_HALF_SQUARE - XHEAD_Y_CENTRE ) ) );
+      _oobbLine.xpoints[ 0 ] = (int) ( fii.pixelsPerArcsec *
+                      ( - XHEAD_X_CENTRE + Math.abs( _SLimitRoot ) + xoff + 0.5 ) + xbase );
+      _oobbLine.ypoints[ 0 ] = (int) ( fii.pixelsPerArcsec * ( _SLimit + yoff + 0.5 ) + ybase );
+      _oobbLine.xpoints[ 1 ] = (int) ( fii.pixelsPerArcsec *
+                      ( - XHEAD_X_CENTRE - Math.abs( _SLimitRoot ) + xoff + 0.5 ) + xbase );
+      _oobbLine.ypoints[ 1 ] = _oobbLine.ypoints[ 0 ];
 
-      _xlimits[ 2 ] = (int) ( fii.pixelsPerArcsec *
-                      ( -XHEAD_X_CENTRE + Math.abs( _bottomRoot ) + 0.5 ) + xbase );
-      _ylimits[ 2 ] = ybase - _halflimit;
+// Line for x = _WLimit
+      _WLimitRoot = Math.sqrt( Math.max( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
+                            ( ( - _WLimit - XHEAD_X_CENTRE ) *
+                              ( - _WLimit - XHEAD_X_CENTRE ) ), 0.0 ) );
 
-      _xlimits[ 3 ] = (int) ( fii.pixelsPerArcsec *
-                      ( -XHEAD_X_CENTRE - Math.abs( _bottomRoot ) + 0.5 ) + xbase );
-      _ylimits[ 3 ] = _ylimits[ 2 ];
+      _oobrLine.xpoints[ 0 ] = (int) ( fii.pixelsPerArcsec * ( _WLimit + xoff + 0.5 ) + xbase );
+      _oobrLine.ypoints[ 0 ] = (int) ( fii.pixelsPerArcsec *
+                      ( - XHEAD_Y_CENTRE + Math.abs( _WLimitRoot ) + yoff + 0.5 ) + ybase );
 
-// Line for x = XHEAD_HALF_SQUARE.
-      _rightRoot = Math.sqrt( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
-                            ( ( -XHEAD_HALF_SQUARE - XHEAD_X_CENTRE ) *
-                              ( -XHEAD_HALF_SQUARE - XHEAD_X_CENTRE ) ) );
+      _oobrLine.xpoints[ 1 ] = _oobrLine.xpoints[ 0 ];
+      _oobrLine.ypoints[ 1 ] = (int) (fii.pixelsPerArcsec *
+                      ( - XHEAD_Y_CENTRE - Math.abs( _WLimitRoot ) + yoff + 0.5 ) + ybase );
 
-      _xlimits[ 4 ] = _halflimit + xbase;
-      _ylimits[ 4 ] = (int) ( fii.pixelsPerArcsec *
-                      ( -XHEAD_Y_CENTRE + Math.abs( _rightRoot ) + 0.5 ) + ybase );
+// Line for x = _ELimit
+      _ELimitRoot = Math.sqrt( Math.max( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
+                           ( ( - _ELimit - XHEAD_X_CENTRE ) *
+                             ( - _ELimit - XHEAD_X_CENTRE ) ), 0.0 ) );
 
-      _xlimits[ 5 ] = _xlimits[ 4 ];
-      _ylimits[ 5 ] = (int) (fii.pixelsPerArcsec *
-                      ( -XHEAD_Y_CENTRE - Math.abs( _rightRoot ) + 0.5 ) + ybase );
+      _ooblLine.xpoints[ 0 ] = (int) ( fii.pixelsPerArcsec * ( _ELimit + xoff + 0.5 ) + xbase );
+      _ooblLine.ypoints[ 0 ] = (int) ( fii.pixelsPerArcsec *
+                      ( - XHEAD_Y_CENTRE + Math.abs( _ELimitRoot ) + yoff + 0.5 ) + ybase );
 
-// Line for x = -XHEAD_HALF_SQUARE.
-      _leftRoot = Math.sqrt( ( XHEAD_INNER_RADIUS * XHEAD_INNER_RADIUS ) -
-                           ( ( XHEAD_HALF_SQUARE - XHEAD_X_CENTRE ) *
-                             ( XHEAD_HALF_SQUARE - XHEAD_X_CENTRE ) ) );
+      _ooblLine.xpoints[ 1 ] = _ooblLine.xpoints[ 0 ];
+      _ooblLine.ypoints[ 1 ] = (int) ( fii.pixelsPerArcsec *
+                      ( - XHEAD_Y_CENTRE - Math.abs( _ELimitRoot ) + yoff + 0.5 ) + ybase );
 
-      _xlimits[ 6 ] = xbase - _halflimit;
-      _ylimits[ 6 ] = (int) ( fii.pixelsPerArcsec *
-                      ( -XHEAD_Y_CENTRE + Math.abs( _leftRoot ) + 0.5 ) + ybase );
+// Rotate the crosshead lines to align with cardinmal directions.
+      _iw.skyRotate( _oobtLine, Angle.degreesToRadians( 0.0 ) );
+      _iw.skyRotate( _oobbLine, Angle.degreesToRadians( 0.0 ) );
+      _iw.skyRotate( _ooblLine, Angle.degreesToRadians( 0.0 ) );
+      _iw.skyRotate( _oobrLine, Angle.degreesToRadians( 0.0 ) );
 
-      _xlimits[ 7 ] = _xlimits[ 6 ];
-      _ylimits[ 7 ] = (int) ( fii.pixelsPerArcsec *
-                      ( -XHEAD_Y_CENTRE - Math.abs( _leftRoot ) + 0.5 ) + ybase );
-
+      _valid = true;
    }
+
 
 /**
  * The position angle has changed. Here this is actually used to check changes
@@ -192,10 +248,10 @@ public class TpeXheadFeature extends TpeImageFeature {
       g.setColor( Color.magenta );
       g.drawOval(_xheado.x, _xheado.y, _xheado.width, _xheado.height);
       g.drawOval(_xheadi.x, _xheadi.y, _xheadi.width, _xheadi.height);
-      g.drawLine( _xlimits[ 0 ], _ylimits[ 0 ], _xlimits[ 1 ], _ylimits[ 1 ] );
-      g.drawLine( _xlimits[ 2 ], _ylimits[ 2 ], _xlimits[ 3 ], _ylimits[ 3 ] );
-      g.drawLine( _xlimits[ 4 ], _ylimits[ 4 ], _xlimits[ 5 ], _ylimits[ 5 ] );
-      g.drawLine( _xlimits[ 6 ], _ylimits[ 6 ], _xlimits[ 7 ], _ylimits[ 7 ] );
+      g.drawPolygon( _oobtLine.getAWTPolygon() );
+      g.drawPolygon( _oobbLine.getAWTPolygon() );
+      g.drawPolygon( _ooblLine.getAWTPolygon() );
+      g.drawPolygon( _oobrLine.getAWTPolygon() );
    }
 
 }
