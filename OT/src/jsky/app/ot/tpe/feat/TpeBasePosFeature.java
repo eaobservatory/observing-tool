@@ -87,7 +87,7 @@ public class TpeBasePosFeature extends TpePositionFeature {
 	int d = 2*r;
 
 	// Draw crosshairs
-	g.setColor(Color.yellow);
+	g.setColor(Color.green);
 	g.drawOval((int)(base.x - r), (int)(base.y - r), d, d);
 	g.drawLine((int)base.x, (int)(base.y - r), (int)base.x, (int)(base.y + r));
 	g.drawLine((int)(base.x - r), (int)base.y, (int)(base.x + r), (int)base.y);
