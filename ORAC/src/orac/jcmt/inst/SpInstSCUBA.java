@@ -10,8 +10,6 @@
 
 package orac.jcmt.inst;
 
-import java.io.FileReader;
-import java.io.LineNumberReader;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Hashtable;
