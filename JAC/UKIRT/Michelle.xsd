@@ -38,38 +38,37 @@
 <xsd:simpleType name="michelleFilterList">
   <xsd:restriction base="xsd:string">
     <xsd:pattern value="IP?105B53"/>
+    <xsd:pattern value="IP?112B21"/>
     <xsd:pattern value="IP?79B10"/>
     <xsd:pattern value="IP?88B10"/>
     <xsd:pattern value="IP?97B10"/>
     <xsd:pattern value="IP?103B10"/>
     <xsd:pattern value="IP?116B9"/>
     <xsd:pattern value="IP?125B9"/>
-    <xsd:pattern value="IP?107B4"/>
-    <xsd:pattern value="IP?128B2"/>
     <xsd:pattern value="IP?209B42"/>
     <xsd:pattern value="IP?185B9"/>
+    <xsd:pattern value="IP?198B27"/>
     <xsd:pattern value="NP?Block"/>
     <xsd:pattern value="QP?Block"/>
     <xsd:pattern value="IP?22B15"/>
     <xsd:pattern value="IP?34B9"/>
     <xsd:pattern value="IP?47B5"/>
-    <xsd:pattern value="WCalLowN"/>
   </xsd:restriction>
 </xsd:simpleType>
 
 <xsd:simpleType name="michelleOTFilterList">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="F105B53"/>
+    <xsd:enumeration value="F112B21"/>
     <xsd:enumeration value="F79B10"/>
     <xsd:enumeration value="F88B10"/>
     <xsd:enumeration value="F97B10"/>
     <xsd:enumeration value="F103B10"/>
     <xsd:enumeration value="F116B9"/>
     <xsd:enumeration value="F125B9"/>
-    <xsd:enumeration value="F107B4"/>
-    <xsd:enumeration value="F128B2"/>
     <xsd:enumeration value="F209B42"/>
     <xsd:enumeration value="F185B9"/>
+    <xsd:enumeration value="F198B27"/>
     <xsd:enumeration value="NBlock"/>
     <xsd:enumeration value="QBlock"/>
     <xsd:enumeration value="F22B15"/>
@@ -156,8 +155,8 @@
 
 <xsd:simpleType name="michelleWavelengthLimits">
   <xsd:restriction base="toml:nonNegativeDecimal">
-    <xsd:minInclusive value="10.0"/>
-    <xsd:maxInclusive value="20.0"/>
+    <xsd:minInclusive value="2.0"/>
+    <xsd:maxInclusive value="21.0"/>
   </xsd:restriction>
 </xsd:simpleType>
 
