@@ -176,27 +176,27 @@ public class SpItemUtilities {
    * Find SpMSB's and SpObs's recursively and set references.
    */
   public static void setReferenceIDs(SpItem spItem) {
-      _idCounter = 0;
-    if(spItem instanceof SpObsContextItem) {
-      if(spItem instanceof SpMSB) { 
-	_insertReferenceIDsFor(SpTreeMan.findTargetList(spItem), spItem);
-	_insertReferenceIDsFor(SpTreeMan.findInstrument(spItem), spItem);
-	_insertReferenceIDsFor(findSiteQuality(spItem), spItem);
-	_insertReferenceIDsFor(findSchedConstraint(spItem), spItem);
-	_insertReferenceIDsFor(findDRRecipe(spItem), spItem);
-	_insertReferenceIDsFor(findProgramNotes(spItem.getRootItem(), new Vector()), spItem);
-	_insertReferenceIDsFor(findParentNotes (spItem, new Vector()), spItem);
-// 	_insertReferenceIDsFor(findNote(spItem), spItem);
-      }
-      else {
-        SpItem child = spItem.child();
+      if ( spItem instanceof SpRootItem ) _idCounter = 0;
+      if(spItem instanceof SpObsContextItem) {
+          if(spItem instanceof SpMSB) { 
+              _insertReferenceIDsFor(SpTreeMan.findTargetList(spItem), spItem);
+              _insertReferenceIDsFor(SpTreeMan.findInstrument(spItem), spItem);
+              _insertReferenceIDsFor(findSiteQuality(spItem), spItem);
+              _insertReferenceIDsFor(findSchedConstraint(spItem), spItem);
+              _insertReferenceIDsFor(findDRRecipe(spItem), spItem);
+              _insertReferenceIDsFor(findProgramNotes(spItem.getRootItem(), new Vector()), spItem);
+              _insertReferenceIDsFor(findParentNotes (spItem, new Vector()), spItem);
+              // 	_insertReferenceIDsFor(findNote(spItem), spItem);
+          }
+          else {
+              SpItem child = spItem.child();
 
-        while(child != null) {
-          setReferenceIDs(child);
-          child = child.next();
-        }
-      }	
-    }  
+              while(child != null) {
+                  setReferenceIDs(child);
+                  child = child.next();
+              }
+          }	
+      }  
   }
 
   /**
