@@ -16,9 +16,9 @@ SOURCE_FILES          = $(shell find GEMINI/src -name "*.java") \
 
 all:
 	(cd GEMINI/src; gmake)
+	(cd ORAC/src;   gmake)
 	(cd ODB/src;    gmake)
 	(cd OMP/src;    gmake)
-	(cd ORAC/src;   gmake)
 	(cd OM/src;     gmake)
 	(cd OT/src;     gmake)
 
