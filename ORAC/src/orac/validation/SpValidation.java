@@ -158,12 +158,6 @@ public class SpValidation {
       report = new Vector();
     }
 
-    if(SpTreeMan.findInstrument(spMSB) == null) {
-      report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                  "MSB \"" + spMSB.getTitle() + "\"",
-                                  "Instrument component is missing."));    
-    }
-
     if(SpItemUtilities.findSiteQuality(spMSB) == null) {
       report.add(new ErrorMessage(ErrorMessage.ERROR,
                                   "MSB \"" + spMSB.getTitle() + "\"",
@@ -236,6 +230,12 @@ public class SpValidation {
 
     Enumeration children;
     SpItem child;
+
+    if(SpTreeMan.findInstrument(spObs) == null) {
+      report.add(new ErrorMessage(ErrorMessage.ERROR,
+                                  "Observation \"" + spObs.getTitle() + "\"",
+                                  "Instrument component is missing."));    
+    }
 
     if(!spObs.isMSB()) {
       children = spObs.children();
