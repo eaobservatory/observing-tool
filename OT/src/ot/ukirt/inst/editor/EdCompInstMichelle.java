@@ -68,6 +68,9 @@ public EdCompInstMichelle()
     _edChopCapability  = new EdChopCapability();
     _edStareCapability = new EdStareCapability();
     */
+
+    _w.camera.addItem("imaging");
+    _w.camera.addItem("spectroscopy");
 }
 
 /**
@@ -81,9 +84,6 @@ _init()
     //
     // Camera
     //
-    _w.camera.addItem("imaging");
-    _w.camera.addItem("spectroscopy");
-
     _w.camera.addWatcher( new DropDownListBoxWidgetWatcher() {
         public void
         dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
@@ -606,6 +606,9 @@ private void
 _updateCamera(String camera)
 {
     _instMichelle.setCamera( camera );
+    _instMichelle.useDefaultFilterCategory();
+    _updateFilterCategory();
+    _updateFilterChoices();
     _instMichelle.useDefaultCentralWavelength();
     _updateCentralWavelength();
     _instMichelle.useDefaultAcquisition();
