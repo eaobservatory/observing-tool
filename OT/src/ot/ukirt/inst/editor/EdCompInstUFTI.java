@@ -303,11 +303,11 @@ public final class EdCompInstUFTI extends EdCompInstBase
       TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.exposureTime;
       double d = _instUFTI.getExpTime();
       String e = Double.toString( d );
-     _instUFTI.setExpTime( e );
+//   _instUFTI.setExpTime( e );
       tbw.setText( e );
 
       int coadds = _instUFTI.getNoCoadds();
-      _instUFTI.setNoCoadds( coadds );
+// _instUFTI.setNoCoadds( coadds );
       _w.coadds.setText( Integer.toString( coadds ) );
 
    }
