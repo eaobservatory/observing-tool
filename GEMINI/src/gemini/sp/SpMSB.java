@@ -24,7 +24,8 @@ public class SpMSB extends SpObsContextItem {
    /** This attribute records the observation priority. */
    public static final String ATTR_PRIORITY = "priority";
     public static final String ATTR_LIBRARY_VERSION = "library_version";
-    public static final String LIBRARY_VERSION = "$Revision$";
+    public static final String KEYWORD_IDENTIFIER = "$";
+    public static final String LIBRARY_VERSION = "Revision";
 
    /**
     * High observation priority, relative to the other observations in
@@ -169,7 +170,7 @@ setPriority(int priority)
  */
 public void setLibraryRevision() {
     System.out.println("SpMSB::setLibraryRevion() called");
-    _avTable.set(ATTR_LIBRARY_VERSION, LIBRARY_VERSION);
+    _avTable.set(ATTR_LIBRARY_VERSION, KEYWORD_IDENTIFIER+LIBRARY_VERSION+KEYWORD_IDENTIFIER);
 }
 
 /**

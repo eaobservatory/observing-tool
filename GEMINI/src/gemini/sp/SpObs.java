@@ -45,7 +45,8 @@ public class SpObs extends SpMSB
     public static final String ATTR_LIBRARY_VERSION = "library_version";
 
     /** Default library version string */
-    public static final String LIBRARY_VERSION = "$Revision$";
+    public static final String KEYWORD_IDENTIFIER = "$";
+    public static final String LIBRARY_VERSION = "Revision";
 
 
 
@@ -141,8 +142,7 @@ setIsStandard(boolean standard)
  *
  */
 public void setLibraryRevision() {
-    System.out.println("spObs::setLibraryRevision() called");
-    _avTable.set(ATTR_LIBRARY_VERSION, LIBRARY_VERSION);
+    _avTable.set(ATTR_LIBRARY_VERSION, KEYWORD_IDENTIFIER+LIBRARY_VERSION+KEYWORD_IDENTIFIER);
 }
 
 /**
