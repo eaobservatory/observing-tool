@@ -63077,7 +63077,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -63667,7 +63667,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -64056,7 +64056,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -64864,7 +64864,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -65253,7 +65253,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -66045,7 +66045,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -66450,7 +66450,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -67259,7 +67259,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -67648,7 +67648,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -68035,7 +68035,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -68440,7 +68440,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -68829,7 +68829,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -69419,7 +69419,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -70194,7 +70194,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -70784,7 +70784,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -71173,7 +71173,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -71763,7 +71763,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -72152,7 +72152,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -72539,7 +72539,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -72743,7 +72743,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -73533,7 +73533,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -73920,7 +73920,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -74307,7 +74307,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -74711,7 +74711,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -75317,7 +75317,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -75906,7 +75906,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -76293,7 +76293,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -76680,7 +76680,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -77067,7 +77067,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -77270,7 +77270,7 @@ subarray.</note>
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -77880,7 +77880,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -78268,7 +78268,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -78858,7 +78858,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -79247,7 +79247,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -80055,7 +80055,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -80444,7 +80444,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -81236,7 +81236,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -81641,7 +81641,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -82450,7 +82450,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -82839,7 +82839,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -83226,7 +83226,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -83631,7 +83631,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -84020,7 +84020,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -84610,7 +84610,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -85385,7 +85385,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -85975,7 +85975,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -86364,7 +86364,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -86954,7 +86954,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -87343,7 +87343,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -87730,7 +87730,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -87934,7 +87934,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -88724,7 +88724,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -89111,7 +89111,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -89498,7 +89498,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -89902,7 +89902,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -90508,7 +90508,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -91125,7 +91125,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -91512,7 +91512,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -91899,7 +91899,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
@@ -92286,7 +92286,7 @@ The nod 8 pattern uses the left sideof the array only to avoid the low QE lower 
           <value>8.2076</value>
         </instPntgOffset>
         <readoutOT>THERMAL ND 512x512</readoutOT>
-        <readMode>NDSTARE</readMode>
+        <readMode>THERMAL ND</readMode>
         <readout>NDSTARE</readout>
         <darkFilter>black_blank</darkFilter>
         <filter>Mp98</filter>
