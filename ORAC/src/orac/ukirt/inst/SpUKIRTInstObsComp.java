@@ -49,8 +49,13 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     public static final int LAP_INDEX = 3;      // Location of inst aper L value
     public static String INSTRUMENT_PORT;       // The instrument port
     public static String[] INSTRUMENT_APER;     // Array of inst aper values
-    public static double XARCSECPERMM = 1.5;    // Plate scale in focal plane
-    public static double YARCSECPERMM = -1.5;    // Plate scale in focal plane
+    public static double XARCSECPERMM = 1.524;  // Plate scale in focal plane
+    public static double YARCSECPERMM = -1.524; // Plate scale in focal plane.  The
+                                                // Sign is different because TCS
+                                                // reverses the sign, for some
+                                                // obscure reason connected with
+                                                // the handedness of the co-ordinate
+                                                // system.
     
     // Names of the attributes
     public static final String ATTR_INSTRUMENT_PORT = "instPort";
