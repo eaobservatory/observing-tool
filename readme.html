@@ -11,11 +11,11 @@
 <h2>
 ORAC JAVA BUILD MANUAL</h2>
 <a href="#BUILD OT">Quick start</a>
-<p>Troubleshooting
+<a href="#TROUBLESHOOTING"><p>Troubleshooting</a>
 <p>The following notes and examples refer to the default settings as defined
 in the unchanged make.conf files. The directories defined in these make.conf
 can be changed by users to fit their local requirements.
-<p>The orac java code has been devided into 5 modules: GEMINI, ORAC, ODB,
+<p>The orac java code has been divided into 5 modules: GEMINI, ORAC, ODB,
 OT and OM which are located in
 <p><tt>MyCheckOutDir/orac3/GEMINI</tt>
 <br><tt>MyCheckOutDir/orac3/ORAC</tt>
@@ -52,7 +52,7 @@ set in CONF_HOME/make.conf)</tt>
 :&nbsp; "gmake install" (output: see CONF_HOME/make.conf)</tt>
 <br><tt>&nbsp;&nbsp;&nbsp; clean (not tested)&nbsp;&nbsp; :&nbsp; "gmake
 clean"&nbsp;&nbsp; (deletes class files, jar files, api docs)</tt>
-<p>The output directories are by default subdirectories of<tt> LOCAL_INSTALL_ROOT
+<p>The output directories are by default sub directories of<tt> LOCAL_INSTALL_ROOT
 (&lt;MODULE>/install).</tt>
 <br>They can be edited in <tt>CONF_HOME/make.conf</tt> or changed on the
 command line. E.g. "<tt>gmake JAR_DIR=my_jar_dir jar</tt>"
@@ -93,7 +93,7 @@ line: <tt>gmake INSTALL_ROOT=my_install_directory install.</tt>
 <br>&nbsp;
 <p><tt>[cd MyCheckOutDir/orac3</tt>
 <br><tt>&nbsp;gmake]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</tt>(compiles all the modules, optional but recommened if other modules
+</tt>(compiles all the modules, optional but recommended if other modules
 have not been compiled yet,
 <br><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </tt>otherwise all the compiling would have to be done during gmake install.)<tt></tt>
@@ -130,12 +130,15 @@ AND RUN IT</u></b>
 <br><tt>gmake INSTALL_ROOT=my_install_directory install</tt>
 <br><tt>cd my_install_directory/bin</tt>
 <br><tt>ot &amp;</tt>
-<br><tt></tt>&nbsp;<tt></tt>
+<p>
+<b>The OM can be build, run and installed in the same way.</b>
+<p>
+<a NAME="TROUBLESHOOTING">
 <p><b><u>TROUBLESHOOTING</u></b>
 <br>&nbsp;
 <ul>
 <li>
-Note that cofiguration directories that used to be called <tt>cfg/</tt>
+Note that configuration directories that used to be called <tt>cfg/</tt>
 is now called <tt>cfg/ukirt </tt>or <tt>cfg/jcmt</tt> etc. E.g. <tt>-Dot.cfgdir=some_directory/cfg/</tt>
 in the script is now&nbsp; <tt>-Dot.cfgdir=some_directory/cfg/ukirt/</tt></li>
 </ul>
