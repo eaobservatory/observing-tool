@@ -93,6 +93,7 @@ storeSp(SpRootItem spItem, File f)
           (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
 	}
 	catch(Exception e) {
+	  e.printStackTrace();
           JOptionPane.showMessageDialog(null, e.getMessage(), "Could not open " + f.getName(), JOptionPane.ERROR_MESSAGE);
 	  return false;
 	}
