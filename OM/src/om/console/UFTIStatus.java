@@ -179,7 +179,7 @@ public final class UFTIStatus extends instrumentStatusPanel
       return;
     }
 
-    if (name.equals("irpolAngle")) {
+    if (name.equals("irpol_ang")) {
       st[8].getValu().setText(value);
       return;
     }
