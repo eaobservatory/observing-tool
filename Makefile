@@ -68,7 +68,7 @@ install: all install_dir
 	             gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) $(shell (cd $(INSTALL_ROOT); pwd))/bin/mon)
 
 	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
-	                   CFG_DIRS=$(shell (cd $(INSTALL_ROOT); pwd))/cfg/ot \
+	                   CFG_DIRS=../cfg/ot \
 			   $(shell (cd $(INSTALL_ROOT); pwd))/bin/ot)
 
 	(cd OT/src;  gmake INSTALL_ROOT=$(shell (cd $(INSTALL_ROOT); pwd)) \
