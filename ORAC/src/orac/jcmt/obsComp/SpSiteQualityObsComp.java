@@ -142,7 +142,7 @@ getMaxTau()
 
 
 /**
- * Set tau for noise calculation.
+ * Set cso tau for noise calculation.
  */
 public void
 setNoiseCalculationTau(double value)
@@ -151,7 +151,7 @@ setNoiseCalculationTau(double value)
 }
 
 /**
- * Set tau for noise calculation from String.
+ * Set cso tau for noise calculation from String.
  */
 public void
 setNoiseCalculationTau(String value)
@@ -160,7 +160,7 @@ setNoiseCalculationTau(String value)
 }
 
 /**
- * Get tau for noise calculation.
+ * Get cso tau for noise calculation.
  */
 public double
 getNoiseCalculationTau()
