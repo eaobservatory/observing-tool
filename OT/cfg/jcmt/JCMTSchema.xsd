@@ -52,10 +52,9 @@
 
 <!-- Valid values of priority -->
 <xsd:simpleType name="priorityType">
-  <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Low"/>
-    <xsd:enumeration value="Medium"/>
-    <xsd:enumeration value="High"/>
+  <xsd:restriction base="xsd:integer">
+    <xsd:minInclusive value="1"/>
+    <xsd:maxInclusive value="99"/>
   </xsd:restriction>
 </xsd:simpleType>
 
