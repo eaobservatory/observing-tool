@@ -80,4 +80,17 @@ public class BandSpec
 
       return result;
    }
+
+   /**
+    * Number of hybrid subbands for a given bandwidth choice.
+    *
+    * A BandSpec contains an array of bandwidths. Some of these
+    * bandwidths are the result of joining a number of hybrid subbands
+    * together. This method returns the number of hybrid subbands
+    * of the bandwidth whose index in the bandwidth array is
+    * given as the argument <i>bandWidthIndex</i>
+    */
+   public int getNumHybridSubBands(int bandWidthIndex) {
+      return numHybridSubBands[bandWidthIndex];
+   }
 }
