@@ -10,17 +10,23 @@ package jsky.app.ot;
 import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 import jsky.app.ot.gui.MultiSelTreeNodeWidget;
 import jsky.app.ot.gui.MultiSelTreeWidget;
+import jsky.app.ot.gui.TreeWidgetCellRenderer;
 import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
 import gemini.sp.SpRootItem;
+import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpObsComp;
 import jsky.app.ot.util.Assert;
@@ -82,6 +88,8 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
     // If true, ignore action events
     private boolean ignoreActions = false; // added by MFO (31 July 2001)
+
+    protected static Color GREEN = new Color(0, 192, 0);
 
 
     /**
@@ -853,6 +861,59 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	((OtTreeNodeWidget)e.getPath().getLastPathComponent()).getItem().getTable().set(GUI_COLLAPSED, false);
     }    
 
+
+    /**
+     * This method implements multiple colour display of the text strings of
+     * Observation and MSB components in the tree.
+     *
+     * MSB black: {@link gemini.sp.SpMSB.getNumberRemaining()} = 1 or more.
+     * MSB gray:  {@link gemini.sp.SpMSB.getNumberRemaining()} = 0.
+     *
+     * Observation black: Observation is not optional.
+     * Observation green: Observation is optional.
+     */
+    public Component getTreeCellRendererComponent(JTree tree,
+                                                  Object value,
+						  boolean selected,
+                                                  boolean expanded,
+						  boolean leaf,
+						  int row,
+						  boolean hasFocus) {
+
+      OtTreeNodeWidget treeNodeWidget = null;
+
+      if((value != null) && value instanceof OtTreeNodeWidget) {
+        treeNodeWidget = (OtTreeNodeWidget)value;
+      }
+
+      if( (treeNodeWidget == null) || (!(treeNodeWidget.getItem() instanceof SpMSB)) ) {
+        return super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+      }
+
+      TreeWidgetCellRenderer resultComponent =
+        (TreeWidgetCellRenderer)super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+
+      if((treeNodeWidget != null) &&(treeNodeWidget.getItem() instanceof SpMSB)) {
+        SpMSB spMSB = (SpMSB)treeNodeWidget.getItem();
+
+	if(spMSB.getNumberRemaining() < 1) {
+          resultComponent.setForeground(Color.gray);
+	}
+      }
+
+
+      if((treeNodeWidget != null) && (treeNodeWidget.getItem() instanceof SpObs)) {
+        SpObs spObs = (SpObs)treeNodeWidget.getItem();
+
+        // Note that only SpObs with getIsMSB() == false can be optional. So unless there is something wrong with
+	// the Science program spObs.isOptional() implies spObs.getIsMSB() == false.
+	if(spObs.isOptional()) {
+          resultComponent.setForeground(GREEN);
+	}
+      }
+
+      return resultComponent;
+    }
 }
 
 
