@@ -63,6 +63,36 @@ public class SpItemUtilities {
   private int _idCounter = 0;
 
   /**
+   * This method calls saveElapsedTime() on all MSBs and Observations that are MSBs.
+   *
+   * This utility method can be used to set all the elapsed times (time estimates),
+   * before saving to disk or storing to database.
+   * This means that this method sets the {@link gemini.sp.SpMSB.ATTR_ELAPSED_TIME}
+   * attributes of all SpMSB components and SpObs components that are MSBs
+   * based on the current setting.
+   * Unlike other attributes  the elapsed time is not directly typed in by the
+   * user but depends on the MSB/Observation as a whole. Therefore it has to be
+   * set in all SpMSB components and SpObs components that are MSBs immediately
+   * before saving/storing so that elapsed to written to XML is based on the latest
+   * settings of these  components.
+   */
+  public static void saveElapsedTimes(SpItem spItem) {
+    if(spItem instanceof SpMSB) {
+      ((SpMSB)spItem).saveElapsedTime();
+    }
+
+    if(spItem instanceof SpObsContextItem) {
+      SpItem child = spItem.child();
+
+      while(child != null) {
+        saveElapsedTimes(child);
+        child = child.next();
+      }
+    }  
+  }
+
+
+  /**
    * Remove id and idref attributes from spItem subtree.
    */
   public static void removeReferenceIDs(SpItem spItem) {

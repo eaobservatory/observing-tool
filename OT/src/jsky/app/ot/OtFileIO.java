@@ -92,6 +92,11 @@ storeSp(SpRootItem spItem, File f)
          }
         try {
 	  (new SpItemUtilities()).setReferenceIDs(spItem);
+
+	  // Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
+	  // SpObs components that are MSBs.
+	  SpItemUtilities.saveElapsedTimes(spItem);
+
           (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
 	}
 	catch(Exception e) {
