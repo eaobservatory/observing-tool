@@ -3,11 +3,11 @@
       <av name=.gui.collapsed descr="No Description">
             <val value="false">
       </av>
-      <av name=.gui.filename descr="No Description">
-            <val value="UKIRT-Template.lib">
-      </av>
       <av name=title descr="No Description">
             <val value="UKIRT LIBRARY">
+      </av>
+      <av name=.gui.filename descr="No Description">
+            <val value="UKIRT-Template.lib">
       </av>
       <lf name=new type=lf subtype=none>
          <av name=.gui.collapsed descr="No Description">
@@ -2227,6 +2227,332 @@
                   </av>
                   <av name=title descr="No Description">
                                     <val value="last offset">
+                  </av>
+               </no>
+               <ic name=new type=ic subtype=offset>
+                  <av name=.gui.selectedOffsetPos descr="No Description">
+                                    <val value="Offset0">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
+                  </av>
+                  <av name=Offset0 descr="No Description">
+                                    <val value="0.0">
+                                    <val value="0.0">
+                  </av>
+                  <av name=offsetPositions descr="No Description">
+                                    <val value="Offset0">
+                  </av>
+               </ic>
+            </if>
+         </ob>
+         <ob name=new type=ob subtype=none>
+            <av name=title descr="No Description">
+                        <val value="9pt jitter/offsets of 85 arcsec">
+            </av>
+            <av name=chainedToNext descr="No Description">
+                        <val value="false">
+            </av>
+            <av name=:msb descr="No Description">
+                        <val value="true">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
+            </av>
+            <av name=standard descr="No Description">
+                        <val value="false">
+            </av>
+            <av name=chainedToPrev descr="No Description">
+                        <val value="false">
+            </av>
+            <av name=:optional descr="No Description">
+                        <val value="false">
+            </av>
+            <no name=new type=no subtype=none>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=note descr="No Description">
+                              <val value="Enter your target co-ordinates into the target list below.  Note that although this is called a \"target list\" it only allows you to specify ONE astronomical target.\n\nWhen you have done so you can use the \"position editor\" to  select a guide star, to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.\n\nFor a step-by-step guide to how to use the position editor use \"help\".">
+               </av>
+               <av name=title descr="No Description">
+                              <val value="target information">
+               </av>
+            </no>
+            <oc name=new type=oc subtype=targetList>
+               <av name=.unique descr="No Description">
+                              <val value="true">
+               </av>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=Base descr="No Description">
+                              <val value="Base">
+                              <val value="Object Name">
+                              <val value="0:00:00">
+                              <val value="0:00:00">
+                              <val value="FK5 (J2000)">
+               </av>
+               <av name=.gui.selectedTelescopePos descr="No Description">
+                              <val value="Base">
+               </av>
+            </oc>
+            <no name=new type=no subtype=none>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=note descr="No Description">
+                              <val value="The UFTI component below uses the K filter.  To change it move the yellow highlight to the \"UFTI component\" below and select the filter you want to use.\n\nThe UFTI component below uses a 60-second exposoure time.   To change it move the highlight to \"UFTI\" below and change the exposure time - either enter the value you want to use, or enter the magnitude range of your target and a recommended exposure time will be automatically entered.\n\n">
+               </av>
+               <av name=title descr="No Description">
+                              <val value="how to set the exposure time and filter">
+               </av>
+            </no>
+            <oc name=new type=oc subtype=inst.UFTI>
+               <av name=posAngle descr="No Description">
+                              <val value="0.0">
+               </av>
+               <av name=instPort descr="No Description">
+                              <val value="East">
+               </av>
+               <av name=.version descr="No Description">
+                              <val value="1.0">
+               </av>
+               <av name=readoutArea descr="No Description">
+                              <val value="1024x1024">
+               </av>
+               <av name=coadds descr="No Description">
+                              <val value="1">
+               </av>
+               <av name=sourceMag descr="No Description">
+                              <val value="BL">
+               </av>
+               <av name=instAper descr="No Description">
+                              <val value="3.28">
+                              <val value="0.36">
+                              <val value="0.0">
+                              <val value="2.150">
+               </av>
+               <av name=polariser descr="No Description">
+                              <val value="none">
+               </av>
+               <av name=filter descr="No Description">
+                              <val value="K98">
+               </av>
+               <av name=exposureTime descr="No Description">
+                              <val value="60.0">
+               </av>
+               <av name=title descr="No Description">
+                              <val value="- set configuration">
+               </av>
+               <av name=.unique descr="No Description">
+                              <val value="true">
+               </av>
+               <av name=acqMode descr="No Description">
+                              <val value="Normal+NDSTARE">
+               </av>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+            </oc>
+            <no name=new type=no subtype=none>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=note descr="No Description">
+                              <val value="The data-reduction recipe specified below uses the most complete and slowest data-reduction script.  If you need to use a faster recipe then select JITTER_SELF_FLAT_BASIC.  (This is a good idea if your exposure time is shorter than a few seconds.)">
+               </av>
+               <av name=title descr="No Description">
+                              <val value="DR Recipe Selection">
+               </av>
+            </no>
+            <oc name=new type=oc subtype=DRRecipe>
+               <av name=SkyRecipe descr="No Description">
+                              <val value="REDUCE_SKY">
+               </av>
+               <av name=FlatRecipe descr="No Description">
+                              <val value="REDUCE_FLAT">
+               </av>
+               <av name=ArcRecipe descr="No Description">
+                              <val value="REDUCE_ARC">
+               </av>
+               <av name=DarkRecipe descr="No Description">
+                              <val value="REDUCE_DARK">
+               </av>
+               <av name=title descr="No Description">
+                              <val value="JITTER_SELF_FLAT">
+               </av>
+               <av name=.unique descr="No Description">
+                              <val value="true">
+               </av>
+               <av name=BiasInGroup descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=DarkInGroup descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=BiasRecipe descr="No Description">
+                              <val value="REDUCE_BIAS">
+               </av>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=ObjectRecipe descr="No Description">
+                              <val value="JITTER_SELF_FLAT">
+               </av>
+               <av name=DRRecipe descr="No Description">
+                              <val value="JITTER_SELF_FLAT">
+               </av>
+               <av name=ArcInGroup descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=FlatInGroup descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=SkyInGroup descr="No Description">
+                              <val value="false">
+               </av>
+               <av name=ObjectInGroup descr="No Description">
+                              <val value="true">
+               </av>
+            </oc>
+            <if name=new type=if subtype=none>
+               <av name=.gui.collapsed descr="No Description">
+                              <val value="false">
+               </av>
+               <no name=new type=no subtype=none>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
+                  </av>
+                  <av name=note descr="No Description">
+                                    <val value="If you changed the exposure time in the UFTI configuration, remember to change it for the dark.\n\nthe data-reduction recipe will not work unless you have a dark with the right exposure time.\n\nClick on the reset-to-default button to set the exposure time equal to that in the UFTI component above.">
+                  </av>
+                  <av name=title descr="No Description">
+                                    <val value="change exposure time here">
+                  </av>
+               </no>
+               <ic name=new type=ic subtype=darkObs>
+                  <av name=coadds descr="No Description">
+                                    <val value="1">
+                  </av>
+                  <av name=exposureTime descr="No Description">
+                                    <val value="60.0">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
+                  </av>
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
+                  </av>
+               </ic>
+               <no name=new type=no subtype=none>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
+                  </av>
+                  <av name=note descr="No Description">
+                                    <val value="To repeat the 9-point jitter pattern more than once on your target, use the repeat item below to specify how many times you want to repeat it.\n\n">
+                  </av>
+                  <av name=title descr="No Description">
+                                    <val value="how to do more than one 9-point jitters">
+                  </av>
+               </no>
+               <ic name=new type=ic subtype=repeat>
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
+                  </av>
+                  <av name=title descr="No Description">
+                                    <val value="Repeat 1X">
+                  </av>
+                  <no name=new type=no subtype=none>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
+                     </av>
+                     <av name=note descr="No Description">
+                                          <val value="If you want to use a different size of offset, move the highlight to the offset item below and edit the offset values.\n\nNote, the 85\" offsets should yield a 4.3\' x 4.3\'  mosaic with no gaps between the frames (though almost no overlap either).   The moderate ~7\" overlap between frames should allow the DR to compare and balance the sky background in adjacent frames.\n\nNote also that the guide star should be at least 100\" from the edge of the guide-star field-of-view.">
+                     </av>
+                     <av name=title descr="No Description">
+                                          <val value="offset info">
+                     </av>
+                  </no>
+                  <ic name=new type=ic subtype=offset>
+                     <av name=Offset1 descr="No Description">
+                                          <val value="85.0">
+                                          <val value="85.0">
+                     </av>
+                     <av name=Offset0 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="0.0">
+                     </av>
+                     <av name=.gui.selectedOffsetPos descr="No Description">
+                                          <val value="Offset7">
+                     </av>
+                     <av name=offsetPositions descr="No Description">
+                                          <val value="Offset0">
+                                          <val value="Offset2">
+                                          <val value="Offset1">
+                                          <val value="Offset4">
+                                          <val value="Offset3">
+                                          <val value="Offset6">
+                                          <val value="Offset5">
+                                          <val value="Offset8">
+                                          <val value="Offset7">
+                     </av>
+                     <av name=title descr="No Description">
+                                          <val value="9 pt jitter">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
+                     </av>
+                     <av name=Offset8 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="-85.0">
+                     </av>
+                     <av name=Offset7 descr="No Description">
+                                          <val value="85.0">
+                                          <val value="-85.0">
+                     </av>
+                     <av name=Offset6 descr="No Description">
+                                          <val value="-85.0">
+                                          <val value="0.0">
+                     </av>
+                     <av name=Offset5 descr="No Description">
+                                          <val value="-85.0">
+                                          <val value="-85.0">
+                     </av>
+                     <av name=Offset4 descr="No Description">
+                                          <val value="0.0">
+                                          <val value="85.0">
+                     </av>
+                     <av name=Offset3 descr="No Description">
+                                          <val value="-85.0">
+                                          <val value="85.0">
+                     </av>
+                     <av name=Offset2 descr="No Description">
+                                          <val value="85.0">
+                                          <val value="0.0">
+                     </av>
+                     <ic name=new type=ic subtype=observe>
+                        <av name=repeatCount descr="No Description">
+                                                <val value="1">
+                        </av>
+                        <av name=.gui.collapsed descr="No Description">
+                                                <val value="false">
+                        </av>
+                     </ic>
+                  </ic>
+               </ic>
+               <no name=new type=no subtype=none>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
+                  </av>
+                  <av name=note descr="No Description">
+                                    <val value="This final offset takes the telescope back to the\nstart position (00) after all the data has been obtained.">
+                  </av>
+                  <av name=title descr="No Description">
+                                    <val value="offset back to 0,0">
                   </av>
                </no>
                <ic name=new type=ic subtype=offset>
@@ -4545,6 +4871,10 @@
                                     <val value="92.0">
                                     <val value="-92.0">
                   </av>
+                  <av name=Offset12 descr="No Description">
+                                    <val value="185.0">
+                                    <val value="-185.0">
+                  </av>
                   <av name=offsetPositions descr="No Description">
                                     <val value="Offset1">
                                     <val value="Offset3">
@@ -4597,10 +4927,6 @@
                                     <val value="Offset48">
                                     <val value="Offset49">
                                     <val value="Offset50">
-                  </av>
-                  <av name=Offset12 descr="No Description">
-                                    <val value="185.0">
-                                    <val value="-185.0">
                   </av>
                   <av name=Offset11 descr="No Description">
                                     <val value="0.0">
@@ -5921,14 +6247,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -7799,13 +8125,13 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -8058,10 +8384,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -8357,13 +8683,13 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -8616,13 +8942,13 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
                <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -8970,10 +9296,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -9249,10 +9575,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -9676,10 +10002,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -9955,10 +10281,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -10382,10 +10708,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -10661,10 +10987,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -11088,10 +11414,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -11367,10 +11693,10 @@
                <av name=chainedToNext descr="No Description">
                               <val value="false">
                </av>
-               <av name=:msb descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=:msb descr="No Description">
                               <val value="true">
                </av>
                <av name=standard descr="No Description">
@@ -11814,11 +12140,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -11852,10 +12178,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -12039,10 +12365,10 @@
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
+                  <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
+                  <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=filterIter descr="No Description">
@@ -12325,11 +12651,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -12518,14 +12844,14 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <ic name=new type=ic subtype=instIRPOL>
                      <av name=IRPOLIter descr="No Description">
@@ -12537,20 +12863,20 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
                                                 <val value="E-W jitter at each WP position.">
                         </av>
-                        <av name=.gui.selected descr="No Description">
+                        <av name=.gui.collapsed descr="No Description">
                                                 <val value="false">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
+                        <av name=.gui.selected descr="No Description">
                                                 <val value="false">
                         </av>
                         <av name=note descr="No Description">
@@ -12641,11 +12967,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -12679,10 +13005,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -12866,10 +13192,10 @@
                                     <val value="exposureTimeIter">
                                     <val value="coaddsIter">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
+                  <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
+                  <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=filterIter descr="No Description">
@@ -13092,11 +13418,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -13285,23 +13611,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Jitter AFTER 4 WP positions">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -13345,10 +13671,10 @@
                         <av name=iterConfigList descr="No Description">
                                                 <val value="IRPOLIter">
                         </av>
-                        <av name=.gui.selected descr="No Description">
+                        <av name=.gui.collapsed descr="No Description">
                                                 <val value="false">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
+                        <av name=.gui.selected descr="No Description">
                                                 <val value="false">
                         </av>
                         <ic name=new type=ic subtype=observe>
@@ -13408,11 +13734,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -13601,23 +13927,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Obj-Sky pair at each WP position.">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -13634,10 +13960,10 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
@@ -13809,11 +14135,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -13847,10 +14173,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -14240,11 +14566,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -14278,10 +14604,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -14731,11 +15057,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -14918,14 +15244,14 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <ic name=new type=ic subtype=instIRPOL>
                      <av name=IRPOLIter descr="No Description">
@@ -14937,20 +15263,20 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <no name=new type=no subtype=none>
                         <av name=title descr="No Description">
                                                 <val value="E-W jitter at each WP position.">
                         </av>
-                        <av name=.gui.selected descr="No Description">
+                        <av name=.gui.collapsed descr="No Description">
                                                 <val value="false">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
+                        <av name=.gui.selected descr="No Description">
                                                 <val value="false">
                         </av>
                         <av name=note descr="No Description">
@@ -15038,11 +15364,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -15225,23 +15551,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Jitter AFTER 4 WP positions">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -15342,11 +15668,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -15529,23 +15855,23 @@
                   <av name=title descr="No Description">
                                     <val value="Repeat 1X">
                   </av>
-                  <av name=repeatCount descr="No Description">
-                                    <val value="1">
+                  <av name=.gui.selected descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.selected descr="No Description">
-                                    <val value="false">
+                  <av name=repeatCount descr="No Description">
+                                    <val value="1">
                   </av>
                   <no name=new type=no subtype=none>
                      <av name=title descr="No Description">
                                           <val value="Obj-Sky pair at each WP position.">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=note descr="No Description">
@@ -15562,10 +15888,10 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="IRPOLIter">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
@@ -15737,11 +16063,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -16158,10 +16484,10 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
+            <av name=:msb descr="No Description">
                         <val value="true">
             </av>
-            <av name=:msb descr="No Description">
+            <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
             <av name=standard descr="No Description">
@@ -16526,14 +16852,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -16889,14 +17215,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -17252,14 +17578,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -17615,14 +17941,14 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=:msb descr="No Description">
-                        <val value="true">
+            <av name=.gui.selected descr="No Description">
+                        <val value="false">
             </av>
             <av name=.gui.collapsed descr="No Description">
                         <val value="true">
             </av>
-            <av name=.gui.selected descr="No Description">
-                        <val value="false">
+            <av name=:msb descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -19776,11 +20102,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -21862,6 +22188,10 @@
                                     <val value="30.0">
                                     <val value="-30.0">
                   </av>
+                  <av name=Offset12 descr="No Description">
+                                    <val value="-128.0">
+                                    <val value="123.0">
+                  </av>
                   <av name=offsetPositions descr="No Description">
                                     <val value="Offset1">
                                     <val value="Offset3">
@@ -21914,10 +22244,6 @@
                                     <val value="Offset48">
                                     <val value="Offset49">
                                     <val value="Offset50">
-                  </av>
-                  <av name=Offset12 descr="No Description">
-                                    <val value="-128.0">
-                                    <val value="123.0">
                   </av>
                   <av name=Offset11 descr="No Description">
                                     <val value="0.0">
@@ -22502,11 +22828,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -22668,11 +22994,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
-                  </av>
                   <av name=FPZ descr="No Description">
                                     <val value="-700">
+                  </av>
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-200">
@@ -22698,11 +23024,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -22736,10 +23062,10 @@
                <av name=.unique descr="No Description">
                               <val value="true">
                </av>
-               <av name=.gui.selected descr="No Description">
+               <av name=.gui.collapsed descr="No Description">
                               <val value="false">
                </av>
-               <av name=.gui.collapsed descr="No Description">
+               <av name=.gui.selected descr="No Description">
                               <val value="false">
                </av>
                <av name=Base descr="No Description">
@@ -22910,11 +23236,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-284">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-284">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
@@ -22940,11 +23266,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-284">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -22980,11 +23306,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-484">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -23123,11 +23449,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -23273,10 +23599,10 @@
                   <av name=title descr="No Description">
                                     <val value="FPX=0, FPY=-800">
                   </av>
-                  <av name=.gui.selected descr="No Description">
+                  <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
+                  <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
                   <av name=note descr="No Description">
@@ -23325,14 +23651,14 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
+                  <av name=FPZ descr="No Description">
+                                    <val value="0">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="0">
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-800">
@@ -23344,7 +23670,7 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=FPZ descr="No Description">
@@ -23369,7 +23695,7 @@
                                           <val value="-500">
                                           <val value="-450">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=observe>
@@ -23391,11 +23717,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -23593,14 +23919,14 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
+                  <av name=FPZ descr="No Description">
+                                    <val value="0">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="0">
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="0">
@@ -23612,7 +23938,7 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=FPZ descr="No Description">
@@ -23637,7 +23963,7 @@
                                           <val value="-500">
                                           <val value="-450">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=observe>
@@ -23659,11 +23985,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -23828,14 +24154,14 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=.gui.collapsed descr="No Description">
-                                    <val value="false">
+                  <av name=FPZ descr="No Description">
+                                    <val value="0">
                   </av>
                   <av name=.gui.selected descr="No Description">
                                     <val value="false">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="0">
+                  <av name=.gui.collapsed descr="No Description">
+                                    <val value="false">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-300">
@@ -23858,7 +24184,7 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.selected descr="No Description">
+                     <av name=.gui.collapsed descr="No Description">
                                           <val value="false">
                      </av>
                      <av name=FPZ descr="No Description">
@@ -23878,7 +24204,7 @@
                                           <val value="-450">
                                           <val value="-400">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
+                     <av name=.gui.selected descr="No Description">
                                           <val value="false">
                      </av>
                      <ic name=new type=ic subtype=observe>
@@ -24106,11 +24432,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-630">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-630">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-80">
@@ -24136,11 +24462,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-500">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -24196,11 +24522,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-430">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -24373,11 +24699,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -24582,11 +24908,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-630">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-630">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
@@ -24668,14 +24994,14 @@
                         <av name=iterConfigList descr="No Description">
                                                 <val value="FPZ">
                         </av>
-                        <av name=.gui.collapsed descr="No Description">
-                                                <val value="false">
-                        </av>
                         <av name=FPZ descr="No Description">
                                                 <val value="-284">
                                                 <val value="-484">
                                                 <val value="-284">
                                                 <val value="-84">
+                        </av>
+                        <av name=.gui.collapsed descr="No Description">
+                                                <val value="false">
                         </av>
                         <ic name=new type=ic subtype=observe>
                            <av name=repeatCount descr="No Description">
@@ -24723,11 +25049,11 @@
             <av name=chainedToNext descr="No Description">
                         <val value="false">
             </av>
-            <av name=.gui.collapsed descr="No Description">
-                        <val value="true">
-            </av>
             <av name=.gui.selected descr="No Description">
                         <val value="false">
+            </av>
+            <av name=.gui.collapsed descr="No Description">
+                        <val value="true">
             </av>
             <av name=standard descr="No Description">
                         <val value="false">
@@ -24932,11 +25258,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-264">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-264">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
@@ -24995,11 +25321,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25061,11 +25387,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25275,11 +25601,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25341,11 +25667,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25555,11 +25881,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25621,11 +25947,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25835,11 +26161,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -25901,11 +26227,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26115,11 +26441,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-264">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26181,11 +26507,11 @@
                      <av name=iterConfigList descr="No Description">
                                           <val value="FPZ">
                      </av>
-                     <av name=.gui.collapsed descr="No Description">
-                                          <val value="false">
-                     </av>
                      <av name=FPZ descr="No Description">
                                           <val value="-464">
+                     </av>
+                     <av name=.gui.collapsed descr="No Description">
+                                          <val value="false">
                      </av>
                      <ic name=new type=ic subtype=offset>
                         <av name=.gui.selectedOffsetPos descr="No Description">
@@ -26608,11 +26934,11 @@
                                     <val value="FPY">
                                     <val value="FPZ">
                   </av>
-                  <av name=FPZ descr="No Description">
-                                    <val value="-630">
-                  </av>
                   <av name=.gui.collapsed descr="No Description">
                                     <val value="false">
+                  </av>
+                  <av name=FPZ descr="No Description">
+                                    <val value="-630">
                   </av>
                   <av name=FPY descr="No Description">
                                     <val value="-350">
