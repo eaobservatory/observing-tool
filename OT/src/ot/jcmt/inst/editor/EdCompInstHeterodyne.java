@@ -147,7 +147,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _w.velocityFrame.setModel(new DefaultComboBoxModel(cfg.velocityFrames));
       _w.velocityFrame.addActionListener ( this );
 
-      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "usb", "lsb", "best" } ));
+      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "best", "usb", "lsb" } ));
       _w.feBand.addActionListener ( this );
 
 /* Main molecular line choice - used to set front-end LO1 to put the line
@@ -988,6 +988,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       if(!_ignoreSpItem) {
          _instHeterodyne.setFrontEnd(newFE);
+	 _instHeterodyne.setMode((String)_w.feMode.getSelectedItem());
+// 	 _instHeterodyne.setBandMode((String)_w.feBandModeChoice.getSelectedItem());
+	 _instHeterodyne.setMixer((String)_w.feMixers.getSelectedItem());
+	 _instHeterodyne.setBand((String)_w.feBand.getSelectedItem());
       }
 
       _changingFrontEnd = false;
