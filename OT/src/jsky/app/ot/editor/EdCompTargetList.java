@@ -902,10 +902,12 @@ public final class EdCompTargetList extends OtItemEditor
      *                             SpTelescopePos.TYPE_COMET
      */
     private void _setConicSystemType(int conicSystemType) {
+	// Reset all non displayed elements to 0
       switch(conicSystemType) {
         case SpTelescopePos.TYPE_MAJOR:
 	       // Epoch of perihelion
 	       _w.epochPerih.setVisible(false);
+// 	       _curPos.setConicSystemEpochPerih("0.0");
 	       _w.epochPerihLabel.setVisible(false);
 	       _w.epochPerihUnitsLabel.setVisible(false);
 
@@ -934,6 +936,7 @@ public final class EdCompTargetList extends OtItemEditor
 	       _w.epochPerih.setVisible(false);
 	       _w.epochPerihLabel.setVisible(false);
 	       _w.epochPerihUnitsLabel.setVisible(false);
+// 	       _curPos.setConicSystemEpochPerih("0.0");
 
 	       // Mean distance
 	       _w.aorqLabel.setText("a");
@@ -952,6 +955,7 @@ public final class EdCompTargetList extends OtItemEditor
 	       _w.dm.setVisible(false);
 	       _w.dmLabel.setVisible(false);
 	       _w.dmUnitsLabel.setVisible(false);
+// 	       _curPos.setConicSystemDailyMotion("0.0");
 
                break;
 
@@ -972,9 +976,11 @@ public final class EdCompTargetList extends OtItemEditor
 	       _w.l_or_m.setVisible(false);
 	       _w.l_or_mLabel.setVisible(false);
 	       _w.l_or_mUnitsLabel.setVisible(false);
+// 	       _curPos.setConicSystemLorM("0.0");
 	       _w.dm.setVisible(false);	       
 	       _w.dmLabel.setVisible(false);	       
 	       _w.dmUnitsLabel.setVisible(false);	       
+// 	       _curPos.setConicSystemDailyMotion("0.0");
       }
     }
 
@@ -1332,9 +1338,12 @@ public final class EdCompTargetList extends OtItemEditor
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
       if(dd == _w.conicSystemType) {
-        _curPos.setConicOrNamedType(SpTelescopePos.CONIC_SYSTEM_TYPES[i]);
+	  System.out.println("Inside dropDownListBoxAction, passed value of "+val);
+	  _curPos.setSystemType(SpTelescopePos.SYSTEM_CONIC);
+	  _curPos.setConicOrNamedType(SpTelescopePos.CONIC_SYSTEM_TYPES[i]);
 
-        _setConicSystemType(i);
+        _updateTargetSystemPane(_curPos);
+//         _setConicSystemType(i);
 
 	return;
       }
