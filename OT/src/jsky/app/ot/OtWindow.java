@@ -840,6 +840,10 @@ public class OtWindow extends SpTreeGUI
     /**Create an observation. */
     public void addObservation() {
 	_tw.addItem(SpFactory.create(SpType.OBSERVATION));
+
+	// Update collapsed/expanded display for tree nodes so that the SpIterFolder inside
+	// the Observation is displayed as expanded.
+	_tw.setCollapsed();
     }
 
     /** Add a note to the tree. */
