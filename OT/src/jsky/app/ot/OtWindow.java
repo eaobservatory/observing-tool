@@ -956,7 +956,7 @@ public class OtWindow extends SpTreeGUI
 	if (filename == null) {
 	    return;
 	}
-	OtFileIO.setXML(true);
+
 	SpRootItem spItem = OtFileIO.fetchSp( dir, filename );
 	if (spItem != null) {
 	    FileInfo fi = new FileInfo(dir, filename, true);
@@ -1304,6 +1304,15 @@ public class OtWindow extends SpTreeGUI
 	    }
 	    else if (filename != null) {
 		File file = new File(filename);
+
+		// MFO (March 6, 2002)
+		if(filename.endsWith(".sp") || filename.endsWith(".ot")) {
+		    OtFileIO.setXML(false);
+		}
+		else {
+		    OtFileIO.setXML(true);
+		}
+
 		open(file);
 	    }
 	}
