@@ -46,6 +46,7 @@ import jsky.util.gui.LookAndFeelMenu;
 import ot.News;
 import ot.OtPreferencesDialog;
 import orac.helptool.JHLauncher;
+import gemini.sp.ipc.SpServer;
 
 public class OT extends JFrame {
 
@@ -356,6 +357,26 @@ showNews()
 	}
     }
 
+    /**
+     * Select server.
+     *
+     * Code from FreeBongo OT. MFO 23 May 2001.
+     */
+    protected static void selectServer() {
+      // Select the SpServer to user (default to DEPLOYED)
+      // Added get of system property to determine server to use (AB for ORAC)
+      int serverType = SpServer.DEPLOYED;
+      String server = System.getProperty ("SERVER", "DEPLOYED");
+      if (server.equalsIgnoreCase("ATC")) {
+        serverType = SpServer.ATC_DEVELOPMENT;
+      } else if (server.equalsIgnoreCase("HILO")) {
+        serverType = SpServer.HILO_DEVELOPMENT;
+      } else if (server.equalsIgnoreCase("HOME")) {
+        serverType = SpServer.HOME_DEVELOPMENT;
+      }
+      SpServer.selectServer(serverType);
+    }
+
 // From ATC OT.java end
 
     /** 
@@ -404,6 +425,8 @@ showNews()
 	}
 
 	OtCfg.init();
+
+        selectServer();
 
 	if (internalFrames) {
 	    new OT();
