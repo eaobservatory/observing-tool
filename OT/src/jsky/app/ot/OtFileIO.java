@@ -365,9 +365,6 @@ save(SpRootItem spItem, FileInfo fi)
 //   File f = new File(dir, filename);
 
    File f = fd.getSelectedFile(); // FileBox.chooseFile(fd);
-   if (f == null) return false;
-   String      dir = f.getParent();
-   String filename = f.getName();
 
    if(fd.getFileFilter() instanceof FileFilterXML) {
      _io_xml = true;
@@ -376,6 +373,16 @@ save(SpRootItem spItem, FileInfo fi)
      _io_xml = false;
    }
    /*MFO DEBUG*/System.out.println("_io_xml = " + _io_xml);
+
+   // Check whether this file is supposed to be an XML file but does not have any suffix.
+   // If so, append ".xml" to its name.
+   if(_io_xml && (f.getName().indexOf('.') < 0)) {
+      f = new File(f.getAbsolutePath() + ".xml");
+   }
+
+   if (f == null) return false;
+   String      dir = f.getParent();
+   String filename = f.getName();
 
    if (dir != null) _lastDir = dir;
 
