@@ -28,11 +28,8 @@ import orac.ukirt.inst.SpDRRecipe;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
 import orac.ukirt.inst.SpInstCGS4;
 import orac.ukirt.inst.SpInstIRCAM3;
-//import orac.ukirt.inst.SpInstMichelle;
 import orac.ukirt.inst.SpInstUFTI;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
-import orac.ukirt.util.InstApertures;
-import orac.ukirt.util.InstConfig;
 import java.io.*;
 import java.text.BreakIterator;
 import java.text.DecimalFormat;
@@ -1692,6 +1689,7 @@ public class SpTranslator {
 		 _writeAttribute (conpw, workConfig, "waveplate");
 		 _writeAttribute (conpw, workConfig, "scienceArea");
 		 _writeAttribute (conpw, workConfig, "spectralCoverage");
+		 _writeAttribute (conpw, workConfig, "pixelFOV");
 		 _writeAttribute (conpw, workConfig, "nreads");
 		 _writeAttribute (conpw, workConfig, "mode");
 		 _writeAttribute (conpw, workConfig, "expTime", "exposureTime");
@@ -1750,7 +1748,7 @@ public class SpTranslator {
 	       } else if (workConfig.get( "type" ).equals( "arc" ) ) {
 		 _writeAttribute (conpw, workConfig, "configType");
 		 _writeAttribute (conpw, workConfig, "type");
-		 _writeAttribute (conpw, workConfig, "arcSampling", "sampling");
+		 //		 _writeAttribute (conpw, workConfig, "arcSampling", "sampling");
 		 _writeAttribute (conpw, workConfig, "arcfilter", "filter");
 		 _writeAttribute (conpw, workConfig, "arcnreads", "nreads");
 		 _writeAttribute (conpw, workConfig, "arcmode", "mode");
