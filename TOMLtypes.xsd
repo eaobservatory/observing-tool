@@ -138,11 +138,11 @@
 
 <xsd:simpleType name="targetTypeList">
   <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Base"/>
-    <xsd:enumeration value="SCIENCE"/>
-    <xsd:enumeration value="GUIDE"/>
-    <xsd:enumeration value="REFERENCE"/>
-    <xsd:enumeration value="SKY"/>
+    <xsd:pattern value="Base"/>
+    <xsd:pattern value="SCIENCE"/>
+    <xsd:pattern value="GUIDE"/>
+    <xsd:pattern value="REFERENCE"/>
+    <xsd:pattern value="SKY[0-9]*"/>
   </xsd:restriction>
 </xsd:simpleType>
 
