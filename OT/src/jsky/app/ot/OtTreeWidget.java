@@ -161,6 +161,26 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	return selected;
     }
 
+
+    /**
+     * Collapses/expands tree nodes recursively according to the
+     * .gui.collapsed value of their SpItem. 
+     */
+    public void setCollapsed() {
+
+	Enumeration allOffsprings = _otTNW.depthFirstEnumeration();
+	OtTreeNodeWidget otTreeNodeWidget = null;
+
+	while (allOffsprings.hasMoreElements()) {
+	    otTreeNodeWidget = (OtTreeNodeWidget)allOffsprings.nextElement();
+
+	    ignoreActions = true;
+	    otTreeNodeWidget.setCollapsed( otTreeNodeWidget.getItem().getTable().getBool(GUI_COLLAPSED) );
+	    ignoreActions = false;
+	}
+    }
+
+
     /**
      * Forget about the current program and start over with the given
      * program.
