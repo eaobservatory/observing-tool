@@ -90,7 +90,7 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     secsPerObservation.setEditable(false);
     pointingMethod.setFont(new java.awt.Font("Dialog", 0, 12));
     automaticTarget.setPreferredSize(new Dimension(190, 50));
-    automaticTarget.setText("Automatically determine target");
+    automaticTarget.setText("Automatically determine pointing target at time of observation");
     automaticTarget.setHorizontalAlignment(SwingConstants.CENTER);
     automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
     automaticTarget.setVerticalAlignment(SwingConstants.TOP);

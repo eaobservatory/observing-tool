@@ -74,7 +74,7 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
     jLabel1.setForeground(Color.black);
     jLabel1.setText("Secs per Cycle");
     axis.setFont(new java.awt.Font("Dialog", 0, 12));
-    automaticTarget.setText("Automatically determine Target");
+    automaticTarget.setText("Automatically determine focus/align target at time of observation");
     automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(scubaAcsisPanel, BorderLayout.CENTER);
     scubaAcsisPanel.add(jLabel3, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
