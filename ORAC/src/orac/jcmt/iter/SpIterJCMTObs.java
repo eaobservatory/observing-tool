@@ -103,7 +103,7 @@ public SpIterJCMTObs(SpType spType)
    // The number that can be specified on each JCMT observe iterator and that
    // is appended to the name of the iterator in the Science Prrogram tree
    // is the number of iterations, ATTR_INTEGRATIONS.
-   _avTable.rm(ATTR_COUNT);
+   _avTable.noNotifyRm(ATTR_COUNT);
 
    _avTable.noNotifySet(ATTR_INTEGRATIONS, "1", 0);
 }
@@ -158,7 +158,10 @@ public SpIterEnumeration elements() {
  *
  */
 public String getSwitchingMode() {
-   return _avTable.get(ATTR_SWITCHING_MODE);
+//     if (_avTable.get(ATTR_SWITCHING_MODE) == null || _avTable.get(ATTR_SWITCHING_MODE).equals("")) {
+// 	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+//     }
+    return _avTable.get(ATTR_SWITCHING_MODE);
 }
 
 /**
@@ -166,6 +169,10 @@ public String getSwitchingMode() {
  */
 public void setSwitchingMode(String switchingMode) {
    _avTable.set(ATTR_SWITCHING_MODE, switchingMode);
+}
+
+public void rmSwitchingMode() {
+    _avTable.noNotifyRm(ATTR_SWITCHING_MODE);
 }
 
 /**
@@ -253,6 +260,11 @@ public void setFrequencyOffsetRate(String value) {
    _avTable.set(ATTR_FREQUENCY_OFFSET_RATE, Format.toDouble(value));
 }
 
+public void rmFrequencyOffsetValues() {
+    _avTable.noNotifyRm(ATTR_FREQUENCY_OFFSET_THROW);
+    _avTable.noNotifyRm(ATTR_FREQUENCY_OFFSET_RATE);
+}
+
   public int getSecsPerCycle() {
     return _avTable.getInt(ATTR_SECS_PER_CYCLE, 0);
   }
@@ -300,8 +312,8 @@ public void setFrequencyOffsetRate(String value) {
     _avTable.set(ATTR_JIGGLES_PER_CYCLE, value);
   }
 
-  public double getSampleTime() {
-    return _avTable.getDouble(ATTR_SAMPLE_TIME, 0.0);
+  public int getSampleTime() {
+    return _avTable.getInt(ATTR_SAMPLE_TIME, 4);
   }
 
   public void setSampleTime(String value) {
@@ -315,6 +327,14 @@ public void setFrequencyOffsetRate(String value) {
 
   public void setAutomaticTarget(boolean value) {
     _avTable.set(ATTR_AUTOMATIC_TARGET, value);
+  }
+
+  public boolean getContinuousCal() {
+    return _avTable.getBool(ATTR_CONT_CAL);
+  }
+
+  public void setContinuousCal(boolean value) {
+    _avTable.set(ATTR_CONT_CAL, value);
   }
 
 /**
@@ -349,6 +369,13 @@ public void setCoadds(int coadds) {
 /** Not supported by JCMT OT. */
 public void setCoadds(String coadds) {
    throw new UnsupportedOperationException("public double SpIterObserveBase.setCoadds() not supported by JCMT OT.");
+}
+
+// Setp things up for heterodyne observations
+public void setupForHeterodyne() { 
+}
+
+public void setupForSCUBA() {
 }
 
 }
