@@ -266,7 +266,7 @@ public class OT extends JFrame {
     /** 
      * Exit the application with the given status.
      */
-    public void exit() {
+    public static void exit() {
 	// If the user wants to be prompted before closing when there are edited
 	// programs, look for edited programs and prompt
 	if (OtProps.isSaveShouldPrompt()) {
@@ -488,6 +488,9 @@ showNews()
 	    new OT();
 	}
 	else {
+	    // No internal frames:
+	    // Create a small frame to contain the menus that would otherwise be in the big frame containing the
+	    // desktop with the internal frames. (MFO, 17 August 2001)
 	    JFrame menuFrame = new JFrame("OT");
 	    menuFrame.setJMenuBar(new OTMenuBar(new OT(false)));
 
@@ -501,7 +504,14 @@ showNews()
               // An exception is thrown if no background image is found in images/background.gif. Ignore.
               // Background has been set to light blue anyway.
 	    }
-	    
+
+	    menuFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+	    menuFrame.addWindowListener(new WindowAdapter() {
+		public void windowClosing(WindowEvent e) {
+		    exit();
+		}
+	    });
+
 	    menuFrame.pack();
 	    menuFrame.setVisible(true);
 	}

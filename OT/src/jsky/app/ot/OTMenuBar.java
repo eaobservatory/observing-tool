@@ -200,7 +200,7 @@ public class OTMenuBar extends JMenuBar {
 	JMenuItem menuItem = new JMenuItem("Exit");
         menuItem.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent ae) {
-		ot.exit();
+		OT.exit();
 	    }
 	});
 	return menuItem;
