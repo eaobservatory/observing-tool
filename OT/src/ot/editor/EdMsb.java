@@ -106,7 +106,17 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	  _w.remaining.setValue(SpMSB.REMOVE_STRING);
 	}
 	else {
-	  _w.remaining.setSelectedIndex(numberRemaining + 1);
+            try {
+                _w.remaining.setSelectedIndex(numberRemaining + 1);
+            }
+            catch (IllegalArgumentException iae ) {
+                JOptionPane.showMessageDialog(_w, "Number of observes exceeds maximum, setting to maximum",
+                        "Too many observes found ("+numberRemaining+")",
+                        JOptionPane.WARNING_MESSAGE);
+                ignoreActions = false;
+                _w.remaining.setSelectedIndex(101);
+                ignoreActions = true;
+            }
 	}
 
 	if ( ((SpMSB)_spItem).isSuspended() ) {
