@@ -556,7 +556,9 @@ public class UkirtSpValidation extends SpValidation {
     String trackingSystem2 = null;
     for(int i = 0; i < position.length; i++) {
       pos = (SpTelescopePos)position[i];
-      hasGuideStar = pos.isGuidePosition();
+      if (!hasGuideStar) {
+          hasGuideStar = pos.isGuidePosition();
+      }
 
       try {
         trackingSystem  = (String)telescopeObsComp.getTable().getAll(pos.getTag() ).get(4);
