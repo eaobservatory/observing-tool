@@ -12,6 +12,7 @@ package orac.ukirt.inst;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpObsData;
 import gemini.sp.SpType;
+import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
@@ -315,6 +316,8 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     public void update(SpIterStep spIterStep) {
 
       SpIterValue spIterValue = null;
+      boolean     expTimeFound = false;
+      boolean     coaddsFound  = false;
 
       currentIterStepItem = spIterStep.item;
 
@@ -334,12 +337,24 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
           if((attribute != null) && (value != null)) {
             if(attribute.equals(ATTR_EXPOSURE_TIME)) {
               currentExposureTime = Double.valueOf(value).doubleValue();
+	      expTimeFound = true;
             }
 
             if(attribute.equals(ATTR_COADDS)) {
               currentNoCoadds = Integer.valueOf(value).intValue();
+	      coaddsFound = true;
             }
-	  }  
+	  }
+	  if (!expTimeFound) {
+	      // See if we can get an exposure time from the instrument
+	      SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
+	      if (instrument != null) {
+		  currentExposureTime = instrument.getExposureTime();
+	      }
+	  }
+	  if (!coaddsFound) {
+	      currentNoCoadds = 1;
+	  }
 	}  
       }
       catch(Exception e) {
