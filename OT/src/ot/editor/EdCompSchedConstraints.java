@@ -129,7 +129,7 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
 	  _w.minElevation.setValue(_schedConstObsComp.getMinElevation());
       }
 
-      if ( _schedConstObsComp.getMaxElevation() != null  && !_schedConstObsComp.getMinElevation().equals("") ) {
+      if ( _schedConstObsComp.getMaxElevation() != null  && !_schedConstObsComp.getMaxElevation().equals("") ) {
 	  // Get the value as a double
 	  double elevation = Double.valueOf( _schedConstObsComp.getMaxElevation() ).doubleValue();
 	  // See if we should display this as an airmass
