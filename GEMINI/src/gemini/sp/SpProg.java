@@ -157,7 +157,7 @@ setProjectID(String projectID)
 public void
 setTimestamp(int timestamp)
 {
-   _avTable.noNotifySet(ATTR_TIMESTAMP, timestamp, 0);
+   _avTable.noNotifySet(ATTR_TIMESTAMP, "" + timestamp, 0);
 }
 
 
