@@ -25,6 +25,7 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
    public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated";
    public static final String ATTR_MIN_TAU            = "minTau";
    public static final String ATTR_MAX_TAU            = "maxTau";
+   public static final String ATTR_NOISE_CALCULATION_TAU = "noiseCalculationTau";
    public static final String ATTR_SEEING        = "seeing";
    public static final int NO_VALUE              = 0;
 
@@ -137,6 +138,34 @@ public double
 getMaxTau()
 {
    return _avTable.getDouble(ATTR_MAX_TAU, NO_VALUE);
+}
+
+
+/**
+ * Set tau for noise calculation.
+ */
+public void
+setNoiseCalculationTau(double value)
+{
+   _avTable.set(ATTR_NOISE_CALCULATION_TAU, value);
+}
+
+/**
+ * Set tau for noise calculation from String.
+ */
+public void
+setNoiseCalculationTau(String value)
+{
+   setNoiseCalculationTau(Format.toDouble(value));
+}
+
+/**
+ * Get tau for noise calculation.
+ */
+public double
+getNoiseCalculationTau()
+{
+   return _avTable.getDouble(ATTR_NOISE_CALCULATION_TAU, NO_VALUE);
 }
 
 
