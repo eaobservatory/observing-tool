@@ -44,7 +44,7 @@ doc:
 	-mkdir -p $(DOC_DIR)
 	$(JAVADOC) -J-mx50m -d $(DOC_DIR) `find . -name "*.java"`
 
-install:
+install: all
 	@echo Use \"\gmake JAR_DIR=my_jar_dir jar\" to create $(JAR_FILE) in my_jar_dir.
 	@echo Use \"\gmake DOC_DIR=my_doc_dir doc\" to create html api javadocs in my_doc_dir.
 
