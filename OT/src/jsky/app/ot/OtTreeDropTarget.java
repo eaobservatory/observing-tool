@@ -242,12 +242,22 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
     }
 		
     protected void checkTransferType(DropTargetDragEvent dtde) {
-	// Accept a list of files
-	acceptableType = false;
-	if (dtde.isDataFlavorSupported(OtDragDropObject.dataFlavor)) {
-	    acceptableType = true;
-	}
-	DnDUtils.debugPrintln("Data type acceptable - " + acceptableType);
+        // MFO: dtde.isDataFlavorSupported(OtDragDropObject.dataFlavor)) does not
+	//      seem to work properly under Windows. I changed the method so
+	//      that acceptableType is now always set to true.
+	//      There should not be any problems with that as Dragging and Dropping
+	//      Science Tree nodes in the OT happens within the same applcation, the OT
+	//      The DataFlavor check is probably more important for Dragging and
+	//      Dropping between different applications.
+	acceptableType = true;
+        DnDUtils.debugPrintln("Data type acceptable set to " + acceptableType + " without checking.");
+	
+//	// Accept a list of files
+//	acceptableType = false;
+//	if (dtde.isDataFlavorSupported(OtDragDropObject.dataFlavor)) {
+//	    acceptableType = true;
+//	}
+//	DnDUtils.debugPrintln("Data type acceptable - " + acceptableType);
     }
 
     // This method handles a drop for a list of files
