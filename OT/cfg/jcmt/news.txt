@@ -1,12 +1,32 @@
-+++ May 23, 2001
++++ May 31, 2001
 
 Swing version of Orac OT.
 
 Some features off the new Swing OT differ from
 those in the old FreeBongo OT:
 
-  Copying components by dragging and dropping:    
-    Press Control key during dragging.
+  Copying components by dragging and dropping:
+    Press CONTROL key during dragging. (Press mouse first. Then press CONTROL key.)
+
+  Using the DELETE and BACKSPACE keys to delete selected nodes:
+    This works only if the most recent mouse click occured on the Science Programme tree panel.
+    (e. g. by selecting a node of this tree).
+
+  Multiple tree node selection:
+    Arbitrary multiple tree node selections are now allowed. Selecting nodes works like in standard file managers:
+    Selecting contiguous nodes: select first node, hold SHIFT key, select second node.
+      
+    Selecting dis-contiguous nodes: select node, hold CONTROL key, (un)select next node, ... 
+
+    The selected nodes can be deleted (with DELETE or BACKSPACE) or dragged and dropped (no special
+    Drag and Drop icon is used to indicate that multiple nodes are dragged.)
+      
+    WARNING: Remember that the multiple node selection in the FreeBongo OT was much simpler.
+    Only certain contiguous nodes could be selected at the same time.
+    Although this Swing OT allows arbitrary multiple selections there can be problems if arbitrary
+    dis-contiguous nodes  from all over the tree are selected. Things can become to complex so that the OT
+    fails to move/copy/delete all nodes. So stick to simple uses of multiple selection similar to those that
+    were allowed in the FreeBongo OT. 
 
   Changing background pattern:
     Not supported anymore.
