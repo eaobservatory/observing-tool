@@ -68,16 +68,16 @@ public double getElapsedTime() {
 
     public void setupForHeterodyne() {
 	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
-	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "0", 0);
-	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
-	_avTable.set(ATTR_CONT_CAL, false);
-	_avTable.set(ATTR_CYCLE_REVERSAL, false);
+	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
+// 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
+	_avTable.set(ATTR_CONT_CAL, true);
+	_avTable.set(ATTR_CYCLE_REVERSAL, true);
     }
 
     public void setupForSCUBA() {
 	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
 	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
-	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
+// 	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
 	_avTable.noNotifyRm(ATTR_CONT_CAL);
 	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
     }
