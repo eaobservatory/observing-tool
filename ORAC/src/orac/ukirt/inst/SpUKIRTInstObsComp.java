@@ -287,7 +287,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
       }
       catch(Exception e) {
         System.out.println("Could not process iteration step "
-	                 + spIterStep + " for time estimation.");
+	                 + spIterStep.title + " for time estimation:\n\n" + e);
       }
     }
 

@@ -1186,8 +1186,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
       }
       catch(Exception e) {
         System.out.println("Could not process iteration step "
-	                 + spIterStep
-	                 + " for time estimation (CGS4)");
+	                 + spIterStep.title
+	                 + " for time estimation (CGS4):\n\n" + e);
       }
       
       return sampling_x * sampling_y * exposureTime * coadds;

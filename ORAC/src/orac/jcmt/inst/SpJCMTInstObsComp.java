@@ -271,7 +271,7 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
       }
       catch(Exception e) {
         System.out.println("Could not process iteration step "
-	                 + spIterStep + " for time estimation.");
+	                 + spIterStep.title + " for time estimation:\n\n" + e);
       }
     }
 
