@@ -306,7 +306,7 @@ public class SpIterChop extends SpIterComp {
         n = _avTable.getAll(ATTR_THROW).size();
       }
 
-      _avTable.noNotifySet(ATTR_THROW, value, n);
+      _avTable.noNotifySet(ATTR_THROW, value, 0);
 
       return;
     }
@@ -318,7 +318,7 @@ public class SpIterChop extends SpIterComp {
         n = _avTable.getAll(ATTR_ANGLE).size();
       }
 
-      _avTable.noNotifySet(ATTR_ANGLE, value, n);
+      _avTable.noNotifySet(ATTR_ANGLE, value, 0);
 
       return;
     }
