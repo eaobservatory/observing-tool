@@ -261,7 +261,8 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
    * @see #SCIENCE_AREA_RADIUS
    */
   public double[] getScienceArea() {
-    return new double[] { 2.3 * 60.0 }; 
+    // diameter = 2.3 arcmin => radius = 2.3 * 30 arcsecs
+    return new double[] { 2.3 * 30.0 }; 
   }
 
   /**
