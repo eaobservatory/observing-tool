@@ -996,7 +996,7 @@ public class SpTranslator {
 	     remoteTriggerSrc = spObs.getTable().get("remote_trigger_src");
 	     remoteTriggerId  = spObs.getTable().get("remote_trigger_id");
 	 }
-	 else {
+	 else if ( spObs.parent() != null ) {
 	     remoteTriggerSrc = spObs.parent().getTable().get("remote_trigger_src");
 	     remoteTriggerId  = spObs.parent().getTable().get("remote_trigger_id");
 	 }
