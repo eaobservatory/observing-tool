@@ -9,6 +9,7 @@ package gemini.sp.obsComp;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpObsData;
 import gemini.sp.SpType;
+import gemini.sp.iter.SpIterStep;
 
 import gemini.util.Angle;
 
@@ -333,5 +334,63 @@ replaceTable(SpAvTable avTable)
    _updateObsData(getPosAngleDegrees());
 }
 
+/**
+ * This method returns the time that elapses during one "observe" step given the settings of
+ * this instrument.
+ *
+ * The method can be overriden by instrument component classes. It returns the time that will elapse
+ * at each {@link gemini.sp.iter.SpIterStep} in the sequence given the instrument settings and
+ * provided these settings haven't been overridden by a config iterator.
+ *
+ * By default the observe step time is just the exosure time. But depending on the instruments
+ * it could be exposureTime * oversamplingFactor etc.
+ */
+public double getObserveStepTime(){
+   return getExposureTime();
+}
+
+/**
+ * This method returns the time that elapses during one "observe" step given the settings of
+ * this instrument modified by the config iteration step.
+ *
+ * configStep might contain a different exposure time. The calculation would then be based on
+ * this new exposureTime. But the settings of the instrument component class are not changed.
+ */
+public double getObserveStepTime(SpIterStep configStep){
+   return getObserveStepTime();
+}
+
+  /**
+   * This is a helper class for time estimation.
+   *
+   * Subclasses of SpInstObsComp can implement their own inner subclasses
+   * of the IterationTracker class. These iteration tracker classes are used to
+   * keep track of the instrument specific parameters over which instrument iterators
+   * iterate. The instrument component itself (outer class, subclass of SpInstObsComp)
+   * does not hold any knowledge of what the current value of, say, exposure time during
+   * iteration. But the might be instrument specific functionality implemented in the
+   * instrument component (outer class, subclass of SpInstObsComp) that can be used by
+   * the IterationTracker to calculate the estimated elapsed time based on the current values
+   * of the parameters that are being iterated over. That is way it is useful to have
+   * IterationTracker as an inner class of SpInstObsComp.
+   */
+  public class IterationTracker {
+    public IterationTracker() { }
+
+    public void update(SpIterStep step) {
+
+    }
+
+    public double getObserveStepTime() {
+      return 0.0;
+    }
+  }
+
+  /**
+   * Create an instrument specific instance of an IterationTracker.
+   */
+  public IterationTracker createIterationTracker() {
+    return new IterationTracker();
+  }
 }
 
