@@ -104,6 +104,9 @@ public final class OtCfg
 
 	_initStandardSpItems();
 
+	// Guide Stars
+	SpTelescopePos.setGuideStarTags(_otCfgInfo.guideTags);
+
 	// TpeImageFeature add-ons
 	_initTpeImageFeatures(_otCfgInfo);
 
@@ -252,16 +255,6 @@ public final class OtCfg
     }
 
     private static void _initTelescope(Info cfgInfo) throws Exception {
-      // UKIRT GUIDE tag:
-      //     UKIRTs telescopeUtil.getAdditionalTarget() (i.e. UkirtUtil.getAdditionalTarget())
-      //     returns SpTelescopePos.GUIDE_TAGS[0] which is set from the GUIDE attribute
-      //     in the ot.cfg file.
-      // JCMT REFERENCE tag:
-      //     For JCMT it is the other way round: The REFERENCE tag is defined inside
-      //     JCMTs telescopeUtil.getAdditionalTarget() (i.e. JcmtUtil.getAdditionalTarget()).
-      //     For the internal workings of the OT SpTelescopePos.GUIDE_TAGS[0] must then be set to
-      //     the REFERENCE tag taken from telescopeUtil.getAdditionalTarget() because in
-      //     the case of JCMT the REFERENCE tag is not specified in the ot.cfg file.
 
       // Guide Stars.
       SpTelescopePos.setGuideStarTags(cfgInfo.guideTags);
@@ -282,12 +275,6 @@ public final class OtCfg
                                         JOptionPane.WARNING_MESSAGE);
           e.printStackTrace();
 	}
-      }
-
-      // Needed when SpTelescopePos.GUIDE_TAGS is not set from ot.cfg file
-      // (e.g. JCMT OT, see comments above)
-      if(SpTelescopePos.getGuideStarTags() == null) {
-        SpTelescopePos.setGuideStarTags(new String[]{ telescopeUtil.getAdditionalTarget() });
       }
 
       // Base Position
