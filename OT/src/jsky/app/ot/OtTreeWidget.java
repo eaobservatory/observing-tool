@@ -179,6 +179,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	    selected = _otTNW;
 	}
 	selected.select();  // selects the tree node
+    
+        // added by MFO (06 July 2001)
+	tree.expandRow(0);
     }
 
     /**
