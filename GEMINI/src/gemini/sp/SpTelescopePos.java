@@ -31,6 +31,14 @@ import gemini.util.TelescopePos;
  * </pre>
  * The name of the attribute is always the same as the name of the tag.
  * Therefore, each tag must be unique.
+ *
+ * <h3>Target Tags</h3> <!-- Added by MFO (9 January 2002) -->
+ * Note that internally the OT only allowed {@link #BASE_TAG}, {@link #USER_TAG} and
+ * {@link #GUIDE_TAGS}.
+ * This is because the OT was originally developed for Optical/IR telescopes (Gemini/UKIRT)
+ * But the strings used in the user interfaces and in the XML output can be changed to
+ * other telescope specific names. For JCMT BASE_TAG is set to "science" and GUIDE_TAGS[0]
+ * is set to "reference".
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
@@ -103,6 +111,14 @@ public static void
 setBaseTag(String tag)
 {
    BASE_TAG = tag;
+}
+
+
+// Added by MFO, 7 January 2002.
+public static String
+getBaseTag()
+{
+   return BASE_TAG;
 }
 
 
