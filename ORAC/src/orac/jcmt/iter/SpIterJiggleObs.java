@@ -24,7 +24,7 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
 
-import java.util.Enumeration;
+import java.util.StringTokenizer;
 
 
 /**
@@ -50,7 +50,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     super(SP_TYPE);
   }
 
-  public double getSecsPerIntegration() {
+  public double getElapsedTime() {
     SpInstObsComp instrument = SpTreeMan.findInstrument(this);
 
     if(instrument == null) {
@@ -58,13 +58,59 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     }
 
     if(instrument instanceof SpInstSCUBA) {
-      // For now JIG16 is assumed.
-      double overhead = SCUBA_STARTUP_TIME + (9 * getIntegrations());
-      return (getIntegrations() * SECS_PER_INTEGRATION_JIG16) + overhead;
+      String jigglePattern = getJigglePattern();
+      int    steps    = 0;
+      double overhead = 0.0;
       
-      // JIG64
-      //double overhead = SCUBA_STARTUP_TIME + (36 * getIntegrations());
-      //return (getIntegrations() * SECS_PER_INTEGRATION_JIG64) + overhead;
+      // Actual integration time on source
+      double totalIntegrationTime = 0.0;
+
+      if((jigglePattern != null) && (jigglePattern.toLowerCase().indexOf('x') > -1)) {
+        StringTokenizer st = new StringTokenizer(jigglePattern.toLowerCase(), "x ");   
+        steps = Integer.parseInt( st.nextToken() );
+      }
+
+      // Calculate overheads      
+      switch(steps) {
+	// 3X3 jigle map
+	case 3: overhead =  9 * getIntegrations(); break;
+
+	// 5X5 jigle map
+	case 5: overhead = 18 * getIntegrations(); break;
+
+	// 7X7 jigle map
+	case 7: overhead = 27 * getIntegrations(); break;
+
+	// 9X9 jigle map
+	case 9: overhead = 36 * getIntegrations(); break;
+
+	// JIG16 (LONG or SHORT) or JIG64 (LONG and SHORT)
+	default:
+	  if(isJIG64((SpInstSCUBA)instrument)) {
+	    overhead = 36 * getIntegrations();
+	  }
+	  else {
+	    overhead =  9 * getIntegrations();
+	  }
+      }
+
+      // Add SCUBA startup time.
+      overhead += SCUBA_STARTUP_TIME;
+
+      // Calculate total integration time
+      if(steps > 0) {
+        totalIntegrationTime = steps * steps * 2 * getIntegrations();
+      }
+      else {
+        if(isJIG64((SpInstSCUBA)instrument)) {
+          totalIntegrationTime = 64 * 2 * getIntegrations();
+	}
+	else {
+          totalIntegrationTime = 16 * 2 * getIntegrations();
+        }
+      }
+
+      return totalIntegrationTime + overhead;
     }
 //   else {
      // Heterodyne
@@ -79,6 +125,12 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 
   public void setJigglePattern(String value) {
     _avTable.set(ATTR_JIGGLE_PATTERN, value);
+  }
+
+  private static boolean isJIG64(SpInstSCUBA instSCUBA) {
+    return instSCUBA.getBolometers() != null &&
+           instSCUBA.getBolometers().contains("LONG") &&
+           instSCUBA.getBolometers().contains("SHORT");
   }
 }
 

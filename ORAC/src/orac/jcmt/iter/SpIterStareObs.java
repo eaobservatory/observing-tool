@@ -51,10 +51,11 @@ public SpIterStareObs()
    super(SP_TYPE);
 }
 
-public double getSecsPerIntegration() {
+public double getElapsedTime() {
    double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
 
-   return (getIntegrations() * SECS_PER_INTEGRATION_PHOT) + overhead;
+   // 18 seconds per integration
+   return (18 * getIntegrations()) + overhead;
 }
 
 }

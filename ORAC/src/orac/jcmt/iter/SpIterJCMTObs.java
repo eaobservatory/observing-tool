@@ -66,14 +66,8 @@ protected SpIterStep
 _thisFirstElement()
 {
    SpIterJCMTObs ibo         = (SpIterJCMTObs) _iterComp;
-   String secsPerIntegration = String.valueOf(ibo.getSecsPerIntegration());
-   
-   // Number of integrations
-   String integrations       = String.valueOf(ibo.getIntegrations());
  
-   _values = new SpIterValue[2];
-   _values[0] = new SpIterValue(ATTR_SECS_PER_INTEGRATION, secsPerIntegration);
-   _values[1] = new SpIterValue(ATTR_INTEGRATIONS, integrations);
+   _values = new SpIterValue[]{ new SpIterValue(ATTR_ELAPSED_TIME, String.valueOf(ibo.getElapsedTime())) };
  
    return _thisNextElement();
 }
@@ -124,17 +118,16 @@ public void setIntegrations(int    i)	{ _avTable.set(ATTR_INTEGRATIONS, i); }
 public void setIntegrations(String s)	{ _avTable.set(ATTR_INTEGRATIONS, s); }
 
 /**
- * Calculates and returns total integration time (total observe time).
+ * Calculates the estimated duration of this Observe ("Eye").
  *
- * On-source plus off-source, cycle time times number of cycles.
- * This is used for time estimation off the observation.
- *
- * This method should be implemented properly by the iterator
- * specific subclasses.
+ * Note that the returned duration takes into account the number of integrations and overheads.
+ * So the duration does <b>not</b> have to be multiplied by the number of integrations.
  */
-public double getSecsPerIntegration() {
+public double getElapsedTime()
+{
    return 0.0;
 }
+
 
 /**
  * Override getTitle to return the observe count.

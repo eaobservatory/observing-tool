@@ -379,8 +379,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     _avTable.set(ATTR_SCANAREA_PA, posAngle);
   }
 
-  public double getSecsPerIntegration() {
-    double overhead = 40 + (8 * getIntegrations());
+  public double getElapsedTime() {
+    double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
 
     // Get information specified by user in the OT.
     double mapWidth           = getWidth();
