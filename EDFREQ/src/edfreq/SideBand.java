@@ -50,6 +50,8 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
     */
    private static boolean _lineClamped = true;
 
+   private boolean _bandWidthExceedsRange = false;
+
    /**
     * SideBand constructor.
     *
@@ -197,13 +199,15 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 
       sw = getScaledWidth();
 
-      if(sw > (pixratio * (highLimit - lowLimit))) {
+      if(sw >= (pixratio * (highLimit - lowLimit))) {
          if(sideBandGui.isEnabled()) {
             sideBandGui.setBackground(_scrollBarKnobColor);
+            _bandWidthExceedsRange = true;
          }
       }
       else {
          sideBandGui.setBackground(_scrollBarBackground);
+         _bandWidthExceedsRange = false;
       }
 
       sc = getScaledCentre();
@@ -231,10 +235,15 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 
    public void on() {
       sideBandGui.setEnabled(true);
+
+      if(_bandWidthExceedsRange) {
+         sideBandGui.setBackground(_scrollBarKnobColor);
+      }
    }
 
    public void off() {
       sideBandGui.setEnabled(false);
+      sideBandGui.setBackground(_scrollBarBackground);
    }
 
    public void mouseClicked(MouseEvent e) { }
