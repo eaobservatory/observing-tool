@@ -168,8 +168,11 @@ public double getElapsedTime()
     spItem = (SpItem)children.nextElement();
 
     if(spItem instanceof SpMSB) {
-      elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+	if ( ((SpMSB)spItem).getNumberRemaining() >= 0 ) {
+	    elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+	}
     }
+
 
     if(spItem instanceof SpAND) {
       elapsedTime += ((SpAND)spItem).getElapsedTime();
