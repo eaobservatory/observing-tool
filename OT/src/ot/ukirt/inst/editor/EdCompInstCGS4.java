@@ -431,9 +431,14 @@ _updateOrder()
 private void
 _updateFilter()
 {
+   // The FreeBongo OT (OT2) seems to have an invisible filter text box widget which is
+   // never really used but nevertheless updated (?)
+   // This Swing OT (OT3) does not have such a  filter text box widget. But _instCGS4 has a
+   // filter attribute that has to be set to a default filter when _updateFilter is called.
+
 // mf ??    TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.filter;
-// mf ??    String filter = _instCGS4.getDefaultFilter();   
-// mf ??    _instCGS4.setFilter (filter);
+   String filter = _instCGS4.getDefaultFilter();   
+   _instCGS4.setFilter (filter);
 // mf ??    tbw.setText (filter);
 }
 
