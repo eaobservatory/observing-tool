@@ -31,5 +31,13 @@ protected SpLibrary(SpLibraryFolder lfPrototype)
    doInsert(lfPrototype, null);
 }
 
+public void processXmlElementContent (String element, String value) {
+    if ( element.equals (ATTR_OT_VERSION) ) {
+	setOTVersion();
+    }
+    else {
+	super.processXmlElementContent(element, value);
+    }
+}
 
 }

@@ -187,6 +187,15 @@ public double getElapsedTime()
   return elapsedTime;
 }
 
+public void processXmlElementContent (String element, String value) {
+    if ( element.equals (ATTR_OT_VERSION) ) {
+	setOTVersion();
+    }
+    else {
+	super.processXmlElementContent(element, value);
+    }
+}
+
 
 
 }
