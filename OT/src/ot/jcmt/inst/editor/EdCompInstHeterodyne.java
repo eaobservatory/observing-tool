@@ -1237,18 +1237,22 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   }
 
   public void updateBandWidth(double width, int subsystem) {
+      System.out.println("updateBandWidth called with width "+width);
     _instHeterodyne.setBandWidth(width, subsystem);
 
     // Find the overlap asscoiated with this bandWidth
     BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+    double [] defOverlaps    =  currentBandSpec.getDefaultOverlapBandWidths();
     int index = 0;
-    for(int i = 0; i < currentBandSpec.bandWidths.length; i++) {
-      if(currentBandSpec.bandWidths[i] == width) {
+    for(int i = 0; i < defOverlaps.length; i++) {
+	System.out.println("Checking bandwidth "+defOverlaps[i]);
+      if(defOverlaps[i] == width) {
         index = i;
 	break;
       }
     }
 
+    System.out.println("updateBandWidth: Setting overlap to "+currentBandSpec.defaultOverlaps[index]);
     _instHeterodyne.setOverlap(currentBandSpec.defaultOverlaps[index], subsystem);
 
     if(subsystem == 0) {
