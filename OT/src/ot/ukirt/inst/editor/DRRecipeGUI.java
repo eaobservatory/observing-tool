@@ -610,7 +610,7 @@ public class DRRecipeGUI extends JPanel {
     jPanel12.add(ufti_userRecipe, new GridBagConstraints(2, 0, 1, 1, 1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
     jPanel10.add(jScrollPane4, BorderLayout.CENTER);
-    jScrollPane4.add(ufti_recipeTable, null);
+    jScrollPane4.getViewport().add(ufti_recipeTable, null);
   }
 
 
