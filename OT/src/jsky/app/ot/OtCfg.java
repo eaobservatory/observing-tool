@@ -22,6 +22,7 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 
 import java.lang.reflect.Field;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -161,7 +162,23 @@ public final class OtCfg
      * @return  The fully qualified file name for the installed schema file
      */
     public static String getSchemaLocation() {
-      return System.getProperty("ot.cfgdir")+_otCfgInfo.schemaLocation;
+	// See if we can use a URL version of the schema
+	String schemaBase = _otCfgInfo.schemaLocation;
+	String schema = "http://www.jach.hawaii.edu/JACpublic/JAC/software/omp/schema/"+schemaBase;
+	try {
+	    URL url = new URL (schema);
+	    url.getContent();
+	}
+	catch (Exception e) {
+	    System.out.println("No web connection available or file moved from server");
+	    System.out.println("Trying local version...");
+	    schema = System.getProperty("ot.cfgdir")+schemaBase;
+	    File file = new File (schema);
+	    if ( !file.exists()) {
+		schema = null;
+	    }
+	}
+	return schema;
     }
 
     // Added by SdW. Feb 2003
