@@ -31,6 +31,8 @@ public class MsbEditorGUI extends JPanel {
   JToggleButton priorityHigh = new JToggleButton();
   JToggleButton priorityMedium = new JToggleButton();
   JToggleButton priorityLow = new JToggleButton();
+  JLabel jLabel4 = new JLabel();
+  TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt();
 
     public MsbEditorGUI() {
         try {
@@ -61,6 +63,10 @@ public class MsbEditorGUI extends JPanel {
     priorityMedium.setFont(new java.awt.Font("Dialog", 0, 12));
     priorityLow.setText("Low");
     priorityLow.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel4.setForeground(Color.black);
+    jLabel4.setText("Estimated Time");
+    estimatedTime.setEditable(false);
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
         this.add(nameBox, new GridBagConstraints(1, 0, 3, 1, 1.0, 0.0
@@ -77,5 +83,9 @@ public class MsbEditorGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     this.add(priorityLow, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(jLabel4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
+    this.add(estimatedTime, new GridBagConstraints(1, 3, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(15, 5, 5, 5), 0, 0));
     }
 }
