@@ -18,7 +18,7 @@ public interface FrequencyEditorConstants {
   // FrontEnd
 
   /** */
-  public static final String XML_ELEMENT_HETERODYNE = "heterodyne";
+  public static final String XML_ELEMENT_HETERODYNE_GUI = "meta_gui_heterodyne";
 
   /** */
   public static final String XML_ELEMENT_GUI = "gui";
