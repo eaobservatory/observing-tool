@@ -412,10 +412,12 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	
 	// Calculate seconds per integration.
 	double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
-	double noOfRows           = Math.ceil(mapHeight / sampleDY);
-	double lengthOfRow        = mapWidth + SCUBA_ARRAY_DIAMETER;
+	double noOfRows           = Math.ceil((mapHeight+120) / sampleDY);
+// 	double lengthOfRow        = mapWidth + SCUBA_ARRAY_DIAMETER;
+	double lengthOfRow        = mapWidth;
 	double secsPerRow         = lengthOfRow / scanRate;
 	double secsPerIntegration = noOfRows * secsPerRow;
+	double calculatedOverhead = 515*Math.pow( (mapWidth*mapHeight),-0.1523)/100;
 
 	// Go through the parents and see if any of them are SpIterPOLS
 	SpItem parent = parent();
@@ -431,7 +433,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 // 	System.out.println("Now adding elapsed time of "+(SCUBA_STARTUP_TIME*factor + 1.5*secsPerIntegration));
 
 	// Overhead is 50 percent for scan map.
-	return SCUBA_STARTUP_TIME*factor +  (1.5 * secsPerIntegration);
+	return SCUBA_STARTUP_TIME*factor +  getIntegrations()*((1.+ calculatedOverhead) * secsPerIntegration);
     }
     else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
 	int samplesPerRow = (int)(Math.ceil(getWidth()/getScanDx()));
@@ -440,7 +442,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 	double timeOnRow  = (double)samplesPerRow * getSampleTime();
 	double timeOffRow = Math.sqrt((double)samplesPerRow) * getSampleTime();
-	return ( (timeOnRow + timeOffRow) * noOfRows);
+	return getIntegrations()*( (timeOnRow + timeOffRow) * noOfRows);
     }
     return 0.0;
   }
