@@ -199,7 +199,8 @@ class ObsGroupButtonManager extends GroupingButtonManagerBase {
      * Enable or disable the button based upon the current context.
      */
     protected void _updateButton() {
-	_makeGroup(_obsGroup, false);
+	// MFO: leave button enabled like in FreeBongo OT.
+	//_makeGroup(_obsGroup, false);
     }
 
     /** Create an observation group. */
@@ -229,7 +230,8 @@ class ObsFolderButtonManager extends GroupingButtonManagerBase
 
     /** Enable or disable the button based upon the current context. */
     protected void _updateButton() {
-	_makeGroup(_obsFolder, false);
+	// MFO: leave button enabled like in FreeBongo OT.
+	//_makeGroup(_obsFolder, false);
     }
 
     /** Create an observation folder. */
@@ -791,12 +793,16 @@ public class OtWindow extends SpTreeGUI
 
     /** Create an observation folder. */
     public void addFolder() {
-	_obsFolderButtonMan.addFolder();
+        // MFO May 28 2001
+	_tw.addItem(SpFactory.create(SpType.OBSERVATION_FOLDER));
+	//_obsFolderButtonMan.addFolder();
     }
 
     /** Create an observation group. */
     public void addGroup() {
-	_obsGroupButtonMan.addGroup();
+	// MFO May 28 2001
+	_tw.addItem( SpFactory.create(SpType.OBSERVATION_GROUP));
+	//_obsGroupButtonMan.addGroup();
     }
 
     /**Create an observation. */
@@ -806,7 +812,7 @@ public class OtWindow extends SpTreeGUI
 
     /** Add a note to the tree. */
     public void addNote() {
-	_tw.addItem(SpFactory.create(SpType.NOTE));
+	_tw.insertItemAfter(SpFactory.create(SpType.NOTE));
     }
 
     /** Cut the selected item(s) to the clipboard. */
