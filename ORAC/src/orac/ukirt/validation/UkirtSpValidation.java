@@ -829,7 +829,7 @@ public class UkirtSpValidation extends SpValidation {
       report.add(new ErrorMessage(ErrorMessage.WARNING,
                                   spProg.getTitle(),
 				  "No observation."));        
-      return; 
+//       return; 
     }
 
     // Check context items (e.g folders, groups, observations)
@@ -1175,6 +1175,7 @@ print(SpItem spItem, String indentStr)
         }  
       }
     }
+    super.checkMSBgeneric(spMSB, report);
   }
 
 
