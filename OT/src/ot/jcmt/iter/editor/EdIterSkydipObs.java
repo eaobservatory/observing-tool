@@ -27,7 +27,7 @@ import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.iter.SpIterSkydipObs;
-import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstHeterodyne;
 
 /**
  * This is the editor for Skydip Observe Mode iterator component.
@@ -93,11 +93,11 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric {
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);
 
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-      _w.acsisPanel.setVisible(false);
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+      _w.acsisPanel.setVisible(true);
     }
     else {
-      _w.acsisPanel.setVisible(true);
+      _w.acsisPanel.setVisible(false);
     }
   }
 

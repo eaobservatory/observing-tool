@@ -33,7 +33,7 @@ import jsky.app.ot.gui.OptionWidgetWatcher;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
-import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterPointingObs;
 
 /**
@@ -140,15 +140,11 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);
 
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
-      //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-      //((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-      //_w.switchingMode.setEnabled(false);
-      _w.acsisPanel.setVisible(false);
+    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+      _w.acsisPanel.setVisible(true);
     }
     else {
-      //_w.switchingMode.setEnabled(true);
-      _w.acsisPanel.setVisible(true);
+      _w.acsisPanel.setVisible(false);
     }
   }
 }
