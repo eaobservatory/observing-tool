@@ -230,6 +230,7 @@ public class OT extends JFrame {
      */
     public void openStandardLibrary() {
 	OtProps.setSaveShouldPrompt(false);
+	if (_otWindowFrames != null) _otWindowFrames.clear();
 	URL url = ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/cfg/library.xml");
 	Reader r = null;
 	/** This probably isn't adequate -- just using fetchXMLSp.  Should
@@ -262,6 +263,7 @@ public class OT extends JFrame {
      */
     public void openLibrary(String library) {
       OtProps.setSaveShouldPrompt(false);
+      
       SpRootItem spItem = null;
       boolean openAsXml = library.endsWith(".xml");
       //URL url = null;
@@ -521,7 +523,8 @@ showNews()
     }
 
     public static void removeOtWindowFrame(OtWindowFrame frame) {
-      _otWindowFrames.remove(frame);
+	_otWindowFrames.remove(frame);
+// 	_otWindowFrames.clear();
     }
 
 // From ATC OT.java end
