@@ -126,6 +126,12 @@ public final class EdCompTargetList extends OtItemEditor
 
         _w.newButton.setText("Add " + OtCfg.telescopeUtil.getAdditionalTarget());
 
+	_w.setBaseButton.setText("Set " + OtCfg.telescopeUtil.getBaseTag() + " To Image Centre");
+
+	if(_w.setBaseButton.getText().length() > 24) {
+	  _w.setBaseButton.setFont(new java.awt.Font("Dialog", 0, 10));
+	}
+
         // UKIRT does not need the chopSystem choice and JCMT does not use the
 	// Chop Settings tab. (MFO, 21 January 2002)
 	_w.chopSystemLabel.setVisible(false);
@@ -178,6 +184,8 @@ public final class EdCompTargetList extends OtItemEditor
 	//_tag.addChoice(SpTelescopePos.BASE_TAG);
 	_tag.setChoices(OtCfg.telescopeUtil.getTargetTags());
 
+	// Currently it is not allowed to change the tag of a target. (MFO, April 24, 2002)
+	_tag.setEnabled(false);
 
 	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
 	//_tag.addChoice(SpTelescopePos.USER_TAG);
@@ -722,6 +730,13 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
 	_updateXYUnitsLabels();
+
+	if(_curPos.getTag().equals(OtCfg.telescopeUtil.getBaseTag())) {
+	  _w.removeButton.setEnabled(false);
+	}
+	else {
+	  _w.removeButton.setEnabled(true);
+	}
     }
 
     /**
@@ -961,6 +976,9 @@ public final class EdCompTargetList extends OtItemEditor
             // Select HMSDEG/DEGDEG pane.
             _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
 
+            _w.newButton.setEnabled(false);
+	    _w.removeButton.setEnabled(true);
+
 	    return;
 	}
 
@@ -971,6 +989,9 @@ public final class EdCompTargetList extends OtItemEditor
 	    }
 
 	    _tpl.removePosition(_curPos);
+
+            _w.newButton.setEnabled(true);
+	    _w.removeButton.setEnabled(false);
 
 	    return;
 	}
