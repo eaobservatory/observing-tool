@@ -174,7 +174,13 @@ setNodPattern(String [] nodPatternArray)
  * Does <b>NOT</b> return the i'th element of the current nod pattern.
  */
 public static Vector getNodPattern(int i) {
-   return stringArrayToVector(NOD_PATTERNS[i]); 
+   if(i < NOD_PATTERNS.length) {
+      return stringArrayToVector(NOD_PATTERNS[i]);
+   }
+   else {
+      // No such nod pattern. Return empty Vector.
+      return new Vector();
+   }
 }
 
 public static Vector stringArrayToVector(String [] stringArray) {
