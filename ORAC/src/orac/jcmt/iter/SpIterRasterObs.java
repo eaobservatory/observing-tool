@@ -31,6 +31,8 @@ import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.SpMapItem;
 
 import java.util.Enumeration;
+import java.util.Vector;
+import java.util.StringTokenizer;
 
 
 /**
@@ -55,8 +57,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   private static final String TX_HEIGHT        = "HEIGHT";
   private static final String TX_WIDTH         = "WIDTH";
   private static final String TX_SCAN_VELOCITY = "VELOCITY";
+  private static final String TX_SCAN_SYSTEM   = "SYSTEM";
   private static final String TX_SCAN_DY       = "DY";
 
+  /** Needed for XML parsing. */
+  private String _xmlPaAncestor;
 
   public static final SpType SP_TYPE =
     SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "rasterObs", "Scan/Raster");
@@ -73,43 +78,116 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   public SpIterRasterObs() {
     super(SP_TYPE);
     
-    _avTable.noNotifySet(ATTR_SCANAREA_WIDTH,  "0.0", 0);
-    _avTable.noNotifySet(ATTR_SCANAREA_HEIGHT, "0.0", 0);
+    _avTable.noNotifySet(ATTR_SCANAREA_WIDTH,  "180.0", 0);
+    _avTable.noNotifySet(ATTR_SCANAREA_HEIGHT, "180.0", 0);
 
     _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
     _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,       "0.0", 0);
-    _avTable.noNotifySet(ATTR_SCANAREA_SYSTEM, SCANAREA_SYSTEMS[0], 0);
+    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SCAN_SYSTEMS[3], 0);
   }
 
-  /** Get map width. */
+  /** Get area width (map width). */
   public double getWidth() {
     return _avTable.getDouble(ATTR_SCANAREA_WIDTH, 0.0);
   }
 
-  /** Set map width. */
+  /** Set area width (map width). */
   public void setWidth(double width) {
     _avTable.set(ATTR_SCANAREA_WIDTH, width);
   }
 
-  /** Set map width. */
+  /** Set area width (map width). */
   public void setWidth(String widthStr) {
     setWidth(Format.toDouble(widthStr));
   }
 
-  /** Get map height. */
+  /** Get area height (map height). */
   public double getHeight() {
     return _avTable.getDouble(ATTR_SCANAREA_HEIGHT, 0.0);
   }
 
-  /** Set map height. */
+  /** Set area height (map height). */
   public void setHeight(double height) {
     _avTable.set(ATTR_SCANAREA_HEIGHT, height);
   }
 
-  /** Set map height. */
+  /** Set area height (map height). */
   public void setHeight(String heightStr) {
     setHeight(Format.toDouble(heightStr));
   }
+
+
+  /**
+   * Get area position angle (map position angle).
+   */
+  public double getPosAngle() {
+    return _avTable.getDouble(ATTR_SCANAREA_PA, 0.0);
+  }
+
+  /**
+   * Set area postition angle (map postition angle).
+   */
+  public void setPosAngle(double theta) {
+    _avTable.set(ATTR_SCANAREA_PA, theta);
+
+    if(_parent instanceof SpIterOffset) {
+      ((SpIterOffset)_parent).setPosAngle(theta);
+    }
+  }
+
+  /**
+   * Set area position angle (map position angle).
+   */
+  public void setPosAngle(String thetaStr) {
+    setPosAngle(Format.toDouble(thetaStr));
+  }
+
+
+  /**
+   * Get n<sup>th<sup>scan angle.
+   */
+  public double getScanAngle(int n) {
+    return _avTable.getDouble(ATTR_SCANAREA_SCAN_PA, n, 0.0);
+  }
+
+  /**
+   * Get scan angle.
+   */
+  public Vector getScanAngles() {
+    return _avTable.getAll(ATTR_SCANAREA_SCAN_PA);
+  }
+
+  /**
+   * Set scan angle.
+   */
+//  public void setScanAngle(double theta) {
+//    _avTable.set(ATTR_SCANAREA_SCAN_PA, theta);
+//  }
+
+  /**
+   * Set n<sup>th<sup> scan angle.
+   */
+  public void setScanAngle(double theta, int n) {
+    _avTable.set(ATTR_SCANAREA_SCAN_PA, theta, n);
+  }
+
+  /**
+   * Set scan angle.
+   */
+  public void setScanAngles(String thetaStr) {
+    if(thetaStr == null) {
+      _avTable.rm(ATTR_SCANAREA_SCAN_PA);
+    }
+    else {
+      StringTokenizer stringTokenizer = new StringTokenizer(thetaStr, ",; ");
+      int i = 0;
+      while(stringTokenizer.hasMoreTokens()) {
+        setScanAngle(Format.toDouble(stringTokenizer.nextToken()), i);
+        i++;
+      }
+    }  
+  }
+
 
   /** Get scan velocity. */
   public double getScanVelocity() {
@@ -200,6 +278,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     }   
   }
 
+
   /** Get scan dy. */
   public double getScanDy() {
     // No scan velocity set yet. Try to calculate of the default velocity
@@ -215,7 +294,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     return _avTable.getDouble(ATTR_SCANAREA_SCAN_DY, 0.0);
   }
 
-
   /** Set scan dy. */
   public void setScanDy(double dy) {
     _avTable.set(ATTR_SCANAREA_SCAN_DY, dy);
@@ -228,85 +306,38 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 
   /**
-   * Get Area PA.
+   * Get Scan System.
    *
    * Refers to TCS XML:
    * <pre>
    * &lt;SCAN_AREA&gt;
-   *   &lt;AREA&gt;
-   *     &lt;PA&gt;0.0&lt;/PA&gt;
-   *   &lt;/AREA&gt;
+   *   &lt;SCAN <b>SYSTEM="FPLANE"</b>&gt;
+   *   &lt;/SCAN&gt;
    * &lt;SCAN_AREA&gt;
    * </pre>
    */
-  public double getPosAngle() {
-    return _avTable.getDouble(ATTR_SCANAREA_PA, 0.0);
+  public String getScanSystem() {
+    return _avTable.get(ATTR_SCANAREA_SCAN_SYSTEM);
   }
 
   /**
-   * Set Area PA.
+   * Set Scan System.
    *
    * Refers to TCS XML:
    * <pre>
    * &lt;SCAN_AREA&gt;
-   *   &lt;AREA&gt;
-   *     &lt;PA&gt;0.0&lt;/PA&gt;
-   *   &lt;/AREA&gt;
+   *   &lt;SCAN <b>SYSTEM="FPLANE"</b>&gt;
+   *   &lt;/SCAN&gt;
    * &lt;SCAN_AREA&gt;
    * </pre>
    */
-  public void setPosAngle(double theta) {
-    _avTable.set(ATTR_SCANAREA_PA, theta);
-
-    if(_parent instanceof SpIterOffset) {
-      ((SpIterOffset)_parent).setPosAngle(theta);
+  public void setScanSystem(String system) {
+    if(system == null) {
+      _avTable.rm(ATTR_SCANAREA_SCAN_SYSTEM);
     }
-  }
-
-  /**
-   * Set Area PA.
-   *
-   * Refers to TCS XML
-   * <pre>
-   * &lt;SCAN_AREA&gt;
-   *   &lt;AREA&gt;
-   *     <b>&lt;PA&gt;0.0&lt;/PA&gt;</b>
-   *   &lt;/AREA&gt;
-   * &lt;SCAN_AREA&gt;
-   * </pre>
-   */
-  public void setPosAngle(String thetaStr) {
-    setPosAngle(Format.toDouble(thetaStr));
-  }
-
-  /**
-   * Get Area System.
-   *
-   * Refers to TCS XML:
-   * <pre>
-   * &lt;SCAN_AREA&gt;
-   *   &lt;AREA <b>SYSTEM="TRACKING"</b>&gt;
-   *   &lt;/AREA&gt;
-   * &lt;SCAN_AREA&gt;
-   * </pre>
-   */
-  public String getScanAreaSystem() {
-    return _avTable.get(ATTR_SCANAREA_SYSTEM);
-  }
-
-  /**
-   * Set Area System.
-   *
-   * Refers to TCS XML:
-   * <pre>
-   * &lt;SCAN_AREA&gt;
-   *   &lt;AREA <b>SYSTEM="TRACKING"</b>&gt;
-   *   &lt;/AREA&gt;
-   * &lt;SCAN_AREA&gt;
-   * </pre>
-   */
-  public void setScanAreaSystem(String system) {
-    _avTable.set(ATTR_SCANAREA_SYSTEM, system);
+    else {
+      _avTable.set(ATTR_SCANAREA_SCAN_SYSTEM, system);
+    }
   }
 
   public String getRasterMode() {
@@ -365,7 +396,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
       xmlBuffer.append("\n" + indent + "      <" + TX_AREA + " " + TX_HEIGHT + "=\"" + getHeight() +
                                                  "\" " + TX_WIDTH + "=\"" + getWidth()  + "\"/>");
       xmlBuffer.append("\n" + indent + "      <" + TX_SCAN + " " + TX_SCAN_DY + "=\"" + getScanDy() +
-	                                     "\" " + TX_SCAN_VELOCITY + "=\"" + getScanVelocity() + "\"/>");
+	                                     "\" " + TX_SCAN_VELOCITY + "=\"" + getScanVelocity() +
+					     "\" " + TX_SCAN_SYSTEM + "=\"" + getScanSystem() + "\">");
+      if(getScanAngles() != null) {
+        for(int i = 0; i < getScanAngles().size(); i++) {
+          xmlBuffer.append("\n" + indent + "        <" + TX_PA + ">" + getScanAngle(i) + "</" + TX_PA + ">");
+        }
+      }
+      xmlBuffer.append("\n" + indent + "      </" + TX_SCAN + ">");
       xmlBuffer.append("\n" + indent + "    </" + TX_SCAN_AREA + ">");
 
       xmlBuffer.append("\n" + indent + "  </" + TX_OBS_AREA + ">");
@@ -383,6 +421,16 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   }
 
   /** JAC TCS XML parsing. */
+  public void processXmlElementStart(String name) {
+/*MFO DEBUG*/System.out.println("processXmlElementStart(" + name + ")");
+    if((name != null) && (!name.equals(TX_PA))) {
+      _xmlPaAncestor = name;
+    }
+
+    super.processXmlElementStart(name);
+  }
+
+  /** JAC TCS XML parsing. */
   public void processXmlElementContent(String name, String value) {
 
     // Ignore XML elements whose do not contain characters themselves but only
@@ -397,7 +445,19 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     }
 
     if(name.equals(TX_PA)) {
-      setPosAngle(value);
+      if((_xmlPaAncestor != null) && _xmlPaAncestor.equals(TX_SCAN)) {
+        if(getScanAngles() == null) {
+/*MFO DEBUG*/System.out.println("setScanAngle(" + Format.toDouble(value) + ", 0)");
+          setScanAngle(Format.toDouble(value), 0);
+	}
+	else {
+/*MFO DEBUG*/System.out.println("setScanAngle(" + Format.toDouble(value) + ", " + getScanAngles().size() + ")");
+          setScanAngle(Format.toDouble(value), getScanAngles().size());
+	}
+      }
+      else {
+        setPosAngle(value);
+      }
 
       return;
     }
@@ -440,6 +500,11 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
       if(attributeName.equals(TX_SCAN_VELOCITY)) {
         setScanVelocity(value);
+	return;
+      }
+
+      if(attributeName.equals(TX_SCAN_SYSTEM)) {
+        setScanSystem(value);
 	return;
       }
     }
