@@ -18,6 +18,9 @@ include $(CONF_HOME)/make.conf
 CLASSES_DIR_FOR_SED = $(shell echo $(CLASSES_DIR) | sed -e 's/\./\\\./g' | sed -e 's/\//\\\//g')
 CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
+GIF_IMAGES          = $(addprefix $(CLASSES_DIR)/, $(shell find . -name "*.gif"))
+CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
+
 CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(JSKY_RELATED_CP)
 
 # Should NOT be changed as other packages might rely on the this name!
@@ -38,7 +41,7 @@ all: classes $(RMI_GENERATED_CLASSES) cfg script
 
 classes: $(CLASSES_DIR) $(CLASS_FILES)
 
-cfg: $(CFG_DIR) $(OT_CFG_DIR)
+cfg: $(CFG_DIR) $(LOCAL_INSTALL_ROOT)/ot_cfg $(GIF_IMAGES) $(CFG_FILES)
 
 script: $(BIN_DIR)/$(OM_SCRIPT)
 
@@ -51,17 +54,28 @@ $(CLASSES_DIR):
 $(BIN_DIR):
 	@ -mkdir -p $(BIN_DIR)	
 
-$(CFG_DIR): ../cfg
+
+# The following rule copies the cfg directories into LOCAL_INSTALL_ROOT
+# regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIR.
+$(LOCAL_INSTALL_ROOT)/cfg: ../cfg
 	cp -r ../cfg $(LOCAL_INSTALL_ROOT)
 
-$(OT_CFG_DIR): $(CFG_TELESCOPE_DIR)
-	rm -rf $(OT_CFG_DIR)
-	cp -r  $(CFG_TELESCOPE_DIR) $(OT_CFG_DIR)
+$(LOCAL_INSTALL_ROOT)/ot_cfg: ../../OT/cfg/ukirt
+	rm -rf $@
+	cp -r  $< $@
+
 
 # default rule 
 $(CLASSES_DIR)/%.class: %.java
 	$(JAVAC) $(JFLAGS) -d $(CLASSES_DIR) -classpath $(CLASSPATH) -sourcepath . $<
 
+$(CLASSES_DIR)/%.gif: %.gif
+	@mkdir -p `dirname $@`
+	cp $< $@
+
+$(LOCAL_INSTALL_ROOT)/cfg/%: ../cfg/%
+	rm -rf $@
+	cp -r $< $@
 
 # Bundle everything into jar file
 jar: classes
@@ -75,7 +89,7 @@ doc:
 	$(JAVADOC) -J-mx50m -d $(DOC_DIR) `find . -name "*.java"`
 
 
-$(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
+$(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf Makefile
 	@printf \
 	"#!/bin/csh -f\
 	\n#########################################################################################\
@@ -84,9 +98,11 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
-        \n#set JAVA = $(JAVA)\
-	\n# For now continue to run with JDK1.1.x\
-	\nset JAVA = /usr/java1.1/bin/java\
+	\nset JAVA = $(JAVA)\
+	\n\
+	\nset PRG       = \`which $$""0\`\
+	\nset PRG_HOME  = \`dirname $$""PRG\`\
+	\nset IMAG_PATH = \`(cd $$""PRG_HOME; cd ../classes/om/images; pwd)\`/\
 	\n\
 	\ncleanup\
 	\n\
@@ -148,9 +164,12 @@ $(BIN_DIR)/$(OM_SCRIPT): $(BIN_DIR) $(CONF_HOME)/make.conf
 	\n\
 	\nend\
 	\n\
-	\nset CFG_DIR = $(shell cd $(CFG_DIR); pwd)\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -classpath \
+	\nset CFG_DIR = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg/$(CFG_DIR_SITE)/$(CFG_DIR_TELESCOPE)\
+	\nset OT_CFG_DIR = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/ot_cfg/\
+	\n\
+	\n\
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
@@ -262,7 +281,7 @@ $(INSTALL_ROOT)/tools:
 
 
 
-$(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
+$(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin $(CONF_HOME)/make.conf Makefile
 	@printf \
 	"#!/bin/csh -f\
 	\n#########################################################################################\
@@ -271,9 +290,11 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n# And the format of this script is not really meant to support manual editing.          #\
 	\n#########################################################################################\
 	\n\
-        \n#set JAVA = $(JAVA)\
-	\n# For now continue to run with JDK1.1.x\
-	\nset JAVA = /usr/java1.1/bin/java\
+	\nset JAVA = $(JAVA)\
+	\n\
+	\nset PRG       = \`which $$""0\`\
+	\nset PRG_HOME  = \`dirname $$""PRG\`\
+	\nset IMAG_PATH = \`(cd $$""PRG_HOME; cd ../classes/om/images; pwd)\`/\
 	\n\
 	\ncleanup\
 	\n\
@@ -335,9 +356,10 @@ $(INSTALL_ROOT)/bin/om: $(INSTALL_ROOT)/bin
 	\n\
 	\nend\
 	\n\
-	\nset CFG_DIR = $(shell cd $(CFG_DIR); pwd)\
+	\nset CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/cfg/om/$(CFG_DIR_SITE)/$(CFG_DIR_TELESCOPE)\
+	\nset OT_CFG_DIR = $(shell cd $(INSTALL_ROOT); pwd)/ot_cfg/\
 	\n\
-	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -classpath \
+	\n$$""{JAVA} $(JAVA_FLAGS) -DSERVER=$(SERVER) -Dot.cfgdir=$$""OT_CFG_DIR -DIMAG_PATH=$$""IMAG_PATH -classpath \
 	$(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g'):$(ADDITIONAL_RUN_CP)\
 	om.sciProgram.oracOM $$""{CFG_DIR}/om.cfg\
 	\n\
