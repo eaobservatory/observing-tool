@@ -86,6 +86,7 @@ public EdCompInstCGS4()
          _instCGS4.setDisperser( _dispTrim(val) );
          _updateOrder();
 	 _updateFilter();
+         _updateMaskMenu();
          _instCGS4.useDefaultAcquisition();
          _updateWidgets();
       }
@@ -415,6 +416,18 @@ _updateOrder()
    int o = _instCGS4.getDefaultOrder();
    _instCGS4.setOrder(o);
    tbw.setText(Integer.toString(o));
+}
+
+//
+// Update the menu of masks.
+//
+private void
+_updateMaskMenu()
+{
+   DropDownListBoxWidgetExt ddlbw;
+   Vector menu = _instCGS4.getMaskMenu();
+   ddlbw = (DropDownListBoxWidgetExt) _w.mask;
+   ddlbw.setChoices( menu );
 }
 
 //
