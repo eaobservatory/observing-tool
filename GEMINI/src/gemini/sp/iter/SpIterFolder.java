@@ -152,13 +152,15 @@ printSummary()
 // 	  System.out.println("Adding "+iterationTracker.getObserveStepTime()+" from "+spIterStep.item );
         }  
 
-        if(spIterStep.item instanceof SpIterOffset) {
-          if((OFFSET_TIME - instrument.getExposureOverhead()) > 0.0) {
-            // If for each OFFSET_TIME added an exposure overhead can be
-            // subtracted since this is done while the telescope moves.
-            elapsedTime += (OFFSET_TIME - instrument.getExposureOverhead());
-// 	    System.out.println( "Adding "+(OFFSET_TIME - instrument.getExposureOverhead())+" from offset iterator");
-          }
+        if ( instrument.getClass().getName().indexOf("WFCAM") == -1 ) {
+            if(spIterStep.item instanceof SpIterOffset) {
+                if((OFFSET_TIME - instrument.getExposureOverhead()) > 0.0) {
+                    // If for each OFFSET_TIME added an exposure overhead can be
+                    // subtracted since this is done while the telescope moves.
+                    elapsedTime += (OFFSET_TIME - instrument.getExposureOverhead());
+                    // 	    System.out.println( "Adding "+(OFFSET_TIME - instrument.getExposureOverhead())+" from offset iterator");
+                }
+            }
         }
       }
     }
