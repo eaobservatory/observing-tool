@@ -50,33 +50,36 @@ public class SpOR extends SpObsContextItem {
   /**
    * Calculates the duration of this OR folder.
    *
-   * Returns the elapsed time for the child item with the longest duration.
+   * Returns the mean of the elapsed time per item in the OR folder
+   * multiplied by the number of items that are to be selected.
+   *
+   * @see #getNumberOfItems()
    */
   public double getElapsedTime() {
-    double maxElapsedTime = 0.0;
     double elapsedTime = 0.0;
+
+    // Records the number of children that have a duration, i.e. SpAND and
+    // SpMSB (and its subclass SpObs).
+    int n = 0;
+
     Enumeration children = children();
     SpItem spItem = null;
 
     while(children.hasMoreElements()) {
       spItem = (SpItem)children.nextElement();
 
-      elapsedTime = 0.0;
-
       if(spItem instanceof SpMSB) {
-        elapsedTime = (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+        elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+        n++;
       }
 
       if(spItem instanceof SpAND) {
-        elapsedTime = ((SpAND)spItem).getElapsedTime();
-      }
-
-      if(elapsedTime > maxElapsedTime) {
-        maxElapsedTime = elapsedTime;
+        elapsedTime += ((SpAND)spItem).getElapsedTime();
+        n++;
       }
     }
 
-    return maxElapsedTime;
+    return (elapsedTime / n) * getNumberOfItems();
   }
 }
 
