@@ -33,7 +33,7 @@ public class SpTelescopeObsComp extends SpObsComp
    private static final String TX_CONIC_SYSTEM         = "conicSystem";
    private static final String TX_NAMED_SYSTEM         = "namedSystem";
    private static final String TX_SYSTEM               = "SYSTEM";
-   private static final String TX_CONIC_NAMED_TYPE     = "type";
+   private static final String TX_CONIC_NAMED_TYPE     = "TYPE";
    private static final String TX_C1                   = "c1";
    private static final String TX_C2                   = "c2";
    private static final String TX_OFFSET               = "OFFSET";
