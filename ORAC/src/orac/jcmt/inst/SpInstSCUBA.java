@@ -214,8 +214,11 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
       result = (String[])_jigglePatternTable.get(getPrimaryBolometer().toUpperCase());
     }
 
+    // If the result is null i.e. the primary bolometer is not in the table then it is a
+    // single pixel from one of the arrays. The jiggle pattern of one of the photometry
+    // pixels should be used in this case rather then "DEFAULT".
     if(result == null) {
-      return _defaultJigglePattern;
+      return (String[])_jigglePatternTable.get("P2000");
     }
     // Note that result will be null if getPrimaryBolometer() == null.
     else {
