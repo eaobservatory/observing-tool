@@ -45,6 +45,9 @@ class OtCfgReader
 
     public static final String CHOP_DEFAULTS		= "chop defaults";
 
+    /** Targets which are known by the TCS by name. E.g. planets. */
+    public static final String NAMED_TARGETS		= "named targets";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -155,7 +158,13 @@ class OtCfgReader
 					            // chop defaults (added by MFO, May 13, 2002)
 						    if(line.startsWith(CHOP_DEFAULTS)) {
                                                        info.chopDefaults = _parseCommaList(_getValue(line));
+						    } else
+
+					            // named targets (added by MFO, June 05, 2002)
+						    if(line.startsWith(NAMED_TARGETS)) {
+                                                       info.namedTargets = _parseCommaList(_getValue(line));
 						    }
+
 	    }
 
 	    // Add the last config class
