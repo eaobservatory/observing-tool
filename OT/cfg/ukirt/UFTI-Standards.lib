@@ -19,7 +19,7 @@
                   <val value="JHK photometric stars with UFTI">
          </av>
          <av name=.gui.collapsed descr="No Description">
-                  <val value="true">
+                  <val value="false">
          </av>
          <ob name=new type=ob subtype=none>
             <av name=title descr="No Description">
@@ -82,8 +82,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -288,8 +288,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -494,8 +494,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -689,8 +689,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -895,8 +895,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -1101,8 +1101,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -1296,8 +1296,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -1502,8 +1502,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -1708,8 +1708,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -1903,8 +1903,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -2109,8 +2109,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -2315,8 +2315,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -2510,8 +2510,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -2716,8 +2716,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -2922,8 +2922,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -3117,8 +3117,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -3323,8 +3323,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -3529,8 +3529,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -3724,8 +3724,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -3930,8 +3930,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -4136,8 +4136,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -4331,8 +4331,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -4537,8 +4537,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -4743,8 +4743,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -4938,8 +4938,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -5144,8 +5144,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -5350,8 +5350,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -5545,8 +5545,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -5751,8 +5751,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -5957,8 +5957,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -6152,8 +6152,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -6366,8 +6366,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -6580,8 +6580,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -6783,8 +6783,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -6989,8 +6989,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -7195,8 +7195,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -7390,8 +7390,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -7596,8 +7596,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -7802,8 +7802,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -7997,8 +7997,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -8203,8 +8203,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -8409,8 +8409,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -8604,8 +8604,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -8810,8 +8810,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -9016,8 +9016,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -9211,8 +9211,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -9417,8 +9417,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -9623,8 +9623,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -9818,8 +9818,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -10024,8 +10024,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -10230,8 +10230,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -10425,8 +10425,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -10631,8 +10631,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -10837,8 +10837,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -11032,8 +11032,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -11238,8 +11238,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -11444,8 +11444,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -11639,8 +11639,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -11845,8 +11845,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -12040,8 +12040,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -12235,8 +12235,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -12441,8 +12441,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -12647,8 +12647,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -12842,8 +12842,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -13048,8 +13048,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -13254,8 +13254,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -13449,8 +13449,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -13655,8 +13655,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -13861,8 +13861,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -14067,8 +14067,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -14273,8 +14273,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -14479,8 +14479,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -14685,8 +14685,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -14891,8 +14891,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -15097,8 +15097,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -15303,8 +15303,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -15509,8 +15509,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -15715,8 +15715,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -15910,8 +15910,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -16116,8 +16116,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -16322,8 +16322,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -16517,8 +16517,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -16723,8 +16723,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -16929,8 +16929,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -17124,8 +17124,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -17330,8 +17330,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -17536,8 +17536,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -17731,8 +17731,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -17937,8 +17937,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -18143,8 +18143,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -18338,8 +18338,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -18544,8 +18544,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -18750,8 +18750,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -18945,8 +18945,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -19151,8 +19151,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -19357,8 +19357,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -19552,8 +19552,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -19758,8 +19758,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -19964,8 +19964,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -20159,8 +20159,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -20356,7 +20356,7 @@
                               <val value="true">
                </av>
                <av name=filter descr="No Description">
-                              <val value="J98">
+                              <val value="H98">
                </av>
                <av name=posAngle descr="No Description">
                               <val value="0.0">
@@ -20365,13 +20365,13 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
-                              <val value="1.250">
+                              <val value="1.635">
                </av>
                <av name=exposureTime descr="No Description">
-                              <val value="60.0">
+                              <val value="40.0">
                </av>
                <av name=readoutArea descr="No Description">
                               <val value="512x512">
@@ -20571,8 +20571,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -20766,8 +20766,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -20972,8 +20972,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -21178,8 +21178,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -21373,8 +21373,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -21579,8 +21579,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -21785,8 +21785,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -21980,8 +21980,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -22186,8 +22186,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -22392,8 +22392,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -22587,8 +22587,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -22793,8 +22793,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -22999,8 +22999,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -23194,8 +23194,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -23400,8 +23400,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -23606,8 +23606,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -23801,8 +23801,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -24007,8 +24007,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -24213,8 +24213,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -24408,8 +24408,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -24614,8 +24614,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -24820,8 +24820,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -25015,8 +25015,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -25221,8 +25221,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -25427,8 +25427,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -25622,8 +25622,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -25828,8 +25828,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -26034,8 +26034,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -26229,8 +26229,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -26435,8 +26435,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -26641,8 +26641,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -26836,8 +26836,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -27042,8 +27042,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -27248,8 +27248,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -27443,8 +27443,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -27649,8 +27649,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -27855,8 +27855,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -28018,9 +28018,9 @@
                </av>
                <av name=GUIDE descr="No Description">
                               <val value="GUIDE">
-                              <val value="GSC0551400420">
-                              <val value="11:21:58.498">
-                              <val value="-13:12:38.27">
+                              <val value="">
+                              <val value="11:21:48.95">
+                              <val value="-13:13:07.9">
                               <val value="FK5 (J2000)">
                </av>
                <av name=.unique descr="No Description">
@@ -28050,8 +28050,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -28120,7 +28120,7 @@
             </oc>
             <if name=new type=if subtype=none>
                <av name=.gui.collapsed descr="No Description">
-                              <val value="true">
+                              <val value="false">
                </av>
                <ic name=new type=ic subtype=darkObs>
                   <av name=coadds descr="No Description">
@@ -28224,9 +28224,9 @@
                </av>
                <av name=GUIDE descr="No Description">
                               <val value="GUIDE">
-                              <val value="GSC0551400420">
-                              <val value="11:21:58.498">
-                              <val value="-13:12:38.27">
+                              <val value="">
+                              <val value="11:21:48.95">
+                              <val value="-13:13:07.9">
                               <val value="FK5 (J2000)">
                </av>
                <av name=.unique descr="No Description">
@@ -28256,8 +28256,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -28430,9 +28430,9 @@
                </av>
                <av name=GUIDE descr="No Description">
                               <val value="GUIDE">
-                              <val value="GSC0551400420">
-                              <val value="11:21:58.498">
-                              <val value="-13:12:38.27">
+                              <val value="">
+                              <val value="11:21:48.95">
+                              <val value="-13:13:07.9">
                               <val value="FK5 (J2000)">
                </av>
                <av name=.unique descr="No Description">
@@ -28462,8 +28462,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -28657,8 +28657,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -28863,8 +28863,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -29069,8 +29069,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -29264,13 +29264,13 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
                <av name=exposureTime descr="No Description">
-                              <val value="15.0">
+                              <val value="10.0">
                </av>
                <av name=readoutArea descr="No Description">
                               <val value="512x512">
@@ -29470,13 +29470,13 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
                <av name=exposureTime descr="No Description">
-                              <val value="10.0">
+                              <val value="5.0">
                </av>
                <av name=readoutArea descr="No Description">
                               <val value="512x512">
@@ -29676,13 +29676,13 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
                <av name=exposureTime descr="No Description">
-                              <val value="10.0">
+                              <val value="5.0">
                </av>
                <av name=readoutArea descr="No Description">
                               <val value="512x512">
@@ -29871,8 +29871,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -30077,8 +30077,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -30283,8 +30283,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -30478,8 +30478,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -30684,8 +30684,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -30890,8 +30890,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -31085,8 +31085,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -31291,8 +31291,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -31497,8 +31497,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -31692,8 +31692,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -31898,8 +31898,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -32104,8 +32104,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -32258,12 +32258,12 @@
                <av name=Base descr="No Description">
                               <val value="Base">
                               <val value="FS134">
-                              <val value="14:28:43.37">
-                              <val value="33:10:41.5">
+                              <val value="14:28:43.26">
+                              <val value="33:10:38.2">
                               <val value="FK5 (J2000)">
                </av>
                <av name=.gui.selectedTelescopePos descr="No Description">
-                              <val value="GUIDE">
+                              <val value="Base">
                </av>
                <av name=GUIDE descr="No Description">
                               <val value="GUIDE">
@@ -32299,8 +32299,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -32369,7 +32369,7 @@
             </oc>
             <if name=new type=if subtype=none>
                <av name=.gui.collapsed descr="No Description">
-                              <val value="true">
+                              <val value="false">
                </av>
                <ic name=new type=ic subtype=darkObs>
                   <av name=coadds descr="No Description">
@@ -32464,12 +32464,12 @@
                <av name=Base descr="No Description">
                               <val value="Base">
                               <val value="FS134">
-                              <val value="14:28:43.37">
-                              <val value="33:10:41.5">
+                              <val value="14:28:43.26">
+                              <val value="33:10:38.2">
                               <val value="FK5 (J2000)">
                </av>
                <av name=.gui.selectedTelescopePos descr="No Description">
-                              <val value="GUIDE">
+                              <val value="Base">
                </av>
                <av name=GUIDE descr="No Description">
                               <val value="GUIDE">
@@ -32505,8 +32505,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -32575,7 +32575,7 @@
             </oc>
             <if name=new type=if subtype=none>
                <av name=.gui.collapsed descr="No Description">
-                              <val value="true">
+                              <val value="false">
                </av>
                <ic name=new type=ic subtype=darkObs>
                   <av name=coadds descr="No Description">
@@ -32670,12 +32670,12 @@
                <av name=Base descr="No Description">
                               <val value="Base">
                               <val value="FS134">
-                              <val value="14:28:43.37">
-                              <val value="33:10:41.5">
+                              <val value="14:28:43.26">
+                              <val value="33:10:38.2">
                               <val value="FK5 (J2000)">
                </av>
                <av name=.gui.selectedTelescopePos descr="No Description">
-                              <val value="GUIDE">
+                              <val value="Base">
                </av>
                <av name=GUIDE descr="No Description">
                               <val value="GUIDE">
@@ -32711,8 +32711,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -32906,8 +32906,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -33112,8 +33112,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -33318,8 +33318,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -33513,8 +33513,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -33719,8 +33719,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -33925,8 +33925,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -34120,8 +34120,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -34326,8 +34326,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -34532,8 +34532,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -34727,8 +34727,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -34933,8 +34933,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -35139,8 +35139,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -35334,8 +35334,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -35540,8 +35540,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -35746,8 +35746,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -35941,8 +35941,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -36147,8 +36147,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -36353,8 +36353,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -36548,8 +36548,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -36754,8 +36754,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -36960,8 +36960,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -37155,8 +37155,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -37361,8 +37361,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -37567,8 +37567,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -37762,8 +37762,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -37968,8 +37968,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -38174,8 +38174,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -38369,8 +38369,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -38575,8 +38575,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -38781,8 +38781,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -38987,8 +38987,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -39105,15 +39105,15 @@
                                           <val value="-10.0">
                                           <val value="12.0">
                      </av>
-                     <av name=.gui.selectedOffsetPos descr="No Description">
-                                          <val value="Offset8">
+                     <av name=Offset2 descr="No Description">
+                                          <val value="1.0">
+                                          <val value="11.0">
                      </av>
                      <av name=title descr="No Description">
                                           <val value="jitter_9_10as">
                      </av>
-                     <av name=Offset2 descr="No Description">
-                                          <val value="1.0">
-                                          <val value="11.0">
+                     <av name=.gui.selectedOffsetPos descr="No Description">
+                                          <val value="Offset8">
                      </av>
                      <av name=Offset1 descr="No Description">
                                           <val value="11.0">
@@ -39219,8 +39219,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -39425,8 +39425,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -39631,8 +39631,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -39837,8 +39837,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -40043,8 +40043,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -40249,8 +40249,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -40455,8 +40455,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -40661,8 +40661,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -40856,8 +40856,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -41062,8 +41062,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -41268,8 +41268,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -41463,8 +41463,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -41669,8 +41669,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -41875,8 +41875,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -42073,8 +42073,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -42282,8 +42282,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -42491,8 +42491,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -42686,8 +42686,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -42892,8 +42892,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -43098,8 +43098,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -43293,8 +43293,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -43499,8 +43499,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -43705,8 +43705,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -43900,8 +43900,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -44106,8 +44106,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -44312,8 +44312,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -44507,8 +44507,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -44713,8 +44713,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -44919,8 +44919,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -45114,8 +45114,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -45328,8 +45328,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -45542,8 +45542,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -45745,8 +45745,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -45951,8 +45951,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -46157,8 +46157,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -46352,8 +46352,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -46558,8 +46558,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -46764,8 +46764,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -46959,8 +46959,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -47165,8 +47165,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -47371,8 +47371,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -47566,8 +47566,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -47772,8 +47772,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -47978,8 +47978,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -48173,8 +48173,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -48387,8 +48387,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -48601,8 +48601,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -48804,8 +48804,8 @@
                               <val value="2">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.250">
                </av>
@@ -49010,8 +49010,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.635">
                </av>
@@ -49216,8 +49216,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="2.150">
                </av>
@@ -49427,8 +49427,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -49633,8 +49633,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -49839,8 +49839,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -50045,8 +50045,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -50251,8 +50251,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -50457,8 +50457,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -50663,8 +50663,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -50869,8 +50869,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -51075,8 +51075,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -51289,8 +51289,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -51503,8 +51503,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -51709,8 +51709,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -51915,8 +51915,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -52121,8 +52121,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -52327,8 +52327,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -52533,8 +52533,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -52739,8 +52739,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -52945,8 +52945,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -53151,8 +53151,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -53357,8 +53357,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -53563,8 +53563,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -53769,8 +53769,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -53975,8 +53975,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -54181,8 +54181,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -54387,8 +54387,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -54593,8 +54593,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -54799,8 +54799,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -55005,8 +55005,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -55211,8 +55211,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -55417,8 +55417,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -55623,8 +55623,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -55829,8 +55829,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -56035,8 +56035,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -56241,8 +56241,8 @@
                               <val value="5">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -56447,8 +56447,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -56653,8 +56653,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -56859,8 +56859,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -57065,8 +57065,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -57271,8 +57271,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -57477,8 +57477,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -57683,8 +57683,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -57889,8 +57889,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -58095,8 +58095,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -58301,8 +58301,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -58507,8 +58507,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -58713,8 +58713,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -58919,8 +58919,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -59125,8 +59125,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -59331,8 +59331,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -59537,8 +59537,8 @@
                               <val value="5">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -59743,8 +59743,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -59949,8 +59949,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -60155,8 +60155,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -60361,8 +60361,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -60567,8 +60567,8 @@
                               <val value="3">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -60773,8 +60773,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -60979,8 +60979,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -61185,8 +61185,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -61391,8 +61391,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -61597,8 +61597,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
@@ -61803,8 +61803,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -62009,8 +62009,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -62215,8 +62215,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="0.9">
                </av>
@@ -62421,8 +62421,8 @@
                               <val value="1">
                </av>
                <av name=instAper descr="No Description">
-                              <val value="-11.83">
-                              <val value="16.83">
+                              <val value="-12.86">
+                              <val value="17.51">
                               <val value="0.0">
                               <val value="1.033">
                </av>
