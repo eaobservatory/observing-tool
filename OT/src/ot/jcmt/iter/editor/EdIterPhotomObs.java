@@ -53,13 +53,13 @@ public final class EdIterPhotomObs extends EdIterJCMTGeneric {
 //  }
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-      DialogUtil.error(_w, "Photom Iterator cannot be used with Heterodyne.\nUse Stare Iterator instead.");
-    }
+//    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+//      DialogUtil.error(_w, "Photom Iterator cannot be used with Heterodyne.\nUse Stare Iterator instead.");
+//    }
       
-    _w.switchingMode.setVisible(false);
-    _w.switchingModeLabel.setVisible(false);
-    _w.switchingModePanel.setVisible(false);
+//    _w.switchingMode.setVisible(false);
+//    _w.switchingModeLabel.setVisible(false);
+//    _w.switchingModePanel.setVisible(false);
   }
 }
 
