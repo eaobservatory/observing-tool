@@ -169,13 +169,15 @@ public class SpInputXML extends DefaultHandler {
       _valueArrayElement = null;
     }
 
-    if(_valueArrayElement != null) {
-      _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
-      _characterBuffer = null;
-    }
-    else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
-      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-      _characterBuffer = null;
+    if ( _characterBuffer != null ) {
+        if(_valueArrayElement != null) {
+          _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
+          _characterBuffer = null;
+        }
+        else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
+          _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+          _characterBuffer = null;
+        }
     }
 
     _currentSpItem.processXmlElementEnd(qName);
