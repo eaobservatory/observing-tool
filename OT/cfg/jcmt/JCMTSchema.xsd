@@ -1116,6 +1116,24 @@
         <xsd:complexType>
           <xsd:sequence>
             <xsd:element ref="target"/>
+            <xsd:element name="OFFSET" minOccurs="0" maxOccurs="1">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="DC1" type="xsd:double"/>
+                  <xsd:element name="DC2" type="xsd:double"/>
+                </xsd:sequence>
+                <xsd:attribute name="SYSTEM">
+                  <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                      <xsd:enumeration value="J2000"/>
+                      <xsd:enumeration value="B1950"/>
+                      <xsd:enumeration value="Az/El"/>
+                      <xsd:enumeration value="Galactic"/>
+                    </xsd:restriction>
+                  </xsd:simpleType>
+                </xsd:attribute>
+              </xsd:complexType>
+            </xsd:element>
           </xsd:sequence>
           <xsd:attribute name="TYPE">
             <xsd:simpleType>
@@ -1127,9 +1145,7 @@
           </xsd:attribute>  
         </xsd:complexType>
       </xsd:element>
-      <xsd:element ref="meta_unique" minOccurs="0"/>
       <xsd:element name="meta_gui_selectedTelescopePos" type="xsd:string" minOccurs="0"/>
-      <xsd:element ref="meta_unique" minOccurs="0"/>
     </xsd:sequence>
     <xsd:attribute name="type" type="SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="targetList"/>
