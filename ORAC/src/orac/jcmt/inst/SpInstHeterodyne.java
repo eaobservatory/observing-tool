@@ -131,19 +131,36 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
     if(name.equals("bandSystem")) {
       prefix = "    ";
+
+      // Close <heterodyne> tag
+      _freqEditorXmlBuffer.append(">\n");
     }
 
     if(name.equals("subSystem")) {
       prefix = "      ";
+
+      // Close <bandSystem> tag
+      _freqEditorXmlBuffer.append(">\n");
     }    
 
     _freqEditorXmlBuffer.append(prefix + "<" + name);    
   }
 
   public void processXmlElementEnd(String name) {
-    _freqEditorXmlBuffer.append(">\n");
+    if(name.equals("subSystem")) {
+      // Close <subSystem> tag
+      _freqEditorXmlBuffer.append("/>\n");
+    }
+
+    if(name.equals("bandSystem")) {
+      // Add </bandSystem> tag
+      _freqEditorXmlBuffer.append("</bandSystem>\n");
+    }
 
     if(name.equals("heterodyne")) {
+      // Add </heterodyne> tag
+      _freqEditorXmlBuffer.append("</heterodyne>\n");
+
       setFreqEditorXml(_freqEditorXmlBuffer.toString());
     }
   }
