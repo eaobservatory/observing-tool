@@ -27,6 +27,11 @@ import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpChopCapability;
 import gemini.sp.obsComp.SpStareCapability;
 import gemini.sp.iter.SpIterStep;
+import gemini.sp.iter.SpIterConfigObs;
+import orac.ukirt.iter.SpIterBiasObs;
+import orac.ukirt.iter.SpIterDarkObs;
+import orac.ukirt.iter.SpIterMichelleCalObs;
+
 
 /**
  * The Michelle instrument.
@@ -2445,6 +2450,24 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         updateDAObjConf();
     }
 
+    /**
+     * Returns a time estimate in seconds for slewing the telescope.
+     *
+     * <pre>
+     * Imaging:      3 minutes
+     * Spectroscopy: 8 minutes
+     * </pre>
+     */
+    public double getSlewTime() {
+        if(isImaging()) {
+            return 3.0 * 60.0;
+        }
+	else {
+            return 8.0 * 60.0;
+	}    
+    }
+
+
   /**
    * Iteration Tracker for Michelle.
    *
@@ -2452,15 +2475,29 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
    *
    * @see gemini.sp.obsComp.SpInstObsComp
    */
-  public class IterTrackerMichelle extends IterationTracker {
+  public class IterTrackerMichelle extends IterTrackerUKIRT {
 
     public void update(SpIterStep spIterStep) {
-      // Do nothing.
+      currentIterStepItem = spIterStep.item;
     }
 
 
     public double getObserveStepTime () {
-      return getActualObservationTime();
+      // extra_oh is a constant overheads related to certain observe iterators:
+      // 30 seconds for dark, arc, flat or bias (in addition to the times to do
+      // their respective eye), and 30 secs each time an instrument iterator changes a filter.  
+      double extra_oh = 0.0;
+
+      if((currentIterStepItem != null) &&
+         ((currentIterStepItem instanceof SpIterBiasObs) ||
+          (currentIterStepItem instanceof SpIterDarkObs) ||
+          (currentIterStepItem instanceof SpIterMichelleCalObs) ||
+	  (currentIterStepItem instanceof SpIterConfigObs))) {
+
+        extra_oh = 30.0;
+      }
+
+      return getActualObservationTime() + extra_oh;
     }
   }
 
