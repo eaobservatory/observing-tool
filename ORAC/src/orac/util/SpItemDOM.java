@@ -46,6 +46,7 @@ public class SpItemDOM {
   }
 
   public SpItemDOM(SpItem spItem, DocumentImpl ownerDoc) {
+  
     String classNameTag = spItem.getClass().getName().substring(spItem.getClass().getName().lastIndexOf(".") + 1);
     _element = (ElementImpl)ownerDoc.createElement(classNameTag);
 
@@ -72,16 +73,16 @@ public class SpItemDOM {
 
   }
 
-  public SpItemDOM(Reader xmlReader) { //throws SAXException, IOException {
+  public SpItemDOM(Reader xmlReader) throws Exception { //SAXException, IOException {
     DOMParser parser = new DOMParser();
 
     /*MFO TODO: better error handling.*/
-    try {
-      parser.parse(new InputSource(xmlReader));
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
+    //try {
+    parser.parse(new InputSource(xmlReader));
+    //}
+    //catch(Exception e) {
+    //  e.printStackTrace();
+    //}
 
     _element = (ElementImpl)parser.getDocument().getDocumentElement();
   }
@@ -96,7 +97,7 @@ public class SpItemDOM {
       format.setIndenting(true);
       format.setIndent(2);
       format.setLineSeparator("\n" + indent);
-      format.setOmitXMLDeclaration(true);
+      format.setOmitXMLDeclaration(false);
 
       StringWriter  stringOut = new StringWriter();        //Writer will be a String
       XMLSerializer    serial = new XMLSerializer( stringOut, format );
@@ -188,33 +189,73 @@ public class SpItemDOM {
   }
 */
   protected void fillAvTable(String nameSoFar, ElementImpl remainingTree, SpAvTable avTab) {
+    // Ignore ItemData
+    if((remainingTree.getNodeName().equals("ItemData"))) {
+      return;
+    }
+  
+    String prefix;
+    if((nameSoFar != null) && (nameSoFar.trim() != "")) {
+      if(nameSoFar.equals(SpAvTableDOM.META_DATA_TAG)) {
+        prefix = ".";
+      }
+      else {
+        prefix = nameSoFar + ".";
+      }	
+    }
+    else {
+      prefix = "";
+    }
+    
     // Deal with attributes
-    System.out.println(remainingTree.getNodeName() + ": " + remainingTree.getNodeValue());
-    //if(remainingTree.hasAttributes()) {
     if(remainingTree.getAttributes() != null && remainingTree.getAttributes().getLength() > 0) {
       NamedNodeMap nodeMap = remainingTree.getAttributes();
       for(int i = 0; i < nodeMap.getLength(); i++) {
-       avTab.set(nameSoFar + "." + remainingTree.getNodeName()
+       avTab.set(prefix          + remainingTree.getNodeName()
                            + ":" + nodeMap.item(i).getNodeName(),
 			           nodeMap.item(i).getNodeValue());
       }
     }
+
     
     NodeList nodeList = remainingTree.getChildNodes();
+    Vector valueVector = new Vector();
     for(int i = 0; i < nodeList.getLength(); i++) {
       if(nodeList.item(i) instanceof ElementImpl) {
-        fillAvTable(nameSoFar + "." + remainingTree.getNodeName(),
+        if(nodeList.item(i).getNodeName().equals("value")) {
+	  if((nodeList.item(i).getFirstChild() != null) && (nodeList.item(i).getFirstChild().getNodeValue() != null)) {
+	    valueVector.add(nodeList.item(i).getFirstChild().getNodeValue());
+          }
+	  else {
+            valueVector.add("");
+	  }
+	}
+	else {
+	  fillAvTable(prefix + remainingTree.getNodeName(),
                       (ElementImpl)nodeList.item(i),
 		      avTab);
+	}	      
       }
       else if(nodeList.item(i) instanceof TextImpl) {
-        avTab.set(nameSoFar + "." + remainingTree.getNodeName(),
+        // Ignore extra items beginning with "\n" created by DOMParser.parse().
+        if(!nodeList.item(i).getNodeValue().startsWith("\n")) {
+          
+	  avTab.set(prefix + remainingTree.getNodeName(),
 	                         nodeList.item(i).getNodeValue());
+	}
+	else {
+	}
       }
       else {
         /*MFO TODO: better error handling.*/ System.out.println("Unknown node type: " + nodeList.item(i).getClass().getName());
       }
+    }  
+    
+    // adding value vector
+    if(valueVector.size() > 0) {
+      avTab.setAll(prefix + remainingTree.getNodeName(), valueVector);
     }
+  
   }
 
   public SpRootItem getSpItem() {
@@ -239,12 +280,12 @@ public class SpItemDOM {
     if(itemDataElement == null) {
       return null;
     }
-
     SpType spType = SpType.get(itemDataElement.getAttribute(SP_ITEM_TYPE),
                                itemDataElement.getAttribute(SP_ITEM_SUBTYPE));
-			       
-    SpItem spItem = SpFactory.create(spType);
+    
+    SpItem spItem = SpFactory.createShallow(spType);
     spItem.name(itemDataElement.getAttribute(SP_ITEM_NAME));
+
 
     NodeList nodeList = element.getChildNodes();
     ElementImpl childElement = null;
@@ -263,14 +304,13 @@ public class SpItemDOM {
         }
 	// DOM element represents an SpAvTable attribute.
 	else {
-          System.out.println("Calling fillAvTable for" + element.getNodeName());
-	  fillAvTable("", element, spItem.getTable());
+	  fillAvTable("", childElement, spItem.getTable());
 	  //addAttrtibuteValuePair(childElement, spItem.getTable());
 	}
       }
     }  
 
-    if (childV != null) {
+    if ((childV != null) && (childV.size() > 0)) {
   
       SpItem[] spItemA = new SpItem[ childV.size() ];
 
@@ -285,8 +325,11 @@ public class SpItemDOM {
         /*MFO TODO: better error handling.*/ //throw new Exception("Illegal program or plan.");
         /*MFO TODO: better error handling.*/ System.out.println("Illegal program or plan.");
       }
-      SpTreeMan.insert(spID);
+      else {
+        SpTreeMan.insert(spID);
+      }	
     }
+    
     return spItem;  
   }
 
