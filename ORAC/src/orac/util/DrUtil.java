@@ -44,7 +44,7 @@ public class DrUtil {
    * @return airmass estimate
    */
   public static double airmass(double dec, double latitude) {
-    return 1.0 / Math.cos(0.9 * (((dec - latitude) * Math.PI) / 180.0));
+    return 1.0 / (0.9 * Math.cos(((dec - latitude) * Math.PI) / 180.0));
   }
 
 
