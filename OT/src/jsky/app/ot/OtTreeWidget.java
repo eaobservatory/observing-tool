@@ -1011,9 +1011,6 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	if (spMSB.isSuspended()) {
 	    resultComponent.setForeground(Color.red);
 	}
-        if ( spMSB.getElapsedTime() > 2.0 * 3600 ) {
-            resultComponent.setForeground(Color.red);
-        }
       }
 
 
