@@ -41,6 +41,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Band mode: 1-system, 2-system etc.  */
   public static final String ATTR_BAND_MODE = "bandMode";
 
+    /** Mixer selection: Single or dual */
+    public static final String ATTR_MIXER = "mixers";
+
   /** Radial velocity. */
   public static final String ATTR_VELOCITY = "velocity";
 
@@ -147,6 +150,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       String defaultFeName,
       String defaultMode,
       String defaultBandMode,
+      String defaultMixer,
       String defaultOverlap,
       String defaultVelocity,
       String defaultVelocityDefinition,
@@ -161,6 +165,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifySet(ATTR_FE_NAME,             defaultFeName,             0);
     _avTable.noNotifySet(ATTR_MODE,                defaultMode,               0);
     _avTable.noNotifySet(ATTR_BAND_MODE,           defaultBandMode,           0);
+    _avTable.noNotifySet(ATTR_MIXER,               defaultMixer,              0);
     _avTable.noNotifySet(ATTR_OVERLAP,             defaultOverlap,            0);
     _avTable.noNotifySet(ATTR_VELOCITY,            defaultVelocity,           0);
     _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, defaultVelocityDefinition, 0);
@@ -224,7 +229,10 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Get front end name.
    */
   public String getFrontEnd() {
-    return _avTable.get(ATTR_FE_NAME);
+      if (_avTable.get(ATTR_FE_NAME) == null || _avTable.get(ATTR_FE_NAME).equals("")) {
+	  _avTable.noNotifySet(ATTR_FE_NAME, "A3", 0);
+      }
+      return _avTable.get(ATTR_FE_NAME);
   }
 
   /**
@@ -260,7 +268,10 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Get mode: single side band (ssb), double side band (dsb).
    */
   public String getMode() {
-    return _avTable.get(ATTR_MODE);
+      if (_avTable.get(ATTR_MODE) == null || _avTable.get(ATTR_MODE).equals("")) {
+	  _avTable.noNotifySet(ATTR_MODE,"ssb",0);
+      }
+      return _avTable.get(ATTR_MODE);
   }
 
   /**
@@ -294,6 +305,19 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifyRm(ATTR_REST_FREQUENCY);
   }
 
+    /**
+     * Get the mixer mode
+     */
+    public String getMixer() {
+	return _avTable.get(ATTR_MIXER);
+    }
+
+    /**
+     * Set the mixer mode
+     */
+    public void setMixer(String value){
+	_avTable.set(ATTR_MIXER, value);
+    }
 
   /**
    * Get velocity definition.
@@ -624,7 +648,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
     int sideband = 1; // usb
 
-    if(sidebandString.equals("lsb")) {
+    if(sidebandString != null && sidebandString.equals("lsb")) {
       sideband = -1;
     }
 
