@@ -25,6 +25,10 @@ import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 import jsky.app.ot.OtCfg;
 
 import gemini.sp.SpNote;
+import gemini.sp.SpItem;
+import gemini.sp.SpRootItem;
+import gemini.sp.SpMSB;
+import gemini.sp.SpObs;
 
 /**
  * This is the editor for Note item.
@@ -56,6 +60,21 @@ public final class EdNote extends OtItemEditor
 	rtbw.addWatcher(this);
 
 	// The observe instruction check box.
+	if ( _spItem != null) {
+	    // Disable if within sequence
+	    SpItem parent = _spItem.parent();
+	    if ( parent != null) {
+		if ( !(parent instanceof SpRootItem) &&
+		     !(parent instanceof SpMSB)      &&
+		     !(parent instanceof SpObs) ) {
+		    _w.observeInstruction.setVisible(false);
+		    if ( _w.observeInstruction.isSelected() ) _w.observeInstruction.doClick();
+		}
+		else {
+		    _w.observeInstruction.setVisible(true);
+		}
+	    }
+	}
 	_w.observeInstruction.addWatcher(this);
 
 	String [] observerTags = OtCfg.getNoteTags();
@@ -108,6 +127,22 @@ public final class EdNote extends OtItemEditor
 
 	Component [] taggedComponents = _w.observerInputPanel.getComponents();
 
+	// The observe instruction check box.
+	if ( _spItem != null) {
+	    // Disable if within sequence
+	    SpItem parent = _spItem.parent();
+	    if ( parent != null) {
+		if ( !(parent instanceof SpRootItem) &&
+		     !(parent instanceof SpMSB)      &&
+		     !(parent instanceof SpObs) ) {
+		    _w.observeInstruction.setVisible(false);
+		    if ( _w.observeInstruction.isSelected() ) _w.observeInstruction.doClick();
+		}
+		else {
+		    _w.observeInstruction.setVisible(true);
+		}
+	    }
+	}
 	_w.observeInstruction.setValue(((SpNote)_spItem).isObserveInstruction());
 	if ( _w.observeInstruction.isSelected() ) {
 	    _w.observerInputPanel.setVisible(true);
@@ -154,6 +189,7 @@ public final class EdNote extends OtItemEditor
     public void	textBoxAction(TextBoxWidgetExt tbwe) {}
 
     public void checkBoxAction(CheckBoxWidgetExt checkBoxWidgetExt) {
+	System.out.println("In checkbox action listener");
 	((SpNote)_spItem).setObserveInstruction(_w.observeInstruction.getBooleanValue());
 	_updateWidgets();
     }

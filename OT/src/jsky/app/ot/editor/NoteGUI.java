@@ -54,7 +54,7 @@ public class NoteGUI extends JPanel {
 
         jPanel2.setLayout(gridBagLayout2);
 
-	observerInputPanel.setLayout( new GridLayout(0, 3, 5, 0) );
+	observerInputPanel.setLayout( new GridBagLayout() );
 	if ( observerLabels != null) {
 	    for ( int i=0; i<observerLabels.length; i++) {
 		JLabel label = new JLabel( observerLabels[i] );
@@ -68,9 +68,15 @@ public class NoteGUI extends JPanel {
 		exampleLabel.setFont(new java.awt.Font("Dialog", 0, 12));
 		exampleLabel.setForeground(Color.black);
 		
-		observerInputPanel.add( label );
-		observerInputPanel.add( inputField );
-		observerInputPanel.add( exampleLabel );
+		observerInputPanel.add( label, new GridBagConstraints(0, i, 1, 1, 0.0, 0.0, 
+								      GridBagConstraints.WEST, GridBagConstraints.NONE, 
+								      new Insets(0, 0, 0, 5), 0, 0));
+		observerInputPanel.add( inputField, new GridBagConstraints(1, i, 1, 1, 1.0, 0.0, 
+									   GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, 
+									   new Insets(0, 0, 0, 5), 0, 0));
+		observerInputPanel.add( exampleLabel, new GridBagConstraints(2, i, 1, 1, 0.0, 0.0, 
+									   GridBagConstraints.WEST, GridBagConstraints.NONE, 
+									   new Insets(0, 0, 0, 0), 0, 0));
 	    }
 	}
 
