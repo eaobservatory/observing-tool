@@ -485,8 +485,12 @@ final public class JHLauncher implements java.io.Serializable {
 	mi.setMnemonic('x');
 	mi.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-      
-  		frame.show(false);   //System.exit(0);
+		// setVisible(false) is used instead of dispose() because dispose() causes the OT to
+		// get stuck (almost freeze).
+		// In order to prevent having too many invisible help frames the same help frame (actually
+		// the same JHLauncher) is being reused, i.e. setVisible(true), whenever the user selects the
+		// help menu again.
+  		frame.setVisible(false);    //System.exit(0);
 	    }
 	});
 
@@ -704,7 +708,7 @@ public void setup(String args[]) {
 					  "Error",
 					  JOptionPane.ERROR_MESSAGE);
 	    if (jh == null)
-		System.exit(0);
+		frame.setVisible(false);    //System.exit(0);
 	    else
 		return;
 	}
@@ -839,7 +843,7 @@ public void setup(String args[]) {
     private class CancelAction implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	    if (frame == null) {
-		System.exit(0);
+		frame.setVisible(false);    //System.exit(0);
 	    }
 	    selectionDialog.setVisible(false);
 	}
@@ -910,10 +914,10 @@ public void setup(String args[]) {
 	if (frame == null) {
 	    WindowListener closer = new WindowAdapter() {
 		public void windowClosing(WindowEvent e) {
-		    System.exit(0);
+		    frame.setVisible(false);    //System.exit(0);
 		}
 		public void windowClosed(WindowEvent e) {
-		    System.exit(0);
+		    frame.setVisible(false);    //System.exit(0);
 		}
 	    };
 
@@ -940,7 +944,7 @@ public void setup(String args[]) {
 	frame.setJMenuBar(bar);
     }
 
-    protected void launch() {
+    public void launch() {
 	if (frame == null) return;
 	frame.setVisible(true);
     }
@@ -954,7 +958,7 @@ public void setup(String args[]) {
 	    System.err.println("JHLauncher: "+msg);
 	}
 	System.err.println("Usage: [-helpset name | -classpath path | -hsURL spec]");
-	System.exit(1);
+	frame.setVisible(false);    //System.exit(1);
     }
 
 
