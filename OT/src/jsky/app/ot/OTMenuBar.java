@@ -187,7 +187,7 @@ public class OTMenuBar extends JMenuBar {
 	JMenuItem menuItem = new JMenuItem("Preferences");
         menuItem.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent ae) {
-		ot.preferences();
+		OT.preferences();
 	    }
 	});
 	return menuItem;
