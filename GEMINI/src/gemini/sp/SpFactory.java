@@ -116,18 +116,22 @@ static {
 }
 
 /**
- * Register a new prototype.  You cannot replace an existing prototype.
+ * Register a new prototype. Replacing an existing prototype is now allowed (MFO, June 10, 2002).
  */
 public static void
 registerPrototype(SpItem protoItem)
 {
-   try {
-     Assert.notFalse(_prototypes.get(protoItem.type()) == null);
-   }
-   catch(IllegalArgumentException e) {
-     System.out.println("Problem registering " + protoItem.toString());
-     throw e;
-   }
+
+     // Replacing an existing prototype has to be allowed so that
+     // orac.jcmt.obsComp.SpSiteQualityObsComp can replace
+     // gemini.sp.obsComp.SpSiteQualityObsComp (MFO, June 10, 2002).
+//   try {
+//     Assert.notFalse(_prototypes.get(protoItem.type()) == null);
+//   }
+//   catch(IllegalArgumentException e) {
+//     System.out.println("Problem registering " + protoItem.toString());
+//     throw e;
+//   }
    
    _prototypes.put(protoItem.type(), protoItem);
 }
