@@ -29,6 +29,7 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.util.CoordSys;
+import jsky.app.ot.tpe.TpeManager;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
@@ -85,6 +86,8 @@ public class EdIterChop extends OtItemEditor
         _w.down.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/down.gif")));
 
         _w.coordFrameListBox.setChoices(CoordSys.COORD_SYS);
+	_w.coordFrameListBox.addChoice("AZ");
+	_w.coordFrameListBox.addChoice("NA");
 
 	_w.throwTextBox.addWatcher(this);
 	_w.angleTextBox.addWatcher(this);
@@ -281,6 +284,17 @@ public class EdIterChop extends OtItemEditor
       _w.angleTextBox.setValue((String)_iterTab.getValueAt(rowIndex, 1));
       _w.coordFrameListBox.setValue(_iterTab.getValueAt(rowIndex, 2));
 
+      _iterChop.setSelectedIndex(rowIndex);
+
+      // MFO
+      // I think this is implemented in a different way in Gemini ot-2000B.12.
+      try {
+        TpeManager.get(_iterChop).reset(_iterChop);
+      }
+      catch(NullPointerException e) {
+        // ignore
+      }
+
       _ignoreGuiEvents = false;
     
       /*MFO DEBUG*/System.out.println("in tableRowSelected");
@@ -385,6 +399,15 @@ public class EdIterChop extends OtItemEditor
       _iterChop.setThrow((String)_iterTab.getValueAt(i, 0), i);
       _iterChop.setAngle((String)_iterTab.getValueAt(i, 1), i);
       _iterChop.setCoordFrame((String)_iterTab.getValueAt(i, 2), i);
+    }
+
+    // MFO
+    // I think this is implemented in a different way in Gemini ot-2000B.12.
+    try {
+      TpeManager.get(_iterChop).reset(_iterChop);
+    }
+    catch(NullPointerException exception) {
+      // ignore
     }
   }
 }
