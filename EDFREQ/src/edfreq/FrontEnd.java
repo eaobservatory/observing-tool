@@ -68,7 +68,6 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    private JScrollPane scrollPanel;
    private double redshift = 0.0;
    private double subBandWidth = 0.25E9;
-   private ReceiverList receiverList = new ReceiverList();
    private double loMin;
    private double loMax;
    private double feIF;
