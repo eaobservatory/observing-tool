@@ -14,6 +14,7 @@ package orac.ukirt.iter;
 import java.util.*;
 import java.io.*;
 
+import gemini.util.*;
 import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstUIST;
 import gemini.sp.SpFactory;
@@ -55,7 +56,7 @@ _thisFirstElement()
 {
 
    SpIterUISTCalObs ico = (SpIterUISTCalObs) _iterComp;
-   _values = new SpIterValue[25];
+   _values = new SpIterValue[16]; // Only need 16 items now (was 25) RDK
 
    ico.updateDAConf();
    _values[0] = new SpIterValue(SpUISTCalConstants.ATTR_FILTER,
@@ -64,49 +65,60 @@ _thisFirstElement()
       ico.W_mode);
    _values[2] = new SpIterValue(SpUISTCalConstants.ATTR_EXPOSURE_TIME,
       String.valueOf(ico.W_actExpTime));
-   _values[3] = new SpIterValue(SpUISTCalConstants.ATTR_WAVEFORM,
-      ico.W_waveform);
-   _values[4] = new SpIterValue(SpUISTCalConstants.ATTR_NREADS,
+// Commented by RDK
+//    _values[3] = new SpIterValue(SpUISTCalConstants.ATTR_WAVEFORM,
+//       ico.W_waveform);
+// End of commented by RDK
+// Renumbered _values indexes to be contiguous after above items removed by RDK
+    _values[3] = new SpIterValue(SpUISTCalConstants.ATTR_NREADS,
       String.valueOf(ico.W_nreads));
-   _values[5] = new SpIterValue(SpUISTCalConstants.ATTR_NRESETS,
-      String.valueOf(ico.W_nresets));
-   _values[6] = new SpIterValue(SpUISTCalConstants.ATTR_RESET_DELAY,
-      String.valueOf(ico.W_resetDelay));
-   _values[7] = new SpIterValue(SpUISTCalConstants.ATTR_READ_INTERVAL,
+// Commented by RDK
+//    _values[5] = new SpIterValue(SpUISTCalConstants.ATTR_NRESETS,
+//       String.valueOf(ico.W_nresets));
+//    _values[6] = new SpIterValue(SpUISTCalConstants.ATTR_RESET_DELAY,
+//       String.valueOf(ico.W_resetDelay));
+// End of commented by RDK
+// Renumbered _values indexes to be contiguous after above items removed by RDK
+    _values[4] = new SpIterValue(SpUISTCalConstants.ATTR_READ_INTERVAL,
       String.valueOf(ico.W_readInterval));
-   _values[8] = new SpIterValue(SpUISTCalConstants.ATTR_IDLE_PERIOD,
-      String.valueOf(ico.W_idlePeriod));
-   _values[9] = new SpIterValue(SpUISTCalConstants.ATTR_MUST_IDLES,
-      String.valueOf(ico.W_mustIdles));
-   _values[10] = new SpIterValue(SpUISTCalConstants.ATTR_NULL_CYCLES,
-      String.valueOf(ico.W_nullCycles));
-   _values[11] = new SpIterValue(SpUISTCalConstants.ATTR_NULL_EXPOSURES,
-      String.valueOf(ico.W_nullExposures));
-   _values[12] = new SpIterValue(SpUISTCalConstants.ATTR_NULL_READS,
-      String.valueOf(ico.W_nullReads));
-   _values[13] = new SpIterValue(SpUISTCalConstants.ATTR_DUTY_CYCLE,
+// Commented by RDK
+//    _values[8] = new SpIterValue(SpUISTCalConstants.ATTR_IDLE_PERIOD,
+//       String.valueOf(ico.W_idlePeriod));
+//    _values[9] = new SpIterValue(SpUISTCalConstants.ATTR_MUST_IDLES,
+//       String.valueOf(ico.W_mustIdles));
+//    _values[10] = new SpIterValue(SpUISTCalConstants.ATTR_NULL_CYCLES,
+//       String.valueOf(ico.W_nullCycles));
+//    _values[11] = new SpIterValue(SpUISTCalConstants.ATTR_NULL_EXPOSURES,
+//       String.valueOf(ico.W_nullExposures));
+//    _values[12] = new SpIterValue(SpUISTCalConstants.ATTR_NULL_READS,
+//       String.valueOf(ico.W_nullReads));
+// End of commented by RDK
+// Renumbered _values indexes to be contiguous after above items removed by RDK
+   _values[5] = new SpIterValue(SpUISTCalConstants.ATTR_DUTY_CYCLE,
       String.valueOf(ico.W_dutyCycle));
-   _values[14] = new SpIterValue(SpUISTCalConstants.ATTR_CHOP_FREQUENCY,
+   _values[6] = new SpIterValue(SpUISTCalConstants.ATTR_CHOP_FREQUENCY,
       ico.W_chopFrequency);
-   _values[15] = new SpIterValue(SpUISTCalConstants.ATTR_CHOP_DELAY,
+   _values[7] = new SpIterValue(SpUISTCalConstants.ATTR_CHOP_DELAY,
       String.valueOf(ico.W_chopDelay));
-   _values[16] = new SpIterValue(SpUISTCalConstants.ATTR_COADDS,
+   _values[8] = new SpIterValue(SpUISTCalConstants.ATTR_COADDS,
       String.valueOf(ico.W_coadds));
-   _values[17] = new SpIterValue(SpUISTCalConstants.ATTR_FLAT_SOURCE,
+   _values[9] = new SpIterValue(SpUISTCalConstants.ATTR_FLAT_SOURCE,
       ico.getFlatSource());
-   _values[18] = new SpIterValue(SpUISTCalConstants.ATTR_ARC_SOURCE,
+   _values[10] = new SpIterValue(SpUISTCalConstants.ATTR_ARC_SOURCE,
       ico.getArcSource());
-   _values[19] = new SpIterValue(SpUISTCalConstants.ATTR_FOCUS,
+   _values[11] = new SpIterValue(SpUISTCalConstants.ATTR_FOCUS,
       ico.getFocus());
-   _values[20] = new SpIterValue(SpUISTCalConstants.ATTR_ORDER,
+   _values[12] = new SpIterValue(SpUISTCalConstants.ATTR_ORDER,
       ico.getOrder());
-   _values[21] = new SpIterValue(SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH,
+   _values[13] = new SpIterValue(SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH,
       ico.getCentralWavelength());
-   _values[22] = new SpIterValue(SpUISTCalConstants.ATTR_OBSERVATION_TIME,
+   _values[14] = new SpIterValue(SpUISTCalConstants.ATTR_OBSERVATION_TIME,
       String.valueOf(ico.W_obsTime));
-   _values[23] = new SpIterValue(SpUISTCalConstants.ATTR_OBSTIME_OT,
-      ico.getObsTimeOT());
-   _values[24] = new SpIterValue(SpUISTCalConstants.ATTR_EXPTIME_OT,
+// Commented by RDK
+//    _values[23] = new SpIterValue(SpUISTCalConstants.ATTR_OBSTIME_OT,
+//       ico.getObsTimeOT());
+// End of commented by RDK
+   _values[15] = new SpIterValue(SpUISTCalConstants.ATTR_EXPTIME_OT,
       ico.getExpTimeOTString());
 
    return _thisNextElement();
@@ -136,16 +148,22 @@ public class SpIterUISTCalObs extends SpIterObserveBase
    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "UISTCalObs", "UIST Cal Observe");
    public String W_mode;
-   public String W_waveform;
+// Commented by RDK
+//   public String W_waveform;
+// End of commented by RDK
    public int W_nreads;
-   public int W_nresets;
-   public double W_resetDelay;
+// Commented by RDK
+//    public int W_nresets;
+//    public double W_resetDelay;
+// End of commented by RDK
    public double W_readInterval;
-   public double W_idlePeriod;
-   public int W_mustIdles;
-   public int W_nullCycles;
-   public int W_nullExposures;
-   public int W_nullReads;
+// Commented by RDK
+//    public double W_idlePeriod;
+//    public int W_mustIdles;
+//    public int W_nullCycles;
+//    public int W_nullExposures;
+//    public int W_nullReads;
+// End of commented by RDK
    public String W_chopFrequency;
    public double W_chopDelay;
    public int W_coadds;
@@ -166,20 +184,27 @@ public SpIterUISTCalObs()
 {
    super(SP_TYPE);
 
+
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CALTYPE,"Flat",0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_FILTER,null,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_MODE,null,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_EXPOSURE_TIME,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_WAVEFORM,null,0);
+// Commented by RDK
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_WAVEFORM,null,0);
+// End of added by RDK
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NREADS,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NRESETS,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_RESET_DELAY,null,0);
+// Commented by RDK
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NRESETS,null,0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_RESET_DELAY,null,0);
+// End of added by RDK
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_READ_INTERVAL,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_IDLE_PERIOD,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_MUST_IDLES,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_CYCLES,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_EXPOSURES,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_READS,null,0);
+// Commented by RDK
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_IDLE_PERIOD,null,0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_MUST_IDLES,null,0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_CYCLES,null,0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_EXPOSURES,null,0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_READS,null,0);
+// End of added by RDK
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_DUTY_CYCLE,null,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CHOP_FREQUENCY,null,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CHOP_DELAY,null,0);
@@ -191,7 +216,9 @@ public SpIterUISTCalObs()
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH,null,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_OBSERVATION_TIME,null,0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_EXPTIME_OT,null,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_OBSTIME_OT,null,0);
+// Commented by RDK
+//   _avTable.noNotifySet(SpUISTCalConstants.ATTR_OBSTIME_OT,null,0);
+// End of added by RDK
 
 }
 
@@ -271,23 +298,42 @@ getDefaultExpTimeOT()
 
 }
 
+// Commented by RDK
+
 /**
  * Provide a default observation time.
  */
-public double
-getDefaultObsTimeOT()
+// public double
+// getDefaultObsTimeOT()
+// {
+//   double dot = 0.0;
+//   // Get the observation time from the UIST instrument
+//   SpInstUIST inst =  (SpInstUIST) getInstrumentItem();
+//   if (getCalType() == FLAT) {
+//     dot = inst.getDefaultFlatObsTimeOT();
+//   } else if (getCalType() == ARC) {
+//     dot = inst.getDefaultArcObsTimeOT();
+//   }
+//   return dot;
+
+// }
+// End of commented by RDK
+// Added by RDK
+public int
+getDefaultCoadds()
 {
-  double dot = 0.0;
-  // Get the observation time from the UIST instrument
+  int dc = 1;
+  // Get the coadds from the UIST instrument
   SpInstUIST inst =  (SpInstUIST) getInstrumentItem();
   if (getCalType() == FLAT) {
-    dot = inst.getDefaultFlatObsTimeOT();
+    dc = inst.getDefaultFlatCoadds();
   } else if (getCalType() == ARC) {
-    dot = inst.getDefaultArcObsTimeOT();
+    dc = inst.getDefaultArcCoadds();
   }
-  return dot;
+  return dc;
 
 }
+// End of added by RDK
 
 /**
  * Set the exposure time OT
@@ -298,27 +344,29 @@ setExpTimeOT(String expTime)
    _avTable.set(SpUISTCalConstants.ATTR_EXPTIME_OT, expTime);
 }
 
+// Commented by RDK
 /**
  * Set the observation time OT
  */
-public void
-setObsTimeOT(String obsTime)
-{
-   _avTable.set(SpUISTCalConstants.ATTR_OBSTIME_OT, obsTime);
-}
+// public void
+// setObsTimeOT(String obsTime)
+// {
+//    _avTable.set(SpUISTCalConstants.ATTR_OBSTIME_OT, obsTime);
+// }
 
 /**
  * Get the observation Time
  */
-public String
-getObsTimeOT()
-{
-   String obsTime = _avTable.get(SpUISTCalConstants.ATTR_OBSTIME_OT);
-   if (obsTime == null) {
-      obsTime = Double.toString(getDefaultObsTimeOT());
-      setObsTimeOT(obsTime);
-   }   return obsTime; 
-}
+// public String
+// getObsTimeOT()
+// {
+//    String obsTime = _avTable.get(SpUISTCalConstants.ATTR_OBSTIME_OT);
+//    if (obsTime == null) {
+//       obsTime = Double.toString(getDefaultObsTimeOT());
+//       setObsTimeOT(obsTime);
+//    }   return obsTime; 
+// }
+// End of commented by RDK
 
 /**
  * Get the type of calibration.
@@ -585,6 +633,20 @@ setFilter(String filter)
    _avTable.set(SpUISTCalConstants.ATTR_FILTER, filter);
 }
 
+// Commented by RDK
+/**
+ * Get coadds number as string
+*/
+// public String
+// getCoaddsString()
+// {
+//    String coadds = _avTable.get(SpUISTCalConstants.ATTR_COADDS);
+//    return coadds;
+// }
+// End of commented by RDK
+
+// Added by RDK
+
 /**
  * Get coadds number as string
 */
@@ -592,9 +654,33 @@ public String
 getCoaddsString()
 {
    String coadds = _avTable.get(SpUISTCalConstants.ATTR_COADDS);
-   return coadds;
+   if (coadds == null) {
+      coadds = Integer.toString(getDefaultCoadds());
+      setCoadds(coadds);
+   }   return coadds; 
 }
 
+/**
+ * Set the coadds
+ */
+public void
+setCoadds(String coadds)
+{
+   _avTable.set(SpUISTCalConstants.ATTR_COADDS, coadds);
+}
+
+/**
+ * Get observation time as string
+*/
+public String
+getObservationTimeString()
+{
+    double ot = Double.valueOf(_avTable.get(SpUISTCalConstants.ATTR_OBSERVATION_TIME)).doubleValue();
+   String observationTime = Double.toString(MathUtil.round(ot,3));
+   return observationTime;
+}
+
+// End of added by RDK
 /**
  * use
 Defaults - reset values so that defaults will get used
@@ -605,16 +691,22 @@ useDefaults()
    _avTable.rm(SpUISTCalConstants.ATTR_FILTER);
    _avTable.rm(SpUISTCalConstants.ATTR_MODE);
    _avTable.rm(SpUISTCalConstants.ATTR_EXPOSURE_TIME);
-   _avTable.rm(SpUISTCalConstants.ATTR_WAVEFORM);
+// Commented by RDK
+//    _avTable.rm(SpUISTCalConstants.ATTR_WAVEFORM);
+// End of commented by RDK
    _avTable.rm(SpUISTCalConstants.ATTR_NREADS);
-   _avTable.rm(SpUISTCalConstants.ATTR_NRESETS);
-   _avTable.rm(SpUISTCalConstants.ATTR_RESET_DELAY);
+// Commented by RDK
+//    _avTable.rm(SpUISTCalConstants.ATTR_NRESETS);
+//    _avTable.rm(SpUISTCalConstants.ATTR_RESET_DELAY);
+// End of commented by RDK
    _avTable.rm(SpUISTCalConstants.ATTR_READ_INTERVAL);
-   _avTable.rm(SpUISTCalConstants.ATTR_IDLE_PERIOD);
-   _avTable.rm(SpUISTCalConstants.ATTR_MUST_IDLES);
-   _avTable.rm(SpUISTCalConstants.ATTR_NULL_CYCLES);
-   _avTable.rm(SpUISTCalConstants.ATTR_NULL_EXPOSURES);
-   _avTable.rm(SpUISTCalConstants.ATTR_NULL_READS);
+// Commented by RDK
+//    _avTable.rm(SpUISTCalConstants.ATTR_IDLE_PERIOD);
+//    _avTable.rm(SpUISTCalConstants.ATTR_MUST_IDLES);
+//    _avTable.rm(SpUISTCalConstants.ATTR_NULL_CYCLES);
+//    _avTable.rm(SpUISTCalConstants.ATTR_NULL_EXPOSURES);
+//    _avTable.rm(SpUISTCalConstants.ATTR_NULL_READS);
+// End of commented by RDK
    _avTable.rm(SpUISTCalConstants.ATTR_DUTY_CYCLE);
    _avTable.rm(SpUISTCalConstants.ATTR_CHOP_FREQUENCY);
    _avTable.rm(SpUISTCalConstants.ATTR_CHOP_DELAY);
@@ -623,7 +715,9 @@ useDefaults()
    _avTable.rm(SpUISTCalConstants.ATTR_ARC_SOURCE);
    _avTable.rm(SpUISTCalConstants.ATTR_OBSERVATION_TIME);
    _avTable.rm(SpUISTCalConstants.ATTR_EXPTIME_OT);
-   _avTable.rm(SpUISTCalConstants.ATTR_OBSTIME_OT);
+// Commented by RDK
+//   _avTable.rm(SpUISTCalConstants.ATTR_OBSTIME_OT);
+// End of commented by RDK
 }
 
 /**
@@ -635,25 +729,42 @@ updateDAConf()
    SpInstUIST inst =  (SpInstUIST) getInstrumentItem();
    if (getCalType() == FLAT) {
       inst.setFlatExpTime(getExpTimeOT());
-      inst.setFlatObsTimeOT(Double.valueOf(getObsTimeOT()).doubleValue());
+// Commented by RDK
+//      inst.setFlatObsTimeOT(Double.valueOf(getObsTimeOT()).doubleValue());
+// End of commented by RDK
+// Added by RDK
+      String coaddsString = getCoaddsString();
+      inst.setFlatCoadds(Integer.valueOf(coaddsString).intValue());
+// End of added by RDK
       inst.updateDAFlatConf();
    } else if (getCalType() == ARC) {
       inst.setArcExpTime(getExpTimeOT());
-      inst.setArcObsTimeOT(Double.valueOf(getObsTimeOT()).doubleValue());
+// Commented by RDK
+//      inst.setArcObsTimeOT(Double.valueOf(getObsTimeOT()).doubleValue());
+// End of commented by RDK
+// Added by RDK
+      inst.setArcCoadds(Integer.valueOf(getCoaddsString()).intValue());
+// End of added by RDK
       inst.updateDAArcConf();
    }
    /* Update local instance variables from UIST class */
    W_mode          = inst.W_mode;
-   W_waveform      = inst.W_waveform;
+// Commented by RDK
+//    W_waveform      = inst.W_waveform;
+// End of commented by RDK
    W_nreads        = inst.W_nreads;
-   W_nresets       = inst.W_nresets;
-   W_resetDelay    = inst.W_resetDelay;
+// Commented by RDK
+//    W_nresets       = inst.W_nresets;
+//    W_resetDelay    = inst.W_resetDelay;
+// End of commented by RDK
    W_readInterval  = inst.W_readInterval;
-   W_idlePeriod    = inst.W_idlePeriod;
-   W_mustIdles     = inst.W_mustIdles;
-   W_nullCycles    = inst.W_nullCycles;
-   W_nullExposures = inst.W_nullExposures;
-   W_nullReads     = inst.W_nullReads;
+// Commented by RDK
+//    W_idlePeriod    = inst.W_idlePeriod;
+//    W_mustIdles     = inst.W_mustIdles;
+//    W_nullCycles    = inst.W_nullCycles;
+//    W_nullExposures = inst.W_nullExposures;
+//    W_nullReads     = inst.W_nullReads;
+// End of commented by RDK
    W_dutyCycle     = inst.W_dutyCycle;
    W_chopFrequency = inst.W_chopFrequency;
    W_chopDelay     = inst.W_chopDelay;
@@ -663,25 +774,31 @@ updateDAConf()
 
    /* Update attributes from instance variables */
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_MODE,W_mode,0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_WAVEFORM,W_waveform,0);
+// Commented by RDK
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_WAVEFORM,W_waveform,0);
+// End of commented by RDK
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NREADS,
       Integer.toString(W_nreads),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NRESETS,
-      Integer.toString(W_nresets),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_RESET_DELAY,
-      Double.toString(W_resetDelay),0);
+// Commented by RDK
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NRESETS,
+//       Integer.toString(W_nresets),0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_RESET_DELAY,
+//       Double.toString(W_resetDelay),0);
+// End of commented by RDK
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_READ_INTERVAL,
       Double.toString(W_readInterval),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_IDLE_PERIOD,
-      Double.toString(W_idlePeriod),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_MUST_IDLES,
-      Integer.toString(W_mustIdles),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_CYCLES,
-      Integer.toString(W_nullCycles),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_EXPOSURES,
-      Integer.toString(W_nullExposures),0);
-   _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_READS,
-      Integer.toString(W_nullReads),0);
+// Commented by RDK
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_IDLE_PERIOD,
+//       Double.toString(W_idlePeriod),0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_MUST_IDLES,
+//       Integer.toString(W_mustIdles),0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_CYCLES,
+//       Integer.toString(W_nullCycles),0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_EXPOSURES,
+//       Integer.toString(W_nullExposures),0);
+//    _avTable.noNotifySet(SpUISTCalConstants.ATTR_NULL_READS,
+//       Integer.toString(W_nullReads),0);
+// End of commented by RDK
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_DUTY_CYCLE,
       Double.toString(W_dutyCycle),0);
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CHOP_FREQUENCY,

@@ -56,6 +56,8 @@ public final class EdCompInstUIST extends EdCompInstBase
     private SpInstUIST   _instUIST;
     private boolean haveInitialised = false;
     private UistGUI _w;
+
+
    /**
     * This flag is set true while _init is executed to prevent actionPerformed() to do react to
     * action events caused by initializing widgets.
@@ -164,6 +166,28 @@ public EdCompInstUIST()
     // GUIs in imaging group
     //
 
+// Added by RDK
+    //
+    // Pupil imaging mode
+    //
+    _w.imaging_pupilCamera.addWatcher( new CheckBoxWidgetWatcher() {
+        public void checkBoxAction(CheckBoxWidgetExt cb) {
+            if (cb.getBooleanValue()) {
+                _instUIST.setPupilImaging("yes");               
+	    } else {
+                _instUIST.setPupilImaging("no");
+	    }
+            _instUIST.useDefaultMask();
+            _updateImagerChoices();
+            _updatePupilCamera();
+            _updateFilterChoices();
+            _updateSourceMag();
+            _updateWidgets();
+        }
+    });
+
+// End of added by RDK
+
     //
     // Imager list
     //
@@ -199,6 +223,28 @@ public EdCompInstUIST()
     //
     // GUIs in spectroscopy group
     //
+
+// Added by RDK
+    //
+    // Target acquistion mode
+    //
+    _w.spectroscopy_targetAcqMode.addWatcher( new CheckBoxWidgetWatcher() {
+        public void checkBoxAction(CheckBoxWidgetExt cb) {
+            if (cb.getBooleanValue()) {
+                _instUIST.setTargetAcq("yes");
+	    } else {
+                _instUIST.setTargetAcq("no");
+	    }
+            _instUIST.setDisperser( _instUIST.getDefaultDisperser() );
+            _updateDisperserChoices();
+            _updateMaskChoices();
+            _updateTargetAcqMode();
+            _instUIST.useDefaultReadMode();
+            _instUIST.useDefaultReadArea();
+            _updateWidgets();
+        }
+    });
+// End of added by RDK
 
     //
     // Dispersers = Grisms
@@ -301,18 +347,51 @@ public EdCompInstUIST()
     // Readout
     //
 
-    _w.dataAcq_readout.addWatcher( new DropDownListBoxWidgetWatcher() {
-        public void
+// Commented for testing by RDK 30 Dec 2002
+//     _w.dataAcq_readout.addWatcher( new DropDownListBoxWidgetWatcher() {
+//         public void
+//         dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+//         public void
+//         dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+// 	  //            _instUIST.useDefaultAcquisition();
+//             _instUIST.setReadoutOT( val );
+//             _updateWidgets(_w.dataAcq_readout);
+//         }
+//     });
+
+// Added by RDK
+    //
+    // Readout mode
+    //
+     _w.dataAcq_readMode.addWatcher( new DropDownListBoxWidgetWatcher() {
+         public void
         dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
 
         public void
         dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
 	  //            _instUIST.useDefaultAcquisition();
-            _instUIST.setReadoutOT( val );
-            _updateWidgets(_w.dataAcq_readout);
+            _instUIST.setReadMode( val );
+            _updateWidgets(_w.dataAcq_readMode);
         }
     });
 
+    //
+    // Readout area
+    //
+     _w.dataAcq_readArea.addWatcher( new DropDownListBoxWidgetWatcher() {
+         public void
+        dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+        public void
+        dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+	  //            _instUIST.useDefaultAcquisition();
+            _instUIST.setReadAreaString( val );
+            _updateWidgets(_w.dataAcq_readArea);
+        }
+    });
+
+// End of added by RDK
     //
     // Actual exposure time
     //
@@ -379,6 +458,14 @@ public EdCompInstUIST()
     _w.dataAcq_coadds.addWatcher( new TextBoxWidgetWatcher() {
         public void textBoxKeyPress(TextBoxWidgetExt tbw) {
 	    try {
+// Added by RDK
+                String coaddsString = tbw.getText();
+                int coadds = Integer.parseInt(coaddsString);
+                if (coadds > 0) {
+                    _instUIST.setCoadds(coadds);
+                    _updateWidgets(_w.dataAcq_coadds);
+                }
+// End of added by RDK
 	      //ignore
 	    }catch( Exception ex) {
 	        // ignore
@@ -397,8 +484,13 @@ public EdCompInstUIST()
                 String ets = tbw.getText();
                 double et = Double.parseDouble(ets);
                 if (et > 0.00001) {
-                    _instUIST.setExpTimeOT(et);
-                    _instUIST.useDefaultReadoutOT();
+// Commented by RDK
+//                    _instUIST.setExpTimeOT(et);
+//                    _instUIST.useDefaultReadoutOT();
+// End of commented by RDK
+// Added by RDK
+                    _instUIST.changeExpTimeOT(et);
+// End of added by RDK
                     _updateWidgets(_w.dataAcq_exposureTime);
 		}
 	    }catch( Exception ex) {
@@ -414,10 +506,18 @@ public EdCompInstUIST()
     //
     _w.dataAcq_defaultExpTime.addWatcher( new CommandButtonWidgetWatcher() {
         public void commandButtonAction(CommandButtonWidgetExt cbw) {
-            _instUIST.useDefaultReadoutOT();
-            _instUIST.useDefaultObsTimeOT();
+// Commented out by RDK
+//            _instUIST.useDefaultReadoutOT();
+//            _instUIST.useDefaultObsTimeOT();
+//            _instUIST.useDefaultExpTimeOT();
+//            _updateObsTimeOT();
+// End of commented out by RDK
+// Added by RDK
             _instUIST.useDefaultExpTimeOT();
-            _updateObsTimeOT();
+            _instUIST.useDefaultReadMode();
+            _instUIST.useDefaultReadArea();
+            _instUIST.useDefaultCoadds();
+// End of added by RDK
             _updateWidgets();
         }
     });
@@ -425,22 +525,23 @@ public EdCompInstUIST()
     //
     // Observation time
     //
-    _w.dataAcq_observationTime.addWatcher( new TextBoxWidgetWatcher() {
-        public void textBoxKeyPress(TextBoxWidgetExt tbw) {
-	    try {
-                String ots = tbw.getText();
-                double ot = Double.parseDouble(ots);
-                if (ot > 0.00001) {
-                    _instUIST.setObsTimeOT(ot);
-                    _instUIST.setCoadds(0);
-                    _updateWidgets(_w.dataAcq_observationTime);
-		}
-	    }catch( Exception ex) {
-	        // ignore
-            }
-        }
-        public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
-    });
+// Commented for testing by RDK 30 Dec 2002
+//     _w.dataAcq_observationTime.addWatcher( new TextBoxWidgetWatcher() {
+//         public void textBoxKeyPress(TextBoxWidgetExt tbw) {
+// 	    try {
+//                 String ots = tbw.getText();
+//                 double ot = Double.parseDouble(ots);
+//                 if (ot > 0.00001) {
+//                     _instUIST.setObsTimeOT(ot);
+//                     _instUIST.setCoadds(0);
+//                     _updateWidgets(_w.dataAcq_observationTime);
+// 		}
+// 	    }catch( Exception ex) {
+// 	        // ignore
+//             }
+//         }
+//         public void textBoxAction(TextBoxWidgetExt tbw) {} // ignore
+//     });
 
     //
     // Default observation time
@@ -470,6 +571,9 @@ public void
 setup(SpItem spItem)
 {
    _instUIST = (SpInstUIST) spItem;
+// Added by RDK
+   _instUIST.avTableUpdate();
+//Edn of added by RDK
    haveInitialised = false;
    super.setup(spItem);
 }
@@ -499,8 +603,16 @@ _updateWidgets(Object source)
         _updateDisperser();
         _updateMaskChoices();
         _updatePolarimetry();
+        _updateTargetAcqMode();
+        _updatePupilCamera();
         _updateFilter();
-        _updateReadoutChoices();
+// Commented out by RDK
+//        _updateReadoutChoices();
+// End of commented by RDK
+// Added by RDK
+        _updateReadModeChoices();
+        _updateReadAreaChoices();
+// End of added by RDK
         _updateObsTime();
         haveInitialised = true;
     }
@@ -524,15 +636,33 @@ _updateWidgets(Object source)
     _updateSourceMag();
     _updateWavelengthCoverage();
     _updateMask();
-    if (_w.dataAcq_readout != source) {
-        _updateReadoutChoices();
-        _updateReadout();
+// Commented for testing by RDK 30 Dec 2002
+//     if (_w.dataAcq_readout != source) {
+//         _updateReadoutChoices();
+//         _updateReadout();
+//     }
+// Added for testing by RDK 30 Dec 2002
+//    _updateReadoutChoices();
+//    _updateReadout();
+
+// Added by RDK
+    if (_w.dataAcq_readMode != source) {
+        _updateReadModeChoices();
+        _updateReadMode();
     }
+    if (_w.dataAcq_readArea != source) {
+        _updateReadAreaChoices();
+        _updateReadArea();
+    }
+
+// End of added by RDK
+
     _updateAcquisition(source);
     _updateScienceFOV();
     _updateChopFreq();
     _updateDutyCycle();
-    _updateCoadds();
+// Commented for testing by RDK
+//    _updateCoadds();
     _updateExpTime();
     _updateObsTime();
 
@@ -545,17 +675,25 @@ _updateWidgets(Object source)
       String ets = _instUIST.getExpTimeOTString();
       _w.dataAcq_exposureTime.setText(ets);
     }
+// Added by RDK
+
+    if(_w.dataAcq_coadds != source) {
+      String coadds = _instUIST.getCoaddsString();
+      _w.dataAcq_coadds.setText(coadds);
+    }
+// End of added by RDK
 }
 
 //
 // Update the observation time OT
 //
-private void
-_updateObsTimeOT()
-{
-    String obts = _instUIST.getObsTimeOTString();
-    _w.dataAcq_observationTime.setText(obts);
-}
+// Commented for testing by RDK 30 Dec 2002
+//private void
+//_updateObsTimeOT()
+//{
+//    String obts = _instUIST.getObsTimeOTString();
+//    _w.dataAcq_observationTime.setText(obts);
+//}
 
 //
 // Update the actual observation time
@@ -587,6 +725,30 @@ _updatePolarimetry()
     String p = _instUIST.getPolarimetry();
     _w.polarimetry.setValue(p.equalsIgnoreCase("yes"));
 }
+
+// Added by RDK
+//
+// Update the pupil camera check box
+//
+private void
+_updatePupilCamera()
+{
+
+    String p = _instUIST.getPupilImaging();
+    _w.imaging_pupilCamera.setValue(p.equalsIgnoreCase("yes"));
+}
+//
+// Update the target acquisition check box
+//
+private void
+_updateTargetAcqMode()
+{
+
+    String t = _instUIST.getTargetAcq();
+    _w.spectroscopy_targetAcqMode.setValue(t.equalsIgnoreCase("yes"));
+}
+
+// End of added by RDK
 
 //
 // Update the resolution
@@ -707,26 +869,83 @@ _updateSourceMag()
     _w.spectroscopy_sourceMag.setValue(sourceMag);
 }
 
+// Commented out by RDK
 //
 // Update the list of readout choices
 //
-private void
-_updateReadoutChoices()
-{
-    String choices[] = new String[_instUIST.getReadoutChoices().length];
-    choices = _instUIST.getReadoutChoices();
-    _w.dataAcq_readout.setChoices(choices);
-}
+// private void
+// _updateReadoutChoices()
+// {
+//     String choices[] = new String[_instUIST.getReadoutChoices().length];
+// Commented for testing by RDK 30 Dec 2002
+//    choices = _instUIST.getReadoutChoices();
+//    _w.dataAcq_readout.setChoices(choices);
+// Added for testing by RDK 30 Dec 2002
+//     choices[0] = "NDSTARE";
+//     _w.dataAcq_readMode.setChoices(choices);
+//     choices[0] = "1024x1024";
+//     _w.dataAcq_readArea.setChoices(choices);
+// }
 
 //
 // Update the readout
 //
+// private void
+// _updateReadout()
+// {
+//     String readout = _instUIST.getReadoutOT();
+// Commented for testing by RDK 30 Dec 2002
+//    _w.dataAcq_readout.setValue(readout);
+// Added for testing by RDK 30 Dec 2002
+//     String readMode = "NDSTARE";
+//     _w.dataAcq_readMode.setValue(readMode);
+//     String readArea = "1024x1024";
+//     _w.dataAcq_readArea.setValue(readArea);
+// }
+// End of commented out by RDK
+
+// Added by RDK
+//
+// Update the list of read mode choices
+//
 private void
-_updateReadout()
+_updateReadModeChoices()
 {
-    String readout = _instUIST.getReadoutOT();
-    _w.dataAcq_readout.setValue(readout);
+    String choices[] = new String[_instUIST.getReadModeChoices().length];
+    choices = _instUIST.getReadModeChoices();
+    _w.dataAcq_readMode.setChoices(choices);
 }
+
+//
+// Update the read mode
+//
+private void
+_updateReadMode()
+{
+    String readMode = _instUIST.getReadMode();
+    _w.dataAcq_readMode.setValue(readMode);
+}
+
+// Update the list of read area choices
+//
+private void
+_updateReadAreaChoices()
+{
+    String choices[] = new String[_instUIST.getReadAreaChoices().length];
+    choices = _instUIST.getReadAreaChoices();
+    _w.dataAcq_readArea.setChoices(choices);
+}
+
+//
+// Update the read area
+//
+private void
+_updateReadArea()
+{
+    String readArea = _instUIST.getReadAreaString();
+    _w.dataAcq_readArea.setValue(readArea);
+}
+// End of added by RDK
 
 //
 // Update the mask
@@ -827,10 +1046,19 @@ _updateAcquisition(Object source)
       _w.dataAcq_exposureTime.setText(ets);
     }
 
-    if(_w.dataAcq_observationTime != source) {
-      String ots = _instUIST.getObsTimeOTString();
-      _w.dataAcq_observationTime.setText(ots);
+// Added by RDK
+
+    if(_w.dataAcq_coadds != source) {
+      String coadds = _instUIST.getCoaddsString();
+      _w.dataAcq_coadds.setText(coadds);
     }
+// End of added by RDK
+
+// Commented for testing by RDK 30 Dec 2002
+//    if(_w.dataAcq_observationTime != source) {
+//     String ots = _instUIST.getObsTimeOTString();
+//      _w.dataAcq_observationTime.setText(ots);
+//    }
 
 }
 
@@ -887,7 +1115,12 @@ _showCamera()
     /** Return the coadds text box, or null if not available. */
     public TextBoxWidgetExt getCoaddsTextBox() {
       // UIST does not have a coadds text box.
-      return new TextBoxWidgetExt();
+// Commented by RDK
+//      return new TextBoxWidgetExt();
+// End of commented by RDK
+// Added by RDK
+      return _w.dataAcq_coadds;
+// End of added by RDK
     }
 
 //

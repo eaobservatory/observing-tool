@@ -106,7 +106,8 @@ _init()
 
    // Observation time
    tbw = (TextBoxWidgetExt) _w.observationTime;
-   tbw.addWatcher( this );
+// Removed watcher from observationTime (RDK)
+//   tbw.addWatcher( this );
 
    // Flat source
    ddlbw = (DropDownListBoxWidgetExt) _w.flat_source;
@@ -116,6 +117,8 @@ _init()
 
    // Coadds
    tbw = (TextBoxWidgetExt) _w.coadds;
+// Added watcher to coadds (RDK)
+   tbw.addWatcher( this );
 
    // default button
    cbw = (CommandButtonWidgetExt) _w.useDefaults;
@@ -165,15 +168,23 @@ _updateWidgets(Object source)
    // Exposure time
    if(_w.exposureTime != source) {
        tbw = (TextBoxWidgetExt) _w.exposureTime;
-       tbw.setValue( ico.getExpTimeOTString() );
+       String expTimeStr = ico.getExpTimeOTString();
+       tbw.setValue(expTimeStr  );
    }
 
+// Added by RDK
+   if(_w.coadds != source) {
+       tbw = (TextBoxWidgetExt) _w.coadds;
+       tbw.setValue( ico.getCoaddsString() );
+   }
+// End of added by RDK
    // Observation time
-   if(_w.observationTime != source) {
-       tbw = (TextBoxWidgetExt) _w.observationTime;
-       tbw.setValue( ico.getObsTimeOT() );
-   }
-
+// Commented by RDK
+//    if(_w.observationTime != source) {
+//        tbw = (TextBoxWidgetExt) _w.observationTime;
+//        tbw.setValue( ico.getObsTimeOT() );
+//    }
+// End of commented by RDK
    // Deal with Flat and Arc according to state of inst & caltype
    if (ico.getCalType() == FLAT) {
      // MFO: "FLAT" is hard-wired in IterCGS4CalObsGUI (as constraint string for CardLayout).
@@ -194,9 +205,16 @@ _updateWidgets(Object source)
    // Update data acquisition config
    ico.updateDAConf();
 
+// Added by RDK
+   tbw = (TextBoxWidgetExt) _w.observationTime;
+   tbw.setValue( ico.getObservationTimeString() );
+// End of added by RDK
+
    //Update coadds
-   tbw = (TextBoxWidgetExt) _w.coadds;
-   tbw.setValue( ico.getCoaddsString() );
+// Commented by RDK
+//    tbw = (TextBoxWidgetExt) _w.coadds;
+//    tbw.setValue( ico.getCoaddsString() );
+// End of commented by RDK
 
    _ignoreActionEvents = false;
 }
@@ -220,18 +238,34 @@ textBoxKeyPress(TextBoxWidgetExt tbw)
       } catch( Exception ex) {
 	// ignore
       }
-   } else if (tbw == _w.observationTime) {
+// Commented by RDK
+//    } else if (tbw == _w.observationTime) {
+//       try {
+//           String ots = tbw.getText();
+//           double ot = Double.parseDouble(ots);
+//           if (ot > 0.00001) {
+//              ico.setObsTimeOT(ots);
+//              _updateWidgets(_w.observationTime);
+//           }
+//       } catch( Exception ex) {
+// 	// ignore
+//       }
+//    }
+// End of commented by RDK
+// Added by RDK
+   } else if (tbw == _w.coadds) {
       try {
-          String ots = tbw.getText();
-          double ot = Double.parseDouble(ots);
-          if (ot > 0.00001) {
-             ico.setObsTimeOT(ots);
-             _updateWidgets(_w.observationTime);
+          String coaddsString = tbw.getText();
+          int coadds = Integer.parseInt(coaddsString);
+          if (coadds > 0) {
+             ico.setCoadds(coadds);
+             _updateWidgets(_w.coadds);
           }
       } catch( Exception ex) {
 	// ignore
       }
    }
+// End of added by RDK
 }
  
 /**

@@ -36,7 +36,17 @@ public SpInstObsComp
 getInstrumentItem()
 {
    SpItem _baseItem = parent();
-   return (SpInstObsComp) SpTreeMan.findInstrument(_baseItem);
+// Commented by RDK
+//   return (SpInstObsComp) SpTreeMan.findInstrument(_baseItem);
+// End of commented by RDK
+// Added by RDK
+   if (_baseItem == null) {
+       return null;
+   }
+   else {
+       return (SpInstObsComp) SpTreeMan.findInstrument(_baseItem);
+   }
+//End of Added by RDK
 }
 
 

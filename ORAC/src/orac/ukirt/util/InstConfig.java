@@ -270,7 +270,9 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "maskHeight", "120.0" );    // Height of mask in arcsec
          put( "positionAngle", "0.0" );   // Position angle (on sky)
          put( "disperser", "Set1A" );     // Grism name
-         put( "order", "1" );             // Grating order
+// Commented by RDK
+//         put( "order", "1" );             // Grating order
+// End of commented by RDK
          put( "centralWavelength", "2.1" ); // Central wavelength in microns
          put( "resolution", "1000" );     // Spectral resolution
          put( "dispersion", "0.001" );    // Spectral dispersion in um/pixel
@@ -287,24 +289,37 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "expTime", "5.5" );         // Exposure time in seconds
          put( "readInterval", "0.0" );    // Read interval in seconds
          put( "chopFrequency", "0.0" );   // Chop frequency
-         put( "resetDelay", "0.0" );      // reset delay (msecs?)
-         put( "nresets", "0" );           // No. of resets
+// Commented by RDK
+//         put( "resetDelay", "0.0" );      // reset delay (msecs?)
+//         put( "nresets", "0" );           // No. of resets
+// End of commented by RDK
          put( "chopDelay", "0.0" );       // Chop delay (msecs?)
          put( "objNumExp", "1" );         // Number of object exposures (coadds)
-         put( "waveform", "unknown" );    // Edict Waveform to be used
+// Commented by RDK
+//         put( "waveform", "unknown" );    // Edict Waveform to be used
+// End of commented by RDK
          put( "dutyCycle", "0.0" );       // Dutycycle for the obs.
-         put( "mustIdles", "0" );         // Edict idling
-         put( "nullReads", "0" );         // Edict no. of null reads
-         put( "nullExposures", "0" );     // Edict no. of null exposures
-         put( "nullCycles", "0" );        // Edict no. of null cycles
-         put( "idlePeriod", "0.0" );      // Edict idle period
+// Commented by RDK
+//          put( "mustIdles", "0" );         // Edict idling
+//          put( "nullReads", "0" );         // Edict no. of null reads
+//          put( "nullExposures", "0" );     // Edict no. of null exposures
+//          put( "nullCycles", "0" );        // Edict no. of null cycles
+//          put( "idlePeriod", "0.0" );      // Edict idle period
+// End of commented by RDK
          put( "observationTime", "5.5" ); // Complete obs. time in seconds
-         put( "arrayAngle", "0.0" );      // Array misalignment (degrees)
-         put( "readArea", "1024x1024" );  // Array readout area in pixels
-         put( "refPixelX", "512.5" );     // Reference pixel along row
-         put( "refPixelY", "512.5" );     // Reference pixel along column
-         put( "refPixelL", "512.5" );     // Reference pixel along dispersion
-         put( "refPixelS", "512.5" );     // Reference pixel along slit
+// Commented by RDK
+//          put( "arrayAngle", "0.0" );      // Array misalignment (degrees)
+//          put( "readArea", "1024x1024" );  // Array readout area in pixels
+//          put( "refPixelX", "512.5" );     // Reference pixel along row
+//          put( "refPixelY", "512.5" );     // Reference pixel along column
+//          put( "refPixelL", "512.5" );     // Reference pixel along dispersion
+//          put( "refPixelS", "512.5" );     // Reference pixel along slit
+// End of commented by RDK
+// Added by RDK
+         put( "pupil_imaging", "no");      // Pupil imaging value
+         put( "DAConf", "ND1" );           // DA configuration
+         put( "DAConfMinExpT", "0.81" );   // DA configuration min exposure time
+// End of added by RDK
 
 // Attributes for flats
          put( "flatSource", "1.3" );      // Flat cal. source
@@ -315,16 +330,22 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "flatReadInterval", "0.0" ); // Read interval in seconds
          put( "flatChopFrequency", "0.0" ); // Chop frequency
          put( "flatChopDelay", "0.0" );   // Chop delay
-         put( "flatResetDelay", "0.0" );  // reset delay (msecs?)
-         put( "flatNresets", "0" );       // Number of resets
+// Commented by RDK
+//         put( "flatResetDelay", "0.0" );  // reset delay (msecs?)
+//         put( "flatNresets", "0" );       // Number of resets
+// End of commented by RDK
          put( "flatNumExp", "1" );        // Number of flat exposures (coadds)
-         put( "flatWaveform", "unknown" ); // Edict Waveform to be used
+// Commented by RDK
+//         put( "flatWaveform", "unknown" ); // Edict Waveform to be used
+// End of commented by RDK
          put( "flatDutyCycle", "0.0" );   // Dutycycle for the obs.
-         put( "flatMustIdles", "0" );     // Edict idling
-         put( "flatNullReads", "0" );     // Edict no. of null reads
-         put( "flatNullExposures", "0" ); // Edict no. of null exposures
-         put( "flatNullCycles", "0" );    // Edict no. of null cycles
-         put( "flatIdlePeriod", "0.0" );  // Edict idle period
+// Commented by RDK
+//         put( "flatMustIdles", "0" );     // Edict idling
+//         put( "flatNullReads", "0" );     // Edict no. of null reads
+//         put( "flatNullExposures", "0" ); // Edict no. of null exposures
+//         put( "flatNullCycles", "0" );    // Edict no. of null cycles
+//         put( "flatIdlePeriod", "0.0" );  // Edict idle period
+// End of commented by RDK
 
 // Attributes for darks (only filter used currently)
          put( "darkFilter", "Blank" );    // Filter name for darks
@@ -333,13 +354,15 @@ public class InstConfig extends Hashtable implements Cloneable {
 // Attributes for biases 
          put( "biasExpTime", "0.020" );   // Bias exposure time
          put( "biasNumExp", "50" );       // Number of bias exposures (coadds)
-         put( "biasNResets", "2" );       // Number of resets for bias integration
-         put( "biasWaveform", "unknown" );// Waveform for bias observations
-         put( "biasIdlePeriod", "0.1" );  // Idling interval (sec) between bias obs
-         put( "biasMustIdles", "100" );   // Required idles before bias obs
-         put( "biasReadArea", "123x456" );// Readout area for bias (pixels)
-         put( "biasRefPixelX", "1" );     // Reference pixel along bias row
-         put( "biasRefPixelY", "1" );     // Reference pixel along bias column
+// Commented by RDK
+//         put( "biasNResets", "2" );       // Number of resets for bias integration
+//         put( "biasWaveform", "unknown" );// Waveform for bias observations
+//         put( "biasIdlePeriod", "0.1" );  // Idling interval (sec) between bias obs
+//         put( "biasMustIdles", "100" );   // Required idles before bias obs
+//         put( "biasReadArea", "123x456" );// Readout area for bias (pixels)
+//         put( "biasRefPixelX", "1" );     // Reference pixel along bias row
+//         put( "biasRefPixelY", "1" );     // Reference pixel along bias column
+// End of commented by RDK
          put( "biasObsTime", "10.0" );    // Observation time for bias
          put( "biasDutyCycle", "0.5" );   // Duty cycle for bias
 
@@ -355,16 +378,22 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "arcReadInterval", "0.0" ); // Read interval in seconds
          put( "arcChopFrequency", "0.0" ); // Chop frequency
          put( "arcChopDelay", "0.0" );    // Chop delay
-         put( "arcResetDelay", "0.0" );   // reset delay (msecs?)
-         put( "arcNresets", "0" );        // No. of resets
+// Commented by RDK
+//         put( "arcResetDelay", "0.0" );   // reset delay (msecs?)
+//         put( "arcNresets", "0" );        // No. of resets
+// End of commented by RDK
          put( "arcNumExp", "1" );         // Number of arc exposures (coadds)
-         put( "arcWaveform", "unknown" ); // Edict Waveform to be used
+// Commented by RDK
+//         put( "arcWaveform", "unknown" ); // Edict Waveform to be used
+// End of commented by RDK
          put( "arcDutyCycle", "0.0" );    // Dutycycle for the obs.
-         put( "arcMustIdles", "0" );      // Edict idling
-         put( "arcNullReads", "0" );      // Edict no. of null reads
-         put( "arcNullExposures", "0" );  // Edict no. of null exposures
-         put( "arcNullCycles", "0" );     // Edict no. of null cycles
-         put( "arcIdlePeriod", "0.0" );   // Edict idle period
+// Commented by RDK
+//         put( "arcMustIdles", "0" );      // Edict idling
+//         put( "arcNullReads", "0" );      // Edict no. of null reads
+//         put( "arcNullExposures", "0" );  // Edict no. of null exposures
+//         put( "arcNullCycles", "0" );     // Edict no. of null cycles
+//         put( "arcIdlePeriod", "0.0" );   // Edict idle period
+// End of commented by RDK
 
       }
    }

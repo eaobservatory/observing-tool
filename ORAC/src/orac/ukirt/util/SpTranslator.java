@@ -38,6 +38,10 @@ import orac.util.SpItemDOM;
 import java.io.*;
 import java.text.BreakIterator;
 import java.text.DecimalFormat;
+// Added by RDK
+import java.text.SimpleDateFormat;
+import java.util.Date;
+// End of added by RDK
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Observable;
@@ -952,6 +956,17 @@ public class SpTranslator {
 // Obtain the project information.
          project = spObs.getTable().get( "project" );
 
+// Code rearrangement by RDK (this section was after the "Define file name" stuff
+// Obtain the instrument name and base configuration.
+// ==================================================
+
+// Determine the instrument name for this observation.
+         inst = ( (SpInstObsComp) SpTreeMan.findInstrument( spObs ) );
+         instrument = inst.type().getReadable();
+// This line was added so that sequence and conf file names start with the instrument name (RDK)
+         setPrefix(instrument + "_");
+// End of rearrangement by RDK
+
 // Define file name.
 // =================
 
@@ -962,13 +977,6 @@ public class SpTranslator {
          timeTag = uniqueName();
          seqName = getPrefix() + timeTag + ".exec";
          rootConfigName = getPrefix() + timeTag + "_";
-
-// Obtain the instrument name and base configuration.
-// ==================================================
-
-// Determine the instrument name for this observation.
-         inst = ( (SpInstObsComp) SpTreeMan.findInstrument( spObs ) );
-         instrument = inst.type().getReadable();
 
 // Update the instrument apertures based upon what's in the instrument
 // configuration, not in the source file.  This is needed because the
@@ -1018,6 +1026,12 @@ public class SpTranslator {
 // Clone the current instrument apertures.  This is a deep clone.
          currInstAper = (InstApertures) refInstAper.clone();
 
+// Added by RDK
+// Update the attribute-value table to provide compatibility with SP's made with older versions of OT.
+         uinst.avTableUpdate();
+
+// End of added by RDK
+
 // Obtain the instrument's attribute-value list.
          cavl = (SpAvTable) inst.getTable();
 
@@ -1030,7 +1044,7 @@ public class SpTranslator {
 
 // Translate the OT attribute into a key in the InstConfig.
             key = refConfig.OTToTranslator( "config", attribute );
-
+//            System.out.println("AV table attr is " + attribute + " value is " + cavl.get( attribute ) + " config key is " + key);
 // Store the attribute and value(s) in the new InstConfig, provided
 // it is an existing key.  Might want to remove this restriction for
 // extensibility reasons.
@@ -1041,6 +1055,7 @@ public class SpTranslator {
 
 // Store the attribute and value in the new InstConfig.
                currConfig.put( key, value );
+//               System.out.println("Putting AV table attr " + attribute + " value " + value + " into config key " + key);
 
 // Special case of instrument apertures, where there is a Vector of
 // values.
@@ -1050,6 +1065,8 @@ public class SpTranslator {
 // Store the attribute and value(s) in the new InstConfig.
                currInstAper.arrayPut( v );
 
+            } else {
+//               System.out.println("Ignoring AV table attr " + attribute);
             }
          }
 
@@ -1979,11 +1996,19 @@ public class SpTranslator {
   */
    public static String uniqueName() {
 
-      long time;                          // Milliseconds since
+// Commented by RDK
+//      long time;                          // Milliseconds since
                                           // 1970 Jan 1.0.
 
-      time = System.currentTimeMillis();
-      return Long.toString( time );
+//      time = System.currentTimeMillis();
+//      return Long.toString( time );
+// End of commented by RDK
+
+// Added by RDK
+      SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd_kkmmss");
+      return df.format(new Date()) ;
+// End of added by RDK
+
    }
 
 /** 
@@ -2230,7 +2255,9 @@ public class SpTranslator {
                   writeAttribute( conpw, workConfig, "maskWidth" );
                   writeAttribute( conpw, workConfig, "maskHeight" );
                   writeAttribute( conpw, workConfig, "disperser" );
-                  writeAttribute( conpw, workConfig, "order" );
+// Commented by RDK
+//                  writeAttribute( conpw, workConfig, "order" );
+// End of commented by RDK
 
 // Limit positionAngle to to decimal places.  Not having easy
 // formatting, use a simple kludge to limit the decimal places,
@@ -2245,33 +2272,49 @@ public class SpTranslator {
                   writeAttribute( conpw, workConfig, "dispersion" );
                   writeAttribute( conpw, workConfig, "scienceArea" );
                   writeAttribute( conpw, workConfig, "spectralCoverage" );
-                  writeAttribute( conpw, workConfig, "pixelFOV" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "pixelFOV" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "pixelScale" );
                   writeAttribute( conpw, workConfig, "nreads" );
                   writeAttribute( conpw, workConfig, "mode" );
                   writeAttribute( conpw, workConfig, "expTime", "exposureTime" );
                   writeAttribute( conpw, workConfig, "readInterval" );
                   writeAttribute( conpw, workConfig, "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "resetDelay" );
-                  writeAttribute( conpw, workConfig, "nresets" );
+// Commented by RDK
+//                  writeAttribute( conpw, workConfig, "resetDelay" );
+//                  writeAttribute( conpw, workConfig, "nresets" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "chopDelay" );
                   writeAttribute( conpw, workConfig, "objNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "waveform" );
+// Commented by RDK
+//                  writeAttribute( conpw, workConfig, "waveform" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "mustIdles" );
-                  writeAttribute( conpw, workConfig, "nullReads" );
-                  writeAttribute( conpw, workConfig, "nullExposures" );
-                  writeAttribute( conpw, workConfig, "nullCycles" );
-                  writeAttribute( conpw, workConfig, "idlePeriod" );
+// Commented by RDK
+//                  writeAttribute( conpw, workConfig, "mustIdles" );
+//                  writeAttribute( conpw, workConfig, "nullReads" );
+//                  writeAttribute( conpw, workConfig, "nullExposures" );
+//                  writeAttribute( conpw, workConfig, "nullCycles" );
+//                  writeAttribute( conpw, workConfig, "idlePeriod" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "observationTime" );
-                  writeAttribute( conpw, workConfig, "darkFilter" );
-                  writeAttribute( conpw, workConfig, "darkNumExp" );
-                  writeAttribute( conpw, workConfig, "arrayAngle" );
-                  writeAttribute( conpw, workConfig, "readArea" );
-                  writeAttribute( conpw, workConfig, "refPixelX" );
-                  writeAttribute( conpw, workConfig, "refPixelY" );
-                  writeAttribute( conpw, workConfig, "refPixelL" );
-                  writeAttribute( conpw, workConfig, "refPixelS" );
+// Commented by RDK
+//                  writeAttribute( conpw, workConfig, "darkFilter" );
+//                  writeAttribute( conpw, workConfig, "darkNumExp" );
+//                  writeAttribute( conpw, workConfig, "arrayAngle" );
+//                  writeAttribute( conpw, workConfig, "readArea" );
+//                   writeAttribute( conpw, workConfig, "refPixelX" );
+//                   writeAttribute( conpw, workConfig, "refPixelY" );
+//                   writeAttribute( conpw, workConfig, "refPixelL" );
+//                   writeAttribute( conpw, workConfig, "refPixelS" );
+// End of commented by RDK
+
+// New items added by RDK
+                  writeAttribute( conpw, workConfig, "pupil_imaging" );                  
+                  writeAttribute( conpw, workConfig, "DAConf" );                  
+                  writeAttribute( conpw, workConfig, "DAConfMinExpT" );                  
+// End of new items added by RDK
 
                } else if ( workConfig.get( "type" ).equals( "flat" ) ) {
                   writeAttribute( conpw, workConfig, "flatSource" );
@@ -2284,32 +2327,40 @@ public class SpTranslator {
                                   "readInterval" );
                   writeAttribute( conpw, workConfig, "flatChopFrequency",
                                   "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "flatResetDelay",
-                                  "resetDelay" );
-                  writeAttribute( conpw, workConfig, "flatNresets", "nresets" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "flatResetDelay",
+//                                   "resetDelay" );
+//                   writeAttribute( conpw, workConfig, "flatNresets", "nresets" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "flatChopDelay",
                                   "chopDelay" );
                   writeAttribute( conpw, workConfig, "flatNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "flatWaveform",
-                                  "waveform" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "flatWaveform",
+//                                   "waveform" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "flatDutyCycle",
                                   "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "flatMustIdles",
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "flatNullReads",
-                                  "nullReads" );
-                  writeAttribute( conpw, workConfig, "flatNullExposures",
-                                  "nullExposures" );
-                  writeAttribute( conpw, workConfig, "flatNullCycles",
-                                  "nullCycles" );
-                  writeAttribute( conpw, workConfig, "flatIdlePeriod",
-                                  "idlePeriod" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "flatMustIdles",
+//                                   "mustIdles" );
+//                   writeAttribute( conpw, workConfig, "flatNullReads",
+//                                   "nullReads" );
+//                   writeAttribute( conpw, workConfig, "flatNullExposures",
+//                                   "nullExposures" );
+//                   writeAttribute( conpw, workConfig, "flatNullCycles",
+//                                   "nullCycles" );
+//                   writeAttribute( conpw, workConfig, "flatIdlePeriod",
+//                                   "idlePeriod" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "flatObsTime",
                                   "observationTime" );
 
                } else if ( workConfig.get( "type" ).equals( "arc" ) ) {
                   writeAttribute( conpw, workConfig, "arcFilter", "filter" );
-                  writeAttribute( conpw, workConfig, "arcOrder", "order" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "arcOrder", "order" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "arcCentralWavelength",
                                   "centralWavelength" );
                   writeAttribute( conpw, workConfig, "arcSpectralCoverage",
@@ -2323,27 +2374,33 @@ public class SpTranslator {
                                   "readInterval" );
                   writeAttribute( conpw, workConfig, "arcChopFrequency",
                                   "chopFrequency" );
-                  writeAttribute( conpw, workConfig, "arcResetDelay",
-                                  "resetDelay" );
-                  writeAttribute( conpw, workConfig, "arcNresets",
-                                  "nresets" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "arcResetDelay",
+//                                   "resetDelay" );
+//                   writeAttribute( conpw, workConfig, "arcNresets",
+//                                   "nresets" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "arcChopDelay",
                                   "chopDelay" );
                   writeAttribute( conpw, workConfig, "arcNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "arcWaveform",
-                                  "waveform" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "arcWaveform",
+//                                   "waveform" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "arcDutyCycle",
                                   "dutyCycle" );
-                  writeAttribute( conpw, workConfig, "arcMustIdles",
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "arcNullReads",
-                                  "nullReads" );
-                  writeAttribute( conpw, workConfig, "arcNullExposures",
-                                  "nullExposures" );
-                  writeAttribute( conpw, workConfig, "arcNullCycles",
-                                  "nullCycles" );
-                  writeAttribute( conpw, workConfig, "arcIdlePeriod",
-                                  "idlePeriod" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "arcMustIdles",
+//                                   "mustIdles" );
+//                   writeAttribute( conpw, workConfig, "arcNullReads",
+//                                   "nullReads" );
+//                   writeAttribute( conpw, workConfig, "arcNullExposures",
+//                                   "nullExposures" );
+//                   writeAttribute( conpw, workConfig, "arcNullCycles",
+//                                   "nullCycles" );
+//                   writeAttribute( conpw, workConfig, "arcIdlePeriod",
+//                                   "idlePeriod" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "arcObsTime",
                                   "observationTime" );
 
@@ -2351,20 +2408,22 @@ public class SpTranslator {
                   writeAttribute( conpw, workConfig, "biasExpTime",
                                   "exposureTime" );
                   writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
-                  writeAttribute( conpw, workConfig, "biasNResets", 
-                                  "nresets" );
-                  writeAttribute( conpw, workConfig, "biasWaveform", 
-                                  "waveform" );
-                  writeAttribute( conpw, workConfig, "biasIdlePeriod", 
-                                  "idlePeriod" );
-                  writeAttribute( conpw, workConfig, "biasMustIdles", 
-                                  "mustIdles" );
-                  writeAttribute( conpw, workConfig, "biasReadArea", 
-                                  "readArea" );
-                  writeAttribute( conpw, workConfig, "biasRefPixelX", 
-                                  "refPixelX" );
-                  writeAttribute( conpw, workConfig, "biasRefPixelY", 
-                                  "refPixelY" );
+// Commented by RDK
+//                   writeAttribute( conpw, workConfig, "biasNResets", 
+//                                   "nresets" );
+//                   writeAttribute( conpw, workConfig, "biasWaveform", 
+//                                   "waveform" );
+//                   writeAttribute( conpw, workConfig, "biasIdlePeriod", 
+//                                   "idlePeriod" );
+//                   writeAttribute( conpw, workConfig, "biasMustIdles", 
+//                                   "mustIdles" );
+//                   writeAttribute( conpw, workConfig, "biasReadArea", 
+//                                   "readArea" );
+//                   writeAttribute( conpw, workConfig, "biasRefPixelX", 
+//                                   "refPixelX" );
+//                   writeAttribute( conpw, workConfig, "biasRefPixelY", 
+//                                   "refPixelY" );
+// End of commented by RDK
                   writeAttribute( conpw, workConfig, "biasObsTime", 
                                   "observationTime" );
                   writeAttribute( conpw, workConfig, "biasDutyCycle", 
