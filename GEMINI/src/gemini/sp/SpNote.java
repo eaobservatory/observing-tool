@@ -7,6 +7,8 @@
 package gemini.sp;
 
 import gemini.util.XmlUtil;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 //  MFO (June 12, 2002):
 //    isObserveInstruction(), setObserveInstruction(boolean)
@@ -83,6 +85,27 @@ setObserveInstruction(boolean value)
    else {
       _avTable.rm(ATTR_OBSERVE_INSTRUCTION);
    }
+}
+
+/**
+ * Returns a paramter-value strings for non note elements.
+ * This method is currently onlt used by the query tool
+ */
+public String [] getInstructions() {
+    ArrayList rtnArray = new ArrayList();
+    Enumeration e = _avTable.attributes();
+    if ( e != null ) {
+	while (e.hasMoreElements()) {
+	    String key = (String) e.nextElement();
+	    if ( key.startsWith(".") ||
+		 key.startsWith(":") ||
+		 key.equals(ATTR_TITLE) ||
+		 key.equals(ATTR_NOTE) ) continue;
+	    String value = _avTable.get(key);
+	    rtnArray.add (key +" = " + value);
+	}
+    }
+    return ( (String [])rtnArray.toArray(new String[0]) );
 }
 
 /** 
