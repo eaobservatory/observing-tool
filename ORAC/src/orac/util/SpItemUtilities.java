@@ -23,6 +23,8 @@ import gemini.sp.SpTreeMan;
 import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpTelescopePos;
+import gemini.sp.SpObs;
+import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import java.util.Vector;
@@ -92,6 +94,49 @@ public class SpItemUtilities {
     }  
   }
 
+
+  /**
+   * Recursively updates the MSB attributes of all
+   * SpObs items in spItem.
+   */
+  public static void updateMsbAttributes(SpItem spItem) {
+    if(spItem instanceof SpObs) {
+      ((SpObs)spItem).updateMsbAttributes();
+    }
+
+    if(spItem instanceof SpObsContextItem) {
+      SpItem child = spItem.child();
+
+      while(child != null) {
+        updateMsbAttributes(child);
+        child = child.next();
+      }
+    }  
+  }
+
+  /**
+   * Returns hierarchy observer object for SpItems.
+   *
+   * Returns an object that can be be added to an SpItem (especially SpRootItem, SpProg etc)
+   * to observe hierarchy changes and execute necessary code such as updating msb attributs.
+   *
+   * @see #updateMsbAttributes()
+   */
+  public static SpHierarchyChangeObserver getHierarchyChangeUtil() {
+    return new SpHierarchyChangeObserver() {
+
+      public void spItemsAdded(SpItem parent, SpItem[] children, SpItem afterChild) {
+        updateMsbAttributes(parent);
+      }
+
+      public void spItemsMoved(SpItem oldParent, SpItem[] children, SpItem newParent, SpItem afterChild) {
+        updateMsbAttributes(oldParent);
+        updateMsbAttributes(newParent);
+      }
+
+      public void spItemsRemoved(SpItem parent, SpItem[] children) { }
+    };
+  }
 
   /**
    * Remove id and idref attributes from spItem subtree.
