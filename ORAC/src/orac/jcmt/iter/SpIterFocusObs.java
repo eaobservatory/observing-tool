@@ -57,7 +57,7 @@ public class SpIterFocusObs extends SpIterJCMTObs {
     _avTable.noNotifySet(ATTR_AXIS,         AXES[2], 0);
     _avTable.noNotifySet(ATTR_STEPS,        "" + getDefaultSteps(AXES[2]), 0);
     _avTable.noNotifySet(ATTR_FOCUS_POINTS, "5", 0);
-    _avTable.noNotifySet(ATTR_AUTOMATIC_TARGET, "false", 0);
+    _avTable.noNotifySet(ATTR_AUTOMATIC_TARGET, "true", 0);
   }
 
 
