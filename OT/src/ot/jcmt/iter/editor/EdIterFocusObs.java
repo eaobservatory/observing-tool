@@ -54,6 +54,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
     _w.axis.addWatcher(this);
     _w.steps.addWatcher(this);
     _w.focusPoints.addWatcher(this);
+
+    _w.automaticTarget.setToolTipText("Automatically determine focus/align target at time of observation");
   }
 
   /**
@@ -73,6 +75,7 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
   }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+
     if (tbwe == _w.steps)       {
       _iterObs.setSteps(_w.steps.getValue());
       return;
@@ -89,6 +92,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
     if(ddlbwe == _w.axis) {
       _iterObs.setAxis(SpIterFocusObs.AXES[index]);
+      _iterObs.setSteps(SpIterFocusObs.getDefaultSteps(SpIterFocusObs.AXES[index]));
+      _w.steps.setValue(_iterObs.getSteps());
       return;
     }
 
