@@ -46,6 +46,16 @@ public class SpSiteQualityObsComp extends gemini.sp.obsComp.SpSiteQualityObsComp
    /** Used for XML parsing. @see #processXmlElementContent(java.lang.String,java.lang.String) */
    private String _previousXmlElement = "";
    
+
+   public static final SpType SP_TYPE =
+   	SpType.create(SpType.OBSERVATION_COMPONENT_TYPE, SUBTYPE, "Site Quality");
+
+   // Register the prototype.
+   static {
+     SpFactory.registerPrototype(new SpSiteQualityObsComp());
+   }
+
+
 /**
  * Default constructor.  Initialize the component type.
  */
