@@ -262,6 +262,7 @@ public class SpValidation {
 					  String componentName,
 					  String description,
 					  Vector report) {
+	String title = null;
 	// Check all the children of the top level element
 	Element root = doc.getDocumentElement();
 	// Each MSB and SpObs must contain an SpTelescopeObsComp, or inherit it from a parent.
@@ -272,11 +273,15 @@ public class SpValidation {
 	    Node thisNode = nl.item(i);
 	    // For each MSB check if we have the required info.
 	    NodeList requiredTag = ((Element)thisNode).getElementsByTagName("*");
+	    title = null;
 	    if (requiredTag != null) {
 		for (int j=0; j<requiredTag.getLength(); j++) {
+		    if (requiredTag.item(j).getNodeName().equalsIgnoreCase("title")) {
+			title = requiredTag.item(j).getFirstChild().getNodeValue();
+// 			System.out.println("Title of folder = "+title);
+		    }
 		    if (requiredTag.item(j).getNodeName().startsWith(componentName)) {
 			found = true;
-			break;
 		    }
 		}
 	    }
@@ -308,9 +313,16 @@ public class SpValidation {
 		continue;
 	    }
 	    else {
-		report.add(new ErrorMessage (ErrorMessage.ERROR,
-					     "MSB or Observation",
-					     "An MSB or Observation does not contain or inherit a "+description));
+		if (title != null) {
+		    report.add(new ErrorMessage (ErrorMessage.ERROR,
+						 "MSB or Observation",
+						 "MSB/Observation "+title+" does not contain or inherit a "+description));
+		}
+		else {
+		    report.add(new ErrorMessage (ErrorMessage.ERROR,
+						 "MSB or Observation",
+						 "Unnamed MSB/Observation does not contain or inherit a "+description));
+		}
 		break;
 	    }
 	}
