@@ -16,10 +16,19 @@ import gemini.sp.SpType;
 /**
  * The Heterodyne instrument Observation Component.
  *
- * Note that ot.jcmt.inst.editor.EdCompInstHeterodyne manipulates the _avTable of the
- * SpInstHeterodyne item directly (via getTable()). That's why SpInstHeterodyne
- * does not have any proper functionality of its own at the moment. This might
- * change in the future.
+ * This class differs from other instrument items in that its SpAvTable contains just one
+ * entry: the XML representation of this instrument item.
+ * <p>
+ * <b>Other instruments items</b> use the method processAvAttribute() to convert the SpAvTable entries to XML
+ * and the methods processXmlElement...() to convert XML to the SpAvTable entries.
+ * <p>
+ * <b>SpInstHeterodyne on the other hand</b> overrides these methods so that
+ * {@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer)} effectively pastes
+ * the existing XML representation of its SpInstHeterodyne item (as stored in the SpAvTable
+ * under the attribute ATTR_FREQ_EDITOR_XML) into the XML of the Science Program.<br>
+ * Similarly the {@link #processXmlElementStart(java.lang.String) processXmlElement...()} are used to
+ * bit by bit filter the XML for this SpInstHeterodyne item out of the Science Program XML and then
+ * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
@@ -89,6 +98,11 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.set(ATTR_FREQ_EDITOR_XML, xml.trim());
   }
 
+  /**
+   */
+  public void noNotifySetFreqEditorXml(String xml) {
+    _avTable.noNotifySet(ATTR_FREQ_EDITOR_XML, xml.trim(), 0);
+  }
 
   /**
    * Get jiggle pattern options.
@@ -109,7 +123,12 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     return 0.0;
   }
 
-
+  /**
+   * Pastes the existing XML representation of its SpInstHeterodyne item (as stored in the SpAvTable
+   * under the attribute ATTR_FREQ_EDITOR_XML) into the XML of the Science Program.
+   *
+   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
     if(avAttr.equals(ATTR_FREQ_EDITOR_XML)) {
       // Ignore indent for now.
@@ -120,24 +139,30 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     }
   }
 
+  /**
+   * Filters out the XML for this SpInstHeterodyne item from the Science Program XML and then
+   * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
+   *
+   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   */
   public void processXmlElementStart(String name) {
     String prefix = "";
 
     if(name.equals("heterodyne")) {
       _freqEditorXmlBuffer.setLength(0);
 
-      prefix = "  ";
+      prefix = "";
     }
 
     if(name.equals("bandSystem")) {
-      prefix = "    ";
+      prefix = "  ";
 
       // Close <heterodyne> tag
       _freqEditorXmlBuffer.append(">\n");
     }
 
     if(name.equals("subSystem")) {
-      prefix = "      ";
+      prefix = "    ";
 
       // Close <bandSystem> tag
       _freqEditorXmlBuffer.append(">\n");
@@ -146,32 +171,49 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _freqEditorXmlBuffer.append(prefix + "<" + name);    
   }
 
+  /**
+   * Filters out the XML for this SpInstHeterodyne item from the Science Program XML and then
+   * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
+   *
+   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   */
   public void processXmlElementEnd(String name) {
     if(name.equals("subSystem")) {
       // Close <subSystem> tag
-      _freqEditorXmlBuffer.append("/>\n");
+      _freqEditorXmlBuffer.append("/>");
     }
 
     if(name.equals("bandSystem")) {
       // Add </bandSystem> tag
-      _freqEditorXmlBuffer.append("</bandSystem>\n");
+      _freqEditorXmlBuffer.append("\n  </bandSystem>");
     }
 
     if(name.equals("heterodyne")) {
       // Add </heterodyne> tag
       _freqEditorXmlBuffer.append("</heterodyne>\n");
 
-      setFreqEditorXml(_freqEditorXmlBuffer.toString());
+      noNotifySetFreqEditorXml(_freqEditorXmlBuffer.toString());
     }
   }
 
+  /**
+   * Filters out the XML for this SpInstHeterodyne item from the Science Program XML and then
+   * stores it in the SpAvTable under the attribute ATTR_FREQ_EDITOR_XML.
+   *
+   * @see orac.jcmt.inst.SpInstHeterodyne General comments about this class.
+   */
   public void processXmlAttribute(String elementName, String attributeName, String value) {
 
     if(elementName.equals(_className)) {
       super.processXmlAttribute(elementName, attributeName, value);
     }
     else {
-      _freqEditorXmlBuffer.append(" " + attributeName + "=\"" + value + "\"");
+      if(elementName.equals("heterodyne")) {
+        _freqEditorXmlBuffer.append("\n    " + attributeName + "=\"" + value + "\"");
+      }
+      else {
+        _freqEditorXmlBuffer.append(" " + attributeName + "=\"" + value + "\"");
+      }
     }
   }
 
