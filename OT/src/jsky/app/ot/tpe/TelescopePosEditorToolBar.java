@@ -9,11 +9,13 @@ package jsky.app.ot.tpe;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
+import gemini.sp.SpTelescopePos;
 import jsky.util.gui.LabelJPanel;
 import jsky.app.ot.gui.ToggleButtonWidgetPanel;
 import jsky.app.ot.gui.ToggleButtonWidget;
-import jsky.app.ot.OtCfg;
+import jsky.app.ot.tpe.feat.TpeGuidePosFeature;
 
 
 /**
@@ -73,11 +75,23 @@ public class TelescopePosEditorToolBar extends JToolBar {
 				// "GUIDE" referres to the UKIRT tag for guide stars as specified in the configuration
 				// file ot.cfg. If the tag in ot.cfg is changed "GUIDE" has to be changed here too.
 				// (case sensitive)
-				else if (s.equals("PWFS1") || s.equals("PWFS2") || s.equals("OIWFS") ||
-				         s.equals(OtCfg.telescopeUtil.getAdditionalTarget())) {
-				    ToggleButtonWidget b = viewToggleButtonPanel.getButton(OtCfg.telescopeUtil.getAdditionalTarget());
+				else {
+				  // Check whether it is a additional target button (e.g. GUIDE, Reference etc).
+				  boolean isGuide = false;
+				  String [] guideTags = SpTelescopePos.getGuideStarTags();
+
+				  for(int i = 0; i < guideTags.length; i++) {
+				    if(s.equals(guideTags[i])) {
+				      isGuide = true;
+				      break;
+				    }
+				  }
+
+				  if (isGuide) {
+				    ToggleButtonWidget b = viewToggleButtonPanel.getButton(TpeGuidePosFeature.getTpeViewGuideLabel());
 				    if (b != null)
 					b.setSelected(true);
+				  }
 				}
 			    }
 			}
