@@ -23,7 +23,7 @@ public class FileFilterSGML extends FileFilter {
 
   public static final String [] extension   = { ".sgml", ".ot", ".sp" };
 
-  public static final String    description = "Science Program SGML (*.sgml, *.ot, *.sp)";
+  public static final String    description = "SP SGML (*.sgml, *.ot, *.sp)";
 
   public boolean accept(File file) {
     if(file.isDirectory()) {
