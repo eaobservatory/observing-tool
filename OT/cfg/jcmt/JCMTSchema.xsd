@@ -3,6 +3,12 @@
 
 <!-- TYPE INFORMATION -->
 
+<xsd:simpleType name="dms">
+  <xsd:restriction base="xsd:string">
+    <xsd:pattern value="(\+|\-)?\d{1,2}(:| )\d{1,2}(:| )\d{1,2}(\.\d+)?" />
+  </xsd:restriction>
+</xsd:simpleType>
+
 <xsd:simpleType name="approachType">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="rising"/>
@@ -446,8 +452,8 @@
         <xsd:element name="spherSystem">
           <xsd:complexType>
             <xsd:all>
-              <xsd:element name="c1" type="xsd:string"/>
-              <xsd:element name="c2" type="xsd:string"/>
+              <xsd:element name="c1" type="dms"/>
+              <xsd:element name="c2" type="dms"/>
 <!--
               <xsd:element name="pm1" minOccurs="0">
                 <xsd:complexType>
