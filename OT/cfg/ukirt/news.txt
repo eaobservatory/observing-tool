@@ -13,6 +13,59 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ February 2005
+
+  [Semester 05A release]
+  
+  - Support added for WFCAM instrument.  This includes not only the WFCAM instrument
+    but also the MicroStep iterator, WFCAM calibration "eye", WFCAM library and WFCAM 
+    DR-Recipe component.
+
+  - The Survey Container has been added.  This allows you to put multiple targets in
+    the same container, and gives the Telescope Operator the choice if selecting n of
+    the m targets.  It can either be placed at the top level of a Science Program
+    (like an MSB), in which case it can contain at most 1 MSB (acting as a repeat
+    iterator for the MSB), or within an MSB, when it can contain any number of 
+    observations (acting as a target iterator).
+
+  - The target component now allows you to create "named" sky targets.  These can be either
+    specified as absolute positions or offsets from the base.  The "old style" use of skies
+    is still supported.
+
+  - The sky "eye" interface has chnaged to support "named" sky targets.  If a named sky is
+    not specified, this eye behaves exactly as it did previously.  If a named sky is
+    specified, then several additional options exist:
+      - You may select which named sky to use;
+      - If the sky target is specified in absolute terms, then it will always go to this
+        position, regardless of the base
+      - If the sky target is specified as an offset from the base, the following additional
+        features are available:
+          - "No offset" - always go to the offset position relative to the BASE target
+          - "Follow offset" - if the BASE is inside an offset iterator, the sky position
+            used will follow the BASE offset pattern, with a user defined scale factor.
+          - "Random offset" - the actual offset position will be somewhere in the specifed
+            box centered on the sky target offset position.
+
+  - MSB's marked as REMOVED can now be UNREMOVED and their count is maintained.
+
+  - Better explanations of the meanings of cloud and moon are given in the
+    Site Quality component, and an additional constraint of J band sky brightness is available.
+
+  - The 150 lpmm disperser has been removed from CGS4
+
+  - The chop settings tab on the target component has been disabled.
+
+  - Additional validation checks are performed, including against an XML schema.
+
+  - More than 1 observer note can now be specified, but they may not appear inside
+    a sequence iterator.
+
+  - Fixed a bug in prompting user to save.
+
+  - Offset positions are now also shown around the Guide star (in blue) in the 
+    position editor.  This allows users to see if the guider will lose lock when
+    going around an offset pattern.
+
 +++ December 2003
 
   [Semester 04A release]

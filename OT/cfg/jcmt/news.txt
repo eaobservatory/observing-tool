@@ -11,8 +11,25 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-  - Fixed problem with accurate display of offset Reference positions
++++ February 2005
 
+  [Semester 05A release - mainly for UKIRT]
+
+  - Fixed problem with accurate display of offset Reference positions.
+
+  - The Survey Container has been added.  This allows you to put multiple targets in
+    the same container, and gives the Telescope Operator the choice if selecting n of
+    the m targets.  It can either be placed at the top level of a Science Program
+    (like an MSB), in which case it can contain at most 1 MSB (acting as a repeat
+    iterator for the MSB), or within an MSB, when it can contain any number of 
+    observations (acting as a target iterator).
+
+  - MSB's marked as REMOVED can now be UNREMOVED and their count is maintained.
+ 
+  - More than 1 observer note can now be specified, but they may not appear inside
+    a sequence iterator.
+
+  - Fixed a bug in prompting user to save.
 
 +++ December 2003
 
