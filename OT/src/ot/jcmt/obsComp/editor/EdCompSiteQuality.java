@@ -18,7 +18,7 @@ import javax.swing.ButtonGroup;
 import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.editor.OtItemEditor;
 
-import gemini.sp.obsComp.SpSiteQualityObsComp;
+import orac.jcmt.obsComp.SpSiteQualityObsComp;
 
 
 /**
