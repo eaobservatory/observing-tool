@@ -224,6 +224,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          "" + bandSpec.defaultOverlaps[0],			// overlap
          "0.0",							// velocity
          SpInstHeterodyne.RADIAL_VELOCITY_RADIO,		// velocity definitio
+	 SpInstHeterodyne.LSR_VELOCITY_FRAME,                   // velocity frame
          "usb",							// band
          "" + receiver.feIF,					// centre frequency
          "" + bandSpec.getDefaultOverlapBandWidths()[0],	// bandwidth
@@ -358,6 +359,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       {
          feMixersAction ( ae );
       }
+      else if (ae.getSource() == _w.velocityFrame) {
+	  velocityFrameAction(ae);
+      }
       else if ( ae.getSource() == _w.velocity )
       {
          feVelocityAction ( ae );
@@ -451,6 +455,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    }
 
     public void feMixersAction (ActionEvent ae) {
+	_instHeterodyne.setMixer((String)_w.feMixers.getSelectedItem());
+    }
+
+    public void velocityFrameAction (ActionEvent ae) {
+	_instHeterodyne.setVelocityFrame((String)_w.velocityFrame.getSelectedItem());
     }
 
 
