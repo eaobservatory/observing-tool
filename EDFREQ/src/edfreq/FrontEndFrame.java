@@ -12,6 +12,8 @@ package edfreq;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -26,7 +28,7 @@ import javax.swing.filechooser.FileFilter;
  *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class FrontEndFrame extends JFrame implements ActionListener {
+public class FrontEndFrame extends JFrame implements ActionListener, WindowListener {
 
   private FrontEnd _frontEnd;
 
@@ -50,6 +52,7 @@ public class FrontEndFrame extends JFrame implements ActionListener {
     _frontEnd.setSideBandDisplayVisible(true);
 
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+    addWindowListener(this);
 
     _fileChooser.setFileFilter(new FileFilter() {
       public boolean accept(File file) {
@@ -209,5 +212,17 @@ public class FrontEndFrame extends JFrame implements ActionListener {
       exit();
     }
   }
+
+  public void windowActivated(WindowEvent e)   { } 
+  public void windowClosed(WindowEvent e)      { }
+
+  public void windowClosing(WindowEvent e) {
+    exit();
+  }
+
+  public void windowDeactivated(WindowEvent e) { }
+  public void windowDeiconified(WindowEvent e) { }
+  public void windowIconified(WindowEvent e)   { }
+  public void windowOpened(WindowEvent e)      { }
 }
 
