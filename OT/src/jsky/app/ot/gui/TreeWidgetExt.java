@@ -55,7 +55,7 @@ public class TreeWidgetExt extends JPanel {
 	treeModel = new DefaultTreeModel(rootNode);
         tree = new AutoscrollTree(treeModel);
 	tree.setBackground(getBackground());
-	tree.getSelectionModel().setSelectionMode(TreeSelectionModel.CONTIGUOUS_TREE_SELECTION);
+	tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
         tree.setShowsRootHandles(true);
 	tree.setCellRenderer(new TreeWidgetCellRenderer());
 
