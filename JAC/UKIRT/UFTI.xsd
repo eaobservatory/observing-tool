@@ -185,7 +185,7 @@
       <xsd:element name="sourceMag"/>
       <xsd:element ref="toml:title" minOccurs="0"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="inst.UFTI"/>
   </xsd:complexType>

@@ -252,7 +252,7 @@
       <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
       <xsd:element name="waveplate"        type="toml:michelleWaveplateList"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="inst.michelle"/>
   </xsd:complexType>
@@ -287,7 +287,7 @@
       <xsd:element name="sampling"         type="toml:michelleSamplingList"/>
       <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="MichelleCalObs"/>
   </xsd:complexType>
@@ -323,7 +323,7 @@
       <xsd:element name="scienceArea"      type="xsd:anyType"/>
       <xsd:element name="waveform"         type="toml:michelleWaveformList"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="instMichelleTargetAcq"/>
   </xsd:complexType>

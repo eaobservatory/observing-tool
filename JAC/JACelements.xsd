@@ -6,6 +6,7 @@
 
 
 <!-- Unique JAC elements -->
+<xsd:element name="meta_display_airmass"       type="xsd:boolean"/>
 <xsd:element name="meta_gui_collapsed"         type="xsd:boolean"/>
 <xsd:element name="meta_gui_selected"          type="xsd:boolean"/>
 <xsd:element name="meta_gui_filename"          type="xsd:string"/>

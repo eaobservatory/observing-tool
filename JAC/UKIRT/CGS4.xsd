@@ -212,7 +212,7 @@
       <xsd:element name="sampling"       type="toml:cgs4samplingList"/>
       <xsd:element name="sourceMag"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="oc"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="inst.CGS4"/>
   </xsd:complexType>
@@ -236,7 +236,7 @@
       <xsd:element name="neutralDensity" type="xsd:boolean"/>
       <xsd:element ref="toml:repeatCount"/>
     </xsd:sequence>
-    <xsd:attribute name="id" type="xsd:positiveInteger" use="optional"/>
+    <xsd:attribute name="id" type="xsd:nonNegativeInteger" use="optional"/>
     <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
     <xsd:attribute name="subtype" type="xsd:string" fixed="CGS4calUnitObs"/>
   </xsd:complexType>

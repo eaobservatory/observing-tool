@@ -37,6 +37,7 @@
 
 <xsd:group name="jac_meta_group">
   <xsd:sequence>
+    <xsd:element ref="toml:meta_display_airmass"          minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_collapsed"            minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_dir"                  minOccurs="0"/>
     <xsd:element ref="toml:meta_gui_filename"             minOccurs="0"/>
