@@ -9,9 +9,11 @@ package ot.ukirt.tpe;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Polygon;
+import java.awt.geom.Point2D;
 
 import jsky.app.ot.tpe.TpeImageFeature;
 import jsky.app.ot.tpe.TpeImageWidget;
+import jsky.app.ot.tpe.TpePositionMap;
 
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
@@ -21,7 +23,12 @@ import jsky.app.ot.util.PolygonD;
 
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpTreeMan;
+
 import orac.ukirt.inst.SpUKIRTInstObsComp;
+
+import jsky.app.ot.gui.DrawUtil;
+
+
 
 /**
  * Draws the location of the dichroic on UKIRT.
@@ -217,6 +224,10 @@ public class TpeDichroicFeature extends TpeImageFeature {
       _oobbArea.ypoints[ 4 ] = _oobbArea.ypoints[ 0 ];
 
 // Rotate the dichroic depending on the "port" it is on.
+//       System.out.println("Before rotation, oob = ");
+//       for ( int i=0; i<_oobbArea.xpoints.length; i++ ) {
+//           System.out.println("\t("+_oobbArea.xpoints[i]+", "+_oobbArea.ypoints[i]+")");
+//       }
       if ( _inst != null ) {
          if ( _inst.getPort().equalsIgnoreCase( "West" ) ) {
             _iw.skyRotate( _fovAreaPD, Angle.degreesToRadians( -90.0 ) );
@@ -239,6 +250,11 @@ public class TpeDichroicFeature extends TpeImageFeature {
             _iw.skyRotate( _oobbArea, Angle.degreesToRadians( 0.0 ) ) ;
          }
       }
+//       System.out.println("After rotation, oob = ");
+//       for ( int i=0; i<_oobbArea.xpoints.length; i++ ) {
+//           System.out.println("\t("+_oobbArea.xpoints[i]+", "+_oobbArea.ypoints[i]+")");
+//       }
+      // Do a check on the guide star to see if it is valid...
       _valid = true;
    }
 
@@ -254,6 +270,29 @@ public class TpeDichroicFeature extends TpeImageFeature {
       g.drawPolygon( _fovAreaPD.getAWTPolygon() );
       g.fillPolygon( _oobtArea.getAWTPolygon() );
       g.fillPolygon( _oobbArea.getAWTPolygon() );
+      if ( !validGuideStar() ) {
+          g.setFont(TpeImageFeature.FONT);
+          String s = "WARNING - Guide star obscured by dichroic";
+          DrawUtil.drawString(g, s, Color.yellow, Color.black, 10, 10);
+      }
+   }
+
+   // Check whether the guide star is in a valid position
+   private boolean validGuideStar() {
+       // First get the guide star position, if one exists.
+       TpePositionMap pm = TpePositionMap.getMap(_iw);
+       Point2D.Double p  = pm.getLocationFromTag("GUIDE");
+       boolean isValidPosition = true;
+       if ( p != null ) {
+           // Check if it falls in the OOB areas...
+           if ( _oobtArea.getAWTPolygon().contains(p) ) {
+               isValidPosition = false;
+           } 
+           else if ( _oobbArea.getAWTPolygon().contains(p) ) {
+               isValidPosition = false;
+           }
+       }
+       return isValidPosition;
    }
 
 }
