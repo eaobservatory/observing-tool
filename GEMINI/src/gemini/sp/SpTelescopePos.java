@@ -11,6 +11,7 @@ import gemini.util.HHMMSS;
 import gemini.util.DDMMSS;
 import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
+import gemini.util.Format;
 
 /**
  * A data object that describes a telescope position and includes methods
@@ -41,6 +42,122 @@ import gemini.util.TelescopePos;
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
+   /**
+    * Target Name.
+    *
+    * _avTab.get(ATTR_TARGET_NAME is the same as _avTab.get(BASE_TAG, NAME_INDEX).
+    * The target name is stored twice in the table. ATTR_TARGET_NAME is used for
+    * the XML output. BASE_TAG, NAME_INDEX is used by the UKIRT translator.
+    */
+   public static final String ATTR_TARGET_NAME         = "target.targetName";
+
+   /**
+    * Target System based on two coordinates.
+    *
+    * RA/Dec, Az/El etc.
+    * See JAC OCS TCS.
+    */
+   public static final int TARGET_SYSTEM_HMSDEG_DEGDEG = 0;
+
+   /**
+    * Conic Target System.
+    *
+    * Represented by its Oribtal Elements.
+    * See JAC OCS TCS.
+    */
+   public static final int TARGET_SYSTEM_CONIC         = 1;
+
+   /**
+    * Named Target System.
+    *
+    * A target is specified by its name. Used for planets, sun, moon etc.
+    * See JAC OCS TCS.
+    */
+   public static final int TARGET_SYSTEM_NAMED         = 2;
+
+
+   /**
+    * XML attributes for types of conic systems.
+    *
+    * "major", "minor", "planetarySatelite". <P>
+    *
+    * See JAC OCS TCS XML.
+    *
+    * @see #NAMED_SYSTEM_TYPES_DESCRIPITON 
+    */
+   public static final String [] NAMED_SYSTEM_TYPES_XML         = { "major", "minor", "planetarySatelite"  };
+
+   /**
+    * XML attributes for types of conic systems.
+    *
+    * "Major", "Minor", "Planetary Satelite". <P>
+    *
+    * See JAC OCS TCS XML.
+    *
+    * @see #NAMED_SYSTEM_TYPES_XML
+    */
+   public static final String [] NAMED_SYSTEM_TYPES_DESCRIPITON = { "Major", "Minor", "Planetary Satelite" };
+
+
+   /**
+    * XML attributes for types of conic systems.
+    *
+    * "comet", "major", "minor".<P>
+    *
+    * See JAC OCS TCS XML.
+    *
+    * @see #CONIC_SYSTEM_TYPES_DESCRIPITON 
+    */
+   public static final String [] CONIC_SYSTEM_TYPES_XML         = { "comet", "major", "minor" };
+
+   /**
+    * XML attributes for types of conic systems.
+    *
+    * "Comet", "Major", "Minor".<P>
+    *
+    * See JAC OCS TCS XML.
+    *
+    * @see #CONIC_SYSTEM_TYPES_XML
+    */
+   public static final String [] CONIC_SYSTEM_TYPES_DESCRIPITON = { "Comet", "Major", "Minor" };
+
+   /** @see #getConicSystemEpoch() */
+   public static final String ATTR_CONIC_SYSTEM_EPOCH       = "target.conicSystem.epoch";
+
+   /** @see #getConicSystemInclination() */
+   public static final String ATTR_CONIC_SYSTEM_INCLINATION = "target.conicSystem.inclination";
+
+   /** @see #getConicSystemAnode() */
+   public static final String ATTR_CONIC_SYSTEM_ANODE       = "target.conicSystem.anode";
+
+   /** @see #getConicSystemPerihelion() */
+   public static final String ATTR_CONIC_SYSTEM_PERIHELION  = "target.conicSystem.perihelion";
+
+   /** @see #getConicSystemAorQ() */
+   public static final String ATTR_CONIC_SYSTEM_AORQ        = "target.conicSystem.aorq";
+
+   /** @see #getConicSystemE() */
+   public static final String ATTR_CONIC_SYSTEM_E           = "target.conicSystem.e";
+
+   /** @see #getConicSystemType() */
+   public static final String ATTR_CONIC_SYSTEM_TYPE        = "target.conicSystem:type";
+
+
+   /** @see #getNamedSystemType() */
+   public static final String ATTR_NAMED_SYSTEM_TYPE        = "target.namedSystem:type";
+
+
+   /**
+    * HMSDEG/DEGDEG, Conic, Named.
+    *
+    * Do not confuse with the coord system.
+    *
+    * One of {@link #TARGET_SYSTEM_HMSDEG_DEGDEG}, {@link #TARGET_SYSTEM_CONIC}, {@link #TARGET_SYSTEM_NAMED}
+    *
+    * @see #getTargtSystem()
+    */
+   private int _targetSystem = TARGET_SYSTEM_HMSDEG_DEGDEG;
+
    //
    // A position can have one of the following tags.  "Guide" and "User"
    // tags have a numeric suffix appended to them to make them unique.
@@ -162,6 +279,102 @@ protected SpTelescopePos(SpItem spItem, SpAvTable avTab,
 }
 
 /**
+ * Get the kind of target system: HMSDEG/DEGDEG, Conic, Named.
+ *
+ * Do not confuse with the coord system.
+ *
+ * @return One of {@link #TARGET_SYSTEM_HMSDEG_DEGDEG}, {@link #TARGET_SYSTEM_CONIC}, {@link #TARGET_SYSTEM_NAMED}
+ */
+public int getTargetSystem() {
+   return _targetSystem;
+}
+
+/**
+ * Set the kind of target system: HMSDEG/DEGDEG, Conic, Named.
+ *
+ * Do not confuse with the coord system.
+ *
+ * @param targetSystem One of {@link #TARGET_SYSTEM_HMSDEG_DEGDEG}, {@link #TARGET_SYSTEM_CONIC}, {@link #TARGET_SYSTEM_NAMED}
+ */
+public void setTargetSystem(int targetSystem) {
+   if(_targetSystem == targetSystem) {
+      return;
+   }
+
+   _targetSystem = targetSystem;
+
+   switch(_targetSystem) {
+      case TARGET_SYSTEM_CONIC:
+         _avTab.noNotifyRm(BASE_TAG);
+
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, "" + 0.0, 0);
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, "" + 0.0, 0);
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE, "" + 0.0, 0);
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION, "" + 0.0, 0);
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ, "" + 0.0, 0);
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_E, "" + 0.0, 0);
+         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE, CONIC_SYSTEM_TYPES_XML[0], 0);
+
+         _avTab.noNotifyRm(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
+
+         // Last table change: notify
+	 // Conic system uses table attribute tagPrefix() + ATTR_TARGET_NAME to store the name. 
+	 _avTab.set(tagPrefix() + ATTR_TARGET_NAME, _name);
+
+	 break;
+
+      case TARGET_SYSTEM_NAMED:
+         _avTab.noNotifyRm(BASE_TAG);
+
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_E);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE);
+
+         _avTab.noNotifySet(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE, NAMED_SYSTEM_TYPES_XML[0], 0);
+         
+         // Last table change: notify
+	 // Named system uses table attribute tagPrefix() + ATTR_TARGET_NAME to store the name. 
+	 _avTab.set(tagPrefix() + ATTR_TARGET_NAME, _name);
+
+	 break;
+
+      //case TARGET_SYSTEM_HMSDEG_DEGDEG:
+      default:
+         _avTab.noNotifySet(BASE_TAG, BASE_TAG,  TAG_INDEX);
+         _avTab.noNotifySet(BASE_TAG, _name,     NAME_INDEX);
+         _avTab.noNotifySet(BASE_TAG, "0:00:00", XAXIS_INDEX);
+         _avTab.noNotifySet(BASE_TAG, "0:00:00", YAXIS_INDEX);
+         _avTab.noNotifySet(BASE_TAG, CoordSys.COORD_SYS[CoordSys.FK5], COORD_SYS_INDEX);
+
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_E);
+         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE);
+	 
+         _avTab.noNotifyRm(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
+
+         // Last table change: notify
+	 // HMSDEG/DEGDEG system uses table attribute BASE_TAG with NAME_INDEX to store the name.
+	 // So remove tagPrefix() + ATTR_TARGET_NAME.
+         _avTab.rm(tagPrefix() + ATTR_TARGET_NAME);
+
+	 break;
+   }
+
+   // Remove obsolete attributes from AV table.
+
+   // Initialise target system specific attributes in AV table.
+}
+
+
+/**
  * Hack for the SpTelescopeObsComp.  It needs to always be created
  * with a base position, so it calls this method in the constructor.
  */
@@ -240,7 +453,14 @@ setName(String name)
 {
    synchronized (this) {
       _name = name;
-      _avTab.set(_tag, name, NAME_INDEX);
+
+      if(_targetSystem == TARGET_SYSTEM_HMSDEG_DEGDEG) {
+         _avTab.set(_tag, name, NAME_INDEX);
+      }
+      else {
+         // Equivalent to _avTab.set(tag, name,  NAME_INDEX); Needed for XML output. (MFO, 27 February 2002)
+         _avTab.set(tagPrefix() + ATTR_TARGET_NAME, name);
+      }	 
    }
    _notifyOfGenericUpdate();
 }
@@ -375,7 +595,7 @@ setCoordSys(int i)
       return;
    }
 
-   // Eventually, will have to change the String stored in the _avTable
+   // Eventually, will have to change the String stored in the _avTab
    // and update the values of this.xaxis and this.yaxis
 
    synchronized (this) {
@@ -396,7 +616,7 @@ setCoordSys(String coordSysString)
       return;
    }
 
-   // Eventually, will have to change the String stored in the _avTable
+   // Eventually, will have to change the String stored in the _avTab
    // and update the values of this.xaxis and this.yaxis
 
    synchronized (this) {
@@ -653,6 +873,203 @@ setTrackingEffectiveWavelength(String trackEffWave)
    _notifyOfGenericUpdate();
 }
 
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the epoch of the orbital elements or epoch of perihelion (t0, T).
+ */
+public double
+getConicSystemEpoch()
+{
+   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, 0.0);
+}
+
+/**
+ * Conic System (Orbital Elements).
+ * 
+ * Set the epoch of the orbital elements or epoch of perihelion (t0, T).
+ */
+public void
+setConicSystemEpoch(String value)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, Format.toDouble(value));
+}
+
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the inclination of the orbit (i).
+ */
+public double
+getConicSystemInclination()
+{
+   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, 0.0);
+}
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Set the inclination of the orbit (i).
+ */
+public void
+setConicSystemInclination(String value)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, Format.toDouble(value));
+}
+
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the longitude of the ascending node (&Omega;).
+ */
+public double
+getConicSystemAnode()
+{
+   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE, 0.0);
+}
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Set the longitude of the ascending node (&Omega;).
+ */
+public void
+setConicSystemAnode(String value)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE, Format.toDouble(value));
+}
+
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the argument of perihelion (&omega;).
+ */
+public double
+getConicSystemPerihelion()
+{
+   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION, 0.0);
+}
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Set the argument of perihelion (&omega;).
+ */
+public void
+setConicSystemPerihelion(String value)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION, Format.toDouble(value));
+}
+
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the mean distance (a) or perihelion distance (q).
+ */
+public double
+getConicSystemAorQ()
+{
+   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ, 0.0);
+}
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Set the mean distance (a) or perihelion distance (q).
+ */
+public void
+setConicSystemAorQ(String value)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ, Format.toDouble(value));
+}
+
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Get the orbital eccentricity (e).
+ */
+public double
+getConicSystemE()
+{
+   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_E, 0.0);
+}
+
+/**
+ * Conic System (Oribital Elements).
+ *
+ * Set the orbital eccentricity (e).
+ */
+public void
+setConicSystemE(String value)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_E, Format.toDouble(value));
+}
+
+
+/**
+ * Get type of Orbital Elements conic system.
+ *
+ * @return {@link #CONIC_SYSTEM_TYPES_XML}
+ *
+ * @see #CONIC_SYSTEM_TYPES_DESCRIPITON
+ */
+public String
+getConicSystemType()
+{
+   return _avTab.get(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE);
+}
+
+/**
+ * Set type of Orbital Elements conic system.
+ *
+ * @param conicSystemType {@link #CONIC_SYSTEM_TYPES_XML}
+ *
+ * @see #CONIC_SYSTEM_TYPES_DESCRIPITON
+ */
+public void
+setConicSystemType(String conicSystemType)
+{
+   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE, conicSystemType);
+}
+
+
+/**
+ * Get type of named system.
+ *
+ * A named target is used for planets, sun, moon etc.
+ *
+ * @return {@link #NAMED_SYSTEM_TYPES_XML}
+ *
+ * @see #NAMED_SYSTEM_TYPES_DESCRIPITON
+ */
+public String
+getNamedSystemType()
+{
+   return _avTab.get(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
+}
+
+/**
+ * Get type of named system.
+ *
+ * A named target is used for planets, sun, moon etc.
+ *
+ * @param namedSystemType {@link #NAMED_SYSTEM_TYPES_XML}
+ *
+ * @see #NAMED_SYSTEM_TYPES_DESCRIPITON
+ */
+public void
+setNamedSystemType(String namedSystemType)
+{
+   _avTab.set(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE, namedSystemType);
+}
+
+
 /**
  * Standard debugging method.
  */
@@ -667,4 +1084,17 @@ toString()
 	", coordSystem=" + getCoordSysAsString() + "]";
 }
 
+protected String
+tagPrefix()
+{
+   if(_tag == null) {
+      return "";
+   }
+
+   if(_tag.equalsIgnoreCase("base")) {
+      return "SCIENCE.";
+   }
+
+   return _tag + ".";
+}
 }
