@@ -93,7 +93,7 @@ public class SpInputXML extends DefaultHandler {
    */
   private boolean _firstCharacters = false;
 
-  private StringBuffer _characterBuffer = new StringBuffer();
+  private String _characterBuffer = null;
 
   public void startElement(String namespaceURI,
                            String localName,
@@ -169,8 +169,8 @@ public class SpInputXML extends DefaultHandler {
     }
 
     if(_valueArrayElement != null) {
-      _currentSpItem.processXmlElementContent(_valueArrayElement, _characterBuffer.toString().trim(), _valueArrayPos);
-      _characterBuffer.setLength(0);
+      _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
+      _characterBuffer = null;
     }
 
     _currentSpItem.processXmlElementEnd(qName);
@@ -192,11 +192,15 @@ public class SpInputXML extends DefaultHandler {
     }
 
     if(_firstCharacters) {
-      _characterBuffer.setLength(0);
+      _characterBuffer = null;
       _firstCharacters = false;
     }
-
-      _characterBuffer.append(new String(ch, start, length));
+    if (_characterBuffer == null) {
+	_characterBuffer = new String (ch, start, length);
+    }
+    else {
+	_characterBuffer = _characterBuffer+new String(ch, start, length);
+    }
 
 
     //if((_currentElement != null) && (value.trim().length() > 0)){
@@ -206,7 +210,8 @@ public class SpInputXML extends DefaultHandler {
     // partial Strings.
     if((_currentElement != null) && (_valueArrayElement == null)){
 
-      _currentSpItem.processXmlElementContent(_currentElement, _characterBuffer.toString());
+      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+      _characterBuffer = null;
     }
   }
 
