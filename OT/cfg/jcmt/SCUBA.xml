@@ -113,7 +113,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -127,7 +127,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -180,7 +180,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -270,7 +270,7 @@ and "Don't Care" for maps.
           <min>0.0</min>
         </SpSiteQualityObsComp>
         <SpInstSCUBA id="2" type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>H9</primaryBolometer>
+          <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>H7</value>
             <value>H9</value>
@@ -307,7 +307,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -321,7 +321,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -374,7 +374,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -502,7 +502,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -516,7 +516,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -569,7 +569,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -688,7 +688,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -702,7 +702,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -760,7 +760,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -877,7 +877,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -891,7 +891,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -944,7 +944,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -1061,7 +1061,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -1075,7 +1075,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -1133,7 +1133,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -1271,7 +1271,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -1285,7 +1285,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -1339,7 +1339,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -1464,7 +1464,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -1478,7 +1478,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -1532,7 +1532,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -1654,7 +1654,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -1668,7 +1668,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -1722,7 +1722,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -1844,7 +1844,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -1858,7 +1858,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -1912,7 +1912,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -2041,7 +2041,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -2055,7 +2055,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -2109,7 +2109,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -2238,7 +2238,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -2252,7 +2252,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -2306,7 +2306,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -2435,7 +2435,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -2449,7 +2449,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -2503,7 +2503,7 @@ If you want to point on your source because you know for a fact that it is brigh
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
+                <integrations>2</integrations>
                 <pointingPixel>Automatic</pointingPixel>
               </SpIterPointingObs>
               <SpIterRepeat type="ic" subtype="repeat">
@@ -2624,7 +2624,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -2638,7 +2638,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -2720,7 +2720,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -2860,7 +2860,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -2874,7 +2874,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -2956,7 +2956,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -3097,7 +3097,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -3111,7 +3111,7 @@ For fast scanning, we scan at 1 arcmin/minute (rather than 24 arcsec/sec) corres
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -3193,7 +3193,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -3308,7 +3308,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterFocusObs type="ic" subtype="focusObs">
@@ -3338,7 +3338,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
       </SpIterFolder>
@@ -3385,7 +3385,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterFocusObs type="ic" subtype="focusObs">
@@ -3399,7 +3399,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterRepeat type="ic" subtype="repeat">
@@ -3485,7 +3485,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterFocusObs type="ic" subtype="focusObs">
@@ -3499,7 +3499,7 @@ If you want to point on your source because you know for a fact that it is brigh
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterRepeat type="ic" subtype="repeat">
@@ -3645,7 +3645,7 @@ and "Don't Care" for maps.
         <SpIterPointingObs type="ic" subtype="pointingObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <autoTarget>true</autoTarget>
-          <integrations>1</integrations>
+          <integrations>2</integrations>
           <pointingPixel>Automatic</pointingPixel>
         </SpIterPointingObs>
         <SpIterChop type="ic" subtype="chop">
@@ -3786,7 +3786,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -3800,7 +3800,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -3850,7 +3850,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -3993,7 +3993,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -4007,7 +4007,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -4062,7 +4062,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -4226,7 +4226,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -4240,7 +4240,7 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -4291,7 +4291,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -4437,7 +4437,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -4451,7 +4451,7 @@ and "Don't Care" for maps.
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -4502,7 +4502,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
@@ -4647,7 +4647,7 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
@@ -4661,7 +4661,7 @@ Only 4 waveplate positions are used. The order is 0, 45, 22.5, 67.5 in order to 
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
@@ -4742,7 +4742,7 @@ If you want to point on your source because you know for a fact that it is brigh
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
+              <integrations>2</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
             <SpIterRepeat type="ic" subtype="repeat">
