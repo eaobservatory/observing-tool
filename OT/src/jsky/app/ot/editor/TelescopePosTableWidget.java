@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 
 import jsky.app.ot.gui.TableWidgetExt;
+import jsky.app.ot.OtCfg;
 
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
@@ -32,6 +33,8 @@ public class TelescopePosTableWidget extends TableWidgetExt
     private Hashtable _posTable;
     private SpTelescopePosList _tpl;
 
+    private boolean _coordSysInTable     = false; // MFO (April 12, 2002)
+
     /**
      * Default constructor.
      */
@@ -39,6 +42,12 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	_posTable = new Hashtable();
 
 	// XXX allan setDragDropImage("~gemini/images/scope.gif");
+
+        // If there are more then 2 systems (FK5/FK4) then display the system of a target
+	// in a separate column in the target list table.
+	if((OtCfg.telescopeUtil.getCoordSys() != null) && (OtCfg.telescopeUtil.getCoordSys().length > 2)) {
+          _coordSysInTable = true;
+	}
     }
 
     /**
@@ -206,14 +215,14 @@ public class TelescopePosTableWidget extends TableWidgetExt
     /**
      */
     private Vector _createPosRow(SpTelescopePos tp) {
-	Vector v = new Vector(4);
+	Vector v = new Vector();
 	v.addElement(tp.getTag());
 	v.addElement(tp.getName());
 	
 	if(tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
 	    if(tp.isOffsetPosition()) {
-	        v.addElement("" + tp.getXaxis());
-	        v.addElement("" + tp.getYaxis());
+	        v.addElement("" + tp.getXaxis() + " (\u2206)");
+	        v.addElement("" + tp.getYaxis() + " (\u2206)");
 	    }
 	    else {
 	        v.addElement(tp.getXaxisAsString());
@@ -223,6 +232,10 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	else {
 	    v.addElement("  - - -");
 	    v.addElement("  - - -");
+	}
+
+	if(_coordSysInTable) {
+	    v.addElement(tp.getCoordSysAsString());
 	}
 
 	return v;
@@ -268,6 +281,7 @@ public class TelescopePosTableWidget extends TableWidgetExt
 	setCell((String) v.elementAt(1), 1, index);
 	setCell((String) v.elementAt(2), 2, index);
 	setCell((String) v.elementAt(3), 3, index);
+	setCell((String) v.elementAt(4), 4, index);
     }
 
     /**
