@@ -105,8 +105,8 @@ public class TelescopePosEditor extends JSkyCat
 	// Register the standard target list features.
 
 	registerTargetListFeature("jsky.app.ot.tpe.feat.TpeBasePosFeature");
-	// MFO, 23 January 2002
-	registerTargetListFeature(OtCfg.telescopeUtil.getAdditionalTargetFeatClass());
+	registerTargetListFeature("jsky.app.ot.tpe.feat.TpeGuidePosFeature");
+	// MFO, 23 January 2002: User targets disabled.
 	//registerTargetListFeature("jsky.app.ot.tpe.feat.TpeTargetPosFeature");
 	registerInstrumentFeature("jsky.app.ot.tpe.feat.TpeSciAreaFeature");
 	registerFeature("jsky.app.ot.tpe.feat.TpeCatalogFeature");
