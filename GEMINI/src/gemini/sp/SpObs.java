@@ -274,30 +274,6 @@ setPriority(int priority)
    _avTable.set(ATTR_PRIORITY, PRIORITIES[priority]);
 }
 
-/**
- * Get the number of observations done.
- *
- * Added for OMP (MFO, 9 August 2001)
- *
- * @return number of observations done or 0 if the attribute has not been set.
- */
-public int
-getNumberDone()
-{
-   return _avTable.getInt(SpMSB.ATTR_DONE, 0);
-}
-
-/**
- * Set status attribute.
- *
- * Added for OMP (MFO, 9 August 2001)
- */
-public void
-setNumberDone(int done)
-{
-   _avTable.set(SpMSB.ATTR_DONE, done);
-}
-
 
 /**
  * Get the number of observations remaining to be observed.
