@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.io.File;
+import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
@@ -56,6 +57,9 @@ import jsky.app.ot.OtCfg;
 public final class EdCompTargetList extends OtItemEditor
     implements TelescopePosWatcher, TableWidgetWatcher, ActionListener,
                ChangeListener, TextBoxWidgetWatcher, DropDownListBoxWidgetWatcher, OtConstants {
+
+    /** String used in DropDownListBoxWidgetExt namedTarget. */
+    private static final String SELECT_TARGET = "<Select Target>";
 
     public static final String LABEL_RA     = "Ra";
     public static final String LABEL_DEC    = "Dec";
@@ -154,6 +158,7 @@ public final class EdCompTargetList extends OtItemEditor
         _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION);
         // _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPTION);
 	_w.namedTarget.setChoices(OtCfg.getNamedTargets());
+	_w.namedTarget.addChoice(SELECT_TARGET);
 
 	// *** buttons
 	_w.newButton.addActionListener(this);
@@ -939,7 +944,14 @@ public final class EdCompTargetList extends OtItemEditor
 
         case SpTelescopePos.SYSTEM_NAMED:
           //_w.namedSystemType.setValue(tp.getConicOrNamedTypeDescription());
-	  _w.namedTarget.setValue(tp.getName());
+
+	  if(Arrays.asList(OtCfg.getNamedTargets()).contains(tp.getName())) {
+	    _w.namedTarget.setValue(tp.getName());
+	  }
+	  else {
+	    _w.namedTarget.setValue(SELECT_TARGET);
+	  }
+
 	  break;
       }
     }
@@ -1109,6 +1121,15 @@ public final class EdCompTargetList extends OtItemEditor
 
         _targetSystemsChange = true;
         _updateWidgets();
+
+        _curPos.deleteWatcher(EdCompTargetList.this);
+        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
+
+        _curPos.setName("");
+	_name.setValue("");
+
+        _curPos.addWatcher(EdCompTargetList.this);
+
 	_targetSystemsChange = false;
       }
     }
@@ -1177,10 +1198,17 @@ public final class EdCompTargetList extends OtItemEditor
       if(dd == _w.namedTarget) {
         _curPos.deleteWatcher(EdCompTargetList.this);
         _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
-        _curPos.setName(val);
-        _curPos.addWatcher(EdCompTargetList.this);
 
-        _name.setValue(val);
+        if(val.equals(SELECT_TARGET)) {
+          _curPos.setName("");
+	  _name.setValue("");
+        }
+        else {
+          _curPos.setName(val);
+	  _name.setValue(val);
+        }
+
+        _curPos.addWatcher(EdCompTargetList.this);
 
 	return;
       }
