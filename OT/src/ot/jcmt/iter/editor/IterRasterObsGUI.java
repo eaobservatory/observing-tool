@@ -110,6 +110,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     jLabel5.setForeground(Color.black);
     jLabel5.setText("(arcsecs)");
     scanSystem.setFont(new java.awt.Font("Dialog", 0, 12));
+    sampleTime.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel18.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel18.setForeground(Color.black);
     jLabel18.setText("(arcsecs)");
@@ -175,7 +176,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     scanAngle.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(scubaAcsisPanel, BorderLayout.WEST);
     scubaAcsisPanel.add(areaPanel, BorderLayout.CENTER);
-//     scubaAcsisPanel.add(scanPanel, BorderLayout.SOUTH);
+    scubaAcsisPanel.add(scanPanel, BorderLayout.SOUTH);
     scanPanel.add(scanSystemLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     scanPanel.add(scanSystem, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
