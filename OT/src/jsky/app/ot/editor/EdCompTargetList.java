@@ -8,6 +8,7 @@ package jsky.app.ot.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 import java.io.File;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
@@ -76,6 +77,10 @@ public final class EdCompTargetList extends OtItemEditor
 
     // Added by MFO (25 June 2001)
     private TelescopePosEditor _tpe = null;
+
+
+    private NameResolverFeedback _nameResolverFeedback;
+    private boolean _resolvingName = false;
 
     /**
      * The constructor initializes the title, description, and presentation source.
@@ -710,9 +715,62 @@ public final class EdCompTargetList extends OtItemEditor
 	    return;
 	}
 
+	// Added by MFO
 	if(w == _w.resolveButton) {
+	    if(_resolvingName) {
+		_nameResolverFeedback.deActivate();
+		_resolvingName = false;
+		_w.resolveButton.setText("Resolve");
+		_w.resolveButton.setBackground(Color.lightGray);
+		_w.resolveButton.setEnabled(true);
+	    }
+	    else {
+		_resolvingName = true;
+		_nameResolverFeedback = new NameResolverFeedback();
+		_nameResolverFeedback.start();
+	    }
+	}
+
+        // chop mode tab added by MFO (3 August 2001)
+	if(w == _w.chopping) {
+	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
+	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
+
+	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
+	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
+	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
+	}
+    }
+
+    /**
+     * This class changes the color and text of the "Resolve" button that starts the name rsolver.
+     *
+     * During name resolving the button turns red and the text "Stop" replaces the string "Resolve".
+     * This allows the user to interrupt the name resolving process if it takes too long.
+     *
+     * Note: When "Stop" is clickeed by the user, the NameResolverFeedback Thread continues as usual until the
+     * NameResolver constructor returns. But then NameResolverFeedback.run() returns, ignoring the NameResolver
+     * results and the GUI is not updated.
+     *
+     * Added by MFO (10 Oct 2001).
+     */
+    class NameResolverFeedback extends Thread {
+	private boolean _active = true;
+
+	public void deActivate() {
+	    _active = false;
+	}
+    
+	public void run() {
+	  _w.resolveButton.setText("Stop");
+	  _w.resolveButton.setBackground(Color.red);
+
           try {
 	    NameResolver nameResolver = new NameResolver((String)_w.nameResolversDDLBW.getSelectedItem(), _w.nameTBW.getText());
+
+	    if(_active == false) {
+	      return;
+	    }
 
 	    _w.nameTBW.setText(nameResolver.getId());
 	    _w.xaxisTBW.setText(nameResolver.getRa());
@@ -741,18 +799,13 @@ public final class EdCompTargetList extends OtItemEditor
               e.printStackTrace();
 	    }
 
-            DialogUtil.error(_w, e.getMessage());
+            DialogUtil.error(_w, "Error while trying to resolve name \"" + _w.nameTBW.getText() + "\"\n" + e.getMessage());
 	  }
-	}
 
-        // chop mode tab added by MFO (3 August 2001)
-	if(w == _w.chopping) {
-	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
-	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
+	  _w.resolveButton.setText("Resolve");
+	  _w.resolveButton.setBackground(Color.lightGray);
 
-	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
-	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
-	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
+	  _resolvingName = false;
 	}
     }
 }
