@@ -18,6 +18,7 @@ import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
 import orac.ukirt.inst.SpDRRecipe;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
+import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpFactory;
 import gemini.sp.SpInsertData;
@@ -129,6 +130,7 @@ public class SpItemUtilities {
 	_insertReferenceIDsFor(SpTreeMan.findTargetList(spItem), spItem);
 	_insertReferenceIDsFor(SpTreeMan.findInstrument(spItem), spItem);
 	_insertReferenceIDsFor(findSiteQuality(spItem), spItem);
+	_insertReferenceIDsFor(findSchedConstraint(spItem), spItem);
 	_insertReferenceIDsFor(findDRRecipe(spItem), spItem);
       }
       else {
@@ -179,7 +181,7 @@ public class SpItemUtilities {
   }
 
 /**
- * Find the SpSiteQualityObsComp assoicated with this context, if any.  Only
+ * Find the site quality component assoicated with this context, if any.  Only
  * searches the given scope.  It does not navigate the tree hierarchy.
  */
 public static SpSiteQualityObsComp
@@ -195,6 +197,25 @@ findSiteQualityInContext(SpItem spItem)
       }
    }
    return sqc;
+}
+
+/**
+ * Find the scheduling constraint component assoicated with this context, if any.  Only
+ * searches the given scope.  It does not navigate the tree hierarchy.
+ */
+public static SpSchedConstObsComp
+findSchedConstraintInContext(SpItem spItem)
+{
+   SpSchedConstObsComp scc = null;
+   Enumeration e = spItem.children();
+   while (e.hasMoreElements()) {
+      SpItem child = (SpItem) e.nextElement();
+      if (child instanceof SpSchedConstObsComp) {
+         scc = (SpSchedConstObsComp) child;
+         break;
+      }
+   }
+   return scc;
 }
 
 /**
@@ -245,6 +266,37 @@ findSiteQuality(SpItem spItem)
       return findSiteQuality(parent);
    }
    return sqc;
+}
+
+/**
+ * Find the scheduling constraint component associated with the given scope
+ * scope of the given item.
+ *
+ * @param spItem the SpItem defining the scope to search
+ */
+public static SpSchedConstObsComp
+findSchedConstraint(SpItem spItem)
+{
+   if (spItem instanceof SpSchedConstObsComp) {
+      return (SpSchedConstObsComp) spItem;
+   }
+
+   SpItem parent = spItem.parent();
+
+   SpSchedConstObsComp scc;
+   if (!(spItem instanceof SpObsContextItem)) {
+      if (parent == null) {
+         return null;
+      }
+      scc = findSchedConstraintInContext(parent);
+   } else {
+      scc = findSchedConstraintInContext(spItem);
+   }
+
+   if ((scc == null) && (parent != null)) {
+      return findSchedConstraint(parent);
+   }
+   return scc;
 }
 
 /**
