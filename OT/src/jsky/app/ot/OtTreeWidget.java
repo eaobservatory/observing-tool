@@ -199,7 +199,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	while (e.hasMoreElements()) {
 	    reapChildren((SpItem)e.nextElement());
 	}
-	item.getTable().noNotifyRmAll();
+	if ( item.getTable() != null ) item.getTable().noNotifyRmAll();
 	((OtTreeNodeWidget)((OtClientData) item.getClientData()).tnw).rmIcons();
     }
 
