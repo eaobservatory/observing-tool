@@ -582,8 +582,11 @@ public class OtWindow extends SpTreeGUI
       // Initialise sequence name
       String seqName = "None";
 
-      // check this is an Observation
-      if (spitem.type().equals(SpType.OBSERVATION)) {
+      // Check if this is an Observation.
+      if ( !( spitem.type().equals( SpType.OBSERVATION ) ) ) {
+         spitem = SpTranslator.findSpObs( spitem );
+      }
+      if ( spitem != null ) {
 
         SpObs spobs = (SpObs) spitem;
 
@@ -601,7 +604,7 @@ public class OtWindow extends SpTreeGUI
 
       }else{
         // The user didn't select an observation item for the translation.
-        DialogUtil.error(this, "Selected node is not an observation");
+        DialogUtil.error(this, "Selected node is not an observation or within an observation");
         return false;
       }
 
