@@ -400,6 +400,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     
     SpInstObsComp instrument = SpTreeMan.findInstrument(this);
     if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	int    nWaveplates = 0;
+	double factor = 1.0;
 	double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
     
 	// Get information specified by user in the OT.
@@ -415,8 +417,21 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	double secsPerRow         = lengthOfRow / scanRate;
 	double secsPerIntegration = noOfRows * secsPerRow;
 
+	// Go through the parents and see if any of them are SpIterPOLS
+	SpItem parent = parent();
+	while (parent != null) {
+	    if (parent instanceof SpIterPOL) {
+		nWaveplates += ((SpIterPOL)parent).getConfigSteps("POLIter").size();
+	    }
+	    parent=parent.parent();
+	}
+	if (nWaveplates > 1)
+	    factor=1.0 + ((double)nWaveplates-1)/(nWaveplates);
+// 	System.out.println("Was adding elapsed time of "+(SCUBA_STARTUP_TIME + 1.5*secsPerIntegration));
+// 	System.out.println("Now adding elapsed time of "+(SCUBA_STARTUP_TIME*factor + 1.5*secsPerIntegration));
+
 	// Overhead is 50 percent for scan map.
-	return SCUBA_STARTUP_TIME +  (1.5 * secsPerIntegration);
+	return SCUBA_STARTUP_TIME*factor +  (1.5 * secsPerIntegration);
     }
     return 0.0;
   }
