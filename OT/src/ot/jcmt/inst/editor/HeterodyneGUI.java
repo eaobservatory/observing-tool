@@ -124,29 +124,19 @@ public class HeterodyneGUI extends JPanel {
       displayPanel.add ( label );
       displayPanel.add ( highFreq );
 
-      label = new JLabel("    Resolution (KHz)");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      resolution = new JLabel();
-      resolution.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
-      resolution.setFont(new Font("Dialog", 0, 12));
-      resolution.setForeground(Color.black);
-      displayPanel.add(label);
-      displayPanel.add(resolution);
-
       // Bandwidth and Overlap
       overlapBandwidthPanel = new JPanel(flowLayoutLeft);
 
-      label = new JLabel("Band");
+      label = new JLabel("Side Band");
       label.setFont(new Font("Dialog", 0, 12));
       label.setForeground(Color.black);
-      overlapBandwidthPanel.add(label);
+      fePanel.add(label);
 
       feBand = new JComboBox(); // new String[] { "usb", "lsb", "optimum" } );
       feBand.setFont(new Font("Dialog", 0, 12));
       feBand.setForeground(Color.black);
 //      feBand.addActionListener ( this );
-      overlapBandwidthPanel.add(feBand);
+      fePanel.add(feBand);
 
       label = new JLabel("    Bandwidth");
       label.setFont(new Font("Dialog", 0, 12));
@@ -157,6 +147,16 @@ public class HeterodyneGUI extends JPanel {
       bandWidthChoice.setFont(new Font("Dialog", 0, 12));
       bandWidthChoice.setForeground(Color.black);
       overlapBandwidthPanel.add(bandWidthChoice);
+
+      label = new JLabel("    Resolution (KHz)");
+      label.setFont(new Font("Dialog", 0, 12));
+      label.setForeground(Color.black);
+      resolution = new JLabel();
+      resolution.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+      resolution.setFont(new Font("Dialog", 0, 12));
+      resolution.setForeground(Color.black);
+      displayPanel.add(label);
+      displayPanel.add(resolution);
 
       label = new JLabel("    Overlap (MHz)");
       label.setFont(new Font("Dialog", 0, 12));
