@@ -68,7 +68,11 @@ public class TelescopePosEditorToolBar extends JToolBar {
 				    if (b != null)
 					b.setSelected(true);
 				}
-				else if (s.equals("PWFS1") || s.equals("PWFS2") || s.equals("OIWFS")) {
+				// "GUIDE" added by MFO (20 August 2001).
+				// "GUIDE" referres to the UKIRT tag for guide stars as specified in the configuration
+				// file ot.cfg. If the tag in ot.cfg is changed "GUIDE" has to be changed here too.
+				// (case sensitive)
+				else if (s.equals("PWFS1") || s.equals("PWFS2") || s.equals("OIWFS") || s.equals("GUIDE")) {
 				    ToggleButtonWidget b = viewToggleButtonPanel.getButton("Guide");
 				    if (b != null)
 					b.setSelected(true);
