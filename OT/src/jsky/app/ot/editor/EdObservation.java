@@ -83,11 +83,11 @@ public final class EdObservation extends OtItemEditor
 	  _w.optional.deleteWatcher(this);
 	}
 
+	_w.remaining.addItem(SpObs.REMOVED_STRING);
+
 	for(int i = 0; i <= 100; i++) {
 	  _w.remaining.addItem("" + i);
 	}
-
-	_w.remaining.addItem(SpObs.REMOVED_STRING);
 
 	_w.remaining.addActionListener(this);
 
@@ -181,7 +181,7 @@ public final class EdObservation extends OtItemEditor
 	  _w.remaining.setValue(SpObs.REMOVED_STRING);
 	}
 	else {
-	  _w.remaining.setSelectedIndex(numberRemaining);
+	  _w.remaining.setSelectedIndex(numberRemaining + 1);
 	}
 
 	ignoreActions = false;
@@ -270,7 +270,7 @@ public final class EdObservation extends OtItemEditor
 	        spObs.setNumberRemaining(SpObs.REMOVED_CODE);
 	    }
 	    else {
-                spObs.setNumberRemaining(_w.remaining.getSelectedIndex());
+                spObs.setNumberRemaining(_w.remaining.getSelectedIndex() - 1);
 	    }
 	}
 	 
