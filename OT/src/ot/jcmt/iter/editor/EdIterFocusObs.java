@@ -12,6 +12,7 @@ package ot.jcmt.iter.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.CardLayout;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -23,13 +24,15 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
+import gemini.sp.obsComp.SpInstObsComp;
+import orac.jcmt.inst.SpInstSCUBA;
 
 /**
  * This is the editor for Focus Observe Mode iterator component.
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterFocusObs extends OtItemEditor
+public final class EdIterFocusObs extends EdIterJCMTGeneric
     implements TextBoxWidgetWatcher, ActionListener {
 
     private IterFocusObsGUI _w;       // the GUI layout panel
@@ -41,14 +44,28 @@ public final class EdIterFocusObs extends OtItemEditor
      * The constructor initializes the title, description, and presentation source.
      */
     public EdIterFocusObs() {
+	super(new IterFocusObsGUI());
+
 	_title       ="Focus Iterator";
-	_presSource  = _w = new IterFocusObsGUI();
+	_presSource  = _w = (IterFocusObsGUI)super._w;
 	_description ="Focus Observation Mode";
     }
 
     public void actionPerformed(ActionEvent e) { }
     public void textBoxKeyPress(TextBoxWidgetExt e) { }
     public void textBoxAction(TextBoxWidgetExt e) { }
-    public void _updateWidgets() { }
+
+    public void setInstrument(SpInstObsComp spInstObsComp) {
+      if((spInstObsComp != null) && (spInstObsComp instanceof SpInstSCUBA)) {
+        _w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+	((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
+	_w.switchingMode.setEnabled(false);
+        _w.acsisPanel.setVisible(false);
+      }
+      else {
+        _w.switchingMode.setEnabled(true);
+        _w.acsisPanel.setVisible(true);
+      }
+    }
 }
 

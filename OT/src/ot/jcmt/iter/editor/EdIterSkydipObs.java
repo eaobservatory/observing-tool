@@ -29,7 +29,7 @@ import gemini.sp.SpItem;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterSkydipObs extends OtItemEditor
+public final class EdIterSkydipObs extends EdIterJCMTGeneric
     implements TextBoxWidgetWatcher, ActionListener {
 
     private IterSkydipObsGUI _w;       // the GUI layout panel
@@ -41,14 +41,15 @@ public final class EdIterSkydipObs extends OtItemEditor
      * The constructor initializes the title, description, and presentation source.
      */
     public EdIterSkydipObs() {
+	super(new IterSkydipObsGUI());
+
 	_title       ="Skydip Iterator";
-	_presSource  = _w = new IterSkydipObsGUI();
+	_presSource  = _w = (IterSkydipObsGUI)super._w;
 	_description ="Skydip Observation Mode";
     }
 
     public void actionPerformed(ActionEvent e) { }
     public void textBoxKeyPress(TextBoxWidgetExt e) { }
-     public void textBoxAction(TextBoxWidgetExt e) { }
-    public void _updateWidgets() { }
+    public void textBoxAction(TextBoxWidgetExt e) { }
 }
 
