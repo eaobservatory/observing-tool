@@ -187,8 +187,9 @@ public class GraphScale extends JPanel implements ChangeListener
             {
                xPos = xPositionForValue ( maj );
 
+               g.drawLine ( xPos, 0, xPos, tickBounds.height - 2 );
+
                if((xPos - xPosPrevious) >= MIN_LABEL_SPACING) {
-                  g.drawLine ( xPos, 0, xPos, tickBounds.height - 2 );
                   drawLabelX ( g, xPos, tickBounds.height, maj, exponent );
 
                   xPosPrevious = xPos;
