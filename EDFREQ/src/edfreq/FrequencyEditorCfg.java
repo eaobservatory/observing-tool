@@ -21,22 +21,58 @@ import JSX.ObjIn;
  * The {@link edfreq.FrontEnd} class hold a public static reference to an FrequencyEditorCfg object
  * ({@link edfreq.FrontEnd.cfg}) which can be used throughout the frequency editor code.
  *
+ * <h3>How to create a new xml configuration file</h3>
+ *
+ * The xml configuration files currently used are <tt>EDFREQ/cfg/edfreq/acsisCfg.xml</tt> and
+ * <tt>EDFREQ/cfg/edfreq/dasCfg.xml</tt>.<p>
+ *
+ * If this FrequencyEditorCfg class or any classes that are used as fields of
+ * FrequencyEditorCfg are significanlty changed, i.e. if fields are added or
+ * removed from them, then the xml configuration file which is an xml
+ * serialisation of an FrequencyEditorCfg object will probably have to be
+ * recreated. This can be done using the method
+ * {@link #createDefaultCfgFile(java.io.File)} which is used in the main
+ * method of FrequencyEditorCfg. So a new xml configuration can be created on
+ * the command line using the commands
+ *
+ * <pre><tt>
+ *
+ *   cd cvsWorkingDirectory/ot
+ *   mv -i EDFREQ/cfg/edfreq/acsisCfg.xml EDFREQ/cfg/edfreq/old_acsisCfg.xml
+ *   java -classpath EDFREQ/tools/JSX1.0.1.1.jar:EDFREQ/install/classes edfreq.FrequencyEditorCfg EDFREQ/cfg/edfreq/acsisCfg.xml
+ *
+ * </tt></pre>
+ *
+ * If only the values of the fields of FrequencyEditorCfg (or the values of
+ * the objects which are themselves fields of FrequencyEditorCfg) have
+ * changed. Then the xml configuration file can be editied manually. <b>Make
+ * sure you invent appropriate <tt>alias-ID</tt> attributes for each added xml
+ * element.</b> I think alias-IDs must not be duplicated. I am not sure
+ * whether all alias-ID taken together must form a contiguous. I do not think
+ * they have to appear in the right order in the xml configuration file.
+ *
  * @author Martin Folger
  */
 public class FrequencyEditorCfg {
 
   public static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 
-  public String[] frontEnds;
-  public String[] frontEndModes;
+  public Hashtable frontEndTable = new Hashtable();
+  public String [] velocityFrames = { "LSR", "Geocentric", "Heliocentric" };
   public boolean centreFrequenciesAdjustable;
   public Hashtable receivers;
 
   private static FrequencyEditorCfg _frequencyEditorCfg = null;
 
   public FrequencyEditorCfg() {
-    frontEnds     = new String[] { "A3", "B3", "WC", "WD", "HARP-B" };
-    frontEndModes = new String[] { "ssb", "dsb" };
+
+    // Put the default mode (dsb or ssb) first in the array.
+    frontEndTable.put("A3",     new String[]{ "dsb" });
+    frontEndTable.put("B3",     new String[]{ "ssb", "dsb" });
+    frontEndTable.put("WC",     new String[]{ "ssb", "dsb" });
+    frontEndTable.put("WD",     new String[]{ "ssb", "dsb" });
+    frontEndTable.put("HARB-B", new String[]{ "ssb" });
+
     centreFrequenciesAdjustable = true;
     receivers = ReceiverList.getReceiverTable();
   }
