@@ -96,6 +96,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public static int DEFBIASCOADDS=0;
     public static int CENT_ROW;
     public static int PEAK_ROW;
+    private double ROTATION_SCALE = 2.01;
+    private double ANGLE_OFFSET = 60.0;
 
     boolean centralWavelengthSet = false;
     
@@ -270,6 +272,11 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		    CENT_ROW = Integer.parseInt(instInfo.getValue());
 		} else if (InstCfg.matchAttr (instInfo, "PEAK_ROW")) {
 		    PEAK_ROW = Integer.parseInt(instInfo.getValue());
+		} else if ( InstCfg.matchAttr (instInfo, "ROTATION_SCALE")) {
+		    ROTATION_SCALE = Double.parseDouble( instInfo.getValue() );
+		}
+		else if ( InstCfg.matchAttr (instInfo, "ANGLE_OFFSET") ) {
+		    ANGLE_OFFSET = Double.parseDouble( instInfo.getValue() );
 		}
 	    }
 	}catch (IOException e) {
@@ -1147,8 +1154,18 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	double d = spatialScale*(PEAK_ROW-CENT_ROW);
 	
 	double paRad = Angle.degreesToRadians (pa);
+	// The  following section of code is repleaced by what
+	// follows
+	/*
 	double x = x0 - d*(Angle.sinRadians(paRad));
 	double y = y0 + d*(Angle.cosRadians(paRad)-1);
+	*/
+	double offsetRad = Angle.degreesToRadians( ANGLE_OFFSET );
+	double x = x0 + ROTATION_SCALE*(Angle.sinRadians(offsetRad) -
+		Angle.sinRadians(offsetRad - paRad));
+	double y = y0 + ROTATION_SCALE*(Angle.cosRadians(offsetRad) -
+		Angle.cosRadians(offsetRad - paRad));
+		
 	setInstApX (String.valueOf(x));
 	setInstApY (String.valueOf(y));
 	setInstApL (String.valueOf(cwl));
