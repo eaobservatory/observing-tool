@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.geom.Point2D;
 import java.net.URL;
 import java.io.File;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Observable;
@@ -80,6 +81,8 @@ import gemini.sp.obsComp.SpInstObsComp;
 
 import orac.util.FileFilterSGML;
 import orac.util.FileFilterXML;
+
+import omp.SpClient;
 
 /**
  * Button manager base class.  Helper classes derived from this
@@ -1242,6 +1245,27 @@ public class OtWindow extends SpTreeGUI
 	String s = DialogUtil.input(this, "New Title:");
 	if (s != null && s.length() != 0) {
 	    _curItem.setTitleAttr(s);
+	}
+    }
+
+    public void replicateSp() {
+	JFileChooser chooser = new JFileChooser(OT.getOtUserDir());
+	chooser.setDialogTitle("Select a catalog file");
+	int option = chooser.showOpenDialog(null);
+	if (option != JFileChooser.APPROVE_OPTION || chooser.getSelectedFile() == null) {
+	    return;
+	}
+	File file = chooser.getSelectedFile();
+	if (file != null) {
+	    try {
+		SpItem replicatedItem = SpClient.replicateSp((SpItem)getItem(), file);
+		if (replicatedItem != null) {
+		    OtWindow.create((SpRootItem)replicatedItem, (FileInfo)null);
+		}
+	    }
+	    catch (Exception e) {
+		return;
+	    }
 	}
     }
 
