@@ -2725,7 +2725,7 @@ public class SpTranslator {
 // the comment from column 23.  However, it appears that in must be
 // initialised first (or perhaps its length changed).
       line = new StringBuffer( 79 );
-      blanks = "                                                                               ";
+      blanks = "                                                                            ";
       line.append( blanks );
       line.insert( 1, type ).insert( 18, "configuration :" );
       line.insert( 34, configName ).insert( 74, ": 2.1" );
