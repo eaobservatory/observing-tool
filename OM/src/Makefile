@@ -19,7 +19,8 @@ CLASSES_DIR_FOR_SED = $(shell echo $(CLASSES_DIR) | sed -e 's/\./\\\./g' | sed -
 CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
 GIF_IMAGES          = $(addprefix $(CLASSES_DIR)/, $(shell find . -name "*.gif"))
-CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
+CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find . | grep -v CVS)) \
+                      $(addprefix $(LOCAL_INSTALL_ROOT)/ot_cfg/, $(shell cd ../../OT/cfg/ukirt; find . | grep -v CVS))
 
 CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP):$(ODB_CP):$(JSKY_RELATED_CP)
 
@@ -35,6 +36,8 @@ RMI_GENERATED_CLASSES = $(CLASSES_DIR)/om/console/commandSent_Skel.class \
                         $(CLASSES_DIR)/om/console/remoteFrame_Skel.class \
                         $(CLASSES_DIR)/om/console/remoteFrame_Stub.class
 
+#print_cfg_files:
+#	@echo CFG_FILES are $(CFG_FILES)
 
 all: classes $(RMI_GENERATED_CLASSES) cfg scripts
 
@@ -74,6 +77,10 @@ $(CLASSES_DIR)/%.gif: %.gif
 	cp $< $@
 
 $(LOCAL_INSTALL_ROOT)/cfg/%: ../cfg/%
+	rm -rf $@
+	cp -r $< $@
+
+$(LOCAL_INSTALL_ROOT)/ot_cfg/%: ../../OT/cfg/ukirt/%
 	rm -rf $@
 	cp -r $< $@
 
