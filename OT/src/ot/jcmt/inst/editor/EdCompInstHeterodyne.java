@@ -1166,6 +1166,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 /* Update choice of molecules */
 
       _w.moleculeChoice.removeActionListener(this);
+      SelectionList currentSelection = (SelectionList)_w.moleculeChoice.getSelectedItem();
+      String currentSpecies = null;
+      if ( currentSelection != null) {
+	  currentSpecies = currentSelection.toString();
+      }
       _w.moleculeChoice.setModel ( 
         new DefaultComboBoxModel ( 
         lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
@@ -1178,13 +1183,33 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       _ignoreEvents = false;
 
       _w.moleculeChoice.addActionListener(this);
-      _w.moleculeChoice.setSelectedIndex(0); // MFO: This line used to be after, then before the one
-                                           // where the ActionListener is added again
-					   // but that (sometimes) caused a NullPointerException.
-					   // Now its after the adding of the ActionListener.
-					   // If there are still NullPointerException then
-					   // something else has do be done that selectes a line when
-					   // the EdCompInstHeterodyne is created.
+      // Go through the molecule model and see if either the same selection is available, or
+      // the same species is available
+      DefaultComboBoxModel specModel = (DefaultComboBoxModel)_w.moleculeChoice.getModel();
+      if ( currentSelection != null && specModel.getIndexOf(currentSelection) >= 0 ) {
+	  _w.moleculeChoice.setSelectedItem ( currentSelection );
+      }
+      else {
+	  boolean foundMatch = false;
+	  for ( int count=0; count<specModel.getSize(); count++ ) {
+	      if ( currentSpecies == null ) break;
+	      if ( ((SelectionList)specModel.getElementAt(count)).toString().equals(currentSpecies) ) {
+		  _w.moleculeChoice.setSelectedIndex(count);
+		  foundMatch = true;
+		  break;
+	      }
+	  }
+	  if ( !foundMatch ) {
+	      // MFO: This line used to be after, then before the one
+	      // where the ActionListener is added again
+	      // but that (sometimes) caused a NullPointerException.
+	      // Now its after the adding of the ActionListener.
+	      // If there are still NullPointerException then
+	      // something else has do be done that selectes a line when
+	      // the EdCompInstHeterodyne is created.
+	      _w.moleculeChoice.setSelectedIndex(0);
+	  }
+      }
 
       _w.moleculeChoice2.removeActionListener(this);
       _w.moleculeChoice2.setModel ( 
