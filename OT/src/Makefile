@@ -33,7 +33,7 @@ all: classes cfg script
 
 classes: $(CLASSES_DIR) $(CLASS_FILES)
 
-cfg: $(CFG_DIRS) $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/images $(LOCAL_INSTALL_ROOT)/classes/ot/images
+cfg: $(CFG_DIRS) $(LOCAL_INSTALL_ROOT)/classes/jsky/app/ot/cfg $(GIF_IMAGES) $(CFG_FILES)
 
 script: $(BIN_DIR)/$(OT_SCRIPT)
 
@@ -69,6 +69,7 @@ $(CLASSES_DIR)/%.class: %.java
 
 
 $(LOCAL_INSTALL_ROOT)/%.gif: %.gif
+	@mkdir -p `dirname $@`
 	cp $< $@
 
 $(LOCAL_INSTALL_ROOT)/cfg/%: ../cfg/%
