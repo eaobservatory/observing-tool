@@ -160,6 +160,7 @@ ALL_TOOLS           = $(INSTALL_ROOT)/tools/$(notdir $(JHTOOLS_JAR)) \
 ALL_LIBS            = $(INSTALL_ROOT)/lib/$(notdir $(GEMINI_JAR)) \
                       $(INSTALL_ROOT)/lib/$(notdir $(ORAC_JAR)) \
                       $(INSTALL_ROOT)/lib/$(notdir $(ODB_JAR)) \
+                      $(INSTALL_ROOT)/lib/$(notdir $(OMP_JAR)) \
                       $(INSTALL_ROOT)/lib/$(notdir $(OT_JAR))
 
 
