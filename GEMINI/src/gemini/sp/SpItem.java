@@ -1050,6 +1050,11 @@ print(String indentStr)
     if((name == null) || (name.length() < 1)) {
       return;
     }
+
+    // Ignore chaining - no longer needed...
+    if ( name.equals(SpObs.ATTR_CHAINED_NEXT) || name.equals(SpObs.ATTR_CHAINED_PREV) ) {
+	return;
+    }
     // Hacky fix for chnage in priority - try to work out a better fix later
     if (name.equals("priority")) {
 	if (value.equals("High")) {

@@ -21,13 +21,13 @@ public class SpObs extends SpMSB
     * This attribute determines whether or not the observation is chained
     * to the next observation.
     */
-//    public static final String ATTR_CHAINED_NEXT = "chainedToNext";
+    public static final String ATTR_CHAINED_NEXT = "chainedToNext";
 
    /**
     * This attribute determines whether or not the observation is chained
     * to the prev observation.
     */
-//    public static final String ATTR_CHAINED_PREV = "chainedToPrev";
+    public static final String ATTR_CHAINED_PREV = "chainedToPrev";
 
    /** This attribute records if the obs. is to be treated as a "standard"*/
    public static final String ATTR_STANDARD = "standard";
