@@ -151,8 +151,8 @@ $(INSTALL_ROOT)/tools/$(notdir $(MAIL_JAR)): $(MAIL_JAR)
 $(INSTALL_ROOT)/tools/$(notdir $(SOAP_JAR)): $(SOAP_JAR)
 	cp $< $@
 
-$(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR)): $(XERCES_JAR)
-	cp $< $@
+#$(INSTALL_ROOT)/tools/$(notdir $(XERCES_JAR)): $(XERCES_JAR)
+#	cp $< $@
 
 
 # Rules for Orac libraries in default location
