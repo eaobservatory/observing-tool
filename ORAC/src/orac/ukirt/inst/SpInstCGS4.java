@@ -53,7 +53,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public static String ATTR_POLARISER          = "polariser";
     public static String ATTR_NEUTRAL_DENSITY    = "neutralDensity";
     public static String ATTR_CVFOFFSET          = "cvfOffset";
-    
+    public static String ATTR_CVFWAVELENGTH      = "cvfWavelength";
+
     // Derived attributes: required by instrument, but not presented to user
     public static String ATTR_FILTER             = "filter";
     
@@ -874,7 +875,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public double
 	getCvfOffset()
     {
-	double cvfo = _avTable.getDouble(ATTR_CVFOFFSET, 0.0);
+	double cvfo = _avTable.getDouble(ATTR_CVFWAVELENGTH, 0.0);
 	return cvfo;
     }
     
@@ -884,7 +885,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public void
 	setCvfOffset(double cvfo)
     {
-	_avTable.set(ATTR_CVFOFFSET, cvfo);
+	_avTable.set(ATTR_CVFWAVELENGTH, cvfo);
     }
     
     /**
@@ -899,7 +900,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	    d = tmp.doubleValue();
 	} catch (Exception ex) {}
 	
-	_avTable.set(ATTR_CVFOFFSET, d);
+	_avTable.set(ATTR_CVFWAVELENGTH, d);
     }
     
     /**
@@ -1229,6 +1230,16 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
    public double getSlewTime() {
       return 8.0 * 60.0;
    }
+
+    public void processXmlElementContent (String name, String value ) {
+	if ( name.equals(ATTR_CVFOFFSET) ) {
+	    // Convert offset to wavelength
+	    name = ATTR_CVFWAVELENGTH;
+	    Double newValue = new Double (getCentralWavelength() + (Double.valueOf(value)).doubleValue() );
+	    value = newValue.toString();
+	}
+	super.processXmlElementContent(name, value);
+    }
 
 
   /**
