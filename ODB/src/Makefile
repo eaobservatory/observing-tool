@@ -18,7 +18,7 @@ include $(CONF_HOME)/make.conf
 CLASSES_DIR_FOR_SED = $(shell echo $(CLASSES_DIR) | sed -e 's/\./\\\./g' | sed -e 's/\//\\\//g')
 CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
-CFG_FILES           = $(addprefix $(CFG_DIR)/, $(shell cd ../cfg; find .))
+CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
 
 CLASSPATH           = $(CLASSES_DIR):$(GEMINI_CP):$(ORAC_CP)
 
@@ -30,17 +30,17 @@ RMI_GENERATED_CLASSES = $(CLASSES_DIR)/ODBServer_Stub.class $(CLASSES_DIR)/ODBSe
 
 all: $(CLASSES_DIR) $(CLASS_FILES) $(RMI_GENERATED_CLASSES) cfg $(LOCAL_INSTALL_ROOT)/bin/odb
 
-cfg: $(CFG_DIR) $(OT_CFG_DIR) $(CFG_FILES)
+cfg: $(LOCAL_INSTALL_ROOT)/cfg $(LOCAL_INSTALL_ROOT)/ot_cfg $(CFG_FILES)
 
 $(CLASSES_DIR):
 	@ -mkdir -p $(CLASSES_DIR)
 
-$(CFG_DIR): ../cfg
+$(LOCAL_INSTALL_ROOT)/cfg: ../cfg
 	cp -r ../cfg $(LOCAL_INSTALL_ROOT)
 
-$(OT_CFG_DIR): $(CFG_TELESCOPE_DIR)
-	rm -rf $(OT_CFG_DIR)
-	cp -r  $(CFG_TELESCOPE_DIR) $(OT_CFG_DIR)
+$(LOCAL_INSTALL_ROOT)/ot_cfg: $(OT_CFG_DIR_SRC)
+	rm -rf $@
+	cp -r  $< $@
 
 # default rule 
 $(CLASSES_DIR)/%.class: %.java
@@ -57,6 +57,7 @@ $(CLASSES_DIR)/MANIFEST.MF: $(CONF_HOME)/MANIFEST.MF
 doc:
 	-mkdir -p $(DOC_DIR)
 	$(JAVADOC) -J-mx50m -d $(DOC_DIR) `find . -name "*.java"`
+
 
 $(LOCAL_INSTALL_ROOT)/bin/odb: scripts/odb_script_source $(CONF_HOME)/make.conf Makefile
 	@mkdir -p $(LOCAL_INSTALL_ROOT)/bin
@@ -75,14 +76,26 @@ $(LOCAL_INSTALL_ROOT)/bin/odb: scripts/odb_script_source $(CONF_HOME)/make.conf 
 	\n\
 	\nsetenv JAVA_HOME $(shell dirname $(shell dirname $(JAVA)))\
 	\nsetenv JAVA_BIN $$""{JAVA_HOME}/bin\
-	\n\
-	\nset otcfgdir       = $(shell cd $(OT_CFG_DIR); pwd)/\
-	\nset cfgdir         = $(shell cd $(CFG_DIR); pwd)/\
-	\n\
+	\n" > $@
+
+ifeq ($(OT_CFG_DIR),)
+	@printf "\nset otcfgdir     = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/ot_cfg/" >> $@
+else
+	@printf "\nset otcfgdir     = $(OT_CFG_DIR)/" >> $@
+endif
+
+ifeq ($(CFG_DIR),)
+	@printf "\nset cfgdir       = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg/" >> $@
+else
+	@printf "\nset cfgdir       = $(CFG_DIR)/" >> $@
+endif
+
+	@printf \
+	"\n\
 	\n# (generated from $(CONF_HOME)/make.conf)\
 	\nsetenv CLASSPATH $(shell echo $(foreach CLASSDIR, $(shell echo $(CLASSPATH):$(JAVAHELP_CP) | sed -e 's/:/ /g'),$(shell cd `dirname $(CLASSDIR)`;pwd)/$(shell basename $(CLASSDIR))) | sed -e 's/ /:/g')\
         \n\
-	\n" > $@
+	\n" >> $@
 
 	@cat scripts/odb_script_source >> $@
 
@@ -119,7 +132,6 @@ INSTALL_JAR_DIR     = $(INSTALL_ROOT)/lib
 INSTALL_DOC_DIR     = $(INSTALL_ROOT)/html/api
 INSTALL_BIN_DIR     = $(INSTALL_ROOT)/bin
 INSTALL_CFG_DIR     = $(INSTALL_ROOT)/cfg
-
 
 install:
 ifeq ($(INSTALL_ROOT),)
@@ -162,8 +174,8 @@ endif
 
 
 
-$(INSTALL_ROOT)/cfg: $(CFG_DIR)
-	cp -r $< $@
+$(INSTALL_ROOT)/cfg: ../cfg
+	cp -r $< $(INSTALL_ROOT)
 
 $(INSTALL_ROOT)/lib:
 	mkdir -p $(INSTALL_ROOT)/lib
@@ -181,19 +193,32 @@ $(INSTALL_ROOT)/bin/odb: scripts/odb_script_source $(CONF_HOME)/make.conf Makefi
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
-	\ncd \`dirname $$""0\`\
+	\nset ODB_HOME = $(shell cd $(INSTALL_ROOT); pwd)\
 	\n\
-	\nsetenv PRG_HOME .\
+	\nsetenv PRG \`which $$""0\`\
+	\nsetenv PRG_HOME \`dirname $$""PRG\`\
 	\n\
 	\nsetenv JAVA_HOME $(shell dirname $(shell dirname $(JAVA)))\
 	\nsetenv JAVA_BIN $$""{JAVA_HOME}/bin\
-	\n\
-	\nset otcfgdir       = `cd ..; pwd`/ot_cfg/\
-	\nset cfgdir         = `cd ..; pwd`/cfg/\
-	\n\
-        \nsetenv CLASSPATH $(shell echo $(addprefix ../lib/, $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
-	\n\
 	\n" > $@
+
+ifeq ($(OT_CFG_DIR),)
+	@printf "\nset otcfgdir     = \044{ODB_HOME}/ot_cfg/" >> $@
+else
+	@printf "\nset otcfgdir     = $(OT_CFG_DIR)/" >> $@
+endif
+
+ifeq ($(CFG_DIR),)
+	@printf "\nset cfgdir       = \044{ODB_HOME}/cfg/" >> $@
+else
+	@printf "\nset cfgdir       = $(CFG_DIR)/" >> $@
+endif
+
+	@printf \
+	"\n\
+        \nsetenv CLASSPATH $(shell echo $(addprefix "\044{ODB_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
+	\n\
+	\n" >> $@
 
 	@cat scripts/odb_script_source >> $@
 
