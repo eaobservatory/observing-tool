@@ -122,7 +122,7 @@ public class InstConfig extends Hashtable implements Cloneable {
          put( "polariser", "none" );      // Polariser name
          put( "centralWavelength", "2.2" ); // Central wavelength in microns
          put( "order", "1" );             // Grating order
-         put( "cvfOffset", "0.0" );       // Circular variable filter offset
+         put( "cvfWavelength", "0.0" );       // Circular variable filter offset
                                           // in microns
 
          put( "calibLamp", "off" );       // Black-body or arc lamps

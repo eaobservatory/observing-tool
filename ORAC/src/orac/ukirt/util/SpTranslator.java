@@ -2901,8 +2901,13 @@ public class SpTranslator {
                conpw.print( formatLegacyConfig( (String) workConfig.get( "order" ),
                             "order" ) + "\n" );
 
-               conpw.print( formatLegacyConfig( (String) workConfig.get( "cvfOffset" ),
-                            "cvf offset" ) + "\n" );
+//                conpw.print( formatLegacyConfig( (String) workConfig.get( "cvfOffset" ),
+//                             "cvf offset" ) + "\n" );
+	       Double centalWavelength = new Double ( (String)workConfig.get("centralWavelength") );
+	       Double cvfWavelength    = new Double ( (String)workConfig.get("cvfWavelength") );
+	       Double offset           = new Double (  cvfWavelength.doubleValue() - centalWavelength.doubleValue() );
+	       offset = new Double ( Math.rint(offset.doubleValue()*1000.0)/1000.0);
+	       conpw.print( formatLegacyConfig( offset.toString(), "cvf offset" ) + "\n" );
 
 // calibLamp, tunHalLevel, & lampEffAp
 // -----------------------------------
@@ -3092,10 +3097,8 @@ public class SpTranslator {
 
 // Do conversion of the wavelength and cvf offset attribute strings into
 // floats via a Float object.  Add them and convert back into a string.
-                  floatVal = new Float( (String) workConfig.get( "centralWavelength" ) );
+                  floatVal = new Float( (String) workConfig.get( "cvfWavelength" ) );
                   wavelength = floatVal.floatValue();
-                  floatVal = new Float( (String) workConfig.get( "cvfOffset" ) );
-                  wavelength = wavelength + floatVal.floatValue();
                   value = "" + wavelength;
                }
 
