@@ -24,6 +24,7 @@ import javax.swing.border.*;
 import java.rmi.*;
 import java.net.*;
 
+
 /**
    final public class programTree is a panel to select
    an observation from a JTree object
@@ -64,6 +65,12 @@ final public class programTree extends JPanel
       add(run,"South");
       
       consoleFrames.addFrameListEventListener(this);
+
+      // Create a popup menu 
+      popup = new JPopupMenu();
+      edit = new JMenuItem ("Edit Attributes...");
+      edit.addActionListener(this);
+      popup.add (edit);
       
     }
   
@@ -81,31 +88,62 @@ final public class programTree extends JPanel
       
       Object source = evt.getSource();
       
-      if (source == run)
-	{
+      if (source == run) {
 
-	  if (path == null)
-	    {
-	      errorBox =new ErrorBox("You have not selected an observation!"+
-				     "\nPlease select an observation.");
-	      return;
-	    }
+        if (path == null) {
+          errorBox =new ErrorBox("You have not selected an observation!"+
+                                 "\nPlease select an observation.");
+          return;
+        }
 
-// 	  try {
-
-// 	    System.out.println("TEST:"+path.toString());
-
-// 	  } catch (NullPointerException e)
-// 	    {
-// 	      errorBox =new ErrorBox("You have not selected an observation!"+
-// 				     "\nPlease select an observation object.");
-// 	      return;
-// 	    }
+        execution();
 	  
-	  execution();
-	  
-	}
+      } else if (source == edit) {
+
+        editAttributes();
+        
+      }
     }
+
+  private void editAttributes() {
+      
+    SpItem item=findItem(_spItem,path.getLastPathComponent().toString());
+
+    if (item == null) {
+      return;
+    }
+
+    // Recheck that this is an observation
+    if (item.type()==SpType.OBSERVATION) {
+
+      run.setEnabled(false);
+      run.setForeground(Color.white);
+
+      SpObs observation = (SpObs) item;
+
+      if(!observation.equals(null)) {
+        
+        //        SpItem inst= (SpItem) SpTreeMan.findInstrument(item);
+
+        new AttributeEditor(observation, new javax.swing.JFrame(), true).show();
+        
+        //        attEd.dispose();
+
+        run.setEnabled(true);
+        run.setForeground(Color.black);		    
+        
+      }else{
+        errorBox =new ErrorBox("Your selection: "+item.getTitle()+
+                               " is not an obnservation");
+        run.setEnabled(true);
+        run.setForeground(Color.black);		    
+        return;
+	  
+      }
+
+    }
+  }
+ 
   
   /**  private void execution() is a private method
        to start a sequence console. The execution is mainly about to start a
@@ -336,7 +374,9 @@ final public class programTree extends JPanel
       // Tell the tree it is being rendered by our application
       tree.setCellRenderer( new treeCellRenderer() );
       tree.addTreeSelectionListener(this);
-      
+      MouseListener popupListener = new PopupListener();
+      tree.addMouseListener (popupListener);
+
       // Add the listbox to a scrolling pane
       scrollPane.getViewport().removeAll();
       scrollPane.getViewport().add(tree);
@@ -586,7 +626,41 @@ final public class programTree extends JPanel
       }
     }
   
+  class PopupListener extends MouseAdapter {
+
+    public void mousePressed (MouseEvent e) {
+
+      // If this was not the right button just return immediately.
+      if (!((e.getModifiers() & InputEvent.BUTTON3_MASK)
+            == InputEvent.BUTTON3_MASK)) {
+        return;
+      }
+
+      SpItem item = null;
+      try {
+        item = findItem(_spItem,path.getLastPathComponent().toString());
+      } catch (NullPointerException excep) {}
+
+      // Catch any cases where somehow there isn't an item selected
+      if (item == null) {
+        return;
+      }
+
+      // If this is an observation then show the popup
+      if (item.type()==SpType.OBSERVATION) {
+          maybeShowPopup(e);
+      }
   
+    }
+
+    private void maybeShowPopup(MouseEvent e) {
+      if (e.isPopupTrigger()) {
+        popup.show (e.getComponent(), e.getX(), e.getY());
+      }
+    }
+
+  }
+
   
   public FrameList getFrameList() {return consoleFrames;}
   public JButton getRunButton () {return run;}
@@ -601,5 +675,7 @@ final public class programTree extends JPanel
   private FrameList consoleFrames=new FrameList();
   private remoteFrame frame;
   private menuSele menu;
+  private JMenuItem edit;
+  private JPopupMenu popup;
 }
 
