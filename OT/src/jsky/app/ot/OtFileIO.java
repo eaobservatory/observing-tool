@@ -35,6 +35,7 @@ import java.io.Reader;
 import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtWindow;
 
+import orac.util.SpItemUtilities;
 import orac.util.SpItemDOM;
 import orac.util.FileFilterSGML;
 import orac.util.FileFilterXML;
@@ -90,6 +91,7 @@ storeSp(SpRootItem spItem, File f)
             System.out.println("xml = " + getXML());
          }
         try {
+	  (new SpItemUtilities()).setReferenceIDs(spItem);
           (new PrintStream(os)).print((new SpItemDOM(spItem)).toString());
 	}
 	catch(Exception e) {
