@@ -9,10 +9,9 @@
 
     <h1>Downloading the UKIRT Observing Tool</h1>
 
-    <em>Existing users note: The current version is 20030129 or
-    later. This version fixes a problem encountered by users coming in
-    through proxy servers. The previous version (20030120) will work
-    fine for all other users preparing for 03A. </em>
+    <em>Existing users note: The current version is 20030701. If you are
+    submitting observations for 03B you need to get this, or a newer,
+    version. <p></em>
 
 
 
@@ -31,10 +30,10 @@
 
     <h2><a name="jre">Installing the Java Runtime Environment</a></h2>
 
-    <p>The OT requires the Java Runtime Environment v1.3.1 and the Java
-      Advanced Imaging extension v1.1.1. They must be installed on your system
-      before attempting to run the OT. There are three ways of obtaining these
-      packages if you don't already have them installed:</p>
+    <p>The OT requires the Java Runtime Environment v1.3.1 (or newer) and the
+    Java Advanced Imaging extension v1.1.1. They must be installed on your
+    system before attempting to run the OT. There are three ways of obtaining
+    these packages if you don't already have them installed:</p>
 
     <dl>
       <dt><b>From Sun</b></dt>
@@ -42,7 +41,8 @@
       <dd><p>The primary source of Java is from <a
       href="http://java.sun.com">java.sun.com</a>. This site hosts downloads
       for both <a
-      href="http://java.sun.com/j2se/1.3/download.html">JRE1.3.1</a> and <a
+      href="http://java.sun.com/j2se/1.3/download.html">JRE1.3.1</a> (or <a
+      href="http://java.sun.com/j2se/1.4/download.html">JRE1.4</a>) and <a
       href="http://java.sun.com/products/java-media/jai/downloads/download.html">JAI1.1.1</a>. Simply
       download it and follow the supplied instructions for installation. This
       is the recommended method for obtaining Windows version of Java (JRE and
@@ -79,26 +79,32 @@
 
       <dt><b>From Starlink</b></dt> 
 
-      <dd><p>If you are running a Spring 2002 <a
-      href="http://www.starlink.rl.ac.uk">Starlink</a> distribution you
-      already have JRE1.3.1 installed in
-      <tt>/star/java/jre-1.3.1_02/bin/java</tt> (this will vary depending on
-      where you installed the Starlink software). Alternatively you can
-      download the Starlink package from the <a
+      <dd><p>If you are running an Autumn 2002 <a
+      href="http://www.starlink.rl.ac.uk">Starlink</a> release or newer you
+      already have a JRE installed that is suitable for running the OT. It
+      will be in your path after a Starlink login. Alternatively you can
+      download the Starlink JRE package (which includes JAI) from the <a
       href="http://www.starlink.rl.ac.uk/cgi-store/ftpform1?jre">Starlink
       software store</a>.</p>
 
-	<p><B>IMPORTANT!</B> The Starlink distribution does <em>not</em>
-	include the JAI extension, you can either download that separately
-	from <a href="http://java.sun.com">Sun</a> (see the previous note) or
-	run the OT without the JAI (the OT will run fine but you will not be
-	able to use the <A href="index.html#Tour:_Using_the_Position_Editor">position
-	editor</a>).</p></dd>
+	<blockquote><B>IMPORTANT!</B> If you are running a Spring 2002 <a
+	href="http://www.starlink.rl.ac.uk">Starlink</a> distribution you
+	already have JRE1.3.1 installed in
+	<tt>/star/java/jre-1.3.1_02/bin/java</tt> (this will vary depending on
+	where you installed the Starlink software) but the Spring 2002
+	Starlink distribution does <em>not</em> include the JAI extension. You
+	can either download that separately from <a
+	href="http://java.sun.com">Sun</a> (see the previous note) or run the
+	OT without the JAI (the OT will run fine but you will not be able to
+	use the position
+	editor).</blockquote></dd>
+
+      <p>
 
 
     </dl>
 
-    <p>We have not yet tested the OT with JRE1.4.1.</p>
+    <p>We have tested the OT with JRE1.4.1 and it seems to work fine.</p>
 
     <h2><a name="ot">Installing the OT</a></h2>
 
@@ -114,23 +120,8 @@
 </pre>
 
     <p>This will create a directory called <tt>ompot</tt>. The installation is
-      almost complete. The final step is to configure the OT so that it knows
-      which Java runtime environment to use. You do this by editing the file
-      <tt>ompot/bin/ot</tt> and changing the line that says:</p>
-
-<pre>
-set JAVA = /local/java/jdk/bin/java
-</pre>
-
-    <p>to (for example)</p>
-<pre>
-set JAVA = /star/java/jre-1.3.1_02/bin/java
-</pre>
-
-    <p>if you are going to use the Starlink JRE. Note that the value used
-      includes the full path to the Java executable, not a directory specification.</p>
-
-    <p>To run the OT you can either type:
+      almost complete. If you have a java executable in your path you should
+      now be able to run up the OT:
 <pre>
 % ompot/bin/ukirtot
 </pre>
@@ -140,6 +131,27 @@ set JAVA = /star/java/jre-1.3.1_02/bin/java
 <pre>
 % ukirtot
 </pre>
+<p>
+      If the location of your Java executable is not present in the path then
+	you will need to edit the startup script so that it knows
+      which Java runtime environment to use (this is also useful if you want
+	to force a site wide version). You do this by editing the file
+      <tt>ompot/bin/ot</tt> and changing the line that says:</p>
+
+<pre>
+set JAVA = `which java`
+</pre>
+
+    <p>to (for example)</p>
+<pre>
+set JAVA = /star/java/jre/bin/java
+</pre>
+
+    <p>if you are going to use the Starlink JRE. Note that the value used
+      includes the full path to the Java executable, not a directory specification.</p>
+
+      <p>The OT should now be runnable as described above.</p>
+
 
     <p>You are now ready for the <a href="index.html">OT Primer</a>.</p>
 
@@ -158,11 +170,12 @@ set JAVA = /star/java/jre-1.3.1_02/bin/java
     &quot;paste shortcut&quot;. optionally rename the shortcut by right-clicking on it
     and selecting &quot;rename&quot;.
 
+
     <hr>
     <address><a href="mailto:t.jenness@jach.hawaii.edu">Tim Jenness</a></address>
 <!-- Created: Sat Jul  6 21:49:36 HST 2002 -->
 <!-- hhmts start -->
-Last modified: Thu Jan 30 16:39:55 HST 2003
+Last modified: Tue Jul  1 15:30:31 HST 2003
 <!-- hhmts end -->
   </body>
 </html>
