@@ -7,10 +7,42 @@
     <java.lang.String alias-ID="4" valueOf="WC"/>
     <java.lang.String alias-ID="5" valueOf="WD"/>
   </ArrayOf-java.lang.String>
-  <ArrayOf-java.lang.String alias-ID="7" obj-name="frontEndModes" length="2">
-    <java.lang.String alias-ID="8" valueOf="ssb"/>
-    <java.lang.String alias-ID="9" valueOf="dsb"/>
+
+  <java.util.Hashtable alias-ID="95" obj-name="frontEndTable">
+    <java.lang.String alias-ID="96" valueOf="A3"/>
+    <ArrayOf-java.lang.String alias-ID="97" length="1">
+      <java.lang.String alias-ID="98" valueOf="dsb"/>
+    </ArrayOf-java.lang.String>
+
+    <java.lang.String alias-ID="99" valueOf="B3"/>
+    <ArrayOf-java.lang.String alias-ID="6" length="2">
+      <java.lang.String alias-ID="7" valueOf="ssb"/>
+      <java.lang.String alias-ID="8" valueOf="dsb"/>
+    </ArrayOf-java.lang.String>
+
+    <java.lang.String alias-ID="9" valueOf="WD"/>
+    <ArrayOf-java.lang.String alias-ID="101" length="2">
+      <java.lang.String alias-ID="102" valueOf="ssb"/>
+      <java.lang.String alias-ID="103" valueOf="dsb"/>
+    </ArrayOf-java.lang.String>
+
+    <java.lang.String alias-ID="104" valueOf="HARP-B"/>
+    <ArrayOf-java.lang.String alias-ID="105" length="1">
+      <java.lang.String alias-ID="106" valueOf="ssb"/>
+    </ArrayOf-java.lang.String>
+
+    <java.lang.String alias-ID="107" valueOf="WC"/>
+    <ArrayOf-java.lang.String alias-ID="108" length="2">
+      <java.lang.String alias-ID="109" valueOf="ssb"/>
+      <java.lang.String alias-ID="110" valueOf="dsb"/>
+    </ArrayOf-java.lang.String>
+  </java.util.Hashtable>
+  <ArrayOf-java.lang.String alias-ID="111" obj-name="velocityFrames" length="3">
+    <java.lang.String alias-ID="112" valueOf="LSR"/>
+    <java.lang.String alias-ID="113" valueOf="Geocentric"/>
+    <java.lang.String alias-ID="114" valueOf="Heliocentric"/>
   </ArrayOf-java.lang.String>
+
   <java.util.Hashtable alias-ID="10" obj-name="receivers">
     <java.lang.String alias-ID="11" valueOf="A3"/>
     <edfreq.Receiver alias-ID="12"
@@ -29,6 +61,12 @@
            a2="5.0E8"
            a3="7.6E8"
            a4="9.2E8"/>
+          <ArrayOf-double alias-ID="100" obj-name="defaultOverlaps" length="5"
+           a0="0.0"
+           a1="0.0"
+           a2="0.0"
+           a3="0.0"
+           a4="0.0"/>
           <ArrayOf-int alias-ID="26" obj-name="channels" length="5"
            a0="78"
            a1="156"
@@ -48,6 +86,9 @@
           <ArrayOf-double alias-ID="17" obj-name="bandWidths" length="2"
            a0="1.5E9"
            a1="1.8E9"/>
+          <ArrayOf-double alias-ID="115" obj-name="defaultOverlaps" length="2"
+           a0="0.0"
+           a1="0.0"/>
           <ArrayOf-int alias-ID="18" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
@@ -75,6 +116,12 @@
            a2="5.0E8"
            a3="7.6E8"
            a4="9.2E8"/>
+          <ArrayOf-double alias-ID="116" obj-name="defaultOverlaps" length="5"
+           a0="0.0"
+           a1="0.0"
+           a2="0.0"
+           a3="0.0"
+           a4="0.0"/>
           <ArrayOf-int alias-ID="34" obj-name="channels" length="5"
            a0="78"
            a1="156"
@@ -94,6 +141,9 @@
           <ArrayOf-double alias-ID="37" obj-name="bandWidths" length="2"
            a0="1.5E9"
            a1="1.8E9"/>
+          <ArrayOf-double alias-ID="117" obj-name="defaultOverlaps" length="2"
+           a0="0.0"
+           a1="0.0"/>
           <ArrayOf-int alias-ID="38" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
@@ -121,6 +171,12 @@
            a2="5.0E8"
            a3="7.6E8"
            a4="9.2E8"/>
+          <ArrayOf-double alias-ID="118" obj-name="defaultOverlaps" length="5"
+           a0="0.0"
+           a1="0.0"
+           a2="0.0"
+           a3="0.0"
+           a4="0.0"/>
           <ArrayOf-int alias-ID="50" obj-name="channels" length="5"
            a0="78"
            a1="156"
@@ -140,6 +196,9 @@
           <ArrayOf-double alias-ID="53" obj-name="bandWidths" length="2"
            a0="1.5E9"
            a1="1.8E9"/>
+          <ArrayOf-double alias-ID="119" obj-name="defaultOverlaps" length="2"
+           a0="0.0"
+           a1="0.0"/>
           <ArrayOf-int alias-ID="54" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
@@ -167,6 +226,12 @@
            a2="5.0E8"
            a3="7.6E8"
            a4="9.2E8"/>
+          <ArrayOf-double alias-ID="120" obj-name="defaultOverlaps" length="5"
+           a0="0.0"
+           a1="0.0"
+           a2="0.0"
+           a3="0.0"
+           a4="0.0"/>
           <ArrayOf-int alias-ID="82" obj-name="channels" length="5"
            a0="78"
            a1="156"
@@ -186,6 +251,9 @@
           <ArrayOf-double alias-ID="85" obj-name="bandWidths" length="2"
            a0="1.5E9"
            a1="1.8E9"/>
+          <ArrayOf-double alias-ID="121" obj-name="defaultOverlaps" length="2"
+           a0="0.0"
+           a1="0.0"/>
           <ArrayOf-int alias-ID="86" obj-name="channels" length="2"
            a0="1250"
            a1="1250"/>
