@@ -7,7 +7,7 @@
 set SERVER = ATC
 
 set TELESCOPE = "" 
-set INTERNAL_FRAMES = -internalframes 
+set INTERNAL_FRAMES = -nointernalframes 
 set OMP_FLAG = "" 
 set EDFREQ_CFG = "edfreq/acsisCfg.xml"
 set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-[no]omp] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
