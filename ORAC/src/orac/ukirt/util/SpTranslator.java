@@ -379,31 +379,69 @@ public class SpTranslator {
  * @param Vector the sequence instructions (this is updated).
  */
    public void insertPeakup( String instrument, Vector sequence ) {
-
-      String offsetPattern = "^(-)?offset.*";
+      boolean firstObject = false;        // First "set OBJECT" encountered?
+      boolean firstSky = false;           // First "set SKY" encountered?
+      int i;                              // Loop counter
+      int objectIndex = -1;               // Sequence index to first "set OBJECT"
+      int skyIndex = -1;                  // Sequence index to first "set SKY"
 
       if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
 
-          if ( sequence.indexOf( "set SKY" ) != -1 ) {
-              if ( sequence.indexOf( "set SKY" ) < sequence.indexOf( "set OBJECT" ) ) {
-                  // Loop to find the first offset command
-                  // and insert the peakup
-                  for ( int i=0; i<sequence.size(); i++ ) {
-                      if ( ((String)sequence.get(i)).matches(offsetPattern) ||
-                              ((String)sequence.get(i)).equals("set SKY") ) {
-                          sequence.insertElementAt("break", i);
-                          sequence.insertElementAt("set OBJECT", i);
-                          sequence.insertElementAt("offset 0 0", i);
-                          break;
-                      }
-                  }
-              }
-          }
-//           // Modified to JUST insert anyway regardless
-//           objectIndex = sequence.indexOf("set OBJECT");
-//           sequence.insertElementAt("offset 0.0 0.0", objectIndex+1);
+// Traverse the sequence.
+         for ( i = 0; i < sequence.size(); ++i ) {
+
+// Look for first "set SKY".
+            if ( ( (String) sequence.elementAt( i ) ).startsWith( "set SKY" ) &&
+                 ! firstSky ) {
+
+// It's found, so record the fact, and the index.
+               firstSky = true;
+               skyIndex = i;
+            }
+
+// Look for first "set OBJECT".
+            if ( ( (String) sequence.elementAt( i ) ).equals( "set OBJECT" ) &&
+                 ! firstObject ) {
+
+// It's found, so record the fact, and the index.
+               firstObject = true;
+               objectIndex = i;
+            }
+         }
+
+// Does the sky come before the object?
+         if ( skyIndex < objectIndex && firstSky ) {
+
+// Insert the additional commands to enable a peakup on the object.
+            sequence.insertElementAt( "offset 0 0", skyIndex );
+            sequence.insertElementAt( "set OBJECT", skyIndex + 1 );
+            sequence.insertElementAt( "break", skyIndex + 2 );
+         }   
       }
    }
+ 
+
+//       String offsetPattern = "^(-)?offset.*";
+// 
+//       if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
+// 
+//           if ( sequence.indexOf( "set SKY" ) != -1 ) {
+//               if ( sequence.indexOf( "set SKY" ) < sequence.indexOf( "set OBJECT" ) ) {
+//                   // Loop to find the first offset command
+//                   // and insert the peakup
+//                   for ( int i=0; i<sequence.size(); i++ ) {
+//                       if ( ((String)sequence.get(i)).matches(offsetPattern) ||
+//                               ((String)sequence.get(i)).equals("set SKY") ) {
+//                           sequence.insertElementAt("break", i);
+//                           sequence.insertElementAt("set OBJECT", i);
+//                           sequence.insertElementAt("offset 0 0", i);
+//                           break;
+//                       }
+//                   }
+//               }
+//           }
+//       }
+//    }
 
 /**
  * Move the last "SET_CHOPBEAM A" instruction before the startGroup
@@ -4216,15 +4254,49 @@ public class SpTranslator {
        String offsetPattern = "^(-)?offset.*";
        
        // Get the first OBJECT and find it's offset.  This should be on the line after
-       // the "set OBJECT" command.  
+       // the "set OBJECT" command or possibly the line after that if there is a break.  
        int objectIndex = sequence.indexOf("set OBJECT");
-       String lastOffset = (String)sequence.get(objectIndex+1);
-       // If this is not an offset, then report a possible error.
-       if ( !(lastOffset.matches(offsetPattern)) ) {
-           // Add a default offset 0f 0.0
-           sequence.add( objectIndex+1, "offset 0.0 0.0" );
-           lastOffset = (String)sequence.get(objectIndex+1);
+       String line1 = (String)sequence.get(objectIndex+1);
+       String line2 = (String)sequence.get(objectIndex+2);
+       String lastOffset = "offset 0.0 0.0"; 
+       boolean matched = false;
+       if ( line1.matches(offsetPattern) ) {
+           lastOffset = line1;
+           matched = true;
        }
+       else if ( line2.matches(offsetPattern) ) {
+           lastOffset = line2;
+           matched = true;
+       }
+       else {
+           // See if there is an earlier offset that we should move into here
+           for ( int i=objectIndex; i >= 0; i-- ) {
+               if ( ((String)sequence.get(i)).matches(offsetPattern) ) {
+                   lastOffset = (String)sequence.get(i);
+                   // Check if the next line is a wait command
+                   boolean waitNext = ((String)sequence.get(i+1)).equalsIgnoreCase("-WAIT ALL");
+                   // Move the lines to below the set OBJECT
+                   if ( line1.equalsIgnoreCase("break") ) {
+                       sequence.add( objectIndex+2, "-WAIT ALL");
+                       sequence.add( objectIndex+2, lastOffset);
+                   }
+                   else {
+                       sequence.add( objectIndex+1, "-WAIT ALL");
+                       sequence.add( objectIndex+1, lastOffset);
+                   }
+                   sequence.remove(i+1);
+                   sequence.remove(i);
+                   break;
+               }
+           }
+       }
+       objectIndex = sequence.indexOf("set OBJECT");
+       // If this is not an offset
+//        if ( !(lastOffset.matches(offsetPattern)) ) {
+//            // Add a default offset 0f 0.0
+//            sequence.add( objectIndex+1, "offset 0.0 0.0" );
+//            lastOffset = (String)sequence.get(objectIndex+1);
+//        }
 
        // Loop through here noting if we have any intervening skys, until we hit the next 
        // "set OBJECT" command
