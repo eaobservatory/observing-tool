@@ -50,22 +50,28 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric { // implements Acti
     _title       ="Rover";
     _presSource  = _w = (IterRoverObsGUI)super._w;
     _description ="Rover Observation Mode";
-//    _w.widePhotom.addActionListener(this);
+    _w.samplesPerRevolution.addWatcher(this);
   }
 
     protected void _updateWidgets () {
-//	if ( _iterObs != null && ((SpIterRoverObs)_iterObs).getWidePhotom() ) {
-//	    _w.widePhotom.setSelected(true);
-//	}
-//	else {
-//	    _w.widePhotom.setSelected(false);
-//	}
 	super._updateWidgets();
+
+        SpIterRoverObs iterRoverObs = (SpIterRoverObs)_iterObs;
 
         _w.switchingMode.deleteWatcher(this);
         _w.switchingMode.clear();
-        _w.switchingMode.setChoices(((SpIterRoverObs)_iterObs).getSwitchingModeOptions());
+        _w.switchingMode.setChoices(iterRoverObs.getSwitchingModeOptions());
         _w.switchingMode.addWatcher(this);
+
+        _w.samplesPerRevolution.deleteWatcher(this);
+        _w.samplesPerRevolution.setValue(iterRoverObs.getSamplesPerRevolution());
+        _w.samplesPerRevolution.addWatcher(this);
+
+        _w.sampleTime.deleteWatcher(this);
+        _w.sampleTime.setValue(iterRoverObs.getRoverSampleTime());
+        _w.sampleTime.addWatcher(this);
+
+        _updateSpinRate();
 
         SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(_spItem);
 
@@ -75,24 +81,34 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric { // implements Acti
     }
     
 
-//  public void textBoxKeyPress(TextBoxWidgetExt e) {
-//    super.textBoxKeyPress(tbwe);
-//  }
+  private void _updateSpinRate() {
+    double spinRate = 1.0 / (((SpIterRoverObs)_iterObs).getSamplesPerRevolution() *
+                             ((SpIterRoverObs)_iterObs).getRoverSampleTime());
 
+    // Round to 5 decimal points.
+    spinRate = Math.rint(spinRate * 1.0E5) / 1.0E5;
 
-//  public void setInstrument(SpInstObsComp spInstObsComp) {
-//    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-//      _w.acsisPanel.setVisible(true);
-//      _w.widePhotom.setVisible(false);
-//      _w.widePhotom.setSelected(false);
-//    }
-//    else {
-//      _w.acsisPanel.setVisible(false);
-//      _w.widePhotom.setVisible(true);
-//    }
-//
-//    super.setInstrument(spInstObsComp);
-//  }
+    _w.spinRate.setText("" + spinRate);
+  }
+
+  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+    super.textBoxKeyPress(tbwe);
+
+    if(tbwe == _w.sampleTime) {
+      ((SpIterRoverObs)_iterObs).setRoverSampleTime(tbwe.getValue());
+      _updateSpinRate();
+
+      return;
+    }
+
+    if(tbwe == _w.samplesPerRevolution) {
+      ((SpIterRoverObs)_iterObs).setSamplesPerRevolution(tbwe.getValue());
+      _updateSpinRate();
+
+      return;
+    }
+  }
+
 
   protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
 
@@ -110,9 +126,5 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric { // implements Acti
 	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
 	return HeterodyneNoise.getHeterodyneNoise((SpIterRoverObs)_iterObs, inst, tau, airmass);
     }
-
-//    public void actionPerformed (ActionEvent e) {
-//	((SpIterRoverObs)_iterObs).setWidePhotom ( _w.widePhotom.isSelected() );
-//    }
 }
 

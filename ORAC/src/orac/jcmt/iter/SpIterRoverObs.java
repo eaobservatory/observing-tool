@@ -24,6 +24,8 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 
+import gemini.util.Format;
+
 import java.util.Enumeration;
 
 
@@ -51,15 +53,39 @@ public SpIterRoverObs()
    super(SP_TYPE);
 
    _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
+   _avTable.noNotifySet(ATTR_SAMPLES_PER_REVOLUTION, "64", 0);
+   _avTable.noNotifySet(ATTR_SAMPLE_TIME, "0.05", 0);
 }
 
-    public void setSamplesPerRevolution(int samplesPerRevolution) {
-        _avTable.set(ATTR_SAMPLES_PER_REVOLUTION, samplesPerRevolution);
+    public void setSamplesPerRevolution(String samplesPerRevolution) {
+        _avTable.set(ATTR_SAMPLES_PER_REVOLUTION, Format.toInt(samplesPerRevolution));
     }
 
     public int getSamplesPerRevolution() {
         return _avTable.getInt(ATTR_SAMPLES_PER_REVOLUTION, 1);
     }
+
+
+    /**
+     * This is the equivalent of getSampleTime() in the super class.
+     *
+     * It uses the same ATTR_SAMPLE_TIME and hence results in the same
+     * XML output. But it is a double value.
+     */
+    public double getRoverSampleTime() {
+      return _avTable.getDouble(ATTR_SAMPLE_TIME, 0.0);
+    }
+
+    /**
+     * This is the equivalent of setSampleTime() in the super class.
+     *
+     * It uses the same ATTR_SAMPLE_TIME and hence results in the same
+     * XML output. But it is a double value.
+     */
+    public void setRoverSampleTime(String value) {
+      _avTable.set(ATTR_SAMPLE_TIME, value);
+    }
+
 
 public double getElapsedTime() {
     SpInstObsComp instrument = SpTreeMan.findInstrument(this);

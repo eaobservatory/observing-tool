@@ -35,6 +35,8 @@ public class IterRoverObsGUI extends IterJCMTGenericGUI {
   TextBoxWidgetExt samplesPerRevolution = new TextBoxWidgetExt();
   JLabel jLabel5 = new JLabel();
   TextBoxWidgetExt spinRate = new TextBoxWidgetExt();
+  JLabel jLabel6 = new JLabel();
+  JLabel jLabel7 = new JLabel();
 
   public IterRoverObsGUI() {
     try {
@@ -70,6 +72,10 @@ public class IterRoverObsGUI extends IterJCMTGenericGUI {
     jLabel5.setText("Spin Rate");
     spinRate.setEditable(false);
     spinRate.setText("");
+    jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel6.setText("(secs)");
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel7.setText("(Hz)");
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel3,  new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
@@ -85,6 +91,10 @@ public class IterRoverObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    acsisPanel.add(jLabel6, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    acsisPanel.add(jLabel7, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(continuousCal, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0
