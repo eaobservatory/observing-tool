@@ -280,15 +280,6 @@
   </xsd:complexType>
  </xsd:element>
 
-<xsd:element name="remote_trigger">
-  <xsd:complexType>
-    <xsd:simpleContent>
-      <xsd:extension base="xsd:string">
-        <xsd:attribute name="id" type="xsd:string"/>
-      </xsd:extension>
-    </xsd:simpleContent>
-  </xsd:complexType>
-</xsd:element>
 
 <xsd:complexType name="conicSystemType">
   <xsd:all>
@@ -391,6 +382,8 @@
 <xsd:element name="secsPerCycle" type="xsd:positiveInteger"/>
 <xsd:element name="ot_version" type="xsd:string"/>
 <xsd:element name="library_version" type="xsd:string"/>
+<xsd:element name="remote_trigger_src" type="xsd:string"/>
+<xsd:element name="remote_trigger_id"  type="xsd:string"/>
 
 <!-- ELEMENT REFERENCES -->
 <xsd:element name="SpSiteQualityObsCompRef">
