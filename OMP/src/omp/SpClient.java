@@ -58,7 +58,7 @@ public class SpClient extends SoapClient {
 	    }
 	    
 	    System.out.println("Storing " + spXml + "\n...");
-	    String databaseSummary = spClient.storeProgram(spXml, "abc").summary;
+	    String databaseSummary = spClient.storeProgram(spXml, "abc", false).summary;
 	    System.out.println("Database Summary: " + databaseSummary);
 	 }
 	 catch(IOException e) {
@@ -87,6 +87,14 @@ public class SpClient extends SoapClient {
    }
 
 
+   /**
+    * Fetch Science Program from database.
+    *
+    * @param id   Project ID
+    * @param pass Password
+    *
+    * @return Science Program item.
+    */
    public SpProg fetchProgram(String id, String pass) throws Exception {
       addParameter("projectid", String.class, id);
       addParameter("password", String.class, pass);
@@ -104,7 +112,12 @@ public class SpClient extends SoapClient {
    }
 
    /**
-    * Test method.
+    * Fetch Science Program as XML String from database (test method).
+    *
+    * @param id   Project ID
+    * @param pass Password
+    *
+    * @return Science Program as XML String.
     */
    public String fetchProgramString(String id, String pass) throws Exception {
       addParameter("projectid", String.class, id);
@@ -114,7 +127,14 @@ public class SpClient extends SoapClient {
    }
 
 
-   public SpStoreResult storeProgram(SpProg spProg, String pass) throws Exception {
+   /**
+    * Store Science Program to database.
+    *
+    * @param spProg Science Program item.
+    * @param pass   Password
+    * @param force  Force to override database entry even if there are (timestamp) inconsistencies.
+    */
+   public SpStoreResult storeProgram(SpProg spProg, String pass, boolean force) throws Exception {
 
       SpItemUtilities.removeReferenceIDs(spProg);
       (new SpItemUtilities()).setReferenceIDs(spProg);
@@ -124,16 +144,42 @@ public class SpClient extends SoapClient {
       SpItemUtilities.saveElapsedTimes(spProg);
 
       String sp = (new SpItemDOM(spProg)).toXML();
-   
+
+      String forceString;
+      if(force) {
+        forceString = "1";
+      }
+      else {
+        forceString = "0";
+      }
+
       addParameter("sp", String.class, sp);
       addParameter("password", String.class, pass);
+      addParameter("force", String.class, forceString);
 
       return new SpStoreResult(doCall(url, "storeProgram"));
    }
 
-   public SpStoreResult storeProgram(String sp, String pass) throws Exception {
+
+   /**
+    * Store Science Prgram XML String to database (test method).
+    *
+    * @param sp     Science Program as XML String
+    * @param pass   Password
+    * @param force  Force to override database entry even if there are (timestamp) inconsistencies.
+    */
+   public SpStoreResult storeProgram(String sp, String pass, boolean force) throws Exception {
+      String forceString;
+      if(force) {
+        forceString = "1";
+      }
+      else {
+        forceString = "0";
+      }
+
       addParameter("sp", String.class, sp);
       addParameter("password", String.class, pass);
+      addParameter("force", String.class, forceString);
 
       return new SpStoreResult(doCall(url, "storeProgram"));
    }
