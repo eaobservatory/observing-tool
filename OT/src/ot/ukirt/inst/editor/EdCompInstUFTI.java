@@ -206,6 +206,7 @@ public final class EdCompInstUFTI extends EdCompInstBase
  * Update the filter choice related widgets.
  */
    private void _updateFilterWidgets() {
+      _ignoreActionEvents = true;
 
 // First fill in the text box.
       TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.filter;
@@ -255,6 +256,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
          tw.selectRowAt( index );
          tw.focusAtRow( index );
       }
+
+      _ignoreActionEvents = false;
    }
 
 /**
@@ -271,6 +274,8 @@ public final class EdCompInstUFTI extends EdCompInstBase
  * setup the widgets to show the current values of the item.
  */
    protected void _updateWidgets() {
+      _ignoreActionEvents = true;
+   
       DropDownListBoxWidgetExt ddlbw;
 
       ddlbw = (DropDownListBoxWidgetExt) _w.polariser;
@@ -288,18 +293,24 @@ public final class EdCompInstUFTI extends EdCompInstBase
       ddlbw.setValue( _instUFTI.getSourceMagnitude () );
 
       _updateScienceFOV();
+      
+      // Reset _ignoreActionEvents to true after it has been set to false at the end of _updateScienceFOV()
+      _ignoreActionEvents = true;
 
       super._updateWidgets();
 
       _updateFilterWidgets();
       _updateExpWidgets();
 
+      _ignoreActionEvents = false;
    }
 
 //
 // Update the exposure-time and coadds widgets.
 //
    private void _updateExpWidgets() {
+      _ignoreActionEvents = true;
+
       TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.exposureTime;
       double d = _instUFTI.getExpTime();
       String e = Double.toString( d );
@@ -310,6 +321,7 @@ public final class EdCompInstUFTI extends EdCompInstBase
 // _instUFTI.setNoCoadds( coadds );
       _w.coadds.setText( Integer.toString( coadds ) );
 
+      _ignoreActionEvents = false;
    }
 
 //
@@ -328,9 +340,13 @@ public final class EdCompInstUFTI extends EdCompInstBase
 // Update the science field of view based upon the readout area.
 //
    private void _updateScienceFOV() {
+      _ignoreActionEvents = true;
+
       TextBoxWidgetExt    tbw = (TextBoxWidgetExt) _w.scienceFOV;   
       double[] scienceArea = _instUFTI.getScienceArea();
       tbw.setText(scienceArea[0] + " x " + scienceArea[1] );
+
+      _ignoreActionEvents = false;
    }
 
 /**

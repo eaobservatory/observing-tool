@@ -182,6 +182,7 @@ import javax.swing.ButtonGroup;
  * Update the filter choice related widgets.
  */
    private void _updateFilterWidgets() {
+      _ignoreActionEvents = true;
 
 // First fill in the text box.
       String filter = _instIRCAM3.getFilter();
@@ -229,6 +230,8 @@ import javax.swing.ButtonGroup;
          _w.filterTable.selectRowAt( index );
          _w.filterTable.focusAtRow( index );
       }
+
+      _ignoreActionEvents = false;
    }
 
 /**
@@ -245,6 +248,7 @@ import javax.swing.ButtonGroup;
  * setup the widgets to show the current values of the item.
  */
    protected void _updateWidgets() {
+      _ignoreActionEvents = true;
 
       _w.polariser.setValue( _instIRCAM3.getPolariser() );
 
@@ -258,15 +262,21 @@ import javax.swing.ButtonGroup;
 
       _updateScienceFOV();
 
+      // Reset _ignoreActionEvents to true after it has been set to false at the end of _updateScienceFOV()
+      _ignoreActionEvents = true;
+
       super._updateWidgets();
 
       _updateFilterWidgets();
       _updateExpWidgets();
 
+      _ignoreActionEvents = false;
    }
 
 // Update the exposure time and coadds widgets.
    private void _updateExpWidgets() {
+      _ignoreActionEvents = true;
+
       double d = _instIRCAM3.getExpTime();
       String e = Double.toString( d );
    //   _instIRCAM3.setExpTime( e );
@@ -278,6 +288,7 @@ import javax.swing.ButtonGroup;
 
       _w.acqMode.setValue( _instIRCAM3.getAcqMode() );
 
+      _ignoreActionEvents = false;
    }
 
 // Update the exposure time and coadds attributes.
@@ -291,8 +302,12 @@ import javax.swing.ButtonGroup;
 
 // Update the science field of view based upon the readout area.
    private void _updateScienceFOV() {
+      _ignoreActionEvents = true;
+
       double[] scienceArea = _instIRCAM3.getScienceArea();
       _w.scienceFOV.setText( scienceArea[ 0 ] + " x " + scienceArea[ 1 ] );
+
+      _ignoreActionEvents = false;
    }
 
 /**
