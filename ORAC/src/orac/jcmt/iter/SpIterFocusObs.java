@@ -110,7 +110,7 @@ public class SpIterFocusObs extends SpIterJCMTObs {
 	    time = 22.4*getIntegrations()*getFocusPoints() + SCUBA_STARTUP_TIME;
 	}
 	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-	    time = 0.0;
+	    time = 150.0; // * getIntegrations() * getFocusPoints();
 	}
 	return time;
     }

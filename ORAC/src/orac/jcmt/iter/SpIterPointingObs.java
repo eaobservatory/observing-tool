@@ -87,6 +87,7 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 	    totalIntegrationTime = 16.0*2.0*getIntegrations();
 	}
 	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	    totalIntegrationTime = 120.0; // *getIntegrations();
 	}
 	return (overhead + totalIntegrationTime);
     }

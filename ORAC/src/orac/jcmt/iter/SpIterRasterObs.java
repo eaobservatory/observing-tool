@@ -433,6 +433,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	// Overhead is 50 percent for scan map.
 	return SCUBA_STARTUP_TIME*factor +  (1.5 * secsPerIntegration);
     }
+    else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	int samplesPerRow = (int)(Math.ceil(getWidth()/getScanDx()));
+	if (samplesPerRow%2 == 0) samplesPerRow++;
+	double noOfRows = Math.ceil( getHeight()/getScanDy() );
+
+	double timeOnRow  = (double)samplesPerRow * getSampleTime();
+	double timeOffRow = Math.sqrt((double)samplesPerRow) * getSampleTime();
+	return ( (timeOnRow + timeOffRow) * noOfRows);
+    }
     return 0.0;
   }
 
