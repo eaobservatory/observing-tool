@@ -109,7 +109,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifySet(ATTR_BAND,             "usb",                     0);
     _avTable.noNotifySet(ATTR_LO1,              "2.2229E11",               0);
     _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY, "" + 4.0E9,                0);
-    _avTable.noNotifySet(ATTR_BANDWIDTH,        "" + 1.0E9,                0);
+
+    // Bandwidths are different for das and heterodyne. Set to 0.0 now and initialise later in EdCompInstHeterodyne.
+    _avTable.noNotifySet(ATTR_BANDWIDTH,        "" + 0.0,                  0);
     _avTable.noNotifySet(ATTR_CHANNELS,         "32768",                   0);
     _avTable.noNotifySet(ATTR_MOLECULE,         "CN, v = 0, 1",            0);
     _avTable.noNotifySet(ATTR_TRANSITION,       "2 0 2 1  - 1 0 2 1 ",     0);
