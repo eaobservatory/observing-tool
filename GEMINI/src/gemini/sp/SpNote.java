@@ -6,6 +6,10 @@
 //
 package gemini.sp;
 
+//  MFO (June 12, 2002):
+//    isObserveInstruction(), setObserveInstruction(boolean)
+//    and ATTR_OBSERVE_INSTRUCTION added for OMP.
+
 /**
  * The Note item.  Notes are arbitrary text information that may be
  * entered at any level of the hierarchy.
@@ -13,6 +17,13 @@ package gemini.sp;
 public class SpNote extends SpItem
 {
    public static final String ATTR_NOTE  = "note";
+
+   /**
+    * This attribute records whether this note should be highlighted.
+    *
+    * @see @isObserveInstruction()
+    */
+   public static final String ATTR_OBSERVE_INSTRUCTION = ":observeInstruction";
 
 /**
  * Default constructor.
@@ -54,6 +65,35 @@ public String
 getNote()
 {
    return _avTable.get(ATTR_NOTE);
+}
+
+/**
+ * Set whether this note should be highlighted.
+ *
+ * @see #isObserveInstruction()
+ */
+public void
+setObserveInstruction(boolean value)
+{
+   if(value) {
+      _avTable.set(ATTR_OBSERVE_INSTRUCTION, value);
+   }
+   else {
+      _avTable.rm(ATTR_OBSERVE_INSTRUCTION);
+   }
+}
+
+/** 
+ * Indicates whether this note should be highlighted.
+ *
+ * During obsering this attribute allows programs like the QT to
+ * draw the attention of the observer to notes which contain
+ * information which is critical for the observation.
+ */
+public boolean
+isObserveInstruction()
+{
+   return _avTable.getBool(ATTR_OBSERVE_INSTRUCTION);
 }
 
 }
