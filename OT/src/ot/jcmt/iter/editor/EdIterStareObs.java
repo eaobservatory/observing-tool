@@ -73,6 +73,14 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
   }
 
     protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
+	double tSys = HeterodyneNoise.getTsys(inst.getFrontEnd(),
+					      tau,
+					      airmass,
+					      inst.getRestFrequency(0)/1.0e9,
+					      inst.getMode().equalsIgnoreCase("ssb"));
+
+	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
+	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
 	return HeterodyneNoise.getHeterodyneNoise((SpIterStareObs)_iterObs, inst, tau, airmass);
     }
 }
