@@ -1042,4 +1042,12 @@ public class TelescopePosEditor extends JSkyCat
 
 	new TelescopePosEditor(imageFileOrUrl, internalFrames, showNavigator);
     }
+
+    /**
+     * MFO: Added to cause repaint to call _iw.repaint();
+     */
+    public void repaint() {
+      super.repaint();
+      _iw.repaint();
+    }
 }
