@@ -7,6 +7,7 @@
 package gemini.sp;
 
 import gemini.sp.iter.SpIterFolder;
+import java.util.Enumeration;
 
 /**
  * The observation item.  In addition to other attributes, the SpObs class
@@ -296,5 +297,34 @@ setOptional(boolean optional)
    _avTable.set(ATTR_OPTIONAL, optional);
 }
 
+public double
+getElapsedTime()
+{
+  SpIterFolder iterFolder = getIterFolder();
+  
+  if(iterFolder != null) {
+    return iterFolder.getElapsedTime();
+  }
+  else {
+    return 0.0;
+  }
 }
 
+public SpIterFolder
+getIterFolder()
+{
+  Enumeration children = children();
+  SpItem spItem = null;
+
+  while(children.hasMoreElements()) {
+    spItem = (SpItem)children.nextElement();
+
+    if(spItem instanceof SpIterFolder) {
+      return (SpIterFolder)spItem;
+    }
+  }
+
+  return null;
+}
+
+}
