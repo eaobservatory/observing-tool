@@ -128,23 +128,6 @@ public class BandSpec
       return result;
    }
 
-   // Added by MFO (September 4, 2002)
-   /**
-    * Get the array of numbers of channels taking into account the specified overlap.
-    *
-    * @see #getBandWidths(double)
-    */
-   public int [] getChannels(double overlap) {
-      int [] result = new int[channels.length];
-      int channelOverlap;
-
-      for(int i = 0; i < channels.length; i++) {
-	 channelOverlap = (int)(channels[i] * (overlap / bandWidths[i]));
-	 result[i] = channels[i] - (numHybridSubBands[i] * channelOverlap);
-      }
-
-      return result;
-   }
 
    /**
     * Get the array of numbers of channels taking into account the default overlaps for the corresponding bandwidths.
@@ -157,7 +140,7 @@ public class BandSpec
 
       for(int i = 0; i < channels.length; i++) {
 	 channelOverlap = (int)(channels[i] * (defaultOverlaps[i] / bandWidths[i]));
-	 result[i] = channels[i] - ((numHybridSubBands[i] - 1) * channelOverlap);
+	 result[i] = channels[i] - (numHybridSubBands[i] * channelOverlap);
       }
 
       return result;
