@@ -182,7 +182,7 @@ public class HeterodyneNoise {
     }
 
     private static TreeMap getAtmosphereData (double tau) {
-	double [] availableBands = {0.03, 0.065, 0.1, 0.16, 0.2};
+	double [] availableBands = {0.03, 0.05, 0.065, 0.1, 0.16, 0.2};
 	TreeMap tauMap = new TreeMap();
 	int index=0;
 	
@@ -195,7 +195,7 @@ public class HeterodyneNoise {
 	}
 	else {
 	    for (int i=1; i<availableBands.length; i++) {
-		if (tau > availableBands[i-1] && tau < availableBands[i]) break;
+		if (tau > availableBands[i-1] && tau <= availableBands[i]) break;
 		index++;
 	    }
 	}
