@@ -364,7 +364,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
      case SpTelescopePos.SYSTEM_CONIC:
        xmlBuffer.append("\n      " + indent + "<" + TX_CONIC_SYSTEM + " " + TX_CONIC_NAMED_TYPE + "=\""
                                                   + targetPos.getConicOrNamedType() + "\">");
-       xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH + " units=\"years\">" + targetPos.getConicSystemEpoch()
+       xmlBuffer.append("\n        " + indent + "<"  + TX_EPOCH + " units=\"days\">" + targetPos.getConicSystemEpoch()
                                               + "</" + TX_EPOCH + ">");
        xmlBuffer.append("\n        " + indent + "<"  + TX_INCLINATION + " units=\"degrees\">" + targetPos.getConicSystemInclination()
                                               + "</" + TX_INCLINATION + ">");
