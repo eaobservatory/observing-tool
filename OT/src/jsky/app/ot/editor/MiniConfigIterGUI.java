@@ -84,7 +84,8 @@ public class MiniConfigIterGUI extends JPanel {
         down.setToolTipText("");
         availableItems.setBackground(Color.lightGray);
         iterStepsTable.setBackground(Color.lightGray);
-        iterStepsTable.setShowHorizontalLines(false);
+        // Commented out by MFO, 22 August 2001.
+        //iterStepsTable.setShowHorizontalLines(false);
         listBoxTitle.setFont(new java.awt.Font("Dialog", 3, 12));
         listBoxTitle.setForeground(Color.black);
         listBoxTitle.setText("Available Choices");
