@@ -172,6 +172,12 @@ public class SpInputXML extends DefaultHandler {
       _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
       _characterBuffer = null;
     }
+    else if ((_currentElement != null) && 
+	     (_valueArrayElement == null) && 
+	     _characterBuffer.trim().length() != 0 ){
+      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+      _characterBuffer = null;
+    }
 
     _currentSpItem.processXmlElementEnd(qName);
 
@@ -208,9 +214,9 @@ public class SpInputXML extends DefaultHandler {
     // call to characters() inside a <value> element would cause extra elements to
     // be added to the attribute _currentElement of the SpAvTable, each of them containing
     // partial Strings.
-    if((_currentElement != null) && (_valueArrayElement == null)){
-      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-    }
+//     if((_currentElement != null) && (_valueArrayElement == null)){
+//       _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+//     }
   }
 
   public SpItem xmlToSpItem(String xml) throws Exception {
