@@ -150,7 +150,19 @@ public interface SpJCMTConstants {
    public static final String VALUE_ARC_MINUTES    = "arcseconds";
 
 
-   // SCUBA constants (needed for time estimation)
+   // SCUBA constants
+
+   /** Filter */
+   public static final String ATTR_FILTER             = "filter";
+
+   /** Sub-instrument */
+   public static final String ATTR_SUB_INSTRUMENT     = "subInstrument";
+
+   /** Bolometer */
+   public static final String ATTR_BOLOMETER          = "bolometer";
+
+
+   // SCUBA constants for time estimation
 
    /** Seconds per integration, SCUBA photom mode. */
    public static final int SECS_PER_INTEGRATION_PHOT  = 18;
