@@ -55,6 +55,7 @@ public class SpIterSkydipObs extends SpIterJCMTObs {
 
     _avTable.noNotifySet(ATTR_POSITIONS,      "1", 0);
     _avTable.noNotifySet(ATTR_START_POSITION, START_POSITIONS[0], 0);
+    _avTable.noNotifySet(ATTR_DO_AT_CURRENT_AZ, "false", 0);
   }
 
   public int getPositions() {
