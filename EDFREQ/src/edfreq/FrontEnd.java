@@ -676,6 +676,12 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
     */
    public void update(String xml) throws Exception
    {
+      // If there is no xml then trigger reset.
+      if((xml == null) || xml.trim().equals("")) {
+         feChoice.setSelectedIndex(0);
+	 return;
+      }
+ 
       //try {
         _xmlReader.parse(new InputSource(new StringReader(xml)));
       //}
