@@ -86,7 +86,12 @@ public double getElapsedTime() {
 	}
 	else {
 	    // 18 seconds per integration
-	    totalIntegrationTime = 18 * getIntegrations();
+	    if ( getWidePhotom() ) {
+		totalIntegrationTime = 24*getIntegrations();
+	    }
+	    else {
+		totalIntegrationTime = 18 * getIntegrations();
+	    }
 	}
     }
     else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
