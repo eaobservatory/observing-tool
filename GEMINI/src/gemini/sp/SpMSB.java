@@ -269,11 +269,9 @@ public double getTotalTime()
   // Add a slew time if we don't have a Survey child - the Survey child
   // already adds a slew
   if(spInstObsComp != null && !containsSurvey ) {
-    return elapsedTime + spInstObsComp.getSlewTime();
+    elapsedTime += spInstObsComp.getSlewTime();
   }
-  else {
-    return elapsedTime;
-  }  
+  return elapsedTime;
 }
 
 /**

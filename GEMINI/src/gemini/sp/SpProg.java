@@ -174,19 +174,20 @@ public double getTotalTime()
 	if ( ((SpMSB)spItem).getNumberRemaining() >= 0 ) {
 	    elapsedTime += (((SpMSB)spItem).getTotalTime() * ((SpMSB)spItem).getNumberRemaining());
 	}
+        else {
+        }
     }
-
-
-    if(spItem instanceof SpAND) {
+    else if(spItem instanceof SpAND) {
       elapsedTime += ((SpAND)spItem).getTotalTime();
     }
-
-    if(spItem instanceof SpOR) {
+    else if(spItem instanceof SpOR) {
+      elapsedTime += ((SpAND)spItem).getTotalTime();
       elapsedTime += ((SpOR)spItem).getTotalTime();
     }
-    
-    if ( spItem instanceof SpSurveyContainer ) {
+    else if ( spItem instanceof SpSurveyContainer ) {
         elapsedTime += ((SpSurveyContainer)spItem).getTotalTime();
+    }
+    else {
     }
   }
 
