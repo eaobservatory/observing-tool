@@ -1,8 +1,19 @@
 package orac.validation;
 
-import java.util.Vector;
-import java.util.Enumeration;
 import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+
+import java.lang.Class;
+import java.lang.ClassLoader;
+import java.lang.Object;
+
+import java.net.URL;
+
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Vector;
+
 import gemini.sp.SpProg;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
@@ -17,7 +28,9 @@ import gemini.sp.obsComp.SpSiteQualityObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.util.TelescopePos;
+
 import orac.util.SpItemUtilities;
+
 import org.apache.xerces.parsers.SAXParser;
 import org.apache.xerces.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -33,12 +46,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
-import java.io.IOException;
-import java.io.StringReader;
-import java.lang.Class;
-import java.lang.ClassLoader;
-import java.lang.Object;
-import java.util.HashMap;
 
 /**
  * Validation Tool.
@@ -498,7 +505,59 @@ public class SpValidation {
 					 "Unable to locate both web service and local version"));
 	    return;
 	}
-	String schemaLoc = new String (schemaURL + " " + schema);
+        // Make sure we can get an http connection to the schema.  If not, default to using the
+        // provided one
+        String schemaLoc;
+        try {
+            URL url = new URL(schema);
+            Object o = url.getContent();
+            schemaLoc = schemaURL + " " + schema;
+        }
+        catch (Exception e) {
+            // Any exception, assume we cant access the URL, so try to use a file based
+            // solution
+            StringBuffer cfgDir = new StringBuffer(System.getProperty("ot.cfgdir"));
+            // First make sure the last character is a path separator, then
+            // We need to go up one level and then enter the schema directory
+            char lastChar = cfgDir.charAt(cfgDir.length()-1);
+            if ( !(lastChar == File.separatorChar) ) {
+                cfgDir.append(File.separatorChar);
+            }
+            cfgDir.append(".." + File.separatorChar + "schema" +
+                    File.separatorChar + "JAC" + File.separatorChar );
+            // Now work out which telescope we are using
+            if ( cfgDir.indexOf("ukirt") != -1 ) {
+                // We are using ukirt
+                cfgDir.append("UKIRT" + File.separatorChar);
+                cfgDir.append("UKIRT.xsd");
+            }
+            else if ( cfgDir.indexOf("jcmt") != -1 ) {
+                // we are using jcmt
+                cfgDir.append("JCMT" + File.separatorChar);
+                cfgDir.append("JCMT.xsd");
+            }
+            else {
+                // no idea - just return
+                report.add(new ErrorMessage(ErrorMessage.WARNING,
+                            "Schema Validation not performed",
+                            "Unable to work out which telescope is being used"));
+                return;
+            }
+            // Make sure the first is there
+            if ( !(new File(cfgDir.toString()).exists())) {
+                    report.add(new ErrorMessage(ErrorMessage.WARNING,
+                            "Schema Validation not performed",
+                            "Local File " + cfgDir.toString() + " does not exist"));
+                    return;
+            }
+            // Convert to file URL
+            report.add(new ErrorMessage(ErrorMessage.WARNING,
+                        "Using local schema version",
+                        "This may give some invalid error messages, please reverify before submission"));
+            cfgDir.insert(0, "file:");
+            schemaLoc = schemaURL + " " + cfgDir.toString();
+        }
+            
 	SAXParser parser = new SAXParser();
 	SchemaErrorHandler handler = new SchemaErrorHandler();
         SchemaContentHandler contentHandler = new SchemaContentHandler();
