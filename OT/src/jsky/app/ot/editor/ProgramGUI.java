@@ -67,7 +67,7 @@ public class ProgramGUI extends JPanel {
     jLabel3.setText("Project ID");
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 5), 0, 0));
-        this.add(titleBox, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0
+        this.add(titleBox, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
         this.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(10, 0, 0, 5), 0, 0));
