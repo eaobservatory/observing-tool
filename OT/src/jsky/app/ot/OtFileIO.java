@@ -116,6 +116,8 @@ storeSp(SpRootItem spItem, File f)
           (new PrintStream(os)).print(spItem.toXML());
 	}
 	catch(Exception e) {
+	    fis.close();
+	    os.close();
 	  e.printStackTrace();
           JOptionPane.showMessageDialog(null, e.getMessage(), "Problem storing Science Program", JOptionPane.ERROR_MESSAGE);
 	  return false;
@@ -130,11 +132,13 @@ storeSp(SpRootItem spItem, File f)
       }
 
       os.flush();
+      fis.close();
       os.close();
    } catch (SecurityException sex) {
       JOptionPane.showMessageDialog(null, "The Observing Tool does not have access to '" +
                    f.getAbsolutePath() + "'.",
 		   "Error", JOptionPane.ERROR_MESSAGE);
+      
       return false;
    } catch (IOException ioex) {
       JOptionPane.showMessageDialog(null, ioex.toString(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -144,8 +148,7 @@ storeSp(SpRootItem spItem, File f)
    // Pass the output stream to the Science Program SGML writer.
    //SpOutputSGML outSGML = new SpOutputSGML(os);
    //outSGML.print(spItem);
-
-
+   
    return true;
 }
 
