@@ -1,7 +1,13 @@
 <?jsx version="1"?>
 <edfreq.FrequencyEditorCfg alias-ID="0"
  centreFrequenciesAdjustable="true">
-
+  <ArrayOf-java.lang.String alias-ID="115" obj-name="frontEnds" length="5">
+    <java.lang.String alias-ID="116" valueOf="A3"/>
+    <java.lang.String alias-ID="117" valueOf="B3"/>
+    <java.lang.String alias-ID="118" valueOf="WC"/>
+    <java.lang.String alias-ID="119" valueOf="WD"/>
+    <java.lang.String alias-ID="120" valueOf="HARP-B"/>
+  </ArrayOf-java.lang.String>
   <java.util.Hashtable alias-ID="1" obj-name="frontEndTable">
     <java.lang.String alias-ID="2" valueOf="A3"/>
     <ArrayOf-java.lang.String alias-ID="3" length="1">
