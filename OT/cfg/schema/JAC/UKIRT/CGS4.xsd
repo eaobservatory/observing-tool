@@ -23,7 +23,6 @@
 <xsd:simpleType name="cgs4disperserList">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="40lpmm"/>
-    <xsd:enumeration value="150lpmm"/>
     <xsd:enumeration value="echelle"/>
   </xsd:restriction>
 </xsd:simpleType>
@@ -120,6 +119,8 @@
     <xsd:enumeration value="acqModeIter"/>
     <xsd:enumeration value="coaddsIter"/>
     <xsd:enumeration value="exposureTimeIter"/>
+    <xsd:enumeration value="instAperLIter"/>
+    <xsd:enumeration value="centralWavelengthIter"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -247,8 +248,10 @@
     <xsd:sequence>
       <xsd:element ref="toml:meta_gui_collapsed"                                    minOccurs="0"/>
       <xsd:element name="acqModeIter"      type="toml:cgs4acqModeIteratorType"      minOccurs="0"/>
+      <xsd:element name="centralWavelengthIter" type="toml:cgs4WavelengthLimits"    minOccurs="0"/>
       <xsd:element name="coaddsIter"       type="toml:cgs4coaddsIteratorType"       minOccurs="0"/>
       <xsd:element name="exposureTimeIter" type="toml:cgs4exposureTimeIteratorType" minOccurs="0"/>
+      <xsd:element name="instAperLIter"    type="xsd:double"                        minOccurs="0"/>
       <xsd:element name="iterConfigList"   type="toml:cgs4IterType"                 minOccurs="1"/>
     </xsd:sequence>
     <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
