@@ -11,7 +11,7 @@ package ot.ukirt.iter.editor;
 
 import java.awt.*;
 import javax.swing.*;
-import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.*;
 
 public class IterDarkObsGUI extends JPanel {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
@@ -24,6 +24,7 @@ public class IterDarkObsGUI extends JPanel {
     JLabel jLabel6 = new JLabel();
     TextBoxWidgetExt exposureTime = new TextBoxWidgetExt();
     TextBoxWidgetExt coadds = new TextBoxWidgetExt();
+  CommandButtonWidgetExt defaultAcquisition = new CommandButtonWidgetExt();
 
     public IterDarkObsGUI() {
         try {
@@ -60,7 +61,8 @@ public class IterDarkObsGUI extends JPanel {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
         exposureTime.setBorder(BorderFactory.createLoweredBevelBorder());
         coadds.setBorder(BorderFactory.createLoweredBevelBorder());
-        this.add(jLabel2, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+        defaultAcquisition.setText("Reset to Default");
+    this.add(jLabel2, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
         this.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
@@ -78,5 +80,7 @@ public class IterDarkObsGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         this.add(coadds, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    this.add(defaultAcquisition, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(10, 0, 0, 0), 0, 0));
     }
 }
