@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 
 import java.awt.*;
@@ -42,8 +42,19 @@ public class SideBandDisplay extends JFrame
    private JPanel area2;
    private JPanel area3;
    private JPanel area4;
- 
-   public SideBandDisplay ( String feName, 
+
+   public SideBandDisplay ( ) {   
+      super ( "Frequency editor" );
+      setResizable ( false );
+
+      setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+      contentPane = getContentPane();
+
+      //setLocation(200, 200);
+      //setVisible(true);
+   }
+
+   public void updateDisplay ( String feName, 
      double lRangeLimit, double uRangeLimit, 
      double feIF, double feBandWidth,
      double redshift, 
@@ -52,16 +63,12 @@ public class SideBandDisplay extends JFrame
      int samplerCount )
    {
 
-      super ( "Frequency editor: front end = " + feName );
-      setResizable ( false );
+      setTitle ( "Frequency editor: front end = " + feName );
 
       int j;
 
-
-
       this.redshift = redshift;
 
-      contentPane = getContentPane();
       contentPanel = Box.createHorizontalBox();
       contentPanel.add ( Box.createHorizontalGlue() );
       dataPanel = Box.createVerticalBox();
@@ -191,6 +198,7 @@ public class SideBandDisplay extends JFrame
 
       contentPanel.add ( titlePanel );
       contentPanel.add ( dataPanel );
+      contentPane.removeAll();
       contentPane.add ( contentPanel, BorderLayout.CENTER );
 
       pack();
@@ -239,22 +247,18 @@ public class SideBandDisplay extends JFrame
       return jt.toXML();
    }   
 
+   public void update(String xml) throws Exception
+   {
+      jt.update(xml);
+   }
 
    public static void main(String args[]) 
    {
-      SideBandDisplay sbt = new SideBandDisplay ( "Frequency editor test",
+      SideBandDisplay sbt = new SideBandDisplay ( );
+      sbt.updateDisplay( "Frequency editor test",
         365.0E+9, 375.0E+9, 4.0E9, 1.8E9, 0.0,
         0.25E9, 8192, 1.0E9, 2048, 8 );
       sbt.setVisible(true);
    }
 
-   public Vector getAllWidgets() {
-     Vector result = jt.getAllWidgets();
-
-     if(slider != null) {
-       result.add(slider);
-     }
-
-     return result;
-   }
 }
