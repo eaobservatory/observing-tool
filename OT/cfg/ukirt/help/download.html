@@ -1,241 +1,178 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <title>Downloading the UKIRT Observing Tool</title>
-  </head>
-
-  <body text="#000000" bgcolor="#bbcccc" link="#003300" vlink="#005500"
-  alink="#ff0000"> 
-
-    <h1>Downloading the UKIRT Observing Tool</h1>
-
-    <em>Existing users note: The current version is 20040307. If you are
-    submitting observations for 04A you need to get this, or a newer,
-    version of the OT. You must also download this version if you are
-    submitting Michelle observations. 
-    You may also need a newer version of Java (JRE).<p></em>
-
-
-
-    <p>
-      The UKIRT Observing tool is a Java application and has been
- tested on Linux, Solaris, Windows 2000 and Mac OS X to various
- degrees - our lead platform is Linux. It is the same package as the
- JCMT-OT so if you have the recent version of that you are ready to go.<p>
-
-
-
-    <p>
-
-     Go to the section describing your operating system.
-
+<head>
+  <title>Downloading the UKIRT Observing Tool</title>
+</head>
+<body alink="#ff0000" bgcolor="#bbcccc" link="#003300" text="#000000"
+ vlink="#005500">
+<h1>Downloading the UKIRT Observing Tool</h1>
+<em>Existing users note: The current version is 20040307. If you are
+submitting observations for 04A you need to get this, or a newer,
+version of the OT. You must also download this version if you are
+submitting Michelle observations. You may also need a newer version of
+Java (JRE).</em>
+<p> </p>
+<p> The UKIRT Observing tool is a Java application and has been tested
+on Linux, Solaris, Windows 2000 and Mac OS X to various degrees - our
+lead platform is Linux. It is the same package as the JCMT-OT so if you
+have the recent version of that you are ready to go.</p>
+<p> </p>
+<p> Go to the section describing your operating system.
+</p>
 <ul>
-<li><a href="#unix">Linux or Solaris</a>
-<li><a href="#windows">Windows 2000</a>
-<li><a href="#macos">MacOS X</a>
-</ul>      
-
-      <h2><a name="unix">Linux or Solaris users</a></h2>
-
-    You need three things to run the UKIRT-OT:
-
-    <ol>
-      <li> The Java Runtime environment (JRE) version 1.4 or newer
-      <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
-      <li> The UKIRT-OT itself
+  <li><a href="#unix">Linux or Solaris</a>
+  </li>
+  <li><a href="#windows">Windows 2000</a>
+  </li>
+  <li><a href="#macos">MacOS X</a>
+  </li>
+</ul>
+<h2><a name="unix">Linux or Solaris users</a></h2>
+You need three things to run the UKIRT-OT:
+<ol>
+  <li> The Java Runtime environment (JRE) version 1.4 or newer </li>
+  <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
+  </li>
+  <li> The UKIRT-OT itself
+  </li>
 </ol>
-
 If you are running java off the Starlink summer 2003 CD you already
-have the first two, so skip to step 3 (UKIRT-OT). 
-
-    <h3>JRE</h3>
-
-
-    To check which version you have installed on your unix machine, type
-
-<pre>
- % java -version
-</pre>
-    <p>
-If the answer is 1.4.0, 1.4.1-05 or later you know you are ok as far as JRE is
-concerned. Versions of 1.4.1 earlier than 05 have a bug which causes JAI to crash on some FITS images (note - currently Starlink ships with 1.4.1-02, which means it can not be used with the UKIRT OT).  If you have a suitable version, skip to the next step (JAI). 
- 
-
-If you get an older version or "command not found" you need to install
+have the first two, so skip to step 3 (UKIRT-OT).
+<h3>JRE</h3>
+To check which version you have installed on your unix machine, type
+<pre> % java -version<br></pre>
+<p>If the answer is 1.4.0, 1.4.1-05 or later you know you are ok as far
+as JRE is
+concerned. Versions of 1.4.1 earlier than 05 have a bug which causes
+JAI to crash on some FITS images (note - currently Starlink ships with
+1.4.1-02, which means it can not be used with the UKIRT OT). If you
+have a suitable version, skip to the next step (JAI). If you get an
+older version or "command not found" you need to install
 JRE and JAI. To simplify the hassle of installing both the JRE and JAI
 we distribute tar files containing the combined JRE and JAI
 packages. Versions are available for both <a
-href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk1_4_ix86_Linux.tar.gz">Linux</a>
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk1_4_ix86_Linux.tar.gz">Linux</a>
 and <a
-href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk1_4_sun4_Solaris.tar.gz">Solaris</a>
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jdk1_4_sun4_Solaris.tar.gz">Solaris</a>
 from the <a href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot">OT FTP
-area</a>. If you wish to use a proper FTP client (rather than going through
-a web browser) you can download the OT from the FTP area at ftp.jach.hawaii.edu/pub/ukirt/ukirtot.</p>
-	<p>This distribution can be installed simply by gunzipping and
-	  untarring it. On Solaris:</p>
-
-	<pre>
- % gunzip -c jdk1_4_sun4_Solaris.tar.gz | tar xvf -
-	</pre>
-
-	<p>or on Linux:</p>
-
-	<pre>
- % tar zxvf jdk1_4_ix86_Linux.tar.gz
-	</pre>
-
-	<p>This will create a directory <tt>jdk</tt> in the current
-	directory. This is all that is required to install it. You can
-	now skip to step 3 (UKIRT-OT)</p>
-    <p>
-
-      <h3>JAI</h3>
-
+area</a>. If you wish to use a proper FTP client (rather than going
+through
+a web browser) you can download the OT from the FTP area at
+ftp.jach.hawaii.edu/pub/ukirt/ukirtot.</p>
+<p>This distribution can be installed simply by gunzipping and
+untarring it. On Solaris:</p>
+<pre> % gunzip -c jdk1_4_sun4_Solaris.tar.gz | tar xvf -<br>	</pre>
+<p>or on Linux:</p>
+<pre> % tar zxvf jdk1_4_ix86_Linux.tar.gz<br>	</pre>
+<p>This will create a directory <tt>jdk</tt> in the current directory.
+This is all that is required to install it. You can now skip to step 3
+(UKIRT-OT)</p>
+<p> </p>
+<h3>JAI</h3>
 If you have determined you have java 1.4 installed and want to check
-if you have JAI, you have to look for a file called <tt>jai_core.jar</tt>. This
+if you have JAI, you have to look for a file called <tt>jai_core.jar</tt>.
+This
 file will be in the java installation directory under the subdirectory
 <tt>lib/ext</tt>
-
 Here's an example of how to do it:
-<pre>
- % which java
- /star/java/jre-1.4.1_02/bin/java
-</pre>
+<pre> % which java<br> /star/java/jre-1.4.1_02/bin/java<br></pre>
 This tells us that the java installation directory is
 <tt>/star/java/jre-1.4.1_02/</tt>. So we would expect JAI to be in:
-<pre>
- % ls /star/java/jre-1.4.1_02/lib/ext/jai_core.jar
- /star/java/jre-1.4.1_02/lib/ext/jai_core.jar
-</pre>
-which it is in this example.. 
-    <p>
-
-If it is not, you can get it directly from <a
-href="http://java.sun.com/products/java-media/jai/index.jsp">Sun's JAI site</a>
-
+<pre> % ls /star/java/jre-1.4.1_02/lib/ext/jai_core.jar<br> /star/java/jre-1.4.1_02/lib/ext/jai_core.jar<br></pre>
+which it is in this example..
+<p>If it is not, you can get it directly from <a
+ href="http://java.sun.com/products/java-media/jai/index.jsp">Sun's JAI
+site</a>
+</p>
 <h3>UKIRT-OT</h3>
-
-
-    <p>The most recent version of the OT is always available from the UKIRT-OT
-    FTP area as <a
-    href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">ot_latest.tar.gz</a>. The
-    first step is simply to download it and untar the distribution [it will
-    take up 17MB of disk space, but this distribution also includes the
-    UKIRT-OT]. It can be untarred using:</p>
-
-<pre>
- % gunzip -c ot_latest.tar.gz | tar xvf -
-</pre>
-
-    <p>This will create a directory called <tt>ompot</tt>. The installation is
-      almost complete. If you have a java executable in your path you should
-      now be able to run up the OT:
-<pre>
- % ompot/bin/ukirtot
-</pre>
-
-    <p>or add the directory <tt>ompot/bin</tt> to your PATH environment
-      variable and then type:</p>
-<pre>
- % ukirtot
-</pre>
-<p>
-      If the location of your Java executable is not present in the
-      path then you will need to edit the startup script so that it
-      knows which Java runtime environment to use (this is also useful
-      if you want to force a site wide version). You do this by
-      editing the file <tt>ompot/bin/ot</tt> and changing the line
-      that says:</p>
-
-<pre>
-set JAVA = `which java`
-</pre>
-
-    <p>to (for example)</p>
-<pre>
-set JAVA = /star/java/jre/bin/java
-</pre>
-
-    <p>if you are going to use the Starlink JRE. Note that the value
-    used includes the full path to the Java executable, not a
-    directory specification.</p>
-
-      <p>The OT should now be runnable as described above.</p>
-
-
+<p>The most recent version of the OT is always available from the
+UKIRT-OT FTP area as <a
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">ot_latest.tar.gz</a>.
+The first step is simply to download it and untar the distribution [it
+will take up 17MB of disk space, but this distribution also includes
+the UKIRT-OT]. It can be untarred using:</p>
+<pre> % gunzip -c ot_latest.tar.gz | tar xvf -<br></pre>
+<p>This will create a directory called <tt>ompot</tt>. The
+installation is almost complete. If you have a java executable in your
+path you should now be able to run up the OT:
+</p>
+<pre> % ompot/bin/ukirtot<br></pre>
+<p>or add the directory <tt>ompot/bin</tt> to your PATH environment
+variable and then type:</p>
+<pre> % ukirtot<br></pre>
+<p> If the location of your Java executable is not present in the path
+then you will need to edit the startup script so that it knows which
+Java runtime environment to use (this is also useful if you want to
+force a site wide version). You do this by editing the file <tt>ompot/bin/ot</tt>
+and changing the line that says:</p>
+<pre>set JAVA = `which java`<br></pre>
+<p>to (for example)</p>
+<pre>set JAVA = /star/java/jre/bin/java<br></pre>
+<p>if you are going to use the Starlink JRE. Note that the value used
+includes the full path to the Java executable, not a directory
+specification.</p>
+<p>The OT should now be runnable as described above.</p>
 <h2><a name="windows">Windows 2000 users</a></h2>
-
-    You need three things to run the UKIRT-OT:
-
-    <ol>
-      <li> The Java Runtime environment (JRE) version 1.4 or newer
-      <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
-      <li> The UKIRT-OT itself
+You need three things to run the UKIRT-OT:
+<ol>
+  <li> The Java Runtime environment (JRE) version 1.4 or newer </li>
+  <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
+  </li>
+  <li> The UKIRT-OT itself
+  </li>
 </ol>
-
 <h3>JRE</h3>
-
 If you have Java installed already you can check the version number by
-doing <tt>Start->Run->Command</tt> and then typing <tt>java
+doing <tt>Start-&gt;Run-&gt;Command</tt> and then typing <tt>java
 -version</tt> at the MS-DOS prompt. If it is 1.4 or newer you are
 done. If not you can get an appropriate version from our FTP site by
 retrieving <a
-href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/j2re-1_4_1_06-windows-i586.exe">j2re-1_4_1_06-windows-i586.exe
-</a>. 
-
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/j2re-1_4_1_06-windows-i586.exe">j2re-1_4_1_06-windows-i586.exe
+</a>.
 <h3>JAI</h3>
-
 If you have not installed the UKIRT-OT before chances are you won't
 have JAI. You can get an appropriate version from our FTP site by
 retrieving <a
-href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jai-1_1_2-lib-windows-i586-jre.exe">jai-1_1_2-lib-windows-i586-jre.exe</a>
-</a>.
-
-
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jai-1_1_2-lib-windows-i586-jre.exe">jai-1_1_2-lib-windows-i586-jre.exe</a>
+.
 <h3>UKIRT-OT</h3>
-
-
-    <p>If you are running the OT on windows the distribution is
-    available in both <a href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.zip">.zip</a> 
-and <a href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">.tar.gz</a> format, you
-    can just uncompress it using, for example, <a
-    href="http://www.winzip.com">Winzip</a>. Once it has been
-    uncompressed go into the directory <tt>ompot\bin\</tt> and click
-    on the <pre>ukirtot</pre> batch icon. If you have a correctly
-    installed JRE the OT will run without any further ado.</p>
-
-    <p>You can get a desktop shortcut as follows: go into the
-    directory <tt>ompot\bin\</tt>, right click on the <tt>ukirtot</tt>
-    batch icon, and select &quot;copy&quot; from the resulting menu;
-    then right-click on the desktop and select &quot;paste
-    shortcut&quot;. optionally rename the shortcut by right-clicking
-    on it and selecting &quot;rename&quot;.
-
-
+<p>If you are running the OT on windows the distribution is available
+in both <a
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.zip">.zip</a>
+and <a
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">.tar.gz</a>
+format, you can just uncompress it using, for example, <a
+ href="http://www.winzip.com">Winzip</a>. Once it has been uncompressed
+go into the directory <tt>ompot\bin\</tt> and click on the </p>
+<pre>ukirtot</pre>
+batch icon. If you have a correctly installed JRE the OT will run
+without any further ado.
+<p></p>
+<p>You can get a desktop shortcut as follows: go into the directory <tt>ompot\bin\</tt>,
+right click on the <tt>ukirtot</tt> batch icon, and select "copy" from
+the resulting menu; then right-click on the desktop and select "paste
+shortcut". optionally rename the shortcut by right-clicking on it and
+selecting "rename".
+</p>
 <h2><a name="macos">MacOS X</a></h2>
-
-     <p>The most recent version of the OT is always available from the UKIRT-OT
-       FTP area as <a href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ukirt_ot_latest.sit">ukirt_ot_latest.sit</a>.
-       The first step is simply to download it and expand it (upon downloading
-       the expansion will probably be done for you). The OT application is
-       named UKIRT-OT and can be started by double-clicking the icon.
-       You may copy this application to any location you desire, and it is
-       not necessary to download and install the JAI as these libraries are
-       included in the application package.</p>
-
-     <p>Note for OS X 10.3 (Panther) users: On upgrading from 10.2 to 10.3,
-       some users have found that their Java installation is incomplete. This
-       is evidenced by Java applications hanging, and the error message
-       "HotSpot not at correct virtual address" appearing in the Console. If
-       this is happening to you when attempting to run the OT, follow the
-       instructions listed in <a href="http://developer.apple.com/technotes/tn2002/tn2099.html">Technical
-       Note TN2099</a>.<p>
-
-    <hr>
-    <address><a href="mailto:frossie@jach.hawaii.edu">Frossie</a>, <a href="mailto:b.cavanagh@jach.hawaii.edu">Brad Cavanagh</a></address>
-<!-- Created: Sat Jul  6 21:49:36 HST 2002 -->
-<!-- hhmts start -->
-Last modified: Sat Nov  6 11:22:56 HST 2004
-<!-- hhmts end -->
-  </body>
+<p>The most recent version of the OT is always available from the
+UKIRT-OT FTP area as <a
+ href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ukirt_ot_latest.sit">ukirt_ot_latest.sit</a>.
+The first step is simply to download it and expand it (upon downloading
+the expansion will probably be done for you). The OT application is
+named UKIRT-OT and can be started by double-clicking the icon. You may
+copy this application to any location you desire, and it is not
+necessary to download and install the JAI as these libraries are
+included in the application package.</p>
+<p>Note for OS X 10.3 (Panther) users: On upgrading from 10.2 to 10.3,
+some users have found that their Java installation is incomplete. This
+is evidenced by Java applications hanging, and the error message
+"HotSpot not at correct virtual address" appearing in the Console. If
+this is happening to you when attempting to run the OT, follow the
+instructions listed in <a
+ href="http://developer.apple.com/technotes/tn2002/tn2099.html">Technical
+Note TN2099</a>.</p>
+<p> </p>
+<hr><!-- hhmts end -->
+</body>
 </html>
