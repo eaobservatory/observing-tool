@@ -361,8 +361,9 @@ public class EdIterGenericConfig extends OtItemEditor
 	// the attribute's steps in subsequent table rows.
 	int index = 0;
 	for (int i=0; i<l.size(); ++i) {
-	    String attrib = (String) l.get(i);
+	  String attrib = (String) l.get(i);
 
+	  if(isUserEditable(attrib)) {
 	    // Add a column for the item
 	    IterConfigItem ici = _getIterConfigItem(attrib);
 	    if (ici == null) {
@@ -380,6 +381,7 @@ public class EdIterGenericConfig extends OtItemEditor
 		_iterTab.setCell(vals.get(j), index, j);
 	    }
 	    ++index;
+	  }
 	}
 
 	// Select the upper left hand cell, causing its editor to be displayed.
@@ -516,13 +518,8 @@ public class EdIterGenericConfig extends OtItemEditor
 
 	((SpIterConfigBase) _spItem).addConfigItem(ici, _iterTab.getRowCount());
 
-	// If there are no steps yet, add the first one automatically, else
-	// select the cell on the current row that is in the newly added column.
-	if (_iterTab.getRowCount() == 0) {
-	    addStep();
-	} else {
-	    selectColumnCell(_iterTab.getColumnCount() - 1);
-	}
+	_updateWidgets();
+	selectColumnCell(_iterTab.getColumnCount() - 1);
     }
 
 
@@ -616,11 +613,13 @@ public class EdIterGenericConfig extends OtItemEditor
 	// Insert a blank element into all the iterator attributes.
 	((SpIterConfigBase) _spItem).insertConfigStep(rowIndex);
 
+	_updateWidgets();
+
 	// Select the cell in the current column, newly added row
 	_iterTab.selectCell(colIndex, rowIndex);
 	_iterTab.focusAtRow(rowIndex);
 
-	_updateTableInfo();
+	// _updateTableInfo();
     }
 
 
@@ -815,7 +814,10 @@ public class EdIterGenericConfig extends OtItemEditor
 	    // and never remove items from the list ...
 
 	    IterConfigItem ici = _iciA[i];
-	    v.addElement(ici.title);
+
+	    if(isUserEditable(ici.title)) {
+	        v.addElement(ici.title);
+	    }
 	}
 
 	_itemsLBW.deleteWatcher(this);
@@ -960,5 +962,16 @@ public class EdIterGenericConfig extends OtItemEditor
 	_w.choicePanel.add("Center", panel);
 	_w.choicePanel.revalidate();
 	_w.getParent().repaint();
+    }
+
+    /**
+     * Subclasses can implement this method to prevent certain attributes
+     * to be displayed in the editor.
+     *
+     * This is useful if an iterator contains config items that depend only on
+     * other config items and should not be set by the user directly.
+     */
+    protected boolean isUserEditable(String attribute) {
+	return true;
     }
 }
