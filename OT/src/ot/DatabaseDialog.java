@@ -31,6 +31,7 @@ import jsky.app.ot.OtProgWindow;
 import jsky.app.ot.OtWindowInternalFrame;
 import jsky.app.ot.OtWindowFrame;
 import jsky.app.ot.gui.StopActionWidget;
+import jsky.util.gui.DialogUtil;
 import omp.SpClient;
 import omp.SpChangedOnDiskException;
 import gemini.sp.SpItem;
@@ -100,6 +101,14 @@ public class DatabaseDialog implements ActionListener {
   }
 
   public void storeProgram(SpItem spItem) {
+
+    String projectID = ((SpProg)spItem).getProjectID();
+  
+    if((projectID == null) || projectID.trim().equals("")) {
+      DialogUtil.error(_w, "Please specify a Project ID (Science Program component).");
+      return;
+    }
+
     _spItemToBeSaved = spItem;
   
     if(OT.getDesktop() != null) {
