@@ -7,20 +7,20 @@
 # this directory and edit the copy.                                                     # 
 ######################################################################################### 
  
-set OT_USERDIR=$HOME
+#set OT_USERDIR=$HOME
  
-cd `dirname $0` 
+#cd `dirname $0` 
  
 #set JAVA = /star/java/jre-1.3.1_02/bin/java 
  
 # The telescope names in this list should correspond to the directories in CFG_DIRS. 
 # (generated from ../conf/make.conf) 
-set TELESCOPE_LIST = "ukirt jcmt" 
+#set TELESCOPE_LIST = "ukirt jcmt" 
 
-set CFG_DIRS     = ../cfg
+#set CFG_DIRS     = ../cfg
  
 # (generated from ../conf/make.conf) 
-set CLASSPATH = ../../install/classes:../../../GEMINI/install/classes:../../../ORAC/install/classes:../../../ODB/install/classes:../../../OMP/install/classes:../../../EDFREQ/install/classes:../../../EDFREQ/install/cfg:../tools/diva.jar:../../tools/fits.jar:../../tools/graph.jar:../../tools/hcompress.jar:../../tools/image.jar:../../tools/jacl.jar:../../tools/jdom-b4.jar:../../tools/jel.jar:../../tools/jfreechart.jar:../../tools/jsky.jar:../../tools/junit.jar:../../tools/log4j-core.jar:../../tools/tcljava.jar:../../tools/util.jar:../../../ORAC/tools/jhall.jar:../../../ORAC/tools/jhtools.jar:../../../ORAC/tools/xercesImpl.jar:../../../ORAC/tools/xmlParserAPIs.jar:../../../OMP/tools/activation.jar:../../../OMP/tools/mail.jar:../../../OMP/tools/soap.jar:../../../EDFREQ/tools/JSX1.0.1.1.jar 
+#set CLASSPATH = ../../install/classes:../../../GEMINI/install/classes:../../../ORAC/install/classes:../../../ODB/install/classes:../../../OMP/install/classes:../../../EDFREQ/install/classes:../../../EDFREQ/install/cfg:../tools/diva.jar:../../tools/fits.jar:../../tools/graph.jar:../../tools/hcompress.jar:../../tools/image.jar:../../tools/jacl.jar:../../tools/jdom-b4.jar:../../tools/jel.jar:../../tools/jfreechart.jar:../../tools/jsky.jar:../../tools/junit.jar:../../tools/log4j-core.jar:../../tools/tcljava.jar:../../tools/util.jar:../../../ORAC/tools/jhall.jar:../../../ORAC/tools/jhtools.jar:../../../ORAC/tools/xercesImpl.jar:../../../ORAC/tools/xmlParserAPIs.jar:../../../OMP/tools/activation.jar:../../../OMP/tools/mail.jar:../../../OMP/tools/soap.jar:../../../EDFREQ/tools/JSX1.0.1.1.jar 
  
 
 # Specify a server (science program database)
@@ -76,7 +76,7 @@ endif
 echo Settings:
 
 echo "  Telescope:       ${TELESCOPE}"
-echo "  Server:          ${SERVER}"
+#echo "  Server:          ${SERVER}"
 
 if("${OMP_FLAG}" == "-DOMP") then
   echo "  Database:        OMP/XML"
