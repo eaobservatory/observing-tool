@@ -19,6 +19,7 @@ import jsky.app.jskycat.JSkyCat;
 import jsky.app.ot.fits.gui.FitsImageWidget;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
 import jsky.app.ot.gui.DrawUtil;
+import gemini.util.CoordSys;
 import gemini.sp.SpBasePosObserver;
 import gemini.sp.SpPosAngleObserver;
 import gemini.sp.SpItem;
@@ -28,10 +29,10 @@ import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import jsky.app.ot.util.CoordSys;
 import jsky.app.ot.util.RADecMath;
 import jsky.coords.WorldCoordinateConverter;
 import jsky.coords.WorldCoords;
+import jsky.coords.wcscon;
 import jsky.util.gui.StatusPanel;
 
 
@@ -52,6 +53,9 @@ public class TpeImageWidget extends FitsImageWidget
     private double _posAngle = 0.0;  // Rotator position angle
 
     private boolean _baseOutOfView = false; // Base pos not visible
+
+    /** Used in {@link #telescopePosToImageWidget(gemini.util.TelescopePos)}. */
+    private Point2D.Double _convertedPosition = new Point2D.Double();
 
     public TpeImageWidget(Component parent) { //, StatusPanel statusPanel) {
 	super(parent); //, statusPanel);
@@ -127,8 +131,8 @@ public class TpeImageWidget extends FitsImageWidget
 	    _obsData.addBasePosObserver(this);
 	    _obsData.addPosAngleObserver(this);
 
-	    //System.out.println("*** ra=" + od.getRA() + ", dec=" + od.getDec());
-	    setBasePos(od.getRA(), od.getDec());
+	    //System.out.println("*** ra=" + od.getXaxis() + ", dec=" + od.getYaxis());
+	    setBasePos(od.getXaxis(), od.getYaxis(), od.getCoordSys());
 	    //System.out.println("*** posAngle=" + od.getPosAngle());
 	    setPosAngle(od.getPosAngle());
 	}
@@ -310,8 +314,8 @@ public class TpeImageWidget extends FitsImageWidget
     /**
      * The Base position has been updated.
      */
-    public void	basePosUpdate(double ra, double dec) {
-	setBasePos(ra, dec);
+    public void	basePosUpdate(double x, double y, int coordSys) {
+	setBasePos(x, y, coordSys);
 	repaint();
     }
 
@@ -345,13 +349,37 @@ public class TpeImageWidget extends FitsImageWidget
     }
 
     /**
+     * Interprets coordinates as FK5 and sets base position.
+     *
+     * @see #setBasePos(double,double,int)
      */
-    public boolean setBasePos(double ra, double dec)  {
-	//System.out.println("*** setBasePos: " + ra + ", " + dec);
-	_ra  = ra;
-	_dec = dec;
+    public boolean setBasePos(double x, double y)  {
+	return setBasePos(x, y, CoordSys.FK5);
+    }
 
-	if (!super.setBasePos(ra, dec)) {
+    /**
+     * Converts coordinates to FK5 and sets base position.
+     */
+    public boolean setBasePos(double x, double y, int coordSys)  {
+	//System.out.println("*** setBasePos: " + x + ", " + y);
+
+	_convertedPosition.x = x;
+	_convertedPosition.y = y;
+
+	switch(coordSys) {
+	  case CoordSys.FK4:
+	    wcscon.fk425(_convertedPosition);
+	    break;
+	  case CoordSys.GAL:
+	    wcscon.gal2fk5(_convertedPosition);
+	    break;
+	}
+
+	_ra  = _convertedPosition.x;
+	_dec = _convertedPosition.y;
+
+
+	if (!super.setBasePos(_ra, _dec)) {
 	    return false;
 	}
 

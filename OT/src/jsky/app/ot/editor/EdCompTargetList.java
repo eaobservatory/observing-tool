@@ -323,6 +323,8 @@ public final class EdCompTargetList extends OtItemEditor
 		    _curPos.setXY(_curPos.getXaxis(), _curPos.getYaxis());
 
 		    _updateXYUnitsLabels();
+
+		    _resetPositionEditor();
 		}
 	    });
 

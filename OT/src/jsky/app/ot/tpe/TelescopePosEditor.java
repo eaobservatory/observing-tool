@@ -20,6 +20,7 @@ import jsky.app.ot.fits.gui.FitsMouseEvent;
 import jsky.app.ot.gui.image.ViewportImageWidget;
 import jsky.app.ot.gui.image.ViewportMouseEvent;
 import jsky.app.ot.gui.image.ViewportMouseObserver;
+import gemini.util.CoordSys;
 import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.SpItem;
 import gemini.sp.SpObsContextItem;
@@ -38,6 +39,7 @@ import jsky.navigator.NavigatorImageDisplayFrame;
 import jsky.navigator.NavigatorImageDisplayInternalFrame;
 import jsky.util.gui.BasicWindowMonitor;
 import jsky.util.gui.DialogUtil;
+import jsky.coords.wcscon;
 
 
 /**
@@ -95,6 +97,9 @@ public class TelescopePosEditor extends JSkyCat
 
     // image frame menubar
     private TpeImageDisplayMenuBar _tpeMenuBar;
+
+    /** Used in {@link #loadImage(java.lang.String)}. */
+    private Point2D.Double _convertedPosition = new Point2D.Double();
 
     static {
 	// Register the standard target list features.
@@ -511,8 +516,21 @@ public class TelescopePosEditor extends JSkyCat
 	if (_posList != null) {
 	    // Get the RA and Dec from the pos list.
 	    SpTelescopePos tp = _posList.getBasePosition();
-	    ra  = tp.getXaxis();
-	    dec = tp.getYaxis();
+
+	    _convertedPosition.x = tp.getXaxis();
+	    _convertedPosition.y = tp.getYaxis();
+
+	    switch(tp.getCoordSys()) {
+	      case CoordSys.FK4:
+	        wcscon.fk425(_convertedPosition);
+	        break;
+	      case CoordSys.GAL:
+	        wcscon.gal2fk5(_convertedPosition);
+	        break;
+	    }
+
+	    ra  = _convertedPosition.x;
+	    dec = _convertedPosition.y;
 	}
 
 	if (server.equals(ANY_SERVER)) {
