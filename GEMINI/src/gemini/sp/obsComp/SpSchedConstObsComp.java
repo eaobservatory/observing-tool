@@ -29,8 +29,24 @@ public class SpSchedConstObsComp extends SpObsComp {
   /** This attribute records the minimum elevation. */
   public static final String ATTR_MIN_ELEVATION = "minEl";
 
+  /** This attribute records the maximum elevation. */
+  public static final String ATTR_MAX_ELEVATION = "maxEl";
+
+  /**
+   * This attribute records the meridian approach (rising/setting).
+   *
+   * Set to {@link #SOURCE_RISING} or {@link #SOURCE_SETTING}.
+   */
+  public static final String ATTR_MERIDIAN_APPROACH = "meridianApproach";
+
   /** This attribute records the monitoring period */
   public static final String ATTR_PERIOD = "period";
+
+  /** Attribute value for {@link #ATTR_MERIDIAN_APPROACH}. */
+  public static final String SOURCE_RISING = "rising";
+
+  /** Attribute value for {@link #ATTR_MERIDIAN_APPROACH}. */
+  public static final String SOURCE_SETTING = "setting";
 
   public static final String NO_VALUE = "none";
 
@@ -129,6 +145,61 @@ public class SpSchedConstObsComp extends SpObsComp {
   }
 
   /**
+   * Set min elevation.
+   */
+  public void setMinElevation(String minEl) {
+    try {
+      _avTable.set(ATTR_MIN_ELEVATION, Double.parseDouble(minEl.trim()));
+    }
+    catch(NumberFormatException e) { _avTable.rm(ATTR_MIN_ELEVATION); }
+    catch(NullPointerException  e) { _avTable.rm(ATTR_MIN_ELEVATION); }
+  }
+
+  /**
+   * Get max elevation
+   */
+  public String getMaxElevation() {
+    return _avTable.get(ATTR_MAX_ELEVATION);
+  }
+    
+  /**
+   * Set max elevation.
+   */
+  public void setMaxElevation(double maxEl) {
+    _avTable.set(ATTR_MAX_ELEVATION, maxEl);
+  }
+
+  /**
+   * Set max elevation.
+   */
+  public void setMaxElevation(String maxEl) {
+    try {
+      _avTable.set(ATTR_MAX_ELEVATION, Double.parseDouble(maxEl.trim()));
+    }
+    catch(NumberFormatException e) { _avTable.rm(ATTR_MAX_ELEVATION); }
+    catch(NullPointerException  e) { _avTable.rm(ATTR_MAX_ELEVATION); }
+  }
+
+  /**
+   * Get meridian approach.
+   */
+  public String getMeridianApproach() {
+    return _avTable.get(ATTR_MERIDIAN_APPROACH);
+  }
+    
+  /**
+   * Set meridian approach.
+   */
+  public void setMeridianApproach(String meridianApproach) {
+    if(meridianApproach == null) {
+      _avTable.rm(ATTR_MERIDIAN_APPROACH);
+    }
+    else {
+      _avTable.set(ATTR_MERIDIAN_APPROACH, meridianApproach);
+    }  
+  }
+
+  /**
    * Get resheculing period
    */
   public String getPeriod() {
@@ -140,6 +211,17 @@ public class SpSchedConstObsComp extends SpObsComp {
    */
   public void setPeriod(double period) {
     _avTable.set(ATTR_PERIOD, period);
+  }
+
+  /**
+   * Set rescheduling period form String.
+   */
+  public void setPeriod(String period) {
+    try {
+      _avTable.set(ATTR_PERIOD, Double.parseDouble(period.trim()));
+    }
+    catch(NumberFormatException e) { _avTable.rm(ATTR_PERIOD); }
+    catch(NullPointerException  e) { _avTable.rm(ATTR_PERIOD); }
   }
 }
 
