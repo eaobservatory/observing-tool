@@ -98,6 +98,20 @@ public abstract class TcsPreTranslator implements PreTranslator {
       return;
     }
 
+    // If conicSystem or namedSystem then    /*just remove the HMSDEG/DEGDEG bits which
+    // are in the old SGML style format (e.g. value list in <Base> etc).
+    // Then */ return because the conicSystem and namedSystem XML is in the correct format already.
+    NodeList targetSystemList = element.getElementsByTagName("conicSystem");
+    if((targetSystemList != null) && (targetSystemList.getLength() > 0)) {
+      return;
+    }
+
+    targetSystemList= element.getElementsByTagName("namedSystem");
+    if((targetSystemList != null) && (targetSystemList.getLength() > 0)) {
+      return;
+    }
+
+
     try {
       DocumentImpl document = (DocumentImpl)element.getOwnerDocument();
 
