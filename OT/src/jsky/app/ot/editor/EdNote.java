@@ -8,10 +8,13 @@ package jsky.app.ot.editor;
 
 import java.awt.Event;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.Component;
 
 import java.net.URL;
-
+import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
 
 import jsky.app.ot.gui.KeyPressWatcher;
 import jsky.app.ot.gui.RichTextBoxWidgetExt;
@@ -19,6 +22,7 @@ import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.OtCfg;
 
 import gemini.sp.SpNote;
 
@@ -53,6 +57,26 @@ public final class EdNote extends OtItemEditor
 
 	// The observe instruction check box.
 	_w.observeInstruction.addWatcher(this);
+
+	String [] observerTags = OtCfg.getNoteTags();
+	if ( observerTags != null) {
+	    Vector tagsV = new Vector();
+	    for ( int i=0; i<observerTags.length; i++ ) {
+		tagsV.add(observerTags[i]);
+	    }
+	    Component [] taggedComponents = _w.observerInputPanel.getComponents();
+	    for ( int i=0; i<taggedComponents.length; i++ ) {
+		if ( taggedComponents[i] instanceof JTextField && 
+		     tagsV.indexOf(taggedComponents[i].getName()) != -1 ) {
+		    taggedComponents[i].addKeyListener( new KeyAdapter() {
+			    public void keyReleased (KeyEvent evt) {
+				((SpNote)_spItem).setAVPair( ((JTextField)evt.getSource()).getName(), 
+							     ((JTextField)evt.getSource()).getText() );
+			    }
+			});
+		}
+	    }
+	}
     }
 
 
@@ -82,7 +106,25 @@ public final class EdNote extends OtItemEditor
 	    rtbw.setText(noteText);
 	}
 
+	Component [] taggedComponents = _w.observerInputPanel.getComponents();
+
 	_w.observeInstruction.setValue(((SpNote)_spItem).isObserveInstruction());
+	if ( _w.observeInstruction.isSelected() ) {
+	    _w.observerInputPanel.setVisible(true);
+	    for ( int i=0; i<taggedComponents.length; i++ ) {
+		if ( taggedComponents[i] instanceof JTextField ) {
+		    ((JTextField)taggedComponents[i]).setText ( ((SpNote)_spItem).getValueFor(taggedComponents[i].getName()));
+		}
+	    }
+	}
+	else {
+	    _w.observerInputPanel.setVisible(false);
+	    for ( int i=0; i<taggedComponents.length; i++ ) {
+		if ( taggedComponents[i] instanceof JTextField ) {
+		    ((SpNote)_spItem).rmAVPair(taggedComponents[i].getName());;
+		}
+	    }
+	}
     }
 
 
@@ -113,6 +155,7 @@ public final class EdNote extends OtItemEditor
 
     public void checkBoxAction(CheckBoxWidgetExt checkBoxWidgetExt) {
 	((SpNote)_spItem).setObserveInstruction(_w.observeInstruction.getBooleanValue());
+	_updateWidgets();
     }
 }
 

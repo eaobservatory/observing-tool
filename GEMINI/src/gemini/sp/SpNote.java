@@ -98,4 +98,16 @@ isObserveInstruction()
    return _avTable.getBool(ATTR_OBSERVE_INSTRUCTION);
 }
 
+public void setAVPair(String name, String value) {
+    _avTable.set(name, value);
+}
+
+public String getValueFor (String name) {
+    return _avTable.get(name);
+}
+
+public void rmAVPair( String name ) {
+    _avTable.rm(name);
+}
+
 }

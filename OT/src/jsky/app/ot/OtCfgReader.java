@@ -59,6 +59,10 @@ class OtCfgReader
     public static final String PROXY_PORT               = "Proxy Port";
     private static final String PROP_PROXY_PORT         = "http.proxyPort";
 
+    public static final String NOTE_LABELS              = "Labels";
+    public static final String NOTE_TAGS                = "Tags";
+    public static final String NOTE_EXAMPLES            = "Examples";
+
     /**
      * Read the configuration file from the given base URL and file name.
      *
@@ -196,6 +200,15 @@ class OtCfgReader
 							    info.proxyPort.length() != 0) {
 							    System.setProperty(PROP_PROXY_PORT, info.proxyPort);
 							}
+						    }
+						    if ( line.startsWith(NOTE_LABELS)) {
+							 info.noteLabels = _parseCommaList(_getValue(line));
+						    }
+						    if ( line.startsWith(NOTE_TAGS) ) {
+							info.noteTags = _parseCommaList(_getValue(line));
+						    }
+						    if ( line.startsWith (NOTE_EXAMPLES) ) {
+							info.noteExamples = _parseCommaList(_getValue(line));
 						    }
 	    }
 

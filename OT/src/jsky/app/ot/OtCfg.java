@@ -78,6 +78,9 @@ public final class OtCfg
 	String          schemaLocation;      // Added by SdW, Sept. 2002
 	String          proxyServer;         // Added by Sdw, Feb 2003
 	String          proxyPort;           // Added by Sdw, Feb 2003
+	String []       noteLabels;
+	String []       noteTags;
+	String []       noteExamples;
     }
 
     /**
@@ -171,6 +174,18 @@ public final class OtCfg
 
     public static String getProxyPort() {
 	return _otCfgInfo.proxyPort;
+    }
+
+    public static String [] getNoteLabels() {
+	return _otCfgInfo.noteLabels;
+    }
+
+    public static String [] getNoteExamples () {
+	return _otCfgInfo.noteExamples;
+    }
+
+    public static String [] getNoteTags() {
+	return _otCfgInfo.noteTags;
     }
 
     public static synchronized boolean	phase1Available() {
