@@ -20,7 +20,7 @@ set TELESCOPE_LIST = "ukirt jcmt"
 set CFG_DIRS     = ../cfg
  
 # (generated from ../conf/make.conf) 
-set CLASSPATH = ../../install/classes:../../../GEMINI/install/classes:../../../ORAC/install/classes:../../../ODB/install/classes:../../../OMP/install/classes:../../../EDFREQ/install/classes:../../../EDFREQ/install/cfg:../tools/diva.jar:../../tools/fits.jar:../../tools/graph.jar:../../tools/hcompress.jar:../../tools/image.jar:../../tools/jacl.jar:../../tools/jdom-b4.jar:../../tools/jel.jar:../../tools/jfreechart.jar:../../tools/jsky.jar:../../tools/junit.jar:../../tools/log4j-core.jar:../../tools/tcljava.jar:../../tools/util.jar:../../../ORAC/tools/jhall.jar:../../../ORAC/tools/jhtools.jar:../../../ORAC/tools/xerces.jar:../../../OMP/tools/activation.jar:../../../OMP/tools/mail.jar:../../../OMP/tools/soap.jar:../../../EDFREQ/tools/JSX1.0.1.1.jar 
+set CLASSPATH = ../../install/classes:../../../GEMINI/install/classes:../../../ORAC/install/classes:../../../ODB/install/classes:../../../OMP/install/classes:../../../EDFREQ/install/classes:../../../EDFREQ/install/cfg:../tools/diva.jar:../../tools/fits.jar:../../tools/graph.jar:../../tools/hcompress.jar:../../tools/image.jar:../../tools/jacl.jar:../../tools/jdom-b4.jar:../../tools/jel.jar:../../tools/jfreechart.jar:../../tools/jsky.jar:../../tools/junit.jar:../../tools/log4j-core.jar:../../tools/tcljava.jar:../../tools/util.jar:../../../ORAC/tools/jhall.jar:../../../ORAC/tools/jhtools.jar:../../../ORAC/tools/xercesImpl.jar:../../../ORAC/tools/xmlParserAPIs.jar:../../../OMP/tools/activation.jar:../../../OMP/tools/mail.jar:../../../OMP/tools/soap.jar:../../../EDFREQ/tools/JSX1.0.1.1.jar 
  
 
 # Specify a server (science program database)
