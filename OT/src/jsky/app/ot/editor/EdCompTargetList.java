@@ -125,17 +125,47 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
-          _w.extrasFolder.setEnabledAt(0, false);
+	    _w.extrasFolder.setEnabledAt(0, false);
+	    // Disable the contents as well
+	    JPanel jp = (JPanel)_w.extrasFolder.getComponentAt(0);
+	    for (int i=0; i<jp.getComponentCount(); i++) {
+		if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
+		    ( (TextBoxWidgetExt)jp.getComponent(i) ).setEditable(false);
+		}
+		else {
+		    jp.getComponent(i).setEnabled(false);
+		}
+	    }
           _w.extrasFolder.setSelectedIndex(1);
         }
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
           _w.extrasFolder.setEnabledAt(1, false);
+	    // Disable the contents as well
+	    JPanel jp = (JPanel)_w.extrasFolder.getComponentAt(1);
+	    for (int i=0; i<jp.getComponentCount(); i++) {
+		if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
+		    ( (TextBoxWidgetExt)jp.getComponent(i) ).setEditable(false);
+		}
+		else {
+		    jp.getComponent(i).setEnabled(false);
+		}
+	    }
           _w.extrasFolder.setSelectedIndex(2);
         }
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
           _w.extrasFolder.setEnabledAt(2, false);
+	    // Disable the contents as well
+	    JPanel jp = (JPanel)_w.extrasFolder.getComponentAt(2);
+	    for (int i=0; i<jp.getComponentCount(); i++) {
+		if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
+		    ( (TextBoxWidgetExt)jp.getComponent(i) ).setEditable(false);
+		}
+		else {
+		    jp.getComponent(i).setEnabled(false);
+		}
+	    }
           _w.extrasFolder.setSelectedIndex(0);
         }
 
@@ -679,16 +709,14 @@ public final class EdCompTargetList extends OtItemEditor
 	    tbw = _w.detailsRadVelTBW;
 	    tbw.setText("0");
 	    break;
-	/*
 	case CoordSys.AZ_EL: 
 	    _setXYAxisBoxPrompts("Az", "El");
-
-	    JTabbedPane fwe;
+	    // Enable the folder widget
 	    fwe = _w.extrasFolder;
+
 	    fwe.setEnabledAt(1, false);
 	    fwe.setEnabledAt(2, false);
 	    break;
-	*/
 	}
     }
 

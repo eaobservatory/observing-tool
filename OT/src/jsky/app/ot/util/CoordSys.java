@@ -18,13 +18,13 @@ public class CoordSys {
     public static final int FK5      = 0;
     public static final int FK4      = 1;
     //public static final int APPARENT = 2;
-    //public static final int AZ_EL    = 3;
+    public static final int AZ_EL    = 2;
 
     public static final String[] COORD_SYS = {
 	"FK5 (J2000)",
-	"FK4 (B1950)"
+	"FK4 (B1950)",
 	//"Apparent",
-	//"Az/El"
+	"Az/El"
     };
 
     /**
@@ -40,10 +40,10 @@ public class CoordSys {
 	else if (coordSysString.indexOf("FK4") != -1) {
 	    return FK4;
 	} 
-	/*
 	else if (coordSysString.indexOf("AZ") != -1) {
 	    return AZ_EL;
 	} 
+	/*
 	else if (coordSysString.indexOf("APP") != -1) {
 	    return APPARENT;
 	}
