@@ -1499,14 +1499,17 @@ public class SpTranslator {
 
 // Obtain the component title.
                            title = sis.title;
+			   System.out.println("translator says title is " + title);
 
 // Obtain the attribute and value pairs.
+			   System.out.println("translator says there are " + sis.values.length + " elements in sis.values");
                            for ( j = 0; j < sis.values.length; ++j ) {
                               siv = (SpIterValue) sis.values[ j ];
 
 // Translate the OT attribute into a key in the InstConfig.
                               attribute = siv.attribute;
                               key = refConfig.OTToTranslator( title, attribute );
+			      System.out.println("translator says j " + j + " attribute " + attribute + " key " + key);
 
 // Unlike the other configuration information, the instrument-aperture 
 // information is stored in its own data structure, so treat it as a
@@ -1547,6 +1550,7 @@ public class SpTranslator {
                                     }
 				    // End of added by RDK
                                     if ( ! siv.values[ 0 ].equals( "" ) ) {
+					System.out.println("translator says key " + key + " value " + siv.values[ 0 ]);
 					currConfig.put( key, siv.values[ 0 ] );
                                     }
 
@@ -2316,6 +2320,29 @@ public class SpTranslator {
                                   "exposureTime" );
                   writeAttribute( conpw, workConfig, "biasNumExp", "coadds" );
                   writeAttribute( conpw, workConfig, "biasSavedInt", "nreads" );
+               } else if ( ((String)workConfig.get( "type" )).equalsIgnoreCase( "TargetAcq" ) ) {
+		   writeAttribute( conpw, workConfig, "targetAcqMask",        "mask" );
+		   writeAttribute( conpw, workConfig, "targetAcqDisperser",   "disperser" );
+		   writeAttribute( conpw, workConfig, "targetAcqSampling",    "sampling" );
+		   writeAttribute( conpw, workConfig, "targetAcqFilter",      "filter" );
+		   writeAttribute( conpw, workConfig, "targetAcqScienceArea", "scienceArea" );
+		   writeAttribute( conpw, workConfig, "targetAcqNreads",      "nreads" );
+		   writeAttribute( conpw, workConfig, "targetAcqMode",        "mode" );
+		   writeAttribute( conpw, workConfig, "targetAcqExpTime",     "exposureTime" );
+		   writeAttribute( conpw, workConfig, "targetAcqReadInterval","readInterval" );
+		   writeAttribute( conpw, workConfig, "targetAcqChopFrequency", "chopFrequency" );
+		   writeAttribute( conpw, workConfig, "targetAcqResetDelay",  "resetDelay" );
+		   writeAttribute( conpw, workConfig, "targetAcqNresets",     "nresets" );
+		   writeAttribute( conpw, workConfig, "targetAcqChopDelay",   "chopDelay" );
+		   writeAttribute( conpw, workConfig, "targetAcqNumExp",      "coadds" );	
+		   writeAttribute( conpw, workConfig, "targetAcqWaveform",    "waveform" );
+		   writeAttribute( conpw, workConfig, "targetAcqDutyCycle",   "dutyCycle" );
+		   writeAttribute( conpw, workConfig, "targetAcqMustIdles",   "mustIdles" );
+		   writeAttribute( conpw, workConfig, "targetAcqNullReads",   "nullReads" );
+		   writeAttribute( conpw, workConfig, "targetAcqNullExposures", "nullExposures" );
+		   writeAttribute( conpw, workConfig, "targetAcqNullCycles",  "nullCycles" );
+		   writeAttribute( conpw, workConfig, "targetAcqIdlePeriod",  "idlePeriod" );
+		   writeAttribute( conpw, workConfig, "targetAcqObsTime",     "observationTime" );
                }
 
 // UIST

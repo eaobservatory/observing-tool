@@ -535,6 +535,23 @@ public class InstConfig extends Hashtable implements Cloneable {
           else if ( lcAttribute.equals( "resolution" ) ) key ="targetAcqResolution";
           else if ( lcAttribute.equals( "dispersion" ) ) key ="targetAcqDispersion";
           else if ( lcAttribute.equals( "sciencearea" ) ) key ="targetAcqScienceArea";
+          else if ( lcAttribute.equals( "nreads" ) ) key ="targetAcqNreads";
+          else if ( lcAttribute.equals( "mode" ) ) key ="targetAcqMode";
+          else if ( lcAttribute.equals( "exposuretime" ) ) key ="targetAcqExpTime";
+          else if ( lcAttribute.equals( "readinterval" ) ) key ="targetAcqReadInterval";
+          else if ( lcAttribute.equals( "chopfrequency" ) ) key ="targetAcqChopFrequency";
+          else if ( lcAttribute.equals( "resetdelay" ) ) key ="targetAcqResetDelay";
+          else if ( lcAttribute.equals( "nresets" ) ) key ="targetAcqNresets";
+          else if ( lcAttribute.equals( "chopdelay" ) ) key ="targetAcqChopDelay";
+          else if ( lcAttribute.equals( "waveform" ) ) key ="targetAcqWaveform";
+          else if ( lcAttribute.equals( "dutycycle" ) ) key ="targetAcqDutyCycle";
+          else if ( lcAttribute.equals( "mustidles" ) ) key ="targetAcqMustIdles";
+          else if ( lcAttribute.equals( "nullreads" ) ) key ="targetAcqNullReads";
+          else if ( lcAttribute.equals( "nullexposures" ) ) key ="targetAcqNullExposures";
+          else if ( lcAttribute.equals( "nullcycles" ) ) key ="targetAcqNullCycles";
+          else if ( lcAttribute.equals( "idleperiod" ) ) key ="targetAcqIdlePeriod";
+          else if ( lcAttribute.equals( "observationtime" ) ) key ="targetAcqObsTime";
+          else if ( lcAttribute.equals( "sampling" ) ) key ="targetAcqSampling";
       }
       return key;
    }

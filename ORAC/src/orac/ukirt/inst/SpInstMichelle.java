@@ -90,6 +90,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static double PIXPITCH;
     public static String DARKFILTER;
     public static String DEFAULT_FILTER;
+    public static String DEFAULT_FILTER_CAT_TARGET_ACQ;
+    public static String DEFAULT_FILTER_TARGET_ACQ;
     public static String[] CAMERAS;
     public static String DEFAULT_CAMERA;
     public static double N_TO_Q_BOUNDARY;
@@ -112,12 +114,14 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public static double[] SPECT_FIELD_OF_VIEW;
     public static String[] SAMPLINGS;
     public static String DEFAULT_SAMPLING;
+    public static String DEFAULT_SAMPLING_TARGET_ACQ;
     public static LookUpTable DISPERSERS;
     public static String DEFAULT_DISPERSER;
     public static int CENTRAL_ROW;
     public static int PEAK_ROW;
     public static LookUpTable MASKS;
     public static String DEFAULT_MASK;
+    public static String DEFAULT_MASK_TARGET_ACQ;
     // Disperser 1
     public static LookUpTable ORDERS1;
     public static LookUpTable BLOCKERS1;
@@ -161,8 +165,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     // Instance variables of the class
     double flatObservationTime;
     double arcObservationTime;
+    double targetAcqObservationTime;
     double flatExposureTime;
     double arcExposureTime;
+    double targetAcqExposureTime;
     // Data acquisition - dark
     // Data acquisition - flat & arcs
     String flat_source;
@@ -365,6 +371,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     DARKFILTER = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_filter")) {
                     DEFAULT_FILTER = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_filter_cat_target_acq")) {
+                    DEFAULT_FILTER_CAT_TARGET_ACQ = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_filter_target_acq")) {
+                    DEFAULT_FILTER_TARGET_ACQ = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "cameras")) {
                     CAMERAS = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "n_to_q_boundary")) {
@@ -412,6 +422,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     SAMPLINGS = instInfo.getValueAsArray();
 		} else if (InstCfg.matchAttr (instInfo, "default_sampling")) {
                     DEFAULT_SAMPLING = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_sampling_target_acq")) {
+                    DEFAULT_SAMPLING_TARGET_ACQ = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_flat_source")) {
                     DEFAULT_FLAT_SOURCE = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_flat_sampling")) {
@@ -489,6 +501,8 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
                     MASKS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_mask")) {
                     DEFAULT_MASK = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_mask_target_acq")) {
+                    DEFAULT_MASK_TARGET_ACQ = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "chops")) {
                     CHOPS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "default_chopfreq")) {
@@ -579,8 +593,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double[]
     getPixelFOV()
     {
+	return getPixelFOV("OBJECT");
+    }
+
+    /**
+     * Return the pixel field of view
+     */
+    public double[]
+    getPixelFOV(String obsType)
+    {
          double pfov[] = new double[2];
-         if (isImaging()) {
+         if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
 	     pfov[0] = IMAGING_PIXEL_SCALE;
              pfov[1] = IMAGING_PIXEL_SCALE;
 	 } else {
@@ -597,12 +620,21 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getPixelFOVString()
     {
+	return getPixelFOVString("OBJECT");
+    }
+
+    /**
+     * Get the pixel field of view as a string
+     */
+    public String
+    getPixelFOVString(String obsType)
+    {
         double pfov[];
-        pfov = getPixelFOV();
+        pfov = getPixelFOV(obsType);
         double w = MathUtil.round(pfov[0], 2);
         double h = MathUtil.round(pfov[1], 2);
         String pfovs = w + " x " + h;
-        setPixelFOV(pfovs);
+        if (obsType.equalsIgnoreCase("OBJECT")) setPixelFOV(pfovs);
         return pfovs;
     }
 
@@ -621,8 +653,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double[]
     getScienceArea()
     {
+	return getScienceArea("OBJECT");
+    }
+
+    /**
+     * Return the science area based upon the current camera.
+     */
+    public double[]
+    getScienceArea(String obsType)
+    {
          double fov[] = new double[2];
-         if (isImaging()) {
+         if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
 	     fov[0] = IMAGING_FIELD_OF_VIEW[0];
              fov[1] = IMAGING_FIELD_OF_VIEW[1];
 	 } else {
@@ -641,12 +682,21 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getScienceAreaString()
     {
+	return getScienceAreaString("OBJECT");
+    }
+
+    /**
+     * Get the science area as a string (also updates pixel field of view)
+     */
+    public String
+    getScienceAreaString(String obsType)
+    {
         double fov[];
-        fov = getScienceArea();
+        fov = getScienceArea(obsType);
         double w = MathUtil.round(fov[0], 2);
         double h = MathUtil.round(fov[1], 2);
         String fovs = w + " x " + h;
-        setScienceArea(fovs);
+        if (obsType.equalsIgnoreCase("OBJECT")) setScienceArea(fovs);
         /* Update the pixel field of view too */
         String pfovs = getPixelFOVString();
         return fovs;
@@ -683,6 +733,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         flat_source = null;
         flatObservationTime = DEFAULT_TOBS;
         arcObservationTime = DEFAULT_TOBS;
+        targetAcqObservationTime = DEFAULT_TOBS;
         useDefaultAcquisition();
         setAcquisition();
     }
@@ -813,12 +864,21 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double
     getCentralWavelength()
     {
+	return getCentralWavelength("OBJECT");
+    }
+
+    /**
+     * Get the central wavelength.
+     */
+    public double
+    getCentralWavelength(String obsType)
+    {
         double cwl;
-        if (isImaging()) {
+        if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
 	    /* Get centre wavelength of filter */
-            int fi = getFilterIndex();
-            cwl = Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(),3)).doubleValue();
-            setCentralWavelength (cwl);
+            int fi = getFilterIndex(obsType);
+            cwl = Double.valueOf((String)getFilterLUT().elementAt(fi,3)).doubleValue();
+            if (isImaging()) setCentralWavelength (cwl);
         } else {
             cwl = _avTable.getDouble(ATTR_CENTRAL_WAVELENGTH, 0.0);
             if (cwl == 0.0) {
@@ -835,7 +895,16 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getCentralWavelengthString()
     {
-        double cwl = MathUtil.round(getCentralWavelength(),3);
+	return getCentralWavelengthString("OBJECT");
+    }
+
+    /**
+     * Get the central wavelength as a string
+     */
+    public String
+    getCentralWavelengthString(String obsType)
+    {
+        double cwl = MathUtil.round(getCentralWavelength(obsType),3);
         String cwls = Double.toString(cwl);
         return cwls;
     }
@@ -1015,6 +1084,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             filterCategory = getDefaultFilterCategory();
             setFilterCategory(filterCategory);
 	}
+	System.out.println("SpInstMichelle says filterCategory is " + filterCategory);
         return filterCategory;
     }
 
@@ -1112,9 +1182,23 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public int
     getFilterIndex()
     {
+	return getFilterIndex("OBJECT");
+    }
+
+    /**
+     * Get the index of filter name in filter category
+     */
+    public int
+    getFilterIndex(String obsType)
+    {
         LookUpTable flut = getFilterLUT();
-        String filterOT = getFilterOT();
-        int fIndex = flut.indexInColumn(filterOT,0);
+        String filter = null;
+	if (obsType.equalsIgnoreCase("TARGETACQ")) {
+	    filter = DEFAULT_FILTER_TARGET_ACQ;
+	} else {
+	    filter = getFilterOT();
+	}
+        int fIndex = flut.indexInColumn(filter,0);
         return fIndex;
     }
 
@@ -1133,6 +1217,15 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getFilter()
     {
+	return getFilter("OBJECT");
+    }
+
+    /**
+     * Get the filter
+     */
+    public String
+    getFilter(String obsType)
+    {
         int ci = 1;
         String filter = null;
         if (isImaging()) {
@@ -1140,8 +1233,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             if (isPolarimetry()) {
                 ci = 2;
             }
-            filter = (String)getFilterLUT().elementAt(getFilterIndex(),ci);
-        } else {
+            filter = (String)getFilterLUT().elementAt(getFilterIndex(obsType),ci);
+        } else if (obsType.equalsIgnoreCase("TARGETACQ")) {
+	    return DEFAULT_FILTER_TARGET_ACQ;
+	} else {
             int di = getDisperserIndex();
             double cwl = getCentralWavelength();
 	    /* ci is the column index in the BLOCKERS lut */
@@ -1437,10 +1532,19 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double
     getResolvingPower()
     {
+	return getResolvingPower("OBJECT");
+    }
+
+    /**
+     * Get the resolving power
+     */
+    public double
+    getResolvingPower(String obsType)
+    {
         double rp;
-        if (isImaging()) {
+        if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
             /* For imaging, this is 1/bandpass for current filter */
-            rp = 1.0/Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(),4)).doubleValue();
+            rp = 1.0/Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(obsType),4)).doubleValue();
 	} else {
             double disp = getDispersion();
             double cwl = getCentralWavelength();
@@ -1462,7 +1566,16 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getResolvingPowerString()
     {
-        double rp = MathUtil.round(getResolvingPower(),1);
+	return getResolvingPowerString("OBJECT");
+    }
+
+    /**
+     * Get the resolving power as a string
+     */
+    public String
+    getResolvingPowerString(String obsType)
+    {
+        double rp = MathUtil.round(getResolvingPower(obsType),1);
         String rps = Double.toString(rp);
         return rps;
     }
@@ -1482,14 +1595,23 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public String
     getWaveplate()
     {
+	return getWaveplate("OBJECT");
+    }
+
+    /**
+     * Get the waveplate
+     */
+    public String
+    getWaveplate(String obsType)
+    {
         String waveplate= "none";
         if (isPolarimetry()) {
             double cwl;
             if (isImaging()) {
 	        /* Get centre wavelength of filter */
-                cwl = Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(),3)).doubleValue();
+                cwl = Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(obsType),3)).doubleValue();
 	    } else {
-                cwl = getCentralWavelength();
+                cwl = getCentralWavelength(obsType);
 	    }
 	    try {
 	        int pos = WAVEPLATES.rangeInColumn(cwl, 0);
@@ -1619,8 +1741,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public int
     getExpbaseMult()
     {
+	return getExpbaseMult("OBJECT");
+    }
+
+    /**
+     * Get the expbase multiplier
+     */
+    public int
+    getExpbaseMult(String obsType)
+    {
         int i1;
-        double rp = getResolvingPower();
+        double rp = getResolvingPower(obsType);
         double rpMin = Double.valueOf((String)EXPTIMINGS.elementAt(0,0)).doubleValue();
         int iMax = EXPTIMINGS.getNumRows() - 1;
         double rpMax = Double.valueOf((String)EXPTIMINGS.elementAt(iMax,0)).doubleValue();
@@ -1659,7 +1790,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     {
         String cfs = _avTable.get(ATTR_CHOP_FREQUENCY);
         if (cfs == null) {
-            cfs = getDefaultChopFrequency();
+            cfs = getDefaultChopFrequency("OBJECT");
             setChopFreq(cfs);
 	}
         return cfs;
@@ -1715,15 +1846,43 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Set the target acquisition exposure time
+     */
+    public void
+    setTargetAcqExpTime(double targetAcqExpTime)
+    {
+        targetAcqExposureTime = targetAcqExpTime;
+    }
+
+    /**
+    /**
+     * Get the target acquisition exposure time
+     */
+    public double
+    getTargetAcqExpTime()
+    {
+        return targetAcqExposureTime;
+    }
+
+    /**
      * Get the default chop frequency
      */
     public String
     getDefaultChopFrequency()
     {
+	return getDefaultChopFrequency("OBJECT");
+    }
+
+     /**
+     * Get the default chop frequency
+     */
+    public String
+    getDefaultChopFrequency(String obsType)
+    {
         String dcfs;
         int i;
         double dwell;
-        double rp = getResolvingPower();
+        double rp = getResolvingPower(obsType);
         double rpMin = Double.valueOf((String)EXPTIMINGS.elementAt(0,0)).doubleValue();
         int iMax = EXPTIMINGS.getNumRows() - 1;
         double rpMax = Double.valueOf((String)EXPTIMINGS.elementAt(iMax,0)).doubleValue();
@@ -1898,6 +2057,24 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Get the target acquisition observation time in seconds
+     */
+    public double
+    getTargetAcqObservationTime()
+    {
+        return targetAcqObservationTime;
+    }
+
+    /**
+     * Set the target acquisition observation time in seconds
+     */
+    public void
+    setTargetAcqObservationTime(double targetAcqObsTime)
+    {
+	targetAcqObservationTime = targetAcqObsTime;
+    }
+
+    /**
      * Get the observation time in seconds as a String
      */
     public String
@@ -1916,8 +2093,10 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     {
 	
 	double time = getExposureTime();
+// 	System.out.println("Start getExpTime and time is " + time);
 	if (time == 0.0) {
 	    time = getDefaultExpTime();
+	    //	    System.out.println("getExpTime using default time of " + time);
 	    setExpTime (Double.toString(time));
 	}
 	return time;
@@ -1955,11 +2134,27 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double
     getDefaultSkyExpTime()
     {
-        double set = TEXPBASE * getExpbaseMult() * KSKY;
+	return getDefaultSkyExpTime("OBJECT");
+    }
+
+    /**
+     * Get the default sky exposure time
+     */
+    public double
+    getDefaultSkyExpTime(String obsType)
+    {
+        double set = TEXPBASE * getExpbaseMult(obsType) * KSKY;
+	System.out.println("TEXPBASE " + TEXPBASE + " Expbase " + getExpbaseMult(obsType) + " KSKY " + KSKY);
         if (isPolarimetry()) set = KPOL * set;
-        if (isImaging()) set = KIM * set;
-        if (getCentralWavelength() < 15.0) set = KBAND * set;
+        if (isImaging() || obsType.equalsIgnoreCase("TARGETACQ")) {
+	    double mult = Double.valueOf((String)getFilterLUT().elementAt(getFilterIndex(obsType),5)).doubleValue();
+	    System.out.println("mult is " + mult);
+	    set = mult * set;
+	}
+	    System.out.println("getCentralWavelength is " + getCentralWavelength(obsType));
+        if (getCentralWavelength(obsType) < 15.0) set = KBAND * set;
         set = set * KWELL;
+	    System.out.println("KWELL is " + KWELL + " set is " + set);
         return set;
     }
 
@@ -1989,7 +2184,16 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public double
     getDefaultExpTime()
     {
-        double et = getDefaultSkyExpTime();
+	return getDefaultExpTime("OBJECT");
+    }
+
+    /**
+     * Get the default exposure time
+     */
+    public double
+    getDefaultExpTime(String obsType)
+    {
+        double et = getDefaultSkyExpTime(obsType);
         et = limitExpTime(et);
         return et;
     }
@@ -2004,6 +2208,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         if (getFlatSource().equalsIgnoreCase("mirror")) fet = fet/KSKY;
         fet = limitExpTime(fet);
         return fet;
+    }
+
+    /**
+     * Get the default target acquisition exposure time
+     */
+    public double
+    getDefaultTargetAcqExpTime()
+    {
+        double et = getDefaultSkyExpTime("TARGETACQ");
+        et = limitExpTime(et);
+        return et;
     }
 
     /**
@@ -2101,6 +2316,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     }
 
     /**
+     * Update the daconf for a target acquisition observation
+     */
+    public void
+    updateDATargetAcqConf()
+    {
+        System.out.println("updateDATargetAcqConf> called");
+        String obsType = "TARGETACQ";
+        updateDAConf(obsType);
+    }
+
+    /**
      * Update the daconf for an Object/Sky observatioon
      */
     public void
@@ -2150,13 +2376,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 	} else if (obsType.equalsIgnoreCase("ARC")) {
             expTime = getArcExpTime();
             obsTime = getArcObservationTime();
+	} else if (obsType.equalsIgnoreCase("TARGETACQ")) {
+            expTime = getTargetAcqExpTime();
+            obsTime = getTargetAcqObservationTime();
+	    System.out.println("obsType is " + obsType + " expTime is " + expTime + "obTime is " +obsTime);
 	}
         double TDelay = 0.0;
         double actExpTime = 0.0;
         double totalExposure = 0.0;
         double actChopDelay = 0.0;
         double dutyCycle = 0.0;
-	double cfd = Double.valueOf(getDefaultChopFrequency()).doubleValue();
+	double cfd = Double.valueOf(getDefaultChopFrequency(obsType)).doubleValue();
 
         double dwellTime = 0.0;
 
@@ -2179,6 +2409,291 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
             ri = ri - 1;
         /* Perform DACONFS lookup */
         daconf = (String)DACONFS.elementAt(ri,ci);
+	//	System.out.println("Starting updateDAConf with expTime obsTime cfd daconf " + expTime + " " + obsTime + " " + cfd + " " +daconf );
+        /* Find corresponding row in MODES lut */
+        ri = MODES.indexInColumn(daconf,0);
+        /* Lookup the W_* values */
+        W_mode = (String)MODES.elementAt(ri,1);
+	System.out.println(" updateDAConf sys daconf is " + daconf);
+	System.out.println(" updateDAConf sys W_mode is " + W_mode);
+        W_waveform = (String)MODES.elementAt(ri,2);
+        W_nresets = Integer.parseInt((String)MODES.elementAt(ri, 3));
+        W_resetDelay = 
+            Double.valueOf((String)MODES.elementAt(ri, 4)).doubleValue();
+        W_readInterval =
+            Double.valueOf((String)MODES.elementAt(ri, 5)).doubleValue();
+        W_idlePeriod =
+            Double.valueOf((String)MODES.elementAt(ri, 6)).doubleValue();
+        W_mustIdles = Integer.parseInt((String)MODES.elementAt(ri, 7));
+        W_nullCycles = Integer.parseInt((String)MODES.elementAt(ri, 8));
+        W_nullExposures = Integer.parseInt((String)MODES.elementAt(ri, 9));
+        W_nullReads = Integer.parseInt((String)MODES.elementAt(ri, 10));
+
+        /* Set ifChop and ifND flags */
+        boolean ifChop = W_mode.equalsIgnoreCase("CHOP")
+            || W_mode.equalsIgnoreCase("NDCHOP");
+        boolean ifND = W_mode.equalsIgnoreCase("NDSTARE")
+            || W_mode.equalsIgnoreCase("NDCHOP");
+
+        /* Perform WAVEFORMS lookup */
+        ri = WAVEFORMS.indexInColumn(W_waveform,0);
+        /* Lookup waveform clock period */
+        double clkPeriod =
+           Double.valueOf((String)WAVEFORMS.elementAt(ri, 1)).doubleValue()
+           * 1.0e-9;
+        /* Loopup "expWhileRead" flag */
+        int expWR = Integer.parseInt((String)WAVEFORMS.elementAt(ri,2));
+        /* Lookup idle waveform duration */
+        double idleT = clkPeriod *
+           Double.valueOf((String)WAVEFORMS.elementAt(ri, 3)).doubleValue();
+        /* Lookup NDidle waveform duration */
+        double NDidleT = clkPeriod *
+           Double.valueOf((String)WAVEFORMS.elementAt(ri, 4)).doubleValue();
+        /* Lookup NDread waveform duration */
+        double NDreadT = clkPeriod *
+           Double.valueOf((String)WAVEFORMS.elementAt(ri, 6)).doubleValue();
+        /* Lookup readReset waveform duration */
+        double readResetT = clkPeriod *
+           Double.valueOf((String)WAVEFORMS.elementAt(ri, 8)).doubleValue();
+        /* Lookup appropriate reset waveform duration */
+        double TEnd = 0.0;
+        double resetT = 0.0;
+        if (ifND) {
+            /* Use NDreset waveform */
+            resetT = clkPeriod *
+                Double.valueOf((String)WAVEFORMS.elementAt(ri, 5)).doubleValue();
+            TEnd = NDreadT;
+	} else {
+            /* Use reset waveform */
+            resetT = clkPeriod *
+                Double.valueOf((String)WAVEFORMS.elementAt(ri, 7)).doubleValue();
+            TEnd = resetT;
+	}
+
+        /* Build script section */
+        double TGone = 0.0;  /* Time spent so far */
+
+        /* Insert mustIdles */
+        if (W_idlePeriod > 0.00001 && W_mustIdles > 0) {
+            if (idleT > W_idlePeriod)
+                TGone = idleT * W_mustIdles;
+            else
+                TGone = W_idlePeriod * W_mustIdles;
+	}
+
+        /* Handle initial chop delay */
+        if (ifChop) {
+            W_chopDelay = getChopDelay();
+            /* Delay required excludes time already gone and time to do resets */
+            TDelay = W_chopDelay - (W_nresets*resetT) - TGone;
+            actChopDelay = 0.0;
+            if (TDelay > 0.0) {
+                /* 1st option is to generate NDIdles */
+                if (NDidleT > 0.00001) {
+                    actChopDelay = Math.ceil(TDelay/NDidleT) * NDidleT;
+		} else if (W_idlePeriod > 0.00001) {
+                    actChopDelay = Math.ceil(TDelay/W_idlePeriod) * W_idlePeriod;
+		} else
+                    actChopDelay = TDelay;
+                TGone = TGone + actChopDelay;
+	    }
+	}
+
+        /* Set up exposures in this beam */
+        boolean ifExposing = true;
+        /* nexp = exposures in chop phase including null exposures */
+        int nexp = 0;
+        /* Real (non-null) exposures in whole observation */
+        int numExpBeam = 0; 
+        int numExp = 0; 
+        double TStart = 0.0;
+        double readT = 0.0;
+        W_nreads = 0;
+        while (ifExposing) {
+            nexp++;
+            TStart = TGone;
+            if (nexp == 1) {
+                /* First exposure starts with reset */
+                TGone = TGone + resetT;
+	    } else if (!ifND) {
+                /* Destructive reading modes use readReset */
+                TGone = TGone + readResetT;
+	    } else {
+                /* ND does read followed by reset */
+                TGone = TGone + NDreadT + resetT;
+	    }
+
+            /* Insert any additional resets */
+            if (W_nresets > 1) TGone = TGone + ((W_nresets-1)*resetT);
+
+            /* Insert ND exposure */
+            if (ifND) {
+                /* Insert resetDelay */
+                if (W_resetDelay > 0.0) {
+                    /* Execute NDidles if defined */
+                    if (NDidleT > 0.00001) {
+                        TGone = TGone + Math.ceil(W_resetDelay/NDidleT) * NDidleT;
+                    } else TGone = TGone + W_resetDelay;
+		}
+                /* Insert NDreads, including nullReads */
+                /* How long does each read take? This differs from the
+                   readInterval if NDidling is enabled */
+                if (NDidleT > 0.00001) {
+                    readT = Math.round(W_readInterval/NDidleT) * NDidleT;
+		} else {
+                    readT = W_readInterval;
+		}
+                /* Compute number of reads in the exposure time */
+                W_nreads = (int) Math.round(expTime/readT) + 1;
+		System.out.println("SpInstMichelle.updateDAConf has set W_nreads to " + W_nreads);
+                /* Increase TGone by time to take these, plus any nullReads 
+                   minus the last read (which is appended below) */
+                TGone = TGone + ((W_nreads+W_nullReads-1) * readT);
+                actExpTime = (W_nreads - 1) * readT;
+	    } else {
+                /* Non-ND. Wait for the exposure time to expire */
+                if (expWR == 0) {
+                    TDelay = expTime;
+		} else {
+                    TDelay = expTime - readResetT;
+		}
+                if (NDidleT > 0.00001) {
+                    /* Spend TDelay generating NDidles */
+                    TGone = TGone + Math.round(TDelay/NDidleT) * NDidleT;
+		} else {
+                    TGone = TGone + TDelay;
+		}
+                actExpTime = expTime;
+	    }
+
+            /* Check for further exposures */
+            if (ifChop) {
+                if ((TGone - TStart + TGone + TEnd) < dwellTime) { 
+                    /* Loop back to insert another exposure */
+		} else if (nexp <= W_nullExposures) {
+                    /* No real exposures yet, stay in beam and extend dwell time */
+		} else {
+                    /* No more exposures required - set ifExposing to false */
+                    ifExposing = false;
+		    numExpBeam = nexp - W_nullExposures;
+		}
+	    } else {
+                /* Not chopping */
+                if ((TGone - TStart + TGone + TEnd) < obsTime) { 
+                    /* Yes - loop back to insert another exposure */
+                    /* Loop back to insert another exposure */
+		} else if (nexp <= W_nullExposures) {
+                    /* No real exposures yet, stay in beam and extend dwell time */
+		} else {
+                    /* No - set ifExposing to false */
+                    ifExposing = false;
+		    numExp = nexp - W_nullExposures;
+		}
+	    }
+
+	} /* End of while loop */
+
+        /* Insert final read (ND) or readReset (non-ND) */
+        if (ifND) {
+            TGone = TGone + NDreadT;
+	} else {
+            TGone = TGone + readResetT;
+	}
+
+        /* If chopping, take TGone as new dwell time and compute new 
+           chop frequency */
+        if (ifChop) {
+            dwellTime = TGone;
+            cfd = 0.5/dwellTime;
+            String cfs = Double.toString(cfd);
+            W_chopFrequency = cfs;
+            numCycles = (int) Math.round(obsTime*cfd*2.0);
+            if (numCycles < 1) numCycles = 1;
+            numExp = numExpBeam * numCycles;
+	} else {
+            W_chopFrequency = "0.0";
+	}
+
+        /* Report actual observation time */
+        W_obsTime = 0.0;
+        if (ifChop) {
+            W_obsTime = dwellTime * 2.0 * (numCycles+W_nullCycles);
+	} else {
+            W_obsTime = TGone;
+	}
+
+
+        /* Update the number of required coadds */
+        W_coadds = numExp;
+
+        double totalChopDelay = 0;
+	/* Compute duty cycle */
+        if (ifChop) {
+            totalExposure = numExp * 2.0 * actExpTime;
+            totalChopDelay = 2.0 * (numCycles+W_nullCycles) * actChopDelay;
+            W_dutyCycle = totalExposure/(W_obsTime - totalChopDelay);
+	} else {
+            totalExposure = actExpTime * numExp;
+            W_dutyCycle = totalExposure/W_obsTime;
+	}
+	//	System.out.println("Ending updateDAConf with actExpTime W_coadds totalExposure W_obsTime totalChopDelay dutyCycle " + actExpTime + " " + W_coadds+ " " + totalExposure + " " +  W_obsTime+ " " + totalChopDelay + " " + W_dutyCycle*100.0 + "%");
+
+    }
+
+    /**
+     * Update the daconf for the given obsType
+     */
+    public String
+    updateDAConf(String obsType, double expTime, double obsTime, double cfd, FileWriter output)
+    {
+        int ci; /* lookup column number */
+        int ri; /* loopup row number */
+//         double expTime = 0.0;
+//         double obsTime = 0.0;
+        /* Get appropriate exposure and observation time for this obsType */
+//         if (obsType.equalsIgnoreCase("OBJECT")) {
+//             expTime = getExpTime();
+//             obsTime = getObservationTime();
+// 	} else if (obsType.equalsIgnoreCase("DARK")) {
+//             /* Exposure time must be same as for object */
+//             expTime = getExpTime();
+//             obsTime = getObservationTime();
+// 	} else if (obsType.equalsIgnoreCase("FLAT")) {
+//             expTime = getFlatExpTime();
+//             obsTime = getFlatObservationTime();
+// 	} else if (obsType.equalsIgnoreCase("ARC")) {
+//             expTime = getArcExpTime();
+//             obsTime = getArcObservationTime();
+// 	}
+        double TDelay = 0.0;
+        double actExpTime = 0.0;
+        double totalExposure = 0.0;
+        double actChopDelay = 0.0;
+        double dutyCycle = 0.0;
+// 	double cfd = Double.valueOf(getDefaultChopFrequency()).doubleValue();
+
+        double dwellTime = 0.0;
+
+        int numCycles = 0;
+        if (cfd > 0.0) {
+            dwellTime = 0.5/cfd;
+	}
+        String daconf = null;
+        /* Get column number of lookup - depends on chop frequency */
+        if (cfd < 0.001) {
+            ci = 1;
+        } else {
+            ci = DACONFS.rangeInRow(cfd,0);
+	}
+        /* Get row number of loopup - depends on exposure time */
+        ri = DACONFS.rangeInColumn(expTime,0);
+        if (ri < 0) {
+            ri = DACONFS.getNumRows() - 1;
+        } else
+            ri = ri - 1;
+        /* Perform DACONFS lookup */
+        daconf = (String)DACONFS.elementAt(ri,ci);
+// 	System.out.println("Starting updateDAConf with expTime obsTime cfd daconf " + expTime + " " + obsTime + " " + cfd + " " +daconf );
         /* Find corresponding row in MODES lut */
         ri = MODES.indexInColumn(daconf,0);
         /* Lookup the W_* values */
@@ -2392,16 +2907,23 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
         /* Update the number of required coadds */
         W_coadds = numExp;
 
-        /* Compute duty cycle */
+        double totalChopDelay = 0;
+	/* Compute duty cycle */
         if (ifChop) {
             totalExposure = numExp * 2.0 * actExpTime;
-            double totalChopDelay = 2.0 * (numCycles+W_nullCycles) * actChopDelay;
+            totalChopDelay = 2.0 * (numCycles+W_nullCycles) * actChopDelay;
             W_dutyCycle = totalExposure/(W_obsTime - totalChopDelay);
 	} else {
             totalExposure = actExpTime * numExp;
             W_dutyCycle = totalExposure/W_obsTime;
 	}
-
+// 	System.out.println("Ending updateDAConf with actExpTime W_coadds totalExposure W_obsTime totalChopDelay dutyCycle " + actExpTime + " " + W_coadds+ " " + totalExposure + " " +  W_obsTime+ " " + totalChopDelay + " " + W_dutyCycle*100.0 + "%");
+	try {
+	    output.write(expTime + " " + cfd + " " + W_obsTime + " " + W_chopFrequency + " " + W_coadds + " " + W_dutyCycle*100.0 + " " + W_chopDelay + " " + actExpTime + " " + numCycles + " " + W_nullCycles + " " + actChopDelay + " " + totalChopDelay + " " + totalExposure + " " + 1.0 / expTime + "\n");
+	} catch (IOException e) {
+	    System.out.println("IOException writing to output");
+	}
+	return daconf;
     }
 
     /**
