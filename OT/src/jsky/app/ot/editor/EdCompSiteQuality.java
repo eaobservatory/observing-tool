@@ -74,6 +74,25 @@ public final class EdCompSiteQuality extends OtItemEditor
 	grp.add(_w.skyPhotometric);
 	grp.add(_w.skySpectroscopic);
 	grp.add(_w.skyIgnore);
+
+
+	// OMP (MFO, 8 August 2001)
+	_w.tauBand1.addActionListener(this);
+	_w.tauBand2.addActionListener(this);
+
+	grp = new ButtonGroup();
+	grp.add(_w.tauBand1);
+	grp.add(_w.tauBand2);
+
+
+	_w.seeing1.addActionListener(this);
+	_w.seeing2.addActionListener(this);
+	_w.seeing3.addActionListener(this);
+
+	grp = new ButtonGroup();
+	grp.add(_w.seeing1);
+	grp.add(_w.seeing2);
+	grp.add(_w.seeing3);
     }
 
     /**
@@ -132,6 +151,35 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    ow = _w.skyIgnore; break;
 	}
 	ow.setValue(true);
+
+	// OMP (MFO, 8 August 2001)
+
+	// Tau Band
+	i = sq.getTauBand();
+	switch (i) {
+	case 1:
+	    _w.tauBand1.setValue(true); break;
+	case 2:
+	    _w.tauBand2.setValue(true); break;
+	default:
+	    _w.tauBand1.setValue(false);
+	    _w.tauBand2.setValue(false); break;
+	}
+
+	// Seeing
+	i = sq.getSeeing();
+	switch (i) {
+	case 1:
+	    _w.seeing1.setValue(true); break;
+	case 2:
+	    _w.seeing2.setValue(true); break;
+	case 3:
+	    _w.seeing3.setValue(true); break;
+	default:
+	    _w.seeing1.setValue(false);
+	    _w.seeing2.setValue(false);
+	    _w.seeing3.setValue(false); break;
+	}
     }
 
 
@@ -197,6 +245,30 @@ public final class EdCompSiteQuality extends OtItemEditor
 	if (w == _w.skyIgnore) {
 	    sq.setSky(SpSiteQualityObsComp.SKY_IGNORE);
 	    return;
+	}
+
+	// OMP (MFO, 8 August 2001)
+
+	// Tau band
+	if (w == _w.tauBand1) {
+	    sq.setTauBand(1);
+	}
+
+	if (w == _w.tauBand2) {
+	    sq.setTauBand(2);
+	}
+
+	// Seeing
+	if (w == _w.seeing1) {
+	    sq.setSeeing(1);
+	}
+
+	if (w == _w.seeing2) {
+	    sq.setSeeing(2);
+	}
+
+	if (w == _w.seeing3) {
+	    sq.setSeeing(3);
 	}
     }
 }
