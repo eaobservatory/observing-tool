@@ -13,7 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.*;
 import jsky.util.gui.LookAndFeelMenu;
-
+import ot.OtWasteBin;
 
 /** 
  * Provides a top level window and menubar for the OtWindow class.
@@ -41,7 +41,10 @@ public class OtWindowFrame extends JFrame {
 	JPanel panel = new JPanel();
 	panel.setLayout(new BorderLayout());
 	OtTreeToolBar treeToolbar = new OtTreeToolBar(editor);
-	panel.add("West", treeToolbar);
+	JPanel toolbarAndWasteBinPanel = new JPanel(new BorderLayout());
+	toolbarAndWasteBinPanel.add("Center", treeToolbar);
+	toolbarAndWasteBinPanel.add("South", new OtWasteBin());
+	panel.add("West", toolbarAndWasteBinPanel);
 	panel.add("Center", editor);
         getContentPane().add("Center", panel);
 	setJMenuBar(new OtWindowMenuBar(editor, toolbar, treeToolbar));
