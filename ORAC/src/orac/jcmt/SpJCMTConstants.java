@@ -70,13 +70,54 @@ public interface SpJCMTConstants {
 
 
    // Scan/Raster Iterator
-   public static final String ATTR_X_CENTER        = "scanArea.rectangle.xCenter";
-   public static final String ATTR_Y_CENTER        = "scanArea.rectangle.yCenter";
-   public static final String ATTR_WIDTH           = "scanArea.rectangle.width";
-   public static final String ATTR_HEIGHT          = "scanArea.rectangle.height";
-   public static final String ATTR_RECTANGLE_PA    = "scanArea.rectangle.rectanglePA";
-   public static final String ATTR_OFF_SYSTEM      = "scanArea.offSystem:type";
+   public static final String ATTR_SCANAREA_X0             = "SCAN_AREA.AREA:X0";
+   public static final String ATTR_SCANAREA_Y0             = "SCAN_AREA.AREA:Y0";
+   public static final String ATTR_SCANAREA_WIDTH          = "SCAN_AREA.AREA:WIDTH";
+   public static final String ATTR_SCANAREA_HEIGHT         = "SCAN_AREA.AREA:HEIGHT";
+   public static final String ATTR_SCANAREA_SYSTEM         = "SCAN_AREA.AREA:SYSTEM";
+   public static final String ATTR_SCANAREA_TYPE           = "SCAN_AREA.AREA:TYPE";
+   public static final String ATTR_SCANAREA_PA             = "SCAN_AREA.AREA.PA";
+   public static final String ATTR_SCANAREA_SCAN_VELOCITY  = "SCAN_AREA.SCAN:VELOCITY";
+   public static final String ATTR_SCANAREA_SCAN_SYSTEM    = "SCAN_AREA.SCAN:SYSTEM";
+   public static final String ATTR_SCANAREA_SCAN_DY        = "SCAN_AREA.SCAN:DY";
+   public static final String ATTR_SCANAREA_SCAN_REVERSAL  = "SCAN_AREA.SCAN:REVERSAL";
+   public static final String ATTR_SCANAREA_SCAN_TIMESTEP  = "SCAN_AREA.SCAN:TIME_STEP";
+   public static final String ATTR_SCANAREA_SCAN_TYPE      = "SCAN_AREA.SCAN:TYPE";
 
+
+   /**
+    * Systems for scan area map.
+    *
+    * "TRACKING", "AZEL", "MOUNT", "FPLANE".
+    *
+    * Default is SCANAREA_SYSTEMS[0] = "TRACKING".
+    *
+    * Corresponding TCS XML:
+    * Refers to TCS XML:
+    * <pre>
+    * &lt;SCAN_AREA&gt;
+    *   &lt;AREA SYSTEM="TRACKING"&gt;
+    *   &lt;/AREA&gt;
+    * &lt;SCAN_AREA&gt;
+    * </pre>
+    */
+   public static final String [] SCANAREA_SYSTEMS = { "TRACKING", "AZEL", "MOUNT", "FPLANE" };
+
+   /**
+    * Systems for chopping.
+    *
+    * "TRACKING", "AZEL", "MOUNT", "FPLANE", "SCAN".
+    *
+    * Default is CHOP_SYSTEMS[0] = "TRACKING".
+    *
+    * Corresponding TCS XML:
+    * Refers to TCS XML:
+    * <pre>
+    * &lt;CHOP SYSTEM="TRACKING"&gt;
+    * &lt;/CHOP&gt;
+    * </pre>
+    */
+   public static final String [] CHOP_SYSTEMS     = { "TRACKING", "AZEL", "MOUNT", "FPLANE", "SCAN" };
 
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
