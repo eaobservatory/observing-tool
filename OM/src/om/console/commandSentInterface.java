@@ -32,9 +32,17 @@ public interface commandSentInterface extends Remote
   public void setMovie(int i) throws RemoteException;
   public void startMovie(String s) throws RemoteException;
   public void stopMovie() throws RemoteException;
+  public void call_Back(String str) throws RemoteException;
+  public void call_s_Back(String str) throws RemoteException;
+  public void call_Mask(String str) throws RemoteException;
+  public void call_s_Mask(String str) throws RemoteException;
   public void applyQlook(String cutRow, String backFile) throws RemoteException;
+  public void applyQlook(String cutRow, String backFile, String mode) throws RemoteException;
+  public void switchMode(String mode) throws RemoteException;
   public void setTCSconnected() throws RemoteException;
   public void setTCSdisconnected() throws RemoteException;
+//   public void linkRemoteFrame (remoteFrame f) throws RemoteException;
+//   public void linkMovieFrame (movie m) throws RemoteException;
 }
 
 

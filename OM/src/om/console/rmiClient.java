@@ -53,7 +53,7 @@ final public class rmiClient
 	System.out.println ("Inst is "+inst);
 
 	String s=h.getString().toString();
-	System.out.println ("s = "+s);
+	System.out.println (s);
 
 	messageServer messager=new messageServer(inst, new FrameList());
 
@@ -67,7 +67,6 @@ final public class rmiClient
 	// Get the model and create a sequence Frame from the model
 	myFrameModel model=(myFrameModel) h.getFrameModel();
 	sequenceFrame temp=new sequenceFrame(model,com);
-	
 	// link the new messagerServer to the local panels in the Frame
 	temp.setLinks(messager);
 	

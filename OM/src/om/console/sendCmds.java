@@ -286,12 +286,13 @@ final public class sendCmds implements java.io.Serializable
       int temp=seqPanel.getMyList().getSelectedIndex();
       int shift=1;
       
-      if(_movie.isVisible())
-	{
-	  new messageBox("You have to close the Movie frame first, Sorry!");
-	  return;
-	}
-      
+      if (_movie!=null) {
+	if(_movie.isVisible())
+	  {
+	    new messageBox("You have to close the Movie frame first, Sorry!");
+	    return;
+	  }
+      }
       
       if (temp<0) temp=0;
 
@@ -474,19 +475,35 @@ final public class sendCmds implements java.io.Serializable
 
   
   public void call_Back(String str) {
-    ((commandSent)c).call_Back(str);
+    try {
+	c.call_Back(str);
+      }   catch (RemoteException re) {
+	System.out.println ("Exception in sendCmds:"+re);
+      }
   }
   
   public void call_s_Back(String str) {
-    ((commandSent)c).call_s_Back(str);
+    try {
+      c.call_s_Back(str);
+    }   catch (RemoteException re) {
+      System.out.println ("Exception in sendCmds:"+re);
+    }
   }
   
   public void call_Mask(String str) {
-    ((commandSent)c).call_Mask(str);
+    try {
+      c.call_Mask(str);
+    }   catch (RemoteException re) {
+      System.out.println ("Exception in sendCmds:"+re);
+    }
   }
   
   public void call_s_Mask(String str) {
-    ((commandSent)c).call_s_Mask(str);
+    try {
+      c.call_s_Mask(str);
+    }   catch (RemoteException re) {
+      System.out.println ("Exception in sendCmds:"+re);
+    }
   }
   
   
@@ -500,18 +517,22 @@ final public class sendCmds implements java.io.Serializable
   */
   public void applyQlook (String cutRow, String backFile, String mode)
     {
-      //try {
-	((commandSent)c).applyQlook(cutRow,backFile, mode);
-      //} catch (RemoteException re) {
-      //  System.out.println ("Exception in sendCmds: "+re);
-      //}
+      try {
+	c.applyQlook(cutRow,backFile, mode);
+      } catch (RemoteException re) {
+        System.out.println ("Exception in sendCmds: "+re);
+      }
     }
   
   /**
    * Switch between imaging and spectroscopy mode.
    */
   public void switchMode (String mode) {
-    ((commandSent)c).switchMode(mode);
+    try {
+      c.switchMode(mode);
+    }   catch (RemoteException re) {
+      System.out.println ("Exception in sendCmds:"+re);
+    }
   }
   
   /**

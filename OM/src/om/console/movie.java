@@ -166,9 +166,12 @@ public final class movie extends JFrame
       pack();
       setResizable(false);
    
-      // make sure the QL_instrument task is set to the same mode as the java interface
-      // (it migth still be running and could be in any mode)
-      cSent.switchMode(_modes[_currentMode]);
+      // make sure the QL_instrument task is set to the same mode as the 
+      // java interface (it might still be running and could be in any mode)
+      // Put this back when we get Michelle running - but need to ensure
+      // do *NOT* send commands to CGS4 or IRCAM as a result.
+      //      cSent.switchMode(_modes[_currentMode]);
+
    }
 
 

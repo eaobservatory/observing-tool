@@ -71,7 +71,7 @@ final public class sequenceFrame extends JFrame
     //a subclass of JPanel
     try { 
 
-      statusDisplay=Class.forName("console."+instrument+"Status");
+      statusDisplay=Class.forName("om.console."+instrument+"Status");
 
     } catch (ClassNotFoundException e) {
       System.out.println ("Error finding status display class for "
@@ -117,9 +117,9 @@ final public class sequenceFrame extends JFrame
     contentPane.add(comPanel,"West");
 
     _movie=new movie(comSent, instrument.equalsIgnoreCase("Michelle"));
-
     comSent.linkSequencePanel(sDisplay);
     comSent.linkMovieFrame(_movie);
+
     // Disable the movie button if inst. is not UFTI or Michelle
     if (!instrument.equals("UFTI") && !instrument.equalsIgnoreCase("Michelle")) {
       System.out.println ("Not UFTI or Michelle, disabling movie");
@@ -153,6 +153,8 @@ final public class sequenceFrame extends JFrame
       setSize(720,760);
     } else if (inst.equals("CGS4")) {
       setSize(720,900);
+    } else if (inst.equals("Michelle")) {
+      setSize(775, 900);
     } else {
       setSize(720,760);
     }
@@ -173,13 +175,13 @@ final public class sequenceFrame extends JFrame
 		      });
     
     Container contentPane = getContentPane();
-    contentPane.setLayout(new BorderLayout(20,20));
+    contentPane.setLayout(new BorderLayout(/*20,20*/));
 
     //select an instrument status display class which must be
     //a subclass of JPanel
     try { 
 
-      statusDisplay=Class.forName("console."+inst+"Status");
+      statusDisplay=Class.forName("om.console."+inst+"Status");
 
     } catch (ClassNotFoundException e) {
       System.out.println ("Error finding status display class for "
@@ -228,17 +230,17 @@ final public class sequenceFrame extends JFrame
     comPanel=new commandPanel(comSent);
     contentPane.add(comPanel,"West");
     
-    _movie=new movie(comSent);
-    
+    _movie=new movie(comSent, inst.equalsIgnoreCase("Michelle"));
     comSent.linkSequencePanel(sDisplay);
     comSent.linkMovieFrame(_movie);
-    // Disable the movie button if inst. is not UFTI (for now)
-    if (!inst.equals("UFTI")) {
-      System.out.println ("Not UFTI, disabling movie");
+
+    // Disable the movie button if inst. is not UFTI or Michelle
+    if (!inst.equals("UFTI") && !inst.equalsIgnoreCase("Michelle")) {
+      System.out.println ("Not UFTI or Michelle, disabling movie");
       comPanel.getButton(6).setVisible(false);
       menus.getMenuItem(6).setVisible(false);
-      
     }
+
   }
 
 
@@ -303,9 +305,9 @@ final public class sequenceFrame extends JFrame
 	}else if (inst.equals("IRCAM3")) {
 	  m.linkIRCAM3Status( (IRCAM3Status) status);
 	}else if (inst.equals("Michelle")) {
-	  m.linkMichelleStatus( (MichelleStatus) status);
+          m.linkMichelleStatus( (MichelleStatus) status);
 	}else if (inst.equals("UIST")) {
-	  m.linkUISTStatus( (UISTStatus) status);
+          m.linkUISTStatus( (UISTStatus) status);
 	}
 
 	m.linkCommandSent(comSent);

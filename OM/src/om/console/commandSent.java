@@ -500,7 +500,7 @@ final public class commandSent extends UnicastRemoteObject
      @return none
      @throws none
  */
-  public void startMovie (String sec)
+  public void startMovie (String sec) throws RemoteException
     {
       // Set up command (hate the hardcoding here...)
       String instTask = System.getProperty (instName, instName);
@@ -519,7 +519,7 @@ final public class commandSent extends UnicastRemoteObject
       }
     }
 
-  public void call_Back(String str) {
+  public void call_Back(String str)  throws RemoteException {
       command=new String("Dobey "+"QL_"+instName+" BACK Argument1="+str+" ");
       
       if((System.getProperty("DBUG_MESS") != null) &&
@@ -534,7 +534,7 @@ final public class commandSent extends UnicastRemoteObject
       }    
   }
   
-  public void call_s_Back(String str) {
+  public void call_s_Back(String str)  throws RemoteException {
       command=new String("Dobey "+"QL_"+instName+" S_BACK Argument1="+str+" ");
       
       if((System.getProperty("DBUG_MESS") != null) &&
@@ -549,7 +549,7 @@ final public class commandSent extends UnicastRemoteObject
       }    
   }
   
-  public void call_Mask(String str) {
+  public void call_Mask(String str) throws RemoteException {
       command=new String("Dobey "+"QL_"+instName+" MASK Argument1="+str+" ");
 
       if((System.getProperty("DBUG_MESS") != null) &&
@@ -564,7 +564,7 @@ final public class commandSent extends UnicastRemoteObject
       }    
   }
   
-  public void call_s_Mask(String str) {
+  public void call_s_Mask(String str) throws RemoteException {
       command=new String("Dobey "+"QL_"+instName+" S_MASK Argument1="+str+" ");
 
       if((System.getProperty("DBUG_MESS") != null) &&
@@ -580,7 +580,7 @@ final public class commandSent extends UnicastRemoteObject
   }
   
   
-  public void applyQlook(String cutRow, String backFile) {
+  public void applyQlook(String cutRow, String backFile)  throws RemoteException {
     applyQlook(cutRow, backFile, "imaging");
   }
   
@@ -592,7 +592,7 @@ final public class commandSent extends UnicastRemoteObject
     @return none
     @throws none
  */
-  public void applyQlook(String cutRow, String backFile, String mode)
+  public void applyQlook(String cutRow, String backFile, String mode)  throws RemoteException
     {
       System.out.println("applyQlook called with mode \"" + mode + "\"");
       
@@ -623,7 +623,7 @@ final public class commandSent extends UnicastRemoteObject
   /**
    * Switch between imaging and spectroscopy mode.
    */
-  public void switchMode(String mode)
+  public void switchMode(String mode)  throws RemoteException
     {
       command=new String ("Dobey "+"QL_"+instName+" SWITCH_MODE Argument1="+mode+" ");
       System.out.println("Sending command \"" + command + "\".");
@@ -643,7 +643,7 @@ final public class commandSent extends UnicastRemoteObject
      @return none
      @throws none
   */
-  public void stopMovie ( )
+  public void stopMovie ( ) throws RemoteException
     {
       // Set up command (hate the hardcoding here...)
       String instTask = System.getProperty (instName, instName);
@@ -713,21 +713,6 @@ final public class commandSent extends UnicastRemoteObject
       
     }
 
-  /** 
-      public void setTitle (String s)
-      sets up command content and calls sendCommand()
-      it will run an action MESSAGE in a drama task MONITOR_***
-
-      @param String
-      @return none
-      @throws RemoteException
-  */
-//    public void setTitle (String s) throws RemoteException
-//      {
-//        // Do nothing. Used to do something stupid, now superceded by
-//        // something more sensible...
-//      }
-  
  /**
     public void setStop (int tag)
     sets up command content and calls sendCommand()
