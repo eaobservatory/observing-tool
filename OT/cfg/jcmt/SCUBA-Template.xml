@@ -1,88 +1,52 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
+  <meta_gui_filename>jcmt_omp_02jul02.xml</meta_gui_filename>
   <title>SCUBA Libraries</title>
-  <meta_gui_filename>library.xml</meta_gui_filename>
   <SpNote type="no" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
-    <note></note>
+    <note> The intention of this library is to provide a series of templates which can be used by investigators  to prepare their observing programs. The library is split into two sections: 
+
+ (a) templates for a selection of routine observations that can be dragged and copied over to 
+     be used to create an observing program. 
+ (b) examples of how existing (shortened) SCUBA programs (previously referred to as observing          templates) translate into OT-based MSBs. 
+
+  The templates and examples should be relatively self-eplanatory, and of course can be readily
+ taylored to fit the exact requirements of the SCUBA science program.  </note>
+    <title>Introductory note on SCUBA libraries and examples</title>
   </SpNote>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
-    <title>Examples of science programs generated using the OT</title>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <title>SCUBA calibration library</title>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note></note>
+      <note>This folder contains templates that should be used for calibration purposes. Here, we have provided examples of the most common modes. Tayloring of examples to the needs of individual programs, for example modifying the chop throw/angle, is straight forward. 
+More involved templates will be included in future releases.  </note>
+      <title>Introductory notes on the SCUBA calibration library templates</title>
     </SpNote>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <SpSiteQualityObsCompRef idref="1"/>
-      <SpSchedConstObsCompRef idref="2"/>
-      <title>high-z QSO MSB</title>
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <priority>Low</priority>
-      <estimatedDuration units="seconds">392.0</estimatedDuration>
-      <SpTelescopeObsCompRef idref="0"/>
-      <SpSiteQualityObsComp id="1" type="oc" subtype="schedInfo">
-        <noiseCalculationTau>0.1</noiseCalculationTau>
-        <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-      </SpSiteQualityObsComp>
-      <SpSchedConstObsComp id="2" type="oc" subtype="schedConstraints">
-        <latest>2032-06-19T17:31:43</latest>
-        <meta_unique>true</meta_unique>
-        <earliest>2002-06-19T17:31:43</earliest>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <minEl>60.0</minEl>
-      </SpSchedConstObsComp>
-      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
-        <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <BASE TYPE="SCIENCE">
-          <target>
-            <targetName>HS</targetName>
-            <spherSystem SYSTEM="J2000">
-              <c1>0:00:00</c1>
-              <c2>0:00:00</c2>
-            </spherSystem>
-          </target>
-        </BASE>
-        <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-      </SpTelescopeObsComp>
-      <SpNote type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>1. make SCUBA noise measurements and perform skydip
-2. point/focus/align instruemnt and telescope
-3. make calibration measurement as appropriate
-4. make pointing and choose quasar target</note>
-      </SpNote>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <title>850/450 um calibration</title>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <standard>true</standard>
+    <SpLibraryFolder type="lf" subtype="none">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <title>SCUBA calibration: photometry mode</title>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="0"/>
         <estimatedDuration units="seconds">196.0</estimatedDuration>
+        <title>850/450 um photometry calibration</title>
+        <priority>Medium</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration at 850um/450um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation 
-is left to the discretion of the observer/TSS. ( An example of a calibration observation where a specific 
-calibration target is required is given in ***).
-
-The following parameters have been set
-for the calibration observation:
-
-
-- bolometers to be calibrated are 
-   H7 (long: 850W) and C14 (short: 450W)    (set in the SCUBA icon)
-
+          <note>This observation provides an example of calibration at 850/450um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
+A number of parameters have been assumed/predetermined, as listed below:
+- the bolometers to be calibrated have been set to H7 on the LONG array and C14 on the SHORT array, with the 850W/450W um filter wheel setting selected. 
 - a chop throw of 60"  in azimuth (set in CHOP sequence)
+- 6 integrations (set in the PHOTOM eye)
 
-- 6 integrations (set in the PHOTOMETRY eye)
-
-A pointing will be made prior to the calibration observation (POINTING eye), as will 
-a skydip (SKYDIP eye). 
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last FOCUS/SKYDIPs were made.  
   </note>
-          <title>Observation notes</title>
+          <title>Template notes</title>
         </SpNote>
-        <SpInstSCUBA type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="0" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>C14</value>
@@ -93,7 +57,7 @@ a skydip (SKYDIP eye).
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <SpIterChop type="ic" subtype="chop">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SECONDARY>
@@ -108,6 +72,20 @@ a skydip (SKYDIP eye).
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <integrations>1</integrations>
             </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.0</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>false</autoTarget>
@@ -121,145 +99,8 @@ a skydip (SKYDIP eye).
           </SpIterChop>
         </SpIterFolder>
       </SpObs>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <title>850W/450Wum photometry</title>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <standard>false</standard>
-        <estimatedDuration units="seconds">196.0</estimatedDuration>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
-          <title>Observation notes</title>
-        </SpNote>
-        <SpSiteQualityObsComp type="oc" subtype="schedInfo">
-          <noiseCalculationTau>0.08</noiseCalculationTau>
-          <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-        </SpSiteQualityObsComp>
-        <SpSchedConstObsComp type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T09:58:12</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T09:58:11</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpInstSCUBA type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>H7</primaryBolometer>
-          <bolometers>
-            <value>C14</value>
-            <value>H7</value>
-          </bolometers>
-          <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <filter>450W:850W</filter>
-        </SpInstSCUBA>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>6</integrations>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
-          </SpIterChop>
-        </SpIterFolder>
-      </SpObs>
-    </SpMSB>
-  </SpLibraryFolder>
-  <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>false</meta_gui_collapsed>
-    <title>SCUBA calibration library</title>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note></note>
-    </SpNote>
-    <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <title>SCUBA calibration: photometry mode</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="3"/>
-        <estimatedDuration units="seconds">196.0</estimatedDuration>
-        <title>850/450 um photometry calibration</title>
-        <priority>Low</priority>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
-        <standard>true</standard>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration at 850/450um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-
-A number of parameters have been assumed/predetermined, as listed below:
-
-- the bolometers to be calibrated have been set to H7 on the LONG array and C14 on the SHORT array, with the 850W/450W um filter wheel setting selected. 
-
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-
-- 6 integrations (set in the JIGGLE eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last FOCUS/SKYDIPs were made.  
-  </note>
-          <title>Observation notes</title>
-        </SpNote>
-        <SpInstSCUBA id="3" type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>H7</primaryBolometer>
-          <bolometers>
-            <value>C14</value>
-            <value>H7</value>
-          </bolometers>
-          <meta_unique>true</meta_unique>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <filter>450W:850W</filter>
-        </SpInstSCUBA>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterSkydipObs type="ic" subtype="skydipObs">
-              <positions>1</positions>
-              <startPosition>Zenith</startPosition>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <integrations>1</integrations>
-            </SpIterSkydipObs>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterFocusObs type="ic" subtype="focusObs">
-              <steps>0.0</steps>
-              <axis>x</axis>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <focusPoints>5</focusPoints>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-            </SpIterFocusObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>6</integrations>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
-          </SpIterChop>
-        </SpIterFolder>
-      </SpObs>
-      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="4"/>
+        <SpInstSCUBARef idref="1"/>
         <estimatedDuration units="seconds">196.0</estimatedDuration>
         <title>750/350 um photometry calibration</title>
         <priority>Medium</priority>
@@ -267,23 +108,16 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration at 750/350um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-
+          <note>This observation provides an example of calibration at 750/350um of the photometry observing mode. Here,  the choice of calibration source and the precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
 A number of parameters have been assumed/predetermined, as listed below:
-
 - the bolometers to be calibrated have been set to H7 on the LONG array and C14 on the SHORT array, with the 750W/350W um filter wheel setting selected. 
-
 - a chop throw of 60"  in azimuth (set in CHOP sequence)
-
-- 6 integrations (set in the PHOTOMETRY eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined 
-at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs
-were made.  
+- 6 integrations (set in the PHOTOM eye)
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
-          <title>Observation notes</title>
+          <title>Template notes</title>
         </SpNote>
-        <SpInstSCUBA id="4" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="1" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>C14</value>
@@ -317,12 +151,18 @@ were made.
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterStareObs type="ic" subtype="stareObs">
               <integrations>6</integrations>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -331,7 +171,7 @@ were made.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="5"/>
+        <SpInstSCUBARef idref="2"/>
         <estimatedDuration units="seconds">196.0</estimatedDuration>
         <title>2000 um photometry calibration</title>
         <priority>Low</priority>
@@ -339,23 +179,15 @@ were made.
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration at 2000 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-
-A number of parameters have been assumed/predetermined, as listed below:
-
+          <note>This observation provides an example of calibration at 2000 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
 - the bolometer to be calibrated is the 2000 um pixel. 
-
 - a chop throw of 60"  in azimuth (set in CHOP sequence)
-
-- 6 integrations (set in the PHOTOMETRY eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined 
-at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs
-were made.  
+- 6 integrations (set in the PHOTOM eye)
+A pointing,  z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
-          <title>Observation notes</title>
+          <title>Template notes</title>
         </SpNote>
-        <SpInstSCUBA id="5" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="2" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -386,12 +218,18 @@ were made.
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterStareObs type="ic" subtype="stareObs">
               <integrations>6</integrations>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -400,7 +238,7 @@ were made.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="6"/>
+        <SpInstSCUBARef idref="3"/>
         <estimatedDuration units="seconds">196.0</estimatedDuration>
         <title>1350 um photometry calibration</title>
         <priority>Low</priority>
@@ -408,23 +246,15 @@ were made.
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration at 1350 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-
-A number of parameters have been assumed/predetermined, as listed below:
-
+          <note>This observation provides an example of calibration at 1350 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
 - the bolometer to be calibrated is the 1350 um pixel. 
-
 - a chop throw of 60"  in azimuth (set in CHOP sequence)
-
-- 6 integrations (set in the PHOTOMETRY eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined 
-at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs
-were made.  
+- 6 integrations (set in the PHOTOM eye)
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpInstSCUBA id="6" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="3" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -455,12 +285,18 @@ were made.
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterStareObs type="ic" subtype="stareObs">
               <integrations>6</integrations>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -469,7 +305,7 @@ were made.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="7"/>
+        <SpInstSCUBARef idref="4"/>
         <estimatedDuration units="seconds">196.0</estimatedDuration>
         <title>1100 um photometry calibration</title>
         <priority>Low</priority>
@@ -477,23 +313,15 @@ were made.
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration at 1100 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. 
-
-A number of parameters have been assumed/predetermined, as listed below:
-
+          <note>This observation provides an example of calibration at 1100 um of the photometry observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS. A number of parameters have been assumed/predetermined, as listed below:
 - the bolometer to be calibrated is the 1100 um pixel. 
-
 - a chop throw of 60"  in azimuth (set in CHOP sequence)
-
-- 6 integrations (set in the PHOTOMETRY eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined 
-at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs
-were made.  
+- 6 integrations (set in the PHOTOM eye)
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpInstSCUBA id="7" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="4" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -524,12 +352,18 @@ were made.
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterStareObs type="ic" subtype="stareObs">
               <integrations>6</integrations>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -540,9 +374,9 @@ were made.
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <title>SCUBA calibration: jiggle map</title>
+      <title>SCUBA calibration: jiggle map mode</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="8"/>
+        <SpInstSCUBARef idref="5"/>
         <estimatedDuration units="seconds">368.0</estimatedDuration>
         <title>850/450 um jiggle map calibration</title>
         <priority>Medium</priority>
@@ -550,23 +384,15 @@ were made.
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 64-position jiggle pattern will be employed to obtain a fully sampled map at both LONG and SHORT wavelengths.   
-
-A number of parameters have been assumed/predetermined, as listed below:
-
+          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 64-position jiggle pattern will be employed to obtain a fully sampled map at both LONG and SHORT wavelengths. A number of parameters have been assumed/predetermined, as listed below:
 - maps map with both arrays will be fully sampled 
-
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-
+- a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined 
-at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs
-were made.  
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpInstSCUBA id="8" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="5" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>
             <value>SHORT</value>
@@ -579,10 +405,10 @@ were made.
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterChop type="ic" subtype="chop">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SECONDARY>
               <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
+                <THROW>120.0</THROW>
                 <PA>90.0</PA>
               </CHOP>
             </SECONDARY>
@@ -600,12 +426,18 @@ were made.
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterJiggleObs type="ic" subtype="jiggleObs">
               <integrations>2</integrations>
               <jigglePattern>DEFAULT</jigglePattern>
@@ -615,31 +447,26 @@ were made.
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="9"/>
+        <SpInstSCUBARef idref="6"/>
         <estimatedDuration units="seconds">122.0</estimatedDuration>
-        <title>450 um jiggle map calibration</title>
+        <title>850 um jiggle map calibration</title>
         <priority>Medium</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 16-position jiggle pattern will be employed, so ONLY data taken with the SHORT array will be fully sampled. 
-
-A number of parameters have been assumed/predetermined, as listed below:
-
-- only the map taken with the SHORT array will be fully sampled 
-
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-
+          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 16-position jiggle pattern will be employed, so ONLY data taken with the LONG array will be fully sampled. A number of parameters have been assumed/predetermined, as listed below:
+- only the map taken with the LONG array will be fully sampled 
+- a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
 
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined  at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined  at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpInstSCUBA id="9" type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>SHORT</primaryBolometer>
-          <bolometers>SHORT</bolometers>
+        <SpInstSCUBA id="6" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>LONG</primaryBolometer>
+          <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
@@ -650,7 +477,7 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SECONDARY>
               <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
+                <THROW>120.0</THROW>
                 <PA>90.0</PA>
               </CHOP>
             </SECONDARY>
@@ -668,12 +495,18 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterJiggleObs type="ic" subtype="jiggleObs">
               <integrations>2</integrations>
               <jigglePattern>DEFAULT</jigglePattern>
@@ -683,25 +516,281 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpInstSCUBARef idref="10"/>
+        <SpInstSCUBARef idref="7"/>
         <estimatedDuration units="seconds">122.0</estimatedDuration>
-        <title>850 um jiggle map calibration</title>
+        <title>450 um jiggle map calibration</title>
         <priority>Medium</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 16-position jiggle pattern will be employed, so ONLY data taken with the LONG array will be fully sampled. 
-
-A number of parameters have been assumed/predetermined, as listed below:
-
-- only the map taken with the LONG array will be fully sampled 
-
-- a chop throw of 60"  in azimuth (set in CHOP sequence)
-
+          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850W/450W um filter selected. A 16-position jiggle pattern will be employed, so ONLY data taken with the SHORT array will be fully sampled. A number of parameters have been assumed/predetermined, as listed below:
+- only the map taken with the SHORT array will be fully sampled 
+- a chop throw of 120"  in azimuth (set in CHOP sequence)
 - 2 integrations (set in the JIGGLE eye)
-
-A pointing and focus will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined  at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined  at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+  </note>
+          <title>Observation notes</title>
+        </SpNote>
+        <SpInstSCUBA id="7" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>SHORT</primaryBolometer>
+          <bolometers>SHORT</bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>450W:850W</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <SpIterChop type="ic" subtype="chop">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SECONDARY>
+              <CHOP SYSTEM="AZEL">
+                <THROW>120.0</THROW>
+                <PA>90.0</PA>
+              </CHOP>
+            </SECONDARY>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.0</steps>
+              <axis>z</axis>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <focusPoints>5</focusPoints>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterJiggleObs type="ic" subtype="jiggleObs">
+              <integrations>2</integrations>
+              <jigglePattern>DEFAULT</jigglePattern>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+            </SpIterJiggleObs>
+          </SpIterChop>
+        </SpIterFolder>
+      </SpObs>
+    </SpLibraryFolder>
+    <SpLibraryFolder type="lf" subtype="none">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <title>SCUBA calibration: scan map mode</title>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="8"/>
+        <estimatedDuration units="seconds">597.75</estimatedDuration>
+        <title>850/450 um scan map calibration</title>
+        <priority>Low</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>true</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation provides an example of calibration of the scan map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from both the LONG and SHORT arrays will be stored, with the 850/450 um filter selected. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+  </note>
+          <title>Observation notes</title>
+        </SpNote>
+        <SpInstSCUBA id="8" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>LONG</primaryBolometer>
+          <bolometers>LONG</bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>450W:850W</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterSkydipObs type="ic" subtype="skydipObs">
+            <positions>1</positions>
+            <startPosition>Zenith</startPosition>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <integrations>1</integrations>
+          </SpIterSkydipObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterFocusObs type="ic" subtype="focusObs">
+            <steps>0.0</steps>
+            <axis>z</axis>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <focusPoints>5</focusPoints>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+          </SpIterFocusObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>30.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>30.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>44.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>44.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>68.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>68.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <integrations>1</integrations>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                    <SCAN DY="60.0" VELOCITY="24.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
+                </obsArea>
+              </SpIterRasterObs>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="9"/>
+        <estimatedDuration units="seconds">802.1785714285713</estimatedDuration>
+        <title>2000 um scan map calibration</title>
+        <priority>Low</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>true</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation provides an example of calibration of the scan map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data is taken using the 2000 um bolometer. The standard Emerson2 chop sequence has been assumed here, with 2 chop angles at each of 3 different chop throws. A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+  </note>
+          <title>Observation notes</title>
+        </SpNote>
+        <SpInstSCUBA id="9" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>P2000</primaryBolometer>
+          <bolometers>P2000</bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>850S:PHOT</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterSkydipObs type="ic" subtype="skydipObs">
+            <positions>1</positions>
+            <startPosition>Zenith</startPosition>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <integrations>1</integrations>
+          </SpIterSkydipObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterFocusObs type="ic" subtype="focusObs">
+            <steps>0.0</steps>
+            <axis>z</axis>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <focusPoints>5</focusPoints>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+          </SpIterFocusObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>127.5</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>127.5</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>187.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>187.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>289.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>289.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <integrations>1</integrations>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                    <SCAN DY="16.5" VELOCITY="56.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
+                </obsArea>
+              </SpIterRasterObs>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpLibraryFolder>
+    <SpLibraryFolder type="lf" subtype="none">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <title>SCUBA calibration: polarimetry mode</title>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="10"/>
+        <estimatedDuration units="seconds">1377.0</estimatedDuration>
+        <title>850 um jiggle map (fully sampled at 850 um ONLY): polarimetry calibration</title>
+        <priority>Medium</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>true</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from the LONG and SHORT arrays will be stored, with the 850/450 um filter selected, however only data taken with the LONG array will be fully-sampled.  A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
   </note>
           <title>Observation notes</title>
         </SpNote>
@@ -736,79 +825,65 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             </SpIterPointingObs>
             <SpIterFocusObs type="ic" subtype="focusObs">
               <steps>0.0</steps>
-              <axis>x</axis>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <focusPoints>5</focusPoints>
-              <autoTarget>true</autoTarget>
+              <autoTarget>false</autoTarget>
               <integrations>1</integrations>
             </SpIterFocusObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>2</integrations>
-              <jigglePattern>DEFAULT</jigglePattern>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterPOL type="ic" subtype="instPOL">
+              <iterConfigList>POLIter</iterConfigList>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <POLIter>
+                <value>0</value>
+                <value>22.5</value>
+                <value>45</value>
+                <value>67.5</value>
+                <value>90</value>
+                <value>112.5</value>
+                <value>135</value>
+                <value>157.5</value>
+                <value>180.0</value>
+                <value>202.5</value>
+                <value>225.0</value>
+                <value>247.5</value>
+                <value>270.0</value>
+                <value>292.5</value>
+                <value>315.0</value>
+                <value>337.5</value>
+                <value></value>
+              </POLIter>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>1</integrations>
+                <jigglePattern>DEFAULT</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterPOL>
           </SpIterChop>
         </SpIterFolder>
       </SpObs>
-    </SpLibraryFolder>
-    <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <title>SCUBA calibration: scan map</title>
-    </SpLibraryFolder>
-    <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <title>SCUBA calibration: polarimetry</title>
-    </SpLibraryFolder>
-  </SpLibraryFolder>
-  <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>false</meta_gui_collapsed>
-    <title>SCUBA observations: templates</title>
-    <SpNote type="no" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note></note>
-    </SpNote>
-    <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <title>SCUBA photometry mode</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="13"/>
-        <SpInstSCUBARef idref="12"/>
-        <estimatedDuration units="seconds">1080.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="11"/>
-        <title>850/450 um photometry</title>
-        <priority>High</priority>
+        <SpInstSCUBARef idref="11"/>
+        <estimatedDuration units="seconds">1377.0</estimatedDuration>
+        <title>450 um jiggle map (fully sampled at 450 um ONLY): polarimetry calibration</title>
+        <priority>Medium</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <standard>false</standard>
+        <standard>true</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+          <note>This observation provides an example of calibration of the jiggle map observing mode. Here,  the choice of calibration source and precise scheduling of the calibration observation is left to the discretion of the observer/TSS.  Data from the LONG and SHORT arrays will be stored, with the 850/450 um filter selected, however only data taken with the SHORT array will be fully-sampled.  A pointing, z-focus and repoint will be made prior to the calibration observation (POINTING and FOCUS  eyes respectively), as will a skydip (SKYDIP eye). The actual sequence will be determined at the time of observing by the TSS/observer, depending on when the last focus/SKYDIPs were made.  
+  </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpSchedConstObsComp id="13" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T09:58:12</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T09:58:11</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="11" type="oc" subtype="targetList">
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-              </spherSystem>
-            </target>
-          </BASE>
-          <meta_unique>true</meta_unique>
-        </SpTelescopeObsComp>
-        <SpInstSCUBA id="12" type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>H7</primaryBolometer>
-          <bolometers>
-            <value>C14</value>
-            <value>H7</value>
-          </bolometers>
+        <SpInstSCUBA id="11" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>SHORT</primaryBolometer>
+          <bolometers>SHORT</bolometers>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <filter>450W:850W</filter>
@@ -823,41 +898,301 @@ A pointing and focus will be made prior to the calibration observation (POINTING
                 <PA>90.0</PA>
               </CHOP>
             </SECONDARY>
+            <SpIterSkydipObs type="ic" subtype="skydipObs">
+              <positions>1</positions>
+              <startPosition>Zenith</startPosition>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <integrations>1</integrations>
+            </SpIterSkydipObs>
             <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <autoTarget>true</autoTarget>
               <integrations>1</integrations>
               <pointingPixel>Automatic</pointingPixel>
             </SpIterPointingObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>40</integrations>
+            <SpIterFocusObs type="ic" subtype="focusObs">
+              <steps>0.0</steps>
+              <axis>z</axis>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
+              <focusPoints>5</focusPoints>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+            </SpIterFocusObs>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterPOL type="ic" subtype="instPOL">
+              <iterConfigList>POLIter</iterConfigList>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <POLIter>
+                <value>0</value>
+                <value>22.5</value>
+                <value>45</value>
+                <value>67.5</value>
+                <value>90</value>
+                <value>112.5</value>
+                <value>135</value>
+                <value>157.5</value>
+                <value>180.0</value>
+                <value>202.5</value>
+                <value>225.0</value>
+                <value>247.5</value>
+                <value>270.0</value>
+                <value>292.5</value>
+                <value>315.0</value>
+                <value>337.5</value>
+                <value></value>
+              </POLIter>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>1</integrations>
+                <jigglePattern>DEFAULT</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterPOL>
           </SpIterChop>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="16"/>
-        <SpInstSCUBARef idref="15"/>
-        <estimatedDuration units="seconds">1080.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="14"/>
-        <title>750/350 um photometry</title>
-        <priority>High</priority>
+        <SpInstSCUBARef idref="13"/>
+        <estimatedDuration units="seconds">1564.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="12"/>
+        <title>850 um photometry: instrumental polarization calibration</title>
+        <priority>Medium</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>true</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation is an example of the sequence of tasks required to make a measurement of the instrumental polarization at 850 um.This is one of the rare examples when a calibration source needs to be defined explicitly.  Here an unpolarized source is required,
+ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop
+setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS
+respectively) as is a skydip.         </note>
+          <title>Observation notes</title>
+        </SpNote>
+        <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName>Mars</targetName>
+              <namedSystem type="major"/>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstSCUBA id="13" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>H7</primaryBolometer>
+          <bolometers>H7</bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>450W:850W</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterSkydipObs type="ic" subtype="skydipObs">
+            <positions>1</positions>
+            <startPosition>Zenith</startPosition>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <integrations>1</integrations>
+          </SpIterSkydipObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterFocusObs type="ic" subtype="focusObs">
+            <steps>0.0</steps>
+            <axis>z</axis>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <focusPoints>5</focusPoints>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+          </SpIterFocusObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterPOL type="ic" subtype="instPOL">
+                <iterConfigList>POLIter</iterConfigList>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <POLIter>
+                  <value>0</value>
+                  <value>22.5</value>
+                  <value>45</value>
+                  <value>67.5</value>
+                  <value>90</value>
+                  <value>112.5</value>
+                  <value>135</value>
+                  <value>157.5</value>
+                  <value>180.0</value>
+                  <value>202.5</value>
+                  <value>225.0</value>
+                  <value>247.5</value>
+                  <value>270.0</value>
+                  <value>292.5</value>
+                  <value>315.0</value>
+                  <value>337.5</value>
+                  <value></value>
+                </POLIter>
+                <SpIterStareObs type="ic" subtype="stareObs">
+                  <integrations>2</integrations>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                </SpIterStareObs>
+              </SpIterPOL>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="15"/>
+        <estimatedDuration units="seconds">1564.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="14"/>
+        <title>450 um photometry: instrumental polarization calibration</title>
+        <priority>Medium</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>true</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation is an example of the sequence of tasks required to make a measurement of the instrumental polarization at 450 um.This is one of the rare examples when a calibration source needs to be defined explicitly.  Here an unpolarized source is required,
+ideally either Mars or Uranus (a little small, angular size-wise). In this example all polarization angles are measured for a single chop throw before moving to the next chop
+setting. A pointing, z-focus and repoint are also include (POINTING eye and FOCUS
+respectively) as is a skydip.         </note>
+          <title>Observation notes</title>
+        </SpNote>
+        <SpTelescopeObsComp id="14" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <namedSystem type="major"/>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstSCUBA id="15" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>C14</primaryBolometer>
+          <bolometers>C14</bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>450W:850W</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterSkydipObs type="ic" subtype="skydipObs">
+            <positions>1</positions>
+            <startPosition>Zenith</startPosition>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <integrations>1</integrations>
+          </SpIterSkydipObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterFocusObs type="ic" subtype="focusObs">
+            <steps>0.0</steps>
+            <axis>z</axis>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <focusPoints>5</focusPoints>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+          </SpIterFocusObs>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterPOL type="ic" subtype="instPOL">
+                <iterConfigList>POLIter</iterConfigList>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <POLIter>
+                  <value>0</value>
+                  <value>22.5</value>
+                  <value>45</value>
+                  <value>67.5</value>
+                  <value>90</value>
+                  <value>112.5</value>
+                  <value>135</value>
+                  <value>157.5</value>
+                  <value>180.0</value>
+                  <value>202.5</value>
+                  <value>225.0</value>
+                  <value>247.5</value>
+                  <value>270.0</value>
+                  <value>292.5</value>
+                  <value>315.0</value>
+                  <value>337.5</value>
+                  <value></value>
+                </POLIter>
+                <SpIterStareObs type="ic" subtype="stareObs">
+                  <integrations>2</integrations>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                </SpIterStareObs>
+              </SpIterPOL>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpLibraryFolder>
+  </SpLibraryFolder>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <title>SCUBA observations: templates</title>
+    <SpNote type="no" subtype="none">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <note>This folder contains templates that provide the basic blocks  with which to build up 
+MSBs and ultimately observing  programs. Examples of both MSBs and simple observing 
+programs are shown in the examples library. Here we have tried to provide examples of
+most common observing modes, with tayloring to specific chop throws and integration times easily done.  </note>
+      <title>Introductory notes on the SCUBA templates</title>
+    </SpNote>
+    <SpLibraryFolder type="lf" subtype="none">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <title>SCUBA photometry mode</title>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="17"/>
+        <estimatedDuration units="seconds">1080.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="16"/>
+        <title>850/450 um photometry</title>
+        <priority>High</priority>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpSchedConstObsComp id="16" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T09:58:12</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T09:58:11</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="14" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="16" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="SCIENCE">
@@ -871,7 +1206,7 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           </BASE>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="15" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="17" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>H7</primaryBolometer>
           <bolometers>
             <value>C14</value>
@@ -883,49 +1218,47 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>40</integrations>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
-          </SpIterChop>
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <integrations>40</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="19"/>
-        <SpInstSCUBARef idref="18"/>
+        <SpInstSCUBARef idref="19"/>
         <estimatedDuration units="seconds">1080.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="17"/>
-        <title>2000 um photometry</title>
+        <SpTelescopeObsCompRef idref="18"/>
+        <title>750/350 um photometry</title>
         <priority>High</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+          <note>This observation is an example of the sequence of tasks required to make a 750/350 um photometry observation. </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpSchedConstObsComp id="19" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T09:58:12</latest>
+        <SpTelescopeObsComp id="18" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T09:58:11</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="17" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -935,9 +1268,73 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="18" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="19" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>H7</primaryBolometer>
+          <bolometers>
+            <value>C14</value>
+            <value>H7</value>
+          </bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>350:750</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <integrations>40</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="21"/>
+        <estimatedDuration units="seconds">1080.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="20"/>
+        <title>2000 um photometry</title>
+        <priority>High</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This observation is an example of the sequence of tasks required to make a photometry observation using the 2000 um bolometer. </note>
+          <title>Observation notes</title>
+        </SpNote>
+        <SpTelescopeObsComp id="20" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstSCUBA id="21" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -946,49 +1343,47 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>40</integrations>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <integrations>40</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="22"/>
-        <SpInstSCUBARef idref="21"/>
+        <SpInstSCUBARef idref="23"/>
         <estimatedDuration units="seconds">1080.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="20"/>
+        <SpTelescopeObsCompRef idref="22"/>
         <title>1350 um photometry</title>
         <priority>High</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+          <note>This observation is an example of the sequence of tasks required to make a photometry observation using the 1350 um bolometer. </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpSchedConstObsComp id="22" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T09:58:12</latest>
+        <SpTelescopeObsComp id="22" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T09:58:11</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="20" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -998,9 +1393,9 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="21" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="23" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1350</primaryBolometer>
           <bolometers>P1350</bolometers>
           <meta_unique>true</meta_unique>
@@ -1009,49 +1404,47 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>40</integrations>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <integrations>40</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="25"/>
-        <SpInstSCUBARef idref="24"/>
+        <SpInstSCUBARef idref="25"/>
         <estimatedDuration units="seconds">1080.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="23"/>
+        <SpTelescopeObsCompRef idref="24"/>
         <title>1100 um photometry</title>
         <priority>High</priority>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+          <note>This observation is an example of the sequence of tasks required to make a photometry observation at 1100 um. </note>
           <title>Observation notes</title>
         </SpNote>
-        <SpSchedConstObsComp id="25" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T09:58:12</latest>
+        <SpTelescopeObsComp id="24" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T09:58:11</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="23" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1061,47 +1454,47 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="24" type="oc" subtype="inst.SCUBA">
-          <primaryBolometer>H7</primaryBolometer>
-          <bolometers>
-            <value>C14</value>
-            <value>H7</value>
-          </bolometers>
+        <SpInstSCUBA id="25" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>P1100</primaryBolometer>
+          <bolometers>P1100</bolometers>
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <filter>450W:850W</filter>
+          <filter>PHOT</filter>
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <integrations>40</integrations>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterStareObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <integrations>40</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterStareObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA jiggle map mode</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="28"/>
         <SpInstSCUBARef idref="27"/>
         <estimatedDuration units="seconds">1680.0</estimatedDuration>
         <SpTelescopeObsCompRef idref="26"/>
@@ -1109,14 +1502,9 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="28" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
         <SpTelescopeObsComp id="26" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1126,7 +1514,7 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpInstSCUBA id="27" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
@@ -1139,46 +1527,42 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>10</integrations>
-              <jigglePattern>DEFAULT</jigglePattern>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>10</integrations>
+                <jigglePattern>DEFAULT</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="31"/>
-        <SpInstSCUBARef idref="30"/>
-        <estimatedDuration units="seconds">165.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="29"/>
-        <title>2000 um jiggle map (fully sampled)</title>
+        <SpInstSCUBARef idref="29"/>
+        <estimatedDuration units="seconds">1680.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="28"/>
+        <title>750/350 um jiggle map (fully sampled at both 750/350 um )</title>
         <priority>Low</priority>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="31" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="29" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="28" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="SCIENCE">
@@ -1192,7 +1576,67 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           </BASE>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="30" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="29" type="oc" subtype="inst.SCUBA">
+          <primaryBolometer>LONG</primaryBolometer>
+          <bolometers>
+            <value>SHORT</value>
+            <value>LONG</value>
+          </bolometers>
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <filter>350:750</filter>
+        </SpInstSCUBA>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>10</integrations>
+                <jigglePattern>DEFAULT</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <SpInstSCUBARef idref="31"/>
+        <estimatedDuration units="seconds">790.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="30"/>
+        <title>2000 um jiggle map (fully sampled)</title>
+        <priority>Medium</priority>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpTelescopeObsComp id="30" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
+        <SpInstSCUBA id="31" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -1200,45 +1644,41 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           <filter>850S:PHOT</filter>
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>1</integrations>
-              <jigglePattern>7X7</jigglePattern>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>6</integrations>
+                <jigglePattern>7X7</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="34"/>
         <SpInstSCUBARef idref="33"/>
         <estimatedDuration units="seconds">165.0</estimatedDuration>
         <SpTelescopeObsCompRef idref="32"/>
         <title>1350 um jiggle map (fully sampled)</title>
-        <priority>Low</priority>
+        <priority>Medium</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="34" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
         <SpTelescopeObsComp id="32" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1262,45 +1702,41 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>1</integrations>
-              <jigglePattern>7X7</jigglePattern>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>1</integrations>
+                <jigglePattern>7X7</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="37"/>
-        <SpInstSCUBARef idref="36"/>
+        <SpInstSCUBARef idref="35"/>
         <estimatedDuration units="seconds">165.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="35"/>
+        <SpTelescopeObsCompRef idref="34"/>
         <title>1100 um jiggle map (fully sampled)</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="37" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
-          <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="35" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="34" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <BASE TYPE="SCIENCE">
@@ -1314,7 +1750,7 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           </BASE>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="36" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="35" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P1100</primaryBolometer>
           <bolometers>P1100</bolometers>
           <meta_unique>true</meta_unique>
@@ -1323,45 +1759,43 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>false</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>1</integrations>
-              <jigglePattern>7X7</jigglePattern>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>1</integrations>
+                <jigglePattern>7X7</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="40"/>
-        <SpInstSCUBARef idref="39"/>
+        <SpInstSCUBARef idref="37"/>
         <estimatedDuration units="seconds">450.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="38"/>
+        <SpTelescopeObsCompRef idref="36"/>
         <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="40" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
+        <SpTelescopeObsComp id="36" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1371,9 +1805,9 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="37" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -1381,46 +1815,44 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>10</integrations>
-              <jigglePattern>DEFAULT</jigglePattern>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>10</integrations>
+                <jigglePattern>DEFAULT</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="43"/>
-        <SpInstSCUBARef idref="42"/>
+        <SpInstSCUBARef idref="39"/>
         <estimatedDuration units="seconds">450.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="41"/>
+        <SpTelescopeObsCompRef idref="38"/>
         <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
         <priority>Medium</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="43" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
+        <SpTelescopeObsComp id="38" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="41" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1430,9 +1862,9 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="42" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="39" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>SHORT</primaryBolometer>
           <bolometers>SHORT</bolometers>
           <meta_unique>true</meta_unique>
@@ -1440,50 +1872,48 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           <filter>450W:850W</filter>
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="AZEL">
-                <THROW>60.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterPointingObs type="ic" subtype="pointingObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <autoTarget>true</autoTarget>
-              <integrations>1</integrations>
-              <pointingPixel>Automatic</pointingPixel>
-            </SpIterPointingObs>
-            <SpIterJiggleObs type="ic" subtype="jiggleObs">
-              <integrations>10</integrations>
-              <jigglePattern>DEFAULT</jigglePattern>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-            </SpIterJiggleObs>
-          </SpIterChop>
+            <autoTarget>true</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>120.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                <integrations>10</integrations>
+                <jigglePattern>DEFAULT</jigglePattern>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+              </SpIterJiggleObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>SCUBA scan map mode</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="46"/>
-        <SpInstSCUBARef idref="45"/>
+        <SpInstSCUBARef idref="41"/>
         <estimatedDuration units="seconds">597.75</estimatedDuration>
-        <SpTelescopeObsCompRef idref="44"/>
+        <SpTelescopeObsCompRef idref="40"/>
         <title>850/450 um scan map</title>
         <priority>Low</priority>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="46" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
+        <SpTelescopeObsComp id="40" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="44" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1493,9 +1923,9 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="41" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>LONG</primaryBolometer>
           <bolometers>LONG</bolometers>
           <meta_unique>true</meta_unique>
@@ -1504,66 +1934,70 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>30.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>30.0</THROW>
-                <PA>0.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="AZEL">
-                <THROW>44.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>44.0</THROW>
-                <PA>0.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>68.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>68.0</THROW>
-                <PA>0.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterRasterObs type="ic" subtype="rasterObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <integrations>1</integrations>
-              <obsArea>
-                <PA>0.0</PA>
-                <SCAN_AREA>
-                  <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                  <SCAN DY="60.0" VELOCITY="24.0" SYSTEM="FPLANE">
-                  </SCAN>
-                </SCAN_AREA>
-              </obsArea>
-            </SpIterRasterObs>
-          </SpIterChop>
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>true</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>30.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>30.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>44.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>44.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>68.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>68.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <integrations>1</integrations>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                    <SCAN DY="60.0" VELOCITY="24.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
+                </obsArea>
+              </SpIterRasterObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-        <SpSchedConstObsCompRef idref="49"/>
-        <SpInstSCUBARef idref="48"/>
+        <SpInstSCUBARef idref="43"/>
         <estimatedDuration units="seconds">597.75</estimatedDuration>
-        <SpTelescopeObsCompRef idref="47"/>
+        <SpTelescopeObsCompRef idref="42"/>
         <title>2000 um scan map</title>
         <priority>Low</priority>
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <standard>false</standard>
-        <SpSchedConstObsComp id="49" type="oc" subtype="schedConstraints">
-          <latest>2032-06-19T11:07:38</latest>
+        <SpTelescopeObsComp id="42" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
-          <earliest>2002-06-19T11:07:38</earliest>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <minEl>30.0</minEl>
-        </SpSchedConstObsComp>
-        <SpTelescopeObsComp id="47" type="oc" subtype="targetList">
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -1573,9 +2007,9 @@ A pointing and focus will be made prior to the calibration observation (POINTING
               </spherSystem>
             </target>
           </BASE>
-          <meta_unique>true</meta_unique>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
-        <SpInstSCUBA id="48" type="oc" subtype="inst.SCUBA">
+        <SpInstSCUBA id="43" type="oc" subtype="inst.SCUBA">
           <primaryBolometer>P2000</primaryBolometer>
           <bolometers>P2000</bolometers>
           <meta_unique>true</meta_unique>
@@ -1584,47 +2018,57 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         </SpInstSCUBA>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterChop type="ic" subtype="chop">
+          <SpIterPointingObs type="ic" subtype="pointingObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SECONDARY>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>127.5</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>127.5</THROW>
-                <PA>0.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="AZEL">
-                <THROW>187.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>187.0</THROW>
-                <PA>0.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>289.0</THROW>
-                <PA>90.0</PA>
-              </CHOP>
-              <CHOP SYSTEM="TRACKING">
-                <THROW>289.0</THROW>
-                <PA>0.0</PA>
-              </CHOP>
-            </SECONDARY>
-            <SpIterRasterObs type="ic" subtype="rasterObs">
+            <autoTarget>false</autoTarget>
+            <integrations>1</integrations>
+            <pointingPixel>Automatic</pointingPixel>
+          </SpIterPointingObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <repeatCount>1</repeatCount>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <integrations>1</integrations>
-              <obsArea>
-                <PA>0.0</PA>
-                <SCAN_AREA>
-                  <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                  <SCAN DY="60.0" VELOCITY="24.0" SYSTEM="FPLANE">
-                  </SCAN>
-                </SCAN_AREA>
-              </obsArea>
-            </SpIterRasterObs>
-          </SpIterChop>
+              <SECONDARY>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>127.5</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>127.5</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>187.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>187.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>289.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+                <CHOP SYSTEM="TRACKING">
+                  <THROW>289.0</THROW>
+                  <PA>0.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterRasterObs type="ic" subtype="rasterObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <integrations>1</integrations>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <SCAN_AREA>
+                    <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                    <SCAN DY="60.0" VELOCITY="24.0" SYSTEM="FPLANE">
+                    </SCAN>
+                  </SCAN_AREA>
+                </obsArea>
+              </SpIterRasterObs>
+            </SpIterChop>
+          </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpLibraryFolder>
@@ -1635,27 +2079,188 @@ A pointing and focus will be made prior to the calibration observation (POINTING
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <title>SCUBA polarimetry: jiggle map mode</title>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSiteQualityObsCompRef idref="52"/>
-          <SpSchedConstObsCompRef idref="53"/>
-          <SpInstSCUBARef idref="51"/>
-          <estimatedDuration units="seconds">1020.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="50"/>
+          <SpSiteQualityObsCompRef idref="46"/>
+          <SpSchedConstObsCompRef idref="47"/>
+          <SpInstSCUBARef idref="45"/>
+          <estimatedDuration units="seconds">3264.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="44"/>
           <title>850/450 um jiggle map (fully sampled at both 850/450 um )</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpSiteQualityObsComp id="52" type="oc" subtype="schedInfo">
+          <SpSiteQualityObsComp id="46" type="oc" subtype="schedInfo">
             <noiseCalculationTau>0.08</noiseCalculationTau>
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
           </SpSiteQualityObsComp>
-          <SpSchedConstObsComp id="53" type="oc" subtype="schedConstraints">
+          <SpSchedConstObsComp id="47" type="oc" subtype="schedConstraints">
             <latest>2032-06-19T11:07:38</latest>
             <meta_unique>true</meta_unique>
             <earliest>2002-06-19T11:07:38</earliest>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <minEl>30.0</minEl>
           </SpSchedConstObsComp>
+          <SpTelescopeObsComp id="44" type="oc" subtype="targetList">
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpInstSCUBA id="45" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>LONG</primaryBolometer>
+            <bolometers>
+              <value>SHORT</value>
+              <value>LONG</value>
+            </bolometers>
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <filter>450W:850W</filter>
+          </SpInstSCUBA>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterRepeat type="ic" subtype="repeat">
+                <repeatCount>1</repeatCount>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                    <integrations>1</integrations>
+                    <jigglePattern>DEFAULT</jigglePattern>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterJiggleObs>
+                </SpIterPOL>
+              </SpIterRepeat>
+            </SpIterChop>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+          <SpInstSCUBARef idref="49"/>
+          <estimatedDuration units="seconds">2640.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="48"/>
+          <title>2000 um jiggle map (fully sampled)</title>
+          <priority>Low</priority>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>false</standard>
+          <SpTelescopeObsComp id="48" type="oc" subtype="targetList">
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpInstSCUBA id="49" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>P2000</primaryBolometer>
+            <bolometers>P2000</bolometers>
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <filter>850S:PHOT</filter>
+          </SpInstSCUBA>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                    <integrations>1</integrations>
+                    <jigglePattern>7X7</jigglePattern>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterJiggleObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+          <SpInstSCUBARef idref="51"/>
+          <estimatedDuration units="seconds">2640.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="50"/>
+          <title>1350 um jiggle map (fully sampled)</title>
+          <priority>Low</priority>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>false</standard>
           <SpTelescopeObsComp id="50" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1671,17 +2276,20 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
           <SpInstSCUBA id="51" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>LONG</primaryBolometer>
-            <bolometers>
-              <value>SHORT</value>
-              <value>LONG</value>
-            </bolometers>
+            <primaryBolometer>P1350</primaryBolometer>
+            <bolometers>P1350</bolometers>
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>450W:850W</filter>
+            <filter>850S:PHOT</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
             <SpIterChop type="ic" subtype="chop">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <SECONDARY>
@@ -1690,47 +2298,127 @@ A pointing and focus will be made prior to the calibration observation (POINTING
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
+              <SpIterRepeat type="ic" subtype="repeat">
+                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <iterConfigList>POLIter</iterConfigList>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <POLIter>
-                  <value>0</value>
-                  <value>45</value>
-                  <value>22.5</value>
-                  <value>67.5</value>
-                  <value></value>
-                </POLIter>
-                <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                  <integrations>1</integrations>
-                  <jigglePattern>DEFAULT</jigglePattern>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterJiggleObs>
-              </SpIterPOL>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                    <integrations>1</integrations>
+                    <jigglePattern>7X7</jigglePattern>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterJiggleObs>
+                </SpIterPOL>
+              </SpIterRepeat>
             </SpIterChop>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSchedConstObsCompRef idref="56"/>
-          <SpInstSCUBARef idref="55"/>
-          <estimatedDuration units="seconds">0.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="54"/>
-          <title>2000 um jiggle map (fully sampled)</title>
+          <SpInstSCUBARef idref="53"/>
+          <estimatedDuration units="seconds">2640.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="52"/>
+          <title>1100 um jiggle map (fully sampled)</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpSchedConstObsComp id="56" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T11:07:38</latest>
+          <SpTelescopeObsComp id="52" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T11:07:38</earliest>
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpInstSCUBA id="53" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>P1100</primaryBolometer>
+            <bolometers>P1100</bolometers>
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <filter>850S:PHOT</filter>
+          </SpInstSCUBA>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                    <integrations>1</integrations>
+                    <jigglePattern>7X7</jigglePattern>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterJiggleObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+          <SpInstSCUBARef idref="55"/>
+          <estimatedDuration units="seconds">1296.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="54"/>
+          <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
+          <priority>Medium</priority>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>false</standard>
           <SpTelescopeObsComp id="54" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1746,56 +2434,71 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
           <SpInstSCUBA id="55" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>P2000</primaryBolometer>
-            <bolometers>P2000</bolometers>
+            <primaryBolometer>LONG</primaryBolometer>
+            <bolometers>LONG</bolometers>
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>850S:PHOT</filter>
+            <filter>450W:850W</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
+            <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                  <integrations>1</integrations>
-                  <jigglePattern>7X7</jigglePattern>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterJiggleObs>
-              </SpIterPOL>
-            </SpIterChop>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                    <integrations>1</integrations>
+                    <jigglePattern>DEFAULT</jigglePattern>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterJiggleObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSchedConstObsCompRef idref="59"/>
-          <SpInstSCUBARef idref="58"/>
-          <estimatedDuration units="seconds">0.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="57"/>
-          <title>1350 um jiggle map (fully sampled)</title>
+          <SpInstSCUBARef idref="57"/>
+          <estimatedDuration units="seconds">1296.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="56"/>
+          <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
           <priority>Low</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpSchedConstObsComp id="59" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T11:07:38</latest>
-            <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T11:07:38</earliest>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
-          <SpTelescopeObsComp id="57" type="oc" subtype="targetList">
+          <SpTelescopeObsComp id="56" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -1809,59 +2512,164 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="58" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>P1350</primaryBolometer>
-            <bolometers>P1350</bolometers>
+          <SpInstSCUBA id="57" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>SHORT</primaryBolometer>
+            <bolometers>SHORT</bolometers>
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>850S:PHOT</filter>
+            <filter>450W:850W</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
+                  <meta_gui_collapsed>true</meta_gui_collapsed>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterJiggleObs type="ic" subtype="jiggleObs">
+                    <integrations>1</integrations>
+                    <jigglePattern>DEFAULT</jigglePattern>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterJiggleObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+      </SpLibraryFolder>
+      <SpLibraryFolder type="lf" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <title>SCUBA polarimetry: photometry mode</title>
+        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+          <SpInstSCUBARef idref="59"/>
+          <estimatedDuration units="seconds">3136.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="58"/>
+          <title>850 um photometry polarimetry</title>
+          <priority>Medium</priority>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <standard>false</standard>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>This observation is an example of the sequence of tasks required to make an 850 um polarimetry photometry observation. Note that this observation will be made without any jiggling of the secondary.   </note>
+            <title>Observation notes</title>
+          </SpNote>
+          <SpTelescopeObsComp id="58" type="oc" subtype="targetList">
+            <meta_unique>true</meta_unique>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpInstSCUBA id="59" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>H7</primaryBolometer>
+            <bolometers>H7</bolometers>
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <filter>450W:850W</filter>
+          </SpInstSCUBA>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                  <integrations>1</integrations>
-                  <jigglePattern>7X7</jigglePattern>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterJiggleObs>
-              </SpIterPOL>
-            </SpIterChop>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterStareObs type="ic" subtype="stareObs">
+                    <integrations>6</integrations>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterStareObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSchedConstObsCompRef idref="62"/>
           <SpInstSCUBARef idref="61"/>
-          <estimatedDuration units="seconds">0.0</estimatedDuration>
+          <estimatedDuration units="seconds">3136.0</estimatedDuration>
           <SpTelescopeObsCompRef idref="60"/>
-          <title>1100 um jiggle map (fully sampled)</title>
-          <priority>Low</priority>
+          <title>450 um photometry polarimetry</title>
+          <priority>Medium</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpSchedConstObsComp id="62" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T11:07:38</latest>
-            <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T11:07:38</earliest>
+          <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
+            <note>This observation is an example of the sequence of tasks required to make a 450um polarimetry photometry observation. Note that this observation will be made without any jiggling of the secondary mirror.  </note>
+            <title>Observation notes</title>
+          </SpNote>
           <SpTelescopeObsComp id="60" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
               <target>
                 <targetName></targetName>
@@ -1874,56 +2682,163 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
           <SpInstSCUBA id="61" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>P1100</primaryBolometer>
-            <bolometers>P1100</bolometers>
+            <primaryBolometer>C14</primaryBolometer>
+            <bolometers>C14</bolometers>
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>850S:PHOT</filter>
+            <filter>450W:850W</filter>
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                  <integrations>1</integrations>
-                  <jigglePattern>7X7</jigglePattern>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterJiggleObs>
-              </SpIterPOL>
-            </SpIterChop>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterStareObs type="ic" subtype="stareObs">
+                    <integrations>6</integrations>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterStareObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSchedConstObsCompRef idref="65"/>
-          <SpInstSCUBARef idref="64"/>
-          <estimatedDuration units="seconds">0.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="63"/>
-          <title>850 um jiggle map (fully sampled at 850 um ONLY)</title>
-          <priority>Low</priority>
+          <SpInstSCUBARef idref="63"/>
+          <estimatedDuration units="seconds">3136.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="62"/>
+          <title>1350 um photometry polarimetry</title>
+          <priority>High</priority>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <SpSchedConstObsComp id="65" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T11:07:38</latest>
-            <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T11:07:38</earliest>
+          <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
-          <SpTelescopeObsComp id="63" type="oc" subtype="targetList">
+            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
+            <title>Observation notes</title>
+          </SpNote>
+          <SpTelescopeObsComp id="62" type="oc" subtype="targetList">
+            <meta_unique>true</meta_unique>
+            <BASE TYPE="SCIENCE">
+              <target>
+                <targetName></targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                </spherSystem>
+              </target>
+            </BASE>
+            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          </SpTelescopeObsComp>
+          <SpInstSCUBA id="63" type="oc" subtype="inst.SCUBA">
+            <primaryBolometer>P1350</primaryBolometer>
+            <bolometers>P1350</bolometers>
+            <meta_unique>true</meta_unique>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <filter>PHOT</filter>
+          </SpInstSCUBA>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <SpIterPointingObs type="ic" subtype="pointingObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <autoTarget>true</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SpIterChop type="ic" subtype="chop">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <SECONDARY>
+                  <CHOP SYSTEM="AZEL">
+                    <THROW>60.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterStareObs type="ic" subtype="stareObs">
+                    <integrations>6</integrations>
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                  </SpIterStareObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+      </SpLibraryFolder>
+      <SpLibraryFolder type="lf" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <title>SCUBA polarimetry: scan map mode</title>
+        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+          <SpInstSCUBARef idref="65"/>
+          <estimatedDuration units="seconds">6376.0</estimatedDuration>
+          <SpTelescopeObsCompRef idref="64"/>
+          <title>850/450 um scan map polarimetry</title>
+          <priority>Low</priority>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <standard>false</standard>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note> Scan map polarimetry is a difficult observing mode in which to obtain high quality 
+ data. The limiting factor becomes that of sky variability. In this mode we have 
+ assumed that it is optimal to make 4 raster scans instead of the usual 6 that are employed for the Emerson2 scanning scheme, and that the 4 scans are made for each of  the polarization grid angles. Under some circumstances it may be preferable to make       observations at each of the grid angles before moving to a different scan throw/angle.     
+  </note>
+          </SpNote>
+          <SpTelescopeObsComp id="64" type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <BASE TYPE="SCIENCE">
@@ -1937,7 +2852,7 @@ A pointing and focus will be made prior to the calibration observation (POINTING
             </BASE>
             <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           </SpTelescopeObsComp>
-          <SpInstSCUBA id="64" type="oc" subtype="inst.SCUBA">
+          <SpInstSCUBA id="65" type="oc" subtype="inst.SCUBA">
             <primaryBolometer>LONG</primaryBolometer>
             <bolometers>LONG</bolometers>
             <meta_unique>true</meta_unique>
@@ -1946,231 +2861,71 @@ A pointing and focus will be made prior to the calibration observation (POINTING
           </SpInstSCUBA>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
+            <SpIterPointingObs type="ic" subtype="pointingObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                  <integrations>1</integrations>
-                  <jigglePattern>DEFAULT</jigglePattern>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterJiggleObs>
-              </SpIterPOL>
-            </SpIterChop>
-          </SpIterFolder>
-        </SpObs>
-        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSiteQualityObsCompRef idref="68"/>
-          <SpSchedConstObsCompRef idref="69"/>
-          <SpInstSCUBARef idref="67"/>
-          <estimatedDuration units="seconds">0.0</estimatedDuration>
-          <SpTelescopeObsCompRef idref="66"/>
-          <title>450 um jiggle map (fully sampled at 450 um ONLY)</title>
-          <priority>Low</priority>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <standard>false</standard>
-          <SpSiteQualityObsComp id="68" type="oc" subtype="schedInfo">
-            <noiseCalculationTau>0.08</noiseCalculationTau>
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-          </SpSiteQualityObsComp>
-          <SpSchedConstObsComp id="69" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T11:07:38</latest>
-            <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T11:07:38</earliest>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
-          <SpTelescopeObsComp id="66" type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="SCIENCE">
-              <target>
-                <targetName></targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
-          <SpInstSCUBA id="67" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>SHORT</primaryBolometer>
-            <bolometers>SHORT</bolometers>
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>450W:850W</filter>
-          </SpInstSCUBA>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
+              <autoTarget>false</autoTarget>
+              <integrations>1</integrations>
+              <pointingPixel>Automatic</pointingPixel>
+            </SpIterPointingObs>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
+              <SpIterChop type="ic" subtype="chop">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterJiggleObs type="ic" subtype="jiggleObs">
-                  <integrations>1</integrations>
-                  <jigglePattern>DEFAULT</jigglePattern>
+                <SECONDARY>
+                  <CHOP SYSTEM="TRACKING">
+                    <THROW>44.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                  <CHOP SYSTEM="TRACKING">
+                    <THROW>44.0</THROW>
+                    <PA>0.0</PA>
+                  </CHOP>
+                  <CHOP SYSTEM="TRACKING">
+                    <THROW>68.0</THROW>
+                    <PA>90.0</PA>
+                  </CHOP>
+                  <CHOP SYSTEM="TRACKING">
+                    <THROW>68.0</THROW>
+                    <PA>0.0</PA>
+                  </CHOP>
+                </SECONDARY>
+                <SpIterPOL type="ic" subtype="instPOL">
+                  <iterConfigList>POLIter</iterConfigList>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterJiggleObs>
-              </SpIterPOL>
-            </SpIterChop>
-          </SpIterFolder>
-        </SpObs>
-      </SpLibraryFolder>
-      <SpLibraryFolder type="lf" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
-        <title>SCUBA polarimetry: photometry mode</title>
-        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSchedConstObsCompRef idref="71"/>
-          <SpInstSCUBARef idref="70"/>
-          <estimatedDuration units="seconds">980.0</estimatedDuration>
-          <title>850/450 um photometry polarimetry</title>
-          <priority>Medium</priority>
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <standard>false</standard>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
-            <title>Observation notes</title>
-          </SpNote>
-          <SpSchedConstObsComp id="71" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T09:58:12</latest>
-            <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T09:58:11</earliest>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
-          <SpInstSCUBA id="70" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>H7</primaryBolometer>
-            <bolometers>
-              <value>C14</value>
-              <value>H7</value>
-            </bolometers>
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>450W:850W</filter>
-          </SpInstSCUBA>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <iterConfigList>POLIter</iterConfigList>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <POLIter>
-                  <value>0</value>
-                  <value>45</value>
-                  <value>22.5</value>
-                  <value>67.5</value>
-                  <value></value>
-                </POLIter>
-                <SpIterStareObs type="ic" subtype="stareObs">
-                  <integrations>6</integrations>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterStareObs>
-              </SpIterPOL>
-            </SpIterChop>
-          </SpIterFolder>
-        </SpObs>
-        <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-          <SpSchedConstObsCompRef idref="73"/>
-          <SpInstSCUBARef idref="72"/>
-          <estimatedDuration units="seconds">980.0</estimatedDuration>
-          <title>1350 um photometry polarimetry</title>
-          <priority>High</priority>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <standard>false</standard>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>This observation is an example of the sequence of tasks required to make an 850/450um photometry observation. </note>
-            <title>Observation notes</title>
-          </SpNote>
-          <SpSchedConstObsComp id="73" type="oc" subtype="schedConstraints">
-            <latest>2032-06-19T09:58:12</latest>
-            <meta_unique>true</meta_unique>
-            <earliest>2002-06-19T09:58:11</earliest>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <minEl>30.0</minEl>
-          </SpSchedConstObsComp>
-          <SpInstSCUBA id="72" type="oc" subtype="inst.SCUBA">
-            <primaryBolometer>H7</primaryBolometer>
-            <bolometers>
-              <value>C14</value>
-              <value>H7</value>
-            </bolometers>
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <filter>450W:850W</filter>
-          </SpInstSCUBA>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterChop type="ic" subtype="chop">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <SECONDARY>
-                <CHOP SYSTEM="AZEL">
-                  <THROW>60.0</THROW>
-                  <PA>90.0</PA>
-                </CHOP>
-              </SECONDARY>
-              <SpIterPointingObs type="ic" subtype="pointingObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <autoTarget>true</autoTarget>
-                <integrations>1</integrations>
-                <pointingPixel>Automatic</pointingPixel>
-              </SpIterPointingObs>
-              <SpIterPOL type="ic" subtype="instPOL">
-                <iterConfigList>POLIter</iterConfigList>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <POLIter>
-                  <value>0</value>
-                  <value>45</value>
-                  <value>22.5</value>
-                  <value>67.5</value>
-                  <value></value>
-                </POLIter>
-                <SpIterStareObs type="ic" subtype="stareObs">
-                  <integrations>6</integrations>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterStareObs>
-              </SpIterPOL>
-            </SpIterChop>
+                  <POLIter>
+                    <value>0</value>
+                    <value>22.5</value>
+                    <value>45</value>
+                    <value>67.5</value>
+                    <value>90</value>
+                    <value>112.5</value>
+                    <value>135</value>
+                    <value>157.5</value>
+                    <value>180.0</value>
+                    <value>202.5</value>
+                    <value>225.0</value>
+                    <value>247.5</value>
+                    <value>270.0</value>
+                    <value>292.5</value>
+                    <value>315.0</value>
+                    <value>337.5</value>
+                  </POLIter>
+                  <SpIterRasterObs type="ic" subtype="rasterObs">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <integrations>1</integrations>
+                    <obsArea>
+                      <PA>0.0</PA>
+                      <SCAN_AREA>
+                        <AREA HEIGHT="180.0" WIDTH="180.0"/>
+                        <SCAN DY="60.0" VELOCITY="24.0" SYSTEM="FPLANE">
+                        </SCAN>
+                      </SCAN_AREA>
+                    </obsArea>
+                  </SpIterRasterObs>
+                </SpIterPOL>
+              </SpIterChop>
+            </SpIterRepeat>
           </SpIterFolder>
         </SpObs>
       </SpLibraryFolder>
