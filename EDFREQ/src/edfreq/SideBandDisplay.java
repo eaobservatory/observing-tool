@@ -22,7 +22,7 @@ import java.io.*;
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SideBandDisplay extends JFrame
+public class SideBandDisplay extends JFrame implements ChangeListener
 {
 
    private double subBandWidth;
@@ -37,24 +37,23 @@ public class SideBandDisplay extends JFrame
    private Box contentPanel;
    private double redshift;
    private FrequencyTable jt;
-   private FrontEnd frontEnd;
+   private HeterodyneEditor hetEditor;
    private Container contentPane;
    private JPanel area1;
    private JPanel area2;
    private JPanel area3;
    private JPanel area4;
+   
+   private boolean _ignoreEvents = false;
 
-   public SideBandDisplay (FrontEnd frontEnd) {   
+   public SideBandDisplay (HeterodyneEditor hetEditor) {   
       super ( "Frequency editor" );
       setResizable ( false );
 
-      setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+      setDefaultCloseOperation(HIDE_ON_CLOSE);
       contentPane = getContentPane();
 
-      //setLocation(200, 200);
-      //setVisible(true);
-
-      this.frontEnd = frontEnd;
+      this.hetEditor = hetEditor;
    }
 
    public void updateDisplay ( String feName, 
@@ -82,15 +81,15 @@ public class SideBandDisplay extends JFrame
       double lowIF = mid - feIF - ( feBandWidth * 0.5 );
       double highIF = mid + feIF + ( feBandWidth * 0.5 );
 
+      el = new EmissionLines ( lowIF, highIF, redshift, 
+        displayWidth, 20, samplerCount );
+
       jt = new FrequencyTable ( feIF, feBandWidth,
         bandWidths, channels,
-        samplerCount, displayWidth, this, frontEnd );
+        samplerCount, displayWidth, this, hetEditor, el);
 
       dataPanel.add ( jt, BorderLayout.CENTER );
 
-
-      el = new EmissionLines ( lowIF, highIF, redshift, 
-        displayWidth, 20 );
       SkyTransmission st = new SkyTransmission ( lowIF, highIF,  
         displayWidth, 80 );
       
@@ -131,6 +130,7 @@ public class SideBandDisplay extends JFrame
       slider.addChangeListener ( (ChangeListener)st );
       slider.addChangeListener ( (ChangeListener)targetScale );
       slider.addChangeListener ( (ChangeListener)localScale );
+      slider.addChangeListener   ( this );
 
       targetPanel = Box.createVerticalBox();
       targetPanel.add ( Box.createVerticalGlue() );
@@ -160,20 +160,20 @@ public class SideBandDisplay extends JFrame
       area1.add ( label1 );
 
       area1.setPreferredSize ( 
-        new Dimension ( 200, (jt.getPreferredSize()).height ) );
+        new Dimension ( 100, (jt.getPreferredSize()).height ) );
       area1.setSize ( 
-        new Dimension ( 200, (jt.getPreferredSize()).height ) );
+        new Dimension ( 100, (jt.getPreferredSize()).height ) );
       titlePanel.add ( area1 );
 
       JLabel label2 = new JLabel ( "Emission lines" );
       area2.add ( label2 );
       area2.setPreferredSize ( 
-        new Dimension ( 200, (targetPanel.getPreferredSize()).height ) );
+        new Dimension ( 100, (targetPanel.getPreferredSize()).height ) );
       area2.setSize ( 
-        new Dimension ( 200, (targetPanel.getPreferredSize()).height ) );
+        new Dimension ( 100, (targetPanel.getPreferredSize()).height ) );
       titlePanel.add ( area2 );
 
-      JLabel label3 = new JLabel ( "Atm. transmission",
+      JLabel label3 = new JLabel ( "Atm. Transm.",
         SwingConstants.CENTER );
       area3.add ( label3, BorderLayout.CENTER );
 
@@ -182,20 +182,20 @@ public class SideBandDisplay extends JFrame
       area3.add ( gs, BorderLayout.EAST );
 
       area3.setPreferredSize ( 
-        new Dimension ( 200, (st.getPreferredSize()).height ) );
+        new Dimension ( 100, (st.getPreferredSize()).height ) );
       area3.setSize ( 
-        new Dimension ( 200, (st.getPreferredSize()).height ) );
+        new Dimension ( 100, (st.getPreferredSize()).height ) );
       titlePanel.add ( area3 );
 
-      JLabel label4 = new JLabel ( "Frontend Frequency",
+      JLabel label4 = new JLabel ( "FE Freq",
        SwingConstants.CENTER );
       JLabel label5 = new JLabel ( "LO1", SwingConstants.CENTER  );
       area4.add ( label4, BorderLayout.NORTH );
       area4.add ( label5, BorderLayout.CENTER );
       area4.setPreferredSize ( 
-        new Dimension ( 200, (scales.getPreferredSize()).height ) );
+        new Dimension ( 100, (scales.getPreferredSize()).height ) );
       area4.setSize ( 
-        new Dimension ( 200, (scales.getPreferredSize()).height ) );
+        new Dimension ( 100, (scales.getPreferredSize()).height ) );
       titlePanel.add ( area4 );
 
       contentPanel.add ( titlePanel );
@@ -211,10 +211,14 @@ public class SideBandDisplay extends JFrame
 
    public void setLO1 ( double lo1 )
    {
+      _ignoreEvents = true;
+
       if(slider != null) {
          int centre = Math.round ( (float)(lo1 / EdFreq.SLIDERSCALE) );
          slider.setValue ( centre );
-      }	 
+      }
+
+      _ignoreEvents = false;
    }
 
    public double getLO1 ( )
@@ -250,25 +254,24 @@ public class SideBandDisplay extends JFrame
    }
 
 
-   public void saveAsASCII ( PrintWriter out )
-   {
-      jt.saveAsASCII ( out );
+   public double getTopSubSystemCentreFrequency() {
+      return ((Sampler)jt.getSamplers()[0]).getCentreFrequency();
    }
 
-
-   public String toXML()
-   {
-      return jt.toXML();
-   }   
-
-   public String toConfigXML(String restFrequencyId, int sideband, String dataReductionXML, String indent) {
-     return jt.toConfigXML(restFrequencyId, sideband, dataReductionXML, indent); 
+   public int getNumSubSystems() {
+      return jt.getSamplers().length;
    }
 
+   public void setCentreFrequency(double centre, int subsystem) {
+      jt.getSamplers()[subsystem].setCentreFrequency(centre);
+   }
 
-   public void update(String xml) throws Exception
-   {
-      jt.update(xml);
+   public void setBandWidth(double width, int subsystem) {
+      jt.getSamplers()[subsystem].setBandWidth(width);
+   }
+
+   public void setLineText(String lineText, int subsystem) {
+      jt.setLineText(lineText, subsystem);
    }
 
    public static void main(String args[]) 
@@ -280,4 +283,12 @@ public class SideBandDisplay extends JFrame
       sbt.setVisible(true);
    }
 
+
+   public void stateChanged(ChangeEvent e) {
+      if(_ignoreEvents) {
+         return;
+      }
+
+      hetEditor.updateLO1(getLO1());
+   }
 }
