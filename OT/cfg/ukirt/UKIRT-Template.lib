@@ -56,7 +56,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -278,7 +278,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -639,7 +639,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -944,7 +944,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -1314,7 +1314,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -1673,7 +1673,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -1987,7 +1987,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -2313,7 +2313,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -2633,7 +2633,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -2927,7 +2927,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -3221,7 +3221,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -3591,7 +3591,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -3914,7 +3914,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -4214,7 +4214,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -4573,7 +4573,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -5092,7 +5092,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -5370,7 +5370,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -5609,7 +5609,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -5761,7 +5761,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -8156,7 +8156,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="starev13big">
@@ -8439,7 +8439,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="starev13big">
@@ -8714,7 +8714,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="starev13big">
@@ -8973,7 +8973,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -9351,7 +9351,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -9630,7 +9630,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -10057,7 +10057,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -10336,7 +10336,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -10763,7 +10763,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -11042,7 +11042,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -11469,7 +11469,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -11748,7 +11748,7 @@
                                     <val value="LowN">
                   </av>
                   <av name=instPort descr="No Description">
-                                    <val value="Centre">
+                                    <val value="North">
                   </av>
                   <av name=waveform descr="No Description">
                                     <val value="ndrv11big">
@@ -12207,7 +12207,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -12715,7 +12715,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -13034,7 +13034,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -13482,7 +13482,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -13798,7 +13798,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -14199,7 +14199,7 @@
             </no>
             <oc name=new type=oc subtype=inst.IRCAM3>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -14630,7 +14630,7 @@
             </no>
             <oc name=new type=oc subtype=inst.IRCAM3>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -15118,7 +15118,7 @@
             </no>
             <oc name=new type=oc subtype=inst.IRCAM3>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -15425,7 +15425,7 @@
             </no>
             <oc name=new type=oc subtype=inst.IRCAM3>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -15729,7 +15729,7 @@
             </no>
             <oc name=new type=oc subtype=inst.IRCAM3>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -16512,7 +16512,7 @@
                               <val value="LowN">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="Centre">
+                              <val value="North">
                </av>
                <av name=waveform descr="No Description">
                               <val value="ndrv11big">
@@ -16910,7 +16910,7 @@
                               <val value="LowN">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="Centre">
+                              <val value="North">
                </av>
                <av name=waveform descr="No Description">
                               <val value="ndrv11big">
@@ -17273,7 +17273,7 @@
                               <val value="LowN">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="Centre">
+                              <val value="North">
                </av>
                <av name=waveform descr="No Description">
                               <val value="ndrv11big">
@@ -17636,7 +17636,7 @@
                               <val value="LowN">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="Centre">
+                              <val value="North">
                </av>
                <av name=waveform descr="No Description">
                               <val value="starev13big">
@@ -17999,7 +17999,7 @@
                               <val value="LowN">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="Centre">
+                              <val value="North">
                </av>
                <av name=waveform descr="No Description">
                               <val value="starev13big">
@@ -18344,7 +18344,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -18626,7 +18626,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -18923,7 +18923,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -19240,7 +19240,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -19542,7 +19542,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -19844,7 +19844,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -20166,7 +20166,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -20535,7 +20535,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -20902,7 +20902,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -21236,7 +21236,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -21533,7 +21533,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -21889,7 +21889,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -22405,7 +22405,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="West">
+                              <val value="East">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -22667,7 +22667,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -22863,7 +22863,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -23091,7 +23091,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -23484,7 +23484,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -23752,7 +23752,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -24020,7 +24020,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -24287,7 +24287,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -24763,7 +24763,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -25113,7 +25113,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -26789,7 +26789,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -27100,7 +27100,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
@@ -27252,7 +27252,7 @@
                               <val value="0.0">
                </av>
                <av name=instPort descr="No Description">
-                              <val value="East">
+                              <val value="West">
                </av>
                <av name=.version descr="No Description">
                               <val value="1.0">
