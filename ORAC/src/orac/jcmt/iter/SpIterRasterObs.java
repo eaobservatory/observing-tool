@@ -93,7 +93,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** Set area width (map width). */
   public void setWidth(double width) {
-    _avTable.set(ATTR_SCANAREA_WIDTH, width);
+    _avTable.set(ATTR_SCANAREA_WIDTH, Math.rint(width * 10.0) / 10.0);
   }
 
   /** Set area width (map width). */
@@ -108,7 +108,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
   /** Set area height (map height). */
   public void setHeight(double height) {
-    _avTable.set(ATTR_SCANAREA_HEIGHT, height);
+    _avTable.set(ATTR_SCANAREA_HEIGHT, Math.rint(height * 10.0) / 10.0);
   }
 
   /** Set area height (map height). */
@@ -128,10 +128,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
    * Set area postition angle (map postition angle).
    */
   public void setPosAngle(double theta) {
-    _avTable.set(ATTR_SCANAREA_PA, theta);
+    _avTable.set(ATTR_SCANAREA_PA, Math.rint(theta * 10.0) / 10.0);
 
     if(_parent instanceof SpIterOffset) {
-      ((SpIterOffset)_parent).setPosAngle(theta);
+      ((SpIterOffset)_parent).setPosAngle(getPosAngle());
     }
   }
 
