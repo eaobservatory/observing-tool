@@ -6,6 +6,8 @@
 //
 package gemini.sp;
 
+import java.util.Enumeration;
+
 /**
  * The science program item.
  */
@@ -152,6 +154,27 @@ setTimestamp(int timestamp)
 {
    _avTable.set(ATTR_TIMESTAMP, timestamp);
 }
+
+/**
+ * Calculates the duration of this Science Program.
+ */
+public double getElapsedTime()
+{
+  double elapsedTime = 0.0;
+  Enumeration children = children();
+  SpItem spItem = null;
+
+  while(children.hasMoreElements()) {
+    spItem = (SpItem)children.nextElement();
+
+    if(spItem instanceof SpMSB) {
+      elapsedTime += ((SpMSB)spItem).getElapsedTime();
+    }
+  }
+
+  return elapsedTime;
+}
+
 
 
 }
