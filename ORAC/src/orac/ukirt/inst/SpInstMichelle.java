@@ -83,6 +83,7 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     // Class variables representing defaults, LUTs, etc
     public static String CONFIG_TYPE;
     public static String VERSION;
+    public static String[] INSTRUMENT_APER_IM_POL;
     public static String[] DETECTOR_SIZE;
     public static int DETECTOR_WIDTH;
     public static int DETECTOR_HEIGHT;
@@ -352,6 +353,12 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
 		    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
 		    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
 		    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
+		} else if (InstCfg.matchAttr (instInfo, "instrument_aper_im_pol")) {
+                    INSTRUMENT_APER_IM_POL = instInfo.getValueAsArray();
+		    setInstApX (INSTRUMENT_APER_IM_POL[XAP_INDEX]);
+		    setInstApY (INSTRUMENT_APER_IM_POL[YAP_INDEX]);
+		    setInstApZ (INSTRUMENT_APER_IM_POL[ZAP_INDEX]);
+		    setInstApL (INSTRUMENT_APER_IM_POL[LAP_INDEX]);
 		} else if (InstCfg.matchAttr (instInfo, "detector_size")) {
                     DETECTOR_SIZE = instInfo.getValueAsArray();
 		    DETECTOR_WIDTH = Integer.parseInt(DETECTOR_SIZE[0]);
@@ -1718,10 +1725,17 @@ public final class SpInstMichelle extends SpUKIRTInstObsComp
     public void setInstAper()
     {
         if (isImaging()) {
-	    setInstApX (INSTRUMENT_APER[XAP_INDEX]);
-	    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
-	    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
-	    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
+	    if (isPolarimetry()) {
+		setInstApX (INSTRUMENT_APER_IM_POL[XAP_INDEX]);
+		setInstApY (INSTRUMENT_APER_IM_POL[YAP_INDEX]);
+		setInstApZ (INSTRUMENT_APER_IM_POL[ZAP_INDEX]);
+		setInstApL (INSTRUMENT_APER_IM_POL[LAP_INDEX]);
+	    } else {
+		setInstApX (INSTRUMENT_APER[XAP_INDEX]);
+		setInstApY (INSTRUMENT_APER[YAP_INDEX]);
+		setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
+		setInstApL (INSTRUMENT_APER[LAP_INDEX]);
+	    }
 	} else
 	{
             int di = getDisperserIndex();
