@@ -28,6 +28,11 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
    SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
    FrontEnd        frontEnd        = null; // Added by MFO (8 January 2002)
 
+   private int _currentSideBandGuiValue;
+   private int _currentSideBandGuiExtend;
+   private int _currentSideBandGuiMinimum;
+   private int _currentSideBandGuiMaximum;
+
    public SideBand ( double lowLimit, double highLimit, 
      double subBandWidth, double subBandCentre, 
      Sampler sampler, JScrollBar sideBandGui, double pixratio )
@@ -40,6 +45,13 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       this.sideBandGui = sideBandGui;
       this.pixratio = pixratio;
       sideBandGui.addAdjustmentListener ( this );
+      sideBandGui.addMouseListener( this );
+      if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
+         _currentSideBandGuiValue   = sideBandGui.getValue();
+         _currentSideBandGuiExtend  = sideBandGui.getVisibleAmount();
+         _currentSideBandGuiMinimum = sideBandGui.getMinimum();
+         _currentSideBandGuiMaximum = sideBandGui.getMaximum();
+      }
    }
 
 
@@ -91,6 +103,14 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
 
    public void adjustmentValueChanged ( AdjustmentEvent e) 
    {
+      if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
+	 sideBandGui.setValues(_currentSideBandGuiValue,
+                               _currentSideBandGuiExtend,
+                               _currentSideBandGuiMinimum,
+                               _currentSideBandGuiMaximum);
+         return;
+      }
+
       setScaledCentre ( sideBandGui.getValue() );
    }
 
@@ -147,8 +167,14 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       sideBandGui.setValues ( sc, sw, (int)(pixratio*lowLimit)+20,
         (int)(pixratio*highLimit)-20 );
 
-      sideBandGui.addAdjustmentListener ( this );
+      if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
+         _currentSideBandGuiValue   = sc;
+         _currentSideBandGuiExtend  = sw;
+         _currentSideBandGuiMinimum = (int)(pixratio*lowLimit)+20;
+         _currentSideBandGuiMaximum = (int)(pixratio*highLimit)-20;
+      }
 
+      sideBandGui.addAdjustmentListener ( this );
    }
 
    protected void connectTopSideBand(SideBandDisplay sideBandDisplay, FrontEnd frontEnd) {
