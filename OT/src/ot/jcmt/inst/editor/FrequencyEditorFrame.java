@@ -13,16 +13,12 @@ package ot.jcmt.inst.editor;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.io.File;
+import java.net.URL;
+import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
 
 import orac.jcmt.inst.SpInstHeterodyne;
 import edfreq.FrontEnd;
@@ -42,19 +38,40 @@ import ot.util.DialogUtil;
  */
 public class FrequencyEditorFrame extends JFrame implements ActionListener {
 
+  private static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
+
   private JButton applyButton = new JButton("Apply");
   private JButton closeButton = new JButton("Close");
   private JPanel buttonPanel  = new JPanel();
 
   private EdCompInstHeterodyne _heterodyneEditor;
 
-  private FrontEnd _frontEnd = new FrontEnd();
+  private FrontEnd _frontEnd = null;
 
   private String _currentXML = "";
   private SpInstHeterodyne _currentInstHeterodyne;
 
   public FrequencyEditorFrame(EdCompInstHeterodyne heterodyneEditor) {
     super("Frequency Editor");
+
+    URL freqEditorCfgUrl = null;
+    
+    String freqEditorCfgFile = System.getProperty(FREQ_EDITOR_CFG_PROPERTY);
+    if(freqEditorCfgFile != null) {
+      freqEditorCfgUrl = ClassLoader.getSystemClassLoader().getResource(freqEditorCfgFile);
+    }
+
+    if(freqEditorCfgUrl != null) {
+      try {
+        _frontEnd = new FrontEnd(freqEditorCfgUrl.openStream());
+      }
+      catch(IOException e) {
+        _frontEnd = new FrontEnd();
+      }
+    }
+    else {
+      _frontEnd = new FrontEnd();
+    }
 
     _heterodyneEditor = heterodyneEditor;
 
