@@ -16,7 +16,7 @@ rem this directory and edit the copy.
 rem For the default CLASSPATH settings to work the script has to be in its usual location in an
 rem CVS orac3 checkout or export directory tree (e.g. SOME_CVS_CHECKOUT_DIR/orac3/OT/install/bin)
 rem and it has to be started from within its own directory or by double click.
-set CLASSPATH=..\tools\jhtools.jar;..\tools\jhall.jar;..\tools\diva.jar;..\tools\graph.jar;..\tools\jacl.jar;..\tools\jdom-b4.jar;..\tools\jsky.jar;..\tools\junit.jar;..\tools\tcljava.jar;..\tools\xerces.jar;..\lib\gemini.jar;..\lib\orac.jar;..\lib\odb.jar;..\lib\ot.jar;..\lib\omp.jar;..\lib\edfreq.jar;..\tools\jhall.jar;..\tools\jhtools.jar;..\tools\activation.jar;..\tools\mail.jar;..\tools\soap.jar;..\tools\JSX1.0.1.1.jar
+set CLASSPATH=..\tools\jhtools.jar;..\tools\jhall.jar;..\tools\diva.jar;..\tools\graph.jar;..\tools\jacl.jar;..\tools\jdom-b4.jar;..\tools\jsky.jar;..\tools\junit.jar;..\tools\tcljava.jar;..\tools\xercesImpl.jar;..\tools\xmlParserAPIs.jar;..\lib\gemini.jar;..\lib\orac.jar;..\lib\odb.jar;..\lib\ot.jar;..\lib\omp.jar;..\lib\edfreq.jar;..\tools\jhall.jar;..\tools\jhtools.jar;..\tools\activation.jar;..\tools\mail.jar;..\tools\soap.jar;..\tools\JSX1.0.1.1.jar
 
 rem The directory containing the telescope specific configuration directories (CFG_DIRS\ukirt, CFG_DIRS\jcmt)
 set CFG_DIRS=..\cfg\ot
