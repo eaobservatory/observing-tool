@@ -22,6 +22,12 @@ public class Sampler implements ItemListener
 {
    double centreFrequency;
    double bandWidth;
+
+   /** Front end IF. */
+   double feIF;
+
+   /** Instantaneous bandwidth of frontend. */
+   double feBandWidth;
    double [] bandWidthsArray;
    int channels = 0;
    int [] channelsArray;
@@ -29,11 +35,15 @@ public class Sampler implements ItemListener
    Vector swArray = new Vector();
    JComboBox bandWidthChoice;
 
-   public Sampler ( double centreFrequency, double [] bandWidthsArray, int [] channelsArray, JComboBox bandWidthChoice )
+   public Sampler ( double centreFrequency, double feBandWidth,
+                    double [] bandWidthsArray, int [] channelsArray,
+                    JComboBox bandWidthChoice )
    {
       int j;
 
       this.centreFrequency = centreFrequency;
+      this.feIF = centreFrequency;
+      this.feBandWidth = feBandWidth;
       this.bandWidth = bandWidthsArray[0];
       this.bandWidthsArray = bandWidthsArray;
       this.channels = channelsArray[0];
@@ -71,17 +81,24 @@ public class Sampler implements ItemListener
 
    /**
     * Sets band width, notifies SamplerWatchers but does <b>not</b> change the band width choice box.
-    *
-    * This method is called either when the band choice box of this Sampler has changed or from
-    * when setBandWidthAndGui is called.
-    *
-    * @see #setBandWidthAndGui(java.lang.String)
     */
    public void setBandWidth(double value)
    {
       int j;
 
       bandWidth = value;
+
+
+      // Check whether the centreFrequency has to be adjusted in order to
+      // make the new bandWidth fit into the frontend bandwidth.
+
+      if(centreFrequency > (feIF + (0.5 * (feBandWidth - bandWidth)))) {
+         centreFrequency = (feIF + (0.5 * (feBandWidth - bandWidth)));
+      }
+
+      if(centreFrequency < (feIF - (0.5 * (feBandWidth - bandWidth)))) {
+         centreFrequency = (feIF - (0.5 * (feBandWidth - bandWidth)));
+      }
 
       if ( !swArray.isEmpty() )
       {
