@@ -349,16 +349,6 @@ public double getObserveStepTime(){
    return getExposureTime();
 }
 
-/**
- * This method returns the time that elapses during one "observe" step given the settings of
- * this instrument modified by the config iteration step.
- *
- * configStep might contain a different exposure time. The calculation would then be based on
- * this new exposureTime. But the settings of the instrument component class are not changed.
- */
-public double getObserveStepTime(SpIterStep configStep){
-   return getObserveStepTime();
-}
 
   /**
    * This is a helper class for time estimation.
