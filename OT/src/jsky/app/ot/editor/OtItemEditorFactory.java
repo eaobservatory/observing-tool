@@ -46,6 +46,11 @@ public final class OtItemEditorFactory {
 		ed = (OtItemEditor) c.newInstance();
 		ht.put(spItem.getRootItem(), ed);
 	    } catch (Exception ex) {
+		// It is important to print this stack trace. The error dialog below does not
+		// give any detailed information about what went wrong. And this exception occurs frequenty
+		// when new components are added to the OT. (MFO, November 27, 2002)
+		ex.printStackTrace();
+
 		DialogUtil.error(null, "Problem instantiating: " + editorClassName + ", " +  ex);
 		return null;
 	    }
