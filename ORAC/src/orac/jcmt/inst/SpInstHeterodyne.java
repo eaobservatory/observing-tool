@@ -27,12 +27,12 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
 
-  /**
-   * Front end name.
-   *
-   * @see #setFrontEndName(java.lang.String)
-   */
-  private String _frontEndName = "";
+  /** This attribute records the entire XML representation of the frequency editor settings. */
+  public static String ATTR_FREQ_EDITOR_XML = "edfreqXml";
+
+  private StringBuffer _freqEditorXmlBuffer = new StringBuffer();
+
+  private String _defaultFreqEditorXml = null;
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.Heterodyne", "Het Setup" );
@@ -46,37 +46,49 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     super( SP_TYPE );
   }
 
-  /**
-   * Allows front end name to be appended to the title.
-   *
-   * This instrument component SpInstHeterodyne has the front end name stored to its _avTable of course.
-   * But the attribute name is derived from the XML tag name specified in
-   * the interface edfreq.FrequencyEditorConstants which is in orac3/EDFREQ. Since orac3/ORAC
-   * (which contains SpInstHeterodyne) is supposed to be independent of orac3/EDFREQ (this might
-   * change in the future) SpInstHeterodyne cannot actually access its information (such as the front
-   * end name). This does not matter as long as the information inside SpInstHeterodyne is always given
-   * to the outside world via XML. The only problem that arises from this is that this makes it difficult
-   * to append the front end name to the title of SpInstHeterodyne. In order to fix this problem
-   * _frontEndName and this method setFrontEndName(java.lang.String) have been introduced that allow
-   * the method getTitle() to append _frontEndName to the title.
-   *
-   * @see #getTitle().
-   */
-  public void setFrontEndName(String frontEndName) {
-    _frontEndName = frontEndName;
-  }
 
   /**
    * Appends front end name to title.
    */
   public String getTitle() {
-    if((_frontEndName != null) && (!_frontEndName.equals(""))) {
-      return super.getTitle() + ": " + _frontEndName;
-    }
-    else {
+
+    String freqEditorXml = getFreqEditorXml();
+    if(freqEditorXml == null) {
       return super.getTitle();
     }
+
+    int a = freqEditorXml.indexOf("feName=\"");
+
+    if(a < 0) {
+      return super.getTitle();
+
+    }
+
+    // Set a to '"' in "feName=\""
+    a += 8;
+
+    int b = freqEditorXml.indexOf("\"", a);
+
+    if(b < 0) {
+      return super.getTitle();
+    }
+
+    return super.getTitle() + " (" + freqEditorXml.substring(a, b) + ")";
+
   }
+
+  /**
+   */
+  public String getFreqEditorXml() {
+    return _avTable.get(ATTR_FREQ_EDITOR_XML);
+  }
+
+  /**
+   */
+  public void setFreqEditorXml(String xml) {
+    _avTable.set(ATTR_FREQ_EDITOR_XML, xml.trim());
+  }
+
 
   /**
    * Get jiggle pattern options.
@@ -95,6 +107,67 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Not properly implemented yet. Returns 0.0. */
   public double getDefaultScanDy() {
     return 0.0;
+  }
+
+
+  protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
+    if(avAttr.equals(ATTR_FREQ_EDITOR_XML)) {
+      // Ignore indent for now.
+      xmlBuffer.append("\n  " + indent + indent(_avTable.get(ATTR_FREQ_EDITOR_XML), "  " + indent));
+    }
+    else {
+      super.processAvAttribute(avAttr, indent, xmlBuffer);
+    }
+  }
+
+  public void processXmlElementStart(String name) {
+    String prefix = "";
+
+    if(name.equals("heterodyne")) {
+      _freqEditorXmlBuffer.setLength(0);
+
+      prefix = "  ";
+    }
+
+    if(name.equals("bandSystem")) {
+      prefix = "    ";
+    }
+
+    if(name.equals("subSystem")) {
+      prefix = "      ";
+    }    
+
+    _freqEditorXmlBuffer.append(prefix + "<" + name);    
+  }
+
+  public void processXmlElementEnd(String name) {
+    _freqEditorXmlBuffer.append(">\n");
+
+    if(name.equals("heterodyne")) {
+      setFreqEditorXml(_freqEditorXmlBuffer.toString());
+    }
+  }
+
+  public void processXmlAttribute(String elementName, String attributeName, String value) {
+
+    if(elementName.equals(_className)) {
+      super.processXmlAttribute(elementName, attributeName, value);
+    }
+    else {
+      _freqEditorXmlBuffer.append(" " + attributeName + "=\"" + value + "\"");
+    }
+  }
+
+  private static String indent(String xml, String indent) {
+    StringBuffer xmlBuffer = new StringBuffer(xml);
+
+    for(int i = 0; i < xmlBuffer.length(); i++) {
+      if(xmlBuffer.charAt(i) == '\n') {
+        xmlBuffer.insert(i + 1, indent);
+      }
+    }
+
+    return xmlBuffer.toString();
   }
 }
 
