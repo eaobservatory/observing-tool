@@ -360,21 +360,6 @@ getSlewTime()
    return 0.0;
 }
 
-/**
- * This method returns the time that elapses during one "observe" step given the settings of
- * this instrument.
- *
- * The method can be overriden by instrument component classes. It returns the time that will elapse
- * at each {@link gemini.sp.iter.SpIterStep} in the sequence given the instrument settings and
- * provided these settings haven't been overridden by a config iterator.
- *
- * By default the observe step time is just the exosure time. But depending on the instruments
- * it could be exposureTime * oversamplingFactor etc.
- */
-public double getObserveStepTime(){
-   return getExposureTime();
-}
-
 
   /**
    * This is a helper class for time estimation.
