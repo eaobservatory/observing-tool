@@ -358,8 +358,6 @@ public class FrequencyTable extends JPanel implements ActionListener
 	 // towards the middle of the allowed range in order to fit. This means
 	 // a change of the centreFrequency.
 	 hetEditor.updateCentreFrequency(samplers[_number].getCentreFrequency(), _number);
-
-         resetLineDetails(lineDetails[_number], _number);
       }
    }
 
