@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import jsky.app.ot.util.CloseableApp;
 import jsky.util.gui.LookAndFeelMenu;
+import ot.OtWasteBin;
 
 
 /** 
@@ -41,7 +42,10 @@ public class OtWindowInternalFrame extends JInternalFrame implements CloseableAp
 	JPanel panel = new JPanel();
 	panel.setLayout(new BorderLayout());
 	OtTreeToolBar treeToolbar = new OtTreeToolBar(editor);
-	panel.add("West", treeToolbar);
+	JPanel toolbarAndWasteBinPanel = new JPanel(new BorderLayout());
+	toolbarAndWasteBinPanel.add("Center", treeToolbar);
+	toolbarAndWasteBinPanel.add("South", new OtWasteBin());
+	panel.add("West", toolbarAndWasteBinPanel);
 	panel.add("Center", editor);
         getContentPane().add("Center", panel);
 	setJMenuBar(new OtWindowMenuBar(editor, toolbar, treeToolbar));
