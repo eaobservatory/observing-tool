@@ -14,9 +14,9 @@ import java.awt.event.*;
 import javax.swing.*;
 
 /**
- * @author Dennis Kelly ( bdk@roe.ac.uk )
+ * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SideBand implements AdjustmentListener,  SamplerWatcher
+public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListener
 {
    double lowLimit;
    double highLimit;
@@ -24,18 +24,37 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
    double subBandCentre;
    Sampler sampler;
    JScrollBar sideBandGui;
+   AdjustmentListener _adjustmentListener = null;
+
+   /**
+    * The lineButton argument has been so that its text can be reset to "No Line" when the
+    * side band JScrollBar of this Sideband is changed.
+    */
    double pixratio;
+   EmissionLines emissionLines;
    SideBandDisplay sideBandDisplay = null; // Added by MFO (8 January 2002)
-   FrontEnd        frontEnd        = null; // Added by MFO (8 January 2002)
+   HeterodyneEditor hetEditor    = null;
 
    private int _currentSideBandGuiValue;
    private int _currentSideBandGuiExtend;
    private int _currentSideBandGuiMinimum;
    private int _currentSideBandGuiMaximum;
 
+   /**
+    * Indicates whether LO1 should be changed while the top subsystem sideband IF is changed
+    * so that the sidband stays centred over the line.
+    */
+   private static boolean _lineClamped = true;
+
+   /**
+    * SideBand constructor.
+    *
+    * The lineButton argument has been so that its text can be reset to "No Line" when the
+    * side band JScrollBar of this Sideband is changed.
+    */
    public SideBand ( double lowLimit, double highLimit, 
      double subBandWidth, double subBandCentre, 
-     Sampler sampler, JScrollBar sideBandGui, double pixratio )
+     Sampler sampler, JScrollBar sideBandGui, double pixratio, EmissionLines emissionLines )
    { 
       this.lowLimit = lowLimit;
       this.highLimit = highLimit;
@@ -44,9 +63,11 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       this.sampler = sampler;
       this.sideBandGui = sideBandGui;
       this.pixratio = pixratio;
+      this.emissionLines = emissionLines;
       sideBandGui.addAdjustmentListener ( this );
+      sideBandGui.addMouseListener( this );
 
-      if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
+      if(!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
          _currentSideBandGuiValue   = sideBandGui.getValue();
          _currentSideBandGuiExtend  = sideBandGui.getVisibleAmount();
          _currentSideBandGuiMinimum = sideBandGui.getMinimum();
@@ -103,7 +124,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
 
    public void adjustmentValueChanged ( AdjustmentEvent e) 
    {
-      if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
+      if(!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
 	 sideBandGui.setValues(_currentSideBandGuiValue,
                                _currentSideBandGuiExtend,
                                _currentSideBandGuiMinimum,
@@ -112,37 +133,44 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       }
 
       setScaledCentre ( sideBandGui.getValue() );
+
+      if(_adjustmentListener != null) {
+         _adjustmentListener.adjustmentValueChanged(e);
+      }
    }
 
-   public void updateSamplerValues ( double centre, double width, 
-   int channels )
+   public void updateSamplerValues ( double centre, double width,
+   int channels)
    {
-      // If the SideBand is one of the top SideBands then deal with the LO1.
-      if(isTopSideBand()) {
+      // If the SideBand is one of the top SideBands and the line should be cllamped
+      // then adjust LO1 accordingly.
+      if(isTopSideBand() && _lineClamped) {
          String band;
-	 if(frontEnd != null) {
-            band = frontEnd.getFeBand();
+	 if(hetEditor != null) {
+            band = hetEditor.getFeBand();
 	 }
 	 else {
             band = "usb";
 	 }
 
-         if ( highLimit < 0.0 )
-	 { 
-	    if ( band.equals("lsb") )
-            {
-               // old value: subBandCentre, new value: -centre
+         if ( band.equals("lsb") )
+         {
+            if(highLimit < 0.0) {
                sideBandDisplay.setLO1(sideBandDisplay.getLO1() + (subBandCentre + centre));
-	    }   
-         }
+            }
+            else {
+               sideBandDisplay.setLO1(sideBandDisplay.getLO1() - (subBandCentre - centre));
+            }
+         }   
          else
-	 {  
-	    if( band.equals("usb") )
-            {
-               // old value: subBandCentre, new value: centre
+         {
+            if(highLimit < 0.0) {
+               sideBandDisplay.setLO1(sideBandDisplay.getLO1() - (subBandCentre + centre));
+            }
+            else {
                sideBandDisplay.setLO1(sideBandDisplay.getLO1() + (subBandCentre - centre));
             }
-	 }   
+         }
       }	 
       
    
@@ -167,7 +195,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       sideBandGui.setValues ( sc, sw, (int)(pixratio*lowLimit)+20,
         (int)(pixratio*highLimit)-20 );
 
-      if(!FrontEnd.cfg.centreFrequenciesAdjustable) {
+      if(!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
          _currentSideBandGuiValue   = sc;
          _currentSideBandGuiExtend  = sw;
          _currentSideBandGuiMinimum = (int)(pixratio*lowLimit)+20;
@@ -177,12 +205,40 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
       sideBandGui.addAdjustmentListener ( this );
    }
 
-   protected void connectTopSideBand(SideBandDisplay sideBandDisplay, FrontEnd frontEnd) {
+   protected void connectTopSideBand(SideBandDisplay sideBandDisplay, HeterodyneEditor hetEditor) {
       this.sideBandDisplay = sideBandDisplay;
-      this.frontEnd        = frontEnd;
+      this.hetEditor         = hetEditor;
    }
 
    protected boolean isTopSideBand() {
       return (sideBandDisplay != null);
+   }
+
+
+   public void mouseClicked(MouseEvent e) { }
+   public void mouseEntered(MouseEvent e) { }
+   public void mouseExited(MouseEvent e) { }
+
+   public void mousePressed(MouseEvent e) {
+      if(SwingUtilities.isRightMouseButton(e)) {
+         _lineClamped = false;
+      }
+   }
+
+   public void mouseReleased(MouseEvent e) {
+      _lineClamped = true;
+   }
+
+   /**
+    * Adds one AdjustmentListener.
+    *
+    * The SideBand can only have a single AdjustmentListener. The AdjustmentListener is
+    * only notified of an adjustmentValueChanged if the adjustment is a change of the IF (moving scroll bar)
+    * and not if it is a change of bandwidth (change of width of the scroll bar). This is achieved because
+    * this AdjustmentListener (the SideBand) is removed from its scroll bar while updateSamplerValues is
+    * executed.
+    */
+   public void addAdjustmentListener(AdjustmentListener adjustmentListener) {
+      _adjustmentListener = adjustmentListener;
    }
 }
