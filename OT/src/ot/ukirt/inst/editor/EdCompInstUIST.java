@@ -130,6 +130,8 @@ public EdCompInstUIST()
             _updateFilterChoices();
             _updateMaskChoices();
             _updateWidgets();
+            TelescopePosEditor tpe = TpeManager.get(_instUIST);
+            if (tpe != null) tpe.repaint();
         }
     });
 
@@ -201,6 +203,8 @@ public EdCompInstUIST()
             _updateFilterChoices();
             _instUIST.useDefaultAcquisition();
             _updateWidgets();
+            TelescopePosEditor tpe = TpeManager.get(_instUIST);
+            if (tpe != null) tpe.repaint();
         }
     });
 
