@@ -101,6 +101,7 @@ public class OtWindowMenuBar extends JMenuBar {
 	menu.add(createFileOpenNewWindowMenuItem());
 	menu.addSeparator();
 	menu.add(editor.getSaveAction());
+	menu.add(createFileSaveObsAsSequenceMenuItem());
 	menu.add(createFileSaveAsMenuItem());
 	menu.add(fileRevertMenuItem = createFileRevertToSavedMenuItem());
 	menu.addSeparator();
@@ -184,6 +185,21 @@ public class OtWindowMenuBar extends JMenuBar {
 	    });
 	return menuItem;
     }
+
+    /**
+     * Create the File => "Save Observation As Sequence" menu item.
+     * MFO
+     */
+    protected JMenuItem createFileSaveObsAsSequenceMenuItem() {
+	JMenuItem menuItem = new JMenuItem("Save Observation As Sequence");
+        menuItem.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent ae) {
+		    editor.doSaveSequence();
+		}
+	    });
+	return menuItem;
+    }
+
 
     /**
      * Create the File => "Save As" menu item
@@ -529,6 +545,10 @@ public class OtWindowMenuBar extends JMenuBar {
 		    ((OtProgWindow)editor).fetchFromOnlineDatabase();
 		}
 	    });
+
+	// MFO 23 May 2001: "Fetch from Online Database" menu item disabled.
+	menuItem.setEnabled(false);
+
 	return menuItem;
     }
 
@@ -556,6 +576,10 @@ public class OtWindowMenuBar extends JMenuBar {
 		    ((OtProgWindow)editor).goToOnlineEditMode();
 		}
 	    });
+
+	// MFO 23 May 2001: "Go to Online Edit Mode" menu item disabled.
+	menuItem.setEnabled(false);
+
 	return menuItem;
     }
 
