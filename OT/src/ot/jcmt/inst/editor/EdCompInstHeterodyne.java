@@ -1190,7 +1190,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 //       else {
 //          _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E3) / 1.0E3));
 //       }
-       _w.velocity.setText(""+_instHeterodyne.getRefFrameVelocity() );
+       _w.velocity.setText(""+_instHeterodyne.getVelocity() );
        _w.velocity.setCaretPosition(0);
    }
 
