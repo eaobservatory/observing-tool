@@ -108,15 +108,15 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode {
      * Set the url string of the image for this node.
      */
     public void setSrc(String src) {
-	/* MFO DEBUG */ //System.out.println("src = " + src);
-	/* MFO DEBUG */ //if(src == null) {
-	/* MFO DEBUG */ //  icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("mfoDebug.gif"));
-	/* MFO DEBUG */ //  this.src = "mfoDebug.gif";
-	/* MFO DEBUG */ //  return;
-	/* MFO DEBUG */ //}  
 	
 	this.src = src;
-	icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/" + src));
+	try {
+	  icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/" + src));
+	}
+	catch(NullPointerException e) {
+	  // In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
+          icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource(src));
+	}
     }
 
     /** 
@@ -137,15 +137,15 @@ public class TreeNodeWidgetExt extends DefaultMutableTreeNode {
      * Set the url of the image for this node when it is expanded.
      */
     public void setExpandSrc(String expandSrc) {
-	/* MFO DEBUG */ //System.out.println("expandSrc = " + expandSrc);
-	/* MFO DEBUG */ //if(expandSrc == null) {
-	/* MFO DEBUG */ //  icon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("mfoExpandDebug.gif"));
-	/* MFO DEBUG */ //  this.expandSrc = "mfoExpandDebug.gif";
-	/* MFO DEBUG */ //  return;
-	/* MFO DEBUG */ //}  
 	
 	this.expandSrc = expandSrc;
-	expandIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/" + expandSrc));
+	try {
+	  expandIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource("jsky/app/ot/" + expandSrc));
+	}
+	catch(NullPointerException e) {
+	  // In case resources form outside "jsky/app/ot/" are used. (MFO, 09 July 2001)
+          expandIcon = new ImageIcon(ClassLoader.getSystemClassLoader().getResource(expandSrc));
+	}
     }
 
     /** 
