@@ -659,6 +659,9 @@ public class SpTranslator {
                                           // requiring a break in the sequence
       SpAvTable cavl;                     // Instrument attribute value table
       SpItem child;                       // Child of the sequence
+      String chopAngle;                   // Chopping position angle
+      boolean chopping = false;           // Whether or not chopping requested
+      String chopThrow;                   // Chopping displacement/throw
       Vector configArray = new Vector();  // Stores configs to be written to files
       boolean configInSequence = false;   // Is there a config in the sequence
       String coordSystem;                 // Co-ordinate system
@@ -1016,6 +1019,7 @@ public class SpTranslator {
                   sequence.addElement( targetRecord.toString() );
 
 // Write the slew and guiding instructions.
+// ========================================
                   if ( isGuideTarget ) {
                       sequence.addElement( "do 1 _slew_guide" );
                       sequence.addElement( "GUIDE ON" );
@@ -1024,6 +1028,24 @@ public class SpTranslator {
                       sequence.addElement( "do 1 _slew_all" );
                   }
                }
+            }
+
+// Add chopping instructions.
+// ==========================
+
+// Determine whether there is chopping enabled in the target component.
+            chopping = targetComponent.isChopping();
+            if ( chopping ) {
+
+// Obtain the chop throw in arcseconds and its orientation.
+               chopThrow = targetComponent.getChopThrowAsString();
+               chopAngle = targetComponent.getChopAngleAsString();
+
+// Write sequence instructions.
+               sequence.addElement( "SET_CHOPTHROW " + chopThrow );
+               sequence.addElement( "SET_CHOPPA " + chopAngle );
+               sequence.addElement( "define_beams " + chopAngle + " " + chopThrow );
+               sequence.addElement( "SET_CHOPBEAM A" );
             }
          }
 
