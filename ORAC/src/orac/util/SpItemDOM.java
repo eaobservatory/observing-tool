@@ -254,9 +254,9 @@ public class SpItemDOM {
     if(remainingTree.getAttributes() != null && remainingTree.getAttributes().getLength() > 0) {
       NamedNodeMap nodeMap = remainingTree.getAttributes();
       for(int i = 0; i < nodeMap.getLength(); i++) {
-       avTab.set(prefix          + nodeName
-                           + ":" + nodeMap.item(i).getNodeName(),
-			           nodeMap.item(i).getNodeValue());
+       avTab.noNotifySet(prefix + nodeName
+                          + ":" + nodeMap.item(i).getNodeName(),
+			          nodeMap.item(i).getNodeValue(), 0);
       }
     }
 
@@ -288,8 +288,8 @@ public class SpItemDOM {
         // Ignore extra items beginning with "\n" created by DOMParser.parse().
         if(!nodeList.item(i).getNodeValue().startsWith("\n")) {
           
-	  avTab.set(prefix + nodeName,
-	                         nodeList.item(i).getNodeValue());
+	  avTab.noNotifySet(prefix + nodeName,
+	                    nodeList.item(i).getNodeValue(), 0);
 	}
 	else {
 	}
@@ -301,9 +301,8 @@ public class SpItemDOM {
     
     // adding value vector
     if(valueVector.size() > 0) {
-      avTab.setAll(prefix + nodeName, valueVector);
+      avTab.noNotifySetAll(prefix + nodeName, valueVector);
     }
-  
   }
 
   public SpRootItem getSpItem() {
