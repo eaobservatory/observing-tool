@@ -1138,4 +1138,8 @@ public class TelescopePosEditor extends JSkyCat
 	super.open(fileOrUrl);
 	_iw.updateImage();
     }
+
+    public boolean isVisible() {
+        return imageFrame.isVisible();
+    }
 }

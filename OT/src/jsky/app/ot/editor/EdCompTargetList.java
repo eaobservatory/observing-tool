@@ -1173,6 +1173,14 @@ public class EdCompTargetList extends OtItemEditor
 
 	// Added by MFO
 	if(w == _w.resolveButton) {
+            TelescopePosEditor tpe = TpeManager.get(_spItem);
+            if ( tpe != null && tpe.isVisible() ) {
+                JOptionPane.showMessageDialog( _w,
+                        "The position editor must be closed for this to work",
+                        "Close Position Editor",
+                        JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
 	    _nameResolverFeedback = new NameResolverFeedback();
 	    _nameResolverFeedback.start();
 	}
