@@ -128,7 +128,7 @@ public class SpClient extends SoapClient {
 
     public static SpItem replicateSp(SpItem currentItem, File catalog) throws Exception {
 	char [] contents = new char [(int)catalog.length()];
-	byte [][] rtn;
+	String [] rtn;
 	SpItem spItem = null;
 	flushParameter();
 	try {
@@ -140,7 +140,7 @@ public class SpClient extends SoapClient {
 	    addParameter("TemplateSp", String.class, currentSp);
 	    addParameter("Catalog", String.class, new String(contents));
 	    Object o = doCall(getURL(), SOAP_ACTION, "SpInsertCat");
-	    rtn = (byte [][])o;
+	    rtn = (String [])o;
 	    String spXML = new String (rtn[0]);
 	    if (spXML != null && !spXML.equals("")) {
 		System.out.println("Building replicated Science Program");
