@@ -92,11 +92,19 @@ public class SpIterPointingObs extends SpIterJCMTObs {
     }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
-	_avTable.noNotifySet(ATTR_POINTING_METHOD, "5-point", 0);
-	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
+	if ( _avTable.get(ATTR_SWITCHING_MODE) == null ||
+	     _avTable.get(ATTR_SWITCHING_MODE).equals("") )
+	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	if ( _avTable.get(ATTR_POINTING_METHOD) == null ||
+	     _avTable.get(ATTR_POINTING_METHOD).equals("") )
+	    _avTable.noNotifySet(ATTR_POINTING_METHOD, "5-point", 0);
+	if ( _avTable.get(ATTR_SECS_PER_CYCLE) == null ||
+	     _avTable.get(ATTR_SECS_PER_CYCLE).equals("") )
+	    _avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
 // 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
-	_avTable.noNotifySet(ATTR_SPECTRAL_MODE, SPECTRAL_MODE_SPECTRAL_LINE, 0);
+	if ( _avTable.get(ATTR_SPECTRAL_MODE) == null ||
+	     _avTable.get(ATTR_SPECTRAL_MODE).equals("") )
+	    _avTable.noNotifySet(ATTR_SPECTRAL_MODE, SPECTRAL_MODE_SPECTRAL_LINE, 0);
     }
 
     public void setupForSCUBA() {

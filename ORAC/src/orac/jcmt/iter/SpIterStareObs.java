@@ -67,11 +67,19 @@ public double getElapsedTime() {
 }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
-	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
+	if (_avTable.get(ATTR_SWITCHING_MODE) == null ||
+	    _avTable.get(ATTR_SWITCHING_MODE).equals(""))
+	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	if (_avTable.get(ATTR_SECS_PER_CYCLE) == null ||
+	    _avTable.get(ATTR_SECS_PER_CYCLE).equals(""))
+	    _avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
 // 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
-	_avTable.set(ATTR_CONT_CAL, true);
-	_avTable.set(ATTR_CYCLE_REVERSAL, true);
+	if (_avTable.get(ATTR_CONT_CAL) == null ||
+	    _avTable.get(ATTR_CONT_CAL).equals(""))
+	    _avTable.set(ATTR_CONT_CAL, true);
+	if (_avTable.get(ATTR_CYCLE_REVERSAL) == null ||
+	    _avTable.get(ATTR_CYCLE_REVERSAL).equals(""))
+	    _avTable.set(ATTR_CYCLE_REVERSAL, true);
     }
 
     public void setupForSCUBA() {

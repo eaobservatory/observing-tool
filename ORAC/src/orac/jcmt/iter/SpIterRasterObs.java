@@ -549,12 +549,26 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Position", 0);
-	_avTable.noNotifySet(ATTR_ROWS_PER_CAL, null, 0);
-	_avTable.noNotifySet(ATTR_ROWS_PER_REF, "1", 0);
-	_avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
-	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SpJCMTConstants.SCAN_SYSTEMS[0], 0);
-	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
+	if (_avTable.get(ATTR_SWITCHING_MODE) == null ||
+	    _avTable.get(ATTR_SWITCHING_MODE).equals(""))
+	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, "Position", 0);
+	if (_avTable.get(ATTR_ROWS_PER_CAL) == null ||
+	    _avTable.get(ATTR_ROWS_PER_CAL).equals(""))
+	    _avTable.noNotifySet(ATTR_ROWS_PER_CAL, null, 0);
+	if (_avTable.get(ATTR_ROWS_PER_REF) == null ||
+	    _avTable.get(ATTR_ROWS_PER_REF).equals(""))
+	    _avTable.noNotifySet(ATTR_ROWS_PER_REF, "1", 0);
+	if (_avTable.get(ATTR_SAMPLE_TIME) == null ||
+	    _avTable.get(ATTR_SAMPLE_TIME).equals(""))
+	    _avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
+	if (_avTable.get(ATTR_SCANAREA_SCAN_SYSTEM) == null ||
+	    _avTable.get(ATTR_SCANAREA_SCAN_SYSTEM).equals(""))
+	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SpJCMTConstants.SCAN_SYSTEMS[0], 0);
+	if (_avTable.get(ATTR_SCANAREA_SCAN_VELOCITY) == null ||
+	    _avTable.get(ATTR_SCANAREA_SCAN_VELOCITY).equals(""))
+	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
+	if (_avTable.get(ATTR_SCANAREA_SCAN_DY) == null ||
+	    _avTable.get(ATTR_SCANAREA_SCAN_DY).equals(""))
 	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY, "0.0", 0);
     }
 
