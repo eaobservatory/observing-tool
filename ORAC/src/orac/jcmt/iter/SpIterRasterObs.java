@@ -82,8 +82,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     _avTable.noNotifySet(ATTR_SCANAREA_WIDTH,  "180.0", 0);
     _avTable.noNotifySet(ATTR_SCANAREA_HEIGHT, "180.0", 0);
 
+    /*
     _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
     _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,       "0.0", 0);
+    */
     _avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SCAN_SYSTEMS[3], 0);
   }
 
@@ -577,10 +579,14 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	_avTable.noNotifyRm(ATTR_ROWS_PER_CAL);
 	_avTable.noNotifyRm(ATTR_ROWS_PER_REF);
 	_avTable.noNotifyRm(ATTR_SAMPLE_TIME);
-	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, 
-			     ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanVelocity(), 0);
-	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,
-			     ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanDy(), 0);
+	if (_avTable.get(ATTR_SCANAREA_SCAN_VELOCITY) == null ||
+	    _avTable.get(ATTR_SCANAREA_SCAN_VELOCITY).equals(""))
+	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, 
+				 ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanVelocity(), 0);
+	if (_avTable.get(ATTR_SCANAREA_SCAN_DY) == null ||
+	    _avTable.get(ATTR_SCANAREA_SCAN_DY).equals(""))
+	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,
+				 ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanDy(), 0);
     }
 }
 
