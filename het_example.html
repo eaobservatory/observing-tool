@@ -166,33 +166,50 @@ described  <a
  the line can be set by choosing the required molecule and transition from the
  pull-down menus, or by entering the frequency manually, in GHz, in the
  frequency field. Note that if you enter a redshift, you are expected
- to enter the dimensionless redshift rather than <em>cz</em>.
-
- <p>Having entered the required line transition, velocity, velocity
- definition and frame, click the "Accept Values" button to finalise
- them. Note that manually entering frequency values in the rest frequency field
+ to enter the dimensionless redshift rather than <em>cz</em>. Note
+ also that manually entering frequency values in the rest frequency field
  causes the molecule and transition menus take on values of "No
  Line", even if the frequency does in fact correspond to a known
- transition. Lookup occurs from molecule/transition to frequency only -
- no lookup is done in the opposite direction.
+ transition. Look-up occurs from molecule/transition to frequency only -
+ no look-up is done in the opposite direction.
+
+<p> N.B. The OT will perform a check to see if the requested frequency
+and velocity is in the tuning range for your selected receiver.  In
+order to update the drop-down list of molecules and transitions
+available, it is necessary to first enter the velocity and press the
+"Accept" button, before either selecting a species or entering a
+frequency. This will ensure that the molecule drop-down box will only
+present molecules within the tunable range of the receiver.  However,
+it is still necessary to press the "Accept" button a second time to
+register this information within the OT.  In addition, if you have
+manually entered the line frequency, pressing "Accept" a second time
+will ensure that this frequency is within the available
+range. Entering these in the opposite order can sometimes lead to MSBs
+been accepted where the required observing frequency is not within the
+tuning range of the reciever. This problem will be fixed upon release
+of the ACSIS Heterodyne OT. The precise details of a receiver's
+available bandwidth do change somewhat over time, so be sure to check
+with your Support Astronomer if you are interested in observing near
+the edges of the available bands.</p>
+
 
  <p>For example, suppose we would like to look for a broad CO(3-2)
- extragalactic line using Rx B3 in an object with cz=12,000 km/s. We
- would choose Rx B3, ssb, dual mixer observing and a DAS backend of
- 0.92 GHz using the pull down menus. The line and transition would be
- selected by choosing "CO" and "3-2" from the pull down menu's and the
- velocity entered (12,000 km/s) in the velocity field (after setting
- up the appropriate velocity definition). The IF frequency for Rx B3
- is 4 GHz, so the image sideband will be 8 GHz above or below the
- required observing frequency (332 GHz), depending on whether we
- choose to observe using the lower or upper sideband. There is an
- atmospheric water absorption feature at 325 GHz, so it makes sense to
- observe using the lower sideband by choosing "lsb" from the pull-down
- menu, so that the image sideband does not contribute unwanted noise
- by being near the 325 GHz absorption feature. The appearance of the
- completed het setup component is shown below. MAKE SURE you click the "Accept
- values" button when you are finished editing - it will grey itself out,
- indicating your values have been properly internalised.
+ extragalactic line using RxB3 in an object with cz=12,000 km/s. We
+ would choose RxB3, SSB, dual mixer observing and a DAS backend of
+ 0.92 GHz using the pull down menus. Next we would select the
+ appropriate velocity definition, enter "12000" km/s in the velocity
+ field, click "Accept", choose "CO" and "3-2" from the pull down menus
+ and click "Accept" to confirm. The IF frequency for Rx B3 is 4 GHz,
+ so the image sideband will be 8 GHz above or below the required
+ observing frequency (332 GHz), depending on whether we choose to
+ observe using the lower or upper sideband. There is an atmospheric
+ water absorption feature at 325 GHz, so it makes sense to observe
+ using the lower sideband by choosing "lsb" from the pull-down menu,
+ so that the image sideband does not contribute unwanted noise by
+ being near the 325 GHz absorption feature. The appearance of the
+ completed het setup component is shown below. MAKE SURE you click the
+ "Accept values" button when you are finished editing - it will grey
+ itself out, indicating your values have been properly internalised.
 </p>
 
  
