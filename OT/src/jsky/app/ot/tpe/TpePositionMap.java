@@ -13,6 +13,9 @@ import jsky.app.ot.fits.gui.FitsPosMapEntry;
 
 import jsky.app.ot.gui.image.ImageView;
 
+import jsky.coords.wcscon;
+
+import gemini.util.CoordSys;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 
@@ -153,5 +156,42 @@ locate(int x, int y)
    return null;
 }
 
+/**
+ * Get the location of a position from its tag and coordinate system.
+ *
+ * @param tag         Tag of the position.
+ *
+ * @param coordSystem One of {@link gemini.util.CoordSys.FK5}
+ *                           {@link gemini.util.CoordSys.FK4}
+ *                           {@link gemini.util.CoordSys.GAL}
+ */
+/*public Point2D.Double
+getLocationFromTag(String tag, int coordSystem)
+{
+   Hashtable posTable = getPosTable();
+   if (posTable == null) return null;
+
+   // Get the base position
+   FitsPosMapEntry pme = (FitsPosMapEntry) posTable.get(tag);
+   if (pme == null) {
+      return null;
+   }
+
+  Point2D.Double location = new Point2D.Double(pme.telescopePos.getXaxis(),
+                                               pme.telescopePos.getYaxis());
+
+  Point2D.Double convertedLocation = null;
+
+  switch(coordSystem) {
+    case CoordSys.FK4: convertedLocation = wcscon.fk425(location); break;
+    case CoordSys.GAL: convertedLocation = wcscon.gal2fk5(location); break;
+    default:           return pme.screenPos;
+  }
+
+  pme.telescopePos.setXY(convertedLocation.x, convertedLocation.y);
+
+  return pme.screenPos;
+}
+*/
 }
 
