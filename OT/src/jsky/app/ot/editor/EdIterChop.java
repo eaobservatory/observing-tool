@@ -28,9 +28,9 @@ import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
-import jsky.app.ot.util.CoordSys;
 import jsky.app.ot.tpe.TpeManager;
 
+import orac.jcmt.SpJCMTConstants;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.iter.SpIterChop;
@@ -85,9 +85,9 @@ public class EdIterChop extends OtItemEditor
         _w.bottom.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/bottom.gif")));
         _w.down.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/down.gif")));
 
-        _w.coordFrameListBox.setChoices(CoordSys.COORD_SYS);
-	_w.coordFrameListBox.addChoice("AZ");
-	_w.coordFrameListBox.addChoice("NA");
+        // MFO: This is probaly JCMT specific. Might need modification
+	// when the Chop iterator is used with UKIRT.
+        _w.coordFrameListBox.setChoices(SpJCMTConstants.CHOP_SYSTEMS);
 
 	_w.throwTextBox.addWatcher(this);
 	_w.angleTextBox.addWatcher(this);
@@ -178,7 +178,7 @@ public class EdIterChop extends OtItemEditor
 	  Vector rowVector = new Vector();
 	  rowVector.add("0.0");
 	  rowVector.add("0.0");
-	  rowVector.add(CoordSys.COORD_SYS[0]);
+	  rowVector.add(SpJCMTConstants.CHOP_SYSTEMS[0]);
 
 	  _iterTab.absInsertRowAt(rowVector, ++rowIndex);
 //	}
