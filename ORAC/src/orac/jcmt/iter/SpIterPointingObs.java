@@ -76,6 +76,20 @@ public class SpIterPointingObs extends SpIterJCMTObs {
   public void setPointingPixel(String value) {
     _avTable.set(ATTR_POINTING_PIXEL, value);
   }
+
+    public double getElapsedTime() {
+	SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+	double overhead = 0.0;
+	double totalIntegrationTime = 0.0;
+
+	if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+	    overhead = SCUBA_STARTUP_TIME + 9.0*getIntegrations();
+	    totalIntegrationTime = 16.0*2.0*getIntegrations();
+	}
+	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+	}
+	return (overhead + totalIntegrationTime);
+    }
 }
 
 
