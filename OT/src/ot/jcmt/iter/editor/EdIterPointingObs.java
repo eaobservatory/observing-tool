@@ -91,6 +91,8 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     _w.pointingPixelButton.addWatcher(this);
     _w.continuum.addWatcher(this);
     _w.spectralLine.addWatcher(this);
+
+    _w.automaticTarget.setToolTipText("Automatically determine pointing target at time of observation");
   }
 
   /**
