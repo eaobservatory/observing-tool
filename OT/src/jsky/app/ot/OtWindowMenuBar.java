@@ -435,7 +435,7 @@ public class OtWindowMenuBar extends JMenuBar {
 	JRadioButtonMenuItem b2 = new JRadioButtonMenuItem("Pictures Only");
 	JRadioButtonMenuItem b3 = new JRadioButtonMenuItem("Text Only");
 
-	b2.setSelected(true);
+	b1.setSelected(true);
 	treeToolBar.setShowPictures(true);
 	treeToolBar.setShowText(true);
 
