@@ -17,6 +17,7 @@ import java.awt.CardLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.OtItemEditor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -26,9 +27,16 @@ import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.util.Angle;
+import gemini.util.DDMMSS;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJiggleObs;
+import orac.jcmt.obsComp.SpSiteQualityObsComp;
+import orac.jcmt.util.ScubaNoise;
+import orac.util.SpItemUtilities;
 
 /**
  * This is the editor for Jiggle Observe Mode iterator component.
@@ -121,6 +129,82 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
       //_w.switchingMode.setEnabled(true);
       _w.acsisPanel.setVisible(false);
     }
+  }
+
+  protected String calculateNoise() {
+    SpTelescopeObsComp telescopeObsComp = (SpTelescopeObsComp)SpTreeMan.findTargetList(_iterObs);
+    if(telescopeObsComp == null) {
+      return "No target";
+    }
+
+    SpJCMTInstObsComp instObsComp       = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
+    if(instObsComp == null) {
+      return "No instrument";
+    }
+
+    SpSiteQualityObsComp siteQualityObsComp = (SpSiteQualityObsComp)SpItemUtilities.findSiteQuality(_iterObs);
+    if(siteQualityObsComp == null) {
+      return "No site quality";
+    }
+
+    if(instObsComp instanceof SpInstSCUBA) {
+      int [] status     = { 0 };
+      double noise      = 0.0;
+      int integrations  = _iterObs.getIntegrations();
+      String mode       = "JIG16";
+      double decRadians = Angle.degreesToRadians(telescopeObsComp.getPosList().getBasePosition().getXaxis());
+      double latRadians = Angle.degreesToRadians(DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
+      double tau        = siteQualityObsComp.getNoiseCalculationTau();
+      double wavelength;
+
+      if(_iterObs.isJIG64((SpInstSCUBA)instObsComp)) {
+        mode = "JIG64";
+      }
+
+      if(((((SpInstSCUBA)instObsComp).getFilter() != null) &&
+          (((SpInstSCUBA)instObsComp).getFilter().toUpperCase().endsWith("PHOT")))) {
+
+	if(((SpInstSCUBA)instObsComp).getPrimaryBolometer() == null) {
+	  return "No wavelength";
+	}
+
+	wavelength = Double.parseDouble(((SpInstSCUBA)instObsComp).getPrimaryBolometer().substring(1));
+	noise = ScubaNoise.noise_level(integrations, wavelength, mode, decRadians, latRadians, tau, status);
+
+	if(status[0] == 0) {
+	  return "" + noise;
+	}
+      }
+      else {
+	String noise450Str;
+
+	double noise450 =
+	        ScubaNoise.noise_level(integrations, 450.0,  mode, decRadians, latRadians, tau, status);
+
+	if(status[0] == 0) {
+	  noise450Str = "" + (Math.rint(noise450 * 10) / 10);
+	}
+	else {
+	  noise450Str = "error " + status[0];
+	}
+
+	String noise850Str;
+
+	double noise850 =
+	        ScubaNoise.noise_level(integrations, 850.0,  mode, decRadians, latRadians, tau, status);
+
+	if(status[0] == 0) {
+	  noise850Str = "" + (Math.rint(noise850 * 10) / 10);
+	}
+	else {
+	  noise850Str = "error " + status[0];
+	}
+
+	return "" + noise450Str + " (450), " + noise850Str + " (850)";
+      }
+    }
+
+    return "Not for Heterodyne";
   }
 }
 

@@ -108,6 +108,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
     if(ddlbwe == _w.noOfIntegrations) {
       _iterObs.setIntegrations(val);
+
+      _w.noiseTextBox.setValue(calculateNoise());
+
       return;
     }
 
@@ -186,6 +189,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
     _w.jigglesPerCycle.setValue(_iterObs.getJigglesPerCycle());
     _w.sampleTime.setValue(_iterObs.getSampleTime());
     _w.automaticTarget.setValue(_iterObs.getAutomaticTarget());
+    _w.noiseTextBox.setValue(calculateNoise());
   }
 
   /**
@@ -209,6 +213,15 @@ public class EdIterJCMTGeneric extends OtItemEditor
       _w.switchingModeLabel.setVisible(false);
       _w.frequencyPanel.setVisible(false);    
     }
+  }
+
+  /**
+   * Returns Noise information depending on instrument, observe mode and number of integrations.
+   *
+   * Subclass should override this method.
+   */
+  protected String calculateNoise() {
+    return "Not available";
   }
 }
 
