@@ -349,7 +349,7 @@ public class InstConfig extends Hashtable implements Cloneable {
 
 // Attributes for darks (only filter used currently)
          put( "darkFilter", "Blank" );    // Filter name for darks
-         put( "darkNumExp", "19" );      // Number of dark exposures (coadds)
+         put( "darkNumExp", "1" );        // Number of dark exposures (coadds)
 
 // Attributes for biases 
          put( "biasExpTime", "0.020" );   // Bias exposure time
