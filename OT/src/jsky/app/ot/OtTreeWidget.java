@@ -194,6 +194,23 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	}
     }
 
+    private void reapChildren(SpItem item) {
+	Enumeration e = item.children();
+	while (e.hasMoreElements()) {
+	    reapChildren((SpItem)e.nextElement());
+	}
+	item.getTable().noNotifyRmAll();
+	((OtTreeNodeWidget)((OtClientData) item.getClientData()).tnw).rmIcons();
+    }
+
+    public void resetProg() {
+	clear();
+	// Go through all the cildren and clear them up...
+	reapChildren(_spProg);
+	_spProg.getTable().noNotifyRmAll();
+	_spProg = null;
+    }
+
 
     /**
      * Forget about the current program and start over with the given
@@ -205,6 +222,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	clear();
 	if (_spProg != null) {
 	    _spProg.getEditFSM().deleteHierarchyChangeObserver(this);
+	    _spProg.getTable().noNotifyRmAll();
 	}
 	_spProg = prog;
 	_spProg.getEditFSM().addHierarchyChangeObserver(this);
