@@ -18,6 +18,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.BorderLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
@@ -30,6 +31,7 @@ import jsky.app.ot.LoginInfo;
 import jsky.app.ot.OtProgWindow;
 import jsky.app.ot.OtWindowInternalFrame;
 import jsky.app.ot.OtWindowFrame;
+import jsky.app.ot.gui.StopActionWidget;
 import omp.SpClient;
 import gemini.sp.SpItem;
 import gemini.sp.SpRootItem;
@@ -67,6 +69,11 @@ public class DatabaseDialog implements ActionListener {
 
   private static SpItem _spItemToBeSaved = null;
   
+  private DatabaseAccessThread _databaseAccessThread;
+  private StopActionWidget _stopAction   = new StopActionWidget();
+  private boolean _accessingDatabase     = false;
+  private boolean _databaseAccessAborted = false;
+
 
   /**
    *
@@ -77,10 +84,12 @@ public class DatabaseDialog implements ActionListener {
     _title = "Fetch Program";
     /*_presSource  =*/
     _w = new DatabaseDialogGUI();
+    _w.add(_stopAction, BorderLayout.NORTH);
     //_description ="The preferences are set with this component.";
 
     _w.confirmButton.addActionListener(this);
-    _w.cancelButton.addActionListener(this);
+    _w.closeButton.addActionListener(this);
+    _stopAction.getStopButton().addActionListener(this);
   }
 
   public void fetchProgram() {
@@ -200,7 +209,7 @@ public class DatabaseDialog implements ActionListener {
     _mode = mode;
   }
 
-  protected static void fetchProgram(String projectID, String password) {
+  protected void fetchProgram(String projectID, String password) {
     SpItem spItem = null;
    
     try {
@@ -208,6 +217,12 @@ public class DatabaseDialog implements ActionListener {
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+
+    // If the user has aborted fetchProgram by hitting "Stop" then do not
+    // display the science program.
+    if(_databaseAccessAborted) {
       return;
     }
 
@@ -225,17 +240,19 @@ public class DatabaseDialog implements ActionListener {
   }
 
   protected static void storeProgram(String password) {
-    String result = null;
+    //String result = null;
 
     try {
-      result = (new SpClient()).storeProgram(_spItemToBeSaved, password);
+      SpClient.SpStoreResult result = (new SpClient()).storeProgram((SpProg)_spItemToBeSaved, password);
+
+      ((SpProg)_spItemToBeSaved).setTimestamp(result.timestamp);
+
+      new FormattedStringBox(result.summary, "Database Message");
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(_dialogComponent, e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
-
-    new FormattedStringBox(result, "Database Message");
   }
 
   /**
@@ -247,23 +264,68 @@ public class DatabaseDialog implements ActionListener {
     Object w  = evt.getSource();
 
     if (w == _w.confirmButton) {
-      if(_mode == ACCESS_MODE_STORE) {
-        //  loginTextBox contains the proejctID aka Science Program name.
-	storeProgram(_w.passwordTextBox.getText());
+      // In the middle of accessing database. Ignore renewed button press.
+      if(_accessingDatabase) {
+        return;
       }
       else {
-        //  loginTextBox contains the proejctID aka Science Program name.
-	fetchProgram(_w.loginTextBox.getText(), _w.passwordTextBox.getText());
+        _accessingDatabase = true;
+        _databaseAccessThread = new DatabaseAccessThread();
+        _databaseAccessThread.start();
       }
 
+      return;
+    }
+
+    if (w == _w.closeButton) {
       hide();
       return;
     }
 
-    if (w == _w.cancelButton) {
-      hide();
+    if (w == _stopAction.getStopButton()) {
+      _databaseAccessAborted = true;
       return;
     }
   }
+
+    /**
+     * This class changes the color and text of the "Resolve" button that starts the name rsolver.
+     *
+     * This inner class is very similar to the class NameResolverFeedback in {@link jsky.app.ot.editor.EdCompTargetList}.
+     * If this design/implementaton is accepted the two classes should inherit from a super class,
+     * say, ot.util.CanelableThreadButton.
+     */
+    class DatabaseAccessThread extends Thread {
+	//private boolean _active = true;
+
+	//public void deActivate() {
+	//    _active = false;
+	//}
+    
+	public void run() {
+	  _stopAction.actionsStarted();
+	  //_w.confirmButton.setText("Stop.");
+	  //_w.confirmButton.setBackground(Color.red);
+
+          if(_mode == ACCESS_MODE_STORE) {
+            //  loginTextBox contains the proejctID aka Science Program name.
+	    storeProgram(_w.passwordTextBox.getText());
+          }
+          else {
+            //  loginTextBox contains the proejctID aka Science Program name.
+	    fetchProgram(_w.loginTextBox.getText(), _w.passwordTextBox.getText());
+          }
+
+          // If the DatabaseAccessThread has been deactivated by user request "Stop"
+	  // then ignore 
+	  //if(_active == false) {
+	  //  return;
+	  //}
+
+	  _accessingDatabase     = false;
+	  _databaseAccessAborted = false;
+	  _stopAction.actionsFinished();
+	}
+    }
 }
 
