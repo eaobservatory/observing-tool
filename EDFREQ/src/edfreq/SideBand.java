@@ -198,7 +198,9 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       sw = getScaledWidth();
 
       if(sw > (pixratio * (highLimit - lowLimit))) {
-         sideBandGui.setBackground(_scrollBarKnobColor);
+         if(sideBandGui.isEnabled()) {
+            sideBandGui.setBackground(_scrollBarKnobColor);
+         }
       }
       else {
          sideBandGui.setBackground(_scrollBarBackground);
