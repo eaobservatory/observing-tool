@@ -85,7 +85,7 @@ public class Sampler implements ItemListener
          for ( j=0; j<swArray.size(); j++ )
          {
             ((SamplerWatcher)swArray.elementAt(j)).updateSamplerValues ( 
-              centreFrequency, bandWidth, channels );
+              this.centreFrequency, bandWidth, channels );
          }
       }
    }
