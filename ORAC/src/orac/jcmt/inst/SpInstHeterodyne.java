@@ -53,6 +53,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Transition. */
   public static final String ATTR_TRANSITION = "transition";
 
+  /** Line Frequency. */
+  public static final String ATTR_LINE_FREQUENCY = "lineFrequency";
+
   /** Overlap of multiple hybrid subbands. */
   public static final String ATTR_OVERLAP = "overlap";
 
@@ -71,6 +74,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** */
   public static final String ATTR_CHANNELS = "channels";
 
+  /** */
+  public static final String ATTR_HYBRID_SUBBANDS = "hybridSubBands";
 
 
   public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
@@ -288,13 +293,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    *
    * @param Number of subsystems (starting at 0).
    */
-  public double getFrequency(int subsystem) {
-    if(getBand().toLowerCase().equals("usb")) {
-      return (getLO1() + getCentreFrequency(subsystem)) * (1.0 + getRedshift());
-    }
-    else {
-      return (getLO1() - getCentreFrequency(subsystem)) * (1.0 + getRedshift());
-    }
+  public double getLineFrequency(int subsystem) {
+    return _avTable.getDouble(ATTR_LINE_FREQUENCY, subsystem, 0.0);
   }
 
   /**
@@ -302,14 +302,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    *
    * @param Number of subsystems (starting at 0).
    */
-  public void setFrequency(double value, int subsystem) {
-    double centreFrequency = (value / (1.0 + getRedshift())) - getLO1();
-
-    if(!getBand().toLowerCase().equals("usb")) {
-      centreFrequency *= -1;
-    }
-    
-    setCentreFrequency(centreFrequency, subsystem);
+  public void setLineFrequency(double value, int subsystem) {
+    _avTable.set(ATTR_LINE_FREQUENCY, value, subsystem);
   }
 
   /**
@@ -317,8 +311,17 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    *
    * @param Number of subsystems (starting at 0).
    */
-  public void setFrequency(String value, int subsystem) {
-    setFrequency(Format.toDouble(value), subsystem);
+  public void setLineFrequency(String value, int subsystem) {
+    setLineFrequency(Format.toDouble(value), subsystem);
+  }
+
+  /**
+   * Set frequency of specified subsystem to the centre of the band.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setLineFrequency(int subsystem) {
+    setLineFrequency(getFrequencyAtCentre(subsystem), subsystem);
   }
 
 
@@ -375,6 +378,34 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    */
   public void setBandWidth(String value, int subsystem) {
     setBandWidth(Format.toDouble(value), subsystem);
+  }
+
+
+  /**
+   * Get number of hybrid subbands that make up the band of the specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public double getNumHybridSubBands(int subsystem) {
+    return _avTable.getDouble(ATTR_HYBRID_SUBBANDS, subsystem, 0.0);
+  }
+
+  /**
+   * Set number of hybrid subbands that make up the band of the specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setNumHybridSubBands(double value, int subsystem) {
+    _avTable.set(ATTR_HYBRID_SUBBANDS, value, subsystem);
+  }
+
+  /**
+   * Set number of hybrid subbands that make up the band of the specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public void setNumHybridSubBands(String value, int subsystem) {
+    setNumHybridSubBands(Format.toDouble(value), subsystem);
   }
 
 
@@ -440,12 +471,30 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     setLO1(Format.toDouble(value));
   }
 
+  public int getNumSubSystems() {
+    return _avTable.size(ATTR_CENTRE_FREQUENCY);
+  }
+
+
+  /**
+   * Get frequency at the centre of the band of specified subsystem.
+   *
+   * @param Number of subsystems (starting at 0).
+   */
+  public double getFrequencyAtCentre(int subsystem) {
+    if(!getBand().toLowerCase().equals("usb")) {
+       return (getLO1() - getCentreFrequency(subsystem)) * (1.0 + getRedshift());
+    }
+    else {
+       return (getLO1() + getCentreFrequency(subsystem)) * (1.0 + getRedshift());
+    }
+  }
+
   /**
    * Creates parts of ACSIS configuration file.
    */
   public String toConfigXML(String indent) {
-    String restFrequencyId = _avTable.get(ATTR_MOLECULE + "  " + _avTable.get(ATTR_TRANSITION));
-    String sidebandString  = _avTable.get(ATTR_BAND);
+    String sidebandString  = getBand();
 
     int sideband = 0;
 
@@ -463,16 +512,16 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     xmlBuffer.append( 
         indent + "<frontend_configure>\n" +
         indent + "  <rest_frequency units=\"GHz\" value=\"" +
-                 (getFrequency(0) * 1.0E6) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
-        indent + "  <if_centre_freq units=\"GHz\" value=\"" + _avTable.getDouble(ATTR_FE_IF, 0.0) + "\"/>\n" +
+                 (getLineFrequency(0) * 1.0E6) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
+        indent + "  <if_centre_freq units=\"GHz\" value=\"" + getFeIF() + "\"/>\n" +
         indent + "  <sideband value=\"" + sideband + "\"/>\n" +
-        indent + "  <sb_mode value=\"" + _avTable.get(ATTR_MODE).toUpperCase() + "\"/>\n" +
+        indent + "  <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" +
         indent + "  <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" +
         indent + "  <dopple_tracking value=\"ON\"/>\n" +	// Options are ON | OFF. Default to ON for now.
         indent + "  <optimize value=\"DISABLE\"/>\n"		// Options are ENABLE | DISABLE. Default to DIABLE for now.
     );
 
-    if(_avTable.get(ATTR_FE_NAME).equals("HARP-B")) {
+    if(getFrontEnd().equals("HARP-B")) {
       xmlBuffer.append(
         indent + "  <channel_mask>\n" + // Array of (OFF | ON | NEED). Use Pixeltool to switch pixels ON/OFF. NEED???
         indent + "    <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" +
@@ -500,18 +549,21 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     );
 
     
+    // ------------------- ACSIS configuration ----------------------------------------
+
+    // Line list
+    xmlBuffer.append(indent + "<line_list>\n");
+
+    for(int i = 0; i < getNumSubSystems(); i++) {
+      xmlBuffer.append(indent + "  <rest_frequency id=\"line" + i + "\" units=\"GHz\">" +
+                       getLineFrequency(i) +
+                      "</rest_frequency>\n");
+    }
+    
+    xmlBuffer.append(indent + "</line_list>\n\n");
+
+    // Acsis spectral windows list
     xmlBuffer.append(
-
-      // ------------------- ACSIS configuration ----------------------------------------
-
-      // Line list
-      indent + "<line_list>\n" +
-      indent + "  <rest_frequency id=\"" + restFrequencyId + "\" units=\"GHz\">" +
-        getFrequency(0) +
-        "</rest_frequency>\n" +
-      indent + "</line_list>\n\n" +
-
-      // Acsis spectral windows list
       indent + "<acsis_spw_list>\n" +
       indent + "  <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" +
       indent + "  <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\">\n" +
@@ -520,9 +572,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
     // Spectral windows
 
-    for(int i = 0; i < _avTable.getAll(ATTR_BANDWIDTH).size(); i++) {
-       xmlBuffer.append(spectralWindowToXML(i, restFrequencyId, sideband,
-      "<!-- <base_line_fit> etc. not implemented yet. -->", indent + "  ") + "\n");
+    for(int i = 0; i < getNumSubSystems(); i++) {
+       xmlBuffer.append(spectralWindowToXML("line" + 1, sideband,
+      "<!-- <base_line_fit> etc. not implemented yet. -->", indent + "  ", i) + "\n");
     }
 
     xmlBuffer.append(
@@ -533,29 +585,29 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
 
-  public String spectralWindowToXML(int subsystemIndex,
-				    String restFrequencyId,
+  public String spectralWindowToXML(String restFrequencyId,
 				    int sideband,
 				    String dataReductionXML,
-				    String indent) {
+				    String indent,
+                                    int subsystem) {
     return 
-      indent + "<spectral_window id=\"SPW" + (subsystemIndex + 1) + "\">\n" +
+      indent + "<spectral_window id=\"SPW" + (subsystem + 1) + "\">\n" +
       indent + "  <spw_bandwidth_mode mode=\"1GHzx1024\"/>\n" +
       indent + "  <spw_window type=\"truncate\"/>\n" +
       indent + "  <rest_frequency_ref ref=\"" + restFrequencyId +"\"/>\n" +
       indent + "  <front_end_sideband sideband=\"" + sideband + "\"/>\n" +
       indent + "  <spw_if_coordinate>\n" +
       indent + "    <spw_reference_if_frequency units=\"GHz\">" +
-        _avTable.get(ATTR_CENTRE_FREQUENCY, subsystemIndex) +
+        getCentreFrequency(subsystem) +
         "</spw_reference_if_frequency>\n" +
       indent + "    <spw_reference_pixel>" +
         "4064.0???" +
         "</spw_reference_pixel>\n" +
       indent + "    <spw_if_channel_width units=\"Hz\">" +
-        _avTable.get(ATTR_BANDWIDTH, subsystemIndex) +
+        getBandWidth(subsystem) +
         "</spw_if_channel_width>\n" +
       indent + "    <spw_number_if_channel>" +
-        _avTable.get(ATTR_CHANNELS, subsystemIndex) +
+        getChannels(subsystem) +
         "</spw_number_if_channel>\n" +
       indent + "  </spw_if_coordinate>\n" +
       indent + dataReductionXML + "\n" +
@@ -573,8 +625,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     xmlBuffer.insert(offset, "\n\n" +
                              indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
                              indent + "<!--          ACSIS Configuration XML        -->\n" + 
-                             indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n\n");// + 
-                             //toConfigXML(indent + "  "));
+                             indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + 
+                             toConfigXML(indent + "  "));
   }
 }
 
