@@ -57,6 +57,13 @@ public class SpObs extends SpObsContextItem
       "High", "Medium", "Low"
    };
 
+   /**
+    * This attribute is true if the SpObs is not inside an SpMSB because
+    * in that case the observation is an MSB in its own right.
+    */
+   public static final String ATTR_MSB = ":msb";
+
+
 /**
  * Default constructor.  Initializes the Observation with required items.
  */
@@ -299,4 +306,27 @@ setNumberRemaining(int remaining)
    _avTable.set(SpMSB.ATTR_REMAINING, remaining);
 }
 
+/**
+ * Get the MSB flag of the observation.
+ *
+ * Added for OMP. <!-- MFO, 27 August 2001 -->
+ */
+public boolean
+getIsMSB()
+{
+   return _avTable.getBool(ATTR_MSB);
 }
+
+/**
+ * Set the MSB attribute of the observation.
+ *
+ * Added for OMP. <!-- MFO, 27 August 2001 -->
+ */
+public void
+setIsMSB(boolean isMSB)
+{
+  _avTable.set(ATTR_MSB, isMSB);
+}
+
+}
+
