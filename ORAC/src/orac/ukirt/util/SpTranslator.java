@@ -1,4 +1,4 @@
-package ot_ukirt.util;
+package orac.ukirt.util;
 
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpObsComp;
