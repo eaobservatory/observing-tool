@@ -51,22 +51,7 @@ public class ReportBox extends JFrame {
    */
   protected JFileChooser _fileChooser = new JFileChooser();
 
-  protected String _asciiDescription          = "Text Only (*.txt)";
-//  protected String _asciiLineBreakDescription = "Text Only with Line Breaks (*.txt)";
-  protected String _richTextFormatDescription = "Rich Text Format (*.rtf)";
-
-  protected ReportBox() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-
-    //setBounds(100, 100, 480, 640);
-    setVisible(true);
-
-    _fileChooser.addChoosableFileFilter(new FileFilter() {
+  protected FileFilter _asciiFileFilter = new FileFilter() {
       public boolean accept(File file) {
         if(file.getName().endsWith(".txt")) {
           return true;
@@ -79,26 +64,9 @@ public class ReportBox extends JFrame {
       public String getDescription() {
         return _asciiDescription;
       }
-    });
+    };
 
-/* 
-   // ASCII with kine breaks
-   _fileChooser.addChoosableFileFilter(new FileFilter() {
-      public boolean accept(File file) {
-        if(file.getName().endsWith(".txt")) {
-          return true;
-	}
-	else {
-          return false;
-	}
-      }
-      
-      public String getDescription() {
-        return _asciiLineBreakDescription;
-      }
-    });
-*/
-    _fileChooser.addChoosableFileFilter(new FileFilter() {
+  protected FileFilter _richTextFormatFileFilter= new FileFilter() {
       public boolean accept(File file) {
         if(file.getName().endsWith(".rtf")) {
           return true;
@@ -110,11 +78,26 @@ public class ReportBox extends JFrame {
       public String getDescription() {
         return _richTextFormatDescription;
       }
-    });
+    };
+
+
+  protected String _asciiDescription          = "Text Only (*.txt)";
+  protected String _richTextFormatDescription = "Rich Text Format (*.rtf)";
+
+  protected ReportBox() {
+    try {
+      jbInit();
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public ReportBox(String message) {
     this();
+
+    _fileChooser.addChoosableFileFilter(_asciiFileFilter);
+    _fileChooser.addChoosableFileFilter(_richTextFormatFileFilter);
 
     initStylesForTextPane(_textPane);
 
@@ -133,8 +116,6 @@ public class ReportBox extends JFrame {
       e.printStackTrace();
     }
     
-    //_textPane.setText(message);
-    //_textPane.setLineWrap(true);
     _textPane.setEditable(false);
 
     // Set frame bounds.
@@ -146,7 +127,8 @@ public class ReportBox extends JFrame {
     else {
       setBounds(100, 100, 480, 640);
     }
-    pack();
+
+    setVisible(true);
   }
 
   public ReportBox(String message, String title) {
@@ -154,7 +136,6 @@ public class ReportBox extends JFrame {
     
     setTitle(title);
   }
-
 
   private void jbInit() throws Exception {
     _dismissButton.setText("Dismiss");
@@ -205,8 +186,6 @@ public class ReportBox extends JFrame {
 
 
   public void save() {
-    //_fileChooser.setDialogTitle("Save Error/Warning Report");
-    
     if(_fileChooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
       return;
     }
@@ -227,14 +206,6 @@ public class ReportBox extends JFrame {
           }
           printWriter.close();
 	}
-/*	else {
-          PrintWriter printWriter = new PrintWriter(new FileWriter(fileName));
-          StringTokenizer st = new StringTokenizer(_textPane.getText(), "\n");
-          while (st.hasMoreTokens()) {
-            printWriter.println(st.nextToken());
-          }
-          printWriter.close();          
-	} */
       }
       catch(IOException exception) {
         JOptionPane.showMessageDialog(this, "Problems writing to file \"" + fileName + "\": " + exception,
@@ -245,10 +216,6 @@ public class ReportBox extends JFrame {
 	                                   "Save Error", JOptionPane.ERROR_MESSAGE);        
       }
     }
-    //else {
-    //  System.out.println("No file name.");
-    //}
-    
   }
 
   /**
