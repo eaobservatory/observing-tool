@@ -279,7 +279,7 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
    // "PA" (ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
    // as their information has already been dealt with in the TCS XML representation of
    // this item.
-   // They other attributes are delegated to the super class.
+   // The other attributes are delegated to the super class.
    if(avAttr.equals(SpOffsetPosList.OFFSET_POS_LIST)) {
       // Append <obsArea> element.
       xmlBuffer.append("\n" + indent + "  <obsArea>");
