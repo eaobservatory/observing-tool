@@ -56,6 +56,8 @@ public final class EdIterOffset extends OtItemEditor
 
     private String BUTTON_TEXT_ROTATION_FALSE = "Display Rotated Offsets";
     private String BUTTON_TEXT_ROTATION_TRUE  = "Offsets Rotated";
+    private double TO_RADIANS = Math.PI/180.0;
+    private double TO_DEGREES = 1.0/TO_RADIANS;
 
     /**
      * The constructor initializes the title, description, and presentation source.
@@ -496,8 +498,10 @@ public final class EdIterOffset extends OtItemEditor
 	  tp = _opl.getPositionAt(i);
 	  posAngle = _opl.getPosAngle();
 
-	  rotatedX = (tp.getXaxis() *   Math.cos(posAngle) ) + (tp.getYaxis() * Math.sin(posAngle));
-	  rotatedY = (tp.getXaxis() * (-Math.sin(posAngle))) + (tp.getYaxis() * Math.cos(posAngle));
+	  rotatedX = (tp.getXaxis() *   Math.cos(posAngle*TO_RADIANS) ) + 
+	      (tp.getYaxis() * Math.sin(posAngle*TO_RADIANS));
+	  rotatedY = (tp.getXaxis() * (-Math.sin(posAngle*TO_RADIANS))) + 
+	      (tp.getYaxis() * Math.cos(posAngle*TO_RADIANS));
 
           _offTW.setValueAt("" + (Math.rint(rotatedX * 10) / 10), i, 1);
           _offTW.setValueAt("" + (Math.rint(rotatedY * 10) / 10), i, 2);
