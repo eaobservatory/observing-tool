@@ -26,6 +26,9 @@ public class SpSchedConstObsComp extends SpObsComp {
   /** This attribute records the latest scheduling date. */
   public static final String ATTR_LATEST = "latest";
 
+  /** This attribute records the minimum elevation. */
+  public static final String ATTR_MIN_ELEVATION = "minEl";
+
   public static final String NO_VALUE = "none";
 
   public static final String SUBTYPE = "schedConstraints";
@@ -106,6 +109,20 @@ public class SpSchedConstObsComp extends SpObsComp {
    */
   public void initLatest(String latest) {
     _avTable.noNotifySet(ATTR_LATEST, latest, 0);
+  }
+
+  /**
+   * Get latest scheduling date.
+   */
+  public String getMinElevation() {
+    return _avTable.get(ATTR_MIN_ELEVATION);
+  }
+    
+  /**
+   * Set latest scheduling date.
+   */
+  public void setMinElevation(double minEl) {
+    _avTable.set(ATTR_MIN_ELEVATION, minEl);
   }
 }
 
