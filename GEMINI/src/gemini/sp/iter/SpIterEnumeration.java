@@ -272,7 +272,7 @@ nextElement()
    }
 
    // Base case: an iterComp without children
-   if ( (_childEnum == null) || !(_childEnum.hasMoreElements()) ) {
+   if ( (_childEnum == null) /*|| !(_childEnum.hasMoreElements())*/ ) {
 
       if (_curElement == null) {
          _curElement = _thisNextElement();
