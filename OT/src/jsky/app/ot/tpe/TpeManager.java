@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.JDesktopPane;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
-import jsky.app.ot.util.TelescopePos;
+import jsky.util.gui.DialogUtil;
 import jsky.app.jskycat.JSkyCat;
 
 /**
@@ -93,6 +93,7 @@ public final class TpeManager implements TpeWatcher
      * Open the editor, creating it if necessary.
      */
     public static TelescopePosEditor open(SpItem spItem) {
+      try {
 	SpItem    root = SpTreeMan.findRootItem(spItem);
 	TpeManager man = (TpeManager) _map.get(root);
 
@@ -111,6 +112,16 @@ public final class TpeManager implements TpeWatcher
 	man._tpe.setImageFrameVisible(true);
 
 	return man._tpe;
+      }
+      catch(NoClassDefFoundError e) {
+        DialogUtil.error("The Position Editor cannot be launched because of a missing class: " +
+	                 e.getMessage() +
+                         "\n        Make sure you have Java Advanced Imaging 1.1 installed.");
+
+        e.printStackTrace();
+
+	throw e;
+      }
     }
 
     /**
