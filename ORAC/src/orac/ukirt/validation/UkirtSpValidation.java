@@ -47,7 +47,8 @@ public class UkirtSpValidation extends SpValidation {
                                    "CGS4",
 				   "IRCAM3",
 				   "UFTI",
-				   "Michelle"
+				   "Michelle",
+		                   "UIST"
                                  };
 
   /**
@@ -188,6 +189,9 @@ public class UkirtSpValidation extends SpValidation {
     if(spInstObsComp instanceof orac.ukirt.inst.SpInstMichelle) {
       (new MichelleValidation()).checkInstrument(spInstObsComp, report);
     }
+    else if(spInstObsComp instanceof orac.ukirt.inst.SpInstUIST) {
+      (new UISTValidation()).checkInstrument(spInstObsComp, report);
+    }
     else if(spInstObsComp instanceof orac.ukirt.inst.SpInstIRCAM3) {
       (new IRCAM3Validation()).checkInstrument(spInstObsComp, report);
     }
@@ -274,6 +278,7 @@ public class UkirtSpValidation extends SpValidation {
         if(currentIterator instanceof SpIterFP) {
           if( currentInstObsComp instanceof SpInstCGS4 ||
               currentInstObsComp instanceof SpInstMichelle ||
+              currentInstObsComp instanceof SpInstUIST ||
 	      currentInstObsComp instanceof SpInstIRCAM3 ) {
 	    report.add(new ErrorMessage(ErrorMessage.ERROR,
 	                                "FP iterator",
@@ -285,6 +290,7 @@ public class UkirtSpValidation extends SpValidation {
         // Checking for invalid instrument component / IRPOL iterator combinations.
         if(currentIterator instanceof SpIterIRPOL) {
           if( currentInstObsComp instanceof SpInstMichelle ||
+              currentInstObsComp instanceof SpInstUIST ||
 	      currentInstObsComp instanceof SpInstIRCAM3 ) {
 	    report.add(new ErrorMessage(ErrorMessage.ERROR,
 	                                "IRPOL iterator",
@@ -1156,6 +1162,7 @@ print(SpItem spItem, String indentStr)
     spItem = new SpInstCGS4();
     spItem = new SpInstIRCAM3();
     spItem = new SpInstMichelle();
+    spItem = new SpInstUIST();
     spItem = new SpDRRecipe();
     spItem = new SpIterBiasObs();
     spItem = new SpIterDarkObs();
