@@ -269,11 +269,11 @@ import javax.swing.ButtonGroup;
    private void _updateExpWidgets() {
       double d = _instIRCAM3.getExpTime();
       String e = Double.toString( d );
-   //   _instIRCAM3.setExpTime( e );
+      _instIRCAM3.setExpTime( e );
       _w.exposureTime.setText( e );
 
       int coadds = _instIRCAM3.getNoCoadds();
-   // _instIRCAM3.setNoCoadds( coadds );
+      _instIRCAM3.setNoCoadds( coadds );
       _w.coadds.setText( Integer.toString( coadds ) );
 
       _w.acqMode.setValue( _instIRCAM3.getAcqMode() );
