@@ -306,6 +306,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     double currentExposureTime = getExpTime();
     int    currentNoCoadds     = 1;
     SpIterComp currentIterStepItem = null;
+    boolean exposureTimeOverride = false;
 
     IterTrackerUKIRT() {
       if(_avTable.exists(ATTR_COADDS)) {
@@ -337,6 +338,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
           if((attribute != null) && (value != null)) {
             if(attribute.equals(ATTR_EXPOSURE_TIME)) {
               currentExposureTime = Double.valueOf(value).doubleValue();
+	      exposureTimeOverride = true;
 	      expTimeFound = true;
             }
 
@@ -346,7 +348,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
             }
 	  }
 
-	  if (!expTimeFound) {
+	  if (!expTimeFound && !exposureTimeOverride) {
 	      // See if we can get an exposure time from the instrument
 	      SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
 	      if (instrument != null) {
