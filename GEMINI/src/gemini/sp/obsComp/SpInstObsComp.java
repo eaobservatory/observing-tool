@@ -335,6 +335,32 @@ replaceTable(SpAvTable avTable)
 }
 
 /**
+ * Overhead time for doing an exposure.
+ *
+ * Overhead time associated with an exposure (see {@link #getExposureTime()} and {@link #setExposureTime()}).
+ * cause by reset time, read time, NDR reset delay etc.
+ * <P>
+ * This method is used for MSB duration estimation. Subclasses can override this method to
+ * return an  instrument specific value.
+*/
+public double
+getExposureOverhead()
+{
+   return 0.0;
+}
+
+/**
+ * Returns a time estimate for slewing the telescope depending on the instrument settings.
+ *
+ * Should overriden by subclasses.
+ */
+public double
+getSlewTime()
+{
+   return 0.0;
+}
+
+/**
  * This method returns the time that elapses during one "observe" step given the settings of
  * this instrument.
  *
