@@ -49,7 +49,6 @@ are unlikely to apply to more than a small minority of programmes.
       <priority>99</priority>
       <estimatedDuration units="seconds">358.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in all three wavebands.
 Since it is not possible to predict the source RA we do not include this
@@ -57,6 +56,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="0" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -295,7 +295,6 @@ If you want to use a different size of offset, move the highlight to the offset 
       <priority>99</priority>
       <estimatedDuration units="seconds">1047.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in all three wavebands.
 Since it is not possible to predict the source RA we do not include this
@@ -303,6 +302,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="1" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -549,7 +549,6 @@ Three darks are done here - one for each filter that will follow.  Set the expos
       <priority>99</priority>
       <estimatedDuration units="seconds">1047.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in all three wavebands.
 Since it is not possible to predict the source RA we do not include this
@@ -557,6 +556,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="2" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -807,7 +807,6 @@ Three darks are done here - one for each filter that will follow.  Set the expos
       <priority>99</priority>
       <estimatedDuration units="seconds">150.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -815,6 +814,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="3" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -1008,7 +1008,6 @@ If you want to use a different size of offset, move the highlight to the offset 
       <priority>99</priority>
       <estimatedDuration units="seconds">690.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -1016,6 +1015,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="4" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -1216,7 +1216,6 @@ start position (00) after all the data has been obtained.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">690.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -1224,6 +1223,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="5" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -1426,7 +1426,6 @@ If you want to use a different size of offset, move the highlight to the offset 
       <priority>99</priority>
       <estimatedDuration units="seconds">690.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -1434,6 +1433,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="6" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -1636,7 +1636,6 @@ start position (00) after all the data has been obtained.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">426.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -1644,6 +1643,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="7" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -1829,7 +1829,6 @@ If you want to use a different size of offset, move the highlight to the offset 
       <priority>99</priority>
       <estimatedDuration units="seconds">426.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -1837,6 +1836,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="8" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -2021,7 +2021,6 @@ If you want to use a different size of offset, move the highlight to the offset 
       <priority>99</priority>
       <estimatedDuration units="seconds">360.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -2029,6 +2028,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="9" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -2215,7 +2215,6 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
       <priority>99</priority>
       <estimatedDuration units="seconds">1350.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -2223,6 +2222,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="10" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -2467,7 +2467,6 @@ Changing the total number of offsets will break the data-reduction recipe.
       <priority>99</priority>
       <estimatedDuration units="seconds">492.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -2475,6 +2474,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="11" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -2683,7 +2683,6 @@ Removing the offset to sky will break the recipe.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">1350.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -2691,6 +2690,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="12" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -2937,7 +2937,6 @@ Changing the total number of offsets will break the data-reduction recipe.
       <priority>99</priority>
       <estimatedDuration units="seconds">3462.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -2945,6 +2944,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="13" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -3331,11 +3331,11 @@ may be included in MSBs in your science programme.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use this observation to make some observations of blank sky which can be processed to generate flat fields.  These are relevant if you are observing sources where the exposure time is too short to generate a flat field from the object jitter pattern.
 
 The reduction recipe makes a flat that other reduction recipes can use.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3488,11 +3488,11 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use this observation to make some observations of blank sky which can be processed to generate flat fields.  These are relevant if you are observing sources where the exposure time is too short to generate a flat field from the object jitter pattern.
 
 The reduction recipe makes a flat that other reduction recipes can use.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3719,12 +3719,12 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Simply takes five short darks to flush the array of any residual bias structure or latency that may be left over from observing in twilight or from observing a last (bright) standard.
 
 Also ensures that the blank is in place at the end of the night.
 </note>
+        <title>Usage</title>
       </SpNote>
       <SpInstUFTI id="22" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
@@ -3794,11 +3794,11 @@ Also ensures that the blank is in place at the end of the night.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>To take 3 short dark exposures (full array) to "flush" the array of any latent images.    
 
 Note:  These frames WILL be stored to disk.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4890,7 +4890,6 @@ This is the "Extended source, nod to blank sky" science target. By default, it g
       <SpTelescopeObsCompRef idref="35"/>
       <SpInstCGS4Ref idref="36"/>
       <SpNote type="no" subtype="none">
-        <title>Extended source with infrequent nod to blank sky</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This is only for use when:
 a) the sky background is stable,
@@ -4902,6 +4901,7 @@ i.e. faint, extended, echelle targets.
 The sequence is that you start with a SKY frame, and then take several OBJECT frames.  The DR will subtract the SKY from each of the following OBJECT frames.  You can repeat this as many times as you like.
 
 See more details in the Science target observation of this MSB.</note>
+        <title>Extended source with infrequent nod to blank sky</title>
       </SpNote>
       <SpNote id="37" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -5240,9 +5240,9 @@ You can change the number of object frames that follow each sky frame by editing
       <SpInstCGS4Ref idref="38"/>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Array Tests</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This is the array checkout proceedure. It should be run at the start of each night and if you suspect array problems.  Do not alter this observation.  The DR pipeline will tell you the readnoise and dark current on reducing this.</note>
+        <title>Array Tests</title>
       </SpNote>
       <SpInstCGS4 id="38" type="oc" subtype="inst.CGS4">
         <order>1</order>
@@ -5343,9 +5343,9 @@ You can change the number of object frames that follow each sky frame by editing
       <SpInstCGS4Ref idref="40"/>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>End of Night</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Simply sets to a DARK configuration which is the best place for the filter wheels to be left at the end of the night.</note>
+        <title>End of Night</title>
       </SpNote>
       <SpInstCGS4 id="40" type="oc" subtype="inst.CGS4">
         <order>1</order>
@@ -5394,7 +5394,6 @@ You can change the number of object frames that follow each sky frame by editing
       <SpInstCGS4Ref idref="41"/>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>End of Night Echelle Emissivity</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Measures the telescope emissivity.
 The procedure is as follows:
@@ -5410,6 +5409,7 @@ At the break after the sky frame, ask the TSS to close the mirror covers and dom
 - press continue, to take the dome frame
 
 Finally the sequence does a DARK, which is the best place to leave the filter wheels at the end of the night.</note>
+        <title>End of Night Echelle Emissivity</title>
       </SpNote>
       <SpDRRecipe id="42" type="oc" subtype="DRRecipe">
         <SkyRecipe>EMISSIVITY</SkyRecipe>
@@ -5504,7 +5504,6 @@ Finally the sequence does a DARK, which is the best place to leave the filter wh
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Polarimetry</title>
     <SpNote type="no" subtype="none">
-      <title>UFTI</title>
       <meta_gui_collapsed>false</meta_gui_collapsed>
       <note>Five sequences are given below.  The first, "Pol jitter then angle" is the most efficient, since three images are obtained BEFORE the waveplate is moved.  This uses the recipe POL_JITTER.
 
@@ -5525,6 +5524,7 @@ add them from the component button once the MSBs are in your programme. If you h
 
 Scheduling constraints are also not included, since they
 are unlikely to apply to more than a small minority of programmes.</note>
+      <title>UFTI</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
       <SpNoteRef idref="43"/>
@@ -5533,13 +5533,13 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">238.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter UFTI settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="43" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -6145,13 +6145,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       <priority>99</priority>
       <estimatedDuration units="seconds">229.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter UFTI settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="44" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -6759,13 +6759,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       <priority>99</priority>
       <estimatedDuration units="seconds">430.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter UFTI settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="45" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -7427,13 +7427,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       <priority>99</priority>
       <estimatedDuration units="seconds">1198.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter UFTI settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="46" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -8297,13 +8297,13 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">238.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter IRCAM settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="47" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -8893,13 +8893,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       <priority>99</priority>
       <estimatedDuration units="seconds">194.08</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter IRCAM settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="48" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -9487,13 +9487,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
       <priority>99</priority>
       <estimatedDuration units="seconds">237.00000000000003</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter IRCAM settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="49" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -10151,13 +10151,13 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">2314.8799999999997</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 We incorporate a template standard sequence (which is made optional); simply
 edit in your standard star ID, resolve the name and then alter IRCAM settings.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="50" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -11562,11 +11562,11 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Construct separate flat fields for each of the four waveplate angles.  Any number of sky frames can be combined into each flat;  the recipe SKY_FLAT_POL_ANGLE should be used.
 
 N.B.  All current polarimetry recipes require a separate flat field.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -11863,11 +11863,11 @@ Guiding may be switched off at the telescope.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This sequence obtains eight frames, two at each waveplate angle, that are median averaged to make a "master" flat field for use with all subsequent target pol observations.
 
 N.B.  All current Polarimetry recipes require a separate flat field (and dark).</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -12120,11 +12120,11 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This sequence obtains eight frames, two at each waveplate angle, that are median averaged to make a "master" flat field for use with all subsequent target pol observations.
 
 N.B.  All current Polarimetry recipes require a separate flat field (and dark).</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -12365,11 +12365,11 @@ the telescope to slide 0 0</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Construct separate flat fields for each of the four waveplate angles.  Any number of sky frames can be combined into each flat;  the recipe SKY_FLAT_POL_ANGLE should be used.
 
 N.B.  All current polarimetry recipes require a separate flat field.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -12820,7 +12820,6 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -12828,6 +12827,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="65" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -13015,7 +13015,6 @@ Remember that changing the number of offsets will break the reduction recipe. </
       <priority>99</priority>
       <estimatedDuration units="seconds">370.91999999999996</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -13023,6 +13022,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="66" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -13222,7 +13222,6 @@ Remember that changing the number of offsets will break the reduction recipe. </
       <priority>99</priority>
       <estimatedDuration units="seconds">257.28</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -13230,6 +13229,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="67" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -13417,7 +13417,6 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
       <priority>99</priority>
       <estimatedDuration units="seconds">257.28</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -13425,6 +13424,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="68" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -13612,7 +13612,6 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
       <priority>99</priority>
       <estimatedDuration units="seconds">408.79999999999995</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -13620,6 +13619,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="69" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -13820,7 +13820,6 @@ Use the reset-to-default button to ensure the dark exposure time matches that in
       <priority>99</priority>
       <estimatedDuration units="seconds">219.39999999999998</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -13828,6 +13827,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="70" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -14020,7 +14020,6 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
       <priority>99</priority>
       <estimatedDuration units="seconds">332.64000000000004</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -14028,6 +14027,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="71" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -14257,7 +14257,6 @@ Three darks are done here - one for each filter that will follow.  Set the expos
       <priority>99</priority>
       <estimatedDuration units="seconds">787.5999999999999</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -14265,6 +14264,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="72" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -14517,7 +14517,6 @@ Changing the total number of offsets will break the data-reduction recipe.
       <priority>99</priority>
       <estimatedDuration units="seconds">72.21000000000001</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -14525,6 +14524,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="73" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -14728,7 +14728,6 @@ Removing the offset to sky will break the recipe, as will changing the order.</n
       <priority>99</priority>
       <estimatedDuration units="seconds">787.5999999999999</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -14736,6 +14735,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="74" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -14979,7 +14979,6 @@ Changing the total number of offsets will break the data-reduction recipe.
       <priority>99</priority>
       <estimatedDuration units="seconds">1999.7600000000027</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -14987,6 +14986,7 @@ standard star here. To get it, file...open the UFTI Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="75" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -15372,11 +15372,11 @@ Changing the total number of offsets will break the data-reduction recipe.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>To test array performance.
 
 Recommended that this be run at the start of every IRCAM night.</note>
+        <title>Usage</title>
       </SpNote>
       <SpInstIRCAM3 id="76" type="oc" subtype="inst.IRCAM3">
         <posAngle>0.0</posAngle>
@@ -15490,11 +15490,11 @@ then a 60-second and a 10-second dark to calculate the dark current.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use this observation to make some observations of blank sky which can be processed to generate flat fields.  These are relevant if you are observing sources where the exposure time is too short to generate a flat field from the object jitter pattern.
 
 The reduction recipe makes a flat that other reduction recipes can use.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -15647,7 +15647,6 @@ exposure time matches that in your object.</note>
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>UFTI+FP</title>
     <SpNote type="no" subtype="none">
-      <title>FP sequences</title>
       <meta_gui_collapsed>false</meta_gui_collapsed>
       <note>SITE QUALITY AND SCHEDULING CONSTRAINTS
 ------------------------------------------
@@ -15657,6 +15656,7 @@ add them from the component button once the MSBs are in your programme. If you h
 
 Scheduling constraints are also not included, since they
 are unlikely to apply to more than a small minority of programmes.</note>
+      <title>FP sequences</title>
     </SpNote>
     <SpMSB remaining="100" type="og" subtype="msb">
       <title>Alignment and quick look</title>
@@ -16159,13 +16159,13 @@ Short integration times are usually sufficient for FP alignment with the lamp.
       <priority>99</priority>
       <estimatedDuration units="seconds">1163.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we include only a template sequence here. Edit this template, insert and resolve your standard star name,
 and alter the UFTI component accordingly.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="81" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -16888,13 +16888,13 @@ down the sequence).
       <priority>99</priority>
       <estimatedDuration units="seconds">2661.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we include only a template sequence here. Edit this template, insert and resolve your standard star name,
 and alter the UFTI component accordingly.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="82" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -17539,13 +17539,13 @@ Enter these new values into the "FP" component below.</note>
       <priority>99</priority>
       <estimatedDuration units="seconds">5196.0</estimatedDuration>
       <SpNote type="no" subtype="none">
-        <title>READ THIS</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we include only a template sequence here. Edit this template, insert and resolve your standard star name,
 and alter the UFTI component accordingly.
 
 </note>
+        <title>READ THIS</title>
       </SpNote>
       <SpNote id="83" observeInstruction="true" type="no" subtype="none">
         <title>OBSERVER NOTES</title>
@@ -18958,11 +18958,11 @@ Enter these new values into the "FP" component below.
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This sequence makes a sky flat from four frames observed at  the on-line and off-line FPZ settings.
 
 Note - 500sec integration needed to get a few hundred counts on the array.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -19266,11 +19266,11 @@ Enter these new values into the "FP" component below.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>To take 3 short dark exposures (full array) to "flush" the array of any latent images.    
 
 Note:  These frames WILL be stored to disk.</note>
+        <title>Usage</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -19341,12 +19341,12 @@ Note:  These frames WILL be stored to disk.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
       <SpNote type="no" subtype="none">
-        <title>Usage</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Simply takes five short darks to flush the array of any residual bias structure or latency that may be left over from observing in twilight or from observing a last (bright) standard.
 
 Also ensures that the blank is in place at the end of the night.
 </note>
+        <title>Usage</title>
       </SpNote>
       <SpInstUFTI id="91" type="oc" subtype="inst.UFTI">
         <posAngle>0.0</posAngle>
@@ -21856,7 +21856,7 @@ Sampling, which is set to 1x1 in this sequence, and the observation time, which 
     </SpLibraryFolder>
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -21876,7 +21876,6 @@ the background limited regime.</note>
         <priority>99</priority>
         <estimatedDuration units="seconds">426.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -21884,6 +21883,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -22118,7 +22118,6 @@ If you want to use a different size of offset, move the highlight to the offset 
         <priority>99</priority>
         <estimatedDuration units="seconds">690.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -22126,6 +22125,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -22376,7 +22376,6 @@ start position (00) after all the data has been obtained.</note>
         <priority>99</priority>
         <estimatedDuration units="seconds">360.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -22384,6 +22383,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -22617,7 +22617,6 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
         <priority>99</priority>
         <estimatedDuration units="seconds">1350.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -22625,6 +22624,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -22919,7 +22919,6 @@ Changing the total number of offsets will break the data-reduction recipe.
         <priority>99</priority>
         <estimatedDuration units="seconds">3462.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -22927,6 +22926,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -23351,15 +23351,15 @@ Changing the total number of offsets will break the data-reduction recipe.
         <note>For broadband L and M imaging use the following
 exposure times:
 Filter Camera Exp,s Obs,s
-L '      0.06     0.8    20
-          0.12    0.2    20
-M'      0.06     0.5    15
-          0.12    0.1    15</note>
+L '      0.06     0.8    25
+          0.12    0.2    25
+M'      0.06     0.5    18
+          0.12    0.1    18</note>
         <title>Exposure times</title>
       </SpNote>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">106.19999999999999</estimatedDuration>
+        <estimatedDuration units="seconds">117.74999999999999</estimatedDuration>
         <SpTelescopeObsCompRef idref="138"/>
         <SpDRRecipeRef idref="140"/>
         <chainedToPrev>false</chainedToPrev>
@@ -23369,7 +23369,6 @@ M'      0.06     0.5    15
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -23377,6 +23376,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -23442,17 +23442,17 @@ in the thermal.</note>
             <value>2.00</value>
           </instAper>
           <mode>NDSTARE</mode>
-          <obsTimeOT>20.0</obsTimeOT>
+          <obsTimeOT>25.0</obsTimeOT>
           <pixelScale>0.1205</pixelScale>
           <readArea>1024x1024</readArea>
           <filter>Lp98</filter>
-          <coadds>44</coadds>
+          <coadds>55</coadds>
           <nreads>2</nreads>
           <spectralCoverage>3.420um-4.120um</spectralCoverage>
           <biasRefPixelY>512.5</biasRefPixelY>
-          <observationTime>19.79852160000003</observationTime>
+          <observationTime>24.74815200000004</observationTime>
           <biasRefPixelX>512.5</biasRefPixelX>
-          <dutyCycle>0.4667015137130232</dutyCycle>
+          <dutyCycle>0.4667015137130231</dutyCycle>
           <arrayAngle>0.54</arrayAngle>
           <readout>NDSTARE</readout>
           <chopFrequency>0.0</chopFrequency>
@@ -23523,7 +23523,7 @@ Use the reset-to-default button to ensure the dark exposure times for your sourc
             <title>change dark exposure time here</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">
-            <coadds>44</coadds>
+            <coadds>55</coadds>
             <exposureTime>0.21</exposureTime>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
@@ -23595,7 +23595,7 @@ Remember that changing the number of offsets will break the reduction recipe. </
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">167.16</estimatedDuration>
+        <estimatedDuration units="seconds">187.95000000000002</estimatedDuration>
         <SpTelescopeObsCompRef idref="141"/>
         <SpDRRecipeRef idref="143"/>
         <chainedToPrev>false</chainedToPrev>
@@ -23605,7 +23605,6 @@ Remember that changing the number of offsets will break the reduction recipe. </
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -23613,6 +23612,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -23678,17 +23678,17 @@ in the thermal.</note>
             <value>2.00</value>
           </instAper>
           <mode>NDSTARE</mode>
-          <obsTimeOT>20.0</obsTimeOT>
+          <obsTimeOT>25.0</obsTimeOT>
           <pixelScale>0.1205</pixelScale>
           <readArea>1024x1024</readArea>
           <filter>Lp98</filter>
-          <coadds>44</coadds>
+          <coadds>55</coadds>
           <nreads>2</nreads>
           <spectralCoverage>3.420um-4.120um</spectralCoverage>
           <biasRefPixelY>512.5</biasRefPixelY>
-          <observationTime>19.79852160000003</observationTime>
+          <observationTime>24.74815200000004</observationTime>
           <biasRefPixelX>512.5</biasRefPixelX>
-          <dutyCycle>0.4667015137130232</dutyCycle>
+          <dutyCycle>0.4667015137130231</dutyCycle>
           <arrayAngle>0.54</arrayAngle>
           <readout>NDSTARE</readout>
           <chopFrequency>0.0</chopFrequency>
@@ -23759,7 +23759,7 @@ Use the reset-to-default button to ensure the dark exposure times for your sourc
             <title>change dark exposure time here</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">
-            <coadds>44</coadds>
+            <coadds>55</coadds>
             <exposureTime>0.21</exposureTime>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
@@ -23847,7 +23847,7 @@ lower right is avoided.  </note>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">220.08</estimatedDuration>
+        <estimatedDuration units="seconds">257.88</estimatedDuration>
         <SpTelescopeObsCompRef idref="144"/>
         <SpDRRecipeRef idref="146"/>
         <chainedToPrev>false</chainedToPrev>
@@ -23857,7 +23857,6 @@ lower right is avoided.  </note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -23865,6 +23864,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -23930,17 +23930,17 @@ in the thermal.</note>
             <value>2.00</value>
           </instAper>
           <mode>NDSTARE</mode>
-          <obsTimeOT>20.0</obsTimeOT>
+          <obsTimeOT>25.0</obsTimeOT>
           <pixelScale>0.06055</pixelScale>
           <readArea>1024x1024</readArea>
           <filter>Lp98</filter>
-          <coadds>18</coadds>
+          <coadds>23</coadds>
           <nreads>5</nreads>
           <spectralCoverage>3.420um-4.120um</spectralCoverage>
           <biasRefPixelY>512.5</biasRefPixelY>
-          <observationTime>19.439395200000007</observationTime>
+          <observationTime>24.839227200000025</observationTime>
           <biasRefPixelX>512.5</biasRefPixelX>
-          <dutyCycle>0.7778019760614772</dutyCycle>
+          <dutyCycle>0.7778019760614767</dutyCycle>
           <arrayAngle>0.54</arrayAngle>
           <readout>NDSTARE</readout>
           <chopFrequency>0.0</chopFrequency>
@@ -24011,7 +24011,7 @@ Use the reset-to-default button to ensure the dark exposure times for your sourc
             <title>change dark exposure time here</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">
-            <coadds>18</coadds>
+            <coadds>23</coadds>
             <exposureTime>0.84</exposureTime>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
@@ -24099,7 +24099,7 @@ lower right is avoided.  </note>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">148.8</estimatedDuration>
+        <estimatedDuration units="seconds">161.76</estimatedDuration>
         <SpTelescopeObsCompRef idref="147"/>
         <SpDRRecipeRef idref="149"/>
         <chainedToPrev>false</chainedToPrev>
@@ -24109,7 +24109,6 @@ lower right is avoided.  </note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -24117,6 +24116,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -24183,17 +24183,17 @@ in the thermal.</note>
             <value>2.00</value>
           </instAper>
           <mode>NDSTARE</mode>
-          <obsTimeOT>15.0</obsTimeOT>
+          <obsTimeOT>18.0</obsTimeOT>
           <pixelScale>0.1205</pixelScale>
           <readArea>512x512</readArea>
           <filter>Mp98</filter>
-          <coadds>80</coadds>
+          <coadds>96</coadds>
           <nreads>2</nreads>
           <spectralCoverage>4.570um-4.790um</spectralCoverage>
           <biasRefPixelY>512.5</biasRefPixelY>
-          <observationTime>14.878528000000054</observationTime>
+          <observationTime>17.854233600000047</observationTime>
           <biasRefPixelX>512.5</biasRefPixelX>
-          <dutyCycle>0.48391883928302404</dutyCycle>
+          <dutyCycle>0.4839188392830246</dutyCycle>
           <arrayAngle>0.54</arrayAngle>
           <readout>NDSTARE</readout>
           <chopFrequency>0.0</chopFrequency>
@@ -24264,7 +24264,7 @@ Use the reset-to-default button to ensure the dark exposure times for your sourc
             <title>change dark exposure time here</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">
-            <coadds>80</coadds>
+            <coadds>96</coadds>
             <exposureTime>0.09</exposureTime>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
@@ -24352,7 +24352,7 @@ lower right is avoided.  </note>
       </SpObs>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">193.35000000000002</estimatedDuration>
+        <estimatedDuration units="seconds">213.60000000000002</estimatedDuration>
         <SpTelescopeObsCompRef idref="150"/>
         <SpDRRecipeRef idref="152"/>
         <chainedToPrev>false</chainedToPrev>
@@ -24362,7 +24362,6 @@ lower right is avoided.  </note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Standards</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This MSB is incomplete without a standard star in the selected waveband.
 Since it is not possible to predict the source RA we do not include this
@@ -24370,6 +24369,7 @@ standard star here. To get it, file...open the UIST Standards library
 and drag/drop in the appropriate observations.
 
 </note>
+          <title>Standards</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -24436,17 +24436,17 @@ in the thermal.</note>
             <value>2.00</value>
           </instAper>
           <mode>NDSTARE</mode>
-          <obsTimeOT>15.0</obsTimeOT>
+          <obsTimeOT>18.0</obsTimeOT>
           <pixelScale>0.06112</pixelScale>
           <readArea>512x512</readArea>
           <filter>Mp98</filter>
-          <coadds>27</coadds>
+          <coadds>32</coadds>
           <nreads>6</nreads>
           <spectralCoverage>4.570um-4.790um</spectralCoverage>
           <biasRefPixelY>512.5</biasRefPixelY>
-          <observationTime>14.741503200000015</observationTime>
+          <observationTime>17.471411200000013</observationTime>
           <biasRefPixelX>512.5</biasRefPixelX>
-          <dutyCycle>0.8242035995352215</dutyCycle>
+          <dutyCycle>0.8242035995352217</dutyCycle>
           <arrayAngle>0.54</arrayAngle>
           <readout>NDSTARE</readout>
           <chopFrequency>0.0</chopFrequency>
@@ -24517,7 +24517,7 @@ Use the reset-to-default button to ensure the dark exposure times for your sourc
             <title>change dark exposure time here</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">
-            <coadds>27</coadds>
+            <coadds>32</coadds>
             <exposureTime>0.44999999999999996</exposureTime>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
@@ -24608,7 +24608,27 @@ lower right is avoided.  </note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Spectroscopy</title>
       <SpNote type="no" subtype="none">
-        <title>Exposure times</title>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>
+Observing Poiint Sources
+================
+
+There are two MSBs for observing Point Sources;  one assumes that the science target is a bright point source which the DR can "find" in the reduced spectral image and display.  The second assumes that the science target is faint.  In this case, the DR will find the rows containing the standard star and assume that the science target lies on the same rows.  These rows will be extracted and displayed. Please bear this in mind when acquiring targets - the standard star and science target should be positioned on the same row AND column (same x-y pixel in imaging acquisition) if the science target is faint.
+
+In both cases, the source is nodded up and down the slit (offset 12").
+
+Observing Extended Sources
+==================
+
+"Extended sources nod to sky" is the default for observing large extended objects. Here, the slit is nodded completely off source so that the target is only on the slit in 50% of the frames.
+
+If, however, the science target is only marginally extended then consider using the "extended source nod along slit" MSB, which is essentially the same as the point sopurce MSB, except that a much larger slide (and a different DR recipe) is used.
+Slides of up to +30" and -30" are possible.
+
+</note>
+        <title>Which MSB should I use??</title>
+      </SpNote>
+      <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>For bright calibrators exposures of a few seconds work well.
 
@@ -24621,6 +24641,7 @@ with the 4 pixel slit:
   20s for longL
   6s for M
 </note>
+        <title>Exposure times</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -24642,20 +24663,45 @@ movie and mean x/y profiles.
         <title>Point source slide along slit</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">1270.0</estimatedDuration>
+        <estimatedDuration units="seconds">1083.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="153"/>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+These coordinates will be inherited by the three observations below (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component in the observation (see e.g. the Bright (standard) star observation).
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>Target information</title>
+        </SpNote>
+        <SpTelescopeObsComp id="153" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>Bright star with flat and arc</title>
+          <title>Bright (standard) star with flat and arc</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">195.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+            <note>Enter your standard star coordinates in the target component below.
+These coords will then overwrite the science target coordinates entered above.  
 
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+Alternatively, delete the Target component below.  This observation will then inherit the science target coordinates from the component above.  Once at the science target, the TSS can find a nearby standard star (of a given spectral type) which you can subsequently slew to and observe after the flat and arc.
 
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
+NOTE: If you do not update the coords below OR delete the Target information the telescope will slew to RA - 00:00:00, Dec - 00:00:00.  So you must do one or the other!</note>
+            <title>Standard star</title>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
@@ -24772,21 +24818,21 @@ change grism.
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
-              <expTimeOT>10.0</expTimeOT>
-              <nreads>11</nreads>
+              <expTimeOT>5.0</expTimeOT>
+              <nreads>6</nreads>
               <order>1</order>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>12.13996136</observationTime>
+              <observationTime>14.05992272</observationTime>
               <arcSource>undefined</arcSource>
               <nullExposures>0</nullExposures>
               <resetDelay>0.11</resetDelay>
               <idlePeriod>0.0022</idlePeriod>
               <filter>B2</filter>
-              <dutyCycle>0.8237258508045202</dutyCycle>
+              <dutyCycle>0.7112414626415529</dutyCycle>
               <focus>2.55</focus>
               <calType>Flat</calType>
               <nullReads>1</nullReads>
-              <exposureTime>10.0</exposureTime>
+              <exposureTime>5.0</exposureTime>
               <chopFrequency>0.0</chopFrequency>
               <waveform>uist_starev11</waveform>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -24794,7 +24840,7 @@ change grism.
               <nullCycles>0</nullCycles>
               <nresets>1</nresets>
               <centralWavelength>1.953</centralWavelength>
-              <coadds>1</coadds>
+              <coadds>2</coadds>
               <chopDelay>0.0</chopDelay>
               <mode>NDSTARE</mode>
               <mustIdles>100</mustIdles>
@@ -24869,30 +24915,7 @@ change grism.
           <title>Target imaging acquisition</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">208.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
+          <estimatedDuration units="seconds">21.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up for acquisition for the HK grism.
@@ -24972,14 +24995,6 @@ change grism.  The sequence/repeats/offsets won't be used.
             <exposureTime>20.0</exposureTime>
             <expTimeOT>20.0</expTimeOT>
           </SpInstUIST>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Do not take data or the DHS will crash.
-
-Stop movie, stop sequence and go to next
-observation sequence.</note>
-            <title>DO NOT TAKE DATA HERE!</title>
-          </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
             <SkyRecipe>REDUCE_SKY</SkyRecipe>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
@@ -25000,38 +25015,9 @@ observation sequence.</note>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>2</repeatCount>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <title>Repeat 2X</title>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
+            <SpIterObserve type="ic" subtype="observe">
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -25039,29 +25025,6 @@ observation sequence.</note>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">867.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up the HK grism with an east-west 
@@ -25258,23 +25221,48 @@ change grism.
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <title>Point source nod to sky</title>
+        <title>Faint point source slide along slit</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">2010.0</estimatedDuration>
+        <estimatedDuration units="seconds">1083.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="154"/>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+These coordinates will be inherited by the three observations below (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component in the observation (see e.g. the Bright (standard) star observation).
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>Target information</title>
+        </SpNote>
+        <SpTelescopeObsComp id="154" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>Bright star with flat and arc</title>
+          <title>Bright (standard) star with flat and arc</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">195.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+            <note>Enter your standard star coordinates in the target component below.
+These coords will then overwrite the science target coordinates entered above.  
 
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+Alternatively, delete the Target component below.  This observation will then inherit the science target coordinates from the component above.  Once at the science target, the TSS can find a nearby standard star (of a given spectral type) which you can subsequently slew to and observe after the flat and arc.
 
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
+NOTE: If you do not update the coords below OR delete the Target information the telescope will slew to RA - 00:00:00, Dec - 00:00:00.  So you must do one or the other!</note>
+            <title>Standard star</title>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
@@ -25391,21 +25379,21 @@ change grism.
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
-              <expTimeOT>10.0</expTimeOT>
-              <nreads>11</nreads>
+              <expTimeOT>5.0</expTimeOT>
+              <nreads>6</nreads>
               <order>1</order>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>12.13996136</observationTime>
+              <observationTime>14.05992272</observationTime>
               <arcSource>undefined</arcSource>
               <nullExposures>0</nullExposures>
               <resetDelay>0.11</resetDelay>
               <idlePeriod>0.0022</idlePeriod>
               <filter>B2</filter>
-              <dutyCycle>0.8237258508045202</dutyCycle>
+              <dutyCycle>0.7112414626415529</dutyCycle>
               <focus>2.55</focus>
               <calType>Flat</calType>
               <nullReads>1</nullReads>
-              <exposureTime>10.0</exposureTime>
+              <exposureTime>5.0</exposureTime>
               <chopFrequency>0.0</chopFrequency>
               <waveform>uist_starev11</waveform>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -25413,7 +25401,7 @@ change grism.
               <nullCycles>0</nullCycles>
               <nresets>1</nresets>
               <centralWavelength>1.953</centralWavelength>
-              <coadds>1</coadds>
+              <coadds>2</coadds>
               <chopDelay>0.0</chopDelay>
               <mode>NDSTARE</mode>
               <mustIdles>100</mustIdles>
@@ -25488,30 +25476,7 @@ change grism.
           <title>Target imaging acquisition</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">208.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
+          <estimatedDuration units="seconds">21.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up for acquisition for the HK grism.
@@ -25591,14 +25556,6 @@ change grism.  The sequence/repeats/offsets won't be used.
             <exposureTime>20.0</exposureTime>
             <expTimeOT>20.0</expTimeOT>
           </SpInstUIST>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Do not take data or the DHS will crash.
-
-Stop movie, stop sequence and go to next
-observation sequence.</note>
-            <title>DO NOT TAKE DATA HERE!</title>
-          </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
             <SkyRecipe>REDUCE_SKY</SkyRecipe>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
@@ -25619,68 +25576,16 @@ observation sequence.</note>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>2</repeatCount>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <title>Repeat 2X</title>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>true</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
+            <SpIterObserve type="ic" subtype="observe">
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <title>Target obs. with flat and arc</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">1607.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
+          <estimatedDuration units="seconds">867.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up the HK grism with an east-west 
@@ -25766,13 +25671,13 @@ change grism.
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
             <ArcRecipe>REDUCE_ARC</ArcRecipe>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
-            <title>POINT_SOURCE</title>
+            <title>FAINT_POINT_SOURCE</title>
             <meta_unique>true</meta_unique>
             <BiasInGroup>false</BiasInGroup>
             <DarkInGroup>false</DarkInGroup>
             <BiasRecipe>REDUCE_BIAS</BiasRecipe>
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
+            <ObjectRecipe>FAINT_POINT_SOURCE</ObjectRecipe>
             <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
             <ArcInGroup>false</ArcInGroup>
             <FlatInGroup>false</FlatInGroup>
@@ -25842,9 +25747,9 @@ change grism.
               <flatSource>undefined</flatSource>
             </SpIterUISTCalObs>
             <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>20</repeatCount>
+              <repeatCount>10</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <title>Repeat 20X</title>
+              <title>Repeat 10X</title>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -25854,32 +25759,14 @@ change grism.
                     <DC1>0.0</DC1>
                     <DC2>0.0</DC2>
                   </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
                   <OFFSET>
-                    <DC1>60.0</DC1>
-                    <DC2>0.0</DC2>
+                    <DC1>0.0</DC1>
+                    <DC2>12.0</DC2>
                   </OFFSET>
-                </obsArea>
-                <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>2</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterSky>
-              </SpIterOffset>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>12.0</DC2>
+                  </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
                     <DC2>0.0</DC2>
@@ -25898,20 +25785,45 @@ change grism.
         <title>Extended source slide along slit</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">1270.0</estimatedDuration>
+        <estimatedDuration units="seconds">1083.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="155"/>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+These coordinates will be inherited by the three observations below (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component in the observation (see e.g. the Bright (standard) star observation).
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>Target information</title>
+        </SpNote>
+        <SpTelescopeObsComp id="155" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>Bright star with flat and arc</title>
+          <title>Bright (standard) star with flat and arc</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">195.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+            <note>Enter your standard star coordinates in the target component below.
+These coords will then overwrite the science target coordinates entered above.  
 
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+Alternatively, delete the Target component below.  This observation will then inherit the science target coordinates from the component above.  Once at the science target, the TSS can find a nearby standard star (of a given spectral type) which you can subsequently slew to and observe after the flat and arc.
 
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
+NOTE: If you do not update the coords below OR delete the Target information the telescope will slew to RA - 00:00:00, Dec - 00:00:00.  So you must do one or the other!</note>
+            <title>Standard star</title>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
@@ -26028,21 +25940,21 @@ change grism.
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
-              <expTimeOT>10.0</expTimeOT>
-              <nreads>11</nreads>
+              <expTimeOT>5.0</expTimeOT>
+              <nreads>6</nreads>
               <order>1</order>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>12.13996136</observationTime>
+              <observationTime>14.05992272</observationTime>
               <arcSource>undefined</arcSource>
               <nullExposures>0</nullExposures>
               <resetDelay>0.11</resetDelay>
               <idlePeriod>0.0022</idlePeriod>
               <filter>B2</filter>
-              <dutyCycle>0.8237258508045202</dutyCycle>
+              <dutyCycle>0.7112414626415529</dutyCycle>
               <focus>2.55</focus>
               <calType>Flat</calType>
               <nullReads>1</nullReads>
-              <exposureTime>10.0</exposureTime>
+              <exposureTime>5.0</exposureTime>
               <chopFrequency>0.0</chopFrequency>
               <waveform>uist_starev11</waveform>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -26050,7 +25962,7 @@ change grism.
               <nullCycles>0</nullCycles>
               <nresets>1</nresets>
               <centralWavelength>1.953</centralWavelength>
-              <coadds>1</coadds>
+              <coadds>2</coadds>
               <chopDelay>0.0</chopDelay>
               <mode>NDSTARE</mode>
               <mustIdles>100</mustIdles>
@@ -26125,30 +26037,7 @@ change grism.
           <title>Target imaging acquisition</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">208.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
+          <estimatedDuration units="seconds">21.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up the HK grism with an east-west 
@@ -26229,14 +26118,6 @@ This sets up for imaging acquisition using movie.</note>
             <exposureTime>20.0</exposureTime>
             <expTimeOT>20.0</expTimeOT>
           </SpInstUIST>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Do not take data or the DHS will crash.
-
-Stop movie, stop sequence and go to next
-observation sequence.</note>
-            <title>DO NOT TAKE DATA HERE!</title>
-          </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
             <SkyRecipe>REDUCE_SKY</SkyRecipe>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
@@ -26257,38 +26138,9 @@ observation sequence.</note>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>2</repeatCount>
-              <meta_gui_collapsed>true</meta_gui_collapsed>
-              <title>Repeat 2X</title>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>true</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
+            <SpIterObserve type="ic" subtype="observe">
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -26296,29 +26148,6 @@ observation sequence.</note>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">867.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up the HK grism with an east-west 
@@ -26484,7 +26313,7 @@ change grism.
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <title>Repeat 10X</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset3</meta_gui_selectedOffsetPos>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <obsArea>
                   <PA>0.0</PA>
@@ -26518,31 +26347,45 @@ change grism.
         <title>Extended source nod to sky</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">2010.0</estimatedDuration>
+        <estimatedDuration units="seconds">1823.0</estimatedDuration>
+        <SpTelescopeObsCompRef idref="156"/>
         <SpNote type="no" subtype="none">
-          <title>Extended source, nod to blank sky</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The default for observing large extended objects.
+          <note>Enter your target co-ordinates into the target list below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
 
-If your target is only marginally extended, you should consider using the point source sequence with a larger offset.  You should discuss this with your support scientist.
+These coordinates will be inherited by the three observations below (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component in the observation (see e.g. the Bright (standard) star observation).
 
-If your target is moderately (i.e. a few tens of arcsecs) extended, consider nodding along the slit with a suitably large nod distance (up to about +30" and -30").  You should discuss this with your support scientist.
-
-You may change the offsets to select your own patch of blank sky.</note>
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>Target information</title>
         </SpNote>
+        <SpTelescopeObsComp id="156" type="oc" subtype="targetList">
+          <meta_unique>true</meta_unique>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>Object Name</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+              </spherSystem>
+            </target>
+          </BASE>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        </SpTelescopeObsComp>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <title>Bright star with flat and arc</title>
+          <title>Bright (standard) star with flat and arc</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">195.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+            <note>Enter your standard star coordinates in the target component below.
+These coords will then overwrite the science target coordinates entered above.  
 
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+Alternatively, delete the Target component below.  This observation will then inherit the science target coordinates from the component above.  Once at the science target, the TSS can find a nearby standard star (of a given spectral type) which you can subsequently slew to and observe after the flat and arc.
 
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
+NOTE: If you do not update the coords below OR delete the Target information the telescope will slew to RA - 00:00:00, Dec - 00:00:00.  So you must do one or the other!</note>
+            <title>Standard star</title>
           </SpNote>
           <SpTelescopeObsComp type="oc" subtype="targetList">
             <meta_unique>true</meta_unique>
@@ -26659,21 +26502,21 @@ change grism.
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
-              <expTimeOT>10.0</expTimeOT>
-              <nreads>11</nreads>
+              <expTimeOT>5.0</expTimeOT>
+              <nreads>6</nreads>
               <order>1</order>
               <obsTimeOT>20.0</obsTimeOT>
-              <observationTime>12.13996136</observationTime>
+              <observationTime>14.05992272</observationTime>
               <arcSource>undefined</arcSource>
               <nullExposures>0</nullExposures>
               <resetDelay>0.11</resetDelay>
               <idlePeriod>0.0022</idlePeriod>
               <filter>B2</filter>
-              <dutyCycle>0.8237258508045202</dutyCycle>
+              <dutyCycle>0.7112414626415529</dutyCycle>
               <focus>2.55</focus>
               <calType>Flat</calType>
               <nullReads>1</nullReads>
-              <exposureTime>10.0</exposureTime>
+              <exposureTime>5.0</exposureTime>
               <chopFrequency>0.0</chopFrequency>
               <waveform>uist_starev11</waveform>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -26681,7 +26524,7 @@ change grism.
               <nullCycles>0</nullCycles>
               <nresets>1</nresets>
               <centralWavelength>1.953</centralWavelength>
-              <coadds>1</coadds>
+              <coadds>2</coadds>
               <chopDelay>0.0</chopDelay>
               <mode>NDSTARE</mode>
               <mustIdles>100</mustIdles>
@@ -26756,30 +26599,7 @@ change grism.
           <title>Target imaging acquisition</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
-          <estimatedDuration units="seconds">208.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
+          <estimatedDuration units="seconds">21.0</estimatedDuration>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up the HK grism with an east-west 
@@ -26860,14 +26680,6 @@ This sets up for imaging acquisition using movie.</note>
             <exposureTime>20.0</exposureTime>
             <expTimeOT>20.0</expTimeOT>
           </SpInstUIST>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Do not take data or the DHS will crash.
-
-Stop movie, stop sequence and go to next
-observation sequence.</note>
-            <title>DO NOT TAKE DATA HERE!</title>
-          </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
             <SkyRecipe>REDUCE_SKY</SkyRecipe>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
@@ -26887,39 +26699,10 @@ observation sequence.</note>
             <ObjectInGroup>true</ObjectInGroup>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>2</repeatCount>
-              <meta_gui_collapsed>true</meta_gui_collapsed>
-              <title>Repeat 2X</title>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>true</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>12.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterObserve type="ic" subtype="observe">
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -26927,29 +26710,6 @@ observation sequence.</note>
           <meta_gui_collapsed>true</meta_gui_collapsed>
           <standard>false</standard>
           <estimatedDuration units="seconds">1607.0</estimatedDuration>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
-
-When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
-
-For a step-by-step guide to how to use the position editor use "help".</note>
-            <title>target information</title>
-          </SpNote>
-          <SpTelescopeObsComp type="oc" subtype="targetList">
-            <meta_unique>true</meta_unique>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <BASE TYPE="Base">
-              <target>
-                <targetName>Object Name</targetName>
-                <spherSystem SYSTEM="J2000">
-                  <c1>0:00:00</c1>
-                  <c2>0:00:00</c2>
-                </spherSystem>
-              </target>
-            </BASE>
-            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          </SpTelescopeObsComp>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>This example sets up the HK grism with an east-west 
@@ -27163,6 +26923,183 @@ change grism.
           </SpIterFolder>
         </SpObs>
       </SpMSB>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>Add the "flat and arc" sequence as a fourth observation in an MSB (and delete the flat and arc in the standard star and target observations) if you do not always want to observe flats and arcs with each target.  The flat and arc will inherit the science target coordinates in each MSB and it can then be observed as and when needed.
+
+NOTE, however, that the UIST component must be exactly the same as that used with the standard and science target.</note>
+        <title>Utility observations</title>
+      </SpNote>
+      <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
+        <estimatedDuration units="seconds">27.0</estimatedDuration>
+        <SpDRRecipeRef idref="158"/>
+        <title>Flat and arc</title>
+        <priority>99</priority>
+        <SpInstUISTRef idref="157"/>
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <standard>false</standard>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>This example sets up the HK grism with an east-west 
+4 pixel slit.  Select  grism, angle and slit from the 
+drop down menus.  Exposure time will reset when you 
+change grism.
+
+</note>
+          <title>Configuration information</title>
+        </SpNote>
+        <SpInstUIST id="157" type="oc" subtype="inst.UIST">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <dispersion>0.00109</dispersion>
+          <order>1</order>
+          <resolution>448.0275229357798</resolution>
+          <biasReadArea>1024x1024</biasReadArea>
+          <centralWavelength>1.9534</centralWavelength>
+          <posAngle>-90.0</posAngle>
+          <disperser>HK</disperser>
+          <instPort>South</instPort>
+          <biasDutyCycle>0.507</biasDutyCycle>
+          <waveform>uist_starev11</waveform>
+          <focus>2.55</focus>
+          <meta_version>1</meta_version>
+          <biasMustIdles>100</biasMustIdles>
+          <instAper>
+            <value>-0.36</value>
+            <value>-1.32</value>
+            <value>0.00</value>
+            <value>2.00</value>
+          </instAper>
+          <mode>NDSTARE</mode>
+          <obsTimeOT>10.0</obsTimeOT>
+          <pixelScale>0.1205</pixelScale>
+          <readArea>1024x1024</readArea>
+          <filter>B2</filter>
+          <coadds>2</coadds>
+          <nreads>4</nreads>
+          <spectralCoverage>1.395um-2.506um</spectralCoverage>
+          <biasRefPixelY>512.5</biasRefPixelY>
+          <observationTime>10.05992272</observationTime>
+          <biasRefPixelX>512.5</biasRefPixelX>
+          <dutyCycle>0.5964260528633564</dutyCycle>
+          <arrayAngle>0.54</arrayAngle>
+          <readout>NDSTARE</readout>
+          <chopFrequency>0.0</chopFrequency>
+          <biasNResets>2</biasNResets>
+          <mustIdles>100</mustIdles>
+          <meta_unique>true</meta_unique>
+          <imager>0.12</imager>
+          <nullReads>1</nullReads>
+          <biasIdlePeriod>0.0022</biasIdlePeriod>
+          <biasObsTime>9.468</biasObsTime>
+          <nullCycles>0</nullCycles>
+          <idlePeriod>0.0022</idlePeriod>
+          <pixelFOV>0.1205 x 0.1205</pixelFOV>
+          <configType>Normal</configType>
+          <scienceArea>0.48 x 120.0 arcsec</scienceArea>
+          <filterCategory>broad</filterCategory>
+          <darkFilter>black_blank</darkFilter>
+          <polarimetry>no</polarimetry>
+          <readoutOT>NDSTARE 1024x1024</readoutOT>
+          <readInterval>1.0</readInterval>
+          <maskWidth>4.0</maskWidth>
+          <chopDelay>0.0</chopDelay>
+          <mask>4_pix_wide_120</mask>
+          <maskHeight>120.0</maskHeight>
+          <refPixelY>480.5</refPixelY>
+          <refPixelX>480.5</refPixelX>
+          <biasWaveform>uist_starev11</biasWaveform>
+          <source_mag>5-6</source_mag>
+          <refPixelS>480.5</refPixelS>
+          <nullExposures>0</nullExposures>
+          <resetDelay>0.11</resetDelay>
+          <nresets>1</nresets>
+          <camera>spectroscopy</camera>
+          <refPixelL>512.5</refPixelL>
+          <exposureTime>3.0</exposureTime>
+          <expTimeOT>3.0</expTimeOT>
+        </SpInstUIST>
+        <SpDRRecipe id="158" type="oc" subtype="DRRecipe">
+          <DarkInGroup>false</DarkInGroup>
+          <ArcInGroup>false</ArcInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <meta_unique>true</meta_unique>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <BiasInGroup>false</BiasInGroup>
+          <FlatInGroup>false</FlatInGroup>
+          <title>QUICK_LOOK</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
+            <expTimeOT>5.0</expTimeOT>
+            <nreads>6</nreads>
+            <order>1</order>
+            <obsTimeOT>20.0</obsTimeOT>
+            <observationTime>14.05992272</observationTime>
+            <arcSource>undefined</arcSource>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.11</resetDelay>
+            <idlePeriod>0.0022</idlePeriod>
+            <filter>B2</filter>
+            <dutyCycle>0.7112414626415529</dutyCycle>
+            <focus>2.55</focus>
+            <calType>Flat</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>5.0</exposureTime>
+            <chopFrequency>0.0</chopFrequency>
+            <waveform>uist_starev11</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <nullCycles>0</nullCycles>
+            <nresets>1</nresets>
+            <centralWavelength>1.953</centralWavelength>
+            <coadds>2</coadds>
+            <chopDelay>0.0</chopDelay>
+            <mode>NDSTARE</mode>
+            <mustIdles>100</mustIdles>
+            <readInterval>1.0</readInterval>
+            <flatSource>BB_5.0mm</flatSource>
+          </SpIterUISTCalObs>
+          <SpIterUISTCalObs type="ic" subtype="UISTCalObs">
+            <expTimeOT>15.0</expTimeOT>
+            <nreads>16</nreads>
+            <order>1</order>
+            <obsTimeOT>15.0</obsTimeOT>
+            <observationTime>17.13996136</observationTime>
+            <arcSource>argon</arcSource>
+            <nullExposures>0</nullExposures>
+            <resetDelay>0.11</resetDelay>
+            <idlePeriod>0.0022</idlePeriod>
+            <filter>B2</filter>
+            <dutyCycle>0.8751478305549691</dutyCycle>
+            <focus>2.55</focus>
+            <calType>Arc</calType>
+            <nullReads>1</nullReads>
+            <exposureTime>15.0</exposureTime>
+            <chopFrequency>0.0</chopFrequency>
+            <waveform>uist_starev11</waveform>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <nullCycles>0</nullCycles>
+            <nresets>1</nresets>
+            <centralWavelength>1.9534</centralWavelength>
+            <coadds>1</coadds>
+            <chopDelay>0.0</chopDelay>
+            <mode>NDSTARE</mode>
+            <mustIdles>100</mustIdles>
+            <readInterval>1.0</readInterval>
+            <flatSource>undefined</flatSource>
+          </SpIterUISTCalObs>
+        </SpIterFolder>
+      </SpObs>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -27201,11 +27138,11 @@ Note, however, that imaging-mode acquisition is "less crucial" with the IFU beca
         <title>IFU, nod to blank sky</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">6012.0</estimatedDuration>
+        <estimatedDuration units="seconds">1841.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Description</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Observing with the IFU is much like spectroscopy;  obj-sky-sky-obj quds are repeated, with the sky position being outside the target field.</note>
+          <title>Description</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -27451,7 +27388,7 @@ with the IFU orientated east-west.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
-          <estimatedDuration units="seconds">4220.0</estimatedDuration>
+          <estimatedDuration units="seconds">49.0</estimatedDuration>
           <chainedToPrev>false</chainedToPrev>
           <title>Target -- imaging acquisition</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -27581,57 +27518,10 @@ observation sequence.</note>
             <ObjectInGroup>true</ObjectInGroup>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>20</repeatCount>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <title>Repeat 20X</title>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>60.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>2</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterSky>
-              </SpIterOffset>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpIterObserve type="ic" subtype="observe">
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -27882,11 +27772,11 @@ with the IFU orientated east-west.</note>
         <title>IFU map extended source</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
-        <estimatedDuration units="seconds">2724.0</estimatedDuration>
+        <estimatedDuration units="seconds">1913.0</estimatedDuration>
         <SpNote type="no" subtype="none">
-          <title>Description</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This is a variant on the ordinary IFU observations;  the obj-sky-sky-obj "quad" is repeated but on each repeat the IFU field is shifted slightly, so that a map may be obtained across an extended object. </note>
+          <title>Description</title>
         </SpNote>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
@@ -28132,7 +28022,7 @@ with the IFU orientated east-west.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <chainedToNext>false</chainedToNext>
-          <estimatedDuration units="seconds">832.0</estimatedDuration>
+          <estimatedDuration units="seconds">21.0</estimatedDuration>
           <chainedToPrev>false</chainedToPrev>
           <title>Target -- imaging acquisition</title>
           <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -28262,59 +28152,9 @@ observation sequence.</note>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <repeatCount>4</repeatCount>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <title>Repeat 4X</title>
-              <SpNote type="no" subtype="none">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>If you want offsets to sky of less than 30 arcsec it is essential that observation types are set to OBJECT and SKY so that the data reduction software can identify sky frames. In this case you will have to use an offset iterator for every position, each containing just an OBJECT or a SKY observe.</note>
-                <title>setting offsets</title>
-              </SpNote>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset7</meta_gui_selectedOffsetPos>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>60.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>60.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>3.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>60.0</DC1>
-                    <DC2>3.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>60.0</DC1>
-                    <DC2>3.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>3.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                </SpIterObserve>
-              </SpIterOffset>
-            </SpIterRepeat>
+            <SpIterObserve type="ic" subtype="observe">
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
@@ -28564,9 +28404,9 @@ with the IFU orientated east-west.</note>
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Polarimetry library</title>
       <SpNote type="no" subtype="none">
-        <title>Imaging Polarimetry</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note></note>
+        <title>Imaging Polarimetry</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
         <title>Pol jitter then angle (UIST - imaging)</title>
@@ -32927,21 +32767,21 @@ object</note>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">624.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="153"/>
-        <SpDRRecipeRef idref="155"/>
+        <SpTelescopeObsCompRef idref="159"/>
+        <SpDRRecipeRef idref="161"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>make_skyflat for Pol (Imaging)</title>
         <priority>99</priority>
-        <SpInstUISTRef idref="154"/>
+        <SpInstUISTRef idref="160"/>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Usage</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence obtains eight frames, two at each waveplate angle, that are median averaged to make a "master" flat field for use with all subsequent target pol observations.
 
 N.B.  All current Polarimetry recipes require a separate flat field (and dark).</note>
+          <title>Usage</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -32950,7 +32790,7 @@ N.B.  All current Polarimetry recipes require a separate flat field (and dark).<
 For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
-        <SpTelescopeObsComp id="153" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="159" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
@@ -32970,7 +32810,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <note>Sent for long, K-band exposures for a good flat-field</note>
           <title>UIST component</title>
         </SpNote>
-        <SpInstUIST id="154" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="160" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <dispersion>0.0</dispersion>
           <order>0</order>
@@ -33051,7 +32891,7 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
 </note>
           <title>Pol recipe</title>
         </SpNote>
-        <SpDRRecipe id="155" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="161" type="oc" subtype="DRRecipe">
           <DarkInGroup>false</DarkInGroup>
           <ArcInGroup>false</ArcInGroup>
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
@@ -33201,21 +33041,21 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
         <estimatedDuration units="seconds">1416.0</estimatedDuration>
-        <SpTelescopeObsCompRef idref="156"/>
-        <SpDRRecipeRef idref="158"/>
+        <SpTelescopeObsCompRef idref="162"/>
+        <SpDRRecipeRef idref="164"/>
         <meta_gui_selected>false</meta_gui_selected>
         <chainedToPrev>false</chainedToPrev>
         <title>make_skyflat for each WP angle for Pol (UIST)</title>
         <priority>99</priority>
-        <SpInstUISTRef idref="157"/>
+        <SpInstUISTRef idref="163"/>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
-          <title>Usage</title>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Construct separate flat fields for each of the four waveplate angles.  Any number of sky frames can be combined into each flat;  the recipe SKY_FLAT_POL_ANGLE should be used.
 
 N.B.  All current polarimetry recipes require a separate flat field.</note>
+          <title>Usage</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -33224,7 +33064,7 @@ N.B.  All current polarimetry recipes require a separate flat field.</note>
 For a step-by-step guide to how to use the position editor use "help".</note>
           <title>Target information</title>
         </SpNote>
-        <SpTelescopeObsComp id="156" type="oc" subtype="targetList">
+        <SpTelescopeObsComp id="162" type="oc" subtype="targetList">
           <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
@@ -33244,7 +33084,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <note>Sent for long, K-band exposures for a good flat-field</note>
           <title>UIST component</title>
         </SpNote>
-        <SpInstUIST id="157" type="oc" subtype="inst.UIST">
+        <SpInstUIST id="163" type="oc" subtype="inst.UIST">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <dispersion>0.0</dispersion>
           <order>0</order>
@@ -33324,7 +33164,7 @@ If you do not need flats at each waveplate angle, select the observation "make_s
 </note>
           <title>Pol recipe</title>
         </SpNote>
-        <SpDRRecipe id="158" type="oc" subtype="DRRecipe">
+        <SpDRRecipe id="164" type="oc" subtype="DRRecipe">
           <DarkInGroup>false</DarkInGroup>
           <ArcInGroup>false</ArcInGroup>
           <SkyRecipe>REDUCE_SKY</SkyRecipe>
