@@ -20,6 +20,7 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
+import orac.util.XmlUtil;
 import gemini.sp.SpNote;
 
 /**
@@ -94,7 +95,7 @@ public final class EdNote extends OtItemEditor
 	RichTextBoxWidgetExt rtbw;
 	rtbw = _w.note;
 
-	((SpNote) _spItem).setNote(rtbw.getText());
+	((SpNote) _spItem).setNote(XmlUtil.asciiToXml(rtbw.getText()));
     }
 
     /**
