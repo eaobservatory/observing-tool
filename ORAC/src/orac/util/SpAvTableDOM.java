@@ -261,7 +261,10 @@ public class SpAvTableDOM {
       // tag with the name _xmlTag exists already, set the attribute, if there is one, set the
       // current node of the tree walker to it and return.
         for(int i = 0; i < nodeList.getLength(); i++) {
-          if((nodeList.item(i) instanceof ElementImpl) && (((String)((ElementImpl)nodeList.item(i)).getUserData()).equals(_userData))) {
+          if((nodeList.item(i) instanceof ElementImpl)               &&
+             (((ElementImpl)nodeList.item(i)).getUserData() != null) &&
+             (((String)((ElementImpl)nodeList.item(i)).getUserData()).equals(_userData))) {
+
             if(_xmlAttribute != null) {
 	      // NOTE that there can only be one xml attributes with the same name in a tag (?)
 	      // and attributes have only one value.
@@ -277,6 +280,7 @@ public class SpAvTableDOM {
 	  
 	    _treeWalker.setCurrentNode(nodeList.item(i));
 	    return;
+	  }
 	  }
         }
 
@@ -294,7 +298,8 @@ public class SpAvTableDOM {
       
         if(_xmlTag.equals("PCDATA")) {
 	  // NOTE that only the first entry in the value vector is used and the others are ignored.
-	  _treeWalker.getCurrentNode().appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
+	  child = _treeWalker.getCurrentNode().appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
+	  ((ElementImpl)child).setUserData(_userData);
 	  return;
         }
 
