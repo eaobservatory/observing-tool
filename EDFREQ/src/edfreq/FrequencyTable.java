@@ -45,7 +45,9 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
    public FrequencyTable ( double feIF, double feBandWidth,
      double loBandWidth, int loChannels, 
      double hiBandWidth, int hiChannels, 
-     int samplerCount, int displayWidth ) 
+     int samplerCount, int displayWidth,
+     SideBandDisplay sideBandDisplay,
+     FrontEnd frontEnd ) 
    {
 
       super ( );
@@ -172,6 +174,14 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
          columns[5].add ( highBar );
       }
 
+      // Added by MFO (8 January 2002)
+      // Only the top pair of SideBands need to have references of
+      // SideBandDisplay and FrontEnd because when one of them is changed
+      // the LO1 needs adjusting, depending on whether "usb" or "lsb"
+      // has been selected.
+      ((SideBand)data[0][0]).connectTopSideBand(sideBandDisplay, frontEnd);
+      ((SideBand)data[0][2]).connectTopSideBand(sideBandDisplay, frontEnd);
+
 
       // Initialize parser (MFO, 29 November 2001)
       try {
@@ -215,6 +225,7 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 					"XMLReader problem.", JOptionPane.ERROR_MESSAGE);
 
       }
+
    }
 
    /**
@@ -295,4 +306,5 @@ public class FrequencyTable extends JPanel implements FrequencyEditorConstants
 	//_parser.parse(new InputSource(new StringReader(xml)));
       //}
    }
+
 }
