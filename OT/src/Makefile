@@ -282,14 +282,14 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n" > $@
 
 ifeq ($(CFG_DIRS),)
-	@printf "\nset CFG_DIRS     = \044{OT_HOME}/cfg" >> $@
+	@printf "\nset CFG_DIRS     = $$""{OT_HOME}/cfg" >> $@
 else
 	@printf "\nset CFG_DIRS     = $(CFG_DIRS)" >> $@
 endif
 
 	@printf \
 	"\n\
-	\nset CLASSPATH = $(shell echo $(addprefix "\044{OT_HOME}/tools/", $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g'):$(shell echo $(addprefix "\044{OT_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
+	\nset CLASSPATH = $(shell echo $(addprefix DOLLAR{OT_HOME}/tools/", $(notdir $(ALL_TOOLS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g'):$(shell echo $(addprefix DOLLAR{OT_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g'))\
 	\n\
 	\n" >> $@
 
