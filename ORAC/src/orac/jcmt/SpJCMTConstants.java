@@ -148,18 +148,13 @@ public interface SpJCMTConstants {
    // SCUBA constants
 
    /** Filter */
-   public static final String ATTR_FILTER             = "filter";
+   public static final String ATTR_FILTER            = "filter";
 
-   /** Sub-instrument */
-   public static final String ATTR_SUB_INSTRUMENT     = "subInstrument";
+   /** Primary Bolometer */
+   public static final String ATTR_PRIMARY_BOLOMETER = "primaryBolometer";
 
-   /** Primary sub-instrument */
-   public static final String ATTR_PRIMARY_SUB_INSTRUMENT = "primarySubInstrument";
-
-
-   /** Bolometer */
-   public static final String ATTR_BOLOMETER          = "bolometer";
-
+   /** Vector with all bolometers */
+   public static final String ATTR_BOLOMETERS        = "bolometers";
 
    // SCUBA constants for time estimation
 
