@@ -57,23 +57,14 @@ public class InstApertures extends Hashtable implements Cloneable {
       String yAperture;                   // Y instrument aperture
       String zAperture;                   // Z instrument aperture
 
-// Validate the instrument.
+// Validate the instrument.  At one point there were instrument-specific
+// handling of the apertures.  Now unified, so the code is simplified.
       concat = null;
       if ( instrum.equalsIgnoreCase( "UFTI" ) ||
-           instrum.equalsIgnoreCase( "IRCAM3" ) ) {
-
-// Get the individual values
-         xAperture = (String) this.get( "instAperX" );
-         yAperture = (String) this.get( "instAperY" );
-         zAperture = (String) this.get( "instAperZ" );
-         lAperture = (String) this.get( "instAperL" );
-
-// Concatenate aperture values stored in the InstApertures Hashtable.
-         concat = xAperture + " " + yAperture + " " + zAperture +
-                  " " + lAperture;
-      }
-      else if ( instrum.equalsIgnoreCase( "CGS4" ) ||
-		instrum.equalsIgnoreCase( "Michelle" ) ) {
+           instrum.equalsIgnoreCase( "IRCAM3" ) ||
+           instrum.equalsIgnoreCase( "CGS4" ) ||
+           instrum.equalsIgnoreCase( "Michelle" ) ||
+           instrum.equalsIgnoreCase( "UIST" ) ) {
 
 // Get the individual values
          xAperture = (String) this.get( "instAperX" );
@@ -119,6 +110,14 @@ public class InstApertures extends Hashtable implements Cloneable {
          put( "instAperY", "1" );        // Y aperture
          put( "instAperZ", "0" );        // Z aperture
          put( "instAperL", "15.0" );      // Lambda aperture
+
+      } else if ( instrum.equalsIgnoreCase( "UIST" ) ) {
+
+// Initialise the UIST instrument apertures.
+         put( "instAperX", "1" );        // X aperture
+         put( "instAperY", "1" );        // Y aperture
+         put( "instAperZ", "0" );        // Z aperture
+         put( "instAperL", "5.0" );      // Lambda aperture
 
       }
    }
@@ -167,8 +166,11 @@ public class InstApertures extends Hashtable implements Cloneable {
 // Assume that the result is the same unless a mismatch is found.
       same = true;
       
-// Use different initialisations for different instruments.
-      if ( instrum.equalsIgnoreCase( "UFTI" ) ) {
+      if ( instrum.equalsIgnoreCase( "UFTI" ) ||
+           instrum.equalsIgnoreCase( "IRCAM3" ) ||
+           instrum.equalsIgnoreCase( "CGS4" ) ||
+           instrum.equalsIgnoreCase( "Michelle" ) ||
+           instrum.equalsIgnoreCase( "UIST" ) ) {
 
 // Get an enumeration of the keys.
          ekey = keys();

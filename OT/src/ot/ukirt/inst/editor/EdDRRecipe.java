@@ -441,6 +441,10 @@ _updateRecipeWidgets()
 
      rarray = SpDRRecipe.MICHELLE;
 
+   }else if (instStr.equalsIgnoreCase("UIST")) {
+
+     rarray = SpDRRecipe.UIST;
+
    }
 
    // Show the correct recipes, and select the option widget for the type

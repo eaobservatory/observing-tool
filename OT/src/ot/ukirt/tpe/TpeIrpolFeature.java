@@ -166,6 +166,10 @@ _calc(FitsImageInfo fii)
        _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(-90.0));
        _iw.skyRotate(_oobtArea, Angle.degreesToRadians(-90.0));
        _iw.skyRotate(_oobbArea, Angle.degreesToRadians(-90.0));
+      }else if (_inst instanceof SpInstUIST) {
+       _iw.skyRotate(_fovAreaPD, Angle.degreesToRadians(-90.0));
+       _iw.skyRotate(_oobtArea, Angle.degreesToRadians(-90.0));
+       _iw.skyRotate(_oobbArea, Angle.degreesToRadians(-90.0));
       }else {
       }
 
