@@ -22,7 +22,6 @@
 <xsd:element name="namedSystem"          type="toml:namedTargetType"/>
 <xsd:element name="spherSystem"          type="toml:sphericalCoordinateSystemType"/>
 <xsd:element name="conicSystem"          type="toml:conicSystemType"/>
-<xsd:element name="telescope"            type="toml:telescopeType"/>
 
 <!-- Typical Telescope Parameters -->
 <xsd:element name="maxElevation"         type="toml:elevationLimits"/>
