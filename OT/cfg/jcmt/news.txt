@@ -18,9 +18,8 @@ those in the old FreeBongo OT:
       
     Selecting dis-contiguous nodes: select node, hold CONTROL key, (un)select next node, ... 
 
-    The selected nodes can be deleted (with DELETE or BACKSPACE) or dragged and dropped (no special
-    Drag and Drop icon is used to indicate that multiple nodes are dragged.)
-      
+    The selected nodes can be deleted (with DELETE or BACKSPACE) or dragged and dropped.
+
     WARNING: Remember that the multiple node selection in the FreeBongo OT was much simpler.
     Only certain contiguous nodes could be selected at the same time.
     Although this Swing OT allows arbitrary multiple selections there can be problems if arbitrary
