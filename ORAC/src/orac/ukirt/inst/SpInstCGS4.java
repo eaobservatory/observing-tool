@@ -1065,7 +1065,6 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	double y0 = 
 	    (Double.valueOf((String)DISPERSERS.elementAt(di,8))).doubleValue();
 	
-	System.out.println ("X,Y zero points are " + x0 + ", "+y0);
 
 	// Spectral scale is in column 5 of the dispersers lut, and spatial in
 	// column 6.
@@ -1084,12 +1083,9 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	// there's a minus sign in YARCSECPERMM.
 	double d = - (spatialScale/YARCSECPERMM)*(PEAK_ROW-CENT_ROW);
 	
-	//System.out.println ("Calculated d is "+d);
-	
 	double paRad = Angle.degreesToRadians (pa);
 	double x = x0 + d*(Angle.sinRadians(paRad));
 	double y = y0 - d*(Angle.cosRadians(paRad)-1);
-	System.out.println ("New X,Y are " + x + ", "+y);
 	setInstApX (String.valueOf(x));
 	setInstApY (String.valueOf(y));
 	setInstApL (String.valueOf(cwl));
