@@ -4,7 +4,7 @@
 //
 // $Id$
 //
-package ot.jcmt.tpe;
+package jsky.app.ot.tpe.feat;
 
 import java.awt.Color;
 import java.awt.Graphics;
