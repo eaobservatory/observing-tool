@@ -26,19 +26,27 @@ import java.net.MalformedURLException;
 import java.util.ListIterator;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
+
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
+
 import jsky.app.ot.util.DnDUtils;
+import jsky.util.gui.DialogUtil;
 
 /**
  * Drag&Drop target for the OT tree widget.
  * Based on an example in the book: "Core Swing, Advanced Programming".
+ *
+ * MFO: This class has been updated by copying jsky.app.ot.viewer.SPTreeDropTarget from ot-0.9.0
+ *      to this class and making modifications.
+ *
+ * @author Allan Brighton
  */
 public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListener {
 
-    /** Target OT tree widget */
-    protected OtTreeWidget treeWidget;
+    /** Target SPTree widget */
+    protected OtTreeWidget _spTree;
 
     /** The internal JTree widget */
     protected JTree tree;
@@ -59,18 +67,17 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
     /**
      * Constructor
      */
-    public OtTreeDropTarget(OtTreeWidget treeWidget) {
-	this.treeWidget = treeWidget;
-	tree = treeWidget.getTree();
-	tree.setEditable(true);
+    public OtTreeDropTarget(OtTreeWidget _spTree) {
+	this._spTree = _spTree;
+	tree = _spTree.getTree();
 		
 	// Listen for changes in the enabled property
 	tree.addPropertyChangeListener(this);
 
 	// Create the DropTarget and register 
-	// it with the OtTreeWidget.
+	// it with the SPTree.
 	dropTarget = new DropTarget(tree,
-				    DnDConstants.ACTION_COPY, 
+				    DnDConstants.ACTION_COPY_OR_MOVE, 
 				    this, 
 				    tree.isEnabled(), null);
     }
@@ -135,7 +142,7 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 			      + DnDUtils.showActions(dtde.getDropAction()));
 
 	// Check the drop action
-	if ((dtde.getDropAction() & DnDConstants.ACTION_COPY) != 0) {
+	if ((dtde.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) != 0) {
 	    // Accept the drop and get the transfer data
 	    dtde.acceptDrop(dtde.getDropAction());
 	    Transferable transferable = dtde.getTransferable();
@@ -173,7 +180,7 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
     public void propertyChange(PropertyChangeEvent evt) {
 	String propertyName = evt.getPropertyName();
 	if (propertyName.equals("enabled")) {
-	    // Enable the drop target if the OtTreeWidget is enabled
+	    // Enable the drop target if the SPTree is enabled
 	    // and vice versa.		
 	    dropTarget.setActive(tree.isEnabled());
 	}
@@ -194,25 +201,14 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 
 	// Reject if the object being transferred 
 	// or the operations available are not acceptable.
-	if (!acceptableType || (sourceActions & DnDConstants.ACTION_COPY) == 0) {
+	if (!acceptableType || (sourceActions & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
 	    DnDUtils.debugPrintln("Drop target rejecting drag: acceptableType = " + acceptableType);
-	    dtde.rejectDrag();
-	} 
-	else if (!tree.isEditable()) {
-	    // Can't drag to a read-only OtTreeWidget
-	    DnDUtils.debugPrintln("Drop target rejecting drag: tree not editable");			
 	    dtde.rejectDrag();
 	} 
 	else if (!acceptableDropLocation) {
 	    // Can only drag to writable directory
 	    DnDUtils.debugPrintln("Drop target rejecting drag: no acceptable drop lLocation");			
 	    dtde.rejectDrag();
-	} 
-	else if ((dropAction & DnDConstants.ACTION_COPY) == 0) {
-	    // Not offering copy or move - suggest a copy
-	    DnDUtils.debugPrintln("Drop target offering COPY");
-	    dtde.acceptDrag(DnDConstants.ACTION_COPY);
-	    acceptedDrag = true;
 	} 
 	else {
 	    // Offering an acceptable operation: accept
@@ -228,16 +224,20 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	if (dtde != null && acceptedDrag) {
 	    if (isAcceptableDropLocation(dtde)) {
 		Point location = dtde.getLocation();
-		treeWidget.setIgnoreSelection(true);
-		treeWidget.selectNode(getNode(location));
-		treeWidget.setIgnoreSelection(false);
+		_spTree.setIgnoreSelection(true);
+		_spTree.selectNode(getNode(location));
+		_spTree.setIgnoreSelection(false);
 	    } 
 	    else {
+		_spTree.setIgnoreSelection(true);
 		tree.clearSelection();
+		_spTree.setIgnoreSelection(false);
 	    }
 	} 
 	else {
+	    _spTree.setIgnoreSelection(true);
 	    tree.clearSelection();
+	    _spTree.setIgnoreSelection(false);
 	}
     }
 		
@@ -252,9 +252,11 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 
     // This method handles a drop for a list of files
     protected boolean dropNodes(int action, Transferable transferable, Point location) 
-	throws IOException, UnsupportedFlavorException,  MalformedURLException {
+	throws IOException, UnsupportedFlavorException {
 
 	OtDragDropObject ddo = (OtDragDropObject)transferable.getTransferData(OtDragDropObject.dataFlavor);
+
+        // MFO: The following 7 lines are retained from ot-0.5.
 	OtTreeNodeWidget node = getNode(location);
 	if (node == null) 
 	    return false;
@@ -264,9 +266,13 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 			      " to targetNode " +node);
 
 	// Highlight the drop location while we perform the drop
-	treeWidget.setIgnoreSelection(true);
-	tree.setSelectionPath(tree.getPathForLocation(location.x, location.y));
-	treeWidget.setIgnoreSelection(false);
+	_spTree.setIgnoreSelection(true);
+	_spTree.selectNode(getNode(location));
+	_spTree.setIgnoreSelection(false);
+
+
+        // MFO: The following 32 lines are retained from ot-0.5.
+	//      (except: try/catch and _spTree.setProgram(prog); from ot-0.9.0)
 
 	// Copy source object to the target
 	SpInsertData spID = getSpInsertData(ddo, node);
@@ -276,26 +282,97 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	OtTreeWidget ownerTW = ddo.getOwner();
 	SpItem spItem = ddo.getSpItem();
 	SpItem[] newItems = spID.items;
-	if (ownerTW == treeWidget) {
+	try {
+	  if (ownerTW == _spTree) {
 	    // The dragged item was owned by this tree, so just move it.
-	    treeWidget.mvItems( spID );
-	} else {
+	    _spTree.mvItems( spID );
+	  } else {
 	    if (ownerTW != null) {
 		// Make a copy, since these items are owned by another tree.
 		for (int i=0; i<newItems.length; ++i) {
 		    newItems[i] = newItems[i].deepCopy();
 		}
 	    }
-	    newItems = treeWidget.addItems( spID );
+	    newItems = _spTree.addItems( spID );
+	  }
+          // force redrawing of the tree
+	  _spTree.resetProg(_spTree.getProg());
 	}
+	catch(Exception e) {
+          DialogUtil.error(e);
+	}
+	
 	if (newItems == null) 
 	    return false;
    	return true;
+
+    }
+
+    /** Return true if its okay to drop the item(s) here */
+    protected boolean isAcceptableDropLocation(DropTargetDragEvent dtde) {
+	OtDragDropObject ddo = OtTreeDragSource._dragObject;
+	if (ddo == null)
+	    return false;
+
+// MFO modified version of ot-0.9.0
+/*
+	// get the node under the mouse
+	SpItem parent = getNode(dtde.getLocation()).getItem();
+	if (parent == null) 
+	    return false;
+	
+	// get the items to be dropped
+	SpItem [] newItems = ddo.getSpItems();
+	ISPProgram prog = _spTree.getProgram();
+	if (newItems != null) {
+	    for(int i = 0; i <  newItems.length; i++) {
+		if (! SPTreeUtil.isOkayToAdd(prog, newItems[i], parent))
+		    return false;
+	    }
+	}
+	return true;
+*/
+// MFO from ot-0.5
+
+	// get the node under the mouse
+	OtTreeNodeWidget node = getNode(dtde.getLocation());
+	if (node == null) 
+	    return false;
+	
+	return (getSpInsertData(ddo, node) != null); 
+
+    }
+
+    /** Save the current tree selection */
+    protected void saveTreeSelection() {
+	selections = tree.getSelectionPaths();
+	leadSelection = tree.getLeadSelectionPath();
+	_spTree.setIgnoreSelection(true);
+	tree.clearSelection();
+	_spTree.setIgnoreSelection(false);
+    }
+
+    /** Restore the current tree selection */
+    protected void restoreTreeSelection() {
+	_spTree.setIgnoreSelection(true);
+	tree.setSelectionPaths(selections);
+
+	// Restore the lead selection
+	if (leadSelection != null) {
+	    tree.removeSelectionPath(leadSelection);
+	    tree.addSelectionPath(leadSelection);
+	}
+	_spTree.setIgnoreSelection(false);
     }
 
     /**
      * Return the SpInsertData object to use to insert the object(s) being dragged,
      * or null, if it is not allowed to drop the item(s) at the current position.
+     *
+     * Return the tree node for the given location.
+     *
+     * Copied from ot-0.5. Note that most of this class has been copied from jsky.app.ot.viewer.SPTreeDropTarget in
+     * ot-0.9.0.
      */
     protected SpInsertData getSpInsertData(OtDragDropObject ddo, OtTreeNodeWidget node) {
 	// See whether we can insert the newItem.
@@ -308,7 +385,13 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	return spID;
     }
 
-    /** Return the tree node for the given location */
+    
+    /**
+     * Return the tree node for the given location.
+     *
+     * Copied from ot-0.5. Note that most of this class has been copied from jsky.app.ot.viewer.SPTreeDropTarget in
+     * ot-0.9.0.
+     */
     protected OtTreeNodeWidget getNode(Point location) {
 	TreePath treePath = tree.getPathForLocation(location.x, location.y);
 	if (treePath == null) {
@@ -317,47 +400,5 @@ public class OtTreeDropTarget implements DropTargetListener, PropertyChangeListe
 	return (OtTreeNodeWidget)treePath.getLastPathComponent();
     }
 
-
-    /** Return true if its okay to drop the item(s) here */
-    protected boolean isAcceptableDropLocation(DropTargetDragEvent dtde) {
-	/*
-	// get the root item being dragged  (XXX doesn't work, getTransferable() is protected)
-	Transferable transferable = dtde.getDropTargetContext().getTransferable();
-	OtDragDropObject o = transferable.getTransferData(OtDragDropObject.dataFlavor);
-	if (!(o instanceof OtDragDropObject)) 
-	    return false;
-	OtDragDropObject ddo = (OtDragDropObject) o;
-	*/
-	OtDragDropObject ddo = OtTreeDragSource.dragObject;
-	if (ddo == null)
-	    return false;
-
-	// get the node under the mouse
-	OtTreeNodeWidget node = getNode(dtde.getLocation());
-	if (node == null) 
-	    return false;
-	
-	return (getSpInsertData(ddo, node) != null); 
-    }
-
-    /** Save the current tree selection */
-    protected void saveTreeSelection() {
-	selections = tree.getSelectionPaths();
-	leadSelection = tree.getLeadSelectionPath();
-	tree.clearSelection();
-    }
-
-    /** Restore the current tree selection */
-    protected void restoreTreeSelection() {
-	treeWidget.setIgnoreSelection(true);
-	tree.setSelectionPaths(selections);
-
-	// Restore the lead selection
-	if (leadSelection != null) {
-	    tree.removeSelectionPath(leadSelection);
-	    tree.addSelectionPath(leadSelection);
-	}
-	treeWidget.setIgnoreSelection(false);
-    }
 }
 
