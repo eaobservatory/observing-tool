@@ -131,7 +131,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
    * Set area postition angle (map postition angle).
    */
   public void setPosAngle(double theta) {
-    _avTable.set(ATTR_SCANAREA_PA, Math.rint(theta * 10.0) / 10.0);
+//     _avTable.set(ATTR_SCANAREA_PA, Math.rint(theta * 10.0) / 10.0);
+    _avTable.set(ATTR_SCANAREA_PA, theta);
 
     if(_parent instanceof SpIterOffset) {
       ((SpIterOffset)_parent).setPosAngle(getPosAngle());
