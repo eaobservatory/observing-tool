@@ -48,6 +48,12 @@ public interface TelescopeUtil {
    */
   public static final int FEATURE_TARGET_INFO_TRACKING    = 2;
 
+
+  /**
+   * Offset iterator, PA.
+   */
+  public static final int FEATURE_OFFSET_GRID_PA          = 3;
+
   public SpValidation getValidationTool();
 
   public String [] getTargetTags();
