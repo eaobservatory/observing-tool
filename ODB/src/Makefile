@@ -231,7 +231,7 @@ endif
 
 	@printf \
 	"\n\
-	\n\        
+	\n\
 	\nwhile ($$""#argv != 0)\
 	\n   switch ($$""argv[1])\
 	\n      case -kill_dir:\
