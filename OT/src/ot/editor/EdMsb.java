@@ -53,11 +53,11 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	_w.priorityMedium.addActionListener(this);
 	_w.priorityLow.addActionListener(this);
 
+	_w.remaining.addItem(SpMSB.REMOVED_STRING);
+
 	for(int i = 0; i <= 100; i++) {
 	  _w.remaining.addItem("" + i);
 	}
-
-	_w.remaining.addItem(SpMSB.REMOVED_STRING);
 
 	_w.remaining.addActionListener(this);
     }
@@ -100,7 +100,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	  _w.remaining.setValue(SpMSB.REMOVED_STRING);
 	}
 	else {
-	  _w.remaining.setSelectedIndex(numberRemaining);
+	  _w.remaining.setSelectedIndex(numberRemaining + 1);
 	}
 
 	ignoreActions = false;
@@ -139,7 +139,7 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	        spMSB.setNumberRemaining(SpMSB.REMOVED_CODE);
 	    }
 	    else {
-                spMSB.setNumberRemaining(_w.remaining.getSelectedIndex());
+                spMSB.setNumberRemaining(_w.remaining.getSelectedIndex() - 1);
 	    }
 	}
 
