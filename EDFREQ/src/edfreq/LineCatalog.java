@@ -20,7 +20,7 @@
  *   23-Feb-2000: added returnSpecies() (bdk@roe.ac.uk)
  */ 
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import java.util.*;
 

@@ -8,20 +8,32 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
+
+import java.util.*;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
-public class Transition
+public class Receiver
 {
-   public String name;
-   public double frequency;
+   public String name;          // receiver name
+   public double loMin;         // minimum value of local oscillator (Hz)
+   public double loMax;         // maximum value of local oscillator (Hz)
+   public double feIF;          // central IF delivered (Hz)
+   public double bandWidth;     // bandwidth of IF (Hz)
+   public Vector bandspecs;     // list of possible band specs
 
-   public Transition ( String name, double frequency )
+
+   public Receiver ( String name, double loMin, double loMax, 
+     double feIF, double bandWidth )
    {
       this.name = name;
-      this.frequency = frequency;
+      this.loMin = loMin;
+      this.loMax = loMax;
+      this.feIF = feIF;
+      this.bandWidth = bandWidth;
+      bandspecs = new Vector();
    }
 
    public String toString()

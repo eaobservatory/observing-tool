@@ -8,21 +8,27 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
+
+import java.util.*;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
-public class LineDetails
+public class SelectionList
 {
+   public Vector objectList;
    public String name;
-   public String transition;
-   public double frequency;
 
-   public LineDetails ( String name, String transition, double frequency )
+   public SelectionList ( String name )
    {
       this.name = name;
-      this.transition = transition;
-      this.frequency = frequency;
+      objectList = new Vector();
    }
+
+   public String toString ( )
+   {
+      return name;
+   }
+
 }

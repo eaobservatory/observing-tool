@@ -8,24 +8,25 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
-
-import javax.swing.*;
+package edfreq;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
-public class SamplerDisplay extends JLabel implements SamplerWatcher
+public class Transition
 {
+   public String name;
+   public double frequency;
 
-   public SamplerDisplay ( String text )
+   public Transition ( String name, double frequency )
    {
-      super ( text );
+      this.name = name;
+      this.frequency = frequency;
    }
 
-   public void updateSamplerValues ( double centre, double width,
-     int channels )
+   public String toString()
    {
-      setText ( String.valueOf ( centre ) );
+      return name;
    }
+
 }

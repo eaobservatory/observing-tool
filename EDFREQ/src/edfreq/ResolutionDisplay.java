@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import javax.swing.*;
 
