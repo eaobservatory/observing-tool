@@ -104,6 +104,13 @@ public class SpIterOffset extends SpIterComp
 //   SpFactory.registerPrototype(new SpIterOffset());
 //}
 
+   /** Needed for XML parsing. */
+   private double xOffNew = 0.0;
+
+   /** Needed for XML parsing. */
+   private double yOffNew = 0.0;
+
+
 /**
  * Default constructor.
  */
@@ -260,4 +267,118 @@ elements()
    return new SpIterOffsetEnumeration(this);
 }
 
+
+protected void
+processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
+{
+   // "offsetPositions" (SpOffsetPosList.OFFSET_POS_LIST)
+   // is an AV attribute that occurs once in a SpIterOffset's AV table
+   // When processAvAttribute is called with "offsetPositions" as avAttr then append the entire
+   // TCS XML representation of this item to the xmlBuffer.
+   // For all other calls to processAvAttribute ignore the AV attributes
+   // "PA" (ATTR_POS_ANGLE) and those attributes starting with "Offset" (SpOffsetPos.OFFSET_TAG)
+   // as their information has already been dealt with in the TCS XML representation of
+   // this item.
+   // They other attributes are delegated to the super class.
+   if(avAttr.equals(SpOffsetPosList.OFFSET_POS_LIST)) {
+      // Append <obsArea> element.
+      xmlBuffer.append("\n" + indent + "  <obsArea>");
+      xmlBuffer.append("\n" + indent + "    <PA>" + getPosAngle() + "</PA>");
+
+      for(int i = 0; i < getPosList().size(); i++) {
+         xmlBuffer.append("\n" + indent + "    <OFFSET>");
+         xmlBuffer.append("\n" + indent + "      <DC1>" + getPosList().getPositionAt(i).getXaxis() + "</DC1>");
+         xmlBuffer.append("\n" + indent + "      <DC2>" + getPosList().getPositionAt(i).getYaxis() + "</DC2>");
+         xmlBuffer.append("\n" + indent + "    </OFFSET>");
+      }
+
+      xmlBuffer.append("\n" + indent + "  </obsArea>");
+
+      return;
+   }
+
+
+   if(avAttr.equals(ATTR_POS_ANGLE) || avAttr.startsWith(SpOffsetPos.OFFSET_TAG)) {
+      // Ignore. Dealt with in <obsArea> element (see above).
+      return;
+   }
+
+   super.processAvAttribute(avAttr, indent, xmlBuffer);
 }
+
+public void
+processXmlElementStart(String name)
+{
+   // Sort AV table to ensure that the offset positions are in the right order.
+   if(name.equals("obsArea")) {
+      _avTable.sort();
+   }
+
+   super.processXmlElementStart(name);
+}
+
+
+public void
+processXmlElementContent(String name, String value)
+{
+
+   if(name.equals("obsArea") || name.equals("OFFSET")) {
+      // ignore
+      return;
+   }
+
+   if(name.equals("PA")) {
+      setPosAngle(value);
+
+      return;
+   }
+
+
+   if(name.equals("DC1")) {
+      try {
+         xOffNew = Double.parseDouble(value);
+      }
+      catch(Exception e) {
+         xOffNew = 0.0;
+      }
+
+      return;
+   }
+
+   if(name.equals("DC2")) {
+      try {
+         yOffNew = Double.parseDouble(value);
+      }
+      catch(Exception e) {
+         yOffNew = 0.0;
+      }
+
+      return;
+   }
+
+   super.processXmlElementContent(name, value);
+}
+
+public void
+processXmlElementEnd(String name)
+{
+   if(name.equals("OFFSET")) {
+      getPosList().createPosition(xOffNew, yOffNew);
+      xOffNew = 0.0;
+      yOffNew = 0.0;
+
+      return;
+   }
+
+   if(name.equals("obsArea")) {
+      // save() just means reset() in this context.
+      getAvEditFSM().save();
+
+      return;
+   }
+
+   super.processXmlElementEnd(name);
+}
+
+}
+

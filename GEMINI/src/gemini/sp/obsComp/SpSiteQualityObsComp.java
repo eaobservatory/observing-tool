@@ -26,6 +26,15 @@ public class SpSiteQualityObsComp extends SpObsComp
    public static final int SEEING_POOR          = 2;
    public static final int SEEING_ANY           = 3;
 
+   protected static final String XML_SEEING     = "seeing";
+   protected static final String XML_CSO_TAU    = "csoTau";
+   protected static final String XML_MOON       = "moon";
+   protected static final String XML_CLOUD      = "cloud";
+   protected static final String XML_MAX        = "max";
+   protected static final String XML_MIN        = "min";
+
+   private String _previousXmlElement = "";
+
    public static final double [][] SEEING_RANGES = {
       {0.0, 0.4},
       {0.0, 0.6},
@@ -245,6 +254,107 @@ public int
 getCloud()
 {
    return _avTable.getInt(ATTR_CLOUD, CLOUD_ANY);
+}
+
+protected void
+processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
+{
+   if(avAttr.equals(ATTR_SEEING_MAX)) {
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_SEEING  + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + getSeeingRange()[0] + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + getSeeingRange()[1] + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n  "   + indent + "</" + XML_SEEING  + ">");
+
+      return;
+   }
+
+   if(avAttr.equals(ATTR_SEEING_MIN)) {
+      return;
+   }
+   
+   if(avAttr.equals(ATTR_CSO_TAU_MAX)) {
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_CSO_TAU + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + getCsoTauRange()[0] + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + getCsoTauRange()[1] + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n  "   + indent + "</" + XML_CSO_TAU + ">");
+
+      return;
+   }
+  
+   if(avAttr.equals(ATTR_CSO_TAU_MIN)) {
+      return;
+   }
+
+   if(avAttr.equals(ATTR_MOON)) {
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_MOON    + ">" + getMoon()  + "</" + XML_MOON  + ">");
+
+      return;
+   }
+
+   if(avAttr.equals(ATTR_CLOUD)) {
+      xmlBuffer.append("\n  "   + indent + "<"  + XML_CLOUD   + ">" + getCloud() + "</" + XML_CLOUD + ">");
+
+      return;
+   }
+
+   super.processAvAttribute(avAttr, indent, xmlBuffer);
+}
+
+
+public void
+processXmlElementContent(String name, String value)
+{
+
+   if(name.equals(XML_SEEING)) {
+      _previousXmlElement = name;
+   }
+
+   if(name.equals(XML_CSO_TAU)) {
+     _previousXmlElement = name;
+   }
+
+
+   try {
+      if(name.equals(XML_MAX)) {
+         if(_previousXmlElement.equals(XML_SEEING)) {
+            _avTable.noNotifySet(ATTR_SEEING_MAX, value, 0);
+	    return;
+	 }
+
+         if(_previousXmlElement.equals(XML_CSO_TAU)) {
+            _avTable.noNotifySet(ATTR_CSO_TAU_MAX, value, 0);
+	    return;
+	 }
+      }
+
+      if(name.equals(XML_MIN)) {
+         if(_previousXmlElement.equals(XML_SEEING)) {
+            _avTable.noNotifySet(ATTR_SEEING_MIN, value, 0);
+	    return;
+	 }
+
+         if(_previousXmlElement.equals(XML_CSO_TAU)) {
+            _avTable.noNotifySet(ATTR_CSO_TAU_MIN, value, 0);
+	    return;
+	 }
+      }
+
+      if(name.equals(XML_MOON)) {
+        _avTable.noNotifySet(ATTR_MOON, value, 0);
+	return;
+      }
+
+      if(name.equals(XML_CLOUD)) {
+        _avTable.noNotifySet(ATTR_CLOUD, value, 0);
+	return;
+      }
+   }
+   catch(Exception e) {
+      e.printStackTrace();
+      throw new RuntimeException("Problem parsing Site Quality component (XML): " + e);
+   }
+
+   super.processXmlElementContent(name, value);
 }
 
 }

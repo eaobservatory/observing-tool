@@ -10,6 +10,7 @@ import gemini.sp.SpAvTable;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpType;
+import gemini.util.CoordSys;
 
 
 /**
@@ -32,6 +33,10 @@ public class SpTelescopeObsComp extends SpObsComp
 
 
    protected SpTelescopePosList _posList;
+
+
+   /** Needed for XML parsing. */
+   private SpTelescopePos _currentPosition = null;
 
 public SpTelescopeObsComp()
 {
@@ -264,6 +269,181 @@ setChopSystem(String chopSystem)
    // MFO TODO: _notifyOfGenericUpdate or equivalent has to be implemented
    // (for TelescopesPosWatcher or TelescopePosListWatcher).
    //_notifyOfGenericUpdate();
+}
+
+
+protected void
+processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
+{
+   SpTelescopePos tp = null;
+   
+   if(avAttr != null) {
+     tp = (SpTelescopePos)_posList.getPosition(avAttr);
+   }  
+
+   if(tp == null) {
+     super.processAvAttribute(avAttr, indent, xmlBuffer);
+     return;
+   }
+
+   String system = _avTable.get(avAttr, SpTelescopePos.COORD_SYS_INDEX);
+
+   if(system.equals(CoordSys.COORD_SYS[CoordSys.FK5])) {
+     system = "J2000";
+   }
+
+   if(system.equals(CoordSys.COORD_SYS[CoordSys.FK4])) {
+     system = "B1950";
+   }
+
+   xmlBuffer.append("\n  " + indent + "<BASE TYPE=\"" + avAttr + "\">");
+   xmlBuffer.append("\n    " + indent + "<target>");
+
+   // Check whether it is a spherical system. Only the spherical systems are saved using
+   // there tag name as attribute name for the av table.
+   if(_avTable.exists(avAttr)) {
+     xmlBuffer.append("\n      " + indent + "<targetName>" + _avTable.get(avAttr, SpTelescopePos.NAME_INDEX) + "</targetName>");
+     xmlBuffer.append("\n      " + indent + "<spherSystem SYSTEM=\"" + system + "\">");
+     xmlBuffer.append("\n        " + indent + "<c1>" + _avTable.get(avAttr, SpTelescopePos.XAXIS_INDEX) + "</c1>");
+     xmlBuffer.append("\n        " + indent + "<c2>" + _avTable.get(avAttr, SpTelescopePos.YAXIS_INDEX) + "</c2>");
+
+     double pm1 = 0.0;
+     double pm2 = 0.0;
+
+     try {
+       pm1 = Double.parseDouble(tp.getPropMotionRA())  / 1000.0;
+     }
+     catch(Exception e) {
+       e.printStackTrace();
+     }
+
+     try {
+       pm2 = Double.parseDouble(tp.getPropMotionDec()) / 1000.0;
+     }
+     catch(Exception e) {
+       e.printStackTrace();
+     }       
+
+     if((pm1 != 0.0) || (pm2 != 0.0)) {
+       xmlBuffer.append("\n        " + indent + "<pm1 units=\"arcsecs/year\">" + pm1 + "</pm1>");
+       xmlBuffer.append("\n        " + indent + "<pm2 units=\"arcsecs/year\">" + pm2 + "</pm2>");
+     }
+
+     try {
+       double rv = Double.parseDouble(tp.getTrackingRadialVelocity());
+
+       if(rv != 0.0) {
+         xmlBuffer.append("\n        " + indent + "<rv units=\"km/sec\">" + rv + "</rv>");
+       }
+     } 
+     catch(Exception e) {
+       e.printStackTrace();
+     }
+
+     xmlBuffer.append("\n      " + indent + "</spherSystem>");
+   }
+   
+   xmlBuffer.append("\n    " + indent + "</target>");
+   xmlBuffer.append("\n  " + indent + "</BASE>");
+}
+
+
+public void
+processXmlElementContent(String name, String value)
+{
+
+   if(_currentPosition == null) {
+      return;
+   }
+
+   if(name.equals("BASE") || name.equals("target")) {
+      return;
+   }
+
+   if(name.equals("targetName")) {
+      _currentPosition.setName(value);
+      return;
+   }
+
+   if(name.equals("spherSystem")) {
+      _currentPosition.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_HMSDEG_DEGDEG);
+      return;
+   }
+
+   if(name.equals("conicSystem")) {
+      _currentPosition.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_CONIC);
+      return;
+   }
+
+   if(name.equals("namedSystem")) {
+      _currentPosition.setTargetSystem(SpTelescopePos.TARGET_SYSTEM_NAMED);
+      return;
+   }
+
+   if(name.equals("c1")) {
+      _currentPosition.setXYFromString(value, _currentPosition.getYaxisAsString());
+      return;
+   }
+
+   if(name.equals("c2")) {
+      _currentPosition.setXYFromString(_currentPosition.getXaxisAsString(), value);
+      return;
+   }
+
+   super.processXmlElementContent(name, value);
+
+// } catch(Exception e) { e.printStackTrace(); print(); }
+}
+
+public void
+processXmlElementEnd(String name)
+{
+   if(name.equals("BASE")) {
+      _currentPosition = null;
+
+      // save() just means reset() in this context.
+      getAvEditFSM().save();
+
+      return;
+   }   
+
+   super.processXmlElementEnd(name);
+}
+
+
+public void
+processXmlAttribute(String elementName, String attributeName, String value)
+{
+   if(elementName.equals("BASE") && attributeName.equals("TYPE")) {
+      // TCS XML element SCIENCE is the SpTelescopePos BASE_TAG
+      // TCS XML element BASE is something else.
+      if(value.equals("SCIENCE")) {
+         SpTelescopePos.createDefaultBasePosition(_avTable);
+         _currentPosition = getPosList().getBasePosition();
+      }
+      else {
+         _currentPosition = getPosList().createPosition(value, 0.0, 0.0);
+      }
+
+      return;
+   }
+
+   if(elementName.equals("spherSystem") && attributeName.equals("SYSTEM")) {
+      if(value.equals("J2000")) {
+         _currentPosition.setCoordSys(CoordSys.COORD_SYS[CoordSys.FK5]);
+	 return;
+      }
+
+      if(value.equals("B1950")) {
+         _currentPosition.setCoordSys(CoordSys.COORD_SYS[CoordSys.FK4]);
+	 return;
+      }
+
+      _currentPosition.setCoordSys(value);
+      return;
+   }
+
+   super.processXmlAttribute(elementName, attributeName, value);
 }
 
 }
