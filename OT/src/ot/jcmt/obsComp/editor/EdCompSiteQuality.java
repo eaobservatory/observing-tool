@@ -81,7 +81,7 @@ public final class EdCompSiteQuality extends OtItemEditor
 	int i;
 
 	// Tau Band
-	i = sq.getTauBand();
+	i = sq.getTauBandIndex();
 	switch (i) {
 	case 0:
 	    _w.tauBand1.setValue(true); break;
@@ -136,23 +136,23 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 	// Tau band
 	if (w == _w.tauBand1) {
-	    sq.setTauBand(0);
+	    sq.setTauBandIndex(0);
 	}
 
 	if (w == _w.tauBand2) {
-	    sq.setTauBand(1);
+	    sq.setTauBandIndex(1);
 	}
 
 	if (w == _w.tauBand3) {
-	    sq.setTauBand(2);
+	    sq.setTauBandIndex(2);
 	}
 
 	if (w == _w.tauBand4) {
-	    sq.setTauBand(3);
+	    sq.setTauBandIndex(3);
 	}
 
 	if (w == _w.tauBand5) {
-	    sq.setTauBand(4);
+	    sq.setTauBandIndex(4);
 	}
 
 
