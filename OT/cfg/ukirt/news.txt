@@ -32,6 +32,9 @@ Council All Rights. Reserved.
   - On submission and retrieval to/from the database, pressing 'enter' after
     the password now behaves the same as pressing the "Commit" button.
 
+  - Corrected problem with the display of offset positions in the Position
+    Editor.
+
 +++ July 3rd 2003
 
   [Semester 03B release]
