@@ -1565,10 +1565,9 @@ public class SpTranslator {
             }
 
 // Switch off chopping and return the beam to the middle.
-// Probably temporarily it's set back to beam A.
             if ( chopping ) {
                sequence.addElement( "-CHOP off" );
-               sequence.addElement( "SET_CHOPBEAM A" );
+               sequence.addElement( "SET_CHOPBEAM MIDDLE" );
             }
 
 // Insert a peakup sequence when SKY comes before the first OBJECT
