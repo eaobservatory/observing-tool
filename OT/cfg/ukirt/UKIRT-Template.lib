@@ -8470,7 +8470,7 @@
                                     <val value="false">
                   </av>
                   <av name=DarkInGroup descr="No Description">
-                                    <val value="false">
+                                    <val value="true">
                   </av>
                   <av name=BiasRecipe descr="No Description">
                                     <val value="ARRAY_TESTS">
@@ -10243,7 +10243,7 @@
                                     <val value="false">
                   </av>
                   <av name=DarkInGroup descr="No Description">
-                                    <val value="false">
+                                    <val value="true">
                   </av>
                   <av name=BiasRecipe descr="No Description">
                                     <val value="REDUCE_BIAS">

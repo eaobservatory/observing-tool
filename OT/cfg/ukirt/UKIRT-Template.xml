@@ -4759,7 +4759,7 @@ You can change the sky offset to your own patch of blank sky.</note>
           <title>ARRAY_TESTS</title>
           <meta_unique>true</meta_unique>
           <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
+          <DarkInGroup>true</DarkInGroup>
           <BiasRecipe>ARRAY_TESTS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <ObjectRecipe>ARRAY_TESTS</ObjectRecipe>
@@ -5598,7 +5598,7 @@ You can change the sky offset to your own patch of blank sky.</note>
           <title>ARRAY_TESTS</title>
           <meta_unique>true</meta_unique>
           <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
+          <DarkInGroup>true</DarkInGroup>
           <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <ObjectRecipe>ARRAY_TESTS</ObjectRecipe>
