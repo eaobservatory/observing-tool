@@ -11,6 +11,25 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ December 2003
+
+  [Semester 04A release]
+
+  - Time estimates now report both total time and time without calibrations
+    (estimated time)
+
+  - Validation is now performed against the TOML schema over the web (Note:
+    Failure of validation does not indicate that submission will fail)
+
+  - Improved layout on various components - now requires at least Java version
+    1.4.1
+
+  - On start-up, we now check to ensure that the correct version of Java is
+    being used
+
+  - On submission and retrieval to/from the database, pressing 'enter' after
+    the password now behaves the same as pressing the "Commit" button.
+
 +++ July 3rd 2003
 
   [Semester 03B release]
