@@ -367,7 +367,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 
       SpIterValue spIterValue = null;
       boolean     expTimeFound = false;
-//       boolean     coaddsFound  = false;
+      boolean     coaddsFound  = false;
 
       currentIterStepItem = spIterStep.item;
 
@@ -392,7 +392,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
 	      expTimeFound = true;
             }
 
-            if(attribute.equals(ATTR_COADDS)) {
+            if(attribute.equals(ATTR_COADDS) && !coaddsFound) {
               currentNoCoadds = Integer.valueOf(value).intValue();
 	      coaddsFound = true;
             }
