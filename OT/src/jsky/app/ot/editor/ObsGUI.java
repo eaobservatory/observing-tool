@@ -33,8 +33,7 @@ public class ObsGUI extends JPanel {
   TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt();
   JLabel remainingLabel = new JLabel();
   DropDownListBoxWidgetExt remaining = new DropDownListBoxWidgetExt();
-  JLabel doneLabel = new JLabel();
-  TextBoxWidgetExt done = new TextBoxWidgetExt();
+  JLabel xLabel = new JLabel();
   JLabel obsState = new JLabel();
 
     public ObsGUI() {
@@ -81,11 +80,10 @@ public class ObsGUI extends JPanel {
     estimatedTime.setEditable(false);
     remainingLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     remainingLabel.setForeground(Color.black);
-    remainingLabel.setText("To be observed");
-    doneLabel.setFont(new java.awt.Font("Dialog", 0, 12));
-    doneLabel.setForeground(Color.black);
-    doneLabel.setText("Completed");
-    done.setEditable(false);
+    remainingLabel.setText("Observe");
+    xLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    xLabel.setForeground(Color.black);
+    xLabel.setText("X");
     obsState.setFont(new java.awt.Font("Dialog", 0, 12));
     obsState.setForeground(Color.black);
     obsState.setText("Not in Active Database");
@@ -102,7 +100,7 @@ public class ObsGUI extends JPanel {
     this.add(msbPanel, new GridBagConstraints(0, 1, 2, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
     msbPanel.add(jLabel4, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     msbPanel.add(priorityHigh, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
     msbPanel.add(priorityMedium, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
@@ -114,13 +112,11 @@ public class ObsGUI extends JPanel {
     msbPanel.add(estimatedTime, new GridBagConstraints(1, 2, 3, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(15, 5, 5, 5), 0, 0));
     msbPanel.add(remainingLabel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    msbPanel.add(remaining, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
-    msbPanel.add(doneLabel, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    msbPanel.add(done, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 0, 0));
+    msbPanel.add(remaining, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+    msbPanel.add(xLabel, new GridBagConstraints(2, 0, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     this.add(obsStateLabel, new GridBagConstraints(0, 2, 1, 1, -1.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 10, 0), 0, 0));
     this.add(obsState, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0

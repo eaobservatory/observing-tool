@@ -92,8 +92,6 @@ public final class EdMsb extends OtItemEditor implements TextBoxWidgetWatcher, A
 	ignoreActions = true;
 	_w.remaining.setSelectedIndex(((SpMSB)_spItem).getNumberRemaining() - 1);
 	ignoreActions = false;
-
-	_w.done.setText("" + ((SpMSB)_spItem).getNumberDone());
     }
 
     /**

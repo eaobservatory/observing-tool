@@ -34,7 +34,6 @@ public class MsbEditorGUI extends JPanel {
   TextBoxWidgetExt estimatedTime = new TextBoxWidgetExt();
   DropDownListBoxWidgetExt remaining = new DropDownListBoxWidgetExt();
   JLabel jLabel5 = new JLabel();
-  TextBoxWidgetExt done = new TextBoxWidgetExt();
 
     public MsbEditorGUI() {
         try {
@@ -53,7 +52,7 @@ public class MsbEditorGUI extends JPanel {
         this.setLayout(gridBagLayout1);
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
-    jLabel2.setText("To be observed");
+    jLabel2.setText("Observe");
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Priority");
@@ -69,8 +68,7 @@ public class MsbEditorGUI extends JPanel {
     estimatedTime.setEditable(false);
     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel5.setForeground(Color.black);
-    jLabel5.setText("Completed");
-    done.setEditable(false);
+    jLabel5.setText("X");
     this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
         this.add(nameBox, new GridBagConstraints(1, 0, 3, 1, 1.0, 0.0
@@ -90,10 +88,8 @@ public class MsbEditorGUI extends JPanel {
     this.add(estimatedTime, new GridBagConstraints(1, 3, 3, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(15, 5, 5, 5), 0, 0));
     this.add(remaining, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
-    this.add(jLabel5, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    this.add(done, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 0, 0));
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+    this.add(jLabel5, new GridBagConstraints(2, 1, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     }
 }

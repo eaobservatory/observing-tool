@@ -85,8 +85,7 @@ public final class EdObservation extends OtItemEditor
         else {
           _w.remaining.setVisible(false);
           _w.remainingLabel.setVisible(false);
-          _w.done.setVisible(false);
-          _w.doneLabel.setVisible(false);
+          _w.xLabel.setVisible(false);
           _w.estimatedTime.setVisible(false);
           _w.estimatedTimeLabel.setVisible(false);
         }
@@ -158,8 +157,6 @@ public final class EdObservation extends OtItemEditor
 	ignoreActions = true;
 	_w.remaining.setSelectedIndex(((SpObs)_spItem).getNumberRemaining() - 1);
 	ignoreActions = false;
-
-	_w.done.setText("" + ((SpObs)_spItem).getNumberDone());
     }
 
     /**
