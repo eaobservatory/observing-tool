@@ -4691,7 +4691,7 @@ You can change the sky offset to your own patch of blank sky.</note>
     <meta_gui_collapsed>true</meta_gui_collapsed>
     <title>Michelle library</title>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <title>Imaging</title>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <chainedToNext>false</chainedToNext>
@@ -7612,8 +7612,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="133" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords</targetName>
@@ -7706,8 +7706,8 @@ If you wish to observe at more than one wavelength, add filters to the "UFTI" co
             <value>exposureTimeIter</value>
             <value>coaddsIter</value>
           </iterConfigList>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <filterIter>H98</filterIter>
           <exposureTimeIter>10</exposureTimeIter>
           <SpNote type="no" subtype="none">
@@ -7990,9 +7990,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
             <IRPOLIter>
               <value>0</value>
@@ -8001,12 +8001,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <title>E-W jitter at each WP position.</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -8086,8 +8086,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="139" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -8183,8 +8183,8 @@ required.</note>
             <value>exposureTimeIter</value>
             <value>coaddsIter</value>
           </iterConfigList>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <filterIter>H98</filterIter>
           <exposureTimeIter>10</exposureTimeIter>
           <SpNote type="no" subtype="none">
@@ -8421,13 +8421,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Jitter AFTER 4 WP positions</title>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 20-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
@@ -8457,8 +8457,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <value>67.5</value>
               </IRPOLIter>
               <iterConfigList>IRPOLIter</iterConfigList>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterObserve type="ic" subtype="observe">
                 <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -8594,13 +8594,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Obj-Sky pair at each WP position.</title>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
           </SpNote>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -8611,8 +8611,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>Obj-Sky nod 1</title>
@@ -8823,13 +8823,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Obj-Sky pair at each WP position.</title>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.
 
 This set is akin to the 3x3 extended observation with 50% overlaps on the target and a jitter on a sky region.</note>
@@ -8842,8 +8842,8 @@ This set is akin to the 3x3 extended observation with 50% overlaps on the target
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>Obj-Sky nod 1</title>
@@ -9157,8 +9157,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="151" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -9402,8 +9402,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="154" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Enter blank sky coords.</targetName>
@@ -9771,9 +9771,9 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
             <IRPOLIter>
               <value>0</value>
@@ -9782,12 +9782,12 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <title>E-W jitter at each WP position.</title>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>The three E-W jitter positions (20-arcsecond steps) are repeated for each of the four waveplate positions.  The E-W jitter offsets can be changed in the "Offset iterator" below.</note>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
@@ -9942,13 +9942,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Jitter AFTER 4 WP positions</title>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Jitter telescope positions three times after each set of four waveplate-offset frames are acquired.  Offsets are 7-arcsecond steps E-W.  There is also a 1-arcsecond N-S offset to sample different rows.</note>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
@@ -10111,13 +10111,13 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
           <title>Repeat 1X</title>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
+          <meta_gui_selected>false</meta_gui_selected>
           <SpNote type="no" subtype="none">
             <title>Obj-Sky pair at each WP position.</title>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Nod between object and blank sky for each of the four waveplate positions.  Repeat this sequence at three slightly jittered positions.</note>
           </SpNote>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -10128,8 +10128,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
               <value>67.5</value>
             </IRPOLIter>
             <iterConfigList>IRPOLIter</iterConfigList>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>Obj-sky nod 1</title>
@@ -14194,8 +14194,8 @@ Short integration times are usually sufficient for FP alignment with the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-700</FPZ>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPZ>-700</FPZ>
           <FPY>-200</FPY>
           <FPX>200</FPX>
           <SpIterObserve type="ic" subtype="observe">
@@ -14234,8 +14234,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
       </SpNote>
       <SpTelescopeObsComp id="225" type="oc" subtype="targetList">
         <meta_unique>true</meta_unique>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <BASE TYPE="Base">
           <target>
             <targetName>Blank sky position</targetName>
@@ -14320,8 +14320,8 @@ Enter these new values into the "FP" component below.</note>
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPZ>-284</FPZ>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
@@ -14332,8 +14332,8 @@ Enter these new values into the "FP" component below.</note>
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-284</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-284</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>0,0</title>
@@ -14354,8 +14354,8 @@ Enter these new values into the "FP" component below.</note>
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-484</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-484</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <title>20,20</title>
@@ -14508,8 +14508,8 @@ Short integration times are usually sufficient for FP alignment on the lamp.
         <title>fpx, fpy set</title>
         <SpNote type="no" subtype="none">
           <title>FPX=0, FPY=-800</title>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <note></note>
         </SpNote>
         <SpNote type="no" subtype="none">
@@ -14534,14 +14534,14 @@ Short integration times are usually sufficient for FP alignment on the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>0</FPZ>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <FPZ>0</FPZ>
           <FPY>-800</FPY>
           <FPX>0</FPX>
           <SpIterFP type="ic" subtype="instFP">
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <FPZ>
               <value>-1400</value>
               <value>-1350</value>
@@ -14564,7 +14564,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
               <value>-500</value>
               <value>-450</value>
             </FPZ>
-            <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterObserve type="ic" subtype="observe">
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14673,14 +14673,14 @@ Short integration times are usually sufficient for FP alignment on the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>0</FPZ>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <FPZ>0</FPZ>
           <FPY>0</FPY>
           <FPX>1400</FPX>
           <SpIterFP type="ic" subtype="instFP">
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <FPZ>
               <value>-1400</value>
               <value>-1350</value>
@@ -14703,7 +14703,7 @@ Short integration times are usually sufficient for FP alignment on the lamp.
               <value>-500</value>
               <value>-450</value>
             </FPZ>
-            <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterObserve type="ic" subtype="observe">
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14797,9 +14797,9 @@ Short integration times are usually sufficient for FP alignment with the lamp.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>0</FPZ>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <FPZ>0</FPZ>
           <FPY>-300</FPY>
           <FPX>300</FPX>
           <SpNote type="no" subtype="none">
@@ -14812,7 +14812,7 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
             <iterConfigList>FPZ</iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <FPZ>
               <value>-1100</value>
               <value>-1050</value>
@@ -14830,7 +14830,7 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
               <value>-450</value>
               <value>-400</value>
             </FPZ>
-            <meta_gui_selected>false</meta_gui_selected>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpIterObserve type="ic" subtype="observe">
               <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -14969,8 +14969,8 @@ down the sequence).
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPZ>-630</FPZ>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-80</FPY>
           <FPX>300</FPX>
         </SpIterFP>
@@ -14981,8 +14981,8 @@ down the sequence).
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-500</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-500</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -15017,8 +15017,8 @@ down the sequence).
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-430</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-430</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -15249,8 +15249,8 @@ Enter these new values into the "FP" component below.</note>
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPZ>-630</FPZ>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
@@ -15297,13 +15297,13 @@ Enter these new values into the "FP" component below.</note>
             <SpIterFP type="ic" subtype="instFP">
               <title>FPZ on line</title>
               <iterConfigList>FPZ</iterConfigList>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>
                 <value>-284</value>
                 <value>-484</value>
                 <value>-284</value>
                 <value>-84</value>
               </FPZ>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterObserve type="ic" subtype="observe">
                 <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -15459,20 +15459,20 @@ Enter these new values into the "FP" component below.
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPZ>-264</FPZ>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note></note>
-          <title>--->  5 Jitter positions</title>
+          <title>---&gt;  5 Jitter positions</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note></note>
-          <title>---> 8 frames per jitter posn.</title>
+          <title>---&gt; 8 frames per jitter posn.</title>
         </SpNote>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -15486,11 +15486,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-264</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>------ > 0,0</title>
+              <title>------ &gt; 0,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15506,7 +15506,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,0</title>
+              <title>-----&gt; -100,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15524,11 +15524,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-464</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-464</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,0</title>
+              <title>-----&gt; -100,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15544,7 +15544,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 0,0</title>
+              <title>-----&gt; 0,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15565,7 +15565,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 0,0</title>
+              <title>-----&gt; 0,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15581,7 +15581,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,0</title>
+              <title>-----&gt; -100,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15602,7 +15602,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-64</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,0</title>
+              <title>-----&gt; -100,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15618,7 +15618,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 0,0</title>
+              <title>-----&gt; 0,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15646,11 +15646,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-264</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>------ > 6,1</title>
+              <title>------ &gt; 6,1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15666,7 +15666,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -95,0</title>
+              <title>-----&gt; -95,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15684,11 +15684,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-464</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-464</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -95,0</title>
+              <title>-----&gt; -95,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15704,7 +15704,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 6,1</title>
+              <title>-----&gt; 6,1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15725,7 +15725,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 6,1</title>
+              <title>-----&gt; 6,1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15741,7 +15741,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -95,0</title>
+              <title>-----&gt; -95,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15762,7 +15762,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-64</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -95,0</title>
+              <title>-----&gt; -95,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15778,7 +15778,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 6,1</title>
+              <title>-----&gt; 6,1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15806,11 +15806,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-264</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>------ > -5,-1</title>
+              <title>------ &gt; -5,-1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15826,7 +15826,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -105,0</title>
+              <title>-----&gt; -105,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15844,11 +15844,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-464</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-464</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -105,0</title>
+              <title>-----&gt; -105,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15864,7 +15864,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -5,-1</title>
+              <title>-----&gt; -5,-1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15885,7 +15885,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -5,-1</title>
+              <title>-----&gt; -5,-1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15901,7 +15901,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -105,0</title>
+              <title>-----&gt; -105,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15922,7 +15922,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-64</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -105,0</title>
+              <title>-----&gt; -105,0</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15938,7 +15938,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -5,-1</title>
+              <title>-----&gt; -5,-1</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15966,11 +15966,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-264</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>------ > 1,5</title>
+              <title>------ &gt; 1,5</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -15986,7 +15986,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,10</title>
+              <title>-----&gt; -100,10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16004,11 +16004,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-464</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-464</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,10</title>
+              <title>-----&gt; -100,10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16024,7 +16024,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 1,5</title>
+              <title>-----&gt; 1,5</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16045,7 +16045,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 1,5</title>
+              <title>-----&gt; 1,5</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16061,7 +16061,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,10</title>
+              <title>-----&gt; -100,10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16082,7 +16082,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-64</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,10</title>
+              <title>-----&gt; -100,10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16098,7 +16098,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> 1,5</title>
+              <title>-----&gt; 1,5</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16126,11 +16126,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ on line</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-264</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>------ > -1,-6</title>
+              <title>------ &gt; -1,-6</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16146,7 +16146,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,-10</title>
+              <title>-----&gt; -100,-10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16164,11 +16164,11 @@ Enter these new values into the "FP" component below.
           <SpIterFP type="ic" subtype="instFP">
             <title>FPZ offline</title>
             <iterConfigList>FPZ</iterConfigList>
-            <FPZ>-464</FPZ>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPZ>-464</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,-10</title>
+              <title>-----&gt; -100,-10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16184,7 +16184,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -1,-6</title>
+              <title>-----&gt; -1,-6</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16205,7 +16205,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-264</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -1,-6</title>
+              <title>-----&gt; -1,-6</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16221,7 +16221,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,-10</title>
+              <title>-----&gt; -100,-10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16242,7 +16242,7 @@ Enter these new values into the "FP" component below.
             <FPZ>-64</FPZ>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -100,-10</title>
+              <title>-----&gt; -100,-10</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16258,7 +16258,7 @@ Enter these new values into the "FP" component below.
             </SpIterOffset>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-----> -1,-6</title>
+              <title>-----&gt; -1,-6</title>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <obsArea>
                 <PA>0.0</PA>
@@ -16416,8 +16416,8 @@ Enter these new values into the "FP" component below.  FPZ will be over-written 
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPZ>-630</FPZ>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <FPY>-350</FPY>
           <FPX>350</FPX>
         </SpIterFP>
