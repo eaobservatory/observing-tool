@@ -41,6 +41,12 @@ import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
 
 
+// MFO, June 06, 2002:
+//   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
+//   has been commented out for now. I have not removed it completely from the code in case it is
+//   needed in the future.
+//   A DropDownListBoxWidgetExt with the available named target choices has been added.
+
 // Conic System (Orbital Elements), Named System (named target such as planets, sun , moon etc)
 // and Target specification using offsets added.
 // Martin Folger (M.Folger@roe.ac.uk) February 27, 2002
@@ -146,7 +152,8 @@ public final class EdCompTargetList extends OtItemEditor
         _w.dm.setToolTipText("Daily motion");
 
         _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION);
-        _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPTION);
+        // _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPTION);
+	_w.namedTarget.setChoices(OtCfg.getNamedTargets());
 
 	// *** buttons
 	_w.newButton.addActionListener(this);
@@ -171,7 +178,8 @@ public final class EdCompTargetList extends OtItemEditor
         _w.l_or_m.addWatcher(this);
         _w.dm.addWatcher(this);
         _w.conicSystemType.addWatcher(this);
-        _w.namedSystemType.addWatcher(this);
+        // _w.namedSystemType.addWatcher(this);
+        _w.namedTarget.addWatcher(this);
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
@@ -930,7 +938,8 @@ public final class EdCompTargetList extends OtItemEditor
 	  break;
 
         case SpTelescopePos.SYSTEM_NAMED:
-          _w.namedSystemType.setValue(tp.getConicOrNamedTypeDescription());
+          //_w.namedSystemType.setValue(tp.getConicOrNamedTypeDescription());
+	  _w.namedTarget.setValue(tp.getName());
 	  break;
       }
     }
@@ -1160,8 +1169,19 @@ public final class EdCompTargetList extends OtItemEditor
 	return;
       }
 
-      if(dd == _w.namedSystemType) {
-        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[i]);
+//      if(dd == _w.namedSystemType) {
+//        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[i]);
+//	return;
+//      }
+
+      if(dd == _w.namedTarget) {
+        _curPos.deleteWatcher(EdCompTargetList.this);
+        _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
+        _curPos.setName(val);
+        _curPos.addWatcher(EdCompTargetList.this);
+
+        _name.setValue(val);
+
 	return;
       }
     }

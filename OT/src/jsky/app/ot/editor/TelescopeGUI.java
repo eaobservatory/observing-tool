@@ -16,6 +16,12 @@ import java.awt.event.*;
 import jsky.app.ot.editor.TelescopePosTableWidget;
 import jsky.app.ot.gui.*;
 
+// MFO, June 06, 2002:
+//   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
+//   has been commented out for now. I have not removed it completely from the code in case it is
+//   needed in the future.
+//   A DropDownListBoxWidgetExt with the available named target choices has been added.
+
 public class TelescopeGUI extends JPanel {
     JTabbedPane targetSystemsTabbedPane = new JTabbedPane();
     JPanel nameTagPanel = new JPanel();
@@ -83,8 +89,9 @@ public class TelescopeGUI extends JPanel {
   DropDownListBoxWidgetExt chopSystem = new DropDownListBoxWidgetExt();
   JLabel chopSystemLabel = new JLabel();
   GridBagLayout gridBagLayout6 = new GridBagLayout();
-  JLabel jLabel21 = new JLabel();
-  DropDownListBoxWidgetExt namedSystemType = new DropDownListBoxWidgetExt();
+  //JLabel jLabel21 = new JLabel();
+  //DropDownListBoxWidgetExt namedSystemType = new DropDownListBoxWidgetExt();
+  DropDownListBoxWidgetExt namedTarget = new DropDownListBoxWidgetExt();
   GridBagLayout gridBagLayout7 = new GridBagLayout();
   TextBoxWidgetExt epoch = new TextBoxWidgetExt();
   TextBoxWidgetExt orbinc = new TextBoxWidgetExt();
@@ -236,9 +243,9 @@ public class TelescopeGUI extends JPanel {
     targetSystemsTabbedPane.setMinimumSize(new Dimension(273, 140));
     targetSystemsTabbedPane.setPreferredSize(new Dimension(274, 130));
     namedSystemPanel.setLayout(gridBagLayout6);
-    jLabel21.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel21.setForeground(Color.black);
-    jLabel21.setText("Type");
+    //jLabel21.setFont(new java.awt.Font("Dialog", 0, 12));
+    //jLabel21.setForeground(Color.black);
+    //jLabel21.setText("Type");
     conicSystemPanel.setLayout(gridBagLayout7);
     epochLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     epochLabel.setForeground(Color.black);
@@ -263,7 +270,8 @@ public class TelescopeGUI extends JPanel {
     nameTagPanel.setLayout(flowLayout1);
     flowLayout1.setAlignment(FlowLayout.LEFT);
     conicSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
-    namedSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
+    //namedSystemType.setFont(new java.awt.Font("Dialog", 0, 12));
+    namedTarget.setFont(new java.awt.Font("Dialog", 0, 12));
     l_or_mLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     l_or_mLabel.setForeground(Color.black);
     l_or_mLabel.setText("L");
@@ -391,9 +399,11 @@ public class TelescopeGUI extends JPanel {
     conicSystemPanel.add(dmUnitsLabel, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     targetSystemsTabbedPane.add(namedSystemPanel,     "Planets, Sun, Moon");
-    namedSystemPanel.add(jLabel21, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    namedSystemPanel.add(namedSystemType, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+    //namedSystemPanel.add(jLabel21, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+    //        ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    //namedSystemPanel.add(namedSystemType, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+    //        ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+    namedSystemPanel.add(namedTarget, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 
 
