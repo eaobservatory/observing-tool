@@ -620,7 +620,8 @@ public class SpTranslator {
 
             } else if ( work.startsWith( "set " ) ) {
                previousType = (String) sequence.elementAt( i );
-               previousInst = (String) sequence.elementAt( i + 1 );
+	       if ( i < sequence.size()-1 )
+		   previousInst = (String) sequence.elementAt( i + 1 );
                break;
             }
          }
