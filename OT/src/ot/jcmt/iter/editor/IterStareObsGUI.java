@@ -50,6 +50,8 @@ public class IterStareObsGUI extends IterJCMTGenericGUI {
     jLabel2.setText("No of Cycles");
     cycleReversal.setText("Cycle Reversal");
     cycleReversal.setFont(new java.awt.Font("Dialog", 0, 12));
+    continuousCal.setText("Continuous Cal");
+    continuousCal.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
@@ -60,6 +62,8 @@ public class IterStareObsGUI extends IterJCMTGenericGUI {
     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     acsisPanel.add(cycleReversal, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 40), 0, 0));
+    acsisPanel.add(continuousCal, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 40), 0, 0));
   }
 

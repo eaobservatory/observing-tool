@@ -44,9 +44,9 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
   public EdIterStareObs() {
     super(new IterStareObsGUI());
 
-    _title       ="Photom/Stare";
+    _title       ="Photometry/Sample";
     _presSource  = _w = (IterStareObsGUI)super._w;
-    _description ="Photometry/Stare Observation Mode";
+    _description ="Photometry/Sampling Observation Mode";
   }
 
 //  public void textBoxKeyPress(TextBoxWidgetExt e) {

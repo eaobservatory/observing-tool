@@ -16,8 +16,8 @@ import javax.swing.border.*;
 
 public class IterJCMTGenericGUI extends JPanel {
 
-  public static final String NOD       = "Nod";
-  public static final String CHOP      = "Chop";
+  public static final String BEAM      = "Beam";
+  public static final String POSITION  = "Position";
   public static final String FREQUENCY = "Frequency";
   public static final String NONE      = "None";
 
@@ -29,6 +29,7 @@ public class IterJCMTGenericGUI extends JPanel {
   CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
   CheckBoxWidgetExt jiggleAtReference = new CheckBoxWidgetExt();
   CheckBoxWidgetExt automaticTarget = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt continuousCal = new CheckBoxWidgetExt();
 
   BorderLayout borderLayout1 = new BorderLayout();
   JPanel jPanel1 = new JPanel();
@@ -69,8 +70,6 @@ public class IterJCMTGenericGUI extends JPanel {
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
     jLabel1.setText("No of Integrations");
-    doAtCurrentAzDDLBWE.setText("Do Skydip at Current Azimuth?");
-    doAtCurrentAzDDLBWE.setFont(new java.awt.Font("Dialog", 0, 12));
     this.setLayout(borderLayout1);
     jPanel1.setLayout(gridBagLayout1);
     switchingModeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -83,6 +82,7 @@ public class IterJCMTGenericGUI extends JPanel {
     frequencyOffset_throw.setColumns(10);
     frequencyPanel.setLayout(gridBagLayout3);
     frequencyPanel.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Frequency Offset"));
+    frequencyPanel.setVisible(false);
     jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel11.setForeground(Color.black);
     jLabel11.setText("(Hz)");
@@ -110,8 +110,6 @@ public class IterJCMTGenericGUI extends JPanel {
     jPanel1.add(jLabel1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(15, 5, 0, 0), 0, 0));
     jPanel1.add(noOfIntegrations, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
-    jPanel1.add(doAtCurrentAzDDLBWE, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 5), 0, 0));
     jPanel1.add(switchingModeLabel, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));

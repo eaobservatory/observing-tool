@@ -50,326 +50,338 @@ import orac.util.SpItemUtilities;
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
 public class EdIterJCMTGeneric extends OtItemEditor
-  implements DropDownListBoxWidgetWatcher, TextBoxWidgetWatcher, CheckBoxWidgetWatcher {
+    implements DropDownListBoxWidgetWatcher, TextBoxWidgetWatcher, CheckBoxWidgetWatcher {
 
-  /**
-   * Error code for observe modes whose noise calculation is not implemented yet.
-   *
-   * This constant should remain distinct from the STATUS constants used in
-   * {@link orac.util.DrUtil}.
-   */
-  protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5;
+    /**
+     * Error code for observe modes whose noise calculation is not implemented yet.
+     *
+     * This constant should remain distinct from the STATUS constants used in
+     * {@link orac.util.DrUtil}.
+     */
+    protected static int NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED = -5;
 
-  protected IterJCMTGenericGUI _w;       // the GUI layout panel
+    protected IterJCMTGenericGUI _w;       // the GUI layout panel
 
-  // If true, ignore action events
-//  private boolean ignoreActions = false;
+    // If true, ignore action events
+    //  private boolean ignoreActions = false;
 
-  protected static String [] SWITCHING_MODES = { IterJCMTGenericGUI.NOD,
-                                                 IterJCMTGenericGUI.CHOP,
-                                                 IterJCMTGenericGUI.FREQUENCY,
-                                                 IterJCMTGenericGUI.NONE };
+    protected static String [] SWITCHING_MODES = { IterJCMTGenericGUI.BEAM,         // Beam
+						   IterJCMTGenericGUI.POSITION,        // Position
+						   IterJCMTGenericGUI.FREQUENCY,   // Frequency
+						   IterJCMTGenericGUI.NONE };      // None
 
-  protected static int SWITCHING_MODE_CHOP = 1;
+    protected static int SWITCHING_MODE_CHOP = 1;
 
-  private SpIterJCMTObs _iterObs;
+    private SpIterJCMTObs _iterObs;
 
-  private String _noiseToolTip = "";
+    private String _noiseToolTip = "";
 
-  /**
-   * The constructor initializes the title, description, and presentation source.
-   */
-  public EdIterJCMTGeneric(IterJCMTGenericGUI w) {
-    _title       ="JCMT Observe";
-    _presSource  = _w = w;
-    _description ="Iterator Component for JCMT";
+    /**
+     * The constructor initializes the title, description, and presentation source.
+     */
+    public EdIterJCMTGeneric(IterJCMTGenericGUI w) {
+	_title       ="JCMT Observe";
+	_presSource  = _w = w;
+	_description ="Iterator Component for JCMT";
 
-    for(int i = 0; i < 100; i++) {
-      _w.noOfIntegrations.addItem("" + (i + 1));
-    }
-
-    for(int i = 0; i < SWITCHING_MODES.length; i++) {
-      _w.switchingMode.addItem(SWITCHING_MODES[i]);
-    }
-
-
-    _w.switchingMode.addWatcher(this);
-    _w.noOfIntegrations.addWatcher(this);
-    _w.doAtCurrentAzDDLBWE.addWatcher(this);
-    _w.frequencyOffset_throw.addWatcher(this);
-    _w.frequencyOffset_rate.addWatcher(this);
-    _w.secsPerCycle.addWatcher(this);
-    _w.noOfCycles.addWatcher(this);
-    _w.cycleReversal.addWatcher(this);
-    _w.stepSize.addWatcher(this);
-    _w.jiggleAtReference.addWatcher(this);
-    _w.jigglesPerCycle.addWatcher(this);
-    _w.sampleTime.addWatcher(this);
-    _w.automaticTarget.addWatcher(this);
-  }  
-
-  /**
-   * Override setup to store away a reference to the Scan Iterator.
-   */
-  public void setup(SpItem spItem) {
-    _iterObs = (SpIterJCMTObs)spItem;
-    super.setup(spItem);
-  }
-
-  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if(ddlbwe == _w.switchingMode) {
-      if(val.equals(IterJCMTGenericGUI.FREQUENCY)) {
-        _w.frequencyPanel.setVisible(true);
-      }
-      else {
-        _w.frequencyPanel.setVisible(false);
-      }
-
-      return; 
-    }
-
-    if(ddlbwe == _w.noOfIntegrations) {
-      _iterObs.setIntegrations(val);
-
-      _w.noiseTextBox.setValue(calculateNoise());
-      _w.noiseTextBox.setToolTipText(_noiseToolTip);
-
-      return;
-    }
-
-  }
-
-  public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { }
-
-  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-
-    if(tbwe == _w.frequencyOffset_throw) {
-      _iterObs.setFrequencyOffsetThrow(tbwe.getValue());
-      return;
-    }
-
-    if(tbwe == _w.frequencyOffset_rate) {
-      _iterObs.setFrequencyOffsetRate(tbwe.getValue());
-      return;
-    }
-
-    if (tbwe == _w.secsPerCycle) {
-      _iterObs.setSecsPerCycle(_w.secsPerCycle.getValue());
-      return;
-    }
-
-    if (tbwe == _w.noOfCycles) {
-      _iterObs.setNoOfCycles(_w.noOfCycles.getValue());
-      return;
-    }
-
-    if(tbwe == _w.jigglesPerCycle) {
-      _iterObs.setJigglesPerCycle(_w.jigglesPerCycle.getValue());
-      return;
-    }
-
-    if(tbwe == _w.stepSize) {
-      _iterObs.setStepSize(_w.stepSize.getValue());
-      return;
-    }
-
-    if(tbwe == _w.sampleTime) {
-      _iterObs.setSampleTime(_w.sampleTime.getValue());
-      return;
-    }
-  }
-
-  public void textBoxAction(TextBoxWidgetExt tbwe) { }
-
-  public void checkBoxAction(CheckBoxWidgetExt cbwe) {
-     if (cbwe == _w.cycleReversal) {
-      _iterObs.setCycleReversal(_w.cycleReversal.getBooleanValue());
-      return;
-    }
-
-    if(cbwe == _w.jiggleAtReference) {
-      _iterObs.setJiggleAtReference(_w.jiggleAtReference.getBooleanValue());
-      return;
-    }
-
-    if(cbwe == _w.automaticTarget) {
-      _iterObs.setAutomaticTarget(_w.automaticTarget.getBooleanValue());
-      return;
-    }
-
-    if(cbwe == _w.doAtCurrentAzDDLBWE) {
-      _iterObs.setDoAtCurrentAz(_w.doAtCurrentAzDDLBWE.getBooleanValue());
-      return;
-    }
-  }
-
-  protected void _updateWidgets() {
-    setInstrument(SpTreeMan.findInstrument(_spItem));
-
-    _w.noOfIntegrations.setValue(_iterObs.getIntegrations() - 1);
-    _w.frequencyOffset_throw.setValue(_iterObs.getFrequencyOffsetThrow());
-    _w.frequencyOffset_rate.setValue(_iterObs.getFrequencyOffsetRate());
-    _w.secsPerCycle.setValue(_iterObs.getSecsPerCycle());
-    _w.noOfCycles.setValue(_iterObs.getNoOfCycles());
-    _w.cycleReversal.setValue(_iterObs.getCycleReversal());
-    _w.doAtCurrentAzDDLBWE.setValue(_iterObs.getDoAtCurrentAz());
-    _w.stepSize.setValue(_iterObs.getStepSize());
-    _w.jiggleAtReference.setValue(_iterObs.getJiggleAtReference());
-    _w.jigglesPerCycle.setValue(_iterObs.getJigglesPerCycle());
-    _w.sampleTime.setValue(_iterObs.getSampleTime());
-    _w.automaticTarget.setValue(_iterObs.getAutomaticTarget());
-    _w.noiseTextBox.setValue(calculateNoise());
-    _w.noiseTextBox.setToolTipText(_noiseToolTip);
-  }
-
-  /**
-   * This method should be overridden by subclasses representing iterators whose appearance
-   * is different for different instruments.
-   */
-  public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-      _w.switchingMode.setVisible(true);
-      _w.switchingModeLabel.setVisible(true);
-
-      if(_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY)) {
-        _w.frequencyPanel.setVisible(true);
-      }
-      else {
-        _w.frequencyPanel.setVisible(false);
-      }
-    }
-    else {
-      _w.switchingMode.setVisible(false);
-      _w.switchingModeLabel.setVisible(false);
-      _w.frequencyPanel.setVisible(false);    
-    }
-  }
-
-  /**
-   * Returns noise information.
-   */
-  protected String calculateNoise() {
-
-    SpTelescopeObsComp telescopeObsComp = (SpTelescopeObsComp)SpTreeMan.findTargetList(_iterObs);
-    if(telescopeObsComp == null) {
-      _noiseToolTip = "No target";
-      return "No target";
-    }
-
-    SpJCMTInstObsComp instObsComp       = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
-    if(instObsComp == null) {
-      _noiseToolTip = "No instruments";
-      return "No instrument";
-    }
-
-    SpSiteQualityObsComp siteQualityObsComp = (SpSiteQualityObsComp)SpItemUtilities.findSiteQuality(_iterObs);
-    if(siteQualityObsComp == null) {
-      _noiseToolTip = "No site quality";
-      return "No site quality";
-    }
-
-    if(instObsComp instanceof SpInstSCUBA) {
-      int [] status     = { 0 };
-      double noise      = 0.0;
-      int integrations  = _iterObs.getIntegrations();
-      double airmass    = DrUtil.airmass(telescopeObsComp.getPosList().getBasePosition().getYaxis(),
-					 DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
-      double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
-      double wavelength;
-      double transmission;
-      double nefd;
-
-      if(((((SpInstSCUBA)instObsComp).getFilter() != null) &&
-          (((SpInstSCUBA)instObsComp).getFilter().toUpperCase().endsWith("PHOT")))) {
-
-	if(((SpInstSCUBA)instObsComp).getPrimaryBolometer() == null) {
-	  _noiseToolTip = "No wavelength";
-	  return "No wavelength";
+	for(int i = 0; i < 100; i++) {
+	    _w.noOfIntegrations.addItem("" + (i + 1));
 	}
 
-	wavelength = Double.parseDouble(((SpInstSCUBA)instObsComp).getPrimaryBolometer().substring(1));
-	nefd       = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
-	noise      = calculateNoise(integrations, wavelength, nefd, status);
-
-	if(status[0] == 0) {
-	  _noiseToolTip = "airmass = " + (Math.rint(airmass * 10) / 10) +
-			  ", nefd = "  + (Math.rint(nefd    * 10) / 10) +
-			  ", noise = " + (Math.rint(noise   * 10) / 10);
-
-	  return "" + (Math.rint(noise * 10) / 10);
-	}
-      }
-      else {
-	String noise450Str;
-
-	wavelength      = 450.0;
-	double nefd450  = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
-	double noise450 = calculateNoise(integrations, wavelength, nefd450, status);
-
-	if(status[0] == NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED) {
-	  _noiseToolTip = "Not implemented";
-	  return "Not implemented.";
+	for(int i = 0; i < SWITCHING_MODES.length; i++) {
+	    _w.switchingMode.addItem(SWITCHING_MODES[i]);
 	}
 
-	if(status[0] == 0) {
-	  noise450Str = "" + (Math.rint(noise450 * 10) / 10);
+
+	_w.switchingMode.addWatcher(this);
+	_w.noOfIntegrations.addWatcher(this);
+	_w.frequencyOffset_throw.addWatcher(this);
+	_w.frequencyOffset_rate.addWatcher(this);
+	_w.secsPerCycle.addWatcher(this);
+	_w.noOfCycles.addWatcher(this);
+	_w.cycleReversal.addWatcher(this);
+	_w.continuousCal.addWatcher(this);
+	_w.stepSize.addWatcher(this);
+	_w.jiggleAtReference.addWatcher(this);
+	_w.jigglesPerCycle.addWatcher(this);
+	_w.sampleTime.addWatcher(this);
+	_w.automaticTarget.addWatcher(this);
+    }  
+
+    /**
+     * Override setup to store away a reference to the Scan Iterator.
+     */
+    public void setup(SpItem spItem) {
+	_iterObs = (SpIterJCMTObs)spItem;
+	super.setup(spItem);
+    }
+
+    public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
+	if(ddlbwe == _w.switchingMode) {
+	    if(val.equals(IterJCMTGenericGUI.FREQUENCY)) {
+		_w.frequencyPanel.setVisible(true);
+	    }
+	    else {
+		_w.frequencyPanel.setVisible(false);
+		_iterObs.rmFrequencyOffsetValues();
+	    }
+	    _iterObs.setSwitchingMode(val);
+
+	    return; 
+	}
+
+	if(ddlbwe == _w.noOfIntegrations) {
+	    _iterObs.setIntegrations(val);
+
+	    _w.noiseTextBox.setValue(calculateNoise());
+	    _w.noiseTextBox.setToolTipText(_noiseToolTip);
+
+	    return;
+	}
+
+    }
+
+    public void dropDownListBoxSelect(DropDownListBoxWidgetExt ddlbwe, int index, String val) { 
+	//       if (ddlbwe == _w.sampleTime) {
+	// 	  _iterObs.setSampleTime(_w.sampleTime.getStringValue());
+	// 	  return;
+	//       }
+    }
+
+    public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+
+	if(tbwe == _w.frequencyOffset_throw) {
+	    _iterObs.setFrequencyOffsetThrow(tbwe.getValue());
+	    return;
+	}
+
+	if(tbwe == _w.frequencyOffset_rate) {
+	    _iterObs.setFrequencyOffsetRate(tbwe.getValue());
+	    return;
+	}
+
+	if (tbwe == _w.secsPerCycle) {
+	    _iterObs.setSecsPerCycle(_w.secsPerCycle.getValue());
+	    return;
+	}
+
+	if (tbwe == _w.noOfCycles) {
+	    _iterObs.setNoOfCycles(_w.noOfCycles.getValue());
+	    return;
+	}
+
+	if(tbwe == _w.jigglesPerCycle) {
+	    _iterObs.setJigglesPerCycle(_w.jigglesPerCycle.getValue());
+	    return;
+	}
+
+	if(tbwe == _w.stepSize) {
+	    _iterObs.setStepSize(_w.stepSize.getValue());
+	    return;
+	}
+
+	if(tbwe == _w.sampleTime) {
+	    _iterObs.setSampleTime(_w.sampleTime.getValue());
+	    return;
+	}
+    }
+
+    public void textBoxAction(TextBoxWidgetExt tbwe) { }
+
+    public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+	if (cbwe == _w.cycleReversal) {
+	    _iterObs.setCycleReversal(_w.cycleReversal.getBooleanValue());
+	    return;
+	}
+
+	if(cbwe == _w.jiggleAtReference) {
+	    _iterObs.setJiggleAtReference(_w.jiggleAtReference.getBooleanValue());
+	    return;
+	}
+
+	if(cbwe == _w.automaticTarget) {
+	    _iterObs.setAutomaticTarget(_w.automaticTarget.getBooleanValue());
+	    return;
+	}
+
+	if (cbwe == _w.continuousCal) {
+	    _iterObs.setContinuousCal(_w.continuousCal.getBooleanValue());
+	    return;
+	}
+
+    }
+
+    protected void _updateWidgets() {
+  	_w.switchingMode.setValue(_iterObs.getSwitchingMode());
+	if (_iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY)) {
+	    _w.frequencyPanel.setVisible(true);
 	}
 	else {
-	  noise450Str = "error " + status[0];
+	    _w.frequencyPanel.setVisible(false);
 	}
-
-	String noise850Str;
-
-	wavelength      = 850.0;
-	double nefd850  = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
-	double noise850 = calculateNoise(integrations, wavelength, nefd850, status);
-
-	if(status[0] == 0) {
-	  noise850Str = "" + (Math.rint(noise850 * 10) / 10);
-	}
-	else {
-	  noise850Str = "error " + status[0];
-	}
-
-	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
-			", nefd(450) = "  + (Math.rint(nefd450  * 10) / 10) +
-			", noise(450) = " + (Math.rint(noise450 * 10) / 10) +
-			", nefd(850) = "  + (Math.rint(nefd850  * 10) / 10) +
-			", noise(850) = " + (Math.rint(noise850 * 10) / 10);
-
-	return "" + noise450Str + " (450), " + noise850Str + " (850)";
-      }
+	_w.noOfIntegrations.setValue(_iterObs.getIntegrations() - 1);
+	_w.frequencyOffset_throw.setValue(_iterObs.getFrequencyOffsetThrow());
+	_w.frequencyOffset_rate.setValue(_iterObs.getFrequencyOffsetRate());
+	_w.secsPerCycle.setValue(_iterObs.getSecsPerCycle());
+	_w.noOfCycles.setValue(_iterObs.getNoOfCycles());
+	_w.cycleReversal.setValue(_iterObs.getCycleReversal());
+	_w.stepSize.setValue(_iterObs.getStepSize());
+	_w.jiggleAtReference.setValue(_iterObs.getJiggleAtReference());
+	_w.jigglesPerCycle.setValue(_iterObs.getJigglesPerCycle());
+	_w.sampleTime.setValue(_iterObs.getSampleTime());
+	_w.automaticTarget.setValue(_iterObs.getAutomaticTarget());
+	_w.noiseTextBox.setValue(calculateNoise());
+	_w.noiseTextBox.setToolTipText(_noiseToolTip);
     }
 
-    _noiseToolTip = "Not for Heterodyne";
-    return "Not for Heterodyne";
-  }
+    /**
+     * This method should be overridden by subclasses representing iterators whose appearance
+     * is different for different instruments.
+     */
+    public void setInstrument(SpInstObsComp spInstObsComp) {
+	if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
+	    _w.switchingMode.setVisible(true);
+	    _w.switchingModeLabel.setVisible(true);
 
-  /**
-   * Returns noise.
-   *
-   * This method should be implemented by subclasses taking into accound the
-   * observe mode and whether length and width are needed (SCAN more only).
-   */
-  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
+	    if(_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY)) {
+		_w.frequencyPanel.setVisible(true);
+	    }
+	    else {
+		_w.frequencyPanel.setVisible(false);
+	    }
+	}
+	else {
+	    _w.switchingMode.setVisible(false);
+	    _w.switchingModeLabel.setVisible(false);
+	    _w.frequencyPanel.setVisible(false);    
+	}
+    }
 
-    status[0] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED;
+    /**
+     * Returns noise information.
+     */
+    protected String calculateNoise() {
 
-    return 0.0;
-  }
+	SpTelescopeObsComp telescopeObsComp = (SpTelescopeObsComp)SpTreeMan.findTargetList(_iterObs);
+	if(telescopeObsComp == null) {
+	    _noiseToolTip = "No target";
+	    return "No target";
+	}
+
+	SpJCMTInstObsComp instObsComp       = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
+	if(instObsComp == null) {
+	    _noiseToolTip = "No instruments";
+	    return "No instrument";
+	}
+
+	SpSiteQualityObsComp siteQualityObsComp = (SpSiteQualityObsComp)SpItemUtilities.findSiteQuality(_iterObs);
+	if(siteQualityObsComp == null) {
+	    _noiseToolTip = "No site quality";
+	    return "No site quality";
+	}
+
+	if(instObsComp instanceof SpInstSCUBA) {
+	    int [] status     = { 0 };
+	    double noise      = 0.0;
+	    int integrations  = _iterObs.getIntegrations();
+	    double airmass    = DrUtil.airmass(telescopeObsComp.getPosList().getBasePosition().getYaxis(),
+					       DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
+	    double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
+	    double wavelength;
+	    double transmission;
+	    double nefd;
+
+	    if(((((SpInstSCUBA)instObsComp).getFilter() != null) &&
+		(((SpInstSCUBA)instObsComp).getFilter().toUpperCase().endsWith("PHOT")))) {
+
+		if(((SpInstSCUBA)instObsComp).getPrimaryBolometer() == null) {
+		    _noiseToolTip = "No wavelength";
+		    return "No wavelength";
+		}
+
+		wavelength = Double.parseDouble(((SpInstSCUBA)instObsComp).getPrimaryBolometer().substring(1));
+		nefd       = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
+		noise      = calculateNoise(integrations, wavelength, nefd, status);
+
+		if(status[0] == 0) {
+		    _noiseToolTip = "airmass = " + (Math.rint(airmass * 10) / 10) +
+			", nefd = "  + (Math.rint(nefd    * 10) / 10) +
+			", noise = " + (Math.rint(noise   * 10) / 10);
+
+		    return "" + (Math.rint(noise * 10) / 10);
+		}
+	    }
+	    else {
+		String noise450Str;
+
+		wavelength      = 450.0;
+		double nefd450  = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
+		double noise450 = calculateNoise(integrations, wavelength, nefd450, status);
+
+		if(status[0] == NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED) {
+		    _noiseToolTip = "Not implemented";
+		    return "Not implemented.";
+		}
+
+		if(status[0] == 0) {
+		    noise450Str = "" + (Math.rint(noise450 * 10) / 10);
+		}
+		else {
+		    noise450Str = "error " + status[0];
+		}
+
+		String noise850Str;
+
+		wavelength      = 850.0;
+		double nefd850  = ScubaNoise.scunefd(wavelength, airmass, csoTau, status);
+		double noise850 = calculateNoise(integrations, wavelength, nefd850, status);
+
+		if(status[0] == 0) {
+		    noise850Str = "" + (Math.rint(noise850 * 10) / 10);
+		}
+		else {
+		    noise850Str = "error " + status[0];
+		}
+
+		_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
+		    ", nefd(450) = "  + (Math.rint(nefd450  * 10) / 10) +
+		    ", noise(450) = " + (Math.rint(noise450 * 10) / 10) +
+		    ", nefd(850) = "  + (Math.rint(nefd850  * 10) / 10) +
+		    ", noise(850) = " + (Math.rint(noise850 * 10) / 10);
+
+		return "" + noise450Str + " (450), " + noise850Str + " (850)";
+	    }
+	}
+
+	_noiseToolTip = "Not for Heterodyne";
+	return "Not for Heterodyne";
+    }
+
+    /**
+     * Returns noise.
+     *
+     * This method should be implemented by subclasses taking into accound the
+     * observe mode and whether length and width are needed (SCAN more only).
+     */
+    protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
+
+	status[0] = NOISE_CALCULATION_STATUS_NOT_IMPLEMENTED;
+
+	return 0.0;
+    }
 
 
-  /**
-   * Returns mode for noise calculation.
-   *
-   * Subclass should override this method.
-   *
-   * @return "PHOT", "JIG16", "JIG64", "SCAN" etc.
-   */
-//  protected String getMode() {
-//
-//    return "";
-//  }
+    /**
+     * Returns mode for noise calculation.
+     *
+     * Subclass should override this method.
+     *
+     * @return "PHOT", "JIG16", "JIG64", "SCAN" etc.
+     */
+    //  protected String getMode() {
+    //
+    //    return "";
+    //  }
 
 }
 

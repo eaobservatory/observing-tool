@@ -21,6 +21,7 @@ import java.util.Observable;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 
 import jsky.util.gui.DialogUtil;
 
@@ -51,7 +52,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
   private SpIterRasterObs _iterObs;
 
-  private final String [] SCAN_PA_CHOICES = { "automatic", "user def" };
+  private final String [] SCAN_PA_CHOICES = { "0", "90" };
+  private final String [] SAMPLE_TIME_CHOICES = {"4", "5", "6", "7"};
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -71,8 +73,9 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _w.interleaved.setActionCommand(SpIterRasterObs.RASTER_MODE_INTERLEAVED);
 
     _w.scanAngle.setChoices(SCAN_PA_CHOICES);
-//    _w.scanAngle.addItem(new javax.swing.JTextField("bla bla"));
-    _w.scanSystem.setChoices(SpJCMTConstants.SCAN_SYSTEMS);
+    _w.scanSystem.addItem(SpJCMTConstants.SCAN_SYSTEMS[0]);
+//     _w.scanSystem.setChoices(SpJCMTConstants.SCAN_SYSTEMS[0]);
+    _w.sampleTime.setChoices(SAMPLE_TIME_CHOICES);
 
     _w.dx.addWatcher(this);
     _w.dy.addWatcher(this);
@@ -86,7 +89,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _w.rowReversal.addWatcher(this);
     _w.scanSystem.addWatcher(this);
     _w.scanAngle.addWatcher(this);
+    _w.sampleTime.addWatcher(this);
     _w.scanAngle.getEditor().getEditorComponent().addKeyListener(this);
+
+    _w.frequencyPanel.setVisible(false);
   }
 
   /**
@@ -134,7 +140,11 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
     _w.scanSystem.setValue(_iterObs.getScanSystem());
     _w.rowsPerCal.setValue(_iterObs.getRowsPerCal());
-    _w.rowsPerRef.setValue(_iterObs.getRowsPerRef());
+//     _w.rowsPerRef.setValue(_iterObs.getRowsPerRef());
+    _w.rowsPerRef.setValue(1);
+    _w.rowsPerRef.setEditable(false);
+    _w.switchingMode.setValue(IterJCMTGenericGUI.BEAM);
+    _w.switchingMode.setEnabled(false);
     _w.rowReversal.setValue(_iterObs.getRowReversal());
 
     if(SpIterRasterObs.RASTER_MODE_ALONG_ROW.equals(_iterObs.getRasterMode())) {
@@ -198,6 +208,19 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     }
 
     if(tbwe == _w.rowsPerCal) {
+	// Only integers allowed here, so lets check...
+	try {
+	    Integer i = new Integer(_w.rowsPerCal.getValue());
+	}
+	catch (java.lang.NumberFormatException nfe) {
+	    JOptionPane.showMessageDialog(null,
+					  "Rows/Cal can only be assigned integer values",
+					  "Number Format Exception",
+					  JOptionPane.ERROR_MESSAGE);
+	    _iterObs.setRowsPerCal("");
+	    return;
+	}
+
       _iterObs.setRowsPerCal(_w.rowsPerCal.getValue());
     }
 
@@ -230,6 +253,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 	_w.scanAngle.setValue("");
 
 	_iterObs.setScanSystem(_w.scanSystem.getStringValue());
+      }
+
+      if (ddlbwe == _w.sampleTime) {
+	  _iterObs.setSampleTime(_w.sampleTime.getStringValue());
       }
 
       return;

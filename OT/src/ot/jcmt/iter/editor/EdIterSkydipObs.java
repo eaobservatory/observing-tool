@@ -22,6 +22,8 @@ import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
@@ -54,6 +56,7 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric {
 
     _w.positions.addWatcher(this);
     _w.startPosition.addWatcher(this);
+    _w.currentAzimuth.addWatcher(this);
   }
 
 
@@ -68,6 +71,7 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric {
   protected void _updateWidgets() {
     _w.positions.setValue(_iterObs.getPositions());
     _w.startPosition.setValue(_iterObs.getStartPosition());
+    _w.currentAzimuth.setValue(_iterObs.getDoAtCurrentAz());
 
     super._updateWidgets();
   }
@@ -90,6 +94,13 @@ public final class EdIterSkydipObs extends EdIterJCMTGeneric {
     super.dropDownListBoxAction(ddlbwe, index, val);
   }
     
+  public void checkBoxAction(CheckBoxWidgetExt cbwe) {
+    if(cbwe == _w.currentAzimuth) {
+      _iterObs.setDoAtCurrentAz(_w.currentAzimuth.getBooleanValue());
+      return;
+    }
+  }
+
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);
 

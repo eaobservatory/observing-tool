@@ -53,7 +53,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel23 = new JLabel();
   Border border1;
   JLabel jLabel14 = new JLabel();
-  JTextField sampleTime = new JTextField();
+  DropDownListBoxWidgetExt sampleTime = new DropDownListBoxWidgetExt();
   TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   TextBoxWidgetExt secsPerRow = new TextBoxWidgetExt();
@@ -156,16 +156,16 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     secsBetweenRefs.setEditable(false);
     jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel9.setForeground(Color.black);
-    jLabel9.setText("(msec)");
+    jLabel9.setText("(sec)");
     jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setForeground(Color.black);
-    jLabel8.setText("Sampe Time");
+    jLabel8.setText("Sample Time");
     jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel7.setForeground(Color.black);
     jLabel7.setText("Rows/Ref");
     jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel6.setForeground(Color.black);
-    jLabel6.setText("Rows/Col");
+    jLabel6.setText("Rows/Cal");
     jLabel16.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel16.setForeground(Color.black);
     jLabel16.setText("PA");
@@ -175,7 +175,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     scanAngle.setFont(new java.awt.Font("Dialog", 0, 12));
     this.add(scubaAcsisPanel, BorderLayout.WEST);
     scubaAcsisPanel.add(areaPanel, BorderLayout.CENTER);
-    scubaAcsisPanel.add(scanPanel, BorderLayout.SOUTH);
+//     scubaAcsisPanel.add(scanPanel, BorderLayout.SOUTH);
     scanPanel.add(scanSystemLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     scanPanel.add(scanSystem, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
@@ -217,12 +217,12 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     areaPanel.add(jLabel14, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     this.add(heterodynePanel, BorderLayout.CENTER);
-    heterodynePanel.add(alongRow, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
-    heterodynePanel.add(interleaved, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 10, 5), 0, 0));
-    heterodynePanel.add(rowReversal, new GridBagConstraints(1, 0, 2, 2, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, 5, 5), 0, 0));
+//     heterodynePanel.add(alongRow, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
+//     heterodynePanel.add(interleaved, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+//             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 5, 10, 5), 0, 0));
+//     heterodynePanel.add(rowReversal, new GridBagConstraints(1, 0, 2, 2, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, 5, 5), 0, 0));
     heterodynePanel.add(jLabel6, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     heterodynePanel.add(jLabel7, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0

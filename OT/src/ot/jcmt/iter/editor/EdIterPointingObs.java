@@ -48,6 +48,8 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
 
   private SpIterPointingObs _iterObs;
 
+    private static final String POINTING_METHOD = "5-point";
+
   /**
    * The constructor initializes the title, description, and presentation source.
    */
@@ -65,7 +67,8 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     _w.continuum.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM);
     _w.spectralLine.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_SPECTRAL_LINE);
 
-    _w.pointingMethod.setChoices(SpIterPointingObs.POINTING_METHODS);
+//     _w.pointingMethod.setChoices(SpIterPointingObs.POINTING_METHODS);
+    _w.pointingMethod.addItem(POINTING_METHOD);
 
     MenuElement [] menuElements = _w.pointingPixelPopupMenu.getSubElements();
     MenuElement [] subElements  = null;
@@ -93,6 +96,8 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     _w.spectralLine.addWatcher(this);
 
     _w.automaticTarget.setToolTipText("Automatically determine pointing target at time of observation");
+
+    _w.frequencyPanel.setVisible(false);
   }
 
   /**
@@ -112,6 +117,9 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     else {
       _w.spectralLine.setSelected(true);
     }
+
+    _w.switchingMode.setValue(IterJCMTGenericGUI.BEAM);
+    _w.switchingMode.setEnabled(false);
 
     super._updateWidgets();
   }

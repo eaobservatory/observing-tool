@@ -56,7 +56,10 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
     _w.focusPoints.addWatcher(this);
 
     _w.automaticTarget.setToolTipText("Automatically determine focus/align target at time of observation");
-  }
+
+    _w.switchingMode.setEnabled(false);
+    _w.frequencyPanel.setVisible(false);  
+}
 
   /**
    * Override setup to store away a reference to the Focus Iterator.
@@ -105,9 +108,11 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
 
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.acsisPanel.setVisible(true);
+      _w.switchingMode.setValue(_iterObs.getSwitchingMode());
     }
     else {
       _w.acsisPanel.setVisible(false);
+      _iterObs.rmSwitchingMode();
     }
   }
 }
