@@ -205,7 +205,8 @@ public class SpTranslator {
  * @param String the project name
  */
    public void insertGroupHeaders( Vector sequence, String noffsetsInstruction,
-                                   String msbid, String project ) {
+                                   String msbid, String project, 
+				   String agent, String agentId) {
 
 // Store minimum schedulable block identifier and project name to headers.
 // These are delayed to be after the first loadConfig, so that
@@ -221,6 +222,13 @@ public class SpTranslator {
 // Add the project instruction to the sequence buffer.  Ensure the
 // that PROJECT is in uppercase.
          sequence.addElement( "setHeader PROJECT " + project.toUpperCase() );
+      }
+
+      // Add the agent information if it exists.  Both fields must exist in order 
+      // to write this information
+      if ( agent != null && agentId!= null ) {
+	  sequence.addElement( "setHeader RMTAGENT " + agent );
+	  sequence.addElement( "setHeader AGENTID " + agentId);
       }
 
       if ( noffsetsInstruction != null ) {
@@ -955,6 +963,8 @@ public class SpTranslator {
                                           // not iterated
       Vector v;                           // Work Vector
       String value;                       // Attribute value
+      String remoteTriggerSrc;
+      String remoteTriggerId;
 
 
 // Check if this is an Observation.
@@ -975,6 +985,10 @@ public class SpTranslator {
 
 // Obtain the project information.
          project = spObs.getTable().get( "project" );
+
+	 // Get the eStar stuff
+	 remoteTriggerSrc = spObs.getTable().get("remote_trigger");
+	 remoteTriggerId  = spObs.getTable().get("remote_trigger:id");
 
 // Code rearrangement by RDK (this section was after the "Define file name" stuff
 // Obtain the instrument name and base configuration.
@@ -1665,7 +1679,8 @@ public class SpTranslator {
 // Insert the msbid, project, and nOffsets instructions afterr the new
 // group so that they will not be missed by a expereienced observer.
                                  insertGroupHeaders( sequence, noffsetsInstruction,
-                                                     msbid, project );
+                                                     msbid, project, 
+						     remoteTriggerSrc, remoteTriggerId );
                               }
 
                               observeCount( sequence, (sis.title).toUpperCase(),
@@ -1739,7 +1754,8 @@ public class SpTranslator {
 // Insert the msbid, project, and nOffsets instructions afterr the new
 // group so that they will not be missed by a expereienced observer.
                               insertGroupHeaders( sequence, noffsetsInstruction,
-                                                  msbid, project );
+                                                  msbid, project,
+						  remoteTriggerSrc, remoteTriggerId );
                            }
 
 // Here we just need the values of the nod positions, not the attribute.  Append
@@ -1771,7 +1787,8 @@ public class SpTranslator {
 // Insert the msbid, project, and nOffsets instructions afterr the new
 // group so that they will not be missed by a expereienced observer.
                               insertGroupHeaders( sequence, noffsetsInstruction,
-                                                  msbid, project );
+                                                  msbid, project,
+						  remoteTriggerSrc, remoteTriggerId);
                            }
 
 // Add the observe instructions to the sequence buffer.  Note the type
@@ -1815,7 +1832,8 @@ public class SpTranslator {
 // Insert the msbid, project, and nOffsets instructions afterr the new
 // group so that they will not be missed by a expereienced observer.
                               insertGroupHeaders( sequence, noffsetsInstruction,
-                                                  msbid, project );
+                                                  msbid, project,
+						  remoteTriggerSrc, remoteTriggerId);
                            }
 
 // Add the observe instructions to the sequence buffer.  Note the type
