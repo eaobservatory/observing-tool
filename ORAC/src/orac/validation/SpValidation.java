@@ -171,47 +171,40 @@ public class SpValidation {
     Vector notes = SpTreeMan.findAllItems(spMSB, SpNote.class.getName());
 
     boolean observeNoteFound = false;
-    if(notes.size() > 1) {
-      int numberOfObserveInstructions = 0;
+    int     numberOfObserveInstructions = 0;
 
-      for(int i = 0; i < notes.size(); i++) {
-        if(((SpNote)notes.get(i)).isObserveInstruction()) {
-          numberOfObserveInstructions++;
-	  observeNoteFound = true;
-          if(numberOfObserveInstructions > 1) {
-            report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                        "Note \"" + ((SpNote)notes.get(i)).getTitle() + "\" in MSB \"" + spMSB.getTitle() + "\"",
-                                        "Each MSB can only contain one note that has \"Show to the Observer\" ticked."));
-	    break;
-          }
-        }
-      }
-    }
-    else {
-	if (notes.size() == 1 && ((SpNote)(notes.get(0))).isObserveInstruction()) {
-	    observeNoteFound = true;
+    // How may notes are inside the MSB and are any of then observer instructions
+    if (notes.size() > 0) {
+	for (int i = 0; i < notes.size(); i++) {
+	    if(((SpNote)notes.get(i)).isObserveInstruction()) {
+		numberOfObserveInstructions++;
+		observeNoteFound = true;
+	    }
 	}
-	else {
-	    SpItem parent = spMSB.parent();
-	    while (parent != null) {
-		SpNote note = SpTreeMan.findObserverNoteInContext(parent);
-		if (note == null) {
-		    parent = parent.parent();
-		    continue;
-		}
-		else {
-		    observeNoteFound = true;
-		    break;
-		}
+    }
+    // If we havent found an observer note, go through the parents and check if there is one there
+    if (!observeNoteFound) {
+	SpItem parent = spMSB.parent();
+	while (parent != null) {
+	    SpNote note = SpTreeMan.findObserverNoteInContext(parent);
+	    if (note != null) {
+		observeNoteFound = true;
+		break;
 	    }
 	}
     }
 
+    if (numberOfObserveInstructions > 1) {
+	report.add(new ErrorMessage(ErrorMessage.ERROR,
+				    "MSB \"" + spMSB.getTitle() + "\" has >1 observer note associated with it.",
+				    "Each MSB can only contain one note that has \"Show to the Observer\" ticked."));
+    }
     if (!observeNoteFound) {
 	report.add(new ErrorMessage (ErrorMessage.WARNING,
 				     "MSB \"" + spMSB.getTitle() + "\" does not have an Show-to Observer Note",
 				     "Recommend MSBs have an observe instruction"));
     }
+
 
     if(spMSB instanceof SpObs) {
       checkObservation((SpObs)spMSB, report);
