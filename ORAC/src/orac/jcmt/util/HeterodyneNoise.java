@@ -55,7 +55,7 @@ public class HeterodyneNoise {
 	File rvrFile = new File (fileName);
 	try {
 	    BufferedReader in = new BufferedReader( new FileReader(rvrFile) );
-	    // Read the fron end names
+	    // Read the front end names
 	    while ( (inputLine = in.readLine()) != null) {
 		if (inputLine.equals("") ) break;
 		feNames.add(inputLine);
@@ -70,7 +70,9 @@ public class HeterodyneNoise {
 		    for (int i=0; i<nLines; i++) {
 			String values = in.readLine();
 			StringTokenizer st = new StringTokenizer(values);
-			Integer frequency = new Integer(st.nextToken());
+			Double ftmp = new Double(st.nextToken());
+			int ftmpi   = (int) ftmp.doubleValue();
+			Integer frequency = new Integer(ftmpi);
 			Integer trx = new Integer(st.nextToken());
 			currentMap.put(frequency, trx);
 		    }
