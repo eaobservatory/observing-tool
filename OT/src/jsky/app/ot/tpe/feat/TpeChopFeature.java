@@ -81,23 +81,23 @@ public class TpeChopFeature extends TpeImageFeature
                             implements TpeDraggableFeature
 {
 
-   private double        _chopX        = 0;
-   private double        _chopY        = 0;
-   private double        _chopInnerRadius = 0;
-   private double        _chopOuterRadius = 0;
-   private double        _baseX        = 0;
-   private double        _baseY        = 0;
+   protected double _chopX           = 0;
+   protected double _chopY           = 0;
+   protected double _chopInnerRadius = 0;
+   protected double _chopOuterRadius = 0;
+   protected double _baseX           = 0;
+   protected double _baseY           = 0;
 
-   private boolean       _drawAsCircle = false;
+   protected boolean _drawAsCircle   = false;
 
-   private SpIterChop    _iterChop;
+   protected SpIterChop  _iterChop;
 
    private boolean       _valid = false;
 
-   private TpeChopDragObject _dragObject;
-   private boolean _dragging = false;
-   private int     _dragX;
-   private int     _dragY;
+   protected TpeChopDragObject _dragObject;
+   protected boolean _dragging = false;
+   protected int     _dragX;
+   protected int     _dragY;
 
 /**
  * Construct the feature with its name and description. 
@@ -131,7 +131,7 @@ posAngleUpdate(FitsImageInfo fii)
 /**
  * Calculate the polygon describing the screen location of the science area.
  */
-private boolean
+protected boolean
 _calc(FitsImageInfo fii)
 {
    //System.out.println("TpeChopFeature._calc(): " + fii);
@@ -208,11 +208,13 @@ draw(Graphics g, FitsImageInfo fii)
 
    double [] scienceArea = null;
 
-   if(_iw.getInstrumentItem() != null) {
-     scienceArea = _iw.getInstrumentItem().getScienceArea();
+   // There is an instrument in scope then draw the science area around the
+   // base and chop position.
+   if((_iw.getInstrumentItem() != null) &&
+     ((scienceArea = _iw.getInstrumentItem().getScienceArea()) != null)) {
 
      // ScienceArea is circular (approximately circular detector/array as opposed to
-     // circular representation of science area due to al/az mounting)
+     // circular representation of science area due to Az/El mounting)
      if(scienceArea.length == 1) {
        double radius = scienceArea[0] * fii.pixelsPerArcsec;
        g.drawArc((int)(_baseX - radius), (int)(_baseY - radius),
@@ -222,9 +224,11 @@ draw(Graphics g, FitsImageInfo fii)
                  (int)(2 * radius), (int)(2 * radius), 0, 360);
 
      }
-     // Science Area is retangular.
-     else {
 
+     // Recangular Science Area.
+     if(scienceArea.length == 2) {
+
+       // Draw rectangular Science Area as circle because of Az/El coordinate system.
        if(_drawAsCircle) {
          double radius = Math.sqrt((scienceArea[0] * scienceArea[0]) +
                                  (scienceArea[1] * scienceArea[1]));
@@ -237,6 +241,7 @@ draw(Graphics g, FitsImageInfo fii)
          g.drawArc((int)(_chopX - radius), (int)(_chopY - radius),
                    (int)(2 * radius), (int)(2 * radius), 0, 360);
        }
+       // Draw rectangular Science Area as rectangle.
        else {
          double w = scienceArea[0] * fii.pixelsPerArcsec;
 	 double h = scienceArea[1] * fii.pixelsPerArcsec;
@@ -254,8 +259,15 @@ draw(Graphics g, FitsImageInfo fii)
      }
    }
 
-// Draw the chop position, either as a small box or as a circle (coordinate system Az/El)
+   // Draw the actual chop position (at the centre of the science area) as a small box.
+   // This box is used for dragging the position with the mouse.
+   g.drawRect((int)_chopX - 2, (int)_chopY - 2, 4, 4);
 
+//   g.setFont(FONT);
+   g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")", (int)_chopX + 3, (int)_chopY + 2);
+
+   // If the exact position is not known due to the Az/El coordinate system.
+   // then draw two circles around the base. The science area is between these two circles.
    if(_drawAsCircle) {
      g.drawArc((int)(_baseX - _chopInnerRadius), (int)(_baseY - _chopInnerRadius),
                (int)(2 * _chopInnerRadius), (int)(2 * _chopInnerRadius), 0, 360);
@@ -263,11 +275,6 @@ draw(Graphics g, FitsImageInfo fii)
      g.drawArc((int)(_baseX - _chopOuterRadius), (int)(_baseY - _chopOuterRadius),
                (int)(2 * _chopOuterRadius), (int)(2 * _chopOuterRadius), 0, 360);
    }
-
-   g.drawRect((int)_chopX - 2, (int)_chopY - 2, 4, 4);
-
-//   g.setFont(FONT);
-   g.drawString(_name + " (Step " + _iterChop.getSelectedIndex() + ")", (int)_chopX + 3, (int)_chopY + 2);
 
    if (_dragging) {
       // Draw a little above the mouse
