@@ -28,10 +28,11 @@ import javax.swing.SwingUtilities;
  */
 public class Bolometer extends ClickableCircle {
 
-  public static final Color COLOR_DISABLED = Color.gray;
-  public static final Color COLOR_ENABLED  = Color.black;
-  public static final Color COLOR_SELECTED = Color.magenta;
-  public static final Color COLOR_PRIMARY  = Color.red;
+  public static final Color COLOR_DISABLED   = Color.gray;
+  public static final Color COLOR_ENABLED    = Color.black;
+  public static final Color COLOR_SELECTED   = Color.magenta;
+  public static final Color COLOR_COSELECTED = Color.blue;
+  public static final Color COLOR_PRIMARY    = Color.red;
   
 
   public static final int BOLOMETER_NONE  = 0;
@@ -57,11 +58,17 @@ public class Bolometer extends ClickableCircle {
    */
   protected int    _type = BOLOMETER_NONE;
 
+    protected double du3;
+    protected double du4;
+
   /** GUI enabled. */
   protected boolean _enabled  = false;
 
   /** Bolometer selected. */
   protected boolean _selected = false;
+
+    /** Bolometer co-selected - matches a selected bolometer on another array */
+    protected boolean _coSelected = false;
 
   /**
    * The position on the focal plane pointed at the source is determined by the
@@ -86,13 +93,18 @@ public class Bolometer extends ClickableCircle {
   public  Bolometer(String label, int type, double x, double y) {
     super(x, y, 0.0, label);
 
-    _type = type;    
+    _type = type; 
+    du3 = x;
+    du4 = y;
+
+    double xShift = 500.0;
 
     double radius = BOLOMETER_NONE;
 
     switch(type) {
       case BOLOMETER_SHORT:
              radius =  450.0 * SIZE_FACTOR;
+	     xShift = 0.0;
 	     break;
 
       case BOLOMETER_LONG:
@@ -112,6 +124,8 @@ public class Bolometer extends ClickableCircle {
 	     break;
     }
 
+    x = 200.0 - 2.5*x + xShift;
+    y = 200.0 - 2.5*y;
     setFrame(x, y, radius, radius);
   }
 
@@ -141,6 +155,14 @@ public class Bolometer extends ClickableCircle {
   public String getBolometerName() {
     return getLabel();
   }
+
+    public double getdU3() {
+	return du3;
+    }
+
+    public double getdU4() {
+	return du4;
+    }
 
   /**
    * @see #setEnabled(boolean)
@@ -184,6 +206,12 @@ public class Bolometer extends ClickableCircle {
     }
   }
 
+    public void setCoSelected(boolean selected) {
+	// If it is already selected, ignore
+	_coSelected = selected;
+	return;
+    }
+
   /**
    * @see #setPrimary(boolean)
    */
@@ -198,30 +226,48 @@ public class Bolometer extends ClickableCircle {
     if(primary) {
       _primaryBolometer = this;
       _selected = true;
+      _coSelected = false;
     }
     else {
       if(this == _primaryBolometer) {
+	  System.out.println("UnSetting primary bolometer from "+this.getLabel());
         _primaryBolometer = null;
       }
     }
   }
 
   public void draw(Graphics g) {
-    if(this == _primaryBolometer) {
-      g.setColor(COLOR_PRIMARY);
+//     if(this == _primaryBolometer) {
+//       g.setColor(COLOR_PRIMARY);
+//     }
+//     else {
+//       if(_selected) {
+//         g.setColor(COLOR_SELECTED);
+//       }
+//       else {
+//         if(_enabled) {
+//           g.setColor(COLOR_ENABLED);
+//         }
+// 	else {
+//           g.setColor(COLOR_DISABLED);
+// 	}
+//       }
+//     }
+
+    if (this == _primaryBolometer) {
+	g.setColor(COLOR_PRIMARY);
+    }
+    else if (_selected) {
+	g.setColor(COLOR_SELECTED);
+    }
+    else if (_coSelected) {
+	g.setColor(COLOR_COSELECTED);
+    }
+    else if (_enabled) {
+	g.setColor(COLOR_ENABLED);
     }
     else {
-      if(_selected) {
-        g.setColor(COLOR_SELECTED);
-      }
-      else {
-        if(_enabled) {
-          g.setColor(COLOR_ENABLED);
-        }
-	else {
           g.setColor(COLOR_DISABLED);
-	}
-      }
     }
 
     super.draw(g);

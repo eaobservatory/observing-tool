@@ -123,10 +123,10 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
           stringTokenizer = new StringTokenizer(line, " ");
 	  stringTokenizer.nextToken();
 
-	  data[0] = stringTokenizer.nextToken();
-	  data[1] = stringTokenizer.nextToken();
-	  data[2] = stringTokenizer.nextToken();
-	  data[3] = stringTokenizer.nextToken();
+	  data[0] = stringTokenizer.nextToken();  // Bolometer name
+	  data[1] = stringTokenizer.nextToken();  // Bolometer type
+	  data[2] = stringTokenizer.nextToken();  // Bolometer du3
+	  data[3] = stringTokenizer.nextToken();  // Bolometer du4
 
           type = Bolometer.toBolometerType(data[1]);
 
@@ -149,8 +149,8 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
 
 	    bolometerVector.add(new Bolometer(bolometerName,
 	                                      type,
-	                                      200.0 - (Double.parseDouble(data[2]) * 2.5) + xShift,
-	                                      200.0 - (Double.parseDouble(data[3]) * 2.5)));
+	                                      Double.parseDouble(data[2]),
+	                                      Double.parseDouble(data[3])));
 	  }
 	}
       }
@@ -162,7 +162,10 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
     _bolometers = new Bolometer[bolometerVector.size()];
     bolometerVector.toArray(_bolometers);
 
-    for(int i = 0; i < _bolometers.length; i++) {
+    // Add a mouse listener to each individual bolometer,
+    // but not to the arrays which have their own action
+    // listeners
+    for(int i = 0; i < _bolometers.length-2; i++) {
       addMouseListener(_bolometers[i]);
     }
   }
@@ -270,14 +273,25 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
     if(selectedBolometers == null) {
       for(int i = 0; i < _bolometers.length; i++) {
         _bolometers[i].setSelected(false);
+	_bolometers[i].setCoSelected(false);
       }
 
       return;
     }
 
+    // Reset the coselection flag for each bolometer
+    for (int i=0; i< _bolometers.length; i++) {
+	_bolometers[i].setCoSelected(false);
+    }
     for(int i = 0; i < _bolometers.length; i++) {
       if(selectedBolometers.contains(_bolometers[i].getBolometerName())) {
         _bolometers[i].setSelected(true);
+	// Find the corresponding bolometers in the other array and set these as well.
+	Bolometer [] correspondingBolometers = getCorrespondingBolometers(_bolometers[i]);
+	for (int j=0; j<correspondingBolometers.length; j++) {
+	    correspondingBolometers[j].setSelected(false);
+	    correspondingBolometers[j].setCoSelected(true);
+	}
       }
       else {
         _bolometers[i].setSelected(false);
@@ -347,6 +361,10 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
     label.setForeground(Bolometer.COLOR_PRIMARY);
     descriptionPanel.add(label);
 
+    label = new JLabel("  Corresponding Bolometer (Automatically Selected)");
+    label.setForeground(Bolometer.COLOR_COSELECTED);
+    descriptionPanel.add(label);
+
     // Add all panels to display panel.
     _display = new JPanel();
     _display.setLayout(new BorderLayout());
@@ -355,6 +373,41 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
     _display.add(descriptionPanel,   BorderLayout.SOUTH);
   }
 
+    Bolometer [] getCorrespondingBolometers (Bolometer b) {
+	double maxSep =  2.0;
+
+	// Get the location of the bolometer
+	double du3 = b.getdU3();
+	double du4 = b.getdU4();
+
+	Vector bVector = new Vector();
+	Bolometer [] bArray;
+
+	if (b.getBolometerType() == Bolometer.BOLOMETER_SHORT || 
+	    b.getBolometerType() == Bolometer.BOLOMETER_LONG) {
+	    // Loop through all the bolometers...
+	    for (int i=0; i < _bolometers.length; i++) {
+		if (_bolometers[i].getBolometerType() == b.getBolometerType() ||
+		    _bolometers[i] instanceof BolometerArray) {
+		    // Ignore bolometers of the same type
+		    continue;
+		}
+		// Calculate the angular seperation between the reference
+		// and current loop bolometer
+		double x = _bolometers[i].getdU3();
+		double y = _bolometers[i].getdU4();
+		double distance = Math.sqrt(Math.pow((x-du3), 2) + Math.pow((y-du4),2));
+		if (distance < maxSep) {
+		    
+		    bVector.add(_bolometers[i]);
+		}
+	    }
+	}
+	bArray = new Bolometer[bVector.size()];
+	bVector.toArray(bArray);
+	return bArray;
+    }
+
 
   public void actionPerformed(ActionEvent e) {
     repaint();
@@ -362,7 +415,28 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
 
 
   public void mouseClicked(MouseEvent e) {
-    repaint();
+      for (int i=0; i< _bolometers.length; i++) {
+	  _bolometers[i].setCoSelected(false);
+	  if (_bolometers[i].isPrimary()) {
+	      Bolometer [] b = getCorrespondingBolometers(_bolometers[i]);
+	      for (int j=0; j<b.length; j++) {
+		  b[j].setSelected(false);
+	      }
+	  }
+      }
+
+      // Get all of the selected bolometers and find their co-selected partners
+      for (int i=0; i<_bolometers.length; i++) {
+	  if (_bolometers[i].isSelected()) {
+	      Bolometer [] b = getCorrespondingBolometers(_bolometers[i]);
+	      for (int j=0; j<b.length; j++) {
+		  b[j].setSelected(false);
+		  b[j].setCoSelected(true);
+	      }
+	  }
+      }
+      
+      repaint();
   }
 
   public void mouseEntered(MouseEvent e) { }
