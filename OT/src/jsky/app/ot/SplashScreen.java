@@ -13,8 +13,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -38,11 +40,24 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
     // Read the welcome text from the specified URL.
     //
     private void _readWelcome(URL url) {
+	final String versionString = "JAC OMP OT Release version ";
 	RichTextBoxWidgetExt rt;
 	rt = messageRTBW;
 	//rt.clear();
 
+	// Get the updated version date...
 	BufferedReader br = null;
+	String version = "Unknown";
+	try {
+	    File versionFile = new File (System.getProperty("ot.cfgdir", "ot/cfg/")+"versionFile");
+	    br = new BufferedReader(new FileReader(versionFile));
+	    version = br.readLine().trim();
+	}
+	catch (Exception e) {
+	    e.printStackTrace();
+	}
+
+	br = null;
 	try {
 	    br = new BufferedReader(new InputStreamReader(url.openStream()));
 	    String line;
@@ -50,7 +65,12 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 		line = line.trim();
 		if (line.equals("")) {
 		    rt.append("\n\n");
-		} else {
+		} 
+		else if (line.startsWith(versionString)) {
+		    line = versionString + version;
+		    rt.append(line + " ");
+		}
+		else {
 		    rt.append(line + " ");
 		}
 	    }

@@ -442,6 +442,9 @@ save(SpRootItem spItem, FileInfo fi)
    String oldFileName = spItem.getTable().get(".gui.filename");
    spItem.getTable().set(".gui.filename", filename);
 
+   SpRootItem spRoot = (SpRootItem)spItem.getRootItem();
+   spRoot.setOTVersion();
+
    boolean hasBeenSaved = storeSp(spItem, f);
 
    if (hasBeenSaved) {
@@ -470,6 +473,7 @@ saveAs(SpRootItem spItem, FileInfo fi)
    fi.hasBeenSaved = false;
 
    SpRootItem spCopy = (SpRootItem) spItem.deepCopy();
+   spCopy.setOTVersion();
 
    if (!save(spCopy, fi)) {
       fi.hasBeenSaved = hasBeenSaved;

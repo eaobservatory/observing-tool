@@ -25,6 +25,7 @@ import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.SpInsertData;
 import gemini.sp.SpItem;
 import gemini.sp.SpRootItem;
+import gemini.sp.SpLibrary;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpNote;
@@ -284,7 +285,24 @@ public final class OtTreeWidget extends MultiSelTreeWidget
     public SpItem addItem(SpItem newItem)  {
 	SpItem[] newItems = { newItem };
 	newItems = addItems(newItems);
+
 	if (newItems == null) return null;
+	// The following has been added to allow revision tracking of
+	// libraries
+	if (_spProg instanceof SpLibrary) {
+	    if (newItem.typeStr().equals("og")) {
+		System.out.println("newItem is an instance of SpMSB");
+		((SpMSB)newItem).setLibraryRevision();
+	    }
+	    else if ( newItem.typeStr().equals("ob") && ((SpObs)newItem).isMSB() ) {
+		System.out.println("newItem is an instance of SpObs");
+		((SpObs)newItem).setLibraryRevision();
+	    }
+	    else {
+	    }
+	}
+
+
 	// The following is used specifically to handle JCMT
 	// Hetrodyne observations.
 	/*

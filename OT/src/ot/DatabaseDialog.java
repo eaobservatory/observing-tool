@@ -103,6 +103,7 @@ public class DatabaseDialog implements ActionListener {
   public void storeProgram(SpItem spItem) {
 
     String projectID = ((SpProg)spItem).getProjectID();
+    ((SpProg)spItem).setOTVersion();
   
     if((projectID == null) || projectID.trim().equals("")) {
       DialogUtil.error(_w, "Please specify a Project ID (Science Program component).");
