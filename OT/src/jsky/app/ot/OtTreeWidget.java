@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
+import javax.swing.tree.TreePath;
 import jsky.app.ot.gui.MultiSelTreeNodeWidget;
 import jsky.app.ot.gui.MultiSelTreeWidget;
 import gemini.sp.SpHierarchyChangeObserver;
@@ -287,6 +288,27 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	return spID.items;
     }
 
+  /**
+   * Inserts an item after the currently selected item.
+   *
+   * This method is currently used for inserting notes when the Note button
+   * (jsky.app.o.OtTreeToolBar) is clicked.
+   *
+   * MFO: May 28, 2001
+   *
+   * @param newItem the item to be inserted.
+   */
+  public SpItem [] insertItemAfter(SpItem newItem) {
+    SpInsertData spID = SpTreeMan.evalInsertAfter(newItem, getSelectedItem());
+
+    if(spID == null) {
+      return null;
+    }
+
+    return addItems( spID );
+  }
+
+
     // Add items without worrying about clobber.
     private boolean _addItems(SpInsertData spID)  {
 	if (_progInfo.online) {
@@ -392,6 +414,22 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	SpItem[] spItemA = getMultiSelectedItems();
 	if (spItemA == null) return null;
 	return rmItems(spItemA) ? spItemA : null;
+    }
+
+    /**
+     * rmMultiSelectedItems doesn't seem to work with the new multi selection in MultiSelTreeWidget anymore.
+     * 
+     * Replaced with a quick hack which seems to work in most cases.
+     * MFO: May 29, 2001
+     */
+    public void rmAllSelectedItems() {
+      TreePath [] paths = getSelectionPaths();
+      if (paths != null && paths.length > 0) {
+	for (int i = 0; i < paths.length; i++) {
+          tree.setSelectionPath(paths[i]);
+          rmSelectedItem();
+	}
+      }
     }
 
     /**
