@@ -31,6 +31,7 @@ public class HeterodyneNoise {
 
     static double kappa = 1.15;
     private static final String receiverFile = "receiver.info";
+    private static boolean initialised = false;
 
 
     private static void init() {
@@ -86,6 +87,7 @@ public class HeterodyneNoise {
 	    System.out.println("Error reading receiver info file");
 	    e.printStackTrace();
 	}
+	initialised = true;
     }
 
 
@@ -138,8 +140,13 @@ public class HeterodyneNoise {
 	double nuTel = 0.0;
 	double tSys = 0.0;
 
+	if ( !initialised) {
+ 	    init ();
+	}
+
 	// Get the transmission curve curve
 	TreeMap atmTau = getAtmosphereData(tau);
+
 
 	if ( (index = feNames.indexOf(fe)) != -1) {
 	    nuTel = ( (Double)nu_tel.elementAt(index) ).doubleValue();
@@ -158,7 +165,7 @@ public class HeterodyneNoise {
 	    if (freq < upperF && freq >= lowerF) break;
 	}
 	lowerT = ( (Double)atmTau.get(new Double(lowerF)) ).doubleValue();
-	upperF = ( (Double)atmTau.get(new Double(upperF)) ).doubleValue();
+	upperT = ( (Double)atmTau.get(new Double(upperF)) ).doubleValue();
 	double slope = (double)(upperT-lowerT)/(upperF-lowerF);
 	double t = slope*freq + lowerT -slope*lowerF;
 // 	System.out.println("Estimated tau: "+t);
@@ -169,6 +176,7 @@ public class HeterodyneNoise {
 	double tTel  = 265.0-nuTel*265.0;
 // 	System.out.println("nuSky = "+nuSky);
 // 	System.out.println("nuTel = "+nuTel);
+// 	System.out.println("Trx   = "+getTrx(fe, freq));
 	if (ssb) {
 	    tSys = (2.0*getTrx(fe, freq) + nuTel*tSky + tTel + 35)/
 		(nuSky*nuTel);
@@ -187,7 +195,7 @@ public class HeterodyneNoise {
 	int index=0;
 	
 	// Find the tau band we are in
-	if (tau > availableBands[availableBands.length - 1]) {
+	if (tau >= availableBands[availableBands.length - 1]) {
 	    index = availableBands.length - 1;
 	}
 	else if (tau < availableBands[0]) {
@@ -195,7 +203,7 @@ public class HeterodyneNoise {
 	}
 	else {
 	    for (int i=1; i<availableBands.length; i++) {
-		if (tau > availableBands[i-1] && tau <= availableBands[i]) break;
+		if (tau >= availableBands[i-1] && tau < availableBands[i]) break;
 		index++;
 	    }
 	}
@@ -207,6 +215,7 @@ public class HeterodyneNoise {
 	st.nextToken();
 	tmp = st.nextToken()+".dat";
 	fileName = fileName+tmp;
+//	System.out.println( "Using file " + fileName + " for tau of " + tau);
 	File tauFile = new File(fileName);
 	try {
 	    BufferedReader fileReader = new BufferedReader(new FileReader(tauFile));
@@ -221,6 +230,7 @@ public class HeterodyneNoise {
 	catch (Exception e) {
 	    e.printStackTrace();
 	}
+//	System.out.println("Map covers freq range (" + ((Double)tauMap.firstKey()).doubleValue() + ", " + ((Double)tauMap.lastKey()).doubleValue() + ")");
 	return tauMap;
     }
 
@@ -302,7 +312,9 @@ public class HeterodyneNoise {
 					     double           noiseCalculationTau, 
 					     double           airmass) {
 	// Set up all the vectors required
- 	init ();
+	if ( !initialised) {
+ 	    init ();
+	}
 
 // 	System.out.println("airmass = "+airmass);
 	
