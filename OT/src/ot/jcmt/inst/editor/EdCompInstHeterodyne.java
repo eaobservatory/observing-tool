@@ -74,7 +74,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   private String currentFE = "";
   private static SideBandDisplay sideBandDisplay = null;
-  private LineCatalog lineCatalog = new LineCatalog();
+  private LineCatalog lineCatalog = LineCatalog.getInstance();
   private double redshift = 0.0;
   private double subBandWidth = 0.25E9;
   private double loMin;
