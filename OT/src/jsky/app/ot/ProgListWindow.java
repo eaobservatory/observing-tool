@@ -24,6 +24,7 @@ import gemini.sp.ipc.SpProgKey;
 import gemini.sp.ipc.SpServerAsync;
 
 import jsky.util.gui.DialogUtil;
+import ot.gui.PasswordWidgetExt;
 
 import java.awt.Component;
 import java.awt.Frame;
@@ -145,13 +146,14 @@ public final class ProgListWindow extends RemoteGUI
     // Initialize the textbox watchers.
     //
     private void _init() {
-	TextBoxWidgetExt passwd;
-	passwd = passwordTextBox;
-	passwd.addWatcher(this);
+	// MFO
+	//TextBoxWidgetExt passwd;
+	//passwd = passwordTextBox;
+	//passwd.addWatcher(this);
 
-	TextBoxWidgetExt tbwe;
-	tbwe = keyTextBox;
-	tbwe.addWatcher(this);
+	//PasswordWidgetExt tbwe;
+	//tbwe = keyTextBox;
+	//tbwe.addWatcher(this);
 
 	stopAction.addWatcher(this);
     }
@@ -172,14 +174,14 @@ public final class ProgListWindow extends RemoteGUI
 
     // Get the text in the password textbox.
     private String _getPasswordEntry() {
-	TextBoxWidgetExt tb;
+	PasswordWidgetExt tb;
 	tb = passwordTextBox;
 	return tb.getText().trim();
     }
 
     // Set the text in the password textbox.
     private void _setPasswordEntry(String password) {
-	TextBoxWidgetExt tb;
+	PasswordWidgetExt tb;
 	tb = passwordTextBox;
 	tb.setText(password);
     }
@@ -373,7 +375,7 @@ public final class ProgListWindow extends RemoteGUI
 	}
 
 	// Get the key.
-	TextBoxWidgetExt tbw;
+	PasswordWidgetExt tbw;
 	tbw = keyTextBox;
 	String key = tbw.getText().trim();
 	if ((key == null) || (key.equals(""))) {
@@ -402,7 +404,17 @@ public final class ProgListWindow extends RemoteGUI
 
 	// Create the new window (up-ing the priority seems to speed it up a bit).
 	Thread.currentThread().setPriority(Thread.NORM_PRIORITY);
-	new OtProgWindow( (SpRootItem) spItem, li, _spProgKey);
+	
+	// MFO (next 8 lines)
+	if (OT.getDesktop() == null) {
+	    new OtWindowFrame(new OtProgWindow((SpRootItem) spItem, li, _spProgKey));
+	}
+	else {
+	    Component c = new OtWindowInternalFrame(new OtProgWindow((SpRootItem) spItem, li, _spProgKey));
+	    OT.getDesktop().add(c, JLayeredPane.DEFAULT_LAYER);
+	    OT.getDesktop().moveToFront(c);
+	}
+
 	Thread.currentThread().setPriority(Thread.NORM_PRIORITY - 1);
 
 	_thaw();
@@ -443,6 +455,10 @@ public final class ProgListWindow extends RemoteGUI
 	// Show the program list
 	_progList.clear();
 	_progList.setChoices( formProgs );
+
+        // MFO: Copied from ot.ProgListWindow in FreeBongo OT (orac2).
+        // Added to default the key value of UKIRT ORAC use. AB 5May00
+        keyTextBox.setText (user+"-0");
     }
  
  
@@ -477,11 +493,12 @@ public final class ProgListWindow extends RemoteGUI
      * TextBoxWidgetWatcher interface from gemini.gui.
      */
     public void textBoxAction(TextBoxWidgetExt tbwe)  {
-	if (tbwe == passwordTextBox) {
-	    fetchListing();
-	} 
-	else if (tbwe == keyTextBox) {
-	    fetchProg();
-	}
+	// MFO This could be re-implemented using ActionListener etc.
+	//if (tbwe == passwordTextBox) {
+	//    fetchListing();
+	//} 
+	//else if (tbwe == keyTextBox) {
+	//    fetchProg();
+	//}
     }
 }
