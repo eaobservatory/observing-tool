@@ -11,6 +11,9 @@ import java.util.Vector;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpType;
+import gemini.sp.SpTreeMan;
+import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
 
 
 /**
@@ -116,4 +119,33 @@ printSummary()
    }
 }
 
+  public double getElapsedTime() {
+    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+
+    if(instrument == null) {
+      return 0.0;
+    }
+
+    Vector iterStepVector    = compile();
+    Vector iterStepSubVector = null;
+    SpIterStep spIterStep    = null;
+    IterationTracker iterationTracker = instrument.createIterationTracker();
+    double elapsedTime = 0.0;
+
+    for(int i = 0; i < iterStepVector.size(); i++) {
+      iterStepSubVector = (Vector)iterStepVector.get(i);
+
+      for(int j = 0; j < iterStepSubVector.size(); j++) {
+        spIterStep = (SpIterStep)iterStepSubVector.get(j);
+
+        iterationTracker.update(spIterStep);
+
+        if(spIterStep.item instanceof SpIterObserveBase) {
+          elapsedTime += iterationTracker.getObserveStepTime();
+        }  
+      }
+    }
+  
+    return elapsedTime;
+  }
 }

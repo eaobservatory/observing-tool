@@ -10,6 +10,7 @@
 
 package gemini.sp;
 
+import java.util.Enumeration;
 
 /**
  * OMP class.
@@ -152,6 +153,24 @@ public void
 setNumberRemaining(int remaining)
 {
    _avTable.set(ATTR_REMAINING, remaining);
+}
+
+
+public double getElapsedTime()
+{
+  double elapsedTime = 0.0;
+  Enumeration children = children();
+  SpItem spItem = null;
+
+  while(children.hasMoreElements()) {
+    spItem = (SpItem)children.nextElement();
+
+    if(spItem instanceof SpObs) {
+      elapsedTime += ((SpObs)spItem).getElapsedTime();
+    }
+  }
+
+  return elapsedTime;
 }
 
 }
