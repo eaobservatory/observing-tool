@@ -29,6 +29,7 @@ import gemini.util.Format;
  *        2  xaxis - the x axis of the position (e.g., the RA)
  *        3  yaxis - the y axis of the position (e.g., the Dec)
  *        4  coordinate system - (currently only FK5/J2000 is supported)
+ * There are 22 indeces in all. See below.
  * </pre>
  * The name of the attribute is always the same as the name of the tag.
  * Therefore, each tag must be unique.
@@ -37,43 +38,35 @@ import gemini.util.Format;
  * Note that internally the OT only allowed {@link #BASE_TAG}, {@link #USER_TAG} and
  * {@link #GUIDE_TAGS}.
  * This is because the OT was originally developed for Optical/IR telescopes (Gemini/UKIRT)
- * But the strings used in the user interfaces and in the XML output can be changed to
- * other telescope specific names. Example: For JCMT BASE_TAG is set to "Science".
+ * But the tags can be changed to other telescope specific names.
+ * Example: For JCMT BASE_TAG is set to "SCIENCE".
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
-   /**
-    * Target Name.
-    *
-    * _avTab.get(ATTR_TARGET_NAME is the same as _avTab.get(BASE_TAG, NAME_INDEX).
-    * The target name is stored twice in the table. ATTR_TARGET_NAME is used for
-    * the XML output. BASE_TAG, NAME_INDEX is used by the UKIRT translator.
-    */
-   public static final String ATTR_TARGET_NAME         = "target.targetName";
 
    /**
-    * Target System based on two coordinates.
+    * System based on two coordinates.
     *
     * RA/Dec, Az/El etc.
     * See JAC OCS TCS.
     */
-   public static final int TARGET_SYSTEM_HMSDEG_DEGDEG = 0;
+   public static final int SYSTEM_SPHERICAL     = 0;
 
    /**
-    * Conic Target System.
+    * Conic System.
     *
     * Represented by its Oribtal Elements.
     * See JAC OCS TCS.
     */
-   public static final int TARGET_SYSTEM_CONIC         = 1;
+   public static final int SYSTEM_CONIC         = 1;
 
    /**
-    * Named Target System.
+    * Named System.
     *
     * A target is specified by its name. Used for planets, sun, moon etc.
     * See JAC OCS TCS.
     */
-   public static final int TARGET_SYSTEM_NAMED         = 2;
+   public static final int SYSTEM_NAMED         = 2;
 
    /** Conic/Named System type Major. */
    public static final int TYPE_MAJOR = 0;
@@ -90,81 +83,45 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
 
    /**
-    * XML attributes for types of conic systems.
+    * Attributes for types of conic systems.
     *
     * "major", "minor", "planetarySatellite". <P>
     *
-    * See JAC OCS TCS XML.
-    *
-    * @see #NAMED_SYSTEM_TYPES_DESCRIPITON 
+    * @see #NAMED_SYSTEM_TYPES_DESCRIPTION 
     */
-   public static final String [] NAMED_SYSTEM_TYPES_XML         = { "major", "minor", "planetarySatellite"  };
+   public static final String [] NAMED_SYSTEM_TYPES         = { "major", "minor", "planetarySatellite"  };
 
    /**
-    * XML attributes for types of conic systems.
+    * Readable attributes for types of conic systems.
     *
     * "Major", "Minor", "Planetary Satellite". <P>
     *
-    * See JAC OCS TCS XML.
-    *
-    * @see #NAMED_SYSTEM_TYPES_XML
+    * @see #NAMED_SYSTEM_TYPES
     */
-   public static final String [] NAMED_SYSTEM_TYPES_DESCRIPITON = { "Major", "Minor", "Planetary Satellite" };
+   public static final String [] NAMED_SYSTEM_TYPES_DESCRIPTION = { "Major", "Minor", "Planetary Satellite" };
 
 
    /**
-    * XML attributes for types of conic systems.
+    * Attributes for types of conic systems.
     *
     * "major", "minor", "comet".<P>
     *
-    * See JAC OCS TCS XML.
-    *
-    * @see #CONIC_SYSTEM_TYPES_DESCRIPITON 
+    * @see #CONIC_SYSTEM_TYPES_DESCRIPTION 
     */
-   public static final String [] CONIC_SYSTEM_TYPES_XML         = { "major", "minor", "comet" };
+   public static final String [] CONIC_SYSTEM_TYPES         = { "major", "minor", "comet" };
 
    /**
-    * XML attributes for types of conic systems.
+    * Readable attributes for types of conic systems.
     *
     * "Major", "Minor", "Comet".<P>
     *
-    * See JAC OCS TCS XML.
-    *
-    * @see #CONIC_SYSTEM_TYPES_XML
+    * @see #CONIC_SYSTEM_TYPES
     */
-   public static final String [] CONIC_SYSTEM_TYPES_DESCRIPITON = { "Major", "Minor", "Comet" };
-
-   /** @see #getConicSystemEpoch() */
-   public static final String ATTR_CONIC_SYSTEM_EPOCH       = "target.conicSystem.epoch";
-
-   /** @see #getConicSystemInclination() */
-   public static final String ATTR_CONIC_SYSTEM_INCLINATION = "target.conicSystem.inclination";
-
-   /** @see #getConicSystemAnode() */
-   public static final String ATTR_CONIC_SYSTEM_ANODE       = "target.conicSystem.anode";
-
-   /** @see #getConicSystemPerihelion() */
-   public static final String ATTR_CONIC_SYSTEM_PERIHELION  = "target.conicSystem.perihelion";
-
-   /** @see #getConicSystemAorQ() */
-   public static final String ATTR_CONIC_SYSTEM_AORQ        = "target.conicSystem.aorq";
-
-   /** @see #getConicSystemE() */
-   public static final String ATTR_CONIC_SYSTEM_E           = "target.conicSystem.e";
-
-   /** @see #getConicSystemLorM() */
-   public static final String ATTR_CONIC_SYSTEM_LORM        = "target.conicSystem.LorM";
-
-   /** @see #getConicSystemDailyMotion() */
-   public static final String ATTR_CONIC_SYSTEM_DM          = "target.conicSystem.n";
-
-   /** @see #getConicSystemType() */
-   public static final String ATTR_CONIC_SYSTEM_TYPE        = "target.conicSystem:type";
+   public static final String [] CONIC_SYSTEM_TYPES_DESCRIPTION = { "Major", "Minor", "Comet" };
 
 
-   /** @see #getNamedSystemType() */
-   public static final String ATTR_NAMED_SYSTEM_TYPE        = "target.namedSystem:type";
-
+   /** @see #isOffsetPosition() */
+   public static final String ATTR_OFFSET_POSITION          = "isOffset";
 
    //
    // A position can have one of the following tags.  "Guide" and "User"
@@ -175,20 +132,112 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
    public static String[] GUIDE_TAGS = {"PWFS1", "PWFS2", "OIWFS"};
 
    // Indices of the the fields of a position
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int TAG_INDEX		=  0;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int NAME_INDEX		=  1;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int XAXIS_INDEX		=  2;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int YAXIS_INDEX		=  3;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int COORD_SYS_INDEX	=  4;
 
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int PROP_MOTION_RA	=  5;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int PROP_MOTION_DEC	=  6;
 
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int TRACKING_SYSTEM	=  7;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int TRACKING_EPOCH	=  8;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int TRACKING_PARALLAX	=  9;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int TRACKING_RADIAL_VEL  = 10;
+   /** Index for SpAvTable value (position in value Vector). */
    public static final int TRACKING_EFF_WAVELENGTH = 11;
+
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getSystemType()
+    */
+   public static final int SYSTEM_TYPE              = 12;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #isOffsetPosition()
+    */
+   public static final int OFFSET_POSITION          = 13;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicOrNamedType()
+    */
+   public static final int CONIC_OR_NAMED_TYPE      = 14;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemEpoch()
+    */
+   public static final int CONIC_SYSTEM_EPOCH       = 15;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemInclination()
+    */
+   public static final int CONIC_SYSTEM_INCLINATION = 16;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemAnode()
+    */
+   public static final int CONIC_SYSTEM_ANODE       = 17;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemPerihelion()
+    */
+   public static final int CONIC_SYSTEM_PERIHELION  = 18;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemAorQ()
+    */
+   public static final int CONIC_SYSTEM_AORQ        = 19;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemE()
+    */
+   public static final int CONIC_SYSTEM_E           = 20;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemLorM()
+    */
+   public static final int CONIC_SYSTEM_LORM        = 21;
+
+   /**
+    * Index for SpAvTable value (position in value Vector).
+    *
+    * @see #getConicSystemDailyMotion()
+    */
+   public static final int CONIC_SYSTEM_DM          = 22;
+
+
 
    private SpItem    _spItem;
    private SpAvTable _avTab;	// The table that holds this position
@@ -203,6 +252,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
    // Position is valid.
    boolean _isValid = false;
+
 
 /**
  * Set the list of tags that represent guide stars.  For instance,
@@ -287,102 +337,40 @@ protected SpTelescopePos(SpItem spItem, SpAvTable avTab,
 }
 
 /**
- * Get the kind of target system: HMSDEG/DEGDEG, Conic, Named.
+ * Get the system type: spherical, conic, named.
  *
  * Do not confuse with the coord system.
  *
- * @return One of {@link #TARGET_SYSTEM_HMSDEG_DEGDEG}, {@link #TARGET_SYSTEM_CONIC}, {@link #TARGET_SYSTEM_NAMED}
+ * @return One of {@link #SYSTEM_SPHERICAL}, {@link #SYSTEM_CONIC}, {@link #SYSTEM_NAMED}
  */
-public int getTargetSystem() {
-   if(_avTab.exists(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE)) {
-      return TARGET_SYSTEM_CONIC;
-   }
-
-   if(_avTab.exists(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE)) {
-      return TARGET_SYSTEM_NAMED;
-   }
-
-   return TARGET_SYSTEM_HMSDEG_DEGDEG;
+public int getSystemType() {
+   return _avTab.getInt(_tag, SYSTEM_TYPE, SYSTEM_SPHERICAL);
 }
 
 /**
- * Set the kind of target system: HMSDEG/DEGDEG, Conic, Named.
+ * Set the system type: spherical, conic, named.
  *
  * Do not confuse with the coord system.
  *
- * @param targetSystem One of {@link #TARGET_SYSTEM_HMSDEG_DEGDEG}, {@link #TARGET_SYSTEM_CONIC}, {@link #TARGET_SYSTEM_NAMED}
+ * @param systemType One of {@link #SYSTEM_SPHERICAL}, {@link #SYSTEM_CONIC}, {@link #SYSTEM_NAMED}
+ *                     If another int is supplied then the system is set to {@link #SYSTEM_SPHERICAL}.
  */
-public void setTargetSystem(int targetSystem) {
-   if(targetSystem == getTargetSystem()) {
-      return;
-   }
+public void setSystemType(int systemType) {
 
-   switch(targetSystem) {
-      case TARGET_SYSTEM_CONIC:
-         _avTab.noNotifyRm(_tag);
+   // Make sure only valid a systemType int is stored in the table.
+   switch(systemType) {
+      case SYSTEM_CONIC:
+         _avTab.set(_tag, SYSTEM_CONIC, SYSTEM_TYPE);
+         setConicOrNamedType(CONIC_SYSTEM_TYPES[TYPE_COMET]);
+         break;
 
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, "" + 0.0, 0);
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, "" + 0.0, 0);
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE, "" + 0.0, 0);
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION, "" + 0.0, 0);
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ, "" + 0.0, 0);
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_E, "" + 0.0, 0);
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE, CONIC_SYSTEM_TYPES_XML[TYPE_COMET], 0);
+      case SYSTEM_NAMED:
+         _avTab.set(_tag, SYSTEM_NAMED, SYSTEM_TYPE);
+         setConicOrNamedType(NAMED_SYSTEM_TYPES[TYPE_MAJOR]);
+         break;
 
-         _avTab.noNotifyRm(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
-
-         // Last table change: notify
-	 // Conic system uses table attribute tagPrefix() + ATTR_TARGET_NAME to store the name. 
-	 _avTab.set(tagPrefix() + ATTR_TARGET_NAME, _name);
-
-	 break;
-
-      case TARGET_SYSTEM_NAMED:
-         _avTab.noNotifyRm(_tag);
-
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_E);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_LORM);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_DM);
-	 _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE);
-
-         _avTab.noNotifySet(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE, NAMED_SYSTEM_TYPES_XML[TYPE_MAJOR], 0);
-         
-         // Last table change: notify
-	 // Named system uses table attribute tagPrefix() + ATTR_TARGET_NAME to store the name. 
-	 _avTab.set(tagPrefix() + ATTR_TARGET_NAME, _name);
-
-	 break;
-
-      //case TARGET_SYSTEM_HMSDEG_DEGDEG:
       default:
-         _avTab.noNotifySet(_tag, _tag,      TAG_INDEX);
-         _avTab.noNotifySet(_tag, _name,     NAME_INDEX);
-         _avTab.noNotifySet(_tag, "0:00:00", XAXIS_INDEX);
-         _avTab.noNotifySet(_tag, "0:00:00", YAXIS_INDEX);
-         _avTab.noNotifySet(_tag, CoordSys.COORD_SYS[CoordSys.FK5], COORD_SYS_INDEX);
-
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_E);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_LORM);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_DM);
-         _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE);
-	 
-         _avTab.noNotifyRm(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
-
-         // Last table change: notify
-	 // HMSDEG/DEGDEG system uses table attribute _tag with NAME_INDEX to store the name.
-	 // So remove tagPrefix() + ATTR_TARGET_NAME.
-         _avTab.rm(tagPrefix() + ATTR_TARGET_NAME);
-
+         _avTab.set(_tag, SYSTEM_SPHERICAL, SYSTEM_TYPE);
 	 break;
    }
 
@@ -425,7 +413,12 @@ setTag(String newTag)
       // Convert from degrees to the current coordinate system
       String[] pos;
       if (_isValid) {
-         pos = RADecMath.degrees2String(_xaxis, _yaxis, _coordSys);
+         if(isOffsetPosition()) {
+	    pos = new String[]{ "" + _xaxis, "" + _yaxis };
+	 }
+	 else {
+            pos = RADecMath.degrees2String(_xaxis, _yaxis, _coordSys);
+	 }
       } else {
          pos = new String[2];
          pos[0] = "";
@@ -470,13 +463,7 @@ setName(String name)
    synchronized (this) {
       _name = name;
 
-      if(getTargetSystem() == TARGET_SYSTEM_HMSDEG_DEGDEG) {
-         _avTab.set(_tag, name, NAME_INDEX);
-      }
-      else {
-         // Equivalent to _avTab.set(tag, name,  NAME_INDEX); Needed for XML output. (MFO, 27 February 2002)
-         _avTab.set(tagPrefix() + ATTR_TARGET_NAME, name);
-      }	 
+      _avTab.set(_tag, name, NAME_INDEX);
    }
    _notifyOfGenericUpdate();
 }
@@ -503,9 +490,15 @@ noNotifySetXY(double xaxis, double yaxis)
    _isValid = true;
 
    // Convert from degrees to the current coordinate system
-   String[] pos = RADecMath.degrees2String(xaxis, yaxis, _coordSys);
-   _avTab.set(_tag, pos[0], XAXIS_INDEX);
-   _avTab.set(_tag, pos[1], YAXIS_INDEX);
+   if(isOffsetPosition()) {
+     _avTab.set(_tag, xaxis, XAXIS_INDEX);
+     _avTab.set(_tag, yaxis, YAXIS_INDEX);
+   }
+   else {
+     String[] pos = RADecMath.degrees2String(xaxis, yaxis, _coordSys);
+     _avTab.set(_tag, pos[0], XAXIS_INDEX);
+     _avTab.set(_tag, pos[1], YAXIS_INDEX);
+   }
 
    if (_tag.equals(BASE_TAG)) {
       SpObsData od = _spItem.getObsData();
@@ -520,17 +513,45 @@ noNotifySetXY(double xaxis, double yaxis)
 private synchronized void
 _updateXYFromString(String xaxisStr, String yaxisStr)
 {
+/*MFO DEBUG*///System.out.println(xaxisStr + ", " + yaxisStr);
    // Convert from whatever coordinate system to degrees
-   double[] pos = RADecMath.string2Degrees(xaxisStr, yaxisStr, _coordSys);
-   if (pos == null) {
-      _xaxis   = 0.0;
-      _yaxis   = 0.0;
-      _isValid = false;
-   } else {
-      _xaxis   = pos[0];
-      _yaxis   = pos[1];
-      _isValid = true;
+   try {
+      double[] pos = null;
+    
+      if(isOffsetPosition()) {
+         pos = new double[] { 0.0, 0.0 };
+	 
+	 try {
+	    pos[0] = Double.parseDouble(xaxisStr);
+	 }   
+	 catch(Exception e) {
+            pos[0] = 0.0;
+	 }
+
+	 try {
+	    pos[1] = Double.parseDouble(yaxisStr);
+	 }   
+	 catch(Exception e) {
+            pos[1] = 0.0;
+	 }
+      }
+      else {
+         pos = RADecMath.string2Degrees(xaxisStr, yaxisStr, _coordSys);
+
+         if (pos == null) {
+            _xaxis   = 0.0;
+            _yaxis   = 0.0;
+            _isValid = false;
+         }
+         else {
+           _xaxis   = pos[0];
+           _yaxis   = pos[1];
+           _isValid = true;
+         }
+      }  
    }
+   catch (IllegalArgumentException e) { System.out.println("IllegalArumentException: xaxisStr = \"" + xaxisStr + "\", yaxisStr = \"" + yaxisStr + "\""); }
+
 }
 
 /**
@@ -898,7 +919,7 @@ setTrackingEffectiveWavelength(String trackEffWave)
 public double
 getConicSystemEpoch()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_EPOCH, 0.0);
 }
 
 /**
@@ -909,7 +930,7 @@ getConicSystemEpoch()
 public void
 setConicSystemEpoch(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_EPOCH);
 }
 
 
@@ -921,7 +942,7 @@ setConicSystemEpoch(String value)
 public double
 getConicSystemInclination()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_INCLINATION, 0.0);
 }
 
 /**
@@ -932,7 +953,7 @@ getConicSystemInclination()
 public void
 setConicSystemInclination(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_INCLINATION);
 }
 
 
@@ -944,7 +965,7 @@ setConicSystemInclination(String value)
 public double
 getConicSystemAnode()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_ANODE, 0.0);
 }
 
 /**
@@ -955,7 +976,7 @@ getConicSystemAnode()
 public void
 setConicSystemAnode(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_ANODE, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_ANODE);
 }
 
 
@@ -967,7 +988,7 @@ setConicSystemAnode(String value)
 public double
 getConicSystemPerihelion()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_PERIHELION, 0.0);
 }
 
 /**
@@ -978,7 +999,7 @@ getConicSystemPerihelion()
 public void
 setConicSystemPerihelion(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_PERIHELION, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_PERIHELION);
 }
 
 
@@ -990,7 +1011,7 @@ setConicSystemPerihelion(String value)
 public double
 getConicSystemAorQ()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_AORQ, 0.0);
 }
 
 /**
@@ -1001,7 +1022,7 @@ getConicSystemAorQ()
 public void
 setConicSystemAorQ(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_AORQ, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_AORQ);
 }
 
 
@@ -1013,7 +1034,7 @@ setConicSystemAorQ(String value)
 public double
 getConicSystemE()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_E, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_E, 0.0);
 }
 
 /**
@@ -1024,7 +1045,7 @@ getConicSystemE()
 public void
 setConicSystemE(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_E, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_E);
 }
 
 
@@ -1036,7 +1057,7 @@ setConicSystemE(String value)
 public double
 getConicSystemLorM()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_LORM, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_LORM, 0.0);
 }
 
 /**
@@ -1047,7 +1068,7 @@ getConicSystemLorM()
 public void
 setConicSystemLorM(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_LORM, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_LORM);
 }
 
 
@@ -1059,7 +1080,7 @@ setConicSystemLorM(String value)
 public double
 getConicSystemDailyMotion()
 {
-   return _avTab.getDouble(tagPrefix() + ATTR_CONIC_SYSTEM_DM, 0.0);
+   return _avTab.getDouble(_tag, CONIC_SYSTEM_DM, 0.0);
 }
 
 /**
@@ -1070,135 +1091,123 @@ getConicSystemDailyMotion()
 public void
 setConicSystemDailyMotion(String value)
 {
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_DM, Format.toDouble(value));
+   _avTab.set(_tag, Format.toDouble(value), CONIC_SYSTEM_DM);
 }
 
 
 /**
- * Get type of Orbital Elements conic system.
+ * Get type of conic or named system.
  *
- * @return One of {@link #CONIC_SYSTEM_TYPES_XML}
+ * Types are Major, Minor, Comet, Planetary Satelite.
  *
- * @see #CONIC_SYSTEM_TYPES_DESCRIPITON
+ * @return One of {@link #CONIC_SYSTEM_TYPES} or {@link #NAMED_SYSTEM_TYPE}
+ *
+ * @see #CONIC_SYSTEM_TYPES
+ * @see #NAMED_SYSTEM_TYPES
  */
 public String
-getConicSystemType()
+getConicOrNamedType()
 {
-   return _avTab.get(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE);
+   return _avTab.get(_tag, CONIC_OR_NAMED_TYPE);
 }
 
 /**
- * Get type of Orbital Elements conic system as readable string.
+ * Get type of conic or named system as readable string.
  *
- * @return One of {@link #CONIC_SYSTEM_TYPES_DESCRIPITON}
+ * Types are Major, Minor, Comet, Planetary Satelite.
  *
- * @see #CONIC_SYSTEM_TYPES_XML
+ * @return One of {@link #CONIC_SYSTEM_TYPES_DESCRIPTION} or {@link #NAMED_SYSTEM_TYPES_DESCRIPTION}
+ *
+ * @see #NAMED_SYSTEM_TYPES
+ * @see #CONIC_SYSTEM_TYPES
  */
 public String
-getConicSystemTypeDescription()
+getConicOrNamedTypeDescription()
 {
-   String conicSystemTypeXML = getConicSystemType();
+   String conicOrNamedType = getConicOrNamedType();
 
-   for(int i = 0; i < CONIC_SYSTEM_TYPES_XML.length; i++) {
-      if(conicSystemTypeXML.equals(CONIC_SYSTEM_TYPES_XML[i])) {
-         return CONIC_SYSTEM_TYPES_DESCRIPITON[i];
+   if(conicOrNamedType == null) {
+     return null;
+   }
+
+   if(getSystemType() == SYSTEM_CONIC) {
+      for(int i = 0; i < CONIC_SYSTEM_TYPES.length; i++) {
+         if(conicOrNamedType.equals(CONIC_SYSTEM_TYPES[i])) {
+            return CONIC_SYSTEM_TYPES_DESCRIPTION[i];
+         }
       }
    }
    
-   return null;
-}
-
-
-/**
- * Set type of Orbital Elements conic system.
- *
- * @param conicSystemType {@link #CONIC_SYSTEM_TYPES_XML}
- *
- * @see #CONIC_SYSTEM_TYPES_DESCRIPITON
- */
-public void
-setConicSystemType(String conicSystemType)
-{
-   _avTab.set(tagPrefix() + ATTR_CONIC_SYSTEM_TYPE, conicSystemType);
-
-   if(conicSystemType.equals(CONIC_SYSTEM_TYPES_XML[TYPE_MAJOR])) {
-      if(!_avTab.exists(tagPrefix() + ATTR_CONIC_SYSTEM_LORM)) {
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_LORM, "" + 0.0, 0);
-      }
-
-     _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_DM,   "" + 0.0, 0);
-
-     return;
-   }
-
-   if(conicSystemType.equals(CONIC_SYSTEM_TYPES_XML[TYPE_MINOR])) {
-      if(!_avTab.exists(tagPrefix() + ATTR_CONIC_SYSTEM_LORM)) {
-         _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_LORM, "" + 0.0, 0);
-      }
-
-      _avTab.noNotifyRm( tagPrefix() + ATTR_CONIC_SYSTEM_DM);
-
-      return;
-   }
-
-   _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_LORM);
-   _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_DM);
-}
-
-
-/**
- * Get type of named system.
- *
- * A named target is used for planets, sun, moon etc.
- *
- * @return One of {@link #NAMED_SYSTEM_TYPES_XML}
- *
- * @see #NAMED_SYSTEM_TYPES_DESCRIPITON
- */
-public String
-getNamedSystemType()
-{
-   return _avTab.get(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
-}
-
-/**
- * Get type of named system as readable string.
- *
- * A named target is used for planets, sun, moon etc.
- *
- * @return One of {@link #NAMED_SYSTEM_TYPES_DESCRIPITON}
- *
- * @see #NAMED_SYSTEM_TYPES_XML
- */
-public String
-getNamedSystemTypeDescription()
-{
-   String namedSystemTypeXML = getNamedSystemType();
-
-   for(int i = 0; i < NAMED_SYSTEM_TYPES_XML.length; i++) {
-      if(namedSystemTypeXML.equals(NAMED_SYSTEM_TYPES_XML[i])) {
-         return NAMED_SYSTEM_TYPES_DESCRIPITON[i];
+   if(getSystemType() == SYSTEM_NAMED) {
+      for(int i = 0; i < NAMED_SYSTEM_TYPES.length; i++) {
+         if(conicOrNamedType.equals(NAMED_SYSTEM_TYPES[i])) {
+            return NAMED_SYSTEM_TYPES_DESCRIPTION[i];
+         }
       }
    }
-   
+
+   // If the system type is spherical or if no type is stored in _avTab
+   // then return null;
    return null;
 }
 
 /**
- * Get type of named system.
+ * Set type of conic or named system.
  *
- * A named target is used for planets, sun, moon etc.
+ * This method has no effect if the system is spherical.
  *
- * @param namedSystemType {@link #NAMED_SYSTEM_TYPES_XML}
+ * @param systemType Must be a valid system type string (One of {@link #CONIC_SYSTEM_TYPES} or
+                     {@link #NAMED_SYSTEM_TYPE}. Otherwise the method call has no effect.
  *
- * @see #NAMED_SYSTEM_TYPES_DESCRIPITON
+ * @see #getConicOrNamedType()
  */
 public void
-setNamedSystemType(String namedSystemType)
+setConicOrNamedType(String systemType)
 {
-   _avTab.set(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE, namedSystemType);
+   // Make sure only valid system types are stored.
+
+   if(getSystemType() == SYSTEM_CONIC) {
+      if(systemType.equals(CONIC_SYSTEM_TYPES[TYPE_MAJOR]) ||
+         systemType.equals(CONIC_SYSTEM_TYPES[TYPE_MINOR]) ||
+         systemType.equals(CONIC_SYSTEM_TYPES[TYPE_COMET])) {
+
+         _avTab.set(_tag, systemType, CONIC_OR_NAMED_TYPE);
+      }
+   }
+   
+   if(getSystemType() == SYSTEM_NAMED) {
+      if(systemType.equals(NAMED_SYSTEM_TYPES[TYPE_MAJOR]) ||
+         systemType.equals(NAMED_SYSTEM_TYPES[TYPE_MINOR]) ||
+         systemType.equals(NAMED_SYSTEM_TYPES[TYPE_PLANETARY_SATELLITE])) {
+	
+         _avTab.set(_tag, systemType, CONIC_OR_NAMED_TYPE);
+      }
+   }
 }
 
+/**
+ * Set a base position.
+ * 
+ * This will cause the x axis and y axis of position to be interpreted
+ * as offsets
+ */
+public void
+setOffsetPosition(boolean offset)
+{
+   _avTab.set(_tag, offset, OFFSET_POSITION);
+}
+
+
+/**
+ * Returns true if this position is an offset position.
+ *
+ * This position is an offset position iff a base position has been set for this position.
+ */
+public boolean
+isOffsetPosition()
+{
+   return _avTab.getBool(_tag, OFFSET_POSITION);
+}
 
 /**
  * Standard debugging method.
@@ -1214,17 +1223,4 @@ toString()
 	", coordSystem=" + getCoordSysAsString() + "]";
 }
 
-protected String
-tagPrefix()
-{
-   if(_tag == null) {
-      return "";
-   }
-
-   if(_tag.equalsIgnoreCase("base")) {
-      return "SCIENCE.";
-   }
-
-   return _tag + ".";
-}
 }
