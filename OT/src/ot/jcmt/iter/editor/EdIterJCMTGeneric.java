@@ -258,7 +258,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
       int [] status     = { 0 };
       double noise      = 0.0;
       int integrations  = _iterObs.getIntegrations();
-      double decRadians = Angle.degreesToRadians(telescopeObsComp.getPosList().getBasePosition().getXaxis());
+      double decRadians = Angle.degreesToRadians(telescopeObsComp.getPosList().getBasePosition().getYaxis());
       double latRadians = Angle.degreesToRadians(DDMMSS.valueOf(OtCfg.getTelescopeLatitude()));
       double csoTau        = siteQualityObsComp.getNoiseCalculationTau();
       double wavelength;
@@ -274,7 +274,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	noise = calculateNoise(integrations, wavelength, decRadians, latRadians, csoTau, status);
 
 	if(status[0] == 0) {
-	  return "" + noise;
+	  return "" + (Math.rint(noise * 10) / 10);
 	}
       }
       else {
