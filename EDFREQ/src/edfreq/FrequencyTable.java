@@ -16,6 +16,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.table.*;
+import javax.swing.plaf.metal.MetalScrollBarUI;
 
 import java.util.Vector;
 
@@ -59,8 +60,8 @@ public class FrequencyTable extends JPanel implements ActionListener
 
       int j;
       int i;
-      JScrollBar lowBar;
-      JScrollBar highBar;
+      SideBandScrollBar lowBar;
+      SideBandScrollBar highBar;
       JComboBox widthChoice;
       SamplerDisplay samplerDisplay;
       ResolutionDisplay resolutionDisplay;
@@ -135,18 +136,18 @@ public class FrequencyTable extends JPanel implements ActionListener
 
       for ( j=0; j<samplerCount; j++ )
       {
-         lowBar = new JScrollBar ( JScrollBar.HORIZONTAL, 
+         lowBar = new SideBandScrollBar ( JScrollBar.HORIZONTAL, 
            (int)( gigToPix * (-feIF-0.5*bandWidths[0]) ), 
            (int)( gigToPix * bandWidths[0] ), 
-           (int)( gigToPix * lLowLimit ) + 20, 
-           (int)( gigToPix * lHighLimit ) - 20 );
+           (int)( gigToPix * lLowLimit ),
+           (int)( gigToPix * lHighLimit ));
          lowBar.setUnitIncrement ( 1 );
 
-         highBar = new JScrollBar ( JScrollBar.HORIZONTAL,
+         highBar = new SideBandScrollBar ( JScrollBar.HORIZONTAL,
            (int)( gigToPix * (feIF-0.5*bandWidths[0]) ), 
            (int)( gigToPix * bandWidths[0]), 
-           (int)( gigToPix * uLowLimit ) + 20, 
-           (int)( gigToPix * uHighLimit ) - 20 );
+           (int)( gigToPix * uLowLimit ),
+           (int)( gigToPix * uHighLimit ));
          highBar.setUnitIncrement ( 1 );
 
          // Line display added by MFO (October 16, 2002)
@@ -269,6 +270,12 @@ public class FrequencyTable extends JPanel implements ActionListener
       }
    }
 
+   /**
+    * A listener for bandwidth JComboBoxes that has knowledge of the number of the
+    * SideBand whose bandwidth its JComboBox controls.
+    *
+    * The SideBands are numbered from top to bottom starting with 0.
+    */
    class NumberedBandWidthListener implements ItemListener {
       private int _number;
 
@@ -282,6 +289,11 @@ public class FrequencyTable extends JPanel implements ActionListener
       }
    }
 
+   /**
+    * A listener for SideBand scroll bars that has knowledge of which SideBand it is connected to.
+    *
+    * The SideBands are numbered from top to bottom starting with 0.
+    */
    class NumberedSideBandListener implements MouseListener, AdjustmentListener {
       private int _number;
       private boolean _mousePressed = false;
@@ -332,6 +344,43 @@ public class FrequencyTable extends JPanel implements ActionListener
          if(!_mousePressed) {
             _processAdjustment(false);
 	 }
+      }
+   }
+
+
+   /**
+    * JScrollBar subclass without increase/decrease arrow buttons.
+    *
+    * In fact the increase/decrease arrow buttons are still there but their
+    * preferred width has been set to 0.
+    */
+   class SideBandScrollBar extends JScrollBar {
+
+      public SideBandScrollBar(int orientation, int value, int extent, int min, int max) {
+         super(orientation, value, extent, min, max);
+         setUI(new SideBandUI());
+      }
+
+      /**
+       * MetalScrollBarUI subclass that returns increase/decrease buttons
+       * with 0 width.
+       */
+      class SideBandUI extends MetalScrollBarUI {
+         private JButton _leftArrow  = new JButton();
+         private JButton _rightArrow = new JButton();
+
+         public SideBandUI() {
+	    _leftArrow.setPreferredSize(new Dimension(0, 5));
+	    _rightArrow.setPreferredSize(new Dimension(0, 5));
+         }
+
+         protected JButton createDecreaseButton(int orientation) {
+            return _leftArrow;
+         }
+
+         protected JButton createIncreaseButton(int orientation) {
+            return _rightArrow;
+         }
       }
    }
 }
