@@ -203,20 +203,20 @@ $(INSTALL_ROOT)/bin/odb: scripts/odb_script_source $(CONF_HOME)/make.conf Makefi
 	\n" > $@
 
 ifeq ($(OT_CFG_DIR),)
-	@printf "\nset otcfgdir     = \044{ODB_HOME}/ot_cfg/" >> $@
+	@printf "\nset otcfgdir     = $$""{ODB_HOME}/ot_cfg/" >> $@
 else
 	@printf "\nset otcfgdir     = $(OT_CFG_DIR)/" >> $@
 endif
 
 ifeq ($(CFG_DIR),)
-	@printf "\nset cfgdir       = \044{ODB_HOME}/cfg/" >> $@
+	@printf "\nset cfgdir       = $$""{ODB_HOME}/cfg/" >> $@
 else
 	@printf "\nset cfgdir       = $(CFG_DIR)/" >> $@
 endif
 
 	@printf \
 	"\n\
-        \nsetenv CLASSPATH $(shell echo $(addprefix "\044{ODB_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g')\
+        \nsetenv CLASSPATH $(shell echo $(addprefix "DOLLAR{ODB_HOME}/lib/", $(notdir $(ALL_LIBS))) | sed -e 's/ /:/g' | sed -e 's/DOLLAR/\\044/g')\
 	\n\
 	\n" >> $@
 
