@@ -188,9 +188,13 @@ public class AttributeEditor extends JDialog
     iavTriplets = new Vector();
     getIterAttValues(sequence);
 
-    //create the table model   
+    // Create the table model and a suitable sized scrolling view on it
     model = new AttributeTableModel(instName, avPairs, iavTriplets);
     editorTable = new JTable(model);
+    scrollPane  = new JScrollPane(editorTable);
+    initColumnSizes();
+    editorTable.setPreferredScrollableViewportSize(editorTable.getPreferredSize());
+
     buttonPanel = new JPanel();
     buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
     buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -234,7 +238,6 @@ public class AttributeEditor extends JDialog
     scaleFactor.setMaximumSize(new Dimension(scaleFactor.getMaximumSize().width, height));
 
     getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-    initColumnSizes();
   }
 
 
@@ -264,8 +267,10 @@ public class AttributeEditor extends JDialog
     } else {
       // There are attributes to edit. Show the table, the OK button
       // and the Cancel button.
-      getContentPane().add(editorTable.getTableHeader());
-      getContentPane().add(editorTable);
+      //      getContentPane().add(editorTable.getTableHeader());
+      //      getContentPane().add(editorTable);
+      getContentPane().add(scrollPane);
+      model.setEditable(true);
       buttonPanel.add(OK);
       buttonPanel.add(cancel);
       getContentPane().add(buttonPanel);
@@ -307,8 +312,8 @@ public class AttributeEditor extends JDialog
     } else {
       // There are attributes to edit. Show the table, the OK button
       // and the Cancel button.
-      getContentPane().add(editorTable.getTableHeader());
-      getContentPane().add(editorTable);
+      getContentPane().add(scrollPane);
+      model.setEditable(false);
       if (haveScaledThisObs) {
 	warnPanel.add(warn);
 	warnPanel.add(warnAlready);
@@ -369,7 +374,7 @@ public class AttributeEditor extends JDialog
       ErrorBox eb;
       try {
 	_scaleFactorUsed = Double.valueOf(scaleFactor.getText()).doubleValue();
-	if (_scaleFactorUsed <= 0.0) {
+	if (_scaleFactorUsed <= 1e-3) {
 	  eb = new ErrorBox("Negative or Zero scale factor (" + scaleFactor.getText() + ").");
 	  return false;
 	} else {
@@ -651,6 +656,7 @@ public class AttributeEditor extends JDialog
 
   private static double _scaleFactorUsed = 1.0;
 
+  private JScrollPane scrollPane;
   private JTable editorTable;
   private JPanel buttonPanel;
   private JPanel warnPanel;
