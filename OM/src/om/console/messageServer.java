@@ -83,12 +83,10 @@ final public class messageServer extends UnicastRemoteObject implements messageS
       message = MessageParser.parse(m);
     }
     catch(MessageParseException e) {
-      //new AlertBox("" + e);
       errorLog.addMessage("Alert: " + e);
     }
 
-  
-    if(message.getClass().getName().equals("dramaMessage.DramaMessage")) {
+    if(message.getClass().getName().equals("om.dramaMessage.DramaMessage")) {
       DramaMessage dramaMessage = (DramaMessage)message;
       
       if((System.getProperty("DEBUG_PARSER") != null) && System.getProperty("DEBUG_PARSER").equalsIgnoreCase("ON")) {
@@ -153,7 +151,7 @@ final public class messageServer extends UnicastRemoteObject implements messageS
       }
     }
      
-    if(message.getClass().getName().equals("dramaMessage.CompletionMessage")) {
+    if(message.getClass().getName().equals("om.dramaMessage.CompletionMessage")) {
       CompletionMessage completionMessage = (CompletionMessage)message;
       
       if((System.getProperty("DEBUG_PARSER") != null) && 
