@@ -62,6 +62,7 @@ public final class OtCfg
      */
     static public class Info {
 	String[]	guideTags;
+	String		baseTag = null; // Added by MFO, 19 December 2001
         String[]	libraryTags;  // Added 1-Aug-00 by AB
 	String          phase1Class;
 	TpeFeatureCfg[]	tpeFeatureCfgA;
@@ -83,15 +84,22 @@ public final class OtCfg
 	    return;
 	}
 
-	_initStandardSpItems();
-
 	// Get cfg directory relative to classpath / code base.
 	String baseDir = System.getProperty("ot.resource.cfgdir", "jsky/app/ot/cfg/");
 
 	// Read the configuration information from the "ot.cfg" file.
 	_otCfgInfo = OtCfgReader.load(baseDir + "ot.cfg");
 
-	// Guide Stars used by Gemini
+	// Base Position
+	// The base star tag has to be set BEFORE _initStandardSpItems is called.
+	// Added by MFO, 20 December 2001.
+	if((_otCfgInfo.baseTag != null) && (!_otCfgInfo.baseTag.equals(""))) {
+	  SpTelescopePos.setBaseTag(_otCfgInfo.baseTag);
+	}
+
+	_initStandardSpItems();
+
+	// Guide Stars
 	SpTelescopePos.setGuideStarTags(_otCfgInfo.guideTags);
 
 	// TpeImageFeature add-ons

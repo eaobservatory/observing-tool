@@ -23,7 +23,10 @@ import jsky.util.gui.DialogUtil;
 //
 class OtCfgReader
 {
-    public static final String GUIDE_TAG		= "guide";
+    public static final String GUIDE_TAG	= "guide";
+    
+    // MFO, 19 December 2001
+    public static final String BASE_TAG		= "base";
 
     public static final String PHASE1_TAG	= "phase1";
 
@@ -90,6 +93,12 @@ class OtCfgReader
 		    info.guideTags = _parseCommaList(_getValue(line));
 		} else
 
+		  // Base Star Tag
+		  // If BASE_TAG is not found in cfg file then the default "Base" is used.
+		  // (see SpTelescopePos.BASE_TAG)
+		  if (line.startsWith(BASE_TAG)) {
+		      info.baseTag = _getValue(line);
+		  } else
 
 		    // Phase1 Document Generator
 		    if (line.startsWith(PHASE1_TAG)) {
