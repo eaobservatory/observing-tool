@@ -21,8 +21,12 @@ import jsky.util.gui.BasicWindowMonitor;
  * Old: The help of MultiSelTreeNodeWidget is required for this.
  *
  * MFO: The faciltiy of applying to drag and drop to multiple nodes has been restored but
- *      by using completely new fields and methods ({@link #multipleSelection}, {@link #cellRenderer},
- *      {@link #getSelectionPaths()}, {@link #mouseReleased(java.awt.event.MouseEvent)})
+ *      by using completely new fields and methods:
+ *        <P>{@link #multipleSelection}
+ *        <P>{@link #cellRenderer}
+ *        <P>{@link #getSelectionPaths()}
+ *        <P>{@link #}
+ *        <P>{@link #mouseReleased(java.awt.event.MouseEvent)})
  *
  *      MultiSelection now uses the default behaviour of a JTree with
  *      TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION. So most of the old fields and
@@ -167,12 +171,52 @@ public class MultiSelTreeWidget extends TreeWidgetExt implements TreeCellRendere
     }
 
     public TreePath [] getSelectionPaths() {
+      TreePath [] allPaths;
+      TreePath [] result;
+      TreePath    pointer;
+      Vector      resultVector = new Vector();
+      
       if(multipleSelection != null) {
-        return multipleSelection;
+        allPaths = multipleSelection;
       }
       else {
-        return tree.getSelectionPaths();
+        allPaths = tree.getSelectionPaths();
       }
+
+      if(allPaths == null) {
+        return null;
+      }
+
+      boolean hasAncesterAmongPaths = false;
+      for(int i = 0; i < allPaths.length; i++) {
+        for(int j = 0; j < allPaths.length; j++) {
+	  pointer = allPaths[i].getParentPath();
+	  while(pointer != null) {
+            if(pointer == allPaths[j]) {
+              hasAncesterAmongPaths = true;
+	      break;
+	    }
+	    else {
+              pointer = pointer.getParentPath();
+	    }
+	  }
+
+	  if(hasAncesterAmongPaths) {
+            break;
+	  }
+	}
+	if(!hasAncesterAmongPaths) {
+          resultVector.add(allPaths[i]);
+	}
+      }
+
+      result = new TreePath[resultVector.size()];
+
+      for(int i = 0; i < result.length; i++) {
+        result[i] = (TreePath)resultVector.get(i);
+      }
+      
+      return result;
     }
     
     protected boolean isInMultipleSelection(TreeNode node) {

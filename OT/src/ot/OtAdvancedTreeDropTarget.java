@@ -106,9 +106,14 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
     boolean okToInsertInside = isAcceptableDropLocation(dtde, INSERT_INSIDE);
     boolean okToInsertAfter  = isAcceptableDropLocation(dtde, INSERT_AFTER);
 
-    location.x = tree.getPathBounds(tree.getPathForLocation(dtde.getLocation().x, dtde.getLocation().y)).x;
-    location.y = tree.getPathBounds(tree.getPathForLocation(dtde.getLocation().x, dtde.getLocation().y)).y;
-        		
+    try {
+      location.x = tree.getPathBounds(tree.getPathForLocation(dtde.getLocation().x, dtde.getLocation().y)).x;
+      location.y = tree.getPathBounds(tree.getPathForLocation(dtde.getLocation().x, dtde.getLocation().y)).y;
+    }
+    catch(NullPointerException e) {
+      return;
+    }
+
     // If mouse has moved over another node, repaint tree to get rid of orange arrow that
     // might still be on top of a previous node.
     if(previousLocation.x != location.x ||
@@ -254,11 +259,7 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget implements KeyLis
 
   public void keyPressed(KeyEvent e) {
     if((e.getKeyCode() == KeyEvent.VK_DELETE) || (e.getKeyCode() == KeyEvent.VK_BACK_SPACE)) {
-      if (_spTree.multipleItemsSelected()) {
-        _spTree.rmMultiSelectedItems();
-      } else {
-        _spTree.rmSelectedItem();
-      }
+      _spTree.rmAllSelectedItems(); 
     }
   }
   
