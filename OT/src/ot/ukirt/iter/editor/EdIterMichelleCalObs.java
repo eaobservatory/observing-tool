@@ -183,28 +183,31 @@ public void
 textBoxKeyPress(TextBoxWidgetExt tbw)
 {
    SpIterMichelleCalObs ico = (SpIterMichelleCalObs) _spItem;
-   
-   if (tbw.getName().equals("exposureTime")) {
+   if (tbw == _w.exposureTime) {
       try {
           String ets = tbw.getText();
           double et = Double.parseDouble(ets);
           if (et > 0.00001) {
              ico.setExpTime(ets);
-             _updateWidgets();
+             // MFO, 30 July 2001: _updateWidgets causes "java.lang.IllegalStateException: Attempt to mutate in notification"
+             //_updateWidgets();
           }
       } catch( Exception ex) {
 	// ignore
+        ex.printStackTrace();
       }
-   } else if (tbw.getName().equals("observationTime")) {
+   } else if (tbw == _w.observationTime) {
       try {
           String ots = tbw.getText();
           double ot = Double.parseDouble(ots);
           if (ot > 0.00001) {
              ico.setObservationTime(ots);
-             _updateWidgets();
+             // MFO, 30 July 2001: _updateWidgets causes "java.lang.IllegalStateException: Attempt to mutate in notification"
+	     //_updateWidgets();
           }
       } catch( Exception ex) {
 	// ignore
+        ex.printStackTrace();
       }
    }
 }
