@@ -91,6 +91,12 @@ public final class EdIterOffset extends OtItemEditor
 	_offTW.addWatcher(this);
 	_offTW.setColumnHeaders(new String[]{"#", "p Offset", "q Offset"});
 	_offTW.setBackground(_w.getBackground());
+
+	// Added by MFO (22 August 2001)
+	_w.gridXSpacing.addWatcher(this);
+	_w.gridYSpacing.addWatcher(this);
+	_w.gridCols.addWatcher(this);
+	_w.gridRows.addWatcher(this);
     }
 
     /**
@@ -173,6 +179,14 @@ public final class EdIterOffset extends OtItemEditor
 	} 
 	else if (tbwe == _w.titleTBW) {
 	    _spItem.setTitleAttr(tbwe.getText().trim());
+	}
+	// Added by MFO (22 August 2001)
+	else if ((tbwe == _w.gridXSpacing) ||
+	         (tbwe == _w.gridYSpacing) ||
+	         (tbwe == _w.gridRows)     ||
+	         (tbwe == _w.gridCols)) {
+
+	    setGridOffsets();
 	}
     }
  
@@ -365,6 +379,35 @@ public final class EdIterOffset extends OtItemEditor
 	    _createGrid();
 	    return;
 	}
+    }
+
+    /**
+     * Centers the pattern around (0, 0).
+     *
+     * Added by MFO (22 August 2001).
+     */
+    protected void setGridOffsets() {
+      // x
+      double gridOffset  =  0;
+      double gridSpacing = 60;
+      double gridSteps   =  2;
+      
+      gridSpacing = _w.gridXSpacing.getDoubleValue(gridSpacing);
+      gridSteps   = _w.gridRows.getDoubleValue(gridSteps);
+
+      gridOffset = (gridSpacing / 2.0) * (gridSteps - 1);
+      _w.gridXOffset.setValue(gridOffset);
+
+      // y
+      gridOffset  =  0;
+      gridSpacing = 60;
+      gridSteps   =  2;
+      
+      gridSpacing = _w.gridYSpacing.getDoubleValue(gridSpacing);
+      gridSteps   = _w.gridCols.getDoubleValue(gridSteps);
+
+      gridOffset = (gridSpacing / 2.0) * (gridSteps - 1);
+      _w.gridYOffset.setValue(gridOffset);
     }
 }
 
