@@ -240,6 +240,21 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
 }
 
 
+public void processXmlElementStart(String name) {
+   if(name.equals(XML_SEEING)) {
+      _previousXmlElement = name;
+      return;
+   }
+
+   if(name.equals(XML_CSO_TAU)) {
+     _previousXmlElement = name;
+     _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "false", 0);
+     return;
+   }
+
+    super.processXmlElementStart(name);
+}
+
 public void
 processXmlElementContent(String name, String value)
 {
