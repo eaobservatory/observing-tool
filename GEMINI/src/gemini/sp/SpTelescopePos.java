@@ -274,6 +274,9 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
    // Position is valid.
    boolean _isValid = false;
 
+    boolean isSystemTypeSet = false;
+    String delayedSystemTypeValue = null;
+
 
 /**
  * Set the list of tags that represent guide stars.  For instance,
@@ -379,10 +382,18 @@ public int getSystemType() {
 public void setSystemType(int systemType) {
 
    // Make sure only valid a systemType int is stored in the table.
+   isSystemTypeSet=true;
    switch(systemType) {
       case SYSTEM_CONIC:
          _avTab.set(_tag, SYSTEM_CONIC, SYSTEM_TYPE);
-         setConicOrNamedType(CONIC_SYSTEM_TYPES[TYPE_COMET]);
+	 if (delayedSystemTypeValue == null) {
+	     // Default to comet
+	     setConicOrNamedType(CONIC_SYSTEM_TYPES[TYPE_COMET]);
+	 }
+	 else {
+	     setConicOrNamedType(delayedSystemTypeValue);
+	     delayedSystemTypeValue = null;
+	 }
          break;
 
       case SYSTEM_NAMED:
@@ -394,7 +405,6 @@ public void setSystemType(int systemType) {
          _avTab.set(_tag, SYSTEM_SPHERICAL, SYSTEM_TYPE);
 	 break;
    }
-
    _notifyOfLocationUpdate();
 }
 
@@ -1261,6 +1271,15 @@ getConicOrNamedTypeDescription()
 public void
 setConicOrNamedType(String systemType)
 {
+
+    // Check if the system type has been set yet...
+    if (!isSystemTypeSet) {
+	// Need to defer until it is set, since I can not tell
+	// whether major or minor is from conic or named system
+	delayedSystemTypeValue = systemType;
+	return;
+    }
+
    // Make sure only valid system types are stored.
 
    if(getSystemType() == SYSTEM_CONIC) {
