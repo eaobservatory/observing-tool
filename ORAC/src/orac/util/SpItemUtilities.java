@@ -37,8 +37,12 @@ import java.util.Enumeration;
 public class SpItemUtilities {
 
   /**
+   * Attribute for the SpAvTable of each SpObsContextItem
+   * that will be translated to the XML id attribute.
+   *
+   * @see #ID_REF_SUFFIX
    */
-  public static final String ID_SUFFIX		= ":id";
+  public static final String ATTR_ID		= ":id";
 
   /**
    */
@@ -58,6 +62,32 @@ public class SpItemUtilities {
 
   private int _idCounter = 0;
 
+  /**
+   * Remove id and idref attributes from spItem subtree.
+   */
+  public static void removeReferenceIDs(SpItem spItem) {
+    spItem.getTable().noNotifyRm(ATTR_ID);
+
+    Enumeration attributes = spItem.getTable().attributes();
+    String idrefAttribute = null;
+
+    while(attributes.hasMoreElements()) {
+      idrefAttribute = (String)attributes.nextElement();
+      if(idrefAttribute.endsWith(ID_REF_SUFFIX)) {
+        spItem.getTable().noNotifyRm(idrefAttribute);
+      }
+    }
+    
+
+    if(spItem instanceof SpObsContextItem) {
+      SpItem child = spItem.child();
+
+      while(child != null) {
+        removeReferenceIDs(child);
+        child = child.next();
+      }
+    }  
+  }
 
 
   /**
@@ -72,7 +102,6 @@ public class SpItemUtilities {
 	_insertReferenceIDsFor(findDRRecipe(spItem), spItem);
       }
       else {
-        SpItem firstChild;
         SpItem child = spItem.child();
 
         while(child != null) {
@@ -103,7 +132,7 @@ public class SpItemUtilities {
 
     // See whether the SpTelescopeObsComp (target list) has an id already.
     // If so use it for idref of the SpMSB.
-    String idString = spObsComp.getTable().get(ID_SUFFIX);
+    String idString = spObsComp.getTable().get(ATTR_ID);
     if(idString != null) {
       spItem.getTable().noNotifySet(
         spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
@@ -111,7 +140,7 @@ public class SpItemUtilities {
     }
     // No id yet. Use _idCounter for both SpTelescopeObsComp (target list) and SpMSB. 
     else {
-       spObsComp.getTable().noNotifySet(ID_SUFFIX, "" + _idCounter, 0);
+       spObsComp.getTable().noNotifySet(ATTR_ID, "" + _idCounter, 0);
        spItem.getTable().noNotifySet(
          spObsComp.getClass().getName().substring(spObsComp.getClass().getName().lastIndexOf(".") + 1) + ID_REF_SUFFIX,
 	 "" + _idCounter, 0);
