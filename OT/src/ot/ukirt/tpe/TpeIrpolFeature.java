@@ -45,7 +45,7 @@ public class TpeIrpolFeature extends TpeImageFeature
    public static final double OOBB_WIDTH = 471.6;      // arcsec
    public static final double OOBB_HEIGHT = 17.39;     // arcsec
 
-    public static final double INNER_RADIUS = 70;     // arcsecs
+    public static final double INNER_RADIUS = 140;     // arcsecs
 
    private PolygonD _fovAreaPD;
    private PolygonD _oobtArea;
