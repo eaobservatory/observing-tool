@@ -44,6 +44,10 @@ public class SideBandDisplay extends JFrame implements ChangeListener
    private JPanel area3;
    private JPanel area4;
    
+   private double _lo1;
+   private double _lRangeLimit;
+   private double _uRangeLimit;
+
    private boolean _ignoreEvents = false;
 
    public SideBandDisplay (HeterodyneEditor hetEditor) {   
@@ -69,6 +73,9 @@ public class SideBandDisplay extends JFrame implements ChangeListener
       int j;
 
       this.redshift = redshift;
+
+      _uRangeLimit = uRangeLimit;
+      _lRangeLimit = lRangeLimit;
 
       contentPanel = Box.createHorizontalBox();
       contentPanel.add ( Box.createHorizontalGlue() );
@@ -211,10 +218,20 @@ public class SideBandDisplay extends JFrame implements ChangeListener
 
    public void setLO1 ( double lo1 )
    {
+      _lo1 = lo1;
+
+      if(_lo1 < _lRangeLimit) {
+         _lo1 = _lRangeLimit;
+      }
+
+      if(_lo1 > _uRangeLimit) {
+         _lo1 = _uRangeLimit;
+      }
+
       _ignoreEvents = true;
 
       if(slider != null) {
-         int centre = Math.round ( (float)(lo1 / EdFreq.SLIDERSCALE) );
+         int centre = Math.round ( (float)(_lo1 / EdFreq.SLIDERSCALE) );
          slider.setValue ( centre );
       }
 
@@ -223,7 +240,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener
 
    public double getLO1 ( )
    {
-      return (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
+      return _lo1; //(double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
    }
 
    public void setMainLine ( double frequency )
@@ -274,13 +291,26 @@ public class SideBandDisplay extends JFrame implements ChangeListener
       jt.setLineText(lineText, subsystem);
    }
 
+   public void resetModeAndBand(String mode, String band)
+   {
+      jt.resetModeAndBand(mode, band);
+   }
+
+   public void initModeAndBand(String mode, String band)
+   {
+      jt.initModeAndBand(mode, band);
+   }
+
    public static void main(String args[]) 
    {
       // Create SideBandDisplay with anonymous HeterodyneEditor implementation
       // that does not do anything.
       SideBandDisplay sbt = new SideBandDisplay ( new HeterodyneEditor() {
          public String getFeBand() { return "usb"; }
+         public String getMode() { return "dsb"; }
          public double getRedshift() { return 0.0; }
+         public double getRestFrequency(int subsystem) { return 0.0; }
+         public double getObsFrequency(int subsystem) { return 0.0; }
          public void updateCentreFrequency(double centre, int subsystem) { }
          public void updateBandWidth(double width, int subsystem) { }
          public void updateChannels(double channels, int subsystem) { }
@@ -299,6 +329,8 @@ public class SideBandDisplay extends JFrame implements ChangeListener
       if(_ignoreEvents) {
          return;
       }
+
+      _lo1 = (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
 
       hetEditor.updateLO1(getLO1());
    }
