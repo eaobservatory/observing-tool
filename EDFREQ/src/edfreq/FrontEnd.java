@@ -140,7 +140,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       fePanel.add ( feChoice );
       fePanel.add ( feMode );
       fePanel.add ( feBandModeChoice );
-      fePanel.add ( new JLabel ( "Overlap (MHz)" ) );
+      fePanel.add ( new JLabel ( "    Overlap (MHz)" ) );
       fePanel.add ( overlap );
 
 /* Create the display */
@@ -148,13 +148,13 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       displayPanel = new JPanel(flowLayoutLeft);
       displayPanel.add ( new JLabel ( "Low Limit (GHz)" ) );
       displayPanel.add ( lowFreq );
-      displayPanel.add ( new JLabel ( "High Limit (GHz)" ) );
+      displayPanel.add ( new JLabel ( "    High Limit (GHz)" ) );
       displayPanel.add ( highFreq );
       velocity = new JTextField ( 10 );
       velocity.setText ( "0.0" );
       velocity.addActionListener ( this );
 
-      displayPanel.add ( new JLabel ( "Velocity (Km/s)" ) );
+      displayPanel.add ( new JLabel ( "    Velocity (Km/s)" ) );
       displayPanel.add ( velocity );
 
       rangePanel = new JPanel();
@@ -182,7 +182,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       mol1Panel.add ( moleculeChoice );
       mol1Panel.add ( transitionChoice );
       mol1Panel.add ( moleculeFrequency );
-      mol1Panel.add ( new JLabel("MHz") );
+      mol1Panel.add ( new JLabel("MHz    BW:") );
       mol1Panel.add ( bandWidthChoice );
 
 /* Secondary moleculare line choice - displayed just for convenience of
@@ -250,7 +250,8 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
                                      String qName,
                                      Attributes atts) throws SAXException {
 
-               if(qName.equals(XML_ELEMENT_HETERODYNE)) {
+	       
+               if(qName.equals(XML_ELEMENT_HETERODYNE_GUI)) {
 
                   feChoice.setSelectedItem(atts.getValue(XML_ATTRIBUTE_FE_NAME));
                   feMode.setSelectedItem(atts.getValue(XML_ATTRIBUTE_MODE));
@@ -323,6 +324,14 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       }
 
    }
+
+
+    public void bandWidthChoiceAction ( ActionEvent ae ) {
+      for(int i = 0; i < _samplerList.size(); i++) {
+         ((Sampler)_samplerList.get(i)).setBandWidthAndGui((String)bandWidthChoice.getSelectedItem());
+      }
+    }
+
 
    public void changedUpdate(DocumentEvent e) { }
 
@@ -498,7 +507,8 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
         feIF, feBandWidth,
         redshift,
-        currentBandSpec.bandWidths, currentBandSpec.channels,
+        currentBandSpec.getBandWidths(feOverlap),
+        currentBandSpec.getChannels(  feOverlap),
         subBandCount );
    }
 
@@ -604,7 +614,14 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       svalue = overlap.getText();
       dvalue = (Double.valueOf(svalue)).doubleValue();
       feOverlap = 1.0E6 * dvalue;
+
+      BandSpec currentBandSpec = (BandSpec)feBandModeChoice.getSelectedItem();
+
+      _updateBandWidthChoice(currentBandSpec.getBandWidths(feOverlap));
+
+      bandWidthChoiceAction(null);
    }
+
 
    /**
     * Not used anymore.
@@ -647,7 +664,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       StringBuffer stringBuffer = new StringBuffer();
       String value = "";
 
-      stringBuffer.append ("<" + XML_ELEMENT_HETERODYNE + "\n" );
+      stringBuffer.append ("<" + XML_ELEMENT_HETERODYNE_GUI + "\n" );
 
       stringBuffer.append ("    " + XML_ATTRIBUTE_FE_NAME + "=\"" + (String)feChoice.getSelectedItem() + "\"\n");
       stringBuffer.append ("    " + XML_ATTRIBUTE_MODE + "=\"" + (String)feMode.getSelectedItem() + "\"\n");
@@ -694,10 +711,96 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
 
       stringBuffer.append(sideBandDisplay.toXML() + "\n");
 
-      stringBuffer.append ( "</" + XML_ELEMENT_HETERODYNE + ">\n" );
+      stringBuffer.append ( "</" + XML_ELEMENT_HETERODYNE_GUI + ">\n" );
 
-      return stringBuffer.toString();
+      return "\n" +
+             "<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->\n" +
+             "<!-- XML representing the content of the OT GUI widgets in front end and frequency editor. -->\n" +
+             "<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->\n" +
+             stringBuffer.toString() +
+             "\n" +
+             "<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->\n" +
+             "<!-- XML used by the translator to create the ACSIS config file.                           -->\n" +
+             "<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->\n" +
+             toConfigXML();
    }
+
+  public String toConfigXML() {
+    String restFrequencyId = moleculeChoice.getSelectedItem() + " (" + transitionChoice.getSelectedItem() + ")";
+    String sidebandString = (String)feBand.getSelectedItem();
+
+    int sideband = 0;
+
+    if(sidebandString.equals("lsb"))     { sideband = -1; }
+    if(sidebandString.equals("usb"))     { sideband =  1; }
+    if(sidebandString.equals("optimum")) { sideband =  0; } // will have to set to -1 or 1 by the OT/Frequency Editor
+							    // And sidebandString must be set to "lsb" or "usb"
+							    // for the front end configuration XML.
+
+    String indent = "";
+
+
+    // ------------------- Front end configuration ------------------------------------
+    String frontendConfigXml = 
+        indent + "<frontend_configure>\n" +
+        indent + "  <rest_frequency units=\"GHz\" value=\"" +
+                 (Double.parseDouble(moleculeFrequency.getText()) * 1.0E6) + "\"/>\n" +
+        indent + "  <if_centre_freq units=\"GHz\" value=\"" + feIF + "\"/>\n" +
+        indent + "  <sideband value=\"" + sidebandString.toUpperCase() + "\"/>\n" +
+        indent + "  <sb_mode value=\"" + ((String)feMode.getSelectedItem()).toUpperCase() + "\"/>\n" +
+        indent + "  <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" +
+        indent + "  <dopple_tracking value=\"ON\"/>\n" +	// Options are ON | OFF. Default to ON for now.
+        indent + "  <optimize value=\"DISABLE\"/>\n";		// Options are ENABLE | DISABLE. Default to DIABLE for now.
+
+    if(((String)feChoice.getSelectedItem()).equals("HARP-B")) {
+      frontendConfigXml +=
+        indent + "  <channel_mask>\n" + // Array of (OFF | ON | NEED). Use Pixeltool to switch pixels ON/OFF. NEED???
+        indent + "    <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"01\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"02\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"03\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"04\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"05\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"06\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"07\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"08\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"09\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"10\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"11\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"12\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"13\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"14\" VALUE=\"ON\"/>\n" +
+        indent + "    <CHAN_MASK_VALUE CHAN=\"15\" VALUE=\"ON\"/>\n" +
+        indent + "  </channel_mask>\n";
+    }
+
+    frontendConfigXml +=
+        indent + "</frontend_configure>\n\n";
+
+    return
+      frontendConfigXml +
+
+      // ------------------- ACSIS configuration ----------------------------------------
+
+      // Line list
+      indent + "<line_list>\n" +
+      indent + "  <rest_frequency id=\"" + restFrequencyId + "\" units=\"GHz\">" +
+        moleculeFrequency.getText() +
+        "</rest_frequency>\n" +
+      indent + "</line_list>\n\n" +
+
+      // Acsis spectral windows list
+      indent + "<acsis_spw_list>\n" +
+      indent + "  <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" +
+      indent + "  <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\">\n" +
+      indent + "  <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\">\n" +
+
+      // Spectral windows
+      sideBandDisplay.toConfigXML(restFrequencyId, sideband,
+        "<!-- <base_line_fit> etc. not implemented yet. -->", indent + "  ") +
+	
+      indent + "</acsis_spw_list>\n\n";
+  }
 
    /**
     * Set FrequencyTable from XML.
@@ -776,6 +879,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
    protected void addToSamplerList(Sampler sampler) {
       _samplerList.add(sampler);
 
+
       if(bandWidthChoice.getItemCount() != sampler.getBandWidthOptions().length) {
          _updateBandWidthChoice(sampler.getBandWidthOptions());
 	 return;
@@ -801,7 +905,7 @@ public class FrontEnd extends JPanel implements ActionListener, FrequencyEditorC
       bandWidthChoice.removeActionListener(this);
       bandWidthChoice.removeAllItems();
       for(int i = 0; i < values.length; i++) {
-         bandWidthChoice.addItem("" + ( values[i] * 1.0E-9 ));
+         bandWidthChoice.addItem("" + (Math.rint(values[i] * 1.0E-6) / 1000.0));
       }
       bandWidthChoice.addActionListener(this);
    }
