@@ -1279,8 +1279,10 @@ public class SpTranslator {
             sequence.insertElementAt( setInst + " " + instrument, 1 );
          }
 
-// CGS4 and Michelle have an extra degree of freedom: the slit position angle.
+// CGS4, UIST, and Michelle have an extra degree of freedom: the slit
+// position angle.
          if ( instrument.equalsIgnoreCase( "CGS4" ) || 
+              instrument.equalsIgnoreCase( "UIST" ) ||
               instrument.equalsIgnoreCase( "Michelle" ) ) {
             slitAngle = (String) currConfig.get( "positionAngle" );
             if ( slitAngle != null ) {
@@ -1591,8 +1593,10 @@ public class SpTranslator {
                               }
 
 
-// CGS4 and Michelle have an extra degree of freedom: the slit position angle.
-                              if ( instrument.equalsIgnoreCase( "CGS4" ) ||
+// CGS4, UIST, and Michelle have an extra degree of freedom: the slit
+// position angle.
+                              if ( instrument.equalsIgnoreCase( "CGS4" ) || 
+                                   instrument.equalsIgnoreCase( "UIST" ) ||
                                    instrument.equalsIgnoreCase( "Michelle" ) ) {
                                  slitAngle = (String) currConfig.get( "positionAngle" );
                                  if ( slitAngle != null ) {
