@@ -545,6 +545,8 @@ public final class EdCompTargetList extends OtItemEditor
 	  _yaxis.setValue(tp.getYaxisAsString());
 	}
 
+	_w.offsetCheckBox.setValue(tp.isOffsetPosition());
+
 //	_xaxis.setValue(tp.getXaxisAsString());
 //	_yaxis.setValue(tp.getYaxisAsString());	
 
@@ -697,6 +699,22 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.chopAngle.setEnabled(_w.chopping.isSelected());
 
 	_updateXYUnitsLabels();
+
+	// update remove button
+	if(_curPos.getTag().equals(OtCfg.telescopeUtil.getBaseTag())) {
+	  _w.removeButton.setEnabled(false);
+	}
+	else {
+	  _w.removeButton.setEnabled(true);
+	}
+
+	// update add button
+	if(_tpl.size() < 2) {
+	  _w.newButton.setEnabled(true);
+	}
+	else {
+	  _w.newButton.setEnabled(false);
+	}
     }
 
     /**
@@ -736,6 +754,13 @@ public final class EdCompTargetList extends OtItemEditor
 	}
 	else {
 	  _w.removeButton.setEnabled(true);
+	}
+
+	if(_tpl.size() < 2) {
+	  _w.newButton.setEnabled(true);
+	}
+	else {
+	  _w.newButton.setEnabled(false);
 	}
     }
 
@@ -893,7 +918,7 @@ public final class EdCompTargetList extends OtItemEditor
     private void _updateTargetSystemPane(SpTelescopePos tp) {
       switch(tp.getSystemType()) {
         case SpTelescopePos.SYSTEM_CONIC:
-          _w.epoch.setValue(tp.getConicSystemEpoch());
+          _w.epoch.setValue(tp.getConicSystemEpochAsString());
           _w.orbinc.setValue(tp.getConicSystemInclination());
           _w.anode.setValue(tp.getConicSystemAnode());
           _w.perih.setValue(tp.getConicSystemPerihelion());
