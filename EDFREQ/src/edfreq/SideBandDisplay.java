@@ -308,7 +308,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener
          public double getObsFrequency(int subsystem) { return 0.0; }
          public void updateCentreFrequency(double centre, int subsystem) { }
          public void updateBandWidth(double width, int subsystem) { }
-         public void updateChannels(double channels, int subsystem) { }
+         public void updateChannels(int channels, int subsystem) { }
          public void updateLineDetails(LineDetails lineDetails, int subsystem) { }
          public void updateLO1(double lo1) { }
       } );

@@ -60,7 +60,7 @@ public interface HeterodyneEditor {
 
    public void updateCentreFrequency(double centre, int subsystem);
    public void updateBandWidth(double width, int subsystem);
-   public void updateChannels(double channels, int subsystem);
+   public void updateChannels(int channels, int subsystem);
    public void updateLineDetails(LineDetails lineDetails, int subsystem);
    public void updateLO1(double lo1);
 }
