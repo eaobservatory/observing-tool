@@ -21,15 +21,15 @@ public class EdFreq
    public static double LIGHTSPEED = 2.99792458E5;
 
    /**
-    * Calculates the frequency at which a source is observed.
+    * Calculates the rest frequency based on observe frequency and redshift.
     *
-    * @param lineFrequency   Actual frequency of line (as observed at redshift 0) in GHz
+    * @param restFrequency   rest frequency in GHz
     * @param redshift        redshift
     *
     * @return observe frequency in GHz 
     */
-   public static double getObsFrequency(double lineFrequency, double redshift) {
-     return lineFrequency / ( 1.0 + redshift );  
+   public static double getObsFrequency(double restFrequency, double redshift) {
+     return restFrequency / ( 1.0 + redshift );  
    }
 
    /**
