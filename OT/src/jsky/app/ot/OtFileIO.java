@@ -50,7 +50,7 @@ import orac.util.FileFilterXML;
  */
 public class OtFileIO
 {
-   private static String _lastDir = System.getProperty("user.dir");
+   private static String _lastDir = OT.getOtUserDir();
    
    /** Determines whether to save as SGML (*.ot, *.sp, *.sgml) or XML (*.xml). MFO, 2001 */
    private static boolean _io_xml;
