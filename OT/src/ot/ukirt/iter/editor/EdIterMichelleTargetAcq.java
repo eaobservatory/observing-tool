@@ -62,6 +62,9 @@ _init()
 
     SpIterMichelleTargetAcq iterObs = (SpIterMichelleTargetAcq) _spItem;
 
+   // Coadds
+   _w.coadds.addWatcher( this );
+
    super._init();
 }
 
@@ -97,8 +100,8 @@ _updateWidgets()
        return;
    }
 
-   // Observation Time
-   _w.observationTime.setValue( _ita.getObservationTime() );
+   // Coadds
+   _w.coadds.setValue( _ita.getCoadds() );
 
    // Update data acquisition config
    _ita.updateDAConf();
@@ -110,7 +113,12 @@ _updateWidgets()
  * Watch changes to text boxes
  */
 public void
-textBoxKeyPress(TextBoxWidgetExt tbwe) {}
+textBoxKeyPress(TextBoxWidgetExt tbwe) { 
+
+    if (tbwe == _w.coadds) {
+	_ita.setCoadds( tbwe.getText() );
+    }
+}
   
 /**
  * Text box action.
