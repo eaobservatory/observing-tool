@@ -346,7 +346,7 @@ public class OT extends JFrame {
     /** 
      * Fetch a science program from the database.
      */
-    public void fetchProgram() {
+    public static void fetchProgram() {
       if(System.getProperty("OMP") != null) {
         if(desktop != null) {
           _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH, desktop);
