@@ -27,6 +27,7 @@ public class SpMSB extends SpObsContextItem {
   protected SpMSB() {
     super(SpType.MSB_FOLDER);
     _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
+    _avTable.noNotifySet(SpObs.ATTR_PRIORITY, SpObs.PRIORITIES[SpObs.PRIORITY_LOW], 0);
   }
 
 /**
