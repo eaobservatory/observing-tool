@@ -21,6 +21,10 @@ public final class SpOffsetPosList extends TelescopePosList
    // The name of the attribute that holds the target list
    public static final String OFFSET_POS_LIST = "offsetPositions";
 
+   /** The name of the attribute that holds the position angle. */
+   public static String ATTR_POS_ANGLE = "PA";
+
+
    private SpAvTable _avTab;	// The table that holds the positions
    private Vector    _posList;	// A vector of SpOffsetPos objects
 
@@ -88,6 +92,37 @@ getAllPositions(SpAvTable avTab, SpOffsetPosList list)
 
    return v;
 }
+
+
+/**
+ * Get the position angle of offset position list.
+ *
+ * The angle by which the offset poitions are rotated around the base position.
+ */
+public double
+getPosAngle()
+{
+   return _avTab.getDouble(ATTR_POS_ANGLE, 0.0);
+}
+
+/**
+ * Set the position angle of offset position list.
+ *
+ * The angle by which the offset poitions are rotated around the base position.
+ */
+public void
+setPosAngle(double posAngle)
+{
+   _avTab.set(ATTR_POS_ANGLE, posAngle);
+
+   // Trigger telescope position watcher notification.
+   TelescopePos tp;
+   for(int i = 0; i < size(); i++) {
+     tp = getPositionAt(i);
+     tp.setXY(tp.getXaxis(), tp.getYaxis());
+   }
+}
+
 
 //
 // Get a unique tag for the offset position.
