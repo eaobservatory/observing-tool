@@ -6,6 +6,8 @@
 //
 package jsky.app.ot.fits.gui;
 
+import jsky.coords.wcscon;
+
 import jsky.app.ot.gui.image.ImageView;
 import jsky.app.ot.gui.image.ViewportViewObserver;
 import jsky.app.ot.gui.image.ViewportImageWidget;
@@ -15,6 +17,9 @@ import gemini.util.TelescopePos;
 import gemini.util.TelescopePosList;
 import gemini.util.TelescopePosListWatcher;
 import gemini.util.TelescopePosWatcher;
+import gemini.util.CoordSys;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTelescopePosList;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -36,6 +41,14 @@ public class FitsPosMap implements ViewportViewObserver,
    protected Hashtable         _posTable = new Hashtable();
 
    protected boolean _valid = false;
+
+   /** Used in {@link #telescopePosToImageWidget(gemini.util.TelescopePos)}. */
+   private Point2D.Double _convertedPosition = new Point2D.Double();
+
+   /** Used in {@link #telescopePosToImageWidget(gemini.util.TelescopePos)}. */
+//   private TelescopePos   _convertedPosition = new TelescopePos("convertedPosition");
+
+
 
 /**
  * Construct with an image widget.
@@ -291,7 +304,7 @@ _initPosTable()
       TelescopePos tp = tpA[i];
       tp.addWatcher(this);
 
-      Point2D.Double p = _iw.telescopePosToImageWidget(tp);
+      Point2D.Double p = telescopePosToImageWidget(tp);
       _posTable.put( tp.getTag(), new FitsPosMapEntry(p, tp) );
    }
 
@@ -309,7 +322,7 @@ _updateScreenLocations()
    while (e.hasMoreElements()) {
       FitsPosMapEntry pme = (FitsPosMapEntry) e.nextElement();
       TelescopePos     tp = pme.telescopePos;
-      pme.screenPos       = _iw.telescopePosToImageWidget(tp);
+      pme.screenPos       = telescopePosToImageWidget(tp);
    }
 }
 
@@ -345,7 +358,7 @@ posListAddedPosition(TelescopePosList tpl, TelescopePos tp)
    tp.addWatcher(this);
 
    FitsPosMapEntry pme;
-   pme = new FitsPosMapEntry( _iw.telescopePosToImageWidget(tp), tp);
+   pme = new FitsPosMapEntry( telescopePosToImageWidget(tp), tp);
    posTable.put( tp.getTag(), pme ); // Replaces existing one if present
 
    _iw.repaint();
@@ -402,7 +415,7 @@ _updateMap(TelescopePos[] tpA)
          //boolean validBefore = (pme != null) && (pme.screenPos != null);
          tp.addWatcher(this);
 
-         pme = new FitsPosMapEntry( _iw.telescopePosToImageWidget(tp), tp);
+         pme = new FitsPosMapEntry( telescopePosToImageWidget(tp), tp);
          posTable.put( tp.getTag(), pme ); // Replaces existing one if present
          //boolean validAfter = (pme.screenPos != null);
  
@@ -431,7 +444,7 @@ telescopePosLocationUpdate(TelescopePos tp)
       // Was the position valid before the update?
       boolean wasValid = (pme.screenPos != null);
  
-      pme.screenPos = _iw.telescopePosToImageWidget(tp);
+      pme.screenPos = telescopePosToImageWidget(tp);
  
       // Is the position valid now after the update?
       boolean isValid = (pme.screenPos != null);
@@ -472,6 +485,137 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
       getPosTable();
    }
 }
- 
+
+  // Added by MFO, April 10, 2002.
+  /**
+   * Convert a TelescopePos to an ImageWidget Point.
+   *
+   * If the telescope position tp is of type {@link gemini.sp.SpTelescopePos} then this method check
+   * for the coordinate system and if the telescope position is an offset position then the coordinate
+   * systems of both this TelescopePos and the Base position are checked.
+   * A new telesope position is then created in FK5 with the necessary conversions which is then used in a
+   * call to {@link jsky.app.ot.fits.gui.FitsImageWidget.telescopePosToImageWidget(gemini.util.TelescopePos)}.
+   * The result of this call is returned.
+   * <p>
+   * If the TelescopePos tp is <i>not</i> of type {@link gemini.sp.SpTelescopePos} then
+   * FitsImageWidget.telescopePosToImageWidget(tp) is returned.
+   */
+  public Point2D.Double telescopePosToImageWidget(TelescopePos tp) {
+    if(tp instanceof SpTelescopePos) {
+      if(tp.isOffsetPosition()) {
+        if(_tpl instanceof SpTelescopePosList) {
+          SpTelescopePos basePosition = ((SpTelescopePosList)_tpl).getBasePosition();
+
+          _convertedPosition.x = basePosition.getXaxis();
+          _convertedPosition.y = basePosition.getYaxis();
+
+
+          int baseCoordSystem   = basePosition.getCoordSys();
+	  int offsetCoordSystem = ((SpTelescopePos)tp).getCoordSys();
+
+          if(offsetCoordSystem == CoordSys.FK5) {
+            if(baseCoordSystem == CoordSys.FK5) {
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+
+            if(baseCoordSystem == CoordSys.FK4) {
+              wcscon.fk425(_convertedPosition);
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+
+            if(baseCoordSystem == CoordSys.GAL) {
+              wcscon.gal2fk5(_convertedPosition);
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+	  }
+
+          if(offsetCoordSystem == CoordSys.FK4) {
+            if(baseCoordSystem == CoordSys.FK5) {
+              wcscon.fk524(_convertedPosition);
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      wcscon.fk425(_convertedPosition);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+
+            if(baseCoordSystem == CoordSys.FK4) {
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      wcscon.fk425(_convertedPosition);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+
+            if(baseCoordSystem == CoordSys.GAL) {
+              wcscon.gal2fk4(_convertedPosition);
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      wcscon.fk425(_convertedPosition);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+	    }
+	  }
+
+          if(offsetCoordSystem == CoordSys.GAL) {
+            if(baseCoordSystem == CoordSys.FK5) {
+              wcscon.fk52gal(_convertedPosition);
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      wcscon.gal2fk5(_convertedPosition);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+
+            if(baseCoordSystem == CoordSys.FK4) {
+              wcscon.fk42gal(_convertedPosition);
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      wcscon.gal2fk5(_convertedPosition);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+
+            if(baseCoordSystem == CoordSys.GAL) {
+	      _convertedPosition.x += (tp.getXaxis() / 3600.0);
+	      _convertedPosition.y += (tp.getYaxis() / 3600.0);
+	      wcscon.gal2fk5(_convertedPosition);
+	      return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+
+	    }
+	  }
+	}
+	else {
+          System.out.println("_tpl = " + _tpl);
+	}
+      }
+      else {
+        _convertedPosition.x = tp.getXaxis();
+        _convertedPosition.y = tp.getYaxis();
+
+        int coordSystem = ((SpTelescopePos)tp).getCoordSys();
+
+        switch(coordSystem) {
+          case CoordSys.FK4: wcscon.fk425(_convertedPosition);   break;
+          case CoordSys.GAL: wcscon.gal2fk5(_convertedPosition); break;
+        }
+
+	return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+      }
+    }
+    else {
+      System.out.println("tp = " + tp);
+    }
+
+    return _iw.telescopePosToImageWidget(tp);
+  }
 }
 
