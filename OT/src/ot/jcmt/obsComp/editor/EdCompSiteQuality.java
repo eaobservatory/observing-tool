@@ -47,6 +47,7 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 	_w.minTau.addWatcher(this);
 	_w.maxTau.addWatcher(this);
+	_w.noiseCalculationTau.addWatcher(this);
 	_w.tauBandAllocated.addActionListener(this);
 	_w.tauBandUserDefined.addActionListener(this);
 
@@ -95,6 +96,8 @@ public final class EdCompSiteQuality extends OtItemEditor
 	  _w.minTau.setEnabled(true);
 	  _w.maxTau.setEnabled(true);
 	}
+
+	_w.noiseCalculationTau.setValue(sq.getNoiseCalculationTau());
 
 	// Seeing
 	i = sq.getSeeing();
@@ -187,6 +190,11 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 	if (tbwe == _w.maxTau) {
 	    ((SpSiteQualityObsComp)_spItem).setMaxTau(_w.maxTau.getValue());
+	    return;
+	}
+
+	if (tbwe == _w.noiseCalculationTau) {
+	    ((SpSiteQualityObsComp)_spItem).setNoiseCalculationTau(_w.noiseCalculationTau.getValue());
 	    return;
 	}
     }

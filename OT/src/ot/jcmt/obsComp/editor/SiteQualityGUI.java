@@ -44,8 +44,10 @@ public class SiteQualityGUI extends JPanel {
   OptionWidgetExt seeingAny = new OptionWidgetExt();
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
+  JLabel jLabel3 = new JLabel();
   TextBoxWidgetExt minTau = new TextBoxWidgetExt();
   TextBoxWidgetExt maxTau = new TextBoxWidgetExt();
+  TextBoxWidgetExt noiseCalculationTau = new TextBoxWidgetExt();
 
     public SiteQualityGUI() {
         try {
@@ -88,6 +90,9 @@ public class SiteQualityGUI extends JPanel {
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
     jLabel2.setText("Max \u03C4");
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel3.setForeground(Color.black);
+    jLabel3.setText("\u03C4 for noise calculation");
     this.add(jPanel1, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
         jPanel1.add(tauBandAllocated, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
@@ -102,6 +107,10 @@ public class SiteQualityGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     jPanel1.add(maxTau, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    jPanel1.add(jLabel3, new GridBagConstraints(0, 3, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(30, 5, 1, 5), 0, 0));
+    jPanel1.add(noiseCalculationTau, new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(1, 5, 5, 5), 0, 0));
         this.add(jPanel2, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
         jPanel2.add(seeing3, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
