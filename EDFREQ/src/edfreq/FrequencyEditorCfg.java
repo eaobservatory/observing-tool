@@ -65,7 +65,8 @@ public class FrequencyEditorCfg {
   public static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 
   public String[] frontEnds;
-  public Hashtable frontEndTable = new Hashtable();
+  public Hashtable frontEndTable  = new Hashtable();
+  public Hashtable frontEndMixers = new Hashtable();
   public String [] velocityFrames = { "LSR", "Geocentric", "Heliocentric" };
   public boolean centreFrequenciesAdjustable;
   public Hashtable receivers;
@@ -84,6 +85,12 @@ public class FrequencyEditorCfg {
     frontEndTable.put("WC",     new String[]{ "ssb", "dsb" });
     frontEndTable.put("WD",     new String[]{ "ssb", "dsb" });
     frontEndTable.put("HARP-B", new String[]{ "ssb" });
+
+    frontEndMixers.put("A3",     new String[]{ "Single Mixer" });
+    frontEndMixers.put("B3",     new String[]{ "Single Mixer", "Dual Mixer" });
+    frontEndMixers.put("WC",     new String[]{ "Single Mixer", "Dual Mixer" });
+    frontEndMixers.put("WD",     new String[]{ "Single Mixer", "Dual Mixer" });
+    frontEndMixers.put("HARP-B", new String[]{ "Single Mixer" });
 
     centreFrequenciesAdjustable = true;
     receivers = ReceiverList.getReceiverTable();
