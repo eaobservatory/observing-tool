@@ -175,11 +175,16 @@ setPosAngle(double posAngle)
       return;
    }
 
+   // Removed the following notification code
+   // The implentation has been moved into SpIterOffset:setPosAngle()
+   /*
    for (int i=0; i<_posAngleObservers.size(); ++i) {
       SpPosAngleObserver pao;
       pao = (SpPosAngleObserver) _posAngleObservers.elementAt(i);
       pao.posAngleUpdate(posAngle);
    }
+   */
+   // END DEBUG
 }
 
 /**
