@@ -648,7 +648,7 @@
           <xsd:attribute name="value" type="xsd:string"/>
         </xsd:complexType>
       </xsd:element>
-      <xsd:element name="dopple_tracking">
+      <xsd:element name="doppler_tracking">
         <xsd:complexType>
           <xsd:attribute name="value">
             <xsd:simpleType>
