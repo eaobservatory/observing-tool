@@ -97,7 +97,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
       dataPanel.add ( jt, BorderLayout.CENTER );
 
-      SkyTransmission st = new SkyTransmission ( lowIF, highIF,  
+      SkyTransmission st = new SkyTransmission ( feName, lowIF, highIF,  
         displayWidth, 80 );
       
       double pixelsPerValue = 1.0E9 * 800.0 / ( uRangeLimit - lRangeLimit );
@@ -194,6 +194,12 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
       JLabel label3 = new JLabel ( "Atm. Transm.",
         SwingConstants.CENTER );
       area3.add ( label3, BorderLayout.CENTER );
+
+      JLabel trxLabel = new JLabel ("TRx", SwingConstants.CENTER );
+      trxLabel.setForeground(Color.red);
+      if (st.trxAvailable()) {
+	  area3.add ( trxLabel, BorderLayout.NORTH );
+      }
 
       GraphScale gs = new GraphScale ( 0.0, 1.1, 0.5, 0.1, 0.0, 0, 
         (st.getPreferredSize()).height, JSlider.VERTICAL );

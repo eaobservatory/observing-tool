@@ -1,0 +1,19 @@
+#
+# This file contains information on untunable bands which will be displayed 
+# in the heterodyne frequency editor.  Currently, the only untunable bands
+# are harmonics of the WVM.  The format is quite simply a list of frequencies
+# with optional minimum/maximum frequencies (implemented in code, but
+# currently non exist.
+# This for a single frequency (in GHz), there would be a single entry like
+# 222.865
+# For ranges you can put in the following
+# 521.625 521.825
+
+# WVM harmonic lines
+274.965
+366.620
+458.275
+641.585
+
+# Test data for ramge
+#329.010 329.250
