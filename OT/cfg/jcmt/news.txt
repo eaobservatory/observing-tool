@@ -1,15 +1,23 @@
-+++ August 2, 2000
++++ May 23, 2001
 
-v1.2 of FreeBongo version of Orac OT.
+Swing version of Orac OT.
 
-Multiple libraries now supported.
+Some features off the new Swing OT differ from
+those in the old FreeBongo OT:
 
-ND Filter added to CGS4 Cal. Unit (as hidden, defaulted item).
+  Copying components by dragging and dropping:    
+    Press Control key during dragging.
 
-Instrument, FP and IRPOL iterators all now insert default values when
-new items or steps are created.
+  Changing background pattern:
+    Not supported anymore.
 
-Offset iterator bug fixed.
+  Frames:
+    The Swing OT can be run with internal frames inside
+    one main frame (like the old FreeBongo OT). This is the default
+    behaviour.
+    By using the flag -nointernalframes the OT displays every Science Program
+    tree in a separate frame without one OT main frame.
 
-Various other bug fixes applied.
+    ONLY THE INTERNAL FRAMES MODE (DEFAULT) PROVIDES THE FULL FUNCTIONALITY
+    OF THE OLD FREEBONGO VERSION!
 
