@@ -116,7 +116,7 @@ public class UftiGUI extends JPanel {
         coadds.setBorder(BorderFactory.createLoweredBevelBorder());
         jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel13.setForeground(Color.black);
-    jLabel13.setText("Polariser");
+    jLabel13.setText("Polariser/FP");
     defaultAcquisition.setText("Default");
     filter.setBackground(new Color(204, 204, 204));
     filter.setBorder(BorderFactory.createLoweredBevelBorder());
