@@ -111,6 +111,7 @@ abstract class ButtonManagerBase
     public void	resetItem(SpItem spRoot) {
 	if (_spRoot != null) {
 	    _spRoot.getEditFSM().deleteHierarchyChangeObserver(this);
+	    _spRoot.getTable().noNotifyRmAll();
 	}
 	_spRoot = spRoot;
 	_spRoot.getEditFSM().addHierarchyChangeObserver(this);
@@ -521,7 +522,7 @@ public class OtWindow extends SpTreeGUI
 	SpRootItem oldItem = getItem();
 	if (oldItem != null) {
 	    TpeManager.remap(oldItem, spItem);
-	    oldItem.getEditFSM().deleteEditChangeObserver(this); 
+	    oldItem.getEditFSM().deleteEditChangeObserver(this);
 	}
 
 	if(spItem != oldItem) {
@@ -646,6 +647,11 @@ public class OtWindow extends SpTreeGUI
 
 	TpeManager.remove( spItem );
 	TpeManager.deleteWatchers( spItem );
+
+	// Try to clear up memory
+	System.out.println("Trying to clear memory references...");
+	_tw.resetProg();
+	
 
 	JDesktopPane desktop = OT.getDesktop();
 	Component f;
