@@ -102,7 +102,7 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// IR Background
 	i = sq.getCsoTau();
 	switch (i) {
-	case SpSiteQualityObsComp.CSO_TAO_VERY_DRY:
+	case SpSiteQualityObsComp.CSO_TAU_VERY_DRY:
 	    ow = _w.csoVeryDry; break;
 	default:
 	    ow = _w.csoAny; break;
@@ -163,11 +163,11 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 	// CSO Tau
 	if (w == _w.csoVeryDry) {
-	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAO_VERY_DRY);
+	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAU_VERY_DRY);
 	    return;
 	}
 	if (w == _w.csoAny) {
-	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAO_ANY);
+	    sq.setCsoTau(SpSiteQualityObsComp.CSO_TAU_ANY);
 	    return;
 	}
 
