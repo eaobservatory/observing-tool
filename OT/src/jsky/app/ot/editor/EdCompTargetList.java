@@ -822,6 +822,7 @@ public final class EdCompTargetList extends OtItemEditor
 	    _w.nameTBW.setText(nameResolver.getId());
 	    _w.xaxisTBW.setText(nameResolver.getRa());
 	    _w.yaxisTBW.setText(nameResolver.getDec());
+	    _w.systemDDLBW.setValue(CoordSys.FK5);
 
             _curPos.deleteWatcher(EdCompTargetList.this);
 	    try {
@@ -837,6 +838,7 @@ public final class EdCompTargetList extends OtItemEditor
 	      exception.printStackTrace();
 	    }
 	    _curPos.setName(_w.nameTBW.getText() );
+	    _curPos.setCoordSys(CoordSys.FK5);
 	    _curPos.addWatcher(EdCompTargetList.this);
 
             _resetPositionEditor();
