@@ -1,6 +1,6 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:atx="http://omp.jach.hawaii.edu/schema"
-            targetNamespace="http://omp.jach.hawaii.edu/schema"
+            xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML"
+            targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    elementFormDefault="qualified">
 
 
@@ -9,29 +9,29 @@
 <xsd:element name="pi"                   type="xsd:string"/>
 <xsd:element name="projectID"            type="xsd:string"/>
 <xsd:element name="version"              type="xsd:string"/>
-<xsd:element name="priority"             type="atx:priorityType"/>
-<xsd:element name="repeatCount"          type="atx:repeatLimits"/>
-<xsd:element name="componentRef"         type="atx:compRefType" abstract="true"/>
+<xsd:element name="priority"             type="toml:priorityType"/>
+<xsd:element name="repeatCount"          type="toml:repeatLimits"/>
+<xsd:element name="componentRef"         type="toml:compRefType" abstract="true"/>
 <xsd:element name="standardStar"         type="xsd:boolean"/>
 <xsd:element name="earliestScheduleDate" type="xsd:dateTime"/>
 <xsd:element name="latestScheduleDate"   type="xsd:dateTime"/>
-<xsd:element name="schedPeriodicity"     type="atx:nonNegativeDecimal"/>
-<xsd:element name="meridianApproach"     type="atx:approachType"/>
-<xsd:element name="seeing"               type="atx:seeingType"/>
-<xsd:element name="tau"                  type="atx:tauType"/>
-<xsd:element name="namedSystem"          type="atx:namedTargetType"/>
-<xsd:element name="spherSystem"          type="atx:sphericalCoordinateSystemType"/>
-<xsd:element name="conicSystem"          type="atx:conicSystemType"/>
+<xsd:element name="schedPeriodicity"     type="toml:nonNegativeDecimal"/>
+<xsd:element name="meridianApproach"     type="toml:approachType"/>
+<xsd:element name="seeing"               type="toml:seeingType"/>
+<xsd:element name="tau"                  type="toml:tauType"/>
+<xsd:element name="namedSystem"          type="toml:namedTargetType"/>
+<xsd:element name="spherSystem"          type="toml:sphericalCoordinateSystemType"/>
+<xsd:element name="conicSystem"          type="toml:conicSystemType"/>
 
 <!-- Typical Telescope Parameters -->
-<xsd:element name="maxElevation"         type="atx:elevationLimits"/>
-<xsd:element name="minElevation"         type="atx:elevationLimits"/>
-<xsd:element name="chopAngle"            type="atx:chopAngleLimits"/>
-<xsd:element name="chopThrow"            type="atx:chopThrowLimits"/>
+<xsd:element name="maxElevation"         type="toml:elevationLimits"/>
+<xsd:element name="minElevation"         type="toml:elevationLimits"/>
+<xsd:element name="chopAngle"            type="toml:chopAngleLimits"/>
+<xsd:element name="chopThrow"            type="toml:chopThrowLimits"/>
 
 <!-- Typical Instrument/Observing parameters -->
 <xsd:element name="coadds"              type="xsd:positiveInteger"/>
-<xsd:element name="exposureTime"        type="atx:exposureTimeLimit"/>
+<xsd:element name="exposureTime"        type="toml:exposureTimeLimit"/>
 
 <!-- Conic System elements -->
 
@@ -39,7 +39,7 @@
 <xsd:element name="epoch">
   <xsd:complexType>
     <xsd:simpleContent>
-      <xsd:extension base="atx:nonNegativeDecimal">
+      <xsd:extension base="toml:nonNegativeDecimal">
         <xsd:attribute name="units" type="xsd:string" fixed="days"/>
       </xsd:extension>
     </xsd:simpleContent>
@@ -50,7 +50,7 @@
 <xsd:element name="inclination">
   <xsd:complexType>
     <xsd:simpleContent>
-      <xsd:extension base="atx:degrees180">
+      <xsd:extension base="toml:degrees180">
         <xsd:attribute name="units" type="xsd:string" fixed="degrees"/>
       </xsd:extension>
     </xsd:simpleContent>
@@ -152,39 +152,39 @@
 
 <xsd:group name="ProgInfoGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:country"/>
-    <xsd:element ref="atx:version"/>
-    <xsd:element ref="atx:pi"/>
-    <xsd:element ref="atx:projectID"/>
-    <xsd:element ref="atx:title"/>
+    <xsd:element ref="toml:country"/>
+    <xsd:element ref="toml:version"/>
+    <xsd:element ref="toml:pi"/>
+    <xsd:element ref="toml:projectID"/>
+    <xsd:element ref="toml:title"/>
   </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="LibraryInfoGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:version"/>
-    <xsd:element ref="atx:title"/>
+    <xsd:element ref="toml:version"/>
+    <xsd:element ref="toml:title"/>
   </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="schedBlockGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:estimatedDuration"/>
-    <xsd:element ref="atx:version" minOccurs="0"/>
-    <xsd:element ref="atx:priority" minOccurs="0"/>
-    <xsd:element ref="atx:title"/>
-    <xsd:element ref="atx:totalDuration"/>
+    <xsd:element ref="toml:estimatedDuration"/>
+    <xsd:element ref="toml:version" minOccurs="0"/>
+    <xsd:element ref="toml:priority" minOccurs="0"/>
+    <xsd:element ref="toml:title"/>
+    <xsd:element ref="toml:totalDuration"/>
   </xsd:sequence>
 </xsd:group>
 
 <xsd:group name="observationGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:estimatedDuration"/>
-    <xsd:element ref="atx:version" minOccurs="0"/>
-    <xsd:element ref="atx:priority" minOccurs="0"/>
-    <xsd:element ref="atx:standardStar" minOccurs="0"/>
-    <xsd:element ref="atx:title"/>
-    <xsd:element ref="atx:totalDuration" minOccurs="0"/>
+    <xsd:element ref="toml:estimatedDuration"/>
+    <xsd:element ref="toml:version" minOccurs="0"/>
+    <xsd:element ref="toml:priority" minOccurs="0"/>
+    <xsd:element ref="toml:standardStar" minOccurs="0"/>
+    <xsd:element ref="toml:title"/>
+    <xsd:element ref="toml:totalDuration" minOccurs="0"/>
   </xsd:sequence>
 </xsd:group>
 
@@ -196,8 +196,8 @@
 
 <xsd:group name="siteQualityGroup">
   <xsd:sequence>
-    <xsd:element ref="atx:seeing" minOccurs="0"/>
-    <xsd:element ref="atx:tau"    minOccurs="0"/>
+    <xsd:element ref="toml:seeing" minOccurs="0"/>
+    <xsd:element ref="toml:tau"    minOccurs="0"/>
   </xsd:sequence>
 </xsd:group>
 

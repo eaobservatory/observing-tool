@@ -1,6 +1,6 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:atx="http://omp.jach.hawaii.edu/schema"
-            targetNamespace="http://omp.jach.hawaii.edu/schema"
+            xmlns:toml="http://omp.jach.hawaii.edu/schema/TOML"
+            targetNamespace="http://omp.jach.hawaii.edu/schema/TOML"
 	    elementFormDefault="qualified">
 
 
@@ -61,7 +61,7 @@
 </xsd:simpleType>
 
 <xsd:simpleType name="elevationLimits">
-  <xsd:restriction base="atx:nonNegativeDecimal">
+  <xsd:restriction base="toml:nonNegativeDecimal">
     <xsd:maxInclusive value="90.0"/>
   </xsd:restriction>
 </xsd:simpleType>
@@ -122,7 +122,7 @@
 </xsd:simpleType>
 
 <xsd:simpleType name="exposureTimeLimit">
-  <xsd:restriction base="atx:positiveDecimal">
+  <xsd:restriction base="toml:positiveDecimal">
     <xsd:maxInclusive value="1000.0"/>
   </xsd:restriction>
 </xsd:simpleType>
@@ -189,15 +189,15 @@
 
 <xsd:complexType name="seeingType">
   <xsd:sequence>
-    <xsd:element name="min" type="atx:seeingLimits" minOccurs="0"/>
-    <xsd:element name="max" type="atx:seeingLimits" minOccurs="0"/>
+    <xsd:element name="min" type="toml:seeingLimits" minOccurs="0"/>
+    <xsd:element name="max" type="toml:seeingLimits" minOccurs="0"/>
   </xsd:sequence>
 </xsd:complexType>
 
 <xsd:complexType name="tauType">
   <xsd:sequence>
-    <xsd:element name="min" type="atx:tauLimit" minOccurs="0"/>
-    <xsd:element name="max" type="atx:tauLimit" minOccurs="0"/>
+    <xsd:element name="min" type="toml:tauLimit" minOccurs="0"/>
+    <xsd:element name="max" type="toml:tauLimit" minOccurs="0"/>
   </xsd:sequence>
 </xsd:complexType>
 
@@ -205,9 +205,9 @@
   <xsd:sequence>
     <xsd:element name="targetName" type="xsd:string"/>
     <xsd:choice>
-      <xsd:element ref="atx:namedSystem"/>
-      <xsd:element ref="atx:spherSystem"/>
-      <xsd:element ref="atx:conicSystem"/>
+      <xsd:element ref="toml:namedSystem"/>
+      <xsd:element ref="toml:spherSystem"/>
+      <xsd:element ref="toml:conicSystem"/>
     </xsd:choice>
   </xsd:sequence>
 </xsd:complexType>
@@ -226,27 +226,27 @@
 
 <xsd:complexType name="sphericalCoordinateSystemType">
   <xsd:sequence>
-    <xsd:element name="c1" type="atx:dms"/>
-    <xsd:element name="c2" type="atx:dms"/>
-    <xsd:element name="pm1" type="atx:properMotionType" minOccurs="0"/>
-    <xsd:element name="pm2" type="atx:properMotionType" minOccurs="0"/>
+    <xsd:element name="c1" type="toml:dms"/>
+    <xsd:element name="c2" type="toml:dms"/>
+    <xsd:element name="pm1" type="toml:properMotionType" minOccurs="0"/>
+    <xsd:element name="pm2" type="toml:properMotionType" minOccurs="0"/>
   </xsd:sequence>
-  <xsd:attribute name="SYSTEM" type="atx:sphericalSystemList"/>
+  <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList"/>
 </xsd:complexType>
 
 <xsd:complexType name="conicSystemType">
   <xsd:all>
-    <xsd:element ref="atx:epoch"/>
-    <xsd:element ref="atx:epochPerih"/>
-    <xsd:element ref="atx:inclination"/>
-    <xsd:element ref="atx:anode"/>
-    <xsd:element ref="atx:perihelion"/>
-    <xsd:element ref="atx:aorq"/>
-    <xsd:element ref="atx:e"/>
-    <xsd:element ref="atx:LorM"/>
-    <xsd:element ref="atx:n"/>
+    <xsd:element ref="toml:epoch"/>
+    <xsd:element ref="toml:epochPerih"/>
+    <xsd:element ref="toml:inclination"/>
+    <xsd:element ref="toml:anode"/>
+    <xsd:element ref="toml:perihelion"/>
+    <xsd:element ref="toml:aorq"/>
+    <xsd:element ref="toml:e"/>
+    <xsd:element ref="toml:LorM"/>
+    <xsd:element ref="toml:n"/>
   </xsd:all>
-  <xsd:attribute name="TYPE" type="atx:conicSystemBodyList"/>
+  <xsd:attribute name="TYPE" type="toml:conicSystemBodyList"/>
 </xsd:complexType>
 
 </xsd:schema>
