@@ -681,6 +681,10 @@ processXmlAttribute(String elementName, String attributeName, String value)
       return;
    }
 
+   if ( elementName.equals(TX_SPHERICAL_SYSTEM) ) _currentPosition.setSystemType ( SpTelescopePos.SYSTEM_SPHERICAL );
+   if ( elementName.equals(TX_CONIC_SYSTEM) )     _currentPosition.setSystemType ( SpTelescopePos.SYSTEM_CONIC );
+   if ( elementName.equals(TX_NAMED_SYSTEM) )     _currentPosition.setSystemType ( SpTelescopePos.SYSTEM_NAMED );
+
    if((elementName.equals(TX_SPHERICAL_SYSTEM) || elementName.equals(TX_OFFSET)) && attributeName.equals(TX_SYSTEM)) {
       if(value.equals(TX_J2000)) {
          _currentPosition.setCoordSys(CoordSys.COORD_SYS[CoordSys.FK5]);
