@@ -456,8 +456,8 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 14, 2, 6), 0, 0));
         detailsPW.add(jLabel17, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        extrasFolder.add(detailsPW, "Radial Vel/Tracking");
         extrasFolder.add(propMotionPW, "Proper Motion");
+        extrasFolder.add(detailsPW, "Radial Vel/Tracking");
         extrasFolder.add(chopPW, "Chop Settings");
         this.add(jScrollPane1, new GridBagConstraints(0, 3, 1, 1, 1.0, 1.0
             ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(5, 0, 5, 0), 0, 0));
