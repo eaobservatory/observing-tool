@@ -110,7 +110,7 @@ public class FrequencyEditorFrame extends JFrame implements ActionListener {
     _currentInstHeterodyne = newInstHeterodyne;
 
     try {
-      String xml = (new SpItemDOM(newInstHeterodyne)).toString();
+      String xml = (new SpItemDOM(newInstHeterodyne)).toXML();
       _frontEnd.update(xml);
       _currentXML = _frontEnd.toXML();
     }
