@@ -133,6 +133,8 @@ public class TpeReferencePosFeature extends TpePositionFeature
 	   if (cme == null) {
 	*/
 	if (tp != null) {
+	    tp.setOffsetPosition(false);
+	    tp.setCoordSys(CoordSys.FK5);
 	    tp.setXY(fme.ra, fme.dec);
 	    String name = tp.getName();
 	    if ((name != null) && !name.equals("")) {
@@ -298,6 +300,12 @@ public class TpeReferencePosFeature extends TpePositionFeature
 	pme = pm.getPositionMapEntry(referenceTag);
 	if ((pme != null) && (positionIsClose( pme, x, y ))) {
 	    _dragObject = pme;
+
+	    SpTelescopePos tp = (SpTelescopePos) _dragObject.telescopePos;
+	    tp.setOffsetPosition(false);
+	    tp.setCoordSys(CoordSys.FK5);
+	    tp.setXY(fme.ra, fme.dec);
+
 	    return true;
 	}
 
