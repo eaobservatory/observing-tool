@@ -96,6 +96,8 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public static int DEFBIASCOADDS=0;
     public static int CENT_ROW;
     public static int PEAK_ROW;
+
+    boolean centralWavelengthSet = false;
     
     public static final SpType SP_TYPE = SpType.create(
 						       SpType.OBSERVATION_COMPONENT_TYPE, "inst.CGS4", "CGS4");
@@ -1233,10 +1235,27 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 
     public void processXmlElementContent (String name, String value ) {
 	if ( name.equals(ATTR_CVFOFFSET) ) {
-	    // Convert offset to wavelength
-	    name = ATTR_CVFWAVELENGTH;
-	    Double newValue = new Double (getCentralWavelength() + (Double.valueOf(value)).doubleValue() );
-	    value = newValue.toString();
+	    if ( centralWavelengthSet ) {
+		// Convert offset to wavelength
+		name = ATTR_CVFWAVELENGTH;
+		Double newValue = new Double (getCentralWavelength() + (Double.valueOf(value)).doubleValue() );
+		value = newValue.toString();
+	    }
+	}
+	else if ( name.equals( ATTR_CENTRAL_WAVELENGTH ) ) {
+	    super.processXmlElementContent(name, value);
+	    if ( _avTable.exists(ATTR_CVFOFFSET) && !_avTable.exists(ATTR_CVFWAVELENGTH) ) {
+		// Convert the offset to a wavelength
+		Double newValue = new Double (getCentralWavelength() + getCvfOffset());
+		value = newValue.toString();
+		super.processXmlElementContent (ATTR_CVFWAVELENGTH, value);
+		_avTable.rm(ATTR_CVFOFFSET);
+		return;
+	    }
+	    else {
+		// We have not yet loaded the cvf offset
+		centralWavelengthSet = true;
+	    }
 	}
 	super.processXmlElementContent(name, value);
     }
