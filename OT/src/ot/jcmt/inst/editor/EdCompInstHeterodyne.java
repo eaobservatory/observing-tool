@@ -192,7 +192,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
          SpInstHeterodyne.RADIAL_VELOCITY_RADIO,		// velocity definitio
          "usb",							// band
          "" + receiver.feIF,					// centre frequency
-         "" + bandSpec.bandWidths[0],				// bandwidth
+         "" + bandSpec.getDefaultOverlapBandWidths()[0],	// bandwidth
          "" + bandSpec.channels[0],				// channels
          molecule,						// molecule
          transition,						// transition
