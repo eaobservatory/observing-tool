@@ -25,7 +25,7 @@ public class DatabaseDialogGUI extends JPanel {
     JLabel jLabel1 = new JLabel();
     TextBoxWidgetExt loginTextBox = new TextBoxWidgetExt();
     JPanel jPanel1 = new JPanel();
-    CommandButtonWidgetExt cancelButton = new CommandButtonWidgetExt();
+    CommandButtonWidgetExt closeButton = new CommandButtonWidgetExt();
     CommandButtonWidgetExt confirmButton = new CommandButtonWidgetExt();
 
     public DatabaseDialogGUI() {
@@ -50,7 +50,7 @@ public class DatabaseDialogGUI extends JPanel {
         jLabel1.setForeground(Color.black);
         jLabel1.setText("Project ID:");
         loginTextBox.setBorder(BorderFactory.createLoweredBevelBorder());
-        cancelButton.setText("Cancel");
+        closeButton.setText("Close");
         confirmButton.setText("Confirm");
         this.add(loginPage, BorderLayout.CENTER);
         loginPage.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
@@ -63,6 +63,6 @@ public class DatabaseDialogGUI extends JPanel {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
         this.add(jPanel1, BorderLayout.SOUTH);
         jPanel1.add(confirmButton, null);
-        jPanel1.add(cancelButton, null);
+        jPanel1.add(closeButton, null);
     }
 }
