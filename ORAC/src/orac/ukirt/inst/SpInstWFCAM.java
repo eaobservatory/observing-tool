@@ -1,0 +1,446 @@
+/*==============================================================*/
+/*                                                              */
+/*                UK Astronomy Technology Centre                */
+/*                 Royal Observatory, Edinburgh                 */
+/*                 Joint Astronomy Centre, Hilo                 */
+/*                   Copyright (c) PPARC 2003                   */
+/*                                                              */
+/*==============================================================*/
+// This version started 2003-Mar-31 based on SpInstUIST
+// author: Alan Pickup = dap@roe.ac.uk         2003-Mar
+
+package orac.ukirt.inst;
+import java.io.*;
+import java.util.*;
+
+import orac.util.LookUpTable;
+import orac.util.InstCfg;
+import orac.util.InstCfgReader;
+
+import gemini.util.*;
+
+import gemini.sp.SpFactory;
+import gemini.sp.SpType;
+
+import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpChopCapability;
+import gemini.sp.obsComp.SpStareCapability;
+import gemini.sp.obsComp.SpMicroStepUser;
+
+/**
+ * The WFCAM instrument.
+ +
+ + @author Alan Pickup
+ */
+
+public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStepUser
+{
+    /** Width and height of one IR detector in arcsecs. */
+    public static final double DETECTOR_SIZE     = 817.2;
+
+    /**
+     * Percentage of DETECTOR_SIZE that makes up the gap
+     * between adjacent IR detectors in arcsecs.
+     */
+    public static final double DETECTOR_SPACING  = 94.0;
+
+    // Attributes presented to user
+    public static String ATTR_CONFIG_TYPE        = "configType";
+    public static String ATTR_READMODE           = "readMode";
+    public static String ATTR_FILTER             = "filter";
+    public static String NO_VALUE                = "none";
+
+    // Class variables representing defaults, LUTs, etc
+    public static String CONFIG_TYPE;
+    public static String VERSION;
+    public static String[] READMODES;
+    public static String DEFAULT_READMODE;
+    public static LookUpTable FILTERS;
+    public static String [][] MICROSTEP_PATTERS;
+    public static String DEFAULT_FILTER;
+    public static double DEFAULT_EXPTIME;
+    public static double DEFAULT_FLAT_EXPTIME;
+    public static double DEFAULT_FOCUS_EXPTIME;
+    public static double DEFAULT_POSANGLE;
+    public static int DEFAULT_COADDS;
+    public static int DEFAULT_FLAT_COADDS;
+    public static int DEFAULT_FOCUS_COADDS;
+
+    public static final SpType SP_TYPE = SpType.create(
+        SpType.OBSERVATION_COMPONENT_TYPE, "inst.WFCAM", "WFCAM");
+
+    // Register the prototype.
+    static {
+        SpFactory.registerPrototype(new SpInstWFCAM());
+    }
+
+    // Constructor reads instrument .cfg file and initialises values
+    public SpInstWFCAM()
+    {
+        super(SP_TYPE);
+
+        addCapability( new SpChopCapability()  );
+        addCapability( new SpStareCapability() );
+
+        // Read in the instrument config file
+        String baseDir = System.getProperty("ot.cfgdir");
+        String cfgFile = baseDir + "wfcam.cfg";
+        _readCfgFile (cfgFile);
+
+        // Set the initial values of the attributes
+        String attr  = ATTR_CONFIG_TYPE;
+        String value = CONFIG_TYPE;
+        _avTable.noNotifySet(attr, value, 0);
+
+        attr  = ATTR_VERSION;
+        value = VERSION;
+        _avTable.noNotifySet(attr, value, 0);
+
+        attr  = ATTR_READMODE;
+        value = DEFAULT_READMODE;
+        _avTable.noNotifySet(attr, value, 0);
+
+        attr  = ATTR_FILTER;
+        value = DEFAULT_FILTER;
+        _avTable.noNotifySet(attr, value, 0);
+
+        attr  = ATTR_EXPOSURE_TIME;
+        value = Double.toString(DEFAULT_EXPTIME);
+        _avTable.noNotifySet(attr, value, 0);
+
+        setCoadds(DEFAULT_COADDS);
+
+        //setPosAngleDegrees(DEFAULT_POSANGLE);
+
+        // Initialise instance variables
+        initInstance();
+
+    }
+
+    private void _readCfgFile (String filename) {
+        InstCfgReader instCfg = null;
+        InstCfg instInfo = null;
+        String block = null;
+        int i;
+        instCfg = new InstCfgReader (filename);
+        try {
+            while ((block = instCfg.readBlock()) != null) {
+                instInfo = new InstCfg (block);
+		if (InstCfg.matchAttr (instInfo, "config_type")) {
+                    CONFIG_TYPE = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "version")) {
+                    VERSION = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_posangle")) {
+                    DEFAULT_POSANGLE = 
+                       Double.valueOf(instInfo.getValue()).doubleValue();
+		} else if (InstCfg.matchAttr (instInfo, "readmodes")) {
+                    READMODES = instInfo.getValueAsArray();
+		} else if (InstCfg.matchAttr (instInfo, "default_readmode")) {
+                    DEFAULT_READMODE = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "filters")) {
+                    FILTERS = instInfo.getValueAsLUT();
+		} else if (InstCfg.matchAttr (instInfo, "microstep_patterns")) {
+                    MICROSTEP_PATTERS = instInfo.getValueAs2DArray();
+		} else if (InstCfg.matchAttr (instInfo, "default_filter")) {
+                    DEFAULT_FILTER = instInfo.getValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_exptime")) {
+                    DEFAULT_EXPTIME = 
+                       Double.valueOf(instInfo.getValue()).doubleValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_flat_exptime")) {
+                    DEFAULT_FLAT_EXPTIME = 
+                       Double.valueOf(instInfo.getValue()).doubleValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_focus_exptime")) {
+                    DEFAULT_FOCUS_EXPTIME = 
+                       Double.valueOf(instInfo.getValue()).doubleValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_coadds")) {
+                    DEFAULT_COADDS = 
+                       Integer.valueOf(instInfo.getValue()).intValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_flat_coadds")) {
+                    DEFAULT_FLAT_COADDS = 
+                       Integer.valueOf(instInfo.getValue()).intValue();
+		} else if (InstCfg.matchAttr (instInfo, "default_focus_coadds")) {
+                    DEFAULT_FOCUS_COADDS = 
+                       Integer.valueOf(instInfo.getValue()).intValue();
+		} else {
+                    System.out.println("Unmatched keyword:" + instInfo.getKeyword());
+		}
+	    }
+	}catch (IOException e) {
+	    System.out.println ("Error reading WFCAM inst. cfg file");
+	}
+    }
+
+    /**
+     * Get the chop capability.
+     */
+    public SpChopCapability
+    getChopCapability()
+    {
+        return (SpChopCapability) getCapability(SpChopCapability.CAPABILITY_NAME);
+    }
+
+    /**
+     * Get the stare capability.
+     */
+    public SpStareCapability
+    getStareCapability()
+    {
+        return (SpStareCapability) getCapability(SpStareCapability.CAPABILITY_NAME);
+    }
+
+
+    /**
+     * Initialise instance variables
+     */
+    public void
+    initInstance()
+    {
+        // Initialise instance variables and initial config
+    }
+
+    /**
+     * Override the set-position-angle methods so that we can ensure
+     * it's set to zero: stops dragging of the angle in tpe.
+     * Set the position angle in degrees from due north, updating the
+     * observation data with the new position angle.  This method is
+     * ultimately called by the other setPosAngle methods.
+     */
+    public void setPosAngleDegrees( double posAngle )
+    {
+        super.setPosAngleDegrees( posAngle );
+    }
+
+    /**
+     * Set the rotation of the science area as a string (representing degrees).
+     */
+    public void setPosAngleDegreesStr( String posAngleStr )
+    {
+        double posAngle = 0.0;
+        try
+        {
+            Double pa = Double.valueOf( posAngleStr );
+            posAngle = pa.doubleValue();
+        } catch ( NumberFormatException e )
+        {
+            System.out.println( "Error converting string angle to double." );
+        }
+        this.setPosAngleDegrees( posAngle );
+    }
+
+    /**
+     * Use default filter
+     */
+    public void
+    useDefaultFilter()
+    {
+        _avTable.rm(ATTR_FILTER);
+    }
+
+    /**
+     * Set the filter.
+     */
+    public void
+    setFilter(String filter)
+    {
+        _avTable.set(ATTR_FILTER, filter);
+    }
+
+    /**
+     * Get the filter
+     */
+    public String
+    getFilter()
+    {
+        String filter = _avTable.get(ATTR_FILTER);
+        if (filter == null)
+	{
+            filter = DEFAULT_FILTER;
+            setFilter(filter);
+	}
+        return filter;
+    }
+
+    public String[]
+    getFilterList()
+    {
+        int nfilters = FILTERS.getNumRows();
+        String filterList[] = new String[nfilters];
+        for (int i=0; i<nfilters; i++) {
+                filterList[i] = (String)FILTERS.elementAt(i,0);
+	}
+        return filterList;
+    }
+
+    /**
+     * Use default readMode
+     */
+    public void
+    useDefaultReadMode()
+    {
+        _avTable.rm(ATTR_READMODE);
+    }
+
+    /**
+     * Set the readMode
+     */
+    public void
+    setReadMode(String readMode)
+    {
+        _avTable.set(ATTR_READMODE, readMode);
+    }
+
+    /**
+     * Get the readMode
+     */
+    public String
+    getReadMode()
+    {
+        String readMode = _avTable.get(ATTR_READMODE);
+        if (readMode == null)
+	{
+            readMode = DEFAULT_READMODE;
+            setReadMode(readMode);
+	}
+        return readMode;
+    }
+
+    public String[]
+    getReadModeList()
+    {
+        return READMODES;
+    }
+
+    /**
+     * Get the exposure time in seconds as a String
+     */
+    public String
+    getExposureTimeString()
+    {
+        String ets = Double.toString(MathUtil.round(getExposureTime(),3));
+        return ets;
+    }
+
+    /**
+     * Get the default flat exposure time in seconds
+     */
+    public double
+    getDefaultFlatExpTime()
+    {
+        return DEFAULT_FLAT_EXPTIME;
+    }
+
+    /**
+     * Get the default number of flat coadds
+     */
+    public int
+    getDefaultFlatCoadds()
+    {
+        return DEFAULT_FLAT_COADDS;
+    }
+
+    /**
+     * Get the default focus exposure time in seconds
+     */
+    public double
+    getDefaultFocusExpTime()
+    {
+        return DEFAULT_FOCUS_EXPTIME;
+    }
+
+    /**
+     * Get the default number of focus coadds
+     */
+    public int
+    getDefaultFocusCoadds()
+    {
+        return DEFAULT_FOCUS_COADDS;
+    }
+
+    /**
+     * Get the coadds.
+     */
+    public String getCoaddsString() {
+        int coadds = getStareCapability().getCoadds();
+        return Integer.toString(coadds);
+    }
+
+    /**
+     * Set coadds
+     */
+    public void setCoadds( int coadds ) {
+        getStareCapability().setCoadds( coadds );
+    }
+
+    /**
+     * Set coadds as a string
+     */
+    public void setCoadds( String coadds ) {
+        int c = 0;
+        try {
+            Integer tmp = Integer.valueOf( coadds );
+            c = tmp.intValue();
+        } catch ( Exception ex ) {}
+
+        setCoadds( c );
+    }
+
+
+    public Hashtable getMicroStepPatterns() {
+      Hashtable result = new Hashtable();
+
+      double [][] offsets;
+
+      for(int i = 0; i < MICROSTEP_PATTERS.length; i++) {
+        offsets = new double[(MICROSTEP_PATTERS[i].length - 1) / 2][2];
+
+        int k = 1;
+        for(int j = 0; j < offsets.length; j++) {
+          offsets[j][0] = Double.parseDouble(MICROSTEP_PATTERS[i][k++]);
+          offsets[j][1] = Double.parseDouble(MICROSTEP_PATTERS[i][k++]);
+	}
+
+        result.put((String)MICROSTEP_PATTERS[i][0], offsets);
+      }
+
+      return result;
+    }
+
+    /**
+     * Returns footprints for the four IR detectors.
+     *
+     * The return value of type double [] has the following format:
+     * { width, height, xoffset, yoffset } in arcsecs.
+     *
+     * This will result in the following four rectangular areas:
+     *
+     * <pre>
+     *    xoffset + (0.5 * width),  yoffset + (0.5 * height)
+     *    xoffset + (0.5 * width),  yoffset - (0.5 * height)
+     *    xoffset - (0.5 * width),  yoffset - (0.5 * height)
+     *    xoffset - (0.5 * width),  yoffset + (0.5 * height)
+     *
+     *    xoffset + (0.5 * width), -yoffset + (0.5 * height)
+     *    xoffset + (0.5 * width), -yoffset - (0.5 * height)
+     *    xoffset - (0.5 * width), -yoffset - (0.5 * height)
+     *    xoffset - (0.5 * width), -yoffset + (0.5 * height)
+     *
+     *   -xoffset + (0.5 * width), -yoffset + (0.5 * height)
+     *   -xoffset + (0.5 * width), -yoffset - (0.5 * height)
+     *   -xoffset - (0.5 * width), -yoffset - (0.5 * height)
+     *   -xoffset - (0.5 * width), -yoffset + (0.5 * height)
+     *
+     *   -xoffset + (0.5 * width),  yoffset + (0.5 * height)
+     *   -xoffset + (0.5 * width),  yoffset - (0.5 * height)
+     *   -xoffset - (0.5 * width),  yoffset - (0.5 * height)
+     *   -xoffset - (0.5 * width),  yoffset + (0.5 * height)
+     * </pre>
+     */
+    public double[] getScienceArea() {
+      return new double[] {
+                             DETECTOR_SIZE,
+                             DETECTOR_SIZE,
+                            (DETECTOR_SIZE * (1.0 + (DETECTOR_SPACING / 100.0))) / 2.0,
+                            (DETECTOR_SIZE * (1.0 + (DETECTOR_SPACING / 100.0))) / 2.0
+                          };
+    }
+}
