@@ -548,6 +548,14 @@ rmAll()
 public void
 noNotifyRmAll()
 {
+    // Clear all of the SpAttr vectors...
+    Enumeration e = _avTable.keys();
+    while (e.hasMoreElements()) {
+	SpAttr a = (SpAttr) _avTable.get((String)e.nextElement());
+	if (a != null) {
+	    a.getValues().clear();
+	}
+    }
    _avTable.clear();
 }
 
