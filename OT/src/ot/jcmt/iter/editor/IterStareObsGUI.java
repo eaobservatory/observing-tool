@@ -30,6 +30,7 @@ public class IterStareObsGUI extends IterJCMTGenericGUI {
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
+    JCheckBox widePhotom = new JCheckBox();
 
   public IterStareObsGUI() {
     try {
@@ -52,6 +53,12 @@ public class IterStareObsGUI extends IterJCMTGenericGUI {
     cycleReversal.setFont(new java.awt.Font("Dialog", 0, 12));
     continuousCal.setText("Continuous Cal");
     continuousCal.setFont(new java.awt.Font("Dialog", 0, 12));
+
+    widePhotom.setText ("Wide Photometry");
+    widePhotom.setFont(new java.awt.Font("Dialog", 0, 12));
+    widePhotom.setForeground(Color.black);
+    this.add(widePhotom, BorderLayout.SOUTH);
+    
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));

@@ -36,7 +36,7 @@ import ot.util.DialogUtil;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterStareObs extends EdIterJCMTGeneric {
+public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener {
 
   private IterStareObsGUI _w;       // the GUI layout panel
 
@@ -49,7 +49,17 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
     _title       ="Photometry/Sample";
     _presSource  = _w = (IterStareObsGUI)super._w;
     _description ="Photometry/Sampling Observation Mode";
+    _w.widePhotom.addActionListener(this);
+
   }
+
+    protected void _updateWidgets () {
+	if ( _iterObs != null && ((SpIterStareObs)_iterObs).getWidePhotom() ) {
+	    _w.widePhotom.setSelected(true);
+	}
+	super._updateWidgets();
+    }
+    
 
 //  public void textBoxKeyPress(TextBoxWidgetExt e) {
 //    super.textBoxKeyPress(tbwe);
@@ -59,9 +69,12 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
   public void setInstrument(SpInstObsComp spInstObsComp) {
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.acsisPanel.setVisible(true);
+      _w.widePhotom.setVisible(false);
+      _w.widePhotom.setSelected(false);
     }
     else {
       _w.acsisPanel.setVisible(false);
+      _w.widePhotom.setVisible(true);
     }
 
     super.setInstrument(spInstObsComp);
@@ -82,6 +95,10 @@ public final class EdIterStareObs extends EdIterJCMTGeneric {
 	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
 	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
 	return HeterodyneNoise.getHeterodyneNoise((SpIterStareObs)_iterObs, inst, tau, airmass);
+    }
+
+    public void actionPerformed (ActionEvent e) {
+	((SpIterStareObs)_iterObs).setWidePhotom ( _w.widePhotom.isSelected() );
     }
 }
 
