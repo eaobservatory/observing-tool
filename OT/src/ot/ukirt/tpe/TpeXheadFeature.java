@@ -75,8 +75,8 @@ public class TpeXheadFeature extends TpeImageFeature {
       int yoffpix = 0;
       SpUKIRTInstObsComp _inst = (SpUKIRTInstObsComp) _iw.getInstrumentItem();
       if ( _inst != null ) {
-         double xoff = _inst.getInstApXarcsec();
-         double yoff = _inst.getInstApYarcsec();
+         double xoff = -1*_inst.getInstApXarcsec();
+         double yoff = -1*_inst.getInstApYarcsec();
          xoffpix = (int) ( fii.pixelsPerArcsec * xoff + 0.5 );
          yoffpix = (int) ( fii.pixelsPerArcsec * yoff + 0.5 );
       }
