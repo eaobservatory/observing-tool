@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>UIST-Standards.xml</meta_gui_filename>
-  <ot_version>20031218</ot_version>
+  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
+  <ot_version>20040423</ot_version>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
@@ -4113,7 +4113,7 @@ For faint targets the following exposures are recommended
 with the 4 pixel slit:
 
   &gt;~300s for IJ, shortJ, longJ, shortH, longH, shortK  
-  240s for HK
+  240s for HK, longK
   60s for shortL
   20s for longL
   6s for M</note>
@@ -4127,18 +4127,20 @@ with the 4 pixel slit:
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>All targets (bright standards and faint sources) are now acquired in imaging mode.  Simply make sure that each observation contains an acquisition Eyeball
-(see the examples below).</note>
+(see the examples below).
+
+Note: use short exposures and coadds for faint sources, rather than one very long exposure.  This is to avoid (1) saturating on the sky, and (2) residual signal in spectra from the bright sky background encountered during acquisition.</note>
         <title>Acquisition</title>
       </SpNote>
       <SpMSB checksum="80268f08ffb26a6d856a05fb831217a2" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="25"/>
         <SpTelescopeObsCompRef idref="24"/>
-        <estimatedDuration units="seconds">5123.13996</estimatedDuration>
+        <estimatedDuration units="seconds">5108.13996</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Point source slide along slit</title>
-        <totalDuration units="seconds">5256.559840000001</totalDuration>
+        <totalDuration units="seconds">5241.559840000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -4375,7 +4377,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
@@ -4386,10 +4388,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>B2</filter>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -4434,7 +4436,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">4943.13996</estimatedDuration>
+          <estimatedDuration units="seconds">4928.13996</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -4491,23 +4493,32 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST Spectroscopy web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
-              <filter>B2</filter>
+              <exposureTime>5.0</exposureTime>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
               <repeatCount>1</repeatCount>
               <resolution>0.0</resolution>
               <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-              <source_mag>&gt;13</source_mag>
+              <source_mag>11-12</source_mag>
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4568,11 +4579,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="27"/>
         <SpTelescopeObsCompRef idref="26"/>
-        <estimatedDuration units="seconds">5293.839760000001</estimatedDuration>
+        <estimatedDuration units="seconds">5122.41988</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Faint point source slide along slit</title>
-        <totalDuration units="seconds">5427.259640000001</totalDuration>
+        <totalDuration units="seconds">5255.839760000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -4809,7 +4820,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
@@ -4820,10 +4831,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>B2</filter>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -4868,7 +4879,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5113.839760000001</estimatedDuration>
+          <estimatedDuration units="seconds">4942.41988</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -4925,16 +4936,25 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST Spectroscopy web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <coadds>3</coadds>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
-              <filter>B2</filter>
+              <exposureTime>5</exposureTime>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -4943,21 +4963,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <scienceArea>122.88 x 120.0 arcsec</scienceArea>
               <source_mag>&gt;13</source_mag>
             </SpIterUISTTargetAcq>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you will be using long Movie-mode exposures for imaging acquisition then in subsequent frames you may get fairly high residual signal (1% level) on the array - and high associated noise - which may "compromise" your faint-target spectroscopy.  To clear this residual signal,  use the 1sec darks below.   These will be used to "flush" the array after target acquisition, but before spectra are taken.  
-
-If residuals aren't likely to interfere with your spectra then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
-
-NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
-            </SpNote>
-            <SpIterDarkObs type="ic" subtype="darkObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
-              <repeatCount>5</repeatCount>
-            </SpIterDarkObs>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>Chances are you will want a longer exposure time on the science target than on the standard.
@@ -5017,11 +5022,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="29"/>
         <SpTelescopeObsCompRef idref="28"/>
-        <estimatedDuration units="seconds">5293.839760000001</estimatedDuration>
+        <estimatedDuration units="seconds">5303.119680000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source slide 24" along slit</title>
-        <totalDuration units="seconds">5427.259640000001</totalDuration>
+        <totalDuration units="seconds">5436.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -5258,7 +5263,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
@@ -5269,10 +5274,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>B2</filter>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5317,7 +5322,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5113.839760000001</estimatedDuration>
+          <estimatedDuration units="seconds">5123.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -5374,16 +5379,25 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST Spectroscopy web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <coadds>3</coadds>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
-              <filter>B2</filter>
+              <exposureTime>5</exposureTime>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5394,17 +5408,21 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint and/or the offsets will move the spectra away from the location of the source in imaging acquisition), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
 
-NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MOST PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
+
+However, for moderate resolution (short-/long-) spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
+
+NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
+              <title>Flush array (OPTIONAL)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
+              <exposureTime>3</exposureTime>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpNote type="no" subtype="none">
@@ -5466,11 +5484,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="31"/>
         <SpTelescopeObsCompRef idref="30"/>
-        <estimatedDuration units="seconds">5293.839760000001</estimatedDuration>
+        <estimatedDuration units="seconds">5303.119680000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source slide 60" along slit</title>
-        <totalDuration units="seconds">5427.259640000001</totalDuration>
+        <totalDuration units="seconds">5436.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -5707,7 +5725,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
@@ -5718,10 +5736,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>B2</filter>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5766,7 +5784,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5113.839760000001</estimatedDuration>
+          <estimatedDuration units="seconds">5123.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -5820,19 +5838,28 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>EXTENDED_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST Spectroscopy web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <coadds>3</coadds>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
-              <filter>B2</filter>
+              <exposureTime>5</exposureTime>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -5843,17 +5870,21 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint and/or the offsets will move the spectra away from the location of the source in imaging acquisition), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
 
-NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MOST PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
+
+However, for moderate resolution (short-/long-) spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
+
+NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
+              <title>Flush array (OPTIONAL)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
+              <exposureTime>3</exposureTime>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpNote type="no" subtype="none">
@@ -5915,11 +5946,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="33"/>
         <SpTelescopeObsCompRef idref="32"/>
-        <estimatedDuration units="seconds">5293.839760000001</estimatedDuration>
+        <estimatedDuration units="seconds">5303.119680000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source nod to sky</title>
-        <totalDuration units="seconds">5427.259640000001</totalDuration>
+        <totalDuration units="seconds">5436.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -6153,10 +6184,10 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <title>STANDARD_STAR</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
@@ -6167,10 +6198,10 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
               <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
               <exposureTime>1.0</exposureTime>
-              <filter>B2</filter>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6215,7 +6246,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5113.839760000001</estimatedDuration>
+          <estimatedDuration units="seconds">5123.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -6269,19 +6300,28 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>EXTENDED_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_collapsed>true</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST Spectroscopy web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
-              <disperser>aq_HK</disperser>
+              <coadds>3</coadds>
+              <disperser>aq_longH</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
-              <filter>B2</filter>
+              <exposureTime>5</exposureTime>
+              <filter>H_spectral</filter>
               <mask>open_aperture</mask>
               <maskHeight>120.0</maskHeight>
               <maskWidth>1024.0</maskWidth>
@@ -6292,17 +6332,21 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint and/or the offsets will move the spectra away from the location of the source in imaging acquisition), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
 
-NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MOST PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
+
+However, for moderate resolution (short-/long-) spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
+
+NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
+              <title>Flush array (OPTIONAL)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
+              <exposureTime>3</exposureTime>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpNote type="no" subtype="none">
@@ -6373,7 +6417,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
 
 "IFU map extended source" demonstrates how the IFU may be mapped across a more extended target.
 
-If the science target is only very slightly extended (almost a point source) then it might be worth trying to slide the sourtce within the IFU field (edit the offsets accordingly; q is along the IFU 6" long axis).  However, note that the avaiable field is only 6" long, so it might not be worth the risk, especially for standards where only a small fraction of your observing time will be used on the extra blank skies!</note>
+If the science target is only very slightly extended (almost a point source) then it might be worth trying to slide the source within the IFU field (edit the offsets accordingly; q is along the IFU 6" long axis).  However, note that the avaiable field is only 6" long, so it might not be worth the risk, especially for standards where only a small fraction of your observing time will be used on the extra blank skies!</note>
         <title>Which MSB should I use??</title>
       </SpNote>
       <SpNote type="no" subtype="none">
@@ -6383,8 +6427,7 @@ If the science target is only very slightly extended (almost a point source) the
 For faint targets the following exposures are recommended
 with the IFU+2-pixel slit:
 
-  &gt;~300s for IJ, shortJ, longJ, shortH, longH, shortK, 
-     long-K, HK
+  &gt;~300s for IJ, shortJ, longJ, shortH, longH, shortK, longK, HK
   ~60s for shortL
   ~20s for longL
   ~6s   for M</note>
@@ -6398,18 +6441,20 @@ with the IFU+2-pixel slit:
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>All targets (bright standards and faint sources) are now acquired in imaging mode.  Simply make sure that each observation contains an acquisition Eyeball
-(see the examples below).</note>
+(see the examples below).
+
+Note: use short exposures and coadds for faint sources, rather than one very long exposure.  This is to avoid (1) saturating on the sky, and (2) residual signal in spectra from the bright sky background encountered during acquisition.</note>
         <title>Acquisition</title>
       </SpNote>
       <SpMSB checksum="1d16ab2fbf70247fbf0fda6def3e2d64" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="35"/>
         <SpTelescopeObsCompRef idref="34"/>
-        <estimatedDuration units="seconds">5279.539560000001</estimatedDuration>
+        <estimatedDuration units="seconds">5288.819480000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, nod to blank sky</title>
-        <totalDuration units="seconds">5581.939160000001</totalDuration>
+        <totalDuration units="seconds">5591.219080000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -6646,12 +6691,12 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
 
-Chances are, the bright standard will be too bright for imaging acquisition (it may leave a latent image on the array after imaging acquisition).  To get around this the TSS will in actual fact acquire a nearby 9-10 mag star.  Once this is done, the relative offset between the optical and infrared beams will be calibrated (for on-axis guiding); s/he will then slew back to the brighter standand and, because the standard is also the guide star (again on-axis guiding),  simply switching on the guider will put the star down the UIST slit.   THIS IS WHY THE BRIGHTEST SELECTABLE SOURCE MAG FOR TARGET ACQUISITION IS 9TH.  SO CHOOSE 9-10 FOR YOUR STANDARD.</note>
+Chances are, the bright standard will be too bright for imaging acquisition (it may leave a latent image on the array after imaging acquisition).  To get around this the TSS will in actual fact acquire a nearby 9-10 mag star.  Once this is done, the relative offset between the optical and infrared beams will be calibrated (for on-axis guiding); s/he will then slew back to the brighter standand and, because the standard is also the guide star (again on-axis guiding),  simply switching on the guider will put the star down the UIST slit.   THIS IS WHY THE BRIGHTESTS SELECTABLE SOURCE MAG FOR TARGET ACQUISITION IS 9TH.  SO CHOOSE 9-10 FOR YOUR STANDARD.</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
@@ -6671,12 +6716,13 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition for the standard you will probably see a weak, residual image of the star on subsequent frames, at the 1% level.  This signal will appear in the first few IFU spectroscopy frames and may "overlap" spectra from the standard star (though it should to some extent "subtract-off" with sky subtraction).   
+To offset the effect this artifact may have on your data, use the darks below to "flush" the array.  The overhead associated with this flushing is about 10-15 seconds (for five 1sec darks).
 
-NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
+              <title>Flush array (RECOMMENDED)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6685,7 +6731,7 @@ NB - don't click on default in the darks - 1sec is best for flushing...</note>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpIterRepeat type="ic" subtype="repeat">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <repeatCount>2</repeatCount>
               <title>Repeat 2X</title>
               <SpNote type="no" subtype="none">
@@ -6745,7 +6791,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5099.539560000001</estimatedDuration>
+          <estimatedDuration units="seconds">5108.819480000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky</title>
           <SpNote type="no" subtype="none">
@@ -6802,15 +6848,24 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST IFU web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
+              <coadds>3</coadds>
               <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
+              <exposureTime>5</exposureTime>
               <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
@@ -6822,17 +6877,21 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
+
+This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MANY PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
+
+However, for IFU spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
 
 NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+              <title>Flush array (OPTIONAL)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
+              <exposureTime>3.0</exposureTime>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpNote type="no" subtype="none">
@@ -6845,7 +6904,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
               <title>Exp time on science target</title>
             </SpNote>
             <SpIterUISTSpecIFU type="ic" subtype="instUISTSpecIFU">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <coaddsIter>1</coaddsIter>
               <exposureTimeIter>240.0</exposureTimeIter>
               <iterConfigList>
@@ -6919,11 +6978,11 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="37"/>
         <SpTelescopeObsCompRef idref="36"/>
-        <estimatedDuration units="seconds">10213.83976</estimatedDuration>
+        <estimatedDuration units="seconds">10223.11968</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, map extended source</title>
-        <totalDuration units="seconds">10516.239360000001</totalDuration>
+        <totalDuration units="seconds">10525.51928</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -7160,12 +7219,12 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough.
 
 Note about the standard:  
 ================
 
-Chances are, the bright standard will be too bright for imaging acquisition (it may leave a latent image on the array after imaging acquisition).  To get around this the TSS will in actual fact acquire a nearby 9-10 mag star.  Once this is done, the relative offset between the optical and infrared beams will be calibrated (for on-axis guiding); s/he will then slew back to the brighter standand and, because the standard is also the guide star (again on-axis guiding),  simply switching on the guider will put the star down the UIST slit.   THIS IS WHY THE BRIGHTEST SELECTABLE SOURCE MAG FOR TARGET ACQUISITION IS 9TH.  SO CHOOSE 9-10 FOR YOUR STANDARD.</note>
+Chances are, the bright standard will be too bright for imaging acquisition (it may leave a latent image on the array after imaging acquisition).  To get around this the TSS will in actual fact acquire a nearby 9-10 mag star.  Once this is done, the relative offset between the optical and infrared beams will be calibrated (for on-axis guiding); s/he will then slew back to the brighter standand and, because the standard is also the guide star (again on-axis guiding),  simply switching on the guider will put the star down the UIST slit.   THIS IS WHY THE BRIGHTESTS SELECTABLE SOURCE MAG FOR TARGET ACQUISITION IS 9TH.  SO CHOOSE 9-10 FOR YOUR STANDARD.</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
@@ -7185,21 +7244,22 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition for the standard you will probably see a weak, residual image of the star on subsequent frames, at the 1% level.  This signal will appear in the first few IFU spectroscopy frames and may "overlap" spectra from the standard star (though it should to some extent "subtract-off" with sky subtraction).   
+To offset the effect this artifact may have on your data, use the darks below to "flush" the array.  The overhead associated with this flushing is about 10-15 seconds (for five 1sec darks).
 
-NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+NB - don't click on default in the darks - 1 or a few seconds is best for flushing...</note>
+              <title>Flush array (RECOMMENDED)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
+              <exposureTime>1.0</exposureTime>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpIterRepeat type="ic" subtype="repeat">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <repeatCount>2</repeatCount>
               <title>Repeat 2X</title>
               <SpNote type="no" subtype="none">
@@ -7258,8 +7318,8 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
           </SpIterFolder>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">10033.83976</estimatedDuration>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">10043.11968</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky</title>
           <SpNote type="no" subtype="none">
@@ -7313,18 +7373,27 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <title>MAP_EXTENDED_SOURCE</title>
           </SpDRRecipe>
           <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>true</meta_gui_collapsed>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+              <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  
+
+ - For bright sources:     1 coadd x 1 sec should be enough.
+ - For faint sources:        2,3 or 4 coadds x 5 sec is usually ok. 
+ - In the L and M bands: 4 or 5 coadds x 1-2 sec is good.  
+
+See the UIST IFU web pages on Target Acquisition if you're not sure!
+Acquisition on point sources down to about 17th mag is possible.
+
+NOTE:  Its better to use a few coadds and short exposures than one long exposure for imaging acquisition!!</note>
               <title>Imaging Acquisition</title>
             </SpNote>
             <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
               <meta_gui_collapsed>true</meta_gui_collapsed>
-              <coadds>1</coadds>
+              <coadds>3</coadds>
               <disperser>aq_HK+ifu</disperser>
               <dispersion>0.0</dispersion>
-              <exposureTime>20.0</exposureTime>
+              <exposureTime>5</exposureTime>
               <filter>B2</filter>
               <mask>IFU_aperture</mask>
               <maskHeight>120.0</maskHeight>
@@ -7336,17 +7405,21 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             </SpIterUISTTargetAcq>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If your target is likely to be bright when running Movie in imaging acquisition mode, it may leave a residual feature (at the 1% level) in subsequent spectroscopy frames.  If these are likely to interfere with the spectra from your extended target, then leave the five 1sec darks in the next line.  These will be used to "flush" the array after target acquisition, but before spectra are taken.  
+              <note>FLUSH ARRAY DARKS - ARE THEY NECESSARY??
 
-If residuals aren't likely to interfere with your spectra (e.g. because the target is faint), then you should delete the line (the darks) below - i.e. highligh this line and click on "Cut".
+After imaging acquisition, a bright target and/or the bright sky background in the HKLM bands may leave residual signal on the array, at the 1% level.  This signal will appear in the first few spectroscopy frames and may introduce extra noise for low-background and faint target spectroscopy (though the DC signal at least should "subtract-off" with sky subtraction).   
+
+This signal (and its associated noise) will be weak, particularly if you've used coadds and short exposures rather than one long exposure for imaging acquisition (recommended for faint targets or for thermal spectroscopy).  HENCE, FOR MANY PEOPLE THIS WILL NOT BE A PROBLEM AND THE DARKS ON THE NEXT LINE SHOULD BE DELETED - highlight the eyeball and click on "Cut".
+
+However, for IFU spectroscopy in the HKLM bands on very  faint targets (&gt;16th mag, say), the additional noise from the residual signal may be an issue.  In this case, use the five short darks in the next line to "flush" the array after target acquisition, but before spectra are taken.  The overhead associated with this flushing is about 25-30 seconds (for five 3sec darks).
 
 NB - don't click on default in the darks - 1sec is best for flushing...</note>
-              <title>Flush array (optional)</title>
+              <title>Flush array (OPTIONAL)</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
-              <exposureTime>1</exposureTime>
+              <exposureTime>3.0</exposureTime>
               <repeatCount>5</repeatCount>
             </SpIterDarkObs>
             <SpNote type="no" subtype="none">
@@ -7359,7 +7432,7 @@ If you're not sure about the best exposure time to use, select a source magnitud
               <title>Exp time on science target</title>
             </SpNote>
             <SpIterUISTSpecIFU type="ic" subtype="instUISTSpecIFU">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_collapsed>true</meta_gui_collapsed>
               <coaddsIter>1</coaddsIter>
               <exposureTimeIter>240.0</exposureTimeIter>
               <iterConfigList>
