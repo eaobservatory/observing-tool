@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <ot_version>20030919</ot_version>
+  <ot_version>20031017</ot_version>
   <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <title>Non-thermal imaging</title>
+      <title>Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>For broadband L and M imaging use the following
@@ -1828,8 +1828,8 @@ central (right of telescope aperture) 100 pixels.</note>
         </SpIterFolder>
       </SpObs>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <title>Sky nod</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">2136.703079999997</estimatedDuration>
@@ -1934,8 +1934,8 @@ in the thermal.</note>
             <readout>NDSTARE</readout>
             <chopFrequency>0.0</chopFrequency>
             <pupil_imaging>no</pupil_imaging>
-            <biasNResets>2</biasNResets>
             <mustIdles>100</mustIdles>
+            <biasNResets>2</biasNResets>
             <meta_unique>true</meta_unique>
             <imager>0.12</imager>
             <nullReads>0</nullReads>
@@ -2143,7 +2143,7 @@ and requires sky and object to have the recipe selected</note>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <title>Thermal imaging</title>
+      <title>Non-Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>For faint targets and broad band filters limit exposure
@@ -2154,8 +2154,8 @@ the background limited regime.</note>
         <title>Exposure times</title>
       </SpNote>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <title>5pt jitter/offsets of 20arcsec</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">276.0</estimatedDuration>
@@ -2258,8 +2258,8 @@ reset!</note>
             <readout>NDSTARE</readout>
             <chopFrequency>0.0</chopFrequency>
             <pupil_imaging>no</pupil_imaging>
-            <biasNResets>2</biasNResets>
             <mustIdles>100</mustIdles>
+            <biasNResets>2</biasNResets>
             <meta_unique>true</meta_unique>
             <imager>0.12</imager>
             <nullReads>1</nullReads>
@@ -2400,8 +2400,8 @@ Use the reset-to-default button to ensure the dark exposure times for your sourc
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <title>9pt jitter/offsets of 20arcsec</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">690.0</estimatedDuration>
@@ -2665,8 +2665,8 @@ start position (00) after all the data has been obtained.</note>
         </SpObs>
       </SpMSB>
       <SpMSB checksum="f1ed9f540c19e17b17a4ad3bfb5b06f3" remaining="1" type="og" subtype="msb">
-        <title>N-colour jitter</title>
         <library_version>$Revision$</library_version>
+        <title>N-colour jitter</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">959.13996</estimatedDuration>
@@ -2893,8 +2893,8 @@ here cycles through JHK but any filter set can be selected.</note>
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <title>quadrant jitter</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">360.0</estimatedDuration>
@@ -3140,8 +3140,8 @@ Quadrant jitters move the source into each quadrant of the array.  The flat fiel
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <title>extended 3x3</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">1350.0</estimatedDuration>
@@ -3450,8 +3450,8 @@ Changing the total number of offsets will break the data-reduction recipe.</note
         </SpObs>
       </SpMSB>
       <SpMSB remaining="1" type="og" subtype="msb">
-        <library_version>$Revision$</library_version>
         <title>extended 5x5</title>
+        <library_version>$Revision$</library_version>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <priority>99</priority>
         <estimatedDuration units="seconds">3462.0</estimatedDuration>
