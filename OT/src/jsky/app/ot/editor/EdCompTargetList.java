@@ -1413,7 +1413,7 @@ public final class EdCompTargetList extends OtItemEditor
           try {
 	    NameResolver nameResolver = new NameResolver((String)_w.nameResolversDDLBW.getSelectedItem(), _w.nameTBW.getText());
 
-	    _w.nameTBW.setText(nameResolver.getId());
+	    _w.resolvedName.setText("Resolved Name: "+nameResolver.getId());
 	    _w.xaxisTBW.setText(nameResolver.getRa());
 	    _w.yaxisTBW.setText(nameResolver.getDec());
 	    _w.systemDDLBW.setValue(CoordSys.FK5);
