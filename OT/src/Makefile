@@ -121,7 +121,7 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
-	\nset OT_USERDIR=\`pwd\`\
+	\nset OT_USERDIR=$(HOME) \
 	\n\
 	\ncd \`dirname $$""0\`\
 	\n\
@@ -227,7 +227,7 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
-	\nset OT_USERDIR=\`pwd\`\
+	\nset OT_USERDIR=$(HOME)\
 	\n\
 	\ncd \`dirname $$""0\`\
 	\n\
