@@ -305,7 +305,7 @@ public void setTargetSystem(int targetSystem) {
 
    switch(_targetSystem) {
       case TARGET_SYSTEM_CONIC:
-         _avTab.noNotifyRm(BASE_TAG);
+         _avTab.noNotifyRm(_tag);
 
          _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH, "" + 0.0, 0);
          _avTab.noNotifySet(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION, "" + 0.0, 0);
@@ -324,7 +324,7 @@ public void setTargetSystem(int targetSystem) {
 	 break;
 
       case TARGET_SYSTEM_NAMED:
-         _avTab.noNotifyRm(BASE_TAG);
+         _avTab.noNotifyRm(_tag);
 
          _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH);
          _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION);
@@ -344,11 +344,11 @@ public void setTargetSystem(int targetSystem) {
 
       //case TARGET_SYSTEM_HMSDEG_DEGDEG:
       default:
-         _avTab.noNotifySet(BASE_TAG, BASE_TAG,  TAG_INDEX);
-         _avTab.noNotifySet(BASE_TAG, _name,     NAME_INDEX);
-         _avTab.noNotifySet(BASE_TAG, "0:00:00", XAXIS_INDEX);
-         _avTab.noNotifySet(BASE_TAG, "0:00:00", YAXIS_INDEX);
-         _avTab.noNotifySet(BASE_TAG, CoordSys.COORD_SYS[CoordSys.FK5], COORD_SYS_INDEX);
+         _avTab.noNotifySet(_tag, _tag,      TAG_INDEX);
+         _avTab.noNotifySet(_tag, _name,     NAME_INDEX);
+         _avTab.noNotifySet(_tag, "0:00:00", XAXIS_INDEX);
+         _avTab.noNotifySet(_tag, "0:00:00", YAXIS_INDEX);
+         _avTab.noNotifySet(_tag, CoordSys.COORD_SYS[CoordSys.FK5], COORD_SYS_INDEX);
 
          _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_EPOCH);
          _avTab.noNotifyRm(tagPrefix() + ATTR_CONIC_SYSTEM_INCLINATION);
@@ -361,7 +361,7 @@ public void setTargetSystem(int targetSystem) {
          _avTab.noNotifyRm(tagPrefix() + ATTR_NAMED_SYSTEM_TYPE);
 
          // Last table change: notify
-	 // HMSDEG/DEGDEG system uses table attribute BASE_TAG with NAME_INDEX to store the name.
+	 // HMSDEG/DEGDEG system uses table attribute _tag with NAME_INDEX to store the name.
 	 // So remove tagPrefix() + ATTR_TARGET_NAME.
          _avTab.rm(tagPrefix() + ATTR_TARGET_NAME);
 
