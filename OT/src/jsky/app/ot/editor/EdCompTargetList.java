@@ -28,13 +28,13 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.util.Assert;
 import jsky.app.ot.util.CoordSys;
-//import jsky.app.ot.util.TelescopePos;
-//import jsky.app.ot.util.TelescopePosWatcher;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
 import jsky.util.gui.DialogUtil;
 import ot.OtConstants;
+import ot.util.NameResolver;
+import jsky.app.ot.OtCfg;
 
 
 /**
@@ -100,22 +100,25 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.removeButton.addActionListener(this);
 	_w.plotButton.addActionListener(this);
 	_w.setBaseButton.addActionListener(this);
+	_w.resolveButton.addActionListener(this);
     }
 
     /**
      * Do one-time initialization of the editor.  This includes adding watchers.
      */
     protected void _init() {
+        // Init name resolver drop down (MFO, May29, 2001)
+	if(OtCfg.getNameResolvers() != null) {
+          _w.nameResolversDDLBW.setChoices(OtCfg.getNameResolvers());
+	}
+
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
 	String[] guideTags = SpTelescopePos.getGuideStarTags();
 
-	// MFO 23 May 2001 bug fix
-	_tag.clear();
-
+	// MFO 30 May 2001
+	_tag.setChoices(guideTags);
 	_tag.addChoice(SpTelescopePos.BASE_TAG);
-	for(int i = 0; i < guideTags.length; i++)
-	    _tag.addChoice(guideTags[i]);
 
 	// MFO 23 May 2001
 	// USER_TAG not used for UKIRT (see changes in FreeBongo OT, orac2)
@@ -605,6 +608,28 @@ public final class EdCompTargetList extends OtItemEditor
 
 	    base.setXY(raDec[0], raDec[1]);
 	    return;
+	}
+
+	if(w == _w.resolveButton) {
+          try {
+	    NameResolver nameResolver = new NameResolver((String)_w.nameResolversDDLBW.getSelectedItem(), _w.nameTBW.getText());
+
+	    _w.nameTBW.setText(nameResolver.getId());
+	    _w.xaxisTBW.setText(nameResolver.getRa());
+	    _w.yaxisTBW.setText(nameResolver.getDec());
+
+            _curPos.deleteWatcher(EdCompTargetList.this);
+	    _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
+	    _curPos.setName(_w.nameTBW.getText() );
+	    _curPos.addWatcher(EdCompTargetList.this);
+	  }
+	  catch(RuntimeException e) {
+            if(System.getProperty("DEBUB") != null) {
+              e.printStackTrace();
+	    }
+
+            DialogUtil.error(e.getMessage());
+	  }
 	}
     }
 }
