@@ -5,6 +5,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.io.IOException;
 import gemini.sp.SpInsertData;
@@ -90,6 +91,13 @@ public class OtAdvancedTreeDropTarget extends OtTreeDropTarget {
     insertImage[INSERT_INSIDE] = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_INSIDE_GIF))).getImage();
     insertImage[INSERT_AFTER]  = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_AFTER_GIF ))).getImage();
     insertImage[INSERT_NO]     = (new ImageIcon(ClassLoader.getSystemClassLoader().getResource(INSERT_NO_GIF    ))).getImage();
+  }
+
+  public void dragExit(DropTargetEvent dte) {
+    super.dragExit(dte);
+	
+    // repaint tree to get rid of insertImage that might be left over.
+    tree.repaint();
   }
 
   public void dragOver(DropTargetDragEvent dtde) {
