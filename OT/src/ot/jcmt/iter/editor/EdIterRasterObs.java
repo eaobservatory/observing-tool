@@ -52,7 +52,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
   private SpIterRasterObs _iterObs;
 
-  private final String [] SCAN_PA_CHOICES = { "0", "90" };
+  private final String [] SCAN_PA_CHOICES = { "automatic", "user def" };
   private final String [] SAMPLE_TIME_CHOICES = {"4", "5", "6", "7"};
 
   /**
@@ -73,8 +73,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _w.interleaved.setActionCommand(SpIterRasterObs.RASTER_MODE_INTERLEAVED);
 
     _w.scanAngle.setChoices(SCAN_PA_CHOICES);
-    _w.scanSystem.addItem(SpJCMTConstants.SCAN_SYSTEMS[0]);
-//     _w.scanSystem.setChoices(SpJCMTConstants.SCAN_SYSTEMS[0]);
+    _w.scanSystem.setChoices(SpJCMTConstants.SCAN_SYSTEMS);
     _w.sampleTime.setChoices(SAMPLE_TIME_CHOICES);
 
     _w.dx.addWatcher(this);
@@ -314,10 +313,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.heterodynePanel.setVisible(true);
       _w.scanSystem.setValue(SpJCMTConstants.SCAN_SYSTEMS[0]);
+      _w.scanSystem.setEnabled(false);
       _w.scanPanel.setVisible(false);
     }
     else {
       _w.heterodynePanel.setVisible(false);
+      _w.scanSystem.setEnabled(true);
       _w.scanPanel.setVisible(true);
     }
 
