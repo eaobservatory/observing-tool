@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <ot_version>2003-05-30</ot_version>
-  <meta_gui_filename>UFTI_FP-Template.xml</meta_gui_filename>
+  <meta_gui_filename>FP_lib.xml</meta_gui_filename>
+  <ot_version>20040217</ot_version>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UFTI+FP</title>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -19,19 +19,18 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <title>FP sequences</title>
     </SpNote>
     <SpMSB remaining="100" type="og" subtype="msb">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <estimatedDuration units="seconds">560.0</estimatedDuration>
       <library_version>$Revision$</library_version>
-      <title>Alignment and quick look</title>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
       <priority>99</priority>
-      <estimatedDuration units="seconds">565.0</estimatedDuration>
+      <title>Alignment and quick look</title>
+      <totalDuration units="seconds">560.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">200.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>FPY alignment</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">200.0</estimatedDuration>
         <standard>false</standard>
+        <title>FPY alignment</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence steps through FPZ settings (the plate separation) at four different setting of FPY (FPX fixed).  The FPX and FPY values must be set accordingly before each FPZ-scan.  Analyse the resulting sequence of frames with the shell script "alignfp". From the peak counts in the four plots, establish the best FPY value.
@@ -47,29 +46,29 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Normal+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>5.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>5</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Normal+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -77,30 +76,30 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
           <title>DR recipe selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>QUICK_LOOK</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>QUICK_LOOK</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpx, fpy set</title>
           <SpNote type="no" subtype="none">
-            <title>FPX=0, FPY=-800</title>
-            <meta_gui_selected>false</meta_gui_selected>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
             <note></note>
+            <title>FPX=0, FPY=-800</title>
           </SpNote>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -118,19 +117,19 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
             <title>FPX=0, FPY=400</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
+            <FPX>0</FPX>
+            <FPY>-800</FPY>
+            <FPZ>0</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selected>false</meta_gui_selected>
-            <FPZ>0</FPZ>
-            <FPY>-800</FPY>
-            <FPX>0</FPX>
+            <title>FPX and FPY</title>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
               <FPZ>
                 <value>-1400</value>
@@ -154,23 +153,21 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
                 <value>-500</value>
                 <value>-450</value>
               </FPZ>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterFP>
           </SpIterFP>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">200.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>FPX alignment</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">200.0</estimatedDuration>
         <standard>false</standard>
+        <title>FPX alignment</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence steps through FPZ settings (the plate separation) at four different setting of FPX (FPY fixed).  The FPX and FPY values must be set accordingly before each FPZ-scan.  Analyse the resulting sequence of frames with the shell script "alignfp". From the peak counts in the four plots, establish the best FPX value.
@@ -186,30 +183,30 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Normal+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>5.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <meta_gui_selected>false</meta_gui_selected>
-          <filter>2.122</filter>
-          <exposureTime>5</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Normal+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -217,21 +214,21 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
           <title>DR recipe selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>QUICK_LOOK</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>QUICK_LOOK</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -257,19 +254,19 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
             <title>FPX=-700, FPY=??</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
+            <FPX>1400</FPX>
+            <FPY>0</FPY>
+            <FPZ>0</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selected>false</meta_gui_selected>
-            <FPZ>0</FPZ>
-            <FPY>0</FPY>
-            <FPX>1400</FPX>
+            <title>FPX and FPY</title>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
               <FPZ>
                 <value>-1400</value>
@@ -293,23 +290,21 @@ Short integration times are usually sufficient for FP alignment on the lamp.</no
                 <value>-500</value>
                 <value>-450</value>
               </FPZ>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterFP>
           </SpIterFP>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">150.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>FPZ alignment</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">150.0</estimatedDuration>
         <standard>false</standard>
+        <title>FPZ alignment</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence steps through only FPZ.  14 Exposures (+ a dark) are obtained.
@@ -325,29 +320,29 @@ Short integration times are usually sufficient for FP alignment with the lamp.</
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Normal+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>5.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>5</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Normal+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -355,25 +350,25 @@ Short integration times are usually sufficient for FP alignment with the lamp.</
           <title>DR recipe selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>QUICK_LOOK</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>QUICK_LOOK</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
           <title>fpx, fpy set</title>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -381,17 +376,17 @@ Short integration times are usually sufficient for FP alignment with the lamp.</
             <title>Set FPX, FPY below!</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selected>false</meta_gui_selected>
+            <FPX>300</FPX>
+            <FPY>-300</FPY>
+            <FPZ>0</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selected>false</meta_gui_selected>
-            <FPZ>0</FPZ>
-            <FPY>-300</FPY>
-            <FPX>300</FPX>
+            <title>FPX and FPY</title>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>The sequence of FPZ values in the iterator below may not be appropriate for the CS100 settings on the instrument and the temperature in the dome.  If you do NOT see a peak when you apply 
@@ -401,7 +396,7 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
               <title>Check sequence of FPZ settings</title>
             </SpNote>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selected>false</meta_gui_selected>
               <FPZ>
                 <value>-1100</value>
@@ -420,23 +415,21 @@ You may also wish to repeat the scan with a few extra FPZ settings added to the 
                 <value>-450</value>
                 <value>-400</value>
               </FPZ>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterFP>
           </SpIterFP>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">15.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Quick look with FP</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">10.0</estimatedDuration>
         <standard>false</standard>
+        <title>Quick look with FP</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Take a quick-look frame at a specific FPX, FPY, FPZ setting.  Useful for checking the alignment of the lamp with the FP.</note>
@@ -450,29 +443,29 @@ Short integration times are usually sufficient for FP alignment with the lamp.</
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Normal+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>5.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>10.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Normal+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -480,24 +473,24 @@ Short integration times are usually sufficient for FP alignment with the lamp.</
           <title>DR recipe selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>QUICK_LOOK</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>QUICK_LOOK</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_collapsed>true</meta_gui_collapsed>
           <title>fpx, fpy set</title>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -505,30 +498,31 @@ Short integration times are usually sufficient for FP alignment with the lamp.</
             <title>Set FPX, FPY, and FPZ below!</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>200</FPX>
+            <FPY>-200</FPY>
+            <FPZ>-700</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPZ>-700</FPZ>
-            <FPY>-200</FPY>
-            <FPX>200</FPX>
+            <title>FPX and FPY</title>
             <SpIterObserve type="ic" subtype="observe">
-              <repeatCount>1</repeatCount>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>1</repeatCount>
             </SpIterObserve>
           </SpIterFP>
         </SpIterFolder>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
-      <title>Basic: online(obj,sky)-offline(sky,obj)</title>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <priority>99</priority>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <estimatedDuration units="seconds">1163.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Basic: online(obj,sky)-offline(sky,obj)</title>
+      <totalDuration units="seconds">4169.0</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
@@ -537,17 +531,15 @@ and alter the UFTI component accordingly.</note>
         <title>READ THIS</title>
       </SpNote>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note></note>
+        <title>OBSERVER NOTES</title>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">446.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">446.0</estimatedDuration>
         <standard>true</standard>
+        <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>5-point jitter offsets on a bright point source; a mosaic is obtained at each of three FPZ settings (on-line, off-line-blue, off-line-red).  
@@ -569,8 +561,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Object Name</targetName>
@@ -580,7 +573,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -590,29 +582,29 @@ The UFTI component below uses a 5-second exposure time.  To change it move the h
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>8-9</sourceMag>
+          <exposureTime>20.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>20.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>8-9</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -622,29 +614,29 @@ NOTE:  A separate flat must have been acquired and filed in the same filter (use
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>BRIGHT_POINT_SOURCE</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>BRIGHT_POINT_SOURCE</ObjectRecipe>
-          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>BRIGHT_POINT_SOURCE</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>BRIGHT_POINT_SOURCE</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>20.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -655,33 +647,33 @@ Enter these new values into the "FP" component below.  FPZ will be over-written 
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-630</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-630</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>You MUST edit the FPZ settings in the FP iterator below.  Set these to the on-line, off-line (blue) and off-line (red) FPZ values you will use on your target.</note>
               <title>FPZ settings</title>
             </SpNote>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>
                 <value>-600</value>
                 <value>-900</value>
                 <value>-300</value>
               </FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The 5 jitter positions on sky are nested within the FPZ
@@ -693,6 +685,7 @@ FP field-of-view.</note>
                 <title>5 Jitter positions</title>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selectedOffsetPos>Offset8</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
@@ -718,10 +711,9 @@ FP field-of-view.</note>
                   </OFFSET>
                 </obsArea>
                 <title>jitter_5_5as</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -732,8 +724,8 @@ FP field-of-view.</note>
             <title>last offset</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <obsArea>
               <PA>0.0</PA>
               <OFFSET>
@@ -745,13 +737,11 @@ FP field-of-view.</note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">2560.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>make_skyflat for FP</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">2560.0</estimatedDuration>
         <standard>false</standard>
+        <title>make_skyflat for FP</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence makes a sky flat from four frames observed at  the on-line and off-line FPZ settings.
@@ -768,9 +758,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Blank sky position</targetName>
@@ -780,7 +771,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -790,29 +780,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>500.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>500.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -820,29 +810,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>SKY_FLAT_FP</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>SKY_FLAT_FP</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpz and offsetting</title>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>500.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -853,30 +843,29 @@ Enter these new values into the "FP" component below.</note>
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-284</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-284</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-284</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>0,0</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -884,21 +873,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-484</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>20,20</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -906,20 +895,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>20.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>20,20</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-284</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-20,20</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -927,20 +916,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>20.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-20,20</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-84</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>0,-30</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -948,9 +937,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-30.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>0,-30</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -960,8 +950,8 @@ Enter these new values into the "FP" component below.</note>
               <title>Return to zero</title>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -974,12 +964,10 @@ Enter these new values into the "FP" component below.</note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">1163.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Basic: online(obj,sky)-offline(sky,obj)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">1163.0</estimatedDuration>
         <standard>false</standard>
+        <title>Basic: online(obj,sky)-offline(sky,obj)</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This observation is designed to take FP images of an astronomical source, using the sequence:
@@ -1010,8 +998,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Object Name</targetName>
@@ -1021,7 +1010,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1031,29 +1019,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>120.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>120.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Normal+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1061,29 +1049,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>FP</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>FP</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>FP</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>FP</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>FP</SkyRecipe>
+          <title>FP</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpz and offsetting</title>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>120.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -1096,29 +1084,29 @@ down the sequence).</note>
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>300</FPX>
+            <FPY>-80</FPY>
+            <FPZ>-630</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-630</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-80</FPY>
-            <FPX>300</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-500</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1127,13 +1115,13 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1142,19 +1130,19 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-430</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1163,13 +1151,13 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1178,18 +1166,18 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-500</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1198,13 +1186,13 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1213,18 +1201,18 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-570</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1233,13 +1221,13 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1248,8 +1236,8 @@ down the sequence).</note>
                   </OFFSET>
                 </obsArea>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -1258,11 +1246,12 @@ down the sequence).</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
-      <title>Jitter 5 no sky: online(obj)-offline(obj)</title>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <priority>99</priority>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <estimatedDuration units="seconds">2661.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Jitter 5 no sky: online(obj)-offline(obj)</title>
+      <totalDuration units="seconds">5667.0</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
@@ -1271,17 +1260,15 @@ and alter the UFTI component accordingly.</note>
         <title>READ THIS</title>
       </SpNote>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note></note>
+        <title>OBSERVER NOTES</title>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">446.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">446.0</estimatedDuration>
         <standard>true</standard>
+        <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>5-point jitter offsets on a bright point source; a mosaic is obtained at each of three FPZ settings (on-line, off-line-blue, off-line-red).  
@@ -1303,8 +1290,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Object Name</targetName>
@@ -1314,7 +1302,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1324,29 +1311,29 @@ The UFTI component below uses a 5-second exposure time.  To change it move the h
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>8-9</sourceMag>
+          <exposureTime>20.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>20.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>8-9</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1356,29 +1343,29 @@ NOTE:  A separate flat must have been acquired and filed in the same filter (use
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>BRIGHT_POINT_SOURCE</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>BRIGHT_POINT_SOURCE</ObjectRecipe>
-          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>BRIGHT_POINT_SOURCE</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>BRIGHT_POINT_SOURCE</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>20.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -1389,33 +1376,33 @@ Enter these new values into the "FP" component below.  FPZ will be over-written 
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-630</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-630</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>You MUST edit the FPZ settings in the FP iterator below.  Set these to the on-line, off-line (blue) and off-line (red) FPZ values you will use on your target.</note>
               <title>FPZ settings</title>
             </SpNote>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>
                 <value>-600</value>
                 <value>-900</value>
                 <value>-300</value>
               </FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The 5 jitter positions on sky are nested within the FPZ
@@ -1427,6 +1414,7 @@ FP field-of-view.</note>
                 <title>5 Jitter positions</title>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selectedOffsetPos>Offset8</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
@@ -1452,10 +1440,9 @@ FP field-of-view.</note>
                   </OFFSET>
                 </obsArea>
                 <title>jitter_5_5as</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -1466,8 +1453,8 @@ FP field-of-view.</note>
             <title>last offset</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <obsArea>
               <PA>0.0</PA>
               <OFFSET>
@@ -1479,13 +1466,11 @@ FP field-of-view.</note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">2560.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>make_skyflat for FP</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">2560.0</estimatedDuration>
         <standard>false</standard>
+        <title>make_skyflat for FP</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence makes a sky flat from four frames observed at  the on-line and off-line FPZ settings.
@@ -1502,9 +1487,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Blank sky position</targetName>
@@ -1514,7 +1500,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1524,29 +1509,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>500.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>500.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1554,29 +1539,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>SKY_FLAT_FP</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>SKY_FLAT_FP</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpz and offsetting</title>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>500.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -1587,30 +1572,29 @@ Enter these new values into the "FP" component below.</note>
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-284</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-284</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-284</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>0,0</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1618,21 +1602,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-484</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>20,20</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1640,20 +1624,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>20.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>20,20</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-284</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-20,20</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1661,20 +1645,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>20.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-20,20</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-84</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>0,-30</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -1682,9 +1666,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-30.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>0,-30</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -1694,8 +1679,8 @@ Enter these new values into the "FP" component below.</note>
               <title>Return to zero</title>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -1708,13 +1693,11 @@ Enter these new values into the "FP" component below.</note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">2661.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Jitter 5 no sky: online(obj)-offline(obj)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">2661.0</estimatedDuration>
         <standard>false</standard>
+        <title>Jitter 5 no sky: online(obj)-offline(obj)</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This observation is designed to take FP images of an astronomical source, using the sequence :
@@ -1741,8 +1724,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Object Name</targetName>
@@ -1752,7 +1736,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1762,29 +1745,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>120.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>120.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1792,29 +1775,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>FP_JITTER_NO_SKY</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>FP_JITTER_NO_SKY</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>false</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>FP_JITTER_NO_SKY</ObjectRecipe>
+          <SkyInGroup>false</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>FP_JITTER_NO_SKY</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpz and offsetting</title>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>120.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -1826,16 +1809,16 @@ Enter these new values into the "FP" component below.</note>
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-630</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-630</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1848,10 +1831,11 @@ Enter these new values into the "FP" component below.</note>
             <title>FPZ settings</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
               <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
@@ -1876,10 +1860,7 @@ Enter these new values into the "FP" component below.</note>
                   <DC2>-4.0</DC2>
                 </OFFSET>
               </obsArea>
-              <meta_gui_collapsed>false</meta_gui_collapsed>
               <SpIterFP type="ic" subtype="instFP">
-                <title>FPZ on line</title>
-                <iterConfigList>FPZ</iterConfigList>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <FPZ>
                   <value>-284</value>
@@ -1887,9 +1868,11 @@ Enter these new values into the "FP" component below.</note>
                   <value>-284</value>
                   <value>-84</value>
                 </FPZ>
+                <iterConfigList>FPZ</iterConfigList>
+                <title>FPZ on line</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterFP>
             </SpIterOffset>
@@ -1900,8 +1883,8 @@ Enter these new values into the "FP" component below.</note>
             <title>Return to (0,0)</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <obsArea>
               <PA>0.0</PA>
               <OFFSET>
@@ -1914,11 +1897,12 @@ Enter these new values into the "FP" component below.</note>
       </SpObs>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <library_version>$Revision$</library_version>
-      <title>Jitter 5: online(obj,sky)-offline(sky,obj)</title>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <priority>99</priority>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <estimatedDuration units="seconds">5196.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Jitter 5: online(obj,sky)-offline(sky,obj)</title>
+      <totalDuration units="seconds">8202.0</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This MSB is incomplete without a standard star in the selected waveband.
@@ -1927,17 +1911,15 @@ and alter the UFTI component accordingly.</note>
         <title>READ THIS</title>
       </SpNote>
       <SpNote observeInstruction="true" type="no" subtype="none">
-        <title>OBSERVER NOTES</title>
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note></note>
+        <title>OBSERVER NOTES</title>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">446.0</estimatedDuration>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">446.0</estimatedDuration>
         <standard>true</standard>
+        <title>Flux standard for FP; 5pt jitter: Bright Point Source</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>5-point jitter offsets on a bright point source; a mosaic is obtained at each of three FPZ settings (on-line, off-line-blue, off-line-red).  
@@ -1959,8 +1941,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Object Name</targetName>
@@ -1970,7 +1953,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1980,29 +1962,29 @@ The UFTI component below uses a 5-second exposure time.  To change it move the h
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>8-9</sourceMag>
+          <exposureTime>20.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>20.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>8-9</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2012,29 +1994,29 @@ NOTE:  A separate flat must have been acquired and filed in the same filter (use
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>BRIGHT_POINT_SOURCE</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>BRIGHT_POINT_SOURCE</ObjectRecipe>
-          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>BRIGHT_POINT_SOURCE</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>BRIGHT_POINT_SOURCE</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>20.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -2045,33 +2027,33 @@ Enter these new values into the "FP" component below.  FPZ will be over-written 
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-630</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-630</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>You MUST edit the FPZ settings in the FP iterator below.  Set these to the on-line, off-line (blue) and off-line (red) FPZ values you will use on your target.</note>
               <title>FPZ settings</title>
             </SpNote>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>
                 <value>-600</value>
                 <value>-900</value>
                 <value>-300</value>
               </FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>The 5 jitter positions on sky are nested within the FPZ
@@ -2083,6 +2065,7 @@ FP field-of-view.</note>
                 <title>5 Jitter positions</title>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <meta_gui_selectedOffsetPos>Offset8</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
@@ -2108,10 +2091,9 @@ FP field-of-view.</note>
                   </OFFSET>
                 </obsArea>
                 <title>jitter_5_5as</title>
-                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -2122,8 +2104,8 @@ FP field-of-view.</note>
             <title>last offset</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <obsArea>
               <PA>0.0</PA>
               <OFFSET>
@@ -2135,13 +2117,11 @@ FP field-of-view.</note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">2560.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>make_skyflat for FP</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">2560.0</estimatedDuration>
         <standard>false</standard>
+        <title>make_skyflat for FP</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This sequence makes a sky flat from four frames observed at  the on-line and off-line FPZ settings.
@@ -2158,9 +2138,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
-          <meta_gui_selected>false</meta_gui_selected>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selected>false</meta_gui_selected>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Blank sky position</targetName>
@@ -2170,7 +2151,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2180,29 +2160,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>500.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>500.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Higain+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2210,29 +2190,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>SKY_FLAT_FP</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SKY</SkyRecipe>
+          <title>SKY_FLAT_FP</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpz and offsetting</title>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>500.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -2243,30 +2223,29 @@ Enter these new values into the "FP" component below.</note>
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-284</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-284</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-284</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>0,0</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2274,21 +2253,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-484</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>20,20</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2296,20 +2275,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>20.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>20,20</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-284</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-20,20</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2317,20 +2296,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>20.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-20,20</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-84</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>0,-30</title>
                 <meta_gui_collapsed>true</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2338,9 +2317,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-30.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>0,-30</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -2350,8 +2330,8 @@ Enter these new values into the "FP" component below.</note>
               <title>Return to zero</title>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -2364,13 +2344,11 @@ Enter these new values into the "FP" component below.</note>
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <chainedToNext>false</chainedToNext>
-        <estimatedDuration units="seconds">5196.0</estimatedDuration>
-        <meta_gui_selected>false</meta_gui_selected>
-        <chainedToPrev>false</chainedToPrev>
-        <title>Jitter 5: online(obj,sky)-offline(sky,obj)</title>
         <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <estimatedDuration units="seconds">5196.0</estimatedDuration>
         <standard>false</standard>
+        <title>Jitter 5: online(obj,sky)-offline(sky,obj)</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>This observation is designed to take FP images of an astronomical source, using the sequence :
@@ -2401,8 +2379,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <title>target information</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_unique>true</meta_unique>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
               <targetName>Object Name</targetName>
@@ -2412,7 +2391,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </spherSystem>
             </target>
           </BASE>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2422,29 +2400,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>how to set the exposure time and filter</title>
         </SpNote>
         <SpInstUFTI type="oc" subtype="inst.UFTI">
-          <posAngle>0.0</posAngle>
-          <instPort>West</instPort>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
           <meta_version>1.0</meta_version>
-          <readoutArea>1024x1024</readoutArea>
+          <acqMode>Higain+NDSTARE</acqMode>
           <coadds>1</coadds>
-          <sourceMag>BL</sourceMag>
+          <exposureTime>120.0</exposureTime>
+          <filter>2.122MK</filter>
           <instAper>
             <value>3.28</value>
             <value>8.51</value>
             <value>0.0</value>
             <value>2.122</value>
           </instAper>
-          <polariser>FP</polariser>
-          <filter>2.122</filter>
-          <exposureTime>120.0</exposureTime>
-          <title>- set configuration</title>
-          <meta_unique>true</meta_unique>
-          <acqMode>Normal+NDSTARE</acqMode>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <instPntgOffset>
             <value>0.0</value>
             <value>0.0</value>
           </instPntgOffset>
+          <instPort>West</instPort>
+          <polariser>FP</polariser>
+          <posAngle>0.0</posAngle>
+          <readoutArea>1024x1024</readoutArea>
+          <sourceMag>BL</sourceMag>
+          <title>- set configuration</title>
         </SpInstUFTI>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2452,29 +2430,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
-          <SkyRecipe>FP_JITTER</SkyRecipe>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <title>FP_JITTER</title>
-          <meta_unique>true</meta_unique>
-          <BiasInGroup>false</BiasInGroup>
-          <DarkInGroup>false</DarkInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <ObjectRecipe>FP_JITTER</ObjectRecipe>
+          <meta_unique>true</meta_unique>
           <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
-          <SkyInGroup>true</SkyInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
           <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>FP_JITTER</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>FP_JITTER</SkyRecipe>
+          <title>FP_JITTER</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <title>fpz and offsetting</title>
           <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>120.0</exposureTime>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
@@ -2485,16 +2463,16 @@ Enter these new values into the "FP" component below.</note>
             <title>FPX and FPY settings</title>
           </SpNote>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPX and FPY</title>
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <FPX>350</FPX>
+            <FPY>-350</FPY>
+            <FPZ>-264</FPZ>
             <iterConfigList>
               <value>FPX</value>
               <value>FPY</value>
               <value>FPZ</value>
             </iterConfigList>
-            <FPZ>-264</FPZ>
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <FPY>-350</FPY>
-            <FPX>350</FPX>
+            <title>FPX and FPY</title>
           </SpIterFP>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2512,18 +2490,17 @@ Enter these new values into the "FP" component below.</note>
             <title>Jitter position 1 (0,0)</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>true</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>------ &gt; 0,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2531,15 +2508,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>------ &gt; 0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2547,21 +2524,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-464</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2569,15 +2546,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 0,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2585,20 +2562,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 0,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2606,15 +2583,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2622,20 +2599,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-64</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2643,15 +2620,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 0,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2659,9 +2636,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 0,0</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -2672,18 +2650,17 @@ Enter these new values into the "FP" component below.</note>
             <title>Jitter position 2 (6,1)</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>true</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>------ &gt; 6,1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2691,15 +2668,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>------ &gt; 6,1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -95,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2707,21 +2684,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -95,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-464</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -95,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2729,15 +2706,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -95,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 6,1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2745,20 +2722,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 6,1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 6,1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2766,15 +2743,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 6,1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -95,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2782,20 +2759,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -95,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-64</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -95,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2803,15 +2780,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -95,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 6,1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2819,9 +2796,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 6,1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -2832,18 +2810,17 @@ Enter these new values into the "FP" component below.</note>
             <title>Jitter position 3 (-5,-1)</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>true</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>------ &gt; -5,-1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2851,15 +2828,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>------ &gt; -5,-1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -105,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2867,21 +2844,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -105,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-464</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -105,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2889,15 +2866,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -105,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -5,-1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2905,20 +2882,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -5,-1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -5,-1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2926,15 +2903,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -5,-1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -105,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2942,20 +2919,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -105,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-64</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -105,0</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2963,15 +2940,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -105,0</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -5,-1</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -2979,9 +2956,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-1.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -5,-1</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -2992,18 +2970,17 @@ Enter these new values into the "FP" component below.</note>
             <title>Jitter position 4 (1,5)</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>true</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>------ &gt; 1,5</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3011,15 +2988,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>5.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>------ &gt; 1,5</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3027,21 +3004,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-464</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3049,15 +3026,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 1,5</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3065,20 +3042,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>5.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 1,5</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 1,5</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3086,15 +3063,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>5.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 1,5</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3102,20 +3079,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-64</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3123,15 +3100,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; 1,5</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3139,9 +3116,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>5.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; 1,5</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -3152,18 +3130,17 @@ Enter these new values into the "FP" component below.</note>
             <title>Jitter position 5 (-1,-6)</title>
           </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
-            <repeatCount>1</repeatCount>
             <meta_gui_collapsed>true</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ on line</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ on line</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>------ &gt; -1,-6</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3171,15 +3148,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-6.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>------ &gt; -1,-6</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,-10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3187,21 +3164,21 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,-10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <title>FPZ offline</title>
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-464</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
+              <title>FPZ offline</title>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,-10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3209,15 +3186,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,-10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -1,-6</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3225,20 +3202,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-6.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -1,-6</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-264</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -1,-6</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3246,15 +3223,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-6.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -1,-6</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,-10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3262,20 +3239,20 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,-10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
             </SpIterFP>
             <SpIterFP type="ic" subtype="instFP">
-              <iterConfigList>FPZ</iterConfigList>
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <FPZ>-64</FPZ>
+              <iterConfigList>FPZ</iterConfigList>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -100,-10</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3283,15 +3260,15 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-10.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -100,-10</title>
                 <SpIterSky type="ic" subtype="sky">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterSky>
               </SpIterOffset>
               <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <title>-----&gt; -1,-6</title>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -3299,9 +3276,10 @@ Enter these new values into the "FP" component below.</note>
                     <DC2>-6.0</DC2>
                   </OFFSET>
                 </obsArea>
+                <title>-----&gt; -1,-6</title>
                 <SpIterObserve type="ic" subtype="observe">
-                  <repeatCount>1</repeatCount>
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
                 </SpIterObserve>
               </SpIterOffset>
             </SpIterFP>
@@ -3312,8 +3290,8 @@ Enter these new values into the "FP" component below.</note>
             <title>last offset</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <obsArea>
               <PA>0.0</PA>
               <OFFSET>
@@ -3331,18 +3309,17 @@ Enter these new values into the "FP" component below.</note>
       <title>utility sequences</title>
     </SpNote>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <chainedToNext>false</chainedToNext>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_selected>false</meta_gui_selected>
+      <SpDRRecipeRef idref="2"/>
+      <SpInstUFTIRef idref="1"/>
+      <SpTelescopeObsCompRef idref="0"/>
       <estimatedDuration units="seconds">2560.0</estimatedDuration>
       <library_version>$Revision$</library_version>
-      <SpTelescopeObsCompRef idref="0"/>
-      <SpInstUFTIRef idref="1"/>
-      <SpDRRecipeRef idref="2"/>
-      <meta_gui_selected>false</meta_gui_selected>
-      <chainedToPrev>false</chainedToPrev>
-      <title>make_skyflat for FP</title>
       <priority>99</priority>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
+      <title>make_skyflat for FP</title>
+      <totalDuration units="seconds">180.0</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>This sequence makes a sky flat from four frames observed at  the on-line and off-line FPZ settings.
@@ -3359,9 +3336,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
       <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
-        <meta_unique>true</meta_unique>
-        <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_gui_selected>false</meta_gui_selected>
+        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+        <meta_unique>true</meta_unique>
         <BASE TYPE="Base">
           <target>
             <targetName>Blank sky position</targetName>
@@ -3371,7 +3349,6 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             </spherSystem>
           </target>
         </BASE>
-        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
       </SpTelescopeObsComp>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3381,29 +3358,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
         <title>how to set the exposure time and filter</title>
       </SpNote>
       <SpInstUFTI id="1" type="oc" subtype="inst.UFTI">
-        <posAngle>0.0</posAngle>
-        <instPort>West</instPort>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
         <meta_version>1.0</meta_version>
-        <readoutArea>1024x1024</readoutArea>
+        <acqMode>Higain+NDSTARE</acqMode>
         <coadds>1</coadds>
-        <sourceMag>BL</sourceMag>
+        <exposureTime>500.0</exposureTime>
+        <filter>2.122MK</filter>
         <instAper>
           <value>3.28</value>
           <value>8.51</value>
           <value>0.0</value>
           <value>2.122</value>
         </instAper>
-        <polariser>FP</polariser>
-        <filter>2.122</filter>
-        <exposureTime>500.0</exposureTime>
-        <title>- set configuration</title>
-        <meta_unique>true</meta_unique>
-        <acqMode>Higain+NDSTARE</acqMode>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
         </instPntgOffset>
+        <instPort>West</instPort>
+        <polariser>FP</polariser>
+        <posAngle>0.0</posAngle>
+        <readoutArea>1024x1024</readoutArea>
+        <sourceMag>BL</sourceMag>
+        <title>- set configuration</title>
       </SpInstUFTI>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3411,29 +3388,29 @@ The UFTI component below uses a 120-second exposure time, which is necessary to 
         <title>DR Recipe Selection</title>
       </SpNote>
       <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
-        <SkyRecipe>REDUCE_SKY</SkyRecipe>
-        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-        <ArcRecipe>REDUCE_ARC</ArcRecipe>
-        <DarkRecipe>REDUCE_DARK</DarkRecipe>
-        <title>SKY_FLAT_FP</title>
-        <meta_unique>true</meta_unique>
-        <BiasInGroup>false</BiasInGroup>
-        <DarkInGroup>false</DarkInGroup>
-        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+        <meta_unique>true</meta_unique>
         <ArcInGroup>false</ArcInGroup>
+        <ArcRecipe>REDUCE_ARC</ArcRecipe>
+        <BiasInGroup>false</BiasInGroup>
+        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+        <DarkInGroup>false</DarkInGroup>
+        <DarkRecipe>REDUCE_DARK</DarkRecipe>
         <FlatInGroup>false</FlatInGroup>
-        <SkyInGroup>true</SkyInGroup>
+        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
         <ObjectInGroup>true</ObjectInGroup>
+        <ObjectRecipe>SKY_FLAT_FP</ObjectRecipe>
+        <SkyInGroup>true</SkyInGroup>
+        <SkyRecipe>REDUCE_SKY</SkyRecipe>
+        <title>SKY_FLAT_FP</title>
       </SpDRRecipe>
       <SpIterFolder type="if" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <title>fpz and offsetting</title>
         <SpIterDarkObs type="ic" subtype="darkObs">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>1</coadds>
           <exposureTime>500.0</exposureTime>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpNote type="no" subtype="none">
@@ -3444,30 +3421,29 @@ Enter these new values into the "FP" component below.</note>
           <title>FPX and FPY settings</title>
         </SpNote>
         <SpIterFP type="ic" subtype="instFP">
-          <title>FPX and FPY</title>
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <FPX>350</FPX>
+          <FPY>-350</FPY>
+          <FPZ>-284</FPZ>
           <iterConfigList>
             <value>FPX</value>
             <value>FPY</value>
             <value>FPZ</value>
           </iterConfigList>
-          <FPZ>-284</FPZ>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <FPY>-350</FPY>
-          <FPX>350</FPX>
+          <title>FPX and FPY</title>
         </SpIterFP>
         <SpIterRepeat type="ic" subtype="repeat">
-          <repeatCount>1</repeatCount>
           <meta_gui_collapsed>false</meta_gui_collapsed>
+          <repeatCount>1</repeatCount>
           <title>Repeat 1X</title>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPZ on line</title>
-            <iterConfigList>FPZ</iterConfigList>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-284</FPZ>
+            <iterConfigList>FPZ</iterConfigList>
+            <title>FPZ on line</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>0,0</title>
               <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -3475,21 +3451,21 @@ Enter these new values into the "FP" component below.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
+              <title>0,0</title>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterOffset>
           </SpIterFP>
           <SpIterFP type="ic" subtype="instFP">
-            <title>FPZ offline</title>
-            <iterConfigList>FPZ</iterConfigList>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-484</FPZ>
+            <iterConfigList>FPZ</iterConfigList>
+            <title>FPZ offline</title>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>20,20</title>
               <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -3497,20 +3473,20 @@ Enter these new values into the "FP" component below.</note>
                   <DC2>20.0</DC2>
                 </OFFSET>
               </obsArea>
+              <title>20,20</title>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterOffset>
           </SpIterFP>
           <SpIterFP type="ic" subtype="instFP">
-            <iterConfigList>FPZ</iterConfigList>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-284</FPZ>
+            <iterConfigList>FPZ</iterConfigList>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>-20,20</title>
               <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -3518,20 +3494,20 @@ Enter these new values into the "FP" component below.</note>
                   <DC2>20.0</DC2>
                 </OFFSET>
               </obsArea>
+              <title>-20,20</title>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterOffset>
           </SpIterFP>
           <SpIterFP type="ic" subtype="instFP">
-            <iterConfigList>FPZ</iterConfigList>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <FPZ>-84</FPZ>
+            <iterConfigList>FPZ</iterConfigList>
             <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <title>0,-30</title>
               <meta_gui_collapsed>true</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
               <obsArea>
                 <PA>0.0</PA>
                 <OFFSET>
@@ -3539,9 +3515,10 @@ Enter these new values into the "FP" component below.</note>
                   <DC2>-30.0</DC2>
                 </OFFSET>
               </obsArea>
+              <title>0,-30</title>
               <SpIterObserve type="ic" subtype="observe">
-                <repeatCount>1</repeatCount>
                 <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
               </SpIterObserve>
             </SpIterOffset>
           </SpIterFP>
@@ -3551,8 +3528,8 @@ Enter these new values into the "FP" component below.</note>
             <title>Return to zero</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
             <obsArea>
               <PA>0.0</PA>
               <OFFSET>
@@ -3565,102 +3542,15 @@ Enter these new values into the "FP" component below.</note>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <chainedToNext>false</chainedToNext>
-      <estimatedDuration units="seconds">215.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <SpInstUFTIRef idref="3"/>
-      <SpDRRecipeRef idref="4"/>
-      <chainedToPrev>false</chainedToPrev>
-      <title>array_tests</title>
-      <priority>99</priority>
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <standard>false</standard>
-      <SpNote type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>The UFTI configuration to use the blank filter in the component below.</note>
-      </SpNote>
-      <SpInstUFTI id="3" type="oc" subtype="inst.UFTI">
-        <posAngle>0.0</posAngle>
-        <instPort>West</instPort>
-        <meta_version>1.0</meta_version>
-        <readoutArea>1024x1024</readoutArea>
-        <coadds>2</coadds>
-        <sourceMag>none</sourceMag>
-        <instAper>
-          <value>8.13</value>
-          <value>-0.23</value>
-          <value>0.0</value>
-          <value>2.222</value>
-        </instAper>
-        <polariser>none</polariser>
-        <filter>Blank</filter>
-        <exposureTime>4.0</exposureTime>
-        <meta_unique>true</meta_unique>
-        <acqMode>Normal+NDSTARE</acqMode>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <instPntgOffset>
-          <value>0.0</value>
-          <value>0.0</value>
-        </instPntgOffset>
-      </SpInstUFTI>
-      <SpNote type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>Use the ARRAY_TESTS data-reduction recipe.</note>
-      </SpNote>
-      <SpDRRecipe id="4" type="oc" subtype="DRRecipe">
-        <DarkInGroup>true</DarkInGroup>
-        <ArcInGroup>false</ArcInGroup>
-        <SkyRecipe>ARRAY_TESTS</SkyRecipe>
-        <ObjectRecipe>ARRAY_TESTS</ObjectRecipe>
-        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-        <meta_unique>true</meta_unique>
-        <DRRecipe>ARRAY_TESTS</DRRecipe>
-        <DarkRecipe>ARRAY_TESTS</DarkRecipe>
-        <SkyInGroup>false</SkyInGroup>
-        <ObjectInGroup>false</ObjectInGroup>
-        <ArcRecipe>REDUCE_ARC</ArcRecipe>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <BiasInGroup>false</BiasInGroup>
-        <FlatInGroup>false</FlatInGroup>
-        <title>ARRAY_TESTS</title>
-      </SpDRRecipe>
-      <SpIterFolder type="if" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Take three 5-second darks, so that the first one can be thrown away</note>
-        </SpNote>
-        <SpIterDarkObs type="ic" subtype="darkObs">
-          <coadds>1</coadds>
-          <exposureTime>5.0</exposureTime>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <repeatCount>3</repeatCount>
-        </SpIterDarkObs>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Now do a 60-second dark - using the dark observe iterator below to change the exposure time.</note>
-          <title>now do a long dark</title>
-        </SpNote>
-        <SpIterDarkObs type="ic" subtype="darkObs">
-          <coadds>1</coadds>
-          <exposureTime>60.0</exposureTime>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <repeatCount>1</repeatCount>
-        </SpIterDarkObs>
-      </SpIterFolder>
-    </SpObs>
-    <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <chainedToNext>false</chainedToNext>
+      <SpDRRecipeRef idref="4"/>
+      <SpInstUFTIRef idref="3"/>
       <estimatedDuration units="seconds">117.0</estimatedDuration>
       <library_version>$Revision$</library_version>
-      <SpInstUFTIRef idref="5"/>
-      <SpDRRecipeRef idref="6"/>
-      <chainedToPrev>false</chainedToPrev>
-      <title>Flush Array</title>
       <priority>99</priority>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
+      <title>Flush Array</title>
+      <totalDuration units="seconds">180.0</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>To take 3 short dark exposures (full array) to "flush" the array of any latent images.    
@@ -3673,74 +3563,73 @@ Note:  These frames WILL be stored to disk.</note>
         <note>Sets the integration time and the filter to blank in the UFTI component.</note>
         <title>Set time and filter</title>
       </SpNote>
-      <SpInstUFTI id="5" type="oc" subtype="inst.UFTI">
-        <posAngle>0.0</posAngle>
-        <instPort>West</instPort>
+      <SpInstUFTI id="3" type="oc" subtype="inst.UFTI">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
         <meta_version>1.0</meta_version>
-        <readoutArea>1024x1024</readoutArea>
+        <acqMode>Normal+NDSTARE</acqMode>
         <coadds>1</coadds>
-        <sourceMag>none</sourceMag>
+        <exposureTime>4.0</exposureTime>
+        <filter>Blank</filter>
         <instAper>
           <value>8.13</value>
           <value>-0.23</value>
           <value>0.0</value>
           <value>2.222</value>
         </instAper>
-        <polariser>none</polariser>
-        <filter>Blank</filter>
-        <exposureTime>4.0</exposureTime>
-        <meta_unique>true</meta_unique>
-        <acqMode>Normal+NDSTARE</acqMode>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
         </instPntgOffset>
+        <instPort>West</instPort>
+        <polariser>none</polariser>
+        <posAngle>0.0</posAngle>
+        <readoutArea>1024x1024</readoutArea>
+        <sourceMag>none</sourceMag>
       </SpInstUFTI>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use the QUICK_LOOK  data-reduction recipe, so that you can check that the images are "clean".</note>
         <title>DR recipe selection</title>
       </SpNote>
-      <SpDRRecipe id="6" type="oc" subtype="DRRecipe">
-        <DarkInGroup>true</DarkInGroup>
-        <ArcInGroup>false</ArcInGroup>
-        <SkyRecipe>ARRAY_TESTS</SkyRecipe>
-        <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
-        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-        <meta_unique>true</meta_unique>
-        <DRRecipe>ARRAY_TESTS</DRRecipe>
-        <DarkRecipe>QUICK_LOOK</DarkRecipe>
-        <SkyInGroup>false</SkyInGroup>
-        <ObjectInGroup>false</ObjectInGroup>
-        <ArcRecipe>REDUCE_ARC</ArcRecipe>
+      <SpDRRecipe id="4" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <ArcInGroup>false</ArcInGroup>
+        <ArcRecipe>REDUCE_ARC</ArcRecipe>
         <BiasInGroup>false</BiasInGroup>
+        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+        <DRRecipe>ARRAY_TESTS</DRRecipe>
+        <DarkInGroup>true</DarkInGroup>
+        <DarkRecipe>QUICK_LOOK</DarkRecipe>
         <FlatInGroup>false</FlatInGroup>
+        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+        <ObjectInGroup>false</ObjectInGroup>
+        <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+        <SkyInGroup>false</SkyInGroup>
+        <SkyRecipe>ARRAY_TESTS</SkyRecipe>
         <title>QUICK_LOOK</title>
       </SpDRRecipe>
       <SpIterFolder type="if" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <SpIterDarkObs type="ic" subtype="darkObs">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>1</coadds>
           <exposureTime>4.0</exposureTime>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>3</repeatCount>
         </SpIterDarkObs>
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <chainedToNext>false</chainedToNext>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpDRRecipeRef idref="6"/>
+      <SpInstUFTIRef idref="5"/>
       <estimatedDuration units="seconds">195.0</estimatedDuration>
       <library_version>$Revision$</library_version>
-      <SpInstUFTIRef idref="7"/>
-      <SpDRRecipeRef idref="8"/>
-      <chainedToPrev>false</chainedToPrev>
-      <title>End of Night</title>
       <priority>99</priority>
-      <meta_gui_collapsed>true</meta_gui_collapsed>
       <standard>false</standard>
+      <title>End of Night</title>
+      <totalDuration units="seconds">180.0</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Simply takes five short darks to flush the array of any residual bias structure or latency that may be left over from observing in twilight or from observing a last (bright) standard.
@@ -3748,50 +3637,50 @@ Note:  These frames WILL be stored to disk.</note>
 Also ensures that the blank is in place at the end of the night.</note>
         <title>Usage</title>
       </SpNote>
-      <SpInstUFTI id="7" type="oc" subtype="inst.UFTI">
-        <posAngle>0.0</posAngle>
-        <instPort>West</instPort>
+      <SpInstUFTI id="5" type="oc" subtype="inst.UFTI">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
         <meta_version>1.0</meta_version>
-        <readoutArea>1024x1024</readoutArea>
+        <acqMode>Normal+NDSTARE</acqMode>
         <coadds>1</coadds>
-        <sourceMag>none</sourceMag>
+        <exposureTime>4.0</exposureTime>
+        <filter>Blank</filter>
         <instAper>
           <value>8.13</value>
           <value>-0.23</value>
           <value>0.0</value>
           <value>2.222</value>
         </instAper>
-        <polariser>none</polariser>
-        <filter>Blank</filter>
-        <exposureTime>4.0</exposureTime>
-        <meta_unique>true</meta_unique>
-        <acqMode>Normal+NDSTARE</acqMode>
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <instPntgOffset>
           <value>0.0</value>
           <value>0.0</value>
         </instPntgOffset>
+        <instPort>West</instPort>
+        <polariser>none</polariser>
+        <posAngle>0.0</posAngle>
+        <readoutArea>1024x1024</readoutArea>
+        <sourceMag>none</sourceMag>
       </SpInstUFTI>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Use the QUICK_LOOK data-reduction recipe.</note>
       </SpNote>
-      <SpDRRecipe id="8" type="oc" subtype="DRRecipe">
-        <DarkInGroup>false</DarkInGroup>
-        <ArcInGroup>false</ArcInGroup>
-        <SkyRecipe>QUICK_LOOK</SkyRecipe>
-        <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
-        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-        <meta_unique>true</meta_unique>
-        <DRRecipe>ARRAY_TESTS</DRRecipe>
-        <DarkRecipe>QUICK_LOOK</DarkRecipe>
-        <SkyInGroup>false</SkyInGroup>
-        <ObjectInGroup>false</ObjectInGroup>
-        <ArcRecipe>REDUCE_ARC</ArcRecipe>
+      <SpDRRecipe id="6" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <ArcInGroup>false</ArcInGroup>
+        <ArcRecipe>REDUCE_ARC</ArcRecipe>
         <BiasInGroup>false</BiasInGroup>
+        <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+        <DRRecipe>ARRAY_TESTS</DRRecipe>
+        <DarkInGroup>false</DarkInGroup>
+        <DarkRecipe>QUICK_LOOK</DarkRecipe>
         <FlatInGroup>false</FlatInGroup>
+        <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+        <ObjectInGroup>false</ObjectInGroup>
+        <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+        <SkyInGroup>false</SkyInGroup>
+        <SkyRecipe>QUICK_LOOK</SkyRecipe>
         <title>QUICK_LOOK</title>
       </SpDRRecipe>
       <SpIterFolder type="if" subtype="none">
@@ -3801,9 +3690,9 @@ Also ensures that the blank is in place at the end of the night.</note>
           <note>Take five 4-second darks.</note>
         </SpNote>
         <SpIterDarkObs type="ic" subtype="darkObs">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>1</coadds>
           <exposureTime>4.0</exposureTime>
-          <meta_gui_collapsed>false</meta_gui_collapsed>
           <repeatCount>5</repeatCount>
         </SpIterDarkObs>
       </SpIterFolder>
