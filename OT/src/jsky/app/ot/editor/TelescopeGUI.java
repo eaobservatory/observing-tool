@@ -465,11 +465,11 @@ public class TelescopeGUI extends JPanel {
     conicSystemPanel.add(dmUnitsLabel, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 
-    conicSystemPanel.add(epochPerih, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(epochPerih, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 0), 0, 0));
-    conicSystemPanel.add(epochPerihLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(epochPerihLabel, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    conicSystemPanel.add(epochPerihUnitsLabel, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+    conicSystemPanel.add(epochPerihUnitsLabel, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 15), 0, 0));
 
     targetSystemsTabbedPane.add(namedSystemPanel,     "Named Planets");
