@@ -11,6 +11,7 @@ import org.apache.xerces.dom.DocumentImpl;
 import java.util.Vector;
 import java.util.StringTokenizer;
 import java.util.Enumeration;
+import java.util.Arrays;
 
 /**
  *
@@ -134,15 +135,25 @@ public class SpAvTableDOM {
 //  }
 
   public void parseAvTable() {
+    // Construct AvToDom classes using a sorted attribute array.
+
     Enumeration e = _avTab.attributes();
-   
-    AvToDom avToDom;
-    
+    Vector attributeVector = new Vector();
+
     while (e.hasMoreElements()) {
-      avToDom = new AvToDom((String)e.nextElement());
+      attributeVector.add((String)e.nextElement());
+    }
+
+    String [] attributeArray = new String[attributeVector.size()];
+    attributeVector.toArray(attributeArray);
+    Arrays.sort(attributeArray);
+
+    AvToDom avToDom;
+
+    for(int i = 0; i < attributeArray.length; i++) {
+      avToDom = new AvToDom(attributeArray[i]);
       avToDom.parseAttributeValue();
     }
-    
   }
 
 
@@ -280,7 +291,11 @@ public class SpAvTableDOM {
               ((Element)nodeList.item(i)).setAttribute(_xmlAttribute, _avTab.get(_avTabAttribute, 0));
 	    }
 	    else {
-              ((Element)nodeList.item(i)).appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
+	      if(System.getProperty("DEBUG") != null) {
+                System.out.println("Used to creating text node (1) here: " + _avTab.get(_avTabAttribute, 0) +
+		                   " as child of " + nodeList.item(i).getNodeName());
+	      }		   
+              //((Element)nodeList.item(i)).appendChild(_document.createTextNode(_avTab.get(_avTabAttribute, 0)));
 	    }
 
 	    _treeWalker.setCurrentNode(nodeList.item(i));
