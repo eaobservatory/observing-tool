@@ -124,7 +124,7 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n" > $@
 
 ifeq ($(CFG_DIRS),)
-	@printf "\nset CFG_DIRS     = $(shell cd $(LOCAL_INSTALL_ROOT); pwd)/cfg" >> $@
+	@printf "\nset CFG_DIRS     = ../cfg" >> $@
 else
 	@printf "\nset CFG_DIRS     = $(CFG_DIRS)" >> $@
 endif
