@@ -13,6 +13,7 @@ import java.awt.geom.Point2D;
 import jsky.app.ot.fits.gui.FitsImageInfo;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
 import jsky.app.ot.fits.gui.FitsPosMapEntry;
+import gemini.util.CoordSys;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import jsky.app.ot.OtCfg;
@@ -20,12 +21,14 @@ import jsky.app.ot.tpe.TpeCreateableFeature;
 import jsky.app.ot.tpe.TpeImageWidget;
 import jsky.app.ot.tpe.TpePositionMap;
 import jsky.app.ot.util.BasicPropertyList;
-import jsky.app.ot.util.CoordSys;
 import jsky.app.ot.util.PropertyWatcher;
 import jsky.app.ot.util.RADecMath;
 
 public class TpeGuidePosFeature extends TpePositionFeature
     implements TpeCreateableFeature, PropertyWatcher {
+
+    private static String DEFAULT_NAME = "Guide";
+    private static String _tpeViewGuideLabel = null;
 
     private static final String PROP_SHOW_TAGS = "Show Tags";
     private static BasicPropertyList _props;
@@ -42,7 +45,7 @@ public class TpeGuidePosFeature extends TpePositionFeature
      * Construct the feature with its name and description. 
      */
     public TpeGuidePosFeature() {
-	super("Guide", "Location(s) of the guide stars.");
+	super(DEFAULT_NAME, "Location(s) of the guide stars.");
     }
 
 
@@ -221,6 +224,33 @@ public class TpeGuidePosFeature extends TpePositionFeature
     }
 
     /**
+     * Draw Additional Target as Circle.
+     *
+     * Additional Targets can be added to the OT's Telescope Position Editor as "Guide" stars
+     * even if they are not Guide stars at all. This feature was originally used for Guide stars only,
+     * hence the name.
+     *
+     * Some additional targets (not Guide stars) can be specified as offsets in Az/El. If that is the case
+     * then have to be drawn as a circle.
+     *
+     * @see #_drawGuidePosition(java.awt.Graphics,java.awt.geom.Point2D.Double,int,java.lang.String)
+     */
+    private final void _drawGuideStar(Graphics g, Point2D.Double p, int size, String tag, Point2D.Double base) {
+	g.setColor(Color.green);
+	double radius = Math.sqrt(((p.x - base.x) * (p.x - base.x)) + 
+		                  ((p.y - base.y) * (p.y - base.y)));
+
+	g.drawArc((int)(base.x - radius), (int)(base.y - radius), (int)(2.0 * radius), (int)(2.0 * radius), 0, 360);
+
+
+	if (getDrawTags()) {
+	    // Draw the tag--should use font metrics to position the tag
+	    g.setFont(FONT);
+	    g.drawString(tag, (int)(p.x + size), (int)(p.y + size));
+	}
+    }
+
+    /**
      */
     public void draw(Graphics g, FitsImageInfo fii) {
 	TpePositionMap pm = TpePositionMap.getMap(_iw);
@@ -238,7 +268,26 @@ public class TpeGuidePosFeature extends TpePositionFeature
 	for (int i=0; i<guideTags.length; ++i) {
 	    p = pm.getLocationFromTag( guideTags[i] );
 	    if (p != null) {
-		_drawGuideStar(g, p, size, guideTags[i] );
+	      SpTelescopePosList tpl = getSpTelescopePosList();
+	      SpTelescopePos tp = null;
+
+ 
+	      if(tpl != null) {
+	        tp = (SpTelescopePos) tpl.getPosition(guideTags[i]);
+	      }
+
+	      if(tp != null) {
+	        switch(tp.getCoordSys()) {
+	          case CoordSys.AZ_EL:
+	            _drawGuideStar(g, p, size, guideTags[i], fii.baseScreenPos);
+	            break;
+	          default:
+	            _drawGuideStar(g, p, size, guideTags[i]);
+	        }
+	      }
+	      else {
+	        _drawGuideStar(g, p, size, guideTags[i]);
+	      }
 	    }
 	}
     }
@@ -325,12 +374,30 @@ public class TpeGuidePosFeature extends TpePositionFeature
      * Get the feature's name.
      */
     public String getName() {
-        try {
-            return OtCfg.telescopeUtil.getAdditionalTarget();
+        return getTpeViewGuideLabel();
+    }
+
+    /**
+     * Get the String used as button text for telescope position editor view button.
+     */
+    public static String getTpeViewGuideLabel() {
+      if(_tpeViewGuideLabel == null) {
+        String [] guideTags = SpTelescopePos.getGuideStarTags();
+
+	if((guideTags != null) && (guideTags.length > 0)) {
+          if(guideTags.length == 1) {
+            _tpeViewGuideLabel = guideTags[0];
+	  }
+          else {
+            _tpeViewGuideLabel = guideTags[0] + " etc";
+	  }
 	}
-	catch(Exception e) {
-            return super.getName();
+	else {
+          _tpeViewGuideLabel = DEFAULT_NAME;
 	}
+      }
+
+      return _tpeViewGuideLabel;
     }
 }
 
