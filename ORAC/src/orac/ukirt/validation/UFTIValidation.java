@@ -73,7 +73,7 @@ public class UFTIValidation implements InstrumentValidation {
       if(report == null) {
         report = new Vector();
       }
-
+/*
       if(acqMode.equals("Normal+10_NDSTARE") && (expTime > 750)) {
         report.add(new ErrorMessage(ErrorMessage.ERROR,
 	                            "UFTI", "Exposure time (with readout area: \"" + readoutArea + "\", acquisition mode: \"" + acqMode + "\")",
@@ -89,7 +89,19 @@ public class UFTIValidation implements InstrumentValidation {
 				    expTime + " sec"));
 	return;
       }
-      
+*/
+
+      double [] expLimits = spInstUFTI.getExpTimeLimits();
+      if ( expTime < expLimits[0] || expTime > expLimits[1] ) {
+	  String message = "Exposure time of (" + expTime + ") out of limits for current combination " +
+	      "of readout area (" + readoutArea +") and mode (" + acqMode +").  Valid limits are " +
+	      "(" + expLimits[0] + ", " + expLimits[1] + ").";
+	  report.add( new ErrorMessage( ErrorMessage.ERROR,
+		      "UFTI", 
+		      message) );  
+      }
+
+      /*
       for(int i = 0; i < count; i++) {
         if(readoutArea.equals(readoutAreas[i])) {
           if(acqMode.equals(acqModes[i])) {
@@ -103,6 +115,7 @@ public class UFTIValidation implements InstrumentValidation {
 	  }
 	}
       }
+    */
     }
 }
 
