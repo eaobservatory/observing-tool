@@ -13,6 +13,8 @@ package orac.jcmt.obsComp;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
+import gemini.util.Format;
+
 
 /**
  * Site Quality observation component.
@@ -20,7 +22,9 @@ import gemini.sp.SpType;
 public class SpSiteQualityObsComp extends SpObsComp
 {
 
-   public static final String ATTR_TAU_BAND_INDEX = "tauBandIndex";
+   public static final String ATTR_TAU_BAND_ALLOCATED = "tauBandAllocated";
+   public static final String ATTR_MIN_TAU            = "minTau";
+   public static final String ATTR_MAX_TAU            = "maxTau";
    public static final String ATTR_SEEING        = "seeing";
    public static final int NO_VALUE              = 0;
 
@@ -34,14 +38,6 @@ public class SpSiteQualityObsComp extends SpObsComp
       {0.3, 1.0},
       {1.0, 3.0},
       {3.0, Double.POSITIVE_INFINITY}
-   };
-
-   public static final double [][] CSO_TAU_RANGES = {
-      {0.0,  0.05},
-      {0.05, 0.08},
-      {0.08, 0.12},
-      {0.12, 0.2},
-      {0.2,  Double.POSITIVE_INFINITY}
    };
 
    /** Value for "Don't care option in GUI."  */
@@ -69,31 +65,83 @@ public SpSiteQualityObsComp()
 {
    super(SP_TYPE);
 
-   _avTable.noNotifySet(ATTR_TAU_BAND_INDEX, "" + (CSO_TAU_RANGES.length - 1), 0);
-   _avTable.noNotifySet(ATTR_SEEING,   "" + SEEING_ANY,                  0);
+   _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "true", 0);
+   _avTable.noNotifySet(ATTR_SEEING,   "" + SEEING_ANY,  0);
 }
 
 
 /**
- * Set tau band index (tau band - 1).
- *
- * Tau band = tau band index + 1.
+ * Set minimum tau.
  */
 public void
-setTauBandIndex(int tauBandIndex)
+setTauBandAllocated(boolean value)
 {
-   _avTable.set(ATTR_TAU_BAND_INDEX, tauBandIndex);
+   _avTable.set(ATTR_TAU_BAND_ALLOCATED, value);
 }
 
 /**
- * Get the tau band index (tau band - 1).
- *
- * Tau band = tau band index + 1.
+ * Get minimum tau.
  */
-public int
-getTauBandIndex()
+public boolean
+tauBandAllocated()
 {
-   return _avTable.getInt(ATTR_TAU_BAND_INDEX, NO_VALUE);
+   return _avTable.getBool(ATTR_TAU_BAND_ALLOCATED);
+}
+
+
+/**
+ * Set minimum tau.
+ */
+public void
+setMinTau(double value)
+{
+   _avTable.set(ATTR_MIN_TAU, value);
+}
+
+/**
+ * Set minimum tau from String.
+ */
+public void
+setMinTau(String value)
+{
+   setMinTau(Format.toDouble(value));
+}
+
+/**
+ * Get minimum tau.
+ */
+public double
+getMinTau()
+{
+   return _avTable.getDouble(ATTR_MIN_TAU, NO_VALUE);
+}
+
+
+/**
+ * Set maximum tau.
+ */
+public void
+setMaxTau(double value)
+{
+   _avTable.set(ATTR_MAX_TAU, value);
+}
+
+/**
+ * Set minimum tau from String.
+ */
+public void
+setMaxTau(String value)
+{
+   setMaxTau(Format.toDouble(value));
+}
+
+/**
+ * Get maximum tau.
+ */
+public double
+getMaxTau()
+{
+   return _avTable.getDouble(ATTR_MAX_TAU, NO_VALUE);
 }
 
 
@@ -117,20 +165,6 @@ getSeeing()
    return _avTable.getInt(ATTR_SEEING, NO_VALUE);
 }
 
-
-/**
- * Derives the index of a tau range from a value.
- */
-public static int
-getTauBandIndexFromMax(double max) {
-   for(int i = 0; i < CSO_TAU_RANGES.length; i++) {
-      if((max > CSO_TAU_RANGES[i][0]) && (max <= CSO_TAU_RANGES[i][1])) {
-         return i;
-      }
-   }
-
-   return CSO_TAU_RANGES.length - 1;
-}
 
 /**
  * Derives the index of a seeing range from a value.
@@ -163,13 +197,18 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
       return;
    }
 
-   if(avAttr.equals(ATTR_TAU_BAND_INDEX)) {
+   if(avAttr.equals(ATTR_TAU_BAND_ALLOCATED) && (!tauBandAllocated())) {
       xmlBuffer.append("\n  "   + indent + "<"  + XML_CSO_TAU + ">");
-      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + CSO_TAU_RANGES[getTauBandIndex()][0] + "</" + XML_MIN + ">");
-      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + CSO_TAU_RANGES[getTauBandIndex()][1] + "</" + XML_MAX + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MIN     + ">" + getMinTau() + "</" + XML_MIN + ">");
+      xmlBuffer.append("\n    " + indent + "<"  + XML_MAX     + ">" + getMaxTau() + "</" + XML_MAX + ">");
       xmlBuffer.append("\n  "   + indent + "</" + XML_CSO_TAU + ">");
 
       return;
+   }
+
+   if(avAttr.equals(ATTR_MIN_TAU) || (avAttr.equals(ATTR_MAX_TAU) || avAttr.equals(ATTR_TAU_BAND_ALLOCATED))) {
+     // Ignore. Has been processed with ATTR_TAU_BAND_ALLOCATED attribute.
+     return;
    }
   
    super.processAvAttribute(avAttr, indent, xmlBuffer);
@@ -186,6 +225,7 @@ processXmlElementContent(String name, String value)
 
    if(name.equals(XML_CSO_TAU)) {
      _previousXmlElement = name;
+     _avTable.noNotifySet(ATTR_TAU_BAND_ALLOCATED, "false", 0);
      return;
    }
 
@@ -217,14 +257,27 @@ processXmlElementContent(String name, String value)
                // ignore
             }
 
-            _avTable.noNotifySet(ATTR_TAU_BAND_INDEX, "" + getTauBandIndexFromMax(max), 0);
+            _avTable.noNotifySet(ATTR_MAX_TAU, "" + max, 0);
 
 	    return;
 	 }
       }
 
       if(name.equals(XML_MIN)) {
-         return;
+         if(_previousXmlElement.equals(XML_CSO_TAU)) {
+            double min = 0.0;
+
+            try {
+               min = Double.parseDouble(value);
+            }
+            catch(Exception e) {
+               // ignore
+            }
+
+            _avTable.noNotifySet(ATTR_MIN_TAU, "" + min, 0);
+
+	    return;
+	 }
       }
    }
    catch(Exception e) {

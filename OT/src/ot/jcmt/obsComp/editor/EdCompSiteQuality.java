@@ -15,6 +15,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 
+import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.editor.OtItemEditor;
 
@@ -27,7 +29,7 @@ import orac.jcmt.obsComp.SpSiteQualityObsComp;
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
 public final class EdCompSiteQuality extends OtItemEditor 
-    implements ActionListener {
+    implements ActionListener, TextBoxWidgetWatcher {
 
     private SiteQualityGUI _w;       // the GUI layout panel
 
@@ -43,18 +45,14 @@ public final class EdCompSiteQuality extends OtItemEditor
 	// add action listeners and group the buttons
 	ButtonGroup grp;
 
-	_w.tauBand1.addActionListener(this);
-	_w.tauBand2.addActionListener(this);
-	_w.tauBand3.addActionListener(this);
-	_w.tauBand4.addActionListener(this);
-	_w.tauBand5.addActionListener(this);
+	_w.minTau.addWatcher(this);
+	_w.maxTau.addWatcher(this);
+	_w.tauBandAllocated.addActionListener(this);
+	_w.tauBandUserDefined.addActionListener(this);
 
 	grp = new ButtonGroup();
-	grp.add(_w.tauBand1);
-	grp.add(_w.tauBand2);
-	grp.add(_w.tauBand3);
-	grp.add(_w.tauBand4);
-	grp.add(_w.tauBand5);
+	grp.add(_w.tauBandAllocated);
+	grp.add(_w.tauBandUserDefined);
 
 
 	_w.seeing1.addActionListener(this);
@@ -81,24 +79,21 @@ public final class EdCompSiteQuality extends OtItemEditor
 	int i;
 
 	// Tau Band
-	i = sq.getTauBandIndex();
-	switch (i) {
-	case 0:
-	    _w.tauBand1.setValue(true); break;
-	case 1:
-	    _w.tauBand2.setValue(true); break;
-	case 2:
-	    _w.tauBand3.setValue(true); break;
-	case 3:
-	    _w.tauBand4.setValue(true); break;
-	case 4:
-	    _w.tauBand5.setValue(true); break;
-	default:
-	    _w.tauBand1.setValue(false);
-	    _w.tauBand2.setValue(false);
-	    _w.tauBand3.setValue(false);
-	    _w.tauBand4.setValue(false);
-	    _w.tauBand5.setValue(false); break;
+	if(sq.tauBandAllocated()) {
+	  _w.tauBandAllocated.setValue(true);
+
+	  _w.minTau.setValue("");
+	  _w.maxTau.setValue("");
+	  _w.minTau.setEnabled(false);
+	  _w.maxTau.setEnabled(false);
+	}
+	else {
+	  _w.tauBandUserDefined.setValue(true);
+
+	  _w.minTau.setValue(sq.getMinTau());
+	  _w.maxTau.setValue(sq.getMaxTau());
+	  _w.minTau.setEnabled(true);
+	  _w.maxTau.setEnabled(true);
 	}
 
 	// Seeing
@@ -135,24 +130,27 @@ public final class EdCompSiteQuality extends OtItemEditor
 	SpSiteQualityObsComp sq = (SpSiteQualityObsComp) _spItem;
 
 	// Tau band
-	if (w == _w.tauBand1) {
-	    sq.setTauBandIndex(0);
+	if (w == _w.tauBandAllocated) {
+	    sq.setTauBandAllocated(true);
+	    //sq.setMinTau(0.0);
+	    //sq.setMaxTau(0.0);
+
+	    _w.minTau.setValue("");
+	    _w.maxTau.setValue("");
+	    _w.minTau.setEnabled(false);
+	    _w.maxTau.setEnabled(false);
+
 	}
 
-	if (w == _w.tauBand2) {
-	    sq.setTauBandIndex(1);
-	}
+	if (w == _w.tauBandUserDefined) {
+	    sq.setTauBandAllocated(false);
+	    //sq.setMinTau(_w.minTau.getDoubleValue(0.0));
+	    //sq.setMaxTau(_w.maxTau.getDoubleValue(Double.POSITIVE_INFINITY));
 
-	if (w == _w.tauBand3) {
-	    sq.setTauBandIndex(2);
-	}
-
-	if (w == _w.tauBand4) {
-	    sq.setTauBandIndex(3);
-	}
-
-	if (w == _w.tauBand5) {
-	    sq.setTauBandIndex(4);
+	    _w.minTau.setValue(sq.getMinTau());
+	    _w.maxTau.setValue(sq.getMaxTau());
+	    _w.minTau.setEnabled(true);
+	    _w.maxTau.setEnabled(true);
 	}
 
 
@@ -177,4 +175,25 @@ public final class EdCompSiteQuality extends OtItemEditor
 	    sq.setSeeing(4);
 	}
     }
+
+    /**
+     * Watch changes to min text boxes.
+     */
+    public void	textBoxKeyPress(TextBoxWidgetExt tbwe) {
+	if (tbwe == _w.minTau) {
+	    ((SpSiteQualityObsComp)_spItem).setMinTau(_w.minTau.getValue());
+	    return;
+	}
+
+	if (tbwe == _w.maxTau) {
+	    ((SpSiteQualityObsComp)_spItem).setMaxTau(_w.maxTau.getValue());
+	    return;
+	}
+    }
+ 
+    /**
+     * Text box action, ignore.
+     */
+    public void	textBoxAction(TextBoxWidgetExt tbwe) { }
+
 }
