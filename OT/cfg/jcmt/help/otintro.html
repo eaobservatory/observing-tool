@@ -72,6 +72,7 @@ href="http://www.jach.hawaii.edu/JACpublic/JAC/software/jcmtot/index.html?printa
       <li><a href="#tcc">The target component</a>
       <li><a href="#tpe">The position editor</a>
       <li><a href="#time">The repeat iterator and integration time in general</a>
+      <li><a href="#notes">The only good observer is an informed observer</a>
       <li><a href="#recap">Recap</a>
       <li><a href="#database">Submitting to our database</a>
       <li><a href="#faq">Frequently Asked Questions</a>
@@ -106,6 +107,8 @@ href="http://www.jach.hawaii.edu/JACpublic/JAC/software/jcmtot/index.html?printa
 <ul>
 
 <li><a href="#placement">A note about placement</a>
+
+<li><a href="#replication">Generating a programe from a catalogue file</a>
 
 <li><a href="#constraints">Additional scheduling constraints</a>
 
@@ -644,6 +647,51 @@ don't need to change any of those now.
     I hope that makes sense.
 
 
+    <h2><a name="notes">The only good observer is an informed observer</h2>
+
+As you can see from the library we have insterted informative notes
+    for detailed observation. But this works both ways -<strong> you</strong> should also
+make a note containing information that will be useful to the observer
+taking your data! This note should describe the aim of the
+    observations and adress observational concerns such as:<p>
+
+
+<ul>
+
+  <li> "Stable weather is critical for this project, tau is less important
+    i.e. can be done when weather is on the edge of the allocated band."
+
+  <li> pointing and focus are critical for this project. Please repeat
+  any pointings with shifts in excess of 2 arcseconds.  Please repeat
+  the Z-focus at least once every two hours and the X-, and Y-focus at
+  least at the start and middle of the shift.
+
+<li> Precise calibration is/is not exremely important for this project
+
+</ul>
+
+If you wish to make a single note that pertains to all your MSBs,
+highlight the title of your science programme and click on "Note" on
+the left toolbar.  A note will be dropped in just below your
+    highlight.<p>
+
+
+      <img src="images/note.gif" alt="Inserting a note"><p>
+
+You may then click on the note itself, which allows you to tick the
+"Show to observer" option and enter your comments. This will also turn
+the note red in your science programme window. 
+
+      <img src="images/note2.gif" alt="Show note to observer"><p>
+
+If you prefer, you can also put in an individual note in each MSB. If
+there is a "Show to observer" note inside an MSB, it will be shown
+<strong>instead</strong> of any note specified at the science program
+level (see <a href="#placement">A note about placement</a>) as only one
+	      note can be shown during observing.<p>
+
+
+
     <h2><a name="recap">Recap</a></h2>
 
     Phew! You've finally reached the end - but what did you really
@@ -660,10 +708,11 @@ don't need to change any of those now.
     And probably:<p>
 
 <ul>
+     
 
       <li>Increase the number of integrations, repeats and MSBs
       <li>Modify the chop position<p>
-
+      <li>Make an informative note for the observer
 </ul>
 
 Worried? Click on your science programme and press the "Validation"
@@ -702,11 +751,11 @@ also check individual MSBs and observations.
       When you do get your password and submit your program, you will
       receive a summary of all the MSBs contained in your
       program. Check to make sure that everything is okay. If the
-      science program contains a problem the database will complain
-      and refuse to accept the program. If you don't understand what
+      are major problems with you science program the database may complain
+      and refuse to accept the submission. If you don't understand what
       the problem is, email us along with a copy of the problematic
       project, but check the <a href="#faq">Frequently Asked Questions
-      </a> for hints first.
+      </a> for hints first. 
 
       One last thing: don't forget to save your Science Program to
       your local file too. But - always start a new session by
@@ -932,6 +981,49 @@ own. The technical term for this behaviour is "inheritance" for those
 familiar with it already.
 
 
+<h3><a name="replication">Generating a programe from a catalogue file</a></h3>
+
+If you have many sources which you wish to observe in a similar way
+and do not wish to go through the rigmarole of editing a target
+component for each one, there is a way to generate a science programme
+from a template MSB and a text (ASCII) catalog file. This uses a
+    service at our site - you need an internet connection to do this.<p>
+
+
+Start with a
+science program which contains a template MSB with a blank target
+component (for example, a template MSB you have retrieved from the
+SCUBA library). Your catalog file should be of the format:
+
+<pre>
+PKS0106         01 08 38.771 + 01 35 00.32 RJ
+3C84            03 19 48.160 + 41 30 42.10 RJ
+3C120           04 33 11.096 + 05 21 15.62 RJ
+PKS0438         04 40 17.180 - 43 33 08.60 RJ
+
+</pre>
+
+The catalog format is not blank space sensitive - sourceplot and JCMT catalog
+files will work as is, provided they do not contain planets or objects
+    with orbital elements.<p>
+
+Under the edit menu, there is an option called "Replicate from
+      catalog". Choose this action:<p>
+
+<img src="images/replicate.gif" alt="Replication"><p>
+
+A file selector window will pop up which allows you to chose the
+location of the catalog file. Once you have done this, the OT will
+contact our site and after a short delay will pop up a new science
+programme window containing multiple MSBs. So if you had an MSB with
+one blank target component and a catalog file with 12 sources, you
+will get back a science programme with 12 MSBs, whose target
+      components have been filled in using the information from your catalog.<p>
+
+Of course you may have to tweak the MSBs further, such as giving them
+      more informative titles and tweaking the number of integrations on each source.<p>
+
+
 <h3><a name="constraints">Additional Scheduling Constraints</a></h3>
 
 You can place additional scheduling constraints on some or all of your
@@ -975,7 +1067,7 @@ entire estimated duration of the MSB, so only do this if it is
 
 </ul>
 
-<h3><a href="#offsets">Offsets around a base science position</a></h3>
+<h3><a name="offsets">Offsets around a base science position</a></h3>
 
     We'll now cover a situation where you wish to map a region that is too
     small to do efficiently with a scan map. To do this, start off by
@@ -1055,7 +1147,7 @@ scan maps is better than doing one 90-minute one. <small>
     <hr>
     <address><a href="mailto:frossie@jach.hawaii.edu">Frossie Economou</a></address>
 <!-- Created: Fri Feb 14 12:57:09 HST 1997 --> <!-- hhmts start -->
-Last modified: Sat Dec 21 22:07:54 HST 2002
+Last modified: Wed Jan 15 15:45:47 HST 2003
 <!-- hhmts end -->
   </body>
 </html>
