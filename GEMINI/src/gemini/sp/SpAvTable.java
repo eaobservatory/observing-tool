@@ -483,7 +483,7 @@ rm(String name)
 }
 
 /**
- * Remove an attribute without notifying the state machine.
+ * Remove an attribute without notifying any observers.
  *
  * Added by MFO (2 November 2001).
  */
@@ -543,6 +543,16 @@ rmAll()
 }
 
 /**
+ * Remove all attributes without notifying any observers.
+ */
+public void
+noNotifyRmAll()
+{
+   _avTable.clear();
+}
+
+
+/**
  * Find out how many attributes are in the table.
  */
 public int
@@ -575,6 +585,19 @@ size(String name) {
       return 0;
    }
    return v.size();
+}
+
+/**
+ * Marks the table as edited.
+ *
+ * This can be used to trigger a call to java.util.Observer.update without
+ * actually changing the table.
+ */
+public void edit() {
+   if (_editFSM != null) {
+      _editFSM.editPending();
+      _editFSM.editComplete();
+   }
 }
 
 /**
