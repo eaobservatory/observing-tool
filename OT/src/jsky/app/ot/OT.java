@@ -246,6 +246,7 @@ public class OT extends JFrame {
       Reader r = null;
       try {
         r = new InputStreamReader(url.openStream());
+        OtFileIO.setXML(false);
         spItem = OtFileIO.fetchSp(r);
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(this, "Could not open the standard library.", "Error", JOptionPane.ERROR_MESSAGE);
