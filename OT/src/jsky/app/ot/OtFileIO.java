@@ -185,7 +185,21 @@ fetchSp(Reader rdr)
     }
 
     try {
-      return (new SpItemDOM(rdr)).getSpItem();
+      SpRootItem spRootItem = (new SpItemDOM(rdr)).getSpItem();
+
+      if(System.getProperty("DEBUG") != null) { 
+        System.out.println("Before removing id/idref\n");
+        spRootItem.print();
+      }
+
+      SpItemUtilities.removeReferenceIDs(spRootItem);
+
+      if(System.getProperty("DEBUG") != null) { 
+        System.out.println("After removing id/idref\n");
+        spRootItem.print();
+      }
+
+      return spRootItem;
     }
     catch(Exception e) {
       JOptionPane.showMessageDialog(null, "Could not load Science Programme: " + e.getMessage(),
