@@ -183,6 +183,19 @@ getExposureTimeAsString()
    return res;
 }
 
+public int getCoadds() {
+    String coadds;
+    int res = 1;
+    coadds = _avTable.get(ATTR_COADDS);
+    if (coadds != null) {
+	try {
+	    res = Integer.valueOf(coadds).intValue();
+	}
+	catch (Exception x) {}
+    }
+    return res;
+}
+
 /**
  * Set the position angle in degrees from due north, updating the
  * observation data with the new position angle.  This method is
