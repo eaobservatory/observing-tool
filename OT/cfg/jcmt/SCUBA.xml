@@ -157,8 +157,8 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <target>
                 <targetName></targetName>
                 <spherSystem SYSTEM="J2000">
-                  <c1>12:00:00</c1>
-                  <c2>+25:00:00</c2>
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
                 </spherSystem>
               </target>
             </BASE>
@@ -351,8 +351,8 @@ A pointing, z-focus and repoint will be made prior to the calibration observatio
               <target>
                 <targetName></targetName>
                 <spherSystem SYSTEM="J2000">
-                  <c1>12:00:00</c1>
-                  <c2>+25:00:00</c2>
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
                 </spherSystem>
               </target>
             </BASE>
