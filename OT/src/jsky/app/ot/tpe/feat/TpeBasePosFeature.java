@@ -129,7 +129,7 @@ public class TpeBasePosFeature extends TpePositionFeature {
      */
     public String getName() {
 	try {
-	    return OtCfg.telescopeUtil.getBaseTag();
+	    return SpTelescopePos.BASE_TAG;
 	}
 	catch(Exception e) {
             return super.getName();
