@@ -971,6 +971,7 @@ public void setup(String args[]) {
     public void launch() {
 	if (frame == null) return;
 	frame.setVisible(true);
+	frame.setState(JFrame.NORMAL);
     }
 
     protected void usage() {
