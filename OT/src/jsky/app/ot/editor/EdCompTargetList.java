@@ -194,14 +194,13 @@ public final class EdCompTargetList extends OtItemEditor
         _w.namedTarget.addWatcher(this);
 
 	_type = _w.targetTypeDDList;
-	_type.addChoice("<Select>");
 	for (int i=0; i<_w.targetSystemsTabbedPane.getTabCount(); i++) {
 	    _type.addChoice(_w.targetSystemsTabbedPane.getTitleAt(i));
 	}
 	_type.addWatcher(new DropDownListBoxWidgetWatcher() {
 		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
 		    for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
-			if (tab == i-1) {
+			if (tab == i) {
 			    _w.targetSystemsTabbedPane.setEnabledAt(tab, true);
 			    _w.targetSystemsTabbedPane.setSelectedIndex(tab);
 			    Component [] component = ((JPanel)_w.targetSystemsTabbedPane.getComponentAt(tab)).getComponents();
@@ -216,7 +215,7 @@ public final class EdCompTargetList extends OtItemEditor
 		}
 		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
 		    for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
-			if (tab == i-1) {
+			if (tab == i) {
 			    _w.targetSystemsTabbedPane.setEnabledAt(tab, true);
 			    _w.targetSystemsTabbedPane.setSelectedIndex(tab);
 			    Component [] component = ((JPanel)_w.targetSystemsTabbedPane.getComponentAt(tab)).getComponents();
@@ -230,6 +229,7 @@ public final class EdCompTargetList extends OtItemEditor
 		    }
 		}
 	    });
+	_type.setSelectedIndex(0);
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
