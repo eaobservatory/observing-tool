@@ -11,6 +11,16 @@ package gemini.sp;
  */
 public class SpProg extends SpRootItem
 {
+
+   /** The PI (principal investigator) attribute. */
+   public static final String ATTR_PI = "pi";
+
+   /** The country attribute. */
+   public static final String ATTR_COUNTRY = "country";
+
+   /** The project ID. */
+   public static final String ATTR_PROJECT_ID = "projectID";
+
    // The Phase 1 proposal item.  It stores all the information entered
    // during the Phase 1 proposal definition.
    private SpPhase1 _phase1Item;
@@ -42,4 +52,93 @@ getPhase1Item()
    return _phase1Item;
 }
 
+/**
+ * Get PI (principle investigator) attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ *
+ * @return PI or "" if attribute hasn't been set.
+ */
+public String
+getPI()
+{
+   if(_avTable.get(ATTR_PI) != null) {
+      return _avTable.get(ATTR_PI);
+   }
+   else {
+      return "";
+   }
 }
+
+/**
+ * Set PI (principle investigator) attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ */
+public void
+setPI(String pi)
+{
+   _avTable.set(ATTR_PI, pi);
+}
+
+/**
+ * Get country attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ *
+ * @return country or "" if attribute hasn't been set.
+ */
+public String
+getCountry()
+{
+   if(_avTable.get(ATTR_COUNTRY) != null) {
+      return _avTable.get(ATTR_COUNTRY);
+   }
+   else {
+      return "";
+   }
+}
+
+/**
+ * Set country attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ */
+public void
+setCountry(String country)
+{
+   _avTable.set(ATTR_COUNTRY, country);
+}
+
+/**
+ * Get country attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ *
+ * @return country or "" if attribute hasn't been set.
+ */
+public String
+getProjectID()
+{
+   if(_avTable.get(ATTR_PROJECT_ID) != null) {
+      return _avTable.get(ATTR_PROJECT_ID);
+   }
+   else {
+      return "";
+   }
+}
+
+/**
+ * Set country attribute.
+ *
+ * Added for OMP (MFO, 7 August 2001)
+ */
+public void
+setProjectID(String projectID)
+{
+   _avTable.set(ATTR_PROJECT_ID, projectID);
+}
+
+}
+
+
