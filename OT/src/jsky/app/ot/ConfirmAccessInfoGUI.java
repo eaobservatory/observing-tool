@@ -12,6 +12,7 @@ package jsky.app.ot;
 import java.awt.*;
 import jsky.app.ot.gui.*;
 import javax.swing.*;
+import ot.gui.PasswordWidgetExt; // MFO (24 July 2001)
 
 public class ConfirmAccessInfoGUI extends JPanel {
     BorderLayout borderLayout1 = new BorderLayout();
@@ -19,7 +20,7 @@ public class ConfirmAccessInfoGUI extends JPanel {
     OptionWidgetExt activeOption = new OptionWidgetExt();
     JPanel loginPage = new JPanel();
     GridBagLayout gridBagLayout2 = new GridBagLayout();
-    TextBoxWidgetExt passwordTextBox = new TextBoxWidgetExt();
+    PasswordWidgetExt passwordTextBox = new PasswordWidgetExt(); // MFO (24 July 2001)
     JLabel jLabel2 = new JLabel();
     JLabel jLabel1 = new JLabel();
     TextBoxWidgetExt loginTextBox = new TextBoxWidgetExt();

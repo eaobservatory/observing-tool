@@ -17,13 +17,18 @@ import gemini.sp.ipc.SpAccess;
 import javax.swing.ButtonGroup;
 import javax.swing.JDialog;
 
+// added by MFO, 24 July 2001
+import ot.gui.PasswordWidgetExt;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 /**
  * This is a dialog window that is used to prompt the user for a username,
  * a password, a database (phaseII or active), and if necessary a program
  * key.
  */
 final class ConfirmLoginWindow extends ConfirmAccessInfoGUI
-    implements TextBoxWidgetWatcher {
+    implements TextBoxWidgetWatcher, ActionListener {
 
     private boolean  _confirmed = false;
     private LoginInfo _loginInfo;
@@ -62,13 +67,13 @@ final class ConfirmLoginWindow extends ConfirmAccessInfoGUI
 	}
 
 
-	TextBoxWidgetExt passwdTBW;
+	PasswordWidgetExt passwdTBW; // MFO (24 July 2001)
 	passwdTBW = passwordTextBox;
  
 	TextBoxWidgetExt keyTBW;
 	keyTBW    = keyTextBox;
 
-	passwdTBW.addWatcher(this);
+	passwdTBW.addActionListener(this); // MFO (24 July 2001)
 	keyTBW.addWatcher(this);
 
 	// handle the Confirm and Cancel buttons
@@ -174,10 +179,22 @@ final class ConfirmLoginWindow extends ConfirmAccessInfoGUI
      * is pressed in the password or key text boxes, confirm the information.
      */
     public void textBoxAction(TextBoxWidgetExt tbwe) {
-	if (tbwe == passwordTextBox) {
+        // passwordTextBox action handled in actionPerformed. (MFO, 24 July 2001)
+    
+	if (tbwe == keyTextBox) {
 	    _confirm();
-	} 
-	else if (tbwe == keyTextBox) {
+	}
+    }
+
+    /**
+     * Handles password action.
+     *
+     * Added by MFO (24 July 2001).
+     */
+    public void actionPerformed(ActionEvent e) {
+	Object w = e.getSource();
+	
+	if (w == passwordTextBox) {
 	    _confirm();
 	}
     }
