@@ -104,6 +104,9 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.plotButton.addActionListener(this);
 	_w.setBaseButton.addActionListener(this);
 	_w.resolveButton.addActionListener(this);
+
+        // chop mode tab added by MFO (3 August 2001)
+	_w.chopMode.addActionListener(this);
     }
 
     /**
@@ -357,6 +360,28 @@ public final class EdCompTargetList extends OtItemEditor
 	_tpTable.addWatcher(this);
     
         //_makeTelescopeSpecificChanges();
+    
+        // chop mode tab added by MFO (3 August 2001)
+	_w.chopThrow.addWatcher( new TextBoxWidgetWatcher() {
+		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		    _curPos.setChopThrow( _w.chopThrow.getText() );
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		}
+		public void textBoxAction(TextBoxWidgetExt tbwe) {}
+	    });
+
+	_w.chopAngle.addWatcher( new TextBoxWidgetWatcher() {
+		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		    _curPos.setChopAngle( _w.chopAngle.getText() );
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		}
+		public void textBoxAction(TextBoxWidgetExt tbwe) {}
+	    });
+
+	_w.chopThrow.setEnabled(_w.chopMode.isSelected());
+	_w.chopAngle.setEnabled(_w.chopMode.isSelected());
     }
 
 
@@ -416,6 +441,11 @@ public final class EdCompTargetList extends OtItemEditor
 
 	tbwe = _w.detailsEffWavelengthTBW;
 	tbwe.setValue( tp.getTrackingEffectiveWavelength() );
+
+        // chop mode tab added by MFO (3 August 2001)
+	_w.chopMode.setSelected( tp.getChopMode() );
+	_w.chopThrow.setValue( tp.getChopThrowAsString() );
+	_w.chopAngle.setValue( tp.getChopAngleAsString() );
     }
 
     //
@@ -452,8 +482,8 @@ public final class EdCompTargetList extends OtItemEditor
 	    
 	    // MFO 23 May 2001: Keep choice between "Proper motion" and "Tracking Details" disabled for UKIRT.
 	    if(!(_telescope == UKIRT)) {
-	      fwe.setEnabledAt(0, true);
 	      fwe.setEnabledAt(1, true);
+	      fwe.setEnabledAt(2, true);
             }
 
 	    // Set the Equinox and Proper Motion
@@ -479,8 +509,8 @@ public final class EdCompTargetList extends OtItemEditor
 
 	    JTabbedPane fwe;
 	    fwe = _w.extrasFolder;
-	    fwe.setEnabledAt(0, false);
 	    fwe.setEnabledAt(1, false);
+	    fwe.setEnabledAt(2, false);
 	    break;
 	*/
 	}
@@ -597,8 +627,8 @@ public final class EdCompTargetList extends OtItemEditor
       if(_telescope == UKIRT) {
         _w.newButton.setText(newTargetButtonText);
 
-	_w.extrasFolder.setEnabledAt(0, false);
 	_w.extrasFolder.setEnabledAt(1, false);
+	_w.extrasFolder.setEnabledAt(2, false);
       }
     }
 
@@ -699,6 +729,14 @@ public final class EdCompTargetList extends OtItemEditor
 
             DialogUtil.error(e.getMessage());
 	  }
+	}
+
+        // chop mode tab added by MFO (3 August 2001)
+	if(w == _w.chopMode) {
+	    _curPos.setChopMode(_w.chopMode.isSelected());
+
+	    _w.chopThrow.setEnabled(_w.chopMode.isSelected());
+	    _w.chopAngle.setEnabled(_w.chopMode.isSelected());
 	}
     }
 }

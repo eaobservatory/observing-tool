@@ -66,6 +66,17 @@ public class TelescopeGUI extends JPanel {
     JScrollPane jScrollPane1 = new JScrollPane();
     TelescopePosTableWidget positionTable = new TelescopePosTableWidget();
 
+  // chop mode added by MFO (3 August 2001)
+  JPanel chopModePW = new JPanel();
+  GridBagLayout gridBagLayout5 = new GridBagLayout();
+  CheckBoxWidgetExt chopMode = new CheckBoxWidgetExt();
+  JLabel jLabel5 = new JLabel();
+  TextBoxWidgetExt chopThrow = new TextBoxWidgetExt();
+  JLabel jLabel18 = new JLabel();
+  JLabel jLabel4 = new JLabel();
+  JLabel jLabel19 = new JLabel();
+  TextBoxWidgetExt chopAngle = new TextBoxWidgetExt();
+
     public TelescopeGUI() {
         try {
             jbInit();
@@ -159,16 +170,35 @@ public class TelescopeGUI extends JPanel {
         propMotionPW.setAlignmentY((float) 0.0);
         positionTable.setBackground(Color.lightGray);
         positionTable.setShowHorizontalLines(false);
-        this.add(objectGBW, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+
+	// chop mode added by MFO (3 August 2001)
+        chopModePW.setLayout(gridBagLayout5);
+    chopMode.setText("Chopping");
+    chopMode.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel5.setForeground(Color.black);
+    jLabel5.setText("Chop Throw");
+    jLabel18.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel18.setForeground(Color.black);
+    jLabel18.setText("(arc secs)");
+    chopThrow.setPreferredSize(new Dimension(80, 21));
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel4.setForeground(Color.black);
+    jLabel4.setText("Chop PA");
+    jLabel19.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel19.setForeground(Color.black);
+    jLabel19.setText("(deg. E of N)");
+    extrasFolder.setFont(new java.awt.Font("Dialog", 0, 12));
+    this.add(objectGBW, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         objectGBW.add(nameTBW, new GridBagConstraints(1, 0, 3, 1, 1.0, 0.0                           // MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
-	
+
         objectGBW.add(nameResolversDDLBW, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0                // MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0)); // MFO
         objectGBW.add(resolveButton, new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0                     // MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0)); // MFO
-	    
+
         objectGBW.add(xaxisTBW, new GridBagConstraints(3, 1, 3, 1, 0.0, 0.0                          // MFO
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
         objectGBW.add(Dec_El_STW, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
@@ -189,6 +219,23 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
         this.add(extrasFolder, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+
+    // chop mode added by MFO (3 August 2001)
+    extrasFolder.add(chopModePW, "Chop Mode");
+    chopModePW.add(jLabel5, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
+    chopModePW.add(chopThrow, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    chopModePW.add(jLabel18, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    chopModePW.add(chopMode, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    chopModePW.add(jLabel4, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    chopModePW.add(jLabel19, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+    chopModePW.add(chopAngle, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
         extrasFolder.add(propMotionPW, "Proper Motion");
         propMotionPW.add(jLabel14, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 49, 0, 0), 0, 0));

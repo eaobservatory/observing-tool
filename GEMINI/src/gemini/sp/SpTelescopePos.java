@@ -42,6 +42,11 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
    public static final String   USER_TAG  = "User";
    public static String[] GUIDE_TAGS = {"PWFS1", "PWFS2", "OIWFS"};
 
+   // CHOP MODE parameters (added by MFO, 2 August 2001)
+   public static final String ATTR_CHOP_MODE	= "chopMode";
+   public static final String ATTR_CHOP_THROW	= "chopThrow";
+   public static final String ATTR_CHOP_ANGLE	= "chopAngle";
+
    // Indices of the the fields of a position
    public static final int TAG_INDEX		=  0;
    public static final int NAME_INDEX		=  1;
@@ -622,6 +627,110 @@ setTrackingEffectiveWavelength(String trackEffWave)
    _avTab.set(_tag, trackEffWave, TRACKING_EFF_WAVELENGTH);
    _notifyOfGenericUpdate();
 }
+
+/**
+ * Get chop mode.
+ *
+ * Values: CHOP_MODE_ON, CHOP_MODE_OFF
+ *
+ * Added by MFO (2 August 2001)
+ */
+public boolean
+getChopMode()
+{
+   return _avTab.getBool(ATTR_CHOP_MODE);
+}
+
+/**
+ * Set chop mode as a string.
+ *
+ * Values: CHOP_MODE_ON, CHOP_MODE_OFF
+ *
+ * Added by MFO (2 August 2001)
+ */
+public void
+setChopMode(boolean chopModeOn)
+{
+   _avTab.set(ATTR_CHOP_MODE, chopModeOn);
+   _notifyOfGenericUpdate();
+}
+
+/**
+ * Get the chop throw as String.
+ *
+ * Added by MFO (2 August 2001)
+ */
+public String
+getChopThrowAsString()
+{
+   String res = _avTab.get(ATTR_CHOP_THROW);
+   if (res == null) {
+      res = "0.0";
+   }
+   return res;
+}
+
+/**
+ * Get the chop throw.
+ *
+ * Added by MFO (2 August 2001)
+ */
+public double
+getChopThrow()
+{
+   return Double.parseDouble(getChopThrowAsString());
+}
+
+/**
+ * Set the chop throw as a string.
+ *
+ * Added by MFO (2 August 2001)
+ */
+public void
+setChopThrow(String chopThrowStr)
+{
+   _avTab.set(ATTR_CHOP_THROW, chopThrowStr);
+   _notifyOfGenericUpdate();
+}
+
+/**
+ * Get the chop angle as string.
+ *
+ * Added by MFO (2 August 2001)
+ */
+public String
+getChopAngleAsString()
+{
+   String res = _avTab.get(ATTR_CHOP_ANGLE);
+   if (res == null) {
+      res = "0.0";
+   }
+   return res;
+}
+
+/**
+ * Get the chop angle.
+ *
+ * Added by MFO (2 August 2001)
+ */
+public double
+getChopAngle()
+{
+   return Double.parseDouble(getChopAngleAsString());
+}
+
+/**
+ * Set the chop angle as a string.
+ *
+ * Added by MFO (2 August 2001)
+ */
+public void
+setChopAngle(String chopAngleStr)
+{
+   _avTab.set(ATTR_CHOP_ANGLE, chopAngleStr);
+   _notifyOfGenericUpdate();
+}
+
 
 /**
  * Standard debugging method.
