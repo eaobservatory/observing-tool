@@ -25,6 +25,12 @@ import gemini.sp.iter.SpIterValue;
 import gemini.util.CoordSys;
 import gemini.util.RADecMath;
 import orac.ukirt.inst.SpDRRecipe;
+import orac.ukirt.inst.SpUKIRTInstObsComp;
+import orac.ukirt.inst.SpInstCGS4;
+import orac.ukirt.inst.SpInstIRCAM3;
+//import orac.ukirt.inst.SpInstMichelle;
+import orac.ukirt.inst.SpInstUFTI;
+import orac.ukirt.inst.SpUKIRTInstObsComp;
 import orac.util.InstApertures;
 import orac.util.InstConfig;
 import java.io.*;
@@ -49,6 +55,8 @@ public class SpTranslator {
    String filePrefix;                  // Filename prefix
    String sequenceDirName;             // Sequence directory name
    SpObs spObs;                        // Observation sequence
+
+   final String defInst = "define_inst";
 
 /**
  *  Constructor
@@ -111,6 +119,57 @@ public class SpTranslator {
          }
       }
    }
+
+/**
+ * Insert peakup instructions into a CGS4 sequence containing a sky
+ * observe before the first object observe.  This should be invoked
+ * before the insertBreaks method.
+ *
+ * @param String the instrument.
+ * @param Vector the sequence instructions (this is updated).
+ */
+   public void insertPeakup( String instrument, Vector sequence ) {
+
+      boolean firstObject = false;        // First "set OBJECT" encountered?
+      boolean firstSky = false;           // First "set SKY" encountered?
+      int i;                              // Loop counter
+      int objectIndex = -1;               // Sequence index to first "set OBJECT"
+      int skyIndex = -1;                  // Sequence index to first "set SKY"
+
+      if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
+
+// Traverse the sequence.
+         for ( i = 0; i < sequence.size(); ++i ) {
+
+// Look for first "set SKY".
+            if ( ( (String) sequence.elementAt( i ) ).equals( "set SKY" ) &&
+                 ! firstSky ) {
+
+// It's found, so record the fact, and the index.
+               firstSky = true;
+               skyIndex = i;
+            }
+
+// Look for first "set OBJECT".
+            if ( ( (String) sequence.elementAt( i ) ).equals( "set OBJECT" ) &&
+                 ! firstObject ) {
+
+// It's found, so record the fact, and the index.
+               firstObject = true;
+               objectIndex = i;
+            }
+         }
+
+// Does the sky come before the object?
+         if ( skyIndex < objectIndex && firstSky ) {
+
+// Insert the additional commands to enable a peakup on the object.
+            sequence.insertElementAt( "offset 0 0", skyIndex );
+            sequence.insertElementAt( "set OBJECT", skyIndex + 1 );
+         }   
+      }
+   }
+
 
 /**
  * Count the number of offsets associated with the scope of the given
@@ -248,6 +307,7 @@ public class SpTranslator {
 /**
  * Generates a "do N _observe" instruction, and sets the type and
  * data-reduction recipe headers for the current data type.
+ * Also moves an initial offset until after the "set " command.
  */
 
    private void observeCount( Vector sequence, String type,
@@ -263,9 +323,11 @@ public class SpTranslator {
                                           // for supplied type 
       int i;                              // Loop counter
       String instruction = null;          // Returned instruction
+      boolean moveOffset = false;         // Move an offset command
       String numberString;                // Number of observes
       int number;                         // Number of observes
       int numElements;                    // Number of sequence instructions
+      String offsetCmd = " ";             // Offset command to be moved
       boolean otherPresent = false;       // Is there an another (not "set"
                                           // or "do N _observe") command before
                                           // the previous "set" instruction?
@@ -326,6 +388,9 @@ public class SpTranslator {
 // recipe.
       if ( drRecipe == null ) { drRecipe = defDRRecipe; }
 
+// Find the previous frame type and instrument.
+// ============================================
+
 // Obtain the number of instructions in the sequence so far.
       numElements = sequence.size();
       if ( numElements >= 2 ) {
@@ -347,6 +412,9 @@ public class SpTranslator {
                break;
             }
          }
+
+// Same type: add to the observe count
+// ===================================
 
 // See if the current type of observe matches the previous one, and
 // there are no other command present between.
@@ -371,6 +439,9 @@ public class SpTranslator {
             instruction = "do " + number + " _observe";
             sequence.setElementAt( instruction, i + 1 );
 
+// Different type: insert more headers
+// ===================================
+
 // It was a different type, so will need to insert some new headers.
 // First, however, these should come before an immediately preceding
 // "offset" command and its associated "WAIT ALL" to preserve the
@@ -386,6 +457,22 @@ public class SpTranslator {
             if ( work.startsWith( "-WAIT ALL" ) ) {
                i = numElements - 2;
             } else {
+
+// The offset command may still be ahead of the "set OBJECT" command,
+// say if no DARK frame is in the observation.  Remove these commands,
+// recording the fact so they can be restored later.  Revise the count
+// of sequence commands.
+               work = (String) sequence.elementAt( numElements - 3 );
+               offsetCmd = (String) sequence.elementAt( numElements - 4 );
+               if ( work.startsWith( "-WAIT ALL" ) &&
+                    offsetCmd.startsWith( "offset" ) ) {
+                  moveOffset = true;
+                  sequence.removeElementAt( numElements - 3 );
+                  sequence.removeElementAt( numElements - 4 );
+                  numElements = sequence.size( );                  
+               }
+
+// We can merely append the header commands.                  
                i = numElements;
             }
 
@@ -397,10 +484,19 @@ public class SpTranslator {
             }
 
 // Also add the group-membership and data-reduction headers.  The
-// "do 1 observe" should appear after an "offset" instruction.
+// "do 1 observe" should appear after an "offset" instruction.  This
+// happens either because where we inserted the new commands, or more
+// explicit insertion of an offset command.
             sequence.insertElementAt( "setHeader RECIPE " + drRecipe, i + 1 );
             sequence.insertElementAt( "set " + type.toUpperCase(), i + 2 );
+            if ( moveOffset ) {
+               sequence.addElement( offsetCmd );
+               sequence.addElement( "-WAIT ALL" );
+            }
             sequence.addElement( "do 1 _observe" );
+
+// Same types but intervening instruction.
+// =======================================
 
 // The types are the same, but there is another instruction (offset or
 // loadConfig) offset between.  So set the type and observe in the
@@ -498,7 +594,6 @@ public class SpTranslator {
 
 // Declare variables.
 // ==================
-      final String defInst = "define_inst";
       final String nOffsets = "-setHeader NOFFSETS";
       final String setInst = "-set_inst";
       final String setRot = "setrotator";
@@ -627,6 +722,25 @@ public class SpTranslator {
 // Determine the instrument name for this observation.
          inst = ( (SpInstObsComp) SpTreeMan.findInstrument( spObs ) );
          instrument = inst.type().getReadable();
+
+// Update the instrument apertures based upon what's in the instrument
+// configuration, not in the source file.  This is needed because the
+// apertures are changing every few weeks and old science programs
+// are out of step.  
+// COMMENTED OUT until it can be used in the OM.
+//         if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
+//            SpInstCGS4 _instC = (SpInstCGS4) inst;
+//            _instC.setInstAper();
+//         } else if ( instrument.equalsIgnoreCase( "IRCAM3" ) ) {
+//            SpInstIRCAM3 _instI = (SpInstIRCAM3) inst;
+//            _instI.setInstAper();
+////         } else if ( instrument.equalsIgnoreCase( "Michelle" ) ) {
+////            SpInstMichelle _instM = (SpInstMichelle) inst;
+////            _instM.setInstAper();
+//         } else if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
+//            SpInstUFTI _instU = (SpInstUFTI) inst;
+//            _instU.setInstAper();
+//         }
 
 // Is this an observation of a standard?
          standard = spObs.getIsStandard();
@@ -902,21 +1016,22 @@ public class SpTranslator {
             sequence.insertElementAt( setInst + " " + instrument, 1 );
          }
 
-// CGS4 has an extra degree of freedom: the slit position angle.
-         if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
-            slitAngle = (String) currConfig.get( "positionAngle" );
-            if ( slitAngle != null ) {
-               sequence.addElement( setRot + " " + slitAngle );
-            }
+// CGS4 and Michelle have an extra degree of freedom: the slit position angle.
+         if ( instrument.equalsIgnoreCase( "CGS4" ) || 
+	      instrument.equalsIgnoreCase( "Michelle" ) ) {
+	   slitAngle = (String) currConfig.get( "positionAngle" );
+	   if ( slitAngle != null ) {
+	     sequence.addElement( setRot + " " + slitAngle );
+	   }
          }
 
 // Locate the data-reduction recipe component.
 // ===========================================
          drRecipeComp = findRecipe( spObs );
          if ( drRecipeComp != null ) {
-            darkDRRecipe = drRecipeComp.getDarkRecipeName();
+	   darkDRRecipe = drRecipeComp.getDarkRecipeName();
          } else {
-            darkDRRecipe = "REDUCE_DARK";
+	   darkDRRecipe = "REDUCE_DARK";
          }
 
 // Find the sequence component.
@@ -1067,9 +1182,14 @@ public class SpTranslator {
 
 // Store the attribute and value in the current InstConfig.
 // Inherit existing values for blank entries in the iterator.
-                                    if ( ! siv.values[ 0 ].equals( "" ) ) {
-                                       currConfig.put( key, siv.values[ 0 ] );
-                                    }
+				   if (title.equalsIgnoreCase("Flat")) {
+				     currConfig.put ("type", "flat");
+				   } else if (title.equalsIgnoreCase("Arc")) {
+				     currConfig.put ("type", "arc");
+				   }
+				   if ( ! siv.values[ 0 ].equals( "" ) ) {
+				     currConfig.put( key, siv.values[ 0 ] );
+				   }
 
                                  } else {
 
@@ -1089,17 +1209,23 @@ public class SpTranslator {
 // Check that the previous sequence instruction is not a config.  If
 // it is we shall want to remove it.
                            prevSeqIns = "";
+			   removeConfig = false;
                            if ( sequence.isEmpty() ||
                                 configArray.isEmpty() ) {
                               removeConfig = false;
 
                            } else {
-                              prevSeqIns = (String) sequence.lastElement();
-                              removeConfig = prevSeqIns.startsWith( "loadConfig" ) || 
-                                             prevSeqIns.startsWith( setInst ) ||
-                                             prevSeqIns.startsWith( setRot );
-                              removeIndex = 1;
 
+			     // In the case of Michelle we *need* the initial base
+			     // config. So never remove it.
+			     if (!instrument.equalsIgnoreCase("Michelle")) {
+			       prevSeqIns = (String) sequence.lastElement();
+			       removeConfig = prevSeqIns.startsWith( "loadConfig" ) || 
+				              prevSeqIns.startsWith( setInst ) ||
+				              prevSeqIns.startsWith( setRot );
+			       removeIndex = 1;
+			       System.out.println ("1. prev = "+prevSeqIns+" remove = "+removeConfig);
+			     }
 // There is the case of the base config followed by a DR Recipe followed by a
 // config that needs to be tested, so the superfluous base config can be
 // removed.  Record which element to remove from the sequence.
@@ -1110,6 +1236,7 @@ public class SpTranslator {
                                                 prevSeqIns.startsWith( setInst ) ||
                                                 prevSeqIns.startsWith( setRot );
                                  removeIndex = 2;
+				 System.out.println ("2. prev = "+prevSeqIns+" remove = "+removeConfig);
 
 // There is the case of the base config followed by the offset header followed by a
 // config that needs to be tested, so the superfluous base config can be
@@ -1124,12 +1251,14 @@ public class SpTranslator {
                                                 prevSeqIns.startsWith( setInst ) ||
                                                 prevSeqIns.startsWith( setRot );
                                  removeIndex = 2;
+				 System.out.println ("3. prev = "+prevSeqIns+" remove = "+removeConfig);
                               }
                            }
 
 // Remove previous config, since the second contains the combined information.
 // Remove the unnecessary loadConfig from the sequence.
                            if ( removeConfig ) {
+			     System.out.println ("Removing config inst");
                               configArray.removeElementAt( configArray.size() - 1 );
                               numConfig--;
                               sequence.removeElementAt( sequence.size() - removeIndex );
@@ -1195,8 +1324,9 @@ public class SpTranslator {
                               }
 
 
-// CGS4 has an extra degree of freedom: the slit position angle.
-                              if ( instrument.equalsIgnoreCase( "CGS4" ) ) {
+// CGS4 and Michelle have an extra degree of freedom: the slit position angle.
+                              if ( instrument.equalsIgnoreCase( "CGS4" ) ||
+				   instrument.equalsIgnoreCase( "Michelle" ) ) {
                                  slitAngle = (String) currConfig.get( "positionAngle" );
                                  if ( slitAngle != null ) {
                                     sequence.addElement( setRot + " " + slitAngle );
@@ -1327,15 +1457,27 @@ public class SpTranslator {
                }
             }
 
+// Insert a peakup sequence when SKY comes before the first OBJECT
+// observe.  This is currently only for CGS4.  Exclude the EMISSIVITY
+// special case, which does have a SKY before the first OBJECT, but no
+// peakup is required.
+	    if ( ( drRecipeComp == null ) ||  
+		 !( drRecipeComp.getObjectRecipeName().equalsIgnoreCase( "EMISSIVITY" ) ) ) {
+	      insertPeakup( instrument, sequence );
+            }
+
 // Add breaks to sequence.
             insertBreaks( instrument, sequence );
+
+// Remove duplicated define_inst lines.
+            removeDupInstAper( sequence );
 
 // As re-requested by Sandy Leggett to reduce latency effects.
             if ( instrument.equalsIgnoreCase( "UFTI" ) ) {
                sequence.addElement( "set DARK" );
             }
 
-// Synchronisation of processes lanched from OM need to complete
+// Synchronisation of processes launched from OM need to complete
 // before sequence ends.  Add a command to hold the OM until all of its
 // associated processes have completed.
             sequence.addElement( "-ready" );
@@ -1365,6 +1507,61 @@ public class SpTranslator {
    }
 
 /**
+ * Remove duplicate define_inst (and associated -set_inst) instructions 
+ * from a sequence.
+ *
+ * @param Vector the sequence instructions (this is updated).
+ */
+   public void removeDupInstAper( Vector sequence ) {
+
+      boolean firstDefInst = false;       // First "define_inst" encountered?
+      int i;                              // Loop counter
+      String instruct;                    // An instruction from the sequence
+      String currentDefInst = " ";        // Current define-inst instruction
+      int numInstruct;                    // Number of instructions in the
+                                          // sequence
+
+// Traverse the sequence.
+      numInstruct = sequence.size();
+      for ( i = 0; i < numInstruct; ++i ) {
+         instruct = (String) sequence.elementAt( i );
+
+// Look for the first "define_inst" command.  Once one is found, record 
+// the fact, and go to the next instruction.
+         if ( ! firstDefInst ) {
+            if ( instruct.startsWith( defInst ) ) {
+               currentDefInst = instruct;
+               firstDefInst = true;
+               continue;
+            }
+         }
+
+// Look for the next "define_inst" command.
+         if ( firstDefInst ) {
+            if ( instruct.startsWith( defInst ) ) {
+
+// Is the same define-inst instruction?
+               if ( instruct.equals( currentDefInst ) ) {
+                  
+// It is, so we want to remove it to avoid resetting the apertures
+// after a possible peakup.  Also remove the associated instruction
+// that follows immediately.
+                  sequence.removeElementAt( i );
+                  sequence.removeElementAt( i );
+                  numInstruct -= 2;
+
+               } else {
+
+// It's different, so make it the current define_inst command.
+                  currentDefInst = instruct;
+               }
+            }
+         }
+      }
+   }
+
+
+/**
   * Generate a unique name for a file.   It currently uses the
   * system clock (System.currentTimeMillis()).  If this proves to
   * be too long, the first and last two digits could be stripped.
@@ -1377,6 +1574,21 @@ public class SpTranslator {
       time = System.currentTimeMillis();
       return Long.toString( time );
    }
+
+/** 
+ * Helper function to write attribute values to config. Two versions,
+ * one assumes the keyname and attribute name are the same, the other 
+ * allows them to be different.
+ */
+  private void _writeAttribute ( PrintWriter ow, InstConfig ic, 
+				 String attrName, String keyName ) {
+    ow.print( keyName +" = " + ic.get(attrName) + "\n" );
+  }
+
+  private void _writeAttribute ( PrintWriter ow, InstConfig ic, 
+				 String attrName) {
+    ow.print( attrName +" = " + ic.get(attrName) + "\n" );
+  }
 
 /**
   * Writes the instrument configurations to text files.
@@ -1461,132 +1673,117 @@ public class SpTranslator {
 
             } else if ( instrum.equalsIgnoreCase( "Michelle" ) ) {
 
-               conpw.print( "instrument  = " +
-                            workConfig.get( "instrument" ) + "\n" );
+	      _writeAttribute (conpw, workConfig, "instrument");
+	      _writeAttribute (conpw, workConfig, "version");
 
-               conpw.print( "version     = " +
-                            workConfig.get( "version" ) + "\n" );
-
-               conpw.print( "configType  = " +
-                            workConfig.get( "configType" ) + "\n" );
-
-	       conpw.print( "camera = " +
-			    workConfig.get( "camera" ) +"\n" );
-	       
-		System.out.println ("Mch5");
-	       conpw.print( "polarimetry = " +
-			    workConfig.get( "polarimetry" ) +"\n" );
-		System.out.println ("Mch6");
-	       conpw.print( "mask = " +
-			    workConfig.get( "slitWidth" ) +"\n" );
-		System.out.println ("Mch7");
-	       conpw.print( "maskAngle = " +
-			    workConfig.get( "maskAngle" ) +"\n" );
-		System.out.println ("Mch8");
-	       conpw.print( "posAngle = " +
-			    workConfig.get( "positionAngle" ) +"\n" );
-		System.out.println ("Mch9");
-	       conpw.print( "disperser = " +
-			    workConfig.get( "disperser" ) +"\n" );
-		System.out.println ("Mch0");
-	       conpw.print( "order = " +
-			    workConfig.get( "order" ) +"\n" );
-		System.out.println ("Mch1");
-	       conpw.print( "sampling = " +
-			    workConfig.get( "sampling" ) +"\n" );
-		System.out.println ("Mch2");
-	       conpw.print( "centralWavelength = " +
-			    workConfig.get( "centralWavelength" ) +"\n" );
-		System.out.println ("Mch3");
-	       conpw.print( "filter = " +
-			    workConfig.get( "filter" ) +"\n" );
-		System.out.println ("Mch4");
-	       conpw.print( "waveplate = " +
-			    workConfig.get( "waveplate" ) +"\n" );
-		System.out.println ("Mch5");
-	       
-	       conpw.print( "nreads = " +
-			    workConfig.get( "nreads" ) +"\n" );
-		System.out.println ("Mch6");
-	       conpw.print( "acqMode = " +
-			    workConfig.get( "readMode" ) +"\n" );
-		System.out.println ("Mch7");
-	       conpw.print( "exposureTime = " +
-			    workConfig.get( "expTime" ) +"\n" );
-		System.out.println ("Mch8");
-	       conpw.print( "readInterval = " +
-			    workConfig.get( "readInterval" ) +"\n" );
-		System.out.println ("Mch9");
-	       conpw.print( "chopFrequency = " +
-			    workConfig.get( "chopFrequency" ) +"\n" );
-		System.out.println ("Mch0");
-	       conpw.print( "resetDelay = " +
-			    workConfig.get( "resetDelay" ) +"\n" );
-		System.out.println ("Mch1");
-	       conpw.print( "chopDelay = " +
-			    workConfig.get( "chopDelay" ) +"\n" );
-	       
-		System.out.println ("Mch2");
-	       conpw.print( "coadds = " +
-			    workConfig.get( "objNumExp" ) +"\n" );
-               conpw.print( "darkFilter = " +
-                            workConfig.get( "darkFilter" ) +"\n" );
-                System.out.println ("Mch3");
-               	       
-// 		System.out.println ("Mch0");
-// 	       conpw.print( "flatSampling = " +
-// 			    workConfig.get( "flatSampling" ) +"\n" );
-// 		System.out.println ("Mch1");
-// 	       conpw.print( "flatCalLamp = " +
-// 			    workConfig.get( "flatCalLamp" ) +"\n" );
-// 		System.out.println ("Mch2");
-// 	       conpw.print( "flatReadMode = " +
-// 			    workConfig.get( "flatReadMode" ) +"\n" );
-// 		System.out.println ("Mch3");
-// 	       conpw.print( "flatExpTime = " +
-// 			    workConfig.get( "flatExpTime" ) +"\n" );
-// 		System.out.println ("Mch4");
-// 	       conpw.print( "flatNumExp = " +
-// 			    workConfig.get( "flatNumExp" ) +"\n" );
-// 		System.out.println ("Mch5");
-// 	       conpw.print( "flatSavedInt = " +
-// 			    workConfig.get( "flatSavedInt" ) +"\n" );
-	       
-// 		System.out.println ("Mch6");
-// 	       conpw.print( "darkNumExp = " +
-// 			    workConfig.get( "darkNumExp" ) +"\n" );
-// 		System.out.println ("Mch7");
-// 	       conpw.print( "darkSavedInt = " +
-// 			    workConfig.get( "darkSavedInt" ) +"\n" );
-// 		System.out.println ("Mch8");
-	       
-// 	       conpw.print( "biasExpTime = " +
-// 			    workConfig.get( "biasExpTime" ) +"\n" );
-// 		System.out.println ("Mch9");
-// 	       conpw.print( "biasNumExp = " +
-// 			    workConfig.get( "biasNumExp" ) +"\n" );
-// 		System.out.println ("Mch0");
-// 	       conpw.print( "biasSavedInt = " +
-// 			    workConfig.get( "biasSavedInt" ) +"\n" );
-	       
-// 		System.out.println ("Mch1");
-// 	       conpw.print( "arcCalLamp = " +
-// 			    workConfig.get( "arcCalLamp" ) +"\n" );
-// 		System.out.println ("Mch2");
-// 	       conpw.print( "arcFilter = " +
-// 			    workConfig.get( "arcFilter" ) +"\n" );
-// 		System.out.println ("Mch3");
-// 	       conpw.print( "arcExpTime = " +
-// 			    workConfig.get( "arcExpTime" ) +"\n" );
-// 		System.out.println ("Mch4");
-// 	       conpw.print( "arcNumExp = " +
-// 			    workConfig.get( "arcNumExp" ) +"\n" );
-// 		System.out.println ("Mch5");
-// 	       conpw.print( "arcReadMode = " +
-// 			    workConfig.get( "arcReadMode" ) +"\n" );
-// 		System.out.println ("Mch6");
-// 	       conpw.print( "arcSavedInt = " +
-// 			    workConfig.get( "arcSavedInt" ) +"\n" );
+	       if (workConfig.get ("type").equals ("object")) {
+		 _writeAttribute (conpw, workConfig, "configType");
+		 _writeAttribute (conpw, workConfig, "type");
+		 _writeAttribute (conpw, workConfig, "camera");
+		 _writeAttribute (conpw, workConfig, "polarimetry");
+		 _writeAttribute (conpw, workConfig, "mask");
+		 _writeAttribute (conpw, workConfig, "maskAngle");
+		 _writeAttribute (conpw, workConfig, "positionAngle", "posAngle");
+		 _writeAttribute (conpw, workConfig, "disperser");
+		 _writeAttribute (conpw, workConfig, "order");
+		 _writeAttribute (conpw, workConfig, "sampling");
+		 _writeAttribute (conpw, workConfig, "centralWavelength");
+		 _writeAttribute (conpw, workConfig, "filter");
+		 _writeAttribute (conpw, workConfig, "waveplate");
+		 _writeAttribute (conpw, workConfig, "scienceArea");
+		 _writeAttribute (conpw, workConfig, "spectralCoverage");
+		 _writeAttribute (conpw, workConfig, "nreads");
+		 _writeAttribute (conpw, workConfig, "mode");
+		 _writeAttribute (conpw, workConfig, "expTime", "exposureTime");
+		 _writeAttribute (conpw, workConfig, "readInterval");
+		 _writeAttribute (conpw, workConfig, "chopFrequency");
+		 _writeAttribute (conpw, workConfig, "resetDelay");
+		 _writeAttribute (conpw, workConfig, "nresets");
+		 _writeAttribute (conpw, workConfig, "chopDelay");
+		 _writeAttribute (conpw, workConfig, "objNumExp", "coadds");
+		 _writeAttribute (conpw, workConfig, "waveform");
+		 _writeAttribute (conpw, workConfig, "dutyCycle");
+		 _writeAttribute (conpw, workConfig, "mustIdles");
+		 _writeAttribute (conpw, workConfig, "nullReads");
+		 _writeAttribute (conpw, workConfig, "nullExposures");
+		 _writeAttribute (conpw, workConfig, "nullCycles");
+		 _writeAttribute (conpw, workConfig, "idlePeriod");
+		 _writeAttribute (conpw, workConfig, "observationTime");
+		 _writeAttribute (conpw, workConfig, "darkFilter");
+	       } else if (workConfig.get( "type" ).equals( "flat" ) ) {
+		 _writeAttribute (conpw, workConfig, "configType");
+		 _writeAttribute (conpw, workConfig, "type");
+		 _writeAttribute (conpw, workConfig, "flatSampling",
+				  "sampling");
+		 _writeAttribute (conpw, workConfig, "flatSource");
+		 _writeAttribute (conpw, workConfig, "flatfilter", "filter");
+		 _writeAttribute (conpw, workConfig, "flatnreads", "nreads");
+		 _writeAttribute (conpw, workConfig, "flatmode", "mode");
+		 _writeAttribute (conpw, workConfig, "flatexpTime",
+				  "exposureTime");
+		 _writeAttribute (conpw, workConfig, "flatreadInterval",
+				  "readInterval");
+		 _writeAttribute (conpw, workConfig, "flatchopFrequency",
+				  "chopFrequency");
+		 _writeAttribute (conpw, workConfig, "flatresetDelay",
+				  "resetDelay");
+		 _writeAttribute (conpw, workConfig, "flatnresets", "nresets");
+		 _writeAttribute (conpw, workConfig, "flatchopDelay",
+				  "chopDelay");
+		 _writeAttribute (conpw, workConfig, "flatNumExp", "coadds");
+		 _writeAttribute (conpw, workConfig, "flatwaveform",
+				  "waveform");
+		 _writeAttribute (conpw, workConfig, "flatdutyCycle",
+				  "dutyCycle");
+		 _writeAttribute (conpw, workConfig, "flatmustIdles",
+				  "mustIdles");
+		 _writeAttribute (conpw, workConfig, "flatnullReads",
+				  "nullReads");
+		 _writeAttribute (conpw, workConfig, "flatnullExposures",
+				  "nullExposures");
+		 _writeAttribute (conpw, workConfig, "flatnullCycles",
+				  "nullCycles");
+		 _writeAttribute (conpw, workConfig, "flatidlePeriod",
+				  "idlePeriod");
+		 _writeAttribute (conpw, workConfig, "flatobsTime",
+				  "observationTime");
+	       } else if (workConfig.get( "type" ).equals( "arc" ) ) {
+		 _writeAttribute (conpw, workConfig, "configType");
+		 _writeAttribute (conpw, workConfig, "type");
+		 _writeAttribute (conpw, workConfig, "arcSampling", "sampling");
+		 _writeAttribute (conpw, workConfig, "arcfilter", "filter");
+		 _writeAttribute (conpw, workConfig, "arcnreads", "nreads");
+		 _writeAttribute (conpw, workConfig, "arcmode", "mode");
+		 _writeAttribute (conpw, workConfig, "arcexpTime",
+				  "exposureTime");
+		 _writeAttribute (conpw, workConfig, "arcreadInterval",
+				  "readInterval");
+		 _writeAttribute (conpw, workConfig, "arcchopFrequency",
+				  "chopFrequency");
+		 _writeAttribute (conpw, workConfig, "arcresetDelay",
+				  "resetDelay");
+		 _writeAttribute (conpw, workConfig, "arcnresets",
+				  "nresets");
+		 _writeAttribute (conpw, workConfig, "arcchopDelay",
+				  "chopDelay");
+		 _writeAttribute (conpw, workConfig, "arcNumExp", "coadds");
+		 _writeAttribute (conpw, workConfig, "arcwaveform",
+				  "waveform");
+		 _writeAttribute (conpw, workConfig, "arcdutyCycle",
+				  "dutyCycle");
+		 _writeAttribute (conpw, workConfig, "arcmustIdles",
+				  "mustIdles");
+		 _writeAttribute (conpw, workConfig, "arcnullReads",
+				  "nullReads");
+		 _writeAttribute (conpw, workConfig, "arcnullExposures",
+				  "nullExposures");
+		 _writeAttribute (conpw, workConfig, "arcnullCycles",
+				  "nullCycles");
+		 _writeAttribute (conpw, workConfig, "arcidlePeriod",
+				  "idlePeriod");
+		 _writeAttribute (conpw, workConfig, "arcobsTime",
+				  "observationTime");
+	       }
 
 	    } else {
 		// Throw exception
