@@ -26,6 +26,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpChopCapability;
 import gemini.sp.obsComp.SpStareCapability;
 
+
 /**
  * The UIST instrument.
  +
@@ -1196,10 +1197,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     setImager(String imager)
     {
         _avTable.set(ATTR_IMAGER, imager);
-        useDefaultFilter();
-        useDefaultFilterCategory();
-        useDefaultMask();
-        useDefaultSourceMag();
+//         useDefaultFilter();
+//         useDefaultFilterCategory();
+//         useDefaultMask();
+//         useDefaultSourceMag();
     }
 
     /**
@@ -3570,10 +3571,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
             // Exposure time comes from FILTERSx LUT using filter and magnitude
             String filter = getFilter();
             LookUpTable filterLUT = getFilterLUT();
-            int row = filterLUT.indexInColumn(filter,0);
-            int column = filterLUT.indexInRow(mag,0);
-            set = Double.valueOf((String)filterLUT.elementAt(row,column))
-                .doubleValue();
+	    int row = filterLUT.indexInColumn(filter,0);
+	    int column = filterLUT.indexInRow(mag,0);
+	    set = Double.valueOf((String)filterLUT.elementAt(row,column))
+		.doubleValue();
 	} else {
             // In spectroscopy, exposure time comes initially from SPECMAGS LUT
             // using disperser and magnitude
