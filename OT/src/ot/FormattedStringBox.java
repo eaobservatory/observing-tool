@@ -50,7 +50,8 @@ public class FormattedStringBox extends ReportBox {
     _saveButton.setVisible(false);
 
     getContentPane().remove(_textPane);
-    getContentPane().add(_textArea);
+//     getContentPane().add(_textArea);
+    jScrollPane1.getViewport().add(_textArea, null);
 
     setVisible(true);
   }
@@ -59,7 +60,11 @@ public class FormattedStringBox extends ReportBox {
     this();
 
     _textArea.setText(message);
-
+    int columns = message.indexOf("\n") + 5;
+    _textArea.setColumns(columns);
+    _textArea.setRows(30);
+    _textArea.setLineWrap(true);
+    _textArea.setWrapStyleWord(true);
     setLocation(100, 300);
     pack();
     setVisible(true);
