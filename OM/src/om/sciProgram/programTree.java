@@ -156,8 +156,19 @@ final public class programTree extends JPanel
 		tFlush.getFrame().dispose();
 		tFlush.stop();
 
+		// Catch null sequence names - probably means translation
+		// failed:
+		if (tname == null) {
+		  errorBox = new ErrorBox
+		    ("Translation failed. Please report this!");
+		  run.setEnabled(true);
+		  run.setForeground(Color.black);		    
+		  return;
+		}else{
+		  System.out.println ("Trans OK");
+		}
+
 		// Prevent IRCAM3 and CGS4 from running together
-		
 		
 		//figure out if the same inst. is already in use or
 		//whether IRCAM3 and CGS4 would be running together
@@ -207,85 +218,64 @@ final public class programTree extends JPanel
   */
   
   private void creatNewRemoteFrame(SpItem observation,SpItem inst)
-    {
-      try
-	{
-	  frame= new remoteFrame(inst.type().getReadable()
-				 ,observation.getTitle(),consoleFrames);
+  {
+    try {
+      frame = new remoteFrame(inst.type().getReadable(),
+			      observation.getTitle(),consoleFrames);
 	  
-	  // Create a security manager (should replace by a policy file)
-	  //	System.setSecurityManager(new RMISecurityManager());
+      // Create a security manager (should replace by a policy file)
+      //	System.setSecurityManager(new RMISecurityManager());
 
-	  if(inst.type().getReadable().equals("UFTI"))
-	    {
-	      Naming.rebind(System.getProperty("UFTI_OBJE"),frame);
-	      Naming.rebind(System.getProperty("UFTI_OBJE")+"-COMM",frame.getCommandSent());
-	      System.out.println("RMI Server for the ufti console is ready.");
-	    }
-	  else if(inst.type().getReadable().equals("Michelle"))
-	    {
-	      Naming.rebind(System.getProperty("MICH_OBJE"),frame);
-	      Naming.rebind(System.getProperty("MICH_OBJE")+"-COMM",frame.getCommandSent());
-	      System.out.println("RMI Server for the Michelle console is ready.");
-	    }
-	  else if(inst.type().getReadable().equals("CGS4"))
-	    {
-	      Naming.rebind(System.getProperty("CGS4_OBJE"),frame);
-	      Naming.rebind(System.getProperty("CGS4_OBJE")+"-COMM",frame.getCommandSent());
-	      System.out.println("RMI Server for the CGS4 console is ready.");
-	    } else if(inst.type().getReadable().equals("IRCAM3"))
-	      {
-		Naming.rebind(System.getProperty("IRCAM3_OBJE"),frame);
-		Naming.rebind(System.getProperty("IRCAM3_OBJE")+"-COMM",frame.getCommandSent());
-		System.out.println("RMI Server for the IRCAM3 console is ready.");
-	      }
+      String instStr = inst.type().getReadable();
+      Naming.rebind(System.getProperty(instStr+"_OBJE"),frame);
+      Naming.rebind(System.getProperty(instStr+"_OBJE")+"-COMM",
+		    frame.getCommandSent());
+      System.out.println("RMI Server for the "+instStr+" console is ready.");
 	  
-	  
-	  
-	  
-	  if(System.getProperty("RMIS_MESS").equals("ON"))
-	    frame.setLog(System.err);
-	} catch (RemoteException re) {
-	  System.out.println ("Exception in programTree:"+re);
-	} catch (MalformedURLException e) {
-	  System.out.println("MalformedURLException in programTree:" + e);
-	}  catch (NullPointerException e) {
-	  System.out.println("NullPointerException in programTree:" + e);
-	}
-      
-      
-      //add inst into the instrument list on the OM frame
-      if(menu.getActiveInstrumentList().getItemCount()>0) {
-	String activeInst = 
-	  menu.getActiveInstrumentList().getItemAt(0).toString();
-	if(activeInst.substring(0,4).equalsIgnoreCase("None") ||
-	   activeInst.substring(0,4).equals("    ")) {
-	  menu.getActiveInstrumentList().removeAllItems();
-	}
-      }
+      if (System.getProperty("RMIS_MESS").equals("ON")) 
+	frame.setLog(System.err);
 
-      try {
-	
-	menu.getActiveInstrumentList().addItem(inst.type().getReadable());
-	consoleFrames.addFrameList(frame.getFrame());
-	loadDramaTasks(inst.type().getReadable());
-
-	//connect it to the TCS if it is the first instrument
-	if(consoleFrames.getList().size()==1) {
-          sequenceFrame sf=(sequenceFrame)consoleFrames.getList().elementAt(0);
-          sf.connectTCS();
-	}
-	if (inst.type().getReadable().equalsIgnoreCase("UFTI")) {
-	  new AlertBox ("Ask your TSS to reboot UFTI. Wait for boot to complete. TSS must then open shutter");
-	}
-	run.setEnabled(true);
-	run.setForeground(Color.black);
-	
-      } catch (NullPointerException e) {
-	System.out.println("NullPointerException in programTree 2:" + e);
-      }
-      
+    } catch (RemoteException re) {
+      System.out.println ("Exception in programTree:"+re);
+    } catch (MalformedURLException e) {
+      System.out.println("MalformedURLException in programTree:" + e);
+    }  catch (NullPointerException e) {
+      System.out.println("NullPointerException in programTree:" + e);
     }
+      
+      
+    //add inst into the instrument list on the OM frame
+    if (menu.getActiveInstrumentList().getItemCount()>0) {
+      String activeInst = 
+	menu.getActiveInstrumentList().getItemAt(0).toString();
+      if (activeInst.substring(0,4).equalsIgnoreCase("None") ||
+	  activeInst.substring(0,4).equals("    ")) {
+	menu.getActiveInstrumentList().removeAllItems();
+      }
+    }
+
+    try {
+	
+      menu.getActiveInstrumentList().addItem(inst.type().getReadable());
+      consoleFrames.addFrameList (frame.getFrame());
+      loadDramaTasks (inst.type().getReadable());
+
+      //connect it to the TCS if it is the first instrument
+      if (consoleFrames.getList().size()==1) {
+	sequenceFrame sf = (sequenceFrame) consoleFrames.getList().elementAt(0);
+	sf.connectTCS();
+      }
+      if (inst.type().getReadable().equalsIgnoreCase("UFTI")) {
+	new AlertBox ("Ask your TSS to datum filter wheels and shutter. Then open shutter");
+      }
+      run.setEnabled(true);
+      run.setForeground(Color.black);
+	
+    } catch (NullPointerException e) {
+      System.out.println("NullPointerException in programTree 2:" + e);
+    }
+    
+  }
   
   
   /**
@@ -310,12 +300,11 @@ final public class programTree extends JPanel
       String tname = null;
       try {
 	tname=translation.translate();
+	temp.put(new String("execFilename"),tname);
 
       }catch (Exception e) {
 	System.out.println ("Translation failed!, exception was "+e);
       }
-      
-      temp.put(new String("execFilename"),tname);
       
       return tname;
     }

@@ -52,6 +52,7 @@ final public class oracOM
       spItem = new SpIterUFTI();
       spItem = new SpIterCGS4CalUnit();
       spItem = new SpIterCGS4CalObs();
+      spItem = new SpIterMichelleCalObs();
       spItem = new SpIterFP();
       spItem = new SpIterIRPOL();
       

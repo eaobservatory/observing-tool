@@ -26,6 +26,7 @@ final public class translating extends Thread
   {
     frame=new JFrame("Translation is in progress.");
     frame.setSize(300,60);
+    frame.setLocation(400,200);
     frame.show();
   }
 
