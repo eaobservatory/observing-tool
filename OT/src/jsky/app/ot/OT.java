@@ -253,6 +253,7 @@ public class OT extends JFrame {
      */
     public void openLibrary(String library) {
       SpRootItem spItem = null;
+      boolean openAsXml = library.endsWith(".xml");
       //URL url = null;
       //try {
       String resourceCfgDir = System.getProperty("ot.resource.cfgdir", "ot/cfg/");
@@ -262,21 +263,43 @@ public class OT extends JFrame {
       //catch (MalformedURLException ex) {
 
       if(url == null) {
-        JOptionPane.showMessageDialog(this,
-                                      "Could not find standard library resource " + resourceCfgDir + library,
-      	                              "Error",
-                                       JOptionPane.ERROR_MESSAGE);
+	// Standard library no found: Try using XML instead of SGML or SGML instead of XML.
+	String alternativeLibrary = null;
 
-        return;
+	if(library.endsWith(".lib")) {
+	  alternativeLibrary = library.substring(0, library.indexOf('.')) + ".xml";
+	  openAsXml = true;
+        }
+	else {
+	  alternativeLibrary = library.substring(0, library.indexOf('.')) + ".lib";
+	  openAsXml = false;
+	}
+
+        JOptionPane.showMessageDialog(this,
+                                      "Could not find standard library resource " + resourceCfgDir + library +
+                                      "\nTrying to load " + resourceCfgDir + alternativeLibrary + " instead.",
+      	                              "Warning",
+                                       JOptionPane.WARNING_MESSAGE);
+
+	url = ClassLoader.getSystemClassLoader().getResource(resourceCfgDir + alternativeLibrary);
+
+	// Check whether the alternative library could not be found either.
+	if(url == null) {
+          JOptionPane.showMessageDialog(this,
+                                        "Could not find standard library resource " +
+					resourceCfgDir + alternativeLibrary + " either.",
+      	                                "Error",
+                                         JOptionPane.ERROR_MESSAGE);
+
+          return;
+	}
       }
 
       Reader r = null;
       try {
         r = new InputStreamReader(url.openStream());
-	boolean ioXml = OtFileIO.isXML();
-        OtFileIO.setXML(false);
+        OtFileIO.setXML(openAsXml);
         spItem = OtFileIO.fetchSp(r);
-	OtFileIO.setXML(ioXml);
       } catch (IOException ex) {
         JOptionPane.showMessageDialog(this, "Could not open the standard library.", "Error", JOptionPane.ERROR_MESSAGE);
       } finally {
@@ -564,10 +587,12 @@ showNews()
 	try {
 	  OtCfg.init();
 	}
-	catch(Exception e) {
-	  JOptionPane.showMessageDialog(null, e.getMessage(), "Problem with OT configuration.",
-	                                JOptionPane.ERROR_MESSAGE);
+	catch(Throwable e) {
 	  e.printStackTrace();
+
+	  JOptionPane.showMessageDialog(null, "Problem with OT configuration:\nThis might result in invalid Science Programs.",
+	                                "Problem with OT configuration.",
+	                                JOptionPane.ERROR_MESSAGE);
 	}
 
 
