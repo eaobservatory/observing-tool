@@ -39,7 +39,7 @@ public final class EdOrFolder extends OtItemEditor implements TextBoxWidgetWatch
 	_description = "Change the title of the item here.";
 
 	for(int i = 0; i < 100; i++) {
-	  _w.numberOfItems.addItem("" + (i + 1));
+	  _w.numberOfItems.addItem("" + i);
 	}
 
 	_w.numberOfItems.addActionListener(this);
