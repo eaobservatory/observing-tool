@@ -3,7 +3,7 @@
 # Making
 #     class files          :  "gmake"         (output: CLASSES_DIR, set in CONF_HOME/make.conf)
 #     jar file with classes:  "gmake jar"     (output: JAR_DIR,     set in CONF_HOME/make.conf)
-#     javadoc html files   :  "gmake doc"     (output: DOC_DIR,    set in CONF_HOME/make.conf)
+#     javadoc html files   :  "gmake doc"     (output: DOC_DIR,     set in CONF_HOME/make.conf)
 #
 #     install              :  "gmake install" (output: see CONF_HOME/make.conf)
 #     clean                :  "gmake clean"   (deletes class files, jar files, api docs)
@@ -52,7 +52,12 @@ install:
 
 
 clean:
-	rm -f  $(CLASS_FILES)
-	rm -f  $(JAR_DIR)/$(JAR_FILE)
-	rm -rf $(DOC_DIR)/*
+	@echo " Delete these directories?\n"\
+	      "  $(CLASSES_DIR)\n"\
+	      "  $(JAR_DIR)\n"\
+	      "  $(DOC_DIR)\n"\
+	      "  $(LOCAL_INSTALL_ROOT)\n"\
+	      "Yes: return / Cancel: Ctrl-d"
+	@read a
+	rm -rf $(LOCAL_INSTALL_ROOT) $(CLASSES_DIR) $(JAR_DIR) $(DOC_DIR)
 
