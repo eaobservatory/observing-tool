@@ -99,6 +99,12 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Radial velocity, radio defined. */
   public static final String RADIAL_VELOCITY_RADIO    = "radio";
 
+  /**
+   * Set to true when method initialiseValues() is called.
+   *
+   * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String)
+   */
+  private boolean _valuesInitialised = false;
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.Heterodyne", "Het Setup" );
@@ -110,32 +116,63 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public SpInstHeterodyne() {
     super( SP_TYPE );
-
-    // Set defaults. Make sure all these values exist in the frequency editor widgets.
-    // Trailing white space need to be exactly as they are in the frequency editor
-    // widgets (see ATTR_TRANSITION)
-    _avTable.noNotifySet(ATTR_FE_NAME,          "A3",                      0);
-
-    // If the ATTR_FE_NAME default is set to a front end other than A3, then ATTR_MODE
-    // might have to be changed as well depending on what the frontend supports
-    _avTable.noNotifySet(ATTR_MODE,             "dsb",                     0);
-    _avTable.noNotifySet(ATTR_BAND_MODE,        "1-system",                0);
-    _avTable.noNotifySet(ATTR_OVERLAP,          "1.0E8",                   0);
-    _avTable.noNotifySet(ATTR_VELOCITY,         "0.0",                     0);
-    _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, "radio",                0);
-    _avTable.noNotifySet(ATTR_BAND,             "usb",                     0);
-    _avTable.noNotifySet(ATTR_LO1,              "2.2229E11",               0);
-    _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY, "" + 4.0E9,                0);
-
-    // Bandwidths are different for das and heterodyne. Set to 0.0 now and initialise later in EdCompInstHeterodyne.
-    _avTable.noNotifySet(ATTR_BANDWIDTH,        "" + 0.0,                  0);
-    _avTable.noNotifySet(ATTR_CHANNELS,         "32768",                   0);
-    _avTable.noNotifySet(ATTR_MOLECULE,         "CN, v = 0, 1",            0);
-    _avTable.noNotifySet(ATTR_TRANSITION,       "2 0 2 1  - 1 0 2 1 ",     0);
-    _avTable.noNotifySet(ATTR_TRANSITION,       "2 0 2 1  - 1 0 2 1 ",     0);
-    _avTable.noNotifySet(ATTR_REST_FREQUENCY,   "" + 226287.4265E6,        0);
   }
 
+  /**
+   * Initialises the values fo this item.
+   * 
+   * Most of the default values (or allowed values) for this item are specified in the
+   * configuration files EDFREQ/cfg/edfreq/acsisCfg.xml and EDFREQ/cfg/edfreq/dasCfg.xml
+   * The Heterodyne Editor class {@link jcmt.inst.editor.EdCompInstHeterodyne}.
+   * Wheb the {@link jcmt.inst.editor.EdCompInstHeterodyne._updateWidgets()}
+   * method of is called for the first time then it can check whether the values of this
+   * SpInstHeterodyne item have been initialised (by calling {@link #valuesInitialised()}).
+   * If they have not then the initialiseValues() can be used to fill in the values
+   * from the above configuration files.<p>
+   *
+   * Note that the LO1 value is not set in this method. It should be calculated from
+   * The top subsystem line rest frequency and the IF (depending on upper/lower sideband).
+   */
+  public void initialiseValues(
+      String defaultFeName,
+      String defaultMode,
+      String defaultBandMode,
+      String defaultOverlap,
+      String defaultVelocity,
+      String defaultVelocityDefinition,
+      String defaultBand,
+      String defaultCentreFrequency,
+      String defaultBandwidth,
+      String defaultChannels,
+      String defaultMolecule,
+      String defaultTransition,
+      String defaultRestFrequency) {
+
+    _avTable.noNotifySet(ATTR_FE_NAME,             defaultFeName,             0);
+    _avTable.noNotifySet(ATTR_MODE,                defaultMode,               0);
+    _avTable.noNotifySet(ATTR_BAND_MODE,           defaultBandMode,           0);
+    _avTable.noNotifySet(ATTR_OVERLAP,             defaultOverlap,            0);
+    _avTable.noNotifySet(ATTR_VELOCITY,            defaultVelocity,           0);
+    _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, defaultVelocityDefinition, 0);
+    _avTable.noNotifySet(ATTR_BAND,                defaultBand,               0);
+    _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY,    defaultCentreFrequency,    0);
+    _avTable.noNotifySet(ATTR_BANDWIDTH,           defaultBandwidth,          0);
+    _avTable.noNotifySet(ATTR_CHANNELS,            defaultChannels,           0);
+    _avTable.noNotifySet(ATTR_MOLECULE,            defaultMolecule,           0);
+    _avTable.noNotifySet(ATTR_TRANSITION,          defaultTransition,         0);
+    _avTable.noNotifySet(ATTR_REST_FREQUENCY,      defaultRestFrequency,      0);
+
+    _valuesInitialised = true;
+  }
+
+  /**
+   * Indicates whether the method initialiseValues() has been called.
+   *
+   * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String)
+   */
+  public boolean valuesInitialised() {
+    return _valuesInitialised;
+  }
 
   /**
    * Appends front end name to title.
@@ -665,8 +702,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     xmlBuffer.append(
       indent + "<acsis_spw_list>\n" +
       indent + "  <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" +
-      indent + "  <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\">\n" +
-      indent + "  <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\">\n"
+      indent + "  <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\"/>\n" +
+      indent + "  <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\"/>\n"
     );
 
     // Spectral windows
@@ -725,7 +762,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
                              indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
                              indent + "<!--          ACSIS Configuration XML        -->\n" + 
                              indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + 
-                             toConfigXML(indent + "  "));
+                             /*toConfigXML(indent + "  ")*/ "<!-- Temporarily removed. -->" );
   }
 }
 
