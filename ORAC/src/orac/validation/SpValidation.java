@@ -83,6 +83,7 @@ public class SpValidation {
     }
 
     checkSciProgramRecursively(spProg, report);
+    checkSurveyContainer(spProg, report);
 
     if (doc != null) {
 	// I use one method for each 'rule'
@@ -485,6 +486,16 @@ public class SpValidation {
 	    }
 	}
 	return;
+    }
+
+    private void checkSurveyContainer( SpProg prog, Vector report ) {
+        Vector containers = SpTreeMan.findAllInstances(prog, "gemini.sp.SpSurveyContainer");
+        for ( int count = 0; count<containers.size(); count++ ) {
+            SpSurveyContainer container = (SpSurveyContainer) containers.get(count);
+            for (int i=0; i<container.size(); i++) {
+                checkTargetList( container.getSpTelescopeObsComp(i), report );
+            }
+        }
     }
 			
 
