@@ -25,9 +25,31 @@ public class JcmtUtil implements TelescopeUtil {
   // There is no proper JCMT validation class yet.
   // Use the Generic class instead.
   private SpValidation _spValidation =  new SpValidation();
+  private String []    _targetTags = { "Science", "Reference" };
 
   public SpValidation getValidationTool() {
     return _spValidation;
+  }
+
+  public String [] getTargetTags() {
+    return _targetTags;
+  }
+
+  public String getBaseTag() {
+    return _targetTags[0];
+  }
+
+  public String getAdditionalTarget() {
+    return _targetTags[1];
+  }
+
+  public boolean supports(int feature) {
+    switch(feature) {
+      case FEATURE_TARGET_INFO_CHOP:        return false;
+      case FEATURE_TARGET_INFO_PROP_MOTION: return true;
+      case FEATURE_TARGET_INFO_TRACKING:    return true;
+      default:                              return false;
+    }
   }
 
   public void installPreTranslator() throws Exception {

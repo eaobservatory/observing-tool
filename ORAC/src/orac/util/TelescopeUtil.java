@@ -27,7 +27,42 @@ import orac.validation.SpValidation;
  */
 public interface TelescopeUtil {
 
+  /**
+   * Target Information Component, Tab "Chop Settings".
+   *
+   * Do <i>not</i> confuse with Telescope Position Editor features.
+   */
+  public static final int FEATURE_TARGET_INFO_CHOP        = 0;
+
+  /**
+   * Target Information Component, Tab "Proper Motion".
+   *
+   * Do <i>not</i> confuse with Telescope Position Editor features.
+   */
+  public static final int FEATURE_TARGET_INFO_PROP_MOTION = 1;
+
+  /**
+   * Target Information Component, Tab "Tracking Details".
+   *
+   * Do <i>not</i> confuse with Telescope Position Editor features.
+   */
+  public static final int FEATURE_TARGET_INFO_TRACKING    = 2;
+
   public SpValidation getValidationTool();
+
+  public String [] getTargetTags();
+  public String    getBaseTag();
+
+  /**
+   * Returns the tag for the target that can be added to the Target List
+   * in addition to Base/Science.
+   *
+   * "GUIDE" for UKIRT<br>
+   * "Reference" for JCMT 
+   */
+  public String    getAdditionalTarget();
+
+  public boolean supports(int feature);
 
   public void installPreTranslator() throws Exception;
 }

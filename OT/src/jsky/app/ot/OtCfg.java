@@ -92,12 +92,13 @@ public final class OtCfg
 	// Read the configuration information from the "ot.cfg" file.
 	_otCfgInfo = OtCfgReader.load(baseDir + "ot.cfg");
 
+        // Initialize telescope specific features
+        _initTelescope(_otCfgInfo);
+
+	// Added by MFO, 20 December 2001 (changed on 18 January 2002)
 	// Base Position
 	// The base star tag has to be set BEFORE _initStandardSpItems is called.
-	// Added by MFO, 20 December 2001.
-	if((_otCfgInfo.baseTag != null) && (!_otCfgInfo.baseTag.equals(""))) {
-	  SpTelescopePos.setBaseTag(_otCfgInfo.baseTag);
-	}
+	SpTelescopePos.setBaseTag(telescopeUtil.getBaseTag());
 
 	_initStandardSpItems();
 
@@ -110,8 +111,6 @@ public final class OtCfg
 	// SpItem add-ons
 	_initSpItems(_otCfgInfo);
 
-        // Initialize telescope specific features
-        _initTelescope(_otCfgInfo);
     }
 
     public static String[] getLibraries() {
