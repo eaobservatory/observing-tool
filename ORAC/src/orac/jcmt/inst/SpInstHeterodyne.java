@@ -791,11 +791,22 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
     int offset = xmlBuffer.length() - (indent.length() + _className.length() + 4);
 
+    String configXML = null;
+
+    try {
+      configXML = toConfigXML(indent + "  ");
+    }
+    catch(Exception e) {
+      e.printStackTrace();
+      System.out.println("Unable to include ACSIS configuration XML due to " + e);
+      configXML   = indent + "    <!-- Unable to include ACSIS configuration XML due to " + e + " -->";
+    }
+
     xmlBuffer.insert(offset, "\n\n" +
-                             indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
-                             indent + "<!--          ACSIS Configuration XML        -->\n" + 
-                             indent + "<!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + 
-                             toConfigXML(indent + "  "));
+                             indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
+                             indent + "  <!--          ACSIS Configuration XML        -->\n" + 
+                             indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + 
+                             configXML);
   }
 
 
