@@ -1189,29 +1189,15 @@ public class SpTranslator {
 // Format the instruction for the sequence.
 // ========================================
 
-// The strings have to be manipulated to correct format.  They are
-// decimal hours and decimal degrees.
-                  skyCoords = null;
-		  // Only get the skyCoords if we are not in RA/Dec
-		  if ( !(coordSystem.equalsIgnoreCase("AZ/EL")) ) {
-		      skyCoords = RADecMath.string2Degrees( RA, Dec,
-							    CoordSys.getSystem( coordSystem ) );
-		  }
-		  else {
-		      skyCoords = new double [2];
-		      skyCoords[0] = Double.parseDouble(RA);
-		      skyCoords[1] = Double.parseDouble(Dec);
-		  }
+// This section in which the target coordinates are written to the sequence file
+// was changed on 3 July 2003 by RDK. The TCS can now cope with target coordinates
+// in sexagesimal format, so this section was simplified to make use of that capability.
+// The only thing we have to do is make sure that in the sexagesimal string, the elements
+// are separated by :, and not spaces, otherwise the OOS will complain.
 
-		  // Validate the returned co-ordinates.
-		  if ( Double.isNaN( skyCoords[ 0 ] ) ) {
-		      System.out.println( "Error in R.A. sexagesimal format." );
-		      return seqName;
-		  }
-		  
-		  if ( Double.isNaN( skyCoords[ 1 ] ) ) {
-		      System.out.println( "Error in Dec. sexagesimal format." );
-		      return seqName;
+		  if ( !(coordSystem.equalsIgnoreCase("AZ/EL")) ) {
+		      RA = RA.replace(' ', ':');
+		      Dec = Dec.replace(' ', ':');
 		  }
 
 // Need the equinox, not the FK number.  So look for the enclosing
@@ -1220,7 +1206,7 @@ public class SpTranslator {
                      equinox = "J2000";
                   } 
 		  else if (coordSystem.equalsIgnoreCase("AZ/EL")) {
-		      equinox = "AZ/EL";
+		      equinox = "AZEL"; // The TCS requires this exact string for Az/El
 		  }
 		  else {
                      start = coordSystem.indexOf( "(" ) + 1;
@@ -1239,20 +1225,9 @@ public class SpTranslator {
                   targetRecord.append( targetName ).append( " " );
                   targetRecord.append( equinox ).append( " " );
 
-// Specify the format to use for the equatorial co-ordinates, giving
-// a precision commensurate with UKIRT's pointing.
-                  dfEq = new DecimalFormat( "0.000000;-0.000000" );
-
-// HHMMSS returns a two-element array of decimal degrees.  PTCS
-// wants decimal hours for right ascension.
-		  if ( !(equinox.equals("AZ/EL")) ) {
-		      targetRecord.append( dfEq.format( skyCoords[ 0 ] / 15.0d ) );
-		  }
-		  else {
-		      targetRecord.append( dfEq.format( skyCoords[ 0 ] ));
-		  }
-                  targetRecord.append( " " );
-                  targetRecord.append( dfEq.format( skyCoords[ 1 ] ) );
+		  targetRecord.append( RA );
+		  targetRecord.append( " " );
+		  targetRecord.append( Dec );
 
 // Store the optional proper-motion items.
                   if ( targetValues.size() > 6 ) {
@@ -1265,13 +1240,20 @@ public class SpTranslator {
 
 // Write the slew and guiding instructions.
 // ========================================
+
+// The slew and guiding instructions were changed by RDK on 3 July 2003.
+// Before the slew, a command to set the tracking coordinate system was added.
+// This was necessary to be able to make use of AZ/EL coordinates.
+
                   if ( isGuideTarget ) {
+                      sequence.addElement( "-system " + equinox +" GUIDE" );
                       sequence.addElement( "do 1 _slew_guide" );
                       sequence.addElement( "GUIDE ON" );
                       if ( ! instrument.equalsIgnoreCase( "CGS4" ) ) {
                          sequence.addElement( "-WAIT ALL" );
                       }
                   } else {
+                      sequence.addElement( "-system " + equinox +" ALL" );
                       sequence.addElement( "do 1 _slew_all" );
                   }
                }
