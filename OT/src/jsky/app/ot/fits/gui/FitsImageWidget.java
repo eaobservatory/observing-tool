@@ -30,6 +30,8 @@ import jsky.catalog.gui.SymbolSelectionListener;
 import jsky.catalog.gui.TablePlotter;
 import jsky.coords.Coordinates;
 import jsky.coords.WorldCoords;
+import jsky.coords.NamedCoordinates;
+import jsky.coords.CoordinateConverter;
 import jsky.image.ImageChangeEvent;
 import jsky.navigator.Navigator;
 import jsky.util.gui.StatusPanel;
@@ -55,6 +57,19 @@ public class FitsImageWidget extends ViewportImageWidget {
     }
 
 
+    /** 
+     * If the given screen coordinates point is within a displayed catalog symbol, set it to
+     * point to the center of the symbol and return the world coordinates position
+     * from the catalog table row. Otherwise, return null and do nothing.
+     */
+    protected NamedCoordinates getCatalogPosition(Point2D.Double p) {
+	TablePlotter plotter = getNavigator().getPlotter();
+	if (plotter == null)
+	    return null;
+	return plotter.getCatalogPosition(p);
+    }
+
+
     /**
      * Make a NavigatorFrame or NavigatorInternalFrame, depending
      * on what type of frames are being used.
@@ -62,7 +77,6 @@ public class FitsImageWidget extends ViewportImageWidget {
      */
     protected void makeNavigatorFrame() {
 	super.makeNavigatorFrame();
-	setSymbolSelectionListener();
     }
 
     /**
@@ -71,55 +85,8 @@ public class FitsImageWidget extends ViewportImageWidget {
      */
     public void setNavigator(Navigator navigator) {
 	super.setNavigator(navigator);
-	setSymbolSelectionListener();
     }
 
-
-    /**
-     * Arrange to snap new object positions to catalog symbol locations.
-     */
-    protected void setSymbolSelectionListener() {
-	TablePlotter plotter = navigator.getPlotter();
-	plotter.addSymbolSelectionListener(new SymbolSelectionListener() {
-		public void symbolSelected(SymbolSelectionEvent e) {
-		    TableQueryResult table = e.getTable();
-		    int row = e.getRow();
-		    if (table.hasCoordinates()) {
-			Coordinates c = table.getCoordinates(row);
-			if (c instanceof WorldCoords) {
-			    WorldCoords pos = (WorldCoords)c;
-			    Point2D.Double p = new Point2D.Double(pos.getRaDeg(), pos.getDecDeg());
-			    
-			    // use the wcs position directly rather than convert back and forth
-			    FitsMouseEvent fme = new FitsMouseEvent();
-			    fme.source  = FitsImageWidget.this;
-			    fme.id      = MouseEvent.MOUSE_PRESSED;
-			    fme.ra     = p.x;
-			    fme.dec    = p.y;
-			    getCoordinateConverter().worldToScreenCoords(p, false);
-			    fme.xWidget = (int)p.x;
-			    fme.yWidget = (int)p.y;
-			    getCoordinateConverter().screenToUserCoords(p, false);
-			    fme.xView   = p.x;
-			    fme.yView   = p.y;
-			    fme.raStr  = pos.getRA().toString();
-			    fme.decStr = pos.getDec().toString();
-
-			    double[] d = imageWidgetToOffset(fme.xWidget, fme.yWidget);
-
-			    fme.xOffset    = d[0];
-			    fme.yOffset    = d[1];
-			    fme.xOffsetStr = String.valueOf(d[0]);
-			    fme.yOffsetStr = String.valueOf(d[1]);
-			    
-			    _notifyMouseObs(fme);
-			}
-		    }
-		}
-		public void symbolDeselected(SymbolSelectionEvent e) {
-		}
-	    });
-    }
 
     /**
      * Free any resources used by this image widget.
@@ -385,44 +352,44 @@ public class FitsImageWidget extends ViewportImageWidget {
     }
 
     protected boolean _initMouseEvent(MouseEvent evt, ViewportMouseEvent vme) {
-	if (!_imgInfoValid) {
-	    return false;
-	}
-
-	if (!super._initMouseEvent(evt, vme)) {
-	    return false;
-	}
+	//if (! _checkImgInfo()) 
+	//    return false;
 
 	FitsMouseEvent fme = (FitsMouseEvent) vme;
+	Point2D.Double mp = new Point2D.Double(evt.getX(), evt.getY());
 
-	if (_unsupportedProjection) {
-	    fme.ra     = 0.0;
-	    fme.dec    = 0.0;
-	    fme.raStr  = "Unknown";
-	    fme.decStr = "Unknown";
+	NamedCoordinates catalogPosition = null;
 
-	    fme.xOffset    = 0.0;
-	    fme.yOffset    = 0.0;
-	    fme.xOffsetStr = "Unknown";
-	    fme.yOffsetStr = "Unknown";
-
-	} else {
-	    double[] d = imageViewToRaDec(fme.xView, fme.yView);
-
-	    fme.ra     = d[0];
-	    fme.dec    = d[1];
-	    fme.raStr  = HHMMSS.valStr(d[0]);
-	    fme.decStr = DDMMSS.valStr(d[1]);
-
-	    d = imageWidgetToOffset(fme.xWidget, fme.yWidget);
-
-	    fme.xOffset    = d[0];
-	    fme.yOffset    = d[1];
-	    fme.xOffsetStr = String.valueOf(d[0]);
-	    fme.yOffsetStr = String.valueOf(d[1]);
+	// snap to catalog symbol position, if user clicked on one
+	if (evt.getID() == MouseEvent.MOUSE_CLICKED) {
+	  catalogPosition = getCatalogPosition(mp);
+	  if(catalogPosition != null) {
+	    fme.ra  = catalogPosition.getCoordinates().getX();
+	    fme.dec = catalogPosition.getCoordinates().getY();
+	  }  
 	}
 
+	Point2D.Double p = new Point2D.Double(mp.x, mp.y);
+	getCoordinateConverter().screenToUserCoords(p, false);
+	if (catalogPosition == null) {
+	    WorldCoords worldCoords = userToWorldCoords(p.x, p.y);
+	    fme.ra  = worldCoords.getX();
+	    fme.dec = worldCoords.getY();
+	}    
+
+	vme.id      = evt.getID();
+	vme.source  = this;
+	vme.xView   = p.x;
+	vme.yView   = p.y;
+	vme.xWidget = (int)Math.round(mp.x);
+	vme.yWidget = (int)Math.round(mp.y);
+
+	double[] d = screenCoordsToOffset(mp.x, mp.y);
+	fme.xOffset    = d[0];
+	fme.yOffset    = d[1];
+
 	return true;
+
     }
 
     /** 
@@ -442,4 +409,41 @@ public class FitsImageWidget extends ViewportImageWidget {
     public void clear() {
 	blankImage(_imgInfo.ra, _imgInfo.dec);
     }
+
+
+    /**
+     * Convert the given user coordinates location to world coordinates.
+     */
+    public WorldCoords userToWorldCoords(double x, double y) {
+	Point2D.Double p = new Point2D.Double(x, y);
+	CoordinateConverter converter = getCoordinateConverter();
+	converter.userToWorldCoords(p, false);
+	return new WorldCoords(p.x, p.y, converter.getEquinox());
+    }
+
+
+    /**
+     * Convert the given screen coordinates to an offset from the base position (in arcsec).
+     */
+    public double[] screenCoordsToOffset(double x, double y) {
+	//if (! _checkImgInfo()) 
+	//    return null;
+	
+	// unrotate - must correct for the fact that skyRotate will try to adjust
+	// for due north in the sky.  We ultimately want to rotate by
+	// -(posAngle + theta).  skyRotate will add theta to whatever is passed
+	// to it, so to unrotate we need -(posAngle + 2*theta)
+	double posAngleRad = Angle.degreesToRadians(_imgInfo.posAngleDegrees);
+	double angle       = -(posAngleRad + 2.0*_imgInfo.theta);
+	Point2D.Double pd = skyRotate((double) x, (double) y, angle);
+
+	double ppa  = _imgInfo.pixelsPerArcsec;
+	double xOff = (_imgInfo.baseScreenPos.x - pd.x)/ppa;
+	double yOff = (_imgInfo.baseScreenPos.y - pd.y)/ppa;
+	xOff = Math.round(xOff * 1000.0)/1000.0;
+	yOff = Math.round(yOff * 1000.0)/1000.0;
+	double[] t = { xOff, yOff };
+	return t;
+    }
+
 }

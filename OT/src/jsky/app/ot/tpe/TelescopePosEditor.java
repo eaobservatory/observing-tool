@@ -921,12 +921,6 @@ public class TelescopePosEditor extends JSkyCat
 		_iw.erase(mouseEvent);
 		break;
 
-	    case TpeEditorTools.MODE_CREATE: 
-		TpeImageFeature tif;
-		tif = (TpeImageFeature) _editorTools.getImageFeature();
-		_iw.create(mouseEvent, tif, _editorTools.getCurrentButtonLabel());
-		break;
-
 	    default:
 	    }
 
@@ -934,6 +928,23 @@ public class TelescopePosEditor extends JSkyCat
 
 	    return;
 	}
+
+
+	if (mouseEvent.id == MouseEvent.MOUSE_CLICKED) {
+	    switch (_editorTools.getMode()) {
+	    case TpeEditorTools.MODE_ERASE: 
+		_iw.erase(mouseEvent);
+		break;
+
+	    case TpeEditorTools.MODE_CREATE: 
+		TpeImageFeature tif;
+		tif = (TpeImageFeature) _editorTools.getImageFeature();
+		_iw.create(mouseEvent, tif, _editorTools.getCurrentButtonLabel());
+		break;
+	    }
+	    return;
+	}
+
 
 	if (mouseEvent.id == MouseEvent.MOUSE_DRAGGED) {
 	    switch (_editorTools.getMode()) {
