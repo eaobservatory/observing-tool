@@ -440,8 +440,17 @@ public final class EdCompTargetList extends OtItemEditor
 
 	// *** Position Table
 	_tpTable = _w.positionTable;
-	_tpTable.setColumnHeaders(new String[]{"Tag", "Name", "X Axis", "Y Axis"});
-	_tpTable.setColumnWidths(new int[]{45, 85, 90, 90});
+
+        // If there are more then 2 systems (FK5/FK4) then display the system of a target
+	// in a separate column in the target list table.
+	if((OtCfg.telescopeUtil.getCoordSys() != null) && (OtCfg.telescopeUtil.getCoordSys().length > 2)) {
+	    _tpTable.setColumnHeaders(new String[]{"Tag", "Name", "X Axis", "Y Axis", "System"});
+	    _tpTable.setColumnWidths(new int[]{45, 85, 90, 90, 90});
+	}
+	else {
+	    _tpTable.setColumnHeaders(new String[]{"Tag", "Name", "X Axis", "Y Axis"});
+	    _tpTable.setColumnWidths(new int[]{45, 85, 90, 90});
+	}
 	_tpTable.setRowSelectionAllowed(true);
 	_tpTable.setColumnSelectionAllowed(false);
 	//_tpTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
