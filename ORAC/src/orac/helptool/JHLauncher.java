@@ -544,6 +544,12 @@ final public class JHLauncher implements java.io.Serializable {
 	launcher.setup(args);
     }
 
+    // Added by MFO (April 25, 2002)
+    public JHLauncher(URL url) {
+	JHLauncher launcher = new JHLauncher();
+	launcher.setup(url);
+    }
+
     /**
      * Parse the arguments
      */
@@ -676,6 +682,24 @@ public void setup(String args[]) {
 	} else {
 	    initialize(hsName, loader);
 	}
+	if (hs == null) {
+	    setHS = true;
+	    initializeSDGUI();
+	    showSD();
+	    return;
+	}
+	createFrame(null, null); // defaults
+	launch();
+    }
+
+    // Added by MFO (April 25, 2002)
+    public void setup(URL hsURL) {
+	if (hsURL == null) {
+	    return;
+        }
+
+	initialize(hsURL, getClass().getClassLoader());
+	
 	if (hs == null) {
 	    setHS = true;
 	    initializeSDGUI();
