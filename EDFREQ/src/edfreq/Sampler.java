@@ -28,9 +28,30 @@ public class Sampler implements ItemListener
 
    /** Instantaneous bandwidth of frontend. */
    double feBandWidth;
+
+   /**
+    * Bandwidth options for this sampler.
+    *
+    * The bandwidth options in this array are not necessarily the actual bandwidths of the instrument.
+    * The bandwidths may have been reduced by a factor (derived form the overlap).
+    * It is important that the number of channels in {@link #channelsArray} is reduced by the same factor in
+    * order to get valid values for the resolution.
+    */
    double [] bandWidthsArray;
+
    int channels = 0;
+
+   /**
+    * Channel options for this sampler.
+    *
+    * The channel options in this array are not necessarily the actual number of channels of the instrument.
+    * The channels may have been reduced by a factor (derived form the overlap).
+    * It is important that the number of channels is reduced by the same factor by which
+    * the bandwidths in {@link #bandWidthsArray} have been reduced in order to get valid values
+    * for the resolution.
+    */
    int [] channelsArray;
+
    int row;
    Vector swArray = new Vector();
    JComboBox bandWidthChoice;
@@ -107,6 +128,13 @@ public class Sampler implements ItemListener
 
       bandWidth = value;
 
+      // Find index of new bandwidth and  set channels from channels array.
+      for(int i = 0; i < bandWidthsArray.length; i++) {
+         if(bandWidthsArray[i] == value) {
+            channels = channelsArray[i];
+         }
+      }
+
       // Adjust centre frequency if necessary so that the sideband fits into the frontend bandwidth.
       setCentreFrequency(getCentreFrequency());
 
@@ -125,8 +153,6 @@ public class Sampler implements ItemListener
       bandWidthChoice.removeItemListener(this);
       bandWidthChoice.setSelectedItem("" + (Math.rint(value * 1.0E-6) / 1000.0));
       bandWidthChoice.addItemListener(this);
-
-      channels = channelsArray[bandWidthChoice.getSelectedIndex()];
    }
 
    /**
