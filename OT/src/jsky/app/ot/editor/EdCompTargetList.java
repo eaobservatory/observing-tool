@@ -231,7 +231,8 @@ public final class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 
-		    if(_curPos.isOffsetPosition()) {
+		    if(_curPos.isOffsetPosition() || ((_curPos.getCoordSys() != CoordSys.FK5) &&
+		                                      (_curPos.getCoordSys() != CoordSys.FK4))) {
 		      double xAxis = 0.0;
 		      double yAxis = 0.0;
 
@@ -267,7 +268,8 @@ public final class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 
-		    if(_curPos.isOffsetPosition()) {
+		    if(_curPos.isOffsetPosition() || ((_curPos.getCoordSys() != CoordSys.FK5) &&
+		                                      (_curPos.getCoordSys() != CoordSys.FK4))) {
 		      double xAxis = 0.0;
 		      double yAxis = 0.0;
 
@@ -312,6 +314,15 @@ public final class EdCompTargetList extends OtItemEditor
                     _w.Dec_El_STW.setText(CoordSys.Y_AXIS_LABEL[i]);
 
 		    _updateCoordSystem();
+
+		    // The call _curPos.setXY() triggers a base position observer
+		    // notification so that the position editor gets updated
+		    // and it causes the String representation in the SpAvTable
+		    // of _curPos to be reformatted depending on the coordinate system
+		    // and whether _curPos is an offset position.
+		    _curPos.setXY(_curPos.getXaxis(), _curPos.getYaxis());
+
+		    _updateXYUnitsLabels();
 		}
 	    });
 
@@ -665,6 +676,8 @@ public final class EdCompTargetList extends OtItemEditor
 	_w.chopAngle.setValue(   ((SpTelescopeObsComp)_spItem).getChopAngleAsString() );
 	_w.chopThrow.setEnabled(_w.chopping.isSelected());
 	_w.chopAngle.setEnabled(_w.chopping.isSelected());
+
+	_updateXYUnitsLabels();
     }
 
     /**
@@ -696,6 +709,8 @@ public final class EdCompTargetList extends OtItemEditor
 	else {
           _w.offsetCheckBox.setVisible(false);
 	}
+
+	_updateXYUnitsLabels();
     }
 
     /**
@@ -743,6 +758,31 @@ public final class EdCompTargetList extends OtItemEditor
 	showPos(_curPos);
     }
 
+    /**
+     * Set the labels for the x and y coordinate text boxes.
+     *
+     * <pre><tt>
+     * Coordinate System FK5/FK4     : "" (no label)
+     * Other Coordinate Systems      : "(degrees)"
+     * Offset (any Coordinate System): "(arcsecs)"
+     * </tt></pre>
+     */
+    private void _updateXYUnitsLabels() {
+	if(_curPos.isOffsetPosition()) {
+	    _w.xUnitsLabel.setText("(arcsecs)");
+	    _w.yUnitsLabel.setText("(arcsecs)");
+	}
+	else {
+	    if((_curPos.getCoordSys() != CoordSys.FK5) && (_curPos.getCoordSys() != CoordSys.FK4)) {
+	        _w.xUnitsLabel.setText("(degrees)");
+	        _w.yUnitsLabel.setText("(degrees)");
+	    }
+	    else {
+	        _w.xUnitsLabel.setText("");
+	        _w.yUnitsLabel.setText("");
+	    }
+	}
+    }
 
     /**
      * Updates the labels of Orbital Elements on the Conic System Tab.
@@ -982,6 +1022,8 @@ public final class EdCompTargetList extends OtItemEditor
 	  }
 
 	  _curPos.setXY(0.0, 0.0);
+
+	  _updateXYUnitsLabels();
 	}
     }
 

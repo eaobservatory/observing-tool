@@ -413,7 +413,7 @@ setTag(String newTag)
       // Convert from degrees to the current coordinate system
       String[] pos;
       if (_isValid) {
-         if(isOffsetPosition()) {
+         if(isOffsetPosition() || ((getCoordSys() != CoordSys.FK5) && (getCoordSys() != CoordSys.FK4))) {
 	    pos = new String[]{ "" + _xaxis, "" + _yaxis };
 	 }
 	 else {
@@ -490,7 +490,7 @@ noNotifySetXY(double xaxis, double yaxis)
    _isValid = true;
 
    // Convert from degrees to the current coordinate system
-   if(isOffsetPosition()) {
+   if(isOffsetPosition() || ((getCoordSys() != CoordSys.FK5) && (getCoordSys() != CoordSys.FK4))) {
      _avTab.set(_tag, xaxis, XAXIS_INDEX);
      _avTab.set(_tag, yaxis, YAXIS_INDEX);
    }
@@ -518,7 +518,7 @@ _updateXYFromString(String xaxisStr, String yaxisStr)
    try {
       double[] pos = null;
     
-      if(isOffsetPosition()) {
+      if(isOffsetPosition() || ((getCoordSys() != CoordSys.FK5) && (getCoordSys() != CoordSys.FK4))) {
          pos = new double[] { 0.0, 0.0 };
 	 
 	 try {
@@ -640,6 +640,17 @@ setCoordSys(int i)
       _avTab.set(_tag, sysString, COORD_SYS_INDEX);
    }
    _notifyOfGenericUpdate();
+
+   // Changing the coordinate system while maintaining the
+   // coordinate values (as done in the OT) results in
+   // change of location. (MFO, April 09, 2002)
+   _notifyOfLocationUpdate();
+
+
+   if (_tag.equals(BASE_TAG)) {
+      SpObsData od = _spItem.getObsData();
+      if (od != null) od.setBasePos(_xaxis, _yaxis);
+   }
 }
 
 /**
@@ -661,6 +672,11 @@ setCoordSys(String coordSysString)
       _avTab.set(_tag, coordSysString, COORD_SYS_INDEX);
    }
    _notifyOfGenericUpdate();
+
+   // Changing the coordinate system while maintaining the
+   // coordinate values (as done in the OT) results in
+   // change of location. (MFO, April 09, 2002)
+   _notifyOfLocationUpdate();
 }
 
 /**
