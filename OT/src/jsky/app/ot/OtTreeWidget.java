@@ -27,6 +27,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
+import gemini.sp.SpNote;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpObsComp;
 import orac.util.SpItemUtilities;
@@ -888,7 +889,8 @@ public final class OtTreeWidget extends MultiSelTreeWidget
         treeNodeWidget = (OtTreeNodeWidget)value;
       }
 
-      if( (treeNodeWidget == null) || (!(treeNodeWidget.getItem() instanceof SpMSB)) ) {
+      if( (treeNodeWidget == null) || ( (!(treeNodeWidget.getItem() instanceof SpMSB)) &&
+                                        (!(treeNodeWidget.getItem() instanceof SpNote)) ) ) {
         return super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
       }
 
@@ -911,6 +913,12 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	// the Science program spObs.isOptional() implies spObs.getIsMSB() == false.
 	if(spObs.isOptional()) {
           resultComponent.setForeground(GREEN);
+	}
+      }
+
+      if((treeNodeWidget != null) && (treeNodeWidget.getItem() instanceof SpNote)) {
+	if(((SpNote)treeNodeWidget.getItem()).isObserveInstruction()) {
+          resultComponent.setForeground(Color.red);
 	}
       }
 
