@@ -89,6 +89,11 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     secsPerCycle.setEditable(false);
     secsPerObservation.setEditable(false);
     pointingMethod.setFont(new java.awt.Font("Dialog", 0, 12));
+    automaticTarget.setPreferredSize(new Dimension(190, 50));
+    automaticTarget.setText("Automatically determine target");
+    automaticTarget.setHorizontalAlignment(SwingConstants.CENTER);
+    automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
+    automaticTarget.setVerticalAlignment(SwingConstants.TOP);
     this.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
@@ -126,6 +131,7 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
     acsisPanel.add(pointingPixelButton, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
+    this.add(automaticTarget, BorderLayout.SOUTH);
   }
 
 }

@@ -28,6 +28,7 @@ public class IterJCMTGenericGUI extends JPanel {
   TextBoxWidgetExt sampleTime = new TextBoxWidgetExt();
   CheckBoxWidgetExt cycleReversal = new CheckBoxWidgetExt();
   CheckBoxWidgetExt jiggleAtReference = new CheckBoxWidgetExt();
+  CheckBoxWidgetExt automaticTarget = new CheckBoxWidgetExt();
 
   BorderLayout borderLayout1 = new BorderLayout();
   JPanel jPanel1 = new JPanel();
