@@ -82,6 +82,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   private boolean _updatingWidgets = false;
 
+  private boolean _changingFrontEnd = false;
+  private boolean _changingBandMode = false;
+
   /**
    * Flag indicating that the text in the velocity box has been changed but
    * the respective fields in this and other classes have not yet been updated accordingly.
@@ -577,7 +580,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             {
 	       if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
 
-                  if(!_updatingWidgets) {
+                  if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
                      JOptionPane.showMessageDialog(_w, "Using lower sideband in order to reach line.",
                      "Changing sideband", JOptionPane.WARNING_MESSAGE);
                   }
@@ -593,7 +596,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             {
 	       if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
 
-                  if(!_updatingWidgets) {
+                  if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
                      JOptionPane.showMessageDialog(_w, "Using upper sideband in order to reach line.",
                      "Changing sideband", JOptionPane.WARNING_MESSAGE);
                   }
@@ -752,6 +755,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 
    public void feBandModeChoiceAction ( ActionEvent ae ) {
+      _changingBandMode = true;
+
+      _ignoreEvents = true;
+      try {
+         _w.bandWidthChoice.setSelectedIndex(0);
+      }
+      catch(Exception e) {
+         // Exception occurs _w.bandWidthChoice has no items yet. Ignore.
+      }
+      _ignoreEvents = false;
 
       BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
       _updateBandWidthChoice(currentBandSpec.getDefaultOverlapBandWidths());
@@ -792,6 +805,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
             }
 	 }
       }
+
+      _changingBandMode = false;
    }
 
    public void updateSideBandDisplay() {
@@ -833,6 +848,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
    public void feChoiceAction ( ActionEvent ae )
    {
+      _changingFrontEnd = true;
 
       double loRange[];
       double mid;
@@ -924,6 +940,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       if(!_ignoreSpItem) {
          _instHeterodyne.setFrontEnd(newFE);
       }
+
+      _changingFrontEnd = false;
    }
 
 
