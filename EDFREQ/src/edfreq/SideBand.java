@@ -8,7 +8,7 @@
 /*==============================================================*/
 // $Id$
 
-package ot.jcmt.inst.editor.edfreq;
+package edfreq;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -63,6 +63,11 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher
    { 
       setSubBandCentre ( (double)v/pixratio + 0.5 * subBandWidth );
 
+      sampler.setCentreFrequency ( Math.abs ( subBandCentre ) );
+   }
+
+   public void updateCentreFrequency()
+   {
       sampler.setCentreFrequency ( Math.abs ( subBandCentre ) );
    }
 
