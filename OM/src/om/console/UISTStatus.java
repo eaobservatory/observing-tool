@@ -1,4 +1,4 @@
-package console;
+package om.console;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
