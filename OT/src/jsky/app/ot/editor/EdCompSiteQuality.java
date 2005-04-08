@@ -138,8 +138,8 @@ public final class EdCompSiteQuality extends OtItemEditor
 	}
 	else {
 	    _w.skyUserDefined.setValue(true);
-	    _w.minSky.setValue(sq.getMinSeeing());
-	    _w.maxSky.setValue(sq.getMaxSeeing());
+	    _w.minSky.setValue(sq.getMinSky());
+	    _w.maxSky.setValue(sq.getMaxSky());
 	    _w.minSky.setEnabled(true);
 	    _w.maxSky.setEnabled(true);
 	}
