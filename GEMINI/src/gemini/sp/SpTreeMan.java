@@ -557,6 +557,7 @@ static {
       _insertAfter.put("ob,no", ip);
       _insertAfter.put("ob,if", ip);
       _insertAfter.put("ob,og", ip);
+      _insertAfter.put("ob,sc", ip);
 
       // Obs Links
       _insertAfter.put("li,of", ip); // MFO
