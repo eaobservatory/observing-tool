@@ -27,6 +27,7 @@ import gemini.sp.iter.SpIterObserve;
 import gemini.sp.iter.SpIterSky;
 import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
+import orac.jcmt.SpJCMTConstants;
 import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
 
@@ -45,14 +46,16 @@ public class JcmtSpValidation extends SpValidation {
     public void checkObservation( SpObs spObs, Vector report ) {
         if ( report == null ) report = new Vector();
         
-        SpInstObsComp obsComp = SpTreeMan.findInstrument(spObs);
-        Vector observes       = SpTreeMan.findAllInstances(spObs, "orac.jcmt.iter.SpIterJCMTObs");
+        SpInstObsComp obsComp     = SpTreeMan.findInstrument(spObs);
+        SpTelescopeObsComp target = SpTreeMan.findTargetList(spObs);
+        Vector observes           = SpTreeMan.findAllInstances(spObs, "orac.jcmt.iter.SpIterJCMTObs");
         // Give a warning for heterodyne if integration times > 40 seconds
         // and frequency > 400 GHz
         for ( int count = 0; count < observes.size(); count++ ) {
+            SpIterJCMTObs thisObs = (SpIterJCMTObs)observes.elementAt(count);
             if ( obsComp != null && obsComp instanceof SpInstHeterodyne ) {
                 if ( ((SpInstHeterodyne)obsComp).getSkyFrequency() > 4.0E11 &&
-                      ((SpIterJCMTObs)observes.elementAt(count)).getSecsPerCycle() > 40.0 ) {
+                      thisObs.getSecsPerCycle() > 40.0 ) {
                     report.add( new ErrorMessage( 
                                 ErrorMessage.WARNING,
                                 spObs.getTitle(),
@@ -60,52 +63,30 @@ public class JcmtSpValidation extends SpValidation {
                             );
                 }
             }
+            // Also check the switching mode.  If we are in beam switch, we need a chop iterator,
+            // in position we need a reference in the target
+            if ( thisObs.getSwitchingMode().equals(SpJCMTConstants.SWITCHING_MODE_BEAM) ) {
+                Vector chops = SpTreeMan.findAllInstances(spObs, "gemini.sp.iter.SpIterChop");
+                if ( chops == null || chops.size() == 0 ) {
+                    report.add( new ErrorMessage(
+                                ErrorMessage.ERROR,
+                                spObs.getTitle(),
+                                "Chop iterator required for beam switch mode")
+                            );
+                }
+            }
+            else if ( thisObs.getSwitchingMode().equals(SpJCMTConstants.SWITCHING_MODE_POSITION) ) {
+                if (!(target.getPosList().exists("REFERENCE")) ) {
+                    report.add( new ErrorMessage(
+                                ErrorMessage.ERROR,
+                                spObs.getTitle(),
+                                "Position switched observation requires a REFERENCE target")
+                            );
+                }
+            }
         }
 
         super.checkObservation(spObs, report);
     }
-            
-
-    
-    /*
-  public void checkMSB(SpMSB spMSB,  Vector report) {
-    checkMSBgeneric(spMSB, report);
-
-
-    // Check target information.
-    boolean isCalibration = false;
-
-    if(SpTreeMan.findTargetList(spMSB) == null) {
-      // Check whether the MSB is a calibration observation.
-
-      // Is spMSB itself a calibration observation?
-      if((spMSB instanceof SpObs) && ((SpObs)spMSB).getIsStandard()) {
-        isCalibration = true;
-      }
-      // Set isCalibration = true, then check the children of spMSB.
-      // If any of them is not a calibration then set isCalibration = false.
-      else {
-        isCalibration = true;
-
-        Enumeration children = spMSB.children();
-        SpItem child;
-
-        while(children.hasMoreElements()) {
-          child = (SpItem)children.nextElement();
-
-          if((child instanceof SpObs) && (!((SpObs)child).getIsStandard())) {
-            isCalibration = false;
-          }  
-        }
-      }
-    }
-
-    if(!isCalibration) {
-      report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                  "MSB \"" + spMSB.getTitle() + "\"",
-                                  "Target information is missing.")); 
-    }
-  }
-    */
 }
 
