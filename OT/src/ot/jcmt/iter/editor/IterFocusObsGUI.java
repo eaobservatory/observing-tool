@@ -11,6 +11,7 @@
 package ot.jcmt.iter.editor;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import jsky.app.ot.gui.*;
 
@@ -50,6 +51,9 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
 
   private void jbInit() throws Exception {
     scubaAcsisPanel.setLayout(gridBagLayout1);
+    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+    Border titleBorder = BorderFactory.createTitledBorder(bevelBorder, "Focus setup");
+    scubaAcsisPanel.setBorder(titleBorder);
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Axis");
@@ -94,10 +98,10 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
     scubaAcsisPanel.add(automaticTarget, new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
     this.add(acsisPanel, BorderLayout.SOUTH);
-    acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
+//    acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+//    acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
 //     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
 //             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 //     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0

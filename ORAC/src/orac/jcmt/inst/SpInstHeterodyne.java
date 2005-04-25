@@ -13,6 +13,8 @@ package orac.jcmt.inst;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.util.Format;
+import orac.jcmt.inst.SpDRRecipe;
+import orac.util.SpItemUtilities;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -21,15 +23,182 @@ import java.util.Vector;
 /**
  * The Heterodyne instrument Observation Component.
  *
+ * <h3>Terminology</h3>
+ * <ul>
+ *   <li><b>subsystem vs subband</b><br>
+ *   A subsystem is made up of one (non-hybrid mode) or more (hybrid mode) subbands.
+ *   <li><b>subsystem</b><br>
+ *   Corresponds to one row in the OT's frequency editor.
+ *   <li><b>subband</b><br>
+ *   Corresponds to the hardware.
+ *   <li><b>Hybrid subsystem</b><br>
+ *   A subsystem that is made up of more than one subbands (hybrid mode).
+ *   <li><b>Hybrid subband</b><br>
+ *   This might be a bit confusing. A "Hybrid subband" is an
+ *   individual subband that contributes to a hybrid subsystem (hybrid mode).
+ * </ul>
+ *
+ * <A NAME="bandwidthAndChannels"></A>
+ * <h3>Bandwidth and Channel methods</h3>
+ *
+ * <tt>C=================================|=================================C</tt>
+ * is the combined bandwidth as displayed in the OT. The methods
+ * {@link getBandWidth(int)} and {@link getChannels(int)} refer to this
+ * combined bandwidth.<p>
+ *
+ * <tt>H====================H</tt> is an individual subband (as in the hardware).
+ * The methods {@link getIndividualSubBandWidth(int)} and
+ * {@link getIndividualSubBandChannels(int)} refer to this individual
+ * bandwidth.<p>
+ *
+ * Note that even in non-hybrid more <tt>C====C</tt> and <tt>H======H</tt> are not the
+ * same as half the overlap is taken of either side of <tt>C====C</tt>.
+ *
+ *
+ * <h4>Example 1: Hybrid mode, 4 hybrid subbands</h4>
+ *
+ * <pre>
+ *                              {@link #getChannelsTotal(int)}
+ *                                    / \                                 
+ *                                  /     \                       
+ *                                /         \                     
+ *                            /                 \                   
+ *                        /                         \                   
+ *                    /                                 \                 
+ *                /                                         \               
+ *             /                                               \        
+ *          /                                                     \      
+ *        /                                                         \    
+ *      /                                                             \  
+ *    /                                                                 \
+ *  /           Bandwidth and Channels as displayed by the OT             \
+ * |            {@link #getBandWidth(int)}, {@link #getChannels(int)}
+ * |                                                                       |
+ * |                                  / \                                  |
+ * |                                /     \                                |
+ * |                              /         \                              |
+ * |                          /                 \                          |
+ * |                      /                         \                      |
+ * |                  /                                 \                  |
+ * |              /                                         \              |
+ * |           /                                               \           |
+ * |        /                                                     \        |
+ * |      /                                                         \      |
+ * |    /                                                             \    |
+ * |  /                                                                 \  |
+ * | |                                                                   | |
+ * | |                                 |                                 | |
+ * | |                                 |                                 | |
+ * | C=================================|=================================C |
+ * | |                                 |                                   |
+ * H=|==================H              |                                   |
+ * | |              H==================|=H                                 |
+ * | |              |   |            H=|==================H                |
+ * | |              |   |              |              H====================H
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |              |   |              |              |                    |
+ * | |       {@link #getOverlap(int)}              {@link #getIndividualSubBandWidth(int)}    (as in hardware)
+ * | |                                 |           {@link #getIndividualSubBandChannels(int)} (as in hardware)
+ * | |                                 |
+ * | |                                 |
+ * | |                                 |
+ * | |                                 |
+ * | |                   {@link #getCentreFrequency(int)} 
+ * | |
+ * |  \_____________________________
+ * |                                
+ * | 0.5 * {@link #getOverlap(int)}
+ *  \_______________________________
+ *
+ * </pre>
+ *
+ *
+ * <h4>Example 2: Non-Hybrid mode, 1 "hybrid" subbands makes up the subsustem</h4>
+ *
+ * <pre>
+ *                              {@link #getChannelsTotal(int)}
+ *                                    / \                                 
+ *                                  /     \                       
+ *                                /         \                     
+ *                            /                 \                   
+ *                        /                         \                   
+ *                    /                                 \                 
+ *                /                                         \               
+ *             /                                               \        
+ *          /                                                     \      
+ *        /                                                         \    
+ *      /                                                             \  
+ *    /                                                                 \
+ *  /           Bandwidth and Channels as displayed by the OT             \
+ * |            {@link #getBandWidth(int)}, {@link #getChannels(int)}
+ * |                                                                       |
+ * |                                  / \                                  |
+ * |                                /     \                                |
+ * |                              /         \                              |
+ * |                          /                 \                          |
+ * |                      /                         \                      |
+ * |                  /                                 \                  |
+ * |              /                                         \              |
+ * |           /                                               \           |
+ * |        /                                                     \        |
+ * |      /                                                         \      |
+ * |    /                                                             \    |
+ * |  /                                                                 \  |
+ * | |                                                                   | |
+ * | |                                 |                                 | |
+ * | |                                 |                                 | |
+ * | C=================================|=================================C |
+ * | |                                 |                                   |
+ * H=======================================================================H
+ * | |                                 |                                   |
+ * | |                                 |                                    
+ * | |                                 |                                   |
+ * | |                                 |                                    
+ * | |                                 |                                   |
+ * | |                   {@link #getCentreFrequency(int)}
+ * | |                                                                     |
+ * |  \_____________________________                                        
+ * |                                                                       |
+ * | 0.5 * {@link #getOverlap(int)}
+ * |\_______________________________                                       |
+ * |                                                                        
+ * |                                                                       |
+ * |    {@link #getIndividualSubBandWidth(int)}, {@link #getIndividualSubBandChannels(int)}    
+ * |                            (as in hardware)                           |
+ *
+ * </pre>
+ *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public final class SpInstHeterodyne extends SpJCMTInstObsComp {
+public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public static double LIGHTSPEED = 2.99792458E5;
 
+  /**
+   * Index for combined spectral window (ACSIS DR XML).
+   *
+   * Some methods dealing with spectral windows for the ACSIS DR XML
+   * take the number (or index) of an individual hybrid subsystem as argument.
+   * Using SUBSYSTEM_INDEX in place of such an argument indicates that
+   * this spectral window refers to non of the individual hybrid subbands but
+   * to the combined spectral window which is made up of several individual
+   * hybrid subbands.
+   */
+  protected static final int SUBSYSTEM_INDEX = -1;
+
+  protected static final String CONFIG_LABEL_NONE = "UNDEFINED";
+
   // FrontEnd
 
-  /** Front end name. */
+  /** Receiver/Front end name. */
   public static final String ATTR_FE_NAME = "feName";
 
     /** Back end name */
@@ -40,6 +209,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /** Receiver: Central IF. */
   public static final String ATTR_FE_IF = "feIF";
+
+  /** Receiver/Front end bandwidth. */
+  public static final String ATTR_FE_BANDWIDTH = "feBandWidth";
 
   /** Mode: single side band (ssb), double side band (dsb). */
   public static final String ATTR_MODE = "mode";
@@ -52,7 +224,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /** Radial velocity. */
   public static final String ATTR_VELOCITY = "velocity";
-    public static final String ATTR_RF_VELOCITY = "referenceFrameVelocity";
+  public static final String ATTR_RF_VELOCITY = "referenceFrameVelocity";
 
   /** Radial velocity definition: "redshift", "optical", "radio". */
   public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition";
@@ -88,17 +260,20 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Array of  */
   public static final String ATTR_CENTRE_FREQUENCY = "centreFrequency";
 
-  /** */
+  /** Bandwidth reduced by overlap * number of hybrid subbands. */
   public static final String ATTR_BANDWIDTH = "bandWidth";
 
-  /** */
+  /** Number of channels reduced by overlap * number of hybrid subbands. */
   public static final String ATTR_CHANNELS = "channels";
+
+  /** Total number of channels ignoring overlap. */
+  public static final String ATTR_CHANNELS_TOTAL = "channelsTotal";
 
   /** */
   public static final String ATTR_HYBRID_SUBBANDS = "hybridSubBands";
 
 
-  public static String [] JIGGLE_PATTERNS = { "5 Point", "Jiggle", "Rotation" };
+  public static String [] JIGGLE_PATTERNS = { "3x3", "5x5", "7x7", "9x9" };
 
   /** Radial velocity expressed as redshift. */
   public static final String RADIAL_VELOCITY_REDSHIFT = "redshift";
@@ -113,6 +288,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     public static final String LSR_VELOCITY_FRAME          = "LSR";
     public static final String GEOCENTRIC_VELOCITY_FRAME   = "Geocentric";
     public static final String HELIOCENTRIC_VELOCITY_FRAME = "Heliocentric";
+
+    /** Resolution (kHz) */
+    public static final String ATTR_RESOLUTION = "resolution";
 
   /**
    * Set to true when method initialiseValues() is called.
@@ -129,6 +307,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * is only an output format. It must be ignored when reading in SpInstHeterodyne XML. 
    */
   private boolean _processingAcsisConfigurationXml = false;
+  int _subSystemCount = 0;
 
   /**
    * XML element containing the Acsis configuration.
@@ -136,6 +315,9 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * The XML_ELEMENT_ACSIS_CONFIGURATION String is <tt>&lt;jcmt_config&gt;</tt>.
    */
   private static final String XML_ELEMENT_ACSIS_CONFIGURATION = "jcmt_config";
+  private static final String XML_ELEMENT_ACSIS_SUBSYSTEMS = "subsystems";
+  private static final String XML_ELEMENT_ACSIS_SUBSYSTEM = "subsystem";
+  private static final String XML_ELEMENT_ACSIS_LINE = "line";
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.Heterodyne", "Het Setup" );
@@ -168,31 +350,41 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       String defaultBandMode,
       String defaultMixer,
       String defaultOverlap,
-      String defaultVelocity,
-      String defaultVelocityDefinition,
-      String defaultVelocityFrame,
       String defaultBand,
       String defaultCentreFrequency,
+      String frontendBandwidth,
       String defaultBandwidth,
-      String defaultChannels,
       String defaultMolecule,
       String defaultTransition,
       String defaultRestFrequency) {
+
+//       System.out.println("SpInstHeterodyne initial values:");
+//       System.out.println("\tdefaultBeName="+defaultBeName);
+//       System.out.println("\tdefaultFeName="+defaultFeName);
+//       System.out.println("\tdefaultMode="+defaultMode);
+//       System.out.println("\tdefaultBandMode="+defaultBandMode);
+//       System.out.println("\tdefaultMixer="+defaultMixer);
+//       System.out.println("\tdefaultOverlap="+defaultOverlap);
+//       System.out.println("\tdefaultBand="+defaultBand);
+//       System.out.println("\tdefaultCentreFrequency="+defaultCentreFrequency);
+//       System.out.println("\tfrontendBandwidth="+frontendBandwidth);
+//       System.out.println("\tdefaultBandwidth="+defaultBandwidth);
+//       System.out.println("\tdefaultMolecule="+defaultMolecule);
+//       System.out.println("\tdefaultTransition="+defaultTransition);
+//       System.out.println("\tdefaultRestFrequency="+defaultRestFrequency);
 
     _avTable.noNotifySet(ATTR_BE_NAME,             defaultBeName,             0);
     _avTable.noNotifySet(ATTR_FE_NAME,             defaultFeName,             0);
     _avTable.noNotifySet(ATTR_MODE,                defaultMode,               0);
     _avTable.noNotifySet(ATTR_BAND_MODE,           defaultBandMode,           0);
     _avTable.noNotifySet(ATTR_MIXER,               defaultMixer,              0);
+    //_avTable.noNotifySet(ATTR_HYBRID_SUBBANDS,     defaultHybridSubBands,     0);
     _avTable.noNotifySet(ATTR_OVERLAP,             defaultOverlap,            0);
-    _avTable.noNotifySet(ATTR_VELOCITY,            defaultVelocity,           0);
-    _avTable.noNotifySet(ATTR_RF_VELOCITY,         defaultVelocity,           0);
-    _avTable.noNotifySet(ATTR_VELOCITY_DEFINITION, defaultVelocityDefinition, 0);
-    _avTable.noNotifySet(ATTR_VELOCITY_FRAME,      defaultVelocityFrame,      0);
     _avTable.noNotifySet(ATTR_BAND,                defaultBand,               0);
     _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY,    defaultCentreFrequency,    0);
+    _avTable.noNotifySet(ATTR_FE_IF,               defaultCentreFrequency,    0);
+    _avTable.noNotifySet(ATTR_FE_BANDWIDTH,        frontendBandwidth,         0);
     _avTable.noNotifySet(ATTR_BANDWIDTH,           defaultBandwidth,          0);
-    _avTable.noNotifySet(ATTR_CHANNELS,            defaultChannels,           0);
     _avTable.noNotifySet(ATTR_MOLECULE,            defaultMolecule,           0);
     _avTable.noNotifySet(ATTR_TRANSITION,          defaultTransition,         0);
     _avTable.noNotifySet(ATTR_REST_FREQUENCY,      defaultRestFrequency,      0);
@@ -236,12 +428,12 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /** Not properly implemented yet. Returns 0.0. */
   public double getDefaultScanVelocity() {
-    return 0.0;
+    return 2.5;
   }
 
   /** Not properly implemented yet. Returns 0.0. */
   public double getDefaultScanDy() {
-    return 0.0;
+    return 10.0;
   }
 
 
@@ -272,25 +464,49 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
 
   /**
-   * Get receiver's central IF.
+   * Get Receiver/Front end central IF.
    */
   public double getFeIF() {
     return _avTable.getDouble(ATTR_FE_IF, 0.0);
   }
 
   /**
-   * Set receiver's central IF.
+   * Set Receiver/Front end central IF.
    */
   public void setFeIF(double value) {
     _avTable.set(ATTR_FE_IF, value);
   }
 
   /**
-   * Set receiver's central IF.
+   * Set Receiver/Front end central IF.
    */
   public void setFeIF(String value) {
     setFeIF(Format.toDouble(value));
   }
+
+
+  /**
+  * Get Receiver/Front end bandwidth.
+  */
+  public double getFeBandWidth() {
+      return _avTable.getDouble(ATTR_FE_BANDWIDTH, 0.0);
+  }
+
+  /**
+   * Set Receiver/Front end bandwidth.
+   */
+  public void setFeBandWidth(double value) {
+    _avTable.set(ATTR_FE_BANDWIDTH, value);
+  }
+
+  /**
+   * Set Receiver/Front end bandwidth.
+   */
+  public void setFeBandWidth(String value) {
+    setFeBandWidth(Format.toDouble(value));
+  }
+
+
 
   /**
    * Get mode: single side band (ssb), double side band (dsb).
@@ -322,7 +538,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    */
   public void setBandMode(String value) {
     _avTable.set(ATTR_BAND_MODE, value);
-
+    /*
     _avTable.noNotifyRm(ATTR_CENTRE_FREQUENCY);
     _avTable.noNotifyRm(ATTR_BANDWIDTH);
     _avTable.noNotifyRm(ATTR_OVERLAP);
@@ -331,6 +547,7 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     _avTable.noNotifyRm(ATTR_MOLECULE);
     _avTable.noNotifyRm(ATTR_TRANSITION);
     _avTable.noNotifyRm(ATTR_REST_FREQUENCY);
+    */
   }
 
     /**
@@ -350,17 +567,21 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Get velocity definition.
    */
+    /*
   public String getVelocityDefinition() {
     return _avTable.get(ATTR_VELOCITY_DEFINITION);
   }
+  */
 
   /**
    * Set velocity definition.
    */
+    /*
   public void setVelocityDefinition(String value) {
     _avTable.set(ATTR_VELOCITY_DEFINITION, value);
   }
-
+  */
+/*
     public void setVelocityFrame(String value) {
 	_avTable.set(ATTR_VELOCITY_FRAME, value);
     }
@@ -368,59 +589,71 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     public String getVelocityFrame() {
 	return _avTable.get(ATTR_VELOCITY_FRAME);
     }
-
+*/
 
 
   /**
    * Get velocity (optical definition).
    */
+    /*
   public double getVelocity() {
     return _avTable.getDouble(ATTR_VELOCITY, 0.0);
   }
+  */
 
   /**
    * Set velocity (optical definition).
    */
+    /*
   public void setVelocity(double value) {
     _avTable.set(ATTR_VELOCITY, value);
-    // Caculate the sky frequency
-    double redshift = convertToRedshift ( RADIAL_VELOCITY_OPTICAL, value);
-    double skyFreq  = getRestFrequency (0) / ( 1+redshift);
-    _avTable.set (ATTR_SKY_FREQUENCY, skyFreq);
   }
+  */
 
   /**
    * Set velocity (optical definition).
    */
+    /*
   public void setVelocity(String value) {
     setVelocity(Format.toDouble(value));
   }
+  */
 
+    /*
   public double getRedshift() {
     return getVelocity() / LIGHTSPEED;
   }
+  */
 
+    /*
   public void setVelocityFromRedshift(double redshift) {
     setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
   }
+  */
 
     /**
      * Set the reference frame velocity
      */
+    /*
     public void setRefFrameVelocity (double value) {
 	_avTable.set(ATTR_RF_VELOCITY, value);
     }
+    */
 
     /**
      * Set the reference frame velocity
      */
+    /*
     public void setRefFrameVelocity (String value) {
 	setRefFrameVelocity(Format.toDouble(value));;
     }
+    */
 
+    /*
     public double getRefFrameVelocity() {
 	return _avTable.getDouble(ATTR_RF_VELOCITY, 0.0);
     }
+    */
 
   /**
    * Get band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).
@@ -503,12 +736,6 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    */
   public void setRestFrequency(double value, int subsystem) {
     _avTable.set(ATTR_REST_FREQUENCY, value, subsystem);
-    if ( subsystem == 0 ) {
-	// Calculate the sky frequency
-	double redshift = convertToRedshift( RADIAL_VELOCITY_OPTICAL, getVelocity() );
-	double skyFreq  = value / ( 1+redshift);
-	_avTable.set(ATTR_SKY_FREQUENCY, skyFreq);
-    }
   }
 
   /**
@@ -530,11 +757,20 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       return _avTable.getDouble( ATTR_SKY_FREQUENCY, getRestFrequency(0) );
   }
 
+  /**
+    * Set the Sky frequency for the 0th subsystem
+    */
+  public void setSkyFrequency( double value ) {
+      _avTable.set(ATTR_SKY_FREQUENCY, value);
+  }
+
 
   /**
    * Get centre frequency (IF) of specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
    */
   public double getCentreFrequency(int subsystem) {
     return _avTable.getDouble(ATTR_CENTRE_FREQUENCY, subsystem, 0.0);
@@ -559,10 +795,70 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
 
+  public double [] getSubBandCentreFrequencies(int subsystem) {
+    int numHybridSubBands = getNumHybridSubBands(subsystem);
+
+    double [] result = new double[numHybridSubBands];
+
+    if(numHybridSubBands == 1) {
+      result[0] = getCentreFrequency(subsystem);
+      return result;
+    }
+
+    //if((numHybridSubBands % 2) == 1) {
+    //  System.out.println("Only defined for one hybrid subband or even number of hybrid subbands.");
+    //  return null;
+    //}   
+
+    double centre = getCentreFrequency(subsystem);
+    double bw     = getBandWidth(subsystem);
+
+    int j = (numHybridSubBands / 2) - 1;
+    int k = (numHybridSubBands / 2);
+
+    for(int i = 1; i < numHybridSubBands; i += 2) {
+      result[j] = centre - ( (((double)i) / (2.0 * ((double)numHybridSubBands)) ) * bw );
+      result[k] = centre + ( (((double)i) / (2.0 * ((double)numHybridSubBands)) ) * bw );
+
+      j--;
+      k++;
+    }
+
+    return result;
+  }
+
+  /**
+   * Sets bandwidth and channel number related values.
+   *
+   * @param bandwidth Bandwidth reduced by (numHybridSubBands * overlap)
+   *                  This accounts for the subtraction of half the overlap on
+   *                  either side of the entire combined band as well as the overlap
+   *                  between individual subbands.
+   * @param overlap   The overlap is used in two ways: (1) as the the overlap
+   *                  between individual subbands and (2) half the overlap is
+   *                  used to as the amount that is subtracted from either side of
+   *                  the entire combined band.
+   * @param numHybridSubBands Number of individual hybrid subbands that make up this
+   *                  entire combined band.
+   * @param channels  Number of channels reduced in accordance with the overlap
+   * @param channelsTotal Total number of channels (as if there was a 0-overlap)
+   * @param subsystem Subsystem to which these parameters apply.
+   */
+  public void setBandWidthDetails(double bandwidth, double overlap, int numHybridSubBands,
+                                  int channels, int channelsTotal, int subsystem) {
+    setBandWidth(bandwidth, subsystem);
+    setOverlap(overlap, subsystem);
+    setNumHybridSubBands(numHybridSubBands, subsystem);
+    setChannels(channels, subsystem);
+    _avTable.set(ATTR_CHANNELS_TOTAL, channelsTotal, subsystem);
+  }
+
   /**
    * Get bandwidth of specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
    */
   public double getBandWidth(int subsystem) {
     return _avTable.getDouble(ATTR_BANDWIDTH, subsystem, 0.0);
@@ -572,15 +868,25 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Set bandwidth of specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
   public void setBandWidth(double value, int subsystem) {
     _avTable.set(ATTR_BANDWIDTH, value, subsystem);
+
+    SpDRRecipe spDRRecipe = (SpDRRecipe)SpItemUtilities.findDRRecipe(this);
+
+    if(spDRRecipe != null) {
+      spDRRecipe.setChannelBinning(1);
+    }
   }
 
   /**
    * Set bandwidth of specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
   public void setBandWidth(String value, int subsystem) {
     setBandWidth(Format.toDouble(value), subsystem);
@@ -591,17 +897,21 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Get number of hybrid subbands that make up the band of the specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
    */
-  public double getNumHybridSubBands(int subsystem) {
-    return _avTable.getDouble(ATTR_HYBRID_SUBBANDS, subsystem, 0.0);
+  public int getNumHybridSubBands(int subsystem) {
+    return _avTable.getInt(ATTR_HYBRID_SUBBANDS, subsystem, 0);
   }
 
   /**
    * Set number of hybrid subbands that make up the band of the specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
-  public void setNumHybridSubBands(double value, int subsystem) {
+  public void setNumHybridSubBands(int value, int subsystem) {
     _avTable.set(ATTR_HYBRID_SUBBANDS, value, subsystem);
   }
 
@@ -609,9 +919,11 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Set number of hybrid subbands that make up the band of the specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
   public void setNumHybridSubBands(String value, int subsystem) {
-    setNumHybridSubBands(Format.toDouble(value), subsystem);
+    setNumHybridSubBands(Format.toInt(value), subsystem);
   }
 
 
@@ -619,23 +931,40 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Get channels of specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
    */
   public int getChannels(int subsystem) {
     return _avTable.getInt(ATTR_CHANNELS, subsystem, 0);
   }
 
   /**
-   * Set channels of specified subsystem.
+   * Set number of channels of specified subsystem.
    *
    * @param Number of subsystems (starting at 0).
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
   public void setChannels(int value, int subsystem) {
     _avTable.set(ATTR_CHANNELS, value, subsystem);
   }
 
+  /**
+   * Get total number channels of specified subsystem (as if there was 0-overlap).
+   *
+   * @param Number of subsystems (starting at 0).
+   *
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   */
+  public int getChannelsTotal(int subsystem) {
+    return _avTable.getInt(ATTR_CHANNELS_TOTAL, subsystem, 0);
+  }
+
 
   /**
    * Get overlap of multiple subbands in one subsystem.
+   *
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
    */
   public double getOverlap(int subsystem) {
     return _avTable.getDouble(ATTR_OVERLAP, subsystem, 0.0);
@@ -643,6 +972,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /**
    * Set overlap of multiple subbands in one subsystem.
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
   public void setOverlap(double value, int subsystem) {
     _avTable.set(ATTR_OVERLAP, value, subsystem);
@@ -650,6 +981,8 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   /**
    * Set overlap of multiple subbands in one subsystem.
+   *
+   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
    */
   public void setOverlap(String value, int subsystem) {
     setOverlap(Format.toDouble(value), subsystem);
@@ -694,6 +1027,55 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 	    return null;
 	}
     }
+
+
+  /**
+   * Get the bandwidth of one subband one or several of which
+   * make up the specified subsystem.
+   *
+   * Hybrid subsystems can be made up of several subbands.
+   *
+   * The value returned by this method corresponds to the actual bandwidth
+   * of an actual subband in hardware ignoring hybrid modes and overlaps etc.
+   * In the case of acsis this method should always return 250 or 1000.
+   *
+   * @param Number of subsystems (starting at 0).
+   *
+   * @see #getIndividualSubBandWidth(int)
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   */
+  public double getIndividualSubBandWidth(int subsystem) {
+    // getBandWidth(subsystem) returns the combined bandwidth
+    // that can contain several individual hybrid subbands and
+    // is reduced according due to the overlapping of adjacent
+    // hybrid subbands (by getOverlap(subsystem)) AND it has
+    // 0.5 * getOverlap(subsystem) taken of either side of
+    // the resulting combined bandwidth.
+    //
+    // That is why the individual subband bandwidth is calculated as below.
+
+    return (getBandWidth(subsystem) / ((double)getNumHybridSubBands(subsystem))) + getOverlap(subsystem);
+  }
+
+
+  /**
+   * Get the number channels of one subband one or several of which
+   * make up the specified subsystem.
+   *
+   * Hybrid subsystems can be made up of several subbands.
+   *
+   * The value returned by this method corresponds to the actual number of the channels
+   * of an actual subband in hardware ignoring hybrid modes and overlaps etc.
+   * In the case of acsis this method should always return 1024, 2048 etc.
+   *
+   * @param Number of subsystems (starting at 0).
+   *
+   * @see #getIndividualSubBandWidth(int)
+   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   */
+  public int getIndividualSubBandChannels(int subsystem) {
+    return getChannelsTotal(subsystem) / getNumHybridSubBands(subsystem);
+  }
 
 
   /**
@@ -880,6 +1262,26 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       indent + "</spectral_window>\n";
    }
 
+  public String subsystemXML( String indent ) {
+      StringBuffer xmlString = new StringBuffer();
+      xmlString.append( indent + "<subsystems>\n" );
+      for ( int i=0; i < Integer.parseInt(getBandMode()); i++ ) {
+	  xmlString.append ( indent + 
+	      "    <subsystem if=\"" + getCentreFrequency(i) + "\"" +
+              " bw=\"" +  getBandWidth(i) + "\"" +
+              " overlap=\"" +  getOverlap(i) + "\"" +
+	      " channels=\"" + getChannels(i) + "\">\n" );
+	  xmlString.append ( indent +
+	      "        <line species=\"" + getMolecule(i) + "\" transition=\"" + getTransition(i) + "\"" +
+	      " rest_freq=\"" + getRestFrequency(i) + "\"/>\n" );
+	  xmlString.append ( indent +
+	      "    </subsystem>\n" );
+      }
+      xmlString.append( indent + "</subsystems>\n" );
+      
+      return xmlString.toString();
+  }
+
 
   /**
    */
@@ -931,14 +1333,12 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
 	      }
 	  }
       }
-    super.toXML(indent, xmlBuffer);
-
-    int offset = xmlBuffer.length() - (indent.length() + _className.length() + 4);
 
     String configXML = null;
 
     try {
-      configXML = toConfigXML(indent + "  ");
+      //configXML = toConfigXML(indent + "  ");
+      configXML = subsystemXML(indent + "  ");
     }
     catch(Exception e) {
       e.printStackTrace();
@@ -946,28 +1346,58 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
       configXML   = indent + "    <!-- Unable to include ACSIS configuration XML due to " + e + " -->";
     }
 
+    // In order not to write out the subsystem info, get all the values,
+    // delete the attributes, and then rest the values after processing with the
+    // parent
+    Vector cf = _avTable.getAll(ATTR_CENTRE_FREQUENCY); _avTable.rm(ATTR_CENTRE_FREQUENCY);
+    Vector bw = _avTable.getAll(ATTR_BANDWIDTH); _avTable.rm(ATTR_BANDWIDTH);
+    Vector ch = _avTable.getAll(ATTR_CHANNELS); _avTable.rm(ATTR_CHANNELS);
+    Vector mo = _avTable.getAll(ATTR_MOLECULE); _avTable.rm(ATTR_MOLECULE);
+    Vector tr = _avTable.getAll(ATTR_TRANSITION); _avTable.rm(ATTR_TRANSITION);
+    Vector rf = _avTable.getAll(ATTR_REST_FREQUENCY); _avTable.rm(ATTR_REST_FREQUENCY);
+    Vector ov = _avTable.getAll(ATTR_OVERLAP); _avTable.rm(ATTR_OVERLAP);
+
+    super.toXML(indent, xmlBuffer);
+
+    _avTable.noNotifySetAll(ATTR_CENTRE_FREQUENCY, cf);
+    _avTable.noNotifySetAll(ATTR_BANDWIDTH, bw);
+    _avTable.noNotifySetAll(ATTR_CHANNELS, ch);
+    _avTable.noNotifySetAll(ATTR_MOLECULE, mo);
+    _avTable.noNotifySetAll(ATTR_TRANSITION, tr);
+    _avTable.noNotifySetAll(ATTR_REST_FREQUENCY, rf);
+    _avTable.noNotifySetAll(ATTR_OVERLAP, ov);
+
+    int offset = xmlBuffer.length() - (indent.length() + _className.length() + 4);
+
     xmlBuffer.insert(offset, "\n\n" +
                              indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
                              indent + "  <!--          ACSIS Configuration XML        -->\n" + 
                              indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + 
                              configXML);
+			     
   }
 
 
   public void processXmlElementStart(String name) {
     _valuesInitialised = true;
 
-    if(name.equals(XML_ELEMENT_ACSIS_CONFIGURATION)) {
+    if(name.equals(XML_ELEMENT_ACSIS_CONFIGURATION) || name.equals(XML_ELEMENT_ACSIS_SUBSYSTEMS) ) {
       _processingAcsisConfigurationXml = true;
+      _subSystemCount = 0;
+      return;
+    }
+    if ( name.equals(XML_ELEMENT_ACSIS_SUBSYSTEM) || name.equals(XML_ELEMENT_ACSIS_LINE) ) {
+	return;
     }
 
     super.processXmlElementStart(name);
   }
 
   public void processXmlElementEnd(String name) {
-    if(name.equals(XML_ELEMENT_ACSIS_CONFIGURATION)) {
+    if(name.equals(XML_ELEMENT_ACSIS_CONFIGURATION) || name.equals(XML_ELEMENT_ACSIS_SUBSYSTEMS) ) {
       _processingAcsisConfigurationXml = false;
     }
+    if ( name.equals(XML_ELEMENT_ACSIS_SUBSYSTEM) ) _subSystemCount++;
 
     super.processXmlElementEnd(name);
   }
@@ -976,16 +1406,45 @@ public final class SpInstHeterodyne extends SpJCMTInstObsComp {
     if(!_processingAcsisConfigurationXml) {
       super.processXmlAttribute(elementName, attributeName, value);
     }
+    else {
+	if ( elementName.equals(XML_ELEMENT_ACSIS_SUBSYSTEM) ) {
+	    if ( attributeName.equals("if") ) {
+		_avTable.set(ATTR_CENTRE_FREQUENCY, value, _subSystemCount);
+	    }
+	    else if ( attributeName.equals("bw") ) {
+		_avTable.set(ATTR_BANDWIDTH, value, _subSystemCount);
+	    }
+	    else if ( attributeName.equals(ATTR_CHANNELS) ) {
+		_avTable.set(ATTR_CHANNELS, value, _subSystemCount);
+	    }
+	    else if ( attributeName.equals(ATTR_OVERLAP) ) {
+		_avTable.set(ATTR_OVERLAP, value, _subSystemCount);
+	    }
+	}
+	else if ( elementName.equals(XML_ELEMENT_ACSIS_LINE) ) {
+	    if ( attributeName.equals("rest_freq") ) {
+		_avTable.set(ATTR_REST_FREQUENCY, value, _subSystemCount );
+	    }
+	    else if ( attributeName.equals("species") ) {
+		_avTable.set(ATTR_MOLECULE, value, _subSystemCount );
+	    }
+	    else if ( attributeName.equals("transition") ) {
+		_avTable.set(ATTR_TRANSITION, value, _subSystemCount);
+	    }
+	}
+    }
   }
 
   public void processXmlElementContent(String name, String value) {
     if(!_processingAcsisConfigurationXml) {
+//	System.out.println( "processing content of element " + name + ", value=" + value);
       super.processXmlElementContent(name, value);
     }
   }
 
   public void processXmlElementContent(String name, String value, int pos) {
     if(!_processingAcsisConfigurationXml) {
+//	System.out.println( "processing content of element " + name + ", value=" + value + ", posn=" + pos);
       super.processXmlElementContent(name, value, pos);
     }
   }

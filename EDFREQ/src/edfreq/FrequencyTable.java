@@ -190,6 +190,19 @@ public class FrequencyTable extends JPanel implements ActionListener
          widthChoice = new JComboBox ( bandWidthItems );
          samplers[j] = new Sampler ( feIF, feBandWidth, bandWidths, channels, widthChoice );
 	 samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
+
+	 // If the DISALLOW_MULTI_BW system property is used then
+	 // the widthChoice JComboBoxes are disabled.
+	 // This is used because initially ACSIS will not support
+	 // different bandWidths for different subsystems.
+	 // So the bandwidth choice on the HeterodyneEditor panel is used
+	 // to set the same bandwidths for all subsystems.
+	 // The bandwidth choices of this FrequencyTable are still used to
+	 // display the bandwidths.
+	 if(System.getProperty("DISALLOW_MULTI_BW") != null) {
+	   widthChoice.setEnabled(false);
+	 }
+
 	 widthChoice.addItemListener(new NumberedBandWidthListener(j));
 
          data[j][0] = new SideBand ( lLowLimit, lHighLimit, 
@@ -244,6 +257,21 @@ public class FrequencyTable extends JPanel implements ActionListener
    public void setLineText(String lineText, int subsystem) {
       lineButtons[subsystem].setText(lineText);
       lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
+   }
+
+   public LineDetails getLineDetails (int subsystem) throws Exception {
+       if ( lineDetails.length == 0 ||
+            lineDetails.length-1 < subsystem ) {
+	    throw new Exception ("No Line Details");
+	}
+	return lineDetails[subsystem];
+   }
+
+   public String getLineText ( int subsystem ) {
+       if ( subsystem > lineButtons.length-1 ) {
+           return null;
+       }
+       return lineButtons[subsystem].getText();
    }
 
    public void resetModeAndBand(String mode, String band)

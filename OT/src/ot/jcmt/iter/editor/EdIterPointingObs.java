@@ -60,44 +60,46 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     _presSource  = _w = (IterPointingObsGUI)super._w;
     _description ="Pointing Observation Mode";
 
-    ButtonGroup grp = new ButtonGroup();
-    grp.add(_w.continuum);
-    grp.add(_w.spectralLine);
+//    ButtonGroup grp = new ButtonGroup();
+//    grp.add(_w.continuum);
+//    grp.add(_w.spectralLine);
 
-    _w.continuum.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM);
-    _w.spectralLine.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_SPECTRAL_LINE);
+//    _w.continuum.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM);
+//    _w.spectralLine.setActionCommand(SpIterPointingObs.SPECTRAL_MODE_SPECTRAL_LINE);
 
 //     _w.pointingMethod.setChoices(SpIterPointingObs.POINTING_METHODS);
-    _w.pointingMethod.addItem(POINTING_METHOD);
+//    _w.pointingMethod.addItem(POINTING_METHOD);
 
-    MenuElement [] menuElements = _w.pointingPixelPopupMenu.getSubElements();
-    MenuElement [] subElements  = null;
+//    MenuElement [] menuElements = _w.pointingPixelPopupMenu.getSubElements();
+//    MenuElement [] subElements  = null;
 
-    Font font = new Font("Dialog", Font.PLAIN, 12);
-    JMenuItem menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXEL_AUTOMATIC);
-    menuItem.setFont(font);
-    menuItem.addActionListener(this);
-    _w.pointingPixelPopupMenu.add(menuItem);
+//    Font font = new Font("Dialog", Font.PLAIN, 12);
+//    JMenuItem menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXEL_AUTOMATIC);
+//    menuItem.setFont(font);
+//    menuItem.addActionListener(this);
+//    _w.pointingPixelPopupMenu.add(menuItem);
 
-    JMenu menu = new JMenu(SpIterPointingObs.POINTING_PIXEL_MANUAL);
-    menu.setFont(font);
-    menu.addActionListener(this);
-    _w.pointingPixelPopupMenu.add(menu);
+//    JMenu menu = new JMenu(SpIterPointingObs.POINTING_PIXEL_MANUAL);
+//    menu.setFont(font);
+//    menu.addActionListener(this);
+//    _w.pointingPixelPopupMenu.add(menu);
 
-    for(int i = 0; i < SpIterPointingObs.POINTING_PIXEL_MANUAL_CHOICES.length; i++) {
-      menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXEL_MANUAL_CHOICES[i]);
-      menuItem.setFont(font);
-      menuItem.addActionListener(this);
-      menu.add(menuItem);
-    }
+//    for(int i = 0; i < SpIterPointingObs.POINTING_PIXEL_MANUAL_CHOICES.length; i++) {
+//      menuItem = new JMenuItem(SpIterPointingObs.POINTING_PIXEL_MANUAL_CHOICES[i]);
+//      menuItem.setFont(font);
+//      menuItem.addActionListener(this);
+//      menu.add(menuItem);
+//    }
 
     _w.pointingPixelButton.addWatcher(this);
-    _w.continuum.addWatcher(this);
-    _w.spectralLine.addWatcher(this);
+//    _w.continuum.addWatcher(this);
+//    _w.spectralLine.addWatcher(this);
 
     _w.automaticTarget.setToolTipText("Automatically determine pointing target at time of observation");
 
     _w.frequencyPanel.setVisible(false);
+    _w.switchingModeLabel.setVisible(false);
+    _w.switchingMode.setVisible(false);
   }
 
   /**
@@ -109,17 +111,17 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
   }
 
   protected void _updateWidgets() {
-    _w.pointingPixelButton.setText(_iterObs.getPointingPixel());
+//    _w.pointingPixelButton.setText(_iterObs.getPointingPixel());
 
-    if(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM.equals(_iterObs.getSpectralMode())) {
-      _w.continuum.setSelected(true);
-    }
-    else {
-      _w.spectralLine.setSelected(true);
-    }
+//    if(SpIterPointingObs.SPECTRAL_MODE_CONTINUUM.equals(_iterObs.getSpectralMode())) {
+//      _w.continuum.setSelected(true);
+//    }
+//    else {
+//      _w.spectralLine.setSelected(true);
+//    }
 
-    _w.switchingMode.setValue(IterJCMTGenericGUI.BEAM);
-    _w.switchingMode.setEnabled(false);
+//    _w.switchingMode.setValue(IterJCMTGenericGUI.BEAM);
+//    _w.switchingMode.setEnabled(false);
 
     super._updateWidgets();
   }
@@ -151,7 +153,9 @@ public final class EdIterPointingObs extends EdIterJCMTGeneric
     super.setInstrument(spInstObsComp);
 
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-      _w.acsisPanel.setVisible(true);
+      _w.switchingMode.setVisible(false);
+      _w.switchingModeLabel.setVisible(false);
+      _w.acsisPanel.setVisible(false);
     }
     else {
       _w.acsisPanel.setVisible(false);

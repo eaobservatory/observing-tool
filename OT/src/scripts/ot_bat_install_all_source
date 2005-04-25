@@ -40,7 +40,8 @@ rem Variable is reset if one of the following command line options is
 rem used: -omp, -noomp.
 set OMP_FLAG=
 
-set FREQ_EDITOR_CFG_RESOURCE=edfreq/dasCfg.xml
+set FREQ_EDITOR_CFG_RESOURCE=edfreq\dasCfg.xml
+set DISALLOW_MULTI_BW_PROP=
 
 rem Allowed values: ukirt, jcmt
 rem Variable is reset if a command line argument is specified (e.g. ukirt or jcmt)
@@ -51,8 +52,8 @@ IF (%1)==(-h)                 GOTO USAGE
 IF (%1)==(-internalframes)    set INTERNAL_FRAMES=-internalframes
 IF (%1)==(-nointernalframes)  set INTERNAL_FRAMES=-nointernalframes
 IF (%1)==(-omp)               set OMP_FLAG=-DOMP
-IF (%1)==(-nodas)             set FREQ_EDITOR_CFG_RESOURCE=edfreq/acsisCfg.xml
-IF (%1)==(-das)               set FREQ_EDITOR_CFG_RESOURCE=edfreq/dasCfg.xml
+IF (%1)==(-nodas)             set FREQ_EDITOR_CFG_RESOURCE=edfreq\acsisCfg.xml
+IF (%1)==(-das)               set FREQ_EDITOR_CFG_RESOURCE=edfreq\dasCfg.xml
 IF (%1)==(-noomp)             set OMP_FLAG=
 IF (%1)==(-server)            set SERVER=%2
 IF (%1)==(-server)            SHIFT
@@ -75,8 +76,10 @@ echo "Use ot -h for information on how to change these settings."
 
 set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
 
+IF (%FREQ_EDITOR_CFG_RESOURCE%)==(edfreq\acsisCfg.xml) set DISALLOW_MULTI_BW_PROP=-DDISALLOW_MULTI_BW
+
 echo on
-%JAVA% -ms5m -mx100m -DFREQ_EDITOR_CFG=%FREQ_EDITOR_CFG_RESOURCE% %OMP_FLAG% -DSERVER=%SERVER% -Djsky.catalog.skycat.config=%CFG_TELESCOPE_DIR%\skycat.cfg -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -DTELESCOPE=%TELESCOPE% -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
+%JAVA% -ms5m -mx100m %DISALLOW_MULTI_BW_PROP% -DFREQ_EDITOR_CFG=%FREQ_EDITOR_CFG_RESOURCE% %OMP_FLAG% -DSERVER=%SERVER% -Djsky.catalog.skycat.config=%CFG_TELESCOPE_DIR%\skycat.cfg -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
 echo off
 
 GOTO END

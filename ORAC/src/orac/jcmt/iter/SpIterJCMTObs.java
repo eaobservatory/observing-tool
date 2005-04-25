@@ -91,7 +91,6 @@ _thisNextElement()
 public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 {
 
-
 /**
  * Default constructor.
  */
@@ -106,6 +105,7 @@ public SpIterJCMTObs(SpType spType)
    _avTable.noNotifyRm(ATTR_COUNT);
 
    _avTable.noNotifySet(ATTR_INTEGRATIONS, "1", 0);
+   _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
 }
 
 /** Get the number of desired integrations. */
@@ -310,6 +310,7 @@ public void rmFrequencyOffsetValues() {
   public int getJigglesPerCycle() {
     return _avTable.getInt(ATTR_JIGGLES_PER_CYCLE, 1);
   }
+
   public void setJigglesPerCycle(String value) {
     _avTable.set(ATTR_JIGGLES_PER_CYCLE, value);
   }
@@ -338,6 +339,15 @@ public void rmFrequencyOffsetValues() {
   public void setContinuousCal(boolean value) {
     _avTable.set(ATTR_CONT_CAL, value);
   }
+
+  public boolean isContinuum() {
+      return _avTable.getBool( ATTR_CONTINUUM_MODE );
+  }
+
+  public void setContinuumMode( boolean flag ) {
+      _avTable.set( ATTR_CONTINUUM_MODE, flag );
+  }
+
 
 /**
  * Override getExposureTime. Get the value from the instrument in
@@ -380,5 +390,20 @@ public void setupForHeterodyne() {
 public void setupForSCUBA() {
 }
 
+/**
+ * Returns the switching modes.
+ *
+ * Subclasses can overridde this method to return only the switching modes that are used with
+ * their observe modes. The default switching modes should be the first element of the array.
+ */
+public String [] getSwitchingModeOptions() {
+  return new String [] {
+    SWITCHING_MODE_BEAM,
+    SWITCHING_MODE_POSITION,
+    SWITCHING_MODE_FREQUENCY_S,
+    SWITCHING_MODE_FREQUENCY_F,
+    SWITCHING_MODE_NONE
+  };
+}
 }
 

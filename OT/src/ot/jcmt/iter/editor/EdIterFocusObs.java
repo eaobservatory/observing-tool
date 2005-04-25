@@ -57,7 +57,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
 
     _w.automaticTarget.setToolTipText("Automatically determine focus/align target at time of observation");
 
-    _w.switchingMode.setEnabled(false);
+    _w.switchingMode.setVisible(false);
+    _w.switchingModeLabel.setVisible(false);
     _w.frequencyPanel.setVisible(false);  
 }
 
@@ -108,7 +109,8 @@ public final class EdIterFocusObs extends EdIterJCMTGeneric {
 
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
       _w.acsisPanel.setVisible(true);
-      _w.switchingMode.setValue(_iterObs.getSwitchingMode());
+      _w.switchingMode.setVisible( false );
+      _w.switchingModeLabel.setVisible( false );
     }
     else {
       _w.acsisPanel.setVisible(false);

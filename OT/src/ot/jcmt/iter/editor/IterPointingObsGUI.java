@@ -11,6 +11,7 @@
 package ot.jcmt.iter.editor;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import jsky.app.ot.gui.*;
 import java.awt.event.*;
@@ -53,6 +54,11 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
   }
 
   private void jbInit() throws Exception {
+    JPanel pointingPanel = new JPanel();
+    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+    Border titleBorder = BorderFactory.createTitledBorder(bevelBorder, "Pointing setup");
+    pointingPanel.setBorder(titleBorder);
+    pointingPanel.setLayout(new BorderLayout() );
     acsisPanel.setLayout(gridBagLayout1);
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel1.setForeground(Color.black);
@@ -97,7 +103,9 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     automaticTarget.setHorizontalAlignment(SwingConstants.CENTER);
     automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
     automaticTarget.setVerticalAlignment(SwingConstants.TOP);
-    this.add(acsisPanel, BorderLayout.CENTER);
+    this.add(pointingPanel);
+//    this.add(acsisPanel, BorderLayout.CENTER);
+//    pointingPanel.add(acsisPanel, BorderLayout.CENTER);
     acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
 //     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
@@ -136,7 +144,9 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
 //             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
 //     acsisPanel.add(pointingPixelButton, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
 //             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
-    this.add(automaticTarget, BorderLayout.SOUTH);
+//     this.add(automaticTarget, BorderLayout.SOUTH);
+    pointingPanel.add(automaticTarget, BorderLayout.SOUTH);
+//     this.add(automaticTarget, BorderLayout.SOUTH);
   }
 
 }

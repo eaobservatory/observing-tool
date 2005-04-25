@@ -12,6 +12,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 import jsky.util.Preferences;
 
+import orac.jcmt.util.JcmtUtil; // Temporary ACSIS translator
+
 /** 
  * Implements a menubar for an OtWindow window. 
  *
@@ -191,10 +193,24 @@ public class OtWindowMenuBar extends JMenuBar {
      * MFO
      */
     protected JMenuItem createFileSaveObsAsSequenceMenuItem() {
-	JMenuItem menuItem = new JMenuItem("Save Observation As Sequence");
+
+	// Changes for temporary ACSIS translator.
+	// Can probably be removed once a proper ACSIS translator
+	// is provided.
+	String menuString = "Save Observation As Sequence";
+	if(OtCfg.telescopeUtil instanceof JcmtUtil) {
+	    menuString = "Save Observation As ACSIS/OCS XML";
+	}
+
+	JMenuItem menuItem = new JMenuItem(menuString);
         menuItem.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent ae) {
-		    editor.doSaveSequence();
+		    if(OtCfg.telescopeUtil instanceof JcmtUtil) {
+			editor.doSaveAcsisOcsXml(); // Temporary ACSIS translator
+		    }
+		    else {
+			editor.doSaveSequence();
+		    }
 		}
 	    });
 	return menuItem;

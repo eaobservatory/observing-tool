@@ -15,6 +15,7 @@ import javax.swing.border.*;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.*;
+import javax.swing.table.*;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,11 +23,16 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.Container;
+import java.awt.Component;
 import java.awt.Point;
 import java.util.*;
 import java.io.*;
 
 import gemini.sp.SpItem;
+import gemini.sp.SpTreeMan;
+import gemini.sp.SpTelescopePos;
+import gemini.sp.obsComp.SpTelescopeObsComp;
+import orac.util.TelescopeUtil;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterStareObs;
 import edfreq.*;
@@ -53,13 +59,13 @@ import org.w3c.dom.NodeList;
 // the _w.transitionChoice JComboBox is called with this trimmed String it wound find
 // the right String to select.
 // It therefore important to make sure that an white space is added to the
-// transition String obtained via _instHeterodyne.getTransition(0) before it is used
+// transition String obtained via _inst.getTransition(0) before it is used
 // in the GUI, e.g.
-//   _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
+//   _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _inst.getTransition(0) + " "));
 //
-// And before a transition String fron the GUI is saved to the _instHeterodyne the white space
+// And before a transition String fron the GUI is saved to the _inst the white space
 // should be removed by trimming the String, e.g.
-//  _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
+//  _inst.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
 //
 // --------------------------------------------------------
 
@@ -72,175 +78,201 @@ import org.w3c.dom.NodeList;
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener,
-    DocumentListener, FocusListener, HeterodyneEditor {
+    HeterodyneEditor {
 
-  private String currentFE = "";
-  private static SideBandDisplay sideBandDisplay = null;
-  private LineCatalog lineCatalog;
-  private double redshift = 0.0;
-  private double subBandWidth = 0.25E9;
-  private double loMin;
-  private double loMax;
-  private double feIF;
-  private double feBandWidth;
-  private double feOverlap = 0.0;
+  private LineCatalog _lineCatalog;
 
   private static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
 
-  /** Ignore events caused by input widgets of the HeterodyneGUI _w. */
-  private boolean _ignoreEvents = false;
-
-  /** Do not use _instHeterodyne if this is true, as it will still be null. */
-  private boolean _ignoreSpItem = false;
-  private boolean _updatingWidgets = false;
-  private boolean _changingFrontEnd = false;
-  private boolean _changingBandMode = false;
-    private boolean _settingUp = false;
-
-  /**
-   * Flag indicating that the text in the velocity box has been changed but
-   * the respective fields in this and other classes have not yet been updated accordingly.
-   */
-  private boolean _velocityChanged = false;
-  private boolean _frequencyChanged = false;
-  private boolean _updateFromSpecial = false;
-  private boolean specialInitialised = false;
+  private SideBandDisplay _frequencyEditor;
 
   /**
    * A static configuration object which can used by classes throughout this
    * package to configure themselves.
    */
-  protected static FrequencyEditorCfg cfg = FrequencyEditorCfg.getConfiguration();
+  protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
 
-  private SpInstHeterodyne _instHeterodyne;
+  private SpInstHeterodyne _inst;
+
+  boolean _hidingFrequencyEditor = false;
 
   private HeterodyneGUI _w;		// the GUI layout
 
-    private Document doc = null;
+  // Arrays of component names
+  HashMap feWidgetNames = new HashMap();
+  HashMap modeWidgetNames = new HashMap();
+  HashMap regionWidgetNames = new HashMap();
+  HashMap mixerWidgetNames = new HashMap();
+  HashMap sidebandWidgetNames = new HashMap();
+  HashMap freqPanelWidgetNames = new HashMap();
+  HashMap vPanelWidgetNames = new HashMap();
 
-  private String [] _radialVelocityDefinitions = {
-    SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT,
-    SpInstHeterodyne.RADIAL_VELOCITY_OPTICAL,
-    SpInstHeterodyne.RADIAL_VELOCITY_RADIO
-  };
+  // Current receiver
+  Receiver _receiver;
 
+  // Information related to each possible spectral region
+  Vector [] _regionInfo = new Vector[Integer.parseInt(_w.SUBSYSTEMS[_w.SUBSYSTEMS.length - 1])];
 
   public EdCompInstHeterodyne() {
-    _title       ="JCMT Heterodyne";
-    _presSource  = _w = new HeterodyneGUI();
-    _description ="The Heterodyne instrument is configured with this component.";
+      _title       ="JCMT Heterodyne";
+      _presSource  = _w = new HeterodyneGUI();
+      _description ="The Heterodyne instrument is configured with this component.";
 
-    try {
-	lineCatalog = LineCatalog.getInstance();
-    }
-    catch (Exception e) {};
+      try {
+  	  _lineCatalog = LineCatalog.getInstance();
+      }
+      catch (Exception e) {};
 
-      _ignoreSpItem = true;
+      if(_frequencyEditor == null) {
+         _frequencyEditor = new SideBandDisplay(this);
+      }
+      _frequencyEditor.addComponentListener ( new ComponentAdapter () {
+		 public void componentHidden( ComponentEvent e ) {
+		     // If the user has deliberately closed the window
+		     // without using the hide button, this will
+		     // do the same except we won't get the latest
+		     // configuration
+		     if ( !_hidingFrequencyEditor ) {
+		         enableNamedWidgets(true);
+		         _updateWidgets();
+		     }
+		 }
+      });
 
-      if(sideBandDisplay == null) {
-         sideBandDisplay = new SideBandDisplay(this);
+      // Add listeners to stuff on the front end
+      // configuration panel
+      for (int i=0; i<_w.feSelector.getComponentCount(); i++) {
+	  if ( _w.feSelector.getComponent(i) instanceof JRadioButton ) {
+	      ((JRadioButton)_w.feSelector.getComponent(i)).addActionListener ( new ActionListener () {
+										public void actionPerformed (ActionEvent e) {
+										feAction(e);
+										}
+										});
+	     feWidgetNames.put ( _w.feSelector.getComponent(i).getName(),
+		     new Integer(i) );
+	  }
       }
 
-      _w.specialConfigurations.setModel ( getSpecialConfigsModel() );
-      specialInitialised = true;
+      for (int i=0; i<_w.modeSelector.getComponentCount(); i++ ) {
+	  if ( _w.modeSelector.getComponent(i) instanceof JRadioButton ) {
+	      ((JRadioButton)_w.modeSelector.getComponent(i)).addActionListener ( new ActionListener() {
+										      public void actionPerformed (ActionEvent e) {
+										      modeAction(e);
+										      }
+										      });
+	      modeWidgetNames.put ( _w.modeSelector.getComponent(i).getName(),
+		      new Integer(i) );
+	  }
+      }
 
-      _w.feChoice.setModel(new DefaultComboBoxModel(cfg.frontEnds));
-      _w.feChoice.addActionListener ( this );
+      for ( int i=0; i<_w.regionSelector.getComponentCount(); i++ ) {
+	  if ( _w.regionSelector.getComponent(i) instanceof JRadioButton ) {
+	      ((JRadioButton)_w.regionSelector.getComponent(i)).addActionListener ( new ActionListener() {
+										       public void actionPerformed(ActionEvent e) {
+										       regionAction(e);
+										       }
+										       });
+	      regionWidgetNames.put ( _w.regionSelector.getComponent(i).getName(),
+		      new Integer(i) );
+	  }
+      }
 
-      _w.feMode.setModel(new DefaultComboBoxModel((String[])cfg.frontEndTable.get(_w.feChoice.getItemAt(0))));
-      _w.feMode.addActionListener( this );
-      _w.feBandModeChoice.addActionListener ( this );
-      _w.feMixers.setModel(new DefaultComboBoxModel((String[])cfg.frontEndMixers.get(_w.feChoice.getItemAt(0))));
-      _w.feMixers.addActionListener(this);
+      for ( int i=0; i<_w.mixerSelector.getComponentCount(); i++) {
+	  if ( _w.mixerSelector.getComponent(i) instanceof JRadioButton ) {
+	      ((JRadioButton)_w.mixerSelector.getComponent(i)).addActionListener ( new ActionListener () {
+										   public void actionPerformed (ActionEvent e) {
+										   mixerAction(e);
+										   }
+										   });
+	      mixerWidgetNames.put (  _w.mixerSelector.getComponent(i).getName(),
+		      new Integer(i) );
+	  }
+      }
 
-      _w.overlap.setText ( "0.0" );
-      _w.overlap.addActionListener ( this );
+      for ( int i=0; i<_w.sbSelector.getComponentCount(); i++ ) {
+	  if ( _w.sbSelector.getComponent(i) instanceof JRadioButton ) {
+	      ((JRadioButton)_w.sbSelector.getComponent(i)).addActionListener ( new ActionListener() {
+										 public void actionPerformed(ActionEvent e) {
+										 sbSelectAction(e);
+										 }
+										 });
+	      sidebandWidgetNames.put (  (Object)_w.sbSelector.getComponent(i).getName(),
+		      new Integer(i) );
+	  }
+      }
 
-      // For now the user should not be allowed to change the overlap.
-      _w.overlap.setEnabled(false);
+      // Add other listeners to the components
+      // of the frequency and button
+      // panels.  We don't need to add anything to the
+      // velocity panel since it is for show only.
+      _w.bandwidths.addActionListener(this);
+      for ( int i=0; i<_w.fPanel.getComponentCount(); i++) {
+	  // The fPanel contains a mix of JCombBoxes
+	  // buttons and textfields.  We only register
+	  // interest in the first two.
+	  if ( _w.fPanel.getComponent(i) instanceof AbstractButton ) {
+	      ((AbstractButton)_w.fPanel.getComponent(i)).addActionListener(this);
+	      freqPanelWidgetNames.put ( _w.fPanel.getComponent(i).getName(), new Integer(i) );
+	  }
+	  else if ( _w.fPanel.getComponent(i) instanceof JComboBox ) {
+	      ((JComboBox)_w.fPanel.getComponent(i)).addActionListener(this);
+	      freqPanelWidgetNames.put ( _w.fPanel.getComponent(i).getName(), new Integer(i) );
+	  }
+	  else if ( _w.fPanel.getComponent(i) instanceof JTextField ) {
+	      ((JTextField)_w.fPanel.getComponent(i)).addKeyListener( new KeyAdapter() {
+								      public void keyTyped(KeyEvent ke) {
+								      freqAction();
+								      }
+								      });
+	      freqPanelWidgetNames.put ( _w.fPanel.getComponent(i).getName(), new Integer(i) );
+	  }
+      }
 
-/* Create the display */
+      for ( int i=0; i<_w.vPanel.getComponentCount(); i++ ) {
+	  String name = _w.vPanel.getComponent(i).getName();
+	  if ( name != null ) {
+	      vPanelWidgetNames.put( name, new Integer(i) );
+	  }
+      }
+      // Initially disable the accept button
+      toggleEnabled(_w.fPanel, "Accept", false);
 
-      _w.velocity.setText ( "0.0" );
-//       _w.velocity.addActionListener ( this );
-      _w.velocity.addKeyListener( new KeyAdapter () {
-	      public void keyTyped(KeyEvent e) { _velocityChanged = true; _w.acceptVF.setEnabled(true);}
-	  });
+      for ( int i=0; i<_w.bPanel.getComponentCount(); i++ ) {
+	  // The button panel only contains buttons, so 
+	  // just add action listeners
+	  ((AbstractButton)_w.bPanel.getComponent(i)).addActionListener(this);
+      }
 
+      // Disable the hide button...It should only be enabled when 
+      // the frequency editor is visible
+      toggleEnabled( _w.bPanel, "hide", false);
 
-      _w.velocityDefinition.setModel(new DefaultComboBoxModel(_radialVelocityDefinitions));
-      _w.velocityDefinition.addActionListener ( this );
-
-      _w.velocityFrame.setModel(new DefaultComboBoxModel(cfg.velocityFrames));
-      _w.velocityFrame.addActionListener ( this );
-
-      _w.feBand.setModel(new DefaultComboBoxModel(new String[] { "best", "usb", "lsb" } ));
-      _w.feBand.addActionListener ( this );
-
-/* Main molecular line choice - used to set front-end LO1 to put the line
-   in the nominated sideband */
-
-      _w.moleculeChoice.addActionListener ( this );
-      _w.transitionChoice.addActionListener ( this );
-      _w.moleculeFrequency.setText ( "0.0000" );
-       _w.moleculeFrequency.addKeyListener( new KeyAdapter () {
-	      public void keyTyped (KeyEvent e) { _frequencyChanged = true; _w.acceptVF.setEnabled(true);}
-	  });
-//       _w.moleculeFrequency.addActionListener(this);
-      _w.bandWidthChoice.addActionListener( this );
-
-/* Secondary moleculare line choice - displayed just for convenience of
-   astronomer */
-
-      _w.moleculeChoice2.addActionListener ( this );
-      _w.transitionChoice2.addActionListener ( this );
-      _w.moleculeFrequency2.setText ( "0.0000" );
-      _w.moleculeFrequency2.addActionListener(this);
-
-
-      _w.velocityDefinition.addActionListener(this);
-
-      _w.freqEditorButton.addActionListener(this);
-      _w.hideFreqEditorButton.addActionListener(this);
-
-      _w.acceptVF.addActionListener(this);
-      _w.acceptVF.setEnabled(true);
-
-      _w.addAncestorListener( new AncestorListener() {
+      // Add an ancestor listener.  This will be invoked
+      // when a user changes to another component, and
+      // will force the accept button to be pressed.
+      _w.addAncestorListener ( new AncestorListener() {
 	      public void ancestorAdded(AncestorEvent e) {};
 	      public void ancestorMoved(AncestorEvent e) {};
 	      public void ancestorRemoved( AncestorEvent e) {
-		  if ( _w.acceptVF.isEnabled() ) {
-		      _w.acceptVF.doClick();
-		  }
+	      clickButton (_w.fPanel, "Accept");
 	      }
-	  });   
+	      });
 
+      // Booleans indicating what the user edited
 
-      // MFO trigger additional initialising.
-      feChoiceAction(null);
-      updateSideBandDisplay();
-      //feMolecule2Action(null);
-      feMoleculeAction(null);
-      feTransitionAction(null);
-
-      _w.specialConfigurations.addActionListener(this);
-
-      _ignoreSpItem = false;
    }
 
    /** Initialises the default values in SpInstHeterodyne. */
    private void _initialiseInstHeterodyne() {
-
-      String   frontEndName = cfg.frontEnds[0];
-      Receiver receiver     = (Receiver)cfg.receivers.get(frontEndName);
-      BandSpec bandSpec     = (BandSpec)(receiver.bandspecs.get(0));
+      String   frontEndName = _cfg.frontEnds[0];
+      _receiver     = (Receiver)_cfg.receivers.get(frontEndName);
+      BandSpec bandSpec     = (BandSpec)(_receiver.bandspecs.get(0));
 
       // Get hold of the lines in the upper sideband that. Make sure it is not to close to
       // the edge of the range so that the IF can default to the frontend IF.
       // One of the lines should be a CO transition. Find it it use it as default line.
-      Vector moleculeVector = lineCatalog.returnSpecies(receiver.loMin + receiver.feIF + receiver.bandWidth,
-                                                        receiver.loMax                 - receiver.bandWidth);
+      Vector moleculeVector = _lineCatalog.returnSpecies(_receiver.loMin + _receiver.feIF + _receiver.bandWidth,
+                                                        _receiver.loMax                 - _receiver.bandWidth);
       String molecule       = "CO";
       String transitionName = "";
       String frequency      = "";
@@ -266,46 +298,43 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       String beName = System.getProperty("FREQ_EDITOR_CFG");
       if (beName.indexOf("das") != -1) {
 	  beName = "das";
-	  _w.specialPanel.setVisible(true);
-	  _w.feBandModeChoice.removeActionListener(this);
+	  // Remove the listeners from the region selector
       }
       else {
+	  // Add the listeners to the region selector
 	  beName = "acsis";
-	  _w.specialPanel.setVisible(false);
-	  _w.feBandModeChoice.addActionListener(this);
       }
  
-      _instHeterodyne.initialiseValues(
+      _inst.initialiseValues(
 	 beName,                                                // Back end name
          frontEndName,						// front end
-         ((String[])cfg.frontEndTable.get(frontEndName))[0],	// mode
+         ((String[])_cfg.frontEndTable.get(frontEndName))[0],	// mode
          bandSpec.toString(),					// band mode
-         ((String[])cfg.frontEndMixers.get(frontEndName))[0],	// mode
+         ((String[])_cfg.frontEndMixers.get(frontEndName))[0],	// mixer
          "" + bandSpec.defaultOverlaps[0],			// overlap
-         "0.0",							// velocity
-         SpInstHeterodyne.RADIAL_VELOCITY_RADIO,		// velocity definitio
-	 SpInstHeterodyne.LSR_VELOCITY_FRAME,                   // velocity frame
          "best",						// band
-         "" + receiver.feIF,					// centre frequency
+         "" + _receiver.feIF,					// centre frequency
+         "" + _receiver.feIF,					// centre frequency
          "" + bandSpec.getDefaultOverlapBandWidths()[0],	// bandwidth
-         "" + bandSpec.channels[0],				// channels
          molecule,						// molecule
          transitionName,					// transition
          frequency						// rest frequency
       );
-      _frequencyChanged = false;
-      _velocityChanged = false;
+
    }
 
   /**
-   * Override setup to store away a reference to the SpInstCGS4 item.
+   * Override setup to store away a reference to the SpInst item.
    */
   public void setup(SpItem spItem) {
-      _settingUp = true;
-    _instHeterodyne = (SpInstHeterodyne)spItem;
-
+    _inst = (SpInstHeterodyne)spItem;
     super.setup(spItem);
-    _settingUp = false;
+    setAvailableModes();
+    setAvailableMixers();
+    setAvailableRegions();
+    setAvailableMolecules();
+    setAvailableTransitions();
+    setAvailableSidebands();
   }
 
 
@@ -314,535 +343,302 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    * setup the widgets to show the current values of the item.
    */
   protected void _updateWidgets() {
-      _ignoreSpItem = true;
-      _updatingWidgets = true;
-
-      if(!_instHeterodyne.valuesInitialised()) {
-         _initialiseInstHeterodyne();
+      if ( !_inst.valuesInitialised() ) {
+	  _initialiseInstHeterodyne();
+	  // Make sure we click the front end button to 
+	  // set things up correctly
+	  clickButton( _w.feSelector, _inst.getFrontEnd() );
+	  _initialiseRegionInfo();
       }
 
+      _receiver = (Receiver)_cfg.receivers.get(_inst.getFrontEnd());
+
+      // Update the front end panel
+      ((AbstractButton) _w.feSelector.getComponent ( ((Integer)feWidgetNames.get(_inst.getFrontEnd())).intValue() )).setSelected(true);
+      ((AbstractButton) _w.modeSelector.getComponent ( ((Integer)modeWidgetNames.get(_inst.getMode())).intValue() )).setSelected(true);
+      ((AbstractButton) _w.regionSelector.getComponent ( ((Integer)regionWidgetNames.get(_inst.getBandMode())).intValue() )).setSelected(true);
+      ((AbstractButton) _w.mixerSelector.getComponent ( ((Integer)mixerWidgetNames.get(_inst.getMixer())).intValue() )).setSelected(true);
+      ((AbstractButton) _w.sbSelector.getComponent ( ((Integer)sidebandWidgetNames.get(_inst.getBand())).intValue() )).setSelected(true);
+
+      // Update the bandwidth
+      _updateBandwidths();
+      /*
+      _w.bandwidths.removeActionListener(this);
+      _w.bandwidths.setSelectedItem(
+	      getObject ( _w.bandwidths, 
+		  ""+(_inst.getBandWidth(0)/1.0E6)
+		  )
+	      );
+      _w.bandwidths.addActionListener(this);
+      */
+
+      // Update the summary panel
+      for (int i=0; i<_w.summaryPanel.getComponentCount(); i++) {
+	  Component c = _w.summaryPanel.getComponent(i);
+	  String name = c.getName();
+	  if ( name != null ) {
+	      if ( name.equals ("LowFreqLimit") ) {
+		  ((JLabel)c).setText ("" + (int) (_receiver.loMin*1.0E-9) );
+	      }
+	      if ( name.equals("HighFreqLimit") ) {
+		  ((JLabel)c).setText ("" + (int) (_receiver.loMax*1.0E-9) );
+	      }
+	      if ( name.equals("resolution") ) {
+		  double resolution = (_inst.getBandWidth(0) * 1.0E-3)/_inst.getChannels(0);
+		  try {
+		      resolution = Integer.parseInt(_inst.getMixer()) * resolution;
+		  }
+		  catch (NumberFormatException nfe) {
+		      // Assume one mixer
+		  }
+		  ((JLabel)c).setText("" + (int)Math.rint(resolution));
+	      }
+	      if ( name.equals("overlap") ) {
+		  ((JLabel)c).setText("" + (_inst.getOverlap(0)*1.0E-6));
+	      }
+	      if ( name.equals("channel") ) {
+		  ((JLabel)c).setText("" + _inst.getChannels(0));
+	      }
+	  }
+      }
+
+      // Update the velocity field
+      // First we need to see if we can find a target component
+      // somewhere in scope
+      SpTelescopeObsComp target = SpTreeMan.findTargetList(_inst);
+      String rv;
+      String rvDefn;
+      String rvFrame;
+      if ( target != null ) {
+	  SpTelescopePos tp = (SpTelescopePos)target.getPosList().getBasePosition();
+	  rv      = tp.getTrackingRadialVelocity();
+	  rvDefn  = tp.getTrackingRadialVelocityDefn();
+	  rvFrame = tp.getTrackingRadialVelocityFrame();
+      }
+      else {
+	  rv      = "unset";
+	  rvDefn  = "unset";
+	  rvFrame = "unset";
+      }
+
+      // Now get the components on the velocity panel
+      // and set them to the new values
+      for ( int i=0; i<_w.vPanel.getComponentCount(); i++) {
+	  Component c = _w.vPanel.getComponent(i);
+	  String name = c.getName();
+	  if ( name != null ) {
+	      if ( name.equals("velocity") ) {
+		  ((JLabel)c).setText(rv);
+	      }
+	      if ( name.equals("definition") ) {
+		  ((JLabel)c).setText(rvDefn);
+	      }
+	      if ( name.equals("frame") ) {
+		  ((JLabel)c).setText(rvFrame);
+	      }
+	  }
+      }
+
+      // Make sure the molecule is accessible
       try {
-	  _w.specialConfigurations.removeActionListener(this);
-         _w.feChoice.setSelectedItem(_instHeterodyne.getFrontEnd());
-         _w.feMode.setSelectedItem(_instHeterodyne.getMode());
-         _w.feBandModeChoice.setSelectedItem(getObject(_w.feBandModeChoice, _instHeterodyne.getBandMode()));
-         _w.feMixers.setSelectedItem(getObject(_w.feMixers, _instHeterodyne.getMixer()));
-         _w.overlap.setText("" + (_instHeterodyne.getOverlap(0) / 1.0E6));
-         _w.velocityDefinition.setSelectedItem("" + _instHeterodyne.getVelocityDefinition());
-	 _w.velocityFrame.setSelectedItem(_instHeterodyne.getVelocityFrame());	     
-
-         redshift = _instHeterodyne.getRedshift();
-         _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
-
-         _w.feBand.setSelectedItem(getObject(_w.feBand, _instHeterodyne.getBand()));
-
-         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-           sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
-
-           if(i == 0) {
-	      boolean tmpIgnoreEvents = _ignoreEvents;
-	      _ignoreEvents = true;
-              _w.bandWidthChoice.setSelectedItem(getObject(_w.bandWidthChoice, "" + (_instHeterodyne.getBandWidth(0) / 1.0E6)));
-	      if ( ((String)_w.bandWidthChoice.getSelectedItem()).equals("1840") ) {
-		  _w.feMixers.setEnabled(false);
-	      }
-	      else {
-		  _w.feMixers.setEnabled(true);
-	      }
-              _ignoreEvents = tmpIgnoreEvents;
-	   }
-
-           sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
-           sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
-
-           if(i > 0) {
-              sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-                                          _instHeterodyne.getTransition(i) + "  " +
-                                          _instHeterodyne.getRestFrequency(i), i);
-           }
-         }
-
-
-         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, _instHeterodyne.getMolecule(0)));
-
-         // Whenever a transition is obtained from via _instHeterodyne.getTransition(int) a white space must
-         // be added so that the transition String matches the format of the transition Strings in the
-         // LineCatalog.
-         _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, _instHeterodyne.getTransition(0) + " "));
-         _w.moleculeFrequency.setText("" + (_instHeterodyne.getRestFrequency(0) / 1.0E9));
-	 if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) {
-	     _w.resolution.setText("" + (2*sideBandDisplay.getResolution(0)));
-	 }
-	 else {
-	     _w.resolution.setText("" + sideBandDisplay.getResolution(0));
-	 }
-	 
-	 if ( _instHeterodyne.getNamedConfiguration() == null || _instHeterodyne.getNamedConfiguration().equals("")) {
-// 	     System.out.println("Setting special configuration to none since it does not exist");
-	     _w.specialConfigurations.setSelectedIndex(0);
-	 }
-	 else {
-// 	     System.out.println("Setting special configuration to "+ _instHeterodyne.getNamedConfiguration());
-	     _w.specialConfigurations.setSelectedItem( _instHeterodyne.getNamedConfiguration() );
-	 }
-	  _w.specialConfigurations.addActionListener(this);
+          _doVelocityChecks();
       }
-      catch(Exception e) {
-         e.printStackTrace();
-         System.out.println("The Heterodyne Editor (EdCompInstHeterodyne) widgets could not be updated\n" +
-	                    "from the Heterodyne item (SpInstHeterodyne). This can happen if the\n" + 
-                            "Heterodyne item table does not contain default values.");
+      catch (Exception e) {
+	  // The veolcity is invalid, so set the text appropriately
+	  JLabel vWidget;
+	  Iterator iter = vPanelWidgetNames.keySet().iterator();
+	  while ( iter.hasNext() ) {
+	      vWidget = (JLabel)_w.vPanel.getComponent( ((Integer)vPanelWidgetNames.get(iter.next())).intValue() );
+	      vWidget.setText("Invalid");
+	  }
       }
 
-      _ignoreSpItem = false;
-      _updatingWidgets = false;
+      _updateMoleculeChoice();
+      _updateTransitionChoice();
+
+      _updateRegionInfo();
+
+      _updateTable();
   }
 
 
    public void actionPerformed ( ActionEvent ae )
    {
-      if(ae.getSource() == _w.freqEditorButton) {
-         sideBandDisplay.setVisible(true);
-      }
+       if ( ae.getSource() == _w.bandwidths ) {
+	   // Set the bandwidth for each subsystem/spectral region
+	   for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
+	       _inst.setBandWidth( 
+		       Double.parseDouble (
+		           (String)_w.bandwidths.getSelectedItem()
+		           ) * 1.0E6,
+		       i );
+               setAvailableRegions();
+	   }
+       }
 
-      if(ae.getSource() == _w.hideFreqEditorButton) {
-         sideBandDisplay.setVisible(false);
-      }
+       try {
+           if ( ((Component)ae.getSource()).getName().equals("molecule") ) {
+	       // Set the current molecule and update the transitions
+               _inst.setCentreFrequency(_receiver.feIF, 0);
+	       _inst.setMolecule ( ((JComboBox)ae.getSource()).getSelectedItem().toString(), 0 );
+	       _updateTransitionChoice();
+	   }
 
-      if(_ignoreEvents) {
-         return;
-      }
+	   else if ( ((Component)ae.getSource()).getName().equals("transition") ) {
+	       // Set the current transition
+               _inst.setCentreFrequency(_receiver.feIF, 0);
+	       _inst.setTransition ( ((JComboBox)ae.getSource()).getSelectedItem().toString(), 0 );
+	       // Update the frequency information
+	       Object t = ((JComboBox)ae.getSource()).getSelectedItem();
+	       if ( t instanceof Transition ) {
+		   _updateFrequencyText ( ((Transition)t).frequency /1.0E9 );
+	       }
+	   }
 
-      if ( ae.getSource() == _w.feBand )
-      {
-         feBandAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-	 
-      }
-      else if ( ae.getSource() == _w.moleculeChoice )
-      {
-         feMoleculeAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-	 _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.transitionChoice )
-      {
-         feTransitionAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-	 _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.moleculeChoice2 )
-      {
-         feMolecule2Action ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-	 _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.transitionChoice2 )
-      {
-         feTransition2Action ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-	 _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.feChoice )
-      {
-         feChoiceAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if ( ae.getSource() == _w.feBandModeChoice )
-      {
-         feBandModeChoiceAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if ( ae.getSource() == _w.feMixers )
-      {
-         feMixersAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if (ae.getSource() == _w.velocityFrame) {
-	  velocityFrameAction(ae);
-	  _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.velocity )
-      {
-         feVelocityAction ( ae );
-	 _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.velocityDefinition )
-      {
-         feVelocityDefinitionAction ( ae );
-	  _w.acceptVF.setEnabled(true);
-      }
-      else if ( ae.getSource() == _w.overlap )
-      {
-         feOverlapAction ( ae );
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if ( ae.getSource() == _w.moleculeFrequency )
-      {
-         moleculeFrequencyChanged();
-	  _w.acceptVF.setEnabled(true);
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if ( ae.getSource() == _w.moleculeFrequency2 )
-      {
-         moleculeFrequency2Changed();
-	  _w.acceptVF.setEnabled(true);
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if ( ae.getSource() == _w.bandWidthChoice )
-      {
-         bandWidthChoiceAction(ae);
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if ( ae.getSource() == _w.feMode )
-      {
-         if(!_ignoreSpItem) {
-	    _instHeterodyne.setMode((String)_w.feMode.getSelectedItem());
-	 }
 
-         sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
-	 if ( !_updateFromSpecial && specialInitialised && !_settingUp ) _w.specialConfigurations.setSelectedIndex(0);
-      }
-      else if (ae.getSource() == _w.acceptVF) {
-	  if (_frequencyChanged)
-	      moleculeFrequencyChanged();
-	  if (_velocityChanged) {
-	      if ( !_updateFromSpecial && _instHeterodyne != null && _instHeterodyne.getNamedConfiguration() != null) {
-		  _updateFromSpecial = true;
-		  feVelocityAction ( ae );
-		  _updateFromSpecial = false;
-	      }
-	      else {
-		  feVelocityAction ( ae );
-	      }
-	  }
-	  _velocityChanged  = false;
-	  _frequencyChanged = false;
-	  _w.acceptVF.setEnabled(false);
-      }
-      else if ( ae.getSource() == _w.specialConfigurations ) {
-	  // Get all of the confiruation information, then update all the widgets
-	  if ( _w.specialConfigurations.getSelectedIndex() == 0) {
-	      try {
-		  _instHeterodyne.removeNamedConfiguration();
-		  updateSideBandDisplay();
-	      }
-	      catch (Exception e) {
-		  // The named configuration item did not exist
-	      }
-	      return;
-	  }
-	  
-	  _instHeterodyne.setNamedConfiguration( (String)_w.specialConfigurations.getSelectedItem() );
-	  ConfigurationInformation ci = getConfigFor((String)_w.specialConfigurations.getSelectedItem());
-	  // Now update everything with these new values...
-	  _updateFromSpecial = true;
-	  _w.feChoice.setSelectedItem( ci.$feName );
-	  _w.feMode.setSelectedItem(ci.$mode.toLowerCase());
-	  _w.feMixers.setSelectedIndex( ci.$mixers.intValue() - 1);
-	  _w.feBand.setSelectedItem( ci.$sideBand.toLowerCase());
-	  _w.bandWidthChoice.setSelectedItem(ci.$bandWidth);
-	  switch ( ci.$subSystems.intValue() ) {
-	  case 1:
-	  default:
-	      updateSideBandDisplay(1, ci.$shifts);
-	      break;
-	  case 2:
-	      updateSideBandDisplay(2, ci.$shifts);
-	      break;
-	  case 4:
-	      updateSideBandDisplay(4, ci.$shifts);
-	      break;
-	  }
-	  _w.moleculeFrequency.setText(""+ci.$freq.doubleValue());
-	  _frequencyChanged = true;
-	  _w.acceptVF.doClick();
-	  _updateFromSpecial = false;
-      }
+	   else if ( ((Component)ae.getSource()).getName().equals("Accept") ) {
+	       // Set the current Rest Frequency
+	       // Get the text field widget
+	       int compNum = ((Integer)freqPanelWidgetNames.get("frequency")).intValue();
+	       JTextField tf = (JTextField) _w.fPanel.getComponent(compNum);
+	       try {
+		   double f = Double.parseDouble(tf.getText());
+		   _inst.setRestFrequency ( f*1.0E9, 0 );
+		   _inst.setSkyFrequency( _inst.getRestFrequency(0) / (1.0+getRedshift()) );
+		   // Set the molecule and trasition to NO_LINE
+		   _inst.setMolecule( NO_LINE, 0 );
+		   _inst.setTransition( NO_LINE, 0 );
+		   _updateMoleculeChoice();
+	       }
+	       catch (Exception e) {
+	       }
+	       toggleEnabled (_w.fPanel, "Accept", false);
+	   }
+	   else if ( ((Component)ae.getSource()).getName().equals("show") ) {
+	       configureFrequencyEditor();
+	       enableNamedWidgets(false);
+	       _frequencyEditor.show();
+	   }
+	   else if ( ((Component)ae.getSource()).getName().equals("hide") ) {
+	       _hidingFrequencyEditor = true;
+	       getFrequencyEditorConfiguration();
+	       enableNamedWidgets(true);
+	       _frequencyEditor.hide();
+	       _hidingFrequencyEditor = false;
+	   }
+
+	   else {
+	       System.out.println("Unknown source for action: " + ((Component)ae.getSource()).getName() );
+	   }
+
+       }
+       catch (Exception e) {
+	   // Ignore for now
+       };
+
+       _updateWidgets();
    }
 
+
+
+
+   public void feAction ( ActionEvent ae ) {
+       if ( ae != null ) {
+	   // This has been called as a response
+	   // to a user action
+	   String feSelected = ((JRadioButton)ae.getSource()).getText();
+	   _receiver = (Receiver)_cfg.receivers.get (feSelected);
+	   _inst.setFrontEnd(feSelected);
+	   _inst.setCentreFrequency(_receiver.feIF, 0);
+	   _inst.setFeBandWidth( _receiver.bandWidth );
+	   setAvailableModes();
+	   setAvailableMixers();
+	   setAvailableRegions();
+	   setAvailableMolecules();
+	   setAvailableTransitions();
+	   setAvailableSidebands();
+       }
+       else {
+	   // This has been called as a result
+	   // of a call from another action event
+       }
+       _updateWidgets();
+   }
+
+   public void mixerAction (ActionEvent ae) {
+       String mixer = ((JRadioButton)ae.getSource()).getText();
+       _inst.setMixer(mixer);
+       _updateWidgets();
+   }
+
+   public void modeAction ( ActionEvent ae ) {
+       if ( ae != null ) {
+	   // User action
+	   String mode = ((JRadioButton)ae.getSource()).getText();
+	   _inst.setMode(mode);
+
+	   // Update the band width choices
+       }
+       else {
+	   // System action
+       }
+       _updateWidgets();
+   }
+
+   public void sbSelectAction ( ActionEvent ae ) {
+       if ( ae != null ) {
+	   String sb = ((JRadioButton)ae.getSource()).getText();
+
+	   // If we are switching between upper and lower sidebands we
+	   // need to alter the centre frequency for higher level subsytems
+	   if ( Integer.parseInt(_inst.getBandMode()) > 1 ) {
+	       String currentBand = _inst.getBand();
+	       if ( currentBand.equals("best") && sb.equals("usb") ||
+		    currentBand.equals("usb") && sb.equals("best") ) {
+		   // Do nothing since 'best' is equivalent to 'usb' as far as
+		   // the OT is concerned
+	       }
+	       else {
+		   double topCentreFreq = _inst.getCentreFrequency(0);
+		   for ( int i=1; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
+		       double diff = topCentreFreq - _inst.getCentreFrequency(i);
+		       _inst.setCentreFrequency( topCentreFreq + diff, i );
+		   }
+	       }
+	   }
+	   _inst.setBand(sb);
+       }
+       _updateWidgets();
+   }
+
+   public void regionAction ( ActionEvent ae ) {
+       if ( ae != null ) {
+	   String regions = ((JRadioButton)ae.getSource()).getText();
+	   _inst.setBandMode(regions);
+       }
+       _updateWidgets();
+   }
+
+   private void freqAction() {
+       // Called when user changes the frequency manually
+       toggleEnabled( _w.fPanel, "Accept", true );
+   }
 
    public void bandWidthChoiceAction ( ActionEvent ae ) {
-      for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-         if(!_ignoreSpItem) {
-            _instHeterodyne.setBandWidth(Double.parseDouble((String)_w.bandWidthChoice.getSelectedItem()) * 1.0E6, i);
-	 }
-	 // Special check for wideband mode
-	 if (((String)_w.bandWidthChoice.getSelectedItem()).equals("1840")) {
-	     _w.feMixers.setSelectedIndex(0);
-	     _w.feMixers.setEnabled(false);
-	 }
-	 else {
-	     _w.feMixers.setEnabled(true);
-	 }
-         sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
-      }
-
-      BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-      feOverlap = currentBandSpec.defaultOverlaps[_w.bandWidthChoice.getSelectedIndex()];
-      _w.overlap.setText("" + (feOverlap / 1.0E6));
-
-      if(!_ignoreSpItem) {
-         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-            _instHeterodyne.setOverlap(feOverlap, i);
-	 }
-      }
-
-// For now the user should not be allowed to change the overlap. So leave the _w.overlap disabled.
-//      if(((BandSpec)_w.feBandModeChoice.getSelectedItem()).getNumHybridSubBands(_w.bandWidthChoice.getSelectedIndex()) > 1) {
-//         _w.overlap.setEnabled(true);
-//      }
-//      else {
-//         _w.overlap.setEnabled(false);
-//      }
    }
-
-
-   public void feBandAction ( ActionEvent ae )
-   {
-      feTransitionAction ( ae );
-
-      if(!_ignoreSpItem) {
-         _instHeterodyne.setBand((String)_w.feBand.getSelectedItem());
-
-         double centreFrequency;
-
-	 for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-            _instHeterodyne.setCentreFrequency((2.0 * feIF) - _instHeterodyne.getCentreFrequency(i), i);
-	 }
-      }
-
-      sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
-
-      if ( _instHeterodyne != null ) {
-	  for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-	      sideBandDisplay.setCentreFrequency(_instHeterodyne.getCentreFrequency(i), i);
-	      sideBandDisplay.setBandWidth(_instHeterodyne.getBandWidth(i), i);
-	      
-	      if(i > 0) {
-		  sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-					      _instHeterodyne.getTransition(i) + "  " +
-					      _instHeterodyne.getRestFrequency(i), i);
-	      }
-	  }
-      }
-   }
-
-    public void feMixersAction (ActionEvent ae) {
-	_instHeterodyne.setMixer((String)_w.feMixers.getSelectedItem());
-	if ( _instHeterodyne.getNamedConfiguration() == null )
-	    updateSideBandDisplay();
-	_updateWidgets();
-    }
-
-    public void velocityFrameAction (ActionEvent ae) {
-	_instHeterodyne.setVelocityFrame((String)_w.velocityFrame.getSelectedItem());
-    }
-
 
    public void feMoleculeAction ( ActionEvent ae )
    {
-      if(_w.moleculeChoice.getSelectedItem() instanceof SelectionList) {
-         SelectionList species = (SelectionList)_w.moleculeChoice.getSelectedItem();
 
-         String transition  = null;
-         String oldMolecule = null;
-
-         if(!_ignoreSpItem) {
-            transition  = _instHeterodyne.getTransition(0);
-
-            if(transition != null) {
-               transition += " ";
-            }
-
-            oldMolecule = _instHeterodyne.getMolecule(0);
-	 }
-
-         _w.transitionChoice.setModel ( 
-           new DefaultComboBoxModel ( species.objectList ) );
-
-         _ignoreEvents = true;
-         if(((DefaultComboBoxModel)_w.transitionChoice.getModel()).getIndexOf(NO_LINE) == -1) {
-            _w.transitionChoice.addItem(NO_LINE + " ");
-         }
-
-         // Check whether the transition previously selected is still in range.
-         // If so, set it to the previous transition. Warn the user otherwise.
-         if((transition == null) || (!oldMolecule.equals(_w.moleculeChoice.getSelectedItem().toString()))) {
-            _w.transitionChoice.setSelectedIndex(0);
-         }
-         else {
-            boolean transitionInRange = false;
-
-            for(int i = 0; i < _w.transitionChoice.getItemCount(); i++) {
-               if(_w.transitionChoice.getItemAt(i).toString().equals(transition)) {
-                  transitionInRange = true;
-	          break;
-	       }
-            }
-
-            if(transitionInRange) {
-               _w.transitionChoice.setSelectedItem(getObject(_w.transitionChoice, transition));
-            }
-            else {
-               _w.transitionChoice.setSelectedIndex(0);
-
-               if(!_updatingWidgets) {
-                  JOptionPane.showMessageDialog(_w, "Transition changed: " + transition + " out of range.",
-                  "Transition changed", JOptionPane.WARNING_MESSAGE);
-               }
-            }
-         }
-
-         _ignoreEvents = false;
-
-         _w.moleculeFrequency.setText ( "0.0000" );
-
-         _ignoreEvents = true;
-         feTransitionAction(null);
-         _ignoreEvents = false;
-      }
-
-      if(!_ignoreSpItem) {
-         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-            _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), i);
-         }
-      }
-
-      // Skip top system, start with i = 1
-      if ( _instHeterodyne != null ) {
-	  for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
-	      sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-					  _instHeterodyne.getTransition(i) + "  " +
-					  _instHeterodyne.getRestFrequency(i), i);
-	  }
-      }
-   }
-
-
-   public void feMolecule2Action ( ActionEvent ae )
-   {
-      SelectionList species = (SelectionList)_w.moleculeChoice2.getSelectedItem();
-
-      _w.transitionChoice2.setModel ( 
-        new DefaultComboBoxModel ( species.objectList ) );
-
-      _ignoreEvents = true;
-      if(((DefaultComboBoxModel)_w.transitionChoice2.getModel()).getIndexOf(NO_LINE) == -1) {
-         _w.transitionChoice2.addItem(NO_LINE + " ");
-      }
-      _w.transitionChoice2.setSelectedIndex(0);
-      _ignoreEvents = false;
-
-      _w.moleculeFrequency2.setText ( "0.0000" );
-
-      _ignoreEvents = true;
-      feTransition2Action(null);
-      _ignoreEvents = false;
    }
 
 
    public void feTransitionAction ( ActionEvent ae )
    {
-      _resetTransition();
-      _resetAdditionalSubSystems();
    }
 
     private void _resetTransition()
     {
-	boolean isTransition = true;
-	Transition transition = null;
-
-	if(!(_w.transitionChoice.getSelectedItem() instanceof Transition)) {
-	    isTransition = false;
-	}
-	else {
-	    transition = (Transition)_w.transitionChoice.getSelectedItem();
-	    if ( transition == null ) return;
-	}
-	
-	if ( isTransition ) {
-	    _w.moleculeFrequency.setText ( "" + transition.frequency/1.0E9 );
-	}
-
-	String band = (String)_w.feBand.getSelectedItem();
-
-	if ( sideBandDisplay != null )
-	    {
-		double obsFrequency;
-		if ( isTransition ) {
-		    sideBandDisplay.setMainLine ( transition.frequency );
-		    obsFrequency = transition.frequency / ( 1.0 + redshift );
-		}
-		else {
-		    double mainLineFreq = Double.parseDouble( _w.moleculeFrequency.getText() ) * 1.0e9;
-		    sideBandDisplay.setMainLine ( mainLineFreq );
-		    obsFrequency = mainLineFreq / ( 1.0 + redshift );
-		}
-
-		// Adjust the LO1. If this would mean exceeding the LO range then
-		// swap sidebands.
-		if ( band.equals ( "usb" ) || band.equals("best") )
-		    {
-			if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
-
-			    if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
-				JOptionPane.showMessageDialog(_w, "Using lower sideband in order to reach line.",
-							      "Changing sideband", JOptionPane.WARNING_MESSAGE);
-			    }
-
-			    _w.feBand.setSelectedItem("lsb");
-			    sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
-			}
-			else {
-			    sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
-			}
-		    }
-		else
-		    {
-			if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
-
-			    if((!_updatingWidgets) && (!_changingFrontEnd) && (!_changingBandMode)) {
-				JOptionPane.showMessageDialog(_w, "Using upper sideband in order to reach line.",
-							      "Changing sideband", JOptionPane.WARNING_MESSAGE);
-			    }
-
-			    _w.feBand.setSelectedItem("best");
-			    sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
-			}
-			else {
-			    sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
-			}
-		    }
-
-		// If the LO range would still be exceeded then adjust the centre frequency of the top system.
-		// Set band to the new value as it might have been swapped above.
-		band = (String)_w.feBand.getSelectedItem();
-		boolean stillOutOfRange = false;
-
-
-		if ( band.equals ( "lsb" ) )
-		    {
-			if((obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency()) < loMin) {
-			    sideBandDisplay.setCentreFrequency(Math.abs(obsFrequency - sideBandDisplay.getLO1()), 0);
-			}
-		    }
-		else
-		    {
-			if((obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency()) > loMax) {
-			    sideBandDisplay.setCentreFrequency(Math.abs(obsFrequency - sideBandDisplay.getLO1()), 0);
-			}
-		    }
-
-		sideBandDisplay.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
-
-		if(!_ignoreSpItem && isTransition ) {
-		    _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), 0);
-		    _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), 0);
-		    _instHeterodyne.setRestFrequency(transition.frequency, 0);
-		    _instHeterodyne.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), 0);
-		}
-	    }
     }
 
    /**
@@ -850,574 +646,532 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     */
    private void _resetAdditionalSubSystems()
    {
-      if(!(_w.transitionChoice.getSelectedItem() instanceof Transition)) {
-         return;
-      }
-
-      Transition transition = (Transition)_w.transitionChoice.getSelectedItem();
-
-      for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
-         sideBandDisplay.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), i);
-      }
-
-
-      if(!_ignoreSpItem) {
-         for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
-            _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), i);
-            _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), i);
-            _instHeterodyne.setRestFrequency(transition.frequency, i);
-            _instHeterodyne.setCentreFrequency(sideBandDisplay.getTopSubSystemCentreFrequency(), i);
-         }
-      }
-
-      // Skip top system, start with i = 1
-      for(int i = 1; i < sideBandDisplay.getNumSubSystems(); i++) {
-	  if ( _instHeterodyne == null ) break;
-         sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-                                     _instHeterodyne.getTransition(i) + "  " +
-                                     _instHeterodyne.getRestFrequency(i), i);
-      }
-   }
-
-
-   public void feTransition2Action ( ActionEvent ae )
-   {
-      if(!(_w.transitionChoice2.getSelectedItem() instanceof Transition)) {
-         return;
-      }
-
-      Transition transition = (Transition)_w.transitionChoice2.getSelectedItem();
-
-      if ( transition != null )
-      {
-
-         _w.moleculeFrequency2.setText ( "" + transition.frequency/1.0E9 );
-
-         if ( sideBandDisplay != null )
-         {
-
-            sideBandDisplay.setSideLine ( transition.frequency );
-
-         }
-
-      }
    }
 
 
    public void moleculeFrequencyChanged()
    {
-      try {
-         double frequency = Double.parseDouble(_w.moleculeFrequency.getText()) * 1.0E9;
-
-	 String band = (String)_w.feBand.getSelectedItem();
-
-         if ( sideBandDisplay != null )
-         {
-
-            sideBandDisplay.setMainLine ( frequency );
-
-            double obsFrequency = frequency / 
-              ( 1.0 + redshift );
-            if ( band.equals ( "usb" ) || band.equals("best") )
-            {
-               sideBandDisplay.setLO1 ( obsFrequency - sideBandDisplay.getTopSubSystemCentreFrequency() );
-            }
-            else
-            {
-               sideBandDisplay.setLO1 ( obsFrequency + sideBandDisplay.getTopSubSystemCentreFrequency() );
-            }
-         }
-
-         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-            updateLineDetails(null, i);
-
-            if(i > 0) {
-               sideBandDisplay.setLineText(NO_LINE, i);
-            }
-         }
-      }
-      catch(NumberFormatException e) {
-        // ignore
-      }
-   }
-
-
-   public void moleculeFrequency2Changed()
-   {
-      try {
-         double frequency = Double.parseDouble(_w.moleculeFrequency2.getText()) * 1.0E9;
-      
-         if ( sideBandDisplay != null )
-         {
-            sideBandDisplay.setSideLine ( frequency );
-
-         }
-
-      }
-      catch(NumberFormatException e) {
-        // ignore
-      }
-   }
-
-
-   public void feBandModeChoiceAction ( ActionEvent ae ) {
-      _changingBandMode = true;
-
-      _ignoreEvents = true;
-      try {
-         _w.bandWidthChoice.setSelectedIndex(0);
-      }
-      catch(Exception e) {
-         // Exception occurs _w.bandWidthChoice has no items yet. Ignore.
-      }
-      _ignoreEvents = false;
-
-      BandSpec currentBandSpec;
-      if ( _instHeterodyne != null ) {
-	  if ( _instHeterodyne.getBackEnd().equals("das") ) {
-	      currentBandSpec = (BandSpec)_w.feBandModeChoice.getItemAt(0);
-	  }
-	  else {
-	      currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-	  }
-      }
-      else {
-	  currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-      }
-      _updateBandWidthChoice(currentBandSpec.getDefaultOverlapBandWidths());
-
-      feOverlap = currentBandSpec.defaultOverlaps[_w.bandWidthChoice.getSelectedIndex()];
-      _w.overlap.setText("" + (feOverlap/ 1.0E6));
-
-// For now the user should not be allowed to change the overlap. So leave the _w.overlap disabled.
-//      if(currentBandSpec.getNumHybridSubBands(_w.bandWidthChoice.getSelectedIndex()) > 1) {
-//         _w.overlap.setEnabled(true);
-//      }
-//      else {
-//         _w.overlap.setEnabled(false);
-//      }
-
-      if ( !_ignoreSpItem && _instHeterodyne.getNamedConfiguration() == null )
-	  updateSideBandDisplay();
-
-      if(!_ignoreSpItem) {
-
-         _instHeterodyne.setBandMode(_w.feBandModeChoice.getSelectedItem().toString());
-
-         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-            _instHeterodyne.setMolecule(_w.moleculeChoice.getSelectedItem().toString(), i);
-            _instHeterodyne.setTransition(_w.transitionChoice.getSelectedItem().toString().trim(), i);
-            _instHeterodyne.setCentreFrequency(feIF, i);
-            //_instHeterodyne.setBandWidth(currentBandSpec.getBandWidths(feOverlap)[0], i);
-            //_instHeterodyne.setChannels(currentBandSpec.getChannels(feOverlap)[0], i);
-            _instHeterodyne.setBandWidth(currentBandSpec.getDefaultOverlapBandWidths()[0], i);
-            _instHeterodyne.setChannels(currentBandSpec.getDefaultOverlapChannels()[0], i);
-	    _instHeterodyne.setRestFrequency(getRestFrequency(i), i);
-            _instHeterodyne.setOverlap(feOverlap, i); 
-
-            // Skip to top system on sideBandDisplay
-            if(i > 0) {
-               sideBandDisplay.setLineText(_instHeterodyne.getMolecule(i) + "  " +
-	                                   _instHeterodyne.getTransition(i) + "  " +
-                                           _instHeterodyne.getRestFrequency(i), i);
-            }
-	 }
-      }
-
-      _changingBandMode = false;
    }
 
    public void updateSideBandDisplay() {
-      double loRange[];
-      double mid;
-      int subBandCount;
-      int mixerCount = 1;
-      BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-
-      if(currentBandSpec == null) {
-         _w.feBandModeChoice.setSelectedIndex(0);
-	 currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-      }
-
-
-/* Update display of sidebands and subbands */
-      Point sideBandDisplayLocation = new Point(100, 100);
-
-      mid = 0.5 * ( loMin + loMax );
-
-      // subBandCount and numBands refers to the number of subsystem, not to the number
-      // of multiple subbands in one subsystem.
-      if (_instHeterodyne != null &&_instHeterodyne.getBackEnd() != null && _instHeterodyne.getBackEnd().equals("das")) {
-	  subBandCount = 1;
-      }
-      else {
-	  subBandCount = currentBandSpec.numBands;
-      }
-      subBandWidth = currentBandSpec.getDefaultOverlapBandWidths()[0]; //getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
-
-      if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) mixerCount = 2;
-
-      sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
-				      feIF, feBandWidth, mixerCount,
-				      redshift,
-				      currentBandSpec.getDefaultOverlapBandWidths(), //getBandWidths(feOverlap),
-				      currentBandSpec.getDefaultOverlapChannels(),   //getChannels(  feOverlap),
-				      subBandCount );
-
-      _ignoreEvents = true;
-      sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
-      _ignoreEvents = false;
-
-      feTransitionAction(null);
    }
 
 
    public void updateSideBandDisplay(int nSubBands, Vector shifts) {
-      double loRange[];
-      double mid;
-      int subBandCount;
-      int mixerCount = 1;
-      
-      BandSpec currentBandSpec;
-      if ( _instHeterodyne.getBackEnd().equals("das") ) {
-	  currentBandSpec = (BandSpec)_w.feBandModeChoice.getItemAt(0);
-      }
-      else {
-	  currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-      }
-
-      if(currentBandSpec == null) {
-         _w.feBandModeChoice.setSelectedIndex(0);
-	 currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-      }
-
-
-/* Update display of sidebands and subbands */
-      Point sideBandDisplayLocation = new Point(100, 100);
-
-      mid = 0.5 * ( loMin + loMax );
-
-      // subBandCount and numBands refers to the number of subsystem, not to the number
-      // of multiple subbands in one subsystem.
-      subBandCount = nSubBands;
-      subBandWidth = currentBandSpec.getDefaultOverlapBandWidths()[0]; //getBandWidths(feOverlap)[0]; //currentBandSpec.bandWidths[0];
-
-      if (_instHeterodyne != null && _instHeterodyne.getMixer().startsWith("Dual")) mixerCount = 2;
-
-      sideBandDisplay.updateDisplay ( currentFE, loMin, loMax,
-				      feIF, feBandWidth, mixerCount,
-				      redshift,
-				      currentBandSpec.getDefaultOverlapBandWidths(), //getBandWidths(feOverlap),
-				      currentBandSpec.getDefaultOverlapChannels(),   //getChannels(  feOverlap),
-				      subBandCount );
-
-      _ignoreEvents = true;
-      sideBandDisplay.resetModeAndBand((String)_w.feMode.getSelectedItem(), (String)_w.feBand.getSelectedItem());
-      for ( int i=0; i < sideBandDisplay.getNumSubSystems(); i++) {
-	  sideBandDisplay.setBandWidth( _instHeterodyne.getBandWidth(0), i);
-      }
-      for ( int i=0; i<shifts.size(); i++) {
-	  sideBandDisplay.moveSlider(_instHeterodyne.getBand(), 4.0e9 + ( ((Double)shifts.elementAt(i)).doubleValue() * 1.0e9), i);
-      }
-      _ignoreEvents = false;
-
-//        feTransitionAction(null);
    }
 
 
-   public void feChoiceAction ( ActionEvent ae )
-   {
-      _changingFrontEnd = true;
+   public void setSideBandDisplayVisible(boolean visible) {
+   }
 
-      double loRange[];
-      double mid;
-      int subBandCount;
-      Receiver r;
-      double obsmin;
-      double obsmax;
+   public void setSideBandDisplayLocation(int x, int y) {
+   }
 
+   // Added by MFO (8 January 2002)
+   /**
+    * Returns "usb" (Upper Side Band) or "lsb" (Lower Side Band).
+    *
+    * Needed by {@link edfreq.SideBand} to shift LO1 when top SideBands are changed.
+    */
+   public String getFeBand() {
+       return _inst.getBand();
+   }
 
-      String newFE = (String)_w.feChoice.getSelectedItem();
-      currentFE = newFE;
-
-      // See if we are allowed to make this change.  If any
-      // of the children use fast frequency switching and we 
-      // are not using A3, then report the error to the user
-      // but make the change anyway.
-      if ( _instHeterodyne != null ) {
-	  if ( usingFFSwitching(_instHeterodyne.parent()) && !currentFE.equals("A3") ) {
-	      JOptionPane.showMessageDialog(_w,
-					    "One of the observations using this configuration uses Fast-Frequency Switching\nwhich is only available on A3.\nEither switch to A3 or edit the Observation",
-					    "Fast Frequency Switching Used",
-					    JOptionPane.WARNING_MESSAGE);
-	  }
-      }
-
-      r = (Receiver)cfg.receivers.get ( currentFE );
-
-      loMin = r.loMin;
-      loMax = r.loMax;
-      feIF = r.feIF;
-      feBandWidth = r.bandWidth;
-
-      _w.lowFreq.setText ( "" + (int)(loMin*1.0E-9) );
-      _w.highFreq.setText ( "" + (int)(loMax*1.0E-9) );
-
-/* Update frontend mode choices */
-      _w.feMode.removeActionListener(this);
-      _w.feMode.setModel(new DefaultComboBoxModel((String[])cfg.frontEndTable.get(newFE)));
-      _w.feMode.addActionListener(this);
-
-      _w.feMixers.removeActionListener(this);
-      _w.feMixers.setModel(new DefaultComboBoxModel((String[])cfg.frontEndMixers.get(newFE)));
-      _w.feMixers.addActionListener(this);
-
-/* Update choice of sub-band configurations */
-
-      _w.feBandModeChoice.removeActionListener(this);
-      _w.feBandModeChoice.setModel ( 
-        new DefaultComboBoxModel ( r.bandspecs ) );
-      _w.feBandModeChoice.addActionListener(this);
-      _w.feBandModeChoice.setSelectedIndex(0);
-
-      obsmin = loMin - feIF - ( feBandWidth * 0.5 );
-      obsmax = loMax + feIF + ( feBandWidth * 0.5 );
-
-/* Update choice of molecules */
-
-      _w.moleculeChoice.removeActionListener(this);
-      SelectionList currentSelection = null;
-      String currentSpecies = null;
-      if ( _w.moleculeChoice.getSelectedItem() instanceof SelectionList ) {
-	  currentSelection = (SelectionList)_w.moleculeChoice.getSelectedItem();
-	  if ( currentSelection != null) {
-	      currentSpecies = currentSelection.toString();
-	  }
-      }
-
-      _w.moleculeChoice.setModel ( 
-        new DefaultComboBoxModel ( 
-        lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
-          obsmax*(1.0+redshift) ) ) );
-
-      _ignoreEvents = true;
-      if(((DefaultComboBoxModel)_w.moleculeChoice.getModel()).getIndexOf(NO_LINE) == -1) {
-         _w.moleculeChoice.addItem(NO_LINE);
-      }
-      _ignoreEvents = false;
-
-      _w.moleculeChoice.addActionListener(this);
-      // Go through the molecule model and see if either the same selection is available, or
-      // the same species is available
-      DefaultComboBoxModel specModel = (DefaultComboBoxModel)_w.moleculeChoice.getModel();
-      if ( currentSelection != null && specModel.getIndexOf(currentSelection) >= 0 ) {
-	  _w.moleculeChoice.setSelectedItem ( currentSelection );
-      }
-      else {
-	  boolean foundMatch = false;
-	  // Use 1 less than the size of specModel since the last element, no-line,
-	  // is not a SelectionList object, just a string.
-	  for ( int count=0; count<specModel.getSize() - 1; count++ ) {
-	      if ( currentSpecies == null ) break;
-	      if ( ((SelectionList)specModel.getElementAt(count)).toString().equals(currentSpecies) ) {
-		  _w.moleculeChoice.setSelectedIndex(count);
-		  foundMatch = true;
-		  break;
-	      }
-	  }
-	  if ( !foundMatch ) {
-	      // MFO: This line used to be after, then before the one
-	      // where the ActionListener is added again
-	      // but that (sometimes) caused a NullPointerException.
-	      // Now its after the adding of the ActionListener.
-	      // If there are still NullPointerException then
-	      // something else has do be done that selectes a line when
-	      // the EdCompInstHeterodyne is created.
-	      _w.moleculeChoice.setSelectedIndex(0);
-	  }
-      }
-
-      _w.moleculeChoice2.removeActionListener(this);
-      _w.moleculeChoice2.setModel ( 
-        new DefaultComboBoxModel ( 
-        lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
-        obsmax*(1.0+redshift) ) ) );
-
-      _ignoreEvents = true;
-      if(((DefaultComboBoxModel)_w.moleculeChoice2.getModel()).getIndexOf(NO_LINE) == -1) {
-         _w.moleculeChoice2.addItem(NO_LINE);
-      }
-      _w.moleculeChoice2.setSelectedIndex(0);
-      _ignoreEvents = false;
-	
-      _w.moleculeChoice2.setSelectedIndex(0); // MFO: This line used to be after the one
-                                           // where the ActionListener is added again
-					   // but that (sometimes) caused a NullPointerException.
-					   // Try doing something else that selectes a line when
-					   // the EdCompInstHeterodyne is created.
-      _w.moleculeChoice2.addActionListener(this);
-
-/* Reset line frequency report */
-
-      _w.moleculeFrequency.setText ( "0.0000" );
-//      moleculeFrequency2.setText ( "0.0000" );
-
-
-/* Update display of sidebands and subbands */
-      if ( !_ignoreSpItem && _instHeterodyne.getNamedConfiguration() == null )
-	  updateSideBandDisplay();
-
-      if(!_ignoreSpItem) {
-         _instHeterodyne.setFrontEnd(newFE);
-	 _instHeterodyne.setMode((String)_w.feMode.getSelectedItem());
-// 	 _instHeterodyne.setBandMode((String)_w.feBandModeChoice.getSelectedItem());
-	 _instHeterodyne.setMixer((String)_w.feMixers.getSelectedItem());
-	 _instHeterodyne.setBand((String)_w.feBand.getSelectedItem());
-      }
-
-      _changingFrontEnd = false;
+   public String getMode() {
+       return _inst.getBandMode();
    }
 
 
-   public void feVelocityAction ( ActionEvent ae )
-   {
-      String svalue;
-      double dvalue;
-      double obsmin;
-      double obsmax;
-
-      svalue = _w.velocity.getText();
-      dvalue = (Double.valueOf(svalue)).doubleValue();
-
-      String velocityDefinition = _instHeterodyne.getVelocityDefinition();
-
-      redshift = SpInstHeterodyne.convertToRedshift(velocityDefinition, dvalue);
-
-      obsmin = loMin - feIF - ( feBandWidth * 0.5 );
-      obsmax = loMax + feIF + ( feBandWidth * 0.5 );
-
-
-      if(((Vector)lineCatalog.returnSpecies(obsmin*(1.0+redshift), obsmax*(1.0+redshift))).size() < 1) {
-
-         if(!_updatingWidgets) {
-            JOptionPane.showMessageDialog(_w, "This velocity/redshift would results frequency range that exceeds the line catalog.",
-                                       "Invalid velocity/redshift", JOptionPane.WARNING_MESSAGE);
-         }
-
-         // Reset redshift and value in velocity text field to last valid value.
-	 redshift = _instHeterodyne.getRedshift();
-         _updateVelocityTextField(_instHeterodyne.getVelocityDefinition());
-
-         return;
-      }
-
-      _velocityChanged = false;
-
-/* Update choice of molecules */
-
-      _ignoreEvents = true;
-
-      _w.moleculeChoice.setModel ( 
-        new DefaultComboBoxModel ( 
-        lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
-          obsmax*(1.0+redshift) ) ) );
-
-      if(((DefaultComboBoxModel)_w.moleculeChoice.getModel()).getIndexOf(NO_LINE) == -1) {
-         _w.moleculeChoice.addItem(NO_LINE);
-      }
-
-      _w.moleculeChoice2.setModel ( 
-        new DefaultComboBoxModel ( 
-        lineCatalog.returnSpecies ( obsmin*(1.0+redshift),
-        obsmax*(1.0+redshift) ) ) );
-
-      _ignoreEvents = false;
-
-      // Now check whether the molecule previously selected is still in range.
-      // If so, set it to the previous molecule. Warn the user other wise.
-      boolean moleculeInRange = false;
-      String  molecule = _instHeterodyne.getMolecule(0);
-
-      for(int i = 0; i < _w.moleculeChoice.getItemCount(); i++) {
-         if(_w.moleculeChoice.getItemAt(i).toString().equals(molecule)) {
-//            _w.moleculeChoice.setSelectedItem(molecule);
-            moleculeInRange = true;
-	    break;
-	 }
-      }
-
-      if(moleculeInRange) {
-         _w.moleculeChoice.setSelectedItem(getObject(_w.moleculeChoice, molecule));
-      }
-      else {
-         _w.moleculeChoice.setSelectedIndex(0);
-
-         if(!_updatingWidgets) {
-            JOptionPane.showMessageDialog(_w, "Molecule changed: " + molecule + " out of range.",
-            "Molecule changed", JOptionPane.WARNING_MESSAGE);
-         }
-      }
-
-/* Update display of sidebands */
-
-      if ( sideBandDisplay != null )
-      {
-          sideBandDisplay.setRedshift ( redshift );
-      }
-
-      if(!_ignoreSpItem) {
-         _instHeterodyne.setVelocityFromRedshift(redshift);
-	 _instHeterodyne.setRefFrameVelocity(dvalue);
-      }
-
-      if ( _instHeterodyne != null && _instHeterodyne.getNamedConfiguration() != null) {
-	  _w.specialConfigurations.setSelectedItem( _instHeterodyne.getNamedConfiguration() );
-      }
-   }
-
-   public void feVelocityDefinitionAction ( ActionEvent ae ) {
-      // The call to feVelocityAction() ensures that the current value in
-      // the _w.velocity text field is registered even if the user
-      // has never hit return (i.e. causing an ActionEvent) in the _w.velocity text field.
-       if ( _velocityChanged ) {
-	   feVelocityAction( null );
+   private void _updateBandwidths() {
+       // We need to get the current bandspec
+       // from the region selector
+       Vector bandSpecs = _receiver.bandspecs;
+       BandSpec currentBandSpec = null;
+       for ( int i=0; i<bandSpecs.size(); i++) {
+	   if ( ((BandSpec)bandSpecs.get(i)).toString().equals(_inst.getBandMode()) ) {
+	       currentBandSpec = (BandSpec)bandSpecs.get(i);
+	       break;
+	   }
        }
-       _instHeterodyne.setRefFrameVelocity ( SpInstHeterodyne.convertRedshiftTo ((String)_w.velocityDefinition.getSelectedItem(), redshift ) );
 
-      // After the feVelocityAction() call this.redshift is updated.
-      _updateVelocityTextField((String)_w.velocityDefinition.getSelectedItem());
+       if ( currentBandSpec == null ) {
+	   currentBandSpec = (BandSpec)bandSpecs.get(0);
+       }
 
-      if(!_ignoreSpItem) {
-         _instHeterodyne.setVelocityDefinition((String)_w.velocityDefinition.getSelectedItem());
-      }
+       double [] values = currentBandSpec.getDefaultOverlapBandWidths();
+       _w.bandwidths.removeActionListener(this);
+       // Remove all the old values
+       _w.bandwidths.removeAllItems();
+
+       // Get the current bandwidth
+       double currentBandwidth = _inst.getBandWidth(0);
+
+       // Index into the new list to allow us to make sure
+       // that it gets reselected if available
+       int index = -1;
+       double feOverlap=0.0;
+
+       // Set the new bandwidths
+       for (int i=0; i<values.length; i++) {
+	   double value = Math.rint ( values[i]*1.0E-6 );
+	   if ( values[i] == currentBandwidth ) {
+	       index = i;
+	       feOverlap = currentBandSpec.defaultOverlaps[i];
+	       _inst.setOverlap( currentBandSpec.defaultOverlaps[i], 0 );
+	       _inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[i], 0 );
+	   }
+	   _w.bandwidths.addItem("" + value);
+       }
+       if ( index == -1 ) {
+	   // The old value does not exist in the new list
+	   for ( int i=0; i<Integer.parseInt( _w.SUBSYSTEMS[_w.SUBSYSTEMS.length-1]); i++ ) {
+	       _inst.setBandWidth ( values[0], i );
+	       _inst.setOverlap( currentBandSpec.defaultOverlaps[0], i );
+	       _inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[0], i );
+	   }
+	   index = 0;
+       }
+       _w.bandwidths.setSelectedIndex(index);
+       _w.bandwidths.addActionListener(this);
+   }
+
+   private void _updateMoleculeChoice() {
+       JComboBox molBox = null;
+       // First get the molecule checkbox from fPanel
+       for ( int i=0; i<_w.fPanel.getComponentCount(); i++) {
+	  if ( "molecule".equals(_w.fPanel.getComponent(i).getName())) {
+	      molBox = (JComboBox) _w.fPanel.getComponent(i);
+	      break;
+	  }
+       }
+       if ( molBox == null ) return;
+
+       // Remove the current actionlistener
+       molBox.removeActionListener(this);
+       double obsmin = _receiver.loMin -
+	   _receiver.feIF - ( _receiver.bandWidth*0.5);
+       double obsmax = _receiver.loMax +
+	   _receiver.feIF + ( _receiver.bandWidth*0.5);
+       Object   currentSelection = getObject( molBox, _inst.getMolecule(0) );
+       String   currentSpecies = null;
+
+       if ( currentSelection != null ) {
+	   currentSpecies = currentSelection.toString();
+       }
+       else {
+	   currentSpecies = _inst.getMolecule(0);
+       }
+
+       // Get a new model to add to the molBox
+       molBox.setModel ( new DefaultComboBoxModel (
+		   _lineCatalog.returnSpecies (
+		       obsmin * ( 1.0 + getRedshift() ),
+		       obsmax * ( 1.0 + getRedshift() )
+		       )
+		   )
+	       );
+       // Add a"NO LINE option if one does not already exist
+       if ( ((DefaultComboBoxModel)molBox.getModel()).getIndexOf(NO_LINE) == -1) {
+	   molBox.addItem ( NO_LINE );
+       }
+
+       // Go through the new model and see if:
+       // (a) the same combination of species/transition is available or
+       // (b) the same species is available.
+       // In addition, we will actually set things up on the box
+       // instead of leaving it to update widgets, since it means
+       // we do not need to get the species list again
+       DefaultComboBoxModel specModel = (DefaultComboBoxModel)molBox.getModel();
+       if ( currentSelection != null &&
+	    specModel.getIndexOf (currentSelection) >= 0 ) {
+	   molBox.setSelectedIndex( specModel.getIndexOf (currentSelection) );
+       }
+       else {
+	   boolean match = false;
+	   // See if the current species is available;
+	   // don't use the last element of the model since
+	   // this is just the no-line option
+	   if ( currentSpecies != null ) {
+	       for ( int i=0; i<specModel.getSize()-1; i++ ) {
+		   if ( ((SelectionList)specModel.getElementAt(i)).toString().equals(currentSpecies) ) {
+		       match = true;
+	               molBox.setSelectedIndex( i );
+		       break;
+		   }
+	       }
+	   }
+	   if ( !match ) {
+	       // Set the molecule to the first available one
+	       JOptionPane.showMessageDialog (
+		       _w,
+		       "Selecteing new species; old selection (" + currentSpecies +") out of range",
+		       "Molecule changed",
+		       JOptionPane.WARNING_MESSAGE);
+               for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
+                   _inst.setMolecule( ((SelectionList)specModel.getElementAt(0)).toString(), i );
+               }
+	       molBox.setSelectedIndex(0);
+	   }
+       }
+
+       molBox.addActionListener(this);
+       _updateTransitionChoice();
+   } // End of method
+	   
+
+   private void _updateTransitionChoice() {
+       JComboBox transBox = null;
+       // First get the molecule checkbox from fPanel
+       for ( int i=0; i<_w.fPanel.getComponentCount(); i++) {
+	  if ( "transition".equals(_w.fPanel.getComponent(i).getName())) {
+	      transBox = (JComboBox) _w.fPanel.getComponent(i);
+	      break;
+	  }
+       }
+       if ( transBox == null ) return;
+
+       // Remove the current actionlistener
+       transBox.removeActionListener(this);
+
+       String currentTransition = _inst.getTransition(0).trim();
+       String currentMolecule = _inst.getMolecule(0);
+       if ( currentMolecule == null ) {
+	   transBox.addActionListener(this);
+	   return;
+       }
+
+       // Add a space to the end of the the name of the
+       // transition
+       if ( currentTransition != null ) {
+	   //currentTransition += " ";
+       }
+
+       // We need to get the current SelectionList based
+       // on the molecule.
+       // First get all the available species
+       double obsmin = _receiver.loMin -
+	   _receiver.feIF - ( _receiver.bandWidth*0.5);
+       double obsmax = _receiver.loMax +
+	   _receiver.feIF + ( _receiver.bandWidth*0.5);
+       
+       //  Get the new model
+       Vector speciesList = _lineCatalog.returnSpecies (
+	       obsmin * ( 1.0 + getRedshift() ),
+	       obsmax * ( 1.0 + getRedshift() )
+	       );
+       // Loop through this list to get the element
+       // corresponding to the current molecule
+       SelectionList currentSpecies = null;
+       for ( int i=0; i<speciesList.size();i++ ) {
+	   if ( ((SelectionList)speciesList.get(i)).toString().equals(currentMolecule) ) {
+	       currentSpecies = (SelectionList)speciesList.get(i);
+	       break;
+	   }
+       }
+
+       if ( currentSpecies != null ) {
+	   transBox.setModel( new DefaultComboBoxModel (
+		       currentSpecies.objectList ) );
+       }
+
+       // Add the no line option
+       if(((DefaultComboBoxModel)transBox.getModel()).getIndexOf(NO_LINE) == -1) {
+            transBox.addItem(NO_LINE + " ");
+       }
+
+       // Check if the previous transition is still in range
+       boolean inRange = false;
+       if ( currentTransition != null ) {
+	   for ( int i=0; i<transBox.getItemCount(); i++ ) {
+	       if ( transBox.getItemAt(i).toString().trim().equals (currentTransition) ) {
+		   inRange = true;
+		   transBox.setSelectedIndex(i);
+		   break;
+	       }
+	   }
+       }
+
+       if ( inRange ) {
+	   // Do nothing
+       }
+       else {
+	   // We need to set the transition to the first available
+	   // for the current species
+	   JOptionPane.showMessageDialog (_w,
+		   "Transition Changed: " + currentTransition + " out of range.",
+		   "Transition Changed!",
+		   JOptionPane.PLAIN_MESSAGE);
+           for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
+               _inst.setTransition( transBox.getItemAt(0).toString(), i);
+           }
+	   transBox.setSelectedIndex(0);
+       }
+
+       if ( transBox.getSelectedItem() instanceof Transition ) {
+	   _updateFrequencyText( ((Transition)transBox.getSelectedItem()).frequency/1.0E9 );
+       }
+       else {
+	   _updateFrequencyText( _inst.getRestFrequency(0)/1.0E9 );
+       }
+       transBox.addActionListener(this);
+   } // End of method
+
+
+   private void _updateFrequencyText(double f) {
+       // Set the value in the instrument component
+       // Assume incoming frequency in GHz
+       _inst.setRestFrequency( f*1.0E9, 0 );
+       _inst.setSkyFrequency( (f*1.0E9)/(1.0+getRedshift()) );
+       // Get the component
+       JTextField freq = null;
+       Iterator iter = freqPanelWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   String name = (String)iter.next();
+	   if ( "frequency".equals(name) ) {
+	       // This is the component we want
+	       freq = (JTextField)_w.fPanel.getComponent( 
+		       ((Integer)freqPanelWidgetNames.get(name)).intValue() );
+	       break;
+	   }
+       }
+       if ( freq == null ) return;
+
+       // See if we need to reset the sideband
+       checkSideband();
+
+       freq.setText("" + f);
+   }
+
+   // See edfreq.HeterodyneEditor for documentation
+   public double getRestFrequency(int subsystem) {
+       return 0.0;
+   }
+
+   // See edfreq.HeterodyneEditor for documentation
+   public double getObsFrequency(int subsystem) {
+       return 0.0;
    }
 
 
-   public void feOverlapAction ( ActionEvent ae )
-   {
-      String svalue;
-      double dvalue;
+  /** Get receiver's central IF. */
+  public double getFeIF() {
+       return 0.0;
+  }
 
-      svalue = _w.overlap.getText();
-      dvalue = (Double.valueOf(svalue)).doubleValue();
-      feOverlap = 1.0E6 * dvalue;
 
-      if(!_ignoreSpItem) {
-         for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-            _instHeterodyne.setOverlap(feOverlap, i);
-	 }
+  public void updateCentreFrequency(double centre, int subsystem) {
+  }
+
+  public void updateBandWidth(double width, int subsystem) {
+  }
+
+  public void updateChannels(int channels, int subsystem) {
+  }
+
+  public void updateLineDetails(LineDetails lineDetails, int subsystem) {
+  }
+
+  public void updateLO1(double lo1) {
+  }
+
+  public double getRedshift() {
+      double velocity = 0.0;
+
+      // Get the veolcity information
+      String vText = ((JLabel)_w.vPanel.getComponent( ((Integer)vPanelWidgetNames.get("velocity")).intValue() )).getText();
+      try {
+	  velocity = Double.parseDouble(vText);
+      }
+      catch ( NumberFormatException nfe ) {
+	  return 0.0;
       }
 
-      BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
+      double c = SpInstHeterodyne.LIGHTSPEED;
 
-      _updateBandWidthChoice(currentBandSpec.getBandWidths(feOverlap));
 
-      if ( _instHeterodyne.getNamedConfiguration() == null )
-	  updateSideBandDisplay();
+      String vDefn = ((JLabel)_w.vPanel.getComponent( ((Integer)vPanelWidgetNames.get("definition")).intValue() )).getText();
 
-      bandWidthChoiceAction(null);
-   }
+      if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[0]) ) {
+	  // Radio
+	  velocity = ( c / (c - velocity) ) -1.0;
+      }
+      else if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1]) ) {
+	  // optical
+	  velocity = velocity / c;
+      }
+      else if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1]) ) {
+	  // relativistic
+	  velocity = Math.sqrt ( (c - velocity)/(c + velocity) ) -1.0;
+      }
+      else if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1]) ) {
+	  // redshift
+      }
 
+      return velocity;
+  }
+
+    public double getCurrentBandwidth ( int subsystem) {
+       return _inst.getBandWidth(subsystem);
+    }
+
+    private boolean usingFFSwitching(SpItem item) {
+	return false;
+    }
+
+
+    private DefaultComboBoxModel getSpecialConfigsModel () {
+	return new DefaultComboBoxModel();
+    }
+
+    private ConfigurationInformation getConfigFor (String name) {
+	return null;
+    }
+
+    private void setAvailableModes() {
+	List availableModes = Arrays.asList( ( String [] ) _cfg.frontEndTable.get(_inst.getFrontEnd()) );
+	String currentMode = _inst.getMode();
+	boolean changeMode = false;
+	
+	// We need to see compare the available modes with the list of
+	// total modes, and disable any that are not currently available
+	Iterator iter = modeWidgetNames.keySet().iterator();
+	while ( iter.hasNext() ) {
+	    String str = (String) iter.next();
+	    if ( availableModes.contains( str ) ) {
+		// Make sure the widget is enabled
+		toggleEnabled(_w.modeSelector, 
+			str,
+			true); 
+	    }
+	    else {
+		// disable the widget and optionally chnage
+		// the current mode
+		if ( currentMode != null && currentMode.equalsIgnoreCase( str ) ) {
+		    changeMode = true;
+		}
+		toggleEnabled(_w.modeSelector, 
+			str,
+			false); 
+	    }
+	}
+	if ( changeMode ) {
+	    _inst.setMode( (String)availableModes.get(0) );
+	}
+    }
+
+    private void setAvailableMixers() {
+	List available= Arrays.asList( ( String [] ) _cfg.frontEndMixers.get(_inst.getFrontEnd()) );
+	String current= _inst.getMixer();
+	boolean change = false;
+	Iterator iter = mixerWidgetNames.keySet().iterator();
+
+	while ( iter.hasNext() ) {
+	    String str = (String)iter.next();
+	    if ( available.contains( str ) ) {
+		// Make sure the widget is enabled
+		toggleEnabled(_w.mixerSelector, 
+			str,
+			true); 
+	    }
+	    else {
+		// disable the widget and optionally chnage
+		// the current mode
+		if ( current != null && current.equalsIgnoreCase( str ) ) {
+		    change = true;
+		}
+		toggleEnabled(_w.mixerSelector, 
+			str,
+			false); 
+	    }
+	}
+	if ( change ) {
+	    _inst.setMixer( (String)available.get(0) );
+	}
+ 
+    }
+	
+    private void setAvailableRegions() {
+	Vector bandspecs= _receiver.bandspecs;
+	Vector available = new Vector();
+	for ( int i=0; i< bandspecs.size(); i++ ) {
+	    available.add ( ((BandSpec)bandspecs.get(i)).toString() );
+	}
+        //
+        // Special handling for RxA only.  If we are using one of the hybrid modes
+        // only 2 regions are allowed
+        //
+        if ( "A3".equalsIgnoreCase(_receiver.name) ) {
+            // Get the number of hybrid subband
+            BandSpec currentBandSpec = null;
+            for ( int i=0; i<bandspecs.size(); i++) {
+                if ( ((BandSpec)bandspecs.get(i)).toString().equals(_inst.getBandMode()) ) {
+                    currentBandSpec = (BandSpec)bandspecs.get(i);
+                    if ( _w.bandwidths.getSelectedIndex() > -1 ) {
+                        int nHybrids = currentBandSpec.getNumHybridSubBands(_w.bandwidths.getSelectedIndex());
+                        if ( nHybrids == 4 && available.contains("4") ) {
+                            available.remove("4");
+                        }
+                    }
+                }
+            }
+        }
+	String current= _inst.getBandMode();
+	boolean change = false;
+	Iterator iter = regionWidgetNames.keySet().iterator();
+
+	while ( iter.hasNext() ) {
+	    String str = (String)iter.next();
+	    if ( available.contains( str ) ) {
+		// Make sure the widget is enabled
+		toggleEnabled(_w.regionSelector, 
+			str,
+			true); 
+	    }
+	    else {
+		// disable the widget and optionally chnage
+		// the current mode
+		if ( current != null && current.equalsIgnoreCase( str ) ) {
+		    change = true;
+		}
+		toggleEnabled(_w.regionSelector, 
+			str,
+			false); 
+	    }
+	}
+	if ( change ) {
+	    _inst.setBandMode( (String)available.get(0) );
+	}
+    }
+
+    private void setAvailableMolecules() {
+    }
+    
+    private void setAvailableTransitions() {
+    }
+
+    private void setAvailableSidebands() {
+    }
+	
+    // Disable a specific button in the specified container
+    private void toggleEnabled (Container c, String name, boolean enabled) {
+	for ( int i=0; i<c.getComponentCount(); i++ ) {
+	    if ( name.equals(c.getComponent(i).getName()) ) {
+		c.getComponent(i).setEnabled ( enabled );
+		break;
+	    }
+	}
+    }
+
+    private void clickButton(Container c, String name) {
+	for ( int i=0; i<c.getComponentCount(); i++ ) {
+	    if ( c.getComponent(i).getName() != null &&
+		 c.getComponent(i).getName().equals(name) &&
+		 c.getComponent(i) instanceof AbstractButton ) {
+		((AbstractButton)c.getComponent(i)).doClick();
+		break;
+	    }
+	};
+    }
 
    private Object getObject(JComboBox comboBox, String name) {
      for(int i = 0; i < comboBox.getItemCount(); i++) {
@@ -1429,322 +1183,275 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
      return null;
    }
 
-   public void setSideBandDisplayVisible(boolean visible) {
-      sideBandDisplay.setVisible(visible);
+   private void _updateTable() {
+       // Just collect together all the information for
+       // each spectral regions
+       try {
+           DefaultTableModel tbm = new DefaultTableModel();
+           tbm.setColumnIdentifiers(_w.COLUMN_NAMES);
+           for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
+	       Vector row = new Vector(_regionInfo[i]);
+               row.add(0, new Integer(i) );
+	       tbm.addRow(row);
+           }
+           _w.table.setModel(tbm);
+       }
+       catch (Exception e) {};
    }
 
-   public void setSideBandDisplayLocation(int x, int y) {
-      sideBandDisplay.setLocation(x, y);
-   }
-
-   // Added by MFO (8 January 2002)
-   /**
-    * Returns "usb" (Upper Side Band) or "lsb" (Lower Side Band).
-    *
-    * Needed by {@link edfreq.SideBand} to shift LO1 when top SideBands are changed.
+   /*
+    * This routine initialises the region info.
+    * It assumes that the zeroth component is set
+    * and it just copies the zeroth values for now.
+    * The vector contains the following elements related
+    * to each spectral region:
+    * 1. Molecule
+    * 2. Transition
+    * 3. Rest Frequency
+    * 4. Central Frequency
+    * 5. Band width
+    * 6. Resolution
+    * 7. number of channels
     */
-   public String getFeBand() {
-      return (String)_w.feBand.getSelectedItem();
+   private void _initialiseRegionInfo() {
+       for ( int i=0; i<_regionInfo.length; i++ ) {
+	  if ( _regionInfo[i] == null ) _regionInfo[i] = new Vector();
+	  _regionInfo[i].add(_inst.getMolecule(0));
+	  _inst.setMolecule ( _inst.getMolecule(0), i );
+	  _regionInfo[i].add(_inst.getTransition(0));
+	  _inst.setTransition ( _inst.getTransition(0), i );
+	  _regionInfo[i].add(new Double( _inst.getRestFrequency(0) ));
+	  _inst.setRestFrequency ( _inst.getRestFrequency(0), i );
+	  _inst.setSkyFrequency ( _inst.getRestFrequency(0) / (1.0 + getRedshift()) );
+	  _regionInfo[i].add(new Double( _inst.getCentreFrequency(0) ));
+	  _inst.setCentreFrequency ( _inst.getCentreFrequency(0), i );
+	  _regionInfo[i].add(new Double( _inst.getBandWidth(0) ));
+	  _inst.setBandWidth ( _inst.getBandWidth(0), i );
+	  int resolution = (int)Math.rint( (_inst.getBandWidth(0) * 1.0E-3)/_inst.getChannels(0) );
+	  _regionInfo[i].add(new Integer( resolution ) ); // Need to add resolution here
+	  _regionInfo[i].add(new Integer( _inst.getChannels(0) ));
+	  _inst.setChannels ( _inst.getChannels(0), i );
+       }
    }
 
-   public String getMode() {
-      return (String)_w.feMode.getSelectedItem();
+   private void _updateRegionInfo() {
+       Vector bandSpecs = _receiver.bandspecs;
+       BandSpec currentBandSpec = null;
+
+       for ( int i=0; i<bandSpecs.size(); i++) {
+	   if ( ((BandSpec)bandSpecs.get(i)).toString().equals(_inst.getBandMode()) ) {
+	       currentBandSpec = (BandSpec)bandSpecs.get(i);
+	       break;
+	   }
+       }
+       if ( currentBandSpec == null ) currentBandSpec = (BandSpec)bandSpecs.get(0);
+       double [] availableBandWidths = currentBandSpec.getDefaultOverlapBandWidths();
+
+       for ( int i=0; i<_regionInfo.length; i++ ) {
+	   if ( _regionInfo[i] == null ) _regionInfo[i] = new Vector();
+	  _regionInfo[i].clear();
+	  _regionInfo[i].add(_inst.getMolecule(i));
+	  _regionInfo[i].add(_inst.getTransition(i));
+	  _regionInfo[i].add(new Double( _inst.getRestFrequency(i) ));
+	  _regionInfo[i].add(new Double( _inst.getCentreFrequency(i) ));
+	  _regionInfo[i].add(new Double( _inst.getBandWidth(i) ));
+	  // Get the overlap and overlap based on the current b/w
+	  for ( int j=0; j<availableBandWidths.length; j++) {
+	      if ( availableBandWidths[j] == _inst.getBandWidth(i) ) {
+		  double overlap = currentBandSpec.defaultOverlaps[j];
+		  int channels = currentBandSpec.getDefaultOverlapChannels()[j];
+	          int resolution = (int) Math.rint( (_inst.getBandWidth(i) * 1.0E-3)/channels );
+		  _regionInfo[i].add(new Integer(resolution));
+		  _regionInfo[i].add(new Double( currentBandSpec.defaultOverlaps[j] *1.0E-6 ));
+		  _regionInfo[i].add(new Integer(channels));
+		  _inst.setOverlap( overlap, i );
+		  _inst.setChannels( channels, i );
+		  break;
+	      }
+	  }
+	  _regionInfo[i].add(new Integer( _inst.getChannels(i) ));
+       }
+   }
+
+   private void configureFrequencyEditor() {
+       // First get the current bandspec from the mode selection
+       Vector bandSpecs = _receiver.bandspecs;
+       BandSpec currentBandSpec = (BandSpec)bandSpecs.get(0);
+       for ( int i=0; i<bandSpecs.size(); i++ ) {
+	   if ( ((BandSpec)bandSpecs.get(i)).toString().equals(_inst.getBandMode()) ) {
+	       currentBandSpec = (BandSpec)bandSpecs.get(i);
+	       break;
+	   }
+       }
+
+       int subbandCount = currentBandSpec.numBands;
+       int mixerCount = 1;
+       try {
+          mixerCount = Integer.parseInt( _inst.getMixer() );
+       }
+       catch ( NumberFormatException nfe ) {
+       }
+
+       _frequencyEditor.updateDisplay (
+	       _inst.getFrontEnd(),
+	       _receiver.loMin,
+	       _receiver.loMax,
+               _receiver.feIF,
+	       _receiver.bandWidth,
+	       mixerCount,
+	       getRedshift(),
+	       currentBandSpec.getDefaultOverlapBandWidths(),
+	       currentBandSpec.getDefaultOverlapChannels(),
+	       subbandCount
+	       );
+
+
+       for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
+	   // Set the centre frequencies
+	   _frequencyEditor.setCentreFrequency( _inst.getCentreFrequency(i), i);
+	   _frequencyEditor.setBandWidth( _inst.getBandWidth(i), i );
+	   _frequencyEditor.setLineText( _inst.getMolecule(i) +
+		   " " + _inst.getTransition(i) +
+		   " " + (_inst.getRestFrequency(i)/1.0E6), i);
+       }
+	   
+       // Configure the frequency editor
+       _frequencyEditor.resetModeAndBand( _inst.getMode(), _inst.getBand() );
+
+       // Need to deal with LO1...
+       double obsFreq = _inst.getRestFrequency(0) / ( 1.0 + getRedshift() );
+       String band = _inst.getBand();
+       if ( "best".equals(band) || "usb".equals(band) ) {
+	   _frequencyEditor.setLO1( obsFreq - _frequencyEditor.getTopSubSystemCentreFrequency() );
+       }
+       else {
+	   _frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
+       }
+       _frequencyEditor.setMainLine ( _inst.getRestFrequency(0) );
+    }
+
+   private void getFrequencyEditorConfiguration() {
+       Vector [] configs = _frequencyEditor.getCurrentConfiguration();
+       for ( int i=0; i<configs.length; i++ ) {
+	   _inst.setMolecule( configs[i].get(0).toString(), i );
+	   _inst.setTransition ( configs[i].get(1).toString(), i );
+	   _inst.setRestFrequency( configs[i].get(2).toString(), i );
+	   _inst.setCentreFrequency( configs[i].get(3).toString(), i );
+	   _inst.setBandWidth( configs[i].get(4).toString(), i );
+	   _inst.setChannels( Integer.parseInt(configs[i].get(5).toString()), i );
+       }
+
    }
 
 
-   private void _updateBandWidthChoice(double [] values) {
-      _w.bandWidthChoice.removeActionListener(this);
-      int selectedIndex = _w.bandWidthChoice.getSelectedIndex();
-      _w.bandWidthChoice.removeAllItems();
+   private void enableNamedWidgets(boolean enabled) {
+       // Disable all named widgets except the hide button on the bPanel
+       Iterator iter;
 
-      for(int i = 0; i < values.length; i++) {
-         _w.bandWidthChoice.addItem("" + (Math.rint(values[i] * 1.0E-6) ) );
-      }
+       iter = feWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   toggleEnabled( _w.feSelector, (String)iter.next(), enabled);
+       }
+       iter = modeWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   toggleEnabled( _w.modeSelector, (String)iter.next(), enabled);
+       }
+       iter = regionWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   toggleEnabled( _w.regionSelector, (String)iter.next(), enabled);
+       }
+       iter = mixerWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   toggleEnabled( _w.mixerSelector, (String)iter.next(), enabled);
+       }
+       iter = sidebandWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   toggleEnabled( _w.sbSelector, (String)iter.next(), enabled);
+       }
 
-      if(selectedIndex > -1) {
-        _w.bandWidthChoice.setSelectedIndex(selectedIndex);
-      }
-
-      _w.bandWidthChoice.addActionListener(this);
-   }
-
-   public void _updateVelocityTextField(String velocityDefinition) {
-       if (_instHeterodyne.getRefFrameVelocity() == 0.0) {
-	   double velocityOrRedshift = SpInstHeterodyne.convertRedshiftTo(velocityDefinition, redshift);
-
-	   if(velocityDefinition.equals(SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT)) {
-	       _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E9) / 1.0E9));
+       iter = freqPanelWidgetNames.keySet().iterator();
+       while ( iter.hasNext() ) {
+	   // Keep the Accept button disabled...
+	   String widget = (String) iter.next();
+	   if ( widget.equalsIgnoreCase("accept") && enabled ) {
+	       // Do nothing since we don't want to enable it
 	   }
 	   else {
-	       _w.velocity.setText("" + (Math.rint(velocityOrRedshift * 1.0E3) / 1.0E3));
+	       toggleEnabled( _w.fPanel, widget, enabled );
+	   }
+       }
+
+       _w.bandwidths.setEnabled(enabled);
+
+       // Finally deal with the show and hide buttons
+       for ( int i=0; i<_w.bPanel.getComponentCount(); i++ ) {
+	   String widget = _w.bPanel.getComponent(i).getName();
+	   if ( widget != null ) {
+	       if ( widget.equals("show") ) toggleEnabled( _w.bPanel, widget, enabled );
+	       if ( widget.equals("hide") ) toggleEnabled( _w.bPanel, widget, (!enabled) );
+	   }
+       }
+
+       if ( enabled ) {
+	   // Disable anything that should not be available
+	   setAvailableModes();
+	   setAvailableMixers();
+	   setAvailableRegions();
+	   setAvailableMolecules();
+	   setAvailableTransitions();
+	   setAvailableSidebands();
+       }
+
+   }
+
+   private void checkSideband( ) {
+       double freq = _inst.getRestFrequency(0);
+       
+       // Convert to sky frequency
+       freq = freq / (1.0 + getRedshift() );
+
+       String sideband = _inst.getBand();
+
+       if ( "lsb".equals(sideband) ) {
+	   if ( (freq + _frequencyEditor.getTopSubSystemCentreFrequency()) > _receiver.loMax ) {
+	       JOptionPane.showMessageDialog( _w,
+		       "Using upper sideband in order to reach line.",
+		       "Changing Sideband!",
+		       JOptionPane.WARNING_MESSAGE);
+	       _inst.setBand("usb");
 	   }
        }
        else {
-	   _w.velocity.setText(""+_instHeterodyne.getRefFrameVelocity() );
+	   if ( (freq - _frequencyEditor.getTopSubSystemCentreFrequency()) < _receiver.loMin ) {
+	       JOptionPane.showMessageDialog( _w,
+		       "Using lower sideband in order to reach line.",
+		       "Changing Sideband!",
+		       JOptionPane.WARNING_MESSAGE);
+	       _inst.setBand("lsb");
+	   }
        }
-       _w.velocity.setCaretPosition(0);
    }
 
-   public double getRedshift() {
-      return redshift;
+   private void _doVelocityChecks() throws Exception {
+       double obsmin = _receiver.loMin - _receiver.feIF -
+	   ( _receiver.bandWidth * 0.5 );
+       obsmin *= ( 1.0 + getRedshift() );
+       double obsmax = _receiver.loMin + _receiver.feIF +
+	   ( _receiver.bandWidth * 0.5 );
+       obsmax *= ( 1.0 + getRedshift() );
+
+       if ( ((Vector)_lineCatalog.returnSpecies(obsmin, obsmax)).size() < 1 ) {
+	   String message = "Specified velocity results in frequency range that exceeds the line catalog, " +
+	       "\nEither change the front end or change the velocity of the target";
+
+	   JOptionPane.showMessageDialog (
+		   _w,
+		   message,
+		   "Invalid Velocity!",
+		   JOptionPane.ERROR_MESSAGE);
+	   throw new Exception ("Invalid velocity");
+       }
    }
-
-   // See edfreq.HeterodyneEditor for documentation
-   public double getRestFrequency(int subsystem) {
-      return EdFreq.getRestFrequency(sideBandDisplay.getLO1(),
-                                     _instHeterodyne.getCentreFrequency(subsystem),
-                                     _instHeterodyne.getRedshift(),
-                                     _instHeterodyne.getBand());
-   }
-
-   // See edfreq.HeterodyneEditor for documentation
-   public double getObsFrequency(int subsystem) {
-      return EdFreq.getObsFrequency(sideBandDisplay.getLO1(),
-                                    _instHeterodyne.getCentreFrequency(subsystem),
-                                    _instHeterodyne.getBand());
-   }
-
-
-  /** Get receiver's central IF. */
-  public double getFeIF() {
-    return ((Receiver)cfg.receivers.get(currentFE)).feIF;
-  }
-
-
-  public void updateCentreFrequency(double centre, int subsystem) {
-    if(!_ignoreSpItem) {
-      _instHeterodyne.setCentreFrequency(centre, subsystem);
-
-//      // If the centre frequency of the top system is updated then the lo1 is
-//      // adjusted as well (unless the adjustment was done wiht the right mouse button)
-//      if(subsystem == 0) {
-//        _instHeterodyne.setCentreFrequency(centre, subsystem);
-//      }
-    }
-  }
-
-  public void updateBandWidth(double width, int subsystem) {
-    _instHeterodyne.setBandWidth(width, subsystem);
-
-    // Find the overlap asscoiated with this bandWidth
-    BandSpec currentBandSpec = (BandSpec)_w.feBandModeChoice.getSelectedItem();
-    double [] defOverlaps    =  currentBandSpec.getDefaultOverlapBandWidths();
-    int index = 0;
-    for(int i = 0; i < defOverlaps.length; i++) {
-      if(defOverlaps[i] == width) {
-        index = i;
-	break;
-      }
-    }
-
-    _instHeterodyne.setOverlap(currentBandSpec.defaultOverlaps[index], subsystem);
-
-    if(subsystem == 0) {
-      _ignoreEvents = true;
-      _w.bandWidthChoice.setSelectedItem("" + Math.rint(width * 1.0E-6) );
-
-      // Re-centre band on line
-      _resetTransition();
-      _ignoreEvents = false;
-    }
-  }
-
-  public void updateChannels(int channels, int subsystem) {
-    // If the subsystem is the top subsystem (subsystem 0)
-    // then update the resolution display.
-    if(subsystem == 0) {
-      int topSubSystemResolution = (int) ( 1.0E-3 * _instHeterodyne.getBandWidth(0) / (double)channels );
-      if (((String)_w.feMixers.getSelectedItem()).startsWith("Dual")) {
-	  topSubSystemResolution = 2*topSubSystemResolution;
-      }
-      _w.resolution.setText("" + topSubSystemResolution);
-    }
-
-    if(!_ignoreSpItem) {
-      _instHeterodyne.setChannels(channels, subsystem);
-    }
-  }
-
-  public void updateLineDetails(LineDetails lineDetails, int subsystem) {
-    if(_ignoreSpItem) {
-       return;
-    }
-
-    if(lineDetails == null) {
-      _instHeterodyne.setMolecule(NO_LINE, subsystem);
-      _instHeterodyne.setTransition(NO_LINE, subsystem);
-      _instHeterodyne.setRestFrequency(getRestFrequency(subsystem), subsystem);
-    }
-    else {
-      // Note that the top subsystem's line details are set in this
-      // EdCompInstHeterodyne editor.
-      if(subsystem != 0) {
-        _instHeterodyne.setMolecule(lineDetails.name, subsystem);
-        _instHeterodyne.setTransition(lineDetails.transition.trim(), subsystem);
-        _instHeterodyne.setRestFrequency(lineDetails.frequency * 1.0E6, subsystem);
-      }
-    }
-
-    if((subsystem == 0) && (lineDetails == null)) {
-      _ignoreEvents = true;
-      _w.moleculeChoice.setSelectedItem(NO_LINE);
-      _w.transitionChoice.setSelectedItem(NO_LINE + " ");
-      _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E9));
-      _ignoreEvents = false;
-    }
-
-  }
-
-  public void updateLO1(double lo1) {
-    _ignoreEvents = true;
-    _w.moleculeChoice.setSelectedItem(NO_LINE);
-    _w.transitionChoice.setSelectedItem(NO_LINE + " ");
-    _w.moleculeFrequency.setText("" + (getRestFrequency(0) / 1.0E9));
-    _ignoreEvents = false;
-
-    for(int i = 0; i < sideBandDisplay.getNumSubSystems(); i++) {
-      _instHeterodyne.setMolecule(NO_LINE, i);
-      _instHeterodyne.setTransition(NO_LINE, i);
-      _instHeterodyne.setRestFrequency(getRestFrequency(i), i);
-    }
-
-    sideBandDisplay.setMainLine(getRestFrequency(0));
-  }
-
-    public double getCurrentBandwidth ( int subsystem) {
-	if ( _instHeterodyne == null) return 0.0;
-	return _instHeterodyne.getBandWidth(subsystem);
-    }
-
-    private boolean usingFFSwitching(SpItem item) {
-	boolean ffUsed = false;
-
-	// Get the pareant and go through the children looking
-	Enumeration children = item.children();
-	while (children.hasMoreElements() && !ffUsed ) {
-	    SpItem child = (SpItem)children.nextElement();
-	    if ( child instanceof SpIterStareObs ) {
-		if ( IterJCMTGenericGUI.FREQUENCY_F.equals( ((SpIterStareObs)child).getSwitchingMode())) {
-		    ffUsed = true;
-		}
-	    }
-	    else {
-		ffUsed = usingFFSwitching(child);
-	    }
-	}
-	return ffUsed;
-    }
-
-
-    private DefaultComboBoxModel getSpecialConfigsModel () {
-	// The configuration information is defined in the file DASmodes.xml
-	// In this method, we just extract the name of each mode and add it
-	// to the model.
-	final String fileName = "/DASModes.xml";
-	DefaultComboBoxModel model = new DefaultComboBoxModel();
-	model.addElement("None");
-	
-	// Get a handle on the file.
-	File modesFile = new File (System.getProperty("ot.cfgdir")+fileName);
-	if ( !modesFile.exists() ) {
-	    System.out.println( "Error reading DAS modes config file " +modesFile.getName());
-	    return model;
-	}
-	
-	// Construct a document out of the information
-	try {
-	    FileReader reader = new FileReader(modesFile);
-	    char []    buffer = new char [(int)modesFile.length()];
-	    reader.read(buffer);
-	    String buffer_z = new String(buffer);
-	    DOMParser parser = new DOMParser();
-	    parser.setFeature("http://xml.org/sax/features/validation", false);
-	    parser.setFeature("http://apache.org/xml/features/dom/include-ignorable-whitespace", false);
-	    parser.parse(new InputSource(new StringReader(buffer_z)));
-	    doc = parser.getDocument();
-	}
-	catch (SAXNotRecognizedException snre) {
-	    System.out.println ("Unable to ignore white-space text.");
-	}
-	catch (SAXNotSupportedException snse) {
-	    System.out.println ("Unable to ignore white-space text.");
-	}
-	catch (SAXException sex) {
-	    System.out.println ("SAX Exception on parse.");
-	}
-	catch (IOException ioe) {
-	    System.out.println ("IO Exception on parse.");
-	}
-
-	if (doc != null) {
-	    NodeList nl = doc.getElementsByTagName("name");
-	    for ( int j=0; j<nl.getLength(); j++) {
-		String name = nl.item(j).getFirstChild().getNodeValue().trim();
-		model.addElement(name);
-	    }
-	}
-	return model;
-    }
-
-    private ConfigurationInformation getConfigFor (String name) {
-	if ( doc == null) return null;
-	
-	ConfigurationInformation ci = new ConfigurationInformation();
-	// Get the correct config item from the document
-	Node nodeToUse = null;
-	NodeList nl = doc.getElementsByTagName("configuration");
-	for ( int i=0; i< nl.getLength(); i++ ) {
-	    // 
-	    nodeToUse = nl.item(i);
-	    // Get the name associated with this
-	    NodeList children = nodeToUse.getChildNodes();
-	    String nodeName = "none";
-	    for ( int j=0; j< children.getLength(); j++) {
-		Node child = children.item(j);
-		if ( child.getNodeName().equals("name") ) {
-		    nodeName = child.getFirstChild().getNodeValue().trim();
-		    break;
-		}
-	    }
-	    if ( nodeName.equals(name)) {
-		break;
-	    }
-	}
-	// We now have the correct node hopefully, so fill in the ci structure
-	ci.$shifts.clear();
-	if ( nodeToUse != null) {
-	    NodeList children = nodeToUse.getChildNodes();
-	    for (int i=0; i<children.getLength(); i++) {
-		String childName = children.item(i).getNodeName();
-		if ( childName.equals("name") )
-		    ci.$name = children.item(i).getFirstChild().getNodeValue().trim();
-		if ( childName.equals("frontEnd") )
-		    ci.$feName = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
-		if ( childName.equals("sideband") )
-		    ci.$sideBand = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
-		if ( childName.equals("mode") )
-		    ci.$mode = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
-		if ( childName.equals("frequency") )
-		    ci.$freq = new Double ( children.item(i).getFirstChild().getNodeValue().trim() );
-		if ( childName.equals("mixers") )
-		    ci.$mixers = new Integer( children.item(i).getFirstChild().getNodeValue().trim() );
-		if ( childName.equals("systems") )
-		    ci.$subSystems = new Integer (children.item(i).getFirstChild().getNodeValue().trim() );
-		if ( childName.equals("bandwidth") )
-		    ci.$bandWidth = children.item(i).getFirstChild().getNodeValue().trim();
-		if ( childName.equals("shift") )
-		    ci.$shifts.add( new Double ( children.item(i).getFirstChild().getNodeValue().trim() ) );
-	    }
-	}
-	return ci;
-    }
-
-
-  public void changedUpdate(DocumentEvent e) { _velocityChanged = true; }
-  public void insertUpdate(DocumentEvent e)  { _velocityChanged = true; }
-  public void removeUpdate(DocumentEvent e)  { _velocityChanged = true; }
-    public void focusGained(FocusEvent e) {}
-    public void focusLost(FocusEvent e) {}
 
 
     class ConfigurationInformation {
@@ -1770,3 +1477,5 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	}
     }
 }
+
+

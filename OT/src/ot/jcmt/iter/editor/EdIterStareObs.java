@@ -97,7 +97,12 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
 	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
 	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
-	return HeterodyneNoise.getHeterodyneNoise((SpIterStareObs)_iterObs, inst, tau, airmass);
+        if ( "das".equalsIgnoreCase( inst.getBackEnd()) ) {
+            return HeterodyneNoise.getHeterodyneNoise((SpIterStareObs)_iterObs, inst, tau, airmass);
+        }
+        else {
+            return -999.9;
+        }
     }
 
     public void actionPerformed (ActionEvent e) {

@@ -19,6 +19,8 @@ public class EdFreq
 {
    public static double SLIDERSCALE = 1.0E7;
    public static double LIGHTSPEED = 2.99792458E5;
+   public final static int SIDE_BAND_USB = 0;
+   public final static int SIDE_BAND_LSB = 1;
 
    /**
     * Calculates the rest frequency based on observe frequency and redshift.
@@ -84,10 +86,9 @@ public class EdFreq
     * @param obsFrequency observe frequency in GHz
     * @param intermFreq   IF in GHz
     *                     of the sideband (of the backend) in GHz
-    * @param redshift     redshift
     * @param band         lsb (lower side band) vs usb (upperd side band)
     */
-   public static double getLO1(double obsFrequency, double intermFreq, double redshift, String band) {
+   public static double getLO1(double obsFrequency, double intermFreq, String band) {
       if ( band.equals ( "usb" ) || band.equals ("best" ) ) {
          return obsFrequency - intermFreq;
       }

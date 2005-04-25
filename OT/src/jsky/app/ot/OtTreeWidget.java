@@ -393,6 +393,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      * Add all the items relative to the selected item.
      */
     public SpItem[] addItems(SpItem[] newItems) {
+
 	// Figure out which node was selected, if none choose the root node
 	OtTreeNodeWidget destTNW = (OtTreeNodeWidget) getSelectedNode();
 	if (destTNW == null) {
@@ -476,6 +477,13 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
 
         
+	// Make a special case - we can not add a skydip for a ACSIS
+	// heterodyne observation
+	if ( !canAddSkydip (destItem, newItems) ) {
+	    DialogUtil.error(this, "Can not add a skydip to an ACSIS heterodyne observation");
+	    return null;
+	}
+
 	// First see if we can insert the items inside the selected node
 	SpInsertData spID;
 	spID = SpTreeMan.evalInsertInside(newItems, destItem);
@@ -1176,6 +1184,18 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 		}
 	    }
 	}
+    }
+
+    private boolean canAddSkydip (SpItem target, SpItem [] items) {
+	for ( int i=0; i< items.length; i++ ) {
+	    if ( items[i].subtypeStr().equals("skydipObs") ) {
+		SpInstObsComp inst = SpTreeMan.findInstrument( target );
+		if ( inst instanceof SpInstHeterodyne ) {
+		    return false;
+		}
+	    }
+	}
+	return true;
     }
 	    
 }

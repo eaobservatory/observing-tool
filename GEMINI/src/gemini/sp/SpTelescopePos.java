@@ -261,6 +261,9 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
     */
    public static final int CONIC_SYSTEM_EPOCH_PERIH = 23;
 
+   public static final int TRACKING_RV_DEFN = 24;
+   public static final int TRACKING_RV_FRAME = 25;
+
 
    private SpItem    _spItem;
    private SpAvTable _avTab;	// The table that holds this position
@@ -451,6 +454,8 @@ setTag(String newTag)
       String trackEpoch    = _avTab.get(_tag, TRACKING_EPOCH);
       String trackParallax = _avTab.get(_tag, TRACKING_PARALLAX);
       String trackRadialVel= _avTab.get(_tag, TRACKING_RADIAL_VEL);
+      String trackRVDefn   = _avTab.get(_tag, TRACKING_RV_DEFN);
+      String trackRVFrame  = _avTab.get(_tag, TRACKING_RV_FRAME);
 
       _avTab.rm(_tag);
 
@@ -491,8 +496,14 @@ setTag(String newTag)
       if (trackParallax != null) {
          _avTab.set(newTag, trackParallax, TRACKING_PARALLAX);
       }
-      if (trackRadialVel!= null) {
+      if (trackRadialVel != null) {
          _avTab.set(newTag, trackRadialVel, TRACKING_RADIAL_VEL);
+      }
+      if (trackRVDefn != null) {
+         _avTab.set(newTag, trackRVDefn, TRACKING_RV_DEFN);
+      }
+      if (trackRVFrame != null) {
+         _avTab.set(newTag, trackRVFrame, TRACKING_RV_FRAME);
       }
    }
    _notifyOfGenericUpdate();
@@ -891,7 +902,13 @@ getTrackingEpoch()
 {
    String res = _avTab.get(_tag, TRACKING_EPOCH);
    if (res == null) {
-      res = "2000";
+      int trackSystem = getCoordSys();
+      if ( trackSystem == CoordSys.FK4 ) {
+        res = "1950";
+      }
+      else {
+        res = "2000";
+      }
    }
    return res;
 }
@@ -936,7 +953,7 @@ public String
 getTrackingRadialVelocity()
 {
    String res = _avTab.get(_tag, TRACKING_RADIAL_VEL);
-   if (res == null) {
+   if ( res == null || res.equals("") ) {
       res = "0";
    }
    return res;
@@ -950,6 +967,75 @@ setTrackingRadialVelocity(String trackRadialVel)
 {
    _avTab.set(_tag, trackRadialVel, TRACKING_RADIAL_VEL);
    _notifyOfGenericUpdate();
+}
+
+/**
+* Get the tracking radial velocity definition
+*/
+public String getTrackingRadialVelocityDefn() {
+    String res = _avTab.get( _tag, TRACKING_RV_DEFN );
+    if ( res == null || res.equals("") ) {
+      res="radio";
+    }
+    return res;
+}
+
+/**
+ * Set the tracking radial velocity definition.
+ */
+public void
+setTrackingRadialVelocityDefn(String val)
+{
+   _avTab.set(_tag, val, TRACKING_RV_DEFN );
+   _notifyOfGenericUpdate();
+}
+
+/**
+* Get the tracking radial velocity frame
+*/
+public String getTrackingRadialVelocityFrame() {
+    String res = _avTab.get( _tag, TRACKING_RV_FRAME );
+    if ( res == null || res.equals("") ) {
+      res="LSR";
+    }
+    return res;
+}
+
+/**
+ * Set the tracking radial velocity frame.
+ */
+public void
+setTrackingRadialVelocityFrame(String val)
+{
+   _avTab.set(_tag, val, TRACKING_RV_FRAME );
+   _notifyOfGenericUpdate();
+}
+
+/**
+  * Get the current velocity as a redshift
+  */
+public double getRedshift() {
+    double redshift = 0.0;
+    double c = 2.99792458E5;
+
+    String vDef   = getTrackingRadialVelocityDefn();
+    String vFrame = getTrackingRadialVelocityFrame();
+    double v      = Double.parseDouble( getTrackingRadialVelocity() );
+
+    if ( vDef.equalsIgnoreCase("radio") ) {
+	redshift = ( c / (c - v) ) - 1.0;
+    }
+    else if ( vDef.equalsIgnoreCase("optical") ) {
+	redshift = v/c;
+    }
+    else if ( vDef.equalsIgnoreCase("relativistic") ) {
+	redshift = Math.sqrt ( (c - v)/(c + v) ) - 1.0;
+    }
+    else {
+	redshift = v;
+    }
+
+    return redshift;
 }
 
 /**

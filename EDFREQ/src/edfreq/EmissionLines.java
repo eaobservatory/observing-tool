@@ -42,6 +42,7 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    private double halfrange;
    private double restHalfrange;
    private LineDetails [] lineStore;
+   private LineDetails [] altLineStore;
    private LineCatalog lineCatalog;
    private Image buffer = null;
    private Graphics ig;
@@ -58,6 +59,10 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    private double redshift;
    private double restLowLimit;
    private double restHighLimit;
+
+   public static int FREQUENCY_DISPLAY=1;
+   public static int VELOCITY_DISPLAY=0;
+   private int _currentDisplayMode = FREQUENCY_DISPLAY;
 
 
    public EmissionLines ( double lowLimit, 
@@ -110,6 +115,41 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
       }
    }
 
+   /**
+     * Get lines in the alternate sideband.  Only used for velocity space.
+     * Whether or nore these lines are drawn is dependent of the current display
+     * mode
+     */
+   public void showAlternateSideband ( int currentSideband, double feIF ) {
+       altLineStore = new LineDetails[xSize];
+       if ( lineCatalog == null ) {
+           try {
+               lineCatalog = LineCatalog.getInstance();
+           }
+           catch (Exception e) {
+               e.printStackTrace();
+               return;
+           }
+       }
+       // Initialise all elements
+       for ( int j=0; j<xSize; j++) {
+           altLineStore[j] = null;
+       }
+
+       // Calculate the frequency limits
+       double altLowLimit, altHighLimit;
+       if ( currentSideband == EdFreq.SIDE_BAND_LSB ) {
+           altLowLimit = 2.0*feIF + lowLimit;
+           altHighLimit = 2.0*feIF + highLimit;
+       }
+       else {
+           altLowLimit = lowLimit - 2.0*feIF;;
+           altHighLimit = highLimit - 2.0*feIF;
+       }
+
+       lineCatalog.returnLines( altLowLimit, altHighLimit, xSize, altLineStore );
+   }
+
 
    public void setRedshift ( double redshift )
    {
@@ -123,6 +163,8 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
 
    public void paintComponent ( Graphics g )
    {
+      super.paintComponent(g);
+
       int j;
 
       if ( buffer == null )
@@ -165,6 +207,15 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
          ig.drawLine ( popupLinePos, 0, popupLinePos, ySize );
       }
 
+      if ( _currentDisplayMode == VELOCITY_DISPLAY && altLineStore != null ) {
+          ig.setColor ( Color.blue );
+          for ( int i=0; i<altLineStore.length; i++ ) {
+              if ( altLineStore[i] != null ) {
+                  ig.drawLine(i, 0, i, ySize);
+              }
+          }
+      }
+
       g.drawImage ( buffer, 0, 0, null );
    }
 
@@ -202,6 +253,20 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
             item.addChangeListener(this);
 	    popup.add(item);
 	 }
+      }
+
+      if ( _currentDisplayMode == VELOCITY_DISPLAY ) {
+          for (int i=j - range; i<= j+range; i++ ) {
+              if ( i >= 0 && i < altLineStore.length && altLineStore[i] != null ) {
+                  item = new JMenuItem ( altLineStore[i].name + " " +
+                          altLineStore[i].transition + " " +
+                          altLineStore[i].frequency/1.0E3);
+                  popupLineTable.put(item, altLineStore[i]);
+                  popupLinePosTable.put(item, new int[]{ i });
+                  item.addChangeListener(this);
+                  popup.add(item);
+              }
+          }
       }
 
       if(popup != null) {
@@ -272,10 +337,15 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
 
       lineCatalog.returnLines ( lowLimit, highLimit, xSize, lineStore );
 
-      if ( ( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit ) )
+      if ( (( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit )) ||  _currentDisplayMode == VELOCITY_DISPLAY )
       {
-         mainLinePos = (int) ( ((double)xSize) * 
-                 ( mainLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+         if ( _currentDisplayMode == FREQUENCY_DISPLAY ) {
+             mainLinePos = (int) ( ((double)xSize) * 
+                     ( mainLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+         }
+         else {
+             mainLinePos = xSize/2;
+         }
       }
       else
       {
@@ -310,10 +380,15 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    {
       mainLineFreq = frequency;
 
-      if ( ( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit ) )
+      if ( (( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit )) || _currentDisplayMode == VELOCITY_DISPLAY )
       {
-         mainLinePos = (int) ( ((double)xSize) * 
-                 ( mainLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+          if ( _currentDisplayMode == FREQUENCY_DISPLAY ) {
+              mainLinePos = (int) ( ((double)xSize) * 
+                      ( mainLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+          }
+          else {
+              mainLinePos = xSize/2;
+          }
       }
       else
       {
@@ -341,7 +416,57 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
 
    }
 
+   public void setDisplayMode( int displayMode ) {
+       if ( displayMode == _currentDisplayMode ) return;
+
+       switch (displayMode) {
+           case 1: // Frequency display
+               _currentDisplayMode = FREQUENCY_DISPLAY;
+               updateLines();
+               repaint();
+               break;
+           case 0:  // Velocity display
+               _currentDisplayMode = VELOCITY_DISPLAY;
+               updateLines();
+               repaint();
+               break;
+           default:
+               // Do nothing
+       }
+       updateLines();
+       repaint();
+   }
+
    public LineDetails getSelectedLine() {
       return selectedLine;
+   }
+
+   /*
+   public String toString() {
+       StringBuffer sb = new StringBuffer();
+       sb.append("[EmissionLine - \n");
+       sb.append("\tlowLimit = " + lowLimit + "\n");
+       sb.append("\thighLimit = " + lowLimit + "\n");
+       sb.append("\tmainLineFreq = " + mainLineFreq + "\n");
+       sb.append("\t[lineDetails -\n");
+       for ( int i=0; i<lineStore.length; i++ ) {
+	   sb.append("\t\tname=" + lineStore[i].name + " transition=" + lineStore[i].transition + " frequency=" + lineStore[i].frequency + "\n");
+       }
+       sb.append("\t]\n");
+       sb.append("]");
+       return sb.toString();
+   }
+   */
+
+   public static void main ( String [] args ) {
+       EmissionLines el = new EmissionLines(3.651E+11, 3.749E+11, 0, 800, 20, 1);
+       el.setMainLine(3.69498216E+11);
+
+       JFrame frame = new JFrame("EmissionLine Display");
+       frame.setResizable(false);
+       frame.getContentPane().add(el);
+       frame.setLocation(100, 100);
+       frame.pack();
+       frame.setVisible(true);
    }
 }

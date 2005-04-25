@@ -21,11 +21,15 @@ import jsky.app.ot.editor.OtItemEditor;
 
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetExt;
+import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
+import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA;
@@ -37,13 +41,21 @@ import orac.jcmt.util.ScubaNoise;
  * 
  * @author modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterJiggleObs extends EdIterJCMTGeneric {
+public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandButtonWidgetWatcher {
 
   private IterJiggleObsGUI _w;       // the GUI layout panel
 
   private SpIterJiggleObs _iterObs;
 
   private String [] _noJigglePatterns = { "No Instrument in scope." };
+
+  // Over-ride the switching modes since only beam and 
+  // frequency will initially be offered by ACSIS
+  protected static String [] SWITCHING_MODES = {
+      SpJCMTConstants.SWITCHING_MODE_BEAM,
+      SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S,
+      SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F,
+      SpJCMTConstants.SWITCHING_MODE_NONE };
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -57,7 +69,14 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
 
     //_w.jigglePattern.setChoices(SpIterJiggleObs.JIGGLE_PATTERNS);
 
+    _w.coordSys.setChoices(SpIterJiggleObs.JIGGLE_SYSTEMS);
+
     _w.jigglePattern.addWatcher(this);
+    _w.scaleFactor.addWatcher(this);
+    _w.contModeCB.addWatcher(this);
+    _w.defaultButton.addWatcher(this);
+    _w.paTextBox.addWatcher(this);
+    _w.coordSys.addWatcher(this);
   }
 
   /**
@@ -92,14 +111,41 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
       if(!jigglePatternSet) {
         _iterObs.setJigglePattern((String)_w.jigglePattern.getValue());
       }
+
+      if ( instObsComp instanceof SpInstHeterodyne ) {
+	  if ( _iterObs.getSwitchingMode() == null ) {
+	      _iterObs.setSwitchingMode(SpJCMTConstants.SWITCHING_MODE_NONE );
+	  }
+	  _w.contModeCB.setSelected ( _iterObs.isContinuum() );
+	  _w.scaleFactor.setValue (_iterObs.getScaleFactor());
+      }
     }
     else {
       _w.jigglePattern.setChoices(_noJigglePatterns);
       _iterObs.setJigglePattern("");
     }
 
+    _w.paTextBox.setValue(_iterObs.getPosAngle());
+    _w.coordSys.setValue(_iterObs.getCoordSys());
+
     super._updateWidgets();
   }
+
+  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+
+    if(tbwe == _w.paTextBox) {
+      _iterObs.setPosAngle(tbwe.getValue());
+      return;
+    }
+
+    if ( tbwe == _w.scaleFactor ) {
+	_iterObs.setScaleFactor( tbwe.getDoubleValue(1.0) );
+	return;
+    }
+
+    super.textBoxKeyPress(tbwe);
+  }
+
 
   public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
     if(ddlbwe == _w.jigglePattern) {
@@ -107,17 +153,42 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric {
       return;
     }
 
+    if(ddlbwe == _w.coordSys) {
+      _iterObs.setCoordSys(val);
+      return;
+    }
+
     super.dropDownListBoxAction(ddlbwe, index, val);
+  }
+
+  public void checkBoxAction ( CheckBoxWidgetExt cbwe ) {
+      if ( cbwe == _w.contModeCB ) {
+	  _iterObs.setContinuumMode ( _w.contModeCB.isSelected() );
+      }
+
+      super.checkBoxAction( cbwe );
+  }
+
+  public void commandButtonAction ( CommandButtonWidgetExt cbwe ) {
+      if ( cbwe == _w.defaultButton ) {
+	  _iterObs.setAcsisDefaults ();
+      }
+
+     _updateWidgets();
   }
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
     super.setInstrument(spInstObsComp);
 
     if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-      //_w.switchingMode.setValue(SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-      //((CardLayout)_w.switchingModePanel.getLayout()).show(_w.switchingModePanel, SWITCHING_MODES[SWITCHING_MODE_CHOP]);
-      //_w.switchingMode.setEnabled(false);
-      _w.acsisPanel.setVisible(true);
+	_w.switchingMode.setChoices(SWITCHING_MODES);
+        if ( _iterObs == null ) {
+            _w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
+        }
+        else {
+            _w.switchingMode.setValue( _iterObs.getSwitchingMode() );
+        }
+        _w.acsisPanel.setVisible(true);
     }
     else {
       //_w.switchingMode.setEnabled(true);

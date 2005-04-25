@@ -47,6 +47,11 @@ public class OracUtilities {
 
   public static String secsToHHMMSS(double seconds, int decimalPlaces) {
     String fullString       = secsToHHMMSS(seconds);
+
+    if(fullString.lastIndexOf('.') < 0) {
+      fullString += ".0";
+    }
+
     String result           = fullString.substring(0, fullString.lastIndexOf('.'));
     String decimalPlacesStr = fullString.substring(fullString.lastIndexOf('.'));
 

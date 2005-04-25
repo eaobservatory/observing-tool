@@ -21,6 +21,22 @@ public class BandSpec
    /**
     * Array of bandwidths.
     *
+    *
+    * <h3>Terminology</h3>
+    * <ul>
+    *   <li><b>subsystem vs subband</b><br>
+    *   A subsystem is made up of one (non-hybrid mode) or more (hybrid mode) subbands.
+    *   <li><b>subsystem</b><br>
+    *   Corresponds to one row in the OT's frequency editor.
+    *   <li><b>subband</b><br>
+    *   Corresponds to the hardware.
+    *   <li><b>Hybrid subsystem</b><br>
+    *   A subsystem that is made up of more than one subbands (hybrid mode).
+    *   <li><b>Hybrid subband</b><br>
+    *   This might be a bit confusing. A "Hybrid subband" is an
+    *   individual subband that contributes to a hybrid subsystem (hybrid mode).
+    * </ul>
+    *
     * The array contains the combined bandwidths based on 0 overlap,
     * i.e. a bandwidth in this array is the sum of the bandwidths of
     * one or more individual hybrid subbands (assuming no overlap).
@@ -84,19 +100,31 @@ public class BandSpec
    /**
     * Get the array of bandwidths narrowed according to the specified overlap.
     *
-    * Each bandwidth has a number of hybrid subbands asscoiated with it. If this number is 1 then
-    * this particular bandwidth will be uneffected by the overlap. Otherwise it will be narrowed due
-    * to the overlap. The formula is
+    * Each bandwidth has a number of hybrid subbands asscoiated with it. This number can be 1
+    * in which case the respective subsystem is not hybrid.
+    *
+    * The overlap value is used twice:
+    * <ol>
+    *   <li>amount of overlap of two adjacent hybrid subbands
+    *   <li>1/2 overlap is removed on either side of the band
+    * </ol>
+    *
+    * The latter means that even if there is only a single subband than this will
+    * still be reduced by the overlap in the returned array.<p>
+    *
+    * The formula used is
     * <blockquote><tt>
     *   combined_bandwidth<sub>overlap</sub> =
     *     combined_bandwidth<sub>no_overlap</sub> -
-    *       ((number<sub>hybrid_subbands</sub> - 1) * overlap)
+    *       (number<sub>hybrid_subbands</sub> * overlap)
     * </tt></blockquote>
     *
     * Each bandwidth in the {@link #bandWidths} field of this class is used as a
     * <tt>combined_bandwidth<sub>no_overlap</sub></tt> in the above calculation.
     *
-    * The calculation is done for each bandwidth and the results are returned as an array.
+    * The calculation is done for each bandwidth and the results are returned as an array.<p>
+    *
+    * <b>The resulting bandwidth values are rounded to kHz.</b>
     *
     * @see #getDefaultOverlapBandWidths()
     */
@@ -104,7 +132,9 @@ public class BandSpec
       double [] result = new double[bandWidths.length];
 
       for(int i = 0; i < bandWidths.length; i++) {
-	 result[i] = bandWidths[i] - ((numHybridSubBands[i] - 1) * overlap);
+	 result[i] = bandWidths[i] - (numHybridSubBands[i] * overlap);
+
+         result[i] = Math.rint(result[i] / 1.0E3) * 1.0E3;
       }
 
       return result;
@@ -123,6 +153,8 @@ public class BandSpec
 
       for(int i = 0; i < bandWidths.length; i++) {
 	 result[i] = bandWidths[i] - (numHybridSubBands[i] * defaultOverlaps[i]);
+
+         result[i] = Math.rint(result[i] / 1.0E3) * 1.0E3;
       }
 
       return result;
@@ -158,5 +190,45 @@ public class BandSpec
     */
    public int getNumHybridSubBands(int bandWidthIndex) {
       return numHybridSubBands[bandWidthIndex];
+   }
+
+
+   /**
+    * Index of this overlap bandwidth.
+    *
+    * The method is useful if a bandwidth which is reduced by some overlap is given
+    * and the channel number (with or without overlap) or the original bandwidth are
+    * needed. Using the returned index these can be accessed via other methods and fields.
+    */
+   public int getDefaultOverlapBandWidthIndex(double defaultOverlapBandWidth) {
+      double [] allDefaultOverlapBandWidths = getDefaultOverlapBandWidths();
+
+      for(int i = 0; i < allDefaultOverlapBandWidths.length; i++) {
+         if(allDefaultOverlapBandWidths[i] == defaultOverlapBandWidth) {
+            return i;
+         }
+      }
+
+      throw new IllegalStateException("Could not find subsystem with default overlap bandwith " + defaultOverlapBandWidth);
+   }
+
+
+   /**
+    * Index of these number of channels which are reduced according to an overlap.
+    *
+    * The method is useful if a number of channels which is reduced by some overlap is given
+    * and the bandwidth (with or without overlap) or the original number of channels are
+    * needed. Using the returned index these can be accessed via other methods and fields.
+    */
+   public int getDefaultOverlapChannelsIndex(int defaultOverlapChannels) {
+      int [] allDefaultOverlapChannels = getDefaultOverlapChannels();
+
+      for(int i = 0; i < allDefaultOverlapChannels.length; i++) {
+         if(allDefaultOverlapChannels[i] == defaultOverlapChannels) {
+            return i;
+         }
+      }
+
+      throw new IllegalStateException("Could not find subsystem with default overlap number of channels " + defaultOverlapChannels);
    }
 }

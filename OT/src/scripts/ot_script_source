@@ -18,6 +18,7 @@ set INTERNAL_FRAMES = -nointernalframes
 set OMP_FLAG = "" 
 #set EDFREQ_CFG = "edfreq/acsisCfg.xml"
 set EDFREQ_CFG = "edfreq/dasCfg.xml"
+set DISALLOW_MULTI_BW_PROP = ""
 set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-[no]omp] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
  
 ############################## 
@@ -59,6 +60,10 @@ if("${TELESCOPE}" == "") then
   exit 
 endif 
 
+if("${EDFREQ_CFG}" == "edfreq/acsisCfg.xml") then
+  set DISALLOW_MULTI_BW_PROP = "-DDISALLOW_MULTI_BW"
+endif
+
 echo Settings:
 
 echo "  Telescope:       ${TELESCOPE}"
@@ -90,5 +95,5 @@ endif
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
  
-${JAVA} -ms5m -mx100m -oss5m -DFREQ_EDITOR_CFG=${EDFREQ_CFG} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -DTELESCOPE=${TELESCOPE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
+${JAVA} -ms5m -mx100m -oss5m ${DISALLOW_MULTI_BW_PROP} -DFREQ_EDITOR_CFG=${EDFREQ_CFG} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
 

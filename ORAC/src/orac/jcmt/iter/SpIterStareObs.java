@@ -104,14 +104,14 @@ public double getElapsedTime() {
     public void setupForHeterodyne() {
 	if (_avTable.get(ATTR_SWITCHING_MODE) == null ||
 	    _avTable.get(ATTR_SWITCHING_MODE).equals(""))
-	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, SWITCHING_MODE_CHOP, 0);
 	if (_avTable.get(ATTR_SECS_PER_CYCLE) == null ||
 	    _avTable.get(ATTR_SECS_PER_CYCLE).equals(""))
 	    _avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
 // 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
-	if (_avTable.get(ATTR_CONT_CAL) == null ||
-	    _avTable.get(ATTR_CONT_CAL).equals(""))
-	    _avTable.set(ATTR_CONT_CAL, true);
+//	if (_avTable.get(ATTR_CONT_CAL) == null ||
+//	    _avTable.get(ATTR_CONT_CAL).equals(""))
+//	    _avTable.set(ATTR_CONT_CAL, true);
 // 	if (_avTable.get(ATTR_CYCLE_REVERSAL) == null ||
 // 	    _avTable.get(ATTR_CYCLE_REVERSAL).equals(""))
 // 	    _avTable.set(ATTR_CYCLE_REVERSAL, true);
@@ -125,6 +125,15 @@ public double getElapsedTime() {
 // 	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
     }
 
+    public String [] getSwitchingModeOptions() {
+        return new String [] {
+            SWITCHING_MODE_BEAM,
+            SWITCHING_MODE_POSITION,
+            SWITCHING_MODE_FREQUENCY_S,
+            SWITCHING_MODE_FREQUENCY_F,
+            SWITCHING_MODE_NONE 
+        };
+    }
 }
 
 

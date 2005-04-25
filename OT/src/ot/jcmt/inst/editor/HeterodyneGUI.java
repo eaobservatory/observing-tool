@@ -13,6 +13,7 @@ package ot.jcmt.inst.editor;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.BoxLayout;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,431 +26,501 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.Insets;
 
+import edfreq.FrequencyEditorCfg;
+
 /**
  * This GUI class is based on the GUI part of the edfreq.FrontEnd class which is not used anymore.
  *
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class HeterodyneGUI extends JPanel {
+    
+    // Get the front end configuration
+    private static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
 
-  JComboBox feChoice;
-  JComboBox feBandModeChoice;
-  private String currentFE = "";
-  private JPanel fePanel;
-  private JPanel displayPanel;
-  private JPanel overlapBandwidthPanel;
-  private JPanel velocityPanel;
-  private JPanel warningPanel;
-//  private JPanel rangePanel;
-//  private Box linePanel;
-  private JPanel mol1Panel;
-  private JPanel mol2Panel;
-  private JPanel northPanel;
-  private JPanel southPanel;
-  JLabel lowFreq;
-  JLabel highFreq;
-  JTextField velocity;
-  JComboBox velocityDefinition;
-  JComboBox velocityFrame;
-  JTextField overlap;
-  JComboBox feBand;
-  JComboBox feMode;
-  JComboBox moleculeChoice;
-  JComboBox moleculeChoice2;
-  JTextField moleculeFrequency;
-  JTextField moleculeFrequency2;
-  JComboBox transitionChoice;
-  JComboBox transitionChoice2;
-  JComboBox bandWidthChoice;
-  JLabel resolution;
-    JButton acceptVF = new JButton ("Accept Values");
-  JButton freqEditorButton = new JButton("Show Frequency Editor");
-  JButton hideFreqEditorButton = new JButton("Hide Frequency Editor");
-  JLabel label = null;
+    /** Available sideband modes */
+    public static final String [] SIDEBAND_MODES= {"ssb", "dsb"};
 
-  private FlowLayout flowLayoutLeft  = new FlowLayout(FlowLayout.LEFT);
-  private FlowLayout flowLayoutRight = new FlowLayout(FlowLayout.RIGHT);
-  // Changed to avoid security exception in applet.
-  private String defaultStoreDirectory = ".;"; //System.getProperty("user.dir");
-  private boolean editFlag = false;
+    /** Subsytems available */
+    public static final String [] SUBSYSTEMS = {"1", "2", "4"};
 
-  // Commented out to avoid security exception in applet.
-  // private JFileChooser fileChooser = new JFileChooser ( );
+    /** Number of mixers */
+    public static final String [] MIXERS = {"1", "2"};
 
-  //private JButton sideBandButton = new JButton("Show Side Band Display");
+    /** Sideband choices */
+    public static final String [] SIDEBAND_SELECTIONS = {"best", "usb", "lsb"};
 
-    JComboBox   feMixers;
+    // Table column headings
+    final String [] COLUMN_NAMES = {"Region", "Species", "Trans.", "Rest. Freq.", 
+	"Centre Freq.", "BW", "res", "overlap", "channels" };
 
-    // ADDED by SDW to allow for Special DAS configurations
-    JPanel    specialPanel;
-    JLabel    specialConfigurationLabel;
-    JComboBox specialConfigurations;
+    // FE Panels
+    JPanel feSelector;
+    JPanel modeSelector;
+    JPanel regionSelector;
+    JPanel mixerSelector;
+    JPanel sbSelector;
+    JPanel vPanel;
+    JPanel fPanel;
+    JPanel bPanel;
+    JPanel summaryPanel;
+    JComboBox bandwidths;
+    JTable table;
 
+    public HeterodyneGUI() {
+	try {
+	    jbInit();
+	}
+	catch (Exception e) {
+	    e.printStackTrace();
+	}
+    }
 
-  public HeterodyneGUI() {
+    
+    private void jbInit () throws Exception {
+	
+	setLayout ( new GridBagLayout() );
+        //
+        // Front-end panel and its elements
+        //
+        JPanel fePanel = new JPanel();
+        fePanel.setLayout ( new GridBagLayout() );
+        fePanel.setBorder (BorderFactory.createTitledBorder ( 
+		    BorderFactory.createBevelBorder(BevelBorder.LOWERED),
+		    "Front End Configuration"));
+    
 
-      setLayout(new BorderLayout());
-/* Create the choice of frontends */
+	JLabel feLabel = new JLabel("Front End:");
+	feLabel.setForeground(Color.BLACK);
+	feLabel.setFont( new Font ("dialog", 0, 12) );
+	
+        feSelector = makeFEGroup();
 
-      fePanel = new JPanel();
-      fePanel.setLayout ( new GridLayout(1, 0, 10, 0) );
-      label = new JLabel("Front End");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      fePanel.add(label);
+	JLabel modeLabel = new JLabel("Mode:");
+	modeLabel.setForeground(Color.BLACK);
+	modeLabel.setFont( new Font ("dialog", 0, 12) );
 
-      feChoice = new JComboBox (); //cfg.frontEnds );
-      feChoice.setFont(new Font("Dialog", 0, 12));
-      feChoice.setForeground(Color.black);
-      lowFreq = new JLabel ( "215" );
-      lowFreq.setFont(new Font("Dialog", 0, 12));
-      lowFreq.setForeground(Color.black);
-      lowFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
-      lowFreq.setMinimumSize(lowFreq.getPreferredSize());
-      highFreq = new JLabel ( "272" );
-      highFreq.setFont(new Font("Dialog", 0, 12));
-      highFreq.setForeground(Color.black);
-      highFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
-      highFreq.setMinimumSize(highFreq.getPreferredSize());
+        modeSelector = makeSidebandConfigGroup();
 
-//      feChoice.addActionListener ( this );
+	JLabel subsystemLabel = new JLabel("Sp. Regions:");
+	subsystemLabel.setForeground(Color.BLACK);
+	subsystemLabel.setFont( new Font ("dialog", 0, 12) );
 
-      feMode = new JComboBox (); // cfg.frontEndModes );
-      feMode.setFont(new Font("Dialog", 0, 12));
-      feMode.setForeground(Color.black);
-      feBandModeChoice = new JComboBox ( );
-      feBandModeChoice.setFont(new Font("Dialog", 0, 12));
-      feBandModeChoice.setForeground(Color.black);
-      //feBandModeChoice.addActionListener ( this );
+        regionSelector = makeSubsystemGroup();
 
-      feMixers = new JComboBox();
-      feMixers.setFont(new Font("Dialog", 0, 12));
-      feMixers.setForeground(Color.black);
+	JLabel mixerLabel = new JLabel("Mixers:");
+	mixerLabel.setForeground(Color.BLACK);
+	mixerLabel.setFont( new Font ("dialog", 0, 12) );
 
-      fePanel.add ( feChoice );
-      fePanel.add ( feMode );
-      fePanel.add ( feBandModeChoice );
-      fePanel.add ( feMixers );
+        mixerSelector = makeMixerGroup();
 
-/* Create the display */
+	JLabel sbLabel = new JLabel("Sideband:");
+	sbLabel.setForeground(Color.BLACK);
+	sbLabel.setFont( new Font ("dialog", 0, 12) );
 
-      displayPanel = new JPanel(new GridBagLayout());
-      label = new JLabel("Low Limit (GHz)");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      label.setMinimumSize ( label.getPreferredSize() );
-      displayPanel.add ( label,  new GridBagConstraints (0 ,0, 1, 1,  1.0, 0.0,
-							 GridBagConstraints.WEST,
-							 GridBagConstraints.NONE,
-							 new Insets (10, 10, 10, 5),
-							 0, 0)
-			 );
-      displayPanel.add ( lowFreq,  new GridBagConstraints (1 ,0, 1, 1,  0.0, 0.0,
-							   GridBagConstraints.WEST,
-							   GridBagConstraints.NONE,
-							   new Insets (10, 0, 10, 10),
-							   0, 0)
-			 );
-      label = new JLabel("High Limit (GHz)");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      label.setMinimumSize ( label.getPreferredSize() );
-      displayPanel.add ( label ,  new GridBagConstraints (2 ,0, 1, 1,  1.0, 0.0,
-							   GridBagConstraints.WEST,
-							   GridBagConstraints.NONE,
-							   new Insets (10, 10, 10, 5),
-							   0, 0)
-			 );
-      displayPanel.add ( highFreq,  new GridBagConstraints (3 ,0, 1, 1,  0.0, 0.0,
-							   GridBagConstraints.WEST,
-							   GridBagConstraints.NONE,
-							   new Insets (10, 0, 10, 10),
-							   0, 0)
-			 );
+        sbSelector = makeSBSelectionGroup();
 
-      // Bandwidth and Overlap
-      overlapBandwidthPanel = new JPanel(new GridBagLayout());
+	JLabel specialConfigLabel = new JLabel("Special Configs:");
+	specialConfigLabel.setForeground(Color.BLACK);
+	specialConfigLabel.setFont( new Font ("dialog", 0, 12) );
+	
+	JComboBox specialConfigs = new JComboBox();
+	specialConfigs.setForeground(Color.BLACK);
+	specialConfigs.setFont( new Font ("dialog", 0, 12) );
 
-      label = new JLabel("Side Band");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      fePanel.add(label);
+	JLabel bwLabel = new JLabel ("Bandwidth:");
+	bwLabel.setForeground(Color.BLACK);
+	bwLabel.setFont( new Font ("dialog", 0, 12) );
 
-      feBand = new JComboBox(); // new String[] { "usb", "lsb", "optimum" } );
-      feBand.setFont(new Font("Dialog", 0, 12));
-      feBand.setForeground(Color.black);
-//      feBand.addActionListener ( this );
-      fePanel.add(feBand);
+	bandwidths = new JComboBox();
+	bandwidths.setForeground(Color.BLACK);
+	bandwidths.setFont( new Font ("dialog", 0, 12) );
+   
 
-      label = new JLabel("    Bandwidth");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      overlapBandwidthPanel.add(label, 
-				new GridBagConstraints (0, 0, 1, 1, 0.0, 0.0, 
-							GridBagConstraints.LINE_START,
-							GridBagConstraints.NONE,
-							new Insets (10, 0, 10, 10),
-							0, 0
-							)
-				);
-      
-      bandWidthChoice = new JComboBox();
-      bandWidthChoice.setFont(new Font("Dialog", 0, 12));
-      bandWidthChoice.setForeground(Color.black);
-      double height = bandWidthChoice.getPreferredSize().getHeight();
-      bandWidthChoice.setMinimumSize ( new Dimension (1, (int)height) );
-      overlapBandwidthPanel.add(bandWidthChoice,
-				new GridBagConstraints (1, 0, 1, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST,
-							GridBagConstraints.HORIZONTAL,
-							new Insets (10, 10, 10, 10),
-							0, 0
-							)
-				);
+        fePanel.add (feLabel, new GridBagConstraints (0, 0, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (5, 0, 5, 0), 0, 0));
+        fePanel.add (feSelector, new GridBagConstraints (1, 0, 4, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		    new Insets (5, 0, 5, 0), 0, 0));
+        fePanel.add (subsystemLabel, new GridBagConstraints (0, 1, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+        fePanel.add (regionSelector, new GridBagConstraints (1, 1, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+	fePanel.add (specialConfigLabel, new GridBagConstraints (2, 1, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 20, 5, 0), 0, 0 ));
+	fePanel.add ( specialConfigs, new GridBagConstraints (3, 1, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		    new Insets(0, 5, 5, 5), 0, 0 ));
+        fePanel.add (mixerLabel, new GridBagConstraints (0, 2, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+        fePanel.add (mixerSelector, new GridBagConstraints (1, 2, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+	fePanel.add (bwLabel, new GridBagConstraints ( 2, 2, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 20, 5, 0), 0, 0 ));
+	fePanel.add ( bandwidths, new GridBagConstraints (3, 2, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		    new Insets(0, 5, 5, 5), 0, 0 ));
+        fePanel.add (modeLabel, new GridBagConstraints (0, 3, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+        fePanel.add (modeSelector, new GridBagConstraints (1, 3, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+        fePanel.add ( sbLabel, new GridBagConstraints ( 0, 4, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+        fePanel.add ( sbSelector, new GridBagConstraints ( 1, 4, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
 
-      label = new JLabel("    Resolution (KHz)");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      label.setMinimumSize ( label.getPreferredSize() );
-      resolution = new JLabel();
-      resolution.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
-      resolution.setFont(new Font("Dialog", 0, 12));
-      resolution.setForeground(Color.black);
-      resolution.setMinimumSize( resolution.getPreferredSize() );
-      displayPanel.add(label,  new GridBagConstraints (4 ,0, 1, 1,  1.0, 0.0,
-						       GridBagConstraints.WEST,
-						       GridBagConstraints.NONE,
-						       new Insets (10, 10, 10, 5),
-						       0, 0)
-		       );
-      displayPanel.add(resolution,  new GridBagConstraints (5 ,0, 1, 1,  0.0, 0.0,
-							    GridBagConstraints.WEST,
-							    GridBagConstraints.NONE,
-							    new Insets (10, 0, 10, 10),
-							    0, 0)
-		       );
+	// Front End summary panel
+	summaryPanel = new JPanel();
+        summaryPanel.setLayout ( new GridLayout(0, 2) );
+        summaryPanel.setBorder (BorderFactory.createTitledBorder ( 
+		    BorderFactory.createBevelBorder(BevelBorder.LOWERED),
+		    "Front End Summary"));
+
+	JLabel lowLimitLabel = new JLabel ("Low limit (GHz):");
+	lowLimitLabel.setForeground(Color.BLACK);
+	lowLimitLabel.setFont( new Font ("dialog", 0, 12) );
+
+	JLabel lowFreq = new JLabel ( "215" );
+	lowFreq.setFont(new Font("Dialog", 0, 12));
+	lowFreq.setForeground(Color.black);
+	lowFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	lowFreq.setMinimumSize(lowFreq.getPreferredSize());
+	lowFreq.setName("LowFreqLimit");
+	
+	JLabel hiLimitLabel = new JLabel ("High limit (GHz):");
+	hiLimitLabel.setForeground(Color.BLACK);
+	hiLimitLabel.setFont( new Font ("dialog", 0, 12) );
+
+	JLabel highFreq = new JLabel ( "272" );
+	highFreq.setFont(new Font("Dialog", 0, 12));
+	highFreq.setForeground(Color.black);
+	highFreq.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	highFreq.setMinimumSize(highFreq.getPreferredSize());
+	highFreq.setName("HighFreqLimit");
 
 
-      label = new JLabel("    Overlap (MHz)");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      overlapBandwidthPanel.add (label,
-				 new GridBagConstraints (3, 0, 1, 1, 0.0, 0.0, 
-							 GridBagConstraints.WEST,
-							 GridBagConstraints.NONE,
-							 new Insets (10, 10, 10, 10),
-							 0, 0
-							 )
-				 );
+	JLabel resLabel = new JLabel ("Resolution (kHz):");
+	resLabel.setForeground(Color.BLACK);
+	resLabel.setFont( new Font ("dialog", 0, 12) );
 
-      overlap = new JTextField();
-      overlap.setColumns(10);
-      overlap.setText ( "0.0" );
-      overlap.setMinimumSize ( new Dimension (1, (int)height) );
-//      overlap.addActionListener ( this );
-      overlapBandwidthPanel.add(overlap,
-				new GridBagConstraints (4, 0, 1, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST,
-							GridBagConstraints.HORIZONTAL,
-							new Insets (10, 10, 10, 10),
-							0, 0
-							)
-				);
+	JLabel resolution = new JLabel();
+	resolution.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	resolution.setFont(new Font("Dialog", 0, 12));
+	resolution.setForeground(Color.black);
+	resolution.setMinimumSize( resolution.getPreferredSize() );
+	resolution.setName( "resolution" );
 
-      // Velocity
-      velocityPanel = new JPanel( new GridBagLayout() );
+	JLabel overlapLabel = new JLabel ("Overlap (MHz):");
+	overlapLabel.setForeground(Color.BLACK);
+	overlapLabel.setFont( new Font ("dialog", 0, 12) );
 
-      label = new JLabel("Velocity (km/s), Redshift");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      velocityPanel.add(label, new GridBagConstraints ( 0, 0, 2, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 10, 10, 0),
-							0, 0)
-			);
+	JLabel overlap = new JLabel();
+	overlap.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	overlap.setFont(new Font("Dialog", 0, 12));
+	overlap.setForeground(Color.black);
+	overlap.setMinimumSize( overlap.getPreferredSize() );
+	overlap.setName( "overlap" );
 
-      velocityDefinition = new JComboBox();
-      velocityDefinition.setFont(new Font("Dialog", 0, 12));
-      velocityPanel.add(velocityDefinition, new GridBagConstraints ( 2, 0, 1, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 5, 10, 0),
-							0, 0)
-			);
+	JLabel channelLabel = new JLabel ("Channels:");
+	channelLabel.setForeground(Color.BLACK);
+	channelLabel.setFont( new Font ("dialog", 0, 12) );
 
-      velocity = new JTextField();
-      velocity.setColumns(10);
-      velocity.setText ( "0.0" );
-      velocity.setMinimumSize( velocity.getPreferredSize() );
-//      velocity.addActionListener ( this );
-      velocityPanel.add(velocity, new GridBagConstraints ( 3, 0, 1, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 5, 10, 10),
-							0, 0)
-			);
+	JLabel channel = new JLabel();
+	channel.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	channel.setFont(new Font("Dialog", 0, 12));
+	channel.setForeground(Color.black);
+	channel.setMinimumSize( channel.getPreferredSize() );
+	channel.setName( "channel" );
 
-      label = new JLabel("Frame");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      velocityPanel.add(label, new GridBagConstraints ( 4, 0, 1, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 10, 10, 0),
-							0, 0)
-			);
+	summaryPanel.add (lowLimitLabel);
+	summaryPanel.add (lowFreq);
+	summaryPanel.add (hiLimitLabel);
+	summaryPanel.add (highFreq);
+	/*
+	summaryPanel.add (resLabel);
+	summaryPanel.add (resolution);
+	summaryPanel.add (overlapLabel);
+	summaryPanel.add (overlap);
+	summaryPanel.add (channelLabel);
+	summaryPanel.add (channel);
+	*/
 
-      velocityFrame = new JComboBox();
-      velocityFrame.setFont(new Font("Dialog", 0, 12));
-      velocityPanel.add(velocityFrame, new GridBagConstraints ( 5, 0, 1, 1, 1.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 5, 10, 10),
-							0, 0)
-			);
-      
+	// Frequency Panel
+	// To maintain the layout, we put the volocity and frequency and
+	// buttons into separate, hidden, panels
+	JPanel freqPanel = new JPanel();
+        freqPanel.setLayout ( new BorderLayout() );
+        freqPanel.setBorder (BorderFactory.createTitledBorder ( 
+		    BorderFactory.createBevelBorder(BevelBorder.LOWERED),
+		    "Frequncy Setup"));
 
-//      rangePanel = new JPanel(flowLayoutLeft);
+	vPanel = new JPanel( new GridBagLayout() );
+	fPanel = new JPanel( new GridBagLayout() );
+	bPanel = new JPanel( new GridBagLayout() );
 
+	JLabel velLabel = new JLabel ("Velocity");
+	velLabel.setForeground(Color.BLACK);
+	velLabel.setFont( new Font ("dialog", 0, 12) );
 
-/* Main molecular line choice - used to set front-end LO1 to put the line
-   in the nominated sideband */
+	JLabel velocity = new JLabel("unset");
+	velocity.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	velocity.setFont(new Font("Dialog", 0, 12));
+	velocity.setForeground(Color.black);
+	velocity.setMinimumSize( velocity.getPreferredSize() );
+	velocity.setName( "velocity" );
 
-      moleculeChoice = new JComboBox();
-      moleculeChoice.setFont(new Font("Dialog", 0, 12));
-      moleculeChoice.setForeground ( Color.red );
-//      moleculeChoice.addActionListener ( this );
-      transitionChoice = new JComboBox();
-      transitionChoice.setFont(new Font("Dialog", 0, 12));
-      transitionChoice.setForeground ( Color.red );
-//      transitionChoice.addActionListener ( this );
-      moleculeFrequency = new JTextField();
-      moleculeFrequency.setColumns(12);
-      //moleculeFrequency.setText ( "0.0000" );
-      moleculeFrequency.setForeground ( Color.red );
-//      moleculeFrequency.addActionListener(this);
-//      bandWidthChoice.addActionListener( this );
-      mol1Panel = new JPanel( new GridBagLayout() );
-      mol1Panel.add ( moleculeChoice, new GridBagConstraints ( 0, 0, 1, 1, 0.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 10, 10, 0),
-							0, 0)
-		      );
-      mol1Panel.add ( transitionChoice, new GridBagConstraints ( 1, 0, 1, 1, 0.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 5, 10, 0),
-							0, 0)
-		      );
-      mol1Panel.add ( moleculeFrequency, new GridBagConstraints ( 2, 0, 1, 1, 0.0, 0.0, 
-							GridBagConstraints.WEST, 
-							GridBagConstraints.NONE,
-							new Insets (10, 5, 10, 0),
-							0, 0)
-		      );
-      label = new JLabel("GHz");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      mol1Panel.add (label, new GridBagConstraints ( 3, 0, 1, 1, 1.0, 0.0, 
-						     GridBagConstraints.WEST, 
-						     GridBagConstraints.NONE,
-						     new Insets (10, 5, 10, 10),
-						     0, 0)
-		     );
-/* Secondary moleculare line choice - displayed just for convenience of
-   astronomer */
+	JLabel vfLabel = new JLabel ("Frame");
+	vfLabel.setForeground(Color.BLACK);
+	vfLabel.setFont( new Font ("dialog", 0, 12) );
 
-      moleculeChoice2 = new JComboBox();
-      moleculeChoice2.setFont(new Font("Dialog", 0, 12));
-      moleculeChoice2.setForeground ( Color.magenta );
-//      moleculeChoice2.addActionListener ( this );
-      transitionChoice2 = new JComboBox();
-      transitionChoice2.setFont(new Font("Dialog", 0, 12));
-      transitionChoice2.setForeground ( Color.magenta );
-//      transitionChoice2.addActionListener ( this );
-      moleculeFrequency2 = new JTextField();
-      moleculeFrequency2.setColumns(12);
-      moleculeFrequency2.setText ( "0.0000" );
-      moleculeFrequency2.setForeground ( Color.magenta );
-//      moleculeFrequency2.addActionListener(this);
-      mol2Panel = new JPanel(flowLayoutRight);
-      mol2Panel.add ( moleculeChoice2 );
-      mol2Panel.add ( transitionChoice2 );
-      mol2Panel.add ( moleculeFrequency2 );
-      label = new JLabel("MHz");
-      label.setFont(new Font("Dialog", 0, 12));
-      label.setForeground(Color.black);
-      mol2Panel.add(label);
+	JLabel vFrame = new JLabel("unset");
+	vFrame.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	vFrame.setFont(new Font("Dialog", 0, 12));
+	vFrame.setForeground(Color.black);
+	vFrame.setMinimumSize( vFrame.getPreferredSize() );
+	vFrame.setName( "frame" );
 
-      // Combine the molecule and velocity panels, and add an accept button to them
-      // This will mean the user will not have to remember to hit return to accept the fields
-      JPanel vfPanel = new JPanel();
-      vfPanel.setLayout( new BoxLayout(vfPanel, BoxLayout.Y_AXIS) );
-      vfPanel.setBorder ( BorderFactory.createTitledBorder ( BorderFactory.createEtchedBorder(), "Velocity and Frequency" ) );
+	JLabel vdLabel = new JLabel ("Definition");
+	vdLabel.setForeground(Color.BLACK);
+	vdLabel.setFont( new Font ("dialog", 0, 12) );
 
-      acceptVF.setFont(new Font("Dialog", 0, 12));
-      acceptVF.setForeground(Color.black);
+	JLabel vDef = new JLabel("unset");
+	vDef.setBorder ( new BevelBorder ( BevelBorder.LOWERED ) );
+	vDef.setFont(new Font("Dialog", 0, 12));
+	vDef.setForeground(Color.black);
+	vDef.setMinimumSize( vDef.getPreferredSize() );
+	vDef.setName( "definition" );
 
-      vfPanel.add(velocityPanel);
-      vfPanel.add(mol1Panel);
-      vfPanel.add(acceptVF);
+	JComboBox  moleculeBox = new JComboBox();
+	moleculeBox.setForeground(Color.BLACK);
+	moleculeBox.setFont( new Font ("dialog", 0, 12) );
+	moleculeBox.setName("molecule");
 
+	JComboBox  transitionBox = new JComboBox();
+	transitionBox.setForeground(Color.BLACK);
+	transitionBox.setFont( new Font ("dialog", 0, 12) );
+	transitionBox.setName("transition");
 
-      freqEditorButton.setFont(new Font("Dialog", 0, 12));
-      hideFreqEditorButton.setFont(new Font("Dialog", 0, 12));
+	JButton acceptButton = new JButton ("Accept");
+	acceptButton.setForeground(Color.RED);
+	acceptButton.setFont( new Font ("dialog", 0, 12) );
+	acceptButton.setBorder( new BevelBorder (BevelBorder.RAISED) );
+	acceptButton.setName( "Accept" );
 
-      warningPanel = new JPanel(new GridLayout(0,1));
-      label = new JLabel ("Note");
-      label.setFont(new Font(label.getFont().getName(), Font.BOLD, 16));
-      label.setForeground(Color.red);
-      warningPanel.add(label);
-      
-      label = new JLabel ("Use the \"Enter\" Key to confirm edited values of VELOCITY and FREQUENCY");
-      label.setFont(new Font(label.getFont().getName(), Font.PLAIN, 14));
-      label.setForeground(Color.red);
-      warningPanel.add(label);
+	JButton showButton = new JButton ("Show Frequency Editor");
+	showButton.setForeground(Color.BLACK);
+	showButton.setFont( new Font ("dialog", 0, 12) );
+	showButton.setBorder( new BevelBorder (BevelBorder.RAISED) );
+	showButton.setName( "show" );
 
-      // ADDED BY SDW to allow for special DAS modes
-      specialPanel = new JPanel(flowLayoutLeft); // Just use standard flow layout
-      specialConfigurationLabel = new JLabel();
+	JButton hideButton = new JButton ("Hide Frequency Editor");
+	hideButton.setForeground(Color.BLACK);
+	hideButton.setFont( new Font ("dialog", 0, 12) );
+	hideButton.setBorder( new BevelBorder (BevelBorder.RAISED) );
+	hideButton.setName( "hide" );
+	 
+	JTextField  freqText = new JTextField();
+	freqText.setForeground(Color.RED);
+	freqText.setFont( new Font ("dialog", 0, 12) );
+	freqText.setName("frequency");
 
-      specialConfigurationLabel.setFont(new Font("Dialog", 0, 12));
-      specialConfigurationLabel.setForeground(Color.black);
-      specialConfigurationLabel.setText ("Special Configurations");
+	JLabel unitsLabel = new JLabel ("GHz");
+	unitsLabel.setForeground(Color.BLACK);
+	unitsLabel.setFont( new Font ("dialog", 0, 12) );
 
-      specialConfigurations = new JComboBox();
-      specialConfigurations.setFont(new Font("Dialog", 0, 12));
-      specialConfigurations.setForeground(Color.black);
+	vPanel.add ( velLabel, 
+		new GridBagConstraints ( 0, 0, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (10, 5, 5, 5), 0, 0));
+	vPanel.add ( velocity, 
+		new GridBagConstraints ( 1, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (10, 0, 5, 5), 0, 0));
+	vPanel.add ( vdLabel, 
+		new GridBagConstraints ( 2, 0, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (10, 0, 5, 5), 0, 0));
+	vPanel.add ( vDef, 
+		new GridBagConstraints ( 3, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (10, 0, 5, 5), 0, 0));
+	vPanel.add ( vfLabel, 
+		new GridBagConstraints ( 4, 0, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (10, 0, 5, 5), 0, 0));
+	vPanel.add ( vFrame, 
+		new GridBagConstraints ( 5, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (10, 0, 5, 5), 0, 0));
+	fPanel.add ( moleculeBox, 
+		new GridBagConstraints ( 0, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets (5, 5, 5, 5), 0, 0));
+	fPanel.add ( transitionBox, 
+		new GridBagConstraints ( 1, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets (5, 0, 5, 5), 0, 0));
+	fPanel.add ( freqText, 
+		new GridBagConstraints ( 2, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets (5, 0, 5, 5), 0, 0));
+	fPanel.add ( unitsLabel, 
+		new GridBagConstraints ( 3, 0, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets (5, 0, 5, 5), 0, 0));
+	fPanel.add ( acceptButton, 
+		new GridBagConstraints ( 4, 0, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (5, 0, 5, 5), 0, 0));
+	bPanel.add ( showButton, 
+		new GridBagConstraints ( 0, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets (5, 50, 5, 5), 0, 0));
+	bPanel.add ( hideButton, 
+		new GridBagConstraints ( 1, 0, 1, 1, 1.0, 0.0,
+		GridBagConstraints.EAST, GridBagConstraints.NONE,
+		new Insets (5, 0, 5, 50), 0, 0));
 
-      specialPanel.add(specialConfigurationLabel);
-      specialPanel.add(specialConfigurations);
-      
+	freqPanel.add ( vPanel, BorderLayout.NORTH );
+	freqPanel.add ( fPanel, BorderLayout.CENTER );
+	freqPanel.add ( bPanel, BorderLayout.SOUTH );
 
-/* Assemble the display */
+	// The frequency summary information
+	JPanel  tablePanel = new JPanel();
+        tablePanel.setLayout(new BorderLayout());
+        tablePanel.setBorder (BorderFactory.createTitledBorder ( 
+		    BorderFactory.createBevelBorder(BevelBorder.LOWERED),
+		    "Frequency Configuration"));
 
+	table = new JTable (new DefaultTableModel(COLUMN_NAMES, 4));
+	table.setEnabled(false);
+	table.setBackground( getBackground() );
+	JScrollPane scrollPane = new JScrollPane(table);
+	//table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 
-      northPanel = new JPanel();
-      northPanel.setLayout ( new BoxLayout ( northPanel, 
-        BoxLayout.Y_AXIS ) );
+	tablePanel.add(scrollPane, BorderLayout.CENTER);
+	
+	
+	// Add all the panels to this object
+        add (fePanel, new GridBagConstraints (0, 0, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 0), 0, 0));
+        add (summaryPanel, new GridBagConstraints (1, 0, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.NORTHEAST, GridBagConstraints.NONE,
+		    new Insets (0, 0, 5, 5), 0, 0));
+        add (freqPanel, new GridBagConstraints (0, 1, 2, 1, 1.0, 0.0,
+		    GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL,
+		    new Insets (0, 0, 5, 5), 0, 0));
+        add (tablePanel, new GridBagConstraints (0, 2, 2, 2, 1.0, 1.0,
+		    GridBagConstraints.NORTH, GridBagConstraints.BOTH,
+		    new Insets (0, 0, 5, 5), 0, 0));
+      }
 
+      private JPanel makeFEGroup() {
+	JPanel jPanel = new JPanel();
+	jPanel.setBorder (BorderFactory.createTitledBorder (
+		    BorderFactory.createEtchedBorder()));
+	jPanel.setLayout (new GridLayout(1, 0, 5, 0));
 
-      northPanel.add ( fePanel );
-      northPanel.add ( displayPanel );
-      northPanel.add ( overlapBandwidthPanel );
-      northPanel.add(specialPanel);
-      northPanel.add ( vfPanel );
-      add ( northPanel, BorderLayout.NORTH );
+	ButtonGroup bg = new ButtonGroup();
 
+	for ( int i=0; i < _cfg.frontEnds.length; i++ ) {
+	    JRadioButton b = new JRadioButton(_cfg.frontEnds[i].trim());
+	    b.setForeground(Color.BLACK);
+	    b.setFont (new Font ("Dialog", 0, 10));
+	    b.setName(_cfg.frontEnds[i].trim());
+	    bg.add(b);
+	    jPanel.add(b);
+	}
+	return jPanel;
+      }
 
-      southPanel = new JPanel();
-      southPanel.add(freqEditorButton);
-      southPanel.add(hideFreqEditorButton);
+      private JPanel makeSidebandConfigGroup() {
+	JPanel jPanel = new JPanel();
+	jPanel.setBorder (BorderFactory.createTitledBorder (
+		    BorderFactory.createEtchedBorder()));
+	jPanel.setLayout (new GridLayout(1, 0));
 
-      add(southPanel, BorderLayout.SOUTH);
-  }
+	ButtonGroup bg = new ButtonGroup();
 
+	for ( int i=0; i < SIDEBAND_MODES.length; i++ ) {
+	    JRadioButton b = new JRadioButton(SIDEBAND_MODES[i]);
+	    b.setForeground(Color.BLACK);
+	    b.setFont (new Font ("Dialog", 0, 10));
+	    b.setName(SIDEBAND_MODES[i]);
+	    bg.add(b);
+	    jPanel.add(b);
+	}
+	return jPanel;
+      }
+
+      private JPanel makeSubsystemGroup() {
+	JPanel jPanel = new JPanel();
+	jPanel.setBorder (BorderFactory.createTitledBorder (
+		    BorderFactory.createEtchedBorder()));
+	jPanel.setLayout (new GridLayout(1, 0));
+
+	ButtonGroup bg = new ButtonGroup();
+
+	for ( int i=0; i < SUBSYSTEMS.length; i++ ) {
+	    JRadioButton b = new JRadioButton(SUBSYSTEMS[i]);
+	    b.setForeground(Color.BLACK);
+	    b.setFont (new Font ("Dialog", 0, 10));
+	    b.setName(SUBSYSTEMS[i]);
+	    bg.add(b);
+	    jPanel.add(b);
+	}
+	return jPanel;
+      }
+
+      private JPanel makeMixerGroup() {
+	JPanel jPanel = new JPanel();
+	jPanel.setBorder (BorderFactory.createTitledBorder (
+		    BorderFactory.createEtchedBorder()));
+	jPanel.setLayout (new GridLayout(1, 0));
+
+	ButtonGroup bg = new ButtonGroup();
+
+	for ( int i=0; i < MIXERS.length; i++ ) {
+	    JRadioButton b = new JRadioButton(MIXERS[i]);
+	    b.setForeground(Color.BLACK);
+	    b.setFont (new Font ("Dialog", 0, 10));
+	    b.setName(MIXERS[i]);
+	    bg.add(b);
+	    jPanel.add(b);
+	}
+	return jPanel;
+      }
+
+      private JPanel makeSBSelectionGroup() {
+	JPanel jPanel = new JPanel();
+	jPanel.setBorder (BorderFactory.createTitledBorder (
+		    BorderFactory.createEtchedBorder()));
+	jPanel.setLayout (new GridLayout(1, 0));
+
+	ButtonGroup bg = new ButtonGroup();
+
+	for ( int i=0; i < SIDEBAND_SELECTIONS.length; i++ ) {
+	    JRadioButton b = new JRadioButton(SIDEBAND_SELECTIONS[i]);
+	    b.setForeground(Color.BLACK);
+	    b.setFont (new Font ("Dialog", 0, 10));
+	    b.setName(SIDEBAND_SELECTIONS[i]);
+	    bg.add(b);
+	    jPanel.add(b);
+	}
+	return jPanel;
+      }
 
 
 }

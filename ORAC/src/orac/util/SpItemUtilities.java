@@ -18,7 +18,6 @@ import gemini.sp.SpObsContextItem;
 import gemini.sp.SpAvTable;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
-import orac.ukirt.inst.SpDRRecipe;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
 import gemini.sp.SpTreeMan;
@@ -31,6 +30,7 @@ import gemini.sp.SpProg;
 import gemini.sp.SpHierarchyChangeObserver;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+import gemini.sp.obsComp.SpDRObsComp;
 import java.util.Vector;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -305,18 +305,18 @@ findSchedConstraintInContext(SpItem spItem)
 }
 
 /**
- * Find the SpDRRecipe assoicated with this context, if any.  Only
+ * Find the SpDRObsComp assoicated with this context, if any.  Only
  * searches the given scope.  It does not navigate the tree hierarchy.
  */
-public static SpDRRecipe
+public static SpDRObsComp
 findDRRecipeInContext(SpItem spItem)
 {
-   SpDRRecipe drr = null;
+   SpDRObsComp drr = null;
    Enumeration e = spItem.children();
    while (e.hasMoreElements()) {
       SpItem child = (SpItem) e.nextElement();
-      if (child instanceof SpDRRecipe) {
-         drr = (SpDRRecipe) child;
+      if (child instanceof SpDRObsComp) {
+         drr = (SpDRObsComp) child;
          break;
       }
    }
@@ -416,16 +416,16 @@ findSchedConstraint(SpItem spItem)
  *
  * @param spItem the SpItem defining the scope to search
  */
-public static SpDRRecipe
+public static SpDRObsComp
 findDRRecipe(SpItem spItem)
 {
-   if (spItem instanceof SpDRRecipe) {
-      return (SpDRRecipe) spItem;
+   if (spItem instanceof SpDRObsComp) {
+      return (SpDRObsComp) spItem;
    }
 
    SpItem parent = spItem.parent();
 
-   SpDRRecipe drr;
+   SpDRObsComp drr;
    if (!(spItem instanceof SpObsContextItem)) {
       if (parent == null) {
          return null;

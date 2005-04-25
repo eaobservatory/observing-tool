@@ -26,6 +26,10 @@ public class InstCfg
     public static boolean matchAttr( InstCfg info, String attr ) {
 	return info.getKeyword().equalsIgnoreCase( attr );
     }
+
+    public static boolean likeAttr (InstCfg info, String attr ) {
+        return ( info.getKeyword().toLowerCase().indexOf( attr.toLowerCase() ) == -1 )?false:true;
+    }
     
     /**
      * The constructor splits the given String block into a keyword and

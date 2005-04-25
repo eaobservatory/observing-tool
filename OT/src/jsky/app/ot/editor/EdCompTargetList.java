@@ -41,6 +41,7 @@ import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
 import jsky.util.gui.ProgressException;
+import orac.util.TelescopeUtil;
 import ot.util.DialogUtil;
 import ot.OtConstants;
 import ot.util.NameResolver;
@@ -115,14 +116,6 @@ public class EdCompTargetList extends OtItemEditor
 	      _w.nameResolversDDLBW.addItem(catalogs[i]);
 	    }
 	  }
-
-	  //_w.nameResolversDDLBW.addItem("-------------");
-	  //
-	  //for(int i = 0; i < catalogs.length; i++) {
-	  //  if(!NameResolver.isAvailableAsCatalog(catalogs[i])) {
-	  //    _w.nameResolversDDLBW.addItem(catalogs[i]);
-	  //  }
-	  //}
 	}
 
         if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
@@ -399,6 +392,26 @@ public class EdCompTargetList extends OtItemEditor
 		}
 	    });
 
+	_w.velDefn.setChoices ( TelescopeUtil.TCS_RV_DEFINITIONS );
+	_w.velDefn.addWatcher ( new DropDownListBoxWidgetWatcher() {
+		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
+		}
+		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
+		    _curPos.setTrackingRadialVelocityDefn ( newTag );
+		}
+	    });
+
+	_w.velFrame.setChoices ( TelescopeUtil.TCS_RV_FRAMES );
+	_w.velFrame.addWatcher ( new DropDownListBoxWidgetWatcher() {
+		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
+		}
+		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
+		    _curPos.setTrackingRadialVelocityFrame ( newTag );
+		}
+	    });
+		
+
+
 
 	JTabbedPane              fwe;
 	CommandButtonWidgetExt   cbwe;
@@ -432,35 +445,6 @@ public class EdCompTargetList extends OtItemEditor
 
 	// --- Tracking Details Page
 
-	ddlbwe = _w.detailsSystemDDLBW;
-	ddlbwe.clear();
-	for (int i=0; i<CoordSys.COORD_SYS.length; ++i) {
-	    ddlbwe.addChoice(CoordSys.COORD_SYS[i]);
-	}
-	ddlbwe.addWatcher( new DropDownListBoxWidgetWatcher() {
-		public void
-		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-		}
-
-		public void
-		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setTrackingSystem( val );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-
-		    JTabbedPane xFWE;
-		    xFWE = _w.extrasFolder;
-
-		    TextBoxWidgetExt xTBWE;
-		    xTBWE = _w.detailsEpochTBW;
-		    if (val.equals(CoordSys.COORD_SYS[CoordSys.FK4])) {
-			xTBWE.setText("1950");
-		    } else {
-			xTBWE.setText("2000");
-		    }
-		}
-	    });
-
 	tbwe = _w.detailsEpochTBW;
 	tbwe.addWatcher( new TextBoxWidgetWatcher() {
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
@@ -481,7 +465,7 @@ public class EdCompTargetList extends OtItemEditor
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
    
-	tbwe = _w.detailsRadVelTBW;
+	tbwe = _w.velValue;
 	tbwe.addWatcher( new TextBoxWidgetWatcher() {
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
@@ -491,26 +475,6 @@ public class EdCompTargetList extends OtItemEditor
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
    
-	tbwe = _w.detailsEffWavelengthTBW;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setTrackingEffectiveWavelength( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
-	cbwe = _w.detailsAutoCBW;
-	cbwe.addWatcher( new CommandButtonWidgetWatcher() {
-		public void commandButtonAction(CommandButtonWidgetExt cbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setTrackingEffectiveWavelength( "auto" );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    showPos( _curPos );
-		}
-	    });
-
 	// *** Position Table
 	_tpTable = _w.positionTable;
 
@@ -606,20 +570,17 @@ public class EdCompTargetList extends OtItemEditor
 	tbwe.setValue( tp.getPropMotionDec() );
 
 	// --- Tracking Page
-	ddlbwe = _w.detailsSystemDDLBW;
-	ddlbwe.setValue( tp.getTrackingSystem() );
-
 	tbwe = _w.detailsEpochTBW;
 	tbwe.setValue( tp.getTrackingEpoch() );
 
 	tbwe = _w.detailsParallaxTBW;
 	tbwe.setValue( tp.getTrackingParallax() );
 
-	tbwe = _w.detailsRadVelTBW;
+	tbwe = _w.velValue;
 	tbwe.setValue( tp.getTrackingRadialVelocity() );
-
-	tbwe = _w.detailsEffWavelengthTBW;
-	tbwe.setValue( tp.getTrackingEffectiveWavelength() );
+	
+	_w.velDefn.setValue ( tp.getTrackingRadialVelocityDefn() );
+	_w.velFrame.setValue ( tp.getTrackingRadialVelocityFrame() );
 
     }
 
@@ -674,7 +635,7 @@ public class EdCompTargetList extends OtItemEditor
 		tbw = _w.propMotionDecTBW;
 		tbw.setText("0");
 	    }
-	    tbw = _w.detailsRadVelTBW;
+	    tbw = _w.velValue;
 	    tbw.setText("0");
 	    break;
 	case CoordSys.AZ_EL: 
@@ -682,7 +643,7 @@ public class EdCompTargetList extends OtItemEditor
 	    // Enable the folder widget
 	    fwe = _w.extrasFolder;
 
-	    fwe.setEnabledAt(1, false);
+	    //fwe.setEnabledAt(1, false);
 	    fwe.setEnabledAt(2, false);
 	    break;
 	}
@@ -706,14 +667,6 @@ public class EdCompTargetList extends OtItemEditor
 
         if(_curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
           _w.offsetCheckBox.setValue(_curPos.isOffsetPosition());
-          // Update table (MFO, 12 June 2001)
-//	  try {
-//	    _curPos.setXYFromString(_w.xaxisTBW.getText(), _w.yaxisTBW.getText());
-//	  }
-//	  catch(Exception e) {
-//            System.out.println("Exception during _updateWidgets: " + e);
-//	    e.printStackTrace();
-//	  }
 	}
 	else {
           // update the conic or named system widgets depending on selection.
@@ -1307,9 +1260,6 @@ public class EdCompTargetList extends OtItemEditor
 	else {
 	  _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
 	}
-
-//         _curPos.setName("");
-// 	_name.setValue("");
 
         _curPos.addWatcher(EdCompTargetList.this);
 

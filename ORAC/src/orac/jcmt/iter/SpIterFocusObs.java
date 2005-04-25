@@ -116,8 +116,8 @@ public class SpIterFocusObs extends SpIterJCMTObs {
     }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
-	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
+//	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+//	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
 // 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
 // 	_avTable.set(ATTR_CYCLE_REVERSAL, true);
     }
@@ -127,6 +127,12 @@ public class SpIterFocusObs extends SpIterJCMTObs {
 	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
 // 	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
 // 	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
+    }
+
+    public String [] getSwitchingModeOptions() {
+        return new String [] {
+            SWITCHING_MODE_BEAM
+        };
     }
 }
 

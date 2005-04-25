@@ -84,6 +84,10 @@ import orac.util.FileFilterXML;
 
 import omp.SpClient;
 
+import orac.jcmt.inst.SpInstHeterodyne; // Temporary ACSIS translator
+import orac.jcmt.util.AcsisTranslator;  // Temporary ACSIS translator
+import java.io.IOException;             // Temporary ACSIS translator
+
 /**
  * Button manager base class.  Helper classes derived from this
  * class keep their associated button disabled or enabled appropriately.
@@ -310,6 +314,9 @@ public class OtWindow extends SpTreeGUI
 
     /** SGML file filter (*.ot, *.sp, *.sgml). MFO 04 June 2001 */
     protected FileFilterSGML sgmlFilter = new FileFilterSGML();
+
+    private JFileChooser    _translatorFileChooser = new JFileChooser();    // Temporary ACSIS translator
+    private AcsisTranslator _acsisTranslator       = new AcsisTranslator(); // Temporary ACSIS translator
 
     /**
      * Create an OtWindow of the appropriate type.
@@ -646,6 +653,80 @@ public class OtWindow extends SpTreeGUI
       DialogUtil.message(this, "Observation saved to " + seqDir + seqName);
   
       return true;
+    }
+
+    /**
+     *
+     * Used for temporary ACSIS translator.
+     *
+     * Can probably be removed once a proper ACSIS translator is provided.
+     */
+    public boolean doSaveAcsisOcsXml() {
+      OtTreeNodeWidget tnw;
+      tnw = (OtTreeNodeWidget) OtWindow.this._tw.getSelectedNode();
+      SpItem spitem = tnw.getItem();
+
+      // Check if this is an Observation.
+      if ( !( spitem.type().equals( SpType.OBSERVATION ) ) ) {
+         spitem = SpTranslator.findSpObs( spitem );
+      }
+      if ( spitem != null ) {
+
+        SpObs spobs = (SpObs) spitem;
+
+        // Get the instrumnet in scope
+        SpInstObsComp inst = ((SpInstObsComp) SpTreeMan.findInstrument(spitem));
+
+        if(!(inst instanceof SpInstHeterodyne)) {
+          // The user didn't select an observation item for the translation.
+          DialogUtil.error(this, "Instrument component is not \"Het Setup\"");
+          return false;
+	}
+
+         _translatorFileChooser.setDialogTitle("Choose a OCS XML directory.");
+         _translatorFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);	 
+         _translatorFileChooser.showSaveDialog(_tw);
+
+         File selectedDir = _translatorFileChooser.getSelectedFile();
+         boolean fileOK = true;
+
+         // If no file has been selected or the selected file is not a normal file then abort.
+         if((selectedDir == null) || (selectedDir.exists() && (!selectedDir.isDirectory()))) {
+            fileOK = false;
+         }
+
+         if(fileOK && selectedDir.exists()) {
+            JOptionPane.showMessageDialog(_tw,
+                                      "Directory " + selectedDir + " exists and cannot be overriden automatically.\n" +
+                                      "Please remove it manually or choose a different directory.",
+                                      "Directory exists.",
+                                      JOptionPane.WARNING_MESSAGE);
+            fileOK = false;
+         }
+
+         if(fileOK) {
+            try {
+               _acsisTranslator.translate(spobs, (SpInstHeterodyne)inst, selectedDir);
+            }
+            catch(IOException e) {
+               e.printStackTrace();
+               DialogUtil.error(this, "ACSIS/OCS XML could not be saved to " + selectedDir + ": " + e);
+	       return false;
+            }
+            catch(Exception e) {
+               e.printStackTrace();
+               DialogUtil.error(this, "ACSIS/OCS XML translation problem: " + e);
+	       return false;
+	    }
+         }
+
+         return true;
+
+      }else{
+        // The user didn't select an observation item for the translation.
+        DialogUtil.error(this, "Selected node is not an observation or within an observation");
+        return false;
+      }
     }
 
     /**

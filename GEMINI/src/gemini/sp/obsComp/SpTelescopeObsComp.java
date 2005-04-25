@@ -64,8 +64,10 @@ public class SpTelescopeObsComp extends SpObsComp
 
    /** TCS XML constant: Radial Velocity. */
    private static final String TX_RV                   = "rv";
-   
-   private static final String TX_PARALAX              = "parallax";
+   private static final String TX_RV_DEFN              = "defn";
+   private static final String TX_RV_FRAME             = "frame";
+
+   private static final String TX_PARALLAX              = "parallax";
 
    private static final String TX_TYPE_SCIENCE         = "SCIENCE";
    private static final String TX_J2000                = "J2000";
@@ -647,6 +649,8 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
 
        double pm1 = 0.0;
        double pm2 = 0.0;
+       double parallax = 0.0;
+       double trackingEpoch = 0.0;
 
        try {
          pm1 = Double.parseDouble(targetPos.getPropMotionRA())  / 1000.0;
@@ -660,23 +664,43 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
        }
        catch(Exception e) {
          // ignore
-       }       
+       }
+
+       try {
+         trackingEpoch = Double.parseDouble ( targetPos.getTrackingEpoch() );
+       }
+       catch (Exception e) {};
 
        if((pm1 != 0.0) || (pm2 != 0.0)) {
          xmlBuffer.append("\n        " + indent + "<" + TX_PM1 + ">" + pm1 + "</" + TX_PM1 + ">");
          xmlBuffer.append("\n        " + indent + "<" + TX_PM2 + ">" + pm2 + "</" + TX_PM2 + ">");
+         xmlBuffer.append("\n        " + indent + "<" + TX_EPOCH + ">" + trackingEpoch + "</" + TX_EPOCH + ">");
        }
+
 
        try {
          double rv = Double.parseDouble(targetPos.getTrackingRadialVelocity());
+	 String rvDefn  = targetPos.getTrackingRadialVelocityDefn();
+	 String rvFrame = targetPos.getTrackingRadialVelocityFrame();
 
-         if(rv != 0.0) {
-           xmlBuffer.append("\n        " + indent + "<" + TX_RV + ">" + rv + "</rv>");
-         }
+         xmlBuffer.append("\n        " + indent + "<" + TX_RV + 
+	   " " + TX_RV_DEFN + "=\"" + rvDefn + "\"" +
+	   " " + TX_RV_FRAME + "=\"" + rvFrame + "\"" +
+	   ">" + rv + "</rv>");
        } 
        catch(Exception e) {
          // ignore
        }
+
+       try {
+         parallax = Double.parseDouble( targetPos.getTrackingParallax() );
+       }
+       catch (Exception e) {};
+       if ( parallax != 0.0 ) {
+         xmlBuffer.append("\n        " + indent + "<" + TX_PARALLAX +">" +
+	                  parallax + "</" + TX_PARALLAX + ">" );
+       }
+
 
        xmlBuffer.append("\n      " + indent + "</" + TX_SPHERICAL_SYSTEM + ">");
        break;
@@ -784,7 +808,12 @@ processXmlElementContent(String name, String value, int pos)
 // ---- Conic System (Orbital Elements) ----------------------------------------
 
    if(name.equals(TX_EPOCH)) {
-      _currentPosition.setConicSystemEpoch(value);
+      if ( _currentPosition.getSystemType() == SpTelescopePos.SYSTEM_CONIC) {
+          _currentPosition.setConicSystemEpoch(value);
+      }
+      else  {
+          _currentPosition.setTrackingEpoch(value);
+      }
       return;
    }
 
@@ -880,7 +909,7 @@ processXmlElementContent(String name, String value, int pos)
    }
 
    // Paralax
-   if(name.equals(TX_PARALAX)) {
+   if(name.equals(TX_PARALLAX)) {
       _currentPosition.setTrackingParallax(value);
       return;
    }
@@ -967,6 +996,16 @@ processXmlAttribute(String elementName, String attributeName, String value)
 	   
 	   return;
         }
+   }
+
+   if ( elementName.equals(TX_RV) && _currentPosition != null ) {
+       if ( attributeName.equals(TX_RV_DEFN) ) {
+           _currentPosition.setTrackingRadialVelocityDefn(value);
+       }
+       else if ( attributeName.equals(TX_RV_FRAME) ) {
+           _currentPosition.setTrackingRadialVelocityFrame(value);
+       }
+       return;
    }
 
    if(elementName.equals(TX_EPOCH)       ||

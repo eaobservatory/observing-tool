@@ -82,6 +82,45 @@ public class GraphScale extends JPanel implements ChangeListener
         axisRect.height ) );
    }
 
+   public GraphScale ( double minimum, double maximum, 
+     double majorIncrement, double minorIncrement, double redshift,
+     int exponent, int length, int orientation, boolean isVelocity )
+   {
+      super();
+
+      setLayout ( null );
+
+      restMinimum = minimum;
+      restMaximum = maximum;
+      if ( isVelocity ) {
+          // Convert redshift to velocity
+          double velocity = ( Math.pow( 1.0 + redshift, 2.0) - 1.0 ) /
+              ( Math.pow( 1.0 + redshift, 2.0) + 1.0 );
+          velocity *= EdFreq.LIGHTSPEED;
+          this.minimum = minimum + velocity;
+          this.maximum = maximum + velocity;
+      }
+      else {
+          this.minimum = minimum * ( 1.0 + redshift );
+          this.maximum = maximum * ( 1.0 + redshift );
+      }
+      this.majorIncrement = majorIncrement;
+      this.minorIncrement = minorIncrement;
+      this.redshift = redshift;
+      this.exponent = exponent;
+      this.length = length;
+      this.orientation = orientation;
+
+      this.pixelsPerValue = ((double)length) / ( this.maximum - this.minimum );
+      halfrange = ( this.maximum - this.minimum ) / 2.0;
+      restHalfrange = ( restMaximum - restMinimum ) / 2.0;
+
+      calculateTickRect();
+      calculateAxisRect();
+      setPreferredSize ( new Dimension ( axisRect.width, 
+                  axisRect.height ) );
+   }
+
    public void setOrientation ( int orientation )
    {
       this.orientation = orientation;
@@ -384,6 +423,17 @@ public class GraphScale extends JPanel implements ChangeListener
 
       repaint();
 
+   }
+
+   public String toString() {
+       String rtn = new String("GraphScale = [xSize=" + xSize + ", ySize=" + ySize +
+                                         ", length=" + length + ", halfrange=" + halfrange +
+                                         ", maximum=" + maximum + ", minimum=" + minimum +
+                                         ", exponent= " + exponent + ", redshift=" + redshift +
+                                         ", restMaximum=" + restMaximum + ", restMinimum=" + restMinimum +
+                                         ", restHalfrange=" + restHalfrange +
+                                        "]" );
+       return rtn;
    }
 
 }

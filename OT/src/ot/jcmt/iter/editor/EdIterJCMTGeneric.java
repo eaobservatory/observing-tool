@@ -43,6 +43,7 @@ import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJCMTObs;
 import orac.jcmt.obsComp.SpSiteQualityObsComp;
 import orac.jcmt.util.ScubaNoise;
+import orac.jcmt.SpJCMTConstants;
 import orac.util.DrUtil;
 import orac.util.SpItemUtilities;
 
@@ -68,13 +69,6 @@ public class EdIterJCMTGeneric extends OtItemEditor
     // If true, ignore action events
     //  private boolean ignoreActions = false;
 
-    protected static String [] SWITCHING_MODES = { IterJCMTGenericGUI.BEAM,         // Beam
-						   IterJCMTGenericGUI.POSITION,        // Position
-						   IterJCMTGenericGUI.FREQUENCY_S,   // Frequency
-						   IterJCMTGenericGUI.FREQUENCY_F,   // Frequency
-						   IterJCMTGenericGUI.NONE };      // None
-
-    protected static int SWITCHING_MODE_CHOP = 1;
 
     protected SpIterJCMTObs _iterObs;
 
@@ -91,11 +85,6 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	for(int i = 0; i < 100; i++) {
 	    _w.noOfIntegrations.addItem("" + (i + 1));
 	}
-
-	for(int i = 0; i < SWITCHING_MODES.length; i++) {
-	    _w.switchingMode.addItem(SWITCHING_MODES[i]);
-	}
-
 
 	_w.switchingMode.addWatcher(this);
 	_w.noOfIntegrations.addWatcher(this);
@@ -118,11 +107,24 @@ public class EdIterJCMTGeneric extends OtItemEditor
     public void setup(SpItem spItem) {
 	_iterObs = (SpIterJCMTObs)spItem;
 	super.setup(spItem);
+
+	_w.switchingMode.deleteWatcher(this);
+	_w.switchingMode.setChoices(_iterObs.getSwitchingModeOptions());
+
+	if(_w.switchingMode.getItemCount() > 1) {
+          _w.switchingMode.setEnabled(true);
+	}
+	else {
+          _w.switchingMode.setEnabled(false);
+	}
+        _w.switchingMode.setValue( _iterObs.getSwitchingMode() );
+
+	_w.switchingMode.addWatcher(this);
     }
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
 	if(ddlbwe == _w.switchingMode) {
-	    if(val.equals(IterJCMTGenericGUI.FREQUENCY_S)) {
+	    if(val.equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S)) {
 		_w.frequencyPanel.setVisible(true);
 		_w.frequencyOffset_rate.setEnabled(false);
 		if (_iterObs.getSecsPerCycle() != 0) {
@@ -136,19 +138,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		_iterObs.setFrequencyOffsetRate(_w.frequencyOffset_rate.getValue());
 		_iterObs.setFrequencyOffsetThrow(_w.frequencyOffset_throw.getValue());
 	    }
-	    else if (val.equals(IterJCMTGenericGUI.FREQUENCY_F)) {
-		// Make sure we are using A3 since that is the only
-		// front end capable of this.
-		SpInstHeterodyne currentInst = (SpInstHeterodyne)SpTreeMan.findInstrument(_iterObs);
-		if ( !currentInst.getFrontEnd().equals("A3") ) {
-		    JOptionPane.showMessageDialog( _w,
-						   "Fast Frequency Switching only available for A3,\nplease change front end configuration or select a different switching mode.",
-						   "Fast Freq. Switching Not Available",
-						   JOptionPane.WARNING_MESSAGE);
-		    return;
-		}
+	    else if (val.equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F)) {
 		_w.frequencyPanel.setVisible(true);
-		_w.frequencyOffset_rate.setEnabled(true);
+		_w.frequencyOffset_rate.setEnabled(false);
 		_w.frequencyOffset_rate.setValue(0.5);
 		_iterObs.setFrequencyOffsetRate(_w.frequencyOffset_rate.getValue());
 		_iterObs.setFrequencyOffsetThrow(_w.frequencyOffset_throw.getValue());
@@ -254,14 +246,14 @@ public class EdIterJCMTGeneric extends OtItemEditor
 
   	_w.switchingMode.setValue(_iterObs.getSwitchingMode());
 	if ((_iterObs.getSwitchingMode() != null) &&
-	    (_iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
-	    _iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY_F))) {
+	    (_iterObs.getSwitchingMode().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S) ||
+	    _iterObs.getSwitchingMode().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F))) {
 	    _w.frequencyPanel.setVisible(true);
-	    if (_iterObs.getSwitchingMode().equals(IterJCMTGenericGUI.FREQUENCY_S)) {
+	    if (_iterObs.getSwitchingMode().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S)) {
 		_w.frequencyOffset_rate.setEnabled(false);
 	    }
 	    else {
-		_w.frequencyOffset_rate.setEnabled(true);
+		_w.frequencyOffset_rate.setEnabled(false);
 	    }
 	}
 	else {
@@ -294,8 +286,8 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	    _w.jLabel2.setText("K");
 
 	    if(_w.switchingMode.getValue() != null && 
-	       (_w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_S) ||
-	       _w.switchingMode.getValue().equals(IterJCMTGenericGUI.FREQUENCY_F))) {
+	       (_w.switchingMode.getValue().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S) ||
+	       _w.switchingMode.getValue().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F))) {
 		_w.frequencyPanel.setVisible(true);
 	    }
 	    else {

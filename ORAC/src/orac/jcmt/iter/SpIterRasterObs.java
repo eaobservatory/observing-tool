@@ -61,6 +61,10 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   private static final String TX_SCAN_SYSTEM   = "SYSTEM";
   private static final String TX_SCAN_DY       = "DY";
 
+  /** Default values for rosw/ref and rows/cal */
+  private final String ROWS_PER_REF_DEFAULT = "1";
+  private final String ROWS_PER_CAL_DEFAULT = "1";
+
   /** Needed for XML parsing. */
   private String _xmlPaAncestor;
 
@@ -193,21 +197,20 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   }
 
 
-  /** Get scan velocity. */
-  public double getScanVelocity() {
+   /** Get scan velocity. */
+   public double getScanVelocity() {
 
-    // No scan velocity set yet. Try to calculate of the default velocity
-    // according to the instrument used.
-    if(_avTable.getDouble(ATTR_SCANAREA_SCAN_VELOCITY, 0.0) == 0.0) {
-      SpInstObsComp inst = SpTreeMan.findInstrument(this);
-      if(inst != null) {
-	double scanVelocity = ((SpJCMTInstObsComp)inst).getDefaultScanVelocity();
-          _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "" + scanVelocity, 0);
+      // No scan velocity set yet. Try to calculate of the default velocity
+      // according to the instrument used.
+      if(_avTable.getDouble(ATTR_SCANAREA_SCAN_VELOCITY, 0.0) == 0.0) {
+	 SpInstObsComp inst = SpTreeMan.findInstrument(this);
+	 if(inst != null) {
+	    double scanVelocity = ((SpJCMTInstObsComp)inst).getDefaultScanVelocity();
+	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "" + scanVelocity, 0);
+	 }
       }
-    }
-
-    return _avTable.getDouble(ATTR_SCANAREA_SCAN_VELOCITY, 0.0);
-  }
+      return _avTable.getDouble(ATTR_SCANAREA_SCAN_VELOCITY, 0.0);
+   }
 
   /** Set scan velocity. */
   public void setScanVelocity(double value) {
@@ -239,7 +242,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
       }
 
       if(inst instanceof SpInstHeterodyne) {
-	  return getScanVelocity()*getSampleTime();
+ 	  return getScanVelocity()*getSampleTime();
       }
 
       return 0.0;
@@ -276,14 +279,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
    */
   public void setScanDx(String dx) throws UnsupportedOperationException {
       setScanDx(Format.toDouble(dx));
-//     SpInstObsComp inst = SpTreeMan.findInstrument(this);
-//     if(inst == null) {
-//       throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
-//                                                "Needed for calculation of scan velocity.");
-//     }
-//     else {
-//       _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, ((SpInstSCUBA)inst).getChopFrequency() * Format.toDouble(dx));
-//     }   
   }
 
 
@@ -299,7 +294,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
       }
     }
 
-    return _avTable.getDouble(ATTR_SCANAREA_SCAN_DY, 0.0);
+    return _avTable.getDouble(ATTR_SCANAREA_SCAN_DY, 10.0);
   }
 
   /** Set scan dy. */
@@ -357,6 +352,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   }
 
   public String getRowsPerCal() {
+      if (!(_avTable.exists(ATTR_ROWS_PER_CAL)) ) {
+          setRowsPerCal(ROWS_PER_CAL_DEFAULT);
+      }
     return _avTable.get(ATTR_ROWS_PER_CAL);
   }
 
@@ -383,11 +381,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     public void setSampleTime(String value) {
 	SpInstObsComp inst = SpTreeMan.findInstrument(this);
 	if (inst instanceof SpInstHeterodyne) {
-	    _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, getScanDx()/Format.toDouble(value));
+            if ( Format.toDouble(value) == 0.0 ) {
+                // leave the old value
+                return;
+            }
+            else {
+                _avTable.set(ATTR_SCANAREA_SCAN_VELOCITY, getScanDx()/Format.toDouble(value));
+            }
 	}
 	super.setSampleTime(value);
-
-
     }
 
   public void posAngleUpdate(double posAngle) {
@@ -395,6 +397,24 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     // calling posAngleUpdate(posAngle) which would then call posAngleUpdate(posAngle)
     // again an so on causing an infinite loop.
     _avTable.set(ATTR_SCANAREA_PA, posAngle);
+  }
+
+  public double getSecsPerRow() {
+      SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+      if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
+          double mapWidth           = getWidth();
+          double sampleDX           = getScanDx();
+          double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
+          return mapWidth / scanRate;
+      }
+      else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
+          int samplesPerRow = (int)(Math.ceil(getWidth()/getScanDx()));
+          if (samplesPerRow%2 == 0) samplesPerRow++;
+          double timeOnRow  = (double)samplesPerRow * getSampleTime();
+          double timeOffRow = Math.sqrt((double)samplesPerRow) * getSampleTime();
+          return timeOnRow + timeOffRow;
+      }
+      return 0.0;
   }
 
   public double getElapsedTime() {
@@ -578,28 +598,55 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     super.processXmlAttribute(elementName, attributeName, value);
   }
 
+  public void setDefaults() {
+      setContinuumMode(false);
+      setRowsPerRef( ROWS_PER_REF_DEFAULT );
+      // Set the rows per cal to give about 10
+      // minutes between calibrations.
+      double rowsPerRef = (10*60)/getSecsPerRow();
+      if ( rowsPerRef < 1 ) {
+          rowsPerRef = 1.0;
+      }
+      else if ( rowsPerRef > Math.ceil( getHeight()/getScanDy() ) ) {
+          rowsPerRef = Math.ceil( getHeight()/getScanDy() );
+      }
+      int iRowsPerRef = (int)Math.rint(rowsPerRef);
+      setRowsPerCal( "" + iRowsPerRef);
+  }
+
     public void setupForHeterodyne() {
 	if (_avTable.get(ATTR_SWITCHING_MODE) == null ||
 	    _avTable.get(ATTR_SWITCHING_MODE).equals(""))
 	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, "Position", 0);
+	
 	if (_avTable.get(ATTR_ROWS_PER_CAL) == null ||
 	    _avTable.get(ATTR_ROWS_PER_CAL).equals(""))
-	    _avTable.noNotifySet(ATTR_ROWS_PER_CAL, null, 0);
+	    _avTable.noNotifySet(ATTR_ROWS_PER_CAL, ROWS_PER_CAL_DEFAULT, 0);
+	
 	if (_avTable.get(ATTR_ROWS_PER_REF) == null ||
 	    _avTable.get(ATTR_ROWS_PER_REF).equals(""))
-	    _avTable.noNotifySet(ATTR_ROWS_PER_REF, "1", 0);
+	    _avTable.noNotifySet(ATTR_ROWS_PER_REF, ROWS_PER_REF_DEFAULT, 0);
+
 	if (_avTable.get(ATTR_SAMPLE_TIME) == null ||
-	    _avTable.get(ATTR_SAMPLE_TIME).equals(""))
-	    _avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
+	    _avTable.get(ATTR_SAMPLE_TIME).equals("")) {
+	   _avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
+        }
+
+	if (_avTable.get(ATTR_CONTINUUM_MODE) == null ||
+	    _avTable.get(ATTR_CONTINUUM_MODE).equals(""))
+	    _avTable.noNotifySet(ATTR_CONTINUUM_MODE, "false", 0);
+
 	if (_avTable.get(ATTR_SCANAREA_SCAN_SYSTEM) == null ||
 	    _avTable.get(ATTR_SCANAREA_SCAN_SYSTEM).equals(""))
 	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SpJCMTConstants.SCAN_SYSTEMS[0], 0);
+	
 	if (_avTable.get(ATTR_SCANAREA_SCAN_VELOCITY) == null ||
 	    _avTable.get(ATTR_SCANAREA_SCAN_VELOCITY).equals(""))
 	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
+
 	if (_avTable.get(ATTR_SCANAREA_SCAN_DY) == null ||
 	    _avTable.get(ATTR_SCANAREA_SCAN_DY).equals(""))
-	_avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY, "0.0", 0);
+	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY, "10.0", 0);
     }
 
     public void setupForSCUBA() {
@@ -607,6 +654,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	_avTable.noNotifyRm(ATTR_ROWS_PER_CAL);
 	_avTable.noNotifyRm(ATTR_ROWS_PER_REF);
 	_avTable.noNotifyRm(ATTR_SAMPLE_TIME);
+	_avTable.noNotifyRm(ATTR_CONTINUUM_MODE);
 	if (_avTable.get(ATTR_SCANAREA_SCAN_VELOCITY) == null ||
 	    _avTable.get(ATTR_SCANAREA_SCAN_VELOCITY).equals(""))
 	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, 
@@ -615,6 +663,12 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 	    _avTable.get(ATTR_SCANAREA_SCAN_DY).equals(""))
 	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,
 				 ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanDy(), 0);
+    }
+
+    public String [] getSwitchingModeOptions() {
+        return new String [] {
+            SWITCHING_MODE_POSITION
+        };
     }
 }
 

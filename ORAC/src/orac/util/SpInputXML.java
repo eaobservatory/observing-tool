@@ -224,6 +224,9 @@ public class SpInputXML extends DefaultHandler {
         }
 
 
+	// There was a conflict during a update of the JAC_ACSIS branch.  I have uncommented what I believe 
+	// to be correct, but left the other in as a comment
+	// < SpInputXML.java
         //if((_currentElement != null) && (value.trim().length() > 0)){
         // values have to be "sent" in the endElement method because a multiple
         // call to characters() inside a <value> element would cause extra elements to
@@ -232,6 +235,17 @@ public class SpInputXML extends DefaultHandler {
         if((_currentElement != null) && (_valueArrayElement == null)){
             //        _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
         }
+	/* This is the alternate...
+    if(_valueArrayElement != null) {
+	//System.out.println( "Prcessing content of array element " + _valueArrayElement +
+	//	", value=" + _characterBuffer.trim() + ", posn=" + _valueArrayPos );
+      _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
+      _characterBuffer = null;
+    }
+    else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
+      _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
+      _characterBuffer = null;
+	*/
     }
 
     public SpItem xmlToSpItem(String xml) throws Exception {

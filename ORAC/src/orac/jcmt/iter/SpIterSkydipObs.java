@@ -90,7 +90,7 @@ public class SpIterSkydipObs extends SpIterJCMTObs {
     }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, SWITCHING_MODE_CHOP, 0);
 	_avTable.noNotifySet(ATTR_POSITIONS, "0", 0);
 	_avTable.noNotifySet(ATTR_START_POSITION, START_POSITIONS[0], 0);
     }

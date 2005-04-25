@@ -36,9 +36,15 @@ public class Receiver
       bandspecs = new Vector();
    }
 
+   public void setBandSpecs (Vector v) {
+       bandspecs = v;
+   }
+
    public String toString()
    {
-      return name;
+       String rtn = "[name=" + name + "; loMin=" + loMin + "; loMax=" + loMax +
+           "; feIF=" + feIF + "; bandWidth=" + bandWidth + "; bandSpecs=" + bandspecs + "]";
+      return rtn;
    }
 
 }

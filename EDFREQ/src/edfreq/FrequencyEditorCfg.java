@@ -1,6 +1,8 @@
 package edfreq;
 
 import java.util.Hashtable;
+import java.util.Vector;
+
 import java.io.InputStream;
 import java.io.File;
 import java.io.FileReader;
@@ -8,8 +10,9 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import JSX.ObjOut;
-import JSX.ObjIn;
+
+import orac.util.InstCfg;
+import orac.util.InstCfgReader;
 
 /**
  * XML serialised instances of this class are used as Frequency Editor configuration files/resources.
@@ -98,67 +101,187 @@ public class FrequencyEditorCfg {
 
   public static FrequencyEditorCfg getConfiguration() {
     if(_frequencyEditorCfg == null) {
-      String freqEditorCfgFile = System.getProperty(FREQ_EDITOR_CFG_PROPERTY);
-      URL freqEditorCfgUrl = null;
-
-      if(freqEditorCfgFile != null) {
-        freqEditorCfgUrl = ClassLoader.getSystemClassLoader().getResource(freqEditorCfgFile);
-      }
-
-      if(freqEditorCfgUrl != null) {
-        try {
-          _frequencyEditorCfg = getConfiguration(freqEditorCfgUrl.openStream());
-        }
-        catch(IOException e) {
-          System.out.println("Using default FrequencyEditorCfg object.");
-          _frequencyEditorCfg = new FrequencyEditorCfg();
-        }
-      }
-      else {
-        System.out.println("Using default FrequencyEditorCfg object.");
-        _frequencyEditorCfg = new FrequencyEditorCfg();
-      }
+        String acsisCfgFile = System.getProperty("ot.cfgdir") + File.separator + "acsis.cfg";
+        _frequencyEditorCfg = getConfiguration(acsisCfgFile);
+//       String freqEditorCfgFile = System.getProperty(FREQ_EDITOR_CFG_PROPERTY);
+//       URL freqEditorCfgUrl = null;
+// 
+//       if(freqEditorCfgFile != null) {
+//         freqEditorCfgUrl = ClassLoader.getSystemClassLoader().getResource(freqEditorCfgFile);
+//       }
+// 
+//       if(freqEditorCfgUrl != null) {
+//         try {
+//           _frequencyEditorCfg = getConfiguration(freqEditorCfgUrl.openStream());
+//         }
+//         catch(IOException e) {
+//           System.out.println("Using default FrequencyEditorCfg object.");
+//           _frequencyEditorCfg = new FrequencyEditorCfg();
+//         }
+//       }
+//       else {
+//         System.out.println("Using default FrequencyEditorCfg object.");
+//         _frequencyEditorCfg = new FrequencyEditorCfg();
+//       }
     }
 
     return _frequencyEditorCfg;
   }
 
-  public static FrequencyEditorCfg getConfiguration(InputStream inputStream) {
-    try {
-      ObjIn objIn = new ObjIn(inputStream);
-      return (FrequencyEditorCfg)objIn.readObject();
-    }
-    catch(Exception e) {
-      System.out.println("Could not create a FrequencyEditorCfg object from the input stream provided.");
-      e.printStackTrace();
-      
-      return new FrequencyEditorCfg();
-    }
+//   public static FrequencyEditorCfg getConfiguration(InputStream inputStream) {
+//     try {
+//       ObjIn objIn = new ObjIn(inputStream);
+//       return (FrequencyEditorCfg)objIn.readObject();
+//     }
+//     catch(Exception e) {
+//       System.out.println("Could not create a FrequencyEditorCfg object from the input stream provided.");
+//       e.printStackTrace();
+//       
+//       return new FrequencyEditorCfg();
+//     }
+//   }
+
+  public static FrequencyEditorCfg getConfiguration( String fileName ) {
+
+      InstCfgReader rdr = new InstCfgReader (fileName);
+      InstCfg instInfo = null;
+      String block = null;
+
+      String [] myFrontEnds = null;
+      Hashtable myReceivers = null;
+
+      if ( _frequencyEditorCfg == null )  {
+          _frequencyEditorCfg = new FrequencyEditorCfg();
+      }
+
+      try {
+          while ((block = rdr.readBlock()) != null) {
+              instInfo = new InstCfg (block);
+              if ( InstCfg.matchAttr (instInfo, "receivers") ) {
+                  String [][] recList = instInfo.getValueAs2DArray();
+                  myFrontEnds = new String [recList.length];
+                  myReceivers = new Hashtable(recList.length);
+                  try {
+                      for ( int i=0; i<recList.length; i++ ) {
+                          myFrontEnds[i] = recList[i][0];
+                          double loMin = Double.parseDouble(recList[i][1]);
+                          double loMax = Double.parseDouble(recList[i][2]);
+                          double feIF  = Double.parseDouble(recList[i][3]);
+                          double bw    = Double.parseDouble(recList[i][4]);
+                          myReceivers.put( recList[i][0], new Receiver(myFrontEnds[i], loMin, loMax, feIF, bw) );
+                      }
+                      _frequencyEditorCfg.receivers = myReceivers;
+                      _frequencyEditorCfg.frontEnds = myFrontEnds;
+                  }
+                  catch (Exception e) {
+                      e.printStackTrace();
+                  }
+              }
+              else if ( InstCfg.matchAttr (instInfo, "modes") ) {
+//                   String [] modes = instInfo.getValueAsArray();
+//                   Hashtable myFrontEndTable = new Hashtable(modes.length);
+//                   for ( int i=0; i<modes.length; i++ ) {
+//                       System.out.println("Setting frontEndTable key="+myFrontEnds[i] + ", value=" + modes[i]);
+//                       myFrontEndTable.put( myFrontEnds[i], modes[i].split("\\s+"));
+//                   }
+                  String [][] modes = instInfo.getValueAs2DArray();
+                  Hashtable myFrontEndTable = new Hashtable(modes.length);
+                  for (int i=0; i<modes.length; i++ ) {
+                      myFrontEndTable.put( myFrontEnds[i], modes[i]);
+                  }
+                  _frequencyEditorCfg.frontEndTable = myFrontEndTable;
+              }
+              else if ( InstCfg.matchAttr (instInfo, "mixers") ) {
+                  String [][] mixers = instInfo.getValueAs2DArray();
+                  Hashtable myFrontEndMixers = new Hashtable(mixers.length);
+                  for ( int i=0; i<mixers.length; i++ ) {
+                      myFrontEndMixers.put( myFrontEnds[i], mixers[i]);
+                  }
+                  _frequencyEditorCfg.frontEndMixers = myFrontEndMixers;
+              }
+              else if ( InstCfg.matchAttr (instInfo, "velocity_frames") ) {
+                  String [] myVelocityFrames = instInfo.getValueAsArray();
+              }
+              else if ( InstCfg.likeAttr ( instInfo, "bandspecs" ) ) {
+                  String [][] specs    = instInfo.getValueAs2DArray();
+                  double [] bandWidths = new double[specs.length];
+                  double [] overlaps   = new double[specs.length];
+                  int [] channels      = new int[specs.length];
+                  int [] hybSubbands   = new int[specs.length];
+                  try {
+                      for ( int i=0; i<specs.length; i++ ) {
+                          bandWidths[i]  = Double.parseDouble(specs[i][0]);
+                          overlaps[i]    = Double.parseDouble(specs[i][1]);
+                          channels[i]    = Integer.parseInt(specs[i][2]);
+                          hybSubbands[i] = Integer.parseInt(specs[i][3]);
+                      }
+                      BandSpec bs = null;
+                      boolean foundMatch = false;
+                      for ( int i=0; i<myFrontEnds.length; i++ ) {
+                          if ( InstCfg.likeAttr (instInfo, myFrontEnds[i].replaceAll("[^a-zA-Z0-9]", "")) ) {
+                              foundMatch = true;
+                              bs = new BandSpec("1", specs.length, bandWidths, overlaps, channels, hybSubbands);
+                              Vector bsVector = new Vector();
+                              bsVector.add(bs);
+                              ((Receiver)_frequencyEditorCfg.receivers.get(myFrontEnds[i])).setBandSpecs(bsVector);
+                              break;
+                          }
+                      }
+                      if (!foundMatch) {
+                          System.out.println("Failed to find match for keyword " + instInfo.getKeyword());
+                      }
+                  }
+                  catch (Exception e) {
+                      e.printStackTrace();
+                  }
+              }
+          }
+      }
+      catch (IOException ioe) {
+          ioe.printStackTrace();
+      }
+
+      return _frequencyEditorCfg;
   }
 
-  public static void main(String [] args) {
-    if(args.length > 0) {
-      File cfgFile = new File(args[0]);
+//   public static void main(String [] args) {
+//     if(args.length > 0) {
+//       File cfgFile = new File(args[0]);
+// 
+//       if(cfgFile.exists()) {
+//         System.out.println("Cannot create xml cfg file " + args[0] + ". File exists.");
+// 	return;
+//       }
+//       else {
+//         createDefaultCfgFile(cfgFile);
+//       }
+//     }
+//   }
 
-      if(cfgFile.exists()) {
-        System.out.println("Cannot create xml cfg file " + args[0] + ". File exists.");
-	return;
-      }
-      else {
-        createDefaultCfgFile(cfgFile);
-      }
-    }
-  }
+//   public static void createDefaultCfgFile(File file) {
+//     try {
+//       ObjOut objOut = new ObjOut(false, new FileWriter(file));
+//       FrequencyEditorCfg frequencyEditorCfg = new FrequencyEditorCfg();
+//       objOut.writeObject(frequencyEditorCfg);
+//     }
+//     catch(IOException e) {
+//       e.printStackTrace();
+//     }
+//   }
 
-  public static void createDefaultCfgFile(File file) {
-    try {
-      ObjOut objOut = new ObjOut(false, new FileWriter(file));
-      FrequencyEditorCfg frequencyEditorCfg = new FrequencyEditorCfg();
-      objOut.writeObject(frequencyEditorCfg);
-    }
-    catch(IOException e) {
-      e.printStackTrace();
-    }
+  public String toString() {
+      StringBuffer sb = new StringBuffer();
+      sb.append("[\n");
+      sb.append("\tnames=[");
+      for ( int i=0; i<frontEnds.length; i++ ) {
+          sb.append(frontEnds[i] + ";");
+      }
+      sb.append("]\n");
+      sb.append("\tfrontEndTable=[" + frontEndTable + "]\n");
+      sb.append("\tfrontEndMixers=[" + frontEndMixers + "]\n");
+      sb.append("\treceivers=[" + receivers + "]\n");
+      sb.append("]");
+      return sb.toString();
   }
 }
 

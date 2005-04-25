@@ -11,7 +11,8 @@ include $(CONF_HOME)/make.conf
 # compiled too, during the compilation of edfreq.FrontEnd. If earlier versions of the jdk are
 # not all dependencies are detected by the compiler. Compiling edfreq/FrontEnd.class first
 # improves compile time for these earlier jdk's though.
-CLASS_FILES = $(addprefix $(LOCAL_INSTALL_ROOT)/classes/,$(shell ls edfreq/*.java | sed -e 's/\.java/\.class/g'))
+CLASSES_DIR_FOR_SED = $(shell echo $(LOCAL_INSTALL_ROOT)/classes | sed -e 's/\./\\\./g' | sed -e 's/\//\\\//g')
+CLASS_FILES         = $(shell find . -name "*.java" | sed -e 's/\.\//$(CLASSES_DIR_FOR_SED)\//g' | sed -e 's/\.java/\.class/g')
 
 CFG_FILES           = $(addprefix $(LOCAL_INSTALL_ROOT)/cfg/, $(shell cd ../cfg; find .))
 
@@ -37,7 +38,7 @@ $(LOCAL_INSTALL_ROOT)/bin:
 
 # default rule 
 $(LOCAL_INSTALL_ROOT)/classes/%.class: %.java
-	$(JAVAC) -d $(LOCAL_INSTALL_ROOT)/classes -classpath .:$(XERXES_JAR):../tools/JSX1.0.1.1.jar $<
+	$(JAVAC) -d $(LOCAL_INSTALL_ROOT)/classes -classpath .:$(XERXES_JAR):../../ORAC/install/classes $<
 
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg
 	cp -r ../cfg $(LOCAL_INSTALL_ROOT)

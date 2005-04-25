@@ -53,8 +53,6 @@ public class TelescopeGUI extends JPanel {
     TextBoxWidgetExt detailsEpochTBW = new TextBoxWidgetExt();
     GridBagLayout gridBagLayout3 = new GridBagLayout();
     GridBagLayout gridBagLayout2 = new GridBagLayout();
-    TextBoxWidgetExt detailsEffWavelengthTBW = new TextBoxWidgetExt();
-    JLabel jLabel17 = new JLabel();
     JLabel jLabel16 = new JLabel();
     JLabel jLabel15 = new JLabel();
     JLabel jLabel14 = new JLabel();
@@ -62,17 +60,10 @@ public class TelescopeGUI extends JPanel {
     JLabel jLabel13 = new JLabel();
     JLabel jLabel12 = new JLabel();
     TextBoxWidgetExt propMotionDecTBW = new TextBoxWidgetExt();
-    JLabel jLabel11 = new JLabel();
-    JLabel jLabel10 = new JLabel();
     JTabbedPane extrasFolder = new JTabbedPane();
-    CommandButtonWidgetExt detailsAutoCBW = new CommandButtonWidgetExt();
-    TextBoxWidgetExt detailsRadVelTBW = new TextBoxWidgetExt();
     TextBoxWidgetExt propMotionRATBW = new TextBoxWidgetExt();
     JLabel jLabel9 = new JLabel();
     JLabel jLabel8 = new JLabel();
-    DropDownListBoxWidgetExt detailsSystemDDLBW = new DropDownListBoxWidgetExt();
-    JLabel jLabel7 = new JLabel();
-    JLabel jLabel6 = new JLabel();
     TextBoxWidgetExt detailsParallaxTBW = new TextBoxWidgetExt();
     JPanel propMotionPW = new JPanel();
     JScrollPane jScrollPane1 = new JScrollPane();
@@ -133,6 +124,13 @@ public class TelescopeGUI extends JPanel {
   DropDownListBoxWidgetExt targetTypeDDList = new DropDownListBoxWidgetExt();
   JLabel resolvedName = new JLabel();
 
+  // Widgets for radial velocity frame
+  JLabel velLabel = new JLabel();
+  DropDownListBoxWidgetExt velDefn = new DropDownListBoxWidgetExt();
+  TextBoxWidgetExt velValue = new TextBoxWidgetExt();
+  JLabel velFrameLabel = new JLabel();
+  DropDownListBoxWidgetExt velFrame = new DropDownListBoxWidgetExt();
+  
     public TelescopeGUI() {
         try {
             jbInit();
@@ -192,9 +190,6 @@ public class TelescopeGUI extends JPanel {
         tagDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
 	targetTypeDDList.setFont(new java.awt.Font("Dialog", 0, 12));
         systemDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel17.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel17.setForeground(Color.black);
-        jLabel17.setText("(km/s)");
         jLabel16.setText("Dec");
         jLabel16.setForeground(Color.black);
         jLabel16.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -213,27 +208,12 @@ public class TelescopeGUI extends JPanel {
         jLabel12.setText("(arcsec)");
         jLabel12.setForeground(Color.black);
         jLabel12.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel11.setFont(new java.awt.Font("Dialog", 0, 10));
-        jLabel11.setForeground(Color.black);
-        jLabel11.setText("(microns)");
-        jLabel10.setText("Radial Vel");
-        jLabel10.setForeground(Color.black);
-        jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
-        detailsAutoCBW.setMargin(new Insets(2, 2, 2, 2));
-        detailsAutoCBW.setText("auto");
         jLabel9.setText("Epoch");
         jLabel9.setForeground(Color.black);
         jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
         jLabel8.setText("Parallax");
         jLabel8.setForeground(Color.black);
         jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
-        detailsSystemDDLBW.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel7.setText("Eff. Wavelength");
-        jLabel7.setForeground(Color.black);
-        jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
-        jLabel6.setText("System");
-        jLabel6.setForeground(Color.black);
-        jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
         propMotionPW.setLayout(gridBagLayout2);
         propMotionPW.setAlignmentX((float) 0.0);
         propMotionPW.setAlignmentY((float) 0.0);
@@ -332,8 +312,8 @@ public class TelescopeGUI extends JPanel {
     dmUnitsLabel.setText("(deg)");
     epoch.setColumns(10);
     epochPerih.setColumns(10);
+    detailsEpochTBW.setColumns(8);
     l_or_m.setColumns(6);
-    detailsRadVelTBW.setColumns(10);
     offsetCheckBox.setVerticalTextPosition(SwingConstants.BOTTOM);
     offsetCheckBox.setText("Offset");
     offsetCheckBox.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -512,6 +492,8 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
     chopPW.add(chopSystemLabel, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+
+    // Proper Motion tab
         propMotionPW.add(jLabel14, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 49, 0, 0), 0, 0));
         propMotionPW.add(propMotionRATBW, new GridBagConstraints(1, 0, 1, 1, 1.0, 0.0
@@ -524,34 +506,51 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(16, 0, 0, 134), 0, 0));
         propMotionPW.add(jLabel15, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(18, 0, 14, 134), 0, 0));
-        detailsPW.add(jLabel10, new GridBagConstraints(0, 0, 1, 2, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 3, 0, 0), 0, 0));
-        detailsPW.add(detailsRadVelTBW, new GridBagConstraints(1, 0, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(4, 5, 0, 0), 0, 0));
-        detailsPW.add(jLabel7, new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(13, 3, 0, 0), 0, 0));
-        detailsPW.add(detailsEffWavelengthTBW, new GridBagConstraints(0, 3, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 3, 2, 0), 47, 0));
-        detailsPW.add(jLabel11, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
-        detailsPW.add(jLabel8, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
+        propMotionPW.add(jLabel9, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(18, 30, 6, 0), 0, 0));
+        propMotionPW.add(detailsEpochTBW, new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(16, 5, 0, 10), 68, 0));
+        propMotionPW.add(jLabel8, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 20, 0, 0), 0, 0));
-        detailsPW.add(detailsParallaxTBW, new GridBagConstraints(5, 2, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 69, 0));
-        detailsPW.add(jLabel6, new GridBagConstraints(4, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        detailsPW.add(detailsSystemDDLBW, new GridBagConstraints(5, 3, 2, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 68, 0));
-        detailsPW.add(jLabel9, new GridBagConstraints(4, 0, 1, 2, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(4, 30, 6, 0), 0, 0));
-        detailsPW.add(detailsEpochTBW, new GridBagConstraints(5, 0, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 68, 0));
-        detailsPW.add(jLabel12, new GridBagConstraints(6, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(7, 0, 10, 20), 0, 0));
-        detailsPW.add(detailsAutoCBW, new GridBagConstraints(3, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 14, 2, 6), 0, 0));
-        detailsPW.add(jLabel17, new GridBagConstraints(3, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+        propMotionPW.add(detailsParallaxTBW, new GridBagConstraints(5, 1, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 5), 69, 0));
+        propMotionPW.add(jLabel12, new GridBagConstraints(6, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(7, 0, 0, 20), 0, 0));
+  
+	// Radial Velocity tab
+	// This looks like what the velocity panel in the het compt.
+	velLabel.setText("Velocity (km/s or redshift)");
+	velLabel.setForeground(Color.black);
+	velLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+
+	velDefn.setForeground(Color.black);
+	velDefn.setFont(new java.awt.Font("Dialog", 0, 12));
+
+	velFrameLabel.setText("Frame");
+	velFrameLabel.setForeground(Color.black);
+	velFrameLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+
+	velValue.setColumns(20);
+
+	velFrame.setForeground(Color.black);
+	velFrame.setFont(new java.awt.Font("Dialog", 0, 12));
+
+	detailsPW.add( velLabel, new GridBagConstraints (0, 0, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets(10, 5, 10, 5), 0, 0));
+	detailsPW.add (velDefn, new GridBagConstraints( 1, 0, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets(10, 5, 10, 5), 0, 0));
+	detailsPW.add( velValue, new GridBagConstraints( 2, 0, 1, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                    new Insets(10, 5, 10, 50), 0, 0));
+	detailsPW.add( velFrameLabel, new GridBagConstraints( 0, 1, 1, 1, 0.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+                    new Insets(10, 5, 10, 5), 0, 0));
+	detailsPW.add( velFrame, new GridBagConstraints( 1, 1, 2, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+		    new Insets(10, 5, 10, 20), 0, 0));
+
         extrasFolder.add(propMotionPW, "Proper Motion");
         extrasFolder.add(detailsPW, "Radial Vel/Tracking");
         extrasFolder.add(chopPW, "Chop Settings");

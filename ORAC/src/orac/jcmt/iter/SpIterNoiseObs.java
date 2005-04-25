@@ -78,7 +78,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
     }
 
     public void setupForHeterodyne() {
-	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
+	_avTable.noNotifySet(ATTR_SWITCHING_MODE, SWITCHING_MODE_CHOP, 0);
     }
 
     public void setupForSCUBA() {

@@ -18,8 +18,7 @@ import orac.util.InstCfgReader;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
-
-import gemini.sp.obsComp.SpObsComp;
+import gemini.sp.obsComp.SpDRObsComp;
 
 /**
  * This class defines the DRRecipe Observation Component. It is specific to
@@ -33,7 +32,7 @@ import gemini.sp.obsComp.SpObsComp;
  * Modified for WFCAM: 2003-Mar-31 Alan Pickup, UKATC
  *
  */
-public final class SpDRRecipe extends SpObsComp
+public final class SpDRRecipe extends SpDRObsComp
 {
     public static final String ATTR_BIAS_RECIPE    = "BiasRecipe";
     public static final String ATTR_DARK_RECIPE    = "DarkRecipe";

@@ -123,21 +123,44 @@ public interface SpJCMTConstants {
     */
    public static final int CHOP_SYSTEM_TARCKING  = 0;
 
+   /**
+    * Systems for jiggle.
+    *
+    * "TRACKING", "AZEL", "MOUNT", "FPLANE", "SCAN".
+    *
+    * Default is JIGGLE_SYSTEMS[0] = "TRACKING".
+    *
+    * Corresponding TCS XML:
+    * Refers to TCS XML:
+    * <pre>
+    * &lt;JIGGLE SYSTEM="TRACKING"&gt;
+    * &lt;/JIGGLE&gt;
+    * </pre>
+    */
+   public static final String [] JIGGLE_SYSTEMS     = { "TRACKING", "AZEL", "MOUNT", "FPLANE" };
+
+
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
 //    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
    public static final String ATTR_CYCLE_REVERSAL      = "cycleReversal";
-   public static final String ATTR_JIGGLE_PATTERN      = "jigglePattern";
    public static final String ATTR_STEP_SIZE           = "stepSize";
-   public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference";
    public static final String ATTR_SAMPLE_TIME         = "sampleTime";
-   public static final String ATTR_JIGGLES_PER_CYCLE   = "jigglePerCycle";
    public static final String ATTR_AUTOMATIC_TARGET    = "autoTarget";
    public static final String ATTR_CONT_CAL            = "continuousCal";
    public static final String ATTR_DO_AT_CURRENT_AZ    = "useCurrentAz";
 
-    public static final String ATTR_WIDE_PHOTOMETRY    = "widePhotometry";
+   public static final String ATTR_WIDE_PHOTOMETRY    = "widePhotometry";
+
+   public static final String ATTR_CONTINUUM_MODE     = "contiuumMode";
 
    public static final String ATTR_SAMPLES_PER_REVOLUTION = "samplesPerRevolution";
+
+   /** Jiggle Iterator. */
+   public static final String ATTR_JIGGLE_PA               = "jigglePa";
+   public static final String ATTR_JIGGLE_SYSTEM           = "jiggleSystem";
+   public static final String ATTR_JIGGLE_AT_REFERENCE = "jiggleAtReference";
+   public static final String ATTR_JIGGLE_PATTERN      = "jigglePattern";
+   public static final String ATTR_JIGGLES_PER_CYCLE   = "jigglePerCycle";
 
 
    /** Focus Iterator. */
@@ -162,6 +185,7 @@ public interface SpJCMTConstants {
    public static final String ATTR_ROWS_PER_CAL        = "rowsPerCal";
    public static final String ATTR_ROWS_PER_REF        = "rowsPerRef";
 
+   public static final String ATTR_SCALE_FACTOR        = "scaleFactor";
 
    /**
     * Skydip Iterator.
@@ -234,4 +258,11 @@ public interface SpJCMTConstants {
    /** Scuba array diameter in arcseconds. */
    public static final double SCUBA_ARRAY_DIAMETER    = 138;
 
+   public static final String SWITCHING_MODE_CHOP        = "Chop";
+   public static final String SWITCHING_MODE_NOD         = "Nod";
+   public static final String SWITCHING_MODE_BEAM = "Beam";
+   public static final String SWITCHING_MODE_POSITION = "Position";
+   public static final String SWITCHING_MODE_FREQUENCY_S = "Frequency-Slow";
+   public static final String SWITCHING_MODE_FREQUENCY_F = "Frequency-Fast";
+   public static final String SWITCHING_MODE_NONE        = "None";
 }

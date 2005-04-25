@@ -27,7 +27,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
    JScrollBar sideBandGui;
    AdjustmentListener _adjustmentListener = null;
 
-   Color _scrollBarKnobColor  = new Color(156, 154, 206);
+   private static Color _scrollBarKnobColor  = new Color(156, 154, 206);
    Color _scrollBarBackground = null;
 
    /**
@@ -271,5 +271,9 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
     */
    public void addAdjustmentListener(AdjustmentListener adjustmentListener) {
       _adjustmentListener = adjustmentListener;
+   }
+
+   public static Color getSideBandColor() {
+      return _scrollBarKnobColor;
    }
 }

@@ -15,12 +15,6 @@ import jsky.app.ot.gui.*;
 import javax.swing.border.*;
 
 public class IterJCMTGenericGUI extends JPanel {
-  public static final String BEAM      = "Beam";
-  public static final String POSITION  = "Position";
-  public static final String FREQUENCY_S = "Frequency-Slow";
-  public static final String FREQUENCY_F = "Frequency-Fast";
-  public static final String NONE      = "None";
-
   TextBoxWidgetExt secsPerCycle = new TextBoxWidgetExt();
   TextBoxWidgetExt noOfCycles = new TextBoxWidgetExt();
   TextBoxWidgetExt stepSize = new TextBoxWidgetExt();
@@ -71,6 +65,9 @@ public class IterJCMTGenericGUI extends JPanel {
     jLabel1.setForeground(Color.black);
     jLabel1.setText("No of Integrations(Cycles)");
     this.setLayout(borderLayout1);
+    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+    Border genBorder    = BorderFactory.createTitledBorder(bevelBorder, "General Setup");
+    jPanel1.setBorder( genBorder );
     jPanel1.setLayout(gridBagLayout1);
     switchingModeLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     switchingModeLabel.setForeground(Color.black);

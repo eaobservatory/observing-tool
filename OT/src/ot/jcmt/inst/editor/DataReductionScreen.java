@@ -14,41 +14,58 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import jsky.app.ot.gui.*;
 
 /**
  * ACSIS DR GUI.
- * 
+ *
  * @author Martin Folger ( M.Folger@roe.ac.uk )
  */
 public class DataReductionScreen extends JPanel {
-  JComboBox recipeComboBox = new JComboBox();
+  DropDownListBoxWidgetExt recipe = new DropDownListBoxWidgetExt();
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
-  JTextField jTextField1 = new JTextField();
+  TextBoxWidgetExt truncation = new TextBoxWidgetExt();
   JLabel jLabel3 = new JLabel();
   JLabel jLabel4 = new JLabel();
-  JTextArea jTextArea1 = new JTextArea();
-  JComboBox baseLineUnitComboBox = new JComboBox();
-  JPanel jPanel1 = new JPanel();
-  JRadioButton jRadioButton1 = new JRadioButton();
-  JLabel jLabel5 = new JLabel();
-  JTextField jTextField3 = new JTextField();
-  JLabel jLabel6 = new JLabel();
-  JTextField jTextField4 = new JTextField();
-  JRadioButton jRadioButton2 = new JRadioButton();
+  DropDownListBoxWidgetExt baselineRegionUnits = new DropDownListBoxWidgetExt();
+  JPanel baselineFitPanel = new JPanel();
+//  OptionWidgetExt baselineFittingSine = new OptionWidgetExt();
+//  JLabel jLabel5 = new JLabel();
+//  TextBoxWidgetExt sinePeriod = new TextBoxWidgetExt();
+//  JLabel jLabel6 = new JLabel();
+//  TextBoxWidgetExt sinePhase = new TextBoxWidgetExt();
+  DropDownListBoxWidgetExt baselineFittingPolynomial = new DropDownListBoxWidgetExt();
   JLabel jLabel7 = new JLabel();
-  JTextField jTextField5 = new JTextField();
+//  TextBoxWidgetExt polynomialOrder = new TextBoxWidgetExt();
   TitledBorder titledBorder1;
-  JRadioButton jRadioButton3 = new JRadioButton();
-  JRadioButton jRadioButton4 = new JRadioButton();
-  JRadioButton jRadioButton5 = new JRadioButton();
-  JLabel jLabel8 = new JLabel();
-  JComboBox channelSpacingComboBox = new JComboBox();
-  JCheckBox jCheckBox1 = new JCheckBox();
+  CheckBoxWidgetExt baselineFitting = new CheckBoxWidgetExt();
+  DropDownListBoxWidgetExt channelBinning = new DropDownListBoxWidgetExt();
+  CheckBoxWidgetExt deSpike = new CheckBoxWidgetExt();
   JLabel jLabel9 = new JLabel();
-  JComboBox regridingMethodComboBox = new JComboBox();
-  JProgressBar jProgressBar1 = new JProgressBar();
+  DropDownListBoxWidgetExt regriddingMethod = new DropDownListBoxWidgetExt();
+  JProgressBar totalMapSize = new JProgressBar();
   JLabel jLabel10 = new JLabel();
+  GridBagLayout gridBagLayout1 = new GridBagLayout();
+  GridBagLayout gridBagLayout2 = new GridBagLayout();
+  JScrollPane jScrollPane1 = new JScrollPane();
+  RichTextBoxWidgetExt baselineRegions = new RichTextBoxWidgetExt();
+//  JLabel jLabel8 = new JLabel();
+//  JScrollPane jScrollPane2 = new JScrollPane();
+//  RichTextBoxWidgetExt lineRegions = new RichTextBoxWidgetExt();
+  JLabel jLabel11 = new JLabel();
+  DropDownListBoxWidgetExt windowType = new DropDownListBoxWidgetExt();
+  CommandButtonWidgetExt showSpectralRegionEditor = new CommandButtonWidgetExt();
+
+  // Added by SDW
+  JLabel jLabel2a = new JLabel();
+  JLabel baselineLabel = new JLabel();
+  JRadioButton noBaselineButton = new JRadioButton();
+  JRadioButton automaticBaselineButton = new JRadioButton();
+  TextBoxWidgetExt automaticBaseline = new TextBoxWidgetExt();
+  JRadioButton manualBaselineButton = new JRadioButton();
+  JLabel polyLabel = new JLabel();
+
 
   //Construct the frame
   public DataReductionScreen() {
@@ -64,104 +81,173 @@ public class DataReductionScreen extends JPanel {
   //Component initialization
   private void jbInit() throws Exception  {
     titledBorder1 = new TitledBorder("Baseline Fitting");
-    this.setLayout(null);
-    this.setSize(new Dimension(501, 339));
+    this.setLayout(gridBagLayout1);
+    this.setSize(new Dimension(501, 564));
     //this.setTitle("Acsis Data Reduction");
-    recipeComboBox.setBounds(new Rectangle(89, 19, 182, 26));
+    jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel1.setForeground(Color.black);
     jLabel1.setText("Recipe");
-    jLabel1.setBounds(new Rectangle(21, 26, 62, 17));
-    jLabel2.setText("Truncation (Channels)");
-    jLabel2.setBounds(new Rectangle(20, 48, 176, 17));
-    jTextField1.setText("16");
-    jTextField1.setBounds(new Rectangle(196, 47, 76, 21));
-    jLabel3.setText("Channel Spacing");
-    jLabel3.setBounds(new Rectangle(19, 75, 117, 17));
-    jLabel4.setText("Baseline Windows");
-    jLabel4.setBounds(new Rectangle(10, 18, 139, 22));
-    jTextArea1.setBounds(new Rectangle(150, 15, 109, 52));
-    baseLineUnitComboBox.setBounds(new Rectangle(265, 20, 88, 26));
-    jPanel1.setBorder(titledBorder1);
-    jPanel1.setBounds(new Rectangle(18, 97, 368, 118));
-    jPanel1.setLayout(null);
-    jRadioButton1.setText("Sine wave");
-    jRadioButton1.setBounds(new Rectangle(8, 68, 107, 25));
-    jLabel5.setText("Period?");
-    jLabel5.setBounds(new Rectangle(116, 73, 63, 17));
-    jTextField3.setBounds(new Rectangle(179, 70, 63, 21));
-    jLabel6.setText("Phase");
-    jLabel6.setBounds(new Rectangle(247, 73, 53, 17));
-    jTextField4.setBounds(new Rectangle(297, 73, 63, 21));
-    jRadioButton2.setText("Polynomial");
-    jRadioButton2.setBounds(new Rectangle(7, 90, 104, 25));
+    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel2.setForeground(Color.black);
+    jLabel2.setText("Truncation");
+    jLabel2a.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel2a.setForeground(Color.black);
+    jLabel2a.setText("(Channels)");
+    jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel3.setForeground(Color.black);
+    jLabel3.setText("Channel Binning");
+    jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel4.setForeground(Color.black);
+    jLabel4.setText("Baseline Fit Regions");
+    baselineFitPanel.setBorder(titledBorder1);
+    baselineFitPanel.setLayout(gridBagLayout2);
+//    baselineFittingSine.setFont(new java.awt.Font("Dialog", 0, 12));
+//    baselineFittingSine.setText("Sine wave");
+//    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
+//    jLabel5.setForeground(Color.black);
+//    jLabel5.setText("Period?");
+//    jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
+//    jLabel6.setForeground(Color.black);
+//    jLabel6.setText("Phase");
+    baselineFittingPolynomial.setFont(new java.awt.Font("Dialog", 0, 12));
+    polyLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    polyLabel.setForeground(Color.black);
+    polyLabel.setText("Polynomial");
+    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel7.setForeground(Color.black);
     jLabel7.setText("Order");
-    jLabel7.setBounds(new Rectangle(116, 91, 61, 17));
-    jTextField5.setBounds(new Rectangle(179, 92, 63, 21));
-    jRadioButton3.setText("Off");
-    jRadioButton3.setBounds(new Rectangle(282, 25, 114, 22));
-    jRadioButton4.setText("Manual");
-    jRadioButton4.setBounds(new Rectangle(281, 48, 118, 25));
-    jRadioButton5.setText("Automatic");
-    jRadioButton5.setBounds(new Rectangle(281, 74, 117, 25));
-    jLabel8.setText("Baseline Fitting");
-    jLabel8.setBounds(new Rectangle(281, 10, 148, 17));
-    channelSpacingComboBox.setBounds(new Rectangle(156, 71, 116, 26));
-    jCheckBox1.setText("De-spike");
-    jCheckBox1.setBounds(new Rectangle(20, 215, 89, 25));
+    baselineFitting.setFont(new java.awt.Font("Dialog", 0, 12));
+    baselineFitting.setText("Baseline Fitting");
+    deSpike.setFont(new java.awt.Font("Dialog", 0, 12));
+    deSpike.setText("De-spike");
+    jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel9.setForeground(Color.black);
     jLabel9.setText("Regriding Method");
-    jLabel9.setBounds(new Rectangle(111, 214, 161, 17));
-    regridingMethodComboBox.setBounds(new Rectangle(111, 228, 130, 26));
-    jProgressBar1.setBounds(new Rectangle(247, 228, 138, 14));
+    jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel10.setForeground(Color.black);
     jLabel10.setText("Total Map Size");
-    jLabel10.setBounds(new Rectangle(247, 212, 145, 17));
-    this.add(jRadioButton4, null);
-    this.add(jRadioButton3, null);
-    this.add(jRadioButton5, null);
-    this.add(jLabel8, null);
-    this.add(jLabel2, null);
-    this.add(jLabel1, null);
-    this.add(recipeComboBox, null);
-    this.add(jLabel3, null);
-    this.add(channelSpacingComboBox, null);
-    this.add(jTextField1, null);
-    this.add(jPanel1, null);
-    jPanel1.add(jLabel4, null);
-    jPanel1.add(jTextArea1, null);
-    jPanel1.add(baseLineUnitComboBox, null);
-    jPanel1.add(jLabel5, null);
-    jPanel1.add(jRadioButton1, null);
-    jPanel1.add(jRadioButton2, null);
-    jPanel1.add(jLabel7, null);
-    jPanel1.add(jTextField3, null);
-    jPanel1.add(jTextField5, null);
-    jPanel1.add(jLabel6, null);
-    jPanel1.add(jTextField4, null);
-    this.add(jCheckBox1, null);
-    this.add(jLabel9, null);
-    this.add(regridingMethodComboBox, null);
-    this.add(jLabel10, null);
-    this.add(jProgressBar1, null);
+    recipe.setFont(new java.awt.Font("Dialog", 0, 12));
+    baselineRegionUnits.setFont(new java.awt.Font("Dialog", 0, 12));
+    channelBinning.setFont(new java.awt.Font("Dialog", 0, 12));
+    regriddingMethod.setFont(new java.awt.Font("Dialog", 0, 12));
+//    jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
+//    jLabel8.setForeground(Color.black);
+//    jLabel8.setText("Line Regions");
+//    lineRegions.setRequestFocusEnabled(true);
+//    lineRegions.setText("");
+//    lineRegions.setRows(3);
+    baselineRegions.setRows(3);
+    jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
+    jLabel11.setText("Window Type");
+    truncation.setPreferredSize(new Dimension(6, 21));
+    truncation.setColumns(0);
+    windowType.setFont(new java.awt.Font("Dialog", 0, 12));
+    windowType.setActionCommand("comboBoxChanged");
+    showSpectralRegionEditor.setText("Edit Regions");
+    
+    // Added by SDW
+    baselineLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    baselineLabel.setText("Baseline Selection");
+    noBaselineButton.setFont(new java.awt.Font("Dialog", 0, 12));
+    noBaselineButton.setText("No Baseline");
+    automaticBaselineButton.setFont(new java.awt.Font("Dialog", 0, 12));
+    automaticBaselineButton.setText("Auto. Selection");
+    automaticBaselineButton.setToolTipText("Fracton of bandwidth for baseline estimation");
+    manualBaselineButton.setFont(new java.awt.Font("Dialog", 0, 12));
+    manualBaselineButton.setText("Manual Selection");
 
-    recipeComboBox.addItem("Default Recipe");
-    baseLineUnitComboBox.addItem("km/s");
-    baseLineUnitComboBox.addItem("MHz");
-    baseLineUnitComboBox.addItem("Channels");
 
-    /*
-     *  There are other settings depending on the bandwidth and the front end.
-     */
-    channelSpacingComboBox.addItem(" 31 kHz");
-    channelSpacingComboBox.addItem(" 62 kHz");
-    channelSpacingComboBox.addItem("124 kHz");
-    channelSpacingComboBox.addItem("248 kHz");
-    channelSpacingComboBox.addItem("496 kHz");
-    channelSpacingComboBox.addItem(" ~1 MHz");
-    channelSpacingComboBox.addItem(" ~2 MHz");
-    channelSpacingComboBox.addItem(" ~4 MHz");
-    channelSpacingComboBox.addItem(" ~8 MHz");
-    channelSpacingComboBox.addItem("~16 MHz");
 
-    regridingMethodComboBox.addItem("Linear");
-    regridingMethodComboBox.addItem("Bessel");
+    
+//    this.add(baselineFitting,           new GridBagConstraints(5, 0, 2, 1, 0.0, 0.0
+//            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 3, -3));
+    this.add(jLabel2,     new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    this.add(jLabel1,    new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 23, 1));
+    this.add(recipe,         new GridBagConstraints(1, 0, 4, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
+    this.add(jLabel3,      new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0, 0));
+    this.add(channelBinning,        new GridBagConstraints(1, 2, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
+    // Added by SDW
+    this.add( baselineLabel, new GridBagConstraints( 0, 3, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+    this.add( noBaselineButton, new GridBagConstraints( 1, 3, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+    this.add( automaticBaselineButton, new GridBagConstraints( 1, 4, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+    this.add( automaticBaseline, new GridBagConstraints( 2, 4, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+    this.add( manualBaselineButton, new GridBagConstraints( 1, 5, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+    this.add( polyLabel, new GridBagConstraints( 0, 6, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+    this.add( baselineFittingPolynomial, new GridBagConstraints( 1, 6, 1, 1, 1.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+		new Insets(0, 5, 0, 5), 0, 0 ) );
+
+    // END OF ADDITIONS
+    this.add(truncation,          new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
+    this.add(jLabel2a,          new GridBagConstraints(2, 1, 1, 1, 1.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 0, 5, 0), 0, 0));
+    this.add(baselineFitPanel,   new GridBagConstraints(0, 7, 7, 1, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 367, 117));
+    baselineFitPanel.add(jLabel4,             new GridBagConstraints(0, 0, 1, 3, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 5), 0, 0));
+    baselineFitPanel.add(baselineRegionUnits, new GridBagConstraints(3, 1, 2, 2, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+	    new Insets(0, 5, 0, 5), 0, 0));
+    baselineFitPanel.add(jLabel7,              new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 2), 0, 0));
+//    baselineFitPanel.add(polynomialOrder,            new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+    baselineFitPanel.add(jScrollPane1,            new GridBagConstraints(1, 0, 2, 3, 1.0, 1.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+//    baselineFitPanel.add(baselineFittingPolynomial,       new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+    baselineFitPanel.add(showSpectralRegionEditor,        new GridBagConstraints(3, 0, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 10, 0, 10), 0, 0));
+    jScrollPane1.getViewport().add(baselineRegions, null);
+    this.add(deSpike,   new GridBagConstraints(0, 8, 1, 2, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+	    new Insets(0, 0, 0, 0), 0, 0));
+//     this.add(jLabel9,  new GridBagConstraints(1, 8, 4, 1, 0.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, 
+// 	    new Insets(0, 0, 0, 0), 0, 0));
+//     this.add(regriddingMethod,     new GridBagConstraints(1, 9, 3, 1, 1.0, 0.0
+//             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 5, 0), 0, 0));
+    this.add(jLabel10,   new GridBagConstraints(5, 8, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 66, 1));
+    this.add(totalMapSize,     new GridBagConstraints(5, 9, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+    this.add(jLabel11,      new GridBagConstraints(3, 2, 2, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 10, 0, 2), 0, 0));
+    this.add(windowType,       new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+//    baselineFitPanel.add(jLabel5,             new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 2), 0, 0));
+//    baselineFitPanel.add(jLabel6,                   new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 2), 0, 0));
+//    baselineFitPanel.add(sinePhase,               new GridBagConstraints(4, 4, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+//    baselineFitPanel.add(jLabel8,          new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+//    baselineFitPanel.add(jScrollPane2,           new GridBagConstraints(1, 3, 2, 1, 1.0, 1.0
+//            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+//    baselineFitPanel.add(baselineFittingSine,       new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
+//    baselineFitPanel.add(sinePeriod,     new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+//            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+//    jScrollPane2.getViewport().add(lineRegions, null);
   }
 
 }

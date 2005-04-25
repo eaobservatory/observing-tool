@@ -3,7 +3,7 @@
 /*                UK Astronomy Technology Centre                */
 /*                 Royal Observatory, Edinburgh                 */
 /*                 Joint Astronomy Centre, Hilo                 */
-/*                   Copyright (c) PPARC 2002                   */
+/*                   Copyright (c) PPARC 2001                   */
 /*                                                              */
 /*==============================================================*/
 // $Id$
@@ -11,7 +11,6 @@
 package ot.jcmt.iter.editor;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import jsky.app.ot.gui.*;
 
@@ -20,17 +19,14 @@ import jsky.app.ot.gui.*;
  * Description:  <p>
  * Copyright:    Copyright (c) Martin Folger<p>
  * Company:      UK ATC<p>
- * @author Martin Folger
- * @version 1.0
+ * @author$
+ * @version$
  */
 
 
-public class IterNoiseObsGUI extends IterJCMTGenericGUI {
-  JPanel noisePanel = new JPanel();
-  FlowLayout flowLayout1 = new FlowLayout();
-  DropDownListBoxWidgetExt noiseSourceComboBox = new DropDownListBoxWidgetExt();
+public class IterFlatObsGUI extends IterJCMTGenericGUI {
 
-  public IterNoiseObsGUI() {
+  public IterFlatObsGUI() {
     try {
       jbInit();
     }
@@ -40,13 +36,5 @@ public class IterNoiseObsGUI extends IterJCMTGenericGUI {
   }
 
   private void jbInit() throws Exception {
-    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-    Border titleBorder = BorderFactory.createTitledBorder( bevelBorder, "Noise setup");
-    noisePanel.setBorder( titleBorder );
-    noisePanel.setLayout(flowLayout1);
-    secsPerCycle.setColumns(8);
-    noiseSourceComboBox.setFont(new java.awt.Font("Dialog", 0, 12));
-    this.add(noisePanel, BorderLayout.CENTER);
-    noisePanel.add(noiseSourceComboBox, null);
   }
 }

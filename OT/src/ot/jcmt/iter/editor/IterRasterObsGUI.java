@@ -15,6 +15,8 @@ import java.awt.*;
 import jsky.app.ot.gui.*;
 import javax.swing.border.*;
 
+import orac.util.JThermometer;
+
 /**
  * Title:        <p>
  * Description:  <p>
@@ -54,6 +56,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   Border border1;
   JLabel jLabel14 = new JLabel();
   DropDownListBoxWidgetExt sampleTime = new DropDownListBoxWidgetExt();
+  TextBoxWidgetExt acsisSampleTime = new TextBoxWidgetExt();
   TextBoxWidgetExt secsPerObservation = new TextBoxWidgetExt();
   GridBagLayout gridBagLayout1 = new GridBagLayout();
   TextBoxWidgetExt secsPerRow = new TextBoxWidgetExt();
@@ -77,6 +80,9 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
   JLabel jLabel16 = new JLabel();
   DropDownListBoxWidgetExt scanAngle = new DropDownListBoxWidgetExt();
   JLabel jLabel17 = new JLabel();
+  CheckBoxWidgetExt continuumMode = new CheckBoxWidgetExt();
+
+  JThermometer thermometer = new JThermometer();
 
   public IterRasterObsGUI() {
     try {
@@ -89,6 +95,11 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
 
   private void jbInit() throws Exception {
     border1 = BorderFactory.createLineBorder(new Color(153, 153, 153),2);
+    JPanel rasterPanel = new JPanel();
+    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
+    Border titleBorder = BorderFactory.createTitledBorder( bevelBorder, "Raster setup");
+    rasterPanel.setBorder( titleBorder );
+    rasterPanel.setLayout( new BorderLayout() );
     scubaAcsisPanel.setLayout(new BorderLayout());
     areaPanel.setLayout(gridBagLayout2);
     scanPanel.setLayout(gridBagLayout3);
@@ -174,7 +185,13 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     jLabel17.setForeground(Color.black);
     jLabel17.setText("(degrees)");
     scanAngle.setFont(new java.awt.Font("Dialog", 0, 12));
-    this.add(scubaAcsisPanel, BorderLayout.WEST);
+    continuumMode.setText ("Continuum Mode" );
+    continuumMode.setFont(new java.awt.Font("Dialog", 0, 12));
+    continuumMode.setForeground(Color.black);
+
+    this.add(rasterPanel, BorderLayout.CENTER);
+//     this.add(scubaAcsisPanel, BorderLayout.WEST);
+    rasterPanel.add(scubaAcsisPanel, BorderLayout.WEST);
     scubaAcsisPanel.add(areaPanel, BorderLayout.CENTER);
     scubaAcsisPanel.add(scanPanel, BorderLayout.SOUTH);
     scanPanel.add(scanSystemLabel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
@@ -217,7 +234,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
     areaPanel.add(jLabel14, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    this.add(heterodynePanel, BorderLayout.CENTER);
+//     this.add(heterodynePanel, BorderLayout.CENTER);
+    rasterPanel.add(heterodynePanel, BorderLayout.CENTER);
 //     heterodynePanel.add(alongRow, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
 //             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
 //     heterodynePanel.add(interleaved, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
@@ -235,6 +253,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
     heterodynePanel.add(jLabel8, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     heterodynePanel.add(sampleTime, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    heterodynePanel.add(acsisSampleTime, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     heterodynePanel.add(jLabel9, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
@@ -256,5 +276,12 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI {
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
     heterodynePanel.add(secsPerObservation, new GridBagConstraints(1, 9, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+    heterodynePanel.add(continuumMode, new GridBagConstraints( 1, 10, 1, 1, 0.0, 0.0,
+		GridBagConstraints.WEST, GridBagConstraints.NONE,
+		new Insets(5, 5, 5, 5), 0, 0));
+    heterodynePanel.add( thermometer, new GridBagConstraints( 1, 11, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
+                new Insets(0, 0, 0, 0), 0, 0));
+		
   }
 }

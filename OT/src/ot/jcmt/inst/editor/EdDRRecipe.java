@@ -12,6 +12,7 @@ package ot.jcmt.inst.editor;
 import gemini.sp.*;
 import gemini.sp.obsComp.*;
 import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpInstSCUBA;
 import jsky.app.ot.gui.KeyPressWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
@@ -19,6 +20,8 @@ import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 //import jsky.app.ot.gui.util.ErrorBox;
@@ -28,35 +31,51 @@ import ot.util.DialogUtil;
 import jsky.app.ot.editor.OtItemEditor;
 import orac.jcmt.inst.SpDRRecipe;
 import orac.util.LookUpTable;
+import edfreq.EdFreq;
+import edfreq.region.SpectralRegionEditor;
 
 import java.awt.event.KeyEvent;
 import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
+import java.util.Hashtable;
 import java.util.Vector;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import javax.swing.JFrame;
 
 // MFO: Preliminary. Get rid of GUI stuff inside this class.
-import javax.swing.border.TitledBorder;
 import javax.swing.JComponent;
 import java.awt.BorderLayout;
-
-
 
 /**
  * This is the editor for the DRRecipe item.
  */
 public final class EdDRRecipe extends OtItemEditor
-                    implements KeyPressWatcher, TextBoxWidgetWatcher, TableWidgetWatcher {
+                    implements KeyPressWatcher, 
+		    TextBoxWidgetWatcher, 
+		    TableWidgetWatcher,
+		    DropDownListBoxWidgetWatcher, 
+		    ActionListener {
 
   private static final String INST_STR_SCUBA      = "scuba";
   private static final String INST_STR_HETERODYNE = "heterodyne";
 
   private SpDRRecipe  _spDRRecipe;
+  private SpInstObsComp _inst;
   private String      _currentRecipeSelected;
   private String      _instStr;
+  private Hashtable   _baselineToButtonTable;
 
   private DRRecipeGUI _w;		// the GUI layout
 
   private DataReductionScreen _dataReductionScreen = new DataReductionScreen();
 
+  private SpectralRegionDialog _spectralRegionFrame = new SpectralRegionDialog();
+  private VelocityRegionDialog _velocityRegionFrame = new VelocityRegionDialog();
+
+//  private boolean _ignoreEvents = false;
 
 /**
  * The constructor initializes the title, description, and presentation source.
@@ -68,8 +87,57 @@ public EdDRRecipe()
    _description = "Enter the Data Reduction recipe to be used"; // for each observation type";
    _resizable   = true;
 
-   _dataReductionScreen.setBorder(new TitledBorder("ACSIS DR"));
-   _w.heterodynePanel.add(_dataReductionScreen, BorderLayout.CENTER);
+   _dataReductionScreen.recipe.setChoices(SpDRRecipe.DR_RECIPES);
+   _dataReductionScreen.channelBinning.setChoices(SpDRRecipe.CHANNEL_BINNINGS);
+   _dataReductionScreen.baselineRegionUnits.setChoices(SpDRRecipe.BASELINE_REGION_UNITS);
+   _dataReductionScreen.regriddingMethod.setChoices(SpDRRecipe.REGRIDDING_METHODS);
+   _dataReductionScreen.windowType.setChoices(SpDRRecipe.WINDOW_TYPES);
+   _dataReductionScreen.baselineFittingPolynomial.setChoices(SpDRRecipe.POLYNOMIALS);
+   _w.projection.setChoices(SpDRRecipe.PROJECTION_TYPES);
+   _w.gridFunction.setChoices(SpDRRecipe.GRID_FUNCTION_TYPES);
+
+   ButtonGroup bg1 = new ButtonGroup();
+   bg1.add(_dataReductionScreen.noBaselineButton);
+   bg1.add(_dataReductionScreen.automaticBaselineButton);
+   bg1.add(_dataReductionScreen.manualBaselineButton);
+
+   _baselineToButtonTable = new Hashtable();
+   _baselineToButtonTable.put( SpDRRecipe.BASELINE_SELECTION[0],
+	   _dataReductionScreen.noBaselineButton);
+   _baselineToButtonTable.put( SpDRRecipe.BASELINE_SELECTION[1],
+	   _dataReductionScreen.automaticBaselineButton);
+   _baselineToButtonTable.put( SpDRRecipe.BASELINE_SELECTION[2],
+	   _dataReductionScreen.manualBaselineButton);
+
+
+   _dataReductionScreen.recipe.setEnabled(false);
+
+   _dataReductionScreen.deSpike.setEnabled(false);
+
+   _w.tabbedPaneHet.add(_dataReductionScreen, "ACSIS DR", 0);
+   _w.tabbedPaneHet.setEnabledAt(1, false);
+
+   _dataReductionScreen.truncation.addWatcher(this);
+   _dataReductionScreen.automaticBaseline.addWatcher(this);
+//   _dataReductionScreen.baselineFitting.addWatcher(this);
+//   _dataReductionScreen.lineRegions.addWatcher(this);
+   _dataReductionScreen.baselineRegions.addWatcher(this);
+   _dataReductionScreen.baselineRegionUnits.addWatcher(this);
+   _dataReductionScreen.baselineFittingPolynomial.addWatcher(this);
+   _dataReductionScreen.channelBinning.addWatcher(this);
+   _dataReductionScreen.regriddingMethod.addWatcher(this);
+   _dataReductionScreen.windowType.addWatcher(this);
+   _dataReductionScreen.showSpectralRegionEditor.addActionListener(this);
+   _dataReductionScreen.noBaselineButton.addActionListener(this);
+   _dataReductionScreen.automaticBaselineButton.addActionListener(this);
+   _dataReductionScreen.manualBaselineButton.addActionListener(this);
+   _w.projection.addWatcher(this);
+   _w.gridFunction.addWatcher(this);
+   _w.smoothingRad.addWatcher(this);
+   _w.pixelSizeX.addWatcher(this);
+   _w.pixelSizeY.addWatcher(this);
+   _w.offsetX.addWatcher(this);
+   _w.offsetY.addWatcher(this);
 }
 
 /**
@@ -97,9 +165,9 @@ _initInstWidgets()
    CommandButtonWidgetExt cbw = null;
    CheckBoxWidgetExt ckbw = null;
 
-   SpInstObsComp inst = ((SpInstObsComp) SpTreeMan.findInstrument(_spDRRecipe));
+   _inst = ((SpInstObsComp) SpTreeMan.findInstrument(_spDRRecipe));
 
-   if(inst == null) {
+   if(_inst == null) {
      // MFO: "empty" is hard-wired in DRRecipeGUI (as constraint strings of the
      // respective panels managed my the CardLayout of DRRecipeGUI).
      // Might not be elegant but is done in a similar way with instrument specific panels
@@ -111,14 +179,14 @@ _initInstWidgets()
    }
 
 
-   if(inst instanceof SpInstHeterodyne) {
+   if(_inst instanceof SpInstHeterodyne) {
      _instStr = INST_STR_HETERODYNE;
    }
    else {
      _instStr = INST_STR_SCUBA;
    }  
 
-   System.out.println ("Inst is "+_instStr);
+//   System.out.println ("Inst is "+_instStr);
 
    // MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
    // respective panels managed my the CardLayout of DRRecipeGUI).
@@ -300,7 +368,9 @@ public void
 setup(SpItem spItem)
 {
   _spDRRecipe = (SpDRRecipe) spItem;
+  _inst = ((SpInstObsComp) SpTreeMan.findInstrument(_spDRRecipe));
   _initInstWidgets();
+
    super.setup(spItem);
 }
 
@@ -313,15 +383,69 @@ _updateWidgets()
 {
    _updateRecipeWidgets();
 
+   StringBuffer stringBuffer = new StringBuffer();
+   DecimalFormat df = new DecimalFormat();
+   df.setMinimumFractionDigits(3);
+   df.setMaximumFractionDigits(3);
+   for(int i = 0; i < _spDRRecipe.getNumBaselineRegions(); i++) {
+      stringBuffer.append(df.format(_spDRRecipe.getBaselineRegionMin(i)) + ", " + df.format(_spDRRecipe.getBaselineRegionMax(i)) + "\n");
+   }
+
+   _dataReductionScreen.baselineRegions.setText(stringBuffer.toString());
+
+   stringBuffer = new StringBuffer();
+   for(int i = 0; i < _spDRRecipe.getNumLineRegions(); i++) {
+      stringBuffer.append(_spDRRecipe.getLineRegionMin(i) + ", " + _spDRRecipe.getLineRegionMax(i) + "\n");
+   }
+
+//   _dataReductionScreen.lineRegions.setText(stringBuffer.toString());
+
+   _dataReductionScreen.truncation.setValue("" + _spDRRecipe.getTruncationChannels());
+   _dataReductionScreen.baselineRegionUnits.setValue(_spDRRecipe.getBaselineRegionUnits());
+   _dataReductionScreen.baselineFittingPolynomial.setValue(_spDRRecipe.getPolynomialOrder());
+   _dataReductionScreen.channelBinning.setValue("" + _spDRRecipe.getChannelBinning());
+   _dataReductionScreen.regriddingMethod.setValue(_spDRRecipe.getRegriddingMethod());
+   _dataReductionScreen.windowType.setValue(_spDRRecipe.getWindowType());
+   _dataReductionScreen.automaticBaseline.setValue(""+_spDRRecipe.getBaselineFraction() );
+//    _w.projection.setValue(_spDRRecipe.getProjection(0));
+   _w.gridFunction.setValue(_spDRRecipe.getGridFunction(0));
+   _w.smoothingRad.setValue(_spDRRecipe.getSmootingRad(0));
+   _w.pixelSizeX.setValue(_spDRRecipe.getPixelSizeX(0));
+   _w.pixelSizeY.setValue(_spDRRecipe.getPixelSizeY(0));
+   _w.offsetX.setValue(_spDRRecipe.getOffsetX(0));
+   _w.offsetY.setValue(_spDRRecipe.getOffsetY(0));
+
+   // See which baseline fitting type we are using
+   String baselineMethod = _spDRRecipe.getBaselineFitting();
+   JRadioButton but = (JRadioButton) _baselineToButtonTable.get(baselineMethod);
+   but.doClick();
+   
+
 }
+
+/**
+ * This public methods allows the SpectralRegionDialog to cause the
+ * widgets of this editor to be updated.
+*/
+public void
+refresh()
+{
+   _updateWidgets();
+}
+
 
 /**
  * A key has been pressed in the text box widget.
  * @see KeyPressWatcher
  */
    public void keyPressed( KeyEvent evt ) {
-     System.out.println( "In kp" );
+      if(evt.getSource() == _dataReductionScreen.baselineRegions) {
+         _spDRRecipe.setBaselineRegions(_dataReductionScreen.baselineRegions.getText());
+      }
 
+//      if(evt.getSource() == _dataReductionScreen.lineRegions) {
+//         _spDRRecipe.setLineRegions(_dataReductionScreen.lineRegions.getText());
+//      }
    }
 
 /**
@@ -335,6 +459,42 @@ textBoxKeyPress(TextBoxWidgetExt tbwe)
   // widget, Currently the user specified recipe is the only such widget.
   _currentRecipeSelected = tbwe.getText().trim();
 
+
+  if(tbwe == _dataReductionScreen.truncation) {
+    _spDRRecipe.setTruncationChannels(_dataReductionScreen.truncation.getValue());
+    return;
+  }
+
+  if ( tbwe == _dataReductionScreen.automaticBaseline ) {
+      _spDRRecipe.setBaselineFraction(_dataReductionScreen.automaticBaseline.getValue());
+      return;
+  }
+
+
+  if(tbwe == _w.smoothingRad) {
+    _spDRRecipe.setSmoothingRad(_w.smoothingRad.getValue(), 0);
+    return;
+  }
+
+  if(tbwe == _w.pixelSizeX) {
+    _spDRRecipe.setPixelSizeX(_w.pixelSizeX.getValue(), 0);
+    return;
+  }
+
+  if(tbwe == _w.pixelSizeY) {
+    _spDRRecipe.setPixelSizeY(_w.pixelSizeY.getValue(), 0);
+    return;
+  }
+
+  if(tbwe == _w.offsetX) {
+    _spDRRecipe.setOffsetX(_w.offsetX.getValue(), 0);
+    return;
+  }
+
+  if(tbwe == _w.offsetY) {
+    _spDRRecipe.setOffsetY(_w.offsetY.getValue(), 0);
+    return;
+  }
 }
  
 /**
@@ -342,7 +502,7 @@ textBoxKeyPress(TextBoxWidgetExt tbwe)
  * @see TextBoxWidgetWatcher
  */
    public void textBoxAction( TextBoxWidgetExt tbwe ) {
-     System.out.println ( "In tba" );
+//     System.out.println ( "In tba" );
    }
 
 
@@ -390,6 +550,89 @@ tableRowSelected(TableWidgetExt twe, int rowIndex)
  * interface, but don't care about them.
  */
    public void tableAction( TableWidgetExt twe, int colIndex, int rowIndex ) {}
+
+
+  public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
+
+  public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
+    if(dd == _dataReductionScreen.channelBinning) {
+      _spDRRecipe.setChannelBinning(val);
+      return;
+    }
+
+    if(dd == _dataReductionScreen.regriddingMethod) {
+      _spDRRecipe.setRegriddingMethod(val);
+      return;
+    }
+
+    if(dd == _dataReductionScreen.windowType) {
+      _spDRRecipe.setWindowType(val);
+      return;
+    }
+
+    if(dd == _w.projection) {
+//       _spDRRecipe.setProjection(val, 0);
+      return;
+    }
+
+    if(dd == _w.gridFunction) {
+      _spDRRecipe.setGridFunction(val, 0);
+      return;
+    }
+
+    if(dd == _dataReductionScreen.baselineRegionUnits) {
+      _spDRRecipe.setBaselineRegionUnits(val);
+      return;
+    }
+
+    if(dd == _dataReductionScreen.baselineFittingPolynomial) {
+      _spDRRecipe.setPolynomialOrder(val);
+      return;
+    }
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    Object source = e.getSource();
+
+    if ( _inst != null ) {
+	if ( _inst instanceof SpInstHeterodyne ) {
+	    if ( source == _dataReductionScreen.showSpectralRegionEditor ) {
+                if ( SpDRRecipe.BASELINE_REGION_UNITS[1].equals(_spDRRecipe.getBaselineRegionUnits() ) ) {
+                    // Use frequency
+		    _spectralRegionFrame.show(_spDRRecipe, (SpInstHeterodyne)_inst, this);
+                }
+                else {
+                    // Use velocity by default
+                    _velocityRegionFrame.show( _spDRRecipe, (SpInstHeterodyne)_inst, this);
+                }
+	    }
+	    if ( source == _dataReductionScreen.noBaselineButton ) {
+		_spDRRecipe.setBaselineFitting(SpDRRecipe.BASELINE_SELECTION[0]);
+		// Hide the baseline panel
+		_dataReductionScreen.baselineFitPanel.setVisible(false);
+		// Disable the input part for automated baseline fitting
+		_dataReductionScreen.automaticBaseline.setEnabled(false);
+	    }
+	    if ( source == _dataReductionScreen.automaticBaselineButton) {
+		_spDRRecipe.setBaselineFitting(SpDRRecipe.BASELINE_SELECTION[1]);
+		//  Hide the baseline panel
+		_dataReductionScreen.baselineFitPanel.setVisible(false);
+		// Enable the input part for automated baseline fitting
+		_dataReductionScreen.automaticBaseline.setEnabled(true);
+	    }
+	    if ( source == _dataReductionScreen.manualBaselineButton) {
+		_spDRRecipe.setBaselineFitting(SpDRRecipe.BASELINE_SELECTION[2]);
+		// Enable the baseline panel
+		_dataReductionScreen.baselineFitPanel.setVisible(true);
+		// Disable the input part for automated baseline fitting
+		_dataReductionScreen.automaticBaseline.setEnabled(false);
+	    }
+	}
+	else if ( _inst instanceof SpInstSCUBA ) {
+	}
+    }
+
+  }
 
    /**
     * @see #getWidget(java.lang.String)
