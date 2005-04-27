@@ -31,9 +31,12 @@
   </xsd:restriction>
 </xsd:simpleType>
 
-<xsd:simpleType name="jigglePatterList">
+<xsd:simpleType name="jigglePatternList">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="DEFAULT"/>
+    <xsd:enumeration value="3x3"/>
+    <xsd:enumeration value="5x5"/>
+    <xsd:enumeration value="9x9"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -159,9 +162,26 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
-      <xsd:element name="jigglePattern"   type="toml:jigglePatterList"/>
-      <xsd:element name="useCurrentAz"    type="xsd:boolean"              minOccurs="0"/>
+      <xsd:choice> 
+        <!-- SCUBA -->
+        <xsd:sequence>
+          <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
+          <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
+          <xsd:element name="useCurrentAz"    type="xsd:boolean"              minOccurs="0"/>
+        </xsd:sequence>
+        <!-- ACSIS -->
+        <xsd:sequence>
+          <xsd:element name="continuumMode"   type="xsd:boolean"/>
+          <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
+          <xsd:element name="jigglePa"        type="xsd:double"/>
+          <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
+          <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
+          <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
+          <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
+          <xsd:element name="stepSize"        type="toml:nonNegativeDecimal"/>
+          <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
+        </xsd:sequence>
+      </xsd:choice>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="jiggleObs"/>
@@ -173,6 +193,7 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="obsArea"         type="toml:rasterObsAreaType"/>
+      <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
       <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>

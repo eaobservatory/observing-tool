@@ -24,6 +24,22 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="rvDefinitionList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="radio"/>
+    <xsd:enumeration value="optical"/>
+    <xsd:enumeration value="redshift"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="rvFrameList">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="LSR"/>
+    <xsd:enumeration value="GEOCENTRIC"/>
+    <xsd:enumeration value="HELIOCENTRIC"/>
+  </xsd:restriction>
+</xsd:simpleType>
+
 <!-- Complex types used locally at the JAC -->
 
 <xsd:complexType name="offsetDefinition">
