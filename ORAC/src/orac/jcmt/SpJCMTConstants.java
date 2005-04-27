@@ -151,7 +151,7 @@ public interface SpJCMTConstants {
 
    public static final String ATTR_WIDE_PHOTOMETRY    = "widePhotometry";
 
-   public static final String ATTR_CONTINUUM_MODE     = "contiuumMode";
+   public static final String ATTR_CONTINUUM_MODE     = "continuumMode";
 
    public static final String ATTR_SAMPLES_PER_REVOLUTION = "samplesPerRevolution";
 
