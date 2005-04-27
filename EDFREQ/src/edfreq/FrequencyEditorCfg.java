@@ -1,5 +1,6 @@
 package edfreq;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -204,6 +205,8 @@ public class FrequencyEditorCfg {
               }
               else if ( InstCfg.likeAttr ( instInfo, "bandspecs" ) ) {
                   String [][] specs    = instInfo.getValueAs2DArray();
+                  _decodeBandSpecs(instInfo, specs);
+                  /*
                   double [] bandWidths = new double[specs.length];
                   double [] overlaps   = new double[specs.length];
                   int [] channels      = new int[specs.length];
@@ -234,6 +237,7 @@ public class FrequencyEditorCfg {
                   catch (Exception e) {
                       e.printStackTrace();
                   }
+                  */
               }
           }
       }
@@ -242,6 +246,92 @@ public class FrequencyEditorCfg {
       }
 
       return _frequencyEditorCfg;
+  }
+
+  private static void _decodeBandSpecs(InstCfg instInfo, String [][] specs ) {
+      String name = "";
+      Vector bsVector = new Vector();
+
+      ArrayList bandwidths  = new ArrayList();
+      ArrayList overlaps    = new ArrayList();
+      ArrayList channels    = new ArrayList();
+      ArrayList hybSubbands = new ArrayList();
+      for ( int i=0; i<specs.length; i++ ) {
+          // See if we are dealing with the same name of bandspec
+          if (name.equals(specs[i][0])) {
+              // We are adding to the current arrays lists
+              bandwidths.add(specs[i][1]);
+              overlaps.add(specs[i][2]);
+              channels.add(specs[i][3]);
+              hybSubbands.add(specs[i][4]);
+          }
+          else {
+              if (name.equals("")) {
+                  // First time through the loop - just add the bits
+                  name =specs[i][0]; 
+                  bandwidths.add(specs[i][1]);
+                  overlaps.add(specs[i][2]);
+                  channels.add(specs[i][3]);
+                  hybSubbands.add(specs[i][4]);
+              }
+              else {
+                  // Convert the ArrayLists to arrays
+                  double [] bwArray = new double [bandwidths.size()];
+                  double [] olArray = new double [overlaps.size()];
+                  int    [] chArray = new int [channels.size()];
+                  int    [] hyArray = new int [hybSubbands.size()];
+                  // For simplicity, assume they are all the same size
+                  for ( int j=0; j<bwArray.length; j++ ) {
+                      bwArray[j] = Double.parseDouble((String)bandwidths.get(j));
+                      olArray[j] = Double.parseDouble((String)overlaps.get(j));
+                      chArray[j] = Integer.parseInt((String)channels.get(j));
+                      hyArray[j] = Integer.parseInt((String)hybSubbands.get(j));
+                  }
+                  // Create a new BandSpec and add it to the vector for the current receiver
+                  BandSpec bs = new BandSpec(name, bandwidths.size(), bwArray, olArray, chArray, hyArray);
+                  bsVector.add(bs);
+
+                  // Now reset name and empty array lists, then add the new components
+                  name = specs[i][0];
+                  bandwidths.clear();
+                  overlaps.clear();
+                  channels.clear();
+                  hybSubbands.clear();
+
+                  bandwidths.add(specs[i][1]);
+                  overlaps.add(specs[i][2]);
+                  channels.add(specs[i][3]);
+                  hybSubbands.add(specs[i][4]);
+              }
+          }
+      }
+      // Now add any stragglers
+      double [] bwArray = new double [bandwidths.size()];
+      double [] olArray = new double [overlaps.size()];
+      int    [] chArray = new int [channels.size()];
+      int    [] hyArray = new int [hybSubbands.size()];
+      for ( int j=0; j<bwArray.length; j++ ) {
+          bwArray[j] = Double.parseDouble((String)bandwidths.get(j));
+          olArray[j] = Double.parseDouble((String)overlaps.get(j));
+          chArray[j] = Integer.parseInt((String)channels.get(j));
+          hyArray[j] = Integer.parseInt((String)hybSubbands.get(j));
+      }
+      // Create a new BandSpec and add it to the vector for the current receiver
+      BandSpec bs = new BandSpec(name, bandwidths.size(), bwArray, olArray, chArray, hyArray);
+      bsVector.add(bs);
+
+      // Finally link the receiver and bandspecs
+      boolean foundReceiver = false;
+      for ( int i=0; i<_frequencyEditorCfg.frontEnds.length; i++ ) {
+          if ( InstCfg.likeAttr (instInfo, _frequencyEditorCfg.frontEnds[i].replaceAll("[^a-zA-Z0-9]", "")) ) {
+              foundReceiver = true;
+              ((Receiver)_frequencyEditorCfg.receivers.get(_frequencyEditorCfg.frontEnds[i])).setBandSpecs(bsVector);
+              break;
+          }
+      }
+      if (!foundReceiver) {
+          System.out.println("Failed to find match for keyword " + instInfo.getKeyword());
+      }
   }
 
 //   public static void main(String [] args) {
