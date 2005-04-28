@@ -65,6 +65,7 @@ public class HeterodyneGUI extends JPanel {
     JPanel bPanel;
     JPanel summaryPanel;
     JComboBox bandwidths;
+    JComboBox specialConfigs;
     JTable table;
 
     public HeterodyneGUI() {
@@ -124,7 +125,7 @@ public class HeterodyneGUI extends JPanel {
 	specialConfigLabel.setForeground(Color.BLACK);
 	specialConfigLabel.setFont( new Font ("dialog", 0, 12) );
 	
-	JComboBox specialConfigs = new JComboBox();
+	specialConfigs = new JComboBox();
 	specialConfigs.setForeground(Color.BLACK);
 	specialConfigs.setFont( new Font ("dialog", 0, 12) );
 
@@ -140,7 +141,7 @@ public class HeterodyneGUI extends JPanel {
         fePanel.add (feLabel, new GridBagConstraints (0, 0, 1, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (5, 0, 5, 0), 0, 0));
-        fePanel.add (feSelector, new GridBagConstraints (1, 0, 4, 1, 1.0, 0.0,
+        fePanel.add (feSelector, new GridBagConstraints (1, 0, 5, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
 		    new Insets (5, 0, 5, 0), 0, 0));
         fePanel.add (subsystemLabel, new GridBagConstraints (0, 1, 1, 1, 0.0, 0.0,
@@ -149,35 +150,35 @@ public class HeterodyneGUI extends JPanel {
         fePanel.add (regionSelector, new GridBagConstraints (1, 1, 1, 1, 0.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 0, 5, 0), 0, 0));
-	fePanel.add (specialConfigLabel, new GridBagConstraints (2, 1, 1, 1, 0.0, 0.0,
+	fePanel.add (specialConfigLabel, new GridBagConstraints (3, 1, 1, 1, 0.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 20, 5, 0), 0, 0 ));
-	fePanel.add ( specialConfigs, new GridBagConstraints (3, 1, 1, 1, 1.0, 0.0,
+	fePanel.add ( specialConfigs, new GridBagConstraints (4, 1, 1, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
 		    new Insets(0, 5, 5, 5), 0, 0 ));
         fePanel.add (mixerLabel, new GridBagConstraints (0, 2, 1, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 0, 5, 0), 0, 0));
-        fePanel.add (mixerSelector, new GridBagConstraints (1, 2, 1, 1, 1.0, 0.0,
+        fePanel.add (mixerSelector, new GridBagConstraints (1, 2, 1, 1, 0.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 0, 5, 0), 0, 0));
-	fePanel.add (bwLabel, new GridBagConstraints ( 2, 2, 1, 1, 0.0, 0.0,
+	fePanel.add (bwLabel, new GridBagConstraints ( 3, 2, 1, 1, 0.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 20, 5, 0), 0, 0 ));
-	fePanel.add ( bandwidths, new GridBagConstraints (3, 2, 1, 1, 1.0, 0.0,
+	fePanel.add ( bandwidths, new GridBagConstraints (4, 2, 1, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
 		    new Insets(0, 5, 5, 5), 0, 0 ));
         fePanel.add (modeLabel, new GridBagConstraints (0, 3, 1, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 0, 5, 0), 0, 0));
-        fePanel.add (modeSelector, new GridBagConstraints (1, 3, 1, 1, 1.0, 0.0,
+        fePanel.add (modeSelector, new GridBagConstraints (1, 3, 1, 1, 0.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 0, 5, 0), 0, 0));
         fePanel.add ( sbLabel, new GridBagConstraints ( 0, 4, 1, 1, 1.0, 0.0,
 		    GridBagConstraints.WEST, GridBagConstraints.NONE,
 		    new Insets (0, 0, 5, 0), 0, 0));
-        fePanel.add ( sbSelector, new GridBagConstraints ( 1, 4, 1, 1, 1.0, 0.0,
-		    GridBagConstraints.WEST, GridBagConstraints.NONE,
+        fePanel.add ( sbSelector, new GridBagConstraints ( 1, 4, 3, 1, 1.0, 0.0,
+		    GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL,
 		    new Insets (0, 0, 5, 0), 0, 0));
 
 	// Front End summary panel

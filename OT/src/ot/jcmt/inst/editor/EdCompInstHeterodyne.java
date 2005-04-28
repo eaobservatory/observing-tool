@@ -92,11 +92,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    */
   protected static FrequencyEditorCfg _cfg = FrequencyEditorCfg.getConfiguration();
 
+  private boolean _freqEditorConfigured = false;
+
   private SpInstHeterodyne _inst;
 
   boolean _hidingFrequencyEditor = false;
 
   private HeterodyneGUI _w;		// the GUI layout
+
+  private Document doc = null;
 
   // Arrays of component names
   HashMap feWidgetNames = new HashMap();
@@ -228,6 +232,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	  }
       }
 
+      _w.specialConfigs.setModel( getSpecialConfigsModel() );
+      _w.specialConfigs.addActionListener(this);
+
       for ( int i=0; i<_w.vPanel.getComponentCount(); i++ ) {
 	  String name = _w.vPanel.getComponent(i).getName();
 	  if ( name != null ) {
@@ -236,6 +243,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
       }
       // Initially disable the accept button
       toggleEnabled(_w.fPanel, "Accept", false);
+
 
       for ( int i=0; i<_w.bPanel.getComponentCount(); i++ ) {
 	  // The button panel only contains buttons, so 
@@ -304,7 +312,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	  // Add the listeners to the region selector
 	  beName = "acsis";
       }
- 
+
       _inst.initialiseValues(
 	 beName,                                                // Back end name
          frontEndName,						// front end
@@ -362,15 +370,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
       // Update the bandwidth
       _updateBandwidths();
-      /*
-      _w.bandwidths.removeActionListener(this);
-      _w.bandwidths.setSelectedItem(
-	      getObject ( _w.bandwidths, 
-		  ""+(_inst.getBandWidth(0)/1.0E6)
-		  )
-	      );
-      _w.bandwidths.addActionListener(this);
-      */
+
+      // Update the special configs
+      if ( _inst.getNamedConfiguration() != null ) {
+          _w.specialConfigs.setSelectedItem(_inst.getNamedConfiguration());
+      }
 
       // Update the summary panel
       for (int i=0; i<_w.summaryPanel.getComponentCount(); i++) {
@@ -474,6 +478,36 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		       i );
                setAvailableRegions();
 	   }
+           _initialiseRegionInfo();
+       }
+       else if ( ae.getSource() == _w.specialConfigs ) {
+           // If the user has selected None
+           if ( _w.specialConfigs.getSelectedIndex() == 0) {
+               _inst.removeNamedConfiguration();
+               configureFrequencyEditor( );
+           }
+           else {
+               _inst.setNamedConfiguration( (String)_w.specialConfigs.getSelectedItem() );
+               ConfigurationInformation ci = getConfigFor((String)_w.specialConfigs.getSelectedItem());
+               if ( ci == null ) return;
+               
+               clickButton(_w.feSelector, ci.$feName);
+               clickButton(_w.sbSelector, ci.$sideBand.toLowerCase());
+               clickButton(_w.mixerSelector, "" + ci.$mixers);
+               clickButton(_w.modeSelector, ci.$mode.toLowerCase());
+               clickButton(_w.regionSelector, "" + ci.$subSystems);
+               _w.bandwidths.setSelectedItem(ci.$bandWidth);
+               // Set the rest frequency text...
+               int compNum = ((Integer)freqPanelWidgetNames.get("frequency")).intValue();
+               JTextField tf = (JTextField) _w.fPanel.getComponent(compNum);
+               tf.setText(ci.$freq.toString());
+               freqAction();
+               clickButton(_w.fPanel, "Accept");
+               configureFrequencyEditor( ci.$shifts );
+               _freqEditorConfigured = true;
+           }
+           _updateWidgets();
+           return;
        }
 
        try {
@@ -515,7 +549,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	       toggleEnabled (_w.fPanel, "Accept", false);
 	   }
 	   else if ( ((Component)ae.getSource()).getName().equals("show") ) {
-	       configureFrequencyEditor();
+               if ( !_freqEditorConfigured) {
+                   configureFrequencyEditor();
+               }
 	       enableNamedWidgets(false);
 	       _frequencyEditor.show();
 	   }
@@ -537,6 +573,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        };
 
        _updateWidgets();
+       _freqEditorConfigured = false;
    }
 
 
@@ -616,6 +653,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	   String regions = ((JRadioButton)ae.getSource()).getText();
 	   _inst.setBandMode(regions);
        }
+       _initialiseRegionInfo();
        _updateWidgets();
    }
 
@@ -730,6 +768,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	       _inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[0], i );
 	   }
 	   index = 0;
+           JOptionPane.showMessageDialog(_w,
+                   "Previous bandwidth not avalibale with new settings;\n resetting to default",
+                   "Bandwidth Reset",
+                   JOptionPane.WARNING_MESSAGE);
        }
        _w.bandwidths.setSelectedIndex(index);
        _w.bandwidths.addActionListener(this);
@@ -784,7 +826,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        DefaultComboBoxModel specModel = (DefaultComboBoxModel)molBox.getModel();
        if ( currentSelection != null &&
 	    specModel.getIndexOf (currentSelection) >= 0 ) {
-	   molBox.setSelectedIndex( specModel.getIndexOf (currentSelection) );
+           molBox.setSelectedIndex( specModel.getIndexOf (currentSelection) );
+       }
+       else if ( currentSpecies.equals(NO_LINE) ) {
+           molBox.setSelectedItem(NO_LINE);
        }
        else {
 	   boolean match = false;
@@ -804,7 +849,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	       // Set the molecule to the first available one
 	       JOptionPane.showMessageDialog (
 		       _w,
-		       "Selecteing new species; old selection (" + currentSpecies +") out of range",
+		       "Selecting new species; old selection (" + currentSpecies +") out of range",
 		       "Molecule changed",
 		       JOptionPane.WARNING_MESSAGE);
                for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
@@ -903,6 +948,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		   JOptionPane.PLAIN_MESSAGE);
            for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
                _inst.setTransition( transBox.getItemAt(0).toString(), i);
+               _initialiseRegionInfo();
            }
 	   transBox.setSelectedIndex(0);
        }
@@ -940,6 +986,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        checkSideband();
 
        freq.setText("" + f);
+       _initialiseRegionInfo();
    }
 
    // See edfreq.HeterodyneEditor for documentation
@@ -1020,11 +1067,99 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 
     private DefaultComboBoxModel getSpecialConfigsModel () {
-	return new DefaultComboBoxModel();
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        // Default special config...
+        model.addElement("None");
+
+        // Try to open the special configs file
+        final String fileName = "/ACSISModes.xml";
+        File modesFile = new File (System.getProperty("ot.cfgdir")+fileName);
+        if ( modesFile.exists() ) {
+            try {
+                FileReader reader = new FileReader(modesFile);
+                char []    buffer = new char [(int)modesFile.length()];
+                reader.read(buffer);
+                String buffer_z = new String(buffer);
+                DOMParser parser = new DOMParser();
+                parser.setFeature("http://xml.org/sax/features/validation", false);
+                parser.setFeature("http://apache.org/xml/features/dom/include-ignorable-whitespace", false);
+                parser.parse(new InputSource(new StringReader(buffer_z)));
+                doc = parser.getDocument();
+
+                if ( doc != null ) {
+                    NodeList nl = doc.getElementsByTagName("name");
+                    for ( int j=0; j<nl.getLength(); j++) {
+                        String name = nl.item(j).getFirstChild().getNodeValue().trim();
+                        model.addElement(name);
+                    }
+                }
+            }
+            catch ( SAXNotRecognizedException snre ) {
+                System.out.println ("Unable to ignore white-space text.");
+            }
+            catch ( SAXNotSupportedException snse ) {
+                System.out.println ("Unable to ignore white-space text.");
+            }
+            catch (SAXException sex) {
+                System.out.println ("SAX Exception on parse.");
+            }
+            catch (IOException ioe) {
+                System.out.println ("IO Exception on parse.");
+            }
+        }
+	return model;
     }
 
     private ConfigurationInformation getConfigFor (String name) {
-	return null;
+        if ( doc == null ) return null;
+
+        ConfigurationInformation ci = new ConfigurationInformation();
+        // Get the correct config item from the document
+        Node nodeToUse = null;
+        NodeList nl = doc.getElementsByTagName("configuration");
+        for ( int i=0; i< nl.getLength(); i++ ) {
+            nodeToUse = nl.item(i);
+            // Get the name associated with this
+            NodeList children = nodeToUse.getChildNodes();
+            String nodeName = "none";
+            for ( int j=0; j< children.getLength(); j++) {
+                Node child = children.item(j);
+                if ( child.getNodeName().equals("name") ) {
+                    nodeName = child.getFirstChild().getNodeValue().trim();
+                    break;
+                }
+            }
+            if ( nodeName.equals(name)) {
+                break;
+            }
+        }
+	// We now have the correct node hopefully, so fill in the ci structure
+        ci.$shifts.clear();
+        if ( nodeToUse != null) {
+            NodeList children = nodeToUse.getChildNodes();
+            for (int i=0; i<children.getLength(); i++) {
+                String childName = children.item(i).getNodeName();
+                if ( childName.equals("name") )
+                    ci.$name = children.item(i).getFirstChild().getNodeValue().trim();
+                if ( childName.equals("frontEnd") )
+                    ci.$feName = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
+		if ( childName.equals("sideband") )
+		    ci.$sideBand = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
+		if ( childName.equals("mode") )
+		    ci.$mode = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
+		if ( childName.equals("frequency") )
+		    ci.$freq = new Double ( children.item(i).getFirstChild().getNodeValue().trim() );
+		if ( childName.equals("mixers") )
+		    ci.$mixers = new Integer( children.item(i).getFirstChild().getNodeValue().trim() );
+		if ( childName.equals("systems") )
+		    ci.$subSystems = new Integer (children.item(i).getFirstChild().getNodeValue().trim() );
+		if ( childName.equals("bandwidth") )
+		    ci.$bandWidth = children.item(i).getFirstChild().getNodeValue().trim();
+		if ( childName.equals("shift") )
+		    ci.$shifts.add( new Double ( children.item(i).getFirstChild().getNodeValue().trim() ) );
+	    }
+	}
+	return ci;
     }
 
     private void setAvailableModes() {
@@ -1274,6 +1409,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    }
 
    private void configureFrequencyEditor() {
+       configureFrequencyEditor(new Vector());
+   }
+
+   private void configureFrequencyEditor(Vector shifts) {
        // First get the current bandspec from the mode selection
        Vector bandSpecs = _receiver.bandspecs;
        BandSpec currentBandSpec = (BandSpec)bandSpecs.get(0);
@@ -1284,7 +1423,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	   }
        }
 
-       int subbandCount = currentBandSpec.numBands;
+       //int subbandCount = currentBandSpec.numBands;
+       int subbandCount = Integer.parseInt(_inst.getBandMode());
        int mixerCount = 1;
        try {
           mixerCount = Integer.parseInt( _inst.getMixer() );
@@ -1328,6 +1468,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	   _frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
        }
        _frequencyEditor.setMainLine ( _inst.getRestFrequency(0) );
+
+       for ( int i=0; i<shifts.size(); i++ ) {
+           _frequencyEditor.moveSlider(
+                   _inst.getBand(),
+                   4.0e9 + ( ((Double)shifts.elementAt(i)).doubleValue() * 1.0e9), i);
+           if ( i > 0 ) _frequencyEditor.setLineText( "No Line", i);
+       }
     }
 
    private void getFrequencyEditorConfiguration() {
@@ -1382,6 +1529,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        }
 
        _w.bandwidths.setEnabled(enabled);
+       _w.specialConfigs.setEnabled(enabled);
 
        // Finally deal with the show and hide buttons
        for ( int i=0; i<_w.bPanel.getComponentCount(); i++ ) {
