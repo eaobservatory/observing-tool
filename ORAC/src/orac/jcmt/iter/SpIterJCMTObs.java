@@ -315,8 +315,8 @@ public void rmFrequencyOffsetValues() {
     _avTable.set(ATTR_JIGGLES_PER_CYCLE, value);
   }
 
-  public int getSampleTime() {
-    return _avTable.getInt(ATTR_SAMPLE_TIME, 4);
+  public double getSampleTime() {
+    return _avTable.getDouble(ATTR_SAMPLE_TIME, 4.0);
   }
 
   public void setSampleTime(String value) {
