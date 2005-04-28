@@ -63,7 +63,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   private SpIterRasterObs _iterObs;
 
   private final String [] SCAN_PA_CHOICES = { "automatic", "user def" };
-  private final String [] SAMPLE_TIME_CHOICES = {"4", "5", "6", "7"};
+  private final String [] SAMPLE_TIME_CHOICES = {"4.0", "5.0", "6.0", "7.0"};
 
   // The following defines the maximum file size we are currently allowing for raster.
   // Since this is for use with the thermometer, which only accepts integers, we will specify
