@@ -266,7 +266,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	      }
 	      });
 
-      // Booleans indicating what the user edited
+      _w.table.setDefaultRenderer(Object.class, new TableRowRenderer());
 
    }
 
@@ -478,7 +478,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		       i );
                setAvailableRegions();
 	   }
-           _initialiseRegionInfo();
+           _updateRegionInfo();
        }
        else if ( ae.getSource() == _w.specialConfigs ) {
            // If the user has selected None
@@ -516,6 +516,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
                _inst.setCentreFrequency(_receiver.feIF, 0);
 	       _inst.setMolecule ( ((JComboBox)ae.getSource()).getSelectedItem().toString(), 0 );
 	       _updateTransitionChoice();
+               _initialiseRegionInfo();
 	   }
 
 	   else if ( ((Component)ae.getSource()).getName().equals("transition") ) {
@@ -527,6 +528,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	       if ( t instanceof Transition ) {
 		   _updateFrequencyText ( ((Transition)t).frequency /1.0E9 );
 	       }
+               _initialiseRegionInfo();
 	   }
 
 
@@ -543,6 +545,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		   _inst.setMolecule( NO_LINE, 0 );
 		   _inst.setTransition( NO_LINE, 0 );
 		   _updateMoleculeChoice();
+                   _initialiseRegionInfo();
 	       }
 	       catch (Exception e) {
 	       }
@@ -559,8 +562,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	       _hidingFrequencyEditor = true;
 	       getFrequencyEditorConfiguration();
 	       enableNamedWidgets(true);
+               _updateRegionInfo();
 	       _frequencyEditor.hide();
 	       _hidingFrequencyEditor = false;
+               _updateTable();
+               return;
 	   }
 
 	   else {
@@ -653,7 +659,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	   String regions = ((JRadioButton)ae.getSource()).getText();
 	   _inst.setBandMode(regions);
        }
-       _initialiseRegionInfo();
+       _updateRegionInfo();
        _updateWidgets();
    }
 
@@ -936,6 +942,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	   }
        }
 
+       boolean transChanged = false;
        if ( inRange ) {
 	   // Do nothing
        }
@@ -948,7 +955,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		   JOptionPane.PLAIN_MESSAGE);
            for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
                _inst.setTransition( transBox.getItemAt(0).toString(), i);
-               _initialiseRegionInfo();
+               transChanged = true;
            }
 	   transBox.setSelectedIndex(0);
        }
@@ -958,6 +965,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        }
        else {
 	   _updateFrequencyText( _inst.getRestFrequency(0)/1.0E9 );
+       }
+       if ( transChanged ) {
+           _initialiseRegionInfo();
        }
        transBox.addActionListener(this);
    } // End of method
@@ -986,7 +996,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        checkSideband();
 
        freq.setText("" + f);
-       _initialiseRegionInfo();
    }
 
    // See edfreq.HeterodyneEditor for documentation
@@ -1355,7 +1364,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	  _inst.setMolecule ( _inst.getMolecule(0), i );
 	  _regionInfo[i].add(_inst.getTransition(0));
 	  _inst.setTransition ( _inst.getTransition(0), i );
-	  _regionInfo[i].add(new Double( _inst.getRestFrequency(0) ));
+	  _regionInfo[i].add(new Double( _inst.getRestFrequency(0)/1.0E9 ));
 	  _inst.setRestFrequency ( _inst.getRestFrequency(0), i );
 	  _inst.setSkyFrequency ( _inst.getRestFrequency(0) / (1.0 + getRedshift()) );
 	  _regionInfo[i].add(new Double( _inst.getCentreFrequency(0) ));
@@ -1387,7 +1396,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	  _regionInfo[i].clear();
 	  _regionInfo[i].add(_inst.getMolecule(i));
 	  _regionInfo[i].add(_inst.getTransition(i));
-	  _regionInfo[i].add(new Double( _inst.getRestFrequency(i) ));
+	  _regionInfo[i].add(new Double( _inst.getRestFrequency(i)/1.0E9 ));
 	  _regionInfo[i].add(new Double( _inst.getCentreFrequency(i) ));
 	  _regionInfo[i].add(new Double( _inst.getBandWidth(i) ));
 	  // Get the overlap and overlap based on the current b/w
@@ -1623,6 +1632,39 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	    System.out.println( "subSystems = "+$subSystems);
 	    System.out.println( "bandwidth  = "+$subSystems);
 	}
+    }
+
+    class TableRowRenderer extends DefaultTableCellRenderer {
+
+        public TableRowRenderer() {
+            super();
+        }
+
+        public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+            
+            switch (row) {
+                case 0:
+                default:
+                    Color myRed = new Color(255,209,186);
+                    setBackground(myRed);
+                    break;
+                case 1:
+                    Color myYellow = new Color(255,249,182);
+                    setBackground(myYellow);
+                    break;
+                case 2:
+                    Color myBlue = new Color(200,217,255);
+                    setBackground(myBlue);
+                    break;
+                case 3:
+                    Color myGreen = new Color(200,255,200);
+                    setBackground(myGreen);
+                    break;
+            }
+            super. getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            return this;
+        }
     }
 }
 
