@@ -34,7 +34,7 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
     * The usable width can be smaller than the actual width
     * if the edge of the CCD should not be used for guiding.
     */
-   public static final double AUTOGUIDER_WIDTH  = 265.1;
+   public static final double AUTOGUIDER_WIDTH  = 230.0;
 
    /**
     * Usable height of autoguider CCD in arcseconds.
@@ -42,12 +42,12 @@ public class TpeWfcamAutoGuiderFeature extends TpeImageFeature
     * The usable height can be smaller than the actual height
     * if the edge of the CCD should not be used for guiding.
     */
-   public static final double AUTOGUIDER_HEIGHT = 257.8;
+   public static final double AUTOGUIDER_HEIGHT = 230.0;
 
    /**
     * Autoguider CCD angle in degrees.
     */
-   public static final double AUTOGUIDER_ANGLE  = 45.0;
+   public static final double AUTOGUIDER_ANGLE  = 46.8;
 
    private PolygonD _autoguiderAreaPD;
    private boolean  _valid = false;
