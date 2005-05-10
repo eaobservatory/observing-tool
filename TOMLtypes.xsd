@@ -119,7 +119,7 @@
 <xsd:simpleType name="chopThrowLimits">
   <xsd:restriction base="xsd:double">
     <xsd:minInclusive value="0.0"/>
-    <xsd:maxInclusive value="240.0"/>
+    <xsd:maxInclusive value="200.0"/>
   </xsd:restriction>
 </xsd:simpleType>
 
