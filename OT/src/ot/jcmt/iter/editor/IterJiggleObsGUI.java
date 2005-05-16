@@ -75,7 +75,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     acsisPanel.setLayout(gridBagLayout1);
     jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel2.setForeground(Color.black);
-    jLabel2.setText("Jiggle Step");
+    jLabel2.setText("Scale Factor");
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setText("Sample Time");
