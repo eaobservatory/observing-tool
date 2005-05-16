@@ -143,7 +143,6 @@ public interface SpJCMTConstants {
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
 //    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
    public static final String ATTR_CYCLE_REVERSAL      = "cycleReversal";
-   public static final String ATTR_STEP_SIZE           = "stepSize";
    public static final String ATTR_SAMPLE_TIME         = "sampleTime";
    public static final String ATTR_AUTOMATIC_TARGET    = "autoTarget";
    public static final String ATTR_CONT_CAL            = "continuousCal";

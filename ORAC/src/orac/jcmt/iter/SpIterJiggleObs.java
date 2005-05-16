@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
  */
 public class SpIterJiggleObs extends SpIterJCMTObs {
 
-  private final String JIGGLE_STEP_DEFAULT = "10.0";
+  private final String JIGGLE_SCALE_DEFAULT = "10.0";
   private final String JIGGLES_PER_CYCLE_DEFAULT = "1";
   private final String SECS_PER_CYCLE_DEFAULT = "10";
 
@@ -180,7 +180,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
   }
 
   public void setScaleFactor (double value) {
-      _avTable.set( ATTR_STEP_SIZE, value );
+      _avTable.set( ATTR_SCALE_FACTOR, value );
   }
 
   private void setScaleFactor (String value) {
@@ -194,7 +194,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
   }
 
   public double getScaleFactor () {
-      return _avTable.getDouble( ATTR_STEP_SIZE, 1.0 );
+      return _avTable.getDouble( ATTR_SCALE_FACTOR, 1.0 );
   }
 
   public void setJigglePA (double value) {
@@ -207,7 +207,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 
   public void setAcsisDefaults() {
       setContinuumMode(false);
-      setScaleFactor( JIGGLE_STEP_DEFAULT );
+      setScaleFactor( JIGGLE_SCALE_DEFAULT );
       setJigglesPerCycle( JIGGLES_PER_CYCLE_DEFAULT );
   }
 
@@ -215,9 +215,9 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 	String value;
 
 	// Scale Factor
-	value = _avTable.get( ATTR_STEP_SIZE );
+	value = _avTable.get( ATTR_SCALE_FACTOR );
 	if ( value == null || value.equals("") ) {
-	    _avTable.noNotifySet( ATTR_STEP_SIZE, JIGGLE_STEP_DEFAULT, 0);
+	    _avTable.noNotifySet( ATTR_SCALE_FACTOR, JIGGLE_SCALE_DEFAULT, 0);
 	}
 
 	// Jiggles/Cyle
@@ -247,7 +247,7 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     }
 
     public void setupForSCUBA() {
-	_avTable.noNotifyRm ( ATTR_STEP_SIZE );
+	_avTable.noNotifyRm ( ATTR_SCALE_FACTOR );
 	_avTable.noNotifyRm ( ATTR_JIGGLES_PER_CYCLE );
 	_avTable.noNotifyRm ( ATTR_CONTINUUM_MODE );
 	_avTable.noNotifyRm ( ATTR_SECS_PER_CYCLE );

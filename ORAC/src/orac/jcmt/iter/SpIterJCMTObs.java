@@ -292,11 +292,11 @@ public void rmFrequencyOffsetValues() {
   }
 
   public double getStepSize() {
-    return _avTable.getDouble(ATTR_STEP_SIZE, 0.0);
+    return _avTable.getDouble(ATTR_SCALE_FACTOR, 0.0);
   }
 
   public void setStepSize(String value) {
-    _avTable.set(ATTR_STEP_SIZE, value);
+    _avTable.set(ATTR_SCALE_FACTOR, value);
   }
 
   public boolean getJiggleAtReference() {
