@@ -192,7 +192,6 @@ public class AcsisTranslator extends SpInstHeterodyne {
     String baseDir = System.getProperty( "ot.cfgdir" );
     String cfgFile = baseDir + "acsisTranslator.cfg";
     _readCfgFile( cfgFile );
-    System.out.println(getTranslatorConfig());
   }
 
 
@@ -421,10 +420,15 @@ public class AcsisTranslator extends SpInstHeterodyne {
 
             }
          }
-      } catch ( IOException e ) {
+      } 
+      catch ( IOException e ) {
          e.printStackTrace();
          System.out.println( "Error reading ACSIS translator cfg file." );
-      } catch ( Exception e ) {
+      }
+      catch (NullPointerException mpe) {
+          // Thrown when starting up as ukirt - ignore
+      }
+      catch ( Exception e ) {
          e.printStackTrace();
          System.out.println( "Error parsing ACSIS translator cfg file." );
       }
