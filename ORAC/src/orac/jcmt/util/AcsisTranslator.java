@@ -188,10 +188,12 @@ public class AcsisTranslator extends SpInstHeterodyne {
   private String configLabel = null;
 
   public AcsisTranslator() {
-    // Read in the translator config file.
-    String baseDir = System.getProperty( "ot.cfgdir" );
-    String cfgFile = baseDir + "acsisTranslator.cfg";
-    _readCfgFile( cfgFile );
+      if  ( "JCMT".equalsIgnoreCase(System.getProperty("TELESCOPE")) ) {
+          // Read in the translator config file.
+          String baseDir = System.getProperty( "ot.cfgdir" );
+          String cfgFile = baseDir + "acsisTranslator.cfg";
+          _readCfgFile( cfgFile );
+      }
   }
 
 
