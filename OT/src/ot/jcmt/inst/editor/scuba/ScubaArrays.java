@@ -70,9 +70,7 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
   private JButton _buttonSingle    = new JButton("Only Single Bolometers");
 
   /**
-   * @param x x coordinate of centre.
-   * @param y x coordinate of centre.
-   * @param r radius.
+   * @param file Name of file containing pixel information
    */
   public ScubaArrays(String file) {
 
@@ -189,7 +187,7 @@ public class ScubaArrays extends JPanel implements ActionListener, MouseListener
   /**
    * Determines which of the bolometers should be displayed as enabled.
    *
-   * @param enabledBolometers
+   * @param bolometerTypes  The type of bolometers to enable
    * <pre>
    * Boolean AND expression consisting of
    *   {@link scuba.Bolometer.BOLOMETER_SHORT}

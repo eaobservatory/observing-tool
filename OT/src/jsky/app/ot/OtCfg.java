@@ -88,9 +88,6 @@ public final class OtCfg
     /**
      * Configure the OT.  This method should be called once at startup.
      *
-     * @param baseURL A URL pointing to the base, or root, directory of the
-     * OT.  This method will expect to find the configuration file in a file
-     * called "cfg/ot.cfg" relative to this dir.
      */
     public static synchronized void init() throws Exception {
 	// Only call this method once, at startup.

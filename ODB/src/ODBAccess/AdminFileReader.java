@@ -16,14 +16,14 @@ import java.util.*;
 //import ot_ukirt.util.*;
 
 /**
- * Class to handle reading of the admin. file
+ * Class to handle reading of the admin file
  */
 public class AdminFileReader
 {
    private BufferedReader admFile;
 
 /**
- * The constructor - opens the admin. file
+ * The constructor - opens the admin file
  */
 public AdminFileReader(URL baseURL, String admFilename)
 {

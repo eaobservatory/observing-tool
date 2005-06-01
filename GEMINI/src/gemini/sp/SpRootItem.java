@@ -14,7 +14,9 @@ import java.io.FileReader;
 /**
  * A root of the program hierarchy.
  *
- * @see SpProg, SpPlan, SpLibrary
+ * @see SpProg
+ * @see SpPlan
+ * @see SpLibrary
  */
 public class SpRootItem extends SpObsContextItem
 {

@@ -10,9 +10,6 @@ import gemini.util.XmlUtil;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-//  MFO (June 12, 2002):
-//    isObserveInstruction(), setObserveInstruction(boolean)
-//    and ATTR_OBSERVE_INSTRUCTION added for OMP.
 
 /**
  * The Note item.  Notes are arbitrary text information that may be
@@ -25,7 +22,7 @@ public class SpNote extends SpItem
    /**
     * This attribute records whether this note should be highlighted.
     *
-    * @see @isObserveInstruction()
+    * @see #isObserveInstruction()
     */
    public static final String ATTR_OBSERVE_INSTRUCTION = ":observeInstruction";
 

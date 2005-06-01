@@ -27,8 +27,9 @@ import gemini.sp.SpOffsetPosList;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
 import gemini.sp.iter.SpIterOffset;
-import gemini.sp.iter.SpIterSky;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+
+import orac.ukirt.iter.SpIterSky;
 
 import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;

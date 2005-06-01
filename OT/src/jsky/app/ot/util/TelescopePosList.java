@@ -13,8 +13,8 @@ import java.util.Vector;
  * A ordered list of TelescopePos objects.  This class presents an
  * abstract notion of a list of telescope position objects.
  *
- * @see jsky.app.ot.nsp.SpTelescopePosList
- * @see jsky.app.ot.nsp.SpOffsetPosList
+ * @see gemini.sp.SpTelescopePosList
+ * @see gemini.sp.SpOffsetPosList
  */
 public abstract class TelescopePosList
 {

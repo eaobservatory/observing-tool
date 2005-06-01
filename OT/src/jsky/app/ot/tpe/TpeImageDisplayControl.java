@@ -26,7 +26,6 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * Construct a TpeImageDisplayControl widget.
      *
      * @param parent the top level parent frame (or internal frame) used to close the window
-     * @param statusPanel panel to use to display status info
      * @param size   the size (width, height) to use for the pan and zoom windows.
      */
     public TpeImageDisplayControl(Component parent, /*StatusPanel statusPanel,*/ int size) {
@@ -37,7 +36,6 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * Make a TpeImageDisplayControl widget with the default settings.
      *
      * @param parent The top level parent frame (or internal frame) used to close the window
-     * @param statusPanel panel to use to display status info
      */
     public TpeImageDisplayControl(Component parent) { //, StatusPanel statusPanel) {
 	super(parent); //, statusPanel);
@@ -49,7 +47,6 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * of the image file pointed to by the URL.
      *
      * @param parent The top level parent frame (or internal frame) used to close the window
-     * @param statusPanel panel to use to display status info
      * @param url The URL for the image to load
      */
     public TpeImageDisplayControl(Component parent, /*StatusPanel statusPanel,*/ URL url) {
@@ -62,7 +59,6 @@ public class TpeImageDisplayControl extends NavigatorImageDisplayControl {
      * of the image file.
      *
      * @param parent The top level parent frame (or internal frame) used to close the window
-     * @param statusPanel panel to use to display status info
      * @param filename The image file to load
      */
     public TpeImageDisplayControl(Component parent, /*StatusPanel statusPanel,*/ String filename) {

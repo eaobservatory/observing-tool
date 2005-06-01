@@ -77,9 +77,9 @@ getObsData()
  * by this class.  Updating the SpObsData will notify interested clients.
  */
 public void
-basePosUpdate(double ra, double dec, int coordSys)
+basePosUpdate(double ra, double dec, double xoff, double yoff, int coordSys)
 {
-   _obsData.setBasePos(ra, dec, coordSys);
+   _obsData.setBasePos(ra, dec, xoff, yoff, coordSys);
 }
 
 /**

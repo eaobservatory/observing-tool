@@ -75,7 +75,7 @@ public class SpItemUtilities {
    *
    * This utility method can be used to set all the elapsed times (time estimates),
    * before saving to disk or storing to database.
-   * This means that this method sets the {@link gemini.sp.SpMSB.ATTR_ELAPSED_TIME}
+   * This means that this method sets the {@link gemini.sp.SpMSB#ATTR_ELAPSED_TIME}
    * attributes of all SpMSB components and SpObs components that are MSBs
    * based on the current setting.
    * Unlike other attributes  the elapsed time is not directly typed in by the
@@ -126,7 +126,7 @@ public class SpItemUtilities {
    * Returns an object that can be be added to an SpItem (especially SpRootItem, SpProg etc)
    * to observe hierarchy changes and execute necessary code such as updating msb attributs.
    *
-   * @see #updateMsbAttributes()
+   * @see #updateMsbAttributes(SpItem)
    */
   public static SpHierarchyChangeObserver getHierarchyChangeUtil() {
     return new SpHierarchyChangeObserver() {

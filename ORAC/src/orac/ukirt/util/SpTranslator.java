@@ -1,4 +1,5 @@
 package orac.ukirt.util;
+
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -16,6 +17,7 @@ import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 import gemini.sp.SpFactory;
@@ -27,9 +29,9 @@ import gemini.sp.iter.SpIterOffset;
 import gemini.sp.iter.SpIterMicroStep;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterRepeat;
-import gemini.sp.iter.SpIterSky;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
+import gemini.util.ConfigWriter;
 import gemini.util.CoordSys;
 import gemini.util.RADecMath;
 import orac.ukirt.inst.SpDRRecipe;
@@ -41,6 +43,7 @@ import orac.ukirt.inst.SpInstUFTI;
 import orac.ukirt.inst.SpInstUIST;
 import orac.ukirt.inst.SpInstWFCAM;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
+import orac.ukirt.iter.SpIterSky;
 //import ot_ukirt.util.InstApertures;
 //import ot_ukirt.util.InstConfig;
 import orac.util.SpItemDOM;
@@ -66,6 +69,9 @@ import javax.swing.JOptionPane;
  * sequence text files for all UKIRT instruments, the new-style
  * attribute = value configuration text files for UFTI, Michelle, UIST
  * & WFCAM; and old-style configuration text files for CGS4 and IRCAM3.
+ *
+ * Most methods of this class are now deprecated, with individual SpItems
+ * being responsible for their own translation.
  */
 public class SpTranslator {
 
@@ -190,7 +196,6 @@ public class SpTranslator {
                 // Look for first "set OBJECT".
                 if ( ( (String) sequence.elementAt( i ) ).equals( "set OBJECT" ) &&
                         ! firstObject ) {
-
                     // It's found, so record the fact.
                     firstObject = true;
 
@@ -234,7 +239,6 @@ public class SpTranslator {
                     if ( ( (String) sequence.elementAt( j ) ).startsWith( "set " ) ) {
                         setFound = true;
                     }
-
                     // Look for a "do n _observe" instruction.
                     if ( ( (String) sequence.elementAt( j ) ).startsWith( "do" ) &&
                             ( (String) sequence.elementAt( j ) ).endsWith( "_observe" ) ) {
@@ -449,7 +453,8 @@ public class SpTranslator {
  * Move the last "SET_CHOPBEAM A" instruction before the startGroup
  * to after the startGroup.
  *
- * @param Vector the sequence instructions (this is updated).
+ * @param sequence The sequence instructions (this is updated).
+ * @deprecated no replacement
  */
 public void moveSetChopBeam( Vector sequence ) {
 
@@ -484,8 +489,9 @@ public void moveSetChopBeam( Vector sequence ) {
  * Count the number of offsets associated with the scope of the given
  * sequence.  This method traverses the tree.
  *
- * @param SpItem: the science program defining the scope to search.
- * @param count: the number offsets counted so far.
+ * @param spif The iteration folder defining the scope to search.
+ * @param count The number offsets counted so far.
+ * @deprecated  No replacement
  */
 public static int countOffsets (SpItem spif, int count ) {
     if(SpTreeMan.findInstrument(spif) instanceof SpMicroStepUser) {
@@ -532,7 +538,8 @@ public static int countOffsets (SpItem spif, int count ) {
  * <li>microstep iterator without offset iterator (no nested microstep iterators)
  * </ul>
  *
- * @param spif:  SpItem whose offsets and microsteps at which data are taken are counted.
+ * @param spif  SpItem whose offsets and microsteps at which data are taken are counted.
+ * @deprecated  No replacement
  */
 public static int countObserveOffsets (SpItem spif) {
 
@@ -1149,12 +1156,31 @@ public void setSequenceDirectory( String dirname ) {
 
 }
 
+public String translate()  {
+    if ( !( spObs.type().equals( SpType.OBSERVATION ) ) ) {
+        spObs = findSpObs( spObs );
+    }
+    if ( spObs != null ) {
+        try {
+            spObs.translate(new Vector());
+            return ConfigWriter.getCurrentInstance().getExecName();
+        }
+        catch (SpTranslationNotSupportedException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Error in translation;\n" + e.getMessage(),
+                    "Translation error!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    return null;
+}
+
 /**
  *  Translates the OT observation into an observing sequence and
  *  configurations.
  */
-public String translate() throws MissingValue, NumberFormatException,
-       IOException {
+   public String old_translate() throws MissingValue, NumberFormatException,
+          IOException {
 
            // Declare variables.
            // ==================
@@ -1634,19 +1660,16 @@ public String translate() throws MissingValue, NumberFormatException,
                                    sequence.addElement( "-WAIT ALL" );
                                }
                            } else {
-                               //<<<<<<< SpTranslator.java
                                if ( firstSlew ) {
                                    sequence.addElement("break");
                                    firstSlew = false;
                                }
                                sequence.addElement( "-system " + equinox +" ALL" );
-                               //=======
                                for(int fitsIndex = 0; fitsIndex < targetComponent.getFitsCount(); fitsIndex++) {
                                    sequence.addElement( "-setHeader " + targetComponent.getFitsKey(fitsIndex) + " "
                                            + targetComponent.getFitsValue(fitsIndex));
                                }
 
-                               //>>>>>>> 1.47.2.15
                                sequence.addElement( "do 1 _slew_all" );
                            }
                        }
@@ -2477,7 +2500,8 @@ public String translate() throws MissingValue, NumberFormatException,
  * Remove duplicate define_inst (and associated -set_inst) instructions 
  * from a sequence.
  *
- * @param Vector the sequence instructions (this is updated).
+ * @param sequece The sequence instructions (this is updated).
+ * @deprecated No replacement
  */
 public void removeDupInstAper( Vector sequence ) {
 
@@ -2531,7 +2555,8 @@ public void removeDupInstAper( Vector sequence ) {
 /**
  * Remove superfluous "set OBJECT" instructions from a sequence.
  *
- * @param Vector the sequence instructions (this is updated).
+ * @param sequence The sequence instructions (this is updated).
+ * @deprecated  No replacement
  */
 public void removeDupSetObject( Vector sequence ) {
 
@@ -2652,6 +2677,7 @@ throws IOException {
 
             // Access the current InstConfig.
             workConfig = (InstConfig) econ.nextElement();
+            System.out.println("workConfig = " + workConfig);
 
             // Determine whether or not the neutral-density filter is in place.
             if ( !( instrum.equalsIgnoreCase( "Michelle" ) ||

@@ -42,7 +42,7 @@ import ODBServerPackage.ODBServerMethods;
  *
  * Original is in SpServer.java.Gemini
  *
- * @author: Alan Bridger
+ * @author Alan Bridger
  *
  */
 public final class SpServer

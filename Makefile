@@ -13,12 +13,11 @@ SOURCE_FILES          = $(shell cd GEMINI/src; find . -name "*.java") \
                         $(shell cd ODB/src;    find . -name "*.java") \
                         $(shell cd OMP/src;    find . -name "*.java") \
                         $(shell cd EDFREQ/src; find . -name "*.java") \
-                        $(shell cd OT/src;     find . -name "*.java") \
+                        $(shell cd OT/src;     find . -name "*.java")
 
 
 SOURCEPATH = GEMINI/src:ORAC/src:ODB/src:OMP/src:EDFREQ/src:OT/src
 CLASSPATH  = GEMINI/classes/install:ORAC/classes/install:ODB/classes/installsrc:OMP/classes/install:EDFREQ/classes/install:OT/classes/install:$(shell echo $(EXTERNAL_JAR_FILES) | tr " " ":")
-
 
 # Get packages.
 # Start with a list of each directory containing a source file.
@@ -44,6 +43,7 @@ all:
 	(cd OMP/src;    gmake)
 	(cd EDFREQ/src; gmake)
 	(cd OT/src;     gmake)
+#	(cd OMP/src;    gmake)
 
 jar:
 ifeq ($(JAR_DIR), )
@@ -63,6 +63,7 @@ install: all install_dir
 	(cd OMP/src;    gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd EDFREQ/src; gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 	(cd OT/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
+#	(cd OM/src;     gmake JAR_DIR=$(shell (cd $(INSTALL_ROOT); pwd))/lib jar)
 
 	mkdir -p $(INSTALL_ROOT)/tools
 	cp OT/tools/*.jar ORAC/tools/*.jar OMP/tools/*.jar $(INSTALL_ROOT)/tools
@@ -112,6 +113,7 @@ clean:
 	(cd EDFREQ/src; gmake clean)
 	(cd OT/src;     gmake clean)
 	rm -rf $(INSTALL_ROOT)
+#	(cd OM/src;     gmake clean)
 
 _jar: $(JAR_DIR)
 	(cd GEMINI/src; gmake jar)
@@ -120,6 +122,7 @@ _jar: $(JAR_DIR)
 	(cd OMP/src;    gmake jar)
 	(cd EDFREQ/src; gmake jar)
 	(cd OT/src;     gmake jar)
+#	(cd OM/src;     gmake jar)
 
 
 _doc: $(DOC_DIR)

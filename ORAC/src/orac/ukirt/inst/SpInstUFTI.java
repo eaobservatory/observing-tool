@@ -50,6 +50,7 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
    public static int DETECTOR_HEIGHT;
    public static double PLATESCALE;
    public static String [][] EXPTIME_LIMITS;
+   public static String[] INSTRUMENT_APER;     // Array of inst aper values
 
    static String FILTER_NONE = "None";  
   
@@ -146,10 +147,12 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
 
             } else if ( instInfo.getKeyword().equalsIgnoreCase( "instrument_aper" ) ) {
                INSTRUMENT_APER = instInfo.getValueAsArray();
+               /*
                setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
                setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
                setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
                setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+               */
 
             } else if ( instInfo.getKeyword().equalsIgnoreCase( "plate_scale" ) ) {
                String ps = instInfo.getValue();
@@ -539,6 +542,8 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
 // Store the revised instrument apertures.
       setInstApX( String.valueOf( x ) );
       setInstApY( String.valueOf( y ) );
+      setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
+      setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
       
    }
 
@@ -587,5 +592,26 @@ public final class SpInstUFTI extends SpUKIRTInstObsComp {
 
        return limits;
    }
+
+
+public Hashtable getConfigItems() {
+    Hashtable list = new Hashtable();
+    list.put("instrument", "UFTI");
+    list.put("version", "1");
+    list.put("readMode", getAcqMode());
+    list.put("readArea", getReadoutArea());
+    String filter = getFilter();
+    if ( getPolariser().equals("prism") ) filter = filter + "+pol";
+    list.put("filter", filter);
+    list.put("expTime", ""+getExposureTime());
+    list.put("objNumExp", ""+getCoadds());
+    list.put("darkNumExp", "1");
+    setInstAper();
+    list.put("instAperX", ""+getInstApX());
+    list.put("instAperY", ""+getInstApY());
+    list.put("instAperZ", ""+getInstApZ());
+    list.put("instAperL", ""+getInstApL());
+    return list;
+}
 }
 

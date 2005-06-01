@@ -31,9 +31,6 @@ import javax.swing.JButton;
  *
  * Note that this frame is a modal JDialog.
  *
- * @see edfreq.FrontEnd
- * @see edfreq.FrontEndFrame
- *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class ScubaArraysFrame extends JDialog implements ActionListener {

@@ -16,7 +16,6 @@ import gemini.util.TelescopePos;
 import gemini.util.TelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.iter.SpIterSky;
 
 /**
  * A data object that describes a list of telescope offset positions.
@@ -458,7 +457,7 @@ removePosition(TelescopePos tp)
  * given tag and then calls the other removePosition method to actually
  * remove the position.
  *
- * @see #removePosition(SpOffsetPos)
+ * @see #removePosition(TelescopePos)
  */
 public void
 removePositionAt(int index)

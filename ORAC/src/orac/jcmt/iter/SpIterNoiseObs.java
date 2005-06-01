@@ -56,7 +56,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
    *
    * @param noiseSource if this is not one of the NOISE_SOURCES then it will be ignored.
    *
-   * @see orac.jcmt.SpJCMTConstants.NOISE_SOURCES
+   * @see orac.jcmt.SpJCMTConstants#NOISE_SOURCES
    */
   public void setNoiseSource(String noiseSource) {
     for(int i = 0; i < NOISE_SOURCES.length; i++) {

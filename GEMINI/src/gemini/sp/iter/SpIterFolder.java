@@ -11,6 +11,8 @@ import java.util.Vector;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpType;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
@@ -20,7 +22,7 @@ import gemini.sp.obsComp.SpInstObsComp.IterationTracker;
  * The Iterator Folder (or "Sequence") item.  The job of the folder is to
  * hold iterators for an Observation Context.
  */
-public class SpIterFolder extends SpItem
+public class SpIterFolder extends SpItem implements SpTranslatable
 {
    /**
     * Time needed by the telescope to move to another offset position.
@@ -174,4 +176,14 @@ printSummary()
   
     return elapsedTime;
   }
+
+public void translate(Vector v) throws SpTranslationNotSupportedException {
+    Enumeration e = this.children();
+    while ( e.hasMoreElements() ) {
+        SpItem child = (SpItem)e.nextElement();
+        if ( child instanceof SpTranslatable ) {
+            ((SpTranslatable)child).translate(v);
+        }
+    }
+}
 }

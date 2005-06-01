@@ -4,18 +4,25 @@
 //
 // $Id$
 //
-package gemini.sp.iter;
+package orac.ukirt.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
+import gemini.sp.SpObs;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 
-//import gemini.sp.iter.SpIterEnumeration;
-//import gemini.sp.iter.SpIterObserveBase;
-//import gemini.sp.iter.SpIterStep;
-//import gemini.sp.iter.SpIterValue;
+import gemini.sp.iter.SpIterEnumeration;
+import gemini.sp.iter.SpIterObserveBase;
+import gemini.sp.iter.SpIterOffset;
+import gemini.sp.iter.SpIterStep;
+import gemini.sp.iter.SpIterValue;
+
+import orac.ukirt.inst.SpDRRecipe;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 
 //
@@ -55,7 +62,7 @@ _thisNextElement()
 /**
  * A simple "Observe" iterator.
  */
-public class SpIterObserve extends SpIterObserveBase
+public class SpIterObserve extends SpIterObserveBase implements SpTranslatable
 {
 
    public static final SpType SP_TYPE =
@@ -95,6 +102,37 @@ public SpIterEnumeration
 elements()
 {
    return new SpIterObserveEnumeration(this);
+}
+
+public void translate(Vector v) {
+    // Get the DR recipe component so we can add the header information
+    SpItem parent = parent();
+    while ( parent != null && !(parent instanceof SpObs) ) {
+        parent = parent.parent();
+    }
+    Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+    if ( recipes != null && recipes.size() != 0 ) {
+        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
+        v.add("setHeader GRPMEM " + (recipe.getObjectInGroup()? "T":"F"));
+        v.add("setHeader RECIPE " + recipe.getObjectRecipeName());
+    }
+
+    // If we are not inside an offset, we need to tell the system there is an offset here
+    parent = parent();
+    boolean inOffset = false;
+    while ( parent != null ) {
+        if ( parent instanceof SpIterOffset ) {
+            inOffset = true;
+            break;
+        }
+        parent = parent.parent();
+    }
+    v.add("set OBJECT");
+    String observe = "do " + getCount() + " _observe";
+    v.add(observe);
+    if ( !inOffset ) {
+        v.add("ADDOFFSET");
+    }
 }
 
 }

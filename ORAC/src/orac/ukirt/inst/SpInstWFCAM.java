@@ -29,8 +29,8 @@ import gemini.sp.obsComp.SpMicroStepUser;
 
 /**
  * The WFCAM instrument.
- +
- + @author Alan Pickup
+ *
+ * @author Alan Pickup
  */
 
 public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStepUser
@@ -56,7 +56,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
     public static String[] READMODES;
     public static String DEFAULT_READMODE;
     public static LookUpTable FILTERS;
-    public static String [][] MICROSTEP_PATTERS;
+    public static String [][] MICROSTEP_PATTERNS;
     public static String DEFAULT_FILTER;
     public static double DEFAULT_EXPTIME;
     public static double DEFAULT_FLAT_EXPTIME;
@@ -65,6 +65,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
     public static int DEFAULT_COADDS;
     public static int DEFAULT_FLAT_COADDS;
     public static int DEFAULT_FOCUS_COADDS;
+    public static String[] INSTRUMENT_APER;     // Array of inst aper values
 
     public static final SpType SP_TYPE = SpType.create(
         SpType.OBSERVATION_COMPONENT_TYPE, "inst.WFCAM", "WFCAM");
@@ -140,7 +141,7 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 		} else if (InstCfg.matchAttr (instInfo, "filters")) {
                     FILTERS = instInfo.getValueAsLUT();
 		} else if (InstCfg.matchAttr (instInfo, "microstep_patterns")) {
-                    MICROSTEP_PATTERS = instInfo.getValueAs2DArray();
+                    MICROSTEP_PATTERNS = instInfo.getValueAs2DArray();
 		} else if (InstCfg.matchAttr (instInfo, "default_filter")) {
                     DEFAULT_FILTER = instInfo.getValue();
 		} else if (InstCfg.matchAttr (instInfo, "default_exptime")) {
@@ -163,10 +164,17 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
                        Integer.valueOf(instInfo.getValue()).intValue();
                 } else if ( instInfo.getKeyword().equalsIgnoreCase( "instrument_aper" ) ) {
                     INSTRUMENT_APER = instInfo.getValueAsArray();
+                    /*
                     setInstApX( INSTRUMENT_APER[ XAP_INDEX ] );
                     setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
                     setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
                     setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+                    System.out.println("Instrument apertures set to ( " + 
+                            INSTRUMENT_APER[ XAP_INDEX ] + ", " +
+                            INSTRUMENT_APER[ YAP_INDEX ] + ", " +
+                            INSTRUMENT_APER[ ZAP_INDEX ] + ", " +
+                            INSTRUMENT_APER[ LAP_INDEX ] + ") " );
+                     */
 		} else {
                     System.out.println("Unmatched keyword:" + instInfo.getKeyword());
 		}
@@ -396,16 +404,16 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 
       double [][] offsets;
 
-      for(int i = 0; i < MICROSTEP_PATTERS.length; i++) {
-        offsets = new double[(MICROSTEP_PATTERS[i].length - 1) / 2][2];
+      for(int i = 0; i < MICROSTEP_PATTERNS.length; i++) {
+        offsets = new double[(MICROSTEP_PATTERNS[i].length - 1) / 2][2];
 
         int k = 1;
         for(int j = 0; j < offsets.length; j++) {
-          offsets[j][0] = Double.parseDouble(MICROSTEP_PATTERS[i][k++]);
-          offsets[j][1] = Double.parseDouble(MICROSTEP_PATTERS[i][k++]);
+          offsets[j][0] = Double.parseDouble(MICROSTEP_PATTERNS[i][k++]);
+          offsets[j][1] = Double.parseDouble(MICROSTEP_PATTERNS[i][k++]);
 	}
 
-        result.put((String)MICROSTEP_PATTERS[i][0], offsets);
+        result.put((String)MICROSTEP_PATTERNS[i][0], offsets);
       }
 
       return result;
@@ -455,5 +463,26 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
         setInstApY( INSTRUMENT_APER[ YAP_INDEX ] );
         setInstApZ( INSTRUMENT_APER[ ZAP_INDEX ] );
         setInstApL( INSTRUMENT_APER[ LAP_INDEX ] );
+    }
+
+    public Hashtable getConfigItems() {
+        Hashtable t = new Hashtable();
+
+        t.put("instrument", "WFCAM");
+        t.put("version", "1");
+        t.put("configType", "Normal");
+        t.put("type", "object");
+        t.put("filter", getFilter());
+        t.put("instPort", "Centre");
+        t.put("readMode", getReadMode());
+        t.put("exposureTime", ""+getExposureTime());
+        t.put("coadds", ""+getCoadds());
+        setInstAper();
+        t.put("instAperX", ""+getInstApX());
+        t.put("instAperY", ""+getInstApY());
+        t.put("instAperZ", ""+getInstApZ());
+        t.put("instAperL", ""+getInstApL());
+
+        return t;
     }
 }

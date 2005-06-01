@@ -136,7 +136,7 @@ public class Bolometer extends ClickableCircle {
    * <pre>
    * Returns one of the following values:
    *
-   *   {@link #BOLOMETER_UNDEFINED},
+   *   {@link #BOLOMETER_NONE},
    *   {@link #BOLOMETER_SHORT},
    *   {@link #BOLOMETER_LONG},
    *   {@link #BOLOMETER_P1100},

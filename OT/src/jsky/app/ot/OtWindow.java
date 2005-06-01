@@ -31,6 +31,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
+import javax.swing.JTree;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.EventListenerList;
@@ -60,6 +61,7 @@ import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
+import gemini.util.ConfigWriter;
 import orac.util.OracUtilities;
 import orac.util.SpInputXML;
 import ot.phase1.Phase1HTMLDocument;
@@ -632,16 +634,11 @@ public class OtWindow extends SpTreeGUI
         SpInstObsComp inst = ((SpInstObsComp) SpTreeMan.findInstrument(spitem));
         
         // Create a translator class and do the translation
-        SpTranslator spt = new SpTranslator (spobs);
         try {
-	    spt.setConfigDirectory(OT.getOtUserDir());
-	    spt.setSequenceDirectory(OT.getOtUserDir());
-	    seqName = spt.translate();
-	    seqDir  = spt.getSequenceDirectory();
-        }catch (Exception ex) {
-	    DialogUtil.error(this, "Exception whilst translating:\n "+ex.getMessage());
-	    ex.printStackTrace();
-	    return false;
+            spobs.translate(new Vector() );
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
 
       }else{
@@ -650,7 +647,7 @@ public class OtWindow extends SpTreeGUI
         return false;
       }
 
-      DialogUtil.message(this, "Observation saved to " + seqDir + seqName);
+      DialogUtil.message(this, "Observation saved to " + ConfigWriter.getCurrentInstance().getExecName());
   
       return true;
     }
@@ -1399,6 +1396,13 @@ public class OtWindow extends SpTreeGUI
 	if (s != null && s.length() != 0) {
 	    _curItem.setTitleAttr(s);
 	}
+    }
+
+    public void collapseMSBs() {
+        JTree tree = _tw.getTree();
+        for ( int i=1; i<tree.getRowCount(); i++ ) {
+            tree.collapseRow(i);
+        }
     }
 
     public void replicateSp() {

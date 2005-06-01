@@ -10,6 +10,9 @@
 package orac.ukirt.iter;
 
 import gemini.sp.SpFactory;
+import gemini.sp.SpItem;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
 import gemini.sp.iter.IterConfigItem;
 
@@ -18,7 +21,7 @@ import java.util.*;
 /**
  * The FP configuration iterator.
  */
-public class SpIterIRPOL extends SpIterConfigObsUKIRT {
+public class SpIterIRPOL extends SpIterConfigObsUKIRT implements SpTranslatable {
 
    public static final SpType SP_TYPE =
      SpType.create( SpType.ITERATOR_COMPONENT_TYPE, "instIRPOL", "IRPOL" );
@@ -81,5 +84,20 @@ addConfigItem(IterConfigItem ici, int size)
 
       return iciA;
    }
+
+public void translate(Vector v) throws SpTranslationNotSupportedException {
+    List iterList = getConfigAttribs();
+    int nConfigs = getConfigSteps((String)iterList.get(0)).size();
+    for ( int i=0; i<nConfigs; i++ ) {
+        v.add("polAngle " + (String)getConfigSteps("IRPOLIter").get(i));
+        Enumeration e = this.children();
+        while (e.hasMoreElements()) {
+            SpItem child = (SpItem)e.nextElement();
+            if ( child instanceof SpTranslatable ) {
+                ((SpTranslatable)child).translate(v);
+            }
+        }
+    }
+}
 
 }

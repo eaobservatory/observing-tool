@@ -241,7 +241,7 @@ public final class SpInstSCUBA extends SpJCMTInstObsComp {
 
 
   /**
-   * @param subInstrument Object[] rather then String[] is used to simplify GUI.
+   * @param bolometers A vector of bolometer names
    */
   public void setBolometers(Vector bolometers) {
     _avTable.setAll(ATTR_BOLOMETERS, bolometers);

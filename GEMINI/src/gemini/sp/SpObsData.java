@@ -9,8 +9,12 @@ package gemini.sp;
 import java.util.Vector;
 
 import gemini.util.CoordSys;
+import gemini.util.RADecMath;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
+
+import gemini.util.HHMMSS;
+import gemini.util.DDMMSS;
 
 /**
  * A collection of (dervied) fundamental observation data in which
@@ -82,15 +86,21 @@ setBasePos(double x, double y)
    setBasePos(x, y, CoordSys.FK5);
 }
 
+public void setBasePos( double x, double y, int coordSys) {
+    setBasePos(x, y, 0.0, 0.0, coordSys);
+}
+
 // Parameter coordSystem added (MFO, April 11, 2002).
 /**
  * Set the base position, notifying observers of the change.
  */
 public void
-setBasePos(double x, double y, int coordSys)
+setBasePos(double x, double y, double xoff, double yoff, int coordSys)
 {
-   _x = x;
-   _y = y;
+//    _x = x;
+//    _y = y;
+   _x = RADecMath.getAbsolute(x, y, xoff, yoff)[0];
+   _y = RADecMath.getAbsolute(x, y, xoff, yoff)[1];
    _coordSys = coordSys;
 
    if (_basePosObservers == null) {
@@ -100,7 +110,7 @@ setBasePos(double x, double y, int coordSys)
    for (int i=0; i<_basePosObservers.size(); ++i) {
       SpBasePosObserver bpo;
       bpo = (SpBasePosObserver) _basePosObservers.elementAt(i);
-      bpo.basePosUpdate(x, y, coordSys);
+      bpo.basePosUpdate(x, y, xoff, yoff, coordSys);
    }
 }
 

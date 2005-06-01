@@ -16,10 +16,10 @@ import java.util.Vector;
 
 import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
-import gemini.sp.iter.SpIterObserve;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterRepeat;
 
+import orac.ukirt.iter.SpIterObserve;
 
 /**
  * This is the editor for Repeat iterator component.

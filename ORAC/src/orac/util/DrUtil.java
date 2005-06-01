@@ -5,7 +5,7 @@ import java.util.Hashtable;
 /**
  * Utility class for calculations related to data reduction issues.
  *
- * The methods {@link airmass(double,double)} and {@link transmission(double,double,int[])}
+ * The methods {@link #airmass(double,double)} and {@link #transmission(double,double,int[])}
  * deal with sky opacity related topics and are based on the perl module JCMT::Tau.
  *
  * @author     Martin Folger (M.Folger@roe.ac.uk):        Java version
@@ -56,7 +56,7 @@ public class DrUtil {
    * @param status  integer array to hold one status integer.
    *
    * @return Atmospheric transmission coefficient at whatever wavelength the sky opacity applied to.
-   *         {@link STATUS_SUCCESSFUL}, {@link STATUS_FAILED}
+   *         {@link #STATUS_SUCCESSFUL}, {@link #STATUS_FAILED}
    */
   public static double transmission(double airmass, double tau, int [] status) {
     // my $airmass = $_[0];

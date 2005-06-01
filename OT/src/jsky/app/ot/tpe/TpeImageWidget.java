@@ -314,8 +314,8 @@ public class TpeImageWidget extends FitsImageWidget
     /**
      * The Base position has been updated.
      */
-    public void	basePosUpdate(double x, double y, int coordSys) {
-	setBasePos(x, y, coordSys);
+    public void	basePosUpdate(double x, double y, double xoff, double yoff, int coordSys) {
+	setBasePos(x, y, xoff, yoff, coordSys);
 	repaint();
     }
 
@@ -357,14 +357,18 @@ public class TpeImageWidget extends FitsImageWidget
 	return setBasePos(x, y, CoordSys.FK5);
     }
 
+    public boolean setBasePos( double x, double y, int coordSys ) {
+        return setBasePos(x, y, 0.0, 0.0, coordSys);
+    }
+
     /**
      * Converts coordinates to FK5 and sets base position.
      */
-    public boolean setBasePos(double x, double y, int coordSys)  {
+    public boolean setBasePos(double x, double y, double xoff, double yoff, int coordSys)  {
 	//System.out.println("*** setBasePos: " + x + ", " + y);
 
-	_convertedPosition.x = x;
-	_convertedPosition.y = y;
+	_convertedPosition.x = RADecMath.getAbsolute(x, y, xoff, yoff)[0];
+	_convertedPosition.y = RADecMath.getAbsolute(x, y, xoff, yoff)[1];
 
 	switch(coordSys) {
 	  case CoordSys.FK4:

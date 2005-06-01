@@ -1058,8 +1058,8 @@ public final class OtTreeWidget extends MultiSelTreeWidget
      * This method implements multiple colour display of the text strings of
      * Observation and MSB components in the tree.
      *
-     * MSB black: {@link gemini.sp.SpMSB.getNumberRemaining()} = 1 or more.
-     * MSB gray:  {@link gemini.sp.SpMSB.getNumberRemaining()} = 0.
+     * MSB black: {@link gemini.sp.SpMSB#getNumberRemaining()} = 1 or more.
+     * MSB gray:  {@link gemini.sp.SpMSB#getNumberRemaining()} = 0.
      *
      * Observation black: Observation is not optional.
      * Observation green: Observation is optional.

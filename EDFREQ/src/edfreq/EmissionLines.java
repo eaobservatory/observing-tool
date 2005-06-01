@@ -23,6 +23,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
+  * This class contains all information related to defined emission lines, and their associated
+  * molecules and transitions.
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)
  */
 public class EmissionLines extends JPanel implements MouseListener, ChangeListener
@@ -151,6 +153,10 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    }
 
 
+   /**
+     * Set the redshift of the source.
+     * @param redshift  Redshift (Z) of source.
+     */
    public void setRedshift ( double redshift )
    {
       this.redshift = redshift;
@@ -161,7 +167,7 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
       repaint();
    }
 
-   public void paintComponent ( Graphics g )
+   protected void paintComponent ( Graphics g )
    {
       super.paintComponent(g);
 
@@ -219,6 +225,7 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
       g.drawImage ( buffer, 0, 0, null );
    }
 
+   /** Pops up information about a line when the line is pressed. */
    public void mousePressed ( MouseEvent e )
    {
       int j;
@@ -283,6 +290,7 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    public void mouseExited ( MouseEvent e )
    {
    }
+   /** Clears the line information popup */
    public void mouseReleased ( MouseEvent e )
    {
       if ( popup != null )
@@ -291,6 +299,9 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
       }
    }
 
+   /**
+     * Updates line details in response to state change.
+     */
    public void stateChanged ( ChangeEvent e )
    {
       if(e.getSource() instanceof JMenuItem) {
@@ -326,6 +337,9 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    }
 
 
+   /**
+     * Update the emission lines available.
+     */
    public void updateLines ( )
    {
       int j;
@@ -376,6 +390,10 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
    }
 
 
+   /**
+     * Sets the main line based on input from the Frequency Editor GUI.
+     * @param frequency  Frequency of main line in Hz.
+     */
    public void setMainLine ( double frequency )
    {
       mainLineFreq = frequency;
@@ -398,6 +416,10 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
       repaint();
    }
 
+   /**
+     * Sets the side line based on input from the Frequency Editor GUI.
+     * @param frequency  Frequency of side line in Hz.
+     */
    public void setSideLine ( double frequency )
    {
       sideLineFreq = frequency;
@@ -437,6 +459,9 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
        repaint();
    }
 
+   /**
+     * Get the information about the currently selected line.
+     */
    public LineDetails getSelectedLine() {
       return selectedLine;
    }

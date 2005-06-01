@@ -22,8 +22,6 @@ import orac.util.InstCfgReader;
  * If no xml configuration file is available then the default constructor can be used
  * to create a default configuration object (ACSIS setup).
  * <p>
- * The {@link edfreq.FrontEnd} class hold a public static reference to an FrequencyEditorCfg object
- * ({@link edfreq.FrontEnd.cfg}) which can be used throughout the frequency editor code.
  *
  * <h3>How to create a new xml configuration file</h3>
  *
@@ -100,6 +98,10 @@ public class FrequencyEditorCfg {
     receivers = ReceiverList.getReceiverTable();
   }
 
+  /**
+    * Returns a FrequencyEditorCfg based on the value of the system poperty
+    * FREQ_EDITOR_CFG_PROPERTY, which should point ot the cfg file.
+    */
   public static FrequencyEditorCfg getConfiguration() {
     if(_frequencyEditorCfg == null) {
         String acsisCfgFile = System.getProperty("ot.cfgdir") + File.separator + "acsis.cfg";
@@ -333,31 +335,6 @@ public class FrequencyEditorCfg {
           System.out.println("Failed to find match for keyword " + instInfo.getKeyword());
       }
   }
-
-//   public static void main(String [] args) {
-//     if(args.length > 0) {
-//       File cfgFile = new File(args[0]);
-// 
-//       if(cfgFile.exists()) {
-//         System.out.println("Cannot create xml cfg file " + args[0] + ". File exists.");
-// 	return;
-//       }
-//       else {
-//         createDefaultCfgFile(cfgFile);
-//       }
-//     }
-//   }
-
-//   public static void createDefaultCfgFile(File file) {
-//     try {
-//       ObjOut objOut = new ObjOut(false, new FileWriter(file));
-//       FrequencyEditorCfg frequencyEditorCfg = new FrequencyEditorCfg();
-//       objOut.writeObject(frequencyEditorCfg);
-//     }
-//     catch(IOException e) {
-//       e.printStackTrace();
-//     }
-//   }
 
   public String toString() {
       StringBuffer sb = new StringBuffer();

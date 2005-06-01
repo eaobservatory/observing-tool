@@ -88,7 +88,6 @@ public class OT extends JFrame {
      * working directory would not be accessible from within java. the system property
      * user.dir would point to the directory from which java was started.
      *
-     * @see #getOracUserDir()
      */
     public static final String PROPERTY_OT_USERDIR = "ot.userdir";
 

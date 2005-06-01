@@ -131,6 +131,13 @@ public class TelescopeGUI extends JPanel {
   JLabel velFrameLabel = new JLabel();
   DropDownListBoxWidgetExt velFrame = new DropDownListBoxWidgetExt();
   
+  JLabel baseXOffLabel = new JLabel();
+  JLabel baseYOffLabel = new JLabel();
+  TextBoxWidgetExt baseXOff = new TextBoxWidgetExt();
+  TextBoxWidgetExt baseYOff = new TextBoxWidgetExt();
+  JLabel baseXOffUnits = new JLabel();
+  JLabel baseYOffUnits = new JLabel();
+
     public TelescopeGUI() {
         try {
             jbInit();
@@ -325,6 +332,25 @@ public class TelescopeGUI extends JPanel {
     yUnitsLabel.setForeground(Color.black);
     yUnitsLabel.setText("(degrees)");
 
+    baseXOffLabel.setFont(new java.awt.Font("Dialog", 0, 10));
+    baseXOffLabel.setForeground(Color.black);
+    baseXOffLabel.setText("xOff");
+    
+    baseYOffLabel.setFont(new java.awt.Font("Dialog", 0, 10));
+    baseYOffLabel.setForeground(Color.black);
+    baseYOffLabel.setText("yOff");
+
+    baseXOff.setColumns(5);
+    baseYOff.setColumns(5);
+
+    baseXOffUnits.setFont(new java.awt.Font("Dialog", 2, 10));
+    baseXOffUnits.setForeground(Color.black);
+    baseXOffUnits.setText("arcsecs");
+    
+    baseYOffUnits.setFont(new java.awt.Font("Dialog", 2, 10));
+    baseYOffUnits.setForeground(Color.black);
+    baseYOffUnits.setText("arcsecs");
+
     epochPerih.setVisible(false);
     epochPerihLabel.setVisible(false);
     epochPerihUnitsLabel.setVisible(false);
@@ -379,6 +405,12 @@ public class TelescopeGUI extends JPanel {
 
         objectGBW.add(xaxisTBW, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
+        objectGBW.add(baseXOffLabel, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
+        objectGBW.add(baseXOff, new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
+        objectGBW.add(baseXOffUnits, new GridBagConstraints(6, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
         objectGBW.add(Dec_El_STW, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
         objectGBW.add(RA_Az_STW, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
@@ -389,6 +421,12 @@ public class TelescopeGUI extends JPanel {
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
         objectGBW.add(yaxisTBW, new GridBagConstraints(3, 2, 1, 1, 1.5, 0.0
             ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+        objectGBW.add(baseYOffLabel, new GridBagConstraints(4, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
+        objectGBW.add(baseYOff, new GridBagConstraints(5, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
+        objectGBW.add(baseYOffUnits, new GridBagConstraints(6, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 5, 0), 0, 0));
     objectGBW.add(offsetCheckBox, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
     objectGBW.add(xUnitsLabel, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0

@@ -21,5 +21,5 @@ public interface SpBasePosObserver
     * Notification that the base position has changed.
     * x and y are specified in degrees.
     */
-   public void basePosUpdate(double x, double y, int coordSys);
+   public void basePosUpdate(double x, double y, double xoff, double yoff, int coordSys);
 }

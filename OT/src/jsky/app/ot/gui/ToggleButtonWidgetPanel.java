@@ -36,7 +36,7 @@ public class ToggleButtonWidgetPanel extends JPanel {
      * 
      * @param names an array of ToggleButton labels
      * @param nrows the number of rows
-     * @param nrows the number of columns
+     * @param ncols the number of columns
      * @param enableMultipleSelection if true, multiple buttons may be selected, otherwise only one
      * @param hgap the horizontal gap
      * @param vgap the vertical gap
@@ -69,7 +69,7 @@ public class ToggleButtonWidgetPanel extends JPanel {
      * 
      * @param names an array of ToggleButton labels
      * @param nrows the number of rows
-     * @param nrows the number of columns
+     * @param ncols the number of columns
      * @param enableMultipleSelection if true, multiple buttons may be selected, otherwise only one
      */
     public ToggleButtonWidgetPanel(String[] names, int nrows, int ncols, boolean enableMultipleSelection) {

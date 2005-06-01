@@ -23,8 +23,6 @@ import gemini.sp.SpObsContextItem;
 import gemini.util.TelescopePos;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterOffset;
-import gemini.sp.iter.SpIterObserve;
-import gemini.sp.iter.SpIterSky;
 import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import orac.jcmt.SpJCMTConstants;

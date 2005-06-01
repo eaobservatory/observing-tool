@@ -13,6 +13,8 @@ import orac.ukirt.inst.SpInstUIST;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
@@ -26,6 +28,8 @@ import gemini.sp.iter.SpIterValue;
 import gemini.sp.obsComp.SpInstConstants;
 
 import gemini.util.*;
+
+import java.io.IOException;
 
 /**
  * Enumerater for the elements of the Observe iterator.
@@ -87,7 +91,7 @@ class SpIterUISTTargetAcqEnumeration extends SpIterEnumeration {
 }
 
 
-public class SpIterUISTTargetAcq extends SpIterObserveBase
+public class SpIterUISTTargetAcq extends SpIterObserveBase implements SpTranslatable
 {
     public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instUISTTargetAcq", "UIST Spec/IFU Target Acquisition");
@@ -566,5 +570,55 @@ public class SpIterUISTTargetAcq extends SpIterObserveBase
 	    System.out.println ("Failed to find disperser index!");
 	}
 	return dispindex;
+    }
+
+
+    public void translate (Vector v) throws SpTranslationNotSupportedException {
+        SpInstUIST inst;
+        try {
+            inst = (SpInstUIST)getInstrumentItem();
+        }
+        catch (Exception e) {
+            throw new SpTranslationNotSupportedException("No UIST instrument in scope of UIST Target Acq.");
+        }
+
+        Hashtable items = inst.getConfigItems();
+        items.put("exposureTime", getExposureTimeString());
+        items.put("filter", getFilter());
+        items.put("disperser", getDisperser());
+        items.put("dispersion", ""+getDispersion());
+        items.put("resolution", ""+getResolution());
+        items.put("scienceArea", getScienceAreaString());
+        items.put("mask", getMask());
+        items.put("maskWidth", ""+getMaskWidthPixels());
+        items.put("maskHeight", ""+getMaskHeightArcsec());
+        items.put("coadds", ""+getCoadds());
+        items.put("type", "TARGETACQ");
+        try {
+            ConfigWriter.getCurrentInstance().write(items);
+        }
+        catch (IOException ioe) {
+            throw new SpTranslationNotSupportedException("Unable to write config file for UIST TargetAcq.");
+        }
+
+        v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
+        v.add("setrotator " + items.get("posAngle"));
+        v.add("setrot_offset 0.0");
+        v.add("setHeader GRPMEM F");
+        v.add("setHeader RECIPE QUICK_LOOK");
+        v.add("set TARGETACQ");
+        v.add("breakForMovie");
+
+        //Finally move the default config (always _1) down
+        String configPattern = "loadConfig .*_1";
+        for ( int i=v.size()-1; i>=0; i-- ) {
+            String line = (String)v.get(i);
+            if ( line.matches(configPattern) ) {
+                v.removeElementAt(i);
+                v.add(line);
+                break;
+            }
+        }
+        
     }
 }

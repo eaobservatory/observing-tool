@@ -29,8 +29,8 @@ import gemini.sp.obsComp.SpStareCapability;
 
 /**
  * The UIST instrument.
- +
- + @author Alan Pickup
+ *
+ * @author Alan Pickup
  */
 
 public final class SpInstUIST extends SpUKIRTInstObsComp
@@ -170,6 +170,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     // Spectroscopy
     public static double SPECT_FOCAL_LENGTH;
     public static double[] SPECT_FIELD_OF_VIEW;
+    public static String[] INSTRUMENT_APER;     // Array of inst aper values
 // Commented out by RDK
 //     public static String[] DISPERSERCHOICES;
 //     public static String[] DISPERSERCHOICESPOL;
@@ -3267,6 +3268,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
         _avTable.set(ATTR_NREADS, nreads);
     }
 
+    public int getNreads() {
+        return _avTable.getInt(ATTR_NREADS, 0);
+    }
+
 // Commented out by RDK
     /**
      * Use default observation time OT
@@ -4526,6 +4531,66 @@ public double getAcqTime() {
         }
     }
     return rtn;
+}
+
+public Hashtable getConfigItems() {
+
+    double et = getExpTimeOT();
+    et = limitExpTimeOT(et);
+    String daconf = getDAConf(et);
+
+    
+    Hashtable t = new Hashtable();
+    t.put("instrument",  "UIST");
+    t.put("version", "3");
+    t.put("configType", CONFIG_TYPE);
+    t.put("type", "object");
+    t.put("instPort", getPort());
+    t.put("camera", getCamera());
+    t.put("imager", getImager());
+    t.put("filter", getFilter());
+    t.put("focus", getFocus());
+    t.put("polarimetry", (isPolarimetry()?"yes":"no"));
+    t.put("mask", getMask());
+    t.put("maskWidth", ""+getMaskWidthPixels());
+    t.put("maskHeight", ""+getMaskHeightArcsec());
+    t.put("disperser", getDisperser());
+    t.put("posAngle", ""+getPosAngleDegrees());
+    t.put("centralWavelength", ""+getCentralWavelength());
+    t.put("resolution", ""+getResolution());
+    t.put("dispersion", ""+getDispersion());
+    t.put("scienceArea", getScienceAreaString());
+    t.put("pixelScale", ""+getPixelScale());
+    t.put("nreads", ""+getNreads());
+    t.put("mode", getMode());
+    t.put("exposureTime", getExposureTimeString());
+    t.put("readInterval", ""+getReadInterval());
+    t.put("chopFrequency", getChopFreqRound());
+    if ( Double.parseDouble(getChopFreq()) == 0.0 ) {
+        t.put("chopDelay", "0.0");
+    }
+    else {
+        t.put("chopDelay", ""+getChopDelay());
+    }
+    t.put("coadds", ""+getCoadds());
+    t.put("dutyCycle", getDutyCycle());
+    t.put("observationTime", ""+getObservationTime());
+    t.put("darkNumExp", "1");
+    t.put("pupil_imaging", getPupilImaging());
+    t.put("DAConf", daconf);
+    t.put("DAConfMinExpT", _avTable.get(ATTR_DACONF_MINEXPT));
+    String spectralCoverage = getSpectralCoverage();
+    // Remove the um terms
+    //spectralCoverage = spectralCoverage.replaceAll("um", "");
+    t.put("spectralCoverage", spectralCoverage);
+
+    setInstAper();
+    t.put("instAperX", ""+getInstApX());
+    t.put("instAperY", ""+getInstApY());
+    t.put("instAperZ", ""+getInstApZ());
+    t.put("instAperL", ""+getInstApL());
+
+    return t;
 }
 
 }

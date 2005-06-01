@@ -96,7 +96,7 @@ public SpSiteQualityObsComp()
 /**
  * Set Seeing index.
  *
- * @param seeing One of {@link #SEEING_EXCELLENT}, {@link #SEEING_GOOD}, {@link #SEEING_POOR}, {@link #SEEING_ANY}.
+ * @param value One of {@link #SEEING_EXCELLENT}, {@link #SEEING_GOOD}, {@link #SEEING_POOR}, {@link #SEEING_ANY}.
  */
 
 public void
@@ -152,7 +152,7 @@ getMaxSeeing()
 /**
  * Set CSO Tau index.
  *
- * @param csoTau One of {@link #CSO_TAU_VERY_DRY}, {@link #CSO_TAU_ANY}.
+ * @param value One of {@link #CSO_TAU_VERY_DRY}, {@link #CSO_TAU_ANY}.
  */
 
 public void

@@ -166,7 +166,7 @@ setCyclesPerObserve(String cyclesPerObserve)
 // ---- NODDING? ----
 
 /**
- * Get the nodding? attribute.
+ * Get the nodding attribute.
  */
 public boolean
 getNodding()
@@ -180,7 +180,7 @@ getNodding()
 }
 
 /**
- * Set the nodding? attribute.
+ * Set the nodding attribute.
  */
 public void
 setNodding(boolean nodding)

@@ -6,10 +6,15 @@
 //
 package orac.ukirt.iter;
 
+import gemini.util.ConfigWriter;
+
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
+import gemini.sp.SpObs;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 
 import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterObserveBase;
@@ -20,8 +25,15 @@ import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpStareCapability;
 
-import java.util.Enumeration;
+import java.io.IOException;
 
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
+
+import orac.ukirt.inst.SpInstCGS4;
+import orac.ukirt.inst.SpInstWFCAM;
+import orac.ukirt.inst.SpDRRecipe;
 import orac.ukirt.inst.SpUKIRTInstObsComp;
 
 /**
@@ -68,7 +80,7 @@ _thisNextElement()
 }
 
 
-public class SpIterBiasObs extends SpIterObserveBase
+public class SpIterBiasObs extends SpIterObserveBase implements SpTranslatable
 {
    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "biasObs", "Bias");
@@ -186,6 +198,101 @@ getCoadds()
 
 }
 
+public void translate (Vector v) throws SpTranslationNotSupportedException {
+    // First of all make sure we have a suitable instrument
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if ( inst == null || (!(inst instanceof SpInstCGS4) && !(inst instanceof SpInstWFCAM)) ) {
+        throw new SpTranslationNotSupportedException("No CGS4 instrument component in scope");
+    }
+
+    // Now get the config items and update them for this bias observation
+    Hashtable t = inst.getConfigItems();
+    // CGS4 specific
+    if ( t.containsKey("biasExpTime") ) {
+        t.put("biasExpTime", ""+getExposureTime());
+    }
+    if ( t.contains("biasNumExp") ) {
+        t.put("biasNumExp", ""+getCoadds());
+    }
+
+    // WFCAM specific
+    if ( t.containsKey("type") ) {
+        t.put("type", "bias");
+    }
+    if ( t.containsKey("exposureTime") ) {
+        t.put("exposureTime", "" + getExposureTime());
+    }
+    if ( t.containsKey("coadds") ) {
+        t.put("coadds", ""+getCoadds());
+    }
+
+    // Delete redundant entries
+    if ( "WFCAM".equalsIgnoreCase( (String)t.get("instrument") ) ) {
+        t.remove("filter");
+        t.remove("instPort");
+        t.remove("readMode");
+        t.remove("exposureTime");
+        t.remove("coadds");
+    }
+    else if ( "UIST".equalsIgnoreCase( (String)t.get("instrument") ) ) {
+        t.remove("instPort");
+        t.remove("camera");
+        t.remove("imager");
+        t.remove("filter");
+        t.remove("focus");
+        t.remove("polarimetry");
+        t.remove("mask");
+        t.remove("maskWidth");
+        t.remove("maskHeight");
+        t.remove("disperser");
+        t.remove("posAngle");
+        t.remove("centralWavelength");
+        t.remove("resolution");
+        t.remove("dispersion");
+        t.remove("scienceArea");
+        t.remove("pixelScale");
+        t.remove("nreads");
+        t.remove("mode");
+        t.remove("readInterval");
+        t.remove("chopFrequency");
+        t.remove("chopDelay");
+        t.remove("chopDelay");
+        t.remove("darkNumExp");
+        t.remove("pupil_imaging");
+        t.remove("pupil_imaging");
+        t.remove("DAConf");
+        t.remove("DAConfMinExpT");
+        t.remove("spectralCoverage");
+    }
+    else {
+        // Assume nothing to remove
+    }
+
+    // Now see if we have a DRRecipe component and write out it's headers if we do.
+    SpItem parent = parent();
+    while ( parent != null && !(parent instanceof SpObs) ) {
+        parent = parent.parent();
+    }
+    if ( parent != null ) {
+        Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+        if ( recipes != null && recipes.size() != 0 ) {
+            SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
+            v.add("setHeader GRPMEM " + (recipe.getBiasInGroup()? "T":"F"));
+            v.add("setHeader RECIPE " + recipe.getBiasRecipeName());
+        }
+    }
+
+    try {
+        ConfigWriter.getCurrentInstance().write(t);
+    }
+    catch (IOException ioe) {
+        throw new SpTranslationNotSupportedException("Error writing bias config file");
+    }
+
+    v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+    v.add( "set BIAS");
+    v.add("do " + getCount() + " _observe");
+}
 
 
 }

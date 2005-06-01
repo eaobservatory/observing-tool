@@ -14,6 +14,8 @@ import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpPosAngleObserver;
 import gemini.sp.SpObsData;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
@@ -25,6 +27,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.util.TelescopePos;
 
+import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -75,7 +78,7 @@ _thisNextElement()
  * 
  * @see SpOffsetPosList
  */
-public class SpIterOffset extends SpIterComp
+public class SpIterOffset extends SpIterComp implements SpTranslatable
 {
    /**
     * Data structure for maintaining position angle and SpPosAngleObservers.
@@ -104,6 +107,9 @@ public class SpIterOffset extends SpIterComp
 
    /** Needed for XML parsing. */
    private double yOffNew = 0.0;
+
+   // Number of named sky children associated
+   private boolean _hasNamedSkyChild = false;
 
 /**
  * Default constructor.
@@ -436,6 +442,83 @@ processXmlElementEnd(String name)
 
 public String title_offset() {
    return "offset";
+}
+
+public void setNamedSkyChild( boolean exists ) {
+    _hasNamedSkyChild = true;
+}
+
+public boolean hasNamedSkyChild() {
+    return _hasNamedSkyChild;
+}
+
+public int getNumIterObserveChildren(SpItem item) {
+    int n=0;
+    
+    Enumeration e = item.children();
+    while ( e.hasMoreElements() ) {
+        SpItem child = (SpItem)e.nextElement();
+        if ( child instanceof SpIterFolder ) {
+            n += getNumIterObserveChildren(child);
+        }
+        else if ( child instanceof SpIterObserveBase ) {
+            n++;
+        }
+    }
+    
+    return n;
+}
+
+public void translate( Vector v ) throws SpTranslationNotSupportedException {
+
+    // If this has a microstep iterator child, we will delegate
+    // to it and not put offsets here
+    Enumeration children = this.children();
+    boolean hasMicrostepChild = false;
+    while (children.hasMoreElements()) {
+        if ( children.nextElement() instanceof SpIterMicroStep ) {
+            hasMicrostepChild = true;
+            break;
+        }
+    }
+
+    if ( hasMicrostepChild ) {
+        children = this.children();
+        while ( children.hasMoreElements() ) {
+            SpItem child = (SpItem)children.nextElement();
+            if ( child instanceof SpTranslatable ) {
+                ((SpTranslatable)child).translate(v);
+            }
+        }
+    }
+    else {
+        // Create a decimal formatter to make sure rounding does not give us a problem
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(3);
+        for ( int i=0; i<_posList.size(); i++ ) {
+            if ( "WFCAM".equalsIgnoreCase(SpTreeMan.findInstrument(this).getTitle()) ) {
+                // Add CASU pipeline headers
+                v.add( "title jitter " + (i+1) );
+                v.add( "-setHeader NJITTER " + _posList.size() );
+                v.add( "-setHeader JITTER_I " + (i+1) );
+                v.add( "-setHeader JITTER_X " + _posList.getPositionAt(i).getXaxis() );
+                v.add( "-setHeader JITTER_Y " +  _posList.getPositionAt(i).getYaxis() );
+                v.add( "-setHeader NUSTEP 1");
+                v.add( "-setHeader USTEP_I 1");
+                v.add( "-setHeader USTEP_X 0.0");
+                v.add( "-setHeader USTEP_Y 0.0");
+            }
+            String instruction = "offset " + df.format(_posList.getPositionAt(i).getXaxis()) + " " +  df.format(_posList.getPositionAt(i).getYaxis());;
+            v.add(instruction);
+            children = this.children();
+            while ( children.hasMoreElements() ) {
+                SpItem child = (SpItem)children.nextElement();
+                if ( child instanceof SpTranslatable ) {
+                    ((SpTranslatable)child).translate(v);
+                }
+            }
+        }
+    }
 }
 
 }

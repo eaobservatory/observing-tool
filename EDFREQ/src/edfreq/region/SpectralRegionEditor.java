@@ -122,7 +122,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
      * Indicates the sideband in which the main (first, uppermost) transition line is located.
      *
      * The meaning of _sideBand differs from that of
-     * {@link edfreq.region.RangeBar._associatedSideBand}.
+     * {@link edfreq.region.RangeBar#_associatedSideBand}.
      */
     private int    _sideBand;
 
@@ -241,9 +241,9 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
      * Switches between single/double mode and lower/upper sideband.
      *
      * @param modeStr Allowed values: "ssb" (single side band), "dsb" (double side band)
-     *                {@link orac.jcmt.inst.SpInstHeterodyne.setMode(String)}
+     *                {@link orac.jcmt.inst.SpInstHeterodyne#setMode(String)}
      * @param bandStr Allowed values: "usb" (upper side band), "lsb" (lower side band), "best" (whichever sideband is best)
-     *                {@link orac.jcmt.inst.SpInstHeterodyne.setBand(String)}
+     *                {@link orac.jcmt.inst.SpInstHeterodyne#setBand(String)}
      */
     public void setModeAndBand(String modeStr, String bandStr) {
         if(modeStr.equalsIgnoreCase("ssb")) {
@@ -316,8 +316,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
      * @param xMax        upper bound of baseline fit region in GHz.
      * @param lo1         LO1 in GHz.
      * @param resetLayout The changes will only become visible if resetLayout == true.
-     *                    However, if several calls to {@link #addLineRegion(int,int,boolean)},
-     and addBaselineFitRegion(int,int,boolean) or {@link removeAllRegions(boolean)}
+     *                    However, if several calls to {@link #addLineRegion(double, double, double, boolean)},
+     and addBaselineFitRegion(int,int,boolean) or {@link #removeAllRegions(boolean)}
      *                    are made in a row then resetLayout should only be set to true in the last of
      *                    these calls.
      */
@@ -412,7 +412,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
      * Creates default baseline fit region above or below the center of the
      * frontend sideband.
      *
-     * @see addBaselineFitRegion(double,double,double,boolean)
+     * @see #addBaselineFitRegion(double[],double[],double,boolean)
      */
     public void addBaselineFitRegion(boolean resetLayout) {
 
@@ -456,7 +456,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
      * @param lo1         LO1 in GHz.
      * @param resetLayout The changes will only become visible if resetLayout == true.
      *                    However, if several calls to addLineRegion(int,int,boolean),
-     *                    {@link #addBaselineFitRegion(int,int,boolean)} or {@link removeAllRegions(boolean)}
+     *                    {@link #addBaselineFitRegion(double, double, double, boolean)} or {@link #removeAllRegions(boolean)}
      *                    are made in a row then resetLayout should only be set to true in the last of
      *                    these calls.
      * @param combined    If true then the regions outside xMin and xMax are treated as baseline fit regions.
@@ -507,7 +507,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
         }
     }
 
-    /** @see addLineRegion(double,double,double,boolean,boolean) */
+    /** @see #addLineRegion(double,double,double,boolean,boolean) */
     public void addLineRegion(double xMin, double xMax, double lo1, boolean resetLayout) {
         addLineRegion(xMin, xMax, lo1, resetLayout, false);
     }
@@ -598,8 +598,8 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
      * Removes all baseline fit and line regions.
      *
      * @param resetLayout The changes will only become visible if resetLayout == true.
-     *                    However, if several calls to {@link addLineRegion(int,int,boolean)},
-     *                    {@link #addBaselineFitRegion(int,int,boolean)} or removeAllRegions(boolean)
+     *                    However, if several calls to {@link #addLineRegion(int,int,boolean)},
+     *                    {@link #addBaselineFitRegion(double, double, double, boolean)} or #removeAllRegions(boolean)
      *                    are made in a row then resetLayout should only be set to true in the last of
      *                    these calls.
      */
@@ -666,15 +666,9 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
     /**
      * Calculates the offsets of the backend sidband range relative to the frontend sidband in pixels.
      *
-     * {@link _feIF}, {@link _beIF} and {@link _beBandWidth} must have been set correctly for
-     * this method to work.
-     *
      * @see #updateLineDisplay(double,double,double,double,double)
      * @see #updateBackendValues(double,double)
      *
-     * @param feIF        Frontend IF in Hz.
-     * @param beIF        Backend IF (sampler centre frequency) in Hz.
-     * @param beBandWidth Backend bandwidth (sampler bandwidth) in Hz.
      */
     public int [] getBeUpperSideBandPixels() {
 

@@ -11,11 +11,15 @@
 package edfreq;
 
 /**
+  * Contains information to the various band specifications for each heterodyne back end.
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger ( M.Folger@roe.ac.uk )
  */
 public class BandSpec
 {
+    /** Name of the current band specification */
    public String name;
+
+   /** Number if bands in this band specification */
    public int numBands;
 
    /**

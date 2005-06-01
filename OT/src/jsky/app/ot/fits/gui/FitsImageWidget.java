@@ -36,7 +36,6 @@ import jsky.image.ImageChangeEvent;
 import jsky.navigator.Navigator;
 import jsky.util.gui.StatusPanel;
 
-
 /**
  * A ViewportImageWidget that understands coordinate systems.
  */
@@ -134,6 +133,8 @@ public class FitsImageWidget extends ViewportImageWidget {
      * Set the base position.
      */
     public boolean setBasePos(double ra, double dec) {
+//         System.out.println("Called FitsImageWidget::setBasePos(" + HHMMSS.valStr(ra) + ", " + DDMMSS.valStr(dec) + ") from...");
+//         new Exception().printStackTrace();
 	if (! getCoordinateConverter().isWCS()) {
 	    _imgInfoValid = false;
 	    return false;

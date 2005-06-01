@@ -12,16 +12,29 @@ package orac.ukirt.iter;
 import orac.ukirt.inst.SpInstUFTI;
 import orac.util.LookUpTable;
 
+import gemini.util.ConfigWriter;
+
 import gemini.sp.SpFactory;
+import gemini.sp.SpItem;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
+import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 import gemini.sp.iter.IterConfigItem;
+import gemini.sp.iter.SpIterFolder;
+import gemini.sp.iter.SpIterObserveBase;
+
+import java.io.File;
+import java.io.FileWriter;
+
+import java.text.SimpleDateFormat;
 
 import java.util.*;
 
 /**
  * The UFTI configuration iterator.
  */
-public class SpIterUFTI extends SpIterConfigObsUKIRT {
+public class SpIterUFTI extends SpIterConfigObsUKIRT implements SpTranslatable {
   
    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instUFTI", "UFTI");
@@ -262,4 +275,80 @@ public class SpIterUFTI extends SpIterConfigObsUKIRT {
       return iciA;
    }
 
+public void translate( Vector v ) throws SpTranslationNotSupportedException {
+    // First get the available items and set the defaults
+    // after making sure an instrument of the right type is available
+    SpInstUFTI inst;
+    boolean isPol = false;
+    try {
+        inst = (SpInstUFTI) SpTreeMan.findInstrument(this);
+        isPol = (inst.getPolariser().equals("prism"));
+    }
+    catch ( Exception npe ) {
+        throw new SpTranslationNotSupportedException("No UFTI instrument in scope");
+    }
+
+
+    List iterList = getConfigAttribs();
+    int nConfigs = getConfigSteps((String)iterList.get(0)).size();
+    for ( int i=0; i<nConfigs; i++ ) {
+        Hashtable defaultsTable = inst.getConfigItems();
+        String xAper = " " +(String)defaultsTable.get("instAperX");
+        String yAper = " " +(String)defaultsTable.get("instAperY");
+        String zAper = " " +(String)defaultsTable.get("instAperZ");
+        String lAper = " " +(String)defaultsTable.get("instAperL");
+        for ( int j=0; j<iterList.size(); j++ ) {
+            String attrib = (String)iterList.get(j);
+            List iterVals = getConfigSteps(attrib);
+            // Loop over each of there writing a new config file
+            if ( iterList.contains("filterIter") ) {
+                String filter = (String)getConfigSteps("filterIter").get(i);
+                if ( isPol ) filter = filter + "+pol";
+                defaultsTable.put("filter", filter);
+            }
+            if ( iterList.contains("acqModeIter") ) {
+                defaultsTable.put( "readMode", (String)getConfigSteps("acqModeIter").get(i));
+            }
+            if ( iterList.contains("readoutAreaIter") ) {
+                defaultsTable.put( "readArea", (String)getConfigSteps("readoutAreaIter").get(i));
+            }
+            if ( iterList.contains("exposureTimeIter") ) {
+                defaultsTable.put( "expTime", (String)getConfigSteps("exposureTimeIter").get(i));
+            }
+            if ( iterList.contains("coaddsIter") ) {
+                defaultsTable.put( "objNumExp", (String)getConfigSteps("coaddsIter").get(i));
+            }
+            if ( iterList.contains("instAperXIter") ) {
+                xAper = " " +(String)getConfigSteps("instAperXIter").get(i);
+            }
+            if ( iterList.contains("instAperYIter") ) {
+                yAper = " " +(String)getConfigSteps("instAperYIter").get(i);
+            }
+            if ( iterList.contains("instAperZIter") ) {
+                zAper = " " +(String)getConfigSteps("instAperZIter").get(i);
+            }
+            if ( iterList.contains("instAperLIter") ) {
+                lAper = " " +(String)getConfigSteps("instAperLIter").get(i);
+            }
+        }
+        try {
+            ConfigWriter.getCurrentInstance().write(defaultsTable);
+        }
+        catch (Exception e) {
+            throw new SpTranslationNotSupportedException("Unable to write config file for UFTI iterator:"+e.getMessage());
+        }
+
+        v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
+        v.add("define_inst " + getItemName() + xAper + yAper + zAper + lAper);
+
+        Enumeration e = this.children();
+        while (e.hasMoreElements()) {
+            SpItem child = (SpItem)e.nextElement();
+            if ( child instanceof SpTranslatable ) {
+                ((SpTranslatable)child).translate(v);
+            }
+        }
+
+    }
+}
 }

@@ -15,9 +15,14 @@ import java.util.*;
 import java.io.*;
 
 import gemini.util.*;
+
 import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstUIST;
+import orac.ukirt.inst.SpDRRecipe;
 import gemini.sp.SpFactory;
+import gemini.sp.SpObs;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
@@ -136,7 +141,7 @@ _thisNextElement()
 /**
  * Iterator for UIST calibration observations (FLAT and ARC).
  */
-public class SpIterUISTCalObs extends SpIterObserveBase
+public class SpIterUISTCalObs extends SpIterObserveBase implements SpTranslatable
 {
 
    /** Identifier for a FLAT calibration. */
@@ -834,6 +839,87 @@ updateDAConf()
    _avTable.noNotifySet(SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH,
       getCentralWavelength(),0);
 
+}
+
+public void translate (Vector v) throws SpTranslationNotSupportedException {
+
+    SpInstUIST inst;
+    try {
+        inst = (SpInstUIST)SpTreeMan.findInstrument(this);
+    }
+    catch (Exception e) {
+        throw new SpTranslationNotSupportedException("No UIST instrument is scope");
+    }
+
+    // Work out whether we are a flat or an arc
+    boolean isFlat = (getCalType() == FLAT);
+
+    
+    // We first need to get the DRRecipe component...
+    SpItem parent = parent();
+    while ( parent != null && !(parent instanceof SpObs) ) {
+        parent = parent.parent();
+    }
+    Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+    if ( recipes != null && recipes.size() != 0 ) {
+        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
+        if ( isFlat ) {
+            v.add("setHeader GRPMEM " + (recipe.getFlatInGroup()? "T":"F"));
+            v.add("setHeader RECIPE " + recipe.getFlatRecipeName());
+        }
+        else {
+            // Assume arc
+            v.add("setHeader GRPMEM " + (recipe.getArcInGroup()? "T":"F"));
+            v.add("setHeader RECIPE " + recipe.getArcRecipeName());
+        }
+    }
+
+    Hashtable configTable = inst.getConfigItems();
+    if (isFlat) {
+        configTable.put("flatSource", getFlatSource());
+    }
+    else {
+        configTable.put("arcSource", getArcSource());
+    }
+
+    configTable.put("type", getCalTypeString().toLowerCase());
+    configTable.put("exposureTime", ""+getExposureTime());
+    configTable.put("coadds", ""+getCoadds());
+    configTable.put("observationTime", getObservationTimeString());
+    if ( _avTable.exists(SpUISTCalConstants.ATTR_NREADS) ) {
+        configTable.put("nreads", _avTable.get(SpUISTCalConstants.ATTR_NREADS) );
+    }
+    if ( _avTable.exists(SpUISTCalConstants.ATTR_CHOP_DELAY) ) {
+        configTable.put("chopDelay", _avTable.get(SpUISTCalConstants.ATTR_CHOP_DELAY) );
+    }
+    if ( _avTable.exists(SpUISTCalConstants.ATTR_DUTY_CYCLE) ) {
+        configTable.put("dutyCycle", _avTable.get(SpUISTCalConstants.ATTR_DUTY_CYCLE) );
+    }
+    if ( _avTable.exists(SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH) ) {
+        configTable.put("centralWavelength", _avTable.get(SpUISTCalConstants.ATTR_CENTRAL_WAVELENGTH) );
+    }
+
+    try {
+        ConfigWriter.getCurrentInstance().write(configTable);
+    }
+    catch (IOException ioe) {
+        throw new SpTranslationNotSupportedException("Unable to write UISTCalObs config file");
+    }
+    v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+    v.add( "setrotator " + (String)configTable.get("posAngle") );
+    v.add( "set " + getCalTypeString().toUpperCase() );
+    v.add( "do " + getCount() + " _observe");
+    
+    // Finally move the default config file, numbered _1 down
+    for ( int i=v.size()-1; i>=0 ; i-- ) {
+        if ( ((String)v.get(i)).matches("loadConfig .*_1") ) {
+            String defCon = (String)v.get(i);
+            v.remove(i);
+            v.add(defCon);
+            break;
+        }
+    }
+    
 }
 
 }

@@ -37,6 +37,7 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.util.Assert;
 import gemini.util.CoordSys;
+import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.coords.WorldCoords;
@@ -295,8 +296,10 @@ public class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 
-		    if(_curPos.isOffsetPosition() || ((_curPos.getCoordSys() != CoordSys.FK5) &&
-		                                      (_curPos.getCoordSys() != CoordSys.FK4))) {
+		    if( (_curPos.isOffsetPosition() && !_curPos.isBasePosition()) || 
+                        ((_curPos.getCoordSys() != CoordSys.FK5) &&
+                         (_curPos.getCoordSys() != CoordSys.FK4) &&
+                         (_curPos.getCoordSys() != CoordSys.HADEC))) {
 		      double xAxis = 0.0;
 		      double yAxis = 0.0;
 
@@ -317,7 +320,20 @@ public class EdCompTargetList extends OtItemEditor
 		      _curPos.setXY(xAxis, yAxis);
 		    }
 		    else {
-		      _curPos.setXYFromString(tbwe.getText(), _curPos.getYaxisAsString());
+                        // Make sure it matches the pattern D:DD:DD.DDD
+                        String pattern = "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
+                        if ( tbwe.getText().matches(pattern) ) {
+                            _curPos.setXYFromString(tbwe.getText(), _curPos.getYaxisAsString());
+                        }
+                        else {
+                            // Show an error if the field is not blank and does not end in a :
+                            if ( tbwe.getText().length() > 0 ) {
+                                JOptionPane.showMessageDialog(_w,
+                                        "x-axis must only contain numbers and fields must be : separated",
+                                        "Bad format",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
 		    }
 
 		    _curPos.addWatcher(EdCompTargetList.this);
@@ -332,8 +348,10 @@ public class EdCompTargetList extends OtItemEditor
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    _curPos.deleteWatcher(EdCompTargetList.this);
 
-		    if(_curPos.isOffsetPosition() || ((_curPos.getCoordSys() != CoordSys.FK5) &&
-		                                      (_curPos.getCoordSys() != CoordSys.FK4))) {
+		    if( (_curPos.isOffsetPosition() && !_curPos.isBasePosition() ) || 
+                        ((_curPos.getCoordSys() != CoordSys.FK5) &&
+                         (_curPos.getCoordSys() != CoordSys.FK4) &&
+                         (_curPos.getCoordSys() != CoordSys.HADEC))) {
 		      double xAxis = 0.0;
 		      double yAxis = 0.0;
 
@@ -355,7 +373,20 @@ public class EdCompTargetList extends OtItemEditor
 
 		    }
 		    else {
-		      _curPos.setXYFromString(_curPos.getXaxisAsString(), tbwe.getText());
+                        // Make sure it matches the pattern D:DD:DD.DDD
+                        String pattern = "^(\\+|-)?\\d{1,2}((:| )\\d{0,2}((:| )\\d{0,2}(\\.\\d*)?)?)?";
+                        if ( tbwe.getText().matches(pattern) ) {
+                            _curPos.setXYFromString(_curPos.getXaxisAsString(), tbwe.getText());
+                        }
+                        else {
+                            // Show an error if the field is not blank and does not end in a :
+                            if ( tbwe.getText().length() > 0 ) {
+                                JOptionPane.showMessageDialog(_w,
+                                        "y-axis must only contain numbers and fields must be : separated",
+                                        "Bad format",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
 		    }
 
 		    _curPos.addWatcher(EdCompTargetList.this);
@@ -475,6 +506,26 @@ public class EdCompTargetList extends OtItemEditor
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
    
+	tbwe = _w.baseXOff;
+	tbwe.addWatcher( new TextBoxWidgetWatcher() {
+		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		    _curPos.setBaseXOffset( tbwe.getText() );
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		}
+		public void textBoxAction(TextBoxWidgetExt tbwe) {}
+	    });
+   
+	tbwe = _w.baseYOff;
+	tbwe.addWatcher( new TextBoxWidgetWatcher() {
+		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		    _curPos.setBaseYOffset( tbwe.getText() );
+		    _curPos.deleteWatcher(EdCompTargetList.this);
+		}
+		public void textBoxAction(TextBoxWidgetExt tbwe) {}
+	    });
+
 	// *** Position Table
 	_tpTable = _w.positionTable;
 
@@ -540,15 +591,29 @@ public class EdCompTargetList extends OtItemEditor
 	_name.setValue(   tp.getName()          );
 
 	if(tp.isOffsetPosition()) {
-	  _xaxis.setValue(tp.getXaxisAsString());
-	  _yaxis.setValue(tp.getYaxisAsString());
+            if ( tp.isBasePosition() ) {
+                _xaxis.setValue(tp.getRealXaxisAsString());
+                _yaxis.setValue(tp.getRealYaxisAsString());
+            }
+            else {
+                System.out.println("Setting xaxis to " + tp.getXaxisAsString() );
+                _xaxis.setValue(tp.getXaxisAsString());
+                _yaxis.setValue(tp.getYaxisAsString());
+            }
 	}
 	else {
 	  _xaxis.setValue(tp.getXaxisAsString());
 	  _yaxis.setValue(tp.getYaxisAsString());
 	}
 
-	_w.offsetCheckBox.setValue(tp.isOffsetPosition());
+        if ( tp.isBasePosition() ) {
+            _w.baseXOff.setValue(""+tp.getBaseXOffset());
+            _w.baseYOff.setValue(""+tp.getBaseYOffset());
+        }
+
+        if ( !tp.isBasePosition() ) {
+            _w.offsetCheckBox.setValue(tp.isOffsetPosition());
+        }
 
 	//_configureWidgets(tp);
 	_setCoordSys(tp);
@@ -604,7 +669,7 @@ public class EdCompTargetList extends OtItemEditor
 	int sysIndex = tp.getCoordSys();
 	_system.setValue( sysIndex );
 
-	if(tp.isOffsetPosition()) {
+	if(tp.isOffsetPosition() && !tp.isBasePosition() ) {
 	  _setXYAxisBoxPrompts(CoordSys.X_AXIS_LABEL[_system.getIntegerValue()],
 	                       CoordSys.Y_AXIS_LABEL[_system.getIntegerValue()]);
 	  return;
@@ -672,7 +737,6 @@ public class EdCompTargetList extends OtItemEditor
           // update the conic or named system widgets depending on selection.
 	  _updateTargetSystemPane(_curPos);
 	}
- 
 
 	TelescopePosEditor tpe = TpeManager.get(_spItem);
 	if (tpe != null) tpe.reset(_spItem);
@@ -707,13 +771,29 @@ public class EdCompTargetList extends OtItemEditor
 	    _curPos.deleteWatcher(this);
 	}
 	_curPos = _tpTable.getSelectedPos();
+        if ( _curPos != _tpl.getBasePosition() ) {
+            _w.baseXOffLabel.setVisible(false);
+            _w.baseYOffLabel.setVisible(false);
+            _w.baseXOff.setVisible(false);
+            _w.baseYOff.setVisible(false);
+            _w.baseXOffUnits.setVisible(false);
+            _w.baseYOffUnits.setVisible(false);
+        }
+        else {
+            _w.baseXOffLabel.setVisible(true);
+            _w.baseYOffLabel.setVisible(true);
+            _w.baseXOff.setVisible(true);
+            _w.baseYOff.setVisible(true);
+            _w.baseXOffUnits.setVisible(true);
+            _w.baseYOffUnits.setVisible(true);
+        }
 	_curPos.addWatcher(this);
 	showPos(_curPos);
 	_selectTargetSystemTab(_curPos);
         _updateTargetSystemPane(_curPos);
 	_avTab.set(".gui.selectedTelescopePos", _curPos.getTag());
 
-        if(OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag())) {
+        if(OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag()) && !_curPos.isBasePosition() ) {
 	  _w.offsetCheckBox.setValue(_curPos.isOffsetPosition());
           _w.offsetCheckBox.setVisible(true);
         }
@@ -814,12 +894,12 @@ public class EdCompTargetList extends OtItemEditor
      * </tt></pre>
      */
     private void _updateXYUnitsLabels() {
-	if(_curPos.isOffsetPosition()) {
+	if(_curPos.isOffsetPosition() && !_curPos.isBasePosition() ) {
 	    _w.xUnitsLabel.setText("(arcsecs)");
 	    _w.yUnitsLabel.setText("(arcsecs)");
 	}
 	else {
-	    if((_curPos.getCoordSys() != CoordSys.FK5) && (_curPos.getCoordSys() != CoordSys.FK4)) {
+	    if((_curPos.getCoordSys() != CoordSys.FK5) && (_curPos.getCoordSys() != CoordSys.FK4) && (_curPos.getCoordSys() != CoordSys.HADEC)) {
 	        _w.xUnitsLabel.setText("(degrees)");
 	        _w.yUnitsLabel.setText("(degrees)");
 	    }

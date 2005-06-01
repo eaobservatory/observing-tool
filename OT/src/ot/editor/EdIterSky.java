@@ -25,12 +25,12 @@ import jsky.app.ot.editor.OtItemEditor;
 import gemini.sp.SpItem;
 import gemini.sp.SpAvTable;
 import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterObserve;
-import gemini.sp.iter.SpIterSky;
 import gemini.sp.*;
 import gemini.sp.obsComp.*;
 import gemini.util.*;
 
+import orac.ukirt.iter.SpIterObserve;
+import orac.ukirt.iter.SpIterSky;
 /**
  * This is the editor for a Sky iterator component.
  *

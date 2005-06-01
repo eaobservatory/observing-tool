@@ -61,7 +61,7 @@ public Object nextElement()
  * <ul>Writing XML
  *   <li>{@link #toXML()}
  *   <li>{@link #toXML(java.lang.String,java.lang.StringBuffer)}
- *   <li>{@link #processAvAttribute(java.lang.String,java.lang.String,java.lang.StringBuffer)}
+ *   <li>{@link #processAvAttribute(java.lang.String,java.lang.String)}
  *   <li>{@link #avToXml(java.lang.String,java.lang.String)}
  * </ul>
  * <ul>Reading XML (These methods are called from an external XML Parser,
@@ -1036,8 +1036,8 @@ print(String indentStr)
    * the XML representation of mulitple values of one {@link gemini.sp.SpAvTable} attribute.
    * Each SpAvTable attribute can have multiple values each of which is stored at a certain
    * position in a Vector.
-   * (see {@link gemini.sp.SpAvTable.get(java.lang.String,int)},
-   * {@link gemini.sp.SpAvTable.set(java.lang.String,java.lang.String,int)} etc.)
+   * (see {@link gemini.sp.SpAvTable#get(java.lang.String,int)},
+   * {@link gemini.sp.SpAvTable#set(java.lang.String,java.lang.String,int)} etc.)
    *
    * Subclassed that read and write their individual XML format can override this method.
    *
@@ -1096,7 +1096,7 @@ print(String indentStr)
    * Subclassed that read and write their individual XML format can override this method.
    *
    * @param elementName name of the XML element which has this XML attribute
-   * @param attribute   XML attribute name
+   * @param attributeName   XML attribute name
    * @param value       value of the XML attribute
    */
   public void processXmlAttribute(String elementName, String attributeName, String value) {

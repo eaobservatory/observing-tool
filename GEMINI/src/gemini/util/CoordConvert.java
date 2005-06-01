@@ -243,7 +243,7 @@ fk524e(double ra, double dec, double epoch)
  * @param rapm	Proper motion in right ascension (rad/jul.yr).
  * @param decpm	Proper motion in declination (rad/jul.yr).
  * 
- * @returns An array of four doubles containing ra in radians (B1950), dec
+ * @return An array of four doubles containing ra in radians (B1950), dec
  *          in radians (B1950), rapm (rad/trop.yr), and decpm (rad/trop.yr).
  */
 public static double[]

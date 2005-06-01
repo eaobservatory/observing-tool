@@ -181,7 +181,12 @@ public double getTotalTime()
       elapsedTime += ((SpAND)spItem).getTotalTime();
     }
     else if(spItem instanceof SpOR) {
-      elapsedTime += ((SpOR)spItem).getTotalTime();
+      try {
+          elapsedTime += ((SpAND)spItem).getTotalTime();
+      }
+      catch (Exception e)  {
+          // Ignore
+      }
       elapsedTime += ((SpOR)spItem).getTotalTime();
     }
     else if ( spItem instanceof SpSurveyContainer ) {

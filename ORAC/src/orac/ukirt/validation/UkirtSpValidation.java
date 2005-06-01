@@ -24,10 +24,10 @@ import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterOffset;
-import gemini.sp.iter.SpIterObserve;
-import gemini.sp.iter.SpIterSky;
 import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
+import orac.ukirt.iter.SpIterObserve;
+import orac.ukirt.iter.SpIterSky;
 import orac.validation.*;
 
 /**
@@ -218,8 +218,9 @@ public class UkirtSpValidation extends SpValidation {
    * its first argument is not always an SpObs. It can be any of the notes underneath an SpObs
    * in the program tree.
    * 
-   * @param telescopeObsComp    Observation to be checked.
-   * @param report              error messages and warnings are appended to report.
+   * @param spItem    Observation to be checked.
+   * @param report    Error messages and warnings are appended to report.
+   * @deprecated  {@link checkObservation(SpItem, Vector)}
    */
   public void old_checkObservation(SpItem spItem, Vector report) {
        
@@ -870,8 +871,8 @@ public class UkirtSpValidation extends SpValidation {
    * to an spItem's children until a target list object or an observation object is found and checkTargetList or
    * checkObservation, respectively, called.
    * 
-   * @param telescopeObsComp    Science program item to be checked.
-   * @param report              error messages and warnings are appended to report.
+   * @param spProg    Science program item to be checked.
+   * @param report    Error messages and warnings are appended to report.
    */
   public void checkSciProgram(SpProg spProg, Vector report) {
     _isSpProgCheck = true;

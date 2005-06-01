@@ -136,7 +136,7 @@ _updateWidgets(EdCompInstBase gw, SpChopCapability chopCap)
    /**
     * Helper method.
     *
-    * @see ot.ukirt.inst.editor.EdDRRecipe.getWidget(java.lang.String)
+    * @see ot.ukirt.inst.editor.EdDRRecipe#getWidget(String, String)
     */
    protected JComponent getWidget(EdCompInstBase gw, String widgetName) {
      try {

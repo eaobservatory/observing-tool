@@ -222,7 +222,7 @@ replaceTable(SpAvTable avTab)
  *
  * @param index Index of one of the FITS key/value pairs.
  *
- * @see #setFitsValue(int)
+ * @see #setFitsValue(String, int)
  */
 public String
 getFitsKey(int index)
@@ -235,7 +235,7 @@ getFitsKey(int index)
  *
  * @param index Index of one of the FITS key/value pairs.
  *
- * @see #setFitsValue(int)
+ * @see #setFitsValue(String, int)
  */
 public void
 setFitsKey(String fitsKey, int index)
@@ -249,7 +249,7 @@ setFitsKey(String fitsKey, int index)
  *
  * @param index Index of one of the FITS key/value pairs.
  *
- * @see #setFitsKey(int)
+ * @see #setFitsKey(String, int)
  */
 public String
 getFitsValue(int index)
@@ -262,7 +262,7 @@ getFitsValue(int index)
  *
  * @param index Index of one of the FITS key/value pairs.
  *
- * @see #setFitsKey(int)
+ * @see #setFitsKey(String, int)
  */
 public void
 setFitsValue(String fitsValue, int index)
@@ -503,7 +503,7 @@ public String writeTCSXML() {
  * If this SpTelescopeObsComp is contained in a SpSurveyObsComp than this method
  * returns the SpObsData associated with the SpSurveyObsComp.
  *
- * Otherwise see {@link gemini.sp.SpItem.getObsData()}.
+ * Otherwise see {@link gemini.sp.SpItem#getObsData()}.
  */
 public SpObsData
 getObsData()
@@ -644,8 +644,8 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
      default:
      
        xmlBuffer.append("\n      " + indent + "<" + TX_SPHERICAL_SYSTEM + " " + TX_SYSTEM + "=\"" + system + "\">");
-       xmlBuffer.append("\n        " + indent + "<" + TX_C1 + ">" + targetPos.getXaxisAsString() + "</" + TX_C1 + ">");
-       xmlBuffer.append("\n        " + indent + "<" + TX_C2 + ">" + targetPos.getYaxisAsString() + "</" + TX_C2 + ">");
+       xmlBuffer.append("\n        " + indent + "<" + TX_C1 + ">" + targetPos.getRealXaxisAsString() + "</" + TX_C1 + ">");
+       xmlBuffer.append("\n        " + indent + "<" + TX_C2 + ">" + targetPos.getRealYaxisAsString() + "</" + TX_C2 + ">");
 
        double pm1 = 0.0;
        double pm2 = 0.0;
@@ -721,8 +721,14 @@ processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer)
      }
 
      xmlBuffer.append("\n    " + indent + "<" + TX_OFFSET + " " + TX_SYSTEM + "=\"" + offsetSystem + "\">");
-     xmlBuffer.append("\n      " + indent + "<" + TX_DC1 + ">" + tp.getXaxisAsString() + "</" + TX_DC1 + ">");
-     xmlBuffer.append("\n      " + indent + "<" + TX_DC2 + ">" + tp.getYaxisAsString() + "</" + TX_DC2 + ">");
+     if ( tp.isBasePosition() ) {
+         xmlBuffer.append("\n      " + indent + "<" + TX_DC1 + ">" + tp.getBaseXOffset() + "</" + TX_DC1 + ">");
+         xmlBuffer.append("\n      " + indent + "<" + TX_DC2 + ">" + tp.getBaseYOffset() + "</" + TX_DC2 + ">");
+     }
+     else {
+         xmlBuffer.append("\n      " + indent + "<" + TX_DC1 + ">" + tp.getXaxisAsString() + "</" + TX_DC1 + ">");
+         xmlBuffer.append("\n      " + indent + "<" + TX_DC2 + ">" + tp.getYaxisAsString() + "</" + TX_DC2 + ">");
+     }
      xmlBuffer.append("\n    " + indent + "</" + TX_OFFSET + ">");
    }
    
@@ -876,7 +882,12 @@ processXmlElementContent(String name, String value, int pos)
       try {
 	  _currentPosition.setOffsetPosition(true);
          double dc1 = Double.parseDouble(value);
-         _currentPosition.setXY(dc1, _currentPosition.getYaxis());
+         if ( _currentPosition.isBasePosition() ) {
+            _currentPosition.setBaseXOffset(dc1); 
+         }
+         else {
+             _currentPosition.setXY(dc1, _currentPosition.getYaxis());
+         }
       }
       catch(Exception e) {
          // ignore
@@ -890,7 +901,12 @@ processXmlElementContent(String name, String value, int pos)
       try {
 	  _currentPosition.setOffsetPosition(true);
          double dc2 = Double.parseDouble(value);
-         _currentPosition.setXY(_currentPosition.getXaxis(), dc2);
+         if ( _currentPosition.isBasePosition() ) {
+             _currentPosition.setBaseYOffset(dc2);
+         }
+         else {
+             _currentPosition.setXY(_currentPosition.getXaxis(), dc2);
+         }
       }
       catch(Exception e) {
          // ignore

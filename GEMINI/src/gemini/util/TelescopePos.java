@@ -22,6 +22,9 @@ public abstract class TelescopePos implements java.io.Serializable
    /** The position's yaxis (for example, its Dec). */
    protected double _yaxis;
 
+   protected double _xoff;
+   protected double _yoff;
+
    /** The list that the position belongs to, if any. */
    protected TelescopePosList _list;
 
@@ -74,7 +77,21 @@ public abstract class TelescopePos implements java.io.Serializable
    public final synchronized double
    getXaxis()
    {
-      return _xaxis;
+       double xaxis;
+       if ( getTag().equalsIgnoreCase("base") ) {
+           xaxis = RADecMath.getAbsolute( _xaxis, _yaxis, _xoff, _yoff )[0];
+       }
+       else {
+           xaxis = _xaxis;
+       }
+       return xaxis;
+   }
+
+   /**
+     * Get the real BASE position without any offset applied.
+     */
+   public final synchronized double getRealXaxis() {
+       return _xaxis;
    }
 
    /**
@@ -85,23 +102,73 @@ public abstract class TelescopePos implements java.io.Serializable
    public final synchronized double
    getYaxis()
    {
-      return _yaxis;
+       double yaxis;
+       if ( getTag().equalsIgnoreCase("base") ) {
+           yaxis = RADecMath.getAbsolute( _xaxis, _yaxis, _xoff, _yoff )[1];
+       }
+       else {
+           yaxis = _yaxis;
+       }
+       return yaxis;
    }
 
    /**
-    * Get the xaxis as a String.
+     * Get the real BASE position without any offset applied.
+     */
+   public final synchronized double getRealYaxis() {
+       return _yaxis;
+   }
+
+   /**
+    * Get the xaxis as a String. If this is a base position, any base offsets
+    * are not applied.
+    */
+   public synchronized String
+   getRealXaxisAsString()
+   {
+      return String.valueOf(_xaxis);
+   }
+
+   /**
+    * Get the xaxis as a String. If this is a base position, any base offsets
+    * are applied.
     */
    public synchronized String
    getXaxisAsString()
    {
-      return String.valueOf(_xaxis);
+       double xaxis;
+       if ( getTag().equalsIgnoreCase("base") ) {
+           xaxis = RADecMath.getAbsolute(_xaxis, _yaxis, _xoff, _yoff)[0];
+       }
+       else {
+           xaxis = _xaxis;
+       }
+       return String.valueOf(xaxis);
    }
  
    /**
-    * Get the yaxis as a String.
+    * Get the yaxis as a String. If this is a base position, any base offsets
+    * are applied.
     */
    public synchronized String
    getYaxisAsString()
+   {
+       double yaxis;
+       if ( getTag().equalsIgnoreCase("base") ) {
+           yaxis = RADecMath.getAbsolute(_xaxis, _yaxis, _xoff, _yoff)[1];
+       }
+       else {
+           yaxis = _yaxis;
+       }
+       return String.valueOf(yaxis);
+   }
+
+   /**
+    * Get the yaxis as a String. If this is a base position, any base offsets
+    * are not applied.
+    */
+   public synchronized String
+   getRealYaxisAsString()
    {
       return String.valueOf(_yaxis);
    }
@@ -220,6 +287,7 @@ public abstract class TelescopePos implements java.io.Serializable
       return getClass().getName() +
 	"[tag=" + getTag() +
 	", xaxis=" + HHMMSS.valStr(getXaxis()) +
-	", yaxis=" + DDMMSS.valStr(getYaxis()) + "]";
+	", yaxis=" + DDMMSS.valStr(getYaxis()) + 
+        ", xoff=" + _xoff + ", yoff=" + _yoff +"]";
    }
 }

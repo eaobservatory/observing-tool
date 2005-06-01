@@ -107,7 +107,7 @@ public abstract class SpIterConfigBase extends SpIterComp
     * only thing the subclass has to do besides set the SpIterCompSubtype
     * in the constructor).
     *
-    * @see #getAvailableItems();
+    * @see #getAvailableItems()
     */
    protected IterConfigItem[] _iterConfigItems;
 

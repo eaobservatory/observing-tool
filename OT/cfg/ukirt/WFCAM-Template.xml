@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20050202</ot_version>
+  <ot_version>20050513</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -61,8 +61,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
           <title>DRrecipe</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -175,16 +174,16 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
+                    <DC1>1.39</DC1>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
-                    <DC2>1.42</DC2>
+                    <DC1>1.39</DC1>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>1.42</DC2>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                 </obsArea>
                 <pattern>2x2 small 1</pattern>
@@ -233,8 +232,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
           <title>DRrecipe</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -363,16 +361,16 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
+                    <DC1>1.39</DC1>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
-                    <DC2>1.42</DC2>
+                    <DC1>1.39</DC1>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>1.42</DC2>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                 </obsArea>
                 <pattern>2x2 small 1</pattern>
@@ -421,8 +419,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
           <title>DRrecipe</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -570,16 +567,16 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
+                    <DC1>1.39</DC1>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
-                    <DC2>1.42</DC2>
+                    <DC1>1.39</DC1>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>1.42</DC2>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                 </obsArea>
                 <pattern>2x2 small 1</pattern>
@@ -628,8 +625,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
           <title>DRrecipe</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -805,16 +801,16 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
+                    <DC1>1.39</DC1>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>1.42</DC1>
-                    <DC2>1.42</DC2>
+                    <DC1>1.39</DC1>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>0.0</DC1>
-                    <DC2>1.42</DC2>
+                    <DC2>1.39</DC2>
                   </OFFSET>
                 </obsArea>
                 <pattern>2x2 small 1</pattern>
@@ -832,8 +828,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <meta_gui_collapsed>false</meta_gui_collapsed>
       <note>These MSBs can be used as input to the SDT for carrying out surveys. You can also fill in the list of pointings in the survey container by hand.
 
-Note. If you want to survey a small area in several filters, create seperate MSBs for each filter, or at least seperate observations in a seperate survey container - if you put a filter itterator inside the observation in these MSBs you will incur huge overheads from filter changes, each of which takes ~30 secs.
-</note>
+Note. If you want to survey a small area in several filters, create seperate MSBs for each filter, or at least seperate observations in a seperate survey container - if you put a filter itterator inside the observation in these MSBs you will incur huge overheads from filter changes, each of which takes ~30 secs.</note>
       <title>Survey MSBs</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
@@ -851,8 +846,7 @@ Note. If you want to survey a small area in several filters, create seperate MSB
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
             <title>DRrecipe</title>
           </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -953,16 +947,16 @@ This pattern should allways be able to use fast offsetting.</note>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
+                      <DC1>1.39</DC1>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
-                      <DC2>1.42</DC2>
+                      <DC1>1.39</DC1>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>1.42</DC2>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                   </obsArea>
                   <pattern>2x2 small 1</pattern>
@@ -992,8 +986,7 @@ This pattern should allways be able to use fast offsetting.</note>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
             <title>DRrecipe</title>
           </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1106,16 +1099,16 @@ This pattern should allways be able to use fast offsetting.</note>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
+                      <DC1>1.39</DC1>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
-                      <DC2>1.42</DC2>
+                      <DC1>1.39</DC1>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>1.42</DC2>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                   </obsArea>
                   <pattern>2x2 small 1</pattern>
@@ -1162,8 +1155,7 @@ This pattern should allways be able to use fast offsetting.</note>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
             <title>DRrecipe</title>
           </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1292,16 +1284,16 @@ This pattern should allways be able to use fast offsetting.</note>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
+                      <DC1>1.39</DC1>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
-                      <DC2>1.42</DC2>
+                      <DC1>1.39</DC1>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>1.42</DC2>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                   </obsArea>
                   <pattern>2x2 small 1</pattern>
@@ -1348,8 +1340,7 @@ This pattern should allways be able to use fast offsetting.</note>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
             <title>DRrecipe</title>
           </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1497,16 +1488,16 @@ This pattern should allways be able to use fast offsetting.</note>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
+                      <DC1>1.39</DC1>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
-                      <DC2>1.42</DC2>
+                      <DC1>1.39</DC1>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>1.42</DC2>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                   </obsArea>
                   <pattern>2x2 small 1</pattern>
@@ -1553,8 +1544,7 @@ This pattern should allways be able to use fast offsetting.</note>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT
-</note>
+            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
             <title>DRrecipe</title>
           </SpNote>
           <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -1730,16 +1720,16 @@ This pattern should allways be able to use fast offsetting.</note>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
+                      <DC1>1.39</DC1>
                       <DC2>0.0</DC2>
                     </OFFSET>
                     <OFFSET>
-                      <DC1>1.42</DC1>
-                      <DC2>1.42</DC2>
+                      <DC1>1.39</DC1>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                     <OFFSET>
                       <DC1>0.0</DC1>
-                      <DC2>1.42</DC2>
+                      <DC2>1.39</DC2>
                     </OFFSET>
                   </obsArea>
                   <pattern>2x2 small 1</pattern>

@@ -8,11 +8,21 @@ package orac.ukirt.iter;
 
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.iter.SpIterComp;
 import gemini.sp.iter.SpIterConfigObs;
+import gemini.sp.iter.SpIterEnumeration;
+import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.IterConfigItem;
+import orac.ukirt.inst.SpUKIRTInstObsComp;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -20,7 +30,7 @@ import java.util.Vector;
  * specific items and overrides.
  */
 
-public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs
+public abstract class SpIterConfigObsUKIRT extends SpIterConfigObs implements SpTranslatable
 {
 
 public SpIterConfigObsUKIRT (SpType spType)
@@ -100,6 +110,59 @@ addConfigItemNoDef (IterConfigItem ici, int size)
 
     super.addConfigItem (ici, size);
 
+}
+
+public void translate(Vector v) throws SpTranslationNotSupportedException {
+    String date = new SimpleDateFormat("yyyyMMdd_HHmmssSSS").format(new Date());
+    String confDir = System.getProperty("CONF_PATH");
+    if ( confDir == null || confDir.equals("") || !(new File(confDir).exists()) ) {
+        confDir = System.getProperty("user.home");
+    }
+
+    // Get default values from the instrument
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if ( inst == null || !(inst instanceof SpUKIRTInstObsComp) ) {
+        throw new SpTranslationNotSupportedException("No instrument, or not a UKIRT instrument");
+    }
+    
+    IterConfigItem [] a_ici = getAvailableItems();
+//     Hashtable defaultsTable = new Hashtable();
+//     for ( int i=0; i< a_ici.length; i++ ) {
+//         if ( a_ici[i].title.equalsIgnoreCase("acqmode") ) {
+//             defaultsTable.put("readMode", inst.getAcqMode());
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("mode") ) {
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("central wavlen.") ) {
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("readoutarea") ) {
+//             defaultsTable.put("readArea", inst.getReadoutArea());
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("filter") ) {
+//             defaultsTable.put("filter", inst,getFilter());
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("exp. time") ) {
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("coadds") ) {
+//             defaultsTable.put("coadds", "" + inst.getCoadds());
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("source magnitude") ) {
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("InstAperX") ) {
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("InstAperY") ) {
+//         }
+//         else if ( a_ici[i].title.equalsIgnoreCase("InstAperL") ) {
+//         }
+//     }
+//     
+// 
+//     List iterList = getConfigAttribs();
+//     for ( int i=0; i<iterList.size(); i++ ) {
+//         String attr = (String)iterList.get(i);
+//         List vals = getConfigSteps(attr);
+//         System.out.println("vals = " + vals);
+//     }
 }
 
 }

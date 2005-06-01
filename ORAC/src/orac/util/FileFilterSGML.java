@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileFilter;
  * (*.sp. *.ot, *.sgml)
  * 
  * @author Martin Folger (M.Folger@roe.ac.uk)
+ * @deprecated  No replacement
  */
 public class FileFilterSGML extends FileFilter {
 

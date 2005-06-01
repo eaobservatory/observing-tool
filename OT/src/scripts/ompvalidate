@@ -43,4 +43,4 @@ set CFG_DIRS = ../cfg
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE}
 
 
-${JAVA} -ms5m -mx100m -oss5m -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR}  -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OtWindow ${FILE}
+${JAVA} -ms5m -mx500m -oss5m -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR}  -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OtWindow ${FILE}

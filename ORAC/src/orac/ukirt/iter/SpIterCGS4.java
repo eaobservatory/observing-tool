@@ -13,14 +13,20 @@ import orac.ukirt.util.*;
 import orac.ukirt.inst.SpInstCGS4;
 
 import gemini.sp.SpFactory;
+import gemini.sp.SpItem;
 import gemini.sp.SpType;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
+import gemini.sp.SpTreeMan;
 import gemini.sp.iter.IterConfigItem;
 import gemini.sp.iter.SpIterConfigObs;
+
+import gemini.util.ConfigWriter;
 
 /**
  * The CGS4 configuration iterator.
  */
-public class SpIterCGS4 extends SpIterConfigObsUKIRT
+public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 {
    public static final SpType SP_TYPE =
      SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instCGS4", "CGS4");
@@ -132,6 +138,73 @@ getAvailableItems()
    };
 
    return iciA;
+}
+
+public void translate( Vector v ) throws SpTranslationNotSupportedException{
+    // Make sure we have a valid instrument
+    SpInstCGS4 inst;
+    try {
+        inst = (SpInstCGS4)SpTreeMan.findInstrument(this);
+    }
+    catch (Exception e) {
+        throw new SpTranslationNotSupportedException("No CGS4 instrument in scope");
+    }
+
+    List iterList = getConfigAttribs();
+    int nConfigs = getConfigSteps((String)iterList.get(0)).size();
+    for ( int i=0; i<nConfigs; i++ ) {
+        Hashtable configTable = inst.getConfigItems();
+        for ( int j=0; j<iterList.size(); j++ ) {
+            String attrib = (String)iterList.get(j);
+            List iterVals = getConfigSteps(attrib);
+            if (  iterList.contains("exposureTimeIter") ) {
+                configTable.put("expTime", (String)getConfigSteps("exposureTimeIter").get(i) );
+            }
+            if ( iterList.contains("coaddsIter") ) {
+                configTable.put( "objNumExp", (String)getConfigSteps("coaddsIter").get(i) );
+            }
+            if ( iterList.contains("acqModeIter") ) {
+                configTable.put("readMode", (String)getConfigSteps("acqModeIter").get(i) );
+            }
+            if ( iterList.contains("instAperXIter") ) {
+                configTable.put("instAperX", (String)getConfigSteps("instAperXIter").get(i) );
+            }
+            if ( iterList.contains("instAperYIter") ) {
+                configTable.put("instAperY", (String)getConfigSteps("instAperYIter").get(i) );
+            }
+            if ( iterList.contains("instAperZIter") ) {
+                configTable.put("instAperZ", (String)getConfigSteps("instAperZIter").get(i) );
+            }
+            if ( iterList.contains("instAperLIter") ) {
+                configTable.put("instAperL", (String)getConfigSteps("instAperLIter").get(i) );
+                configTable.put("centralWavelength", (String)getConfigSteps("instAperLIter").get(i) );
+            }
+
+            String xAper = " " +(String)configTable.get("instAperX");
+            String yAper = " " +(String)configTable.get("instAperY");
+            String zAper = " " +(String)configTable.get("instAperZ");
+            String lAper = " " +(String)configTable.get("instAperL");
+
+            try {
+                ConfigWriter.getCurrentInstance().write(configTable);
+            }
+            catch (Exception e) {
+                throw new SpTranslationNotSupportedException("Unable to write config file for CGS4 iterator:"+e.getMessage());
+            }
+            v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
+            v.add("set OBJECT");
+            v.add("define_inst CGS4" + xAper + yAper + zAper + lAper);
+
+            // translate all the cildren...
+            Enumeration e = this.children();
+            while (e.hasMoreElements()) {
+                SpItem child = (SpItem)e.nextElement();
+                if ( child instanceof SpTranslatable ) {
+                    ((SpTranslatable)child).translate(v);
+                }
+            }
+        }
+    }
 }
 
 }

@@ -649,7 +649,7 @@ findConflictingObsComp(SpItem parent, SpObsComp spObsComp)
  * Only searches the given scope.  It does not navigate the tree hieararchy.
  *
  * @param parent the SpItem defining the scope to search
- * @param subtype the observation component subtype to look for
+ * @param type the observation component subtype to look for
  */
 public static SpObsComp
 findObsCompSubtype(SpItem parent, SpType type)
@@ -1029,7 +1029,7 @@ evalInsertInside(SpItem newItem, SpItem parent)
  * Evaluate the insertion of the <code>newItems</code> inside of the
  * <code>parent</code>.
  *
- * @param newItem The array of items to insert.
+ * @param newItems The array of items to insert.
  * @param parent  The item (already in the Science Program) in which to insert.
  *
  * @return A SpInsertData structure that describes where the newItems will be
@@ -1098,7 +1098,7 @@ evalInsertAfter(SpItem newItem, SpItem sibling)
  * Evaluate the insertion of the <code>newItems</code> after the
  * <code>sibling</code>.
  *
- * @param newItem The array of items to insert.
+ * @param newItems The array of items to insert.
  * @param sibling The item (already in the Science Program) after which to insert.
  *
  * @return A SpInsertData structure that describes where the newItems will be

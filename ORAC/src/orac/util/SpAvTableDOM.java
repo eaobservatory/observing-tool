@@ -103,36 +103,8 @@ public class SpAvTableDOM {
 
     _avTab = avTab;
 
-    
-    //parseAvTable();
   }
 
-  /**
-   * Not recommended for processing entire science programs.
-   *
-   * @see #SpAvTableDOM(gemini.sp.SpAvTable,org.apache.xerces.dom.ElementImpl,org.apache.xerces.dom.DocumentImpl,org.w3c.dom.Node)
-   */
-//  public SpAvTableDOM(SpAvTable avTab, String elementName, DocumentImpl document) {
-//    this(avTab, elementName, document, document);
-//  }
-  
-  /**
-   * Not recommended for processing entire science programs.
-   *
-   * @see #SpAvTableDOM(gemini.sp.SpAvTable,org.apache.xerces.dom.ElementImpl,org.apache.xerces.dom.DocumentImpl,org.w3c.dom.Node)
-   */
-//  public SpAvTableDOM(SpAvTable avTab, String elementName, Node parent) {
-//    this(avTab, elementName, null, parent);
-//  }
-
-  /**
-   * Not recommended for processing entire science programs.
-   *
-   * @see #SpAvTableDOM(gemini.sp.SpAvTable,org.apache.xerces.dom.ElementImpl,org.apache.xerces.dom.DocumentImpl,org.w3c.dom.Node)
-   */
-//  public SpAvTableDOM(SpAvTable avTab, String elementName) {
-//    this(avTab, elementName, new DocumentImpl());
-//  }
 
   public void parseAvTable() {
     // Construct AvToDom classes using a sorted attribute array.

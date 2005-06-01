@@ -231,9 +231,11 @@ public class TelescopePosEditor extends JSkyCat
 
     /**
      * Create the application class and display the contents of the
-     * given image file or URL, if not null.
+     * SpItem.
      *
-     * @param imageFileOrUrl an image file or URL to display 
+     * @see gemini.sp.SpItem
+     *
+     * @param spItem an SpItem containing coordinates 
      */
     public TelescopePosEditor(SpItem spItem) {
 	this(null, false, false);

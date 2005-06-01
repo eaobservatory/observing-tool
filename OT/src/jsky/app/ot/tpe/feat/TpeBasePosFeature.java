@@ -91,6 +91,16 @@ public class TpeBasePosFeature extends TpePositionFeature {
 	g.drawOval((int)(base.x - r), (int)(base.y - r), d, d);
 	g.drawLine((int)base.x, (int)(base.y - r), (int)base.x, (int)(base.y + r));
 	g.drawLine((int)(base.x - r), (int)base.y, (int)(base.x + r), (int)base.y);
+
+        // Draw the shadow as well (applies if the base position is an offset)
+        Point2D.Double sbase = pm.getLocationFromTag( "SHADOW" );
+        if ( sbase == null ) return;
+
+        g.setColor(Color.green.darker());
+	g.drawOval((int)(sbase.x - r), (int)(sbase.y - r), d, d);
+	g.drawLine((int)sbase.x, (int)(sbase.y - r), (int)sbase.x, (int)(sbase.y + r));
+	g.drawLine((int)(sbase.x - r), (int)sbase.y, (int)(sbase.x + r), (int)sbase.y);
+        
     }
 
     /**

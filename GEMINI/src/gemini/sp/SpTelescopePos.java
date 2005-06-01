@@ -1,4 +1,3 @@
-// Copyright 1997 Association for Universities for Research in Astronomy, Inc.,
 // Observatory Control System, Gemini Telescopes Project.
 // See the file COPYRIGHT for complete details.
 //
@@ -264,6 +263,9 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
    public static final int TRACKING_RV_DEFN = 24;
    public static final int TRACKING_RV_FRAME = 25;
 
+   public static final int BASE_XOFF = 26;
+   public static final int BASE_YOFF = 27;
+
 
    private SpItem    _spItem;
    private SpAvTable _avTab;	// The table that holds this position
@@ -310,7 +312,7 @@ public static String[] getSkyTags() {
 }
 
 /**
- * Set BASE_TAG to another value.
+ * Set BASE_TAG to another value. fighting to establish L
  *
  * By default the base tag is "Base". If required this can be changed.
  * E.g. JCMT uses the tag "Science".
@@ -436,6 +438,8 @@ createDefaultBasePosition(SpAvTable avTab)
    avTab.noNotifySet(BASE_TAG, "",	 	NAME_INDEX);
    avTab.noNotifySet(BASE_TAG, "0:00:00",	XAXIS_INDEX);
    avTab.noNotifySet(BASE_TAG, "0:00:00",	YAXIS_INDEX);
+   avTab.noNotifySet(BASE_TAG, "0.0",	BASE_XOFF);
+   avTab.noNotifySet(BASE_TAG, "0.0",	BASE_YOFF);
    avTab.noNotifySet(BASE_TAG, CoordSys.COORD_SYS[CoordSys.FK5],COORD_SYS_INDEX);
 }
 
@@ -545,7 +549,7 @@ noNotifySetXY(double xaxis, double yaxis)
    _isValid = true;
 
    // Convert from degrees to the current coordinate system
-   if(isOffsetPosition() || ((getCoordSys() != CoordSys.FK5) && (getCoordSys() != CoordSys.FK4))) {
+   if(isOffsetPosition() || ((getCoordSys() != CoordSys.FK5) && (getCoordSys() != CoordSys.FK4) && (getCoordSys() != CoordSys.HADEC))) {
      _avTab.set(_tag, xaxis, XAXIS_INDEX);
      _avTab.set(_tag, yaxis, YAXIS_INDEX);
    }
@@ -557,7 +561,7 @@ noNotifySetXY(double xaxis, double yaxis)
 
    if (_tag.equals(BASE_TAG)) {
       SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(xaxis, yaxis, _coordSys);
+      if (od != null) od.setBasePos(xaxis, yaxis, _xoff, _yoff, _coordSys);
    }
 }
 
@@ -614,6 +618,10 @@ _updateXYFromString(String xaxisStr, String yaxisStr)
 public synchronized void
 noNotifySetXYFromString(String xaxisStr, String yaxisStr)
 {
+    // The followin two lines are added since a 0 length string
+    // stops updates for some reason
+   if ( xaxisStr.length() == 0 ) xaxisStr="0:00:00.000";
+   if ( yaxisStr.length() == 0 ) yaxisStr="0:00:00.000";
    _updateXYFromString(xaxisStr, yaxisStr);
 
    _avTab.set(_tag, xaxisStr, XAXIS_INDEX);
@@ -621,7 +629,7 @@ noNotifySetXYFromString(String xaxisStr, String yaxisStr)
 
    if (_tag.equals(BASE_TAG)) {
       SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
+      if (od != null) od.setBasePos(_xaxis, _yaxis, _xoff, _yoff, _coordSys);
    }
 }
 
@@ -647,22 +655,131 @@ setXYFromString(String xaxisStr, String yaxisStr)
 
 /**
  * Override getXaxisAsString to directly return the appropriate
-  * attribute value.
+  * attribute value. Any base offset is applied if this is a base
+  * position.
  */
 public synchronized String
 getXaxisAsString()
 {
-   return _avTab.get(_tag, XAXIS_INDEX);
+    double xaxis;
+    double yaxis;
+    String rtn;
+    
+    if ( isOffsetPosition() ) {
+        if ( isBasePosition() ) {
+            xaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[0];
+            yaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[1];
+            double xoff = _avTab.getDouble(_tag, BASE_XOFF, 0.0);
+            double yoff = _avTab.getDouble(_tag, BASE_YOFF, 0.0);
+            xaxis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff)[0];
+            if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
+                rtn = RADecMath.degrees2String(xaxis, yaxis, getCoordSys())[0];
+            }
+            else {
+                // Other coordinate system
+                rtn = Double.toString(xaxis);
+            }
+        }
+        else {
+            // Is offset but not base
+            rtn = _avTab.get(_tag, XAXIS_INDEX);
+        }
+    }
+    else {
+        // Not an offset position
+        if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
+           rtn =  _avTab.get(_tag, XAXIS_INDEX);
+        }
+        else {
+           rtn =  _avTab.get(_tag, XAXIS_INDEX);
+        }
+    }
+    return rtn;
+}
+
+/**
+  * Get the x axis as a string.  In this case, any base offset if not applied
+  */
+public synchronized String getRealXaxisAsString() {
+    return _avTab.get(_tag, XAXIS_INDEX);
 }
 
 /**
  * Override getYaxisAsString to directly return the appropriate
- * attribute value.
+ * attribute value. If this is a base position and an offset has
+ * been applied, the returned value has the offset added.
  */
 public synchronized String
 getYaxisAsString()
 {
-   return _avTab.get(_tag, YAXIS_INDEX);
+    double xaxis;
+    double yaxis;
+    String rtn;
+
+    if ( isOffsetPosition() ) {
+        if ( isBasePosition() ) {
+            xaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[0];
+            yaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[1];
+            double xoff = _avTab.getDouble(_tag, BASE_XOFF, 0.0);
+            double yoff = _avTab.getDouble(_tag, BASE_YOFF, 0.0);
+            yaxis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff)[1];
+            if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
+                rtn = RADecMath.degrees2String(xaxis, yaxis, getCoordSys())[1];
+            }
+            else {
+                // Other coordinate system
+                rtn = Double.toString(yaxis);
+            }
+        }
+        else {
+            // Is offset but not base
+            rtn = _avTab.get(_tag, YAXIS_INDEX);
+        }
+    }
+    else {
+        // Not an offset position
+        if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
+           rtn =  _avTab.get(_tag, YAXIS_INDEX);
+        }
+        else {
+           rtn =  _avTab.get(_tag, YAXIS_INDEX);
+        }
+    }
+    /*
+    if ( getCoordSys() == CoordSys.FK5 ||
+         getCoordSys() == CoordSys.FK4 ||
+         getCoordSys() == CoordSys.HADEC ) {
+        xaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[0];
+        yaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[1];
+    }
+    else {
+        xaxis = _avTab.getDouble(_tag, XAXIS_INDEX, 0.0);
+        yaxis = _avTab.getDouble(_tag, YAXIS_INDEX, 0.0);
+    }
+    if ( isBasePosition() && isOffsetPosition() ) {
+        double xoff = _avTab.getDouble(_tag, BASE_XOFF, 0.0);
+        double yoff = _avTab.getDouble(_tag, BASE_YOFF, 0.0);
+        yaxis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff)[1];
+    }
+
+    String rtn;
+    if ( getCoordSys() == CoordSys.FK5 ||
+         getCoordSys() == CoordSys.FK4 ||
+         getCoordSys() == CoordSys.HADEC ) {
+        rtn = RADecMath.degrees2String(xaxis, yaxis, getCoordSys())[1];
+    }
+    else {
+        rtn = Double.toString(yaxis);
+    }
+    */
+    return rtn;
+}
+
+/**
+  * Get the y axis as a string.  In this case, any base offset if not applied
+  */
+public synchronized String getRealYaxisAsString() {
+    return _avTab.get(_tag, YAXIS_INDEX);
 }
 
 /**
@@ -696,7 +813,7 @@ setCoordSys(int i)
 
    if (_tag.equals(BASE_TAG) || _tag.startsWith("SKY") ) {
       SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
+      if (od != null) od.setBasePos(_xaxis, _yaxis, _xoff, _yoff, _coordSys);
    }
 
    _notifyOfGenericUpdate();
@@ -728,7 +845,7 @@ setCoordSys(String coordSysString)
 
    if (_tag.equals(BASE_TAG)) {
       SpObsData od = _spItem.getObsData();
-      if (od != null) od.setBasePos(_xaxis, _yaxis, _coordSys);
+      if (od != null) od.setBasePos(_xaxis, _yaxis, _xoff, _yoff, _coordSys);
    }
 
    _notifyOfGenericUpdate();
@@ -1310,7 +1427,7 @@ setConicSystemDailyMotion(String value)
  *
  * Types are Major, Minor, Comet, Planetary Satelite.
  *
- * @return One of {@link #CONIC_SYSTEM_TYPES} or {@link #NAMED_SYSTEM_TYPE}
+ * @return One of {@link #CONIC_SYSTEM_TYPES} or {@link #NAMED_SYSTEM_TYPES}
  *
  * @see #CONIC_SYSTEM_TYPES
  * @see #NAMED_SYSTEM_TYPES
@@ -1367,7 +1484,7 @@ getConicOrNamedTypeDescription()
  * This method has no effect if the system is spherical.
  *
  * @param systemType Must be a valid system type string (One of {@link #CONIC_SYSTEM_TYPES} or
-                     {@link #NAMED_SYSTEM_TYPE}. Otherwise the method call has no effect.
+                     {@link #NAMED_SYSTEM_TYPES}. Otherwise the method call has no effect.
  *
  * @see #getConicOrNamedType()
  */
@@ -1434,6 +1551,72 @@ public void setBoxSize( double size ) {
 
 public double getBoxSize() {
     return _boxSize;
+}
+
+public void setBaseXOffset(double offset) {
+    if ( offset == 0.0 ) {
+        String yOff = _avTab.get(_tag, BASE_YOFF);
+        if ( yOff == null || Double.parseDouble(yOff) == 0.0 ) {
+            setOffsetPosition(false);
+        }
+        else {
+        }
+    }
+    else {
+        setOffsetPosition(true);
+    }
+    _xoff = offset;
+    _avTab.set(_tag, offset, BASE_XOFF);
+    SpObsData od = _spItem.getObsData();
+    if ( od != null ) od.setBasePos(_xaxis, _yaxis, _xoff, _yoff, _coordSys);
+    _notifyOfLocationUpdate();
+}
+
+public void setBaseXOffset(String offset) {
+    double off = 0.0;
+    try {
+        off = Double.parseDouble(offset);
+    }
+    catch (NumberFormatException nfe) {
+    }
+    setBaseXOffset(off);
+}
+
+public double getBaseXOffset() {
+    return _avTab.getDouble(_tag, BASE_XOFF, 0.0);
+}
+
+public void setBaseYOffset(double offset) {
+    if ( offset == 0.0 ) {
+        String xoff = _avTab.get(_tag, BASE_XOFF);
+        if ( xoff == null || Double.parseDouble(xoff) == 0.0 ) {
+            setOffsetPosition(false);
+        }
+        else {
+        }
+    }
+    else {
+        setOffsetPosition(true);
+    }
+    _yoff = offset;
+    _avTab.set(_tag, offset, BASE_YOFF);
+    SpObsData od = _spItem.getObsData();
+    if ( od != null ) od.setBasePos(_xaxis, _yaxis, _xoff, _yoff, _coordSys);
+    _notifyOfLocationUpdate();
+}
+
+public void setBaseYOffset(String offset) {
+    double off = 0.0;
+    try {
+        off = Double.parseDouble(offset);
+    }
+    catch (NumberFormatException nfe) {
+    }
+    setBaseYOffset(off);
+}
+
+public double getBaseYOffset() {
+    return _avTab.getDouble(_tag, BASE_YOFF, 0.0);
 }
 
 /**

@@ -14,7 +14,7 @@ import java.util.*;
 import orac.util.LookUpTable;
 
 /**
- * This implements the ODB admin. file, as a specialised LookUpTable
+ * This implements the ODB admin file, as a specialised LookUpTable
  */
 public class AdminTable extends LookUpTable
 {

@@ -8,6 +8,8 @@ package gemini.sp.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 
@@ -19,9 +21,12 @@ import gemini.sp.iter.SpIterOffset;
 
 import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpMicroStepUser;
 import gemini.sp.obsComp.SpStareCapability;
 
+import java.text.DecimalFormat;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Vector;
 
 //import orac.ukirt.inst.SpUKIRTInstObsComp;
@@ -77,7 +82,7 @@ import java.util.Vector;
  * </ul>
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
-public class SpIterMicroStep extends SpIterOffset
+public class SpIterMicroStep extends SpIterOffset implements SpTranslatable
 {
    public static String NO_PATTERN = "NONE";
 
@@ -148,6 +153,97 @@ setPattern(String pattern)
 
 public String title_offset() {
    return "microstep";
+}
+
+public int getNOffsets() {
+    int nOffs = 1;
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if ( inst instanceof SpMicroStepUser ) {
+        Hashtable microStepTable = ((SpMicroStepUser)inst).getMicroStepPatterns();
+        double [][] microSteps = (double[][])microStepTable.get(getPattern());
+        if (microSteps != null) nOffs =  microSteps.length;
+    }
+    return nOffs;
+}
+
+public void translate(Vector v) throws SpTranslationNotSupportedException {
+    // In order to get the microstep pattern, we need to get the current instrument and make
+    // sure it implemeents SpMicroStepUser interface
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    if ( !(inst instanceof SpMicroStepUser) ) {
+        throw new SpTranslationNotSupportedException("Current instrument can not be used with microsteps");
+    }
+    Hashtable microStepTable = ((SpMicroStepUser)inst).getMicroStepPatterns();
+    double [][] microSteps = (double[][])microStepTable.get(getPattern());
+    if ( microSteps == null ) return;
+//     for ( int i=0; i<microSteps.length; i++ ) {
+//         System.out.println("microStep["+i+"] = (" + microSteps[i][0] + ", " + microSteps[i][1] + ")");
+//     }
+
+    // Find out whether we are inside an offset pattern
+    boolean inOffset = false;
+    SpItem parent = parent();
+    while ( parent != null ) {
+        if ( parent instanceof SpIterOffset && !(parent instanceof SpIterMicroStep) ) {
+            inOffset = true;
+            break;
+        }
+        parent = parent.parent();
+    }
+
+    // Create a decimal formatter to make sure rounding does not give us a problem
+    DecimalFormat df = new DecimalFormat();
+    df.setMaximumFractionDigits(3);
+
+    if (inOffset) {
+        // parent is the SpIterOffset object at this point, although we probably don't need it
+        for ( int i=0; i<((SpIterOffset)parent).getPosList().size(); i++ ) {
+            double xOff = ((SpIterOffset)parent).getPosList().getPositionAt(i).getXaxis();
+            double yOff = ((SpIterOffset)parent).getPosList().getPositionAt(i).getYaxis();
+            for ( int j=0; j<microSteps.length; j++ ) {
+                v.add( "title jitter " + (i+1) + ", ustep " + (j+1) );
+                v.add( "-setHeader NJITTER " + ((SpIterOffset)parent).getPosList().size());
+                v.add( "-setHeader JITTER_I " + (i+1) );
+                v.add( "-setHeader JITTER_X " + xOff );
+                v.add( "-setHeader JITTER_Y " + yOff );
+                v.add( "-setHeader NUSTEP " + microSteps.length );
+                v.add( "-setHeader USTEP_I " + (j+1) );
+                v.add( "-setHeader USTEP_X " + microSteps[j][0] );
+                v.add( "-setHeader USTEP_Y " + microSteps[j][1] );
+                v.add( "offset " + df.format(xOff + microSteps[j][0]) + " " + df.format(yOff + microSteps[j][1]) );
+                        
+                Enumeration e = this.children();
+                while (e.hasMoreElements()) {
+                    SpItem child = (SpItem)e.nextElement();
+                    if ( child instanceof SpTranslatable ) {
+                        ((SpTranslatable)child).translate(v);
+                    }
+                }
+            }
+        }
+    }
+    else {
+        for ( int j=0; j<microSteps.length; j++ ) {
+            v.add( "title jitter 1, ustep " + (j+1) );
+            v.add( "-setHeader NJITTER 1");
+            v.add( "-setHeader JITTER_I 1");
+            v.add( "-setHeader JITTER_X 0.0");
+            v.add( "-setHeader JITTER_Y 0.0");
+            v.add( "-setHeader NUSTEP " + microSteps.length );
+            v.add( "-setHeader USTEP_I " + (j+1) );
+            v.add( "-setHeader USTEP_X " + microSteps[j][0] );
+            v.add( "-setHeader USTEP_Y " + microSteps[j][1] );
+            v.add( "offset " + microSteps[j][0] + " " + microSteps[j][1]);
+
+            Enumeration e = this.children();
+            while (e.hasMoreElements()) {
+                SpItem child = (SpItem)e.nextElement();
+                if ( child instanceof SpTranslatable ) {
+                    ((SpTranslatable)child).translate(v);
+                }
+            }
+        }
+    }
 }
 
 }

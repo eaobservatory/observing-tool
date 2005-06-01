@@ -48,7 +48,7 @@ public class TelescopePosEditorToolBar extends JToolBar {
     /**
      * Create a top level window containing an ImageDisplayControl panel.
      *
-     * @param size   the size (width, height) to use for the pan and zoom windows.
+     * @param imageDisplay   An Image window for display.
      */
     public TelescopePosEditorToolBar(TpeImageWidget imageDisplay) {
         super(VERTICAL);

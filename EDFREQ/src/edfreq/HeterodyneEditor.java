@@ -22,8 +22,10 @@ package edfreq;
  */
 public interface HeterodyneEditor {
 
+    /** No identifiable speactral line indicator */
    public static final String NO_LINE = "No Line";
 
+   /** Get the front end instrument name */
    public String getFeBand();
 
    /**
@@ -31,13 +33,17 @@ public interface HeterodyneEditor {
     */
    public String getMode();
 
+   /**
+     * Get the current redshift of the source being observed.
+     * @return Z
+     */
    public double getRedshift();
 
    /**
     * Calculates the rest frequency corresponding to the current IF of a specified subsystem.
     *
     * The current IF of a subsystem is the IF at the centre of the sideband
-    * (i.e. <tt>{@link orac.jcmt.inst.SpInstHeterodyne.getCentreFrequency(int)
+    * (i.e. <tt>{@link orac.jcmt.inst.SpInstHeterodyne#getCentreFrequency(int)
     *  SpInstHeterodyne.getCentreFrequency(subsystem)}</tt>)<p>
     *
     * The calculation is based the current values for redshift, lo1
@@ -58,12 +64,46 @@ public interface HeterodyneEditor {
     */
     public double getObsFrequency(int subsystem);
 
+    /**
+      * Gets the bandwidth of the specified subsystem
+      * @param subsystem  The subsystem number (starting at 0)
+      * @return The bandwidth in Hz
+      */
    public double getCurrentBandwidth(int subsystem);
 
+   /**
+     * Update the central frequency of a subsystem
+     * @param centre  The central frequency in Hz
+     * @param subsystem The subsystem number (starting at 0)
+     */
    public void updateCentreFrequency(double centre, int subsystem);
+   
+   /**
+     * Update the bandwidth of a subsystem
+     * @param width  The bandwidth in Hz
+     * @param subsystem The subsystem number (starting at 0)
+     */
    public void updateBandWidth(double width, int subsystem);
+
+   /**
+     * Update the channels of a subsystem
+     * @param channels  The number of channels allocated to the subsystem
+     * @param subsystem The subsystem number (starting at 0)
+     */
    public void updateChannels(int channels, int subsystem);
+
+   /**
+     * Update the line details associated with a channel
+     * @see edfreq.LineDetails
+     * @param lineDetails  The new line details
+     * @param subsystem The subsystem number (starting at 0)
+     */
    public void updateLineDetails(LineDetails lineDetails, int subsystem);
+
+   /**
+     * Update the local oscillator frequency 
+     * @param lo1  The local oscillator frequency in Hz
+     */
    public void updateLO1(double lo1);
 }
 

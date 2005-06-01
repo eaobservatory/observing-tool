@@ -16,7 +16,7 @@ package orac.util;
  * if they are inside the offset iterator.
  *
  * For instruments components something similar can be done by setting the
- * science area mode to SCI_AREA_ALL in {@link jsky.app.ot.tpe.EdIterOffsetFeature}.
+ * science area mode to SCI_AREA_ALL in {@link jsky.app.ot.editor.EdIterOffsetFeature}.
  *
  * This SpMapItem interface can be used for displaying iterators inside the offset iterator.
  *

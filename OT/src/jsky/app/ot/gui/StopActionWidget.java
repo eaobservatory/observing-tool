@@ -55,7 +55,6 @@ public class StopActionWidget extends JPanel {
      * bound to the given stopAction. When the stop button is enabled,
      * the LED also blinks red.
      *
-     * @param stopAction the action for the stop button. 
      */
     public StopActionWidget() {
 	setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));

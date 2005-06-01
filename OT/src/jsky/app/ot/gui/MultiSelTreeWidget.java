@@ -25,7 +25,6 @@ import jsky.util.gui.BasicWindowMonitor;
  *        <P>{@link #multipleSelection}
  *        <P>{@link #cellRenderer}
  *        <P>{@link #getSelectionPaths()}
- *        <P>{@link #}
  *        <P>{@link #mouseReleased(java.awt.event.MouseEvent)})
  *
  *      MultiSelection now uses the default behaviour of a JTree with

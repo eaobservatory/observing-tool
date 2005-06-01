@@ -15,7 +15,7 @@ import javax.swing.JComboBox;
 import gemini.sp.SpItem;
 import gemini.sp.SpAvTable;
 import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterObserve;
+import orac.ukirt.iter.SpIterObserve;
 
 /**
  * This is the editor for Observe iterator component.

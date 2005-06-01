@@ -10,15 +10,19 @@
 package orac.ukirt.iter;
 
 import gemini.sp.SpFactory;
+import gemini.sp.SpItem;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
 import gemini.sp.iter.IterConfigItem;
+import gemini.sp.iter.SpIterEnumeration;
 
 import java.util.*;
 
 /**
  * The FP configuration iterator.
  */
-public class SpIterFP extends SpIterConfigObsUKIRT
+public class SpIterFP extends SpIterConfigObsUKIRT implements SpTranslatable
 {
 
    public static final SpType SP_TYPE =
@@ -92,6 +96,26 @@ getAvailableItems()
    };
 
    return iciA;
+}
+
+public void translate (Vector v) throws SpTranslationNotSupportedException {
+    List l = getConfigAttribs();
+    if ( l != null && l.size() != 0 ) {
+        List vals = getConfigSteps((String)l.get(0));
+        for ( int i=0; i<vals.size(); i++ ) {
+            for ( int j=0; j<l.size(); j++ ) {
+                v.add((String)l.get(j) + " " + (String)getConfigSteps((String)l.get(j)).get(i));
+            }
+            // Now loop through all the child elements
+            Enumeration children = this.children();
+            while ( children.hasMoreElements() ) {
+                SpItem child = (SpItem) children.nextElement();
+                if ( child instanceof SpTranslatable ) {
+                    ((SpTranslatable)child).translate(v);
+                }
+            }
+        }
+    }
 }
 
 }

@@ -76,7 +76,8 @@ public class SpMSB extends SpObsContextItem {
   /**
    * The databases uses this number to indecate that an MSB has been removed.
    *
-   * Usage: {@link gemini.sp.SpMSB#setNumberRemaining() (REMOVED_CODE)}
+   * Usage: {@link #setNumberRemaining(int) (REMOVED_CODE)}
+   * @deprecated  Removed MSB's and now indicated using -remaing
    */
   public static final int REMOVED_CODE = -999;
 
@@ -242,8 +243,7 @@ public void unSuspend() {
  *
  * Note that this method does <B>not</B> return ATTR_ELAPSED_TIME.
  * The return value is re-calculated whenever the method is called.
- * {@link #updateElapsedTime()} and {@link #ATTR_ELAPSED_TIME} are only
- * used in order to get the estimated time written to the XML output.
+ * This method includes times for optional and calibration observations.
  */
 public double getTotalTime()
 {
@@ -279,8 +279,8 @@ public double getTotalTime()
  *
  * Note that this method does <B>not</B> return ATTR_ELAPSED_TIME.
  * The return value is re-calculated whenever the method is called.
- * {@link #updateElapsedTime()} and {@link #ATTR_ELAPSED_TIME} are only
- * used in order to get the estimated time written to the XML output.
+ * This method does not include times for calibration and optional
+ * observations
  */
 public double getElapsedTime()
 {

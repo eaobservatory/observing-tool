@@ -24,7 +24,7 @@ import java.util.Vector;
  * the positions.  Each SpTelescopeObsComp component maintains a
  * SpTelescopePosList.
  *
- * @see gemini.sp.obsComp.SpTelescopePosList
+ * @see gemini.sp.obsComp.SpTelescopeObsComp
  */
 public final class SpTelescopePosList extends TelescopePosList implements java.io.Serializable
 {

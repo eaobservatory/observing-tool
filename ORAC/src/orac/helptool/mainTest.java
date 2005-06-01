@@ -15,7 +15,7 @@ public class mainTest
   /** public static void main(String[] args) is
     the point a new process starts.
 
-    @param String []
+    @param args []
     @return  none
     @throws none
  */

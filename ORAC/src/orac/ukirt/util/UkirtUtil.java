@@ -24,11 +24,7 @@ import orac.ukirt.validation.UkirtSpValidation;
  */
 public class UkirtUtil implements TelescopeUtil {
 
-  private static final String [] COORD_SYS_FK5_FK4 = { CoordSys.COORD_SYS[CoordSys.FK5],
-                                                       CoordSys.COORD_SYS[CoordSys.FK4],
-                                                       CoordSys.COORD_SYS[CoordSys.AZ_EL] };
-
-
+  private static final String [] COORD_SYS_FK5_FK4 = CoordSys.COORD_SYS;
   private static final String [] CHOP_SYSTEM = { CoordSys.COORD_SYS[CoordSys.FK5] };
 
   private UkirtSpValidation _ukirtSpValidation = new UkirtSpValidation();

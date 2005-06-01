@@ -202,7 +202,7 @@ degrees2String(double ra, double dec, int coordSystem)
 {
    // For now, assume everything is FK5/J200
   // Or FK4 - added by AB for ORAC 13-Oct-99
-   Assert.notFalse((coordSystem == CoordSys.FK5) || (coordSystem == CoordSys.FK4));
+   Assert.notFalse((coordSystem == CoordSys.FK5) || (coordSystem == CoordSys.FK4) || (coordSystem == CoordSys.HADEC) );
 
    String[] pos = { HHMMSS.valStr(ra), DDMMSS.valStr(dec) };
    return pos;

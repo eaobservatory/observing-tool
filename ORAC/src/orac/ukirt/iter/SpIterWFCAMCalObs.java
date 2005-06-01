@@ -14,12 +14,19 @@ package orac.ukirt.iter;
 import java.util.*;
 import java.io.*;
 
-import gemini.util.*;
 import orac.util.LookUpTable;
+
+import orac.ukirt.inst.SpDRRecipe;
 import orac.ukirt.inst.SpInstWFCAM;
+
+import gemini.util.*;
+
 import gemini.sp.SpFactory;
+import gemini.sp.SpObs;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 
@@ -81,7 +88,7 @@ _thisNextElement()
 /**
  * Iterator for WFCAM FLAT observations.
  */
-public class SpIterWFCAMCalObs extends SpIterObserveBase
+public class SpIterWFCAMCalObs extends SpIterObserveBase implements SpTranslatable
 {
 
    /** Identifier for a SKYFLAT calibration. */
@@ -110,7 +117,7 @@ public SpIterWFCAMCalObs()
    super(SP_TYPE);
 
 
-   _avTable.noNotifySet(SpWFCAMCalConstants.ATTR_CALTYPE,"SkyFlat",0);
+   _avTable.noNotifySet(SpWFCAMCalConstants.ATTR_CALTYPE,"skyFlat",0);
    _avTable.noNotifySet(SpWFCAMCalConstants.ATTR_READMODE,null,0);
    _avTable.noNotifySet(SpWFCAMCalConstants.ATTR_FILTER,null,0);
    _avTable.noNotifySet(SpWFCAMCalConstants.ATTR_EXPOSURE_TIME,null,0);
@@ -155,9 +162,9 @@ public int
 getCalType()
 {
    String calType = _avTable.get(SpUISTCalConstants.ATTR_CALTYPE);
-   if ("SkyFlat".equals(calType)) {
+   if ("skyFlat".equalsIgnoreCase(calType)) {
       return SKYFLAT;
-   } else if ("DomeFlat".equals(calType)) {
+   } else if ("domeFlat".equalsIgnoreCase(calType)) {
       return DOMEFLAT;
    }
    return FOCUS; 
@@ -179,11 +186,11 @@ public String
 getCalTypeString()
 {
    if (getCalType() == SKYFLAT) {
-      return "SkyFlat";
+      return "skyFlat";
    } else if (getCalType() == DOMEFLAT) {
-      return "DomeFlat";
+      return "domeFlat";
    }
-   return "Focus";
+   return "focus";
 }
 
 /**
@@ -193,9 +200,9 @@ public String[]
 getCalTypeChoices()
 {
    String choices[] = new String[3];
-   choices[0] = "SkyFlat";
-   choices[1] = "DomeFlat";
-   choices[2] = "Focus";
+   choices[0] = "skyFlat";
+   choices[1] = "domeFlat";
+   choices[2] = "focus";
   return choices;
 }
 
@@ -397,6 +404,77 @@ useDefaults()
    _avTable.rm(SpWFCAMCalConstants.ATTR_FILTER);
    _avTable.rm(SpWFCAMCalConstants.ATTR_EXPOSURE_TIME);
    _avTable.rm(SpWFCAMCalConstants.ATTR_COADDS);
+}
+
+public void translate (Vector v) throws SpTranslationNotSupportedException {
+    // Get the current instrument and its config items
+    SpInstWFCAM inst;
+    try {
+        inst = (SpInstWFCAM)SpTreeMan.findInstrument(this);
+    }
+    catch (Exception e) {
+        throw new SpTranslationNotSupportedException("No WFCAM instrument in scope");
+    }
+
+    Hashtable configTable = inst.getConfigItems();
+
+    // Set the DRRecipe Headers
+    SpItem parent = parent();
+    while ( parent != null && !(parent instanceof SpObs) ) {
+        parent = parent.parent();
+    }
+    if ( parent != null ) {
+        Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+        if ( recipes != null && recipes.size() != 0 ) {
+            SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
+            switch (getCalType()) {
+                case SKYFLAT:
+                case DOMEFLAT:
+                    v.add("setHeader GRPMEM " + (recipe.getFlatInGroup()? "T":"F"));
+                    v.add("setHeader RECIPE " + recipe.getFlatRecipeName());
+                    break;
+                case FOCUS:
+                    v.add("setHeader GRPMEM " + (recipe.getFocusInGroup()? "T":"F"));
+                    v.add("setHeader RECIPE " + recipe.getFocusRecipeName());
+                    break;
+                default:
+                    // We should not get here...
+            }
+
+        }
+    }
+                    
+
+    // Update all the items
+    configTable.put("type", getCalTypeString());
+    configTable.put("filter", getFilter());
+    configTable.put("readMode", getReadMode());
+    configTable.put("exposureTime", ""+getExposureTime());
+    configTable.put("coadds", ""+getCoadds());
+
+    // Remove stuff we don't need
+    configTable.remove("instPort");
+    
+    try {
+        ConfigWriter.getCurrentInstance().write(configTable);
+    }
+    catch (IOException ioe) {
+        throw new SpTranslationNotSupportedException("Unable to write WFCAM Calibration config: " + ioe.getMessage());
+    }
+    v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+    v.add("set " + getCalTypeString().toUpperCase());
+    v.add("do " + getCount() + " _observe");
+
+        //Finally move the default config (always _1) down
+    String configPattern = "loadConfig .*_1";
+    for ( int i=v.size()-1; i>0; i-- ) {
+        String line = (String)v.get(i);
+        if ( line.matches(configPattern) ) {
+            v.removeElementAt(i);
+            v.add(line);
+            break;
+        }
+    }
 }
 
 

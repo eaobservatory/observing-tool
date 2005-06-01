@@ -59,7 +59,8 @@ public class OtWindowMenuBar extends JMenuBar {
      * Create the menubar for the given OtWindow.
      *
      * @param editor the target science program editor
-     * @param toolBar the OT toolbar
+     * @param mainToolBar the OT toolbar
+     * @param treeToolBar the OT sidebar
      */
     public OtWindowMenuBar(final OtWindow editor, OtWindowToolBar mainToolBar, OtTreeToolBar treeToolBar) {
 	super();
@@ -629,6 +630,7 @@ public class OtWindowMenuBar extends JMenuBar {
 	menu.add(editor.getPasteAction());
 	menu.addSeparator();
 	menu.add(createEditItemTitleMenuItem());
+        menu.add(createEditCollapseMSBsMenuItem());
 	menu.add(createReplicationMenuItem());
 	return menu;
     }
@@ -671,6 +673,16 @@ public class OtWindowMenuBar extends JMenuBar {
 	return menuItem;
     }
 
+    protected JMenuItem createEditCollapseMSBsMenuItem() {
+	JMenuItem menuItem = new JMenuItem("Collapse all MSBs");
+        menuItem.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent ae) {
+		    editor.collapseMSBs();
+		}
+	    });
+	return menuItem;
+    }
+    
     protected JMenuItem createReplicationMenuItem() {
 	JMenuItem menuItem = new JMenuItem("Replicate from Catalog");
         menuItem.addActionListener(new ActionListener() {

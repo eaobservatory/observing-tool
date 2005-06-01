@@ -87,7 +87,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
    }
 
     /**
-     * Alternate constructor used when we wish to plot TRx as well as the atm. transmission.
+     * Alternate constructor used when we wish to plot TRx as 
+     * well as the atmospheric transmission.
      */
 
     public SkyTransmission (String feName,
@@ -100,7 +101,8 @@ public class SkyTransmission extends JPanel implements ChangeListener
 
 	rxTemp = getTRx (feName);
 
-	// Find the max and min values of TRx so that we can scale the temperatures between 1 and 0
+	// Find the max and min values of TRx so that we can scale 
+        // the temperatures between 1 and 0
 	if (rxTemp != null ) {
 	    int tMax=0;
 	    int tMin=0;

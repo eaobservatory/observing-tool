@@ -95,5 +95,5 @@ endif
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
  
-${JAVA} -ms5m -mx100m -oss5m ${DISALLOW_MULTI_BW_PROP} -DTELESCOPE=${TELESCOPE} -DFREQ_EDITOR_CFG=${EDFREQ_CFG} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
+${JAVA} -ms5m -mx500m -oss5m ${DISALLOW_MULTI_BW_PROP} -DTELESCOPE=${TELESCOPE} -DFREQ_EDITOR_CFG=${EDFREQ_CFG} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
 

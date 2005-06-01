@@ -7,9 +7,13 @@
 package gemini.sp.iter;
 
 import gemini.sp.SpFactory;
+import gemini.sp.SpItem;
 import gemini.sp.SpType;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 //
 // Defines the attributes used by the repeat iterator.
@@ -62,7 +66,7 @@ _thisNextElement()
  * A simple iterator that repeats the steps of nested iterators the
  * specified number of times.
  */
-public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants
+public class SpIterRepeat extends SpIterComp implements SpIterRepeatConstants, SpTranslatable
 {
 
 /**
@@ -96,6 +100,23 @@ public SpIterEnumeration
 elements()
 {
    return new SpIterRepeatEnumeration(this);
+}
+
+public void translate (Vector v) throws SpTranslationNotSupportedException {
+
+    Enumeration e = this.children();
+    Vector childVector = new Vector();
+    while ( e.hasMoreElements() ) {
+        SpItem child = (SpItem)e.nextElement();
+        if ( child instanceof SpTranslatable ) {
+            ((SpTranslatable)child).translate(childVector);
+        }
+    }
+    childVector.add("breakPoint");
+
+    for ( int i=0; i<getCount(); i++ ) {
+        v.addAll(childVector);
+    }
 }
 
 }

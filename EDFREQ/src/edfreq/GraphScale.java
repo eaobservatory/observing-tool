@@ -24,6 +24,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
+  * Draws the graph scale for the Frequency Editor.
  * @author Dennis Kelly ( bdk@roe.ac.uk )
  */
 public class GraphScale extends JPanel implements ChangeListener
@@ -53,6 +54,17 @@ public class GraphScale extends JPanel implements ChangeListener
    private double restHalfrange;
 
 
+   /**
+     * Constructor
+     * @param minimum  Minimum frequency (Hz)
+     * @param maximum  Maximum frequency (Hz)
+     * @param minorIncrement  Increment to draw minor tick marks at (Hz)
+     * @param majorIncrement  Increment to draw major tick marks at (Hz)
+     * @param redshift        Source redshift (Z)
+     * @param exponent        Scale factor to show frequency values.
+     * @param length          Length of display (pixels)
+     * @param orientation     Orientation of display (JSlider.HORIZONTAL or JSlider.VERTICAL)
+     */
    public GraphScale ( double minimum, double maximum, 
      double majorIncrement, double minorIncrement, double redshift,
      int exponent, int length, int orientation )
@@ -121,12 +133,20 @@ public class GraphScale extends JPanel implements ChangeListener
                   axisRect.height ) );
    }
 
+   /**
+     * Set the orientation.
+     * @see javax.swing.JSlider#HORIZONTAL
+     * @see javax.swing.JSlider#VERTICAL
+     */
    public void setOrientation ( int orientation )
    {
       this.orientation = orientation;
    }
 
 
+   /**
+     * Set the redshift (Z)
+     */
    public void setRedshift ( double redshift )
    {
       this.redshift = redshift;
@@ -179,6 +199,7 @@ public class GraphScale extends JPanel implements ChangeListener
       }
    }
 
+   /** Paint the ticks */
    public void paintTicks(Graphics g)
    {
       Rectangle tickBounds = tickRect;
@@ -382,6 +403,7 @@ public class GraphScale extends JPanel implements ChangeListener
    }
 
 
+   /** Overrides paintComponent in JComponent */
    public void paintComponent ( Graphics g )
    {
       int j;

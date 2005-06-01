@@ -315,6 +315,12 @@ _initPosTable()
 
       Point2D.Double p = telescopePosToImageWidget(tp);
       _posTable.put( tp.getTag(), new FitsPosMapEntry(p, tp) );
+
+      // Create a shdow base tag for the case where the base is an offset position
+      if ( tp instanceof SpTelescopePos && ((SpTelescopePos)tp).isBasePosition() && tp.isOffsetPosition() ) {
+          Point2D.Double ps = realTelescopePosToImageWidget(tp);
+          _posTable.put( "SHADOW", new FitsPosMapEntry(ps, tp) );
+      }
    }
 
    return true;
@@ -332,6 +338,10 @@ _updateScreenLocations()
       FitsPosMapEntry pme = (FitsPosMapEntry) e.nextElement();
       TelescopePos     tp = pme.telescopePos;
       pme.screenPos       = telescopePosToImageWidget(tp);
+      if ( tp.getTag().equalsIgnoreCase("base") && tp.isOffsetPosition() ) {
+          FitsPosMapEntry pmeShadow = (FitsPosMapEntry)_posTable.get("SHADOW");
+          pmeShadow.screenPos = realTelescopePosToImageWidget(tp);
+      }
    }
 }
 
@@ -494,6 +504,25 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
       getPosTable();
    }
 }
+ 
+/**
+  * Used to create the real position when the base is an offset.
+  */
+
+private Point2D.Double realTelescopePosToImageWidget(TelescopePos tp) {
+    if ( !( tp instanceof SpTelescopePos ) || !((SpTelescopePos)tp).isBasePosition() ) {
+        return null;
+    }
+
+    _convertedPosition.x = ((SpTelescopePos)tp).getRealXaxis();
+    _convertedPosition.y = ((SpTelescopePos)tp).getRealYaxis();
+    switch( ((SpTelescopePos)tp).getCoordSys() ) {
+        case CoordSys.FK4: wcscon.fk425(_convertedPosition);   break;
+        case CoordSys.GAL: wcscon.gal2fk5(_convertedPosition); break;
+    }
+    return _iw.raDecToImageWidget(_convertedPosition.x, _convertedPosition.y);
+}
+
 
   // Added by MFO, April 10, 2002.
   /**
@@ -503,17 +532,15 @@ viewportViewChange(ViewportImageWidget iw, ImageView iv)
    * for the coordinate system and if the telescope position is an offset position then the coordinate
    * systems of both this TelescopePos and the Base position are checked.
    * A new telesope position is then created in FK5 with the necessary conversions which is then used in a
-   * call to {@link jsky.app.ot.fits.gui.FitsImageWidget.telescopePosToImageWidget(gemini.util.TelescopePos)}.
+   * call to {@link jsky.app.ot.fits.gui.FitsImageWidget#telescopePosToImageWidget(gemini.util.TelescopePos)}.
    * The result of this call is returned.
    * <p>
    * If the TelescopePos tp is <i>not</i> of type {@link gemini.sp.SpTelescopePos} then
    * FitsImageWidget.telescopePosToImageWidget(tp) is returned.
    */
   public Point2D.Double telescopePosToImageWidget(TelescopePos tp) {
-//       System.out.println("telescopePosToImageWidget called from...");
-//       new Exception().printStackTrace();
     if(tp instanceof SpTelescopePos) {
-      if(tp.isOffsetPosition()) {
+      if( tp.isOffsetPosition() && !((SpTelescopePos)tp).isBasePosition() ) {
         if(_tpl instanceof SpTelescopePosList) {
           SpTelescopePos basePosition = ((SpTelescopePosList)_tpl).getBasePosition();
 

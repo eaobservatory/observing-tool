@@ -94,6 +94,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     public static LookUpTable FILTERSECH;
     public static double DEFBIASEXPTIME=0.0;
     public static int DEFBIASCOADDS=0;
+    public static String[] INSTRUMENT_APER;     // Array of inst aper values
     public static int CENT_ROW;
     public static int PEAK_ROW;
     private double ROTATION_SCALE = 2.01;
@@ -266,10 +267,12 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		    setPort (INSTRUMENT_PORT);
 		}else if (InstCfg.matchAttr (instInfo, "instrument_aper")) {
 		    INSTRUMENT_APER = instInfo.getValueAsArray();
+                    /*
 		    setInstApX (INSTRUMENT_APER[XAP_INDEX]);
 		    setInstApY (INSTRUMENT_APER[YAP_INDEX]);
 		    setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
 		    setInstApL (INSTRUMENT_APER[LAP_INDEX]);
+                    */
 		} else if (InstCfg.matchAttr (instInfo, "CENT_ROW")) {
 		    CENT_ROW = Integer.parseInt(instInfo.getValue());
 		} else if (InstCfg.matchAttr (instInfo, "PEAK_ROW")) {
@@ -469,7 +472,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
     }
     
     /**
-     * Get the default coadds, depends on exp. time
+     * Get the default coadds, depends on exposure time
      */
     public int
 	getDefaultCoadds()
@@ -1177,6 +1180,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		
 	setInstApX (String.valueOf(x));
 	setInstApY (String.valueOf(y));
+	setInstApZ (INSTRUMENT_APER[ZAP_INDEX]);
 	setInstApL (String.valueOf(cwl));
 	
     }
@@ -1285,6 +1289,58 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	    }
 	}
 	super.processXmlElementContent(name, value);
+    }
+
+    public Hashtable getConfigItems() {
+        Hashtable t = new Hashtable();
+
+        t.put("instrument", "CGS4");
+        t.put("version", "TBD");
+        t.put("name", "TBD");
+        t.put("readMode", getMode());
+        t.put("expTime", ""+getExpTime());
+        t.put("objNumExp", ""+getCoadds());
+        t.put("savedInt", "1");
+        t.put("filter", getFilter());
+        t.put("neutralDensity", Boolean.toString(getNdFilter()));
+        t.put("sampling", getSampling());
+        t.put("posAngle", getPosAngleDegreesStr());
+        t.put("slitWidth", ""+getMaskWidth());
+        t.put("disperser", getDisperser());
+        t.put("polariser", getPolariser());
+        t.put("centralWavelength", ""+getCentralWavelength());
+        t.put("order", "" + getOrder());
+        t.put("cvfWavelength", ""+getCvfOffset());
+        t.put("calibLamp", "off");
+        t.put("tunHalLevel", "97");
+        t.put("lampEffAp", "10");
+        t.put("flatSampling", "1x1");
+        t.put( "flatCalLamp", "1.3" );
+        t.put("flatReadMode", getMode());
+        t.put("flatFilter", getFilter());
+        t.put("flatExpTime", ""+getExpTime());
+        t.put("flatNeutralDensity", Boolean.toString(getNdFilter()));
+        t.put("flatSavedInt", "1");
+        t.put("flatNumExp", ""+getCoadds());
+        t.put("darkNumExp", ""+getCoadds());
+        t.put("darkSavedInt", "1");
+        t.put("biasExpTime", ""+getExpTime());
+        t.put("biasNumExp", ""+getCoadds());
+        t.put("biasSavedInt", "1");
+        t.put("arcCalLamp", "argon");
+        t.put("arcFilter", getFilter());
+        t.put("arcCvfWavelength", ""+getCvfOffset());
+        t.put("arcExpTime", ""+getExpTime());
+        t.put("arcNumExp", ""+getCoadds());
+        t.put("arcReadMode", getMode());
+        t.put("arcSavedInt", "1");
+        setInstAper();
+        t.put("instAperX", ""+getInstApX());
+        t.put("instAperY", ""+getInstApY());
+        t.put("instAperZ", ""+getInstApZ());
+        t.put("instAperL", ""+getInstApL());
+
+        return t;
     }
 
 

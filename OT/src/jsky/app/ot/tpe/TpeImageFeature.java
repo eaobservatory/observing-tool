@@ -24,7 +24,7 @@ import jsky.app.ot.util.BasicPropertyList;
 public abstract class TpeImageFeature {
 
     /**
-     * How big are items that don't depend upon the scale of the image?
+     * Size of items that don't depend upon the scale of the image.
      * This is the size of the width and height, or radius, of the item.
      */
     public static final int MARKER_SIZE = 4;

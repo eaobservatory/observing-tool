@@ -219,7 +219,10 @@ public class OtProps
 
 
     /**
-     * Get the image cache size.  -1 is returned if not set.
+     * Get the image cache size. 
+     *
+     * @return  The size of the image cache, or -1 on error.
+
      */
     public static int getImageCacheSize() {
 	_getProps();

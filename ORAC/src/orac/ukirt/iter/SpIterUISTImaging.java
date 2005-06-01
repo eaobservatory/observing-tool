@@ -13,15 +13,23 @@ import orac.ukirt.inst.SpInstUIST;
 import orac.util.LookUpTable;
 
 import gemini.sp.SpFactory;
+import gemini.sp.SpItem;
+import gemini.sp.SpTranslatable;
+import gemini.sp.SpTranslationNotSupportedException;
+import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 import gemini.sp.iter.IterConfigItem;
+
+import gemini.util.ConfigWriter;
+
+import java.io.IOException;
 
 import java.util.*;
 
 /**
  * The UIST configuration iterator (Imaging).
  */
-public class SpIterUISTImaging extends SpIterConfigObsUKIRT {
+public class SpIterUISTImaging extends SpIterConfigObsUKIRT implements SpTranslatable {
   
    public static final SpType SP_TYPE =
         SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "instUISTImaging", "UIST Imaging");
@@ -134,5 +142,67 @@ public class SpIterUISTImaging extends SpIterConfigObsUKIRT {
            getExposureTimeConfigItem(), getCoaddsConfigItem()
        };
        return iciA;
+   }
+
+
+   public void translate( Vector v ) throws SpTranslationNotSupportedException {
+       SpInstUIST inst;
+       try {
+           inst = (SpInstUIST)SpTreeMan.findInstrument(this);
+       }
+       catch (Exception e) {
+           throw new SpTranslationNotSupportedException("No UIST instrument in scope");
+       }
+
+
+       List iterList = getConfigAttribs();
+       int nConfigs = getConfigSteps((String)iterList.get(0)).size();
+       for ( int i=0; i<nConfigs; i++ ) {
+           Hashtable defaultsTable = inst.getConfigItems();
+           String xAper = " " +(String)defaultsTable.get("instAperX");
+           String yAper = " " +(String)defaultsTable.get("instAperY");
+           String zAper = " " +(String)defaultsTable.get("instAperZ");
+           String lAper = " " +(String)defaultsTable.get("instAperL");
+           for (int j=0; j<iterList.size(); j++ ) {
+               String attrib = (String)iterList.get(j);
+               List iterVals = getConfigSteps(attrib);
+               if ( iterList.contains("filterIter") ) {
+                   defaultsTable.put( "filter", (String)getConfigSteps("filterIter").get(i));
+               }
+               if (  iterList.contains("exposureTimeIter") ) {
+                   defaultsTable.put( "exposureTime", (String)getConfigSteps("exposureTimeIter").get(i));
+               }
+               if ( iterList.contains("coaddsIter") ) {
+                   defaultsTable.put( "coadds", (String)getConfigSteps("coaddsIter").get(i));
+               }
+               if ( iterList.contains("instAperXIter") ) {
+                   xAper = " " +(String)getConfigSteps("instAperXIter").get(i);
+               }
+               if ( iterList.contains("instAperYIter") ) {
+                   yAper = " " +(String)getConfigSteps("instAperYIter").get(i);
+               }
+               if ( iterList.contains("instAperZIter") ) {
+                   zAper = " " +(String)getConfigSteps("instAperZIter").get(i);
+               }
+               if ( iterList.contains("instAperLIter") ) {
+                   lAper = " " +(String)getConfigSteps("instAperLIter").get(i);
+               }
+           }
+           try {
+               ConfigWriter.getCurrentInstance().write(defaultsTable);
+           }
+           catch (Exception e) {
+               throw new SpTranslationNotSupportedException("Unable to write config file for UISTImaging iterator:"+e.getMessage());
+           }
+           v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
+           v.add("define_inst UIST " + xAper + yAper + zAper + lAper);
+           Enumeration e = this.children();
+           while (e.hasMoreElements()) {
+               SpItem child = (SpItem)e.nextElement();
+               if ( child instanceof SpTranslatable ) {
+                   ((SpTranslatable)child).translate(v);
+               }
+           }
+       }
    }
 }

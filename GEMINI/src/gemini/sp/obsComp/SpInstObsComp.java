@@ -350,7 +350,7 @@ replaceTable(SpAvTable avTable)
 /**
  * Overhead time for doing an exposure.
  *
- * Overhead time associated with an exposure (see {@link #getExposureTime()} and {@link #setExposureTime()}).
+ * Overhead time associated with an exposure (see {@link #getExposureTime()} and {@link #setExposureTime(double)}).
  * cause by reset time, read time, NDR reset delay etc.
  * <P>
  * This method is used for MSB duration estimation. Subclasses can override this method to
@@ -379,6 +379,10 @@ getSlewTime()
   */
 public double getAcqTime() {
     return 0.0;
+}
+
+public Hashtable getConfigItems() {
+    return new Hashtable();
 }
 
 

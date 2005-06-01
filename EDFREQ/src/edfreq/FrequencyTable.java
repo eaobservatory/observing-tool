@@ -46,6 +46,19 @@ public class FrequencyTable extends JPanel implements ActionListener
     Vector lowBars = new Vector();
     Vector highBars = new Vector();
 
+    /**
+      * Constructor to create frequency table for the Frequency Editor.
+      * @param feIF     Frontend IF mixer frequency (Hz)
+      * @param feBandWidth      Frontend bandwidth (Hz)
+      * @param bandWidths       Bandwidths for each subsystem (Hz)
+      * @param channels         Number of channels for each subsystem
+      * @param samplerCount     Number of samplers
+      * @param displayWidth     Width if display on Frequency Editor
+      * @param sideBandDisplay  The side band display of the Frequency Editor widget
+      * @param hetEditor        The heterodyne editor
+      * @param emissionLines    Emissions lines to display
+      * @param nMixers          Number of mixers
+      */
    public FrequencyTable ( double feIF, double feBandWidth,
 			   double [] bandWidths, int [] channels, 
 			   int samplerCount, int displayWidth,
@@ -248,12 +261,18 @@ public class FrequencyTable extends JPanel implements ActionListener
    }
 
 
+   /**
+     * Get all of the Samplers in the current configuration.
+     */
    public Sampler [] getSamplers()
    {
       return samplers;   
    }
 
 
+   /**
+     * Set the line text on the frequency editor GUI
+     */
    public void setLineText(String lineText, int subsystem) {
       lineButtons[subsystem].setText(lineText);
       lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
@@ -274,6 +293,12 @@ public class FrequencyTable extends JPanel implements ActionListener
        return lineButtons[subsystem].getText();
    }
 
+
+   /**
+     * Reset the mode and band, and update GUI appropriately.
+     * @param mode  Either "ssb" (Single Sideband) or "dsb" (Dual Sideband)
+     * @param band  Either "usb" (upper sideband), "lsb" (lower sideband) or "best"
+     */
    public void resetModeAndBand(String mode, String band)
    {
       if(mode.equalsIgnoreCase("ssb")) {
@@ -299,6 +324,7 @@ public class FrequencyTable extends JPanel implements ActionListener
       }
    }
 
+   /** Resets line details */
    public void actionPerformed(ActionEvent e)
    {
       int subsystem = Integer.parseInt(e.getActionCommand());

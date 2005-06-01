@@ -255,7 +255,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     }
     
     /**
-     * Set the inst. port
+     * Set the instrument port
      */
     public void
 	setPort(String port)
@@ -264,7 +264,7 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
     }
     
     /**
-     * Get the inst. port
+     * Get the instrument port
      */
     public String
 	getPort()

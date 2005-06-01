@@ -177,12 +177,11 @@ public final class EdObservation extends OtItemEditor
 
 
     /**
-     * Checks whether SpObs is an MSB and calls _setMsbDisplay(true/false)
+     * Checks whether SpObs is an MSB and updates display
      * accordingly.
      *
      * Added for OMP. (MFO, 5 March 2002)
      *
-     * @see #_setMsbDisplay(boolean)
      */
     protected void _updateMsbDisplay() {
 

@@ -43,8 +43,6 @@ import java.util.StringTokenizer;
  * and should in future be either made the same class or share code by other
  * means such as inheritance.
  *
- * @see orac.jcmt.iter.SpIterScanObs
- *
  * @author Martin Folger (M.Folger@roe.ac.uk)
  */
 public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver, SpMapItem {

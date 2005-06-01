@@ -69,7 +69,7 @@ public class RangeBar extends JPanel implements MouseMotionListener, MouseListen
    *
    * Whether or not this is the sideband with the main line is irrelevant for this class.
    * The meaning of _associatedSideBand differs from that of
-   * {@link edfreq.region.SpectralRegionEditor._sideBand}.
+   * {@link edfreq.region.SpectralRegionEditor#_sideBand}.
    */
   private int _associatedSideBand = EdFreq.SIDE_BAND_USB;
 

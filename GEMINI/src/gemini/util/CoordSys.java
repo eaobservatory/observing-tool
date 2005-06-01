@@ -20,6 +20,7 @@ public class CoordSys
    public static final int FK4      = 1;
    public static final int AZ_EL    = 2;
    public static final int GAL      = 3;
+   public static final int HADEC    = 4;
 //   public static final int APPARENT = 4;
 
    /**
@@ -29,7 +30,8 @@ public class CoordSys
       "FK5 (J2000)",
       "FK4 (B1950)",
       "Az/El",
-      "Galactic"
+      "Galactic",
+      "HADEC"
    };
 
 
@@ -41,7 +43,8 @@ public class CoordSys
       "Ra",
       "Ra",
       "Az",
-      "Long"
+      "Long",
+      "HA"
    };
 
 
@@ -53,7 +56,8 @@ public class CoordSys
       "Dec",
       "Dec",
       "El",
-      "Lat"
+      "Lat",
+      "Dec"
    };
 
 
@@ -74,6 +78,9 @@ getSystem(String coordSysString)
       return AZ_EL;
    } else if (coordSysString.indexOf("GAL") != -1) {
       return GAL;
+   }
+   else if (coordSysString.indexOf("HA") != -1 ) {
+       return HADEC;
    }
 //   } else if (coordSysString.indexOf("APP") != -1) {
 //      return APPARENT;

@@ -303,7 +303,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Flag to indicate the Acsis configuration XML is being parsed.
    *
-   * The Acsis configuration XML ({@linl XML_ELEMENT_ACSIS_CONFIGURATION})
+   * The Acsis configuration XML ({@link #XML_ELEMENT_ACSIS_CONFIGURATION})
    * is only an output format. It must be ignored when reading in SpInstHeterodyne XML. 
    */
   private boolean _processingAcsisConfigurationXml = false;
@@ -337,7 +337,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Most of the default values (or allowed values) for this item are specified in the
    * configuration files EDFREQ/cfg/edfreq/acsisCfg.xml and EDFREQ/cfg/edfreq/dasCfg.xml
    * The Heterodyne Editor class {@link jcmt.inst.editor.EdCompInstHeterodyne}.
-   * Wheb the {@link jcmt.inst.editor.EdCompInstHeterodyne._updateWidgets()}
+   * Wheb the {@link jcmt.inst.editor.EdCompInstHeterodyne#_updateWidgets()}
    * method of is called for the first time then it can check whether the values of this
    * SpInstHeterodyne item have been initialised (by calling {@link #valuesInitialised()}).
    * If they have not then the initialiseValues() can be used to fill in the values
@@ -395,7 +395,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Indicates whether the method initialiseValues() has been called.
    *
-   * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String)
+   * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String, String, String, String)
    */
   public boolean valuesInitialised() {
     return _valuesInitialised;
@@ -673,7 +673,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Get molecule of specified subsystem.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem Number of subsystem (starting at 0).
+   * @return  The name of the molecule species currently set for the specified subsystem
    */
   public String getMolecule(int subsystem) {
     return _avTable.get(ATTR_MOLECULE, subsystem);
@@ -682,7 +683,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Set molecule of specified subsystem.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param value  The name of the molecule species observed in this subsystem
+   * @param subsystem Number of subsystem (starting at 0).
    */
   public void setMolecule(String value, int subsystem) {
     _avTable.set(ATTR_MOLECULE, value, subsystem);
@@ -692,7 +694,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Get transition of specified subsystem.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem  Subsystem number (starting at 0).
+   * @return  The molecular transistion currently set for the specified subsystem
    */
   public String getTransition(int subsystem) {
     return _avTable.get(ATTR_TRANSITION, subsystem);
@@ -701,7 +704,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Set transition of specified subsystem.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param value  The transition of the molecule species observed in this subsystem
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setTransition(String value, int subsystem) {
     _avTable.set(ATTR_TRANSITION, value, subsystem);
@@ -722,7 +726,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * data reduction purposes. The rest frequency of the top subsystem is also used to recalculate
    * the LO1 at the time of the observation.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public double getRestFrequency(int subsystem) {
     return _avTable.getDouble(ATTR_REST_FREQUENCY, subsystem, 0.0);
@@ -732,7 +736,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Set rest frequency for specified subsystem.
    *
    * @see #getRestFrequency(int)
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setRestFrequency(double value, int subsystem) {
     _avTable.set(ATTR_REST_FREQUENCY, value, subsystem);
@@ -742,7 +746,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * Set rest frequency for specified subsystem.
    *
    * @see #getRestFrequency(int)
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setRestFrequency(String value, int subsystem) {
     setRestFrequency(Format.toDouble(value), subsystem);
@@ -771,6 +775,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public double getCentreFrequency(int subsystem) {
     return _avTable.getDouble(ATTR_CENTRE_FREQUENCY, subsystem, 0.0);
@@ -779,7 +784,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Set centre frequency (IF) of specified subsystem.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setCentreFrequency(double value, int subsystem) {
     _avTable.set(ATTR_CENTRE_FREQUENCY, value, subsystem);
@@ -788,7 +793,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /**
    * Set centre frequency (IF) of specified subsystem.
    *
-   * @param Number of subsystems (starting at 0).
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setCentreFrequency(String value, int subsystem) {
     setCentreFrequency(Format.toDouble(value), subsystem);
@@ -859,6 +864,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public double getBandWidth(int subsystem) {
     return _avTable.getDouble(ATTR_BANDWIDTH, subsystem, 0.0);
@@ -870,6 +876,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setBandWidth(double value, int subsystem) {
     _avTable.set(ATTR_BANDWIDTH, value, subsystem);
@@ -887,6 +894,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setBandWidth(String value, int subsystem) {
     setBandWidth(Format.toDouble(value), subsystem);
@@ -899,6 +907,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public int getNumHybridSubBands(int subsystem) {
     return _avTable.getInt(ATTR_HYBRID_SUBBANDS, subsystem, 0);
@@ -910,6 +919,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setNumHybridSubBands(int value, int subsystem) {
     _avTable.set(ATTR_HYBRID_SUBBANDS, value, subsystem);
@@ -921,6 +931,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setNumHybridSubBands(String value, int subsystem) {
     setNumHybridSubBands(Format.toInt(value), subsystem);
@@ -933,6 +944,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public int getChannels(int subsystem) {
     return _avTable.getInt(ATTR_CHANNELS, subsystem, 0);
@@ -944,6 +956,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param Number of subsystems (starting at 0).
    *
    * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
+   * @param subsystem  Subsystem number (starting at 0).
    */
   public void setChannels(int value, int subsystem) {
     _avTable.set(ATTR_CHANNELS, value, subsystem);

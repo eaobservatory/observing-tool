@@ -6,9 +6,26 @@
 //
 package gemini.sp;
 
+import gemini.util.ConfigWriter;
+import gemini.util.CoordSys;
+
 import gemini.sp.iter.SpIterFolder;
+import gemini.sp.iter.SpIterMicroStep;
+import gemini.sp.iter.SpIterOffset;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.obsComp.SpMicroStepUser;
+import gemini.sp.obsComp.SpTelescopeObsComp;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
 import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 /**
  * The observation item.  In addition to other attributes, the SpObs class
@@ -16,7 +33,7 @@ import java.util.Enumeration;
  * to the next or previous observation (if any).
  * 17Apr00 AB Added standard flag to this.
  */
-public class SpObs extends SpMSB
+public class SpObs extends SpMSB implements SpTranslatable
 {
    /**
     * This attribute determines whether or not the observation is chained
@@ -30,7 +47,7 @@ public class SpObs extends SpMSB
     */
     public static final String ATTR_CHAINED_PREV = "chainedToPrev";
 
-   /** This attribute records if the obs. is to be treated as a "standard"*/
+   /** This attribute records if the observation is to be treated as a "standard"*/
    public static final String ATTR_STANDARD = "standard";
 
    /**
@@ -387,6 +404,491 @@ getIterFolder()
   }
 
   return null;
+}
+
+public void translate (Vector v) throws SpTranslationNotSupportedException {
+    v.clear();
+
+    // Find the instrument, and create the name for the exec file.
+    SpInstObsComp inst = SpTreeMan.findInstrument(this);
+    Hashtable defaultsTable = inst.getConfigItems();
+    String instName = (String)defaultsTable.get("instrument");
+
+    SpTelescopeObsComp obsComp = (SpTelescopeObsComp)SpTreeMan.findTargetList(this);
+    SpTelescopePos basePos = null; 
+    int spherSys = 0;
+    int coordSys = 0;
+    boolean hasGuide = true;
+    if ( obsComp != null ) {
+        basePos = obsComp.getPosList().getBasePosition();
+        spherSys = basePos.getSystemType();
+        coordSys = basePos.getCoordSys();
+    }
+
+    ConfigWriter confWriter = ConfigWriter.getNewInstance();
+    try {
+        confWriter.write(defaultsTable);
+    }
+    catch (IOException ioe) {
+        System.out.println("ERROR:Unable to write default config...");
+        ioe.printStackTrace();
+        return;
+    }
+
+    // Set up the initials headings
+    v.add( "define_inst " + instName + " " + 
+            (String)defaultsTable.get("instAperX") + " " + 
+            (String)defaultsTable.get("instAperY") + " " +
+            (String)defaultsTable.get("instAperZ") + " " +
+            (String)defaultsTable.get("instAperL") );
+    v.add("-set_inst " + instName);
+    v.add("setHeader STANDARD " + (getIsStandard()?"T":"F") );
+    if ( obsComp != null ) {
+        try {
+            ConfigWriter.getCurrentInstance().writeTelFile(obsComp.writeTCSXML());
+            String targetName = basePos.getName().replaceAll("\\s", "").replaceAll(",", "");
+            v.add("telConfig " + ConfigWriter.getCurrentInstance().getTelFile() + " " + targetName);
+        }
+        catch (IOException ioe) {
+            System.out.println("Unable to write TCS xml, even though a target component exists");
+        }
+    }
+    if ( instName.equals("UFTI") || instName.equals("UIST") || instName.equals("CGS4") ) {
+        v.add("-SET_CHOPBEAM MIDDLE");
+    }
+    else {
+//         v.add("-SET_CHOPBEAM A");
+    }
+    if ( obsComp != null ) {
+        v.add("break");
+        if ( spherSys != SpTelescopePos.SYSTEM_SPHERICAL ) {
+            v.add("-system APP ALL");
+        }
+        else {
+            switch (coordSys) {
+                case CoordSys.FK5:
+                    v.add("-system J2000 ALL");
+                    break;
+                case CoordSys.FK4:
+                    v.add("-system B1950 ALL");
+                    break;
+                case CoordSys.AZ_EL:
+                    v.add("-system AZEL ALL");
+                    break;
+                case CoordSys.GAL:
+                    v.add("-system galactic ALL");
+                    break;
+                default:
+                    v.add("-system J2000 ALL");
+                    break;
+            }
+        }
+        v.add("do 1 _slew_all");
+        v.add("GUIDE ON");
+        v.add("do 1 _slew_guide");
+    }
+    // Hackily we need to do this twice since we neeed to make sure the default 
+    // config is read twice, though maybe not for CGS4
+    v.add("loadConfig " + confWriter.getCurrentInstance().getCurrentName() );
+    v.add("loadConfig " + confWriter.getCurrentInstance().getCurrentName() );
+    if ( defaultsTable.containsKey("posAngle") ) {
+        v.add("setrotator " + defaultsTable.get("posAngle"));
+        if ( "UIST".equals(instName) ) {
+            v.add("setrot_offset 0.0");
+        }
+    }
+
+    if ( instName.equals("WFCAM") && obsComp != null ) {
+        if(obsComp.getPositionInTile() == SpTelescopeObsComp.NOT_IN_TILE) {
+            v.add("noTile");
+        }
+        else {
+            v.add("startTile");
+        }
+    }
+    v.add("startGroup");
+    if ( getTable().exists("msbid") ) {
+        v.add("setHeader MSBID " + getTable().get("msbid"));
+    }
+    if ( getTable().exists("project") ) {
+        v.add("setHeader PROJECT " + getTable().get("project") );
+    }
+    if ( isMSB() ) {
+        if ( getTable().exists("remote_trigger_src") ) {
+            v.add("-setHeader RMTAGENT " + getTable().get("remote_trigger_src"));
+        }
+        else {
+            v.add("-setHeader RMTAGENT none");
+        }
+        if ( getTable().exists("remote_trigger_id") ) {
+            v.add("-setHeader AGENTID " + getTable().get("remote_trigger_id"));
+        }
+        else {
+            v.add("-setHeader AGENTID none");
+        }
+    }
+    else {
+        if ( parent().getTable().exists("remote_trigger_src") ) {
+            v.add("-setHeader RMTAGENT " + parent().getTable().get("remote_trigger_src"));
+        }
+        else {
+            v.add("-setHeader RMTAGENT none");
+        }
+        if ( parent().getTable().exists("remote_trigger_id") ) {
+            v.add("-setHeader AGENTID " + parent().getTable().get("remote_trigger_id"));
+        }
+        else {
+            v.add("-setHeader AGENTID none");
+        }
+    }
+
+    /*
+    if ( instName.equals("CGS4") ) {
+        // insert peakup
+        v.add("set OBJECT");
+        v.add("break");
+    }
+    */
+    if ( !("WFCAM".equalsIgnoreCase(instName)) ) {
+        /*
+        v.add("set OBJECT");
+        v.add("break");
+        */
+    }
+    
+
+    try {
+        Enumeration e = this.children();
+        while ( e.hasMoreElements() ) {
+            SpItem child = (SpItem)e.nextElement();
+            if ( child instanceof SpTranslatable ) {
+                ((SpTranslatable)child).translate(v);
+            }
+        }
+    }
+    catch (SpTranslationNotSupportedException e) {
+        e.printStackTrace();
+    }
+
+    if ( instName.equals("UFTI") || ( instName.equals("UIST") && "imaging".equals((String)defaultsTable.get("camera")) ) ) {
+        v.add("breakPoint");
+        v.add("set DARK");
+    }
+
+    v.add("-ready");
+
+    if ( !("WFCAM".equals(instName)) ) {
+        addBreak(v);
+    }
+    else {
+        addWFCAMBreak (v);
+    }
+
+    // A couple of final tidy up operations
+    tidyNOffsets(v, inst);
+    tidyInstDefns(v);
+    tidyDuplicates(v);
+
+    try {
+        FileWriter fw = new FileWriter( confWriter.getCurrentInstance().getExecName() );
+        for ( int i=0; i<v.size(); i++ ) {
+            fw.write( (String)v.get(i) + "\n");
+        }
+        fw.close();
+    }
+    catch (IOException ioe) {
+        ioe.printStackTrace();
+    }
+    catch (Exception e) {
+        e.printStackTrace();
+    }
+    
+}
+
+private void tidyNOffsets(Vector v, SpInstObsComp inst ) {
+    int nOffsets = 0;
+    // Get all the child offsets
+    Vector offsets = SpTreeMan.findAllItems(this, "gemini.sp.iter.SpIterOffset");
+    if ( offsets != null ) {
+        for ( int i=0; i<offsets.size(); i++ ) {
+            SpIterOffset offset = (SpIterOffset)offsets.get(i);
+            int myNOffs = offset.getPosList().size();
+            if ( offset.hasNamedSkyChild() ) {
+                myNOffs *= (offset.getNumIterObserveChildren(offset));
+            }
+            Vector uSteps = SpTreeMan.findAllItems(offset, "gemini.sp.iter.SpIterMicroStep");
+            if ( uSteps != null && uSteps.size() != 0 && inst instanceof SpMicroStepUser ) {
+                SpIterMicroStep us = (SpIterMicroStep) uSteps.get(0);
+                myNOffs *= us.getNOffsets();
+            }
+            nOffsets += myNOffs;
+        }
+    }
+
+    // Now go through adding to nOffsets for eacg ADDOFFEST instruction.  These
+    // are added in the case wherer an SpIterObserveBase is not inside an offset.
+    // We only need to add them to the first breakpoint
+    boolean atBreakPoint = false;
+    for ( int i=0; i<v.size(); i++ ) {
+        if ( ((String)v.get(i)).equals("breakPoint") ) {
+            atBreakPoint = true;
+        }
+
+        if ( ((String)v.get(i)).equals("ADDOFFSET") ) {
+            if ( !atBreakPoint ) {
+                nOffsets++;
+            }
+            v.remove(i);
+            // rewind so we don't miss the breakpoint
+            i--;
+        }
+    }
+
+    // Now add to the sequence after the startGroup
+    for ( int i=0; i<v.size(); i++ ) {
+        if ( ((String)v.get(i)).equalsIgnoreCase("startGroup") ) {
+            v.add(i+1, "-setHeader NOFFSETS " + nOffsets);
+            break;
+        }
+    }
+}
+
+private void tidyDuplicates(Vector v) {
+    // Remove redundant loadConfigs, offsets, set commands or any case where two sequential lines are 
+    // identical
+    String lastLoadConfig = "";
+    String lastOffset = "";
+    String lastGRPMEM = "";
+    String lastDRRECIPE = "";
+    for ( int i=1; i<v.size(); i++ ) {
+        if ( ((String)v.get(i)).equals( (String)v.get(i-1) ) ) {
+            v.remove(i-1);
+            i--;
+        }
+
+        if ( ((String)v.get(i)).startsWith("loadConfig") ) {
+            if ( lastLoadConfig.equals( (String)v.get(i) ) ) {
+                v.remove(i);
+                i--;
+            }
+            else if ( ((String)v.get(i+1)).startsWith("loadConfig") ) {
+                // This can happen as we move the default loadConfig down but it is never used
+                v.remove(i);
+                lastLoadConfig = (String)v.get(i);
+            }
+            else {
+                lastLoadConfig = (String)v.get(i);
+            }
+        }
+
+        if ( ((String)v.get(i)).startsWith("offset") ) {
+            if ( lastOffset.equals( (String)v.get(i) ) ) {
+                v.remove(i);
+                i--;
+            }
+            else {
+                lastOffset = (String)v.get(i);
+            }
+        }
+
+        if ( ((String)v.get(i)).startsWith("setHeader GRPMEM ") ) {
+            String nextGrpMem = (String) v.get(i);
+            String nextRecipe = (String) v.get(i+1);
+            if ( nextRecipe.equals(lastDRRECIPE) && nextGrpMem.equals(lastGRPMEM) ) {
+                // Remove the two entries
+                v.remove(i+1);
+                v.remove(i);
+                i--;
+            }
+            else {
+                lastGRPMEM = nextGrpMem;
+                lastDRRECIPE = nextRecipe;
+            }
+        }
+    }
+
+    // For simplicity do another pass to remove redundant set OBJECT commands, since these
+    // are time consuming
+    boolean setCommandFound = false;
+    boolean loadConfigFound = false;
+    int startIndex = v.indexOf("set OBJECT") + 1;
+    for ( int i=startIndex; i<v.size(); i++ ) {
+        if ( "set OBJECT".equals( (String)v.get(i) ) ) {
+            if ( !setCommandFound && !loadConfigFound ) {
+                v.remove(i);
+            }
+            else {
+                setCommandFound = false;
+                loadConfigFound = false;
+            }
+        }
+        else if ( ((String)v.get(i)).startsWith("loadConfig") ) {
+            loadConfigFound = true;
+        }
+        else if ( ((String)v.get(i)).startsWith("set ") ) {
+            setCommandFound = true;
+        }
+    }
+}
+
+private void tidyDRRecipe(Vector v) {
+    String recipeString1 = "";
+    String recipeString2 = "";
+    String recipeString3 = "";
+
+    for ( int i=0; i<v.size(); i++ ) {
+        if (  ((String)v.get(i)).startsWith("setHeader GRPMEM") ) {
+            if ( ((String)v.get(i)).equals(recipeString1) &&
+                 ((String)v.get(i+1)).equals(recipeString2) &&
+                 ((String)v.get(i+2)).equals(recipeString3) ) {
+                // We can delete the current entry since it is the same as the last
+                v.remove(i+2);
+                v.remove(i+1);
+                v.remove(i);
+            }
+            else {
+                // Replace the strings...
+                try {
+                    recipeString1 = (String)v.get(i);
+                    recipeString2 = (String)v.get(i+1);
+                    recipeString3 = (String)v.get(i+2);
+                }
+                catch (Exception e) {
+                    // We have probably overflowed v.size, so just break out
+                    break;
+                }
+            }
+        }
+    }
+}
+
+private void tidyInstDefns(Vector v) {
+    String defn = "";
+    // To make this robust, rather than just comparing strings, we will compare the 
+    // numerical value of the offsets
+    double xAper = 0.0;
+    double yAper = 0.0;
+    double zAper = 0.0;
+    double lAper = 0.0;
+    for ( int i=0; i<v.size(); i++ ) {
+        if ( ((String)v.get(i)).startsWith("define_inst") ) {
+            String [] apers = ((String)v.get(i)).split("\\s+");
+            double thisX = Double.parseDouble(apers[2]);
+            double thisY = Double.parseDouble(apers[3]);
+            double thisZ = Double.parseDouble(apers[4]);
+            double thisL = Double.parseDouble(apers[5]);
+
+            if ( (thisX == xAper) && (thisY == yAper) && (thisZ == zAper) && (thisL == lAper) ) {
+                v.remove(i);
+            }
+            else {
+                xAper = thisX;
+                yAper = thisY;
+                zAper = thisZ;
+                lAper = thisL;
+            }
+        }
+    }
+}
+
+private void addBreak(Vector v) {
+    int objectIndex = v.indexOf("set OBJECT");
+    int skyIndex    = v.indexOf("set SKY");
+    boolean offsetFound = false;
+    int offsetIndex;
+    for ( offsetIndex=0; offsetIndex<v.size(); offsetIndex++ ) {
+        if ( ((String)v.get(offsetIndex)).startsWith("offset") ) {
+            offsetFound = true;
+            break;
+        }
+    }
+
+    if ( objectIndex == -1 && skyIndex == -1 ) return;
+
+    // Find the default loadConfig
+    String defaultConfigPattern = "loadConfig .*_1";
+    String defaultConfig = "";
+    for ( int i=0; i<v.size(); i++) {
+        defaultConfig = (String)v.get(i);
+        if (defaultConfig.matches(defaultConfigPattern)) {
+            break;
+        }
+    }
+            
+    if ( !offsetFound ) {
+        // If there are no SKYs, make sure we have a break after 1st "set OBEJCT"
+        if ( skyIndex == -1 ) {
+            if ( !("break".equals(v.get(objectIndex + 1))) ) {
+                v.add(objectIndex+1, "break");
+            }
+        }
+        else {
+            // If object index < sky index, make sure we have a break after 1st "set OBEJCT"
+            if ( objectIndex < skyIndex ) {
+                if ( !("break".equals(v.get(objectIndex + 1))) ) {
+                    v.add(objectIndex+1, "break");
+                }
+            }
+            else {
+                // Insert a "set OBJECT/break" before the previous slew command - if any
+                for ( int i=skyIndex; i >= 0; i-- ) {
+                    if ( ((String)v.get(i)).startsWith ("slew MAIN") || ((String)v.get(i)).startsWith("offset") ) {
+                        v.add (i-1, "break");
+                        v.add (i-1, "set OBJECT");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    else {  // We have an offset iterator present
+        v.add (offsetIndex, "break");
+        v.add (offsetIndex, "set OBJECT");
+    }
+
+    // Now go back from the first set OBJECT to work out if we need to load a default config
+    objectIndex = v.indexOf("set OBJECT");
+    String observePattern = "do \\d+ _observe";
+    for ( int i=objectIndex; i>=0; i-- ) {
+        if ( ((String)v.get(i)).startsWith("loadConfig") ) {
+            // No need to do anything
+            break;
+        }
+        else if ( ((String)v.get(i)).matches(observePattern) ) {
+            // We need to put the default config before the set OBJECT
+            v.add(objectIndex, defaultConfig);
+            break;
+        }
+    }
+    /*
+    if ( skyIndex == -1 || objectIndex < skyIndex ) {
+        if ( !("break".equals((String)v.get(objectIndex+1))) ) {
+            v.add( objectIndex+1, "break");
+        }
+    }
+    else {
+        if ( !("break".equals((String)v.get(skyIndex+1))) ) {
+            v.add( skyIndex+1, "break");
+        }
+    }
+    */
+}
+
+private void addWFCAMBreak(Vector v) {
+    /*
+  int index=0;
+  while (true) {
+    index = v.indexOf("set OBJECT", index);
+    if (index == -1) break;
+    v.add(index+1, "break");
+    index++;
+  }
+     */
+    // Just make sure there is a break after the first set OBJECT
+    int index = v.indexOf("set OBJECT");
+    if (index != -1 ) {
+        v.add(index+1, "break");
+    }
 }
 
 }
