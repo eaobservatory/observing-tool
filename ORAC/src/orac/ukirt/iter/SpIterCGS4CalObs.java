@@ -671,15 +671,12 @@ getDefaultNdFilter()
 	 int instdi = inst.getDisperserIndex();
          double instcwl = inst.getCentralWavelength();
          if (instdi == 0) {
-             System.out.println("ARCLAMPS1=" + ARCLAMPS1);
 	   int pos = ARCLAMPS1.rangeInColumn(instcwl, 0);
 	   ndFilter = Boolean.valueOf ((String) ARCLAMPS1.elementAt(pos, 3)).booleanValue();
          }else if (instdi == 1) {
-             System.out.println("ARCLAMPS2=" + ARCLAMPS2);
 	   int pos = ARCLAMPS2.rangeInColumn(instcwl, 0);
 	   ndFilter = Boolean.valueOf ((String) ARCLAMPS2.elementAt(pos, 3)).booleanValue();
          }else if (instdi == 2) {
-             System.out.println("ARCLAMPS3=" + ARCLAMPS3);
 	   int pos = ARCLAMPS3.rangeInColumn(instcwl, 0);
 	   ndFilter = Boolean.valueOf ((String) ARCLAMPS3.elementAt(pos, 3)).booleanValue();
          }
@@ -781,6 +778,7 @@ public void translate(Vector v) throws SpTranslationNotSupportedException {
     }
     v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
     if ( getCalType() == FLAT ) {
+        v.add("break");
         v.add("set FLAT");
     }
     else {

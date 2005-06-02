@@ -145,6 +145,19 @@ public void translate( Vector v ) throws SpTranslationNotSupportedException {
     }
 
     Hashtable defaultsTable = inst.getConfigItems();
+
+    if ( "CGS4".equalsIgnoreCase((String)defaultsTable.get("instrument")) ) {
+        // If we are inside a CGS4 iterator, we need to pick up it's hashtable
+        SpItem parent = parent();
+        while ( parent != null ) {
+            if (parent instanceof SpIterCGS4) {
+                defaultsTable = ((SpIterCGS4)parent).getIterTable();
+                break;
+            }
+            parent = parent.parent();
+        }
+    }
+
     
     // Set the number of dark exposures
     defaultsTable.put("darkNumExp", "" + getCoadds() );

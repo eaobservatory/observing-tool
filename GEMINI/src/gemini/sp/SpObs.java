@@ -542,21 +542,6 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
         }
     }
 
-    /*
-    if ( instName.equals("CGS4") ) {
-        // insert peakup
-        v.add("set OBJECT");
-        v.add("break");
-    }
-    */
-    if ( !("WFCAM".equalsIgnoreCase(instName)) ) {
-        /*
-        v.add("set OBJECT");
-        v.add("break");
-        */
-    }
-    
-
     try {
         Enumeration e = this.children();
         while ( e.hasMoreElements() ) {
@@ -577,12 +562,7 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
 
     v.add("-ready");
 
-    if ( !("WFCAM".equals(instName)) ) {
-        addBreak(v);
-    }
-    else {
-        addWFCAMBreak (v);
-    }
+    addBreak(v);
 
     // A couple of final tidy up operations
     tidyNOffsets(v, inst);
@@ -665,7 +645,9 @@ private void tidyDuplicates(Vector v) {
             v.remove(i-1);
             i--;
         }
+    }
 
+    for ( int i=1; i<v.size(); i++ ) {
         if ( ((String)v.get(i)).startsWith("loadConfig") ) {
             if ( lastLoadConfig.equals( (String)v.get(i) ) ) {
                 v.remove(i);
@@ -680,7 +662,9 @@ private void tidyDuplicates(Vector v) {
                 lastLoadConfig = (String)v.get(i);
             }
         }
+    }
 
+    for ( int i=1; i<v.size(); i++ ) {
         if ( ((String)v.get(i)).startsWith("offset") ) {
             if ( lastOffset.equals( (String)v.get(i) ) ) {
                 v.remove(i);
@@ -690,7 +674,9 @@ private void tidyDuplicates(Vector v) {
                 lastOffset = (String)v.get(i);
             }
         }
+    }
 
+    for ( int i=1; i<v.size(); i++ ) {
         if ( ((String)v.get(i)).startsWith("setHeader GRPMEM ") ) {
             String nextGrpMem = (String) v.get(i);
             String nextRecipe = (String) v.get(i+1);
@@ -860,18 +846,6 @@ private void addBreak(Vector v) {
             break;
         }
     }
-    /*
-    if ( skyIndex == -1 || objectIndex < skyIndex ) {
-        if ( !("break".equals((String)v.get(objectIndex+1))) ) {
-            v.add( objectIndex+1, "break");
-        }
-    }
-    else {
-        if ( !("break".equals((String)v.get(skyIndex+1))) ) {
-            v.add( skyIndex+1, "break");
-        }
-    }
-    */
 }
 
 private void addWFCAMBreak(Vector v) {

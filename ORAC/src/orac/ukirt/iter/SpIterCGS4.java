@@ -33,6 +33,8 @@ public class SpIterCGS4 extends SpIterConfigObsUKIRT implements SpTranslatable
 
     private IterConfigItem iciInstAperL;
 
+    private Hashtable _myTable = null;
+
 // Register the prototype.
 static {
    SpFactory.registerPrototype(new SpIterCGS4());
@@ -153,47 +155,45 @@ public void translate( Vector v ) throws SpTranslationNotSupportedException{
     List iterList = getConfigAttribs();
     int nConfigs = getConfigSteps((String)iterList.get(0)).size();
     for ( int i=0; i<nConfigs; i++ ) {
-        Hashtable configTable = inst.getConfigItems();
+        _myTable = inst.getConfigItems();
         for ( int j=0; j<iterList.size(); j++ ) {
             String attrib = (String)iterList.get(j);
             List iterVals = getConfigSteps(attrib);
             if (  iterList.contains("exposureTimeIter") ) {
-                configTable.put("expTime", (String)getConfigSteps("exposureTimeIter").get(i) );
+                _myTable.put("expTime", (String)getConfigSteps("exposureTimeIter").get(i) );
             }
             if ( iterList.contains("coaddsIter") ) {
-                configTable.put( "objNumExp", (String)getConfigSteps("coaddsIter").get(i) );
+                _myTable.put( "objNumExp", (String)getConfigSteps("coaddsIter").get(i) );
             }
             if ( iterList.contains("acqModeIter") ) {
-                configTable.put("readMode", (String)getConfigSteps("acqModeIter").get(i) );
+                _myTable.put("readMode", (String)getConfigSteps("acqModeIter").get(i) );
             }
             if ( iterList.contains("instAperXIter") ) {
-                configTable.put("instAperX", (String)getConfigSteps("instAperXIter").get(i) );
+                _myTable.put("instAperX", (String)getConfigSteps("instAperXIter").get(i) );
             }
             if ( iterList.contains("instAperYIter") ) {
-                configTable.put("instAperY", (String)getConfigSteps("instAperYIter").get(i) );
+                _myTable.put("instAperY", (String)getConfigSteps("instAperYIter").get(i) );
             }
             if ( iterList.contains("instAperZIter") ) {
-                configTable.put("instAperZ", (String)getConfigSteps("instAperZIter").get(i) );
+                _myTable.put("instAperZ", (String)getConfigSteps("instAperZIter").get(i) );
             }
             if ( iterList.contains("instAperLIter") ) {
-                configTable.put("instAperL", (String)getConfigSteps("instAperLIter").get(i) );
-                configTable.put("centralWavelength", (String)getConfigSteps("instAperLIter").get(i) );
+                _myTable.put("instAperL", (String)getConfigSteps("instAperLIter").get(i) );
+                _myTable.put("centralWavelength", (String)getConfigSteps("instAperLIter").get(i) );
             }
 
-            String xAper = " " +(String)configTable.get("instAperX");
-            String yAper = " " +(String)configTable.get("instAperY");
-            String zAper = " " +(String)configTable.get("instAperZ");
-            String lAper = " " +(String)configTable.get("instAperL");
+            String xAper = " " +(String)_myTable.get("instAperX");
+            String yAper = " " +(String)_myTable.get("instAperY");
+            String zAper = " " +(String)_myTable.get("instAperZ");
+            String lAper = " " +(String)_myTable.get("instAperL");
 
             try {
-                ConfigWriter.getCurrentInstance().write(configTable);
+                ConfigWriter.getCurrentInstance().write(_myTable);
             }
             catch (Exception e) {
                 throw new SpTranslationNotSupportedException("Unable to write config file for CGS4 iterator:"+e.getMessage());
             }
             v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName());
-            v.add("set OBJECT");
-            v.add("define_inst CGS4" + xAper + yAper + zAper + lAper);
 
             // translate all the cildren...
             Enumeration e = this.children();
@@ -206,5 +206,17 @@ public void translate( Vector v ) throws SpTranslationNotSupportedException{
         }
     }
 }
+
+/**
+ * Gets the hashtable created by this iterator
+ */
+public Hashtable getIterTable() {
+    Hashtable clone = null;
+    if ( _myTable != null ) {
+        clone = new Hashtable(_myTable);
+    }
+    return clone;
+}
+
 
 }

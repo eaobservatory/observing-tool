@@ -1326,7 +1326,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
         t.put("darkSavedInt", "1");
         t.put("biasExpTime", ""+getExpTime());
         t.put("biasNumExp", ""+getCoadds());
-        t.put("biasSavedInt", "1");
+        t.put("biasSavedInt", "3");
         t.put("arcCalLamp", "argon");
         t.put("arcFilter", getFilter());
         t.put("arcCvfWavelength", ""+getCvfOffset());

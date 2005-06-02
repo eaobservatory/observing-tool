@@ -207,11 +207,24 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
 
     // Now get the config items and update them for this bias observation
     Hashtable t = inst.getConfigItems();
+
+    if ( "CGS4".equalsIgnoreCase((String)t.get("instrument")) ) {
+        // If we are inside a CGS4 iterator, we need to pick up it's hashtable
+        SpItem parent = parent();
+        while ( parent != null ) {
+            if (parent instanceof SpIterCGS4) {
+                t = ((SpIterCGS4)parent).getIterTable();
+                break;
+            }
+            parent = parent.parent();
+        }
+    }
+
     // CGS4 specific
     if ( t.containsKey("biasExpTime") ) {
         t.put("biasExpTime", ""+getExposureTime());
     }
-    if ( t.contains("biasNumExp") ) {
+    if ( t.containsKey("biasNumExp") ) {
         t.put("biasNumExp", ""+getCoadds());
     }
 
