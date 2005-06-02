@@ -778,8 +778,8 @@ public void translate(Vector v) throws SpTranslationNotSupportedException {
     }
     v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
     if ( getCalType() == FLAT ) {
-        v.add("break");
         v.add("set FLAT");
+        v.add("break");
     }
     else {
         v.add("set ARC");
