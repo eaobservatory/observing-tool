@@ -126,6 +126,7 @@ implements ListSelectionListener, KeyListener, Observer {
         _surveyGUI.chooseButton.addActionListener(this);
 
         _surveyGUI.selectField.addKeyListener( this );
+        _surveyGUI.titleField.addKeyListener( this);
 
         _surveyGUI.fieldTable.setModel(new DefaultTableModel() {
                 public boolean isCellEditable(int row, int column) {
@@ -234,7 +235,6 @@ implements ListSelectionListener, KeyListener, Observer {
         _ignoreEvents = true;
 
 
-        //    if(!_doNotUpdateSurveyWidgets) {
         _updateFieldTable();
         _ignoreEvents = true;
         _surveyGUI.fieldTable.setRowSelectionInterval(_surveyObsComp.getSelectedTelObsComp(),
@@ -247,7 +247,7 @@ implements ListSelectionListener, KeyListener, Observer {
             _surveyGUI.remaining.setSelectedIndex(_surveyObsComp.getRemaining(_surveyGUI.fieldTable.getSelectedRow()));
         }
         _surveyGUI.priority.setSelectedIndex(_surveyObsComp.getPriority(_surveyGUI.fieldTable.getSelectedRow()));
-        //    }
+        _surveyGUI.titleField.setText( _surveyObsComp.getTitleAttr() );
 
 
         if(_surveyObsComp.size() == 0) {
@@ -718,6 +718,9 @@ implements ListSelectionListener, KeyListener, Observer {
                 return;
             }
             _surveyObsComp.setChoose( _surveyGUI.selectField.getText() );
+        }
+        else if ( evt.getSource() == _surveyGUI.titleField ) {
+            _surveyObsComp.setTitleAttr(_surveyGUI.titleField.getText());
         }
     }
 

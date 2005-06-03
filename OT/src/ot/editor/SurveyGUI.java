@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EtchedBorder;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -41,8 +42,10 @@ public class SurveyGUI extends JPanel {
   JButton loadButton       = new JButton("Load");
   JTabbedPane tabbedPane   = new JTabbedPane();
   JCheckBox  chooseButton  = new JCheckBox("Select");
-  JLabel  selectLabel    = new JLabel("from 1");
+  JLabel  selectLabel      = new JLabel("from 1");
   JTextField selectField   = new JTextField();
+  JLabel titleLabel        = new JLabel("Title:");
+  JTextField titleField    = new JTextField();
 
   /**
    * List of fiels.
@@ -63,6 +66,7 @@ public class SurveyGUI extends JPanel {
     chooseButton.setFont(new java.awt.Font("Dialog", 0, 12));
     selectLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     tabbedPane.setFont(new java.awt.Font("Dialog", 0, 12));
+    titleLabel.setFont(new java.awt.Font("Dialog", 0, 12));
     selectField.setColumns(4);
 
     setLayout(new BorderLayout());
@@ -108,6 +112,13 @@ public class SurveyGUI extends JPanel {
     tabbedPane.add("Target Information", _telescopeGUI);
 
     add(tabbedPane, BorderLayout.CENTER);
+
+    JPanel northPanel = new JPanel();
+    ((FlowLayout)northPanel.getLayout()).setAlignment(FlowLayout.LEFT);
+    titleField.setColumns(15);
+    northPanel.add(titleLabel, BorderLayout.NORTH);
+    northPanel.add(titleField, BorderLayout.NORTH);
+    add(northPanel, BorderLayout.NORTH);
   }
 
   public TelescopeGUI getTelescopeGUI() {
