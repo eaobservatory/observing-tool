@@ -9,6 +9,7 @@ package orac.ukirt.iter;
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
