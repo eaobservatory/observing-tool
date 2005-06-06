@@ -192,10 +192,17 @@ public double getBoxSize() {
 public void translate( Vector v ) {
     // Get the DR recipe component so we can add the header information
     SpItem parent = parent();
-    while ( parent != null && !(parent instanceof SpObs) ) {
+    Vector recipes = null;
+    while ( parent != null ) {
+        if ( parent instanceof SpMSB ) {
+            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+            if ( recipes != null && recipes.size() > 0 ) {
+                break;
+            }
+        }
         parent = parent.parent();
     }
-    Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+
     if ( recipes != null && recipes.size() != 0 ) {
         SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
         v.add("setHeader GRPMEM " + (recipe.getSkyInGroup()? "T":"F"));
