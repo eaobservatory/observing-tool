@@ -23,6 +23,7 @@ import gemini.util.*;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpTranslatable;
@@ -420,11 +421,18 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
 
     // Set the DRRecipe Headers
     SpItem parent = parent();
-    while ( parent != null && !(parent instanceof SpObs) ) {
+    Vector recipes = null;
+    while ( parent != null ) {
+        if ( parent instanceof SpMSB ) {
+            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+            if ( recipes != null && recipes.size() > 0 ) {
+                break;
+            }
+        }
         parent = parent.parent();
     }
-    if ( parent != null ) {
-        Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+
+    if ( recipes != null && recipes.size() != 0 ) {
         if ( recipes != null && recipes.size() != 0 ) {
             SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
             switch (getCalType()) {
@@ -476,6 +484,5 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
         }
     }
 }
-
 
 }

@@ -21,6 +21,7 @@ import orac.ukirt.inst.SpInstUIST;
 import orac.ukirt.inst.SpDRRecipe;
 import gemini.sp.SpFactory;
 import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpType;
@@ -857,10 +858,17 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
     
     // We first need to get the DRRecipe component...
     SpItem parent = parent();
-    while ( parent != null && !(parent instanceof SpObs) ) {
+    Vector recipes = null;
+    while ( parent != null ) {
+        if ( parent instanceof SpMSB ) {
+            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+            if ( recipes != null && recipes.size() > 0 ) {
+                break;
+            }
+        }
         parent = parent.parent();
     }
-    Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+
     if ( recipes != null && recipes.size() != 0 ) {
         SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
         if ( isFlat ) {

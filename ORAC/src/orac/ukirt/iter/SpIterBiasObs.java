@@ -11,6 +11,7 @@ import gemini.util.ConfigWriter;
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpTranslatable;
@@ -219,7 +220,7 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
             parent = parent.parent();
         }
     }
-
+    
     // CGS4 specific
     if ( t.containsKey("biasExpTime") ) {
         t.put("biasExpTime", ""+getExposureTime());
@@ -283,16 +284,21 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
 
     // Now see if we have a DRRecipe component and write out it's headers if we do.
     SpItem parent = parent();
-    while ( parent != null && !(parent instanceof SpObs) ) {
+    Vector recipes = null;
+    while ( parent != null ) {
+        if ( parent instanceof SpMSB ) {
+            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+            if ( recipes != null && recipes.size() > 0 ) {
+                break;
+            }
+        }
         parent = parent.parent();
     }
-    if ( parent != null ) {
-        Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
-        if ( recipes != null && recipes.size() != 0 ) {
-            SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
-            v.add("setHeader GRPMEM " + (recipe.getBiasInGroup()? "T":"F"));
-            v.add("setHeader RECIPE " + recipe.getBiasRecipeName());
-        }
+
+    if ( recipes != null && recipes.size() != 0 ) {
+        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
+        v.add("setHeader GRPMEM " + (recipe.getBiasInGroup()? "T":"F"));
+        v.add("setHeader RECIPE " + recipe.getBiasRecipeName());
     }
 
     try {
@@ -306,8 +312,6 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
     v.add( "set BIAS");
     v.add("do " + getCount() + " _observe");
 }
-
-
 }
 
 

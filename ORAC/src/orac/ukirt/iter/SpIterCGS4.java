@@ -208,8 +208,8 @@ public void translate( Vector v ) throws SpTranslationNotSupportedException{
 }
 
 /**
- * Gets the hashtable created by this iterator
- */
+  * Gets the hashtable created by this iterator
+  */
 public Hashtable getIterTable() {
     Hashtable clone = null;
     if ( _myTable != null ) {
@@ -217,6 +217,5 @@ public Hashtable getIterTable() {
     }
     return clone;
 }
-
 
 }

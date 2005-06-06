@@ -23,6 +23,7 @@ import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpObs;
+import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
 
@@ -748,25 +749,30 @@ public void translate(Vector v) throws SpTranslationNotSupportedException {
     
     // Now get hold of any DRRecipe component
     SpItem parent = parent();
-    while ( parent != null && !(parent instanceof SpObs) ) {
+    Vector recipes = null;
+    while ( parent != null ) {
+        if ( parent instanceof SpMSB ) {
+            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
+            if ( recipes != null && recipes.size() > 0 ) {
+                break;
+            }
+        }
         parent = parent.parent();
     }
-    if ( parent != null ) {
-        Vector recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
-        if ( recipes != null && recipes.size() != 0 ) {
-            SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
-            switch (getCalType()) {
-                case FLAT:
-                    v.add("setHeader GRPMEM " + (recipe.getFlatInGroup()? "T":"F"));
-                    v.add("setHeader RECIPE " + recipe.getFlatRecipeName());
-                    break;
-                case ARC:
-                    v.add("setHeader GRPMEM " + (recipe.getArcInGroup()? "T":"F"));
-                    v.add("setHeader RECIPE " + recipe.getArcRecipeName());
-                    break;
-                default:
-                    // We should never get here
-            }
+
+    if ( recipes != null && recipes.size() != 0 ) {
+        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
+        switch (getCalType()) {
+            case FLAT:
+                v.add("setHeader GRPMEM " + (recipe.getFlatInGroup()? "T":"F"));
+                v.add("setHeader RECIPE " + recipe.getFlatRecipeName());
+                break;
+            case ARC:
+                v.add("setHeader GRPMEM " + (recipe.getArcInGroup()? "T":"F"));
+                v.add("setHeader RECIPE " + recipe.getArcRecipeName());
+                break;
+            default:
+                // We should never get here
         }
     }
 
