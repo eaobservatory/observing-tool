@@ -121,6 +121,10 @@ _init()
    tbw = (TextBoxWidgetExt) _w.Coadds;
    tbw.addWatcher( this );
 
+   // Focus
+   tbw = (TextBoxWidgetExt) _w.focusPos;
+   tbw.addWatcher( this );
+
    // default button
    cbw = (CommandButtonWidgetExt) _w.useDefaults;
 
@@ -154,6 +158,16 @@ _updateWidgets(Object source)
    ddlbw = (DropDownListBoxWidgetExt) _w.CalType;
    ddlbw.setChoices( ico.getCalTypeChoices() );
    ddlbw.setValue( ico.getCalType() );
+   if ( ico.getCalType() ==  this.FOCUS) {
+       _w.focusPos.setVisible(true);
+       _w.focusLabel.setVisible(true);
+       _w.focusPos.setEditable(true);
+   }
+   else {
+       _w.focusPos.setVisible(false);
+       _w.focusLabel.setVisible(false);
+       _w.focusPos.setEditable(false);
+   }
 
    // Update readMode selection box
    ddlbw = (DropDownListBoxWidgetExt) _w.ReadMode;
@@ -175,10 +189,21 @@ _updateWidgets(Object source)
        tbw = (TextBoxWidgetExt) _w.ExpTime;
        String expTimeStr =  String.valueOf(ico.getExposureTime());
        tbw.setValue(expTimeStr  );
+       if (_w.focusPos.isVisible() && _w.focusPos != source) _w.focusPos.setValue( ""+ico.getFocus() );
    }
 
    // Coadds
    if(_w.Coadds != source) {
+       tbw = (TextBoxWidgetExt) _w.Coadds;
+       tbw.setValue( ico.getCoaddsString() );
+       if (_w.focusPos.isVisible() && _w.focusPos != source) _w.focusPos.setValue( ""+ico.getFocus() );
+   }
+
+   // Focus
+   if (_w.focusPos != source) {
+       tbw = (TextBoxWidgetExt) _w.ExpTime;
+       String expTimeStr =  String.valueOf(ico.getExposureTime());
+       tbw.setValue(expTimeStr  );
        tbw = (TextBoxWidgetExt) _w.Coadds;
        tbw.setValue( ico.getCoaddsString() );
    }
@@ -216,6 +241,16 @@ textBoxKeyPress(TextBoxWidgetExt tbw)
       } catch( Exception ex) {
 	// ignore
       }
+   }
+   else if ( tbw == _w.focusPos ) {
+       try {
+           double focusValue = Double.parseDouble(tbw.getText());
+           ico.setFocus(focusValue);
+           _updateWidgets(_w.focusPos);
+       }
+       catch (Exception e) {
+           // ignored
+       }
    }
 // End of added by RDK
 }

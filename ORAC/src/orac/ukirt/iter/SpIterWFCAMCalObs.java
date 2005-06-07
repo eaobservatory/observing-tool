@@ -395,6 +395,14 @@ getDefaultCoadds()
    return dc;
 }
 
+public void setFocus (double value) {
+    _avTable.set( SpWFCAMCalConstants.ATTR_FOCUS, value);
+}
+
+public double getFocus () {
+    return _avTable.getDouble(SpWFCAMCalConstants.ATTR_FOCUS, 0.0);
+}
+
 /* 
 useDefaults - reset values so that defaults will get used
 */
@@ -405,6 +413,7 @@ useDefaults()
    _avTable.rm(SpWFCAMCalConstants.ATTR_FILTER);
    _avTable.rm(SpWFCAMCalConstants.ATTR_EXPOSURE_TIME);
    _avTable.rm(SpWFCAMCalConstants.ATTR_COADDS);
+   _avTable.rm(SpWFCAMCalConstants.ATTR_FOCUS);
 }
 
 public void translate (Vector v) throws SpTranslationNotSupportedException {
@@ -450,6 +459,9 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
             }
 
         }
+    }
+    if ( getCalType() == FOCUS && _avTable.exists(SpWFCAMCalConstants.ATTR_FOCUS) ) {
+        v.add("setFocus " + getFocus() );
     }
                     
 

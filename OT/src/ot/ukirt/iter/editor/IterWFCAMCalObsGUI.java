@@ -31,6 +31,8 @@ public class IterWFCAMCalObsGUI extends JPanel {
   JLabel jLabel6 = new JLabel();
   JLabel jLabel7 = new JLabel();
   DropDownListBoxWidgetExt CalType = new DropDownListBoxWidgetExt();
+  JLabel focusLabel = new JLabel();
+  TextBoxWidgetExt focusPos = new TextBoxWidgetExt();
   JLabel jLabel8 = new JLabel();
 
   public IterWFCAMCalObsGUI() {
@@ -60,10 +62,18 @@ public class IterWFCAMCalObsGUI extends JPanel {
     ExpTime.setEditable(true);
 //     ExpTime.setBackground(new Color(220, 220, 220));
     ExpTime.setBackground(Color.WHITE);
+    focusPos.setHorizontalAlignment(SwingConstants.CENTER);
+    focusPos.setBorder(BorderFactory.createLoweredBevelBorder());
+    focusPos.setEditable(true);
+    focusPos.setBackground(Color.WHITE);
     jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel3.setForeground(Color.black);
     jLabel3.setRequestFocusEnabled(true);
     jLabel3.setText("Exp time");
+    focusLabel.setFont(new java.awt.Font("Dialog", 0, 12));
+    focusLabel.setForeground(Color.black);
+    focusLabel.setRequestFocusEnabled(true);
+    focusLabel.setText("Focus Position");
     jLabel1.setText("Type");
     jLabel1.setForeground(Color.black);
     jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -104,36 +114,42 @@ public class IterWFCAMCalObsGUI extends JPanel {
     jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setForeground(Color.black);
     jLabel8.setText("Read Mode");
-    this.add(jLabel4,                                            new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 30, 0, 0), 0, 0));
-    this.add(ExpTime,                                                     new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 10, 10, 10), 70, 0));
-    this.add(jLabel3,                                                 new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(20, 10, 10, 0), 0, 0));
-    this.add(jLabel1,                                  new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
+
+
+    this.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 20, 0), 0, 0));
-    this.add(jLabel2,                                    new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 30, 10, 0), 0, 0));
-    this.add(ReadMode,                                            new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 10, 10, 0), 60, 0));
-    this.add(Filter,                                        new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 10, 10, 0), 60, 0));
-    this.add(useDefaults,                                          new GridBagConstraints(0, 6, 4, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 60, 0));
-    this.add(Coadds,                                        new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 10, 20), 0, 0));
-    this.add(jLabel5,                                 new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(20, 0, 0, -20), 0, 0));
-    this.add(repeatComboBox,                               new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 30, 0, 20), 0, 0));
-    this.add(jLabel6,                          new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, -10, 0, 0), 20, 0));
-    this.add(jLabel7,                 new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
-    this.add(CalType,               new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
+    this.add(CalType, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 20, 10), 30, 0));
-    this.add(jLabel8,        new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
+    this.add(jLabel8, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
             ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 10, 0), 0, 0));
+    this.add(ReadMode, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 10, 10, 0), 60, 0));
+    this.add(jLabel2, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 30, 10, 0), 0, 0));
+    this.add(Filter,  new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 10, 10, 0), 60, 0));
+    this.add(focusLabel, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 10, 10, 0), 0, 0));
+    this.add(focusPos, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 10, 10, 10), 70, 0));
+    this.add(jLabel3, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(20, 10, 10, 0), 0, 0));
+    this.add(ExpTime, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 10, 10, 10), 70, 0));
+    this.add(jLabel7, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
+    this.add(jLabel4, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 30, 0, 0), 0, 0));
+    this.add(Coadds, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 20, 10, 20), 0, 0));
+    this.add(jLabel5, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(20, 0, 0, -20), 0, 0));
+    this.add(repeatComboBox, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(20, 30, 0, 20), 0, 0));
+    this.add(jLabel6, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
+            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, -10, 0, 0), 20, 0));
+    this.add(useDefaults, new GridBagConstraints(0, 7, 4, 1, 0.0, 0.0
+            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 60, 0));
   }
 
 
