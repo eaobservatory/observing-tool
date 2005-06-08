@@ -568,6 +568,9 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
     tidyNOffsets(v, inst);
     tidyInstDefns(v);
     tidyDuplicates(v);
+    if ( "WFCAM".equalsIgnoreCase(instName) ) {
+        addGuideCommands(v);
+    }
 
     try {
         FileWriter fw = new FileWriter( confWriter.getCurrentInstance().getExecName() );
@@ -862,6 +865,28 @@ private void addWFCAMBreak(Vector v) {
     int index = v.indexOf("set OBJECT");
     if (index != -1 ) {
         v.add(index+1, "break");
+    }
+}
+
+private void addGuideCommands( Vector v ) {
+    String darkString    = "set DARK";
+    String biasString    = "set BIAS";
+    String focusString   = "set FOCUS";
+    String domeString    = "set DOMEFLAT";
+    String objectString  = "set OBJECT";
+    String skyString     = "set SKY";
+    String skyflatString = "set SKYFLAT";
+    for ( int i=0; i<v.size(); i++ ) {
+        String s = (String) v.get(i);
+        if ( s.equals(darkString) || s.equals(biasString) || s.equals(focusString) || s.equals(domeString) ) {
+            // Add a GUIDE OFF before this command
+            v.add(i++, "GUIDE OFF");
+        }
+        else if ( s.equals(objectString) || s.equals(skyString) || s.equals(skyflatString) ) {
+            // Add a GUIDE OFF before and a GUIDE ON after
+            v.add(i+1, "GUIDE ON");
+            v.add(i++, "GUIDE OFF");
+        }
     }
 }
 
