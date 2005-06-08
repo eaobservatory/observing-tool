@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>Polarimetry-Template.xml</meta_gui_filename>
-  <ot_version>20050128</ot_version>
+  <ot_version>20050607</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -80,6 +80,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -339,6 +340,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -512,6 +514,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -702,6 +705,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -961,6 +965,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1134,6 +1139,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1324,6 +1330,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1583,6 +1590,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1756,6 +1764,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2002,6 +2011,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2261,6 +2271,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2434,6 +2445,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2855,6 +2867,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3137,6 +3150,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3365,6 +3379,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3598,6 +3613,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3880,6 +3896,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4108,6 +4125,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4341,6 +4359,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4623,6 +4642,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4852,6 +4872,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5141,6 +5162,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5423,6 +5445,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5662,6 +5685,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5926,7 +5950,7 @@ For bright calibrators exposures of a few seconds work well.
 For faint targets the following exposures are recommended
 with the 5 pixel spec-pol slit (for "near" background-limited performance):
 
-  &gt;~300s for IJ, shortJ, longJ, shortH, longH, shortK  
+  &gt;~300s for IJ, JH, shortJ, longJ, shortH, longH, shortK  
   240s for HK
   60s for shortL
   20s for longL
@@ -5944,16 +5968,16 @@ All targets (bright standards and faint sources) are now acquired in imaging mod
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <SpInstUISTRef idref="1"/>
       <SpTelescopeObsCompRef idref="0"/>
-      <estimatedDuration units="seconds">8365.13996</estimatedDuration>
+      <estimatedDuration units="seconds">8374.419880000001</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <title>Pol nod along slit (UIST - spectroscopy)</title>
-      <totalDuration units="seconds">8590.419880000001</totalDuration>
+      <totalDuration units="seconds">8594.699800000002</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Enter your science target co-ordinates below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field, etc.
 
-These coordinates will be inherited by the three observations below (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component in the observation (see e.g. the Bright (standard) star observation).
+These coordinates will be inherited by the three observations below UNLESS they are over-written by a Target component in the observation.
 
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>Target information</title>
@@ -5968,17 +5992,20 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSR">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
       </SpTelescopeObsComp>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This example sets up the HK grism with an east-west 4 pixel slit.  Select  grism, angle and slit from the drop down menus.  Note that the POL option has also been ticked.
+        <note>This example sets up the HK grism with an east-west 5 pixel pol slit.  Select another grism, angle and/or slit from the drop down menus.  Note that the POL option has also been ticked.
 
 The wavplate is moved using an ITERATOR - i.e. waveplate moves are much like offsets on the sky;  see the examples below.
 
-These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) within each observations, where necessary</note>
+These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) within each observations, where necessary
+
+NOTE:  If you change ANYTHING in the UIST component, open the "flat and arc " observation below, click on the flat eyeball and select "set default".  Do the same on the arc.  This ensures all changes are picked up by the calibrations.</note>
         <title>Configuration information</title>
       </SpNote>
       <SpInstUIST id="1" type="oc" subtype="inst.UIST">
@@ -6012,7 +6039,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         <exposureTime>240.0</exposureTime>
         <filter>B2</filter>
         <filterCategory>broad</filterCategory>
-        <focus>2.55</focus>
+        <focus>2.60</focus>
         <idlePeriod>0.0022</idlePeriod>
         <imager>0.12</imager>
         <instAper>
@@ -6063,7 +6090,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
       </SpInstUIST>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
+        <estimatedDuration units="seconds">29.279920000000004</estimatedDuration>
         <standard>true</standard>
         <title>Flat and arc</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6096,22 +6123,22 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <chopDelay>0.0</chopDelay>
             <chopFrequency>0.0</chopFrequency>
             <coadds>1</coadds>
-            <dutyCycle>0.6514700421501118</dutyCycle>
-            <expTimeOT>4.0</expTimeOT>
-            <exposureTime>4.0</exposureTime>
+            <dutyCycle>0.7002840352046791</dutyCycle>
+            <expTimeOT>4.8</expTimeOT>
+            <exposureTime>5.0</exposureTime>
             <filter>B2</filter>
             <flatSource>BB_5.0mm</flatSource>
-            <focus>2.55</focus>
+            <focus>2.60</focus>
             <idlePeriod>0.0022</idlePeriod>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <nreads>5</nreads>
+            <nreads>6</nreads>
             <nresets>1</nresets>
             <nullCycles>0</nullCycles>
             <nullExposures>0</nullExposures>
             <nullReads>1</nullReads>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>6.139959999999999</observationTime>
+            <observationTime>7.139959999999999</observationTime>
             <order>1</order>
             <readInterval>1.0</readInterval>
             <repeatCount>1</repeatCount>
@@ -6126,22 +6153,22 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <chopDelay>0.0</chopDelay>
             <chopFrequency>0.0</chopFrequency>
             <coadds>1</coadds>
-            <dutyCycle>0.8751478999950992</dutyCycle>
-            <expTimeOT>15.0</expTimeOT>
-            <exposureTime>15.0</exposureTime>
+            <dutyCycle>0.8937455685115562</dutyCycle>
+            <expTimeOT>18.0</expTimeOT>
+            <exposureTime>18.0</exposureTime>
             <filter>B2</filter>
             <flatSource>undefined</flatSource>
-            <focus>2.55</focus>
+            <focus>2.60</focus>
             <idlePeriod>0.0022</idlePeriod>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <nreads>16</nreads>
+            <nreads>19</nreads>
             <nresets>1</nresets>
             <nullCycles>0</nullCycles>
             <nullExposures>0</nullExposures>
             <nullReads>1</nullReads>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.13996</observationTime>
+            <observationTime>20.13996</observationTime>
             <order>1</order>
             <readInterval>1.0</readInterval>
             <repeatCount>1</repeatCount>
@@ -6153,12 +6180,12 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
-        <estimatedDuration units="seconds">200.0</estimatedDuration>
+        <estimatedDuration units="seconds">191.0</estimatedDuration>
         <standard>true</standard>
         <title>Pol standard</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Spec-Pol recipes are pending...l</note>
+          <note>POINT_SOURCE_POL can be used on any point source;  a polarised or unpolarised standard, or your science target.  It assumes 4 object-sky pairs are acquired, one at each of the nominal waveplate angles (0,45,22.5,67.5 degs).</note>
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6176,16 +6203,16 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
-          <SkyInGroup>false</SkyInGroup>
-          <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
-          <title>QUICK_LOOK</title>
+          <ObjectRecipe>POINT_SOURCE_POL</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>POINT_SOURCE_POL</SkyRecipe>
+          <title>POINT_SOURCE_POL</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 5sec x 3 coadds is usually ok for point sources down to about 17th mag (use coadds rather than one long exposure to avoid latency).
 
 Note about the standard:  
 ================
@@ -6198,7 +6225,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <coadds>1</coadds>
             <disperser>aq_HK+pol</disperser>
             <dispersion>0.0</dispersion>
-            <exposureTime>10.0</exposureTime>
+            <exposureTime>1.0</exposureTime>
             <filter>B2</filter>
             <mask>pol_aperture</mask>
             <maskHeight>120.0</maskHeight>
@@ -6206,13 +6233,13 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
             <repeatCount>1</repeatCount>
             <resolution>0.0</resolution>
             <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-            <source_mag>5-6</source_mag>
+            <source_mag>9-10</source_mag>
           </SpIterUISTTargetAcq>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Use the UIST iterator below to set the exposure time for the standard star (usually only a few seconds on a 5-6th mag F or A-type, as compared to perhaps hundreds of seconds on the faint science target).  
 
-Everything else (grism, slit width, slit angle, etc.) will be the same as far the science target.</note>
+Everything else (grism, slit width, slit angle, etc.) will be the same as for the science target.</note>
             <title>Exp time on standard</title>
           </SpNote>
           <SpIterUISTSpecIFU type="ic" subtype="instUISTSpecIFU">
@@ -6229,7 +6256,7 @@ Everything else (grism, slit width, slit angle, etc.) will be the same as far th
               <title>Repeat 1X</title>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>this nods +40 then -40 rows along the slit  (note pol slit mask is only 20" long)</note>
+                <note>The offsets below nod the source +40 then -40 rows along the slit  (note that the pol slit mask is only 20" long)</note>
                 <title>offset info</title>
               </SpNote>
               <SpNote type="no" subtype="none">
@@ -6239,17 +6266,19 @@ Everything else (grism, slit width, slit angle, etc.) will be the same as far th
 The whole sequence looks like this:
 
 Waveplate 0 degrees
-object
-sky
+object1
+object2
 waveplate 45 degrees
-sky
-object
+object2
+object1
 waveplate 22.5 degrees
-object 
-sky
+object1 
+object2
 waveplate 67.5 degrees
-sky
-object</note>
+object2
+object1
+
+where object1 and object2 are two positions on the pol slit.</note>
                 <title>irpol info</title>
               </SpNote>
               <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -6376,12 +6405,12 @@ object</note>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
-        <estimatedDuration units="seconds">8185.13996</estimatedDuration>
+        <estimatedDuration units="seconds">8194.419880000001</estimatedDuration>
         <standard>false</standard>
         <title>Science Target - Pol nod along slit (UIST)</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Spec-Pol recipes are on the way...  For now, please use QUICK_LOOK.</note>
+          <note>POINT_SOURCE_POL can be used on any point source;  a polarised or unpolarised standard, or your science target.  It assumes 4 object-sky pairs are acquired, one at each of the nominal waveplate angles (0,45,22.5,67.5 degs).</note>
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6399,24 +6428,24 @@ object</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
-          <SkyInGroup>false</SkyInGroup>
-          <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
-          <title>QUICK_LOOK</title>
+          <ObjectRecipe>POINT_SOURCE_POL</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>POINT_SOURCE_POL</SkyRecipe>
+          <title>POINT_SOURCE_POL</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 5sec x 3 coadds is usually ok for point sources down to about 17th mag (use coadds rather than one long exposure to avoid latency).</note>
             <title>Imaging Acquisition</title>
           </SpNote>
           <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
             <meta_gui_collapsed>true</meta_gui_collapsed>
-            <coadds>1</coadds>
+            <coadds>3</coadds>
             <disperser>aq_HK+pol</disperser>
             <dispersion>0.0</dispersion>
-            <exposureTime>10.0</exposureTime>
+            <exposureTime>5.0</exposureTime>
             <filter>B2</filter>
             <mask>pol_aperture</mask>
             <maskHeight>120.0</maskHeight>
@@ -6424,7 +6453,7 @@ object</note>
             <repeatCount>1</repeatCount>
             <resolution>0.0</resolution>
             <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-            <source_mag>5-6</source_mag>
+            <source_mag>12-13</source_mag>
           </SpIterUISTTargetAcq>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6432,7 +6461,7 @@ object</note>
             <title>Repeat 4X</title>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>this nods +40 then -40 rows along the slit  (note pol slit mask is only 20" long)</note>
+              <note>The offsets below nod the source +40 then -40 rows along the slit  (note that the pol slit mask is only 20" long)</note>
               <title>offset info</title>
             </SpNote>
             <SpNote type="no" subtype="none">
@@ -6442,17 +6471,19 @@ object</note>
 The whole sequence looks like this:
 
 Waveplate 0 degrees
-object
-sky
+object1
+object2
 waveplate 45 degrees
-sky
-object
+object2
+object1
 waveplate 22.5 degrees
-object 
-sky
+object1 
+object2
 waveplate 67.5 degrees
-sky
-object</note>
+object2
+object1
+
+where object1 and object2 are two positions on the pol slit.</note>
               <title>irpol info</title>
             </SpNote>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -6567,23 +6598,23 @@ object</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstUISTRef idref="1"/>
-      <SpTelescopeObsCompRef idref="0"/>
-      <estimatedDuration units="seconds">6397.13996</estimatedDuration>
+      <SpInstUISTRef idref="3"/>
+      <SpTelescopeObsCompRef idref="2"/>
+      <estimatedDuration units="seconds">1846.4198800000001</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <title>Pol nod to blank sky (UIST - spectroscopy)</title>
-      <totalDuration units="seconds">6566.41988</totalDuration>
+      <totalDuration units="seconds">2066.6998000000003</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Enter your science target co-ordinates below.  When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field, etc.
 
-These coordinates will be inherited by the three observations below (standard star, target acquisition and target spectroscopy) UNLESS they are over-written by a Target component in the observation (see e.g. the Bright (standard) star observation).
+These coordinates will be inherited by the three observations below UNLESS they are over-written by a Target component in the observation.
 
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>Target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="2" type="oc" subtype="targetList">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
         <meta_unique>true</meta_unique>
@@ -6593,20 +6624,23 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSR">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
       </SpTelescopeObsComp>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This example sets up the HK grism with an east-west 4 pixel slit.  Select  grism, angle and slit from the drop down menus.  Note that the POL option has also been ticked.
+        <note>This example sets up the HK grism with an east-west 5 pixel pol slit.  Select another grism, angle and/or slit from the drop down menus.  Note that the POL option has also been ticked.
 
 The wavplate is moved using an ITERATOR - i.e. waveplate moves are much like offsets on the sky;  see the examples below.
 
-These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) within each observations, where necessary</note>
+These parameters will be inherited by the flat/arc, the standard, and the science target observations.  Only the exposure time will be changed (using UIST iterators) within each observations, where necessary
+
+NOTE:  If you change ANYTHING in the UIST component, open the "flat and arc " observation below, click on the flat eyeball and select "set default".  Do the same on the arc.  This ensures all changes are picked up by the calibrations.</note>
         <title>Configuration information</title>
       </SpNote>
-      <SpInstUIST id="1" type="oc" subtype="inst.UIST">
+      <SpInstUIST id="3" type="oc" subtype="inst.UIST">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <meta_version>3</meta_version>
@@ -6624,20 +6658,20 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         <biasRefPixelY>512.5</biasRefPixelY>
         <biasWaveform>uist_starev11</biasWaveform>
         <camera>spectroscopy</camera>
-        <centralWavelength>2.1325</centralWavelength>
+        <centralWavelength>1.9534</centralWavelength>
         <chopDelay>0.0</chopDelay>
         <chopFrequency>0.0</chopFrequency>
         <coadds>1</coadds>
         <configType>Normal</configType>
         <darkFilter>black_blank</darkFilter>
-        <disperser>short_K+pol</disperser>
-        <dispersion>2.5E-4</dispersion>
-        <dutyCycle>0.991162301340101</dutyCycle>
-        <expTimeOT>240.0</expTimeOT>
-        <exposureTime>240.0</exposureTime>
-        <filter>HK_spectral</filter>
+        <disperser>HK+pol</disperser>
+        <dispersion>0.00109</dispersion>
+        <dutyCycle>0.9655622565576161</dutyCycle>
+        <expTimeOT>60.0</expTimeOT>
+        <exposureTime>60.0</exposureTime>
+        <filter>B2</filter>
         <filterCategory>broad</filterCategory>
-        <focus>3.38</focus>
+        <focus>2.60</focus>
         <idlePeriod>0.0022</idlePeriod>
         <imager>0.12</imager>
         <instAper>
@@ -6656,14 +6690,14 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         <maskWidth>5.0</maskWidth>
         <mode>NDSTARE</mode>
         <mustIdles>100</mustIdles>
-        <nreads>241</nreads>
+        <nreads>61</nreads>
         <nresets>1</nresets>
         <nullCycles>0</nullCycles>
         <nullExposures>0</nullExposures>
         <nullReads>1</nullReads>
         <obsTimeOT>10.0</obsTimeOT>
-        <observationTime>242.13996</observationTime>
-        <order>2</order>
+        <observationTime>62.13996</observationTime>
+        <order>1</order>
         <pixelFOV>0.1205 x 0.1205</pixelFOV>
         <pixelScale>0.12</pixelScale>
         <polarimetry>yes</polarimetry>
@@ -6679,16 +6713,16 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         <refPixelX>480.5</refPixelX>
         <refPixelY>480.5</refPixelY>
         <resetDelay>0.11</resetDelay>
-        <resolution>1705.9999999999998</resolution>
+        <resolution>358.42201834862385</resolution>
         <scienceArea>0.6 x 20.0 arcsec</scienceArea>
-        <source_mag>&gt;13</source_mag>
-        <spectralCoverage>2.007um-2.260um</spectralCoverage>
+        <source_mag>10-11</source_mag>
+        <spectralCoverage>1.395um-2.506um</spectralCoverage>
         <target_acq>no</target_acq>
         <waveform>uist_starev11</waveform>
       </SpInstUIST>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">25.279920000000004</estimatedDuration>
+        <estimatedDuration units="seconds">29.279920000000004</estimatedDuration>
         <standard>true</standard>
         <title>Flat and arc</title>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6717,27 +6751,27 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <arcSource>undefined</arcSource>
             <calType>Flat</calType>
-            <centralWavelength>2.133</centralWavelength>
+            <centralWavelength>1.953</centralWavelength>
             <chopDelay>0.0</chopDelay>
             <chopFrequency>0.0</chopFrequency>
             <coadds>1</coadds>
-            <dutyCycle>0.6514700421501118</dutyCycle>
-            <expTimeOT>4.0</expTimeOT>
-            <exposureTime>4.0</exposureTime>
+            <dutyCycle>0.7002840352046791</dutyCycle>
+            <expTimeOT>4.8</expTimeOT>
+            <exposureTime>5.0</exposureTime>
             <filter>B2</filter>
             <flatSource>BB_5.0mm</flatSource>
-            <focus>3.38</focus>
+            <focus>2.60</focus>
             <idlePeriod>0.0022</idlePeriod>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <nreads>5</nreads>
+            <nreads>6</nreads>
             <nresets>1</nresets>
             <nullCycles>0</nullCycles>
             <nullExposures>0</nullExposures>
             <nullReads>1</nullReads>
             <obsTimeOT>20.0</obsTimeOT>
-            <observationTime>6.139959999999999</observationTime>
-            <order>2</order>
+            <observationTime>7.139959999999999</observationTime>
+            <order>1</order>
             <readInterval>1.0</readInterval>
             <repeatCount>1</repeatCount>
             <resetDelay>0.11</resetDelay>
@@ -6747,27 +6781,27 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <arcSource>argon</arcSource>
             <calType>Arc</calType>
-            <centralWavelength>2.1325</centralWavelength>
+            <centralWavelength>1.9534</centralWavelength>
             <chopDelay>0.0</chopDelay>
             <chopFrequency>0.0</chopFrequency>
             <coadds>1</coadds>
-            <dutyCycle>0.8751478999950992</dutyCycle>
-            <expTimeOT>15.0</expTimeOT>
-            <exposureTime>15.0</exposureTime>
+            <dutyCycle>0.8937455685115562</dutyCycle>
+            <expTimeOT>18.0</expTimeOT>
+            <exposureTime>18.0</exposureTime>
             <filter>B2</filter>
             <flatSource>undefined</flatSource>
-            <focus>3.38</focus>
+            <focus>2.60</focus>
             <idlePeriod>0.0022</idlePeriod>
             <mode>NDSTARE</mode>
             <mustIdles>100</mustIdles>
-            <nreads>16</nreads>
+            <nreads>19</nreads>
             <nresets>1</nresets>
             <nullCycles>0</nullCycles>
             <nullExposures>0</nullExposures>
             <nullReads>1</nullReads>
             <obsTimeOT>15.0</obsTimeOT>
-            <observationTime>17.13996</observationTime>
-            <order>2</order>
+            <observationTime>20.13996</observationTime>
+            <order>1</order>
             <readInterval>1.0</readInterval>
             <repeatCount>1</repeatCount>
             <resetDelay>0.11</resetDelay>
@@ -6776,14 +6810,14 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
         </SpIterFolder>
       </SpObs>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
-        <estimatedDuration units="seconds">144.0</estimatedDuration>
+        <estimatedDuration units="seconds">191.0</estimatedDuration>
         <standard>true</standard>
         <title>Pol standard</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Spec-Pol recipes are pending...l</note>
+          <note>POINT_SOURCE_POL can be used on any point source;  a polarised or unpolarised standard, or your science target.  It assumes 4 object-sky pairs are acquired, one at each of the nominal waveplate angles (0,45,22.5,67.5 degs).</note>
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -6801,16 +6835,16 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
-          <SkyInGroup>false</SkyInGroup>
-          <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
-          <title>QUICK_LOOK</title>
+          <ObjectRecipe>POINT_SOURCE_POL</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>POINT_SOURCE_POL</SkyRecipe>
+          <title>POINT_SOURCE_POL</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.
+            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 5sec x 3 coadds is usually ok for point sources down to about 17th mag (use coadds rather than one long exposure to avoid latency).
 
 Note about the standard:  
 ================
@@ -6821,40 +6855,40 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
           <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
             <meta_gui_collapsed>true</meta_gui_collapsed>
             <coadds>1</coadds>
-            <disperser>aq_shortK+pol</disperser>
+            <disperser>aq_HK+pol</disperser>
             <dispersion>0.0</dispersion>
-            <exposureTime>10.0</exposureTime>
-            <filter>HK_spectral</filter>
+            <exposureTime>1.0</exposureTime>
+            <filter>B2</filter>
             <mask>pol_aperture</mask>
             <maskHeight>120.0</maskHeight>
             <maskWidth>1024.0</maskWidth>
             <repeatCount>1</repeatCount>
             <resolution>0.0</resolution>
             <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-            <source_mag>5-6</source_mag>
+            <source_mag>9-10</source_mag>
           </SpIterUISTTargetAcq>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Use the UIST iterator below to set the exposure time for the standard star (usually only a few seconds on a 5-6th mag F or A-type, as compared to perhaps hundreds of seconds on the faint science target).  
 
-Everything else (grism, slit width, slit angle, etc.) will be the same as far the science target.</note>
+Everything else (grism, slit width, slit angle, etc.) will be the same as for the science target.</note>
             <title>Exp time on standard</title>
           </SpNote>
           <SpIterUISTSpecIFU type="ic" subtype="instUISTSpecIFU">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <exposureTimeIter>10.0</exposureTimeIter>
+            <exposureTimeIter>17.0</exposureTimeIter>
             <iterConfigList>
               <value>source_magIter</value>
               <value>exposureTimeIter</value>
             </iterConfigList>
-            <source_magIter>6-7</source_magIter>
+            <source_magIter>7-8</source_magIter>
             <SpIterRepeat type="ic" subtype="repeat">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <repeatCount>1</repeatCount>
               <title>Repeat 1X</title>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>this nods +40 then -40 rows along the slit  (note pol slit mask is only 20" long)</note>
+                <note>The offsets below nod the source +40 then -40 rows along the slit  (note that the pol slit mask is only 20" long)</note>
                 <title>offset info</title>
               </SpNote>
               <SpNote type="no" subtype="none">
@@ -6864,17 +6898,19 @@ Everything else (grism, slit width, slit angle, etc.) will be the same as far th
 The whole sequence looks like this:
 
 Waveplate 0 degrees
-object
-sky
+object1
+object2
 waveplate 45 degrees
-sky
-object
+object2
+object1
 waveplate 22.5 degrees
-object 
-sky
+object1 
+object2
 waveplate 67.5 degrees
-sky
-object</note>
+object2
+object1
+
+where object1 and object2 are two positions on the pol slit.</note>
                 <title>irpol info</title>
               </SpNote>
               <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -7001,12 +7037,12 @@ object</note>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
-        <estimatedDuration units="seconds">6217.13996</estimatedDuration>
+        <estimatedDuration units="seconds">1666.4198800000001</estimatedDuration>
         <standard>false</standard>
-        <title>Science Target - Pol nod along slit (UIST)</title>
+        <title>Science Target - Pol nod to blank sky (UIST)</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Spec-Pol recipes are on the way...  For now, please use QUICK_LOOK.</note>
+          <note>At present we have no Spec-pol recipe for extended sources.  Please use REDUCE_SINGLE_FRAME for the time-being...</note>
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -7024,32 +7060,32 @@ object</note>
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
-          <SkyInGroup>false</SkyInGroup>
-          <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
-          <title>QUICK_LOOK</title>
+          <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>REDUCE_SINGLE_FRAME</SkyRecipe>
+          <title>REDUCE_SINGLE_FRAME</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint science targets, 20-30sec is usually ok for point sources down to about 17th mag.</note>
+            <note>Use the observation below to select a short exposure time for imaging acquisition (depending on the source brightness).  For standards, 1 sec should be enough; for faint or extended science targets, 5sec x 3 coadds is usually ok for sources down to about 16th mag/arcsec (use coadds rather than one long exposure to avoid latency).</note>
             <title>Imaging Acquisition</title>
           </SpNote>
           <SpIterUISTTargetAcq type="ic" subtype="instUISTTargetAcq">
             <meta_gui_collapsed>true</meta_gui_collapsed>
-            <coadds>1</coadds>
-            <disperser>aq_shortK+pol</disperser>
+            <coadds>3</coadds>
+            <disperser>aq_HK+pol</disperser>
             <dispersion>0.0</dispersion>
-            <exposureTime>10.0</exposureTime>
-            <filter>HK_spectral</filter>
+            <exposureTime>5.0</exposureTime>
+            <filter>B2</filter>
             <mask>pol_aperture</mask>
             <maskHeight>120.0</maskHeight>
             <maskWidth>1024.0</maskWidth>
             <repeatCount>1</repeatCount>
             <resolution>0.0</resolution>
             <scienceArea>122.88 x 120.0 arcsec</scienceArea>
-            <source_mag>5-6</source_mag>
+            <source_mag>&gt;13</source_mag>
           </SpIterUISTTargetAcq>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -7057,12 +7093,12 @@ object</note>
             <title>Repeat 3X</title>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This nods completely off the slit</note>
+              <note>The offsets below nod the source completely off the slit</note>
               <title>offset info</title>
             </SpNote>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This sequence interleaves irpol waveplate rotations and slit nodding.
+              <note>This sequence interleaves irpol waveplate rotations with offsets between target and sky.
 
 The whole sequence looks like this:
 
@@ -7192,14 +7228,7 @@ object</note>
     </SpMSB>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
-      <note>SITE QUALITY AND SCHEDULING CONSTRAINTS
-------------------------------------------
-These MSBs do not include site quality components; if
-you need these on an MSB-by-MSB basis then please
-add them from the component button once the MSBs are in your programme. If you have a global site quality requirement then this should be placed at the top of the programme and will apply to all the MSBs.
-
-Scheduling constraints are also not included, since they
-are unlikely to apply to more than a small minority of programmes.</note>
+      <note>Because the wollaston prism in CGS4 comes BEFORE the slit, spectro-polarimetry is EXTREMELY DIFFICULT with CGS4.  We recommend using UIST unless absolutely necessary.</note>
       <title>CGS4</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
@@ -7209,18 +7238,6 @@ are unlikely to apply to more than a small minority of programmes.</note>
       <priority>99</priority>
       <title>Pol nod along slit (CGS4)</title>
       <totalDuration units="seconds">3041.16</totalDuration>
-      <SpNote type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>This MSB is incomplete without a standard star in the selected waveband.
-We incorporate a template standard sequence (which is made optional); simply
-edit in your standard star ID, resolve the name and then alter IRCAM settings.</note>
-        <title>READ THIS</title>
-      </SpNote>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note></note>
-        <title>OBSERVER NOTES</title>
-      </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <estimatedDuration units="seconds">89.80000000000001</estimatedDuration>
@@ -7291,10 +7308,10 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <acqMode>NDSTARE</acqMode>
             <calType>Flat</calType>
             <coadds>5</coadds>
-            <cvfWavelength>2.1</cvfWavelength>
+            <cvfWavelength>1.0</cvfWavelength>
             <exposureTime>0.25</exposureTime>
             <filter>B2</filter>
-            <flatSampling>1x1</flatSampling>
+            <flatSampling>AS_OBJECT</flatSampling>
             <lamp>Black Body (1.3)</lamp>
             <neutralDensity>false</neutralDensity>
             <repeatCount>1</repeatCount>
@@ -7304,10 +7321,10 @@ Be sure to hit the default button in the flat and arc editors if you change the 
             <acqMode>NDSTARE</acqMode>
             <calType>Arc</calType>
             <coadds>5</coadds>
-            <cvfWavelength>2.1</cvfWavelength>
+            <cvfWavelength>1.0</cvfWavelength>
             <exposureTime>0.5</exposureTime>
             <filter>B2</filter>
-            <flatSampling>1x1</flatSampling>
+            <flatSampling>AS_OBJECT</flatSampling>
             <lamp>Argon Arc</lamp>
             <neutralDensity>false</neutralDensity>
             <repeatCount>1</repeatCount>
@@ -7339,6 +7356,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -7405,7 +7423,7 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
         </SpInstCGS4>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The data-reduction recipe specified below uses the most basic data-reduction recipe for speed.  (This is a good idea if your exposure time short.)</note>
+          <note>POINT_SOURCE_POL can be used on any point source;  a polarised or unpolarised standard, or your science target.  It assumes 4 object-sky pairs are acquired, one at each of the nominal waveplate angles (0,45,22.5,67.5 degs).</note>
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -7423,25 +7441,20 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>REDUCE_SINGLE_FRAMES_ONLY</ObjectRecipe>
-          <SkyInGroup>false</SkyInGroup>
-          <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
-          <title>REDUCE_SINGLE_FRAMES_ONLY</title>
+          <ObjectRecipe>POINT_SOURCE_POL</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>POINT_SOURCE_POL</SkyRecipe>
+          <title>POINT_SOURCE_POL</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>To repeat the set of polarimetry frames in order to obtain the desired signal-to-noise on your target, use the repeat component below to specify how many times you want to repeat the sequence.</note>
-            <title>how to do more than one cycle</title>
-          </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>this nods 30 rows along the slit</note>
+              <note>The offsets below nod the source 30 rows along the slit</note>
               <title>offset info</title>
             </SpNote>
             <SpNote type="no" subtype="none">
@@ -7451,17 +7464,19 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
 The whole sequence looks like this:
 
 Waveplate 0 degrees
-object
-sky
+object1
+object2
 waveplate 45 degrees
-sky
-object
+object2
+object1
 waveplate 22.5 degrees
-object 
-sky
+object1 
+object2
 waveplate 67.5 degrees
-sky
-object</note>
+object2
+object1
+
+where object1 and object2 are two positions on the slit.</note>
               <title>irpol info</title>
             </SpNote>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -7598,6 +7613,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -7664,7 +7680,7 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
         </SpInstCGS4>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The data-reduction recipe specified below uses the most basic data-reduction recipe for speed.  (This is a good idea if your exposure time short.)</note>
+          <note>POINT_SOURCE_POL can be used on any point source;  a polarised or unpolarised standard, or your science target.  It assumes 4 object-sky pairs are acquired, one at each of the nominal waveplate angles (0,45,22.5,67.5 degs).</note>
           <title>DR Recipe Selection</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -7682,25 +7698,20 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
           <FocusInGroup>false</FocusInGroup>
           <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>REDUCE_SINGLE_FRAMES_ONLY</ObjectRecipe>
-          <SkyInGroup>false</SkyInGroup>
-          <SkyRecipe>REDUCE_SINGLE_FRAMES_ONLY</SkyRecipe>
-          <title>REDUCE_SINGLE_FRAMES_ONLY</title>
+          <ObjectRecipe>POINT_SOURCE_POL</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>POINT_SOURCE_POL</SkyRecipe>
+          <title>POINT_SOURCE_POL</title>
         </SpDRRecipe>
         <SpIterFolder type="if" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>To repeat the set of polarimetry frames in order to obtain the desired signal-to-noise on your target, use the repeat component below to specify how many times you want to repeat the sequence.</note>
-            <title>how to do more than one cycle</title>
-          </SpNote>
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
             <title>Repeat 1X</title>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>this nods 30 rows along the slit</note>
+              <note>The offsets below nod the source 30 rows along the slit</note>
               <title>offset info</title>
             </SpNote>
             <SpNote type="no" subtype="none">
@@ -7710,17 +7721,19 @@ Best efforts are make to align all the slits, though obvioulsy it's more difficu
 The whole sequence looks like this:
 
 Waveplate 0 degrees
-object
-sky
+object1
+object2
 waveplate 45 degrees
-sky
-object
+object2
+object1
 waveplate 22.5 degrees
-object 
-sky
+object1 
+object2
 waveplate 67.5 degrees
-sky
-object</note>
+object2
+object1
+
+where object1 and object2 are two positions on the slit.</note>
               <title>irpol info</title>
             </SpNote>
             <SpIterIRPOL type="ic" subtype="instIRPOL">
@@ -7868,6 +7881,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8048,6 +8062,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8236,6 +8251,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8440,6 +8456,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8629,9 +8646,9 @@ are unlikely to apply to more than a small minority of programmes.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <meta_gui_selected>false</meta_gui_selected>
-      <SpDRRecipeRef idref="2"/>
-      <SpInstUFTIRef idref="1"/>
-      <SpTelescopeObsCompRef idref="0"/>
+      <SpDRRecipeRef idref="6"/>
+      <SpInstUFTIRef idref="5"/>
+      <SpTelescopeObsCompRef idref="4"/>
       <estimatedDuration units="seconds">366.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
@@ -8652,7 +8669,7 @@ N.B.  All current polarimetry recipes require a separate flat field.</note>
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="4" type="oc" subtype="targetList">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
@@ -8663,6 +8680,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSR">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -8672,7 +8690,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="1" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="5" type="oc" subtype="inst.UFTI">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_unique>true</meta_unique>
@@ -8707,7 +8725,7 @@ N.B.: A Dark MUST be obtained first.
 If you do not need flats at each waveplate angle, select the observation "make_skyflat for Pol".</note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="6" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_unique>true</meta_unique>
@@ -8935,9 +8953,9 @@ Guiding may be switched off at the telescope.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <meta_gui_selected>false</meta_gui_selected>
-      <SpDRRecipeRef idref="2"/>
-      <SpInstUFTIRef idref="1"/>
-      <SpTelescopeObsCompRef idref="0"/>
+      <SpDRRecipeRef idref="9"/>
+      <SpInstUFTIRef idref="8"/>
+      <SpTelescopeObsCompRef idref="7"/>
       <estimatedDuration units="seconds">174.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
@@ -8958,7 +8976,7 @@ N.B.  All current Polarimetry recipes require a separate flat field (and dark).<
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="7" type="oc" subtype="targetList">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
@@ -8969,6 +8987,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>00:00:00</c1>
               <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSR">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -8978,7 +8997,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Remember to select the prism in the polariser box in the UFTI component below!</note>
         <title>Filter AND Prism</title>
       </SpNote>
-      <SpInstUFTI id="1" type="oc" subtype="inst.UFTI">
+      <SpInstUFTI id="8" type="oc" subtype="inst.UFTI">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_unique>true</meta_unique>
@@ -9014,7 +9033,7 @@ regardless of the waveplate angle,  to make a "master-pol-flat".
 N.B.: A Dark MUST be obtained first.  If you need separate flats for each waveplate position, select observation "make_skyflat for each WP angle" instead.</note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="9" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_unique>true</meta_unique>
@@ -9196,15 +9215,15 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpDRRecipeRef idref="1"/>
-      <SpInstMichelleRef idref="0"/>
+      <SpDRRecipeRef idref="11"/>
+      <SpInstMichelleRef idref="10"/>
       <estimatedDuration units="seconds">293.44249495680003</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <standard>false</standard>
       <title>Flats and Arc (MIchelle)</title>
       <totalDuration units="seconds">480.0</totalDuration>
-      <SpInstMichelle id="0" type="oc" subtype="inst.michelle">
+      <SpInstMichelle id="10" type="oc" subtype="inst.michelle">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <meta_version>1</meta_version>
@@ -9256,7 +9275,7 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
         <waveform>mch_ndr_sw</waveform>
         <waveplate>wp_N</waveplate>
       </SpInstMichelle>
-      <SpDRRecipe id="1" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="11" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <ArcInGroup>false</ArcInGroup>
@@ -9287,7 +9306,7 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
             <calType>Flat</calType>
             <chopDelay>0.015</chopDelay>
             <chopFrequency>1.0033295313913224</chopFrequency>
-            <coadds>21</coadds>
+            <coadds>20</coadds>
             <dutyCycle>0.8957413747136612</dutyCycle>
             <exposureTime>0.43</exposureTime>
             <filter>NPBlock</filter>
@@ -9314,7 +9333,7 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
             <calType>Arc</calType>
             <chopDelay>0.015</chopDelay>
             <chopFrequency>1.0033295313913224</chopFrequency>
-            <coadds>21</coadds>
+            <coadds>20</coadds>
             <dutyCycle>0.8957413747136612</dutyCycle>
             <exposureTime>0.43</exposureTime>
             <filter>WCalLowN</filter>
@@ -9341,9 +9360,9 @@ SKY_FLAT_POL recipe.  N.B.: Darks required by recipe.</note>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <meta_gui_selected>false</meta_gui_selected>
-      <SpDRRecipeRef idref="2"/>
-      <SpInstUISTRef idref="1"/>
-      <SpTelescopeObsCompRef idref="0"/>
+      <SpDRRecipeRef idref="14"/>
+      <SpInstUISTRef idref="13"/>
+      <SpTelescopeObsCompRef idref="12"/>
       <estimatedDuration units="seconds">624.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
@@ -9364,7 +9383,7 @@ N.B.  All current Polarimetry recipes require a separate flat field (and dark).<
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="12" type="oc" subtype="targetList">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
@@ -9375,6 +9394,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>00:00:00</c1>
               <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSR">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -9384,7 +9404,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Sent for long, K-band exposures for a good flat-field</note>
         <title>UIST component</title>
       </SpNote>
-      <SpInstUIST id="1" type="oc" subtype="inst.UIST">
+      <SpInstUIST id="13" type="oc" subtype="inst.UIST">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <meta_version>3</meta_version>
@@ -9474,7 +9494,7 @@ regardless of the waveplate angle,  to make a "master-pol-flat".
 N.B.: A Dark MUST be obtained first.  If you need separate flats for each waveplate position, select observation "make_skyflat for each WP angle" instead.</note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="14" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_unique>true</meta_unique>
@@ -9626,9 +9646,9 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
       <meta_gui_collapsed>true</meta_gui_collapsed>
       <meta_gui_selected>false</meta_gui_selected>
-      <SpDRRecipeRef idref="2"/>
-      <SpInstUISTRef idref="1"/>
-      <SpTelescopeObsCompRef idref="0"/>
+      <SpDRRecipeRef idref="17"/>
+      <SpInstUISTRef idref="16"/>
+      <SpTelescopeObsCompRef idref="15"/>
       <estimatedDuration units="seconds">1416.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
@@ -9649,7 +9669,7 @@ N.B.  All current polarimetry recipes require a separate flat field.</note>
 For a step-by-step guide to how to use the position editor use "help".</note>
         <title>Target information</title>
       </SpNote>
-      <SpTelescopeObsComp id="0" type="oc" subtype="targetList">
+      <SpTelescopeObsComp id="15" type="oc" subtype="targetList">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
@@ -9660,6 +9680,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
+              <rv defn="radio" frame="LSR">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -9669,7 +9690,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         <note>Sent for long, K-band exposures for a good flat-field</note>
         <title>UIST component</title>
       </SpNote>
-      <SpInstUIST id="1" type="oc" subtype="inst.UIST">
+      <SpInstUIST id="16" type="oc" subtype="inst.UIST">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <meta_version>3</meta_version>
@@ -9758,7 +9779,7 @@ N.B.: A Dark MUST be obtained first.
 If you do not need flats at each waveplate angle, select the observation "make_skyflat for Pol".</note>
         <title>Pol recipe</title>
       </SpNote>
-      <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
+      <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
         <meta_unique>true</meta_unique>
