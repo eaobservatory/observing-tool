@@ -219,6 +219,17 @@ public void translate( Vector v ) {
 
     }
     else {
+        if ( getFollowOffset() ) {
+            translateFollowOffset(v);
+        }
+        else if ( getRandomPattern() ) {
+            translateRandom(v);
+        }
+        else {
+            translateStandard(v);
+        }
+
+        /*
         // We need to add an offset.  First get the offset from the TelescopePositionList
         SpTelescopePos thisSky = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition(getSky());
         int index = Integer.parseInt(getSky().substring(3));
@@ -319,6 +330,216 @@ public void translate( Vector v ) {
             v.add("ADDOFFSET");
         }
         
+        */
+    }
+}
+
+private void translateStandard(Vector v) {
+    SpTelescopePos thisSky = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition(getSky());
+    int index = Integer.parseInt(getSky().substring(3));
+    SpTelescopePos thisGuide = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition("SKYGUIDE" + index);
+
+    boolean inOffset = false;
+    SpItem parent = parent();
+    while ( parent != null ) {
+        if ( parent instanceof SpIterOffset ) {
+            inOffset = true;
+            break;
+        }
+        parent = parent.parent();
+    }
+
+    String lastOffset = null;
+    if ( inOffset ) {
+        for ( int i=v.size()-1; i>= 0; i-- ) {
+            if ( ((String)v.get(i)).startsWith("offset") ) {
+                lastOffset = (String) v.get(i);
+                break;
+            }
+        }
+    }
+
+
+    boolean isOffset = thisSky.isOffsetPosition();
+
+    if ( isOffset ) {
+        // Offset to the sky position, do the observe, then offset back
+        v.add( "offset " + thisSky.getXaxis() + " " + thisSky.getYaxis() );
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE SKYGUIDE" + index );
+        }
+        v.add( "set SKY" );
+        v.add( "do " + getCount() + " _observe" );
+        if ( lastOffset != null ) {
+            v.add( lastOffset );
+        }
+        else {
+            v.add( "offset 0.0 0.0" );
+        }
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE GUIDE" );
+        }
+    }
+    else {
+        v.add( "slew MAIN " + getSky());
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE SKYGUIDE" + index );
+        }
+        v.add( "-WAIT ALL");
+        v.add( "set SKY" );
+        v.add( "do " + getCount() + " _observe" );
+        v.add( "do 1 _slew_all");
+        v.add( "-WAIT ALL");
+        if ( lastOffset != null ) {
+            v.add( lastOffset );
+        }
+    }
+}
+
+private void translateRandom(Vector v) {
+    SpTelescopePos thisSky = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition(getSky());
+    int index = Integer.parseInt(getSky().substring(3));
+    SpTelescopePos thisGuide = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition("SKYGUIDE" + index);
+
+    // See if we are inside an offset iterator
+    boolean inOffset = false;
+    SpItem parent = parent();
+    while ( parent != null ) {
+        if ( parent instanceof SpIterOffset ) {
+            inOffset = true;
+            break;
+        }
+        parent = parent.parent();
+    }
+    String lastOffset = null;
+    if ( inOffset ) {
+        for ( int i=v.size()-1; i>= 0; i-- ) {
+            if ( ((String)v.get(i)).startsWith("offset") ) {
+                lastOffset = (String) v.get(i);
+                break;
+            }
+        }
+    }
+
+    boolean isOffset = thisSky.isOffsetPosition();
+
+    DecimalFormat df = new DecimalFormat();
+    df.setMaximumFractionDigits(2);
+
+    double xAxis = thisSky.getXaxis();
+    double yAxis = thisSky.getYaxis();
+    double randX = (randomizer.nextDouble() - 0.5) * getBoxSize();
+    double randY = (randomizer.nextDouble() - 0.5) * getBoxSize();
+
+    if ( isOffset ) {
+        // Offset to the sky position, do the observe, then offset back
+        v.add( "offset " + df.format(xAxis+randX) + " " + df.format(yAxis+randY) );
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE SKYGUIDE" + index );
+        }
+        v.add( "set SKY" );
+        v.add( "do " + getCount() + " _observe" );
+        if ( lastOffset != null ) {
+            v.add( lastOffset );
+        }
+        else {
+            v.add( "offset 0.0 0.0" );
+        }
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE GUIDE" );
+        }
+    }
+    else {
+        v.add( "slew MAIN " + getSky());
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE SKYGUIDE" + index );
+        }
+        v.add( "-WAIT ALL");
+        v.add( "offset " + df.format(randX) + " " + df.format(randY) );
+        v.add( "set SKY" );
+        v.add( "do " + getCount() + " _observe" );
+        v.add( "do 1 _slew_all");
+        v.add( "-WAIT ALL");
+        if ( lastOffset != null ) {
+            v.add( lastOffset );
+        }
+    }
+}
+
+private void translateFollowOffset(Vector v) {
+    SpTelescopePos thisSky = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition(getSky());
+    int index = Integer.parseInt(getSky().substring(3));
+    SpTelescopePos thisGuide = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition("SKYGUIDE" + index);
+
+    // See if we are inside an offset iterator
+    boolean inOffset = false;
+    SpItem parent = parent();
+    while ( parent != null ) {
+        if ( parent instanceof SpIterOffset ) {
+            inOffset = true;
+            break;
+        }
+        parent = parent.parent();
+    }
+
+    String lastOffset = null;
+    if ( inOffset ) {
+        for ( int i=v.size()-1; i>= 0; i-- ) {
+            if ( ((String)v.get(i)).startsWith("offset") ) {
+                lastOffset = (String) v.get(i);
+                break;
+            }
+        }
+    }
+
+    boolean isOffset = thisSky.isOffsetPosition();
+
+    DecimalFormat df = new DecimalFormat();
+    df.setMaximumFractionDigits(2);
+
+    double xAxis = thisSky.getXaxis();
+    double yAxis = thisSky.getYaxis();
+    double lastOffX = 0.0;
+    double lastOffY = 0.0;
+    if ( inOffset ) {
+        lastOffX = Double.parseDouble( lastOffset.split("\\s")[1] );
+        lastOffY = Double.parseDouble( lastOffset.split("\\s")[2] );
+    }
+    lastOffX *= getScaleFactor();
+    lastOffY *= getScaleFactor();
+
+    if ( isOffset ) {
+        // Offset to the sky position, do the observe, then offset back
+        v.add( "offset " + df.format(xAxis + lastOffX) + " " + df.format(yAxis + lastOffY) );
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE SKYGUIDE" + index );
+        }
+        v.add( "set SKY" );
+        v.add( "do " + getCount() + " _observe" );
+        if ( lastOffset != null ) {
+            v.add( lastOffset );
+        }
+        else {
+            v.add( "offset 0.0 0.0" );
+        }
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE GUIDE" );
+        }
+    }
+    else {
+        v.add( "slew MAIN " + getSky());
+        if ( thisGuide != null ) {
+            v.add( "slew GUIDE SKYGUIDE" + index );
+        }
+        v.add( "-WAIT ALL");
+        v.add( "offset " + df.format(lastOffX) + " " + df.format(lastOffY) );
+        v.add( "set SKY" );
+        v.add( "do " + getCount() + " _observe" );
+        v.add( "do 1 _slew_all");
+        v.add( "-WAIT ALL");
+        if ( lastOffset != null ) {
+            v.add( lastOffset );
+        }
     }
 }
 
