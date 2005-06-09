@@ -394,6 +394,9 @@ private void translateStandard(Vector v) {
             v.add( lastOffset );
         }
     }
+    if ( !inOffset ) {
+        v.add("ADDOFFSET");
+    }
 }
 
 private void translateRandom(Vector v) {
@@ -463,6 +466,9 @@ private void translateRandom(Vector v) {
         if ( lastOffset != null ) {
             v.add( lastOffset );
         }
+    }
+    if ( !inOffset ) {
+        v.add("ADDOFFSET");
     }
 }
 
@@ -540,6 +546,9 @@ private void translateFollowOffset(Vector v) {
         if ( lastOffset != null ) {
             v.add( lastOffset );
         }
+    }
+    if ( !inOffset ) {
+        v.add("ADDOFFSET");
     }
 }
 
