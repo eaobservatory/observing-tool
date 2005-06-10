@@ -482,7 +482,7 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
         throw new SpTranslationNotSupportedException("Unable to write WFCAM Calibration config: " + ioe.getMessage());
     }
     v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
-    if ( getCalType() == FOCUS && _avTable.getDouble(SpWFCAMCalConstants.ATTR_FOCUS, 0.0) == 0.0 ) {
+    if ( getCalType() == FOCUS && _avTable.getDouble(SpWFCAMCalConstants.ATTR_FOCUS, 0.0) != 0.0 ) {
         v.add("set OBJECT");
     }
     else {
