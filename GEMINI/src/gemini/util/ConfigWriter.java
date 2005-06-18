@@ -196,7 +196,7 @@ public class ConfigWriter {
         w.write( formatLegacyConfig(calLamp, "calibration lamp") ); w.newLine();
 
         filter = (String)t.get("flatFilter");
-        nd = Boolean.getBoolean((String)t.get("flatNeutralDensity"));
+        nd = Boolean.valueOf((String)t.get("flatNeutralDensity")).booleanValue();
         if ( nd ) {
             filter = filter + "+ND";
         }
