@@ -734,6 +734,7 @@ public void translate(Vector v) throws SpTranslationNotSupportedException {
             configTable.put("flatFilter", getFilter());
             configTable.put("flatExpTime", ""+getExposureTime());
             configTable.put("flatNumExp", ""+getCoadds());
+            configTable.put("flatNeutralDensity", Boolean.toString(getNdFilter()));
             break;
         case ARC:
             configTable.put("arcCalLamp", getLamp().split("\\s")[0].toLowerCase());
