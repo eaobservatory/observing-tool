@@ -746,7 +746,7 @@ public class OtWindow extends SpTreeGUI
         TelescopePosEditor.adjustWidthPreference();
 
 	// Try to clear up memory
-	System.out.println("Trying to clear memory references...");
+	// System.out.println("Trying to clear memory references...");
 	_tw.resetProg();
 	
 
