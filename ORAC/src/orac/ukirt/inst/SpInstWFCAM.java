@@ -398,6 +398,10 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
         setCoadds( c );
     }
 
+    public double getExposureOverhead() {
+	return 1.0;
+    }
+
 
     public Hashtable getMicroStepPatterns() {
       Hashtable result = new Hashtable();
