@@ -2,10 +2,13 @@ Welcome to the ORAC/OMP Observing Tool (UKIRT-OT [1]), based on the Gemini OT (v
 
 JAC OMP OT Release version 20030205
 
-1. (c) 2001-2003 PPARC UK Astronomy Technology Centre, Joint Astronomy Centre, Hilo
+1. (c) 2004-2005 Particle Physics and Astronomy Research Council.
+                 Joint Astronomy Centre, Hilo
 
-2. (c) 2000 Gemini / ESO / JSky
+2. (c) 2001-2003 PPARC UK Astronomy Technology Centre, Joint Astronomy Centre, Hilo
 
-3. (c) 1997 Association for Universities for Research in Astronomy,
+3. (c) 2000 Gemini / ESO / JSky
+
+4. (c) 1997 Association for Universities for Research in Astronomy,
        Gemini Telescopes Project.
 
