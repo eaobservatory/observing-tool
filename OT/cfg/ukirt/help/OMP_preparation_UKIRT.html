@@ -128,7 +128,14 @@ inheritance with administrative components</i><br>
  src="msb_icon.png"
  style="border: 0px solid ; width: 18px; height: 19px;"> </a>&nbsp;
 Example
-- a complete science program <font color="#ff0000">[tour]</font><br>
+- a complete science program <font color="#ff0000">[tour]<br>
+  </font><font color="#ff0000"></font>
+  <div style="margin-left: 40px;"><a
+ href="OMP_preparation_UKIRT.html#Site_Quality"></a><a
+ href="#Moving_Objects"><img alt="*" src="observation_icon.png"
+ style="border: 0px solid ; width: 19px; height: 19px;"></a>&nbsp; <i>Specifying
+Moving Objects</i><br>
+  </div>
   <a href="#Tour:_Using_the_Position_Editor"><img alt="*"
  src="msb_icon.png"
  style="border: 0px solid ; width: 19px; height: 19px;"> </a>&nbsp;
@@ -790,13 +797,53 @@ supplying
 a flat set of MSBs as in this example will be fine.<br>
 </div>
 <br>
-<br>
+<div style="text-align: center;"><span style="font-weight: bold;">Click
+the image to take the tour</span><br>
+</div>
 <div align="center"><a href="Science_Program_Window_details.html"><img
  title="" style="border: 0px solid ; width: 797px; height: 655px;"
  alt="compact programme" src="program_compact.png"> </a>
 <br>
 </div>
 <br>
+<h3><a name="Moving_Objects"></a>Moving Objects</h3>
+Moving objects (excepting planets and other bodies which are accessible
+in the pull down menu in the Target component) are accommodated via
+orbital elements. The format of these elements is fairly specific. An
+example is given in the figure below.<br>
+<br>
+<div style="text-align: center; font-weight: bold;">Comet Tempel-1:
+orbital elements<br>
+</div>
+<table style="width: 100%; text-align: left;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr>
+      <td style="text-align: center; vertical-align: middle;"><img
+ alt="Orbital elements from the neo site" src="orbitelements1.png"
+ style="width: 485px; height: 464px;"><br>
+      </td>
+      <td style="text-align: center; vertical-align: middle;"><img
+ alt="equivalent in the target component" src="orbitelements2.png"
+ style="width: 655px; height: 162px;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Left:</span> Orbital elements as found, in
+this example, on the <br>
+      <a href="http://neo.jpl.nasa.gov/orbits/">NASA JPL NEO orbit
+diagrams page</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><span
+ style="font-weight: bold;">Right:</span> Elements specified in the
+Target Component Elements tab. <br>
+Note the different format for Epoch and Time of Perihelion Passage, in
+particular.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
 <br>
 <br>
 <hr style="width: 100%; height: 2px;"><br>
@@ -1935,7 +1982,109 @@ user manual.</a> <br>
 <h1 align="left"><a name="IV._Release-Specific_Notes"></a><font
  color="#333399">IV. Release-Specific Notes</font></h1>
 <h2><a name="Updates_in_05A_version"></a>Updates in 05A version</h2>
-Coming soon<br>
+The 05A version of the OT was released at the beginning of February,
+and caters specifically for WFCAM proposals. All other 05A projects can
+continue to use the 04A OT unless they wish to take advantage of new
+(non-WFCAM) features. <br>
+<br>
+NOTE - these updates will migrate to the main document or to the
+relevant instrument page over time. Headers will be left here.<br>
+<br>
+<br>
+<span style="font-weight: bold;">WFCAM-specific updates</span><br>
+<ul>
+  <li>WFCAM components have been added.&nbsp; This includes a WFCAM
+instrument component, and WFCAM calibration eye, microstep iterators
+and DR recipe components.</li>
+</ul>
+<ul>
+  <li>Survey container added. This allows you to specify multiple
+targets in a single container.&nbsp; This component also allows you to
+elect to only observe some number from the list of targets.&nbsp; While
+it is primarily for use with the Survey Definition Tool, it can also be
+used on its own. It can either be placed at the top level of a science
+program&nbsp; similar to an MSB), in which case it can contain at most
+1 MSB (acting as an MSB iterator); or it can be placed inside an MSB
+and can contain any number of observations (acting as a target
+iterator).</li>
+</ul>
+<ul>
+  <li>The target component now allows you to create "named
+skies".&nbsp; That is,&nbsp; at the bottom of the target component
+where you used to be able to select "GUIDE", you can now also add "SKY"
+and/or "SKY_GUIDE".&nbsp; The sky position can input as either an
+absolute value, or as an offset from the&nbsp; base.&nbsp; If you don't
+want to use it, don't - in which case you can treat sky "eyes" just as
+you used to.&nbsp; However, using them does allow some additional
+functionality (described below).&nbsp; Each sky position specified will
+be called SKYn, where n is an integer starting at 0. Similarly there is
+a SKY_GUIDE which will allow you to guide on a patch of sky.&nbsp;
+Again, this is primarily useful for survey work. </li>
+</ul>
+<ul>
+  <li>The sky "eye" has changed to support the named skys.&nbsp; If you
+don't specify a named sky in the target, this will have exactly the
+same behaviour as the old sky eye, though it will look different.&nbsp;
+If you do specify a named sky, the GUI allows you to select which sky
+you want to observe.&nbsp; Depending on how you defined the sky, its
+behaviour is somewhat different.&nbsp; If you specify an absolute sky
+position, you will always go to that position.&nbsp; If you specify it
+as an offset, then the three checkboxes on the user interface come into
+play.&nbsp; These give you the following options:</li>
+</ul>
+<div style="margin-left: 80px;">a) No offset - you will always go to
+the offset position relative to the BASE target<br>
+</div>
+<br>
+<div style="margin-left: 80px;">b) Follow offset - if your target is
+inside an offset iterator, the sky position be offset relative to the
+BASE offset, scaled by a user defined amount.&nbsp; So for example if
+you had an offset iterator with two component (0.0, 0.0) and (0.0,
+20.0) and your sky had an offset of (0.0, 60.0), then the sky positions
+observed would be at (0.0, 60.0) and (0.0, 80.0) with a scaling factor
+of 1.0, or ( 0.0, 60.0) and (0.0, 70.0) for a scaling factor of 0.5)<br>
+</div>
+<br>
+<div style="text-align: left; margin-left: 80px;">c) Random offset -
+the sky offset will be at some random position centered on the defined
+sky offset relative to the BASE, and with a box defined by box size.<br>
+</div>
+<br>
+<br>
+<span style="font-weight: bold;">General updates</span><br>
+<ul>
+  <li>MSB's marked as REMOVED can now be UNREMOVED and their count is
+maintained.</li>
+</ul>
+<ul>
+  <li>On the site quality component, a better explanation of the cloud
+and moon constraints is given, and a new constraint, J-Band sky
+brightness, is added.</li>
+</ul>
+<ul>
+  <li>The 150 l/mm disperser has been removed from CGS4</li>
+</ul>
+<ul>
+  <li>The chop settings tab on the target component has been disabled.</li>
+</ul>
+<ul>
+  <li>Validation now uses an XML schema.&nbsp; There may be some
+side-effects of this change which we have yet to uncover, and user
+feedback will be appreciated. Since this is a web service any changes
+will not require a new OT release.</li>
+</ul>
+<ul>
+  <li>More than 1 observer note can now be specified (but they can not
+be put inside a sequence). At the summit, these notes are concatenated.<br>
+  </li>
+</ul>
+<ul>
+  <li>Offset positions are now displayed around the position of the
+guide star as well as around the target. This helps when deciding
+whether a guide star will fall into an inaccessible area&nbsp; Guide
+star offsets are displayed in blue. Highlight the offset iterator to
+display these offsets.</li>
+</ul>
 <br>
 <h2><a name="Updates_in_04A_version"></a>Updates in 04A version</h2>
 <h3><a name="UKIRT-Specific_Improvements"></a>UKIRT-Specific
@@ -1971,7 +2120,15 @@ Java is being used</li>
     <tr>
       <td style="text-align: center; vertical-align: middle;"
  bgcolor="#ff0000"><b>Memory Leak</b></td>
-      <td style="vertical-align: middle;">The memory leak referred to
+      <td style="vertical-align: middle;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+Memory leak leading to total hang of the OT and loss of work.<br>
+      <br style="font-weight: bold; text-decoration: underline;">
+      <span style="font-weight: bold; text-decoration: underline;">Work
+around:</span><br>
+      <br>
+The memory leak referred to
 in semester 03A version of this
 document
 has been 90% removed. Automatic file backup (BAK file) has also been
@@ -1982,6 +2139,7 @@ continually open and close libraries and program files which you could
 just
 leave open for the whole session. Also, do not open large numbers of
 libraries and repeatedly open and close the position editor.<br>
+      <br>
       </td>
     </tr>
     <tr>
@@ -1989,10 +2147,14 @@ libraries and repeatedly open and close the position editor.<br>
  style="text-align: center; background-color: rgb(255, 0, 0); font-weight: bold; vertical-align: middle;">Preference
 settings<br>
       </td>
-      <td style="vertical-align: middle;">File...Preference setting for
+      <td style="vertical-align: middle;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+File...Preference setting for
 prompt-on-close is not effective. Closing an altered science program
 window from its file menu always results in a prompt for whether you
 intend to do this.<br>
+      <br>
       </td>
     </tr>
     <tr>
@@ -2000,9 +2162,13 @@ intend to do this.<br>
  style="text-align: center; font-weight: bold; background-color: rgb(255, 0, 0); vertical-align: middle;">OT
 Help system<br>
       </td>
-      <td style="vertical-align: middle;">Scrolling in the OT online
+      <td style="vertical-align: middle;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+Scrolling in the OT online
 help
 system appears to be intermittently broken.<br>
+      <br>
       </td>
     </tr>
     <tr>
@@ -2010,12 +2176,21 @@ system appears to be intermittently broken.<br>
  style="text-align: center; font-weight: bold; background-color: rgb(255, 0, 0); vertical-align: middle;">Position
 editor<br>
       </td>
-      <td style="vertical-align: middle;">Occasionally fails to pick up
+      <td style="vertical-align: middle;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+Occasionally fails to pick up
 the correct image when plotting a position. This results in a "base
 position is out of view" message on the position editor screen and
-either a blank field or an image from cache. This can be worked around
+either a blank field or an image from cache. <br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Work
+around:</span><br>
+      <br>
+This can be worked around
 by closing the position editor, switching to another target component
 and back again, and relaunching the editor.<br>
+      <br>
       </td>
     </tr>
     <tr>
@@ -2023,25 +2198,120 @@ and back again, and relaunching the editor.<br>
  style="background-color: rgb(255, 0, 0); text-align: center; font-weight: bold; vertical-align: middle;">Name
 Resolution<br>
       </td>
-      <td style="vertical-align: middle;">(i) Occasionally fails to
+      <td style="vertical-align: middle;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+(i) Occasionally fails to
 resolve
-a source - not reproducible. If this happens, select anoter name
+a source - this is not&nbsp; reproducible. If this happens, select
+another name
 resolver from the list.<br>
       <br>
 (ii) In some circumstances, the OT may hang if you try to resolve a
 target name in the target component while the position editor is also
 open. The hang requires you to ctrl-c out of the OT and no error
-message is generated. The work around is to make sure your position
+message is generated. <br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Work
+around for (ii):</span><br>
+      <br>
+Make sure your position
 editor is closed before hitting the "Resolve Name" button in the target
 component. This bug has been verified to occur on White Box Linux
 running gnome, and depends on the details of the programme (number of
-sources etc.).<br>
+sources etc.). In the 06A release of the OT, name resolution will be
+disabled while the position editor is open (a prompt to close it will
+ensue).<br>
+      <br>
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top;"><br>
+      <td
+ style="vertical-align: middle; background-color: rgb(255, 0, 0); font-weight: bold; text-align: center;">Java
+Memory problem for large programmes<br>
+      <br>
+      <span style="color: rgb(255, 255, 255);">added Mar-2005</span><br>
       </td>
       <td style="vertical-align: top;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+If you are creating a very large
+programme, you may get a java memory error which will effectively
+prevent you from saving the programme xml file or uploading it to the
+database. The error message is this:<br>
+      <br>
+      <span style="font-weight: bold;">java.lang.OutOfMemoryError</span><br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Work
+around:</span><br>
+      <br>
+Locate the OT startup script (
+.../ompot/OT/install/bin/ot) and find the last line therein. There you
+will see three parameters<br>
+      <br>
+      <span style="font-weight: bold;">-ms5m -mx100m -oss5m </span><br>
+      <br>
+These set the amount of memory Java is allowed on startup and the
+maximum it can grab overall in any given session. Change these to
+something like <br>
+      <br>
+      <span style="font-weight: bold;">-ms64m -mx500m -oss10m</span> <br>
+      <br>
+and try again.<br>
+      <br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: middle; font-weight: bold; background-color: rgb(255, 0, 0); text-align: center;">Sequence
+location in Observation<br>
+      <br>
+      <span style="color: rgb(255, 255, 255);">added Jul-2005</span><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+If in an Observation such as this:<br>
+      <br>
+      <div style="margin-left: 40px;"><img alt=""
+ src="bug_sequence_position_1.png" style="width: 280px; height: 121px;"><br>
+      </div>
+      <br>
+...you drag components such that the sequence ends in this position:<br>
+      <br>
+      <div style="margin-left: 40px;"><img alt=""
+ src="bug_sequence_position_2.png" style="width: 278px; height: 115px;"><br>
+      </div>
+      <br>
+...and then save the program to file or store it to the database, the
+saved or stored program will become corrupted (it is possible to
+recover but only with some difficulty and this may not reproduce the
+original programme precisely; if the copy you are trying to retrieve is
+in the OMP database, you will need to get JAC assistance).<br>
+      <br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: middle; text-align: center; background-color: rgb(255, 0, 0);"><span
+ style="font-weight: bold;">Dragged Position Angle fails at telescope</span><br>
+      <br>
+      <span style="color: rgb(255, 255, 255); font-weight: bold;">added
+Jul-2005</span><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
+      <br>
+An instrumental position angle (e.g. CGS4 slit) which was set up by
+dragging on the position editor display can end up with too many
+decimal places for the execution system. This only becomes apparent as
+a problem when the programme is executed. <br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Workaround:</span><br>
+      <br>
+If you set position angles this way, please remove trailing decimal
+places (two or three is ok, ten is not).<br>
+      <br>
       </td>
     </tr>
   </tbody>
