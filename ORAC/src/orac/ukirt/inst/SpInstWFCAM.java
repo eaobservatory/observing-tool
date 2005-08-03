@@ -27,6 +27,13 @@ import gemini.sp.obsComp.SpChopCapability;
 import gemini.sp.obsComp.SpStareCapability;
 import gemini.sp.obsComp.SpMicroStepUser;
 
+import gemini.sp.iter.SpIterConfigObs;
+import orac.ukirt.iter.SpIterBiasObs;
+import orac.ukirt.iter.SpIterDarkObs;
+import orac.ukirt.iter.SpIterWFCAMCalObs;
+
+
+
 /**
  * The WFCAM instrument.
  *
@@ -489,4 +496,39 @@ public final class SpInstWFCAM extends SpUKIRTInstObsComp implements SpMicroStep
 
         return t;
     }
+
+
+  /**
+   * Iteration Tracker for WFCAM
+   *
+   * Added for OMP by FE, Aug 2005
+   */
+  private class IterTrackerWFCAM extends IterTrackerUKIRT {
+
+    public double getObserveStepTime () {
+      // extra_oh is a constant overheads related to certain observe iterators:
+      // 30 seconds for dark, arc, flat or bias (in addition to the times to do
+      // their respective eye), and 30 secs each time an instrument iterator changes a filter.  
+      double extra_oh = 0.0;
+      _obs_oh = 2.5;
+      _int_oh = 0.0;
+
+      if((currentIterStepItem != null) &&
+         ((currentIterStepItem instanceof SpIterBiasObs) ||
+          (currentIterStepItem instanceof SpIterDarkObs) ||
+          (currentIterStepItem instanceof SpIterWFCAMCalObs) ||
+	  (currentIterStepItem instanceof SpIterConfigObs))) {
+
+        extra_oh = 30.0;
+      }
+
+      return (currentNoCoadds * (currentExposureTime + getExposureOverhead()) + _int_oh + _obs_oh + extra_oh);
+    }
+
+}
+
+  public IterationTracker createIterationTracker() {
+    return new IterTrackerWFCAM();
+  }
+
 }
