@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20050513</ot_version>
+  <ot_version>20050802</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -20,29 +20,28 @@ If you vary the exposure time, then you will need to insert your own darks.</not
 IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 800 arcseconds in both RA and Dec.
-
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 800 arcseconds in both RA and Dec. See the Target Information Note for more details.
 
 The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
       <title>Single filter "paw print" MSBs</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">120.0</estimatedDuration>
+      <estimatedDuration units="seconds">140.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>5 point 10 arcsec jitter</title>
-      <totalDuration units="seconds">120.0</totalDuration>
+      <title>5 point 3.2 arcsec jitter</title>
+      <totalDuration units="seconds">140.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">120.0</estimatedDuration>
+        <estimatedDuration units="seconds">140.0</estimatedDuration>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 800 arcseconds in both RA and Dec.</note>
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. Camera 3 is recomended as being cosmetically clean; setting xOff= -795 and yOff= -795 will place your specified RA/Dec position close to the centre of camera 3.</note>
           <title>Target information - IMPORTANT</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -53,8 +52,9 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
             <target>
               <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -87,7 +87,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <title>WFCAM component</title>
         </SpNote>
         <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -123,11 +123,8 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
             <repeatCount>1</repeatCount>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
+              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
 
-In addition, we distort the pattern from a simple square or die-5 shape so as to avoid any part of the sky staying on a bad row or column. This accounts for the somewhat distorted shape of the pattern.
-
-In this pattern, the seperation betwen the "corner" positions is approx 10 arcsec. 
 This pattern is best suited to the "small" microstepping patterns.
 This pattern is probably too small to use in self-flat observations.
 This pattern should allways be able to use fast offsetting.</note>
@@ -144,22 +141,22 @@ This pattern should allways be able to use fast offsetting.</note>
                 </OFFSET>
                 <OFFSET>
                   <DC1>3.2</DC1>
-                  <DC2>6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-6.4</DC1>
                   <DC2>3.2</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>-3.2</DC1>
-                  <DC2>-6.4</DC2>
+                  <DC2>3.2</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>6.4</DC1>
+                  <DC1>-3.2</DC1>
+                  <DC2>-3.2</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>3.2</DC1>
                   <DC2>-3.2</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 5 10arcsec</title>
+              <title>jitter 5 3.2arcsec</title>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
@@ -199,21 +196,21 @@ This pattern should allways be able to use fast offsetting.</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">216.0</estimatedDuration>
+      <estimatedDuration units="seconds">252.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>9 point 13 arcsec jitter</title>
-      <totalDuration units="seconds">216.0</totalDuration>
+      <title>9 point 10 arcsec jitter</title>
+      <totalDuration units="seconds">252.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">216.0</estimatedDuration>
+        <estimatedDuration units="seconds">252.0</estimatedDuration>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 800 arcseconds in both RA and Dec.</note>
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. Camera 3 is recomended as being cosmetically clean; setting xOff= -795 and yOff= -795 will place your specified RA/Dec position close to the centre of camera 3.</note>
           <title>Target information - IMPORTANT</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -226,6 +223,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -258,7 +256,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <title>WFCAM component</title>
         </SpNote>
         <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -294,11 +292,8 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
             <repeatCount>1</repeatCount>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
+              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
 
-Each row or column is only used at most twice to minimise the effect of bad rows or columns.
-
-In this pattern, the seperation betwen the "corner" positions is approx 13 arcsec. 
 This pattern is best suited to the "small" microstepping patterns.
 This pattern is probably too small to use in self-flat observations.
 This pattern should allways be able to use fast offsetting.</note>
@@ -314,28 +309,28 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
+                  <DC1>3.2</DC1>
+                  <DC2>3.2</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>6.4</DC2>
+                </OFFSET>
+                <OFFSET>
                   <DC1>-3.2</DC1>
                   <DC2>3.2</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>-6.4</DC1>
-                  <DC2>-6.4</DC2>
+                  <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>-3.2</DC1>
                   <DC2>-3.2</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-6.4</DC1>
-                  <DC2>6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>6.4</DC1>
-                  <DC2>6.4</DC2>
+                  <DC1>0.0</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>3.2</DC1>
@@ -343,10 +338,10 @@ This pattern should allways be able to use fast offsetting.</note>
                 </OFFSET>
                 <OFFSET>
                   <DC1>6.4</DC1>
-                  <DC2>-6.4</DC2>
+                  <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 9 10arcsec</title>
+              <title>jitter 9 3.2/6.4arcsec diamond</title>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
@@ -386,21 +381,21 @@ This pattern should allways be able to use fast offsetting.</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">336.0</estimatedDuration>
+      <estimatedDuration units="seconds">700.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>14 point 20 arcsec jitter</title>
-      <totalDuration units="seconds">336.0</totalDuration>
+      <title>25 point 20 arcsec jitter</title>
+      <totalDuration units="seconds">700.0</totalDuration>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">336.0</estimatedDuration>
+        <estimatedDuration units="seconds">700.0</estimatedDuration>
         <standard>false</standard>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>IMPORTANT:
 Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
 
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 800 arcseconds in both RA and Dec.</note>
+The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 795 arcseconds in both RA and Dec. You can put +-795 in the xOff and yOff fields to offset your specified RA./Dec position to the centre of one of the arrays. Camera 3 is recomended as being cosmetically clean; setting xOff= -795 and yOff= -795 will place your specified RA/Dec position close to the centre of camera 3.</note>
           <title>Target information - IMPORTANT</title>
         </SpNote>
         <SpTelescopeObsComp type="oc" subtype="targetList">
@@ -413,6 +408,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -445,7 +441,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <title>WFCAM component</title>
         </SpNote>
         <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -481,9 +477,7 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
             <repeatCount>1</repeatCount>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
-
-Each row or column is only used twice to help deal with bad columns or rows.
+              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
 
 In this pattern, the seperation betwen the "corner" positions is approx 20 arcsec. 
 This pattern is best suited to the "small" microstepping patterns.
@@ -500,40 +494,36 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
+                  <DC1>-3.2</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-3.2</DC1>
+                  <DC2>3.2</DC2>
+                </OFFSET>
+                <OFFSET>
                   <DC1>0.0</DC1>
                   <DC2>3.2</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>6.4</DC1>
-                  <DC2>6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>9.6</DC1>
-                  <DC2>9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>6.4</DC1>
+                  <DC1>3.2</DC1>
                   <DC2>3.2</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>3.2</DC1>
+                  <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>3.2</DC1>
                   <DC2>-3.2</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>9.6</DC1>
-                  <DC2>-9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-6.4</DC2>
+                  <DC1>0.0</DC1>
+                  <DC2>-3.2</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>-3.2</DC1>
-                  <DC2>-6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-9.6</DC1>
-                  <DC2>-9.6</DC2>
+                  <DC2>-3.2</DC2>
                 </OFFSET>
                 <OFFSET>
                   <DC1>-6.4</DC1>
@@ -544,249 +534,63 @@ This pattern should allways be able to use fast offsetting.</note>
                   <DC2>0.0</DC2>
                 </OFFSET>
                 <OFFSET>
+                  <DC1>-6.4</DC1>
+                  <DC2>3.2</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-6.4</DC1>
+                  <DC2>6.4</DC2>
+                </OFFSET>
+                <OFFSET>
                   <DC1>-3.2</DC1>
                   <DC2>6.4</DC2>
                 </OFFSET>
                 <OFFSET>
-                  <DC1>-9.6</DC1>
-                  <DC2>9.6</DC2>
+                  <DC1>0.0</DC1>
+                  <DC2>6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>3.2</DC1>
+                  <DC2>6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>6.4</DC1>
+                  <DC2>6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>6.4</DC1>
+                  <DC2>3.2</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>6.4</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>6.4</DC1>
+                  <DC2>-3.2</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>6.4</DC1>
+                  <DC2>-6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>3.2</DC1>
+                  <DC2>-6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>-6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-3.2</DC1>
+                  <DC2>-6.4</DC2>
+                </OFFSET>
+                <OFFSET>
+                  <DC1>-6.4</DC1>
+                  <DC2>-6.4</DC2>
                 </OFFSET>
               </obsArea>
-              <title>jitter 14 20arcsec</title>
-              <SpNote type="no" subtype="none">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-                <title>MicroSteps</title>
-              </SpNote>
-              <SpIterMicroStep type="ic" subtype="microstep">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>1.39</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>1.39</DC1>
-                    <DC2>1.39</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>1.39</DC2>
-                  </OFFSET>
-                </obsArea>
-                <pattern>2x2 small 1</pattern>
-                <SpIterObserve type="ic" subtype="observe">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <repeatCount>1</repeatCount>
-                </SpIterObserve>
-              </SpIterMicroStep>
-            </SpIterOffset>
-          </SpIterRepeat>
-        </SpIterFolder>
-      </SpObs>
-    </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">504.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <priority>99</priority>
-      <title>21 point 20 arcsec jitter</title>
-      <totalDuration units="seconds">504.0</totalDuration>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">504.0</estimatedDuration>
-        <standard>false</standard>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>IMPORTANT:
-Note that the co-ordinates you specify in the target component are for the centre of the wfcam focal plane. This DOES NOT CORRESPOND TO THE CENTRE OF ANY OF THE ARRAYS.
-
-The centres of the arrays are offset from the centre of the wfcam focal plane by approximately 800 arcseconds in both RA and Dec.</note>
-          <title>Target information - IMPORTANT</title>
-        </SpNote>
-        <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-          <meta_unique>true</meta_unique>
-          <BASE TYPE="Base">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-              </spherSystem>
-            </target>
-          </BASE>
-        </SpTelescopeObsComp>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
-          <title>DRrecipe</title>
-        </SpNote>
-        <SpDRRecipe type="oc" subtype="DRRecipe">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_unique>true</meta_unique>
-          <ArcInGroup>false</ArcInGroup>
-          <ArcRecipe>REDUCE_ARC</ArcRecipe>
-          <BiasInGroup>false</BiasInGroup>
-          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-          <DarkInGroup>false</DarkInGroup>
-          <DarkRecipe>REDUCE_DARK</DarkRecipe>
-          <FlatInGroup>false</FlatInGroup>
-          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-          <FocusInGroup>false</FocusInGroup>
-          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
-          <ObjectInGroup>true</ObjectInGroup>
-          <ObjectRecipe>JITTER</ObjectRecipe>
-          <SkyInGroup>true</SkyInGroup>
-          <SkyRecipe>REDUCE_SKY</SkyRecipe>
-          <title>JITTER</title>
-        </SpDRRecipe>
-        <SpNote type="no" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Set filters and exposure times etc in the WFCAM component.
-
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
-          <title>WFCAM component</title>
-        </SpNote>
-        <SpInstWFCAM type="oc" subtype="inst.WFCAM">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_unique>true</meta_unique>
-          <meta_version>1</meta_version>
-          <coadds>1</coadds>
-          <configType>Normal</configType>
-          <exposureTime>5.0</exposureTime>
-          <filter>K</filter>
-          <instAper>
-            <value>0.0</value>
-            <value>0.0</value>
-            <value>0.0</value>
-            <value>1.6</value>
-          </instAper>
-          <instPntgOffset>
-            <value>0.0</value>
-            <value>0.0</value>
-          </instPntgOffset>
-          <instPort>Centre</instPort>
-          <readMode>CDS</readMode>
-        </SpInstWFCAM>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them.</note>
-            <title>DARKS</title>
-          </SpNote>
-          <SpIterRepeat type="ic" subtype="repeat">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>1</repeatCount>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
-
-Each row or column is only used three times to help deal with bad columns or rows.
-
-In this pattern, the seperation betwen the "corner" positions is approx 20 arcsec. 
-This pattern is best suited to the "small" microstepping patterns.
-This pattern should allways be able to use fast offsetting.</note>
-              <title>Offset Pattern</title>
-            </SpNote>
-            <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-              <obsArea>
-                <PA>0.0</PA>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>6.4</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>6.4</DC1>
-                  <DC2>6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>9.6</DC1>
-                  <DC2>9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-9.6</DC1>
-                  <DC2>9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-6.4</DC1>
-                  <DC2>3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-9.6</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-6.4</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-9.6</DC1>
-                  <DC2>-9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-6.4</DC1>
-                  <DC2>-6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>-3.2</DC1>
-                  <DC2>-6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>-9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>3.2</DC1>
-                  <DC2>-6.4</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>9.6</DC1>
-                  <DC2>-9.6</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>6.4</DC1>
-                  <DC2>-3.2</DC2>
-                </OFFSET>
-                <OFFSET>
-                  <DC1>9.6</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-              </obsArea>
-              <title>jitter 20 20arcsec</title>
+              <title>jitter 25 3.2arcsec</title>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
@@ -833,16 +637,34 @@ Note. If you want to survey a small area in several filters, create seperate MSB
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <estimatedDuration units="seconds">56.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <title>survey using 2 point 3 arcsec jitter</title>
-      <totalDuration units="seconds">0.0</totalDuration>
+      <totalDuration units="seconds">56.0</totalDuration>
       <SpSurveyContainer type="sc" subtype="survey">
         <meta_gui_collapsed>false</meta_gui_collapsed>
+            <TargetList>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:00:00</c1>
+                                              <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+            </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">48.0</estimatedDuration>
+          <estimatedDuration units="seconds">56.0</estimatedDuration>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -872,7 +694,7 @@ Note. If you want to survey a small area in several filters, create seperate MSB
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <title>WFCAM component</title>
           </SpNote>
           <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -908,19 +730,12 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
               <repeatCount>1</repeatCount>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
-
-In addition, we distort the pattern from a simple square or die-5 shape so as to avoid any part of the sky staying on a bad row or column. This accounts for the somewhat distorted shape of the pattern.
-
-In this pattern, the seperation betwen the "corner" positions is approx 10 arcsec. 
-This pattern is best suited to the "small" microstepping patterns.
-This pattern is probably too small to use in self-flat observations.
-This pattern should allways be able to use fast offsetting.</note>
+                <note>This is a simple 2 position pattern, seperated by an integer number of IR and AG pixels in both axes</note>
                 <title>Offset Pattern</title>
               </SpNote>
               <SpIterOffset type="ic" subtype="offset">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset1</meta_gui_selectedOffsetPos>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
                 <obsArea>
                   <PA>0.0</PA>
                   <OFFSET>
@@ -973,16 +788,34 @@ This pattern should allways be able to use fast offsetting.</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">0.0</estimatedDuration>
+      <estimatedDuration units="seconds">140.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>survey using 5 point 10 arcsec jitter</title>
-      <totalDuration units="seconds">0.0</totalDuration>
+      <title>survey using 5 point 3.2 arcsec jitter</title>
+      <totalDuration units="seconds">140.0</totalDuration>
       <SpSurveyContainer type="sc" subtype="survey">
         <meta_gui_collapsed>false</meta_gui_collapsed>
+            <TargetList>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:00:00</c1>
+                                              <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+            </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">120.0</estimatedDuration>
+          <estimatedDuration units="seconds">140.0</estimatedDuration>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1012,7 +845,7 @@ This pattern should allways be able to use fast offsetting.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <title>WFCAM component</title>
           </SpNote>
           <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -1048,11 +881,8 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
               <repeatCount>1</repeatCount>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
+                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
 
-In addition, we distort the pattern from a simple square or die-5 shape so as to avoid any part of the sky staying on a bad row or column. This accounts for the somewhat distorted shape of the pattern.
-
-In this pattern, the seperation betwen the "corner" positions is approx 10 arcsec. 
 This pattern is best suited to the "small" microstepping patterns.
 This pattern is probably too small to use in self-flat observations.
 This pattern should allways be able to use fast offsetting.</note>
@@ -1069,22 +899,22 @@ This pattern should allways be able to use fast offsetting.</note>
                   </OFFSET>
                   <OFFSET>
                     <DC1>3.2</DC1>
-                    <DC2>6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-6.4</DC1>
                     <DC2>3.2</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>-3.2</DC1>
-                    <DC2>-6.4</DC2>
+                    <DC2>3.2</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>6.4</DC1>
+                    <DC1>-3.2</DC1>
+                    <DC2>-3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>3.2</DC1>
                     <DC2>-3.2</DC2>
                   </OFFSET>
                 </obsArea>
-                <title>jitter 5 10arcsec</title>
+                <title>jitter 5 3.2arcsec</title>
                 <SpNote type="no" subtype="none">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
@@ -1125,11 +955,11 @@ This pattern should allways be able to use fast offsetting.</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">216.0</estimatedDuration>
+      <estimatedDuration units="seconds">252.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>survey using 9 point 13 arcsec jitter</title>
-      <totalDuration units="seconds">216.0</totalDuration>
+      <title>survey using 9 point 10 arcsec jitter</title>
+      <totalDuration units="seconds">252.0</totalDuration>
       <SpSurveyContainer type="sc" subtype="survey">
         <meta_gui_collapsed>false</meta_gui_collapsed>
             <TargetList>
@@ -1143,6 +973,7 @@ This pattern should allways be able to use fast offsetting.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1151,7 +982,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">216.0</estimatedDuration>
+          <estimatedDuration units="seconds">252.0</estimatedDuration>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1181,7 +1012,7 @@ This pattern should allways be able to use fast offsetting.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <title>WFCAM component</title>
           </SpNote>
           <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -1217,11 +1048,8 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
               <repeatCount>1</repeatCount>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
+                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
 
-Each row or column is only used at most twice to minimise the effect of bad rows or columns.
-
-In this pattern, the seperation betwen the "corner" positions is approx 13 arcsec. 
 This pattern is best suited to the "small" microstepping patterns.
 This pattern is probably too small to use in self-flat observations.
 This pattern should allways be able to use fast offsetting.</note>
@@ -1237,28 +1065,28 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
+                    <DC1>3.2</DC1>
+                    <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
                     <DC1>-3.2</DC1>
                     <DC2>3.2</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>-6.4</DC1>
-                    <DC2>-6.4</DC2>
+                    <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>-3.2</DC1>
                     <DC2>-3.2</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>-6.4</DC1>
-                    <DC2>6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>3.2</DC1>
-                    <DC2>3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>6.4</DC1>
-                    <DC2>6.4</DC2>
+                    <DC1>0.0</DC1>
+                    <DC2>-6.4</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>3.2</DC1>
@@ -1266,10 +1094,10 @@ This pattern should allways be able to use fast offsetting.</note>
                   </OFFSET>
                   <OFFSET>
                     <DC1>6.4</DC1>
-                    <DC2>-6.4</DC2>
+                    <DC2>0.0</DC2>
                   </OFFSET>
                 </obsArea>
-                <title>jitter 9 10arcsec</title>
+                <title>jitter 9 3.2/6.4arcsec diamond</title>
                 <SpNote type="no" subtype="none">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
@@ -1310,11 +1138,11 @@ This pattern should allways be able to use fast offsetting.</note>
     </SpMSB>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">336.0</estimatedDuration>
+      <estimatedDuration units="seconds">700.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>survey using 14 point 20 arcsec jitter</title>
-      <totalDuration units="seconds">336.0</totalDuration>
+      <title>survey using 25 point 20 arcsec jitter</title>
+      <totalDuration units="seconds">700.0</totalDuration>
       <SpSurveyContainer type="sc" subtype="survey">
         <meta_gui_collapsed>false</meta_gui_collapsed>
             <TargetList>
@@ -1328,6 +1156,7 @@ This pattern should allways be able to use fast offsetting.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1336,7 +1165,7 @@ This pattern should allways be able to use fast offsetting.</note>
             </TargetList>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">336.0</estimatedDuration>
+          <estimatedDuration units="seconds">700.0</estimatedDuration>
           <standard>false</standard>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1366,7 +1195,7 @@ This pattern should allways be able to use fast offsetting.</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>Set filters and exposure times etc in the WFCAM component.
 
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <title>WFCAM component</title>
           </SpNote>
           <SpInstWFCAM type="oc" subtype="inst.WFCAM">
@@ -1402,9 +1231,7 @@ In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and 
               <repeatCount>1</repeatCount>
               <SpNote type="no" subtype="none">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
-
-Each row or column is only used twice to help deal with bad columns or rows.
+                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
 
 In this pattern, the seperation betwen the "corner" positions is approx 20 arcsec. 
 This pattern is best suited to the "small" microstepping patterns.
@@ -1421,40 +1248,36 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
+                    <DC1>-3.2</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-3.2</DC1>
+                    <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
                     <DC1>0.0</DC1>
                     <DC2>3.2</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>6.4</DC1>
-                    <DC2>6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>9.6</DC1>
-                    <DC2>9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>6.4</DC1>
+                    <DC1>3.2</DC1>
                     <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>3.2</DC1>
+                    <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>3.2</DC1>
                     <DC2>-3.2</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>9.6</DC1>
-                    <DC2>-9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>3.2</DC1>
-                    <DC2>-6.4</DC2>
+                    <DC1>0.0</DC1>
+                    <DC2>-3.2</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>-3.2</DC1>
-                    <DC2>-6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-9.6</DC1>
-                    <DC2>-9.6</DC2>
+                    <DC2>-3.2</DC2>
                   </OFFSET>
                   <OFFSET>
                     <DC1>-6.4</DC1>
@@ -1465,247 +1288,63 @@ This pattern should allways be able to use fast offsetting.</note>
                     <DC2>0.0</DC2>
                   </OFFSET>
                   <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
                     <DC1>-3.2</DC1>
                     <DC2>6.4</DC2>
                   </OFFSET>
                   <OFFSET>
-                    <DC1>-9.6</DC1>
-                    <DC2>9.6</DC2>
+                    <DC1>0.0</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>3.2</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>-3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>6.4</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>3.2</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-3.2</DC1>
+                    <DC2>-6.4</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-6.4</DC1>
+                    <DC2>-6.4</DC2>
                   </OFFSET>
                 </obsArea>
-                <title>jitter 14 20arcsec</title>
-                <SpNote type="no" subtype="none">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
-                  <title>MicroSteps</title>
-                </SpNote>
-                <SpIterMicroStep type="ic" subtype="microstep">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <obsArea>
-                    <PA>0.0</PA>
-                    <OFFSET>
-                      <DC1>0.0</DC1>
-                      <DC2>0.0</DC2>
-                    </OFFSET>
-                    <OFFSET>
-                      <DC1>1.39</DC1>
-                      <DC2>0.0</DC2>
-                    </OFFSET>
-                    <OFFSET>
-                      <DC1>1.39</DC1>
-                      <DC2>1.39</DC2>
-                    </OFFSET>
-                    <OFFSET>
-                      <DC1>0.0</DC1>
-                      <DC2>1.39</DC2>
-                    </OFFSET>
-                  </obsArea>
-                  <pattern>2x2 small 1</pattern>
-                  <SpIterObserve type="ic" subtype="observe">
-                    <meta_gui_collapsed>false</meta_gui_collapsed>
-                    <repeatCount>1</repeatCount>
-                  </SpIterObserve>
-                </SpIterMicroStep>
-              </SpIterOffset>
-            </SpIterRepeat>
-          </SpIterFolder>
-        </SpObs>
-      </SpSurveyContainer>
-    </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">504.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <priority>99</priority>
-      <title>survey using 21 point 20 arcsec jitter</title>
-      <totalDuration units="seconds">504.0</totalDuration>
-      <SpSurveyContainer type="sc" subtype="survey">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-            <TargetList>
-                        <Target priority="0" remaining="1">
-                                      <SpTelescopeObsComp type="oc" subtype="targetList">
-                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
-                                        <meta_unique>true</meta_unique>
-                                        <BASE TYPE="Base">
-                                          <target>
-                                            <targetName></targetName>
-                                            <spherSystem SYSTEM="J2000">
-                                              <c1>0:00:00</c1>
-                                              <c2>0:00:00</c2>
-                                            </spherSystem>
-                                          </target>
-                                        </BASE>
-                                      </SpTelescopeObsComp>
-                        </Target>
-            </TargetList>
-        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">504.0</estimatedDuration>
-          <standard>false</standard>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
-            <title>DRrecipe</title>
-          </SpNote>
-          <SpDRRecipe type="oc" subtype="DRRecipe">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_unique>true</meta_unique>
-            <ArcInGroup>false</ArcInGroup>
-            <ArcRecipe>REDUCE_ARC</ArcRecipe>
-            <BiasInGroup>false</BiasInGroup>
-            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
-            <DarkInGroup>false</DarkInGroup>
-            <DarkRecipe>REDUCE_DARK</DarkRecipe>
-            <FlatInGroup>false</FlatInGroup>
-            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
-            <FocusInGroup>false</FocusInGroup>
-            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
-            <ObjectInGroup>true</ObjectInGroup>
-            <ObjectRecipe>JITTER</ObjectRecipe>
-            <SkyInGroup>true</SkyInGroup>
-            <SkyRecipe>REDUCE_SKY</SkyRecipe>
-            <title>JITTER</title>
-          </SpDRRecipe>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Set filters and exposure times etc in the WFCAM component.
-
-In general, we advocate sticking to 5s exposures for J, H, K. Microstepping and small offsets are very efficient with WFCAM, so in general we advocate doing a small offset pattern rather than several coadds.</note>
-            <title>WFCAM component</title>
-          </SpNote>
-          <SpInstWFCAM type="oc" subtype="inst.WFCAM">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_unique>true</meta_unique>
-            <meta_version>1</meta_version>
-            <coadds>1</coadds>
-            <configType>Normal</configType>
-            <exposureTime>5.0</exposureTime>
-            <filter>K</filter>
-            <instAper>
-              <value>0.0</value>
-              <value>0.0</value>
-              <value>0.0</value>
-              <value>1.6</value>
-            </instAper>
-            <instPntgOffset>
-              <value>0.0</value>
-              <value>0.0</value>
-            </instPntgOffset>
-            <instPort>Centre</instPort>
-            <readMode>CDS</readMode>
-          </SpInstWFCAM>
-          <SpIterFolder type="if" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <SpNote type="no" subtype="none">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them.</note>
-              <title>DARKS</title>
-            </SpNote>
-            <SpIterRepeat type="ic" subtype="repeat">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-              <SpNote type="no" subtype="none">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway and introduce bad offsets.
-
-Each row or column is only used three times to help deal with bad columns or rows.
-
-In this pattern, the seperation betwen the "corner" positions is approx 20 arcsec. 
-This pattern is best suited to the "small" microstepping patterns.
-This pattern should allways be able to use fast offsetting.</note>
-                <title>Offset Pattern</title>
-              </SpNote>
-              <SpIterOffset type="ic" subtype="offset">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>3.2</DC1>
-                    <DC2>3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>6.4</DC1>
-                    <DC2>3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>6.4</DC1>
-                    <DC2>6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>9.6</DC1>
-                    <DC2>9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>3.2</DC1>
-                    <DC2>6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-3.2</DC1>
-                    <DC2>6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-9.6</DC1>
-                    <DC2>9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-6.4</DC1>
-                    <DC2>3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-9.6</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-6.4</DC1>
-                    <DC2>-3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-9.6</DC1>
-                    <DC2>-9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-6.4</DC1>
-                    <DC2>-6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-3.2</DC1>
-                    <DC2>-3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>-3.2</DC1>
-                    <DC2>-6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>-9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>3.2</DC1>
-                    <DC2>-6.4</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>9.6</DC1>
-                    <DC2>-9.6</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>6.4</DC1>
-                    <DC2>-3.2</DC2>
-                  </OFFSET>
-                  <OFFSET>
-                    <DC1>9.6</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <title>jitter 20 20arcsec</title>
+                <title>jitter 25 3.2arcsec</title>
                 <SpNote type="no" subtype="none">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
