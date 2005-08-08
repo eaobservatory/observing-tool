@@ -101,7 +101,7 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     cycleReversal.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel8.setForeground(Color.black);
-    jLabel8.setText("secs/cycle");
+    jLabel8.setText("secs/jig posn");
     jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
     jLabel9.setForeground(Color.black);
     jLabel9.setText("secs/jiggle");
