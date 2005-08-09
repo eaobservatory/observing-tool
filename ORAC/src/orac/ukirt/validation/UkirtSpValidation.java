@@ -511,7 +511,7 @@ public class UkirtSpValidation extends SpValidation {
   
     // check for position iterators or instrument iterators that are on the same level of iteration as
     // the OBSERVE observe iterator.
-    observeIterators = findInstances(spObs, "gemini.sp.iter.SpIterObserve");
+    observeIterators = findInstances(spObs, "orac.ukirt.iter.SpIterObserve");
     SpIterObserve iterObserve = null;
     SpItem        sibling     = null;
     boolean wrongIteratorsOnObserveLevel = false;
