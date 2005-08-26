@@ -460,7 +460,10 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
 //         v.add("-SET_CHOPBEAM A");
     }
     if ( obsComp != null ) {
-        v.add("break");
+	// Add break to sequence only if instrument is not WFCAM - RDK 25 Aug 2005 //
+	if (!"WFCAM".equalsIgnoreCase(instName)) {
+	    v.add("break");
+	}
         if ( spherSys != SpTelescopePos.SYSTEM_SPHERICAL ) {
             v.add("-system APP ALL");
         }
@@ -484,7 +487,6 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
             }
         }
         v.add("do 1 _slew_all");
-        v.add("GUIDE ON");
         v.add("do 1 _slew_guide");
     }
     // Hackily we need to do this twice since we neeed to make sure the default 
@@ -562,7 +564,10 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
 
     v.add("-ready");
 
-    addBreak(v);
+    // Add breaks to sequence only if instrument is not WFCAM - RDK 25 Aug 2005 //
+    if (!"WFCAM".equalsIgnoreCase(instName)) {
+	addBreak(v);
+    }
 
     // A couple of final tidy up operations
     tidyNOffsets(v, inst);
@@ -879,13 +884,13 @@ private void addGuideCommands( Vector v ) {
     for ( int i=0; i<v.size(); i++ ) {
         String s = (String) v.get(i);
         if ( s.equals(darkString) || s.equals(biasString) || s.equals(focusString) || s.equals(domeString) ) {
-            // Add a GUIDE OFF before this command
-            v.add(i++, "GUIDE OFF");
+            // Add a call to the _guide_off macro before this command
+            v.add(i++, "do 1 _guide_off");
         }
         else if ( s.equals(objectString) || s.equals(skyString) || s.equals(skyflatString) ) {
-            // Add a GUIDE OFF before and a GUIDE ON after
-            v.add(i+1, "GUIDE ON");
-            v.add(i++, "GUIDE OFF");
+            // Add a call to the _guide_off macro before and a _guide_on after
+            v.add(i+1, "do 1 _guide_on");
+            v.add(i++, "do 1 _guide_off");
         }
     }
 }
