@@ -515,33 +515,160 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
     if ( getTable().exists("project") ) {
         v.add("setHeader PROJECT " + getTable().get("project") );
     }
+
+    // This code is stupid - it does everything twice trying to get
+    // the info from an MSB, or if not an MSB its parent. So every
+    // line is duplicated twice. There must be a better solution, but
+    // I have to go with what's here given I don't know any java
+    
     if ( isMSB() ) {
         if ( getTable().exists("remote_trigger_src") ) {
             v.add("-setHeader RMTAGENT " + getTable().get("remote_trigger_src"));
         }
         else {
-            v.add("-setHeader RMTAGENT none");
+            v.add("-setHeader RMTAGENT UNDEF");
         }
         if ( getTable().exists("remote_trigger_id") ) {
             v.add("-setHeader AGENTID " + getTable().get("remote_trigger_id"));
         }
         else {
-            v.add("-setHeader AGENTID none");
+            v.add("-setHeader AGENTID UNDEF");
         }
+
+	if ( getTable().exists("rq_minsb") ) {
+	    v.add("-setHeader RQ_MINSB " + getTable().get("rq_minsb"));
+	} else {
+	    v.add("-setHeader RQ_MINSB UNDEF");
+	}
+
+	if ( getTable().exists("rq_maxsb") ) {
+	    v.add("-setHeader RQ_MAXSB " + getTable().get("rq_maxsb"));
+	} else {
+	    v.add("-setHeader RQ_MAXSB UNDEF");
+	}
+
+	if ( getTable().exists("rq_mnsee") ) {
+	    v.add("-setHeader RQ_MNSEE " + getTable().get("rq_mnsee"));
+	} else {
+	    v.add("-setHeader RQ_MNSEE UNDEF");
+	}
+
+	if ( getTable().exists("rq_mxsee") ) {
+	    v.add("-setHeader RQ_MXSEE " + getTable().get("rq_mxsee"));
+	} else {
+	    v.add("-setHeader RQ_MXSEE UNDEF");
+	}
+
+	if ( getTable().exists("rq_mincl") ) {
+	    v.add("-setHeader RQ_MINCL " + getTable().get("rq_mincl"));
+	} else {
+	    v.add("-setHeader RQ_MINCL UNDEF");
+	}
+
+	if ( getTable().exists("rq_maxcl") ) {
+	    v.add("-setHeader RQ_MAXCL " + getTable().get("rq_maxcl"));
+	} else {
+	    v.add("-setHeader RQ_MAXCL UNDEF");
+	}
+
+	if ( getTable().exists("rq_mntau") ) {
+	    v.add("-setHeader RQ_MNTAU " + getTable().get("rq_mntau"));
+	} else {
+	    v.add("-setHeader RQ_MNTAU UNDEF");
+	}
+
+	if ( getTable().exists("rq_mxtau") ) {
+	    v.add("-setHeader RQ_MXTAU " + getTable().get("rq_mxtau"));
+	} else {
+	    v.add("-setHeader RQ_MXTAU UNDEF");
+	}
+
+	if ( getTable().exists("rq_minmn") ) {
+	    v.add("-setHeader RQ_MINMN " + getTable().get("rq_minmn"));
+	} else {
+	    v.add("-setHeader RQ_MINMN UNDEF");
+	}
+
+	if ( getTable().exists("rq_maxmn") ) {
+	    v.add("-setHeader RQ_MAXMN " + getTable().get("rq_maxmn"));
+	} else {
+	    v.add("-setHeader RQ_MAXMN UNDEF");
+	}
+
     }
     else {
         if ( parent().getTable().exists("remote_trigger_src") ) {
             v.add("-setHeader RMTAGENT " + parent().getTable().get("remote_trigger_src"));
         }
         else {
-            v.add("-setHeader RMTAGENT none");
+            v.add("-setHeader RMTAGENT UNDEF");
         }
         if ( parent().getTable().exists("remote_trigger_id") ) {
             v.add("-setHeader AGENTID " + parent().getTable().get("remote_trigger_id"));
         }
         else {
-            v.add("-setHeader AGENTID none");
+            v.add("-setHeader AGENTID UNDEF");
         }
+
+	if ( getTable().exists("rq_minsb") ) {
+	    v.add("-setHeader RQ_MINSB " + parent().getTable().get("rq_minsb"));
+	} else {
+	    v.add("-setHeader RQ_MINSB UNDEF");
+	}
+
+	if ( getTable().exists("rq_maxsb") ) {
+	    v.add("-setHeader RQ_MAXSB " + parent().getTable().get("rq_maxsb"));
+	} else {
+	    v.add("-setHeader RQ_MAXSB UNDEF");
+	}
+
+	if ( getTable().exists("rq_mnsee") ) {
+	    v.add("-setHeader RQ_MNSEE " + parent().getTable().get("rq_mnsee"));
+	} else {
+	    v.add("-setHeader RQ_MNSEE UNDEF");
+	}
+
+	if ( getTable().exists("rq_mxsee") ) {
+	    v.add("-setHeader RQ_MXSEE " + parent().getTable().get("rq_mxsee"));
+	} else {
+	    v.add("-setHeader RQ_MXSEE UNDEF");
+	}
+
+	if ( getTable().exists("rq_mincl") ) {
+	    v.add("-setHeader RQ_MINCL " + parent().getTable().get("rq_mincl"));
+	} else {
+	    v.add("-setHeader RQ_MINCL UNDEF");
+	}
+
+	if ( getTable().exists("rq_maxcl") ) {
+	    v.add("-setHeader RQ_MAXCL " + parent().getTable().get("rq_maxcl"));
+	} else {
+	    v.add("-setHeader RQ_MAXCL UNDEF");
+	}
+
+	if ( getTable().exists("rq_mntau") ) {
+	    v.add("-setHeader RQ_MNTAU " + parent().getTable().get("rq_mntau"));
+	} else {
+	    v.add("-setHeader RQ_MNTAU UNDEF");
+	}
+
+	if ( getTable().exists("rq_mxtau") ) {
+	    v.add("-setHeader RQ_MXTAU " + parent().getTable().get("rq_mxtau"));
+	} else {
+	    v.add("-setHeader RQ_MXTAU UNDEF");
+	}
+
+	if ( getTable().exists("rq_minmn") ) {
+	    v.add("-setHeader RQ_MINMN " + parent().getTable().get("rq_minmn"));
+	} else {
+	    v.add("-setHeader RQ_MINMN UNDEF");
+	}
+
+	if ( getTable().exists("rq_maxmn") ) {
+	    v.add("-setHeader RQ_MAXMN " + parent().getTable().get("rq_maxmn"));
+	} else {
+	    v.add("-setHeader RQ_MAXMN UNDEF");
+	}
     }
 
     try {
