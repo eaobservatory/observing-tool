@@ -385,6 +385,7 @@
 <xsd:element name="library_version" type="xsd:string"/>
 <xsd:element name="remote_trigger_src" type="xsd:string"/>
 <xsd:element name="remote_trigger_id"  type="xsd:string"/>
+<xsd:element name="mincl" type="xsd:string/>
 
 <!-- ELEMENT REFERENCES -->
 <xsd:element name="SpSiteQualityObsCompRef">
