@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>ACSIS library.xml</meta_gui_filename>
-  <ot_version>20050426</ot_version>
-  <telescope></telescope>
-  <title>ACSIS</title>
+  <meta_gui_filename>acsis_lib_new.xml</meta_gui_filename>
+  <ot_version>20050829</ot_version>
+  <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
-    <title>Samples</title>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <title>samples</title>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpDRRecipeRef idref="2"/>
       <SpInstHeterodyneRef idref="0"/>
       <SpSiteQualityObsCompRef idref="1"/>
-      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <estimatedDuration units="seconds">77.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>Beam-switch sample</title>
-      <totalDuration units="seconds">132.0</totalDuration>
+      <title>Position-switch sample</title>
+      <totalDuration units="seconds">77.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
@@ -79,6 +79,7 @@ Things that shouldn't appear in notes
         <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpInstHeterodyne id="0" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <band>best</band>
         <bandMode>1</bandMode>
@@ -101,15 +102,222 @@ Things that shouldn't appear in notes
         </subsystems>
 
       </SpInstHeterodyne>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+      <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">72.0</estimatedDuration>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">17.0</estimatedDuration>
         <standard>false</standard>
         <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>800.0</DC1>
+              <DC2>800.0</DC2>
+            </OFFSET>
+          </BASE>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <title></title>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <continuousCal>true</continuousCal>
+                <cycleReversal>true</cycleReversal>
+                <integrations>1</integrations>
+                <noOfCycles>0</noOfCycles>
+                <secsPerCycle>10</secsPerCycle>
+                <switchingMode>Position</switchingMode>
+              </SpIterStareObs>
+            </SpIterOffset>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpDRRecipeRef idref="5"/>
+      <SpInstHeterodyneRef idref="3"/>
+      <SpSiteQualityObsCompRef idref="4"/>
+      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Beam switched sample (EXPERIMENTAL)</title>
+      <totalDuration units="seconds">132.0</totalDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+        <title>Please read</title>
+      </SpNote>
+      <SpInstHeterodyne id="3" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <band>best</band>
+        <bandMode>1</bandMode>
+        <beName>acsis</beName>
+        <feBandWidth>1.8E9</feBandWidth>
+        <feIF>4.0E9</feIF>
+        <feName>A3</feName>
+        <mixers>1</mixers>
+        <mode>dsb</mode>
+        <skyFrequency>2.30538E11</skyFrequency>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <subsystems>
+            <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
+                <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
+            </subsystem>
+        </subsystems>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="4" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpDRRecipe id="5" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <estimatedDuration units="seconds">72.0</estimatedDuration>
+        <standard>false</standard>
+        <title>Science Target</title>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>180.0</DC1>
+              <DC2>0.0</DC2>
+            </OFFSET>
+          </BASE>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -135,11 +343,7 @@ Things that shouldn't appear in notes
                 </CHOP>
               </SECONDARY>
               <SpIterStareObs type="ic" subtype="stareObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <continuousCal>true</continuousCal>
-                <cycleReversal>true</cycleReversal>
                 <integrations>1</integrations>
-                <noOfCycles>0</noOfCycles>
                 <secsPerCycle>60</secsPerCycle>
                 <switchingMode>Beam</switchingMode>
               </SpIterStareObs>
@@ -148,293 +352,20 @@ Things that shouldn't appear in notes
         </SpIterFolder>
       </SpObs>
     </SpMSB>
+  </SpLibraryFolder>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <title>grids</title>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstHeterodyneRef idref="2"/>
-      <SpSiteQualityObsCompRef idref="3"/>
-      <estimatedDuration units="seconds">132.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <priority>99</priority>
-      <title>Position-switch sample</title>
-      <totalDuration units="seconds">132.0</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>A note abouts notes
--------------------
-
- This is a note outlining good practice in note writing for heterodyne
- MSB. PLEASE replace this note with your own note or delete altogether
- BEFORE submitting the MSB.
-
-
-Things to include in your notes
--------------------------------
-
-* Calibration details
-
-1) Overall observing strategy for your science program. A paragraph
-   conveying the general ideas behind your science program is useful
-   for the observer (who may not be an expert in your field) and the
-   TSS. 
-
-2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
-   MSBs have no explicit calibration component. Spell out any
-   specific calibrations you require a the note which is selected as
-   "show-to-observer". Example instructions might include:
-
-   "Perform a spectral line fivepoint on a nearby pointing source."
-
-    and/or 
-
-   "Short sample on a nearby spectral line standard with a good
-   CO(3-2) line e.g. OMC1".
-
-    and/or
-
-   "Short sample on a point-like planet (e.g. Uranus), with same
-   backend set up as science target."
-
-   In short, you'll at least want something to check back-end setup
-   and receiver performance (e.g. a spectral line standard), and
-   something to enable you to convert the measured antenna temperature
-   to an astrophysical brightness temperature (e.g. a planet).
-
-
-Things that shouldn't appear in notes
--------------------------------------
-
-1) There is no need to repeat information in notes that is already included
-   in other components of the MSB. This might include receiver tunings,
-   chop throws, offset positions and science targets. All of these
-   should be set up in the appropriate MSB components. If they are
-   reproduced in notes, there is a risk that changes made to main body
-   of the MSB will not be reflected in the notes, leading to conflicts
-   between the notes and the MSB components resulting in confusion at
-   the telescope.</note>
-        <title>Please read</title>
-      </SpNote>
-      <SpSiteQualityObsComp id="3" type="oc" subtype="schedInfo">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <meta_unique>true</meta_unique>
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-      </SpSiteQualityObsComp>
-      <SpInstHeterodyne id="2" type="oc" subtype="inst.Heterodyne">
-        <meta_unique>true</meta_unique>
-        <band>best</band>
-        <bandMode>1</bandMode>
-        <beName>acsis</beName>
-        <feBandWidth>1.8E9</feBandWidth>
-        <feIF>4.0E9</feIF>
-        <feName>A3</feName>
-        <mixers>1</mixers>
-        <mode>dsb</mode>
-        <skyFrequency>2.30538E11</skyFrequency>
-
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-        <!--          ACSIS Configuration XML        -->
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-
-        <subsystems>
-            <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                <line species="CO" transition="2  - 1" rest_freq="2.30538E11"/>
-            </subsystem>
-        </subsystems>
-
-      </SpInstHeterodyne>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">72.0</estimatedDuration>
-        <standard>false</standard>
-        <title>Science target</title>
-        <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          <meta_unique>true</meta_unique>
-          <BASE TYPE="REFERENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
-              </spherSystem>
-            </target>
-            <OFFSET SYSTEM="J2000">
-              <DC1>800.0</DC1>
-              <DC2>800.0</DC2>
-            </OFFSET>
-          </BASE>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
-              </spherSystem>
-            </target>
-          </BASE>
-        </SpTelescopeObsComp>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterRepeat type="ic" subtype="repeat">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>1</repeatCount>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <continuousCal>true</continuousCal>
-              <cycleReversal>true</cycleReversal>
-              <integrations>1</integrations>
-              <noOfCycles>0</noOfCycles>
-              <secsPerCycle>60</secsPerCycle>
-              <switchingMode>Position</switchingMode>
-            </SpIterStareObs>
-          </SpIterRepeat>
-        </SpIterFolder>
-      </SpObs>
-    </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstHeterodyneRef idref="4"/>
-      <SpSiteQualityObsCompRef idref="5"/>
-      <estimatedDuration units="seconds">132.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <priority>99</priority>
-      <title>Fast Frequency-switch sample</title>
-      <totalDuration units="seconds">132.0</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>A note abouts notes
--------------------
-
- This is a note outlining good practice in note writing for heterodyne
- MSB. PLEASE replace this note with your own note or delete altogether
- BEFORE submitting the MSB.
-
-
-Things to include in your notes
--------------------------------
-
-* Calibration details
-
-1) Overall observing strategy for your science program. A paragraph
-   conveying the general ideas behind your science program is useful
-   for the observer (who may not be an expert in your field) and the
-   TSS. 
-
-2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
-   MSBs have no explicit calibration component. Spell out any
-   specific calibrations you require a the note which is selected as
-   "show-to-observer". Example instructions might include:
-
-   "Perform a spectral line fivepoint on a nearby pointing source."
-
-    and/or 
-
-   "Short sample on a nearby spectral line standard with a good
-   CO(3-2) line e.g. OMC1".
-
-    and/or
-
-   "Short sample on a point-like planet (e.g. Uranus), with same
-   backend set up as science target."
-
-   In short, you'll at least want something to check back-end setup
-   and receiver performance (e.g. a spectral line standard), and
-   something to enable you to convert the measured antenna temperature
-   to an astrophysical brightness temperature (e.g. a planet).
-
-
-Things that shouldn't appear in notes
--------------------------------------
-
-1) There is no need to repeat information in notes that is already included
-   in other components of the MSB. This might include receiver tunings,
-   chop throws, offset positions and science targets. All of these
-   should be set up in the appropriate MSB components. If they are
-   reproduced in notes, there is a risk that changes made to main body
-   of the MSB will not be reflected in the notes, leading to conflicts
-   between the notes and the MSB components resulting in confusion at
-   the telescope.</note>
-        <title>Please read</title>
-      </SpNote>
-      <SpSiteQualityObsComp id="5" type="oc" subtype="schedInfo">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <meta_unique>true</meta_unique>
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-      </SpSiteQualityObsComp>
-      <SpInstHeterodyne id="4" type="oc" subtype="inst.Heterodyne">
-        <meta_unique>true</meta_unique>
-        <band>best</band>
-        <bandMode>1</bandMode>
-        <beName>acsis</beName>
-        <feBandWidth>1.8E9</feBandWidth>
-        <feIF>4.0E9</feIF>
-        <feName>A3</feName>
-        <mixers>1</mixers>
-        <mode>dsb</mode>
-        <skyFrequency>2.30538E11</skyFrequency>
-
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-        <!--          ACSIS Configuration XML        -->
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-
-        <subsystems>
-            <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                <line species="CO" transition="2  - 1" rest_freq="2.30538E11"/>
-            </subsystem>
-        </subsystems>
-
-      </SpInstHeterodyne>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">72.0</estimatedDuration>
-        <standard>false</standard>
-        <title>Science target</title>
-        <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          <meta_unique>true</meta_unique>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
-              </spherSystem>
-            </target>
-          </BASE>
-        </SpTelescopeObsComp>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterRepeat type="ic" subtype="repeat">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>1</repeatCount>
-            <SpIterStareObs type="ic" subtype="stareObs">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <continuousCal>false</continuousCal>
-              <cycleReversal>true</cycleReversal>
-              <frequencyOffset.rate>0.5</frequencyOffset.rate>
-              <frequencyOffset.throw>8.3</frequencyOffset.throw>
-              <integrations>1</integrations>
-              <noOfCycles>0</noOfCycles>
-              <secsPerCycle>60</secsPerCycle>
-              <switchingMode>Frequency-Fast</switchingMode>
-            </SpIterStareObs>
-          </SpIterRepeat>
-        </SpIterFolder>
-      </SpObs>
-    </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpDRRecipeRef idref="8"/>
       <SpInstHeterodyneRef idref="6"/>
       <SpSiteQualityObsCompRef idref="7"/>
-      <estimatedDuration units="seconds">132.0</estimatedDuration>
+      <estimatedDuration units="seconds">77.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>Slow Frequency-switch sample</title>
-      <totalDuration units="seconds">132.0</totalDuration>
+      <title>Position-switch grid</title>
+      <totalDuration units="seconds">77.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
@@ -497,6 +428,7 @@ Things that shouldn't appear in notes
         <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpInstHeterodyne id="6" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <band>best</band>
         <bandMode>1</bandMode>
@@ -519,21 +451,52 @@ Things that shouldn't appear in notes
         </subsystems>
 
       </SpInstHeterodyne>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+      <SpDRRecipe id="8" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">72.0</estimatedDuration>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">17.0</estimatedDuration>
         <standard>false</standard>
         <title>Science target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>800.0</DC1>
+              <DC2>800.0</DC2>
+            </OFFSET>
+          </BASE>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
                 <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
@@ -544,16 +507,27 @@ Things that shouldn't appear in notes
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <SpIterStareObs type="ic" subtype="stareObs">
+            <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <continuousCal>false</continuousCal>
-              <cycleReversal>true</cycleReversal>
-              <frequencyOffset.throw>8.3</frequencyOffset.throw>
-              <integrations>1</integrations>
-              <noOfCycles>0</noOfCycles>
-              <secsPerCycle>60</secsPerCycle>
-              <switchingMode>Frequency-Slow</switchingMode>
-            </SpIterStareObs>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>0.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <title></title>
+              <SpIterStareObs type="ic" subtype="stareObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <continuousCal>true</continuousCal>
+                <cycleReversal>true</cycleReversal>
+                <integrations>1</integrations>
+                <noOfCycles>0</noOfCycles>
+                <secsPerCycle>10</secsPerCycle>
+                <switchingMode>Position</switchingMode>
+              </SpIterStareObs>
+            </SpIterOffset>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
@@ -561,16 +535,17 @@ Things that shouldn't appear in notes
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>true</meta_gui_collapsed>
-    <title>Grids</title>
+    <title>jiggle-chops</title>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstHeterodyneRef idref="8"/>
-      <SpSiteQualityObsCompRef idref="9"/>
-      <estimatedDuration units="seconds">137.0</estimatedDuration>
+      <SpDRRecipeRef idref="11"/>
+      <SpInstHeterodyneRef idref="9"/>
+      <SpSiteQualityObsCompRef idref="10"/>
+      <estimatedDuration units="seconds">60.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>Beam-switch grid</title>
-      <totalDuration units="seconds">137.0</totalDuration>
+      <title>Jiggle-chop</title>
+      <totalDuration units="seconds">60.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
@@ -627,12 +602,8 @@ Things that shouldn't appear in notes
    the telescope.</note>
         <title>Please read</title>
       </SpNote>
-      <SpSiteQualityObsComp id="9" type="oc" subtype="schedInfo">
+      <SpInstHeterodyne id="9" type="oc" subtype="inst.Heterodyne">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <meta_unique>true</meta_unique>
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-      </SpSiteQualityObsComp>
-      <SpInstHeterodyne id="8" type="oc" subtype="inst.Heterodyne">
         <meta_unique>true</meta_unique>
         <band>best</band>
         <bandMode>1</bandMode>
@@ -650,20 +621,56 @@ Things that shouldn't appear in notes
 
         <subsystems>
             <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                <line species="CO" transition="2  - 1" rest_freq="2.30538E11"/>
+                <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
             </subsystem>
         </subsystems>
 
       </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="10" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpDRRecipe id="11" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">77.0</estimatedDuration>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <standard>false</standard>
-        <title>Science target</title>
+        <title>Science Target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>0:00:00</c1>
+                <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>180.0</DC1>
+              <DC2>0.0</DC2>
+            </OFFSET>
+          </BASE>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
@@ -688,194 +695,37 @@ Things that shouldn't appear in notes
                   <PA>90.0</PA>
                 </CHOP>
               </SECONDARY>
-              <SpIterOffset type="ic" subtype="offset">
+              <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <obsArea>
-                  <PA>0.0</PA>
-                  <OFFSET>
-                    <DC1>0.0</DC1>
-                    <DC2>0.0</DC2>
-                  </OFFSET>
-                </obsArea>
-                <SpIterStareObs type="ic" subtype="stareObs">
-                  <meta_gui_collapsed>false</meta_gui_collapsed>
-                  <continuousCal>true</continuousCal>
-                  <cycleReversal>true</cycleReversal>
-                  <integrations>1</integrations>
-                  <noOfCycles>0</noOfCycles>
-                  <secsPerCycle>60</secsPerCycle>
-                  <switchingMode>Beam</switchingMode>
-                </SpIterStareObs>
-              </SpIterOffset>
+                <contiuumMode>false</contiuumMode>
+                <integrations>1</integrations>
+                <jigglePa>0.0</jigglePa>
+                <jigglePattern>5x5</jigglePattern>
+                <jigglePerCycle>1</jigglePerCycle>
+                <jiggleSystem>TRACKING</jiggleSystem>
+                <scaleFactor>10.0</scaleFactor>
+                <secsPerCycle>1</secsPerCycle>
+                <switchingMode>Beam</switchingMode>
+              </SpIterJiggleObs>
             </SpIterChop>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpMSB>
+  </SpLibraryFolder>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <title>jiggle-freqsw</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstHeterodyneRef idref="10"/>
-      <SpSiteQualityObsCompRef idref="11"/>
-      <estimatedDuration units="seconds">137.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <priority>99</priority>
-      <title>Position-switch grid</title>
-      <totalDuration units="seconds">137.0</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>A note abouts notes
--------------------
-
- This is a note outlining good practice in note writing for heterodyne
- MSB. PLEASE replace this note with your own note or delete altogether
- BEFORE submitting the MSB.
-
-
-Things to include in your notes
--------------------------------
-
-* Calibration details
-
-1) Overall observing strategy for your science program. A paragraph
-   conveying the general ideas behind your science program is useful
-   for the observer (who may not be an expert in your field) and the
-   TSS. 
-
-2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
-   MSBs have no explicit calibration component. Spell out any
-   specific calibrations you require a the note which is selected as
-   "show-to-observer". Example instructions might include:
-
-   "Perform a spectral line fivepoint on a nearby pointing source."
-
-    and/or 
-
-   "Short sample on a nearby spectral line standard with a good
-   CO(3-2) line e.g. OMC1".
-
-    and/or
-
-   "Short sample on a point-like planet (e.g. Uranus), with same
-   backend set up as science target."
-
-   In short, you'll at least want something to check back-end setup
-   and receiver performance (e.g. a spectral line standard), and
-   something to enable you to convert the measured antenna temperature
-   to an astrophysical brightness temperature (e.g. a planet).
-
-
-Things that shouldn't appear in notes
--------------------------------------
-
-1) There is no need to repeat information in notes that is already included
-   in other components of the MSB. This might include receiver tunings,
-   chop throws, offset positions and science targets. All of these
-   should be set up in the appropriate MSB components. If they are
-   reproduced in notes, there is a risk that changes made to main body
-   of the MSB will not be reflected in the notes, leading to conflicts
-   between the notes and the MSB components resulting in confusion at
-   the telescope.</note>
-        <title>Please read</title>
-      </SpNote>
-      <SpSiteQualityObsComp id="11" type="oc" subtype="schedInfo">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <meta_unique>true</meta_unique>
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-      </SpSiteQualityObsComp>
-      <SpInstHeterodyne id="10" type="oc" subtype="inst.Heterodyne">
-        <meta_unique>true</meta_unique>
-        <band>best</band>
-        <bandMode>1</bandMode>
-        <beName>acsis</beName>
-        <feBandWidth>1.8E9</feBandWidth>
-        <feIF>4.0E9</feIF>
-        <feName>A3</feName>
-        <mixers>1</mixers>
-        <mode>dsb</mode>
-        <skyFrequency>2.30538E11</skyFrequency>
-
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-        <!--          ACSIS Configuration XML        -->
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-
-        <subsystems>
-            <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                <line species="CO" transition="2  - 1" rest_freq="2.30538E11"/>
-            </subsystem>
-        </subsystems>
-
-      </SpInstHeterodyne>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">77.0</estimatedDuration>
-        <standard>false</standard>
-        <title>Science target</title>
-        <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          <meta_unique>true</meta_unique>
-          <BASE TYPE="REFERENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
-              </spherSystem>
-            </target>
-            <OFFSET SYSTEM="J2000">
-              <DC1>800.0</DC1>
-              <DC2>800.0</DC2>
-            </OFFSET>
-          </BASE>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
-              </spherSystem>
-            </target>
-          </BASE>
-        </SpTelescopeObsComp>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterRepeat type="ic" subtype="repeat">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>1</repeatCount>
-            <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <obsArea>
-                <PA>0.0</PA>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-              </obsArea>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <continuousCal>true</continuousCal>
-                <cycleReversal>true</cycleReversal>
-                <integrations>1</integrations>
-                <noOfCycles>0</noOfCycles>
-                <secsPerCycle>60</secsPerCycle>
-                <switchingMode>Position</switchingMode>
-              </SpIterStareObs>
-            </SpIterOffset>
-          </SpIterRepeat>
-        </SpIterFolder>
-      </SpObs>
-    </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <SpDRRecipeRef idref="14"/>
       <SpInstHeterodyneRef idref="12"/>
       <SpSiteQualityObsCompRef idref="13"/>
-      <estimatedDuration units="seconds">137.0</estimatedDuration>
+      <estimatedDuration units="seconds">60.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>Fast Frequency-switch grid</title>
-      <totalDuration units="seconds">137.0</totalDuration>
+      <title>Jiggle Frequency Switch</title>
+      <totalDuration units="seconds">60.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
@@ -938,6 +788,7 @@ Things that shouldn't appear in notes
         <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
       <SpInstHeterodyne id="12" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <band>best</band>
         <bandMode>1</bandMode>
@@ -960,21 +811,52 @@ Things that shouldn't appear in notes
         </subsystems>
 
       </SpInstHeterodyne>
+      <SpDRRecipe id="14" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">77.0</estimatedDuration>
+        <estimatedDuration units="seconds">0.0</estimatedDuration>
         <standard>false</standard>
-        <title>Science target</title>
+        <title>Science Target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>180.0</DC1>
+              <DC2>0.0</DC2>
+            </OFFSET>
+          </BASE>
           <BASE TYPE="SCIENCE">
             <target>
               <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
                 <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
@@ -985,186 +867,38 @@ Things that shouldn't appear in notes
           <SpIterRepeat type="ic" subtype="repeat">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <repeatCount>1</repeatCount>
-            <SpIterOffset type="ic" subtype="offset">
+            <SpIterJiggleObs type="ic" subtype="jiggleObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <obsArea>
-                <PA>0.0</PA>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-              </obsArea>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <continuousCal>false</continuousCal>
-                <cycleReversal>true</cycleReversal>
-                <frequencyOffset.rate>0.5</frequencyOffset.rate>
-                <frequencyOffset.throw>8.3</frequencyOffset.throw>
-                <integrations>1</integrations>
-                <noOfCycles>0</noOfCycles>
-                <secsPerCycle>60</secsPerCycle>
-                <switchingMode>Frequency-Fast</switchingMode>
-              </SpIterStareObs>
-            </SpIterOffset>
-          </SpIterRepeat>
-        </SpIterFolder>
-      </SpObs>
-    </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
-      <SpInstHeterodyneRef idref="14"/>
-      <SpSiteQualityObsCompRef idref="15"/>
-      <estimatedDuration units="seconds">137.0</estimatedDuration>
-      <library_version>$Revision$</library_version>
-      <priority>99</priority>
-      <title>Slow Frequency-switch grid</title>
-      <totalDuration units="seconds">137.0</totalDuration>
-      <SpNote observeInstruction="true" type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>A note abouts notes
--------------------
-
- This is a note outlining good practice in note writing for heterodyne
- MSB. PLEASE replace this note with your own note or delete altogether
- BEFORE submitting the MSB.
-
-
-Things to include in your notes
--------------------------------
-
-* Calibration details
-
-1) Overall observing strategy for your science program. A paragraph
-   conveying the general ideas behind your science program is useful
-   for the observer (who may not be an expert in your field) and the
-   TSS. 
-
-2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
-   MSBs have no explicit calibration component. Spell out any
-   specific calibrations you require a the note which is selected as
-   "show-to-observer". Example instructions might include:
-
-   "Perform a spectral line fivepoint on a nearby pointing source."
-
-    and/or 
-
-   "Short sample on a nearby spectral line standard with a good
-   CO(3-2) line e.g. OMC1".
-
-    and/or
-
-   "Short sample on a point-like planet (e.g. Uranus), with same
-   backend set up as science target."
-
-   In short, you'll at least want something to check back-end setup
-   and receiver performance (e.g. a spectral line standard), and
-   something to enable you to convert the measured antenna temperature
-   to an astrophysical brightness temperature (e.g. a planet).
-
-
-Things that shouldn't appear in notes
--------------------------------------
-
-1) There is no need to repeat information in notes that is already included
-   in other components of the MSB. This might include receiver tunings,
-   chop throws, offset positions and science targets. All of these
-   should be set up in the appropriate MSB components. If they are
-   reproduced in notes, there is a risk that changes made to main body
-   of the MSB will not be reflected in the notes, leading to conflicts
-   between the notes and the MSB components resulting in confusion at
-   the telescope.</note>
-        <title>Please read</title>
-      </SpNote>
-      <SpSiteQualityObsComp id="15" type="oc" subtype="schedInfo">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <meta_unique>true</meta_unique>
-        <noiseCalculationTau>0.08</noiseCalculationTau>
-      </SpSiteQualityObsComp>
-      <SpInstHeterodyne id="14" type="oc" subtype="inst.Heterodyne">
-        <meta_unique>true</meta_unique>
-        <band>best</band>
-        <bandMode>1</bandMode>
-        <beName>acsis</beName>
-        <feBandWidth>1.8E9</feBandWidth>
-        <feIF>4.0E9</feIF>
-        <feName>A3</feName>
-        <mixers>1</mixers>
-        <mode>dsb</mode>
-        <skyFrequency>2.30538E11</skyFrequency>
-
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-        <!--          ACSIS Configuration XML        -->
-        <!-- - - - - - - - - - - - - - - - - - - - - -->
-
-        <subsystems>
-            <subsystem if="4.0E9" bw="2.5E8" overlap="0.0" channels="8192">
-                <line species="CO" transition="2  - 1" rest_freq="2.30538E11"/>
-            </subsystem>
-        </subsystems>
-
-      </SpInstHeterodyne>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">77.0</estimatedDuration>
-        <standard>false</standard>
-        <title>Science target</title>
-        <SpTelescopeObsComp type="oc" subtype="targetList">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
-          <meta_unique>true</meta_unique>
-          <BASE TYPE="SCIENCE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
-              </spherSystem>
-            </target>
-          </BASE>
-        </SpTelescopeObsComp>
-        <SpIterFolder type="if" subtype="none">
-          <meta_gui_collapsed>false</meta_gui_collapsed>
-          <SpIterRepeat type="ic" subtype="repeat">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>1</repeatCount>
-            <SpIterOffset type="ic" subtype="offset">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <obsArea>
-                <PA>0.0</PA>
-                <OFFSET>
-                  <DC1>0.0</DC1>
-                  <DC2>0.0</DC2>
-                </OFFSET>
-              </obsArea>
-              <SpIterStareObs type="ic" subtype="stareObs">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <continuousCal>false</continuousCal>
-                <cycleReversal>true</cycleReversal>
-                <frequencyOffset.throw>8.3</frequencyOffset.throw>
-                <integrations>1</integrations>
-                <noOfCycles>0</noOfCycles>
-                <secsPerCycle>60</secsPerCycle>
-                <switchingMode>Frequency-Slow</switchingMode>
-              </SpIterStareObs>
-            </SpIterOffset>
+              <continuumMode>false</continuumMode>
+              <frequencyOffset.rate>0.1</frequencyOffset.rate>
+              <frequencyOffset.throw>8.3</frequencyOffset.throw>
+              <integrations>1</integrations>
+              <jigglePa>0.0</jigglePa>
+              <jigglePattern>5x5</jigglePattern>
+              <jigglePerCycle>1</jigglePerCycle>
+              <jiggleSystem>TRACKING</jiggleSystem>
+              <secsPerCycle>10</secsPerCycle>
+              <stepSize>10.0</stepSize>
+              <switchingMode>Frequency-Slow</switchingMode>
+            </SpIterJiggleObs>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
     </SpMSB>
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
-    <title>Raster</title>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <title>rasters</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
-      <SpInstHeterodyneRef idref="16"/>
-      <SpSiteQualityObsCompRef idref="17"/>
-      <estimatedDuration units="seconds">7504.701365235532</estimatedDuration>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpDRRecipeRef idref="17"/>
+      <SpInstHeterodyneRef idref="15"/>
+      <SpSiteQualityObsCompRef idref="16"/>
+      <estimatedDuration units="seconds">77.17994974842648</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <title>Position-switch raster</title>
-      <totalDuration units="seconds">7504.701365235532</totalDuration>
+      <totalDuration units="seconds">77.17994974842648</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>A note abouts notes
@@ -1221,12 +955,13 @@ Things that shouldn't appear in notes
    the telescope.</note>
         <title>Please read</title>
       </SpNote>
-      <SpSiteQualityObsComp id="17" type="oc" subtype="schedInfo">
+      <SpSiteQualityObsComp id="16" type="oc" subtype="schedInfo">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <noiseCalculationTau>0.08</noiseCalculationTau>
       </SpSiteQualityObsComp>
-      <SpInstHeterodyne id="16" type="oc" subtype="inst.Heterodyne">
+      <SpInstHeterodyne id="15" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
         <band>best</band>
         <bandMode>1</bandMode>
@@ -1249,11 +984,28 @@ Things that shouldn't appear in notes
         </subsystems>
 
       </SpInstHeterodyne>
+      <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <estimatedDuration units="seconds">7444.701365235532</estimatedDuration>
+        <estimatedDuration units="seconds">17.17994974842648</estimatedDuration>
         <standard>false</standard>
-        <title>Science target</title>
+        <title>Science Target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1262,8 +1014,8 @@ Things that shouldn't appear in notes
             <target>
               <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
                 <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
@@ -1276,8 +1028,8 @@ Things that shouldn't appear in notes
             <target>
               <targetName></targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>0:00:00</c1>
-                <c2>0:00:00</c2>
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
                 <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
@@ -1293,8 +1045,8 @@ Things that shouldn't appear in notes
               <obsArea>
                 <PA>0.0</PA>
                 <SCAN_AREA>
-                  <AREA HEIGHT="180.0" WIDTH="180.0"/>
-                  <SCAN DY="5.0" VELOCITY="1.25" SYSTEM="TRACKING">
+                  <AREA HEIGHT="100.0" WIDTH="100.0"/>
+                  <SCAN DY="10.0" VELOCITY="100.0" SYSTEM="TRACKING">
                   </SCAN>
                 </SCAN_AREA>
               </obsArea>
@@ -1302,9 +1054,352 @@ Things that shouldn't appear in notes
               <integrations>1</integrations>
               <rowsPerCal>1</rowsPerCal>
               <rowsPerRef>1</rowsPerRef>
-              <sampleTime>4</sampleTime>
+              <sampleTime>0.1</sampleTime>
               <switchingMode>Position</switchingMode>
             </SpIterRasterObs>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+  </SpLibraryFolder>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <title>pointings</title>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <SpDRRecipeRef idref="20"/>
+      <SpInstHeterodyneRef idref="18"/>
+      <SpSiteQualityObsCompRef idref="19"/>
+      <estimatedDuration units="seconds">180.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>Pointing (jiggle)</title>
+      <totalDuration units="seconds">180.0</totalDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+        <title>Please read</title>
+      </SpNote>
+      <SpInstHeterodyne id="18" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <band>best</band>
+        <bandMode>1</bandMode>
+        <beName>acsis</beName>
+        <feBandWidth>1.8E9</feBandWidth>
+        <feIF>4.0E9</feIF>
+        <feName>A3</feName>
+        <mixers>1</mixers>
+        <mode>dsb</mode>
+        <skyFrequency>2.30538E11</skyFrequency>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <subsystems>
+            <subsystem if="4.0E9" bw="1.0E9" overlap="0.0" channels="2048">
+                <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
+            </subsystem>
+        </subsystems>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="19" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpDRRecipe id="20" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">120.0</estimatedDuration>
+        <standard>false</standard>
+        <title>Pointing Source</title>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName>CRL2688</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>180.0</DC1>
+              <DC2>0.0</DC2>
+            </OFFSET>
+          </BASE>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>00:00:00</c1>
+                <c2>00:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterPointingObs type="ic" subtype="pointingObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <autoTarget>false</autoTarget>
+                <integrations>1</integrations>
+                <switchingMode>Beam</switchingMode>
+              </SpIterPointingObs>
+            </SpIterChop>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+    </SpMSB>
+  </SpLibraryFolder>
+  <SpLibraryFolder type="lf" subtype="none">
+    <meta_gui_collapsed>false</meta_gui_collapsed>
+    <title>focus</title>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <SpDRRecipeRef idref="23"/>
+      <SpInstHeterodyneRef idref="21"/>
+      <SpSiteQualityObsCompRef idref="22"/>
+      <estimatedDuration units="seconds">210.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>focus</title>
+      <totalDuration units="seconds">210.0</totalDuration>
+      <SpNote observeInstruction="true" type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>A note abouts notes
+-------------------
+
+ This is a note outlining good practice in note writing for heterodyne
+ MSB. PLEASE replace this note with your own note or delete altogether
+ BEFORE submitting the MSB.
+
+
+Things to include in your notes
+-------------------------------
+
+* Calibration details
+
+1) Overall observing strategy for your science program. A paragraph
+   conveying the general ideas behind your science program is useful
+   for the observer (who may not be an expert in your field) and the
+   TSS. 
+
+2) Details of calibration observations. Unlike SCUBA MSBs, heterodyne
+   MSBs have no explicit calibration component. Spell out any
+   specific calibrations you require a the note which is selected as
+   "show-to-observer". Example instructions might include:
+
+   "Perform a spectral line fivepoint on a nearby pointing source."
+
+    and/or 
+
+   "Short sample on a nearby spectral line standard with a good
+   CO(3-2) line e.g. OMC1".
+
+    and/or
+
+   "Short sample on a point-like planet (e.g. Uranus), with same
+   backend set up as science target."
+
+   In short, you'll at least want something to check back-end setup
+   and receiver performance (e.g. a spectral line standard), and
+   something to enable you to convert the measured antenna temperature
+   to an astrophysical brightness temperature (e.g. a planet).
+
+
+Things that shouldn't appear in notes
+-------------------------------------
+
+1) There is no need to repeat information in notes that is already included
+   in other components of the MSB. This might include receiver tunings,
+   chop throws, offset positions and science targets. All of these
+   should be set up in the appropriate MSB components. If they are
+   reproduced in notes, there is a risk that changes made to main body
+   of the MSB will not be reflected in the notes, leading to conflicts
+   between the notes and the MSB components resulting in confusion at
+   the telescope.</note>
+        <title>Please read</title>
+      </SpNote>
+      <SpInstHeterodyne id="21" type="oc" subtype="inst.Heterodyne">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <band>best</band>
+        <bandMode>1</bandMode>
+        <beName>acsis</beName>
+        <feBandWidth>1.8E9</feBandWidth>
+        <feIF>4.0E9</feIF>
+        <feName>A3</feName>
+        <mixers>1</mixers>
+        <mode>dsb</mode>
+        <skyFrequency>2.30538E11</skyFrequency>
+
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+        <!--          ACSIS Configuration XML        -->
+        <!-- - - - - - - - - - - - - - - - - - - - - -->
+
+        <subsystems>
+            <subsystem if="4.0E9" bw="1.0E9" overlap="0.0" channels="2048">
+                <line species="CO" transition="2  - 1 " rest_freq="2.30538E11"/>
+            </subsystem>
+        </subsystems>
+
+      </SpInstHeterodyne>
+      <SpSiteQualityObsComp id="22" type="oc" subtype="schedInfo">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <noiseCalculationTau>0.08</noiseCalculationTau>
+      </SpSiteQualityObsComp>
+      <SpDRRecipe id="23" type="oc" subtype="DRRecipe">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <meta_unique>true</meta_unique>
+        <channelBinning>1</channelBinning>
+        <objectRecipe>DEFAULT</objectRecipe>
+        <polynomialOrder>DEFAULT</polynomialOrder>
+        <truncationChannels>0</truncationChannels>
+        <window_type>truncate</window_type>      
+
+      <!-- **************************** -->
+      <!-- Baseline selection for ACSIS -->
+      <!-- **************************** -->
+      <baseline>
+        <baseliningMethod>None</baseliningMethod>
+      </baseline>
+
+      </SpDRRecipe>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">150.0</estimatedDuration>
+        <standard>false</standard>
+        <title>w3(OH)</title>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="REFERENCE">
+            <target>
+              <targetName></targetName>
+              <namedSystem TYPE="major"/>
+            </target>
+            <OFFSET SYSTEM="J2000">
+              <DC1>180.0</DC1>
+              <DC2>0.0</DC2>
+            </OFFSET>
+          </BASE>
+          <BASE TYPE="SCIENCE">
+            <target>
+              <targetName></targetName>
+              <namedSystem TYPE="major"/>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <SpIterChop type="ic" subtype="chop">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <SECONDARY>
+                <CHOP SYSTEM="AZEL">
+                  <THROW>60.0</THROW>
+                  <PA>90.0</PA>
+                </CHOP>
+              </SECONDARY>
+              <SpIterFocusObs type="ic" subtype="focusObs">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <autoTarget>false</autoTarget>
+                <axis>z</axis>
+                <focusPoints>7</focusPoints>
+                <integrations>1</integrations>
+                <steps>0.3</steps>
+                <switchingMode>Beam</switchingMode>
+              </SpIterFocusObs>
+            </SpIterChop>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
