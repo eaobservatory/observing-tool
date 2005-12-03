@@ -777,7 +777,10 @@ private void tidyDuplicates(Vector v) {
     boolean loadConfigFound = false;
     int startIndex = v.indexOf("set OBJECT") + 1;
     for ( int i=startIndex; i<v.size(); i++ ) {
-        if ( "set OBJECT".equals( (String)v.get(i) ) ) {
+        if ( "set OBJECT".equals( (String)v.get(i) ) ||
+	      "set SKYFLAT".equals( (String)v.get(i) )
+
+) {
             if ( !setCommandFound && !loadConfigFound ) {
                 v.remove(i);
             }
