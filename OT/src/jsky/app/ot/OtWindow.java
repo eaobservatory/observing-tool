@@ -81,7 +81,6 @@ import ot.ReportBox;
 import orac.ukirt.util.SpTranslator;
 import gemini.sp.obsComp.SpInstObsComp;
 
-import orac.util.FileFilterSGML;
 import orac.util.FileFilterXML;
 
 import omp.SpClient;
@@ -313,9 +312,6 @@ public class OtWindow extends SpTreeGUI
 
     /** XML file filter (*.xml). MFO 04 June 2001 */
     protected FileFilterXML   xmlFilter = new FileFilterXML();
-
-    /** SGML file filter (*.ot, *.sp, *.sgml). MFO 04 June 2001 */
-    protected FileFilterSGML sgmlFilter = new FileFilterSGML();
 
     private JFileChooser    _translatorFileChooser = new JFileChooser();    // Temporary ACSIS translator
     private AcsisTranslator _acsisTranslator       = new AcsisTranslator(); // Temporary ACSIS translator
@@ -1038,26 +1034,12 @@ public class OtWindow extends SpTreeGUI
 
 	    // open in this window
 	    JFileChooser fileChooser = new JFileChooser(OT.getOtUserDir());
-            fileChooser.addChoosableFileFilter(xmlFilter);
-            fileChooser.addChoosableFileFilter(sgmlFilter);
-
-            if(System.getProperty("OMP") != null) {
-              fileChooser.setFileFilter(xmlFilter);
-            }
-            else {
-              fileChooser.setFileFilter(sgmlFilter);
-            }
+            fileChooser.addChoosableFileFilter( xmlFilter ) ;
+            fileChooser.setFileFilter( xmlFilter ) ;
 
 	    int option = fileChooser.showOpenDialog(null);
 	    if (option != JFileChooser.APPROVE_OPTION || fileChooser.getSelectedFile() == null) 
 		return;
-
-            if(fileChooser.getFileFilter() instanceof FileFilterXML) {
-              OtFileIO.setXML(true);
-            }
-            else {
-              OtFileIO.setXML(false);
-            }
 
 	    File file = fileChooser.getSelectedFile();
 	    if (file != null)
@@ -1497,14 +1479,6 @@ public class OtWindow extends SpTreeGUI
 	    }
 	    else if (filename != null) {
 		File file = new File(filename);
-
-		// MFO (March 6, 2002)
-		if(filename.endsWith(".sp") || filename.endsWith(".ot")) {
-		    OtFileIO.setXML(false);
-		}
-		else {
-		    OtFileIO.setXML(true);
-		}
 
 		open(file);
 	    }

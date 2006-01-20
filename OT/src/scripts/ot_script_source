@@ -15,11 +15,10 @@ set SERVER = ATC
 
 set TELESCOPE = "" 
 set INTERNAL_FRAMES = -nointernalframes 
-set OMP_FLAG = "" 
 #set EDFREQ_CFG = "edfreq/acsisCfg.xml"
 set EDFREQ_CFG = "edfreq/dasCfg.xml"
 set DISALLOW_MULTI_BW_PROP = ""
-set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-[no]omp] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
+set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
  
 ############################## 
 #                            # 
@@ -34,10 +33,6 @@ while ("$1" != "")
     set INTERNAL_FRAMES = -internalframes 
   else if("$1" == "-nointernalframes") then 
     set INTERNAL_FRAMES = -nointernalframes 
-  else if("$1" == "-omp") then 
-    set OMP_FLAG = -DOMP 
-  else if("$1" == "-noomp") then 
-    set OMP_FLAG = "" 
   else if("$1" == "-nodas") then 
     set EDFREQ_CFG = "edfreq/acsisCfg.xml" 
   else if("$1" == "-das") then 
@@ -69,14 +64,6 @@ echo Settings:
 echo "  Telescope:       ${TELESCOPE}"
 #echo "  Server:          ${SERVER}"
 
-if("${OMP_FLAG}" == "-DOMP") then
-  echo "  Database:        OMP/XML"
-else if ("${OMP_FLAG}" == "") then
-  echo "  Database:        RMI/SGML"
-else
-  printf "\nError: Variable OMP_FLAG has invalid value \042${OMP_FLAG}\042. Allowed values: \042-DOMP\042, \042\042.\n\n"
-endif
-
 if("${INTERNAL_FRAMES}" == "-internalframes") then
   echo "  Internal Frames: Yes"
 else if("${INTERNAL_FRAMES}" == "-nointernalframes") then
@@ -95,5 +82,5 @@ endif
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
  
-${JAVA} -ms5m -mx500m -oss5m ${DISALLOW_MULTI_BW_PROP} -DTELESCOPE=${TELESCOPE} -DFREQ_EDITOR_CFG=${EDFREQ_CFG} ${OMP_FLAG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
+${JAVA} -ms5m -mx500m -oss5m ${DISALLOW_MULTI_BW_PROP} -DTELESCOPE=${TELESCOPE} -DFREQ_EDITOR_CFG=${EDFREQ_CFG}  -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
 

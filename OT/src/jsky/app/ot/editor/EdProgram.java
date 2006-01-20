@@ -53,16 +53,9 @@ public final class EdProgram extends OtItemEditor
 	_w.classicalOption.addActionListener(this);
 	_w.infoBox.setVisible(false);
 
-	if(System.getProperty("OMP") != null) {
-	  _w.propKindLabel.setVisible(false);
-	  _w.queueOption.setVisible(false);
-	  _w.classicalOption.setVisible(false);
-	}
-	else {
- 	  _w.piBox.setEnabled(false);
-	  _w.countryBox.setEnabled(false);
-	  _w.projectIdBox.setEnabled(false);
-	}
+	_w.propKindLabel.setVisible(false);
+	_w.queueOption.setVisible(false);
+	_w.classicalOption.setVisible(false);
     }
 
     /**

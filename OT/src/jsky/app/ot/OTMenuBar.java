@@ -161,16 +161,16 @@ public class OTMenuBar extends JMenuBar {
 		continue;
 	    }
  	    menuItems[i] = new JMenuItem("Open "+libs[i]+" library");
-	    menuItems[i].addActionListener(new ActionListener() {
- 		public void actionPerformed(ActionEvent e) {
-		    if(System.getProperty("OMP") != null) {
-			ot.openLibrary(libname+".xml");
-		    }
-		    else {
-			ot.openLibrary(libname+".lib");
-		    }
- 		}
- 	    });
+	    menuItems[i].addActionListener
+	    (
+		new ActionListener() 
+                {
+ 			public void actionPerformed( ActionEvent e ) 
+			{
+				ot.openLibrary( libname+".xml" ) ;
+ 			}
+ 	    	}
+	   );
  	 }
        
          return	menuItems;

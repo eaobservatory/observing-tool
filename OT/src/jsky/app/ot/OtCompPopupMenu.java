@@ -32,9 +32,7 @@ class OtCompPopupMenu extends JPopupMenu {
 	_add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, SpSiteQualityObsComp.SUBTYPE));
 
 	// MFO, 9 November 2001
-	if(System.getProperty("OMP") != null) {
-	  _add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, SpSchedConstObsComp.SUBTYPE));
-	}
+	_add(treeWidget, SpType.get(SpType.OBSERVATION_COMPONENT_TYPE, SpSchedConstObsComp.SUBTYPE));
 
 	_add(treeWidget, SpType.OBSERVATION_COMPONENT_TARGET_LIST);
 	addSeparator();

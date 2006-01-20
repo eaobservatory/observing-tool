@@ -74,15 +74,9 @@ public class SpObs extends SpMSB implements SpTranslatable
 protected SpObs()
 {
    super(SpType.OBSERVATION);
-   if(System.getProperty("OMP") != null) {
-      _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
-      _avTable.noNotifySet(ATTR_OPTIONAL, "false", 0);
-      _avTable.noNotifySet(ATTR_PRIORITY, "99", 0);
-   }
-   else {
-//       _avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
-//       _avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
-   }   
+    _avTable.noNotifySet(ATTR_REMAINING, "1", 0);
+    _avTable.noNotifySet(ATTR_OPTIONAL, "false", 0);
+   _avTable.noNotifySet(ATTR_PRIORITY, "99", 0);
    _avTable.noNotifySet(ATTR_STANDARD, "false", 0);
 }
 
@@ -101,12 +95,7 @@ protected SpObs(SpIterFolder ifPrototype)
 protected Object
 clone()
 {
-   SpItem spClone = (SpItem) super.clone();
-   if(System.getProperty("OMP") == null) {
-//       spClone._avTable.noNotifySet(ATTR_CHAINED_NEXT, "false", 0);
-//       spClone._avTable.noNotifySet(ATTR_CHAINED_PREV, "false", 0);
-   }   
-   return spClone;
+   return ( SpItem )super.clone() ;
 }
 
 /**
@@ -121,16 +110,20 @@ getTitle()
       title = type().getReadable();
    }
    
-   if((System.getProperty("OMP") != null) && (isMSB())) {
-      if(getNumberRemaining() == REMOVED_CODE) {
-         return title + " (" + REMOVED_STRING + ")";
+   if( isMSB() ) 
+   {
+      if( getNumberRemaining() == REMOVED_CODE ) 
+      {
+         return title + " (" + REMOVED_STRING + ")" ;
       }
-      else {
-         return title + " (" + getNumberRemaining() + "X)";
+      else 
+      {
+         return title + " (" + getNumberRemaining() + "X)" ;
       }   
    }
-   else {
-     return title;
+   else 
+   {
+     return title ;
    }
 }
 

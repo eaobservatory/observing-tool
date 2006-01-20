@@ -607,17 +607,10 @@ public class OtWindowMenuBar extends JMenuBar {
     protected JMenu createEditMenu() {
 	JMenu menu = new JMenu("Edit");
 
-	// OMP menus
 	// added by MFO (06 July 2001)
-	if(System.getProperty("OMP") != null) {
-	  menu.add(makeMenuItem(editor.getMsbFolderAction(), "Create an MSB Folder"));
-	  menu.add(makeMenuItem(editor.getAndFolderAction(), "Create an AND Folder"));
-	  menu.add(makeMenuItem(editor.getOrFolderAction(),  "Create an  OR Folder"));
-	}
-	else {
-	  menu.add(makeMenuItem(editor.getObsFolderAction(), "Create an Observation Folder"));
-	  menu.add(makeMenuItem(editor.getObsGroupAction(), "Create an Observation Group"));
-	}  
+	menu.add(makeMenuItem(editor.getMsbFolderAction(), "Create an MSB Folder"));
+	menu.add(makeMenuItem(editor.getAndFolderAction(), "Create an AND Folder"));
+	menu.add(makeMenuItem(editor.getOrFolderAction(),  "Create an  OR Folder"));
 	menu.add(makeMenuItem(editor.getObservationAction(), "Create an Observation"));
 	menu.add(makeMenuItem(editor.getNoteAction(), "Create a Note"));
 	menu.add(makeMenuItem(editor.getLibFolderAction(), "Create a Library Folder"));

@@ -255,84 +255,70 @@ public class OT extends JFrame {
 	}
     }
 
-    /**
-     * Open a standard library.
-     *
-     * Method based on OT.openLibrary from old ATC OT.
-     */
-    public void openLibrary(String library) {
-      OtProps.setSaveShouldPrompt(false);
+	/*
+	* Open a standard library.
+     	*
+     	* Method based on OT.openLibrary from old ATC OT.
+     	*/
+    	public void openLibrary( String library ) 
+	{
+      		OtProps.setSaveShouldPrompt( false ) ;
       
-      SpRootItem spItem = null;
-      boolean openAsXml = library.endsWith(".xml");
-      //URL url = null;
-      //try {
-      String resourceCfgDir = System.getProperty("ot.resource.cfgdir", "ot/cfg/");
-      URL url = ClassLoader.getSystemClassLoader().getResource(resourceCfgDir + library);
+      		SpRootItem spItem = null ;
+      		String resourceCfgDir = System.getProperty( "ot.resource.cfgdir" , "ot/cfg/" ) ;
+      		URL url = ClassLoader.getSystemClassLoader().getResource( resourceCfgDir + library ) ;
 	
-      //}
-      //catch (MalformedURLException ex) {
+		// Check whether the alternative library could not be found either.
+		if( url == null ) 
+		{
+          		JOptionPane.showMessageDialog
+			(
+				this ,
+				"Could not find standard library resource " + resourceCfgDir + "." , 
+				"Error" ,
+				JOptionPane.ERROR_MESSAGE
+			) ;
+          		return ;
+		}
 
-      if(url == null) {
-	// Standard library no found: Try using XML instead of SGML or SGML instead of XML.
-	String alternativeLibrary = null;
+      		Reader r = null ;
+      		try 
+		{
+        		r = new InputStreamReader( url.openStream() ) ;
+        		spItem = OtFileIO.fetchSp( r ) ;
+      		} 
+		catch( IOException ioe ) 
+		{
+        		JOptionPane.showMessageDialog
+			(
+				this , 
+				"Could not open the standard library." , 
+				"Error" , 
+				JOptionPane.ERROR_MESSAGE
+			) ;
+      		} 
+		finally 
+		{
+        		try
+			{ 
+				if( r != null ) 
+					r.close(); 
+			}catch( Exception e ){}
+      		}
 
-	if(library.endsWith(".lib")) {
-	  alternativeLibrary = library.substring(0, library.indexOf('.')) + ".xml";
-	  openAsXml = true;
-        }
-	else {
-	  alternativeLibrary = library.substring(0, library.indexOf('.')) + ".lib";
-	  openAsXml = false;
+      		if( ( spItem != null ) && ( spItem instanceof SpLibrary ) ) 
+		{
+	  		Vector mco = SpTreeMan.findAllItems( spItem , "orac.ukirt.iter.SpIterMichelleCalObs" ) ;
+	  		for( int i=0 ; i < mco.size() ; i++ ) 
+			{
+	      			SpIterMichelleCalObs obs = ( SpIterMichelleCalObs )mco.elementAt( i ) ;
+	     			obs.useDefaults() ;
+	      			obs.updateDAConf() ;
+	  		}
+			// Changed by MFO, 22 August 2001
+			OtWindow.create( spItem , new FileInfo() ) ;
+		}
 	}
-
-        JOptionPane.showMessageDialog(this,
-                                      "Could not find standard library resource " + resourceCfgDir + library +
-                                      "\nTrying to load " + resourceCfgDir + alternativeLibrary + " instead.",
-      	                              "Warning",
-                                       JOptionPane.WARNING_MESSAGE);
-
-	url = ClassLoader.getSystemClassLoader().getResource(resourceCfgDir + alternativeLibrary);
-
-	// Check whether the alternative library could not be found either.
-	if(url == null) {
-          JOptionPane.showMessageDialog(this,
-                                        "Could not find standard library resource " +
-					resourceCfgDir + alternativeLibrary + " either.",
-      	                                "Error",
-                                         JOptionPane.ERROR_MESSAGE);
-
-          return;
-	}
-      }
-
-      Reader r = null;
-      try {
-        r = new InputStreamReader(url.openStream());
-        OtFileIO.setXML(openAsXml);
-        spItem = OtFileIO.fetchSp(r);
-      } catch (IOException ex) {
-        JOptionPane.showMessageDialog(this, "Could not open the standard library.", "Error", JOptionPane.ERROR_MESSAGE);
-      } finally {
-        try { if (r != null) r.close(); } catch (Exception ex) {}
-      }
-
-      if ((spItem != null) && (spItem instanceof SpLibrary)) {
-	  Vector mco = SpTreeMan.findAllItems(spItem, "orac.ukirt.iter.SpIterMichelleCalObs");
-	  for (int i=0; i<mco.size(); i++) {
-	      SpIterMichelleCalObs obs = (SpIterMichelleCalObs)mco.elementAt(i);
-	      obs.useDefaults();
-// 	      obs.setFlatSource("shutter");
-// 	      obs.setSampling("as object");
-	      obs.updateDAConf();
-	  }
-	// Changed by MFO, 22 August 2001
-	OtWindow.create(spItem, new FileInfo());
-	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) spItem));
-	//desktop.add(c, JLayeredPane.DEFAULT_LAYER);
-	//desktop.moveToFront(c);
-      }
-    }
 
     /** 
      * Display a preferences dialog.
@@ -382,18 +368,16 @@ public class OT extends JFrame {
     /** 
      * Fetch a science program from the database.
      */
-    public static void fetchProgram() {
-      if(System.getProperty("OMP") != null) {
-        if(desktop != null) {
-          _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH, desktop);
+    public static void fetchProgram() 
+    {
+        if( desktop != null ) 
+        {
+          _databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH , desktop ) ;
         }
-        else {
-          _databaseDialog.show(DatabaseDialog.ACCESS_MODE_FETCH);
+        else 
+        {
+          _databaseDialog.show( DatabaseDialog.ACCESS_MODE_FETCH ) ;
         }
-      }
-      else {
-	ProgListWindow.instance().setVisible(true);
-      }	
     }
 
     /**

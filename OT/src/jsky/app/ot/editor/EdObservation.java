@@ -81,17 +81,13 @@ public final class EdObservation extends OtItemEditor
 
 	_w.remaining.addActionListener(this);
 
-        if(System.getProperty("OMP") != null) {
-          _w.obsStateLabel.setVisible(false);
-          _w.obsState.setVisible(false);
-        }
-        else {
-          _w.remaining.setVisible(false);
-          _w.remainingLabel.setVisible(false);
-          _w.xLabel.setVisible(false);
-          _w.estimatedTime.setVisible(false);
-          _w.estimatedTimeLabel.setVisible(false);
-        }
+        _w.obsStateLabel.setVisible(false);
+        _w.obsState.setVisible(false);
+        _w.remaining.setVisible(false);
+        _w.remainingLabel.setVisible(false);
+        _w.xLabel.setVisible(false);
+        _w.estimatedTime.setVisible(false);
+        _w.estimatedTimeLabel.setVisible(false);
     }
 
     /**
@@ -199,9 +195,8 @@ public final class EdObservation extends OtItemEditor
       else {
         _w.msbPanel.setVisible(false);
 	
-	if((System.getProperty("OMP") != null) &&
-	   (OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD))) {
-
+	if( OtCfg.telescopeUtil.supports( OtCfg.telescopeUtil.FEATURE_FLAG_AS_STANDARD ) ) 
+	{
 	  _w.optional.setVisible(true);
 	}  
       }

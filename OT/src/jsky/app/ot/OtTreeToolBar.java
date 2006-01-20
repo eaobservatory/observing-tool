@@ -53,22 +53,14 @@ public class OtTreeToolBar extends GenericToolBar {
      */
     protected void addToolBarItems() {
 
-	// OMP menus
 	// added by MFO (06 July 2001)
-	if(System.getProperty("OMP") != null) {
-	    add(makeOrFolderButton());
-	    addSeparator();
-	    add(makeAndFolderButton());
-	    addSeparator();
-	    add(makeSurveyButton());
-	    addSeparator();
-	    add(makeMsbFolderButton());
-	}
-	else {
-	    add(makeObsFolderButton());
-	    addSeparator();
-	    add(makeObsGroupButton());
-	}
+	add(makeOrFolderButton());
+	addSeparator();
+	add(makeAndFolderButton());
+	addSeparator();
+	add(makeSurveyButton());
+	addSeparator();
+	add(makeMsbFolderButton());
 
 	addSeparator();
 	add(makeObservationButton());
@@ -285,17 +277,10 @@ public class OtTreeToolBar extends GenericToolBar {
      */
     public void update() {
 
-	// OMP menus
 	// added by MFO (06 July 2001)
-	if(System.getProperty("OMP") != null) {
-            makeMsbFolderButton();
-	    makeAndFolderButton();
-	    makeOrFolderButton();
-	}
-        else {
-	    makeObsFolderButton();
-	    makeObsGroupButton();
-	}
+        makeMsbFolderButton();
+	makeAndFolderButton();
+	makeOrFolderButton();
 
 	makeObservationButton();
 	makeComponentMenuButton();

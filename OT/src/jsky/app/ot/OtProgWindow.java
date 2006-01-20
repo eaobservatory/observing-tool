@@ -392,36 +392,38 @@ public final class OtProgWindow extends OtWindow
     /** 
      * Fetch a science program from an online database.
      */
-    public void fetchFromOnlineDatabase() {
-	Thread t = new Thread( new Runnable() {
-		public void run() {
-		    if(System.getProperty("OMP") != null) {
-			OT.getDatabaseDialog().fetchProgram();
-		    }
-		    else {
-			fetchProg();
-		    }
+    public void fetchFromOnlineDatabase() 
+    {
+	Thread t = new Thread
+	( 
+		new Runnable() 
+		{
+			public void run() 
+			{
+				OT.getDatabaseDialog().fetchProgram() ;
+			}
 		}
-	    });
-	t.start();
+	) ;
+	t.start() ;
     }
 
 
     /** 
      * Store the current science program to an online database.
      */
-    public void storeToOnlineDatabase() {
-	Thread t = new Thread( new Runnable() {
-		public void run() {
-		    if(System.getProperty("OMP") != null) {
-			OT.getDatabaseDialog().storeProgram(getItem());
-		    }
-		    else {
-			OtProgWindow.this.storeProg();
-		    }
-		}	    
-	    });
-	t.start();
+    public void storeToOnlineDatabase() 
+    {
+	Thread t = new Thread
+	( 
+		new Runnable() 
+		{
+			public void run() 
+			{
+				OT.getDatabaseDialog().storeProgram( getItem() ) ;
+			}
+		}	   
+	) ;
+	t.start() ;
     }
 
 
