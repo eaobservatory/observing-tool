@@ -198,26 +198,32 @@ public class TelescopePosEditor extends JSkyCat
      * such as "WFCAM Autoguider" because that results in larger buttons
      * in the TPE tool bar which cause the problem.
      */
-    public static void adjustWidthPreference() {
-	try {
-	    // Get hold of dimensions stored in preferences.
-	    String [] imageDisplayControlDimension =
-		TclUtil.splitList(Preferences.get(TpeImageDisplayControl.class.getName() + ".size"));
+	public static void adjustWidthPreference() 
+	{
+		try 
+		{
+	    		// Get hold of dimensions stored in preferences.
+	    		String [] imageDisplayControlDimension = TclUtil.splitList( Preferences.get( TpeImageDisplayControl.class.getName() + ".size" ) ) ;
 
-	    int width = Integer.parseInt(imageDisplayControlDimension[0]);
-
-	    // Increment width.
-	    width += _widthIncrement;
-
-	    imageDisplayControlDimension[0] = "" + width;
-
- 	      // Set to new value.
-	      Preferences.set(TpeImageDisplayControl.class.getName() + ".size", TclUtil.makeList(imageDisplayControlDimension));
-	}
-	catch(Exception e) {
-	    e.printStackTrace();
-	}
-    }
+	    		if( imageDisplayControlDimension != null )
+	    		{
+	    			String widthAsString = imageDisplayControlDimension[ 0 ] ;
+	    			if( widthAsString != null  )
+	    			{
+	    				int width = Integer.parseInt( widthAsString ) ;
+	    				// Increment width.
+	    				width += _widthIncrement ;
+	    				// Set to new value.
+	    				imageDisplayControlDimension[ 0 ] = "" + width ;
+	    				Preferences.set( TpeImageDisplayControl.class.getName() + ".size" , TclUtil.makeList( imageDisplayControlDimension ) ) ;
+	    			}	
+	    		}
+		}
+		catch( Exception e ) 
+		{
+	    		e.printStackTrace() ;
+		}
+    	}
 
     /**
      * Create the application class and display the contents of the
