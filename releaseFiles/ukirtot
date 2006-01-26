@@ -9,4 +9,4 @@
 set mydir=`dirname $0` 
 
 # Now run the ot
-${mydir}/ot -omp -nointernalframes ukirt
+${mydir}/ot -nointernalframes ukirt
