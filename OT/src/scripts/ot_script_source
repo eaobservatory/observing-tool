@@ -1,4 +1,4 @@
-set OT_USERDIR=$HOME
+set OT_USERDIR=$CWD
   
 set JAVA = `which java`
  

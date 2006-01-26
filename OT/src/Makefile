@@ -122,6 +122,8 @@ $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
 	\n\
+	\nset CWD = \`pwd\`\
+	\n\
 	\ncd \`dirname $$""0\`\
 	\n" > $@
 
@@ -172,7 +174,6 @@ install-jars:
 
 	(cd ../../GEMINI/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../ORAC/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
-	(cd ../../ODB/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../OMP/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../OT/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
 	(cd ../../EDFREQ/src; gmake JAR_DIR=$(INSTALL_ROOT)/lib jar)
@@ -224,6 +225,8 @@ $(INSTALL_ROOT)/bin/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	\n# For editing this script and keeping the modifications make a copy of this script in   #\
 	\n# this directory and edit the copy.                                                     #\
 	\n#########################################################################################\
+        \n\
+        \nset CWD = \`pwd\`\
 	\n\
 	\ncd \`dirname $$""0\`\
 	\n" > $@
