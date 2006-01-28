@@ -1,5 +1,9 @@
-set OT_USERDIR=$CWD
-  
+if( $CWD != "" ) then
+	set OT_USERDIR=$CWD
+else
+        set OT_USERDIR=`pwd`
+endif
+
 set JAVA = `which java`
  
 # The telescope names in this list should correspond to the directories in CFG_DIRS. 
@@ -19,6 +23,7 @@ set INTERNAL_FRAMES = -nointernalframes
 set EDFREQ_CFG = "edfreq/dasCfg.xml"
 set DISALLOW_MULTI_BW_PROP = ""
 set USAGE = "Usage: $0 [-h] [-[no]internalframes] [-server ATC|HILO|HOME|DEPLOYED] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
+set XMLFILES = ""
  
 ############################## 
 #                            # 
@@ -40,6 +45,8 @@ while ("$1" != "")
   else if("$1" == "-server") then
     shift
     set SERVER = $1
+  else if( `echo $1 | grep -i ".xml"` != "" ) then
+    set XMLFILES = "$XMLFILES $1"
   else if(-d ${CFG_DIRS}/"$1") then 
     set TELESCOPE = $1 
   else 
@@ -82,5 +89,5 @@ endif
 
 set CFG_TELESCOPE_DIR = ${CFG_DIRS}/${TELESCOPE} 
  
-${JAVA} -ms5m -mx500m -oss5m ${DISALLOW_MULTI_BW_PROP} -DTELESCOPE=${TELESCOPE} -DFREQ_EDITOR_CFG=${EDFREQ_CFG}  -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES}
+${JAVA} -ms5m -mx500m -oss5m ${DISALLOW_MULTI_BW_PROP} -DTELESCOPE=${TELESCOPE} -DFREQ_EDITOR_CFG=${EDFREQ_CFG} -DSERVER=${SERVER} -Djsky.catalog.skycat.config=${CFG_TELESCOPE_DIR}/skycat.cfg -Dot.cfgdir=${CFG_TELESCOPE_DIR}/ -Dot.resource.cfgdir=./ -Dot.userdir=${OT_USERDIR} -DOT_CATALOG_FILE=${CATALOG_FILE} -classpath ${CLASSPATH}:${CFG_TELESCOPE_DIR} jsky.app.ot.OT ${INTERNAL_FRAMES} ${XMLFILES}
 

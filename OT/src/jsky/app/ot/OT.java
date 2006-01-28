@@ -48,7 +48,6 @@ import ot.News;
 import ot.OtPreferencesDialog;
 import ot.DatabaseDialog;
 import orac.helptool.JHLauncher;
-import gemini.sp.ipc.SpServer;
 import gemini.sp.SpTreeMan;
 import orac.ukirt.iter.SpIterMichelleCalObs;
 import orac.ukirt.inst.SpInstMichelle;
@@ -211,9 +210,6 @@ public class OT extends JFrame {
 	OtProps.setSaveShouldPrompt(true);
 	// Changed by MFO, 15 February 2002
 	OtWindow.create((SpLibrary) SpFactory.create(SpType.LIBRARY), new FileInfo());
-	//Component c = new OtWindowInternalFrame(new OtProgWindow((SpLibrary) SpFactory.create(SpType.LIBRARY)));
-	//desktop.add(c, JLayeredPane.DEFAULT_LAYER);
-	//desktop.moveToFront(c);
     }
 
     /** 
@@ -475,26 +471,6 @@ showNews()
 	}
     }
 
-    /**
-     * Select server.
-     *
-     * Code from FreeBongo OT. MFO 23 May 2001.
-     */
-    protected static void selectServer() {
-      // Select the SpServer to user (default to DEPLOYED)
-      // Added get of system property to determine server to use (AB for ORAC)
-      int serverType = SpServer.DEPLOYED;
-      String server = System.getProperty ("SERVER", "DEPLOYED");
-      if (server.equalsIgnoreCase("ATC")) {
-        serverType = SpServer.ATC_DEVELOPMENT;
-      } else if (server.equalsIgnoreCase("HILO")) {
-        serverType = SpServer.HILO_DEVELOPMENT;
-      } else if (server.equalsIgnoreCase("HOME")) {
-        serverType = SpServer.HOME_DEVELOPMENT;
-      }
-      SpServer.selectServer(serverType);
-    }
-
     public static void addOtWindowFrame(OtWindowFrame frame) {
       _otWindowFrames.add(frame);
     }
@@ -551,7 +527,7 @@ showNews()
     public static void main(String args[]) {
 	boolean internalFrames = (File.separatorChar == '\\');
 	boolean ok = true;
-	String filename = null;
+	Vector filenames = null ;
 
 	// Check which version of java we are running
 	String jVersion = System.getProperty("java.version");
@@ -591,11 +567,19 @@ showNews()
 		    break;
 		}
 	    }
-	    else {
-		if (filename != null) 
-		    ok = false;
-		else
-		    filename = args[i];
+	    else 
+	    {
+
+		String filename = args[ i ] ;
+		if( filename.toLowerCase().endsWith( ".xml" ) )
+		{
+			if( filenames == null )
+			{
+				filenames = new Vector() ;
+			}
+			filenames.add( filename ) ;
+		}
+			
 	    }
 	}
 	
@@ -615,8 +599,6 @@ showNews()
 	                                JOptionPane.ERROR_MESSAGE);
 	}
 
-
-        selectServer();
 
 	if (internalFrames) {
 	    new OT();
@@ -650,11 +632,14 @@ showNews()
 	    menuFrame.setVisible(true);
 	}
 
-	if (filename != null) {
-	    OtFileIO.open(filename);
+	if( filenames != null )
+	{
+		while( filenames.size() != 0 )
+			OtFileIO.open( ( String )filenames.remove( 0 ) ) ;
 	}
-	else {
-	    OT.showSplashScreen();
+	else 
+	{
+		OT.showSplashScreen() ;
 	}
     }
 }
