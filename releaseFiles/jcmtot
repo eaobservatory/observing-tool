@@ -10,3 +10,5 @@ set mydir=`dirname $0`
 
 # Now run the ot
 ${mydir}/ot -omp -nointernalframes jcmt
+# The following to replace the above when jcmt catches up
+#${mydir}/ot -nointernalframes jcmt $*
