@@ -530,41 +530,57 @@ getFilter()
 /**
  * Get a default value for the filter
 */
-public String
-getDefaultFilter()
+public String getDefaultFilter()
 {
-   String filter=null;
+	String filter = null ;
 
-   SpInstCGS4 inst =  (SpInstCGS4) getInstrumentItem();
-   int instdi = inst.getDisperserIndex();
-   double instcwl = inst.getCentralWavelength();
-   String instfilt = inst.getFilter();
+	SpInstCGS4 inst = ( SpInstCGS4 ) getInstrumentItem() ;
 
-   if (inst != null) {
-      if (getCalType() == FLAT) {
-         filter = instfilt;
-      }else{
-	try {
-	  if (instdi == 0) {
-            int pos = ARCFILTS1.rangeInColumn(instcwl, 0);
-            filter = (String) ARCFILTS1.elementAt(pos, 1);
-	  }else if (instdi == 1) {
-            int pos = ARCFILTS2.rangeInColumn(instcwl, 0);
-            filter = (String) ARCFILTS2.elementAt(pos, 1);
-	  }else if (instdi == 2) {
-            int pos = ARCFILTS3.rangeInColumn(instcwl, 0);
-            filter = (String) ARCFILTS3.elementAt(pos, 1);
-	  }
-	}catch (Exception ex) {
+	if( inst != null )
+	{
+		int instdi = inst.getDisperserIndex() ;
+		double instcwl = inst.getCentralWavelength() ;
+		String instfilt = inst.getFilter() ;
+
+		if( getCalType() == FLAT )
+		{
+			filter = instfilt ;
+		}
+		else
+		{
+			try
+			{
+				int pos = 0 ;
+				switch( instdi )
+				{		
+					case 0 :
+						pos = ARCFILTS1.rangeInColumn( instcwl , 0 ) ;
+						filter = ( String )ARCFILTS1.elementAt( pos , 1 ) ;
+						break ;
+					case 1 :
+						pos = ARCFILTS2.rangeInColumn( instcwl , 0 ) ;
+						filter = ( String )ARCFILTS2.elementAt( pos , 1 ) ;
+						break ;
+					case 2 :
+						pos = ARCFILTS3.rangeInColumn( instcwl , 0 ) ;
+						filter = ( String )ARCFILTS3.elementAt( pos , 1 ) ;
+						break ;
+					default :
+						break ;
+				}
+			}
+			catch( Exception ex ){}
+			if( filter.equalsIgnoreCase( "asInstrument" ) )
+			{
+				filter = instfilt ;
+			}
+		}
 	}
-	if (filter.equalsIgnoreCase("asInstrument")) {
-            filter=instfilt;
-        }
-      }
-   }else {
-      filter = FILTERS[0];
-   }
-   return filter;
+	else
+	{
+		filter = FILTERS[ 0 ] ;
+	}
+	return filter ;
 }
 
 /**
