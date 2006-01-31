@@ -11,6 +11,18 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ 	2006
+
+  [Semester 06A release]
+
+  - Removal of SERVER options on the command line as a precursor to complete ODB removal.
+
+  - XML Science Programs can now be opened from the command-line.
+
+  - When opening files locally, the default working directory is the directory the user is in when the OT started.
+
+  - Removal of OMP as an option as it is now the default, as a result the OT no longer supports SGML.
+
 +++ February 2005
 
   [Semester 05A release - mainly for UKIRT]
