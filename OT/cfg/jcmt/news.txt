@@ -11,9 +11,7 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ 	2006
-
-  [Semester 06A release]
++++ January 2006
 
   - Removal of SERVER options on the command line as a precursor to complete ODB removal.
 
