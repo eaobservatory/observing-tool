@@ -246,10 +246,10 @@ public class DatabaseDialog implements ActionListener {
     LoginInfo li = new LoginInfo(projectID, 0, password);
 
     if (OT.getDesktop() == null) {
-      new OtWindowFrame(new OtProgWindow((SpRootItem) spItem, li, null)); //_spProgKey));
+      new OtWindowFrame(new OtProgWindow((SpRootItem) spItem, li)); 
     }
     else {
-      Component c = new OtWindowInternalFrame(new OtProgWindow((SpRootItem) spItem, li, null)); // _spProgKey));
+      Component c = new OtWindowInternalFrame(new OtProgWindow((SpRootItem) spItem, li )); 
       OT.getDesktop().add(c, JLayeredPane.DEFAULT_LAYER);
       OT.getDesktop().moveToFront(c);
     }

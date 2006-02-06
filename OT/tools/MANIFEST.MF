@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Created-By: 1.3.0 (Sun Microsystems Inc.)
 Main-Class: jsky.app.ot.OT
-Class-Path: diva.jar graph.jar jacl.jar jdom-b4.jar jsky.jar junit.jar ot.jar tcljava.jar xerces.jar /home/ab/alba/JTools/hjbean/HotJavaBean.jar /home/ab/alba/JTools/jh1.0/javahelp/lib/jhtools.jar /home/ab/alba/JTools/jh1.0/javahelp/lib/jhall.jar /home/ab/alba/JTools/JavaIDL/lib/classes.zip /home/orac/oracsw/ODBServer/install/apps/ODBServer/classes
+Class-Path: diva.jar graph.jar jacl.jar jdom-b4.jar jsky.jar junit.jar ot.jar tcljava.jar xerces.jar /home/ab/alba/JTools/hjbean/HotJavaBean.jar /home/ab/alba/JTools/jh1.0/javahelp/lib/jhtools.jar /home/ab/alba/JTools/jh1.0/javahelp/lib/jhall.jar /home/ab/alba/JTools/JavaIDL/lib/classes.zip

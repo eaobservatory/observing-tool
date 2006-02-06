@@ -9,10 +9,6 @@ package jsky.app.ot;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 
-import gemini.sp.ipc.SpAccess;
-import gemini.sp.ipc.SpServer;
-import gemini.sp.ipc.SpProgKey;
-
 import java.util.Hashtable;
 
 /**
@@ -42,18 +38,6 @@ public final class ProgramInfo
     * The user name under which the program or plan is stored in the database.
     */
    public LoginInfo login   = null;
-
-   /**
-    * Access database information including site password and choice of
-    * database.
-    */
-   public SpAccess  access  = null;
-
-   /**
-    * Program key, which is required in order to fetch a program or plan
-    * from the ODB.
-    */
-   public SpProgKey progKey = null;
 
    /**
     * Contains a mapping of Science Program/Plan items to ProgramInfo

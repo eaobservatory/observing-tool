@@ -24,10 +24,6 @@ import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import gemini.sp.SpAvEditState;
 import gemini.sp.SpItem;
-//import gemini.sp.ipc.ODBServer;
-import gemini.sp.ipc.SpAccess;
-import gemini.sp.ipc.SpProgKey;
-import gemini.sp.ipc.SpServer;
 import jsky.app.ot.util.Assert;
 import ot.util.DialogUtil;
 
@@ -274,33 +270,15 @@ public class OtItemEditorWindow extends ItemEditorGUI implements Observer {
     /**
      * Save any changes that have been made to a given item.
      */
-    public void	save(SpItem spItem) {
-	if (!_isEdited(spItem)) {
+    public void	save( SpItem spItem ) 
+    {
+	if( !_isEdited( spItem ) ) 
+	{
 	    // Nothing to do
 	    return;
 	}
 
-	// If online, then send the change to the server.  But make sure this item
-	// is still in a program.  It won't be for instance if it has been removed,
-	// thereby causing another node to be selected, thereby causing this method
-	// to be called.
-	if ((_progInfo.online) && (spItem.parent() != null)) {
-	    // XXX allan WindowManager.setBusy();
-	    SpServer server  = new SpServer();
-	    SpProgKey pk     = _progInfo.progKey;       Assert.notNull(pk);
-	    SpAccess  ac     = _progInfo.access;        Assert.notNull(ac);
-
-            // mfo: This following line is commented out in the ATC's ot.OtItemEditorWindow
-	    boolean ok = server.replaceAV(ac, pk, spItem.id(), spItem.getTable());
-	    // XXX allan WindowManager.setIdle();
-
-	    if (!ok) {
-		DialogUtil.error(this, "Couldn't replace the attributes: " + server.getProblemDescr());
-		return;
-	    }
-	}
-
-	spItem.getAvEditFSM().save();
+	spItem.getAvEditFSM().save() ;
     }
  
 

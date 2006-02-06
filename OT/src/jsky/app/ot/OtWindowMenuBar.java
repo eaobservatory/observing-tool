@@ -586,13 +586,9 @@ public class OtWindowMenuBar extends JMenuBar {
     /**
      * Create the Database => "Mode..." menu item
      */
-    protected JMenuItem createDatabaseModeMenuItem() {
+    protected JMenuItem createDatabaseModeMenuItem() 
+    {
 	JMenuItem menuItem = new JMenuItem("Go to Online Edit Mode");
-        menuItem.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent ae) {
-		    ((OtProgWindow)editor).goToOnlineEditMode();
-		}
-	    });
 
 	// MFO 23 May 2001: "Go to Online Edit Mode" menu item disabled.
 	menuItem.setEnabled(false);
