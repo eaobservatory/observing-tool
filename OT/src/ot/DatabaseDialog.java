@@ -220,42 +220,54 @@ public class DatabaseDialog implements ActionListener {
     _mode = mode;
   }
 
-  protected void fetchProgram(String projectID, String password) {
-    SpItem spItem = null;
-   
-    try {
-      spItem = SpClient.fetchProgram(projectID, password);
-    }
-    catch(Exception e) {
-	e.printStackTrace();
-      JOptionPane.showMessageDialog(_dialogComponent, "Could not fetch Science Program.\n" + e.getMessage(),
-                                    "Database Error", JOptionPane.ERROR_MESSAGE);
-      _stopAction.actionsFinished();
-      hide();
-      return;
-    }
+  protected void fetchProgram( String projectID , String password )
+	{
+		SpItem spItem = null;
 
-    // If the user has aborted fetchProgram by hitting "Stop" then do not
-    // display the science program.
-    if(_databaseAccessAborted) {
-      hide();
-      return;
-    }
+		try
+		{
+			spItem = SpClient.fetchProgram( projectID , password );
+		}
+		catch( NullPointerException npe )
+		{
+			JOptionPane.showMessageDialog( _dialogComponent , "Could not fetch Science Program.\n" + npe.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE );
+			_stopAction.actionsFinished();
+			hide();
+			return;			
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog( _dialogComponent , "Could not fetch Science Program.\n" + e.getMessage() , "Database Error" , JOptionPane.ERROR_MESSAGE );
+			_stopAction.actionsFinished();
+			hide();
+			return;
+		}
 
-    // database argument is not needed, 0 is just a dummy.
-    LoginInfo li = new LoginInfo(projectID, 0, password);
+		// If the user has aborted fetchProgram by hitting "Stop" then do not
+		// display the science program.
+		if( _databaseAccessAborted )
+		{
+			hide();
+			return;
+		}
 
-    if (OT.getDesktop() == null) {
-      new OtWindowFrame(new OtProgWindow((SpRootItem) spItem, li)); 
-    }
-    else {
-      Component c = new OtWindowInternalFrame(new OtProgWindow((SpRootItem) spItem, li )); 
-      OT.getDesktop().add(c, JLayeredPane.DEFAULT_LAYER);
-      OT.getDesktop().moveToFront(c);
-    }
-  
-    hide();
-  }
+		// database argument is not needed, 0 is just a dummy.
+		LoginInfo li = new LoginInfo( projectID , 0 , password );
+
+		if( OT.getDesktop() == null )
+		{
+			new OtWindowFrame( new OtProgWindow( ( SpRootItem ) spItem , li ) );
+		}
+		else
+		{
+			Component c = new OtWindowInternalFrame( new OtProgWindow( ( SpRootItem ) spItem , li ) );
+			OT.getDesktop().add( c , JLayeredPane.DEFAULT_LAYER );
+			OT.getDesktop().moveToFront( c );
+		}
+
+		hide();
+	}
 
   protected void storeProgram(String password) {
     storeProgram(password, false);
