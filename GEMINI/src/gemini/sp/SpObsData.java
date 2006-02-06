@@ -97,10 +97,9 @@ public void setBasePos( double x, double y, int coordSys) {
 public void
 setBasePos(double x, double y, double xoff, double yoff, int coordSys)
 {
-//    _x = x;
-//    _y = y;
-   _x = RADecMath.getAbsolute(x, y, xoff, yoff)[0];
-   _y = RADecMath.getAbsolute(x, y, xoff, yoff)[1];
+	double[] absoluteXY = RADecMath.getAbsolute(x, y, xoff, yoff) ;
+   _x = absoluteXY[ 0 ] ;
+   _y = absoluteXY[ 1 ] ;
    _coordSys = coordSys;
 
    if (_basePosObservers == null) {

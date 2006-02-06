@@ -306,9 +306,9 @@ getGuideStarTags()
    return GUIDE_TAGS;
 }
 
-public static String[] getSkyTags() {
-    //System.out.println("SkyTags = " + SKY_TAGS);
-    return (String[]) SKY_TAGS.toArray(new String[SKY_TAGS.size()]);
+public static String[] getSkyTags() 
+{
+    return ( String[] )SKY_TAGS.toArray( new String[ SKY_TAGS.size() ] ) ;
 }
 
 /**
@@ -658,48 +658,62 @@ setXYFromString(String xaxisStr, String yaxisStr)
   * attribute value. Any base offset is applied if this is a base
   * position.
  */
-public synchronized String
-getXaxisAsString()
-{
-    double xaxis;
-    double yaxis;
-    String rtn;
-    
-    if ( isOffsetPosition() ) {
-        if ( isBasePosition() ) {
-            xaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[0];
-            yaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[1];
-            double xoff = _avTab.getDouble(_tag, BASE_XOFF, 0.0);
-            double yoff = _avTab.getDouble(_tag, BASE_YOFF, 0.0);
-            xaxis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff)[0];
-            if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
-                rtn = RADecMath.degrees2String(xaxis, yaxis, getCoordSys())[0];
-            }
-            else {
-                // Other coordinate system
-                rtn = Double.toString(xaxis);
-            }
-        }
-        else {
-            // Is offset but not base
-            rtn = _avTab.get(_tag, XAXIS_INDEX);
-        }
-    }
-    else {
-        // Not an offset position
-        if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
-           rtn =  _avTab.get(_tag, XAXIS_INDEX);
-        }
-        else {
-           rtn =  _avTab.get(_tag, XAXIS_INDEX);
-        }
-    }
-    return rtn;
-}
+	public synchronized String getXaxisAsString()
+	{
+		return getAxis( XAXIS_INDEX ) ;
+	}
+	
+	public String getAxis( int axisType )
+	{
+		double xaxis;
+		double yaxis;
+		String rtn = "00:00:00" ;
+		if( !( ( axisType == XAXIS_INDEX ) || ( axisType == YAXIS_INDEX ) ) )
+			return rtn ;
+		String _avTabX = _avTab.get( _tag , XAXIS_INDEX ) ;
+		String _avTabY = _avTab.get( _tag , YAXIS_INDEX ) ;
+
+		if( isOffsetPosition() )
+		{
+			if( isBasePosition() )
+			{
+				double[] axis = RADecMath.string2Degrees( _avTabX , _avTabY , getCoordSys() );
+				xaxis = axis[ 0 ];
+				yaxis = axis[ 1 ];
+				double xoff = _avTab.getDouble( _tag , BASE_XOFF , 0.0 );
+				double yoff = _avTab.getDouble( _tag , BASE_YOFF , 0.0 );
+				axis = RADecMath.getAbsolute( xaxis , yaxis , xoff , yoff ) ;
+				if( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC )
+				{
+					if( axisType == XAXIS_INDEX )
+						return HHMMSS.valStr( axis[ 0 ] ) ;
+					else
+						return DDMMSS.valStr( axis[ 1 ] ) ;
+				}
+				else
+				{
+					// Other coordinate system
+					if( axisType == XAXIS_INDEX )
+						return Double.toString( axis[ 0 ] ) ;
+					else
+						return Double.toString( axis[ 1 ] ) ;
+				}
+			}
+			else
+			{
+				// Is offset but not base
+				return _avTab.get( _tag , axisType );
+			}
+		}
+		else
+		{
+			return _avTab.get( _tag , axisType );
+		}
+	}
 
 /**
-  * Get the x axis as a string.  In this case, any base offset if not applied
-  */
+ * Get the x axis as a string. In this case, any base offset if not applied
+ */
 public synchronized String getRealXaxisAsString() {
     return _avTab.get(_tag, XAXIS_INDEX);
 }
@@ -709,75 +723,14 @@ public synchronized String getRealXaxisAsString() {
  * attribute value. If this is a base position and an offset has
  * been applied, the returned value has the offset added.
  */
-public synchronized String
-getYaxisAsString()
-{
-    double xaxis;
-    double yaxis;
-    String rtn;
-
-    if ( isOffsetPosition() ) {
-        if ( isBasePosition() ) {
-            xaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[0];
-            yaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[1];
-            double xoff = _avTab.getDouble(_tag, BASE_XOFF, 0.0);
-            double yoff = _avTab.getDouble(_tag, BASE_YOFF, 0.0);
-            yaxis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff)[1];
-            if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
-                rtn = RADecMath.degrees2String(xaxis, yaxis, getCoordSys())[1];
-            }
-            else {
-                // Other coordinate system
-                rtn = Double.toString(yaxis);
-            }
-        }
-        else {
-            // Is offset but not base
-            rtn = _avTab.get(_tag, YAXIS_INDEX);
-        }
-    }
-    else {
-        // Not an offset position
-        if ( getCoordSys() == CoordSys.FK5 || getCoordSys() == CoordSys.FK4 || getCoordSys() == CoordSys.HADEC ) {
-           rtn =  _avTab.get(_tag, YAXIS_INDEX);
-        }
-        else {
-           rtn =  _avTab.get(_tag, YAXIS_INDEX);
-        }
-    }
-    /*
-    if ( getCoordSys() == CoordSys.FK5 ||
-         getCoordSys() == CoordSys.FK4 ||
-         getCoordSys() == CoordSys.HADEC ) {
-        xaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[0];
-        yaxis = RADecMath.string2Degrees(_avTab.get(_tag, XAXIS_INDEX), _avTab.get(_tag, YAXIS_INDEX), getCoordSys())[1];
-    }
-    else {
-        xaxis = _avTab.getDouble(_tag, XAXIS_INDEX, 0.0);
-        yaxis = _avTab.getDouble(_tag, YAXIS_INDEX, 0.0);
-    }
-    if ( isBasePosition() && isOffsetPosition() ) {
-        double xoff = _avTab.getDouble(_tag, BASE_XOFF, 0.0);
-        double yoff = _avTab.getDouble(_tag, BASE_YOFF, 0.0);
-        yaxis = RADecMath.getAbsolute(xaxis, yaxis, xoff, yoff)[1];
-    }
-
-    String rtn;
-    if ( getCoordSys() == CoordSys.FK5 ||
-         getCoordSys() == CoordSys.FK4 ||
-         getCoordSys() == CoordSys.HADEC ) {
-        rtn = RADecMath.degrees2String(xaxis, yaxis, getCoordSys())[1];
-    }
-    else {
-        rtn = Double.toString(yaxis);
-    }
-    */
-    return rtn;
-}
+	public synchronized String getYaxisAsString()
+	{
+		return getAxis( YAXIS_INDEX ) ;
+	}
 
 /**
-  * Get the y axis as a string.  In this case, any base offset if not applied
-  */
+ * Get the y axis as a string. In this case, any base offset if not applied
+ */
 public synchronized String getRealYaxisAsString() {
     return _avTab.get(_tag, YAXIS_INDEX);
 }
@@ -1622,6 +1575,7 @@ public double getBaseYOffset() {
 /**
  * Standard debugging method.
  */
+
 public synchronized String
 toString()
 {
@@ -1632,7 +1586,6 @@ toString()
 	", yaxis=" + getYaxisAsString() + " (" + getYaxis() + ")" +
 	", coordSystem=" + getCoordSysAsString() + "]";
 }
-
 
   /**
    * Converts TT in MJD to YYYY MM DD.ddd format.
