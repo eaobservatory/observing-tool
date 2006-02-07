@@ -618,12 +618,16 @@ _updateXYFromString(String xaxisStr, String yaxisStr)
 public synchronized void
 noNotifySetXYFromString(String xaxisStr, String yaxisStr)
 {
+	if( xaxisStr == null )
+		xaxisStr = _avTab.get( _tag , XAXIS_INDEX ) ;
+	if( yaxisStr == null )
+		yaxisStr = _avTab.get( _tag , YAXIS_INDEX ) ;
     // The followin two lines are added since a 0 length string
     // stops updates for some reason
    if ( xaxisStr.length() == 0 ) xaxisStr="0:00:00.000";
    if ( yaxisStr.length() == 0 ) yaxisStr="0:00:00.000";
    _updateXYFromString(xaxisStr, yaxisStr);
-
+   
    _avTab.set(_tag, xaxisStr, XAXIS_INDEX);
    _avTab.set(_tag, yaxisStr, YAXIS_INDEX);
 

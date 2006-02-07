@@ -322,8 +322,12 @@ public class EdCompTargetList extends OtItemEditor
 		    else {
                         // Make sure it matches the pattern D:DD:DD.DDD
                         String pattern = "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
-                        if ( tbwe.getText().matches(pattern) ) {
-                            _curPos.setXYFromString(tbwe.getText(), _curPos.getYaxisAsString());
+                        if ( tbwe.getText().matches(pattern) ) 
+                        {
+                        	String currentXString = _curPos.getXaxisAsString() ;
+                        	String newXString = tbwe.getText() ;
+                        	if( !newXString.equals( currentXString ) )
+                        		_curPos.setXYFromString( newXString , null ) ; 
                         }
                         else {
                             // Show an error if the field is not blank and does not end in a :
@@ -376,7 +380,7 @@ public class EdCompTargetList extends OtItemEditor
                         // Make sure it matches the pattern D:DD:DD.DDD
                         String pattern = "^(\\+|-)?\\d{1,2}((:| )\\d{0,2}((:| )\\d{0,2}(\\.\\d*)?)?)?";
                         if ( tbwe.getText().matches(pattern) ) {
-                            _curPos.setXYFromString(_curPos.getXaxisAsString(), tbwe.getText());
+                            _curPos.setXYFromString( null , tbwe.getText() ) ;
                         }
                         else {
                             // Show an error if the field is not blank and does not end in a :
