@@ -11,9 +11,11 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ January 2006
++++ February 2006
 
-  - Removal of SERVER options on the command line as a precursor to complete ODB removal.
+  - Initial removal of ODB and OM code.
+
+  - Removal of SERVER options on the command line as part of ODB code removal.
 
   - XML Science Programs can now be opened from the command-line.
 
