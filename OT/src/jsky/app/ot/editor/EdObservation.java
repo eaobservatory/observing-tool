@@ -83,11 +83,6 @@ public final class EdObservation extends OtItemEditor
 
         _w.obsStateLabel.setVisible(false);
         _w.obsState.setVisible(false);
-        _w.remaining.setVisible(false);
-        _w.remainingLabel.setVisible(false);
-        _w.xLabel.setVisible(false);
-        _w.estimatedTime.setVisible(false);
-        _w.estimatedTimeLabel.setVisible(false);
     }
 
     /**
