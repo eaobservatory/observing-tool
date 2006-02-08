@@ -18,7 +18,6 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.rtf.RTFEditorKit;
-import javax.swing.text.JTextComponent;
 import javax.swing.filechooser.FileFilter;
 
 import java.io.PrintWriter;
@@ -93,43 +92,42 @@ public class ReportBox extends JFrame {
     }
   }
 
-  public ReportBox(String message) {
-    this();
+  public ReportBox( String message )
+	{
+		this();
 
-    _fileChooser.addChoosableFileFilter(_asciiFileFilter);
-    _fileChooser.addChoosableFileFilter(_richTextFormatFileFilter);
+		_fileChooser.addChoosableFileFilter( _asciiFileFilter );
+		_fileChooser.addChoosableFileFilter( _richTextFormatFileFilter );
 
-    initStylesForTextPane(_textPane);
+		initStylesForTextPane( _textPane );
 
-    Document doc = _textPane.getDocument();
-    try {
-      doc.insertString(doc.getLength(), message + "\n", _textPane.getStyle("regular"));
+		Document doc = _textPane.getDocument();
+		try
+		{
+			doc.insertString( doc.getLength() , message + "\n" , _textPane.getStyle( "regular" ) );
 
+		}
+		catch( BadLocationException e )
+		{
+			e.printStackTrace();
+		}
 
-      // The capability of using different fonts is not used yet.
-      //doc.insertString(doc.getLength(), message + "\n", _textPane.getStyle("bold"));
-      //doc.insertString(doc.getLength(), message + "\n", _textPane.getStyle("large"));
-      //doc.insertString(doc.getLength(), message + "\n", _textPane.getStyle("small"));
-      //doc.insertString(doc.getLength(), message, null);
-    }
-    catch(BadLocationException e) {
-      e.printStackTrace();
-    }
-    
-    _textPane.setEditable(false);
+		_textPane.setEditable( false );
 
-    // Set frame bounds.
-    // Choose frame height depending on the number of lines of the docuument given frame width 480.
-   if(getNumberOfLines(_textPane.getText()) < 34) {
-      // Multiplying the number of lines by 16 and adding 100 gives roughly the right height.
-      setBounds(100, 100, 480, 100 + (getNumberOfLines(_textPane.getText()) * 16));
-    }
-    else {
-      setBounds(100, 100, 480, 640);
-    }
+		// Set frame bounds.
+		// Choose frame height depending on the number of lines of the docuument given frame width 480.
+		if( getNumberOfLines( _textPane.getText() ) < 34 )
+		{
+			// Multiplying the number of lines by 16 and adding 100 gives roughly the right height.
+			setBounds( 100 , 100 , 480 , 100 + ( getNumberOfLines( _textPane.getText() ) * 16 ) );
+		}
+		else
+		{
+			setBounds( 100 , 100 , 480 , 640 );
+		}
 
-    setVisible(true);
-  }
+		setVisible( true );
+	}
 
   public ReportBox(String message, String title) {
     this(message);
@@ -169,58 +167,65 @@ public class ReportBox extends JFrame {
   }
 
 
-  public void print() {  
-    JobAttributes  jobAttributes  = new JobAttributes();
-    PageAttributes pageAttributes = new PageAttributes();
-    pageAttributes.setOrigin(PageAttributes.OriginType.PRINTABLE);
-    PrintJob pj = getToolkit().getPrintJob(ReportBox.this, "OT Report (" + System.getProperty("user.name") + ")",
-                                           jobAttributes, pageAttributes);
-    Graphics pg = pj.getGraphics();
-    //pg.setFont(fnt);
-
-
-    _textPane.printAll(pg);
-    pg.dispose(); 
-    pj.end();
-  }
-
-
-  public void save() {
-    if(_fileChooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION) {
-      return;
-    }
-    
-    String fileName    = _fileChooser.getSelectedFile().getPath();
-    String description = _fileChooser.getFileFilter().getDescription();
-    if(fileName != null) {
-      
-      try {
-        if(description.equals(_richTextFormatDescription)) {
-          (new RTFEditorKit()).write(new FileOutputStream(fileName),  _textPane.getDocument(), 0,  _textPane.getDocument().getLength());
+  public void print()
+  {
+		JobAttributes jobAttributes = new JobAttributes();
+		PageAttributes pageAttributes = new PageAttributes();
+		pageAttributes.setOrigin( PageAttributes.OriginType.PRINTABLE );
+		PrintJob pj = getToolkit().getPrintJob( ReportBox.this , "OT Report (" + System.getProperty( "user.name" ) + ")" , jobAttributes , pageAttributes );
+		if( pj != null )
+		{
+			Graphics pg = pj.getGraphics();
+			_textPane.printAll( pg );
+			pg.dispose();
+			pj.end();
+		}
 	}
-	else { //if(description.equals(_asciiDescription)) {
-          PrintWriter printWriter = new PrintWriter(new FileWriter(fileName));
-          StringTokenizer st = new StringTokenizer(_textPane.getText(), "\n");
-          while (st.hasMoreTokens()) {
-            printWriter.println(st.nextToken());
-          }
-          printWriter.close();
+
+
+  public void save()
+	{
+		if( _fileChooser.showSaveDialog( this ) != JFileChooser.APPROVE_OPTION )
+		{
+			return;
+		}
+
+		String fileName = _fileChooser.getSelectedFile().getPath();
+		String description = _fileChooser.getFileFilter().getDescription();
+		if( fileName != null )
+		{
+
+			try
+			{
+				if( description.equals( _richTextFormatDescription ) )
+				{
+					( new RTFEditorKit() ).write( new FileOutputStream( fileName ) , _textPane.getDocument() , 0 , _textPane.getDocument().getLength() );
+				}
+				else
+				{
+					PrintWriter printWriter = new PrintWriter( new FileWriter( fileName ) );
+					StringTokenizer st = new StringTokenizer( _textPane.getText() , "\n" );
+					while( st.hasMoreTokens() )
+					{
+						printWriter.println( st.nextToken() );
+					}
+					printWriter.close();
+				}
+			}
+			catch( IOException exception )
+			{
+				JOptionPane.showMessageDialog( this , "Problems writing to file \"" + fileName + "\": " + exception , "Save Error" , JOptionPane.ERROR_MESSAGE );
+			}
+			catch( BadLocationException exception )
+			{
+				JOptionPane.showMessageDialog( this , "Problems writing to file \"" + fileName + "\": " + exception , "Save Error" , JOptionPane.ERROR_MESSAGE );
+			}
+		}
 	}
-      }
-      catch(IOException exception) {
-        JOptionPane.showMessageDialog(this, "Problems writing to file \"" + fileName + "\": " + exception,
-	                                   "Save Error", JOptionPane.ERROR_MESSAGE);
-      }
-      catch(BadLocationException exception) {
-        JOptionPane.showMessageDialog(this, "Problems writing to file \"" + fileName + "\": " + exception,
-	                                   "Save Error", JOptionPane.ERROR_MESSAGE);        
-      }
-    }
-  }
 
   /**
-   * Copied from java.sun.com example TextSamplerDemo.
-   */
+	 * Copied from java.sun.com example TextSamplerDemo.
+	 */
   protected void initStylesForTextPane(JTextPane textPane) {
     //Initialize some styles.
     Style def = StyleContext.getDefaultStyleContext().
