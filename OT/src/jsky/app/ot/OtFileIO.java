@@ -282,6 +282,27 @@ public class OtFileIO
 	public static void open( String filename )
         {
             	File file = new File( filename ) ;
+		if( !( file.exists() || file.canRead() ) )
+		{
+			System.out.println( "cannot find " + filename ) ; 
+			String pwd = OT.getOtUserDir() ;
+			if( !pwd.endsWith( File.separator ) )
+			{
+				pwd += File.separator ;
+			}
+			
+			File nufile = new File( pwd + filename ) ;
+			if( nufile.exists() && nufile.canRead() )
+			{
+				System.out.println( "trying " + pwd + filename ) ;
+				file = null ;
+				file = nufile ;
+			}
+			else
+			{
+				nufile = null ;
+			}
+		}
             	String dir = file.getParent() ;
             	String name = file.getName() ;
             	SpRootItem spItem = fetchSp( dir , name ) ;
