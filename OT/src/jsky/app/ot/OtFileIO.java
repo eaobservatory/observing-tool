@@ -294,7 +294,7 @@ public class OtFileIO
 			File nufile = new File( pwd + filename ) ;
 			if( nufile.exists() && nufile.canRead() )
 			{
-				System.out.println( "trying " + pwd + filename ) ;
+				System.out.println( "trying " + nufile.getAbsolutePath() ) ;
 				file = null ;
 				file = nufile ;
 			}
