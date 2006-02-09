@@ -284,7 +284,7 @@ public class OtFileIO
             	File file = new File( filename ) ;
 		if( !( file.exists() || file.canRead() ) )
 		{
-			System.out.println( "cannot find " + filename ) ; 
+			System.out.println( "cannot find " + file.getAbsolutePath() ) ; 
 			String pwd = OT.getOtUserDir() ;
 			if( !pwd.endsWith( File.separator ) )
 			{
