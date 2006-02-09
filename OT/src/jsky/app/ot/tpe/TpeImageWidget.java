@@ -29,7 +29,7 @@ import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import jsky.app.ot.util.RADecMath;
+import gemini.util.RADecMath ;
 import jsky.coords.WorldCoordinateConverter;
 import jsky.coords.WorldCoords;
 import jsky.coords.wcscon;

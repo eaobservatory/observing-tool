@@ -133,29 +133,36 @@ getOffset(double posRA, double posDec, double baseRA, double baseDec)
  * Get the absolute position in degrees given a base position in
  * degrees and an offset in arcsec.
  */
-public static double[]
-getAbsolute(double ra, double dec, double xOff, double yOff, double posAngle)
-{
-   // Rotate the offset back through the position angle
-   double[] off = { xOff, yOff };
-   if (posAngle != 0.0) {
-      off = _rotate(xOff, yOff, -posAngle);
-   }
+	public static double[] getAbsolute( double ra , double dec , double xOff , double yOff , double posAngle )
+	{
+		// Rotate the offset back through the position angle
+		double[] off =
+		{ xOff , yOff };
+		if( posAngle != 0.0 )
+		{
+			off = _rotate( xOff , yOff , -posAngle );
+		}
 
-   double newRA  = Angle.normalizeDegrees(ra + off[0]/3600.0);
+		double newDec = dec + off[ 1 ] / 3600;
 
-   double newDec = dec + off[1]/3600;
-   if (newDec > 90.0) {
-      newRA  =  Angle.normalizeDegrees(newRA + 180.0);  // Add 12 hours
-      newDec =  180.0 - newDec;
-   } else if (newDec < -90.0) {
-      newRA  =  Angle.normalizeDegrees(newRA + 180.0);  // Add 12 hours
-      newDec = -180.0 - newDec;
-   }
+		double newXOff = ( off[ 0 ] / 3600.0 ) / Math.cos( Math.toRadians( newDec ) );
+		double newRA = Angle.normalizeDegrees( ra + newXOff ) ;
 
-   double[] t = { newRA, newDec };
-   return t;
-}
+		if( newDec > 90.0 )
+		{
+			newRA = Angle.normalizeDegrees( newRA + 180.0 ); // Add 12 hours
+			newDec = 180.0 - newDec;
+		}
+		else if( newDec < -90.0 )
+		{
+			newRA = Angle.normalizeDegrees( newRA + 180.0 ); // Add 12 hours
+			newDec = -180.0 - newDec;
+		}
+
+		double[] t =
+		{ newRA , newDec };
+		return t;
+	}
 
 
 /**
