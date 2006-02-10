@@ -15,6 +15,12 @@ Council All Rights. Reserved.
 
 +++ February 2006
 
+  - Copying survey containers get properly cloned.
+
+  - Changes to x-offsets to RA get applied as [ x-offset X cos( Dec ) ]
+
+  - When targetting, the RA and Dec no longer get corrupted causing drift.
+
   - Initial removal of ODB and OM code.
 
   - Removal of SERVER options on the command line as part of ODB code removal. 
