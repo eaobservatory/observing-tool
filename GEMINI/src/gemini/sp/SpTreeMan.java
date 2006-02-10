@@ -63,40 +63,46 @@ evalInsert(SpItem newItem, SpItem parent)
 
 }
 
-//
-// Insert an iterator folder inside the parent.
-//
+/* Insert an iterator folder inside the parent. */
 final class InsidePolicy_IteratorFolder extends InsertPolicy
 {
-public SpInsertInfo
-evalInsert(SpItem newItem, SpItem parent)
-{
-   Assert.notFalse( newItem instanceof SpIterFolder );
+	public SpInsertInfo evalInsert( SpItem newItem , SpItem parent )
+	{
+		Assert.notFalse( newItem instanceof SpIterFolder );
 
-   // This is almost identical to InsidePolicy_AfterComponents, but
-   // if an SpIterFolder is found in this scope, it is an illegal
-   // insertion.
-  
-   SpItem lastComp = null;
-   Enumeration children = parent.children();
-   while (children.hasMoreElements()) {
-      SpItem child = (SpItem) children.nextElement();
-      if (child instanceof SpObsComp) {
-         lastComp = child;
-      } else if (child instanceof SpIterFolder) {
-         // ILLEGAL, there's already an IF in this scope.
-         return null;
-      } else {
-         break;
-      }
-   }
+		// This is almost identical to InsidePolicy_AfterComponents, but
+		// if an SpIterFolder is found in this scope, it is an illegal
+		// insertion.
 
-   if (lastComp == null) {
-      return new SpInsertInfo(INS_INSIDE, parent);
-   } else {
-      return new SpInsertInfo(INS_AFTER, lastComp);
-   }
-}
+		SpItem lastComp = null;
+		Enumeration children = parent.children();
+		while( children.hasMoreElements() )
+		{
+			SpItem child = ( SpItem ) children.nextElement();
+			if( child instanceof SpObsComp )
+			{
+				lastComp = child;
+			}
+			else if( child instanceof SpIterFolder )
+			{
+				// ILLEGAL, there's already an IF in this scope.
+				return null;
+			}
+			else
+			{
+				continue ;
+			}
+		}
+
+		if( lastComp == null )
+		{
+			return new SpInsertInfo( INS_INSIDE , parent );
+		}
+		else
+		{
+			return new SpInsertInfo( INS_AFTER , lastComp );
+		}
+	}
 
 }
 
