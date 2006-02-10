@@ -46,32 +46,44 @@ public class SpSurveyContainer extends SpObsContextItem {
   /** Used in {@link #processAvAttribute(String,String,StringBuffer)}. */
   private Vector _tagVector = null;
 
-//  private boolean _processingTelObsComp      = false;
-//  private int     _processingTelObsCompCount = false;
-
   private String  _telObsCompXmlElementName  = (new SpTelescopeObsComp()).getXmlElementName();
 
   private SpTelescopeObsComp _processingTelObsComp = null;
 
 
-  public SpSurveyContainer() {
-    super(SpType.SURVEY_CONTAINER);
+	public SpSurveyContainer()
+	{
+		super( SpType.SURVEY_CONTAINER );
 
-    _tagVector = new Vector(Arrays.asList(SpTelescopePos.getGuideStarTags()));
-    _tagVector.add(SpTelescopePos.getBaseTag());
+		_tagVector = new Vector( Arrays.asList( SpTelescopePos.getGuideStarTags() ) );
+		_tagVector.add( SpTelescopePos.getBaseTag() );
 
-    // Add one SpTelescopeObsComp
-//    noNotifyAddSpTelescopeObsComp();
-  }
+	}
 
-  public void initTelescopeObsCompVector() {
-    _telescopeObsCompVector = new Vector();
-//    noNotifyAddSpTelescopeObsComp();
-  }
+  public void initTelescopeObsCompVector()
+	{
+		_telescopeObsCompVector = new Vector();
+	}
 
-  public void initTelescopeObsCompVector(Vector telescopeObsCompVector) {
-    _telescopeObsCompVector = new Vector(telescopeObsCompVector);
-  }
+	public void initTelescopeObsCompVector( Vector telescopeObsCompVector )
+	{
+		Vector _telescopeObsCompVectorClone = new Vector() ;
+		for( int index = 0 ; index < telescopeObsCompVector.size() ; index++ )
+		{
+			Object obj = telescopeObsCompVector.get( index ) ;
+			if( obj instanceof SpItem )
+			{
+				SpItem temp = ( SpItem )obj ;
+				SpItem clone = ( SpItem )temp.clone() ;
+				_telescopeObsCompVectorClone.insertElementAt( clone , index ) ;
+			}
+			else
+			{
+				_telescopeObsCompVectorClone.insertElementAt( obj , index ) ;
+			}
+		}
+		_telescopeObsCompVector = _telescopeObsCompVectorClone ;
+	}
 
 
   /**
@@ -175,16 +187,6 @@ public class SpSurveyContainer extends SpObsContextItem {
   public int size() {
     return _telescopeObsCompVector.size();
   }  
-
-/*
-  public void setEditFSM(SpEditState fsm) {
-    super.setEditFSM(fsm);
-
-    for(int i = 0; i < _telescopeObsCompVector.size(); i++) {
-      ((SpTelescopeObsComp)_telescopeObsCompVector.get(i)).setEditFSM(getEditFSM());
-    }
-  }
-*/
 
   public SpTelescopeObsComp noNotifyAddSpTelescopeObsComp() {
     SpTelescopeObsComp spTelescopeObsComp = new SpTelescopeObsComp();
@@ -412,11 +414,12 @@ public class SpSurveyContainer extends SpObsContextItem {
       }
   }
 
-  public SpItem deepCopy() {
-    SpItem copy = super.deepCopy();
-    ((SpSurveyContainer)copy).initTelescopeObsCompVector(_telescopeObsCompVector);
-    return copy;
-  }
+  public SpItem deepCopy()
+	{
+		SpItem copy = super.deepCopy();
+		( ( SpSurveyContainer )copy ).initTelescopeObsCompVector( _telescopeObsCompVector );
+		return copy;
+	}
 
   public SpItem shallowCopy() {
     SpItem copy = super.shallowCopy();
@@ -474,38 +477,38 @@ public class SpSurveyContainer extends SpObsContextItem {
       return hasMSBParent;
   }
 
-  public void processXmlElementStart(String name) {
-//    // Init _telescopeObsCompVector when XML processing starts.
-//    if(name.equals(getXmlElementName())) {
-//      _telescopeObsCompVector.clear();
-//    }
+	public void processXmlElementStart( String name )
+	{
+		if( name.equals( "SpTelescopeObsComp" ) )
+		{
+			_processingTelObsComp = noNotifyAddSpTelescopeObsComp();
+			_processingTelObsComp.processXmlElementStart( _telObsCompXmlElementName );
+		}
+		else
+		{
+			super.processXmlElementStart( name );
+		}
+	}
 
-    if(name.equals("SpTelescopeObsComp")) {
-      _processingTelObsComp = noNotifyAddSpTelescopeObsComp();
-      _processingTelObsComp.processXmlElementStart(_telObsCompXmlElementName);
-    }
-    else {
-      super.processXmlElementStart(name);
-    }
-  }
-
-  public void processXmlAttribute(String elementName, String attributeName, String value) {
-    if(_processingTelObsComp != null) {
-      _processingTelObsComp.processXmlAttribute(elementName, attributeName, value);
-    }
-    else if ( attributeName.equals(ATTR_PRIORITY) ) {
-        setPriority( Integer.parseInt(value), _telescopeObsCompVector.size() );
-    }
-    else if ( attributeName.equals(ATTR_REMAINING) ) {
-        setRemaining( Integer.parseInt(value),  _telescopeObsCompVector.size() );
-    }
-//     else if ( attributeName.equals(ATTR_CHOICE) ) {
-//         setChoose( value );
-//     }
-    else {
-      super.processXmlAttribute(elementName, attributeName, value);
-    }
-  }
+  public void processXmlAttribute( String elementName , String attributeName , String value )
+	{
+		if( _processingTelObsComp != null )
+		{
+			_processingTelObsComp.processXmlAttribute( elementName , attributeName , value );
+		}
+		else if( attributeName.equals( ATTR_PRIORITY ) )
+		{
+			setPriority( Integer.parseInt( value ) , _telescopeObsCompVector.size() );
+		}
+		else if( attributeName.equals( ATTR_REMAINING ) )
+		{
+			setRemaining( Integer.parseInt( value ) , _telescopeObsCompVector.size() );
+		}
+		else
+		{
+			super.processXmlAttribute( elementName , attributeName , value );
+		}
+	}
 
   public void processXmlElementContent(String name, String value) {
     if(_processingTelObsComp != null) {
@@ -571,47 +574,10 @@ public class SpSurveyContainer extends SpObsContextItem {
     }
   }
 
-  protected void toXML(String indent, StringBuffer xmlBuffer) {
-      super.toXML(indent, xmlBuffer);
-      /*
-
-    // Remove all ATTR_SELECTED_TEL_OBS_COMP attributes form the SpTelescopeObsComp tables.
-    // They ended up there because SpSurveyContainer and SpTelescopeObsComp share a
-    // SpAvTable when a SpTelescopeObsComp is edited.
-    // First replace the table of this SpSurveyContainer with a copy of itself so prevent
-    // the ATTR_SELECTED_TEL_OBS_COMP attribute from being removed from the table
-    // of the SpSurveyContainer.
-//    setTable(getTable().copy());
-
-//    for(int i = 0; i < _telescopeObsCompVector.size(); i++) {
-//      ((SpTelescopeObsComp)_telescopeObsCompVector.get(i)).getTable().noNotifyRm(ATTR_SELECTED_TEL_OBS_COMP);
-//    }
-
-    int offset = xmlBuffer.toString().lastIndexOf('<') - indent.length() - 1;
-
-    String closeTag = xmlBuffer.toString().substring(offset);
-    xmlBuffer.delete(offset, xmlBuffer.length());
-
-    // We need to strip the priority and remaining tags since we will put these
-    // inside each target in the list
-
-    String telescopeObsCompXML = null;
-
-    for(int i = 0; i < _telescopeObsCompVector.size(); i++) {
-      telescopeObsCompXML = ((SpTelescopeObsComp)_telescopeObsCompVector.get(i)).getXML("  " + indent + indent);
-
-      // Get rid of enclosing tags.
-//       telescopeObsCompXML = telescopeObsCompXML.substring(telescopeObsCompXML.indexOf("\n", telescopeObsCompXML.indexOf("\n") + 1),
-//                                                           telescopeObsCompXML.lastIndexOf("\n"));
-
-      xmlBuffer.append("\n" + indent + "  <FIELD>");
-      xmlBuffer.append(telescopeObsCompXML);
-      xmlBuffer.append("\n" + indent + "  </FIELD>");
-    }
-
-    xmlBuffer.append("\n" + indent + closeTag);
-    */
-  }
+	protected void toXML( String indent , StringBuffer xmlBuffer )
+	{
+		super.toXML( indent , xmlBuffer );
+	}
 
   private void writeTargetList( String indent, StringBuffer xmlBuffer ) {
       xmlBuffer.append("\n" + indent + "<TargetList>" );
