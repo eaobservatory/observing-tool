@@ -13,9 +13,12 @@ Council All Rights. Reserved.
 
 +++ February 2006
 
+
+  - It is no longer possible to accidently put sequences before components causing invalid XML to be produced.
+
   - Copying survey containers get properly cloned.
 
-  - Changes to x-offsets to RA get applied as [ x-offset X cos( Dec ) ]
+  - Changes to X-offsets to RA get applied as [ X-offset x cos( Dec ) ]
 
   - When targetting, the RA and Dec no longer get corrupted causing drift.
 
