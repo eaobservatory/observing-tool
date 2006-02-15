@@ -1185,37 +1185,43 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	
     }
     
-    
-    /**
-     * Override the set pos angle methods because we need to know as well -
-     * this changes the inst aper.
-     * Set the position angle in degrees from due north, updating the
-     * observation data with the new position angle.  This method is
-     * ultimately called by the other setPosAngle methods.
-     */
-    public void	setPosAngleDegrees(double posAngle)
-    {
-	
-	// Confirm to CGS4 restrictions: Can only go from +7 to -173.  Also correct
-	// the E of N values to be -ve.
-	double lolim = 7.0;
-	double hilim = 187.0;
-	double neglim = -173.0;
-	if (getDisperser().equalsIgnoreCase("echelle")) {
-	    lolim = 50.0;
-	    hilim = 224.0;
-	    neglim = -136.0;
+	/*
+	* Override the set pos angle methods because we need to know as well -
+	* this changes the inst aper.
+	* Set the position angle in degrees from due north, updating the
+	* observation data with the new position angle.  This method is
+	* ultimately called by the other setPosAngle methods.
+	*/
+	public void setPosAngleDegrees( double posAngle )
+	{
+
+		/*
+		* Confirm to CGS4 restrictions: Can only go from +7 to -173. Also correct
+		* the E of N values to be -ve. 
+		*/
+		double lolim = 7.0;
+		double hilim = 187.0;
+		double neglim = -173.0;
+		if( getDisperser().equalsIgnoreCase( "echelle" ) )
+		{
+			lolim = 50.0;
+			hilim = 224.0;
+			neglim = -136.0;
+		}
+
+		// Reject anything outside the limits
+		if( ( posAngle <= lolim || posAngle >= hilim ) && !( posAngle < neglim ) )
+		{
+			if( posAngle > lolim )
+			{
+				posAngle = posAngle - 360.0;
+			}
+			posAngle = super.round( posAngle ) ;
+			super.setPosAngleDegrees( posAngle );
+			setInstAper();
+		}
 	}
-	
-	// Reject anything outside the limits
-	if ( (posAngle <= lolim || posAngle >= hilim) && !(posAngle < neglim) ) {
-	    if (posAngle > lolim ) {
-		posAngle = posAngle - 360.0;
-	    }
-	    super.setPosAngleDegrees (posAngle);
-	    setInstAper();
-	}
-    }
+        
     
     /**
      * Set the position angle in radians from due north.
