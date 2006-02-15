@@ -1809,6 +1809,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	}
     }
 
+    public void setPosAngleDegrees( double posAngle )
+    {
+    	posAngle = super.round( posAngle ) ;
+    	super.setPosAngleDegrees( posAngle ) ;
+    }
+
    /**
     * Set the default image rotator angle for the current camera
     */
