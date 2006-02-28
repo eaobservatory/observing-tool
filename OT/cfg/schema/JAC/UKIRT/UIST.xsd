@@ -92,6 +92,7 @@
     <xsd:enumeration value="Mp98"/>
     <xsd:enumeration value="CowieK"/>
     <xsd:enumeration value="ZMK"/>
+    <xsd:enumeration value="PK50"/>
   </xsd:restriction>
 </xsd:simpleType>
 
