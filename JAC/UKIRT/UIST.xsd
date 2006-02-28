@@ -102,6 +102,9 @@
     <xsd:enumeration value="IJ"/>
     <xsd:enumeration value="IJ+pol"/>
     <xsd:enumeration value="IJ+ifu"/>
+    <xsd:enumeration value="JH"/>
+    <xsd:enumeration value="JH+pol"/>
+    <xsd:enumeration value="JH+ifu"/>
     <xsd:enumeration value="short_J"/>
     <xsd:enumeration value="short_J+pol"/>
     <xsd:enumeration value="short_J+ifu"/>
