@@ -78,6 +78,7 @@ protected SpObs()
     _avTable.noNotifySet(ATTR_OPTIONAL, "false", 0);
    _avTable.noNotifySet(ATTR_PRIORITY, "99", 0);
    _avTable.noNotifySet(ATTR_STANDARD, "false", 0);
+   _avTable.noNotifySet( ATTR_TITLE , getTitle() , 0 ) ;
 }
 
 /**
