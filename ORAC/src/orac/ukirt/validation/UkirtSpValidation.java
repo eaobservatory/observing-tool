@@ -713,131 +713,152 @@ public class UkirtSpValidation extends SpValidation {
     }
   }
 
-  public void checkDRRecipe(SpDRRecipe recipe, Vector report) {
-        
-    if(!(
-      recipe.getArcInGroup() ||
-      recipe.getBiasInGroup() ||
-      recipe.getDarkInGroup() ||
-      recipe.getFlatInGroup() ||
-      recipe.getObjectInGroup() ||
-      recipe.getSkyInGroup()
-    )) {
-      report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                  "DR Recipe in " + recipe.parent().getTitle(),
-				  "No part included in group."));
-    }
+  public void checkDRRecipe( SpDRRecipe recipe , Vector report )
+	{
 
-    SpInstObsComp inst = ((SpInstObsComp) SpTreeMan.findInstrument(recipe));
-    
-    if(inst == null) {
-      report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                  "DR Recipe in " + recipe.parent().getTitle(),
-				  "Can't find instrument in scope."));
-    }
-    else {
-      Vector recipes = null;
-      
-      // NOTE that _IN_GROUP_ recipes are not considered because they are currently all set to false
-      // in SpDRRecipe.
-      if(inst instanceof SpInstUFTI) {
-        recipes = SpDRRecipe.UFTI.getColumn(0);
-	recipes.add(SpDRRecipe.UFTI_DARK_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.UFTI_SKY_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.UFTI_OBJECT_RECIPE_DEFAULT);
+		if( !( recipe.getArcInGroup() || recipe.getBiasInGroup() || recipe.getDarkInGroup() || recipe.getFlatInGroup() || recipe.getObjectInGroup() || recipe.getSkyInGroup() ) )
+		{
+			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + recipe.parent().getTitle() , "No part included in group." ) );
+		}
 
-        if(!recipes.contains(recipe.getDarkRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Dark) for UFTI",
-				      recipe.getDarkRecipeName() + " not in the OT list."));
-            
-        if(!recipes.contains(recipe.getSkyRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Sky) for UFTI",
-				      recipe.getSkyRecipeName() + " not in the OT list."));
-        
-	if(!recipes.contains(recipe.getObjectRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Object) for UFTI",
-				      recipe.getObjectRecipeName() + " not in the OT list."));
-      }
-      else if(inst instanceof SpInstIRCAM3) {
-        recipes = SpDRRecipe.IRCAM3.getColumn(0);
-	recipes.add(SpDRRecipe.IRCAM3_BIAS_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.IRCAM3_DARK_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.IRCAM3_SKY_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.IRCAM3_OBJECT_RECIPE_DEFAULT);
+		SpInstObsComp inst = ( ( SpInstObsComp ) SpTreeMan.findInstrument( recipe ) );
 
-        if(!recipes.contains(recipe.getBiasRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Bias) for IRCAM3",
-				      recipe.getBiasRecipeName() + " not in the OT list."));
-     
-        if(!recipes.contains(recipe.getDarkRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Dark) for IRCAM3",
-				      recipe.getDarkRecipeName() + " not in the OT list."));
-      
-        if(!recipes.contains(recipe.getSkyRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Sky) for IRCAM3",
-				      recipe.getSkyRecipeName() + " not in the OT list."));
-        
-	if(!recipes.contains(recipe.getObjectRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Object) for IRCAM3",
-				      recipe.getObjectRecipeName() + " not in the OT list."));
-      }
-      else if(inst instanceof SpInstCGS4) {
-        recipes = SpDRRecipe.CGS4.getColumn(0);
-	recipes.add(SpDRRecipe.CGS4_BIAS_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.CGS4_DARK_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.CGS4_FLAT_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.CGS4_ARC_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.CGS4_SKY_RECIPE_DEFAULT);
-	recipes.add(SpDRRecipe.CGS4_OBJECT_RECIPE_DEFAULT);
+		if( inst == null )
+		{
+			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + recipe.parent().getTitle() , "Can't find instrument in scope." ) );
+		}
+		else
+		{
+			Vector recipes = null;
 
-        if(!recipes.contains(recipe.getBiasRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Bias) for CGS4",
-				      recipe.getBiasRecipeName() + " not in the OT list."));
+			// NOTE that _IN_GROUP_ recipes are not considered because they are currently all set to false
+			// in SpDRRecipe.
+			boolean flat = false ;
+			boolean arc = false ;
+			boolean bias = false ;
+			boolean focus = false ;
+			boolean darkSkyAndObject = false ;
+			if( inst instanceof SpInstUFTI )
+			{
+				recipes = SpDRRecipe.UFTI.getColumn( 0 );
+				recipes.add( SpDRRecipe.UFTI_DARK_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.UFTI_SKY_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.UFTI_OBJECT_RECIPE_DEFAULT );
+				darkSkyAndObject = true ;
+			}
+			else if( inst instanceof SpInstIRCAM3 )
+			{
+				recipes = SpDRRecipe.IRCAM3.getColumn( 0 );
+				recipes.add( SpDRRecipe.IRCAM3_BIAS_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.IRCAM3_DARK_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.IRCAM3_SKY_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.IRCAM3_OBJECT_RECIPE_DEFAULT );
+				bias = true ;
+				darkSkyAndObject = true ;
+			}
+			else if( inst instanceof SpInstCGS4 )
+			{
+				recipes = SpDRRecipe.CGS4.getColumn( 0 );
+				recipes.add( SpDRRecipe.CGS4_BIAS_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.CGS4_DARK_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.CGS4_FLAT_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.CGS4_ARC_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.CGS4_SKY_RECIPE_DEFAULT );
+				recipes.add( SpDRRecipe.CGS4_OBJECT_RECIPE_DEFAULT );
+				bias = true ;
+				arc = true ;
+				flat = true ;
+				darkSkyAndObject = true ;
+			}
+			else if( inst instanceof SpInstMichelle )
+			{
+				recipes = SpDRRecipe.MICHELLE.getColumn( 0 ) ;
+				recipes.add( SpDRRecipe.MICHELLE_BIAS_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.MICHELLE_DARK_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.MICHELLE_ARC_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.MICHELLE_FLAT_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.MICHELLE_SKY_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.MICHELLE_OBJECT_RECIPE_DEFAULT ) ;
+				bias = true ;
+				arc = true ;
+				flat = true ;
+				darkSkyAndObject = true ;
+			}
+			else if( inst instanceof SpInstUIST )
+			{
+				recipes = SpDRRecipe.UIST.getColumn( 0 ) ;
+				recipes.add( SpDRRecipe.UIST_BIAS_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.UIST_DARK_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.UIST_ARC_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.UIST_FLAT_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.UIST_SKY_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.UIST_OBJECT_RECIPE_DEFAULT ) ;
+				bias = true ;
+				arc = true ;
+				flat = true ;
+				darkSkyAndObject = true ;
+			}
+			else if( inst instanceof SpInstWFCAM )	
+			{
+				recipes = SpDRRecipe.WFCAM.getColumn( 0 );
+				recipes.add( SpDRRecipe.WFCAM_BIAS_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.WFCAM_DARK_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.WFCAM_FLAT_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.WFCAM_SKY_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.WFCAM_FOCUS_RECIPE_DEFAULT ) ;
+				recipes.add( SpDRRecipe.WFCAM_OBJECT_RECIPE_DEFAULT ) ;	
+				bias = true ;
+				focus = true ;
+				flat = true ;
+				darkSkyAndObject = true ;
+			}
+			else
+			{
+				System.out.println( "No dr recipes for instrument " + inst.subtypeStr() );
+			}
+			
+			if( darkSkyAndObject )
+			{
+				if( !recipes.contains( recipe.getDarkRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Dark) for " + inst.subtypeStr() , recipe.getDarkRecipeName() + " not in the OT list." ) );
 
-        if(!recipes.contains(recipe.getDarkRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Dark) for CGS4",
-				      recipe.getDarkRecipeName() + " not in the OT list."));
-        
-	if(!recipes.contains(recipe.getFlatRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Flat) for CGS4",
-				      recipe.getFlatRecipeName() + " not in the OT list."));
-     
-	if(!recipes.contains(recipe.getArcRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Arc) for CGS4",
-				      recipe.getArcRecipeName() + " not in the OT list."));
-              
-        if(!recipes.contains(recipe.getSkyRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Sky) for CGS4",
-				      recipe.getSkyRecipeName() + " not in the OT list."));
+				if( !recipes.contains( recipe.getSkyRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Sky) for " + inst.subtypeStr() , recipe.getSkyRecipeName() + " not in the OT list." ) );
 
-	if(!recipes.contains(recipe.getObjectRecipeName()))
-          report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "DR Recipe (Object) for CGS4",
-				      recipe.getObjectRecipeName() + " not in the OT list."));
-      }
-      else {
-        System.out.println("No dr recipes for instrument " + inst.subtypeStr());
-      }
-    }
-  }
+				if( !recipes.contains( recipe.getObjectRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Object) for " + inst.subtypeStr() , recipe.getObjectRecipeName() + " not in the OT list." ) );	
+
+			}
+			if( flat )
+			{
+				if( !recipes.contains( recipe.getFlatRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Flat) for " + inst.subtypeStr() , recipe.getFlatRecipeName() + " not in the OT list." ) );
+			}
+			if( arc )
+			{
+				if( !recipes.contains( recipe.getArcRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Arc) for " + inst.subtypeStr() , recipe.getArcRecipeName() + " not in the OT list." ) );
+			}
+			if( bias )
+			{
+				if( !recipes.contains( recipe.getBiasRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Bias) for " + inst.subtypeStr() , recipe.getBiasRecipeName() + " not in the OT list." ) );				
+				
+			}
+			if( focus  )
+			{
+				if( !recipes.contains( recipe.getFocusRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Focus) for " + inst.subtypeStr() , recipe.getFocusRecipeName() + " not in the OT list." ) );
+			}
+			
+		}
+	}
 
   /**
-   * Convert from an RA in HH:MM:SS string format to degrees, minutes, seconds.
-   *
-   * @see gemini.util.HHMMSS#valueOf  
-   */
+	 * Convert from an RA in HH:MM:SS string format to degrees, minutes, seconds.
+	 * 
+	 * @see gemini.util.HHMMSS#valueOf
+	 */
   public double [] degreeString2doubles(String s) throws NumberFormatException {
     if (s == null) throw new NumberFormatException("null argument");
     
