@@ -315,17 +315,31 @@ public class SpValidation {
 	    // For each MSB check if we have the required info.
 	    NodeList requiredTag = ((Element)thisNode).getElementsByTagName("*");
 	    title = null;
-	    if (requiredTag != null) {
-		for (int j=0; j<requiredTag.getLength(); j++) {
-		    if (requiredTag.item(j).getNodeName().equalsIgnoreCase("title")) {
-			title = requiredTag.item(j).getFirstChild().getNodeValue();
-// 			System.out.println("Title of folder = "+title);
-		    }
-		    if (requiredTag.item(j).getNodeName().startsWith(componentName)) {
-			found = true;
-		    }
+	    	if (requiredTag != null)
+		{
+			for( int j = 0 ; j < requiredTag.getLength() ; j++ )
+			{
+				Node currentNode = requiredTag.item( j ) ;
+				if( currentNode != null )
+				{
+					String nodeName = currentNode.getNodeName() ;
+					if( nodeName == null )
+						nodeName = "" ;
+					if( nodeName.equalsIgnoreCase( "title" ) )
+					{
+						// if we have reached here requiredTag.item( j ) != null
+						Node tempNode = currentNode.getFirstChild();
+						if( tempNode != null )
+							title = tempNode.getNodeValue();
+					}
+					// I am sure this should be `else if` and not `if` ...
+					else if(  !found && nodeName.startsWith( componentName ) )
+					{
+						found = true;
+					}
+				}
+			}
 		}
-	    }
 	    if (!found) {
 		// Check whether any of the proginy contain an autoTarget flag.  In this case, we have a calibration,
 		// so we are OK
