@@ -49,7 +49,7 @@ public class SpTelescopeObsComp extends SpObsComp
    private static final String TX_EPOCH                = "epoch";
    private static final String TX_EPOCH_PERIH          = "epochPerih";
    private static final String TX_INCLINATION          = "inclination";
-   private static final String TX_ANODE                = "anode";
+   private static final String TX_ANODE				   = "anode";
    private static final String TX_PERIHELION           = "perihelion";
    private static final String TX_AORQ                 = "aorq";
    private static final String TX_E                    = "e";
@@ -1014,14 +1014,20 @@ processXmlAttribute(String elementName, String attributeName, String value)
         }
    }
 
-   if ( elementName.equals(TX_RV) && _currentPosition != null ) {
-       if ( attributeName.equals(TX_RV_DEFN) ) {
-           _currentPosition.setTrackingRadialVelocityDefn(value);
-       }
-       else if ( attributeName.equals(TX_RV_FRAME) ) {
-           _currentPosition.setTrackingRadialVelocityFrame(value);
-       }
-       return;
+   if( elementName.equals( TX_RV ) )
+   {
+	   if( _currentPosition == null )
+		   return ;
+
+	   if( attributeName.equals( TX_RV_DEFN ) )
+	   {
+		   _currentPosition.setTrackingRadialVelocityDefn( value ) ;
+	   }
+	   else if( attributeName.equals( TX_RV_FRAME ) )
+	   {
+		   _currentPosition.setTrackingRadialVelocityFrame( value ) ;
+	   }
+	   return ;
    }
 
    if(elementName.equals(TX_EPOCH)       ||
