@@ -255,8 +255,8 @@
     <xsd:element name="c2" type="toml:dms"/>
     <xsd:element name="pm1" type="toml:properMotionType" minOccurs="0"/>
     <xsd:element name="pm2" type="toml:properMotionType" minOccurs="0"/>
+    <xsd:element ref="toml:epoch"                        minOccurs="0"/>
     <xsd:element ref="toml:rv"                           minOccurs="0"/>
-    <xsd:element ref="toml:epoch"			 minOccurs="0"/>
     <xsd:element name="parallax" type="toml:nonNegativeDecimal" minOccurs="0"/>
   </xsd:sequence>
   <xsd:attribute name="SYSTEM" type="toml:sphericalSystemList"/>
