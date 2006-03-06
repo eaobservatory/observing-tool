@@ -61,7 +61,9 @@ $(BIN_DIR):
 # regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	rm -rf $@/*
+	chmod -R g+w ../cfg/
 	-cp -r ../cfg/ $(LOCAL_INSTALL_ROOT)
+	chmod -R g+w $(LOCAL_INSTALL_ROOT)
 # Hacky solution to adding scema locations to the config files...
 	@ echo "" >> $(shell (cd $(LOCAL_INSTALL_ROOT);pwd))/cfg/jcmt/ot.cfg
 	@ echo "schemaBase: JAC/JCMT/JCMT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
