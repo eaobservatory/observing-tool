@@ -72,7 +72,15 @@ class OtCfgReader
      */
     public static OtCfg.Info load(String cfgFilename)  {
 	ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-	URL url = classLoader.getResource(cfgFilename);
+	URL url = classLoader.getResource( cfgFilename ) ;
+	if( url == null )
+	{
+		try
+		{
+			url = new URL( "file://" + cfgFilename ) ;
+		}
+		catch( MalformedURLException mue ){}
+	}	
 	if (url == null) {
 	    DialogUtil.error("Problem constructing the config file URL: " + cfgFilename);
 	    return null;
