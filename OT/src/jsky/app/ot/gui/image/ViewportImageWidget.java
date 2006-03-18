@@ -126,11 +126,14 @@ public class ViewportImageWidget extends NavigatorImageDisplay
 	super.updateImage();
 
 	Rectangle2D.Double r = getVisibleArea();
-	try {
+	try 
+	{
 	    // might throw an exception if changing images
-	    _notifyViewObs(new ImageView((int)r.x, (int)r.y, (int)(r.x+r.width), (int)(r.y+r.height), scale));
+	    _notifyViewObs(new ImageView((int)r.x, (int)r.y, (int)(r.x+r.width), (int)(r.y+r.height), 1.0));
+		/* last arg was scale which no longer exists in current jsky*/
 	}
-	catch(Exception e) {
+	catch(Exception e) 
+	{
 	    // System.out.println("XXX ViewportImageWidget.updateImage: " + e);
 	}
     }

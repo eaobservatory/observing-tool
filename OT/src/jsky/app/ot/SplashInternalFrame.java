@@ -11,8 +11,6 @@ import java.awt.Dimension;
 import java.net.URL;
 import javax.swing.*;
 import jsky.util.gui.BasicWindowMonitor;
-import jsky.util.gui.LookAndFeelMenu;
-
 
 /** 
  * Provides a top level window and menubar for the SplashScreen class.
@@ -47,8 +45,6 @@ public class SplashInternalFrame extends JInternalFrame {
         pack();
         setVisible(true);
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
     /** Return the main science program splash panel */

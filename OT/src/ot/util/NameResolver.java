@@ -1,23 +1,19 @@
 package ot.util;
 
 import jsky.catalog.Catalog;
-import jsky.catalog.CatalogFactory;
-import jsky.catalog.QueryArgs;
+import jsky.catalog.BasicQueryArgs ;
 import jsky.catalog.TableQueryResult;
 import jsky.catalog.skycat.SkycatConfigFile;
-import jsky.catalog.skycat.SkycatConfigEntry;
 import jsky.util.gui.ProgressException;
 import jsky.coords.HMS;
 import jsky.coords.DMS;
 
-import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.StringTokenizer;
-//import java.net.URLEncoder;
 
 /**
  * Name resolver utility for target list.
@@ -34,96 +30,109 @@ public class NameResolver {
   protected String _dec = "";
   protected String _eq = "";
 
-  public NameResolver(String catalogName, String queryString) throws ProgressException {
-    // Using  URLEncoder.encode would be nice but it replaces ' ' with '+' which
-    // doesn't do the trick. ' ' has to be replaced with "%20".
-    //queryString= URLEncoder.encode(queryString);
-      // Added by SdW
-      System.out.println("Using catalog "+catalogName);
-      if (catalogName.equalsIgnoreCase("Personal Catalog")) {
-	  this.getPersonalData(queryString);
-      }
-      // END
-      else {
-	  while(queryString.indexOf(' ') >= 0) {
-	      queryString = queryString.substring(0, queryString.indexOf(' '))
-                  + "%20"
-                  + queryString.substring(queryString.indexOf(' ') + 1);
-	  }    
+	public NameResolver( String catalogName , String queryString ) throws ProgressException 
+	{
+      	System.out.println( "Using catalog " + catalogName + "!" ) ;
+		if( catalogName.equalsIgnoreCase( "Personal Catalog" ) ) 
+		{
+			this.getPersonalData( queryString ) ;
+		}
+      		// END
+		else 
+		{
+			queryString = queryString.replaceAll( " " , "%20" ) ;   
 
-	  Catalog catalog = SkycatConfigFile.getConfigFile().getCatalog(catalogName);
+			Catalog catalog = SkycatConfigFile.getConfigFile().getCatalog( catalogName ) ;
 
-	  if((catalogName == null) || (System.getProperty("DEBUG") != null)) {
-	      System.out.println("NameResolver(\"" + catalogName + "\", \"" + queryString + "\") called.");
-	      int n = SkycatConfigFile.getConfigFile().getNumCatalogs();
-	      System.out.println("There are " + n + " catalogs available.");
-	      System.out.println("Pick one of the following catalogs:");
-	      for(int i = 0; i < n; i++) {
-		  System.out.println("    " + SkycatConfigFile.getConfigFile().getCatalog(i));
-	      }
-	  }
+			if( ( catalogName == null ) || ( System.getProperty( "DEBUG" ) != null ) ) 
+			{
+				System.out.println( "NameResolver( \"" + catalogName + "\" , \"" + queryString + "\" ) called." ) ;
+				int n = SkycatConfigFile.getConfigFile().getNumCatalogs() ;
+	      		System.out.println( "There are " + n + " catalogs available." ) ;
+	      		System.out.println("Pick one of the following catalogs:");
+	      		for( int i = 0 ; i < n ; i++ ) 
+				{
+					System.out.println( "    " + SkycatConfigFile.getConfigFile().getCatalog( i ) ) ;
+				}
+			}
 
-	  if(catalog == null) {
-	      throw new RuntimeException("Could not create catalog \"" + catalogName + "\"");
-	  }
+			if( catalog == null ) 
+			{
+				throw new RuntimeException( "Could not create catalog \"" + catalogName + "\"" ) ;
+			}
 
-	  QueryArgs queryArgs = new QueryArgs(catalog);
+			BasicQueryArgs queryArgs = new BasicQueryArgs( catalog ) ;  
+			queryArgs.setId( queryString ) ;
+			
+			TableQueryResult tableQueryResult = null ;
+			
+			try 
+			{
+				Object queryResult = catalog.query( queryArgs ) ;
+				if( queryResult instanceof TableQueryResult )
+					tableQueryResult = ( TableQueryResult )queryResult ;
+			}
+			catch( ProgressException e ) 
+			{
+				// query interrupted by user. Handle exception in the calling class.
+				System.out.println( "Rethrowing " + e ) ;
+				throw e	;
+			}
+			catch( Exception e ) 
+			{
+				// Exception is handled in the following code because tableQueryResult is still null.
+				System.out.println( e ) ;
+			}
 
-	  queryArgs.setParamValue(0, queryString);
+			if( ( tableQueryResult == null ) || ( tableQueryResult.getRowCount() < 1 ) ) 
+			{
+				throw new RuntimeException( "No query result." ) ;
+			}
 
-	  TableQueryResult tableQueryResult = null;
-    
-	  try {
-	      tableQueryResult = (TableQueryResult)catalog.query(queryArgs);
-	  }
-	  catch(ProgressException e) {
-	      // query interrupted by user. Handle exception in the calling class.
-	      throw e;
-	  }
-	  catch(Exception e) {
-	      // Exception is handled in the following code because tableQueryResult is still null.
-	  }
-	  
-	  if((tableQueryResult == null) || (tableQueryResult.getRowCount() < 1)) {
-	      throw new RuntimeException("No query result.");
-	  }
+			if( ( tableQueryResult.getRowCount() > 1 ) && ( System.getProperty("DEBUG") != null ) ) 
+			{
+				System.out.println( "NameResolver: More than 1 query result. Only the first result is used." ) ;
+			}
 
-	  if((tableQueryResult.getRowCount() > 1) && (System.getProperty("DEBUG") != null)) {
-	      System.out.println("NameResolver: More than 1 query result. Only the first result is used.");
-	  }
+			_id  = "" + tableQueryResult.getValueAt( 0 , 0 ) ;
 
-	  _id  = "" + tableQueryResult.getValueAt(0, 0);
-
-	  try {
-	      double raDegDouble = Double.parseDouble("" + tableQueryResult.getValueAt(0, 1));
-	      double raDouble    = (raDegDouble * 24) / 360;
+			try 
+			{
+				double raDegDouble = Double.parseDouble( "" + tableQueryResult.getValueAt( 0 , 1 ) ) ;
+				double raDouble = ( raDegDouble * 24 ) / 360 ;
 	      
-	      _ra = (new HMS(raDouble)).toString();
-	  }
-	  catch(NumberFormatException e) {
-	      _ra  = "";
-	  }
+				_ra = ( new HMS( raDouble )).toString() ;
+			}
+			catch( NumberFormatException e ) 
+			{
+				_ra  = "" ;
+			}
 
-	  try{
-	      double decDouble   = Double.parseDouble("" + tableQueryResult.getValueAt(0, 2));
+			try
+			{
+				double decDouble   = Double.parseDouble( "" + tableQueryResult.getValueAt( 0 , 2 ) ) ;
 	      
-	      _dec = (new DMS(decDouble)).toString();
-	  }
-	  catch(NumberFormatException e) {
-	      _dec = "";
-	  }
+				_dec = ( new DMS( decDouble )).toString() ;
+			}
+			catch( NumberFormatException e ) 
+			{
+				_dec = "" ;
+			}
 
-	  if(System.getProperty("DEBUG") != null) {
-	      System.out.println("Complete query result table for catalog " + catalogName + ":");
-	      for(int i = 0; i < tableQueryResult.getRowCount(); i++) {
-		  for(int j = 0; j < tableQueryResult.getColumnCount(); j++) {
-		      System.out.print("(" + i + ", " + j + ") = " + tableQueryResult.getValueAt(i, j) + ";    ");
-		  }
-		  System.out.println("");
-	      }
-	  }
-      }
-  }
+			if( System.getProperty( "DEBUG" ) != null ) 
+			{
+				System.out.println( "Complete query result table for catalog " + catalogName + ":" ) ;
+				for( int i = 0 ; i < tableQueryResult.getRowCount() ; i++ ) 
+				{
+					for( int j = 0 ; j < tableQueryResult.getColumnCount() ; j++ ) 
+					{
+						System.out.print( "(" + i + ", " + j + ") = " + tableQueryResult.getValueAt( i , j ) + ";    " ) ;
+					}
+					System.out.println("") ;
+				}
+			}
+		}
+	}
 
     // New method added by SdW
     private void getPersonalData(String queryString) {

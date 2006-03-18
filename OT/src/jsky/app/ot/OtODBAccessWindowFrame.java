@@ -10,8 +10,6 @@ package jsky.app.ot;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
-import jsky.util.gui.LookAndFeelMenu;
-
 
 /** 
  * Provides a top level window and menubar for the OtODBAccessWindow class.
@@ -41,8 +39,6 @@ public class OtODBAccessWindowFrame extends JFrame {
         pack();
         setVisible(true);
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
     /** Return the main window panel */

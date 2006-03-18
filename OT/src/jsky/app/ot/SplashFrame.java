@@ -11,7 +11,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.net.URL;
 import javax.swing.*;
-import jsky.util.gui.LookAndFeelMenu;
 
 
 /** 
@@ -43,8 +42,6 @@ public class SplashFrame extends JFrame {
         pack();
         setVisible(true);
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
     /** Return the main science program splash panel */

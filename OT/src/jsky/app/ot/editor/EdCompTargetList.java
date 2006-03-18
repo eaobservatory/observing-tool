@@ -1523,10 +1523,10 @@ public class EdCompTargetList extends OtItemEditor
             System.out.println("Query interrupted by OT user.");
 	  }
 	  catch(RuntimeException e) {
-            if(System.getProperty("DEBUB") != null) {
+            if(System.getProperty("DEBUG") != null) {
               e.printStackTrace();
 	    }
-
+e.printStackTrace();
             DialogUtil.error(_w, "Error while trying to resolve name \"" + _w.nameTBW.getText() + "\"\n" + e.getMessage());
 	  }
 	}

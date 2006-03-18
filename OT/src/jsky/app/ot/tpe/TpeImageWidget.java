@@ -67,13 +67,9 @@ public class TpeImageWidget extends FitsImageWidget
      * Note: derived classes should redefine this to return an instance of the
      * correct class, which should be derived JFrame or JInternalFrame.
      */
-    public Component newWindow() {
-	if (desktop != null) {
-	    return new TpeImageDisplayInternalFrame(desktop);
-	}
-	else {
+    public Component newWindow() 
+    {
 	    return new TpeImageDisplayFrame();
-	}
     }
 
     /** 

@@ -16,7 +16,6 @@ import javax.swing.event.*;
 import javax.swing.tree.*;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import jsky.util.JavaUtil;
 import jsky.util.gui.BasicWindowMonitor;
 import ot.util.DialogUtil;
 
@@ -60,7 +59,6 @@ public class TreeWidgetExt extends JPanel {
 	tree.setCellRenderer(new TreeWidgetCellRenderer());
 
 	// disable double-click (is there an easier way to do this?)
-	if (! JavaUtil.IS_JDK12) {
 		try {
 		    Method m = tree.getClass().getMethod("setToggleClickCount", new Class[]{int.class});
 		    m.invoke(tree, new Object[]{new Integer(3)});
@@ -68,7 +66,6 @@ public class TreeWidgetExt extends JPanel {
 		catch(Exception e) {
 		    throw new RuntimeException(e.toString());
 		}
-	}
 	    
 
         scrollPane = new JScrollPane(tree);

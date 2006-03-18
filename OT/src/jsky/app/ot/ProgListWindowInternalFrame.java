@@ -12,8 +12,6 @@ import java.beans.PropertyVetoException;
 import javax.swing.*;
 import javax.swing.event.*;
 import jsky.app.ot.util.CloseableApp;
-import jsky.util.gui.LookAndFeelMenu;
-
 
 /** 
  * Provides a top level window and menubar for the ProgListWindow class.
@@ -43,8 +41,6 @@ public class ProgListWindowInternalFrame extends JInternalFrame {
         pack();
         setVisible(true);
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
 

@@ -14,6 +14,7 @@ import jsky.image.gui.DivaMainImageDisplay;
 import jsky.image.gui.ImageDisplayControl;
 import jsky.image.gui.ImageDisplayMenuBar;
 import jsky.util.gui.GenericToolBar;
+import jsky.image.gui.ImageDisplayToolBar ;
 
 
 /**
@@ -68,8 +69,9 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
     }
 
     /** Make and return the menubar */
-    protected ImageDisplayMenuBar makeMenuBar(DivaMainImageDisplay mainImageDisplay, GenericToolBar toolBar) {
-	return new TpeImageDisplayMenuBar(mainImageDisplay, toolBar);
+    protected ImageDisplayMenuBar makeMenuBar(DivaMainImageDisplay mainImageDisplay, ImageDisplayToolBar toolBar) 
+    {
+	return new TpeImageDisplayMenuBar( mainImageDisplay , toolBar ) ;
     }
 
     /**
@@ -82,12 +84,12 @@ public class TpeImageDisplayInternalFrame extends NavigatorImageDisplayInternalF
     }
 
     /** Make and return the toolbar */
-    protected GenericToolBar makeToolBar(DivaMainImageDisplay mainImageDisplay) {
+    protected ImageDisplayToolBar makeToolBar(DivaMainImageDisplay mainImageDisplay) {
 	// add the Tpe tool bar while we are at it...
 	addTpeToolBar();
 	
 	// Dragging can cause problems with two tool bars...
-	GenericToolBar toolBar = super.makeToolBar(mainImageDisplay);
+	ImageDisplayToolBar toolBar = super.makeToolBar(mainImageDisplay);
 	toolBar.setFloatable(false);
 	return toolBar;
     }

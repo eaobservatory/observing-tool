@@ -13,7 +13,6 @@ import java.beans.PropertyVetoException;
 import javax.swing.*;
 import javax.swing.event.*;
 import jsky.app.ot.util.CloseableApp;
-import jsky.util.gui.LookAndFeelMenu;
 import ot.OtWasteBin;
 
 
@@ -73,8 +72,6 @@ public class OtWindowInternalFrame extends JInternalFrame implements CloseableAp
             setSelected(true);
         } catch(PropertyVetoException e) {}
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
     /** Return the main science program editor panel */

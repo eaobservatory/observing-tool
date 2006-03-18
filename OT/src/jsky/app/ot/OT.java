@@ -42,7 +42,6 @@ import jsky.app.ot.util.CloseableApp;
 import jsky.catalog.skycat.SkycatConfigFile;
 import jsky.util.gui.BasicWindowMonitor;
 import ot.util.DialogUtil;
-import jsky.util.gui.LookAndFeelMenu;
 
 import ot.News;
 import ot.OtPreferencesDialog;
@@ -157,9 +156,6 @@ public class OT extends JFrame {
 	
 	//getContentPane().add(desktop, BorderLayout.CENTER);
 	setContentPane(desktop);
-
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
 
 	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	addWindowListener(new WindowAdapter() {

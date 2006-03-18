@@ -12,8 +12,6 @@ import java.beans.PropertyVetoException;
 import javax.swing.*;
 import javax.swing.event.*;
 import jsky.app.ot.util.CloseableApp;
-import jsky.util.gui.LookAndFeelMenu;
-
 
 /** 
  * Provides a top level window and menubar for the OtODBAccessWindow class.
@@ -44,8 +42,6 @@ public class OtODBAccessWindowInternalFrame extends JInternalFrame {
         setVisible(true);
 	OT.getDesktop().add(this, JLayeredPane.MODAL_LAYER); // MFO (24 July 2001)
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
     /** Return the main panel */

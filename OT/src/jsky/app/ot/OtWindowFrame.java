@@ -14,7 +14,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.*;
-import jsky.util.gui.LookAndFeelMenu;
 import ot.OtWasteBin;
 
 /** 
@@ -70,9 +69,6 @@ public class OtWindowFrame extends JFrame implements WindowListener {
 // 	    });
         setVisible(true);
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
-//         System.out.println("Adding a windowFrame from ctor");
         openFrames.add(this);
     }
 

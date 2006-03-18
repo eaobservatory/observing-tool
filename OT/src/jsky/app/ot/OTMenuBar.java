@@ -12,8 +12,6 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import jsky.util.gui.LookAndFeelMenu;
-
 
 /** 
  * Implements the menubar for the OT application class. 

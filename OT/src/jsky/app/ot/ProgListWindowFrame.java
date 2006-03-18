@@ -10,7 +10,6 @@ package jsky.app.ot;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.*;
-import jsky.util.gui.LookAndFeelMenu;
 
 
 /** 
@@ -40,8 +39,6 @@ public class ProgListWindowFrame extends JFrame {
         pack();
         setVisible(true);
 
-	// include this top level window in any future look and feel changes
-	LookAndFeelMenu.addWindow(this);
     }
 
     

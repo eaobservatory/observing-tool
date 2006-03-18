@@ -305,13 +305,6 @@ public class OtWindowMenuBar extends JMenuBar {
 	menu.addSeparator();
 	menu.add(editor.getStopAction());
 	
-	// Only add Look and Feel item if not using internal frames 
-	// (otherwise its in the main Image menu)
-	//if (editor.getRootComponent() instanceof JFrame) {
-	//    menu.addSeparator();
-	//    menu.add(new LookAndFeelMenu());
-	//}
-
 	return menu;
     }
 

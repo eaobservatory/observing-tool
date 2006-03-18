@@ -12,6 +12,7 @@ import jsky.image.gui.DivaMainImageDisplay;
 import jsky.util.gui.GenericToolBar;
 import jsky.image.gui.ImageDisplayMenuBar;
 import jsky.image.gui.ImageDisplayControl;
+import jsky.image.gui.ImageDisplayToolBar ;
 
 /**
  * Extends NavigatorImageDisplayFrame to add OT/TPE specific features.
@@ -63,8 +64,9 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame {
     }
 
     /** Make and return the menubar */
-    protected ImageDisplayMenuBar makeMenuBar(DivaMainImageDisplay mainImageDisplay, GenericToolBar toolBar) {
-	return new TpeImageDisplayMenuBar(mainImageDisplay, toolBar);
+    protected ImageDisplayMenuBar makeMenuBar( DivaMainImageDisplay main , ImageDisplayToolBar toolBar ) 
+    {
+	return new TpeImageDisplayMenuBar( main , toolBar ) ;
     }
 
     /**
@@ -77,12 +79,13 @@ public class TpeImageDisplayFrame extends NavigatorImageDisplayFrame {
     }
 
     /** Make and return the toolbar */
-    protected GenericToolBar makeToolBar(DivaMainImageDisplay mainImageDisplay) {
+    protected ImageDisplayToolBar makeToolBar(DivaMainImageDisplay mainImageDisplay) 
+    {
 	// add the Tpe tool bar while we are at it...
 	addTpeToolBar();
 	
 	// Dragging can cause problems with two tool bars...
-	GenericToolBar toolBar = super.makeToolBar(mainImageDisplay);
+	ImageDisplayToolBar toolBar = super.makeToolBar(mainImageDisplay);
 	toolBar.setFloatable(false);
 	return toolBar;
     }
