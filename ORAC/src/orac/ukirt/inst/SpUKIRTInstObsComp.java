@@ -9,26 +9,24 @@
 
 package orac.ukirt.inst;
 
-import gemini.sp.SpAvTable;
-import gemini.sp.SpObsData;
+import gemini.sp.SpItem;
+import gemini.sp.SpMSB;
+import gemini.sp.SpObs;
+import gemini.sp.SpProg;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.sp.iter.SpIterOffset;
 import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
 import gemini.sp.iter.SpIterComp;
 import gemini.sp.iter.SpIterConfigObs;
 import gemini.sp.iter.SpIterConfigBase;
-
-import gemini.util.Angle;
 
 import orac.ukirt.iter.SpIterBiasObs;
 import orac.ukirt.iter.SpIterDarkObs;
 import orac.ukirt.iter.SpIterCGS4CalObs;
 import orac.ukirt.iter.SpIterMichelleCalObs;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.Vector;
 
 /**
@@ -363,64 +361,75 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
       }
     }  
 
-    public void update(SpIterStep spIterStep) {
+    public void update( SpIterStep spIterStep )
+	{
 
-      SpIterValue spIterValue = null;
-      boolean     expTimeFound = false;
-      boolean     coaddsFound  = false;
+			boolean expTimeFound = false;
+			boolean coaddsFound = false;
 
-      currentIterStepItem = spIterStep.item;
+			currentIterStepItem = spIterStep.item;
 
-      try {
-        String attribute = null;
-        String value     = null;
+			try
+			{
+				String attribute = null;
+				String value = null;
 
-        for(int i = 0; i < spIterStep.values.length; i++) {
-          // SpIterStep.values     is an array of SpIterValue
-          // SpIterValue.values    is an array of String the first of which contains
-          attribute = spIterStep.values[i].attribute;
+				for( int i = 0 ; i < spIterStep.values.length ; i++ )
+				{
+					// SpIterStep.values is an array of SpIterValue
+					// SpIterValue.values is an array of String the first of which contains
+					attribute = spIterStep.values[ i ].attribute;
 
-	  if((spIterStep.values[i].values != null) && (spIterStep.values[i].values.length > 0)) {
-	    value     = spIterStep.values[i].values[0];
-	  }
+					if( ( spIterStep.values[ i ].values != null ) && ( spIterStep.values[ i ].values.length > 0 ) )
+					{
+						value = spIterStep.values[ i ].values[ 0 ];
+					}
 
-          if((attribute != null) && (value != null)) {
-	      if(attribute.equals(ATTR_EXPOSURE_TIME)) {
-		  currentExposureTime = Double.valueOf(value).doubleValue();
-		  if (currentIterStepItem instanceof SpIterConfigBase )
-		      exposureTimeOverride = true;
-		  expTimeFound = true;
-	      }
-	  }
+					if( ( attribute != null ) && ( value != null ) )
+					{
+						if( attribute.equals( ATTR_EXPOSURE_TIME ) )
+						{
+							currentExposureTime = Double.valueOf( value ).doubleValue();
+							if( currentIterStepItem instanceof SpIterConfigBase )
+								exposureTimeOverride = true;
+							expTimeFound = true;
+						}
+					}
 
-	  if(attribute.equals(ATTR_COADDS)) {
-	      currentNoCoadds = Integer.valueOf(value).intValue();
-	      if  ( currentIterStepItem instanceof SpIterConfigBase ) {
-		  coaddsOverride = true;
-	      }
-	      coaddsFound = true;
-	  }
-	}
+					if( attribute.equals( ATTR_COADDS ) )
+					{
+						currentNoCoadds = Integer.valueOf( value ).intValue();
+						if( currentIterStepItem instanceof SpIterConfigBase )
+						{
+							coaddsOverride = true;
+						}
+						coaddsFound = true;
+					}
+				}
 
-	if (!expTimeFound && !exposureTimeOverride) {
-	    // See if we can get an exposure time from the instrument
-	    SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
-	    if (instrument != null) {
-		currentExposureTime = instrument.getExposureTime();
-	    }
-	}
-	if (!coaddsFound && !coaddsOverride ) {
-	    SpInstObsComp instrument = SpTreeMan.findInstrument(currentIterStepItem);
-	    if (instrument != null) {
-		currentNoCoadds = instrument.getCoadds();
-	    }		  
-	}
-      }  
-      catch(Exception e) {
-        System.out.println("Could not process iteration step "
-	                 + spIterStep.title + " for time estimation:\n\n" + e);
-      }
-    }
+				if( !expTimeFound && !exposureTimeOverride )
+				{
+					// See if we can get an exposure time from the instrument
+					SpInstObsComp instrument = SpTreeMan.findInstrument( currentIterStepItem );
+					if( instrument != null )
+					{
+						currentExposureTime = instrument.getExposureTime();
+					}
+				}
+				if( !coaddsFound && !coaddsOverride )
+				{
+					SpInstObsComp instrument = SpTreeMan.findInstrument( currentIterStepItem );
+					if( instrument != null )
+					{
+						currentNoCoadds = instrument.getCoadds();
+					}
+				}
+			}
+			catch( Exception e )
+			{
+				System.out.println( "Could not process iteration step " + spIterStep.title + " for time estimation:\n\n" + e );
+			}
+		}
 
     public double getObserveStepTime () {
       // extra_oh is a constant overheads related to certain observe iterators:
@@ -451,4 +460,33 @@ public abstract class SpUKIRTInstObsComp extends SpInstObsComp
   public IterationTracker createIterationTracker() {
     return new IterTrackerUKIRT();
   }
+  
+  	public void setPosAngleDegrees( double posAngle )
+	{
+		//Hacky attempt to fix up offsets for UKIRT
+		SpItem parent = parent() ;
+		Vector offsets ;
+		while( parent != null )
+		{
+			boolean msbOrProg = ( parent instanceof SpMSB || parent instanceof SpProg ) ;
+			boolean isSpObs = parent instanceof SpObs ;
+			if( msbOrProg || isSpObs )
+			{
+				offsets = SpTreeMan.findAllInstances( parent , "gemini.sp.iter.SpIterOffset" ) ;
+				if( offsets != null )
+				{
+					for( int i = 0 ; i < offsets.size() ; i++ )
+					{
+						SpIterOffset thisOffset = ( SpIterOffset )offsets.get( i ) ;
+						if( isSpObs || ( ( msbOrProg ) &&  ( SpTreeMan.findInstrument( thisOffset ) == this ) ) )
+							thisOffset.getPosList().setPosAngle( posAngle ) ;
+					}
+				}
+				break ;
+			}
+			parent = parent.parent() ;
+		}
+		super.setPosAngleDegrees( posAngle ) ;
+	}
+
 }

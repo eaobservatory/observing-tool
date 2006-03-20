@@ -7,15 +7,9 @@
 package gemini.sp.obsComp;
 
 import gemini.sp.SpAvTable;
-import gemini.sp.SpItem;
-import gemini.sp.SpMSB;
-import gemini.sp.SpObs;
 import gemini.sp.SpObsData;
-import gemini.sp.SpProg;
-import gemini.sp.SpTreeMan;
 import gemini.sp.SpType;
 import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterOffset;
 
 import gemini.util.Angle;
 
@@ -202,52 +196,14 @@ public int getCoadds() {
     return res;
 }
 
-/**
- * Set the position angle in degrees from due north, updating the
- * observation data with the new position angle.  This method is
- * ultimately called by the other setPosAngle methods.
- * Made not final by AB for ORAC. 4-May-2000, to allow overriding.
- */
-public void
-setPosAngleDegrees(double posAngle)
-{
-  // Comment out the normalisation.  For UKIRT assume we are getting 
-  // the correct answer(!!)
-  //   posAngle = Angle.normalizeDegrees(Math.round(posAngle));
-   _avTable.set(ATTR_POS_ANGLE, posAngle);
-   _updateObsData(posAngle);
-   // Hacky attempt to fix up offsets for UKIRT
-   if ( "ukirt".equalsIgnoreCase( System.getProperty("TELESCOPE") ) ) {
-       SpItem parent = parent();
-       Vector offsets;
-       while ( parent != null ) {
-           if ( parent instanceof SpObs ) {
-               // Get all the child offset iterator, and simply update their PA
-               offsets = SpTreeMan.findAllInstances( parent, "gemini.sp.iter.SpIterOffset" );
-               if ( offsets != null ) {
-                   for (int i=0; i<offsets.size(); i++) {
-                       ((SpIterOffset)offsets.get(i)).getPosList().setPosAngle(posAngle);
-                   }
-               }
-               break;
-           }
-           else if ( parent instanceof SpMSB || parent instanceof SpProg ) {
-               offsets = SpTreeMan.findAllInstances( parent, "gemini.sp.iter.SpIterOffset" );
-               // For each of these, find any whose instrument is this and update them
-               if ( offsets != null ) {
-                   for ( int i=0; i<offsets.size(); i++ ) {
-                       SpIterOffset thisOffset = (SpIterOffset)offsets.get(i);
-                       if ( SpTreeMan.findInstrument(thisOffset) == this ) {
-                           thisOffset.getPosList().setPosAngle(posAngle);
-                       }
-                   }
-               }
-               break;
-           }
-           parent = parent.parent();
-       }
-   }
-}
+	/**
+	 * Set the position angle in degrees from due north, updating the observation data with the new position angle. This method is ultimately called by the other setPosAngle methods. Made not final by AB for ORAC. 4-May-2000, to allow overriding.
+	 */
+	public void setPosAngleDegrees( double posAngle )
+	{
+		_avTable.set( ATTR_POS_ANGLE , posAngle );
+		_updateObsData( posAngle );
+	}
 
 /**
  * Set the position angle in radians from due north.
