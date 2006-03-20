@@ -456,19 +456,5 @@ public Hashtable getConfigItems() {
     return new IterationTracker();
   }
   
-  /*
-   *	Quick and dirty method to round a double to 
-   *	a single decimal place, if you can find a better
-   *	method feel free to replace this one. 
-   */
-  public double round( double value )
-  {
-      value *= 10. ;
-      value = Math.round( value ) ;
-      value /= 10. ;
-      return value ;
-  }
-
-  
 }
 

@@ -1216,7 +1216,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 			{
 				posAngle = posAngle - 360.0;
 			}
-			posAngle = super.round( posAngle ) ;
+			posAngle = MathUtil.round( posAngle , 1 ) ;
 			super.setPosAngleDegrees( posAngle );
 			setInstAper();
 		}

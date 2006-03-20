@@ -1811,7 +1811,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 
     public void setPosAngleDegrees( double posAngle )
     {
-    	posAngle = super.round( posAngle ) ;
+    	posAngle = MathUtil.round( posAngle , 1 ) ;
     	super.setPosAngleDegrees( posAngle ) ;
     }
 
