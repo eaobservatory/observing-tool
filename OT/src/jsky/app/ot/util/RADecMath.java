@@ -7,6 +7,7 @@
 
 package jsky.app.ot.util;
 
+import gemini.util.CoordSys;
 import jsky.app.ot.util.Angle;
 import jsky.app.ot.util.Assert;
 
@@ -137,29 +138,35 @@ getOffset(double posRA, double posDec, double baseRA, double baseDec)
  * Get the absolute position in degrees given a base position in
  * degrees and an offset in arcsec.
  */
-public static double[]
-getAbsolute(double ra, double dec, double xOff, double yOff, double posAngle)
-{
-   // Rotate the offset back through the position angle
-   double[] off = { xOff, yOff };
-   if (posAngle != 0.0) {
-      off = _rotate(xOff, yOff, -posAngle);
-   }
+	public static double[] getAbsolute( double ra , double dec , double xOff , double yOff , double posAngle )
+	{
+		// Rotate the offset back through the position angle
+		double[] off = { xOff , yOff };
+		if( posAngle != 0.0 )
+		{
+			off = _rotate( xOff , yOff , -posAngle );
+		}
 
-   double newRA  = Angle.normalizeDegrees(ra + off[0]/3600.0);
+		double newDec = dec + off[ 1 ] / 3600;
 
-   double newDec = dec + off[1]/3600;
-   if (newDec > 90.0) {
-      newRA  =  Angle.normalizeDegrees(newRA + 180.0);  // Add 12 hours
-      newDec =  180.0 - newDec;
-   } else if (newDec < -90.0) {
-      newRA  =  Angle.normalizeDegrees(newRA + 180.0);  // Add 12 hours
-      newDec = -180.0 - newDec;
-   }
+		double newXOff = ( off[ 0 ] / 3600.0 ) / Math.cos( Math.toRadians( newDec ) );
+		double newRA = Angle.normalizeDegrees( ra + newXOff ) ;
 
-   double[] t = { newRA, newDec };
-   return t;
-}
+		if( newDec > 90.0 )
+		{
+			newRA = Angle.normalizeDegrees( newRA + 180.0 ); // Add 12 hours
+			newDec = 180.0 - newDec;
+		}
+		else if( newDec < -90.0 )
+		{
+			newRA = Angle.normalizeDegrees( newRA + 180.0 ); // Add 12 hours
+			newDec = -180.0 - newDec;
+		}
+
+		double[] t = { newRA , newDec };
+		return t;
+	}
+
 
 
 /**
@@ -174,41 +181,40 @@ getAbsolute(double ra, double dec, double xOff, double yOff)
 
 
 /**
- * Convert the given X and Y positions from a String in the given coordinate
- * system to degrees.
+ * Convert the given X and Y positions from a String in the given coordinate system to degrees.
  */
-public static double[]
-string2Degrees(String xaxis, String yaxis, int coordSystem)
-{
-   // For now, assume everything is FK5/J2000
-   Assert.notFalse(coordSystem == CoordSys.FK5);
+	public static double[] string2Degrees( String xaxis , String yaxis , int coordSystem )
+	{
+		// For now, assume everything is FK5 or FK4
+		Assert.notFalse( ( coordSystem == CoordSys.FK5 ) || ( coordSystem == CoordSys.FK4 ) );
 
-   double ra  = 0.0;
-   double dec = 0.0;
-   try {
-      ra  = HHMMSS.valueOf(xaxis);
-      dec = DDMMSS.valueOf(yaxis);
-   } catch (Exception ex) {
-      return null;
-   }
+		double ra = 0.0;
+		double dec = 0.0;
+		try
+		{
+			ra = HHMMSS.valueOf( xaxis );
+			dec = DDMMSS.valueOf( yaxis );
+		}
+		catch( Exception ex )
+		{
+			return null;
+		}
 
-   double[] pos = { ra, dec };
-   return pos;
-}
+		double[] pos = { ra , dec };
+		return pos;
+	}
 
-/**
- * Convert the given ra/dec in degrees to a String in the
- * given coordinate system.
- */
-public static String[]
-degrees2String(double ra, double dec, int coordSystem)
-{
-   // For now, assume everything is FK5/J200
-    //Assert.notFalse(coordSystem == CoordSys.FK5);
+	/**
+	 * Convert the given ra/dec in degrees to a String in the given coordinate system.
+	 */
+	public static String[] degrees2String( double ra , double dec , int coordSystem )
+	{
+		// For now, assume everything is FK5 or FK4
+		Assert.notFalse( ( coordSystem == CoordSys.FK5 ) || ( coordSystem == CoordSys.FK4 ) );
 
-   String[] pos = { HHMMSS.valStr(ra), DDMMSS.valStr(dec) };
-   return pos;
-}
+		String[] pos = { HHMMSS.valStr( ra ) , DDMMSS.valStr( dec ) };
+		return pos;
+	}
 
 }
 

@@ -54,19 +54,27 @@ public class PolygonD implements Cloneable
       System.arraycopy(ypoints, 0, this.ypoints, 0, npoints);
    }
 
-   public Polygon
-   getAWTPolygon()
-   {
-      if ((_awtPolygon == null) || (_awtPolygon.npoints != npoints)) {
-         _awtPolygon = new Polygon(new int[npoints], new int[npoints], npoints);
-      }
-      for (int i=0; i<npoints; ++i) {
-         _awtPolygon.xpoints[i] = (int) (xpoints[i] + 0.5);
-         _awtPolygon.ypoints[i] = (int) (ypoints[i] + 0.5);
-      }
-      return _awtPolygon;
-   }
+   public Polygon getAWTPolygon()
+	{
+		if( ( _awtPolygon == null ) || ( _awtPolygon.npoints != npoints ) )
+		{
+			_awtPolygon = new Polygon( new int[ npoints ] , new int[ npoints ] , npoints );
+		}
+		for( int i = 0 ; i < npoints ; ++i )
+		{
+			if( _awtPolygon.xpoints[ i ] < 0.0 )
+				_awtPolygon.xpoints[ i ] = ( int ) ( xpoints[ i ] - 0.5 );
+			else
+				_awtPolygon.xpoints[ i ] = ( int ) ( xpoints[ i ] + 0.5 );
 
+			if( _awtPolygon.ypoints[ i ] < 0.0 )
+				_awtPolygon.ypoints[ i ] = ( int ) ( ypoints[ i ] - 0.5 );
+			else
+				_awtPolygon.ypoints[ i ] = ( int ) ( ypoints[ i ] + 0.5 );
+		}
+		return _awtPolygon;
+	}
+   
    public String
    toString()
    {

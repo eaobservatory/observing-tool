@@ -213,22 +213,20 @@ public abstract class TelescopePos implements java.io.Serializable
    }
 
    /**
-    * Remove all watchers.
-    */
-   public synchronized void
-   deleteWatchers()
-   {
-      if (_watchers == null) {
-         return;
-      }
-       for (int i = 0; i<_watchers.size();i++) {
-       }
-      _watchers.removeAllElements();
-   }
+	 * Remove all watchers.
+	 */
+	public synchronized void deleteWatchers()
+	{
+		if( _watchers == null )
+		{
+			return;
+		}
+		_watchers.removeAllElements();
+	}
 
    /**
-    * Copy the watchers list.
-    */
+	 * Copy the watchers list.
+	 */
    protected final synchronized Vector
    _getWatchers()
    {

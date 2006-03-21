@@ -99,49 +99,63 @@ save(String file, String comment, Properties p)
    return save(DEFAULT_DIRECTORY, file, comment, p);
 }
 
-/**
- * Save the given properties file with the given comment in the given file
- * and directory relative to the user's home directory.  If the file cannot
- * be written to for some reason, false is returned.
- */
-public static boolean
-save(String dir, String file, String comment, Properties p)
-{
-   File f = getAppPropertyFile(dir, file);
-   if (f == null) {
-      return false;
-   }
+	/**
+	 * Save the given properties file with the given comment in the given file
+	 * and directory relative to the user's home directory.  If the file cannot
+	 * be written to for some reason, false is returned.
+	 */
+	public static boolean save( String dir , String file , String comment , Properties p )
+	{
+		File f = getAppPropertyFile( dir , file );
+		if( f == null )
+		{
+			return false;
+		}
 
-   FileOutputStream fos;
-   try {
-      fos = new FileOutputStream(f);
+		FileOutputStream fos;
+		try
+		{
+			fos = new FileOutputStream( f );
 
-   } catch (IOException ex) {
+		}
+		catch( IOException ex )
+		{
 
-      // See if the .gemini directory exists
-      String path = f.getParent();
-      File fdir = new File(path);
-      try {
-         if (fdir.exists()) {
-            System.out.println("Error writing: " + f.getAbsolutePath());
-            return false;  // The directory is there so give up
-         }
+			// See if the .gemini directory exists
+			String path = f.getParent();
+			File fdir = new File( path );
+			try
+			{
+				if( fdir.exists() )
+				{
+					System.out.println( "Error writing: " + f.getAbsolutePath() );
+					return false; // The directory is there so give up
+				}
 
-         // Make the .gemini directory.
-         fdir.mkdir();
+				// Make the .gemini directory.
+				fdir.mkdir();
 
-      } catch (Exception ex2) {
-         // Trouble checking or creating the directory, give up.
-         System.out.println("Error writing: " + f.getAbsolutePath());
-         return false;
-      }
+			}
+			catch( Exception ex2 )
+			{
+				// Trouble checking or creating the directory, give up.
+				System.out.println( "Error writing: " + f.getAbsolutePath() );
+				return false;
+			}
 
-      // Try again now that the directory exists
-      return save(dir, file, comment, p);
-   }
+			// Try again now that the directory exists
+			return save( dir , file , comment , p );
+		}
 
-   p.save(fos, comment);
-   return true;
-}
+		try
+		{
+			p.store( fos , comment );
+		}
+		catch( IOException e )
+		{
+			return false;
+		}
+		return true;
+	}
 
 }
