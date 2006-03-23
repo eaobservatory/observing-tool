@@ -78,7 +78,6 @@ import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
 import ot.ReportBox;
 
-import orac.ukirt.util.SpTranslator;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import orac.util.FileFilterXML;
@@ -617,7 +616,7 @@ public class OtWindow extends SpTreeGUI
 
       // Check if this is an Observation.
       if ( !( spitem.type().equals( SpType.OBSERVATION ) ) ) {
-         spitem = SpTranslator.findSpObs( spitem );
+         spitem = findSpObs( spitem );
       }
       if ( spitem != null ) {
 
@@ -627,12 +626,16 @@ public class OtWindow extends SpTreeGUI
         SpInstObsComp inst = ((SpInstObsComp) SpTreeMan.findInstrument(spitem));
         
         // Create a translator class and do the translation
-        try {
-            spobs.translate(new Vector() );
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+			try
+			{
+				spobs.translate( new Vector() );
+			}
+			catch( Exception e )
+			{
+				e.printStackTrace();
+				DialogUtil.error( this , e.getMessage() );
+				return false;
+			}
 
       }else{
         // The user didn't select an observation item for the translation.
@@ -660,7 +663,7 @@ public class OtWindow extends SpTreeGUI
 		// Check if this is an Observation.
 		if( !( spitem.type().equals( SpType.OBSERVATION ) ) )
 		{
-			spitem = SpTranslator.findSpObs( spitem );
+			spitem = findSpObs( spitem );
 		}
 		if( spitem != null )
 		{
@@ -1508,5 +1511,47 @@ public class OtWindow extends SpTreeGUI
             e.printStackTrace();
         }
     }
+    
+    /* Copied from SpTranslator so that we can delete it from the tree */
+    /**
+	 * Find the parent Science Programme Observation associated with the
+	 * scope of the given item.  This traverses the tree.
+	 *
+	 * @param spItem the SpItem defining the scope to search
+	 */
+	public static SpObs findSpObs( SpItem spItem )
+	{
+
+		SpItem parent; // Parent of spItem
+
+		if( spItem.type().equals( SpType.OBSERVATION ) )
+		{
+			return ( SpObs ) spItem;
+		}
+
+		// Get the parent.
+		parent = spItem.parent();
+
+		// Either the item is an observation context, which is
+		// what we want, or continue the search one level 
+		// higher in the hierarchy.
+		if( !( spItem.type().equals( SpType.OBSERVATION ) ) )
+		{
+			if( parent == null )
+			{
+				return null;
+			}
+			else
+			{
+				return findSpObs( parent );
+			}
+
+		}
+		else
+		{
+			return ( SpObs ) spItem;
+		}
+	}
+    
 }
 
