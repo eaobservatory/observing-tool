@@ -17,18 +17,19 @@ import gemini.sp.iter.SpIterConfigBase;
 import gemini.sp.iter.SpIterConfigObs;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterFolder;
+import gemini.sp.SpItem;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpObsContextItem;
 import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
-import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterOffset;
 import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import orac.ukirt.iter.SpIterObserve;
 import orac.ukirt.iter.SpIterSky;
 import orac.validation.*;
+import orac.util.SpInputXML ;
 
 /**
  * Validation Tool.
@@ -365,16 +366,18 @@ public class UkirtSpValidation extends SpValidation {
     }
 
     // Check whether the observation a DR recipe (as its own child OR in its context).
-    if(SpTranslator.findRecipe(spObs) == null) {
-      report.add(new ErrorMessage(ErrorMessage.WARNING,
-	         spObs.getTitle(),
-	         "No Dr-recipe component."));
-    }
-    else {
-      if(!_isSpProgCheck) {
-        checkDRRecipe(SpTranslator.findRecipe(spObs), report);
-      }	
-    }
+	SpDRRecipe recipe = findRecipe( spObs ) ;
+	if( recipe == null )
+	{
+		report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "No Dr-recipe component." ) );
+	}
+	else
+	{
+		if( !_isSpProgCheck )
+		{
+			checkDRRecipe( recipe , report );
+		}
+	}
 
     // Find iterators
     Vector observeIterators;
@@ -1252,109 +1255,97 @@ print(SpItem spItem, String indentStr)
   }
 
 
-  public static void main(String [] args) {
-    
-    if(args.length < 1) {
-      System.err.println("Usage: UkirtSpValidation <input SGML file>");
-      System.exit(1);
-    }
+  public static void main( String[] args )
+	{
 
-    UkirtSpValidation c = new UkirtSpValidation();
-    
-    // Create instances of the UKIRT items - this will cause them to be
-    // registered with SpFactory - necessary so that the component subtypes
-    // can be understood.
-    SpItem spItem = new SpInstUFTI();
-    spItem = new SpInstCGS4();
-    spItem = new SpInstIRCAM3();
-    spItem = new SpInstMichelle();
-    spItem = new SpInstUIST();
-    spItem = new SpInstWFCAM();
-    spItem = new SpDRRecipe();
-    spItem = new SpIterBiasObs();
-    spItem = new SpIterDarkObs();
-    spItem = new SpIterCGS4();
-    spItem = new SpIterMichelle();
-    spItem = new SpIterUFTI();
-    spItem = new SpIterWFCAM();
-    spItem = new SpIterIRCAM3();
-    spItem = new SpIterCGS4CalUnit();
-    spItem = new SpIterCGS4CalObs();
-    spItem = new SpIterFP();
-    spItem = new SpIterIRPOL();
-    spItem = new SpIterNod();
-    spItem = new SpIterChop();
-    spItem = new SpIterObserve();
-    spItem = new SpIterSky();
-    spItem = new SpSiteQualityObsComp();
+		if( args.length < 1 )
+		{
+			System.err.println( "Usage: UkirtSpValidation <input XML file>" );
+			System.exit( 1 );
+		}
 
-    SpRootItem root = null;
-    SpInputSGML inSGML = null;
-    try {
-      
-      inSGML = new SpInputSGML(new FileReader(args[0]));
-      root = inSGML.parseDocument();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-    
-   
+		UkirtSpValidation c = new UkirtSpValidation();
 
-    int ch;
-    boolean correct_input = false;
-    
-    try {
-      LineNumberReader  lineReader  = new LineNumberReader(new InputStreamReader(System.in));
-      String type;
-      String subtype;
-      
-      while(correct_input == false) {
-        System.out.println("Choose one option:");
-        System.out.println("  [p]rint");
-        //System.out.println("  [f]ind");
-        //System.out.println("  find c[l]ass");
-	System.out.println("  [c]heck science program");
-   
-	ch = lineReader.readLine().toCharArray()[0];
+		// Create instances of the UKIRT items - this will cause them to be
+		// registered with SpFactory - necessary so that the component subtypes
+		// can be understood.
+		SpItem spItem = new SpInstUFTI();
+		spItem = new SpInstCGS4();
+		spItem = new SpInstIRCAM3();
+		spItem = new SpInstMichelle();
+		spItem = new SpInstUIST();
+		spItem = new SpInstWFCAM();
+		spItem = new SpDRRecipe();
+		spItem = new SpIterBiasObs();
+		spItem = new SpIterDarkObs();
+		spItem = new SpIterCGS4();
+		spItem = new SpIterMichelle();
+		spItem = new SpIterUFTI();
+		spItem = new SpIterWFCAM();
+		spItem = new SpIterIRCAM3();
+		spItem = new SpIterCGS4CalUnit();
+		spItem = new SpIterCGS4CalObs();
+		spItem = new SpIterFP();
+		spItem = new SpIterIRPOL();
+		spItem = new SpIterNod();
+		spItem = new SpIterChop();
+		spItem = new SpIterObserve();
+		spItem = new SpIterSky();
+		spItem = new SpSiteQualityObsComp();
 
-        switch(ch) {
-          case 'p':
-            c.print(root, "");
-	    correct_input = true;
-  	    break;
-      
-          case 'c':
-	    Vector report = new Vector();
-            c.checkSciProgram((SpProg)root, report);
-            ErrorMessage.printMessages(report.elements(), System.out);
-	    correct_input = true;
-  	    break;
-	  
-	  //case 'f': 
-	  //  System.out.println("Type?");
-	  //  type = lineReader.readLine();
-	  //  System.out.println("Sub type?");
-	  //  subtype = lineReader.readLine();
-          //  System.out.println("Search Result: " + c.findSpItem(root, type, subtype));
-	  //  correct_input = true;
-          //  break;
-          //
-          //case 'l': 
-	  //  System.out.println("Type?");
-	  //  type = lineReader.readLine();
-          //  c.findSpItemByClassName(root, type, "");
-	  //  correct_input = true;
-          //  break;
+		SpProg root = null;
+		SpInputXML inXML = new SpInputXML();
+		try
+		{
+			SpItem item = inXML.xmlToSpItem( new FileReader( args[ 0 ] ) );
+			if( item instanceof SpProg )
+				root = ( SpProg )item ;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
 
-	  default: System.out.println("You typed an invalid character.");
-        }
-      }
-      lineReader.close();
-    }
-    catch(IOException e) {
-      e.printStackTrace();
-    }
-  }  
+		int ch;
+		boolean correct_input = false;
+
+		try
+		{
+			LineNumberReader lineReader = new LineNumberReader( new InputStreamReader( System.in ) );
+
+			while( correct_input == false )
+			{
+				System.out.println( "Choose one option:" );
+				System.out.println( "  [p]rint" );
+				System.out.println( "  [c]heck science program" );
+
+				ch = lineReader.readLine().toCharArray()[ 0 ];
+
+				switch( ch )
+				{
+					case 'p' :
+						c.print( root , "" );
+						correct_input = true;
+						break;
+
+					case 'c' :
+						Vector report = new Vector();
+						c.checkSciProgram( root , report );
+						ErrorMessage.printMessages( report.elements() , System.out );
+						correct_input = true;
+						break;
+
+					default :
+						System.out.println( "You typed an invalid character." );
+				}
+			}
+			lineReader.close();
+		}
+		catch( IOException e )
+		{
+			e.printStackTrace();
+		}
+	}  
+
 }
 

@@ -4,16 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 
-import java.lang.Class;
-import java.lang.ClassLoader;
-import java.lang.Object;
-
 import java.net.URL;
 
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Vector;
 
+import gemini.sp.SpObsContextItem;
 import gemini.sp.SpProg;
 import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
@@ -26,9 +23,9 @@ import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import gemini.sp.obsComp.SpSchedConstObsComp;
-import gemini.sp.obsComp.SpInstObsComp;
 import gemini.util.TelescopePos;
 
+import orac.ukirt.inst.SpDRRecipe;
 import orac.util.SpItemUtilities;
 
 import org.apache.xerces.parsers.SAXParser;
@@ -774,6 +771,68 @@ public class SpValidation {
 	
     }
 
+    /* 
+     * Copied over from SpTranslator so I can remove it from the tree 
+     * Currently only used in UKIRT validation, as there is no choice in
+     * what DRRecipe is used with JCMT, this may change thus the code lives here.
+     */ 
+    /**
+  	 * Find a data-reduction recipe component associated with the
+  	 * scope of the given item.  This traverses the tree.
+  	 *
+  	 * @param spItem the SpItem defining the scope to search
+  	 */
+  	public static SpDRRecipe findRecipe( SpItem spItem )
+  	{
+
+  		SpItem child; // Child of spItem
+  		Enumeration children; // Children of the sequence
+  		SpItem parent; // Parent of spItem
+  		SpItem searchItem; // The sequence item to search
+
+  		if( spItem instanceof SpDRRecipe )
+  		{
+  			return ( SpDRRecipe )spItem;
+  		}
+
+  		// Get the parent.
+  		parent = spItem.parent();
+
+  		// Either the item is an observation context, which is
+  		// what we want, or continue the search one level 
+  		// higher in the hierarchy.
+  		if( !( spItem instanceof SpObsContextItem ) )
+  		{
+  			searchItem = parent;
+  			if( parent == null )
+  			{
+  				return null;
+  			}
+  		}
+  		else
+  		{
+  			searchItem = spItem;
+  		}
+
+  		// Search the observation context for the data-reduction
+  		// recipe.
+  		children = searchItem.children();
+  		while( children.hasMoreElements() )
+  		{
+  			child = ( SpItem ) children.nextElement();
+  			if( child instanceof SpDRRecipe )
+  			{
+  				return ( SpDRRecipe ) child;
+
+  			}
+  		}
+
+  		if( parent != null )
+  		{
+  			return findRecipe( parent );
+  		}
+  		return null;
+  	}
 
 }
 

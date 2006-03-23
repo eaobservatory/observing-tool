@@ -26,14 +26,12 @@ public class ConfigWriter {
         _counter = 0;
     }
 
-    public static ConfigWriter getNewInstance() {
-        _writer = new ConfigWriter();
-        return _writer;
-    }
-
-    public static ConfigWriter getCurrentInstance() {
-        return _writer;
-    }
+    public static synchronized ConfigWriter getCurrentInstance()
+	{
+    	if( _writer == null )
+    		_writer = new ConfigWriter() ;
+		return _writer;
+	}
 
     public String getCurrentName() {
         return _instName + "_" + _timeStamp + "_" + _counter;
