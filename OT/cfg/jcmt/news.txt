@@ -11,8 +11,12 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ February 2006
++++ April 2006
 
+
+  - Assorted fixes to Science Program Validation.
+
+  - Upgrade to JSky 2.5 ( http://archive.eso.org/JSky/ )
 
   - It is no longer possible to accidently put sequences before components causing invalid XML to be produced.
 
