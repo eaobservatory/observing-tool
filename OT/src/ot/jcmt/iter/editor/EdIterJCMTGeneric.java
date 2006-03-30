@@ -10,13 +10,8 @@
 
 package ot.jcmt.iter.editor;
 
-import java.awt.CardLayout;
 import java.text.NumberFormat;
-import java.lang.Double;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 
 import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.OtItemEditor;
@@ -26,15 +21,11 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
-import jsky.app.ot.util.CoordSys;
 
-import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
-import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.util.Angle;
 import gemini.util.DDMMSS;
 
 import orac.jcmt.inst.SpJCMTInstObsComp;

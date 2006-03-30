@@ -12,7 +12,7 @@ package gemini.sp;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpSurveyObsComp;
 import java.util.Enumeration;
-import java.lang.Integer;
+
 
 /**
  * OMP class.

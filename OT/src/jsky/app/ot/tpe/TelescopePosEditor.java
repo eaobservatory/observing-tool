@@ -8,13 +8,15 @@
 package jsky.app.ot.tpe;
 
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Component ;
+import java.awt.event.MouseEvent ;
 import java.awt.geom.Point2D;
-import java.lang.ClassLoader;
 import java.net.URL;
-import java.util.*;
-import javax.swing.*;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import javax.swing.JDesktopPane ;
+import javax.swing.JFrame ;
+import javax.swing.JInternalFrame ;
 import jsky.app.jskycat.JSkyCat;
 import jsky.app.ot.fits.gui.FitsMouseEvent;
 import jsky.app.ot.gui.image.ViewportImageWidget;
@@ -30,17 +32,13 @@ import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.obsComp.SpSurveyObsComp;
-import jsky.app.ot.OtCfg;
 import jsky.app.ot.tpe.feat.TpeCatalogFeature;
 import jsky.app.ot.util.BasicPropertyList;
-import jsky.app.ot.util.DDMMSS;
-import jsky.app.ot.util.HHMMSS;
 import jsky.catalog.skycat.SkycatConfigFile;
 import jsky.navigator.NavigatorImageDisplayFrame;
 import jsky.navigator.NavigatorImageDisplayInternalFrame;
 import jsky.util.Preferences;
 import jsky.util.TclUtil;
-import jsky.util.gui.BasicWindowMonitor;
 import jsky.util.gui.DialogUtil;
 import jsky.coords.wcscon;
 

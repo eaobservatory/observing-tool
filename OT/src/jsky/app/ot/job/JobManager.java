@@ -7,7 +7,6 @@
 package jsky.app.ot.job;
 
 import jsky.app.ot.util.LinkedList;
-import java.lang.Runnable;
 
 /**
  * The JobManager singleton continually loops picking off Jobs and

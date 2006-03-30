@@ -16,17 +16,13 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.ClassLoader;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.Vector;
 import javax.swing.JDesktopPane;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -34,13 +30,10 @@ import javax.swing.ImageIcon;
 import gemini.sp.SpFactory;
 import gemini.sp.SpLibrary;
 import gemini.sp.SpPlan;
-import gemini.sp.SpProg;
 import gemini.sp.SpRootItem;
 import gemini.sp.SpType;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.util.CloseableApp;
-import jsky.catalog.skycat.SkycatConfigFile;
-import jsky.util.gui.BasicWindowMonitor;
 import ot.util.DialogUtil;
 
 import ot.News;
@@ -49,7 +42,6 @@ import ot.DatabaseDialog;
 import orac.helptool.JHLauncher;
 import gemini.sp.SpTreeMan;
 import orac.ukirt.iter.SpIterMichelleCalObs;
-import orac.ukirt.inst.SpInstMichelle;
 
 public class OT extends JFrame {
 

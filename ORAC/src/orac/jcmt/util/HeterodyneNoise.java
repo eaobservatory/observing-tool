@@ -3,15 +3,11 @@ package orac.jcmt.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.lang.String;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import orac.jcmt.iter.SpIterJCMTObs;
@@ -153,95 +149,74 @@ public class HeterodyneNoise {
 	return trx;
     }
 
-    public static double getTsys(String fe,        // The front end name
-			  double tau,       // The noise calculation tau
-			  double airmass,   // The airmass to use
-			  double freq,      // Required frequency
-			  boolean ssb)      // Whether or not we are using SSB of DSB
-    {
-	int index;
-	double nuTel = 0.0;
-	double tSys = 0.0;
+    public static double getTsys( String fe , // The front end name
+	double tau , // The noise calculation tau
+	double airmass , // The airmass to use
+	double freq , // Required frequency
+	boolean ssb ) // Whether or not we are using SSB of DSB
+	{
+		int index;
+		double nuTel = 0.0;
+		double tSys = 0.0;
 
-	if ( !initialised) {
- 	    init ();
+		if( !initialised )
+		{
+			init();
+		}
+
+		// Find which tau range contains the required tau, and the
+		// next tau range nearest
+		String tauFile0;
+		String tauFile1;
+		Iterator iter = _availableBands.keySet().iterator();
+		double current = 0 , next = 0;
+		boolean firstLoop = true;
+		while( iter.hasNext() )
+		{
+			if( firstLoop )
+			{
+				current = ( ( Double ) iter.next() ).doubleValue();
+				next = ( ( Double ) iter.next() ).doubleValue();
+				if( tau <= current )
+					break;
+				firstLoop = false;
+				continue;
+			}
+			current = next;
+			next = ( ( Double ) iter.next() ).doubleValue();
+			if( tau >= current && tau < next )
+			{
+				break;
+			}
+		}
+		tauFile0 = ( String ) _availableBands.get( new Double( current ) );
+		tauFile1 = ( String ) _availableBands.get( new Double( next ) );
+
+		double tranmission0 = getTransmission( tauFile0 , freq );
+		double tranmission1 = getTransmission( tauFile1 , freq );
+		double t = linterp( current , tranmission0 , next , tranmission1 , tau );
+
+		if( ( index = feNames.indexOf( fe ) ) != -1 )
+		{
+			nuTel = ( ( Double ) nu_tel.elementAt( index ) ).doubleValue();
+		}
+
+		// Nowe find Tsys
+		double nuSky = Math.exp( -t * airmass );
+		double tSky = 260.0 - nuSky * 260.0;
+		double tTel = 265.0 - nuTel * 265.0;
+
+		if( ssb )
+		{
+			tSys = ( 2.0 * getTrx( fe , freq ) + nuTel * tSky + tTel + 35 ) / ( nuSky * nuTel );
+		}
+		else
+		{
+			tSys = 2 * ( getTrx( fe , freq ) + nuTel * tSky + tTel ) / ( nuSky * nuTel );
+		}
+
+		return tSys;
 	}
-
-        // Find which tau range contains the required tau, and the
-        // next tau range nearest
-        String tauFile0;
-        String tauFile1;
-        Iterator iter = _availableBands.keySet().iterator();
-        double current=0, next=0;
-        boolean firstLoop = true;
-        while ( iter.hasNext() ) {
-            if ( firstLoop ) {
-                current = ((Double)iter.next()).doubleValue();
-                next    = ((Double)iter.next()).doubleValue();
-                if ( tau <= current ) break;
-                firstLoop = false;
-                continue;
-            }
-            current = next;
-            next = ((Double)iter.next()).doubleValue();
-            if ( tau >= current && tau < next ) {
-                break;
-            }
-        }
-        tauFile0 = (String)_availableBands.get( new Double(current) );
-        tauFile1 = (String)_availableBands.get( new Double(next) );
-
-	// Get the transmission curve curve
-	TreeMap atmTau = getAtmosphereData(tau);
-
-        double tranmission0 = getTransmission(tauFile0, freq);
-        double tranmission1 = getTransmission(tauFile1, freq);
-        double t = linterp( current, tranmission0, next, tranmission1, tau);
-//         System.out.println("tranmission0 = " + tranmission0 );
-//         System.out.println("tranmission1 = " + tranmission1 );
-//         System.out.println("Transmission using new method = " + t);
-
-
-	if ( (index = feNames.indexOf(fe)) != -1) {
-	    nuTel = ( (Double)nu_tel.elementAt(index) ).doubleValue();
-	}
-
-	// Now do a linear interp across the atmospheric data at the
-	// required frequency
-// 	iter = atmTau.keySet().iterator();
-// 	double lowerF=0.0;
-// 	double upperF=0.0;
-// 	double lowerT=0.0;
-// 	double upperT=0.0;
-// 	while (iter.hasNext()) {
-// 	    lowerF=upperF;
-// 	    upperF= ((Double)iter.next()).doubleValue();
-// 	    if (freq < upperF && freq >= lowerF) break;
-// 	}
-// 	lowerT = ( (Double)atmTau.get(new Double(lowerF)) ).doubleValue();
-// 	upperT = ( (Double)atmTau.get(new Double(upperF)) ).doubleValue();
-//         double t = linterp( lowerF, lowerT, upperF, upperT, freq);
-//         System.out.println("Transmission using old method = " + t);
-// 	System.out.println("Estimated tau: "+t);
-
-	// Nowe find Tsys
-	double nuSky = Math.exp( -t*airmass );
-	double tSky  = 260.0-nuSky*260.0;
-	double tTel  = 265.0-nuTel*265.0;
-// 	System.out.println("nuSky = "+nuSky);
-// 	System.out.println("nuTel = "+nuTel);
-// 	System.out.println("Trx   = "+getTrx(fe, freq));
-	if (ssb) {
-	    tSys = (2.0*getTrx(fe, freq) + nuTel*tSky + tTel + 35)/
-		(nuSky*nuTel);
-	}
-	else {
-	    tSys = 2*(getTrx(fe, freq) + nuTel*tSky + tTel) / 
-		(nuSky*nuTel);
-	}
-// 	System.out.println("TSYS = "+tSys);
-	return tSys;
-    }
 
     private static TreeMap getAtmosphereData (double tau) {
         double [] availableBands = {0.03, 0.05, 0.065, 0.1, 0.16, 0.2};

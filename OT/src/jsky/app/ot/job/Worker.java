@@ -6,8 +6,6 @@
 //
 package jsky.app.ot.job;
 
-import java.lang.Runnable;
-
 /**
  * Workers have a one-to-one relationship with Jobs.  They implement
  * Runnable to execute the Job, notifying it before and after.
