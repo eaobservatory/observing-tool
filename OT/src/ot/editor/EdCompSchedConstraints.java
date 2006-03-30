@@ -15,7 +15,6 @@ import gemini.sp.obsComp.SpSchedConstObsComp;
 import orac.util.OracUtilities;
 import ot.util.DialogUtil;
 
-import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
 import jsky.app.ot.editor.OtItemEditor;
@@ -42,28 +41,29 @@ public final class EdCompSchedConstraints extends OtItemEditor implements TextBo
   private SpSchedConstObsComp _schedConstObsComp;
 
   /**
-   * The constructor initializes the title, description, and presentation source.
-   */
-  public EdCompSchedConstraints() {
-    _title       ="Scheduling Constraints";
-    _presSource  = _w = new SchedConstraintsGUI();
-    _description ="Observing constraints set here are used to schedule the telescope.";
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdCompSchedConstraints()
+	{
+		_title = "Scheduling Constraints";
+		_presSource = _w = new SchedConstraintsGUI();
+		_description = "Observing constraints set here are used to schedule the observation.";
 
-    ButtonGroup meridianApproachButtons = new ButtonGroup();
-    meridianApproachButtons.add(_w.meridianApproachRising);
-    meridianApproachButtons.add(_w.meridianApproachSetting);
-    meridianApproachButtons.add(_w.meridianApproachAny);
+		ButtonGroup meridianApproachButtons = new ButtonGroup();
+		meridianApproachButtons.add( _w.meridianApproachRising );
+		meridianApproachButtons.add( _w.meridianApproachSetting );
+		meridianApproachButtons.add( _w.meridianApproachAny );
 
-    _w.earliest.addWatcher(this);
-    _w.latest.addWatcher(this);
-    _w.minElevation.addWatcher(this);
-    _w.maxElevation.addWatcher(this);
-    _w.period.addWatcher(this);
-    _w.airmassCB.addActionListener(this);
-    _w.meridianApproachRising.addActionListener(this);
-    _w.meridianApproachSetting.addActionListener(this);
-    _w.meridianApproachAny.addActionListener(this);
-  }
+		_w.earliest.addWatcher( this );
+		_w.latest.addWatcher( this );
+		_w.minElevation.addWatcher( this );
+		_w.maxElevation.addWatcher( this );
+		_w.period.addWatcher( this );
+		_w.airmassCB.addActionListener( this );
+		_w.meridianApproachRising.addActionListener( this );
+		_w.meridianApproachSetting.addActionListener( this );
+		_w.meridianApproachAny.addActionListener( this );
+	}
 
   public void setup(SpItem spItem) {
     _schedConstObsComp = (SpSchedConstObsComp)spItem;

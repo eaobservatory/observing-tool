@@ -28,64 +28,62 @@ public final class EdCompSiteQuality extends OtItemEditor
 
 
     /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdCompSiteQuality() {
-	_title       ="Site Quality";
-	_presSource  = _w = new SiteQualityGUI();
-	_description ="Observing constraints set here are used to schedule the telescope.";
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdCompSiteQuality()
+	{
+		_title = "Site Quality";
+		_presSource = _w = new SiteQualityGUI();
+		_description = "Looser constraints than those allocated by the TAG are ignored at the telescope.";
 
-	// add action listeners and group the buttons
-	ButtonGroup grp;
+		// add action listeners and group the buttons
+		ButtonGroup grp;
 
-	_w.seeingAllocated.addActionListener(this);
-	_w.seeingUserDefined.addActionListener(this);
-	_w.minSeeing.addWatcher(this);
-	_w.maxSeeing.addWatcher(this);
+		_w.seeingAllocated.addActionListener( this );
+		_w.seeingUserDefined.addActionListener( this );
+		_w.minSeeing.addWatcher( this );
+		_w.maxSeeing.addWatcher( this );
 
-	grp = new ButtonGroup();
-	grp.add(_w.seeingAllocated);
-	grp.add(_w.seeingUserDefined);
+		grp = new ButtonGroup();
+		grp.add( _w.seeingAllocated );
+		grp.add( _w.seeingUserDefined );
 
+		_w.tauBandAllocated.addActionListener( this );
+		_w.tauBandUserDefined.addActionListener( this );
+		_w.minTau.addWatcher( this );
+		_w.maxTau.addWatcher( this );
 
-	_w.tauBandAllocated.addActionListener(this);
-	_w.tauBandUserDefined.addActionListener(this);
-	_w.minTau.addWatcher(this);
-	_w.maxTau.addWatcher(this);
+		grp = new ButtonGroup();
+		grp.add( _w.tauBandAllocated );
+		grp.add( _w.tauBandUserDefined );
 
-	grp = new ButtonGroup();
-	grp.add(_w.tauBandAllocated);
-	grp.add(_w.tauBandUserDefined);
+		_w.skyAllocated.addActionListener( this );
+		_w.skyUserDefined.addActionListener( this );
+		_w.minSky.addWatcher( this );
+		_w.maxSky.addWatcher( this );
 
-	_w.skyAllocated.addActionListener(this);
-	_w.skyUserDefined.addActionListener(this);
-	_w.minSky.addWatcher(this);
-	_w.maxSky.addWatcher(this);
+		grp = new ButtonGroup();
+		grp.add( _w.skyAllocated );
+		grp.add( _w.skyUserDefined );
 
-	grp = new ButtonGroup();
-	grp.add(_w.skyAllocated);
-	grp.add(_w.skyUserDefined);
+		_w.moonDark.addActionListener( this );
+		_w.moonGrey.addActionListener( this );
+		_w.moonAny.addActionListener( this );
 
+		grp = new ButtonGroup();
+		grp.add( _w.moonDark );
+		grp.add( _w.moonGrey );
+		grp.add( _w.moonAny );
 
-	_w.moonDark.addActionListener(this);
-	_w.moonGrey.addActionListener(this);
-	_w.moonAny.addActionListener(this);
+		_w.cloudPhotometric.addActionListener( this );
+		_w.cloudThinCirrus.addActionListener( this );
+		_w.cloudAny.addActionListener( this );
 
-	grp = new ButtonGroup();
-	grp.add(_w.moonDark);
-	grp.add(_w.moonGrey);
-	grp.add(_w.moonAny);
-
-
-	_w.cloudPhotometric.addActionListener(this);
-	_w.cloudThinCirrus.addActionListener(this);
-	_w.cloudAny.addActionListener(this);
-
-	grp = new ButtonGroup();
-	grp.add(_w.cloudPhotometric);
-	grp.add(_w.cloudThinCirrus);
-	grp.add(_w.cloudAny);
-    }
+		grp = new ButtonGroup();
+		grp.add( _w.cloudPhotometric );
+		grp.add( _w.cloudThinCirrus );
+		grp.add( _w.cloudAny );
+	}
 
     /**
      * Implements the _updateWidgets method from OtItemEditor in order to
