@@ -10,16 +10,12 @@
 
 package ot;
 
-import jsky.app.ot.OtProps;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Component;
-import java.awt.Font;
 import java.awt.BorderLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 import javax.swing.JLayeredPane;
@@ -79,127 +75,110 @@ public class DatabaseDialog implements ActionListener {
    */
   private String _title;
 
-  public DatabaseDialog() {
-    _title = "Fetch Program";
-    /*_presSource  =*/
-    _w = new DatabaseDialogGUI();
-    _w.add(_stopAction, BorderLayout.NORTH);
-    //_description ="The preferences are set with this component.";
+	public DatabaseDialog()
+	{
+		_title = "Fetch Program";
+		_w = new DatabaseDialogGUI();
+		_w.add( _stopAction , BorderLayout.NORTH );
 
-    _w.confirmButton.addActionListener(this);
-    _w.closeButton.addActionListener(this);
-    _w.passwordTextBox.addActionListener(this);
-    _stopAction.getStopButton().addActionListener(this);
-  }
+		_w.confirmButton.addActionListener( this );
+		_w.closeButton.addActionListener( this );
+		_w.passwordTextBox.addActionListener( this );
+		_stopAction.getStopButton().addActionListener( this );
+	}
 
-  public void fetchProgram() {
-    if(OT.getDesktop() != null) {
-      show(DatabaseDialog.ACCESS_MODE_FETCH, OT.getDesktop());
-    }
-    else {
-      show(DatabaseDialog.ACCESS_MODE_FETCH);
-    }
-  }
+  	public void fetchProgram()
+	{
+		show( DatabaseDialog.ACCESS_MODE_FETCH , OT.getDesktop() );
+	}
 
-  public void storeProgram(SpItem spItem) {
+  public void storeProgram( SpItem spItem )
+	{
 
-    String projectID = ((SpProg)spItem).getProjectID();
-    ((SpProg)spItem).setOTVersion();
-    ((SpProg)spItem).setTelescope();
-  
-    if((projectID == null) || projectID.trim().equals("")) {
-      DialogUtil.error(_w, "Please specify a Project ID (Science Program component).");
-      return;
-    }
+		String projectID = ( ( SpProg ) spItem ).getProjectID();
+		( ( SpProg ) spItem ).setOTVersion();
+		( ( SpProg ) spItem ).setTelescope();
 
-    _spItemToBeSaved = spItem;
-  
-    if(OT.getDesktop() != null) {
-      show(DatabaseDialog.ACCESS_MODE_STORE, OT.getDesktop());
-    }
-    else {
-      show(DatabaseDialog.ACCESS_MODE_STORE);
-    }
-  }
+		if( ( projectID == null ) || projectID.trim().equals( "" ) )
+		{
+			DialogUtil.error( _w , "Please specify a Project ID (Science Program component)." );
+			return;
+		}
+
+		_spItemToBeSaved = spItem;
+
+		show( DatabaseDialog.ACCESS_MODE_STORE , OT.getDesktop() );
+	}
 
   /**
-   * For ise with internal frames.
-   *
-   * @param accessMode fetchProgram or storeProgram.
-   */
-  public void show(int accessMode, JDesktopPane desktop) {
-    _mode = accessMode;
-    if(accessMode == ACCESS_MODE_STORE) {
-      _title = "Store Progam";
-      _w.loginTextBox.setEditable(false);
+	 * For ise with internal frames.
+	 * 
+	 * @param accessMode
+	 *            fetchProgram or storeProgram.
+	 */
+	public void show( int accessMode , JDesktopPane desktop )
+	{
+		_mode = accessMode;
+		if( accessMode == ACCESS_MODE_STORE )
+		{
+			_title = "Store Program";
+			_w.loginTextBox.setEditable( false );
 
-      if((_spItemToBeSaved != null) && (_spItemToBeSaved instanceof SpProg)) {
-        _w.loginTextBox.setText(((SpProg)_spItemToBeSaved).getProjectID());
-      }
-      else {
-        _w.loginTextBox.setText("");
-      }
-    }
-    else {
-      _title = "Fetch Progam";
-      _w.loginTextBox.setEditable(true);
-    }
-  
-    if(desktop != null) {
-      _internalFrame = new JInternalFrame(_title);
-      _internalFrame.getContentPane().add(_w);
-      desktop.add(_internalFrame, JLayeredPane.MODAL_LAYER);
-      _w.setVisible(true);
-      _internalFrame.setVisible(true);
-      _internalFrame.setLocation(150, 150);
-      _internalFrame.pack();
-    }
+			if( ( _spItemToBeSaved != null ) && ( _spItemToBeSaved instanceof SpProg ) )
+			{
+				_w.loginTextBox.setText( ( ( SpProg ) _spItemToBeSaved ).getProjectID() );
+			}
+			else
+			{
+				_w.loginTextBox.setText( "" );
+			}
+		}
+		else
+		{
+			_title = "Fetch Program";
+			_w.loginTextBox.setEditable( true );
+		}
 
-    _w.setVisible(true);
-  }
+		if( desktop != null )
+		{
+			_internalFrame = new JInternalFrame( _title );
+			_internalFrame.getContentPane().add( _w );
+			desktop.add( _internalFrame , JLayeredPane.MODAL_LAYER );
+			_w.setVisible( true );
+			_internalFrame.setVisible( true );
+			_internalFrame.setLocation( 150 , 150 );
+			_internalFrame.pack();
+		}
+		else
+		{
+			if( _dialogComponent == null )
+			{
+				_dialogComponent = new JFrame();
 
-  /**
-   * For use in no-internal-frames mode.
-   */
-  public void show(int accessMode) {
-    _mode = accessMode;
-    if(accessMode == ACCESS_MODE_STORE) {
-      _title = "Store Progam";
+				_dialogComponent.getContentPane().add( _w );
+				_dialogComponent.pack();
 
-      if((_spItemToBeSaved != null) && (_spItemToBeSaved instanceof SpProg)) {
-        _w.loginTextBox.setText(((SpProg)_spItemToBeSaved).getProjectID());
-      }
-      else {
-        _w.loginTextBox.setText("");
-      }
-      _w.loginTextBox.setEditable(false);
-    }
-    else {
-      _title = "Fetch Progam";
-      _w.loginTextBox.setEditable(true);
-    }
+				// center the window on the screen
+				Dimension dim = _dialogComponent.getSize();
+				Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+				_dialogComponent.setLocation( screen.width / 2 - dim.width / 2 , screen.height / 2 - dim.height / 2 );
+			}
 
-    
-    if(_dialogComponent == null) {
-      if(OT.getDesktop() != null) {
-        _dialogComponent = new JFrame();
-      }
-      else {
-        _dialogComponent = new JFrame();
-      }
-      _dialogComponent.getContentPane().add(_w);
-      _dialogComponent.pack();
+			_dialogComponent.setTitle( _title );
+			_dialogComponent.setVisible( true );
+			_dialogComponent.setState( JFrame.NORMAL );
+			
+		}
 
-      // center the window on the screen
-      Dimension dim = _dialogComponent.getSize();
-      Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-      _dialogComponent.setLocation(screen.width/2 - dim.width/2, screen.height/2 - dim.height/2);
-    }
+	}
 
-    _dialogComponent.setTitle(_title);
-    _dialogComponent.setVisible(true);
-    _dialogComponent.setState(JFrame.NORMAL);
-  }
+	/**
+	 * For use in no-internal-frames mode.
+	 */
+	public void show( int accessMode )
+	{
+		show( accessMode , null ) ;
+	}
 
 
   public void hide() {
