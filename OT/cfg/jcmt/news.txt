@@ -13,7 +13,6 @@ Council All Rights. Reserved.
 
 +++ April 2006
 
-
   - Assorted fixes to Science Program Validation.
 
   - Upgrade to JSky 2.5 ( http://archive.eso.org/JSky/ )
