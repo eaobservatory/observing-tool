@@ -15,9 +15,6 @@ Council All Rights. Reserved.
 
 +++ April 2006
 
-  [Semester 06A release]
-
-
   - Assorted fixes to Science Program Validation.
 
   - CGS4 and UIST slit position angles are rounded to a single decimal place.
