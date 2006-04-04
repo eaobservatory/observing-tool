@@ -11,10 +11,9 @@
 
 package orac.ukirt.iter;
 
-import java.util.*;
-import java.io.*;
-
-import orac.util.LookUpTable;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import java.io.IOException ;
 
 import orac.ukirt.inst.SpDRRecipe;
 import orac.ukirt.inst.SpInstWFCAM;
@@ -22,7 +21,6 @@ import orac.ukirt.inst.SpInstWFCAM;
 import gemini.util.*;
 
 import gemini.sp.SpFactory;
-import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpType;
 import gemini.sp.SpItem;
@@ -36,8 +34,6 @@ import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
 
 class SpIterWFCAMCalObsEnumeration extends SpIterEnumeration
 {
@@ -416,90 +412,92 @@ useDefaults()
    _avTable.rm(SpWFCAMCalConstants.ATTR_FOCUS);
 }
 
-public void translate (Vector v) throws SpTranslationNotSupportedException {
-    // Get the current instrument and its config items
-    SpInstWFCAM inst;
-    try {
-        inst = (SpInstWFCAM)SpTreeMan.findInstrument(this);
-    }
-    catch (Exception e) {
-        throw new SpTranslationNotSupportedException("No WFCAM instrument in scope");
-    }
+	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	{
+		// Get the current instrument and its config items
+		SpInstWFCAM inst;
+		try
+		{
+			inst = ( SpInstWFCAM ) SpTreeMan.findInstrument( this );
+		}
+		catch( Exception e )
+		{
+			throw new SpTranslationNotSupportedException( "No WFCAM instrument in scope" );
+		}
 
-    Hashtable configTable = inst.getConfigItems();
+		Hashtable configTable = inst.getConfigItems();
 
-    // Set the DRRecipe Headers
-    SpItem parent = parent();
-    Vector recipes = null;
-    while ( parent != null ) {
-        if ( parent instanceof SpMSB ) {
-            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
-            if ( recipes != null && recipes.size() > 0 ) {
-                break;
-            }
-        }
-        parent = parent.parent();
-    }
+		// Set the DRRecipe Headers
+		SpItem parent = parent();
+		Vector recipes = null;
+		while( parent != null )
+		{
+			if( parent instanceof SpMSB )
+			{
+				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				if( recipes != null && recipes.size() > 0 )
+				{
+					break;
+				}
+			}
+			parent = parent.parent();
+		}
 
-    if ( recipes != null && recipes.size() != 0 ) {
-        if ( recipes != null && recipes.size() != 0 ) {
-            SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
-            switch (getCalType()) {
-                case SKYFLAT:
-                case DOMEFLAT:
-                    v.add("setHeader GRPMEM " + (recipe.getFlatInGroup()? "T":"F"));
-                    v.add("setHeader RECIPE " + recipe.getFlatRecipeName());
-                    break;
-                case FOCUS:
-                    v.add("setHeader GRPMEM " + (recipe.getFocusInGroup()? "T":"F"));
-                    v.add("setHeader RECIPE " + recipe.getFocusRecipeName());
-                    break;
-                default:
-                    // We should not get here...
-            }
+		if( recipes != null && recipes.size() != 0 )
+		{
+			if( recipes != null && recipes.size() != 0 )
+			{
+				SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+				switch( getCalType() )
+				{
+					case SKYFLAT :
+					case DOMEFLAT :
+						v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) );
+						v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() );
+						break;
+					case FOCUS :
+						v.add( "setHeader GRPMEM " + ( recipe.getFocusInGroup() ? "T" : "F" ) );
+						v.add( "setHeader RECIPE " + recipe.getFocusRecipeName() );
+						break;
+					default :
+				// We should not get here...
+				}
 
-        }
-    }
-    if ( getCalType() == FOCUS && _avTable.exists(SpWFCAMCalConstants.ATTR_FOCUS) ) {
-        v.add("setFocus " + getFocus() );
-    }
-                    
+			}
+		}
+		if( getCalType() == FOCUS && _avTable.exists( SpWFCAMCalConstants.ATTR_FOCUS ) )
+		{
+			v.add( "setFocus " + getFocus() );
+		}
 
-    // Update all the items
-    configTable.put("type", getCalTypeString());
-    configTable.put("filter", getFilter());
-    configTable.put("readMode", getReadMode());
-    configTable.put("exposureTime", ""+getExposureTime());
-    configTable.put("coadds", ""+getCoadds());
+		// Update all the items
+		configTable.put( "type" , getCalTypeString() );
+		configTable.put( "filter" , getFilter() );
+		configTable.put( "readMode" , getReadMode() );
+		configTable.put( "exposureTime" , "" + getExposureTime() );
+		configTable.put( "coadds" , "" + getCoadds() );
 
-    // Remove stuff we don't need
-    configTable.remove("instPort");
-    
-    try {
-        ConfigWriter.getCurrentInstance().write(configTable);
-    }
-    catch (IOException ioe) {
-        throw new SpTranslationNotSupportedException("Unable to write WFCAM Calibration config: " + ioe.getMessage());
-    }
-    v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
-    if ( getCalType() == FOCUS && _avTable.getDouble(SpWFCAMCalConstants.ATTR_FOCUS, 0.0) != 0.0 ) {
-        v.add("set OBJECT");
-    }
-    else {
-        v.add("set " + getCalTypeString().toUpperCase());
-    }
-    v.add("do " + getCount() + " _observe");
+		// Remove stuff we don't need
+		configTable.remove( "instPort" );
 
-        //Finally move the default config (always _1) down
-    String configPattern = "loadConfig .*_1";
-    for ( int i=v.size()-1; i>0; i-- ) {
-        String line = (String)v.get(i);
-        if ( line.matches(configPattern) ) {
-            v.removeElementAt(i);
-            v.add(line);
-            break;
-        }
-    }
-}
+		try
+		{
+			ConfigWriter.getCurrentInstance().write( configTable );
+		}
+		catch( IOException ioe )
+		{
+			throw new SpTranslationNotSupportedException( "Unable to write WFCAM Calibration config: " + ioe.getMessage() );
+		}
+		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+		if( getCalType() == FOCUS && _avTable.getDouble( SpWFCAMCalConstants.ATTR_FOCUS , 0.0 ) != 0.0 )
+		{
+			v.add( gemini.sp.SpTranslationConstants.objectString );
+		}
+		else
+		{
+			v.add( "set " + getCalTypeString().toUpperCase() );
+		}
+		v.add( "do " + getCount() + " _observe" );
+	}
 
 }

@@ -9,8 +9,9 @@
 
 package orac.ukirt.iter;
 
-import java.util.*;
-import java.io.*;
+import java.util.Vector ;
+import java.util.Hashtable ;
+import java.io.IOException ;
 
 import orac.util.LookUpTable;
 import orac.util.InstCfg;
@@ -22,7 +23,7 @@ import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.SpObs;
+
 import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
@@ -31,9 +32,6 @@ import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
-
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
 
 import gemini.util.ConfigWriter;
 
@@ -733,93 +731,107 @@ useDefaults()
    _avTable.rm(SpCGS4CalUnitConstants.ATTR_NEUTRAL_DENSITY);
 }
 
-public void translate(Vector v) throws SpTranslationNotSupportedException {
-    // First of all make sure we have a suitable instrument
-    SpInstObsComp inst = SpTreeMan.findInstrument(this);
-    if ( inst == null || !(inst instanceof SpInstCGS4) ) {
-        throw new SpTranslationNotSupportedException("No CGS4 instrument component in scope");
-    }
+	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	{
+		// First of all make sure we have a suitable instrument
+		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		if( inst == null || !( inst instanceof SpInstCGS4 ) )
+		{
+			throw new SpTranslationNotSupportedException( "No CGS4 instrument component in scope" );
+		}
 
-    // Get the current config items and then update it depending on the type
-    Hashtable configTable = inst.getConfigItems();
-    switch (getCalType()) {
-        case FLAT:
-            configTable.put("flatSampling", getFlatSampling());
-            configTable.put("flatCalLamp", getLamp());
-            configTable.put("flatReadMode", getMode());
-            configTable.put("flatFilter", getFilter());
-            configTable.put("flatExpTime", ""+getExposureTime());
-            configTable.put("flatNumExp", ""+getCoadds());
-            configTable.put("flatNeutralDensity", Boolean.toString(getNdFilter()));
-            break;
-        case ARC:
-            configTable.put("arcCalLamp", getLamp().split("\\s")[0].toLowerCase());
-            configTable.put("arcFilter", getFilter());
-            configTable.put("arcCvfWavelength", ""+getCvfWavelength());
-            configTable.put("arcExpTime", ""+getExposureTime());
-            configTable.put("arcNumExp", ""+getCoadds());
-            configTable.put("arcReadMode", getMode());
-            break;
-        default :
-            throw new SpTranslationNotSupportedException("CGS4 Cal Obs is not defined as flat or arc");
-    }
-    
-    // Now get hold of any DRRecipe component
-    SpItem parent = parent();
-    Vector recipes = null;
-    while ( parent != null ) {
-        if ( parent instanceof SpMSB ) {
-            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
-            if ( recipes != null && recipes.size() > 0 ) {
-                break;
-            }
-        }
-        parent = parent.parent();
-    }
+		// Get the current config items and then update it depending on the type
+		Hashtable configTable = inst.getConfigItems();
+		switch( getCalType() )
+		{
+			case FLAT :
+				configTable.put( "flatSampling" , getFlatSampling() );
+				configTable.put( "flatCalLamp" , getLamp() );
+				configTable.put( "flatReadMode" , getMode() );
+				configTable.put( "flatFilter" , getFilter() );
+				configTable.put( "flatExpTime" , "" + getExposureTime() );
+				configTable.put( "flatNumExp" , "" + getCoadds() );
+				configTable.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) );
+				break;
+			case ARC :
+				configTable.put( "arcCalLamp" , getLamp().split( "\\s" )[ 0 ].toLowerCase() );
+				configTable.put( "arcFilter" , getFilter() );
+				configTable.put( "arcCvfWavelength" , "" + getCvfWavelength() );
+				configTable.put( "arcExpTime" , "" + getExposureTime() );
+				configTable.put( "arcNumExp" , "" + getCoadds() );
+				configTable.put( "arcReadMode" , getMode() );
+				break;
+			default :
+				throw new SpTranslationNotSupportedException( "CGS4 Cal Obs is not defined as flat or arc" );
+		}
 
-    if ( recipes != null && recipes.size() != 0 ) {
-        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
-        switch (getCalType()) {
-            case FLAT:
-                v.add("setHeader GRPMEM " + (recipe.getFlatInGroup()? "T":"F"));
-                v.add("setHeader RECIPE " + recipe.getFlatRecipeName());
-                break;
-            case ARC:
-                v.add("setHeader GRPMEM " + (recipe.getArcInGroup()? "T":"F"));
-                v.add("setHeader RECIPE " + recipe.getArcRecipeName());
-                break;
-            default:
-                // We should never get here
-        }
-    }
+		// Now get hold of any DRRecipe component
+		SpItem parent = parent();
+		Vector recipes = null;
+		while( parent != null )
+		{
+			if( parent instanceof SpMSB )
+			{
+				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				if( recipes != null && recipes.size() > 0 )
+				{
+					break;
+				}
+			}
+			parent = parent.parent();
+		}
 
-    try {
-        ConfigWriter.getCurrentInstance().write(configTable);
-    }
-    catch (IOException ioe) {
-        throw new SpTranslationNotSupportedException("Error writing CGS Calibration observation: " + ioe.getMessage());
-    }
-    v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
-    if ( getCalType() == FLAT ) {
-        v.add("set FLAT");
-        v.add("break");
-    }
-    else {
-        v.add("set ARC");
-    }
-    v.add("do " + getCount() + " _observe");
+		if( recipes != null && recipes.size() != 0 )
+		{
+			SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+			switch( getCalType() )
+			{
+				case FLAT :
+					v.add( "setHeader GRPMEM " + ( recipe.getFlatInGroup() ? "T" : "F" ) );
+					v.add( "setHeader RECIPE " + recipe.getFlatRecipeName() );
+					break;
+				case ARC :
+					v.add( "setHeader GRPMEM " + ( recipe.getArcInGroup() ? "T" : "F" ) );
+					v.add( "setHeader RECIPE " + recipe.getArcRecipeName() );
+					break;
+				default :
+			// We should never get here
+			}
+		}
 
-    // Finally. move the default config (labelled _1) down
-    for ( int i=v.size()-1; i>= 0; i-- ) {
-        if ( ((String)v.get(i)).matches("loadConfig .*_1") ) {
-            String firstConfig = (String)v.get(i);
-            v.remove(i);
-            v.add(firstConfig);
-            break;
-        }
-    }
+		try
+		{
+			ConfigWriter.getCurrentInstance().write( configTable );
+		}
+		catch( IOException ioe )
+		{
+			throw new SpTranslationNotSupportedException( "Error writing CGS Calibration observation: " + ioe.getMessage() );
+		}
+		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+		if( getCalType() == FLAT )
+		{
+			v.add( "set FLAT" );
+			v.add( gemini.sp.SpTranslationConstants.breakString );
+		}
+		else
+		{
+			v.add( "set ARC" );
+		}
+		v.add( "do " + getCount() + " _observe" );
 
-}
+		// Finally. move the default config (labelled _1) down
+		for( int i = v.size() - 1 ; i >= 0 ; i-- )
+		{
+			if( ( ( String ) v.get( i ) ).matches( "loadConfig .*_1" ) )
+			{
+				String firstConfig = ( String ) v.get( i );
+				v.remove( i );
+				v.add( firstConfig );
+				break;
+			}
+		}
+
+	}
 
 }
 

@@ -8,7 +8,6 @@ package orac.ukirt.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
-import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
@@ -25,21 +24,10 @@ import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.util.ConfigWriter;
 
-import orac.ukirt.inst.SpInstCGS4;
-import orac.ukirt.inst.SpInstMichelle;
-import orac.ukirt.inst.SpInstUFTI;
-import orac.ukirt.inst.SpInstUIST;
-import orac.ukirt.inst.SpInstWFCAM;
 import orac.ukirt.inst.SpDRRecipe;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -137,108 +125,129 @@ elements()
    return new SpIterDarkObsEnumeration(this);
 }
 
-public void translate( Vector v ) throws SpTranslationNotSupportedException {
+	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	{
 
-    // Get the instrument to allow us to get the config information
-    SpInstObsComp inst = SpTreeMan.findInstrument(this);
-    if ( inst == null ) {
-        throw new SpTranslationNotSupportedException("No instrument in scope");
-    }
+		// Get the instrument to allow us to get the config information
+		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		if( inst == null )
+		{
+			throw new SpTranslationNotSupportedException( "No instrument in scope" );
+		}
 
-    Hashtable defaultsTable = inst.getConfigItems();
+		Hashtable defaultsTable = inst.getConfigItems();
 
-    if ( "CGS4".equalsIgnoreCase((String)defaultsTable.get("instrument")) ) {
-        // If we are inside a CGS4 iterator, we need to pick up it's hashtable
-        SpItem parent = parent();
-        while ( parent != null ) {
-            if (parent instanceof SpIterCGS4) {
-                defaultsTable = ((SpIterCGS4)parent).getIterTable();
-                break;
-            }
-            parent = parent.parent();
-        }
-    }
-    
-    // Set the number of dark exposures
-    defaultsTable.put("darkNumExp", "" + getCoadds() );
-    if ( defaultsTable.containsKey("coadds") ) {
-        defaultsTable.put("coadds", ""+getCoadds() );
-    }
-    if ( defaultsTable.containsKey("expTime") ) {
-        defaultsTable.put("expTime", "" + getExposureTime() );
-    }
-    if ( defaultsTable.containsKey("exposureTime") ) {
-        defaultsTable.put("exposureTime", "" + getExposureTime() );
-    }
-    if ( defaultsTable.containsKey("chopDelay") ) {
-        defaultsTable.put("chopDelay", "0.0");
-    }
-    if ( defaultsTable.containsKey("type") ) {
-        if ("WFCAM".equalsIgnoreCase((String)defaultsTable.get("instrument") ) ) {
-            defaultsTable.put("type", "dark");
-        }
-        else {
-        }
-    }
+		if( "CGS4".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
+		{
+			// If we are inside a CGS4 iterator, we need to pick up it's hashtable
+			SpItem parent = parent();
+			while( parent != null )
+			{
+				if( parent instanceof SpIterCGS4 )
+				{
+					defaultsTable = ( ( SpIterCGS4 ) parent ).getIterTable();
+					break;
+				}
+				parent = parent.parent();
+			}
+		}
 
+		// Set the number of dark exposures
+		defaultsTable.put( "darkNumExp" , "" + getCoadds() );
+		if( defaultsTable.containsKey( "coadds" ) )
+		{
+			defaultsTable.put( "coadds" , "" + getCoadds() );
+		}
+		if( defaultsTable.containsKey( "expTime" ) )
+		{
+			defaultsTable.put( "expTime" , "" + getExposureTime() );
+		}
+		if( defaultsTable.containsKey( "exposureTime" ) )
+		{
+			defaultsTable.put( "exposureTime" , "" + getExposureTime() );
+		}
+		if( defaultsTable.containsKey( "chopDelay" ) )
+		{
+			defaultsTable.put( "chopDelay" , "0.0" );
+		}
+		if( defaultsTable.containsKey( "type" ) )
+		{
+			if( "WFCAM".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
+			{
+				defaultsTable.put( "type" , "dark" );
+			}
+			else
+			{
+			}
+		}
 
-    // Delete things we dont't need
-    if ("WFCAM".equalsIgnoreCase((String)defaultsTable.get("instrument") ) ) {
-        defaultsTable.remove("filter");
-        defaultsTable.remove("instPort");
-        defaultsTable.remove("readMode");
-    }
-    else {
-        // No other instrument needs anything
-    }
+		// Delete things we dont't need
+		if( "WFCAM".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
+		{
+			defaultsTable.remove( "filter" );
+			defaultsTable.remove( "instPort" );
+			defaultsTable.remove( "readMode" );
+		}
+		else
+		{
+			// No other instrument needs anything
+		}
 
-    // Now we need to write a config for this dark
-    try {
-        ConfigWriter.getCurrentInstance().write(defaultsTable);
-    }
-    catch (IOException ioe) {
-        throw new SpTranslationNotSupportedException("Unable to write dark config file");
-    }
+		// Now we need to write a config for this dark
+		try
+		{
+			ConfigWriter.getCurrentInstance().write( defaultsTable );
+		}
+		catch( IOException ioe )
+		{
+			throw new SpTranslationNotSupportedException( "Unable to write dark config file" );
+		}
 
+		// We will also need to get the DRRecipe component to allow us to set the 
+		// appropriate headers
+		// Find the parent first...
+		SpItem parent = parent();
+		Vector recipes = null;
+		while( parent != null )
+		{
+			if( parent instanceof SpMSB )
+			{
+				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				if( recipes != null && recipes.size() > 0 )
+				{
+					break;
+				}
+			}
+			parent = parent.parent();
+		}
 
-    // We will also need to get the DRRecipe component to allow us to set the 
-    // appropriate headers
-    // Find the parent first...
-    SpItem parent = parent();
-    Vector recipes = null;
-    while ( parent != null ) {
-        if ( parent instanceof SpMSB ) {
-            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
-            if ( recipes != null && recipes.size() > 0 ) {
-                break;
-            }
-        }
-        parent = parent.parent();
-    }
+		if( recipes != null && recipes.size() != 0 )
+		{
+			SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+			v.add( "setHeader GRPMEM " + ( recipe.getDarkInGroup() ? "T" : "F" ) );
+			v.add( "setHeader RECIPE " + recipe.getDarkRecipeName() );
+		}
+		else
+		{
+			System.out.println( "No DRRecipe Component found" );
+		}
 
-    if ( recipes != null && recipes.size() != 0 ) {
-        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
-        v.add("setHeader GRPMEM " + (recipe.getDarkInGroup()? "T":"F"));
-        v.add("setHeader RECIPE " + recipe.getDarkRecipeName());
-    }
-    else {
-        System.out.println("No DRRecipe Component found");
-    }
+		v.add( "loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
+		v.add( gemini.sp.SpTranslationConstants.darkString );
+		v.add( "do " + getCount() + " _observe" );
 
-    v.add("loadConfig " + ConfigWriter.getCurrentInstance().getCurrentName() );
-    v.add("set DARK");
-    v.add("do " + getCount() + " _observe");
-
-    //Finally move the default config (always _1) down
-    String configPattern = "loadConfig .*_1";
-    for ( int i=v.size()-1; i>=0; i-- ) {
-        String line = (String)v.get(i);
-        if ( line.matches(configPattern) ) {
-            v.removeElementAt(i);
-            v.add(line);
-            break;
-        }
-    }
-}
+		//Finally move the default config (always _1) down
+		String configPattern = "loadConfig .*_1";
+		for( int i = v.size() - 1 ; i >= 0 ; i-- )
+		{
+			String line = ( String ) v.get( i );
+			if( line.matches( configPattern ) )
+			{
+				v.removeElementAt( i );
+				v.add( line );
+				break;
+			}
+		}
+	}
 
 }

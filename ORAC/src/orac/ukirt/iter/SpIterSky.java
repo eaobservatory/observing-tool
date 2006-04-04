@@ -8,7 +8,6 @@ package orac.ukirt.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
-import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTreeMan;
@@ -25,7 +24,6 @@ import orac.ukirt.inst.SpDRRecipe;
 
 import java.text.DecimalFormat;
 
-import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
 
@@ -214,7 +212,7 @@ public void translate( Vector v ) {
     // If not we need to add it here
     if ( "".equals(getSky()) || "SKY".equals(getSky()) ) {
         // defer offset
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe");
 
     }
@@ -368,7 +366,7 @@ private void translateStandard(Vector v) {
         if ( thisGuide != null ) {
             v.add( "slew GUIDE SKYGUIDE" + index );
         }
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe" );
         if ( lastOffset != null ) {
             v.add( lastOffset );
@@ -386,7 +384,7 @@ private void translateStandard(Vector v) {
             v.add( "slew GUIDE SKYGUIDE" + index );
         }
         v.add( "-WAIT ALL");
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe" );
         v.add( "do 1 _slew_all");
         v.add( "-WAIT ALL");
@@ -440,7 +438,7 @@ private void translateRandom(Vector v) {
         if ( thisGuide != null ) {
             v.add( "slew GUIDE SKYGUIDE" + index );
         }
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe" );
         if ( lastOffset != null ) {
             v.add( lastOffset );
@@ -459,7 +457,7 @@ private void translateRandom(Vector v) {
         }
         v.add( "-WAIT ALL");
         v.add( "offset " + df.format(randX) + " " + df.format(randY) );
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe" );
         v.add( "do 1 _slew_all");
         v.add( "-WAIT ALL");
@@ -520,7 +518,7 @@ private void translateFollowOffset(Vector v) {
         if ( thisGuide != null ) {
             v.add( "slew GUIDE SKYGUIDE" + index );
         }
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe" );
         if ( lastOffset != null ) {
             v.add( lastOffset );
@@ -539,7 +537,7 @@ private void translateFollowOffset(Vector v) {
         }
         v.add( "-WAIT ALL");
         v.add( "offset " + df.format(lastOffX) + " " + df.format(lastOffY) );
-        v.add( "set SKY" );
+        v.add( gemini.sp.SpTranslationConstants.skyString );
         v.add( "do " + getCount() + " _observe" );
         v.add( "do 1 _slew_all");
         v.add( "-WAIT ALL");

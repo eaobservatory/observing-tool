@@ -8,7 +8,6 @@ package orac.ukirt.iter;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
-import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTreeMan;
@@ -22,14 +21,12 @@ import gemini.sp.iter.SpIterValue;
 
 import orac.ukirt.inst.SpDRRecipe;
 
-import java.util.Enumeration;
 import java.util.Vector;
-
 
 //
 // Enumerater for the elements of the Observe iterator.
 //
-class SpIterObserveEnumeration extends SpIterEnumeration
+class SpIterObserveEnumeration extends SpIterEnumeration 
 {
    private int     _curCount = 0;
    private int     _maxCount;
@@ -105,42 +102,50 @@ elements()
    return new SpIterObserveEnumeration(this);
 }
 
-public void translate(Vector v) {
-    // Get the DR recipe component so we can add the header information
-    SpItem parent = parent();
-    Vector recipes = null;
-    while ( parent != null ) {
-        if ( parent instanceof SpMSB ) {
-            recipes = SpTreeMan.findAllItems(parent, "orac.ukirt.inst.SpDRRecipe");
-            if ( recipes != null && recipes.size() > 0 ) {
-                break;
-            }
-        }
-        parent = parent.parent();
-    }
+	public void translate( Vector v )
+	{
+		// Get the DR recipe component so we can add the header information
+		SpItem parent = parent();
+		Vector recipes = null;
+		while( parent != null )
+		{
+			if( parent instanceof SpMSB )
+			{
+				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
+				if( recipes != null && recipes.size() > 0 )
+				{
+					break;
+				}
+			}
+			parent = parent.parent();
+		}
 
-    if ( recipes != null && recipes.size() != 0 ) {
-        SpDRRecipe recipe = (SpDRRecipe)recipes.get(0);
-        v.add("setHeader GRPMEM " + (recipe.getObjectInGroup()? "T":"F"));
-        v.add("setHeader RECIPE " + recipe.getObjectRecipeName());
-    }
+		if( recipes != null && recipes.size() != 0 )
+		{
+			SpDRRecipe recipe = ( SpDRRecipe ) recipes.get( 0 );
+			v.add( "setHeader GRPMEM " + ( recipe.getObjectInGroup() ? "T" : "F" ) );
+			v.add( "setHeader RECIPE " + recipe.getObjectRecipeName() );
+		}
 
-    // If we are not inside an offset, we need to tell the system there is an offset here
-    parent = parent();
-    boolean inOffset = false;
-    while ( parent != null ) {
-        if ( parent instanceof SpIterOffset ) {
-            inOffset = true;
-            break;
-        }
-        parent = parent.parent();
-    }
-    v.add("set OBJECT");
-    String observe = "do " + getCount() + " _observe";
-    v.add(observe);
-    if ( !inOffset ) {
-        v.add("ADDOFFSET");
-    }
-}
+		// If we are not inside an offset, we need to tell the system there is an offset here
+		parent = parent();
+		boolean inOffset = false;
+		while( parent != null )
+		{
+			if( parent instanceof SpIterOffset )
+			{
+				inOffset = true;
+				break;
+			}
+			parent = parent.parent();
+		}
+		v.add( gemini.sp.SpTranslationConstants.objectString );
+		String observe = "do " + getCount() + " _observe";
+		v.add( observe );
+		if( !inOffset )
+		{
+			v.add( "ADDOFFSET" );
+		}
+	}
 
 }
