@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>new_wfcam_template.xml</meta_gui_filename>
-  <ot_version>20060322</ot_version>
+  <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
+  <ot_version>20060331</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2011,12 +2011,12 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
       </SpSurveyContainer>
     </SpMSB>
     <SpNote type="no" subtype="none">
-      <note>For the narrow band filters, we suggest 40s exposures and the NDR_1.0 readmode.
-</note>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <note>For the narrow band filters, we suggest 40s exposures and the NDR_1.0 readmode.</note>
       <title>Narrow band imaging</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <estimatedDuration units="seconds">1566.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
