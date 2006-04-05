@@ -895,7 +895,9 @@ Editor's "Catalog" menu, using item "Catalogs".&nbsp; Select your
 required
 catalogue (from the nearest accessible server) and the stars will be
 plotted on the PE display. To browse the catalogue in text form, run
-the Catalog...Browse function. The Browse window is shown below.<br>
+the Catalog...Browse function. The Browse window is shown below. If you
+click on a star in the PE display, the selected star will be
+highlighted in the table (as shown below).<br>
 <br>
 <table style="width: 100%; text-align: left;" border="0" cellpadding="2"
  cellspacing="5">
@@ -2219,7 +2221,7 @@ Make sure your position
 editor is closed before hitting the "Resolve Name" button in the target
 component. This bug has been verified to occur on White Box Linux
 running gnome, and depends on the details of the programme (number of
-sources etc.). In the 06A release of the OT, name resolution will be
+sources etc.). In the 06A release of the OT, name resolution is
 disabled while the position editor is open (a prompt to close it will
 ensue).<br>
       <br>
@@ -2263,54 +2265,32 @@ and try again.<br>
     </tr>
     <tr>
       <td
- style="vertical-align: middle; font-weight: bold; background-color: rgb(255, 0, 0); text-align: center;">Sequence
-location in Observation<br>
-      <br>
-      <span style="color: rgb(255, 255, 255);">added Jul-2005</span><br>
-      </td>
-      <td style="vertical-align: top;"><br>
-      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
-      <br>
-If in an Observation such as this:<br>
-      <br>
-      <div style="margin-left: 40px;"><img alt=""
- src="bug_sequence_position_1.png" style="width: 280px; height: 121px;"><br>
-      </div>
-      <br>
-...you drag components such that the sequence ends in this position:<br>
-      <br>
-      <div style="margin-left: 40px;"><img alt=""
- src="bug_sequence_position_2.png" style="width: 278px; height: 115px;"><br>
-      </div>
-      <br>
-...and then save the program to file or store it to the database, the
-saved or stored program will become corrupted (it is possible to
-recover but only with some difficulty and this may not reproduce the
-original programme precisely; if the copy you are trying to retrieve is
-in the OMP database, you will need to get JAC assistance).<br>
-      <br>
-      </td>
-    </tr>
-    <tr>
-      <td
  style="vertical-align: middle; text-align: center; background-color: rgb(255, 0, 0);"><span
- style="font-weight: bold;">Dragged Position Angle fails at telescope</span><br>
+ style="font-weight: bold;">OT fails to start up on Solaris</span><br>
       <br>
-      <span style="color: rgb(255, 255, 255); font-weight: bold;">added
-Jul-2005</span><br>
+      <span style="color: rgb(255, 255, 255); font-weight: bold;">Added
+Jan-2006</span><br>
+      <br>
       </td>
       <td style="vertical-align: top;"><br>
       <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
       <br>
-An instrumental position angle (e.g. CGS4 slit) which was set up by
-dragging on the position editor display can end up with too many
-decimal places for the execution system. This only becomes apparent as
-a problem when the programme is executed. <br>
+You get the following error message:&nbsp; <span
+ style="font-weight: bold;">set: Variable name too long</span>&nbsp;
+when starting up on a Solaris machine.<br>
       <br>
       <span style="font-weight: bold; text-decoration: underline;">Workaround:</span><br>
       <br>
-If you set position angles this way, please remove trailing decimal
-places (two or three is ok, ten is not).<br>
+change the top line of the ot script (usually /somewhere/ompot/bin/ot)<br>
+      <br>
+from<br>
+      <br>
+      <span style="font-weight: bold;">#!/bin/csh -f</span><br>
+to<br>
+      <span style="font-weight: bold;">#!/bin/tcsh -f</span><br>
+      <br>
+(note that this assumes you have <span style="font-weight: bold;">tcsh</span>
+installed).<br>
       <br>
       </td>
     </tr>
