@@ -198,8 +198,12 @@ Guide stars and acquisition scenarios<br>
 </blockquote>
 <a href="#IV._Release-Specific_Notes">IV. </a>Release-specific notes<br>
 <br>
-<div style="margin-left: 40px;"><a href="#Updates_in_05A_version"><img
+<div style="margin-left: 40px;"><a href="#Updates_in_April_2006_version"><img
  alt="" src="msb_icon.png"
+ style="border: 0px solid ; width: 18px; height: 19px;"></a>Updates in
+April 2006 version<br>
+<a href="OMP_preparation_UKIRT.html#Updates_in_05A_version"><img alt=""
+ src="msb_icon.png"
  style="border: 0px solid ; width: 18px; height: 19px;"></a>Updates in
 05A version<br>
 </div>
@@ -1988,6 +1992,56 @@ user manual.</a> <br>
 <div align="left"> </div>
 <h1 align="left"><a name="IV._Release-Specific_Notes"></a><font
  color="#333399">IV. Release-Specific Notes</font></h1>
+<br>
+<h2><a name="Updates_in_April_2006_version"></a>Updates in April 2006
+version</h2>
+<span style="font-weight: bold;">Updates include<br>
+</span><br>
+<ul>
+  <li>Assorted fixes to Science Program Validation.</li>
+</ul>
+<ul>
+  <li>CGS4 and UIST slit position angles are rounded to a single
+decimal place.</li>
+</ul>
+<ul>
+  <li>Upgrade to <a href="http://archive.eso.org/JSky/">JSky 2.5</a></li>
+</ul>
+<ul>
+  <li>It is no longer possible to accidently put sequences before
+components causing invalid XML to be produced.</li>
+</ul>
+<ul>
+  <li>Copying survey containers get properly cloned.</li>
+</ul>
+<ul>
+  <li>Changes to the X-offsets of RA get applied as [ X-offset x cos(
+Dec )
+]</li>
+</ul>
+<ul>
+  <li>When targetting, the RA and Dec no longer get corrupted causing
+drift.</li>
+</ul>
+<ul>
+  <li>Initial removal of ODB and OM code.</li>
+</ul>
+<ul>
+  <li>Removal of SERVER options on the command line as part of ODB code
+removal.</li>
+</ul>
+<ul>
+  <li>XML Science Programs can now be opened from the command-line.</li>
+</ul>
+<ul>
+  <li>When opening files locally, the default working directory is the
+directory the user is in when the OT started.</li>
+</ul>
+<ul>
+  <li>Removal of OMP as an option as it is now the default, as a result
+the OT no longer supports SGML.<br>
+  </li>
+</ul>
 <h2><a name="Updates_in_05A_version"></a>Updates in 05A version</h2>
 The 05A version of the OT was released at the beginning of February,
 and caters specifically for WFCAM proposals. All other 05A projects can
