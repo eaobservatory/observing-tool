@@ -3,21 +3,19 @@
 <head>
   <title>Downloading the UKIRT Observing Tool</title>
 </head>
-<body alink="#ff0000" bgcolor="#bbcccc" link="#003300" text="#000000"
- vlink="#005500"> <h1>Downloading the UKIRT Observing Tool</h1>
-
- <br>
+<body style="color: rgb(0, 0, 0); background-color: rgb(187, 204, 204);"
+ alink="#ff0000" link="#003300" vlink="#005500">
+<h1>Downloading the UKIRT Observing Tool</h1>
 <br>
-<span style="color: rgb(255, 0, 0); font-weight: bold;">WFCAM
-PROGRAMMES: YOU MUST USE THIS VERSION (AUGUST 2005) for 05B. <br>
-SURVEY DEFINITION TOOL DOCUMENTATION AND DOWNLOAD LINK ALSO AVAILABLE
-<a href="../ukirtsdt/index.html">HERE</a></span><br>
-</em>
+<span style="color: rgb(255, 0, 0); font-weight: bold;"><br>
+SURVEY DEFINITION TOOL DOCUMENTATION AND DOWNLOAD LINK AVAILABLE
+<a href="../ukirtsdt/index.html">HERE</a><br>
+</span><br>
 <p> </p>
 <p> The UKIRT Observing tool is a Java application and has been tested
 on Linux, Solaris, Windows 2000 and Mac OS X to various degrees - our
-lead platform is Linux. It is the same package as the JCMT-OT so if you
-have the recent version of that you are ready to go.</p>
+lead platform is Linux. <br>
+</p>
 <p> </p>
 <p> Go to the section describing your operating system.
 </p>
@@ -30,12 +28,10 @@ have the recent version of that you are ready to go.</p>
 You need three things to run the UKIRT-OT:
 <ol>
   <li> The Java Runtime environment (JRE) version 1.4 or newer </li>
-  <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
+  <li> The Java Advanced Imaging extension (JAI) version 1.1.2 or newer
   </li>
   <li> The UKIRT-OT itself </li>
 </ol>
-If you are running java off the Starlink summer 2003 CD you already
-have the first two, so skip to step 3 (UKIRT-OT).
 <h3>JRE</h3>
 To check which version you have installed on your unix machine, type
 <pre> % java -version<br></pre>
@@ -90,7 +86,7 @@ latest version.
 UKIRT-OT FTP area as <a
  href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/ot_latest.tar.gz">ot_latest.tar.gz</a>.
 The first step is simply to download it and untar the distribution [it
-will take up 17MB of disk space, but this distribution also includes
+will take up ~35MB of disk space, but this distribution also includes
 the UKIRT-OT]. It can be untarred using:</p>
 <pre> % gunzip -c ot_latest.tar.gz | tar xvf -<br></pre>
 <p>This will create a directory called <tt>ompot</tt>. The
@@ -117,8 +113,7 @@ specification.</p>
 You need three things to run the UKIRT-OT:
 <ol>
   <li> The Java Runtime environment (JRE) version 1.4 or newer </li>
-  <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
-  </li>
+  <li> The Java Advanced Imaging extension (JAI) version 1.2 or newer </li>
   <li> The UKIRT-OT itself </li>
 </ol>
 <h3>JRE</h3>
@@ -147,7 +142,6 @@ go into the directory <tt>ompot\bin\</tt> and click on the </p>
 <pre>ukirtot</pre>
 batch icon. If you have a correctly installed JRE the OT will run
 without any further ado.
-<p></p>
 <p>You can get a desktop shortcut as follows: go into the directory <tt>ompot\bin\</tt>,
 right click on the <tt>ukirtot</tt> batch icon, and select "copy" from
 the resulting menu; then right-click on the desktop and select "paste
@@ -158,20 +152,29 @@ selecting "rename".
 <p>The most recent version of the OT is always available from the
 UKIRT-OT FTP area as <a
  href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/UKIRT-OT.dmg">UKIRT-OT.dmg</a>.
-Clicking this link will download a disk image containing four files:
-the UKIRT-OT, a README, and licencing and copyright information about
-Sun's JAI. To run the OT you can double-click the UKIRT-OT icon.
+Clicking the link will download a disk image containing two files:
+the UKIRT-OT and a README. To run the OT you can double-click the
+UKIRT-OT
+icon.
 You may copy this application to any location you desire, and it is
-not necessary to download and install the JAI, as these libraries
-are included in the application package.</p>
-<p>Note for OS X 10.3 (Panther) users: On upgrading from 10.2 to 10.3,
+not necessary to download and install the JAI for MacOSX 10.4 ( Tiger )
+users, as these libraries
+are included with the OS. Users of MacOSX 10.3.1 - 10.3.9 should
+manually
+download and install JAI from Apple. Information can be found at
+Apple's website <a
+ href="http://www.apple.com/downloads/macosx/apple/java3dandjavaadvancedimagingupdate.html">here</a>.<br>
+</p>
+<p>Note for MacOSX 10.3 ( Panther ) users: On upgrading from 10.2 to
+10.3,
 some users have found that their Java installation is incomplete. This
 is evidenced by Java applications hanging, and the error message
 "HotSpot not at correct virtual address" appearing in the Console. If
 this is happening to you when attempting to run the OT, follow the
 instructions listed in <a
  href="http://developer.apple.com/technotes/tn2002/tn2099.html">Technical
-Note TN2099</a>.</p>
+Note TN2099</a>.<br>
+</p>
 <p> </p>
 <hr><!-- hhmts end -->
 </body>
