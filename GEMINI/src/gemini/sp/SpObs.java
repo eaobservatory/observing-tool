@@ -365,7 +365,7 @@ getIterFolder()
 			coordSys = basePos.getCoordSys();
 		}
 
-		ConfigWriter confWriter = ConfigWriter.getCurrentInstance();
+		ConfigWriter confWriter = ConfigWriter.getNewInstance() ;
 		try
 		{
 			confWriter.write( defaultsTable );

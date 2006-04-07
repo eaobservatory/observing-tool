@@ -26,10 +26,15 @@ public class ConfigWriter {
         _counter = 0;
     }
 
-    public static synchronized ConfigWriter getCurrentInstance()
+    public static synchronized ConfigWriter getNewInstance()
 	{
-    	if( _writer == null )
-    		_writer = new ConfigWriter() ;
+    	_writer = null ;
+    	_writer = new ConfigWriter() ;
+		return _writer ;
+	}
+    
+    public static ConfigWriter getCurrentInstance()
+	{
 		return _writer;
 	}
 
