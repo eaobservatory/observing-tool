@@ -10,14 +10,21 @@
 // author: Alan Pickup = dap@roe.ac.uk         2001 Oct
 
 package orac.ukirt.inst;
-import java.io.*;
-import java.util.*;
 
+import java.io.IOException ;
+import java.util.NoSuchElementException ;
+import java.util.Vector ;
+import java.util.Enumeration ;
+import java.util.Hashtable ;
+import java.util.StringTokenizer ;
+
+import orac.ukirt.iter.SpUISTCalConstants;
 import orac.util.LookUpTable;
 import orac.util.InstCfg;
 import orac.util.InstCfgReader;
 
-import gemini.util.*;
+import gemini.util.MathUtil ;
+import gemini.util.Angle ;
 
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
@@ -2152,24 +2159,24 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	}
 
     /**
-     * Get the arc blocking filter for the current spectroscopy configuration
-     */
-    public String
-    getArcFilter()
-    {
-         String arcFilter = "undefined";
-         if (!isImaging()) {
-             int di = getDisperserIndex();
-             String arcOTFilter = (String) DISPERSERS.elementAt(di,3);
-             int findex = SPECTFILTERS.indexInColumn(arcOTFilter, 0);
-             arcFilter = (String) SPECTFILTERS.elementAt(findex,1);
-	 }
-         return arcFilter;
-    }
+	 * Get the arc blocking filter for the current spectroscopy configuration
+	 */
+	public String getArcFilter()
+	{
+		String arcFilter = "undefined";
+		if( !isImaging() )
+		{
+			int di = getDisperserIndex();
+			String arcOTFilter = ( String ) DISPERSERS.elementAt( di , 3 );
+			int findex = SPECTFILTERS.indexInColumn( arcOTFilter , 0 );
+			arcFilter = ( String ) SPECTFILTERS.elementAt( findex , 1 );
+		}
+		return arcFilter;
+	}
 
     /**
-     * Get the arc central wavelength for the current spectroscopy configuration
-     */
+	 * Get the arc central wavelength for the current spectroscopy configuration
+	 */
     public String
     getArcCentralWavelength()
     {

@@ -11,16 +11,16 @@
 
 package orac.ukirt.iter;
 
-import java.util.*;
-import java.io.*;
+import java.util.Hashtable ;
+import java.util.Vector ;
+import java.io.IOException ;
 
-import gemini.util.*;
+import gemini.util.ConfigWriter ;
+import gemini.util.MathUtil ;
 
-import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstUIST;
 import orac.ukirt.inst.SpDRRecipe;
 import gemini.sp.SpFactory;
-import gemini.sp.SpObs;
 import gemini.sp.SpMSB;
 import gemini.sp.SpTranslatable;
 import gemini.sp.SpTranslationNotSupportedException;
@@ -33,9 +33,6 @@ import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
-
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
 
 class SpIterUISTCalObsEnumeration extends SpIterEnumeration
 {
@@ -882,13 +879,17 @@ public void translate (Vector v) throws SpTranslationNotSupportedException {
         }
     }
 
-    Hashtable configTable = inst.getConfigItems();
-    if (isFlat) {
-        configTable.put("flatSource", getFlatSource());
-    }
-    else {
-        configTable.put("arcSource", getArcSource());
-    }
+	Hashtable configTable = inst.getConfigItems();
+	if( isFlat )
+	{
+		configTable.put( "flatSource" , getFlatSource() );
+		configTable.put( "filter" , inst.getFilter() );
+	}
+	else
+	{
+		configTable.put( "arcSource" , getArcSource() );
+		configTable.put( "filter" , inst.getArcFilter() );
+	}
 
     configTable.put("type", getCalTypeString().toLowerCase());
     configTable.put("exposureTime", ""+getExposureTime());
