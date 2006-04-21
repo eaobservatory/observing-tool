@@ -104,15 +104,11 @@ public class OtFileIO
 			// Make sure the msb attributes are set correctly.
 			SpItemUtilities.updateMsbAttributes( spItem );
 
-			System.out.println( "Generating XML ... please wait" ) ;
 			String xml = spItem.toXML() ;
-			System.out.println( "XML generated ... writing file" ) ;
 			printStream = new PrintStream( os ) ;
 			printStream.print( xml );
-			System.out.println( "Flushing ..." ) ;
 			printStream.flush() ;
 			os.flush() ;
-			System.out.println( "Finished writing ... " ) ;
 		}
 		catch( SecurityException se )
 		{
@@ -133,7 +129,6 @@ public class OtFileIO
 		}
 		finally
 		{
-			System.out.println( "Attempting to close file ..." ) ;
 			try
 			{
 				if( printStream != null )
@@ -154,9 +149,7 @@ public class OtFileIO
 				System.out.println( "IOException trying to close files " + ioe ) ;
 				return false ;
 			}
-			System.out.println( "File closed" ) ;
 		}
-		System.out.println( "Saved" ) ;
 		return true;
 	}
 
