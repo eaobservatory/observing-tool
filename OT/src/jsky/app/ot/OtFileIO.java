@@ -53,116 +53,118 @@ public class OtFileIO
 	* Store the Science Program rooted at the given SpItem into the file
 	* given by the directory and filename arguments.
 	*/
-	public static boolean storeSp(SpRootItem spItem, String dir, String filename)
-        {
-            	// Just create a File and pass it to the other storeSp method.
-            	File f = new File( dir , filename ) ;
-        	return storeSp( spItem , f ) ;
-        }
+	public static boolean storeSp( SpRootItem spItem , String dir , String filename )
+	{
+		// Just create a File and pass it to the other storeSp method.
+		File f = new File( dir , filename );
+		return storeSp( spItem , f );
+	}
 
 	/*
-	* Store the Science Program rooted at the give SpItem into the given
-	* java.io.File.
-	*/
-    	public static boolean storeSp( SpRootItem spItem, File f )
-        {
+	 * Store the Science Program rooted at the give SpItem into the given java.io.File.
+	 */
+	public static boolean storeSp( SpRootItem spItem , File f )
+	{
 		// Get a FileOutputStream pointing to the given File.
-            	if( f.exists() ) 
-	    	{
-                	File backup = new File( f.getPath() + ".BAK" ) ;
-                	f.renameTo( backup ) ;
+		if( f.exists() )
+		{
+			File backup = new File( f.getPath() + ".BAK" );
+			f.renameTo( backup );
 		}
 
-		FileOutputStream fos = null ;
-                OutputStream os = null ;
+		FileOutputStream fos = null;
+		OutputStream os = null;
+		PrintStream printStream = null ;
 
-		try 
-	    	{
-	                fos = new FileOutputStream( f ) ;
-	                os = new BufferedOutputStream( fos ) ;
+		try
+		{
+			fos = new FileOutputStream( f );
+			os = new BufferedOutputStream( fos );
 
-
-			if( System.getProperty( "DEBUG" ) != null ) 
-			{ 
-				System.out.println( "Before removing id/idref\n" ) ;
-				System.out.println( spItem.toXML() ) ;
+			if( System.getProperty( "DEBUG" ) != null )
+			{
+				System.out.println( "Before removing id/idref\n" );
+				System.out.println( spItem.toXML() );
 			}
 
-			SpItemUtilities.removeReferenceIDs( spItem ) ;
+			SpItemUtilities.removeReferenceIDs( spItem );
 
-			if( System.getProperty( "DEBUG" ) != null ) 
-			{ 
-				System.out.println( "After removing id/idref\n" ) ;
-				System.out.println( spItem.toXML() ) ;
-			} 
+			if( System.getProperty( "DEBUG" ) != null )
+			{
+				System.out.println( "After removing id/idref\n" );
+				System.out.println( spItem.toXML() );
+			}
 
-			SpItemUtilities.setReferenceIDs( spItem ) ;
+			SpItemUtilities.setReferenceIDs( spItem );
 
 			// Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
 			// SpObs components that are MSBs.
-                	SpItemUtilities.saveElapsedTimes( spItem ) ;
+			SpItemUtilities.saveElapsedTimes( spItem );
 
 			// Make sure the msb attributes are set correctly.
-			SpItemUtilities.updateMsbAttributes( spItem ) ;
+			SpItemUtilities.updateMsbAttributes( spItem );
 
-			( new PrintStream( os ) ).print( spItem.toXML() ) ;
-	    	}
-	    	catch( SecurityException se ) 
-	    	{
-                	JOptionPane.showMessageDialog
-			(
-				null , 
-				"The Observing Tool does not have access to '" + f.getAbsolutePath() + "'." ,
-                        	"Error" , 
-				JOptionPane.ERROR_MESSAGE
-			) ;
-                	return false;
-            	} 
-	    	catch( IOException ioe ) 
-	    	{
-                	JOptionPane.showMessageDialog
-			(
-				null , 
-				ioe.toString() , 
-				"Error" , 
-				JOptionPane.ERROR_MESSAGE
-			) ;
-                	return false ;
-            	}
-	    	catch( Exception e )
-	    	{
+			System.out.println( "Generating XML ... please wait" ) ;
+			String xml = spItem.toXML() ;
+			System.out.println( "XML generated ... writing file" ) ;
+			printStream = new PrintStream( os ) ;
+			printStream.print( xml );
+			System.out.println( "Flushing ..." ) ;
+			printStream.flush() ;
+			os.flush() ;
+			System.out.println( "Finished writing ... " ) ;
+		}
+		catch( SecurityException se )
+		{
+			JOptionPane.showMessageDialog( null , "The Observing Tool does not have access to '" + f.getAbsolutePath() + "'." , "Error" , JOptionPane.ERROR_MESSAGE );
+			return false;
+		}
+		catch( IOException ioe )
+		{
+			JOptionPane.showMessageDialog( null , ioe.toString() , "Error" , JOptionPane.ERROR_MESSAGE );
+			return false;
+		}
+		catch( Exception e )
+		{
 			// we don't know what caused the exception, but handle it anyway
- 			e.printStackTrace() ;
-			JOptionPane.showMessageDialog
- 			(
-				null ,
-				e.getMessage() ,
-				"Problem storing Science Program" ,
-				JOptionPane.ERROR_MESSAGE
-			) ;
-			return false ;
-	    	}
-	    	finally
-            	{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog( null , e.getMessage() , "Problem storing Science Program" , JOptionPane.ERROR_MESSAGE );
+			return false;
+		}
+		finally
+		{
+			System.out.println( "Attempting to close file ..." ) ;
 			try
 			{
-				if( fos != null )
-					fos.close() ;
+				if( printStream != null )
+					printStream.close() ;
+				else
+					System.out.println( "PrintStream was null" ) ;
 				if( os != null )
-					os.close() ;
+					os.close();
+				else
+					System.out.println( "BufferedOutputStream was null" ) ;
+				if( fos != null )
+					fos.close();
+				else
+					System.out.println( "FileOutputStream was null" ) ;
 			}
-			catch( IOException ioe ){}
-	    	}
-            	return true ;
-        }
+			catch( IOException ioe )
+			{
+				System.out.println( "IOException trying to close files " + ioe ) ;
+				return false ;
+			}
+			System.out.println( "File closed" ) ;
+		}
+		System.out.println( "Saved" ) ;
+		return true;
+	}
 
 	/*
-	* Read a Science Program from the file indicated by the given directory
-	* and filename arguments.
-	*
-	* @return an SpItem root containing the Science Program if successful,
-	* null otherwise
-	*/
+	 * Read a Science Program from the file indicated by the given directory and filename arguments.
+	 * 
+	 * @return an SpItem root containing the Science Program if successful, null otherwise
+	 */
 	public static SpRootItem fetchSp( String dir , String filename )
         {
 		// Get a File object from the directory and filename ;
