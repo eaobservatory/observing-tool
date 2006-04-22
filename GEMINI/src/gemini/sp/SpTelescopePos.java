@@ -11,11 +11,10 @@ import gemini.util.DDMMSS;
 import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.Format;
+import gemini.util.MJDUtils ;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 /**
  * A data object that describes a telescope position and includes methods
@@ -1147,34 +1146,40 @@ getConicSystemEpoch()
    return _avTab.getDouble(_tag, CONIC_SYSTEM_EPOCH, 0.0);
 }
 
-/**
- * Conic System (Oribital Elements).
- *
- * Get the epoch of the orbital elements (t0).
- */
-public String
-getConicSystemEpochAsString()
-{
-   return convertMJD(getConicSystemEpoch());
-}
+	/**
+	 * Conic System (Oribital Elements).
+	 * 
+	 * Get the epoch of the orbital elements (t0).
+	 */
+	public String getConicSystemEpochAsString()
+	{
+		return MJDUtils.convertMJD( getConicSystemEpoch() );
+	}
 
-/**
- * Conic System (Orbital Elements).
- * 
- * Set the epoch of the orbital elements (t0).
- */
-public void
-setConicSystemEpoch(String value)
-{
-   try {
-       double mjd = Double.parseDouble(value);
-       if (mjd > 2400000.5 ) mjd-=2400000.5 ;
-      _avTab.set(_tag, mjd, CONIC_SYSTEM_EPOCH);
-   }
-   catch(NumberFormatException e) {
-      _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH);
-   }
-}
+	/**
+	 * Conic System (Orbital Elements).
+	 * 
+	 * Set the epoch of the orbital elements (t0).
+	 */
+	public void setConicSystemEpoch( String value )
+	{
+		if( value == null || value.trim().equals( "" ) )
+		{
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_EPOCH ) ;
+			return ;
+		}
+		if( value.matches( "[0-9]+[.]?[0-9]*" ) )
+		{
+			double doubleValue = Double.parseDouble( value ) ;
+			_avTab.set( _tag , MJDUtils.makeMJD( doubleValue ) , CONIC_SYSTEM_EPOCH ) ;
+			return ;
+		}
+		else if( value.matches( "[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*" ) )
+		{
+			_avTab.set( _tag , MJDUtils.convertMJD( value ) , CONIC_SYSTEM_EPOCH ) ;
+		}
+		return ;
+	}
 
 
 /**
@@ -1188,34 +1193,40 @@ getConicSystemEpochPerih()
    return _avTab.getDouble(_tag, CONIC_SYSTEM_EPOCH_PERIH, 0.0);
 }
 
-/**
- * Conic System (Oribital Elements).
- *
- * Get the epoch of the perihelion (T).
- */
-public String
-getConicSystemEpochPerihAsString()
-{
-   return convertMJD(getConicSystemEpochPerih());
-}
+	/**
+	 * Conic System (Oribital Elements).
+	 * 
+	 * Get the epoch of the perihelion (T).
+	 */
+	public String getConicSystemEpochPerihAsString()
+	{
+		return MJDUtils.convertMJD( getConicSystemEpochPerih() );
+	}
 
-/**
- * Conic System (Orbital Elements).
- * 
- * Set the epoch of the perrihelion (T).
- */
-public void
-setConicSystemEpochPerih(String value)
-{
-   try {
-       double mjd = Double.parseDouble(value);
-       if (mjd > 2400000.5 ) mjd-=2400000.5 ;
-      _avTab.set(_tag, mjd, CONIC_SYSTEM_EPOCH_PERIH);
-   }
-   catch(NumberFormatException e) {
-      _avTab.set(_tag, convertMJD(value), CONIC_SYSTEM_EPOCH_PERIH);
-   }
-}
+	/**
+	 * Conic System (Orbital Elements).
+	 * 
+	 * Set the epoch of the perrihelion (T).
+	 */
+	public void setConicSystemEpochPerih( String value )
+	{
+		if( value == null || value.trim().equals( "" ) )
+		{
+			_avTab.set( _tag , 0. , CONIC_SYSTEM_EPOCH_PERIH ) ;
+			return ;
+		}
+		if( value.matches( "[0-9]+[.]?[0-9]*" ) )
+		{
+			double doubleValue = Double.parseDouble( value ) ;
+			_avTab.set( _tag , MJDUtils.makeMJD( doubleValue ) , CONIC_SYSTEM_EPOCH_PERIH ) ;
+			return ;
+		}
+		else if( value.matches( "[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*" ) )
+		{
+			_avTab.set( _tag , MJDUtils.convertMJD( value ) , CONIC_SYSTEM_EPOCH_PERIH ) ;
+		}
+		return ;
+	}
 
 
 /**
@@ -1591,113 +1602,4 @@ toString()
 	", coordSystem=" + getCoordSysAsString() + "]";
 }
 
-  /**
-   * Converts TT in MJD to YYYY MM DD.ddd format.
-   *
-   * @param  mjdDays TT in MJD (days).
-   * @return TT in YYYY MM DD.ddd format.
-   */
-  public static String convertMJD(double mjdDays) {
-    double fullDays  = Math.floor(mjdDays);
-    double remainder = mjdDays - fullDays;
-
-    remainder = Math.rint(remainder * 1E7) / 1E7;
-
-    GregorianCalendar calendar = new GregorianCalendar(MJD_0_YEAR, MJD_0_MONTH, MJD_0_DAY);
-    calendar.add(Calendar.DAY_OF_MONTH, (int)fullDays);
-
-    return calendar.get(Calendar.YEAR) + " " +
-           MONTH_NAMES[calendar.get(Calendar.MONTH)] + " " +
-	   calendar.get(Calendar.DAY_OF_MONTH) + ("" + remainder).substring(1);
-  }
-
-  /**
-   * Converts TT in YYYY MM DD.ddd format to MJD (days).
-   *
-   * @param  yyyymmdd_ddd TT in YYYY MM DD.ddd format.
-   * @return TT in MJD (days).
-   */
-  public static double convertMJD(String yyyymmdd_ddd) {
-    StringTokenizer stringTokenizer = new StringTokenizer(yyyymmdd_ddd, " ,:;/");
-    GregorianCalendar calendar = new GregorianCalendar();
-
-    int year        = 0;
-
-    // monthIndex for January is 0, for December is 11
-    int monthIndex  = 0;
-    double day      = 0;
-
-    String monthString = "";
-
-    double resultInDays = 0.0;
-   
-    if(stringTokenizer.hasMoreTokens()) {
-      year = Format.toInt(stringTokenizer.nextToken());
-    }
-
-    if(stringTokenizer.hasMoreTokens()) {
-      monthString = stringTokenizer.nextToken().toLowerCase();
-
-      for(int i = 0; i < MONTH_NAMES.length; i++) {
-        if(monthString.startsWith(MONTH_NAMES[i].toLowerCase())) {
-          monthIndex = i;
-	  break;
-	}
-      }
-    }
-
-    if(stringTokenizer.hasMoreTokens()) {
-      day = Format.toDouble(stringTokenizer.nextToken());
-    }
-
-    // Add the remaining 44 days of 1858 (November 18 - December 31 inclusive)
-    resultInDays += 44;
-
-    if(year > MJD_0_YEAR) {
-      for(int i = MJD_0_YEAR + 1; i < year; i++) {
-        resultInDays += 365;
-
-        if(calendar.isLeapYear(i)) {
-          resultInDays++;
-        }
-      }
-    }
-
-    if(year <= MJD_0_YEAR) {
-      for(int i = MJD_0_YEAR; i >= year; i--) {
-        resultInDays -= 365;
-
-        if(calendar.isLeapYear(i)) {
-          resultInDays--;
-        }
-      }
-    }
-
-    for(int i = 1; i <= monthIndex; i++) {
-      switch(i) {
-        case  1: resultInDays += 31; break;
-        case  2: resultInDays += 28; break;
-        case  3: resultInDays += 31; break;
-        case  4: resultInDays += 30; break;
-        case  5: resultInDays += 31; break;
-        case  6: resultInDays += 30; break;
-        case  7: resultInDays += 31; break;
-        case  8: resultInDays += 31; break;
-        case  9: resultInDays += 30; break;
-        case 10: resultInDays += 31; break;
-        case 11: resultInDays += 30; break;
-        case 12: resultInDays += 31; break;
-      }
-    }
-
-    if((calendar.isLeapYear(year)) && (monthIndex > 1)) {
-      resultInDays++;
-    }
-
-    resultInDays += day;
-
-    resultInDays = Math.rint(resultInDays * 1E7) / 1E7;
-
-    return resultInDays;
-  }
 }
