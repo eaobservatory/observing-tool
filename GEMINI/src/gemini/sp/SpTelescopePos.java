@@ -285,6 +285,8 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
 
     private double _boxSize;
 
+    static final String numberRegex = "^[0-9]+[.]?[0-9]*$" ;
+    static final String dateRegex = "^[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*$" ;
 
 /**
  * Set the list of tags that represent guide stars.  For instance,
@@ -1168,13 +1170,13 @@ getConicSystemEpoch()
 			_avTab.set( _tag , 0. , CONIC_SYSTEM_EPOCH ) ;
 			return ;
 		}
-		if( value.matches( "^[0-9]+[.]?[0-9]*$" ) )
+		if( value.matches( numberRegex ) )
 		{
 			double doubleValue = Double.parseDouble( value ) ;
 			_avTab.set( _tag , MJDUtils.makeMJD( doubleValue ) , CONIC_SYSTEM_EPOCH ) ;
 			return ;
 		}
-		else if( value.matches( "^[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*$" ) )
+		else if( value.matches( dateRegex ) )
 		{
 			_avTab.set( _tag , MJDUtils.convertMJD( value ) , CONIC_SYSTEM_EPOCH ) ;
 		}
@@ -1215,13 +1217,13 @@ getConicSystemEpochPerih()
 			_avTab.set( _tag , 0. , CONIC_SYSTEM_EPOCH_PERIH ) ;
 			return ;
 		}
-		if( value.matches( "[0-9]+[.]?[0-9]*" ) )
+		if( value.matches( numberRegex ) )
 		{
 			double doubleValue = Double.parseDouble( value ) ;
 			_avTab.set( _tag , MJDUtils.makeMJD( doubleValue ) , CONIC_SYSTEM_EPOCH_PERIH ) ;
 			return ;
 		}
-		else if( value.matches( "[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*" ) )
+		else if( value.matches( dateRegex ) )
 		{
 			_avTab.set( _tag , MJDUtils.convertMJD( value ) , CONIC_SYSTEM_EPOCH_PERIH ) ;
 		}
