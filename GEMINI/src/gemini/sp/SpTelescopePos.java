@@ -1168,13 +1168,13 @@ getConicSystemEpoch()
 			_avTab.set( _tag , 0. , CONIC_SYSTEM_EPOCH ) ;
 			return ;
 		}
-		if( value.matches( "[0-9]+[.]?[0-9]*" ) )
+		if( value.matches( "^[0-9]+[.]?[0-9]*$" ) )
 		{
 			double doubleValue = Double.parseDouble( value ) ;
 			_avTab.set( _tag , MJDUtils.makeMJD( doubleValue ) , CONIC_SYSTEM_EPOCH ) ;
 			return ;
 		}
-		else if( value.matches( "[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*" ) )
+		else if( value.matches( "^[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*$" ) )
 		{
 			_avTab.set( _tag , MJDUtils.convertMJD( value ) , CONIC_SYSTEM_EPOCH ) ;
 		}
