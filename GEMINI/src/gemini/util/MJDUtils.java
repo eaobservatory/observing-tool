@@ -9,22 +9,37 @@ public class MJDUtils
 
 	public static void main( String[] args )
 	{
+		double doubleDate = 0. ;
 		if( args.length == 0 )
-			System.exit( -1 ) ;
-		String input = args[ 0 ] ;
-		double doubleDate = Format.toDouble( input ) ;
-		if( doubleDate != 0. )
-			System.out.println( convertMJD( doubleDate ) ) ;
+		{
+			while( doubleDate < ( mjd * 3 ) )
+			{
+				String StringDate = convertMJD( doubleDate ) ;
+				double converted = convertMJD( StringDate ) ;
+				if( converted != doubleDate )
+				{
+					System.out.print( converted + " != " + doubleDate + "\r" ) ;
+					//System.exit( -1 ) ;
+				}
+				doubleDate += 0.25 ;
+			}
+		}
 		else
-			System.out.println( convertMJD( input ) ) ;
+		{
+			String input = args[ 0 ] ;
+			doubleDate = Format.toDouble( input ) ;
+			if( doubleDate != 0. )
+				System.out.println( convertMJD( doubleDate ) ) ;
+			else
+				System.out.println( convertMJD( input ) ) ;
+		}
 	}
 
 	public static final double mjd = 2400000.5 ;
 
 	public static double makeMJD( double mjdDays )
 	{
-		while( mjdDays > mjd )
-			mjdDays -= mjd ;
+		mjdDays %= mjd ;
 		return mjdDays ;
 	}
 
