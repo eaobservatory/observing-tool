@@ -11,15 +11,10 @@ import javax.swing.JOptionPane;
 
 import java.io.PrintStream;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpPhase1;
 import gemini.sp.SpRootItem;
-
-import java.awt.FileDialog;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -27,7 +22,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 
-import jsky.app.ot.OtTreeWidget;
 import jsky.app.ot.OtWindow;
 
 import orac.util.SpItemUtilities;
