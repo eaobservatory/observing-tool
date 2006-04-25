@@ -14,12 +14,9 @@ public class MJDUtils
 		{
 			while( doubleDate < ( mjd * 3 ) )
 			{
-				String StringDate = convertMJD( doubleDate ) ;
-				double converted = convertMJD( StringDate ) ;
-				if( converted != doubleDate )
+				if( dateIsDodgy( doubleDate ) )
 				{
-					System.out.print( converted + " != " + doubleDate + "\r" ) ;
-					//System.exit( -1 ) ;
+					System.out.print( doubleDate + " is dodgy " + "\r" ) ;
 				}
 				doubleDate += 0.25 ;
 			}
@@ -37,6 +34,15 @@ public class MJDUtils
 
 	public static final double mjd = 2400000.5 ;
 
+	public static boolean dateIsDodgy( double epoch )
+	{
+		String StringDate = convertMJD( epoch ) ;
+		double converted = convertMJD( StringDate ) ;
+		if( converted != epoch )
+			return true ;
+		return false ;
+	}
+	
 	public static double makeMJD( double mjdDays )
 	{
 		mjdDays %= mjd ;
