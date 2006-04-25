@@ -14,7 +14,6 @@ import gemini.util.Format;
 import gemini.util.MJDUtils ;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 /**
  * A data object that describes a telescope position and includes methods
@@ -46,17 +45,6 @@ import java.util.Calendar;
  */
 public final class SpTelescopePos extends TelescopePos implements java.io.Serializable
 {
-   /** Year of origin of MJD: 1858. */
-   public static final int MJD_0_YEAR  = 1858;
-
-   /** Year of origin of MJD: java.util.Calendar.NOVEMBER. */
-   public static final int MJD_0_MONTH = Calendar.NOVEMBER;
-
-   /** Day of origin of MJD: 17. */
-   public static final int MJD_0_DAY   = 17;
-
-   private static final String [] MONTH_NAMES = { "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
    /**
     * System based on two coordinates.
@@ -286,7 +274,7 @@ public final class SpTelescopePos extends TelescopePos implements java.io.Serial
     private double _boxSize;
 
     static final String numberRegex = "^[0-9]+[.]?[0-9]*$" ;
-    static final String dateRegex = "^[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{2}\\.?[0-9]*$" ;
+    static final String dateRegex = "^[0-9]{4}\\s[a-zA-Z]{3}\\s[0-9]{1,2}\\.?[0-9]*$" ;
 
 /**
  * Set the list of tags that represent guide stars.  For instance,

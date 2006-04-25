@@ -23,7 +23,7 @@ public class MJDUtils
 
 	public static double makeMJD( double mjdDays )
 	{
-		if( mjdDays > mjd )
+		while( mjdDays > mjd )
 			mjdDays -= mjd ;
 		return mjdDays ;
 	}
@@ -94,13 +94,9 @@ public class MJDUtils
 		{
 			monthString = stringTokenizer.nextToken().toLowerCase();
 
-			for( int i = 0 ; i < MONTH_NAMES.length ; i++ )
+			while( !monthString.startsWith( MONTH_NAMES[ monthIndex ].toLowerCase() ) )
 			{
-				if( monthString.startsWith( MONTH_NAMES[ i ].toLowerCase() ) )
-				{
-					monthIndex = i;
-					break;
-				}
+				monthIndex++ ;
 			}
 		}
 
@@ -124,8 +120,7 @@ public class MJDUtils
 				}
 			}
 		}
-
-		if( year <= MJD_0_YEAR )
+		else if( year <= MJD_0_YEAR )
 		{
 			for( int i = MJD_0_YEAR ; i >= year ; i-- )
 			{
@@ -138,49 +133,34 @@ public class MJDUtils
 			}
 		}
 
-		for( int i = 1 ; i <= monthIndex ; i++ )
+		switch( monthIndex )
 		{
-			switch( i )
-			{
-				case 1 :
-					resultInDays += 31;
-					break;
-				case 2 :
-					resultInDays += 28;
-					break;
-				case 3 :
-					resultInDays += 31;
-					break;
-				case 4 :
-					resultInDays += 30;
-					break;
-				case 5 :
-					resultInDays += 31;
-					break;
-				case 6 :
-					resultInDays += 30;
-					break;
-				case 7 :
-					resultInDays += 31;
-					break;
-				case 8 :
-					resultInDays += 31;
-					break;
-				case 9 :
-					resultInDays += 30;
-					break;
-				case 10 :
-					resultInDays += 31;
-					break;
-				case 11 :
-					resultInDays += 30;
-					break;
-				case 12 :
-					resultInDays += 31;
-					break;
-			}
+			case 12 :
+				resultInDays += 31;
+			case 11 :
+				resultInDays += 30;
+			case 10 :
+				resultInDays += 31;
+			case 9 :
+				resultInDays += 30;
+			case 8 :
+				resultInDays += 31;
+			case 7 :
+				resultInDays += 31;
+			case 6 :
+				resultInDays += 30;
+			case 5 :
+				resultInDays += 31;
+			case 4 :
+				resultInDays += 30;
+			case 3 :
+				resultInDays += 31;
+			case 2 :
+				resultInDays += 28;
+			case 1 :
+				resultInDays += 31;
 		}
-
+		
 		if( ( calendar.isLeapYear( year ) ) && ( monthIndex > 1 ) )
 		{
 			resultInDays++;
