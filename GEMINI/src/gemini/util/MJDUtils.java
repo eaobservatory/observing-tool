@@ -2,6 +2,10 @@ package gemini.util ;
 
 import java.util.Calendar ;
 import java.util.GregorianCalendar ;
+/*
+import gemini.util.Calendar ;
+import gemini.util.GregorianCalendar ;
+*/
 import java.util.StringTokenizer ;
 
 public class MJDUtils
@@ -49,7 +53,9 @@ public class MJDUtils
 		return mjdDays ;
 	}
 
-	/* coversion ripped from gemini.sp.SpTelescopePos */
+	/* coversion originally by Martin Folger 
+	 * ripped from gemini.sp.SpTelescopePos 
+	 * with some rework */
 
    	/** Year of origin of MJD: 1858. */
 	public static final int MJD_0_YEAR = 1858;
