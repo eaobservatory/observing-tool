@@ -618,11 +618,15 @@ public class SpValidation {
     public class SchemaErrorHandler implements ErrorHandler {
 	public Vector errorMessages = new Vector();
 
-	public void error(SAXParseException e) {
-// 	    String errorMessage = "Validation error in <"+SchemaContentHandler.getCurrentClass()+">: "+e.getMessage()+"\n";
-	    String errorMessage = "Validation error in MSB<"+SchemaContentHandler.getCurrentMSB()+">, Obs:<"+SchemaContentHandler.getCurrentObs()+">, component<"+SchemaContentHandler.getCurrentClass()+">: message:<"+e.getMessage()+">\n";
-	    errorMessages.add(errorMessage);
-	}
+	public void error( SAXParseException e )
+		{
+			String errorMessage = "Validation error in MSB<" + SchemaContentHandler.getCurrentMSB() + ">\n" ;
+			errorMessage += "XML line number : " + e.getLineNumber() + " column " + e.getColumnNumber() + "\n" ;
+			errorMessage += "Obs:<" + SchemaContentHandler.getCurrentObs() + "> \n" ;
+			errorMessage += "component<" + SchemaContentHandler.getCurrentClass() + ">: \n" ;
+			errorMessage += "message:<" + e.getMessage() + ">\n";
+			errorMessages.add( errorMessage );
+		}
 	public void fatalError(SAXParseException e) {
 	    String errorMessage = "Fatal parse error in <"+e.getSystemId()+">: "+e.getMessage()+"\n";
 	    errorMessages.add(errorMessage);
