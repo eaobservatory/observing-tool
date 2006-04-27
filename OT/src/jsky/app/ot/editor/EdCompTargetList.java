@@ -7,12 +7,8 @@ package jsky.app.ot.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.*;
-import java.awt.Color;
 import java.awt.Component;
-import java.io.File;
 import java.util.Arrays;
-import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -21,15 +17,12 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
-import jsky.app.ot.gui.CommandButtonWidgetWatcher;
-import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetWatcher;
-import gemini.sp.SpItem;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -37,16 +30,17 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.util.Assert;
 import gemini.util.CoordSys;
-import gemini.util.RADecMath;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
-import jsky.coords.WorldCoords;
 import jsky.util.gui.ProgressException;
 import orac.util.TelescopeUtil;
 import ot.util.DialogUtil;
 import ot.OtConstants;
 import ot.util.NameResolver;
 import jsky.app.ot.OtCfg;
+
+import ot.util.Horizons ;
+import java.util.TreeMap ;
 
 
 // MFO, June 06, 2002:
@@ -187,7 +181,6 @@ public class EdCompTargetList extends OtItemEditor
         _w.dm.setToolTipText("Daily motion");
 
         _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION);
-        // _w.namedSystemType.setChoices(SpTelescopePos.NAMED_SYSTEM_TYPES_DESCRIPTION);
 	_w.namedTarget.setChoices(OtCfg.getNamedTargets());
 	_w.namedTarget.addChoice(SELECT_TARGET);
 
@@ -215,8 +208,9 @@ public class EdCompTargetList extends OtItemEditor
         _w.l_or_m.addWatcher(this);
         _w.dm.addWatcher(this);
         _w.conicSystemType.addWatcher(this);
-        // _w.namedSystemType.addWatcher(this);
         _w.namedTarget.addWatcher(this);
+
+	_w.resolveOrbitalElementButton.addActionListener( this );
 
 	_type = _w.targetTypeDDList;
 	for (int i=0; i<_w.targetSystemsTabbedPane.getTabCount(); i++) {
@@ -254,7 +248,6 @@ public class EdCompTargetList extends OtItemEditor
 		    }
 		}
 	    });
-// 	_type.setSelectedIndex(0);
 
 	// Get a reference to the "Tag" drop down, and initialize its choices
 	_tag   = _w.tagDDLBW;
@@ -270,7 +263,6 @@ public class EdCompTargetList extends OtItemEditor
 
 
 	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
-	//_tag.addChoice(SpTelescopePos.USER_TAG);
 
 	_tag.addWatcher(new DropDownListBoxWidgetWatcher() {
 		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
@@ -545,7 +537,6 @@ public class EdCompTargetList extends OtItemEditor
 	}
 	_tpTable.setRowSelectionAllowed(true);
 	_tpTable.setColumnSelectionAllowed(false);
-	//_tpTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	_tpTable.addWatcher(this);
     
     
@@ -553,11 +544,9 @@ public class EdCompTargetList extends OtItemEditor
 	_w.chopThrow.addWatcher( new TextBoxWidgetWatcher() {
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    // MFO TODO: see TODO in SpTelescopeObsComp.
-		    //_curPos.deleteWatcher(EdCompTargetList.this);
 		    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
 		    // MFO TODO: see TODO in SpTelescopeObsComp. Check whether deleteWatcher or addWatcher
 		    // is needed. deleteWatcher is used twice in all the cases but that is probably a bug.
-		    //_curPos.deleteWatcher(EdCompTargetList.this);
 		}
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
@@ -565,7 +554,6 @@ public class EdCompTargetList extends OtItemEditor
 	_w.chopAngle.addWatcher( new TextBoxWidgetWatcher() {
 		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 		    // MFO TODO: see TODO in SpTelescopeObsComp.
-		    //_curPos.deleteWatcher(EdCompTargetList.this);
 
 		    // chop angle range is checked here rather than in
 		    // gemini.sp.obsComp.SpTelescopeObsComp.setChopAngle() because it is telescope specific.
@@ -574,7 +562,6 @@ public class EdCompTargetList extends OtItemEditor
 		    ((SpTelescopeObsComp)_spItem).setChopAngle(validateChopAngle(_w.chopAngle.getText()));
 
 		    // MFO TODO: see TODO in SpTelescopeObsComp.
-		    //_curPos.deleteWatcher(EdCompTargetList.this);
 		}
 		public void textBoxAction(TextBoxWidgetExt tbwe) {}
 	    });
@@ -1109,142 +1096,235 @@ public class EdCompTargetList extends OtItemEditor
     }
 
 
-    /**
-     * Method to handle button actions.
-     */
-    public void actionPerformed(ActionEvent evt) {
-	Object w  = evt.getSource();
+	/**
+	 * Method to handle button actions.
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		Object w = evt.getSource();
 
-	if (w == _w.newButton) {
-	    SpTelescopePos base = _tpl.getBasePosition();
-	    if (base == null) {
-		return;
-	    }
+		if( w == _w.newButton )
+		{
+			SpTelescopePos base = _tpl.getBasePosition();
+			if( base == null )
+			{
+				return;
+			}
 
+			//String nextTag = _nextTag();
+			String nextTag = ( String ) _w.newButton.getSelectedItem();
 
-            //String nextTag = _nextTag();
-            String nextTag = (String)_w.newButton.getSelectedItem();
+			/*
+			 * If the user selects SKY, we create a new indexed tag starting at 0
+			 */
+			if( "SKY".equalsIgnoreCase( nextTag ) || "SKYGUIDE".equalsIgnoreCase( nextTag ) )
+			{
+				int index = 0;
+				while( true )
+				{
+					TelescopePos p = _tpl.getPosition( nextTag + index );
+					if( p == null )
+						break;
+					index++;
+				}
+				nextTag = nextTag + index;
+			}
 
-            /*
-             * If the user selects SKY, we create a new indexed tag starting at 0
-             */
-            if ( "SKY".equalsIgnoreCase(nextTag) || "SKYGUIDE".equalsIgnoreCase(nextTag)) {
-                int index=0;
-                while (true) {
-                    TelescopePos p = _tpl.getPosition(nextTag + index);
-                    if (p == null) break;
-                    index++;
-                }
-                nextTag = nextTag + index;
-            }
-                
-            // This should not happen since _w.newButton should be disabled if there are no more tags.
-//             if(nextTag == null) {
-//               return;
-//             }
+			// This should not happen since _w.newButton should be disabled if there are no more tags.
+			//             if(nextTag == null) {
+			//               return;
+			//             }
 
-            SpTelescopePos tp = _tpl.createPosition(nextTag, base.getXaxis(), base.getYaxis());
-	    if ( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR ) {
-		tp.setName(base.getName());
-	    }
-            _w.removeButton.setEnabled(true);
+			SpTelescopePos tp = _tpl.createPosition( nextTag , base.getXaxis() , base.getYaxis() );
+			if( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR )
+			{
+				tp.setName( base.getName() );
+			}
+			_w.removeButton.setEnabled( true );
 
+			if( OtCfg.telescopeUtil.isOffsetTarget( tp.getTag() ) )
+			{
+				_w.offsetCheckBox.setValue( tp.isOffsetPosition() );
+				_w.offsetCheckBox.setVisible( true );
+			}
+			else
+			{
+				_w.offsetCheckBox.setVisible( false );
+			}
 
-            if(OtCfg.telescopeUtil.isOffsetTarget(tp.getTag())) {
-                 _w.offsetCheckBox.setValue(tp.isOffsetPosition());
-                 _w.offsetCheckBox.setVisible(true);
-            }
-	    else {
-                 _w.offsetCheckBox.setVisible(false);
-	    }
+			// Select HMSDEG/DEGDEG pane.
+			_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW );
 
-            // Select HMSDEG/DEGDEG pane.
-            _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
+			return;
+		}
+		else if( w == _w.removeButton )
+		{
+			if( _curPos.getTag().equals( SpTelescopePos.BASE_TAG ) )
+			{
+				DialogUtil.error( _w , "You can't remove the Base Position." );
+				return;
+			}
 
-	    return;
+			_tpl.removePosition( _curPos );
+
+			return;
+		}
+		else if( w == _w.plotButton )
+		{
+			try
+			{
+				TpeManager.open( _spItem );
+			}
+			catch( Exception e )
+			{
+				DialogUtil.error( e );
+			}
+
+			return;
+		}
+		else if( w == _w.setBaseButton )
+		{
+			TelescopePosEditor tpe = TpeManager.get( _spItem );
+			if( tpe == null )
+			{
+				DialogUtil.message( _w , "The Position Editor must be opened for this feature to work." );
+				return;
+			}
+
+			double[] raDec = tpe.getImageCenterLocation();
+			if( raDec == null )
+			{
+				DialogUtil.message( _w , "Couldn't determine the image center." );
+				return;
+			}
+
+			SpTelescopePos base = _tpl.getBasePosition();
+			if( base == null )
+			{
+				return;
+			}
+
+			base.setXY( raDec[ 0 ] , raDec[ 1 ] );
+			return;
+		}
+		else if( w == _w.resolveButton )
+		{
+//			 Added by MFO
+			TelescopePosEditor tpe = TpeManager.get( _spItem );
+			if( tpe != null && tpe.isVisible() )
+			{
+				JOptionPane.showMessageDialog( _w , "The position editor must be closed for this to work" , "Close Position Editor" , JOptionPane.INFORMATION_MESSAGE );
+				return;
+			}
+			_nameResolverFeedback = new NameResolverFeedback();
+			_nameResolverFeedback.start();
+		}
+		else if( w == _w.chopping )
+		{
+//			 chop mode tab added by MFO (3 August 2001)
+			_w.chopThrow.setEnabled( _w.chopping.isSelected() );
+			_w.chopAngle.setEnabled( _w.chopping.isSelected() );
+
+			( ( SpTelescopeObsComp ) _spItem ).setChopping( _w.chopping.isSelected() );
+			( ( SpTelescopeObsComp ) _spItem ).setChopThrow( _w.chopThrow.getText() );
+			( ( SpTelescopeObsComp ) _spItem ).setChopAngle( _w.chopAngle.getText() );
+		}
+		else if( w == _w.offsetCheckBox )
+		{
+			if( _w.offsetCheckBox.getBooleanValue() )
+			{
+				_curPos.setOffsetPosition( true );
+			}
+			else
+			{
+				_curPos.setOffsetPosition( false );
+			}
+
+			_curPos.setXY( 0.0 , 0.0 );
+
+			_updateXYUnitsLabels();
+		}
+		else if( w == _w.resolveOrbitalElementButton )
+		{
+			Horizons horizons = new Horizons() ;
+			String query = _w.nameTBW.getText() ;
+			TreeMap treeMap = horizons.resolveName( query ) ;
+			
+			if( treeMap.isEmpty() )
+				return ;
+			
+			Object tmp = treeMap.get( "NAME" ) ;			
+			String value = "" ;
+			if( tmp != null && tmp instanceof String )
+				value = ( String )tmp ;
+			_w.orbitalElementResolvedNameLabel.setText( value ) ;
+			
+			tmp = treeMap.get( "EPOCH" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemEpoch( value ) ;
+			}
+			
+			tmp = treeMap.get( "TP" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemEpochPerih( value ) ;
+			}
+
+			tmp = treeMap.get( "IN" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemInclination( value ) ;
+			}
+
+			tmp = treeMap.get( "W" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemPerihelion( value ) ;
+			}
+
+			tmp = treeMap.get( "EC" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemE( value ) ;
+			}
+			
+			tmp = treeMap.get( "OM" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemAnode( value ) ;
+			}
+
+			tmp = treeMap.get( "QR" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemAorQ( value ) ;
+			}
+
+			tmp = treeMap.get( "MA" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemLorM( value ) ;
+			}
+
+			tmp = treeMap.get( "N" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemDailyMotion( value ) ;
+			}
+			
+			_updateTargetSystemPane( _curPos ) ;
+		}
 	}
-
-	if (w == _w.removeButton) {
-	    if (_curPos.getTag().equals(SpTelescopePos.BASE_TAG)) {
-		DialogUtil.error(_w, "You can't remove the Base Position.");
-		return;
-	    }
-
-	    _tpl.removePosition(_curPos);
-
-	    return;
-	}
-
-	if (w == _w.plotButton) {
-	    try {
-		TpeManager.open(_spItem);
-	    }
-	    catch(Exception e) {
-		DialogUtil.error(e);
-	    }
-
-	    return;
-	}
-
-	if (w == _w.setBaseButton) {
-	    TelescopePosEditor tpe = TpeManager.get(_spItem);
-	    if (tpe == null) {
-		DialogUtil.message(_w, "The Position Editor must be opened for this feature to work.");
-		return;
-	    }
-
-	    double[] raDec = tpe.getImageCenterLocation();
-	    if (raDec == null) {
-		DialogUtil.message(_w, "Couldn't determine the image center.");
-		return;
-	    }
-
-	    SpTelescopePos base = _tpl.getBasePosition();
-	    if (base == null) {
-		return;
-	    }
-
-	    base.setXY(raDec[0], raDec[1]);
-	    return;
-	}
-
-	// Added by MFO
-	if(w == _w.resolveButton) {
-            TelescopePosEditor tpe = TpeManager.get(_spItem);
-            if ( tpe != null && tpe.isVisible() ) {
-                JOptionPane.showMessageDialog( _w,
-                        "The position editor must be closed for this to work",
-                        "Close Position Editor",
-                        JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-	    _nameResolverFeedback = new NameResolverFeedback();
-	    _nameResolverFeedback.start();
-	}
-
-        // chop mode tab added by MFO (3 August 2001)
-	if(w == _w.chopping) {
-	    _w.chopThrow.setEnabled(_w.chopping.isSelected());
-	    _w.chopAngle.setEnabled(_w.chopping.isSelected());
-
-	    ((SpTelescopeObsComp)_spItem).setChopping(_w.chopping.isSelected());
-	    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
-	    ((SpTelescopeObsComp)_spItem).setChopAngle( _w.chopAngle.getText() );
-	}
-
-	if(w == _w.offsetCheckBox) {
-	  if(_w.offsetCheckBox.getBooleanValue()) {
-	    _curPos.setOffsetPosition(true);
-	  }
-	  else {
-	    _curPos.setOffsetPosition(false);
-	  }
-
-	  _curPos.setXY(0.0, 0.0);
-
-	  _updateXYUnitsLabels();
-	}
-    }
 
     public void stateChanged(ChangeEvent e) {
 

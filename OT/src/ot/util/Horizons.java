@@ -35,18 +35,30 @@ public class Horizons
 
 		Horizons horizon = new Horizons() ;
 		TreeMap treeMap = null ;
-		Vector vector = null ;
-		URL lut = null ;
-		treeMap = horizon.doLookup( inputFileName ) ;
-		lut = horizon.URLBuilder( treeMap ) ;
-		if( lut != null )
-			vector = horizon.connect( lut ) ;
-		if( vector != null )
-			treeMap = horizon.parse( vector ) ;
+		treeMap = horizon.resolveName( inputFileName ) ;
 		if( treeMap != null )
 			printMap( treeMap ) ;		
 	}
 
+	public TreeMap resolveName( String name )
+	{
+		if( name == null || name.trim().equals( "" ) )
+			return new TreeMap() ;
+		TreeMap map = doLookup( name ) ;
+		URL lut = URLBuilder( map ) ;
+		Vector vector = null ;
+		TreeMap treeMap = null ;
+		if( lut != null )
+			vector = connect( lut ) ;
+		else 
+			return new TreeMap() ;
+		if( vector != null )
+			treeMap = parse( vector ) ;
+		else
+			return new TreeMap() ;
+		return treeMap ;
+	}
+	
 	public TreeMap doLookup( String name )
 	{
 		TreeMap treeMap = new TreeMap() ;

@@ -9,12 +9,29 @@
  */
 package jsky.app.ot.editor;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.event.*;
-import jsky.app.ot.editor.TelescopePosTableWidget;
-import jsky.app.ot.gui.*;
+import java.awt.GridBagLayout ;
+import java.awt.GridLayout ;
+import java.awt.Font ;
+import java.awt.Color ;
+import java.awt.Insets ;
+import java.awt.Dimension ;
+import java.awt.GridBagConstraints ;
+import java.awt.Component ;
+import javax.swing.JPanel ;
+import javax.swing.JTabbedPane ;
+import javax.swing.JLabel ;
+import javax.swing.JComboBox ;
+import javax.swing.JScrollPane ;
+import javax.swing.BorderFactory ;
+import javax.swing.SwingConstants ;
+import javax.swing.BoxLayout ;
+import javax.swing.border.Border ;
+import javax.swing.border.TitledBorder ;
+import jsky.app.ot.editor.TelescopePosTableWidget ;
+import jsky.app.ot.gui.TextBoxWidgetExt ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt ;
+import jsky.app.ot.gui.CommandButtonWidgetExt ;
+import jsky.app.ot.gui.CheckBoxWidgetExt ;
 
 // MFO, June 06, 2002:
 //   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -137,6 +154,9 @@ public class TelescopeGUI extends JPanel {
   TextBoxWidgetExt baseYOff = new TextBoxWidgetExt();
   JLabel baseXOffUnits = new JLabel();
   JLabel baseYOffUnits = new JLabel();
+
+	CommandButtonWidgetExt resolveOrbitalElementButton = new CommandButtonWidgetExt() ;
+	JLabel orbitalElementResolvedNameLabel = new JLabel() ;
 
     public TelescopeGUI() {
         try {
@@ -355,6 +375,14 @@ public class TelescopeGUI extends JPanel {
     epochPerihLabel.setVisible(false);
     epochPerihUnitsLabel.setVisible(false);
     
+
+		orbitalElementResolvedNameLabel.setFont( new java.awt.Font( "Dialog" , Font.PLAIN  , 12 ) ) ;
+		orbitalElementResolvedNameLabel.setForeground( Color.black ) ;
+		orbitalElementResolvedNameLabel.setText( "" ) ;
+		orbitalElementResolvedNameLabel.setVisible( true ) ;
+		resolveOrbitalElementButton.setText( "Resolve Name" ) ;
+		resolveOrbitalElementButton.setVisible( true ) ;
+
     this.add(nameTagPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
     nameTagPanel.add(jLabel1);
@@ -439,6 +467,11 @@ public class TelescopeGUI extends JPanel {
     // Target Types Tabbed Pane, added by MFO (22 February 2002)
     targetSystemsTabbedPane.add(objectGBW,            "RA/Dec");
     targetSystemsTabbedPane.add(conicSystemPanel, "Orbital Elements");
+
+		conicSystemPanel.add( orbitalElementResolvedNameLabel , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		conicSystemPanel.add( resolveOrbitalElementButton , new GridBagConstraints( 7 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) ) ;
+
+
     conicSystemPanel.add(epoch, new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0
             ,GridBagConstraints.SOUTH, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
     conicSystemPanel.add(orbinc, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
