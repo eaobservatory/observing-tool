@@ -86,6 +86,8 @@ public class EdCompTargetList extends OtItemEditor
 
     private boolean _targetSystemsChange = false;
 
+    private boolean _resolving = false ;
+    
     /**
      * The constructor initializes the title, description, and presentation source.
      */
@@ -1246,83 +1248,10 @@ public class EdCompTargetList extends OtItemEditor
 		}
 		else if( w == _w.resolveOrbitalElementButton )
 		{
-			Horizons horizons = new Horizons() ;
-			String query = _w.nameTBW.getText() ;
-			TreeMap treeMap = horizons.resolveName( query ) ;
-			
-			if( treeMap.isEmpty() )
+			if( _resolving )
 				return ;
-			
-			Object tmp = treeMap.get( "NAME" ) ;			
-			String value = "" ;
-			if( tmp != null && tmp instanceof String )
-				value = ( String )tmp ;
-			_w.orbitalElementResolvedNameLabel.setText( value ) ;
-			
-			tmp = treeMap.get( "EPOCH" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemEpoch( value ) ;
-			}
-			
-			tmp = treeMap.get( "TP" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemEpochPerih( value ) ;
-			}
-
-			tmp = treeMap.get( "IN" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemInclination( value ) ;
-			}
-
-			tmp = treeMap.get( "W" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemPerihelion( value ) ;
-			}
-
-			tmp = treeMap.get( "EC" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemE( value ) ;
-			}
-			
-			tmp = treeMap.get( "OM" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemAnode( value ) ;
-			}
-
-			tmp = treeMap.get( "QR" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemAorQ( value ) ;
-			}
-
-			tmp = treeMap.get( "MA" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemLorM( value ) ;
-			}
-
-			tmp = treeMap.get( "N" ) ;
-			if( tmp != null && tmp instanceof Double )
-			{
-				value = ( ( Double )tmp ).toString() ;
-				_curPos.setConicSystemDailyMotion( value ) ;
-			}
-			
-			_updateTargetSystemPane( _curPos ) ;
+			HorizonsThread thread = new HorizonsThread() ;
+			thread.start() ;
 		}
 	}
 
@@ -1660,5 +1589,99 @@ e.printStackTrace();
 
       return null;
     }
+   
+    /* 
+     * Why are we bothering with a thread ? 
+     * So that the OT does not become unresponsive 
+     */
+    public class HorizonsThread extends Thread
+    {
+    	public synchronized void run()
+    	{
+    		_resolving = true ;
+    		_w.resolveOrbitalElementButton.setText( "Resolving ..." ) ;
+			Horizons horizons = new Horizons() ;
+			String query = _w.nameTBW.getText() ;
+			TreeMap treeMap = horizons.resolveName( query ) ;
+			_resolving = false ;
+			_w.resolveOrbitalElementButton.setText( "Resolve Name" ) ;
+			
+			if( treeMap.isEmpty() )
+				return ;
+			
+			Object tmp = treeMap.get( "NAME" ) ;			
+			String value = "" ;
+			if( tmp != null && tmp instanceof String )
+				value = ( String )tmp ;
+			_w.orbitalElementResolvedNameLabel.setText( value ) ;
+			
+			tmp = treeMap.get( "EPOCH" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemEpoch( value ) ;
+			}
+			
+			tmp = treeMap.get( "TP" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemEpochPerih( value ) ;
+			}
+
+			tmp = treeMap.get( "IN" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemInclination( value ) ;
+			}
+
+			tmp = treeMap.get( "W" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemPerihelion( value ) ;
+			}
+
+			tmp = treeMap.get( "EC" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemE( value ) ;
+			}
+			
+			tmp = treeMap.get( "OM" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemAnode( value ) ;
+			}
+
+			tmp = treeMap.get( "QR" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemAorQ( value ) ;
+			}
+
+			tmp = treeMap.get( "MA" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemLorM( value ) ;
+			}
+
+			tmp = treeMap.get( "N" ) ;
+			if( tmp != null && tmp instanceof Double )
+			{
+				value = ( ( Double )tmp ).toString() ;
+				_curPos.setConicSystemDailyMotion( value ) ;
+			}
+			
+			_updateTargetSystemPane( _curPos ) ;
+    		
+    	}
+    }
+    
 }
 

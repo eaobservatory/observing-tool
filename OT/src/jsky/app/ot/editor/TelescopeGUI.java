@@ -376,7 +376,7 @@ public class TelescopeGUI extends JPanel {
     epochPerihUnitsLabel.setVisible(false);
     
 
-		orbitalElementResolvedNameLabel.setFont( new java.awt.Font( "Dialog" , Font.PLAIN  , 12 ) ) ;
+		orbitalElementResolvedNameLabel.setFont( new java.awt.Font( "Dialog" , Font.PLAIN  , 10 ) ) ;
 		orbitalElementResolvedNameLabel.setForeground( Color.black ) ;
 		orbitalElementResolvedNameLabel.setText( "" ) ;
 		orbitalElementResolvedNameLabel.setVisible( true ) ;
