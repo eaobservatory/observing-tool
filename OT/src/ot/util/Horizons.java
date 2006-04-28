@@ -33,7 +33,7 @@ public class Horizons
 	static final String server =  "http://ssd.jpl.nasa.gov/" ;
 	static final String script =  "horizons_batch.cgi?batch=1" ;
 	
-	private static final boolean caching = true ;
+	private static boolean caching = true ;
 	private String cacheDirectory = null ;
 
 	public static void main( String args[] )
@@ -61,17 +61,25 @@ public class Horizons
 		if( cacheDirectory == null )
 		{
 			cacheDirectory = 
-				System.getProperty( "user.home" ) + 
+				System.getProperty( "user.home" ) +
 				System.getProperty( "file.separator" ) + 
 				".ot" + 
 				System.getProperty( "file.separator" ) ;
 			File directory = new File( cacheDirectory ) ;
-			/* 
-			*  The following should not cause problems as 
-			*  users should be able to write into their own home directories
-			*/
-			if( !directory.exists() )
-				directory.mkdirs() ;
+			try
+			{
+				/* 
+				 *  The following should not cause problems as 
+				 *  users should be able to write into their own home directories
+				 */
+				if( !directory.exists() )
+					caching = directory.mkdirs() ;
+			}
+			catch( Exception e )
+			{
+				caching = false ;
+				System.out.println( "Caching of orbital elements disabled " + e ) ; 
+			}
 		}
 		return cacheDirectory ;
 	}
