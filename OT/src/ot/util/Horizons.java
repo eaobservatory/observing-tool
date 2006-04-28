@@ -91,8 +91,7 @@ public class Horizons
 			if( !( tmp instanceof TreeMap ) )
 				return null ;
 			TreeMap treeMap = ( TreeMap )tmp ;
-			if( treeMap.isEmpty() )
-				return null ;
+			/* we don't care if the map is empty */
 			return treeMap ;
 		}
 		catch( java.io.FileNotFoundException fnfe ){ /* we don't care if it is not in the cache */ }
@@ -238,6 +237,8 @@ public class Horizons
 			if( !( tmp instanceof String ) )
 				continue ;
 			line = ( String )tmp ;
+			if( line.trim().matches( "^No matches found.$" ) )
+				return new TreeMap() ;
 			tmpMap = quickMatch.parseLine( line ) ;
 			if( tmpMap != null )
 				treeMap.putAll( tmpMap ) ;
