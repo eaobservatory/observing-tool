@@ -34,6 +34,7 @@ public class Horizons
 	static final String script =  "horizons_batch.cgi?batch=1" ;
 	
 	private static final boolean caching = true ;
+	private String cacheDirectory = null ;
 
 	public static void main( String args[] )
 	{
@@ -43,12 +44,17 @@ public class Horizons
 
 		Horizons horizon = new Horizons() ;
 		TreeMap treeMap = null ;
-		treeMap = horizon.resolveName( inputFileName ) ;
+		treeMap = horizon.readInputFile( inputFileName ) ;
+		if( treeMap.isEmpty() )
+			treeMap = horizon.resolveName( inputFileName ) ;
 		if( treeMap != null )
 			printMap( treeMap ) ;		
 	}
 
-	private String cacheDirectory = null ;
+	private String getFileName( String query )
+	{
+		return getCacheDirectory() + query.trim().toUpperCase() + ".map" ;		
+	}
 	
 	private String getCacheDirectory()
 	{
@@ -70,13 +76,13 @@ public class Horizons
 		return cacheDirectory ;
 	}
 	
-	public TreeMap readCache( String query )
+	private TreeMap readCache( String query )
 	{
 		if( query == null || query.trim().equals( "" ) )
 			return null ;
 		FileInputStream fileInputStream = null ;
 		ObjectInputStream objectInputStream = null ;		
-		String fileName = getCacheDirectory() + query.trim() + ".map" ;
+		String fileName = getFileName( query ) ;
 		try
 		{
 			fileInputStream = new FileInputStream( fileName ) ;
@@ -114,7 +120,7 @@ public class Horizons
 		return null ;
 	}
 	
-	public boolean writeCache( TreeMap result , String query )
+	private boolean writeCache( TreeMap result , String query )
 	{
 		// n.b. we still write even if the map is empty
 		if( result == null )
@@ -123,7 +129,7 @@ public class Horizons
 		ObjectOutputStream objectOutputStream = null ;
 		if( query == null || query.trim().equals( "" ) )
 			return false ;
-		String fileName = getCacheDirectory() + query.trim() + ".map" ;
+		String fileName = getFileName( query ) ;
 		try
 		{
 			fileOutputStream = new FileOutputStream( fileName ) ;
@@ -184,7 +190,7 @@ public class Horizons
 		return treeMap ;
 	}
 	
-	public TreeMap doLookup( String name )
+	private TreeMap doLookup( String name )
 	{
 		TreeMap treeMap = new TreeMap() ;
 		if( name == null || name.trim().equals( "" ) )
@@ -220,7 +226,7 @@ public class Horizons
 		
 	}
 
-	public TreeMap parse( Vector vector )
+	private TreeMap parse( Vector vector )
 	{
 		String line ;
 		TreeMap treeMap = new TreeMap() ;
@@ -239,7 +245,7 @@ public class Horizons
 		return treeMap ;
 	}
 
-	public Vector connect( URL url )
+	private Vector connect( URL url )
 	{
 		Vector vector = new Vector() ;
 		if( url == null )
@@ -280,7 +286,7 @@ public class Horizons
 		return vector ;
 	}
 	
-	public URL URLBuilder( TreeMap treeMap )
+	private URL URLBuilder( TreeMap treeMap )
 	{
 		URL finalURL = null ;
 		StringBuffer buffer = new StringBuffer() ;
@@ -324,7 +330,7 @@ public class Horizons
 		return finalURL ;
 	}
 
-	public TreeMap readInputFile( String fileName )
+	private TreeMap readInputFile( String fileName )
 	{
 		String line ;
 		String[] parts ;
