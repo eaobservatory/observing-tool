@@ -57,8 +57,15 @@ public class Horizons
 			cacheDirectory = 
 				System.getProperty( "user.home" ) + 
 				System.getProperty( "file.separator" ) + 
-				".jsky" + 
+				".ot" + 
 				System.getProperty( "file.separator" ) ;
+			File directory = new File( cacheDirectory ) ;
+			/* 
+			*  The following should not cause problems as 
+			*  users should be able to write into their own home directories
+			*/
+			if( !directory.exists() )
+				directory.mkdirs() ;
 		}
 		return cacheDirectory ;
 	}
@@ -100,7 +107,7 @@ public class Horizons
 			}
 			catch( IOException ioe )
 			{
-				System.out.println( ioe + " while closing cahce file " + fileName ) ;
+				System.out.println( ioe + " while closing cache file " + fileName ) ;
 				return null ;
 			}
 		}
@@ -109,6 +116,7 @@ public class Horizons
 	
 	public boolean writeCache( TreeMap result , String query )
 	{
+		// n.b. we still write even if the map is empty
 		if( result == null )
 			return false ;
 		FileOutputStream fileOutputStream = null ;
