@@ -21,11 +21,19 @@ import java.io.InputStream ;
 import java.util.Vector ;
 import java.io.UnsupportedEncodingException ;
 
+// serialising
+import java.io.FileInputStream ;
+import java.io.FileOutputStream ;
+import java.io.ObjectInputStream ;
+import java.io.ObjectOutputStream ;
+
 public class Horizons
 {
 
 	static final String server =  "http://ssd.jpl.nasa.gov/" ;
 	static final String script =  "horizons_batch.cgi?batch=1" ;
+	
+	private static final boolean caching = true ;
 
 	public static void main( String args[] )
 	{
@@ -40,11 +48,118 @@ public class Horizons
 			printMap( treeMap ) ;		
 	}
 
+	private String cacheDirectory = null ;
+	
+	private String getCacheDirectory()
+	{
+		if( cacheDirectory == null )
+		{
+			cacheDirectory = 
+				System.getProperty( "user.home" ) + 
+				System.getProperty( "file.separator" ) + 
+				".jsky" + 
+				System.getProperty( "file.separator" ) ;
+		}
+		return cacheDirectory ;
+	}
+	
+	public TreeMap readCache( String query )
+	{
+		if( query == null || query.trim().equals( "" ) )
+			return null ;
+		FileInputStream fileInputStream = null ;
+		ObjectInputStream objectInputStream = null ;		
+		String fileName = getCacheDirectory() + query.trim() + ".map" ;
+		try
+		{
+			fileInputStream = new FileInputStream( fileName ) ;
+			objectInputStream = new ObjectInputStream( fileInputStream ) ;
+			Object tmp = objectInputStream.readObject() ;
+			if( !( tmp instanceof TreeMap ) )
+				return null ;
+			TreeMap treeMap = ( TreeMap )tmp ;
+			if( treeMap.isEmpty() )
+				return null ;
+			return treeMap ;
+		}
+		catch( java.io.FileNotFoundException fnfe ){ /* we don't care if it is not in the cache */ }
+		catch( IOException ioe )
+		{
+			System.out.println( ioe + " while reading cache file " + fileName ) ;
+			return null ;
+		}
+		catch( ClassNotFoundException cnfe ){ /* we already have TreeMap */ }
+		finally
+		{
+			try
+			{
+				if( objectInputStream != null )
+					objectInputStream.close() ;
+				if( fileInputStream != null )
+					fileInputStream.close() ;
+			}
+			catch( IOException ioe )
+			{
+				System.out.println( ioe + " while closing cahce file " + fileName ) ;
+				return null ;
+			}
+		}
+		return null ;
+	}
+	
+	public boolean writeCache( TreeMap result , String query )
+	{
+		if( result == null )
+			return false ;
+		FileOutputStream fileOutputStream = null ;
+		ObjectOutputStream objectOutputStream = null ;
+		if( query == null || query.trim().equals( "" ) )
+			return false ;
+		String fileName = getCacheDirectory() + query.trim() + ".map" ;
+		try
+		{
+			fileOutputStream = new FileOutputStream( fileName ) ;
+			objectOutputStream = new ObjectOutputStream( fileOutputStream ) ;
+			objectOutputStream.writeObject( result ) ;
+			objectOutputStream.flush() ;
+			fileOutputStream.flush() ;
+		}
+		catch( IOException ioe )
+		{
+			System.out.println( ioe + " while writing cache") ;
+			return false ;
+		}
+		finally
+		{
+			try
+			{
+				if( objectOutputStream != null )
+					objectOutputStream.close() ;
+				if( fileOutputStream != null )
+					fileOutputStream.close() ;
+			}
+			catch( IOException ioe )
+			{
+				System.out.println( ioe + " while closing" ) ;
+				return false ;
+			}
+		}
+		return true ;
+	}
+	
 	public TreeMap resolveName( String name )
 	{
 		if( name == null || name.trim().equals( "" ) )
 			return new TreeMap() ;
-		TreeMap map = doLookup( name ) ;
+		TreeMap map ;
+		if( caching )
+		{
+			map = readCache( name ) ;
+			if( map != null )
+				return map ;
+		}
+		map = doLookup( name ) ;
+		
 		URL lut = URLBuilder( map ) ;
 		Vector vector = null ;
 		TreeMap treeMap = null ;
@@ -56,6 +171,8 @@ public class Horizons
 			treeMap = parse( vector ) ;
 		else
 			return new TreeMap() ;
+		if( caching )
+			writeCache( treeMap , name ) ;
 		return treeMap ;
 	}
 	
