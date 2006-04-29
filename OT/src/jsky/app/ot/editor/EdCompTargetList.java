@@ -1609,7 +1609,10 @@ e.printStackTrace();
 			_w.resolveOrbitalElementButton.setText( "Resolve Name" ) ;
 			
 			if( treeMap.isEmpty() )
+			{
+				DialogUtil.error( null , "No result returned") ;
 				return ;
+			}
 			
 			Object tmp = treeMap.get( "NAME" ) ;			
 			String value = "" ;
