@@ -1617,8 +1617,15 @@ e.printStackTrace();
 			Object tmp = treeMap.get( "NAME" ) ;			
 			String value = "" ;
 			if( tmp != null && tmp instanceof String )
+			{
 				value = ( String )tmp ;
-			_w.orbitalElementResolvedNameLabel.setText( value ) ;
+				_w.orbitalElementResolvedNameLabel.setText( value ) ;
+			}
+			else
+			{
+				DialogUtil.error( null , "No result returned") ;
+				return ;
+			}
 			
 			tmp = treeMap.get( "EPOCH" ) ;
 			if( tmp != null && tmp instanceof Double )
