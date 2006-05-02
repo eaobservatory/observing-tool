@@ -1596,13 +1596,11 @@ e.printStackTrace();
      */
     public class HorizonsThread extends Thread
     {
-    	private Horizons horizons = null ;
     	public synchronized void run()
     	{
     		_resolving = true ;
     		_w.resolveOrbitalElementButton.setText( "Resolving ..." ) ;
-			if( horizons == null )
-    			horizons = new Horizons() ;
+			Horizons horizons = Horizons.getInstance() ;
 			String query = _w.nameTBW.getText() ;
 			TreeMap treeMap = horizons.resolveName( query ) ;
 			_resolving = false ;

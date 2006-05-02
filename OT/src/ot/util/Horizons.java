@@ -35,6 +35,17 @@ public class Horizons
 	
 	private static boolean caching = true ;
 	private String cacheDirectory = null ;
+	
+	private static Horizons horizons = null ;
+	
+	private Horizons(){}
+	
+	public static synchronized Horizons getInstance()
+	{
+		if( horizons == null )
+			horizons = new Horizons() ;
+		return horizons ;
+	}
 
 	public static void main( String args[] )
 	{
@@ -45,7 +56,7 @@ public class Horizons
 		if( inputFileName.matches( "~" ) )
 			inputFileName.replaceFirst( "~" , System.getProperty( "user.home" ) ) ;
 
-		Horizons horizon = new Horizons() ;
+		Horizons horizon = Horizons.getInstance() ;
 		TreeMap treeMap = null ;
 		treeMap = horizon.resolveFromFile( inputFileName ) ;
 		if( treeMap.isEmpty() )
