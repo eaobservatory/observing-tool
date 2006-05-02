@@ -22,8 +22,8 @@ public class QuickMatch
 	Matcher matcher ;
 	static Pattern pattern ;
 	static final String word = "[a-zA-Z]" ;
-	static final String keyValueRegex = "\\s*[a-zA-Z\\-\\s]+=\\s*" ;
-	static final String epochRegex = "\\s*\\d*\\.??\\d*?\\s*!\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*" ;
+	static final String keyValueRegex = "\\s*\\w+(\\s|\\-)?\\w*=\\s*" ;
+	static final String epochRegex = "\\s*\\d+\\.??\\d*?\\s*!{1}=?\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*?\\s*\\(" + word + "*\\)\\s*" ;
 	static final String tpRegex = "\\s*\\d{4}-" + word + "*-\\d*\\.?\\d*" ;
 	static final String nameDateRegex = "\\d{4}-" + word + "{3}-\\d{1,2}" ;
 	static final String nameTimeRegex = "\\d{2}:\\d{2}:\\d{2}" ;
