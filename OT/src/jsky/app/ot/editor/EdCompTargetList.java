@@ -1619,6 +1619,12 @@ e.printStackTrace();
 			if( tmp != null && tmp instanceof String )
 			{
 				value = ( String )tmp ;
+				if( value.equals( "" ) )
+				{
+					if( !searchHorizons( query ) )
+						DialogUtil.error( null , "No result returned") ;
+					return ;
+				}	
 				_w.orbitalElementResolvedNameLabel.setText( value ) ;
 			}
 			else
@@ -1715,6 +1721,9 @@ e.printStackTrace();
 			Object tmp = results.remove( 0 ) ;
 			if( tmp instanceof String )
 			{
+				String line = ( String )tmp ;
+				if( line.trim().matches( "^No matches found.$" ) )
+					return false ;
 				buffer.append( tmp.toString() + "\n" ) ;
 			}
 		}
