@@ -220,7 +220,7 @@ public class QuickMatch
 			return object ;
 		}
 		catch( NumberFormatException nfe ){}
-		return value ;
+		return "" ;
 	}
 
 }
