@@ -41,6 +41,9 @@ public class Horizons
 		if( args.length == 0 )
 			System.exit( -1 ) ;
 		String inputFileName = args[ 0 ] ;
+		
+		if( inputFileName.matches( "~" ) )
+			inputFileName.replaceFirst( "~" , System.getProperty( "user.home" ) ) ;
 
 		Horizons horizon = new Horizons() ;
 		TreeMap treeMap = null ;
@@ -389,7 +392,7 @@ public class Horizons
 
 			while( ( line = buffer.readLine() ) != null )
 			{
-				parts = line.split( "=" ) ;
+				parts = line.split( "= " ) ;
 				if( parts.length < 2 )
 					continue ;
 				if( parts.length == 2 ) 
