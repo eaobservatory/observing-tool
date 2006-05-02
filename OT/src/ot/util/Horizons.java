@@ -36,6 +36,8 @@ public class Horizons
 	private static boolean caching = true ;
 	private String cacheDirectory = null ;
 	
+	private static boolean search = false ;
+	
 	private static Horizons horizons = null ;
 	
 	private Horizons(){}
@@ -188,6 +190,31 @@ public class Horizons
 			}
 		}
 		return true ;
+	}
+
+	public synchronized Vector searchName( String name )
+	{
+		if( name == null || name.trim().equals( "" ) )
+			return new Vector() ;
+		search = true ;
+		TreeMap map = doLookup( name ) ;
+		URL lut = URLBuilder( map ) ;
+		Vector vector = null ;
+		if( lut != null )
+		{
+			vector = connect( lut ) ;
+		}
+		else
+		{
+			search = false ;
+			return new Vector() ;
+		}
+		if( vector != null )
+		{
+			search = false ;
+			return vector ;
+		}
+		return new Vector() ;
 	}
 	
 	public TreeMap resolveFromFile( String name )
@@ -356,7 +383,10 @@ public class Horizons
 			value = ( String )tmp ;
 			try
 			{
-				buffer.append( "&" + key.trim() + "=" + URLEncoder.encode( value.trim() , "UTF-8" ) ) ;
+				if( key.trim().equals( "COMMAND") && search )
+					buffer.append( "&" + key.trim() + "=" + "'NAME=" + URLEncoder.encode( value.trim() , "UTF-8" ) + "'" ) ;
+				else
+					buffer.append( "&" + key.trim() + "=" + URLEncoder.encode( value.trim() , "UTF-8" ) ) ;
 			}
 			catch( UnsupportedEncodingException uee )
 			{  

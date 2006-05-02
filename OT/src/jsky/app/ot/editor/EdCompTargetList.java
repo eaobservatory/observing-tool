@@ -41,6 +41,8 @@ import jsky.app.ot.OtCfg;
 
 import ot.util.Horizons ;
 import java.util.TreeMap ;
+import java.util.Vector ;
+import ot.ReportBox ; 
 
 
 // MFO, June 06, 2002:
@@ -1621,8 +1623,10 @@ e.printStackTrace();
 			}
 			else
 			{
-				DialogUtil.error( null , "No result returned") ;
+				if( !searchHorizons( query ) )
+					DialogUtil.error( null , "No result returned") ;
 				return ;
+
 			}
 			
 			tmp = treeMap.get( "EPOCH" ) ;
@@ -1691,6 +1695,31 @@ e.printStackTrace();
 			_updateTargetSystemPane( _curPos ) ;
     		
     	}
+    }
+    
+    public boolean searchHorizons( String name )
+    {
+		_resolving = true ;
+		_w.resolveOrbitalElementButton.setText( "Searching ..." ) ;
+		Horizons horizons = Horizons.getInstance() ;
+		Vector results = horizons.searchName( name ) ;
+		_resolving = false ;
+		_w.resolveOrbitalElementButton.setText( "Resolve Name" ) ;
+		
+		if( results.size() == 0 )
+			return false ;
+		
+		StringBuffer buffer = new StringBuffer() ;
+		while( results.size() != 0 )
+		{
+			Object tmp = results.remove( 0 ) ;
+			if( tmp instanceof String )
+			{
+				buffer.append( tmp.toString() + "\n" ) ;
+			}
+		}
+		new ReportBox( buffer.toString() , "Search results for " + name ) ;
+		return true ;
     }
     
 }
