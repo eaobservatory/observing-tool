@@ -314,7 +314,7 @@ public class Horizons
 		{
 			System.out.println( "Could not open stream" ) ;
 			System.out.println( ioe ) ;
-			return vector ;
+			return null ;
 		}
 		InputStreamReader streamReader = new InputStreamReader( stream ) ;
 		BufferedReader buffer = new BufferedReader( streamReader ) ;
