@@ -56,7 +56,15 @@ public class Horizons
 
 	private String getFileName( String query )
 	{
-		return getCacheDirectory() + query.trim().toUpperCase() + ".map" ;		
+		return getCacheDirectory() + getVersion() + query.trim().toUpperCase() + ".map" ;		
+	}
+
+	private String getVersion()
+	{
+		String version = System.getProperty( "ot.version" ) ;
+		if( version == null )
+			version = "" ;
+		return version ;
 	}
 	
 	private String getCacheDirectory()
