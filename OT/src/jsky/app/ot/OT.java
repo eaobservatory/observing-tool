@@ -12,7 +12,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -620,6 +622,23 @@ showNews()
 	    menuFrame.setVisible(true);
 	}
 
+	String version = System.getProperty( "ot.version" ) ;
+	if( version == null  )
+	{
+		try
+		{
+			File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
+			BufferedReader br = new BufferedReader( new FileReader( versionFile ) );
+			version = br.readLine().trim();
+			System.setProperty( "ot.version" , version );
+		}
+		catch( Exception e )
+		{
+			version = "Unknown" ;
+			e.printStackTrace();
+		}
+	}
+	
 	if( filenames != null )
 	{
 		while( filenames.size() != 0 )

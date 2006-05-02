@@ -87,16 +87,25 @@ public void setTelescope() {
     _avTable.set(ATTR_TELESCOPE, name);
 }
 
-public void setOTVersion() {
-    String version = "unknown";
-    try {
-	File versionFile  = new File (System.getProperty("ot.cfgdir", "ot/cfg/")+"versionFile");
-	BufferedReader br = new BufferedReader(new FileReader(versionFile));
-	version = br.readLine().trim();
-    }
-    catch (Exception e) {}
-    _avTable.set(ATTR_OT_VERSION, version);
-}
+	public void setOTVersion()
+	{
+		String version = System.getProperty( "ot.version" ) ;
+		if( version == null  )
+		{
+			try
+			{
+				File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
+				BufferedReader br = new BufferedReader( new FileReader( versionFile ) );
+				version = br.readLine().trim();
+				System.setProperty( "ot.version" , version );
+			}
+			catch( Exception e )
+			{
+				version = "unknown" ;
+			}
+		}
+		_avTable.set( ATTR_OT_VERSION , version );
+	}
 
 public String getOTVersion() {
     String version = "unknown";
