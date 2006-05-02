@@ -44,7 +44,7 @@ public class Horizons
 
 		Horizons horizon = new Horizons() ;
 		TreeMap treeMap = null ;
-		treeMap = horizon.readInputFile( inputFileName ) ;
+		treeMap = horizon.resolveFromFile( inputFileName ) ;
 		if( treeMap.isEmpty() )
 			treeMap = horizon.resolveName( inputFileName ) ;
 		if( treeMap != null )
@@ -166,6 +166,27 @@ public class Horizons
 			}
 		}
 		return true ;
+	}
+	
+	public TreeMap resolveFromFile( String name )
+	{
+		if( name == null || name.trim().equals( "" ) )
+			return new TreeMap() ;
+		TreeMap map ;
+		map = readInputFile( name ) ;
+		
+		URL lut = URLBuilder( map ) ;
+		Vector vector = null ;
+		TreeMap treeMap = null ;
+		if( lut != null )
+			vector = connect( lut ) ;
+		else 
+			return new TreeMap() ;
+		if( vector != null )
+			treeMap = parse( vector ) ;
+		else
+			return new TreeMap() ;
+		return treeMap ;
 	}
 	
 	public TreeMap resolveName( String name )
