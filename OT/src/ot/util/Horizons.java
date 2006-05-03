@@ -69,8 +69,8 @@ public class Horizons
 
 	private String getFileName( String query )
 	{
-		String result = getCacheDirectory() + getVersion() + query.trim().toUpperCase() + ".map" ;
-		result = result.replaceAll( System.getProperty( "file.separator" ) , "_" ) ;
+		query = query.trim().toUpperCase().replaceAll( System.getProperty( "file.separator" ) , "_" ) ;
+		String result = getCacheDirectory() + getVersion() + query + ".map" ;
 		return result ;		
 	}
 
