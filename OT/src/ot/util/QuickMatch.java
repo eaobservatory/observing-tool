@@ -220,6 +220,15 @@ public class QuickMatch
 			return object ;
 		}
 		catch( NumberFormatException nfe ){}
+		// See if it's fortranified
+		// maybe should add a regex ...
+		try
+		{
+			value = value.replace( 'D' , 'E' ) ;
+			Double object = new Double( value ) ;
+			return object ;
+		}
+		catch( NumberFormatException nfe ){}
 		return "" ;
 	}
 
