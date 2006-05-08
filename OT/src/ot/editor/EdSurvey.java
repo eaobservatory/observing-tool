@@ -479,45 +479,51 @@ implements ListSelectionListener, KeyListener, Observer {
     }
 
 
-    private String [] _getRowData(SpTelescopePos tp) {
-        Vector v = new Vector();
-        v.addElement(tp.getName());
+    private String[] _getRowData( SpTelescopePos tp )
+	{
+		Vector v = new Vector();
+		v.addElement( tp.getName() );
 
-        if(tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
-            if(tp.isOffsetPosition()) {
-                v.addElement("" + tp.getXaxis() + " (\u2206)");
-                v.addElement("" + tp.getYaxis() + " (\u2206)");
-            }
-            else {
-                v.addElement(tp.getXaxisAsString());
-                v.addElement(tp.getYaxisAsString());
-            }
-        }
-        else {
-            v.addElement("  - - -");
-            v.addElement("  - - -");
-        }
+		if( tp.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL )
+		{
+			if( tp.isOffsetPosition() )
+			{
+				v.addElement( "" + tp.getXaxisAsString() + " (\u2206)" );
+				v.addElement( "" + tp.getYaxisAsString() + " (\u2206)" );
+			}
+			else
+			{
+				v.addElement( tp.getXaxisAsString() );
+				v.addElement( tp.getYaxisAsString() );
+			}
+		}
+		else
+		{
+			v.addElement( "  - - -" );
+			v.addElement( "  - - -" );
+		}
 
-        switch(tp.getSystemType()) {
-            case SpTelescopePos.SYSTEM_CONIC:
-                v.addElement("Orb. Elem.");
-                break;
-            case SpTelescopePos.SYSTEM_NAMED:
-                v.addElement("Planets etc.");
-                break;
-            case SpTelescopePos.SYSTEM_SPHERICAL:
-                v.addElement(tp.getCoordSysAsString());
-                break;
-        }
+		switch( tp.getSystemType() )
+		{
+			case SpTelescopePos.SYSTEM_CONIC :
+				v.addElement( "Orb. Elem." );
+				break;
+			case SpTelescopePos.SYSTEM_NAMED :
+				v.addElement( "Planets etc." );
+				break;
+			case SpTelescopePos.SYSTEM_SPHERICAL :
+				v.addElement( tp.getCoordSysAsString() );
+				break;
+		}
 
-        v.addElement("0");
-        v.addElement("0");
+		v.addElement( "0" );
+		v.addElement( "0" );
 
-        String [] result = new String[COLUMN_NAMES.length];
-        v.toArray(result);
+		String[] result = new String[ COLUMN_NAMES.length ];
+		v.toArray( result );
 
-        return result;
-    }
+		return result;
+	}
 
     private String [] _getRowData(SpTelescopePos tp, int index) {
         String [] result = _getRowData(tp);
