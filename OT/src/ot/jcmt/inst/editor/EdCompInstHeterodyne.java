@@ -10,23 +10,36 @@
 
 package ot.jcmt.inst.editor;
 
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.*;
-import javax.swing.table.*;
-import java.awt.event.*;
-import java.awt.BorderLayout;
+import javax.swing.JRadioButton ;
+import javax.swing.AbstractButton ;
+import javax.swing.JComboBox ;
+import javax.swing.JTextField ;
+import javax.swing.JLabel ;
+import javax.swing.JOptionPane ;
+import javax.swing.DefaultComboBoxModel ;
+import javax.swing.JTable ;
+import javax.swing.event.AncestorListener ;
+import javax.swing.event.AncestorEvent ;
+import javax.swing.table.DefaultTableModel ;
+import javax.swing.table.DefaultTableCellRenderer ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ComponentAdapter ;
+import java.awt.event.ComponentEvent ;
+import java.awt.event.ActionEvent ;
+import java.awt.event.KeyAdapter ;
+import java.awt.event.KeyEvent ;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import java.awt.Container;
 import java.awt.Component;
-import java.awt.Point;
-import java.util.*;
-import java.io.*;
+import java.util.HashMap ;
+import java.util.Vector ;
+import java.util.Iterator ;
+import java.util.List ;
+import java.util.Arrays ;
+import java.io.File ;
+import java.io.FileReader ;
+import java.io.StringReader ;
+import java.io.IOException ;
 
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
@@ -34,10 +47,16 @@ import gemini.sp.SpTelescopePos;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import orac.util.TelescopeUtil;
 import orac.jcmt.inst.SpInstHeterodyne;
-import orac.jcmt.iter.SpIterStareObs;
-import edfreq.*;
+import edfreq.HeterodyneEditor ;
+import edfreq.LineCatalog ;
+import edfreq.SideBandDisplay ;
+import edfreq.FrequencyEditorCfg ;
+import edfreq.Receiver ;
+import edfreq.BandSpec ;
+import edfreq.Transition ;
+import edfreq.SelectionList ;
+import edfreq.LineDetails ;
 import jsky.app.ot.editor.OtItemEditor;
-import ot.jcmt.iter.editor.IterJCMTGenericGUI;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.xml.sax.InputSource;
@@ -82,8 +101,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
   private LineCatalog _lineCatalog;
 
-  private static final String FREQ_EDITOR_CFG_PROPERTY = "FREQ_EDITOR_CFG";
-
   private SideBandDisplay _frequencyEditor;
 
   /**
@@ -115,7 +132,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   Receiver _receiver;
 
   // Information related to each possible spectral region
-  Vector [] _regionInfo = new Vector[Integer.parseInt(_w.SUBSYSTEMS[_w.SUBSYSTEMS.length - 1])];
+  Vector [] _regionInfo = new Vector[Integer.parseInt(HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1])];
 
   public EdCompInstHeterodyne() {
       _title       ="JCMT Heterodyne";
@@ -271,69 +288,60 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    }
 
    /** Initialises the default values in SpInstHeterodyne. */
-   private void _initialiseInstHeterodyne() {
-      String   frontEndName = _cfg.frontEnds[0];
-      _receiver     = (Receiver)_cfg.receivers.get(frontEndName);
-      BandSpec bandSpec     = (BandSpec)(_receiver.bandspecs.get(0));
+	private void _initialiseInstHeterodyne()
+	{
+		String frontEndName = _cfg.frontEnds[ 0 ];
+		_receiver = ( Receiver ) _cfg.receivers.get( frontEndName );
+		BandSpec bandSpec = ( BandSpec ) ( _receiver.bandspecs.get( 0 ) );
 
-      // Get hold of the lines in the upper sideband that. Make sure it is not to close to
-      // the edge of the range so that the IF can default to the frontend IF.
-      // One of the lines should be a CO transition. Find it it use it as default line.
-      Vector moleculeVector = _lineCatalog.returnSpecies(_receiver.loMin + _receiver.feIF + _receiver.bandWidth,
-                                                        _receiver.loMax                 - _receiver.bandWidth);
-      String molecule       = "CO";
-      String transitionName = "";
-      String frequency      = "";
+		// Get hold of the lines in the upper sideband that. Make sure it is not to close to
+		// the edge of the range so that the IF can default to the frontend IF.
+		// One of the lines should be a CO transition. Find it it use it as default line.
+		Vector moleculeVector = _lineCatalog.returnSpecies( _receiver.loMin + _receiver.feIF + _receiver.bandWidth , _receiver.loMax - _receiver.bandWidth );
+		String molecule = "CO";
+		String transitionName = "";
+		String frequency = "";
 
-      Transition transition = null;
+		Transition transition = null;
 
-      for(int i = 0; i < moleculeVector.size(); i++) {
-         if(moleculeVector.get(i).toString().trim().equals(molecule)) {
-            transition = (Transition)((SelectionList)moleculeVector.get(i)).objectList.get(0);
-         }
-      }
+		for( int i = 0 ; i < moleculeVector.size() ; i++ )
+		{
+			if( moleculeVector.get( i ).toString().trim().equals( molecule ) )
+			{
+				transition = ( Transition ) ( ( SelectionList ) moleculeVector.get( i ) ).objectList.get( 0 );
+			}
+		}
 
-      if(transition != null) {
+		if( transition != null )
+		{
 
-         // Whenever a trinsition is taken from the LineCatalog and consequently saved to
-         // it has to be trimmed in order to remove the trailing white space that each transition
-         // in the LineCatalog has.
-         transitionName = transition.name.trim();
-         frequency      = "" + transition.frequency;
-      }
+			// Whenever a trinsition is taken from the LineCatalog and consequently saved to
+			// it has to be trimmed in order to remove the trailing white space that each transition
+			// in the LineCatalog has.
+			transitionName = transition.name.trim();
+			frequency = "" + transition.frequency;
+		}
 
-      // Find out which backend we are using
-      String beName = System.getProperty("FREQ_EDITOR_CFG");
-      if (beName.indexOf("das") != -1) {
-	  beName = "das";
-	  // Remove the listeners from the region selector
-      }
-      else {
-	  // Add the listeners to the region selector
-	  beName = "acsis";
-      }
+		_inst.initialiseValues( "acsis" , // Back end name
+		frontEndName , // front end
+		( ( String[] ) _cfg.frontEndTable.get( frontEndName ) )[ 0 ] , // mode
+		bandSpec.toString() , // band mode
+		( ( String[] ) _cfg.frontEndMixers.get( frontEndName ) )[ 0 ] , // mixer
+		"" + bandSpec.defaultOverlaps[ 0 ] , // overlap
+		"best" , // band
+		"" + _receiver.feIF , // centre frequency
+		"" + _receiver.feIF , // centre frequency
+		"" + bandSpec.getDefaultOverlapBandWidths()[ 0 ] , // bandwidth
+		molecule , // molecule
+		transitionName , // transition
+		frequency // rest frequency
+		);
 
-      _inst.initialiseValues(
-	 beName,                                                // Back end name
-         frontEndName,						// front end
-         ((String[])_cfg.frontEndTable.get(frontEndName))[0],	// mode
-         bandSpec.toString(),					// band mode
-         ((String[])_cfg.frontEndMixers.get(frontEndName))[0],	// mixer
-         "" + bandSpec.defaultOverlaps[0],			// overlap
-         "best",						// band
-         "" + _receiver.feIF,					// centre frequency
-         "" + _receiver.feIF,					// centre frequency
-         "" + bandSpec.getDefaultOverlapBandWidths()[0],	// bandwidth
-         molecule,						// molecule
-         transitionName,					// transition
-         frequency						// rest frequency
-      );
-
-   }
+	}
 
   /**
-   * Override setup to store away a reference to the SpInst item.
-   */
+	 * Override setup to store away a reference to the SpInst item.
+	 */
   public void setup(SpItem spItem) {
     _inst = (SpInstHeterodyne)spItem;
     super.setup(spItem);
@@ -680,18 +688,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    public void feTransitionAction ( ActionEvent ae )
    {
    }
-
-    private void _resetTransition()
-    {
-    }
-
-   /**
-    * Sets the centre frequencies of the remaining subsystems to that of the top subsystem.
-    */
-   private void _resetAdditionalSubSystems()
-   {
-   }
-
 
    public void moleculeFrequencyChanged()
    {
@@ -1069,11 +1065,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
     public double getCurrentBandwidth ( int subsystem) {
        return _inst.getBandWidth(subsystem);
     }
-
-    private boolean usingFFSwitching(SpItem item) {
-	return false;
-    }
-
 
     private DefaultComboBoxModel getSpecialConfigsModel () {
         DefaultComboBoxModel model = new DefaultComboBoxModel();
