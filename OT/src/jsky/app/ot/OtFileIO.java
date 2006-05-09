@@ -53,15 +53,17 @@ public class OtFileIO
 		return storeSp( spItem , f );
 	}
 
-	/*
+	/**
 	 * Store the Science Program rooted at the give SpItem into the given java.io.File.
 	 */
 	public static boolean storeSp( SpRootItem spItem , File f )
 	{
 		// Get a FileOutputStream pointing to the given File.
 		String filename = f.getName() ;
-    	// Check whether this file has an .xml suffix.
-    	// If not, append ".xml" to its name.
+    	/*
+    	 * Check whether this file has an .xml suffix.
+    	 * If not, append ".xml" to its name.
+    	 */
     	if( !filename.toLowerCase().endsWith( ".xml" ) ) 
     	{
         	f = new File( f.getAbsolutePath() + ".xml" ) ;
@@ -76,35 +78,37 @@ public class OtFileIO
 		OutputStream os = null;
 		PrintStream printStream = null;
 
+		if( System.getProperty( "DEBUG" ) != null )
+		{
+			System.out.println( "Before removing id/idref\n" );
+			System.out.println( spItem.toXML() );
+		}
+
+		SpItemUtilities.removeReferenceIDs( spItem );
+
+		if( System.getProperty( "DEBUG" ) != null )
+		{
+			System.out.println( "After removing id/idref\n" );
+			System.out.println( spItem.toXML() );
+		}
+
+		SpItemUtilities.setReferenceIDs( spItem );
+
+		/*
+		* Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
+		* SpObs components that are MSBs.
+		*/
+		SpItemUtilities.saveElapsedTimes( spItem );
+
+		// Make sure the msb attributes are set correctly.
+		SpItemUtilities.updateMsbAttributes( spItem );
+
+		String xml = spItem.toXML();
+		
 		try
 		{
 			fos = new FileOutputStream( f );
 			os = new BufferedOutputStream( fos );
-
-			if( System.getProperty( "DEBUG" ) != null )
-			{
-				System.out.println( "Before removing id/idref\n" );
-				System.out.println( spItem.toXML() );
-			}
-
-			SpItemUtilities.removeReferenceIDs( spItem );
-
-			if( System.getProperty( "DEBUG" ) != null )
-			{
-				System.out.println( "After removing id/idref\n" );
-				System.out.println( spItem.toXML() );
-			}
-
-			SpItemUtilities.setReferenceIDs( spItem );
-
-			// Set the ATTR_ELAPSED_TIME attributes in SpMSB components and
-			// SpObs components that are MSBs.
-			SpItemUtilities.saveElapsedTimes( spItem );
-
-			// Make sure the msb attributes are set correctly.
-			SpItemUtilities.updateMsbAttributes( spItem );
-
-			String xml = spItem.toXML();
 			printStream = new PrintStream( os );
 			printStream.print( xml );
 			printStream.flush();
@@ -153,7 +157,7 @@ public class OtFileIO
 		return true;
 	}
 
-	/*
+	/**
 	 * Read a Science Program from the file indicated by the given directory and filename arguments.
 	 * 
 	 * @return an SpItem root containing the Science Program if successful, null otherwise
@@ -194,7 +198,7 @@ public class OtFileIO
 		return fetchSp( fr );
 	}
 
-	/*
+	/**
 	 * Read a Science Program from the given reader.
 	 *
 	 * @return an SpItem root containing the Science Program if successful,
@@ -248,7 +252,7 @@ public class OtFileIO
 		}
 	}
 
-	/*
+	/**
 	 * Open the given program file.
 	 */
 	public static void open( String filename )
@@ -285,7 +289,7 @@ public class OtFileIO
 		}
 	}
 
-	/*
+	/**
 	 * Save a program to disk.
 	 */
 	public static boolean save( SpRootItem spItem , FileInfo fi )
@@ -315,8 +319,10 @@ public class OtFileIO
 		File f = fd.getSelectedFile();
 		String filename = f.getName();
 
-		// Check whether this file has an .xml suffix.
-		// If not, append ".xml" to its name.
+		/*
+		* Check whether this file has an .xml suffix.
+		* If not, append ".xml" to its name.
+		*/
 		if( !filename.toLowerCase().endsWith( ".xml" ) )
 		{
 			f = new File( f.getAbsolutePath() + ".xml" );
@@ -376,14 +382,16 @@ public class OtFileIO
 		return hasBeenSaved;
 	}
 
-	/*
+	/**
 	 * Save the program under a new name.
 	 */
 	public static SpRootItem saveAs( SpRootItem spItem , FileInfo fi )
 	{
-		// Remember the "previously saved" state, then set it to false to that
-		// the save method will prompt for a file name.  If the save fails or
-		// is cancelled, reset hasBeenSaved.
+		/*
+		* Remember the "previously saved" state, then set it to false to that
+		* the save method will prompt for a file name.  If the save fails or
+		* is cancelled, reset hasBeenSaved.
+		*/
 		boolean hasBeenSaved = fi.hasBeenSaved;
 		fi.hasBeenSaved = false;
 
@@ -400,7 +408,7 @@ public class OtFileIO
 		return spCopy;
 	}
 
-	/*
+	/**
 	 * Revert to the saved version of the program.
 	 */
 	public static SpRootItem revertToSaved( FileInfo fi )
