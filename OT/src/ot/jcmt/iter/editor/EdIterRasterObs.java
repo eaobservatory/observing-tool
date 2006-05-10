@@ -10,11 +10,7 @@
 
 package ot.jcmt.iter.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.Observer;
@@ -22,7 +18,6 @@ import java.util.Observable;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
@@ -37,7 +32,6 @@ import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import jsky.app.ot.tpe.TpeManager;
 
-import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.SpMSB;
 import gemini.sp.SpProg;
@@ -227,117 +221,136 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     //super._updateWidgets();
   }
 
-  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-    _iterObs.getAvEditFSM().deleteObserver(this);
+  public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	{
+		_iterObs.getAvEditFSM().deleteObserver( this );
 
-    if(tbwe == _w.dx) {
-      _iterObs.setScanDx(_w.dx.getValue());
-      if (!(_w.dx.getValue().equals(""))) {
-	  _w.noiseTextBox.setValue(calculateNoise());
-      }
-    }
+		if( tbwe == _w.dx )
+		{
+			_iterObs.setScanDx( _w.dx.getValue() );
+			if( !( _w.dx.getValue().equals( "" ) ) )
+			{
+				_w.noiseTextBox.setValue( calculateNoise() );
+			}
+		}
 
-    if(tbwe == _w.dy) {
-      _iterObs.setScanDy(_w.dy.getValue());
-      if (!(_w.dy.getValue().equals(""))) {
-	  _w.noiseTextBox.setValue(calculateNoise());
-      }
-    }
+		if( tbwe == _w.dy )
+		{
+			_iterObs.setScanDy( _w.dy.getValue() );
+			if( !( _w.dy.getValue().equals( "" ) ) )
+			{
+				_w.noiseTextBox.setValue( calculateNoise() );
+			}
+		}
 
-    if(tbwe == _w.width) {
-      _iterObs.setWidth(_w.width.getValue());
+		if( tbwe == _w.width )
+		{
+			_iterObs.setWidth( _w.width.getValue() );
 
-      if (!(_w.width.getValue().equals(""))) {
-	  _w.noiseTextBox.setValue(calculateNoise());
-      }
+			if( !( _w.width.getValue().equals( "" ) ) )
+			{
+				_w.noiseTextBox.setValue( calculateNoise() );
+			}
 
-      // Probably implemented in a different way in Gemini ot-2000B.12.
-      try {
-        TpeManager.get(_spItem).reset(_spItem);
-      }
-      catch(NullPointerException e) {
-        // ignore
-      }
+			// Probably implemented in a different way in Gemini ot-2000B.12.
+			try
+			{
+				TpeManager.get( _spItem ).reset( _spItem );
+			}
+			catch( NullPointerException e )
+			{
+				// ignore
+			}
 
-    }
+		}
 
-    if(tbwe == _w.height) {
-      _iterObs.setHeight(_w.height.getValue());
+		if( tbwe == _w.height )
+		{
+			_iterObs.setHeight( _w.height.getValue() );
 
-      if (!(_w.height.getValue().equals(""))) {
-	  _w.noiseTextBox.setValue(calculateNoise());
-      }
+			if( !( _w.height.getValue().equals( "" ) ) )
+			{
+				_w.noiseTextBox.setValue( calculateNoise() );
+			}
 
-      // Probably implemented in a different way in Gemini ot-2000B.12.
-      try {
-        TpeManager.get(_spItem).reset(_spItem);
-      }
-      catch(NullPointerException e) {
-        // ignore
-      }
+			// Probably implemented in a different way in Gemini ot-2000B.12.
+			try
+			{
+				TpeManager.get( _spItem ).reset( _spItem );
+			}
+			catch( NullPointerException e )
+			{
+				// ignore
+			}
 
-    }
+		}
 
-    if(tbwe == _w.posAngle) {
-      _iterObs.setPosAngle(_w.posAngle.getValue());
+		if( tbwe == _w.posAngle )
+		{
+			_iterObs.setPosAngle( _w.posAngle.getValue() );
 
-      // Probably implemented in a different way in Gemini ot-2000B.12.
-      try {
-        TpeManager.get(_spItem).reset(_spItem);
-      }
-      catch(NullPointerException e) {
-        // ignore
-      }
+			// Probably implemented in a different way in Gemini ot-2000B.12.
+			try
+			{
+				TpeManager.get( _spItem ).reset( _spItem );
+			}
+			catch( NullPointerException e )
+			{
+				// ignore
+			}
 
-    }
+		}
 
-    if(tbwe == _w.rowsPerCal) {
-	// Only integers allowed here, so lets check...
-	// but only if there is actually something on the text field
-	if ( !(_w.rowsPerCal.getValue().equals("")) ) {
-	   try {
-	       Integer i = new Integer(_w.rowsPerCal.getValue());
-	   }
-	   catch (java.lang.NumberFormatException nfe) {
-	       JOptionPane.showMessageDialog(null,
-					     "Rows/Cal can only be assigned integer values",
-					     "Number Format Exception",
-					     JOptionPane.ERROR_MESSAGE);
-	       _iterObs.setRowsPerCal("");
-	       return;
-	   }
-           _iterObs.setRowsPerCal(_w.rowsPerCal.getValue());
+		if( tbwe == _w.rowsPerCal )
+		{
+			// Only integers allowed here, so lets check...
+			// but only if there is actually something on the text field
+			if( !( _w.rowsPerCal.getValue().equals( "" ) ) )
+			{
+				try
+				{
+					Integer i = new Integer(_w.rowsPerCal.getValue());
+				}
+				catch( java.lang.NumberFormatException nfe )
+				{
+					JOptionPane.showMessageDialog( null , "Rows/Cal can only be assigned integer values" , "Number Format Exception" , JOptionPane.ERROR_MESSAGE );
+					_iterObs.setRowsPerCal( "" );
+					return;
+				}
+				_iterObs.setRowsPerCal( _w.rowsPerCal.getValue() );
+			}
+		}
+
+		if( tbwe == _w.rowsPerRef )
+		{
+			_iterObs.setRowsPerRef( _w.rowsPerRef.getValue() );
+		}
+
+		if( tbwe == _w.acsisSampleTime )
+		{
+			// This must be numeric, clearly, so here we will check that it is indeed
+			// a number bu we leave range validation to the schema
+			if( !( _w.acsisSampleTime.getValue().equals( "" ) ) )
+			{
+				try
+				{
+					Double.parseDouble( _w.acsisSampleTime.getValue() );
+				}
+				catch( NumberFormatException nfe )
+				{
+					JOptionPane.showMessageDialog( null , "Sample time must be a numeric value" , "Number Format Exception" , JOptionPane.ERROR_MESSAGE );
+					return;
+				}
+				_iterObs.setSampleTime( _w.acsisSampleTime.getValue() );
+			}
+		}
+
+		super.textBoxKeyPress( tbwe );
+		updateTimes();
+		updateThermometer();
+
+		_iterObs.getAvEditFSM().addObserver( this );
 	}
-    }
-
-    if(tbwe == _w.rowsPerRef) {
-      _iterObs.setRowsPerRef(_w.rowsPerRef.getValue());
-    }
-
-    if ( tbwe == _w.acsisSampleTime ) {
-        // This must be numeric, clearly, so here we will check that it is indeed
-        // a number bu we leave range validation to the schema
-        if ( !(_w.acsisSampleTime.getValue().equals("")) ) {
-            try {
-                Double.parseDouble( _w.acsisSampleTime.getValue() );
-            }
-            catch ( NumberFormatException nfe ) {
-                JOptionPane.showMessageDialog(null,
-                        "Sample time must be a numeric value",
-                        "Number Format Exception",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            _iterObs.setSampleTime(_w.acsisSampleTime.getValue());
-        }
-    }
-
-    super.textBoxKeyPress(tbwe);
-    updateTimes();
-    updateThermometer();
-
-    _iterObs.getAvEditFSM().addObserver(this);
-  }
 
     public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
 	_iterObs.getAvEditFSM().deleteObserver(this);
@@ -571,61 +584,69 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     /**
       * Update the thermometer.  Only need this for heterodyne at the moment.
       */
-    private void updateThermometer() {
-        // First see if the heterodyne panel is visible
-        if ( _w.heterodynePanel.isVisible() ) {
-            // Get the instrument
-            SpInstObsComp inst = SpTreeMan.findInstrument(_iterObs);
-            if ( inst == null | !(inst instanceof SpInstHeterodyne) ) {
-                return;
-            }
+    private void updateThermometer()
+	{
+		// First see if the heterodyne panel is visible
+		if( _w.heterodynePanel.isVisible() )
+		{
+			// Get the instrument
+			SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs );
+			if( inst == null | !( inst instanceof SpInstHeterodyne ) )
+			{
+				return;
+			}
 
-            // Get the number of channels
-            int maxChannels = 0;
-            for ( int i=0; i<((SpInstHeterodyne)inst).getNumSubSystems(); i++ ) {
-                if ( ((SpInstHeterodyne)inst).getChannels(i) > maxChannels ) {
-                    maxChannels = ((SpInstHeterodyne)inst).getChannels(i);
-                }
-            }
+			// Get the number of channels
+			int maxChannels = 0;
+			for( int i = 0 ; i < ( ( SpInstHeterodyne ) inst ).getNumSubSystems() ; i++ )
+			{
+				if( ( ( SpInstHeterodyne ) inst ).getChannels( i ) > maxChannels )
+				{
+					maxChannels = ( ( SpInstHeterodyne ) inst ).getChannels( i );
+				}
+			}
 
-            // See if we can get the DR recipe component which will allow us
-            // to get any channel truncation.  If we can't find it assume 0
-            // truncation.  To do this we need to go back up the hierarchy
-            SpItem parent = _iterObs.parent();
-            SpDRRecipe recipe = null;
-            int truncChannels = 0;
-            while ( parent != null ) {
-                if ( parent instanceof SpMSB ) {
-                    // See if we can find the DRRecipe component
-                    Vector drRecipeCompts = SpTreeMan.findAllItems(parent, "orac.jcmt.inst.SpDRRecipe");
-                    if ( drRecipeCompts != null && drRecipeCompts.size() > 0 ) {
-                        // We have found it, and there should only be 1, so assume this
-                        recipe = (SpDRRecipe)drRecipeCompts.get(0);
-                        truncChannels = recipe.getTruncationChannels();
-                        break;
-                    }
-                }
-                else if ( parent instanceof SpProg ) {
-                    // See if we can find the DRRecipe component
-                    Vector drRecipeCompts = SpTreeMan.findAllItems(parent, "orac.jcmt.inst.SpDRRecipe");
-                    if ( drRecipeCompts != null && drRecipeCompts.size() > 0 ) {
-                        // We have found it, and there should only be 1, so assume this
-                        recipe = (SpDRRecipe)drRecipeCompts.get(0);
-                        truncChannels = recipe.getTruncationChannels();
-                        break;
-                    }
-                }
-                parent = parent.parent();
-            }
-            maxChannels -= (2*truncChannels);
+			// See if we can get the DR recipe component which will allow us
+			// to get any channel truncation.  If we can't find it assume 0
+			// truncation.  To do this we need to go back up the hierarchy
+			SpItem parent = _iterObs.parent();
+			SpDRRecipe recipe = null;
+			int truncChannels = 0;
+			while( parent != null )
+			{
+				if( parent instanceof SpMSB )
+				{
+					// See if we can find the DRRecipe component
+					Vector drRecipeCompts = SpTreeMan.findAllItems( parent , "orac.jcmt.inst.SpDRRecipe" );
+					if( drRecipeCompts != null && drRecipeCompts.size() > 0 )
+					{
+						// We have found it, and there should only be 1, so assume this
+						recipe = ( SpDRRecipe ) drRecipeCompts.get( 0 );
+						break;
+					}
+				}
+				else if( parent instanceof SpProg )
+				{
+					// See if we can find the DRRecipe component
+					Vector drRecipeCompts = SpTreeMan.findAllItems( parent , "orac.jcmt.inst.SpDRRecipe" );
+					if( drRecipeCompts != null && drRecipeCompts.size() > 0 )
+					{
+						// We have found it, and there should only be 1, so assume this
+						recipe = ( SpDRRecipe ) drRecipeCompts.get( 0 );
+						break;
+					}
+				}
+				parent = parent.parent();
+			}
+			maxChannels -= ( 2 * truncChannels );
 
-            int samplesPerRow = (int)(_iterObs.getWidth()/_iterObs.getScanDx());
-            int numberOfRows  = (int)(_iterObs.getHeight()/_iterObs.getScanDy());
+			int samplesPerRow = ( int ) ( _iterObs.getWidth() / _iterObs.getScanDx() );
+			int numberOfRows = ( int ) ( _iterObs.getHeight() / _iterObs.getScanDy() );
 
-            int fileSize = (int)((maxChannels * samplesPerRow * numberOfRows * 4)/(1024*1024));
-            _w.thermometer.setExtent(fileSize);
-        }
-    }
+			int fileSize = ( int ) ( ( maxChannels * samplesPerRow * numberOfRows * 4 ) / ( 1024 * 1024 ) );
+			_w.thermometer.setExtent( fileSize );
+		}
+	}
 
 }
 

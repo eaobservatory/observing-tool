@@ -13,11 +13,7 @@ package orac.jcmt.inst;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.util.Format;
-import orac.jcmt.inst.SpDRRecipe;
-import orac.util.SpItemUtilities;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.Vector;
 
 /**
@@ -321,7 +317,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
   public static final SpType SP_TYPE =
     SpType.create( SpType.OBSERVATION_COMPONENT_TYPE, "inst.Heterodyne", "Het Setup" );
-
+  
 //Register the prototype.
   static {
     SpFactory.registerPrototype( new SpInstHeterodyne() );
@@ -400,7 +396,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   public boolean valuesInitialised() {
     return _valuesInitialised;
   }
-
+  
   /**
    * Appends front end name to title.
    */
@@ -455,12 +451,14 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
     /** Get the back end name */
-    public String getBackEnd() {
-      if (_avTable.get(ATTR_BE_NAME) == null || _avTable.get(ATTR_BE_NAME).equals("")) {
-	  _avTable.noNotifySet(ATTR_BE_NAME, "das", 0);
-      }
-      return _avTable.get(ATTR_BE_NAME);
-    }
+	public String getBackEnd()
+	{
+		if( _avTable.get( ATTR_BE_NAME ) == null || _avTable.get( ATTR_BE_NAME ).equals( "" ) )
+		{
+			_avTable.noNotifySet( ATTR_BE_NAME , "acsis" , 0 );
+		}
+		return _avTable.get( ATTR_BE_NAME );
+	}
 
 
   /**
@@ -563,97 +561,6 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
     public void setMixer(String value){
 	_avTable.set(ATTR_MIXER, value);
     }
-
-  /**
-   * Get velocity definition.
-   */
-    /*
-  public String getVelocityDefinition() {
-    return _avTable.get(ATTR_VELOCITY_DEFINITION);
-  }
-  */
-
-  /**
-   * Set velocity definition.
-   */
-    /*
-  public void setVelocityDefinition(String value) {
-    _avTable.set(ATTR_VELOCITY_DEFINITION, value);
-  }
-  */
-/*
-    public void setVelocityFrame(String value) {
-	_avTable.set(ATTR_VELOCITY_FRAME, value);
-    }
-    
-    public String getVelocityFrame() {
-	return _avTable.get(ATTR_VELOCITY_FRAME);
-    }
-*/
-
-
-  /**
-   * Get velocity (optical definition).
-   */
-    /*
-  public double getVelocity() {
-    return _avTable.getDouble(ATTR_VELOCITY, 0.0);
-  }
-  */
-
-  /**
-   * Set velocity (optical definition).
-   */
-    /*
-  public void setVelocity(double value) {
-    _avTable.set(ATTR_VELOCITY, value);
-  }
-  */
-
-  /**
-   * Set velocity (optical definition).
-   */
-    /*
-  public void setVelocity(String value) {
-    setVelocity(Format.toDouble(value));
-  }
-  */
-
-    /*
-  public double getRedshift() {
-    return getVelocity() / LIGHTSPEED;
-  }
-  */
-
-    /*
-  public void setVelocityFromRedshift(double redshift) {
-    setVelocity(convertRedshiftTo(RADIAL_VELOCITY_OPTICAL, redshift));
-  }
-  */
-
-    /**
-     * Set the reference frame velocity
-     */
-    /*
-    public void setRefFrameVelocity (double value) {
-	_avTable.set(ATTR_RF_VELOCITY, value);
-    }
-    */
-
-    /**
-     * Set the reference frame velocity
-     */
-    /*
-    public void setRefFrameVelocity (String value) {
-	setRefFrameVelocity(Format.toDouble(value));;
-    }
-    */
-
-    /*
-    public double getRefFrameVelocity() {
-	return _avTable.getDouble(ATTR_RF_VELOCITY, 0.0);
-    }
-    */
 
   /**
    * Get band: upper side band (usb), lower side band (lsb), side band with line in range (optimum).
@@ -871,22 +778,19 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
   /**
-   * Set bandwidth of specified subsystem.
-   *
-   * @param Number of subsystems (starting at 0).
-   *
-   * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
-   * @param subsystem  Subsystem number (starting at 0).
-   */
-  public void setBandWidth(double value, int subsystem) {
-    _avTable.set(ATTR_BANDWIDTH, value, subsystem);
-
-    SpDRRecipe spDRRecipe = (SpDRRecipe)SpItemUtilities.findDRRecipe(this);
-
-    if(spDRRecipe != null) {
-      spDRRecipe.setChannelBinning(1);
-    }
-  }
+	 * Set bandwidth of specified subsystem.
+	 * 
+	 * @param Number
+	 *            of subsystems (starting at 0).
+	 * 
+	 * @deprecated Replaced by {@link #setBandWidthDetails(double,double,int,int,int,int)}
+	 * @param subsystem
+	 *            Subsystem number (starting at 0).
+	 */
+	public void setBandWidth( double value , int subsystem )
+	{
+		_avTable.set( ATTR_BANDWIDTH , value , subsystem );
+	}
 
   /**
    * Set bandwidth of specified subsystem.
@@ -1018,28 +922,10 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 	_avTable.rm(ATTR_NAMED_CONFIGURATION);
     }
 
-    public double [] getScienceArea() {
-	if ( getBackEnd().equals("das") ) {
-	    if ( getFrontEnd().equalsIgnoreCase("A3") ) {
-		return new double [] { 20.0 };
-	    }
-	    else if ( getFrontEnd().equalsIgnoreCase("B3") ) {
-		return new double [] { 14.0 };
-	    }
-	    else if (  getFrontEnd().equalsIgnoreCase("W(C)") ) {
-		return new double [] { 11.0 };
-	    }
-	    else if (  getFrontEnd().equalsIgnoreCase("W(D)") ) {
-		return new double [] { 8.0 };
-	    }
-	    else {
-		return null;
-	    }
+    public double[] getScienceArea()
+	{
+			return null;
 	}
-	else {
-	    return null;
-	}
-    }
 
 
   /**
@@ -1297,98 +1183,61 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
 
   /**
-   */
-  protected void toXML(String indent, StringBuffer xmlBuffer) {
-      if ( getBackEnd().equals("das") ) {
-	  // Special case where there we use special configurations of the das
-	  // We need to remove the extra values for the following parameters
-	  //   restFrequency
-	  //   transition
-          //   molecule
-	  //   overlap
-	  //   centreFrequency
-	  //   channels
-	  //   bandWidth
-	  int size;
-	  if ( (size = _avTable.size(ATTR_REST_FREQUENCY)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_REST_FREQUENCY, i);
-	      }
-	  }
-	  if ( (size = _avTable.size(ATTR_TRANSITION)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_TRANSITION, i);
-	      }
-	  }
-	  if ( (size = _avTable.size(ATTR_MOLECULE)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_MOLECULE, i);
-	      }
-	  }
-	  if ( (size = _avTable.size(ATTR_OVERLAP)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_OVERLAP, i);
-	      }
-	  }
-	  if ( (size = _avTable.size(ATTR_CENTRE_FREQUENCY)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_CENTRE_FREQUENCY, i);
-	      }
-	  }
-	  if ( (size = _avTable.size(ATTR_CHANNELS)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_CHANNELS, i);
-	      }
-	  }
-	  if ( (size = _avTable.size(ATTR_BANDWIDTH)) > 1 ) {
-	      for (int i=size-1; i>0; i--) {
-		  _avTable.rm ( ATTR_BANDWIDTH, i);
-	      }
-	  }
-      }
+	 */
+	protected void toXML( String indent , StringBuffer xmlBuffer )
+	{
 
-    String configXML = null;
+		if( !_valuesInitialised )
+			throw new RuntimeException( "Hetrodyne not initialised" ) ;
+		
+		String configXML = null;
 
-    try {
-      //configXML = toConfigXML(indent + "  ");
-      configXML = subsystemXML(indent + "  ");
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-      System.out.println("Unable to include ACSIS configuration XML due to " + e);
-      configXML   = indent + "    <!-- Unable to include ACSIS configuration XML due to " + e + " -->";
-    }
+		try
+		{
+			configXML = subsystemXML( indent + "  " );
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			System.out.println( "Unable to include ACSIS configuration XML due to " + e );
+			configXML = indent + "    <!-- Unable to include ACSIS configuration XML due to " + e + " -->";
+		}
 
-    // In order not to write out the subsystem info, get all the values,
-    // delete the attributes, and then rest the values after processing with the
-    // parent
-    Vector cf = _avTable.getAll(ATTR_CENTRE_FREQUENCY); _avTable.rm(ATTR_CENTRE_FREQUENCY);
-    Vector bw = _avTable.getAll(ATTR_BANDWIDTH); _avTable.rm(ATTR_BANDWIDTH);
-    Vector ch = _avTable.getAll(ATTR_CHANNELS); _avTable.rm(ATTR_CHANNELS);
-    Vector mo = _avTable.getAll(ATTR_MOLECULE); _avTable.rm(ATTR_MOLECULE);
-    Vector tr = _avTable.getAll(ATTR_TRANSITION); _avTable.rm(ATTR_TRANSITION);
-    Vector rf = _avTable.getAll(ATTR_REST_FREQUENCY); _avTable.rm(ATTR_REST_FREQUENCY);
-    Vector ov = _avTable.getAll(ATTR_OVERLAP); _avTable.rm(ATTR_OVERLAP);
+		/*
+		* In order not to write out the subsystem info, get all the values,
+		* delete the attributes, and then rest the values after processing with the
+		* parent
+		*/
+		Vector cf = _avTable.getAll( ATTR_CENTRE_FREQUENCY );
+		_avTable.rm( ATTR_CENTRE_FREQUENCY );
+		Vector bw = _avTable.getAll( ATTR_BANDWIDTH );
+		_avTable.rm( ATTR_BANDWIDTH );
+		Vector ch = _avTable.getAll( ATTR_CHANNELS );
+		_avTable.rm( ATTR_CHANNELS );
+		Vector mo = _avTable.getAll( ATTR_MOLECULE );
+		_avTable.rm( ATTR_MOLECULE );
+		Vector tr = _avTable.getAll( ATTR_TRANSITION );
+		_avTable.rm( ATTR_TRANSITION );
+		Vector rf = _avTable.getAll( ATTR_REST_FREQUENCY );
+		_avTable.rm( ATTR_REST_FREQUENCY );
+		Vector ov = _avTable.getAll( ATTR_OVERLAP );
+		_avTable.rm( ATTR_OVERLAP );
 
-    super.toXML(indent, xmlBuffer);
+		super.toXML( indent , xmlBuffer );
 
-    _avTable.noNotifySetAll(ATTR_CENTRE_FREQUENCY, cf);
-    _avTable.noNotifySetAll(ATTR_BANDWIDTH, bw);
-    _avTable.noNotifySetAll(ATTR_CHANNELS, ch);
-    _avTable.noNotifySetAll(ATTR_MOLECULE, mo);
-    _avTable.noNotifySetAll(ATTR_TRANSITION, tr);
-    _avTable.noNotifySetAll(ATTR_REST_FREQUENCY, rf);
-    _avTable.noNotifySetAll(ATTR_OVERLAP, ov);
+		_avTable.noNotifySetAll( ATTR_CENTRE_FREQUENCY , cf );
+		_avTable.noNotifySetAll( ATTR_BANDWIDTH , bw );
+		_avTable.noNotifySetAll( ATTR_CHANNELS , ch );
+		_avTable.noNotifySetAll( ATTR_MOLECULE , mo );
+		_avTable.noNotifySetAll( ATTR_TRANSITION , tr );
+		_avTable.noNotifySetAll( ATTR_REST_FREQUENCY , rf );
+		_avTable.noNotifySetAll( ATTR_OVERLAP , ov );
 
-    int offset = xmlBuffer.length() - (indent.length() + _className.length() + 4);
+		int offset = xmlBuffer.length() - ( indent.length() + _className.length() + 4 );
 
-    xmlBuffer.insert(offset, "\n\n" +
-                             indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n" + 
-                             indent + "  <!--          ACSIS Configuration XML        -->\n" + 
-                             indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + 
-                             configXML);
-			     
-  }
+		xmlBuffer.insert( offset , "\n\n" + indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n" + indent + "  <!--          ACSIS Configuration XML        -->\n" + indent + "  <!-- - - - - - - - - - - - - - - - - - - - - -->\n\n" + configXML );
+
+	}
 
 
   public void processXmlElementStart(String name) {

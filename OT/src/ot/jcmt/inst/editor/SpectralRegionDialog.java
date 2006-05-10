@@ -76,84 +76,55 @@ public class SpectralRegionDialog extends JDialog implements ActionListener {
     cancelButton.addActionListener(this);
   }
 
-  public void show(SpDRRecipe drRecipe, SpInstHeterodyne instHeterodyne, EdDRRecipe drRecipeEditor) {
+	public void show( SpDRRecipe drRecipe , SpInstHeterodyne instHeterodyne , EdDRRecipe drRecipeEditor )
+	{
 
-    if(instHeterodyne.getBand() == null) {
-      DialogUtil.error(this, "Heterodyne component has not been edited.");
-      return;
-    }
+		if( instHeterodyne.getBand() == null )
+		{
+			DialogUtil.error( this , "Heterodyne component has not been edited." );
+			return;
+		}
 
-    _drRecipe       = drRecipe;
-    _drRecipeEditor = drRecipeEditor;
+		_drRecipe = drRecipe;
+		_drRecipeEditor = drRecipeEditor;
 
-    double redshift;
-    SpTelescopeObsComp tgt = SpTreeMan.findTargetList(instHeterodyne);
-    if ( tgt != null ) {
-	SpTelescopePos tp = (SpTelescopePos)tgt.getPosList().getBasePosition();
-	redshift = tp.getRedshift();
-    }
-    else {
-	redshift = 0.0;
-    }
+		double redshift;
+		SpTelescopeObsComp tgt = SpTreeMan.findTargetList( instHeterodyne );
+		if( tgt != null )
+		{
+			SpTelescopePos tp = ( SpTelescopePos ) tgt.getPosList().getBasePosition();
+			redshift = tp.getRedshift();
+		}
+		else
+		{
+			redshift = 0.0;
+		}
 
-    double feIF          = instHeterodyne.getFeIF();
-    double feBandWidth   = instHeterodyne.getFeBandWidth();
-    double restFrequency = instHeterodyne.getRestFrequency(0);
-    double obsFrequency  = EdFreq.getObsFrequency(instHeterodyne.getRestFrequency(0),
-                                                      redshift);
-    double lo1Hz         = EdFreq.getLO1(obsFrequency,
-                                         instHeterodyne.getCentreFrequency(0),
-                                         instHeterodyne.getBand());
+		double feIF = instHeterodyne.getFeIF();
+		double feBandWidth = instHeterodyne.getFeBandWidth();
+		double restFrequency = instHeterodyne.getRestFrequency( 0 );
+		double obsFrequency = EdFreq.getObsFrequency( restFrequency , redshift );
+		double lo1Hz = EdFreq.getLO1( obsFrequency , instHeterodyne.getCentreFrequency( 0 ) , instHeterodyne.getBand() );
 
-    _spectralRegionEditor.setModeAndBand(instHeterodyne.getMode(), instHeterodyne.getBand());
+		_spectralRegionEditor.setModeAndBand( instHeterodyne.getMode() , instHeterodyne.getBand() );
+		
+		_spectralRegionEditor.updateLineDisplay( lo1Hz - ( feIF + ( 0.5 * feBandWidth ) ) , lo1Hz + ( feIF + ( 0.5 * feBandWidth ) ) , feIF , feBandWidth , redshift );
 
-    Receiver r = (Receiver)_cfg.receivers.get(instHeterodyne.getFrontEnd());
+		for( int i = 0 ; i < Integer.parseInt( instHeterodyne.getBandMode() ) ; i++ )
+		{
+			_spectralRegionEditor.updateBackendValues( instHeterodyne.getCentreFrequency( i ) , instHeterodyne.getBandWidth( i ) , i );
+		}
 
-    _spectralRegionEditor.updateLineDisplay(lo1Hz - (feIF + (0.5 * feBandWidth)),
-                                            lo1Hz + (feIF + (0.5 * feBandWidth)),
-                                            feIF, feBandWidth,
-                                            redshift);
+		_spectralRegionEditor.setMainLine( instHeterodyne.getRestFrequency( 0 ) );
 
-    for ( int i=0; i<Integer.parseInt(instHeterodyne.getBandMode()); i++ ) {
-        _spectralRegionEditor.updateBackendValues(instHeterodyne.getCentreFrequency(i),
-                                                  instHeterodyne.getBandWidth(i),
-						  i);
-    }
+		_spectralRegionEditor.removeAllRegions( false );
 
-    _spectralRegionEditor.setMainLine(instHeterodyne.getRestFrequency(0));
+		_spectralRegionEditor.createCombinedRegions( false );
 
-    _spectralRegionEditor.removeAllRegions(false);
+		_spectralRegionEditor.resetLayout();
 
-    double [] min = new double [drRecipe.getNumBaselineRegions()];
-    double [] max = new double [drRecipe.getNumBaselineRegions()];
-    for(int i = 0; i < drRecipe.getNumBaselineRegions(); i++) {
-      // lo1Hz is in Hz.
-      // drRecipe.getBaselineRegionMin(i) and drRecipe.getBaselineRegionMin(i) are in MHz.
-      min[i] = drRecipe.getBaselineRegionMin(i) / 1.0E3;
-      max[i] = drRecipe.getBaselineRegionMax(i) / 1.0E3;
-    }
-    // If there are no Baseline regions, add a default one
-    if ( drRecipe.getNumBaselineRegions() == 0 ) {
-	_spectralRegionEditor.addBaselineFitRegion(true);
-    }
-    else {
-	_spectralRegionEditor.addBaselineFitRegions(min, max, lo1Hz / 1.0E9, false);
-    }
-
-    for(int i = 0; i < drRecipe.getNumLineRegions(); i++) {
-      // lo1Hz is in Hz.
-      // drRecipe.getBaselineRegionMin(i) and drRecipe.getBaselineRegionMin(i) are in MHz.
-      _spectralRegionEditor.addLineRegion(drRecipe.getLineRegionMin(i) / 1.0E3,
-                                          drRecipe.getLineRegionMax(i) / 1.0E3,
-                                          lo1Hz / 1.0E9, false);
-    }
-
-    _spectralRegionEditor.createCombinedRegions(false);
-
-    _spectralRegionEditor.resetLayout();
-
-    show();
-  }
+		show();
+	}
 
   public void applyAndHide() {
 
@@ -161,31 +132,10 @@ public class SpectralRegionDialog extends JDialog implements ActionListener {
     hide();
   }
 
-  public void apply() {
-      /*
-      if ( !(_spectralRegionEditor.changedBaseline()) ) {
-	  return;
-      }
-      */
-
-      _drRecipe.removeAllBaselineRegions();
-      _drRecipe.removeAllLineRegions();
-      
-      double [][] baselineFitRegions = _spectralRegionEditor.getBaselineFitRegions();
-      double [][] lineRegions        = _spectralRegionEditor.getLineRegions();
-
-      for(int i = 0; i < baselineFitRegions.length; i++) {
-	  _drRecipe.setBaselineRegionMin(baselineFitRegions[i][0] / 1.0E6, i);
-	  _drRecipe.setBaselineRegionMax(baselineFitRegions[i][1] / 1.0E6, i);
-      }
-
-      for(int i = 0; i < lineRegions.length; i++) {
-	  _drRecipe.setLineRegionMin(lineRegions[i][0] / 1.0E6, i);
-	  _drRecipe.setLineRegionMax(lineRegions[i][1] / 1.0E6, i);
-      }
-      
-      _drRecipeEditor.refresh();
-  }
+  	public void apply()
+	{
+		_drRecipeEditor.refresh();
+	}
 
   public void cancel() {
     hide();

@@ -10,20 +10,16 @@
 
 package orac.jcmt.util;
 
-import gemini.sp.SpFactory;
-import gemini.sp.SpType;
 import gemini.sp.SpItem;
 import gemini.sp.SpObs;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpTelescopePos;
 import gemini.sp.iter.SpIterFolder;
 import gemini.sp.iter.SpIterComp;
-import gemini.sp.iter.SpIterRepeat;
 import gemini.sp.iter.SpIterChop;
 import gemini.sp.iter.SpIterOffset;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.util.Format;
 import orac.jcmt.iter.SpIterJCMTObs;
 import orac.jcmt.iter.SpIterFocusObs;
 import orac.jcmt.iter.SpIterJiggleObs;
@@ -243,81 +239,75 @@ public class AcsisTranslator extends SpInstHeterodyne {
   }
 
   /**
-   * Creates XML for one Observe (Observation Iterator, "Eye").
-   *
-   * The index parameter indicates which of the child items of the SpIterFolder (Sequence) is to be translated.
-   * If this child item is not itself an Observe (Observation Iterator, "Eye") but a
-   * Configuration Iterator (nested "Running Man", not Sequence), then the translator will
-   * try to interpret this in some way, i.e. check whether it is a jiggle-chop or raster-chop observation.
-   */
-  public void translate(SpObs spObs, SpInstHeterodyne instHeterodyne, SpIterObserveBase iterComp, String dir)
-                throws IOException, IllegalStateException {
+	 * Creates XML for one Observe (Observation Iterator, "Eye").
+	 * 
+	 * The index parameter indicates which of the child items of the SpIterFolder (Sequence) is to be translated. If this child item is not itself an Observe (Observation Iterator, "Eye") but a Configuration Iterator (nested "Running Man", not Sequence), then the translator will try to interpret this in some way, i.e. check whether it is a jiggle-chop or raster-chop observation.
+	 */
+	public void translate( SpObs spObs , SpInstHeterodyne instHeterodyne , SpIterObserveBase iterComp , String dir ) throws IOException , IllegalStateException
+	{
 
-    setSpInstHeterodyne(instHeterodyne);
+		setSpInstHeterodyne( instHeterodyne );
 
-    if(getBand() == null) {
-      throw new IllegalStateException("Heterodyne component has not been edited.");
-    }
+		if( getBand() == null )
+		{
+			throw new IllegalStateException( "Heterodyne component has not been edited." );
+		}
 
-    write(getOCS_CONFIG(getObserveMode(iterComp)), dir + File.separator + OCS_CONFIG_FILE);
-    write(getTCS_CONFIG(spObs, iterComp), dir + File.separator + TCS_CONFIG_FILE);
-    write(getFRONTEND_CONFIG(),     dir + File.separator + FRONTEND_CONFIG_FILE);
-    write(getACSIS_CONFIG(),        dir + File.separator + ACSIS_CONFIG_FILE);
-    write(get_line_list(),          dir + File.separator + LINE_LIST_FILE);
-    write(get_spw_list(),           dir + File.separator + SPW_LIST_FILE);
-    write(getACSIS_corr(),          dir + File.separator + ACSIS_CORR_FILE);
-    write(getACSIS_IF(),            dir + File.separator + ACSIS_IF_FILE);
+		write( getOCS_CONFIG( getObserveMode( iterComp ) ) , dir + File.separator + OCS_CONFIG_FILE );
+		write( getTCS_CONFIG( spObs , iterComp ) , dir + File.separator + TCS_CONFIG_FILE );
+		write( getFRONTEND_CONFIG() , dir + File.separator + FRONTEND_CONFIG_FILE );
+		write( getACSIS_CONFIG() , dir + File.separator + ACSIS_CONFIG_FILE );
+		write( get_line_list() , dir + File.separator + LINE_LIST_FILE );
+		write( get_spw_list() , dir + File.separator + SPW_LIST_FILE );
+		write( getACSIS_corr() , dir + File.separator + ACSIS_CORR_FILE );
+		write( getACSIS_IF() , dir + File.separator + ACSIS_IF_FILE );
 
-    // Get DR component to obtain cube_list
-    SpDRRecipe spDRRecipe = (SpDRRecipe)SpItemUtilities.findDRRecipe(_parent);
+		// Get DR component to obtain cube_list
+		SpDRRecipe spDRRecipe = ( SpDRRecipe ) SpItemUtilities.findDRRecipe( _parent );
 
-    // Get Target Information component to obtain group_centre of cube
-    SpTelescopeObsComp telescopeObsComp = SpTreeMan.findTargetList(_parent);
-    SpTelescopePos groupCentre = null;
+		// Get Target Information component to obtain group_centre of cube
+		SpTelescopeObsComp telescopeObsComp = SpTreeMan.findTargetList( _parent );
+		SpTelescopePos groupCentre = null;
 
-    if(telescopeObsComp != null) {
-      groupCentre = telescopeObsComp.getPosList().getBasePosition();
-    }
+		if( telescopeObsComp != null )
+		{
+			groupCentre = telescopeObsComp.getPosList().getBasePosition();
+		}
 
-    // Establish map size
-    double mapWidth  = 0.0;
-    double mapHeight = 0.0;
+		// Establish map size
+		double mapWidth = 0.0;
+		double mapHeight = 0.0;
 
-    if(iterComp instanceof SpIterRasterObs) {
-      mapWidth  = ((SpIterRasterObs)iterComp).getWidth();
-      mapHeight = ((SpIterRasterObs)iterComp).getHeight();
-    }
+		if( iterComp instanceof SpIterRasterObs )
+		{
+			mapWidth = ( ( SpIterRasterObs ) iterComp ).getWidth();
+			mapHeight = ( ( SpIterRasterObs ) iterComp ).getHeight();
+		}
+		// Copy directory with dummy XML entities.
+		//
+		// This will become obsolete and can be removed if
+		// users specify a path for every XML entity
+		// that is included in the XML generated by
+		// this translator.
+		String baseDir = System.getProperty( "ot.cfgdir" );
+		String dummyDir = baseDir + "acsisOcsDummies";
 
-    if(spDRRecipe != null) {
-      write(spDRRecipe.get_cube_list(groupCentre, mapWidth, mapHeight, ""), dir + File.separator + CUBE_LIST_FILE);
-    }
-    else {
-      write("<cube_list></cube_list>\n", dir + File.separator + CUBE_LIST_FILE);
-    }
-
-    // Copy directory with dummy XML entities.
-    //
-    // This will become obsolete and can be removed if
-    // users specify a path for every XML entity
-    // that is included in the XML generated by
-    // this translator.
-    String baseDir = System.getProperty( "ot.cfgdir" );
-    String dummyDir = baseDir + "acsisOcsDummies";
-
-    try {
-      Runtime.getRuntime().exec("cp -r " + dummyDir + " " + dir);
-    }
-    catch(IOException e) {
-      e.printStackTrace();
-      throw new IOException("Could not copy " + dummyDir + " to " + dir + ". " + e);
-    }
-  }
+		try
+		{
+			Runtime.getRuntime().exec( "cp -r " + dummyDir + " " + dir );
+		}
+		catch( IOException e )
+		{
+			e.printStackTrace();
+			throw new IOException( "Could not copy " + dummyDir + " to " + dir + ". " + e );
+		}
+	}
 
   /**
-   * Sets settings of this class to those of the SpInstHeterodyne item.
-   *
-   * @see <a href="#class_documentation">Class documentation</a>
-   */
+	 * Sets settings of this class to those of the SpInstHeterodyne item.
+	 * 
+	 * @see <a href="#class_documentation">Class documentation</a>
+	 */
   public void setSpInstHeterodyne(SpInstHeterodyne spInstHeterodyne) {
     setTable(spInstHeterodyne.getTable().copy());
     _parent = spInstHeterodyne.parent();
@@ -1132,112 +1122,76 @@ public class AcsisTranslator extends SpInstHeterodyne {
    *                      that represent subsystems rather than hubrid subbands.
    *                      Such XML includes elements such as subband_list and baseline_fit.
    */
-  public String spectralWindowToXML(String restFrequencyId,
-				    int sideband,
-				    String subSystemXML,
-				    String indent,
-                                    int subsystem,
-                                    int hybridSubBand) {
+  public String spectralWindowToXML( String restFrequencyId , int sideband , String subSystemXML , String indent , int subsystem , int hybridSubBand )
+	{
 
-    String idString = "SPW" + (subsystem + 1);
+		String idString = "SPW" + ( subsystem + 1 );
 
-    if(hybridSubBand != SUBSYSTEM_INDEX) {
-      idString += "." + (hybridSubBand + 1);
-    }
+		if( hybridSubBand != SUBSYSTEM_INDEX )
+		{
+			idString += "." + ( hybridSubBand + 1 );
+		}
 
-    double channelWidth = getIndividualSubBandWidth(subsystem) / (double)getIndividualSubBandChannels(subsystem);
+		double channelWidth = getIndividualSubBandWidth( subsystem ) / ( double ) getIndividualSubBandChannels( subsystem );
 
-    // Used for memory allocation. Number of channels is not
-    // reduced according to overlap to be on the save side.
-    int numberIfChannels;
+		// Used for memory allocation. Number of channels is not
+		// reduced according to overlap to be on the save side.
+		int numberIfChannels;
 
-    // The following calculation assumes the number of individual subbands to be 1 or even.
+		// The following calculation assumes the number of individual subbands to be 1 or even.
 
-    // The reference pixel should really be called reference channel
-    // but it is called if_ref_channel in the current spectral_window XML.
-    int referencePixel;
+		// The reference pixel should really be called reference channel
+		// but it is called if_ref_channel in the current spectral_window XML.
+		int referencePixel;
 
-    // Note that hybridSubBand should always be SUBSYSTEM_INDEX
-    // if getNumHybridSubBands() is 1
-    // because then this method is only called once for the subsystem
-    // spectral_window and not for the subband spectral_window
-    if(hybridSubBand == SUBSYSTEM_INDEX) {
-      numberIfChannels = getChannelsTotal(subsystem);
+		// Note that hybridSubBand should always be SUBSYSTEM_INDEX
+		// if getNumHybridSubBands() is 1
+		// because then this method is only called once for the subsystem
+		// spectral_window and not for the subband spectral_window
+		if( hybridSubBand == SUBSYSTEM_INDEX )
+		{
+			numberIfChannels = getChannelsTotal( subsystem );
 
-      referencePixel   = numberIfChannels / 2;
-    }
-    else {
-      numberIfChannels = getIndividualSubBandChannels(subsystem);
+			referencePixel = numberIfChannels / 2;
+		}
+		else
+		{
+			numberIfChannels = getIndividualSubBandChannels( subsystem );
 
-      referencePixel = (int)
-                         (
-                           (
-                             (
-                               (getBandWidth(subsystem) / getNumHybridSubBands(subsystem))
-                               * ((getNumHybridSubBands(subsystem) / 2.0) - hybridSubBand)
-                             )
+			referencePixel = ( int ) ( ( ( ( getBandWidth( subsystem ) / getNumHybridSubBands( subsystem ) ) * ( ( getNumHybridSubBands( subsystem ) / 2.0 ) - hybridSubBand ) )
 
-                             + (getOverlap(subsystem) / 2.0)
-                           )
+			+ ( getOverlap( subsystem ) / 2.0 ) )
 
-                           / channelWidth
-                         );
-    }
+			/ channelWidth );
+		}
 
-    String drComponentXml = "";
+		String drComponentXml = "";
 
-    // Now adjust channelWidth, numberIfChannels and referencePixel according to the channel binning factor
-    SpDRRecipe spDRRecipe = (SpDRRecipe)SpItemUtilities.findDRRecipe(_parent);
+		// Now adjust channelWidth, numberIfChannels and referencePixel according to the channel binning factor
+		SpDRRecipe spDRRecipe = ( SpDRRecipe ) SpItemUtilities.findDRRecipe( _parent );
 
-    if(spDRRecipe != null) {
-      double channelBinning = (double)spDRRecipe.getChannelBinning();
+		if( spDRRecipe != null )
+		{
+			drComponentXml += spDRRecipe.get_ms_truncation( indent );
+		}
 
-      channelWidth     *= channelBinning;
-      numberIfChannels /= channelBinning;
-      referencePixel   /= channelBinning;
-
-      if(hybridSubBand == SUBSYSTEM_INDEX) {
-        drComponentXml += spDRRecipe.get_baseline_fit(indent);
-      }
-
-      drComponentXml += spDRRecipe.get_ms_truncation(indent);
-    }
-
-    return 
-      indent + "<spectral_window id=\"" + idString + "\">\n" +
-      subSystemXML +
-      indent + "  <bandwidth_mode mode=\"\"/>\n" +  // A possible value would be "1GHzx1024".
-                                                        // But this is not properly by the software
-                                                        // that handles the spectral_window XML.
-                                                        // So it is left empty for now.
-      indent + "  <window type=\"" + spDRRecipe.getWindowType() + "\"/>\n" +
-      indent + "  <rest_frequency_ref ref=\"" + restFrequencyId +"\"/>\n" +
-      indent + "  <fe_sideband sideband=\"" + sideband + "\"/>\n" +
-      indent + "  <if_coordinate>\n" +
-      indent + "    <if_ref_freq units=\"GHz\">" +
-        (getCentreFrequency(subsystem) / 1.0E9) +
-        "</if_ref_freq>\n" +
-      indent + "    <if_ref_channel>" +
-        referencePixel +
-        "</if_ref_channel>\n" +
-      indent + "    <if_chan_width units=\"Hz\">" +
-        channelWidth +
-        "</if_chan_width>\n" +
-      indent + "    <if_nchans>" +
-        numberIfChannels +
-        "</if_nchans>\n" +
-      indent + "  </if_coordinate>\n" +
-      drComponentXml +
-      indent + "</spectral_window>\n";
-   }
+		return indent + "<spectral_window id=\"" + idString + "\">\n" + subSystemXML + indent + "  <bandwidth_mode mode=\"\"/>\n" + // A possible value would be "1GHzx1024".
+		// But this is not properly by the software
+		// that handles the spectral_window XML.
+		// So it is left empty for now.
+		indent + "  <window type=\"" + spDRRecipe.getWindowType() + "\"/>\n" + indent + "  <rest_frequency_ref ref=\"" + restFrequencyId + "\"/>\n" + indent + "  <fe_sideband sideband=\"" + sideband + "\"/>\n" + indent + "  <if_coordinate>\n" + indent + "    <if_ref_freq units=\"GHz\">" + ( getCentreFrequency( subsystem ) / 1.0E9 ) + "</if_ref_freq>\n" + indent + "    <if_ref_channel>" + referencePixel + "</if_ref_channel>\n" + indent + "    <if_chan_width units=\"Hz\">" + channelWidth + "</if_chan_width>\n" + indent + "    <if_nchans>" + numberIfChannels + "</if_nchans>\n" + indent + "  </if_coordinate>\n" + drComponentXml + indent + "</spectral_window>\n";
+	}
 
   /**
-   * @param subsystems    Number of subsystems per feed. (in parameter)
-   * @param subbands      Total number of subbands per feed. (in parameter)
-   * @param bandwidth     Maximum bandwidth per subband. (in parameter)
-   *
-   * @return label for configuration
-   */
+	 * @param subsystems
+	 *            Number of subsystems per feed. (in parameter)
+	 * @param subbands
+	 *            Total number of subbands per feed. (in parameter)
+	 * @param bandwidth
+	 *            Maximum bandwidth per subband. (in parameter)
+	 * 
+	 * @return label for configuration
+	 */
   public String getConfigLabel() {
     // Ceck for multiple bandwidths.
     // The Hashtable class is only used as a convenient way of listing all
