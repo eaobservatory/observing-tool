@@ -71,10 +71,11 @@ public class SpSurveyContainer extends SpObsContextItem {
 		for( int index = 0 ; index < telescopeObsCompVector.size() ; index++ )
 		{
 			Object obj = telescopeObsCompVector.get( index ) ;
-			if( obj instanceof SpItem )
+			if( obj instanceof SpTelescopeObsComp )
 			{
-				SpItem temp = ( SpItem )obj ;
-				SpItem clone = ( SpItem )temp.clone() ;
+				SpTelescopeObsComp temp = ( SpTelescopeObsComp )obj ;
+				SpTelescopeObsComp clone = ( SpTelescopeObsComp )temp.clone() ;
+				clone.setSurveyComponent( this ) ;
 				_telescopeObsCompVectorClone.insertElementAt( clone , index ) ;
 			}
 			else
