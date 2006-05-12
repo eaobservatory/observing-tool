@@ -31,7 +31,6 @@ import gemini.sp.obsComp.SpTelescopeObsComp;
 
 import orac.ukirt.iter.SpIterSky;
 
-import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 import jsky.app.ot.OtCfg;
 
@@ -179,35 +178,35 @@ public final class EdIterOffset extends OtItemEditor
         createGuideOffsets();
     }
 
-    private void createGuideOffsets() {
-        _opl.resetGuidePositions();
-        SpTelescopeObsComp obsComp = SpTreeMan.findTargetList(_spItem);
-        if ( obsComp == null ) return;
+    private void createGuideOffsets()
+	{
+		_opl.resetGuidePositions();
+		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem );
+		if( obsComp == null )
+			return;
 
-        if ( obsComp.getPosList().getPosition("GUIDE") == null ) return;
+		if( obsComp.getPosList().getPosition( "GUIDE" ) == null )
+			return;
 
-        SpTelescopePos guidePos = (SpTelescopePos) obsComp.getPosList().getPosition("GUIDE");
-        SpTelescopePos basePos  = obsComp.getPosList().getBasePosition();
+		SpTelescopePos guidePos = ( SpTelescopePos ) obsComp.getPosList().getPosition( "GUIDE" );
+		SpTelescopePos basePos = obsComp.getPosList().getBasePosition();
 
-        double [] guideOffset = RADecMath.getOffset( guidePos.getXaxis(), guidePos.getYaxis(),
-                                                     basePos.getXaxis(), basePos.getYaxis(),
-                                                     _opl.getPosAngle() );
-        guideOffset[0] = guideOffset[0]*(Math.cos(Math.toRadians(obsComp.getPosList().getBasePosition().getYaxis())));
-        // Create a offset position around the guide for each offset
-        for ( int count=0; count < _opl.size(); count++ ) {
-            double [] thisGuideOffset = new double [2];
-            SpOffsetPos currPos = (SpOffsetPos)_opl.getPositionAt(count);
-            thisGuideOffset[0] = guideOffset[0] + currPos.getXaxis();
-            thisGuideOffset[1] = guideOffset[1] + currPos.getYaxis();
-            _opl.createGuideOffset( thisGuideOffset[0], thisGuideOffset[1] );
-        }
-    }
+		double[] guideOffset = RADecMath.getOffset( guidePos.getXaxis() , guidePos.getYaxis() , basePos.getXaxis() , basePos.getYaxis() , _opl.getPosAngle() );
+		guideOffset[ 0 ] = guideOffset[ 0 ] * ( Math.cos( Math.toRadians( obsComp.getPosList().getBasePosition().getYaxis() ) ) );
+		// Create a offset position around the guide for each offset
+		for( int count = 0 ; count < _opl.size() ; count++ )
+		{
+			double[] thisGuideOffset = new double[ 2 ];
+			SpOffsetPos currPos = ( SpOffsetPos ) _opl.getPositionAt( count );
+			thisGuideOffset[ 0 ] = guideOffset[ 0 ] - currPos.getXaxis();
+			thisGuideOffset[ 1 ] = guideOffset[ 1 ] - currPos.getYaxis();
+			_opl.createGuideOffset( thisGuideOffset[ 0 ] , thisGuideOffset[ 1 ] );
+		}
+	}
 
     /**
-      * Create sky offsets.  See if we have any sky eyes amongst the children, and
-      * check if they are following the base offset.  If they are, get the obsComp
-      * and calculate the offset from base of the sky offsets.
-      */
+	 * Create sky offsets. See if we have any sky eyes amongst the children, and check if they are following the base offset. If they are, get the obsComp and calculate the offset from base of the sky offsets.
+	 */
     private void createSkyOffsets() {
 
         _opl.resetSkyPositions();
@@ -448,108 +447,127 @@ public final class EdIterOffset extends OtItemEditor
     }
  
     /**
-     * Handle button presses.
-     */
-    public void actionPerformed(ActionEvent evt) {
-	Object w  = evt.getSource();
+	 * Handle button presses.
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		Object w = evt.getSource();
 
-	// Create a new offset position
+		// Create a new offset position
 
-	if (w == _w.newButton) {
-	    SpOffsetPos op;
-	    if (_curPos == null) {
-		op = _opl.createPosition();
-	    } else {
-		int i = _opl.getPositionIndex(_curPos);
-		op = _opl.createPosition(i+1);
-	    }
-	    return;
+		if( w == _w.newButton )
+		{
+			SpOffsetPos op;
+			if( _curPos == null )
+			{
+				op = _opl.createPosition();
+			}
+			else
+			{
+				int i = _opl.getPositionIndex( _curPos );
+				op = _opl.createPosition( i + 1 );
+			}
+			return;
+		}
+
+		// Remove an offset position
+		if( w == _w.removeAllButton )
+		{
+			_opl.removeAllPositions();
+			return;
+		}
+
+		// Remove an offset position
+
+		if( w == _w.removeButton )
+		{
+			if( _curPos == null )
+				return;
+
+			// Remove the selected position
+			_opl.removePosition( _curPos );
+
+			return;
+		}
+
+		// Move an offset position to the top
+
+		if( w == _w.topButton )
+		{
+			if( _curPos == null )
+				return;
+
+			// Move the current position to the front.
+			_opl.positionToFront( _curPos );
+			return;
+		}
+
+		// Move an offset position up
+
+		if( w == _w.upButton )
+		{
+			if( _curPos == null )
+				return;
+
+			// Move the current position to the front.
+			_opl.decrementPosition( _curPos );
+			return;
+		}
+
+		// Move an offset position down
+
+		if( w == _w.downButton )
+		{
+			if( _curPos == null )
+				return;
+
+			// Move the current position to the front.
+			_opl.incrementPosition( _curPos );
+			return;
+		}
+
+		// Move an offset position to the back
+
+		if( w == _w.bottomButton )
+		{
+			if( _curPos == null )
+				return;
+
+			// Move the current position to the front.
+			_opl.positionToBack( _curPos );
+			return;
+		}
+
+		// Grid creation
+		if( w == _w.createGridButton )
+		{
+			_createGrid();
+			return;
+		}
+
+		// Centre grid on base position (MFO, 24 August 2001)
+		if( w == _w.centreOnBaseButton )
+		{
+			setGridOffsets();
+			return;
+		}
+
+		// Take Scan Area width and height as spacing paramters.
+		if( w == _w.setSpacingButton )
+		{
+			SpIterRasterObs iterRaster = getRasterObsIterator( _spItem );
+
+			if( iterRaster == null )
+			{
+				DialogUtil.error( _w , "No Scan/Raster Observe found." );
+			}
+			else
+			{
+				_w.gridXSpacing.setValue( iterRaster.getWidth() );
+				_w.gridYSpacing.setValue( iterRaster.getHeight() );
+			}
+		}
 	}
-
-	// Remove an offset position
-	if (w == _w.removeAllButton) {
-	    _opl.removeAllPositions();
-	    return;
-	}
-
-
-	// Remove an offset position
-
-	if (w == _w.removeButton) {
-	    if (_curPos == null) return;
-
-	    // Remove the selected position, remembering its index
-	    int index = _opl.getPositionIndex(_curPos);
-	    _opl.removePosition(_curPos);
-
-	    return;
-	}
-
-	// Move an offset position to the top
-
-	if (w == _w.topButton) {
-	    if (_curPos == null) return;
-
-	    // Move the current position to the front.
-	    _opl.positionToFront(_curPos);
-	    return;
-	}
-
-	// Move an offset position up
-
-	if (w == _w.upButton) {
-	    if (_curPos == null) return;
-
-	    // Move the current position to the front.
-	    _opl.decrementPosition(_curPos);
-	    return;
-	}
-
-	// Move an offset position down
-
-	if (w == _w.downButton) {
-	    if (_curPos == null) return;
-
-	    // Move the current position to the front.
-	    _opl.incrementPosition(_curPos);
-	    return;
-	}
-
-	// Move an offset position to the back
-
-	if (w == _w.bottomButton) {
-	    if (_curPos == null) return;
-
-	    // Move the current position to the front.
-	    _opl.positionToBack(_curPos);
-	    return;
-	}
-
-	// Grid creation
-	if (w == _w.createGridButton) {
-	    _createGrid();
-	    return;
-	}
-
-	// Centre grid on base position (MFO, 24 August 2001)
-	if (w == _w.centreOnBaseButton) {
-	    setGridOffsets();
-	    return;
-	}
-
-	// Take Scan Area width and height as spacing paramters.
-	if (w == _w.setSpacingButton) {
-          SpIterRasterObs iterRaster = getRasterObsIterator(_spItem);
-
-	  if(iterRaster == null) {
-            DialogUtil.error(_w, "No Scan/Raster Observe found.");
-	  }
-	  else {
-            _w.gridXSpacing.setValue(iterRaster.getWidth());
-            _w.gridYSpacing.setValue(iterRaster.getHeight());
-	  }
-	}
-    }
 
   // Added by MFO (20 February 2002)
   public void mouseClicked(MouseEvent e) { }
