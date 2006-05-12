@@ -252,14 +252,17 @@ getEditState()
 }
 
 /**
- * Get the SpEditState class associated with the program or plan that
- * this item is in.  The SpEditState can be used to watch for hierarchy
- * or edit changes.
+ * Get the SpEditState class associated with the program or plan that this item is in. The SpEditState can be used to watch for hierarchy or edit changes.
  */
-public final SpEditState
-getEditFSM()
+public final SpEditState getEditFSM()
 {
-   return _editFSM;
+	if( _editFSM == null )
+	{
+		SpItem temParent = parent() ;
+		if( temParent != null )
+			_editFSM = temParent.getEditFSM() ;
+	}
+	return _editFSM;
 }
 
 //
