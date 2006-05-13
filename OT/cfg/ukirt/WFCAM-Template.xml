@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20060331</ot_version>
+  <ot_version>20060512</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1397,7 +1397,7 @@ This pattern should allways be able to use fast offsetting.</note>
       <title>Multi filter MBSs with flushing</title>
     </SpNote>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <estimatedDuration units="seconds">439.5</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
@@ -1636,7 +1636,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <coadds>3</coadds>
           <configType>Normal</configType>
           <exposureTime>1.0</exposureTime>
-          <filter>J</filter>
+          <filter>H</filter>
           <instAper>
             <value>0.0</value>
             <value>0.0</value>
@@ -1657,7 +1657,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <calType>skyFlat</calType>
             <coadds>3</coadds>
             <exposureTime>1</exposureTime>
-            <filter>J</filter>
+            <filter>H</filter>
             <readMode>CDS</readMode>
             <repeatCount>1</repeatCount>
           </SpIterWFCAMCalObs>
@@ -1838,7 +1838,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
           <coadds>3</coadds>
           <configType>Normal</configType>
           <exposureTime>1.0</exposureTime>
-          <filter>J</filter>
+          <filter>K</filter>
           <instAper>
             <value>0.0</value>
             <value>0.0</value>
@@ -1859,7 +1859,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
             <calType>skyFlat</calType>
             <coadds>3</coadds>
             <exposureTime>1</exposureTime>
-            <filter>J</filter>
+            <filter>K</filter>
             <readMode>CDS</readMode>
             <repeatCount>1</repeatCount>
           </SpIterWFCAMCalObs>
