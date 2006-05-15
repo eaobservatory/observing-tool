@@ -13,6 +13,18 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ May 2006
+
+  - Fix for Guidestar Offsets in the Position Editor.
+
+  - Fixes for cloning Telescope Positions within Survey Containers. 
+
+  - Fix some IO flushing problems.
+
+  - Added name reolution for Orbital Elements via Horizons.
+
+  - Line numbers added to Schema Validation.
+
 +++ April 2006
 
   - Assorted fixes to Science Program Validation.
