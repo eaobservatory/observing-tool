@@ -7,7 +7,6 @@
 package gemini.sp.iter;
 
 import gemini.sp.SpAvTable;
-import gemini.sp.SpFactory;
 import gemini.sp.SpOffsetPos;
 import gemini.sp.SpOffsetPosList;
 import gemini.sp.SpType;
@@ -20,15 +19,9 @@ import gemini.sp.SpTranslationNotSupportedException;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 
-//import gemini.sp.iter.SpIterComp;
-//import gemini.sp.iter.SpIterEnumeration;
-//import gemini.sp.iter.SpIterStep;
-//import gemini.sp.iter.SpIterValue;
-
 import gemini.util.MathUtil;
 import gemini.util.TelescopePos;
 
-import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.Vector;
 

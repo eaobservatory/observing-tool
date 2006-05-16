@@ -18,7 +18,6 @@ import gemini.sp.iter.SpIterOffset;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpMicroStepUser;
 
-import java.text.DecimalFormat;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
