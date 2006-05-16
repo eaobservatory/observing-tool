@@ -25,6 +25,7 @@ import gemini.sp.obsComp.SpInstObsComp;
 //import gemini.sp.iter.SpIterStep;
 //import gemini.sp.iter.SpIterValue;
 
+import gemini.util.MathUtil;
 import gemini.util.TelescopePos;
 
 import java.text.DecimalFormat;
@@ -469,56 +470,66 @@ public int getNumIterObserveChildren(SpItem item) {
     return n;
 }
 
-public void translate( Vector v ) throws SpTranslationNotSupportedException {
+	public void translate( Vector v ) throws SpTranslationNotSupportedException
+	{
 
-    // If this has a microstep iterator child, we will delegate
-    // to it and not put offsets here
-    Enumeration children = this.children();
-    boolean hasMicrostepChild = false;
-    while (children.hasMoreElements()) {
-        if ( children.nextElement() instanceof SpIterMicroStep ) {
-            hasMicrostepChild = true;
-            break;
-        }
-    }
+		// If this has a microstep iterator child, we will delegate
+		// to it and not put offsets here
+		Enumeration children = this.children();
+		boolean hasMicrostepChild = false;
+		while( children.hasMoreElements() )
+		{
+			if( children.nextElement() instanceof SpIterMicroStep )
+			{
+				hasMicrostepChild = true;
+				break;
+			}
+		}
 
-    if ( hasMicrostepChild ) {
-        children = this.children();
-        while ( children.hasMoreElements() ) {
-            SpItem child = (SpItem)children.nextElement();
-            if ( child instanceof SpTranslatable ) {
-                ((SpTranslatable)child).translate(v);
-            }
-        }
-    }
-    else {
-        // Create a decimal formatter to make sure rounding does not give us a problem
-        DecimalFormat df = new DecimalFormat();
-        df.setMaximumFractionDigits(3);
-        for ( int i=0; i<_posList.size(); i++ ) {
-            if ( "WFCAM".equalsIgnoreCase(SpTreeMan.findInstrument(this).getTitle()) ) {
-                // Add CASU pipeline headers
-                v.add( "title jitter " + (i+1) );
-                v.add( "-setHeader NJITTER " + _posList.size() );
-                v.add( "-setHeader JITTER_I " + (i+1) );
-                v.add( "-setHeader JITTER_X " + _posList.getPositionAt(i).getXaxis() );
-                v.add( "-setHeader JITTER_Y " +  _posList.getPositionAt(i).getYaxis() );
-                v.add( "-setHeader NUSTEP 1");
-                v.add( "-setHeader USTEP_I 1");
-                v.add( "-setHeader USTEP_X 0.0");
-                v.add( "-setHeader USTEP_Y 0.0");
-            }
-            String instruction = "offset " + df.format(_posList.getPositionAt(i).getXaxis()) + " " +  df.format(_posList.getPositionAt(i).getYaxis());;
-            v.add(instruction);
-            children = this.children();
-            while ( children.hasMoreElements() ) {
-                SpItem child = (SpItem)children.nextElement();
-                if ( child instanceof SpTranslatable ) {
-                    ((SpTranslatable)child).translate(v);
-                }
-            }
-        }
-    }
+		if( hasMicrostepChild )
+		{
+			children = this.children();
+			while( children.hasMoreElements() )
+			{
+				SpItem child = ( SpItem ) children.nextElement();
+				if( child instanceof SpTranslatable )
+				{
+					( ( SpTranslatable ) child ).translate( v );
+				}
+			}
+		}
+		else
+		{
+			for( int i = 0 ; i < _posList.size() ; i++ )
+			{
+				if( "WFCAM".equalsIgnoreCase( SpTreeMan.findInstrument( this ).getTitle() ) )
+				{
+					// Add CASU pipeline headers
+					v.add( "title jitter " + ( i + 1 ) );
+					v.add( "-setHeader NJITTER " + _posList.size() );
+					v.add( "-setHeader JITTER_I " + ( i + 1 ) );
+					v.add( "-setHeader JITTER_X " + _posList.getPositionAt( i ).getXaxis() );
+					v.add( "-setHeader JITTER_Y " + _posList.getPositionAt( i ).getYaxis() );
+					v.add( "-setHeader NUSTEP 1" );
+					v.add( "-setHeader USTEP_I 1" );
+					v.add( "-setHeader USTEP_X 0.0" );
+					v.add( "-setHeader USTEP_Y 0.0" );
+				}
+				double xAxis = MathUtil.round( _posList.getPositionAt( i ).getXaxis() , 3 ) ;
+				double yAxis = MathUtil.round( _posList.getPositionAt( i ).getYaxis() , 3 ) ;
+				String instruction = "offset " + xAxis + " " + yAxis ;
+				v.add( instruction );
+				children = this.children();
+				while( children.hasMoreElements() )
+				{
+					SpItem child = ( SpItem ) children.nextElement();
+					if( child instanceof SpTranslatable )
+					{
+						( ( SpTranslatable ) child ).translate( v );
+					}
+				}
+			}
+		}
 }
 
 }
