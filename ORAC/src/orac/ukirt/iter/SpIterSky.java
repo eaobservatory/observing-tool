@@ -22,7 +22,7 @@ import gemini.sp.iter.SpIterValue;
 
 import orac.ukirt.inst.SpDRRecipe;
 
-import java.text.DecimalFormat;
+import gemini.util.MathUtil ; 
 
 import java.util.Random;
 import java.util.Vector;
@@ -397,158 +397,183 @@ private void translateStandard(Vector v) {
     }
 }
 
-private void translateRandom(Vector v) {
-    SpTelescopePos thisSky = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition(getSky());
-    int index = Integer.parseInt(getSky().substring(3));
-    SpTelescopePos thisGuide = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition("SKYGUIDE" + index);
+	private void translateRandom( Vector v )
+	{
+		SpTelescopePos thisSky = ( SpTelescopePos ) SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
+		int index = Integer.parseInt( getSky().substring( 3 ) );
+		SpTelescopePos thisGuide = ( SpTelescopePos ) SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index );
 
-    // See if we are inside an offset iterator
-    boolean inOffset = false;
-    SpItem parent = parent();
-    while ( parent != null ) {
-        if ( parent instanceof SpIterOffset ) {
-            inOffset = true;
-            break;
-        }
-        parent = parent.parent();
-    }
-    String lastOffset = null;
-    if ( inOffset ) {
-        for ( int i=v.size()-1; i>= 0; i-- ) {
-            if ( ((String)v.get(i)).startsWith("offset") ) {
-                lastOffset = (String) v.get(i);
-                break;
-            }
-        }
-    }
+		// See if we are inside an offset iterator
+		boolean inOffset = false;
+		SpItem parent = parent();
+		while( parent != null )
+		{
+			if( parent instanceof SpIterOffset )
+			{
+				inOffset = true;
+				break;
+			}
+			parent = parent.parent();
+		}
+		String lastOffset = null;
+		if( inOffset )
+		{
+			for( int i = v.size() - 1 ; i >= 0 ; i-- )
+			{
+				if( ( ( String ) v.get( i ) ).startsWith( "offset" ) )
+				{
+					lastOffset = ( String ) v.get( i );
+					break;
+				}
+			}
+		}
 
-    boolean isOffset = thisSky.isOffsetPosition();
+		boolean isOffset = thisSky.isOffsetPosition();
 
-    DecimalFormat df = new DecimalFormat();
-    df.setMaximumFractionDigits(2);
+		double xAxis = thisSky.getXaxis();
+		double yAxis = thisSky.getYaxis();
+		double randX = ( randomizer.nextDouble() - 0.5 ) * getBoxSize();
+		double randY = ( randomizer.nextDouble() - 0.5 ) * getBoxSize();
 
-    double xAxis = thisSky.getXaxis();
-    double yAxis = thisSky.getYaxis();
-    double randX = (randomizer.nextDouble() - 0.5) * getBoxSize();
-    double randY = (randomizer.nextDouble() - 0.5) * getBoxSize();
+		if( isOffset )
+		{
+			// Offset to the sky position, do the observe, then offset back
+			v.add( "offset " + MathUtil.round( xAxis + randX , 2 ) + " " + MathUtil.round( yAxis + randY , 2 ) );
+			if( thisGuide != null )
+			{
+				v.add( "slew GUIDE SKYGUIDE" + index );
+			}
+			v.add( gemini.sp.SpTranslationConstants.skyString );
+			v.add( "do " + getCount() + " _observe" );
+			if( lastOffset != null )
+			{
+				v.add( lastOffset );
+			}
+			else
+			{
+				v.add( "offset 0.0 0.0" );
+			}
+			if( thisGuide != null )
+			{
+				v.add( "slew GUIDE GUIDE" );
+			}
+		}
+		else
+		{
+			v.add( "slew MAIN " + getSky() );
+			if( thisGuide != null )
+			{
+				v.add( "slew GUIDE SKYGUIDE" + index );
+			}
+			v.add( "-WAIT ALL" );
+			v.add( "offset " + MathUtil.round( randX , 2 ) + " " + MathUtil.round( randY , 2 ) );
+			v.add( gemini.sp.SpTranslationConstants.skyString );
+			v.add( "do " + getCount() + " _observe" );
+			v.add( "do 1 _slew_all" );
+			v.add( "-WAIT ALL" );
+			if( lastOffset != null )
+			{
+				v.add( lastOffset );
+			}
+		}
+		if( !inOffset )
+		{
+			v.add( "ADDOFFSET" );
+		}
+	}
 
-    if ( isOffset ) {
-        // Offset to the sky position, do the observe, then offset back
-        v.add( "offset " + df.format(xAxis+randX) + " " + df.format(yAxis+randY) );
-        if ( thisGuide != null ) {
-            v.add( "slew GUIDE SKYGUIDE" + index );
-        }
-        v.add( gemini.sp.SpTranslationConstants.skyString );
-        v.add( "do " + getCount() + " _observe" );
-        if ( lastOffset != null ) {
-            v.add( lastOffset );
-        }
-        else {
-            v.add( "offset 0.0 0.0" );
-        }
-        if ( thisGuide != null ) {
-            v.add( "slew GUIDE GUIDE" );
-        }
-    }
-    else {
-        v.add( "slew MAIN " + getSky());
-        if ( thisGuide != null ) {
-            v.add( "slew GUIDE SKYGUIDE" + index );
-        }
-        v.add( "-WAIT ALL");
-        v.add( "offset " + df.format(randX) + " " + df.format(randY) );
-        v.add( gemini.sp.SpTranslationConstants.skyString );
-        v.add( "do " + getCount() + " _observe" );
-        v.add( "do 1 _slew_all");
-        v.add( "-WAIT ALL");
-        if ( lastOffset != null ) {
-            v.add( lastOffset );
-        }
-    }
-    if ( !inOffset ) {
-        v.add("ADDOFFSET");
-    }
-}
+	private void translateFollowOffset( Vector v )
+	{
+		SpTelescopePos thisSky = ( SpTelescopePos ) SpTreeMan.findTargetList( this ).getPosList().getPosition( getSky() );
+		int index = Integer.parseInt( getSky().substring( 3 ) );
+		SpTelescopePos thisGuide = ( SpTelescopePos ) SpTreeMan.findTargetList( this ).getPosList().getPosition( "SKYGUIDE" + index );
 
-private void translateFollowOffset(Vector v) {
-    SpTelescopePos thisSky = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition(getSky());
-    int index = Integer.parseInt(getSky().substring(3));
-    SpTelescopePos thisGuide = (SpTelescopePos)SpTreeMan.findTargetList(this).getPosList().getPosition("SKYGUIDE" + index);
+		// See if we are inside an offset iterator
+		boolean inOffset = false;
+		SpItem parent = parent();
+		while( parent != null )
+		{
+			if( parent instanceof SpIterOffset )
+			{
+				inOffset = true;
+				break;
+			}
+			parent = parent.parent();
+		}
 
-    // See if we are inside an offset iterator
-    boolean inOffset = false;
-    SpItem parent = parent();
-    while ( parent != null ) {
-        if ( parent instanceof SpIterOffset ) {
-            inOffset = true;
-            break;
-        }
-        parent = parent.parent();
-    }
+		String lastOffset = null;
+		if( inOffset )
+		{
+			for( int i = v.size() - 1 ; i >= 0 ; i-- )
+			{
+				if( ( ( String ) v.get( i ) ).startsWith( "offset" ) )
+				{
+					lastOffset = ( String ) v.get( i );
+					break;
+				}
+			}
+		}
 
-    String lastOffset = null;
-    if ( inOffset ) {
-        for ( int i=v.size()-1; i>= 0; i-- ) {
-            if ( ((String)v.get(i)).startsWith("offset") ) {
-                lastOffset = (String) v.get(i);
-                break;
-            }
-        }
-    }
+		boolean isOffset = thisSky.isOffsetPosition();
 
-    boolean isOffset = thisSky.isOffsetPosition();
+		double xAxis = thisSky.getXaxis();
+		double yAxis = thisSky.getYaxis();
+		double lastOffX = 0.0;
+		double lastOffY = 0.0;
+		if( inOffset )
+		{
+			lastOffX = Double.parseDouble( lastOffset.split( "\\s" )[ 1 ] );
+			lastOffY = Double.parseDouble( lastOffset.split( "\\s" )[ 2 ] );
+		}
+		lastOffX *= getScaleFactor();
+		lastOffY *= getScaleFactor();
 
-    DecimalFormat df = new DecimalFormat();
-    df.setMaximumFractionDigits(2);
-
-    double xAxis = thisSky.getXaxis();
-    double yAxis = thisSky.getYaxis();
-    double lastOffX = 0.0;
-    double lastOffY = 0.0;
-    if ( inOffset ) {
-        lastOffX = Double.parseDouble( lastOffset.split("\\s")[1] );
-        lastOffY = Double.parseDouble( lastOffset.split("\\s")[2] );
-    }
-    lastOffX *= getScaleFactor();
-    lastOffY *= getScaleFactor();
-
-    if ( isOffset ) {
-        // Offset to the sky position, do the observe, then offset back
-        v.add( "offset " + df.format(xAxis + lastOffX) + " " + df.format(yAxis + lastOffY) );
-        if ( thisGuide != null ) {
-            v.add( "slew GUIDE SKYGUIDE" + index );
-        }
-        v.add( gemini.sp.SpTranslationConstants.skyString );
-        v.add( "do " + getCount() + " _observe" );
-        if ( lastOffset != null ) {
-            v.add( lastOffset );
-        }
-        else {
-            v.add( "offset 0.0 0.0" );
-        }
-        if ( thisGuide != null ) {
-            v.add( "slew GUIDE GUIDE" );
-        }
-    }
-    else {
-        v.add( "slew MAIN " + getSky());
-        if ( thisGuide != null ) {
-            v.add( "slew GUIDE SKYGUIDE" + index );
-        }
-        v.add( "-WAIT ALL");
-        v.add( "offset " + df.format(lastOffX) + " " + df.format(lastOffY) );
-        v.add( gemini.sp.SpTranslationConstants.skyString );
-        v.add( "do " + getCount() + " _observe" );
-        v.add( "do 1 _slew_all");
-        v.add( "-WAIT ALL");
-        if ( lastOffset != null ) {
-            v.add( lastOffset );
-        }
-    }
-    if ( !inOffset ) {
-        v.add("ADDOFFSET");
-    }
-}
+		if( isOffset )
+		{
+			// Offset to the sky position, do the observe, then offset back
+			v.add( "offset " + MathUtil.round( xAxis + lastOffX , 2 ) + " " + MathUtil.round( yAxis + lastOffY , 2 ) );
+			if( thisGuide != null )
+			{
+				v.add( "slew GUIDE SKYGUIDE" + index );
+			}
+			v.add( gemini.sp.SpTranslationConstants.skyString );
+			v.add( "do " + getCount() + " _observe" );
+			if( lastOffset != null )
+			{
+				v.add( lastOffset );
+			}
+			else
+			{
+				v.add( "offset 0.0 0.0" );
+			}
+			if( thisGuide != null )
+			{
+				v.add( "slew GUIDE GUIDE" );
+			}
+		}
+		else
+		{
+			v.add( "slew MAIN " + getSky() );
+			if( thisGuide != null )
+			{
+				v.add( "slew GUIDE SKYGUIDE" + index );
+			}
+			v.add( "-WAIT ALL" );
+			v.add( "offset " + MathUtil.round( lastOffX , 2 ) + " " + MathUtil.round( lastOffY , 2 ) );
+			v.add( gemini.sp.SpTranslationConstants.skyString );
+			v.add( "do " + getCount() + " _observe" );
+			v.add( "do 1 _slew_all" );
+			v.add( "-WAIT ALL" );
+			if( lastOffset != null )
+			{
+				v.add( lastOffset );
+			}
+		}
+		if( !inOffset )
+		{
+			v.add( "ADDOFFSET" );
+		}
+	}
 
 public String toString() {
     StringBuffer sb = new StringBuffer( "SpIterSky=[");
