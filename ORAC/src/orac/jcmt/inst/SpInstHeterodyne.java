@@ -269,7 +269,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   public static final String ATTR_HYBRID_SUBBANDS = "hybridSubBands";
 
 
-    public static String [] JIGGLE_PATTERNS = { "3x3", "4x4","5x5", "7x7", "9x9","HARP" };
+  public static String[] JIGGLE_PATTERNS = { "3x3" , "4x4" , "5x5" , "7x7" , "9x9" , "HARP4" , "HARP5" };
 
   /** Radial velocity expressed as redshift. */
   public static final String RADIAL_VELOCITY_REDSHIFT = "redshift";
