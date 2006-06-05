@@ -10,22 +10,12 @@
 
 package ot.jcmt.iter.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.CardLayout;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
-import jsky.app.ot.editor.OtItemEditor;
-
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 
-import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
@@ -87,49 +77,58 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
     super.setup(spItem);
   }
 
-  protected void _updateWidgets() {
-    SpJCMTInstObsComp instObsComp = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
+  protected void _updateWidgets()
+	{
+		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
 
-    if(instObsComp != null) {
-      _w.jigglePattern.setChoices(instObsComp.getJigglePatterns());
+		if( instObsComp != null )
+		{
+			_w.jigglePattern.setChoices( instObsComp.getJigglePatterns() );
 
-      // Select jiggle pattern.
-      boolean jigglePatternSet = false;
-      String jigglePattern = _iterObs.getJigglePattern();
-      for(int i = 0; i < _w.jigglePattern.getItemCount(); i++) {
-        if(jigglePattern == null) {
-          break;
+			// Select jiggle pattern.
+			boolean jigglePatternSet = false;
+			String jigglePattern = _iterObs.getJigglePattern();
+			for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
+			{
+				if( jigglePattern == null )
+				{
+					break;
+				}
+
+				if( jigglePattern.equals( _w.jigglePattern.getItemAt( i ) ) )
+				{
+					_w.jigglePattern.setValue( _w.jigglePattern.getItemAt( i ) );
+					jigglePatternSet = true;
+					break;
+				}
+			}
+
+			if( !jigglePatternSet )
+			{
+				_iterObs.setJigglePattern( ( String ) _w.jigglePattern.getValue() );
+			}
+
+			if( instObsComp instanceof SpInstHeterodyne )
+			{
+				if( _iterObs.getSwitchingMode() == null )
+				{
+					_iterObs.setSwitchingMode( SpJCMTConstants.SWITCHING_MODE_NONE );
+				}
+				_w.contModeCB.setSelected( _iterObs.isContinuum() );
+				_w.scaleFactor.setValue( _iterObs.getScaleFactor() );
+			}
+		}
+		else
+		{
+			_w.jigglePattern.setChoices( _noJigglePatterns );
+			_iterObs.setJigglePattern( "" );
+		}
+
+		_w.paTextBox.setValue( _iterObs.getPosAngle() );
+		_w.coordSys.setValue( _iterObs.getCoordSys() );
+
+		super._updateWidgets();
 	}
-
-        if(jigglePattern.equals(_w.jigglePattern.getItemAt(i))) {
-          _w.jigglePattern.setValue(_w.jigglePattern.getItemAt(i));
-	  jigglePatternSet = true;
-	  break;
-	}
-      }
-
-      if(!jigglePatternSet) {
-        _iterObs.setJigglePattern((String)_w.jigglePattern.getValue());
-      }
-
-      if ( instObsComp instanceof SpInstHeterodyne ) {
-	  if ( _iterObs.getSwitchingMode() == null ) {
-	      _iterObs.setSwitchingMode(SpJCMTConstants.SWITCHING_MODE_NONE );
-	  }
-	  _w.contModeCB.setSelected ( _iterObs.isContinuum() );
-	  _w.scaleFactor.setValue (_iterObs.getScaleFactor());
-      }
-    }
-    else {
-      _w.jigglePattern.setChoices(_noJigglePatterns);
-      _iterObs.setJigglePattern("");
-    }
-
-    _w.paTextBox.setValue(_iterObs.getPosAngle());
-    _w.coordSys.setValue(_iterObs.getCoordSys());
-
-    super._updateWidgets();
-  }
 
   public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
 
@@ -147,19 +146,31 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
   }
 
 
-  public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-    if(ddlbwe == _w.jigglePattern) {
-      _iterObs.setJigglePattern(val);
-      return;
-    }
+  public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	{
+		if( ddlbwe == _w.jigglePattern )
+		{
+			_iterObs.setJigglePattern( val );
 
-    if(ddlbwe == _w.coordSys) {
-      _iterObs.setCoordSys(val);
-      return;
-    }
+			if( SpTreeMan.findInstrument( _iterObs ) instanceof SpInstHeterodyne )
+			{
+				boolean isHarp = false ;
+				if( val != null )
+					isHarp = val.startsWith( "HARP" ) ;
+				_w.scaleFactor.setEnabled( !isHarp ) ;
+			}
+			
+			return;
+		}
 
-    super.dropDownListBoxAction(ddlbwe, index, val);
-  }
+		if( ddlbwe == _w.coordSys )
+		{
+			_iterObs.setCoordSys( val );
+			return;
+		}		
+		
+		super.dropDownListBoxAction( ddlbwe , index , val );
+	}
 
   public void checkBoxAction ( CheckBoxWidgetExt cbwe ) {
       if ( cbwe == _w.contModeCB ) {
