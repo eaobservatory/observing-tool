@@ -19,7 +19,6 @@ import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 
 import jsky.util.gui.DialogUtil;
 
@@ -77,80 +76,80 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   /**
    * The constructor initializes the title, description, and presentation source.
    */
-  public EdIterRasterObs() {
-    super(new IterRasterObsGUI());
+  public EdIterRasterObs()
+	{
+		super( new IterRasterObsGUI() );
 
-    _title       ="Scan/Raster";
-    _presSource  = _w = (IterRasterObsGUI)super._w;
-    _description ="Scan/Raster Map";
+		_title = "Scan/Raster";
+		_presSource = _w = ( IterRasterObsGUI ) super._w;
+		_description = "Scan/Raster Map";
 
-    ButtonGroup grp = new ButtonGroup();
-    grp.add(_w.alongRow);
-    grp.add(_w.interleaved);
+		ButtonGroup grp = new ButtonGroup();
+		grp.add( _w.alongRow );
+		grp.add( _w.interleaved );
 
-    _w.alongRow.setActionCommand(SpIterRasterObs.RASTER_MODE_ALONG_ROW);
-    _w.interleaved.setActionCommand(SpIterRasterObs.RASTER_MODE_INTERLEAVED);
+		_w.alongRow.setActionCommand( SpIterRasterObs.RASTER_MODE_ALONG_ROW );
+		_w.interleaved.setActionCommand( SpIterRasterObs.RASTER_MODE_INTERLEAVED );
 
-    _w.scanAngle.setChoices(SCAN_PA_CHOICES);
-    _w.scanSystem.setChoices(SpJCMTConstants.SCAN_SYSTEMS);
-    _w.sampleTime.setChoices(SAMPLE_TIME_CHOICES);
-    _w.thermometer.setMaximum(_maxFileSize);
+		_w.scanAngle.setChoices( SCAN_PA_CHOICES );
+		_w.scanSystem.setChoices( SpJCMTConstants.SCAN_SYSTEMS );
+		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES );
+		_w.thermometer.setMaximum( _maxFileSize );
 
-    if ( System.getProperty("FREQ_EDITOR_CFG") != null ) {
-        if ( System.getProperty("FREQ_EDITOR_CFG").indexOf("acsis") != -1 ) {
-            // Using acsis setup
-            _w.sampleTime.setVisible(false);
-            _w.sampleTime.setEnabled(false);
-            _w.acsisSampleTime.setVisible(true);
-            _w.acsisSampleTime.setEnabled(true);
-            _w.acsisSampleTime.addWatcher(this);
-            _isAcsis = true;
-        }
-        else {
-            // Using das setup
-            _w.sampleTime.setVisible(true);
-            _w.sampleTime.setEnabled(true);
-            _w.acsisSampleTime.setVisible(false);
-            _w.acsisSampleTime.setEnabled(false);
-            _w.sampleTime.addWatcher(this);
-            _isAcsis = false;
-        }
-    }
-    else {
-        // assume das
-        _w.sampleTime.setVisible(true);
-        _w.sampleTime.setEnabled(true);
-        _w.acsisSampleTime.setVisible(false);
-        _w.acsisSampleTime.setEnabled(false);
-        _w.sampleTime.addWatcher(this);
-        _isAcsis = false;
-    }
+		if( System.getProperty( "FREQ_EDITOR_CFG" ) != null )
+		{
+			if( System.getProperty( "FREQ_EDITOR_CFG" ).indexOf( "acsis" ) != -1 )
+			{
+				// Using acsis setup
+				_w.sampleTime.setVisible( false );
+				_w.sampleTime.setEnabled( false );
+				_w.acsisSampleTime.setVisible( true );
+				_w.acsisSampleTime.setEnabled( true );
+				_w.acsisSampleTime.addWatcher( this );
+				_isAcsis = true;
+			}
+			else
+			{
+				// Using das setup
+				_w.sampleTime.setVisible( true );
+				_w.sampleTime.setEnabled( true );
+				_w.acsisSampleTime.setVisible( false );
+				_w.acsisSampleTime.setEnabled( false );
+				_w.sampleTime.addWatcher( this );
+				_isAcsis = false;
+			}
+		}
+		else
+		{
+			// assume das
+			_w.sampleTime.setVisible( true );
+			_w.sampleTime.setEnabled( true );
+			_w.acsisSampleTime.setVisible( false );
+			_w.acsisSampleTime.setEnabled( false );
+			_w.sampleTime.addWatcher( this );
+			_isAcsis = false;
+		}
 
+		_w.dx.addWatcher( this );
+		_w.dy.addWatcher( this );
+		_w.width.addWatcher( this );
+		_w.height.addWatcher( this );
+		_w.posAngle.addWatcher( this );
+		_w.alongRow.addWatcher( this );
+		_w.interleaved.addWatcher( this );
+		_w.rowReversal.addWatcher( this );
+		_w.scanSystem.addWatcher( this );
+		_w.scanAngle.addWatcher( this );
+//		_w.continuumMode.addWatcher( this );
+		_w.defaultButton.addWatcher( this );
+		_w.scanAngle.getEditor().getEditorComponent().addKeyListener( this );
 
-
-    _w.dx.addWatcher(this);
-    _w.dy.addWatcher(this);
-    _w.width.addWatcher(this);
-    _w.height.addWatcher(this);
-    _w.posAngle.addWatcher(this);
-    _w.alongRow.addWatcher(this);
-    _w.interleaved.addWatcher(this);
-    _w.rowsPerCal.addWatcher(this);
-    _w.rowsPerRef.addWatcher(this);
-    _w.rowReversal.addWatcher(this);
-    _w.scanSystem.addWatcher(this);
-    _w.scanAngle.addWatcher(this);
-//     _w.sampleTime.addWatcher(this);
-    _w.continuumMode.addWatcher(this);
-    _w.defaultButton.addWatcher(this);
-    _w.scanAngle.getEditor().getEditorComponent().addKeyListener(this);
-
-    _w.frequencyPanel.setVisible(false);
-  }
+		_w.frequencyPanel.setVisible( false );
+	}
 
   /**
-   * Override setup to store away a reference to the Raster Iterator.
-   */
+	 * Override setup to store away a reference to the Raster Iterator.
+	 */
   public void setup(SpItem spItem) {
     _iterObs = (SpIterRasterObs) spItem;
 
@@ -158,70 +157,75 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _iterObs.getAvEditFSM().addObserver(this);
   }
 
-  protected void _updateWidgets() {
-    try {
-      _w.dx.setValue(_iterObs.getScanDx());
-      _w.dx.setCaretPosition(0);
-    }
-    catch(UnsupportedOperationException e) {
-      DialogUtil.message(_w, "Warning:\n" + e.getMessage());
-    }
-    super._updateWidgets();
+	protected void _updateWidgets()
+	{
+		try
+		{
+			_w.dx.setValue( _iterObs.getScanDx() );
+			_w.dx.setCaretPosition( 0 );
+		}
+		catch( UnsupportedOperationException e )
+		{
+			DialogUtil.message( _w , "Warning:\n" + e.getMessage() );
+		}
+		super._updateWidgets();
 
-    _w.dx.setValue(_iterObs.getScanDx());
-    _w.dx.setCaretPosition(0);
-    _w.dy.setValue(_iterObs.getScanDy());
-    _w.dy.setCaretPosition(0);
-    _w.width.setValue(_iterObs.getWidth());
-    _w.width.setCaretPosition(0);
-    _w.height.setValue(_iterObs.getHeight());
-    _w.height.setCaretPosition(0);
-    _w.posAngle.setValue(_iterObs.getPosAngle());
-    _w.posAngle.setCaretPosition(0);
+		_w.dx.setValue( _iterObs.getScanDx() );
+		_w.dx.setCaretPosition( 0 );
+		_w.dy.setValue( _iterObs.getScanDy() );
+		_w.dy.setCaretPosition( 0 );
+		_w.width.setValue( _iterObs.getWidth() );
+		_w.width.setCaretPosition( 0 );
+		_w.height.setValue( _iterObs.getHeight() );
+		_w.height.setCaretPosition( 0 );
+		_w.posAngle.setValue( _iterObs.getPosAngle() );
+		_w.posAngle.setCaretPosition( 0 );
 
-    if((_iterObs.getScanAngles() == null) || (_iterObs.getScanAngles().size() == 0)) {
-      _w.scanAngle.setEditable(false);
-      _w.scanAngle.setValue(SCAN_PA_CHOICES[0]);
-    }
-    else {
-      String scanAngleString = "";
-      for(int i = 0; i < _iterObs.getScanAngles().size(); i++) {
-        scanAngleString += ", " + _iterObs.getScanAngle(i);
-      }
+		if( ( _iterObs.getScanAngles() == null ) || ( _iterObs.getScanAngles().size() == 0 ) )
+		{
+			_w.scanAngle.setEditable( false );
+			_w.scanAngle.setValue( SCAN_PA_CHOICES[ 0 ] );
+		}
+		else
+		{
+			String scanAngleString = "";
+			for( int i = 0 ; i < _iterObs.getScanAngles().size() ; i++ )
+			{
+				scanAngleString += ", " + _iterObs.getScanAngle( i );
+			}
 
-      _w.scanAngle.setEditable(true);
-      _w.scanAngle.setValue(scanAngleString.substring(2));
-    }
+			_w.scanAngle.setEditable( true );
+			_w.scanAngle.setValue( scanAngleString.substring( 2 ) );
+		}
 
-    _w.scanSystem.setValue(_iterObs.getScanSystem());
-    _w.rowsPerCal.setValue(_iterObs.getRowsPerCal());
-    _w.rowsPerRef.setValue(_iterObs.getRowsPerRef());
-    _w.rowsPerRef.setEditable(true);
-    _w.switchingMode.setValue(SpJCMTConstants.SWITCHING_MODE_BEAM);
-    _w.switchingMode.setEnabled(false);
-    _w.rowReversal.setValue(_iterObs.getRowReversal());
-    _w.continuumMode.setValue(_iterObs.isContinuum());
-    if ( !_isAcsis ) {
-        _w.sampleTime.setValue((int)_iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length);
-    }
-    else {
-        _w.acsisSampleTime.setValue(_iterObs.getSampleTime());
-    }
+		_w.scanSystem.setValue( _iterObs.getScanSystem() );
+		_w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
+		_w.switchingMode.setEnabled( false );
+		_w.rowReversal.setValue( _iterObs.getRowReversal() );
+//		_w.continuumMode.setValue( _iterObs.isContinuum() );
+		if( !_isAcsis )
+		{
+			_w.sampleTime.setValue( ( int ) _iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );
+		}
+		else
+		{
+			_w.acsisSampleTime.setValue( _iterObs.getSampleTime() );
+		}
 
-    if(SpIterRasterObs.RASTER_MODE_ALONG_ROW.equals(_iterObs.getRasterMode())) {
-      _w.alongRow.setSelected(true);
-    }
-    else {
-      _w.interleaved.setSelected(true);
-    }
+		if( SpIterRasterObs.RASTER_MODE_ALONG_ROW.equals( _iterObs.getRasterMode() ) )
+		{
+			_w.alongRow.setSelected( true );
+		}
+		else
+		{
+			_w.interleaved.setSelected( true );
+		}
 
-    updateTimes();
-    updateThermometer();
+		updateTimes();
+		updateThermometer();
+	}
 
-    //super._updateWidgets();
-  }
-
-  public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		_iterObs.getAvEditFSM().deleteObserver( this );
 
@@ -301,50 +305,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		}
 
-		if( tbwe == _w.rowsPerCal )
-		{
-			// Only integers allowed here, so lets check...
-			// but only if there is actually something on the text field
-			if( !( _w.rowsPerCal.getValue().equals( "" ) ) )
-			{
-				try
-				{
-					Integer i = new Integer(_w.rowsPerCal.getValue());
-				}
-				catch( java.lang.NumberFormatException nfe )
-				{
-					JOptionPane.showMessageDialog( null , "Rows/Cal can only be assigned integer values" , "Number Format Exception" , JOptionPane.ERROR_MESSAGE );
-					_iterObs.setRowsPerCal( "" );
-					return;
-				}
-				_iterObs.setRowsPerCal( _w.rowsPerCal.getValue() );
-			}
-		}
-
-		if( tbwe == _w.rowsPerRef )
-		{
-			_iterObs.setRowsPerRef( _w.rowsPerRef.getValue() );
-		}
-
-		if( tbwe == _w.acsisSampleTime )
-		{
-			// This must be numeric, clearly, so here we will check that it is indeed
-			// a number bu we leave range validation to the schema
-			if( !( _w.acsisSampleTime.getValue().equals( "" ) ) )
-			{
-				try
-				{
-					Double.parseDouble( _w.acsisSampleTime.getValue() );
-				}
-				catch( NumberFormatException nfe )
-				{
-					JOptionPane.showMessageDialog( null , "Sample time must be a numeric value" , "Number Format Exception" , JOptionPane.ERROR_MESSAGE );
-					return;
-				}
-				_iterObs.setSampleTime( _w.acsisSampleTime.getValue() );
-			}
-		}
-
 		super.textBoxKeyPress( tbwe );
 		updateTimes();
 		updateThermometer();
@@ -418,22 +378,23 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _iterObs.getAvEditFSM().addObserver(this);
   }
 
-  public void checkBoxAction(CheckBoxWidgetExt cbwe) {
-    //_iterObs.getAvEditFSM().deleteObserver(this);
-
-     if (cbwe == _w.rowReversal) {
-      _iterObs.setRowReversal(_w.rowReversal.getBooleanValue());
-     }
-     
-     else if ( cbwe == _w.continuumMode && _iterObs != null ) {
-	 _iterObs.setContinuumMode( _w.continuumMode.getBooleanValue() );
-     }
-     else {
-        super.checkBoxAction(cbwe);
-     }
-
-    //_iterObs.getAvEditFSM().addObserver(this);
-  }
+  	public void checkBoxAction( CheckBoxWidgetExt cbwe )
+	{
+		if( cbwe == _w.rowReversal )
+		{
+			_iterObs.setRowReversal( _w.rowReversal.getBooleanValue() );
+		}
+/*
+		else if( cbwe == _w.continuumMode && _iterObs != null )
+		{
+			_iterObs.setContinuumMode( _w.continuumMode.getBooleanValue() );
+		}
+		else
+		{
+			super.checkBoxAction( cbwe );
+		}
+*/
+	}
 
   public void commandButtonAction ( CommandButtonWidgetExt cbwe ) {
       if ( cbwe == _w.defaultButton ) {
@@ -486,104 +447,57 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     }
 
     /**
-      * This updates the time fields on heterodyne setups. It can only be used for heterodyne
-      * and just updates the non-editable widgets.  For ease of display, the fractional part
-      * is truncated to 2 decimal places.
-      */
-    private void updateTimes() {
-        // First see if the heterodyne panel is visible
-        Color safeColor = Color.black;
-        Color warnColor = Color.yellow.darker();
-        Color errColor  = Color.red.darker();
-        if ( _w.heterodynePanel.isVisible() ) {
-            // All values to be truncated to 2dp
-            DecimalFormat formatter = new DecimalFormat();
-            formatter.setMaximumFractionDigits(2);
-            formatter.setGroupingUsed(false);
+	 * This updates the time fields on heterodyne setups. It can only be used for heterodyne and just updates the non-editable widgets. For ease of display, the fractional part is truncated to 2 decimal places.
+	 */
+	private void updateTimes()
+	{
+		// First see if the heterodyne panel is visible
+		Color safeColor = Color.black;
+		Color warnColor = Color.yellow.darker();
+		Color errColor = Color.red.darker();
+		if( _w.heterodynePanel.isVisible() )
+		{
+			// All values to be truncated to 2dp
+			DecimalFormat formatter = new DecimalFormat();
+			formatter.setMaximumFractionDigits( 2 );
+			formatter.setGroupingUsed( false );
 
-            // We must be using a heterodyne
-            double secsPerRow = _iterObs.getSecsPerRow();
-            if ( secsPerRow <= DEFAULT_SECS_ROW ) {
-                _w.secsPerRow.setForeground(safeColor);
-            }
-            else if ( secsPerRow < 2*DEFAULT_SECS_ROW ) {
-                _w.secsPerRow.setForeground(warnColor);
-            }
-            else {
-                _w.secsPerRow.setForeground(errColor);
-            }
-            _w.secsPerRow.setValue(formatter.format(secsPerRow));
+			// We must be using a heterodyne
+			double secsPerRow = _iterObs.getSecsPerRow();
+			if( secsPerRow <= DEFAULT_SECS_ROW )
+			{
+				_w.secsPerRow.setForeground( safeColor );
+			}
+			else if( secsPerRow < 2 * DEFAULT_SECS_ROW )
+			{
+				_w.secsPerRow.setForeground( warnColor );
+			}
+			else
+			{
+				_w.secsPerRow.setForeground( errColor );
+			}
+			_w.secsPerRow.setValue( formatter.format( secsPerRow ) );
 
-            double obsTime = _iterObs.getElapsedTime();
-            if ( obsTime <= DEFAULT_SECS_MAP ) {
-                 _w.secsPerObservation.setForeground(safeColor);
-            }
-            else if ( obsTime < 2*DEFAULT_SECS_MAP ) {
-                _w.secsPerObservation.setForeground(warnColor);
-            }
-            else {
-                _w.secsPerObservation.setForeground(errColor);
-            }
-            _w.secsPerObservation.setValue(formatter.format(obsTime));
-
-            // For secs between refs and cals, make sure that we will be doing more than 1
-            // If we are only doing 1, then set this to something like ------
-            double nRows = Math.ceil( _iterObs.getHeight()/_iterObs.getScanDy() );
-            double secsPerRef = Double.parseDouble(_iterObs.getRowsPerRef()) * secsPerRow;
-            if ( secsPerRef <= DEFAULT_SECS_REF ) {
-                _w.secsBetweenRefs.setForeground(safeColor);
-            }
-            else if ( secsPerRef < 2*DEFAULT_SECS_REF ) {
-                _w.secsBetweenRefs.setForeground(warnColor);
-            }
-            else {
-                _w.secsBetweenRefs.setForeground(errColor);
-            }
-            if ( nRows < Double.parseDouble(_iterObs.getRowsPerRef()) ) {
-                _w.secsBetweenRefs.setForeground(safeColor);
-                _w.secsBetweenRefs.setValue("----");
-            }
-            else {
-                _w.secsBetweenRefs.setValue( formatter.format(secsPerRef) );
-            }
-
-            double secsPerCal = 0.0;
-            try {
-                secsPerCal = Double.parseDouble(_iterObs.getRowsPerCal()) * secsPerRow;
-            }
-            catch (NumberFormatException nfe) {
-            }
-            if ( secsPerCal <= DEFAULT_SECS_CAL ) {
-                _w.secsBetweenCals.setForeground(safeColor);
-            }
-            else if ( secsPerCal < 2*DEFAULT_SECS_CAL ) {
-                _w.secsBetweenCals.setForeground(warnColor);
-            }
-            else {
-                _w.secsBetweenCals.setForeground(errColor);
-            }
-
-            // Make sure it is set
-            try {
-                if ( nRows < Double.parseDouble(_iterObs.getRowsPerCal()) ) {
-                    _w.secsBetweenCals.setForeground(safeColor);
-                    _w.secsBetweenCals.setValue("----");
-                }
-                else {
-                    _w.secsBetweenCals.setValue( formatter.format(secsPerCal) );
-                }
-            }
-            catch(NumberFormatException nfe) {
-                 _w.secsBetweenCals.setForeground(safeColor);
-                 _w.secsBetweenCals.setValue("----");
-            }
-
-        }
-    }
+			double obsTime = _iterObs.getElapsedTime();
+			if( obsTime <= DEFAULT_SECS_MAP )
+			{
+				_w.secsPerObservation.setForeground( safeColor );
+			}
+			else if( obsTime < 2 * DEFAULT_SECS_MAP )
+			{
+				_w.secsPerObservation.setForeground( warnColor );
+			}
+			else
+			{
+				_w.secsPerObservation.setForeground( errColor );
+			}
+			_w.secsPerObservation.setValue( formatter.format( obsTime ) );
+		}
+	}
 
     /**
-      * Update the thermometer.  Only need this for heterodyne at the moment.
-      */
+	 * Update the thermometer. Only need this for heterodyne at the moment.
+	 */
     private void updateThermometer()
 	{
 		// First see if the heterodyne panel is visible
