@@ -12,61 +12,53 @@ package ot.jcmt.iter.editor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.CardLayout;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
-import jsky.app.ot.editor.OtItemEditor;
-
-import jsky.app.ot.gui.TextBoxWidgetExt;
-import jsky.app.ot.gui.TextBoxWidgetWatcher;
-
-import gemini.sp.SpAvTable;
-import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterStareObs;
 import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
-import ot.util.DialogUtil;
+
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher;
 
 /**
  * This is the editor for the Stare Observe Mode iterator component (ACSIS).
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener {
+public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener , CheckBoxWidgetWatcher 
+{
 
   private IterStareObsGUI _w;       // the GUI layout panel
 
   /**
    * The constructor initializes the title, description, and presentation source.
    */
-  public EdIterStareObs() {
-    super(new IterStareObsGUI());
+  public EdIterStareObs()
+	{
+		super( new IterStareObsGUI() );
 
-    _title       ="Photometry/Sample";
-    _presSource  = _w = (IterStareObsGUI)super._w;
-    _description ="Photometry/Sampling Observation Mode";
-    _w.widePhotom.addActionListener(this);
-
-  }
-
-    protected void _updateWidgets () {
-	if ( _iterObs != null && ((SpIterStareObs)_iterObs).getWidePhotom() ) {
-	    _w.widePhotom.setSelected(true);
+		_title = "Photometry/Sample";
+		_presSource = _w = ( IterStareObsGUI ) super._w;
+		_description = "Photometry/Sampling Observation Mode";
+		_w.widePhotom.addActionListener( this );
+		_w.contModeCB.addWatcher( this ) ;
 	}
-	else {
-	    _w.widePhotom.setSelected(false);
-	}
-	super._updateWidgets();
-    }
-    
 
-//  public void textBoxKeyPress(TextBoxWidgetExt e) {
-//    super.textBoxKeyPress(tbwe);
-//  }
+    protected void _updateWidgets()
+	{
+		if( _iterObs != null && ( ( SpIterStareObs ) _iterObs ).getWidePhotom() )
+		{
+			_w.widePhotom.setSelected( true );
+		}
+		else
+		{
+			_w.widePhotom.setSelected( false );
+		}
+		_w.contModeCB.setSelected( _iterObs.isContinuum() );
+		super._updateWidgets();
+	}
 
 
   public void setInstrument(SpInstObsComp spInstObsComp) {
@@ -108,5 +100,14 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     public void actionPerformed (ActionEvent e) {
 	((SpIterStareObs)_iterObs).setWidePhotom ( _w.widePhotom.isSelected() );
     }
+    
+    public void checkBoxAction( CheckBoxWidgetExt cbwe )
+	{
+		if( cbwe == _w.contModeCB )
+		{
+			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
+		}
+		super.checkBoxAction( cbwe );
+	}
 }
 
