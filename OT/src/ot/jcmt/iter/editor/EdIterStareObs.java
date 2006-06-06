@@ -13,8 +13,10 @@ package ot.jcmt.iter.editor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
+import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.iter.SpIterStareObs;
 import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
@@ -56,7 +58,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		{
 			_w.widePhotom.setSelected( false );
 		}
-		_w.contModeCB.setSelected( _iterObs.isContinuum() );
+		if( SpTreeMan.findInstrument( _iterObs ) instanceof SpInstHeterodyne )
+			_w.contModeCB.setSelected( _iterObs.isContinuum() );
 		super._updateWidgets();
 	}
 
