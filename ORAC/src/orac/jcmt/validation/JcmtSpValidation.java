@@ -15,6 +15,7 @@ import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
 
 import orac.jcmt.iter.SpIterJiggleObs;
+import orac.jcmt.iter.SpIterNoiseObs ;
 
 /**
  * Validation Tool for JCMT.
@@ -60,26 +61,37 @@ public class JcmtSpValidation extends SpValidation
 						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) );
 					}
 				}
+				if( thisObs instanceof SpIterNoiseObs )
+				{
+					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use Noise observations with Hetrodyne" ) );
+				}
 			}
 			// Also check the switching mode.  If we are in beam switch, we need a chop iterator,
 			// in position we need a reference in the target
-			if( thisObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_BEAM ) )
-			{
-				Vector chops = SpTreeMan.findAllInstances( spObs , "gemini.sp.iter.SpIterChop" );
-				if( chops == null || chops.size() == 0 )
+			String switchingMode = thisObs.getSwitchingMode() ;
+			if( switchingMode != null )
+			{	
+				if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_BEAM ) )
 				{
-					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Chop iterator required for beam switch mode" ) );
+					Vector chops = SpTreeMan.findAllInstances( spObs , "gemini.sp.iter.SpIterChop" );
+					if( chops == null || chops.size() == 0 )
+					{
+						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Chop iterator required for beam switch mode" ) );
+					}
+				}
+				else if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_POSITION ) )
+				{
+					if( !( target.getPosList().exists( "REFERENCE" ) ) )
+					{
+						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Position switched observation requires a REFERENCE target" ) );
+					}
 				}
 			}
-			else if( thisObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_POSITION ) )
+			else
 			{
-				if( !( target.getPosList().exists( "REFERENCE" ) ) )
-				{
-					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Position switched observation requires a REFERENCE target" ) );
-				}
+				report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "No switching mode set" ) );
 			}
 		}
-
 		super.checkObservation( spObs , report );
 	}
 

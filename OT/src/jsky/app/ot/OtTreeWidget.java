@@ -7,16 +7,12 @@
 
 package jsky.app.ot;
 
-import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
 import javax.swing.JTree;
-import javax.swing.SwingUtilities;
 import javax.swing.tree.TreePath;
 import jsky.app.ot.gui.MultiSelTreeNodeWidget;
 import jsky.app.ot.gui.MultiSelTreeWidget;
@@ -390,125 +386,134 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
 
     /**
-     * Add all the items relative to the selected item.
-     */
-    public SpItem[] addItems(SpItem[] newItems) {
+	 * Add all the items relative to the selected item.
+	 */
+	public SpItem[] addItems( SpItem[] newItems )
+	{
 
-	// Figure out which node was selected, if none choose the root node
-	OtTreeNodeWidget destTNW = (OtTreeNodeWidget) getSelectedNode();
-	if (destTNW == null) {
-	    // Add to the top level, the Science Program root
-	    destTNW = _otTNW;
+		// Figure out which node was selected, if none choose the root node
+		OtTreeNodeWidget destTNW = ( OtTreeNodeWidget ) getSelectedNode();
+		if( destTNW == null )
+		{
+			// Add to the top level, the Science Program root
+			destTNW = _otTNW;
+		}
+		SpItem destItem = destTNW.getItem();
+
+		/*
+		 * The following are additional checks needed for the survey component. The following checks are performed (but only when inserting an SpMSB or an SpObs) - 1. If the Survey Component is outside an MSB 1.1 Only one MSB can be added, but any number of SpObs can be added within that MSB 1.2 A single SpObs can also be added but it must be marked as an SpMSB 2. If the Survey Component is inside an MSB 2.1 We can not add another SpMSB within the survey component 2.2 Any number of SpObs can be added inside the survey component 2.3 Make sure that the SpObs is not an MSB (needed for copy/paste)
+		 */
+		// See if we have a Survey component is scope
+		boolean scInScope = false; // Survey Container in scope
+		boolean scInMSB = false; // Survey Container in MSB
+		SpItem sc = null;
+		if( destItem instanceof SpSurveyContainer )
+		{
+			scInScope = true;
+			sc = destItem;
+		}
+		SpItem parent = destItem.parent();
+		while( parent != null )
+		{
+			if( parent instanceof SpSurveyContainer )
+			{
+				scInScope = true;
+				sc = parent;
+			}
+			if( parent instanceof SpMSB && scInScope )
+			{
+				scInMSB = true;
+			}
+			parent = parent.parent();
+		}
+
+		// Now do the checks. We only need to do it if we have a survey component is scope
+		if( scInScope )
+		{
+			for( int i = 0 ; i < newItems.length ; i++ )
+			{
+				if( newItems[ i ] instanceof SpMSB )
+				{
+					if( !scInMSB )
+					{
+						// If the newItem is an SpObs, we can legally insert it if
+						// the destination is an MSB (insertInside)
+						// or an SpObs which is not an MSB (insertAfter)
+						if( newItems[ i ] instanceof SpObs && ( destItem instanceof SpMSB || ( destItem instanceof SpObs && !( ( SpObs ) destItem ).isMSB() ) ) )
+						{
+							continue;
+						}
+						Enumeration children = sc.children();
+						while( children.hasMoreElements() )
+						{
+							SpItem child = ( SpItem ) children.nextElement();
+							if( child instanceof SpObs && ( ( SpObs ) child ).isMSB() )
+							{
+								DialogUtil.error( this , "A Survey folder can contain at most 1 MSB and the current Obs is an MSB" );
+								return null;
+							}
+							else if( child instanceof SpMSB && !( child instanceof SpObs ) )
+							{
+								DialogUtil.error( this , "A Survey folder can contain at most 1 MSB" );
+								return null;
+							}
+						}
+					}
+					else
+					{
+						if( !( newItems[ i ] instanceof SpObs ) )
+						{
+							DialogUtil.error( this , "A Survey folder within an MSB can not contain another MSB" );
+							return null;
+						}
+					}
+				}
+			}
+		}
+
+		// Make a special case - we can not add a skydip for a ACSIS
+		// heterodyne observation
+		if( !canAddSkydip( destItem , newItems ) )
+		{
+			DialogUtil.error( this , "Can not add a Skydip to an ACSIS heterodyne observation" );
+			return null;
+		}
+
+		// make another
+		if( !canAddNoise( destItem , newItems ) )
+		{
+			DialogUtil.error( this , "Can not add a Noise to an ACSIS heterodyne observation" );
+			return null;
+		}
+
+		// First see if we can insert the items inside the selected node
+		SpInsertData spID;
+		spID = SpTreeMan.evalInsertInside( newItems , destItem );
+
+		if( spID == null )
+		{
+			// Couldn't insert inside, so try inserting after.
+			spID = SpTreeMan.evalInsertAfter( newItems , destItem );
+
+			if( spID == null )
+			{
+				// Couldn't insert after either, so just give up.
+				String noun = "item";
+				if( newItems.length > 1 )
+					noun += "s";
+
+				DialogUtil.error( this , "Couldn't add the new " + noun + " at this point." );
+				return null;
+			}
+		}
+
+		return addItems( spID );
 	}
-	SpItem destItem = destTNW.getItem();
-
-        /*
-         * The following are additional checks needed for the survey component.
-         * The following checks are performed (but only when inserting an SpMSB
-         * or an SpObs) - 
-         * 1. If the Survey Component is outside an MSB
-         *   1.1 Only one MSB can be added, but any number of
-         *       SpObs can be added within that MSB
-         *   1.2 A single SpObs can also be added but it must
-         *       be marked as an SpMSB
-         * 2. If the Survey Component is inside an MSB
-         *   2.1 We can not add another SpMSB within the survey component
-         *   2.2 Any number of SpObs can be added inside the survey component
-         *   2.3 Make sure that the SpObs is not an MSB (needed for copy/paste)
-         */
-        // See if we have a Survey component is scope
-        boolean scInScope = false;  // Survey Container in scope
-        boolean scInMSB   = false;  // Survey Container in MSB
-        SpItem  sc = null;
-        if ( destItem instanceof SpSurveyContainer ) {
-            scInScope = true;
-            sc = destItem;
-        }
-        SpItem parent = destItem.parent();
-        while ( parent != null ) {
-            if (parent instanceof SpSurveyContainer ) {
-                scInScope = true;
-                sc = parent;
-            }
-            if ( parent instanceof SpMSB && scInScope ) {
-                scInMSB = true;
-            }
-            parent = parent.parent();
-        }
-
-        // Now do the checks.  We only need to do it if we have a survey component is scope
-        if ( scInScope ) {
-            for ( int i=0; i<newItems.length; i++ ) {
-                if ( newItems[i] instanceof SpMSB ) {
-                    if ( !scInMSB ) {
-                        // If the newItem is an SpObs, we can legally insert it if
-                        // the destination is an MSB (insertInside)
-                        // or an SpObs which is not an MSB (insertAfter)
-                        if ( newItems[i] instanceof SpObs && 
-                                ( destItem instanceof SpMSB || 
-                                  ( destItem  instanceof SpObs && !((SpObs)destItem).isMSB() ) 
-                                  ) 
-                                ) {
-                            continue;
-                        }
-                        Enumeration children = sc.children();
-                        while ( children.hasMoreElements() ) {
-                            SpItem child = (SpItem)children.nextElement();
-                            if ( child instanceof SpObs && ((SpObs)child).isMSB() ) {
-                                DialogUtil.error(this, "A Survey folder can contain at most 1 MSB and the current Obs is an MSB");
-                                return null;
-                            }
-                            else if ( child instanceof SpMSB && !(child instanceof SpObs) ) {
-                                DialogUtil.error(this, "A Survey folder can contain at most 1 MSB");
-                                return null;
-                            }
-                        }
-                    }
-                    else {
-                        if ( !(newItems[i] instanceof SpObs) ) {
-                            DialogUtil.error(this, "A Survey folder within an MSB can not contain another MSB");
-                            return null;
-                        }
-                    }
-                }
-            }
-        }
-
-
-
-        
-	// Make a special case - we can not add a skydip for a ACSIS
-	// heterodyne observation
-	if ( !canAddSkydip (destItem, newItems) ) {
-	    DialogUtil.error(this, "Can not add a skydip to an ACSIS heterodyne observation");
-	    return null;
-	}
-
-	// First see if we can insert the items inside the selected node
-	SpInsertData spID;
-	spID = SpTreeMan.evalInsertInside(newItems, destItem);
-
-	if (spID == null) {
-	    // Couldn't insert inside, so try inserting after.
-	    spID = SpTreeMan.evalInsertAfter(newItems, destItem);
-
-	    if (spID == null) {
-		// Couldn't insert after either, so just give up.
-		String noun = "item";
-		if (newItems.length > 1) noun += "s";
-
-		DialogUtil.error(this, "Couldn't add the new " + noun + " at this point.");
-		return null;
-	    }
-	}
-
-	return addItems(spID);
-    }
 
 
     /**
-     * Add the new items using the given insertion information.
-     */
+	 * Add the new items using the given insertion information.
+	 */
     public SpItem[] addItems(SpInsertData spID) {
 	if (spID.replaceItems != null) {
 	    ConfirmAVClobber clob = new ConfirmAVClobber(spID.replaceItems);
@@ -520,15 +525,15 @@ public final class OtTreeWidget extends MultiSelTreeWidget
     }
 
   /**
-   * Inserts an item after the currently selected item.
-   *
-   * This method is currently used for inserting notes when the Note button
-   * (jsky.app.o.OtTreeToolBar) is clicked.
-   *
-   * MFO: May 28, 2001
-   *
-   * @param newItem the item to be inserted.
-   */
+	 * Inserts an item after the currently selected item.
+	 * 
+	 * This method is currently used for inserting notes when the Note button (jsky.app.o.OtTreeToolBar) is clicked.
+	 * 
+	 * MFO: May 28, 2001
+	 * 
+	 * @param newItem
+	 *            the item to be inserted.
+	 */
   public SpItem [] insertItemAfter(SpItem newItem) {
     SpInsertData spID = SpTreeMan.evalInsertAfter(newItem, getSelectedItem());
 
@@ -1186,18 +1191,37 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	}
     }
 
-    private boolean canAddSkydip (SpItem target, SpItem [] items) {
-	for ( int i=0; i< items.length; i++ ) {
-	    if ( items[i].subtypeStr().equals("skydipObs") ) {
+    private boolean canAddSkydip( SpItem target , SpItem[] items )
+	{
 		SpInstObsComp inst = SpTreeMan.findInstrument( target );
-		if ( inst instanceof SpInstHeterodyne ) {
-		    return false;
+		if( !( inst instanceof SpInstHeterodyne ) )
+			return true ;
+		for( int i = 0 ; i < items.length ; i++ )
+		{
+			String subType = items[ i ].subtypeStr() ;
+			if( subType.equals( "skydipObs" ) )
+			{
+				return false;
+			}
 		}
-	    }
-	}
-	return true;
-    }
-	    
+		return true;
+	}  
+
+	private boolean canAddNoise( SpItem target , SpItem[] items )
+	{
+		SpInstObsComp inst = SpTreeMan.findInstrument( target );
+		if( !( inst instanceof SpInstHeterodyne ) )
+			return true ;
+		for( int i = 0 ; i < items.length ; i++ )
+		{
+			String subType = items[ i ].subtypeStr() ;
+			if( subType.equals( "noiseObs" ) )
+			{
+				return false;
+			}
+		}
+		return true;
+	}    
 }
 
 
