@@ -397,23 +397,27 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     _avTable.set(ATTR_SCANAREA_PA, posAngle);
   }
 
-  public double getSecsPerRow() {
-      SpInstObsComp instrument = SpTreeMan.findInstrument(this);
-      if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
-          double mapWidth           = getWidth();
-          double sampleDX           = getScanDx();
-          double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
-          return mapWidth / scanRate;
-      }
-      else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-          int samplesPerRow = (int)(Math.ceil(getWidth()/getScanDx()));
-          if (samplesPerRow%2 == 0) samplesPerRow++;
-          double timeOnRow  = (double)samplesPerRow * getSampleTime();
-          double timeOffRow = Math.sqrt((double)samplesPerRow) * getSampleTime();
-          return timeOnRow + timeOffRow;
-      }
-      return 0.0;
-  }
+	public double getSecsPerRow()
+	{
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		{
+			double mapWidth = getWidth();
+			double sampleDX = getScanDx();
+			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
+			return mapWidth / scanRate;
+		}
+		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		{
+			int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );
+			if( ( samplesPerRow & 1 ) == 0 )
+				samplesPerRow++;
+			double timeOnRow = ( double ) samplesPerRow * getSampleTime();
+			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
+			return timeOnRow + timeOffRow;
+		}
+		return 0.0;
+	}
 
   public double getElapsedTime() {
     
