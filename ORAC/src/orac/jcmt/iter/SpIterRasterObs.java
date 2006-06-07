@@ -419,57 +419,61 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		return 0.0;
 	}
 
-  public double getElapsedTime() {
-    
-    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
-    if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
-	int    nWaveplates = 0;
-	double factor = 1.0;
-	double overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
-    
-	// Get information specified by user in the OT.
-	double mapWidth           = getWidth();
-	double mapHeight          = getHeight();
-	double sampleDX           = getScanDx();  
-	double sampleDY           = getScanDy();
-	
-	// Calculate seconds per integration.
-	double scanRate           = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
-	double noOfRows           = Math.ceil((mapHeight+120) / sampleDY);
-// 	double lengthOfRow        = mapWidth + SCUBA_ARRAY_DIAMETER;
-	double lengthOfRow        = mapWidth;
-	double secsPerRow         = lengthOfRow / scanRate;
-	double secsPerIntegration = noOfRows * secsPerRow;
-	double calculatedOverhead = 515*Math.pow( (mapWidth*mapHeight),-0.1523)/100;
+	public double getElapsedTime()
+	{
 
-	// Go through the parents and see if any of them are SpIterPOLS
-	SpItem parent = parent();
-	while (parent != null) {
-	    if (parent instanceof SpIterPOL) {
-		nWaveplates += ((SpIterPOL)parent).getConfigSteps("POLIter").size();
-	    }
-	    parent=parent.parent();
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		{
+			int nWaveplates = 0;
+			double factor = 1.0;
+			// overhead does not appear to get used
+			double overhead = SCUBA_STARTUP_TIME + ( 8 * getIntegrations() );
+
+			// Get information specified by user in the OT.
+			double mapWidth = getWidth();
+			double mapHeight = getHeight();
+			double sampleDX = getScanDx();
+			double sampleDY = getScanDy();
+
+			// Calculate seconds per integration.
+			double scanRate = sampleDX * SCAN_MAP_CHOP_FREQUENCY;
+			double noOfRows = Math.ceil( ( mapHeight + 120 ) / sampleDY );
+			double lengthOfRow = mapWidth;
+			double secsPerRow = lengthOfRow / scanRate;
+			double secsPerIntegration = noOfRows * secsPerRow;
+			double calculatedOverhead = 515 * Math.pow( ( mapWidth * mapHeight ) , -0.1523 ) / 100;
+
+			// Go through the parents and see if any of them are SpIterPOLS
+			SpItem parent = parent();
+			while( parent != null )
+			{
+				if( parent instanceof SpIterPOL )
+				{
+					nWaveplates += ( ( SpIterPOL ) parent ).getConfigSteps( "POLIter" ).size();
+				}
+				parent = parent.parent();
+			}
+			if( nWaveplates > 1 )
+				factor = 1.0 + ( ( double ) nWaveplates - 1 ) / ( nWaveplates );
+
+			// Overhead is 50 percent for scan map.
+			return SCUBA_STARTUP_TIME * factor + getIntegrations() * ( ( 1. + calculatedOverhead ) * secsPerIntegration );
+		}
+		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		{
+			int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );
+			if( ( samplesPerRow & 1 ) == 0 )
+				samplesPerRow++;
+			double noOfRows = Math.ceil( getHeight() / getScanDy() );
+
+			double timeOnRow = ( double ) samplesPerRow * getSampleTime();
+			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
+			double overheadFactor = 1.2;
+			return getIntegrations() * ( ( timeOnRow + timeOffRow ) * noOfRows * overheadFactor );
+		}
+		return 0.0;
 	}
-	if (nWaveplates > 1)
-	    factor=1.0 + ((double)nWaveplates-1)/(nWaveplates);
-// 	System.out.println("Was adding elapsed time of "+(SCUBA_STARTUP_TIME + 1.5*secsPerIntegration));
-// 	System.out.println("Now adding elapsed time of "+(SCUBA_STARTUP_TIME*factor + 1.5*secsPerIntegration));
-
-	// Overhead is 50 percent for scan map.
-	return SCUBA_STARTUP_TIME*factor +  getIntegrations()*((1.+ calculatedOverhead) * secsPerIntegration);
-    }
-    else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-	int samplesPerRow = (int)(Math.ceil(getWidth()/getScanDx()));
-	if (samplesPerRow%2 == 0) samplesPerRow++;
-	double noOfRows = Math.ceil( getHeight()/getScanDy() );
-
-	double timeOnRow  = (double)samplesPerRow * getSampleTime();
-	double timeOffRow = Math.sqrt((double)samplesPerRow) * getSampleTime();
-	double overheadFactor=1.2;
-	return getIntegrations()*( (timeOnRow + timeOffRow) * noOfRows * overheadFactor);
-    }
-    return 0.0;
-  }
 
   /** Creates JAC TCS XML. */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
