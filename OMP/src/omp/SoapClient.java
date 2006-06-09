@@ -14,6 +14,8 @@ import org.apache.soap.rpc.Response;
 import org.apache.soap.transport.http.SOAPHTTPConnection;
 import org.apache.soap.SOAPException;
 
+import java.util.Date ;
+
 /**
  * SoapClient.java
  *
@@ -100,7 +102,11 @@ public class SoapClient
 				call.setSOAPTransport( st );
 			}
 
+System.out.println( methodName + " started -> " + new Date( System.currentTimeMillis() ).toString() ) ;
+
 			Response resp = call.invoke( url , soapAction );
+
+System.out.println( methodName + " ended -> "+ new Date( System.currentTimeMillis() ).toString() ) ;
 
 			// check response 
 			if( !resp.generatedFault() )
