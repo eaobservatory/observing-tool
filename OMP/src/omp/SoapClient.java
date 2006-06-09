@@ -101,13 +101,7 @@ public class SoapClient
 				st.setProxyPort( Integer.parseInt( System.getProperty( "http.proxyPort" ) ) );
 				call.setSOAPTransport( st );
 			}
-
-System.out.println( methodName + " started -> " + new Date( System.currentTimeMillis() ).toString() ) ;
-
 			Response resp = call.invoke( url , soapAction );
-
-System.out.println( methodName + " ended -> "+ new Date( System.currentTimeMillis() ).toString() ) ;
-
 			// check response 
 			if( !resp.generatedFault() )
 			{
@@ -151,7 +145,6 @@ System.out.println( methodName + " ended -> "+ new Date( System.currentTimeMilli
 		{
 			Logger.getLogger( SoapClient.class ).error( se.getMessage() );
 			JOptionPane.showMessageDialog( null , se.getMessage() , "SOAP Exception" , JOptionPane.ERROR_MESSAGE );
-			throw se ;
 		}
 		catch( Exception e )
 		{
