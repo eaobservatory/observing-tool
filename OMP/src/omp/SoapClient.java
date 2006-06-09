@@ -14,8 +14,6 @@ import org.apache.soap.rpc.Response;
 import org.apache.soap.transport.http.SOAPHTTPConnection;
 import org.apache.soap.SOAPException;
 
-import java.util.Date ;
-
 /**
  * SoapClient.java
  *
