@@ -151,6 +151,7 @@ System.out.println( methodName + " ended -> "+ new Date( System.currentTimeMilli
 		{
 			Logger.getLogger( SoapClient.class ).error( se.getMessage() );
 			JOptionPane.showMessageDialog( null , se.getMessage() , "SOAP Exception" , JOptionPane.ERROR_MESSAGE );
+			throw se ;
 		}
 		catch( Exception e )
 		{
