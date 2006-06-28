@@ -120,9 +120,9 @@ locate(int x, int y)
    Hashtable posTable = getPosTable();
    if (posTable == null) return null;
  
-   Enumeration enum = posTable.elements();
-   while (enum.hasMoreElements()) {
-      FitsPosMapEntry pme = (FitsPosMapEntry) enum.nextElement();
+   Enumeration enumeration = posTable.elements();
+   while (enumeration.hasMoreElements()) {
+      FitsPosMapEntry pme = (FitsPosMapEntry)enumeration.nextElement();
       Point2D.Double p = pme.screenPos;
       if (p == null) {
          continue;
