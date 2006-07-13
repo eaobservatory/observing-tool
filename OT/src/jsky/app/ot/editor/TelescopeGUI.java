@@ -148,6 +148,8 @@ public class TelescopeGUI extends JPanel
 	JLabel baseYOffUnits = new JLabel();
 	CommandButtonWidgetExt resolveOrbitalElementButton = new CommandButtonWidgetExt();
 	JLabel orbitalElementResolvedNameLabel = new JLabel();
+	
+	JPanel XYOffsetPanel = new JPanel() ;
 
 	public TelescopeGUI()
 	{
@@ -167,12 +169,14 @@ public class TelescopeGUI extends JPanel
 		this.setLayout( gridBagLayout4 );
 		objectGBW.setLayout( gridBagLayout1 );
 		objectGBW.setBorder( border1 );
+
 		Dec_El_STW.setText( "Dec" );
 		Dec_El_STW.setForeground( Color.black );
 		Dec_El_STW.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		RA_Az_STW.setText( "RA" );
 		RA_Az_STW.setForeground( Color.black );
 		RA_Az_STW.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		
 		jLabel3.setText( "System" );
 		jLabel3.setForeground( Color.black );
 		jLabel3.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
@@ -355,6 +359,16 @@ public class TelescopeGUI extends JPanel
 		baseYOffUnits.setForeground( Color.black );
 		baseYOffUnits.setText( "arcsecs" );
 
+		XYOffsetPanel.setLayout( new GridLayout( 2 , 4 ) ) ;
+		XYOffsetPanel.add( new JPanel() ) ;
+		XYOffsetPanel.add( baseXOffLabel ) ;
+		XYOffsetPanel.add( baseXOff ) ;
+		XYOffsetPanel.add( baseXOffUnits ) ;
+		XYOffsetPanel.add( new JPanel() ) ;
+		XYOffsetPanel.add( baseYOffLabel ) ;
+		XYOffsetPanel.add( baseYOff ) ;
+		XYOffsetPanel.add( baseYOffUnits ) ;		
+		
 		epochPerih.setVisible( false );
 		epochPerihLabel.setVisible( false );
 		epochPerihUnitsLabel.setVisible( false );
@@ -382,17 +396,16 @@ public class TelescopeGUI extends JPanel
 		objectGBW.add( resolvedName , new GridBagConstraints( 3 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ); // SDW
 
 		objectGBW.add( xaxisTBW , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
-		objectGBW.add( baseXOffLabel , new GridBagConstraints( 4 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
-		objectGBW.add( baseXOff , new GridBagConstraints( 5 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
-		objectGBW.add( baseXOffUnits , new GridBagConstraints( 6 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
+
+		objectGBW.add( XYOffsetPanel , new GridBagConstraints( 4 , 1 , 3 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) ) ;
+		
 		objectGBW.add( Dec_El_STW , new GridBagConstraints( 2 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( RA_Az_STW , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( jLabel3 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( systemDDLBW , new GridBagConstraints( 0 , 2 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+
 		objectGBW.add( yaxisTBW , new GridBagConstraints( 3 , 2 , 1 , 1 , 1.5 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		objectGBW.add( baseYOffLabel , new GridBagConstraints( 4 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
-		objectGBW.add( baseYOff , new GridBagConstraints( 5 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
-		objectGBW.add( baseYOffUnits , new GridBagConstraints( 6 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
+
 		objectGBW.add( offsetCheckBox , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHEAST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( xUnitsLabel , new GridBagConstraints( 4 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		objectGBW.add( yUnitsLabel , new GridBagConstraints( 4 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
