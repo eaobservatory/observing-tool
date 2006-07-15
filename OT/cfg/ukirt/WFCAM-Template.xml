@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>WFCAM-Template.xml</meta_gui_filename>
-  <ot_version>20060512</ot_version>
+  <meta_gui_filename>wfcam-template.xml</meta_gui_filename>
+  <ot_version>20060606</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -631,6 +631,248 @@ This pattern should allways be able to use fast offsetting.</note>
           </SpIterRepeat>
         </SpIterFolder>
       </SpObs>
+    </SpMSB>
+    <SpNote type="no" subtype="none">
+      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <note>This MSB contains a survey container for doing a single complete tile.
+You need to add the RA and Dec of your tile centre into *all* *four* target positions in the survey container. the xOff and yOff offsets will offset from there to the 4 pointings for the tile.
+
+This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in this MSB with the one from any of the "Survey MSBs" in the WFCAM template library if you require a different pattern.
+</note>
+      <title>Single Tile MSB</title>
+    </SpNote>
+    <SpMSB remaining="1" type="og" subtype="msb">
+      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <estimatedDuration units="seconds">1080.0</estimatedDuration>
+      <library_version>$Revision$</library_version>
+      <priority>99</priority>
+      <title>single tile using 5 point 3.2 arcsec jitter</title>
+      <totalDuration units="seconds">1080.0</totalDuration>
+      <SpSurveyContainer type="sc" subtype="survey">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_selectedTelObsComp>0</meta_gui_selectedTelObsComp>
+            <TargetList>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:00:00</c1>
+                                              <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>395.0</DC1>
+                                            <DC2>395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:00:00</c1>
+                                              <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>395.0</DC1>
+                                            <DC2>-395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:00:00</c1>
+                                              <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>-395.0</DC1>
+                                            <DC2>-395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+                        <Target priority="0" remaining="1">
+                                      <SpTelescopeObsComp type="oc" subtype="targetList">
+                                        <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+                                        <meta_unique>true</meta_unique>
+                                        <BASE TYPE="Base">
+                                          <target>
+                                            <targetName></targetName>
+                                            <spherSystem SYSTEM="J2000">
+                                              <c1>0:00:00</c1>
+                                              <c2>0:00:00</c2>
+                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                            </spherSystem>
+                                          </target>
+                                          <OFFSET SYSTEM="J2000">
+                                            <DC1>-395.0</DC1>
+                                            <DC2>395.0</DC2>
+                                          </OFFSET>
+                                        </BASE>
+                                      </SpTelescopeObsComp>
+                        </Target>
+            </TargetList>
+        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <estimatedDuration units="seconds">270.0</estimatedDuration>
+          <standard>false</standard>
+          <title>Observation</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>The recipe in these sequences (JITTER) assumes that you will have a seperate flat field. If you wish to self flat, change the recipe name to JITTER_SELF_FLAT</note>
+            <title>DRrecipe</title>
+          </SpNote>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>JITTER</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>REDUCE_SKY</SkyRecipe>
+            <title>JITTER</title>
+          </SpDRRecipe>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>Set filters and exposure times etc in the WFCAM component.
+
+In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
+            <title>WFCAM component</title>
+          </SpNote>
+          <SpInstWFCAM type="oc" subtype="inst.WFCAM">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <meta_version>1</meta_version>
+            <coadds>1</coadds>
+            <configType>Normal</configType>
+            <exposureTime>10.0</exposureTime>
+            <filter>K</filter>
+            <instAper>
+              <value>0.0</value>
+              <value>0.0</value>
+              <value>0.0</value>
+              <value>1.6</value>
+            </instAper>
+            <instPntgOffset>
+              <value>0.0</value>
+              <value>0.0</value>
+            </instPntgOffset>
+            <instPort>Centre</instPort>
+            <readMode>CDS</readMode>
+          </SpInstWFCAM>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>If you are using a "non standard" exposure time, you will need to insert some darks here. I recomend adding 3 to 5 darks if you need them.</note>
+              <title>DARKS</title>
+            </SpNote>
+            <SpIterRepeat type="ic" subtype="repeat">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>1</repeatCount>
+              <SpNote type="no" subtype="none">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <note>This pattern aims to offset an integer number of IR pixels as the image may not be oversampled. Also the offsets are an integer number of AG pixels - otherwise the guider will pull it into an integer number anyway.
+
+This pattern is best suited to the "small" microstepping patterns.
+This pattern is probably too small to use in self-flat observations.
+This pattern should allways be able to use fast offsetting.</note>
+                <title>Offset Pattern</title>
+              </SpNote>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>0.0</PA>
+                  <OFFSET>
+                    <DC1>0.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>3.2</DC1>
+                    <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-3.2</DC1>
+                    <DC2>3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-3.2</DC1>
+                    <DC2>-3.2</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>3.2</DC1>
+                    <DC2>-3.2</DC2>
+                  </OFFSET>
+                </obsArea>
+                <title>jitter 5 3.2arcsec</title>
+                <SpNote type="no" subtype="none">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <note>If you wish to use microstepping, go into the microstep itterator below and select the pattern you wish to use. 2x2 small is a good default. The different "NxN small" patterns do the microstepping in different orders, to avoid persistant image buildup.</note>
+                  <title>MicroSteps</title>
+                </SpNote>
+                <SpIterMicroStep type="ic" subtype="microstep">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <obsArea>
+                    <PA>0.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>1.39</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>1.39</DC1>
+                      <DC2>1.39</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>1.39</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <pattern>2x2 small 1</pattern>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterMicroStep>
+              </SpIterOffset>
+            </SpIterRepeat>
+          </SpIterFolder>
+        </SpObs>
+      </SpSurveyContainer>
     </SpMSB>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
