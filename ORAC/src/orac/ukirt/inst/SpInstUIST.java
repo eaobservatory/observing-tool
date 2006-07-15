@@ -17,8 +17,8 @@ import java.util.Vector ;
 import java.util.Enumeration ;
 import java.util.Hashtable ;
 import java.util.StringTokenizer ;
+import java.util.TreeSet ;
 
-import orac.ukirt.iter.SpUISTCalConstants;
 import orac.util.LookUpTable;
 import orac.util.InstCfg;
 import orac.util.InstCfgReader;
@@ -139,6 +139,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String DEFAULT_FILTER_CATEGORY;
     public static LookUpTable FILTERS;
     public static double DEFAULT_IMAGING_POS_ANGLE;
+    private static String[] IMAGER_MASKS ;
     // Spectroscopy
     public static double SPECT_FOCAL_LENGTH;
     public static double[] SPECT_FIELD_OF_VIEW;
@@ -157,15 +158,15 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static int CENTRAL_ROW;
     public static int PEAK_ROW;
     public static LookUpTable SPECMAGS;
-    public static String[] MASKS1;
-    public static String[] MASKS2;
-    public static String[] MASKS3;
-    public static String[] MASKS4;
-    public static String[] MASKS5;
-    public static String[] MASKS6;
-    public static String[] MASKS7;
-    public static String[] MASKS8;
-    public static String[] MASKS9;
+    private static String[] MASKS1;
+    private static String[] MASKS2;
+    private static String[] MASKS3;
+    private static String[] MASKS4;
+    private static String[] MASKS5;
+    private static String[] MASKS6;
+    private static String[] MASKS7;
+    private static String[] MASKS8;
+    private static String[] MASKS9;
     public static LookUpTable MASKS;
     public static String DEFAULT_MASK1;
     public static String DEFAULT_MASK2;
@@ -178,9 +179,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public static String DEFAULT_MASK9;
     public static double DEFAULT_SPECT_POS_ANGLE;
     // Polarimetry
-    public static String POL_MASK_IMAGING;
+    private static String[] POL_MASK_IMAGING;
     public static String POL_GRISM_IMAGING;
-    public static String [] POL_MASK_SPECTROSCOPY;
+    private static String [] POL_MASK_SPECTROSCOPY;
     // Data acquisition - general
     public static LookUpTable READOUTS_IM;
     public static LookUpTable READOUTS_SPEC;
@@ -226,6 +227,9 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     public double W_dutyCycle;
     public double W_obsTime;
     public double W_actExpTime;
+    
+    public TreeSet VALID_IJJH_MASKS ;
+    public TreeSet NON_IJJH_MASKS ;
 
     public static final SpType SP_TYPE = SpType.create( SpType.OBSERVATION_COMPONENT_TYPE , "inst.UIST" , "UIST" ) ;
 
@@ -482,6 +486,10 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				{
 					DEFAULT_IMAGER = instInfo.getValue();
 				}
+				else if( InstCfg.matchAttr( instInfo , "imager_masks" ) )
+				{
+					IMAGER_MASKS = instInfo.getValueAsArray() ;
+				}				
 				else if( InstCfg.matchAttr( instInfo , "grism_imaging" ) )
 				{
 					GRISM_IMAGING = instInfo.getValue();
@@ -662,7 +670,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				}
 				else if( InstCfg.matchAttr( instInfo , "pol_mask_imaging" ) )
 				{
-					POL_MASK_IMAGING = instInfo.getValue();
+					POL_MASK_IMAGING = instInfo.getValueAsArray();
 				}
 				else if( InstCfg.matchAttr( instInfo , "pol_grism_imaging" ) )
 				{
@@ -851,6 +859,20 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 				{
 					MIN_MAG_TRAGET_ACQ = instInfo.getValue();
 // End of added by RDK
+				}
+				else if( InstCfg.matchAttr( instInfo , "non_ijjh_masks" ) )
+				{
+					NON_IJJH_MASKS = new TreeSet() ;
+					String[] temp = instInfo.getValueAsArray() ;
+					for( int index = 0 ; index < temp.length ; index++ )
+						NON_IJJH_MASKS.add( temp[ index ] ) ; 
+				}
+				else if( InstCfg.matchAttr( instInfo , "valid_ijjh_masks" ) )
+				{
+					VALID_IJJH_MASKS = new TreeSet() ;
+					String[] temp = instInfo.getValueAsArray() ;
+					for( int index = 0 ; index < temp.length ; index++ )
+						VALID_IJJH_MASKS.add( temp[ index ] ) ;
 				}
 				else
 				{
@@ -1352,6 +1374,12 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			}
 			else
 			{
+				for( int index = 0 ; index < DISPERSER_CHOICES.length ; index++ )
+				{
+					String choice = DISPERSER_CHOICES[ index ] ;
+					if( choice.equals( DEFAULT_DISPERSER ) )
+						return choice ;
+				}
 				return DISPERSER_CHOICES[ 0 ];
 			}
 // End of added by RDK
@@ -1509,73 +1537,32 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	{
 		if( isImaging() )
 		{
-			String maskList[] = new String[ 1 ];
 			if( isPolarimetry() )
-			{
-				maskList[ 0 ] = POL_MASK_IMAGING;
-			}
+				return POL_MASK_IMAGING ;
 			else
-			{
-				int i = getImagerIndex();
-// Added by RDK
-				maskList[ 0 ] = ( String ) IMAGERS.elementAt( i , 3 );
-// End of added by RDK
-			}
-			return maskList;
+				return IMAGER_MASKS ;
 		}
 		else
 		{
 			if( isPolarimetry() )
 			{
-// Modified by SDW
-				String[] maskList = new String[ POL_MASK_SPECTROSCOPY.length ];
-				System.arraycopy( POL_MASK_SPECTROSCOPY , 0 , maskList , 0 , POL_MASK_SPECTROSCOPY.length );
-				return maskList;
+				return POL_MASK_SPECTROSCOPY ;
 			}
 			else
 			{
 				// Either spectroscopy or ifu
-				int maskSet = getMaskSet();
-				if( maskSet == 1 )
+				switch( getMaskSet() )
 				{
-					return MASKS1;
-				}
-				else if( maskSet == 2 )
-				{
-					return MASKS2;
-				}
-				else if( maskSet == 3 )
-				{
-					return MASKS3;
-				}
-				else if( maskSet == 4 )
-				{
-					return MASKS4;
-				}
-				else if( maskSet == 5 )
-				{
-					return MASKS5;
-				}
-				else if( maskSet == 6 )
-				{
-					return MASKS6;
-				}
-				else if( maskSet == 7 )
-				{
-					return MASKS7;
-				}
-				else if( maskSet == 8 )
-				{
-					return MASKS8;
-				}
-				else if( maskSet == 9 )
-				{
-					return MASKS9;
-				}
-				else
-				{
-					// Should not happen
-					return MASKS1;
+					case 1 : return MASKS1 ;
+					case 2 : return MASKS2 ;
+					case 3 : return MASKS3 ;
+					case 4 : return MASKS4 ;
+					case 5 : return MASKS5 ;
+					case 6 : return MASKS6 ;
+					case 7 : return MASKS7 ;
+					case 8 : return MASKS8 ;
+					case 9 : return MASKS9 ;
+					default : return MASKS1 ;
 				}
 			}
 		}
@@ -1629,7 +1616,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			{
 				if( isPolarimetry() )
 				{
-					mask = POL_MASK_IMAGING;
+					mask = POL_MASK_IMAGING[ 0 ] ;
 				}
 				else
 				{
