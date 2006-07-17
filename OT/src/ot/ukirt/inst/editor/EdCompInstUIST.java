@@ -396,7 +396,7 @@ public EdCompInstUIST()
 						}
 					}					
 				}
-				else
+				else if( _instUIST.NON_IJJH_MASKS.contains( val ) )
 				{
 					if( currentGrism.equals( "IJ" ) || currentGrism.equals( "JH" ) )
 					{
