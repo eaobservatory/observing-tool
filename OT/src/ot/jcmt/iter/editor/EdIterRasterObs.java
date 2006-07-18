@@ -65,18 +65,16 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
   // Some default values for the non-editable text fields
   private final int DEFAULT_SECS_ROW = 240;
-  private final int DEFAULT_SECS_REF = 480;
-  private final int DEFAULT_SECS_CAL = 600;
   private final int DEFAULT_SECS_MAP = 3600;
 
   // Global flag indicating whether we are using acsis or das
-  boolean _isAcsis = false;
+  boolean _isAcsis = true ;
 
 
   /**
    * The constructor initializes the title, description, and presentation source.
    */
-  public EdIterRasterObs()
+	public EdIterRasterObs()
 	{
 		super( new IterRasterObsGUI() );
 
@@ -93,7 +91,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES );
 		_w.scanSystem.setChoices( SpJCMTConstants.SCAN_SYSTEMS );
-		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES );
+		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES ) ;
 		_w.thermometer.setMaximum( _maxFileSize );
 
 		if( System.getProperty( "FREQ_EDITOR_CFG" ) != null )
@@ -121,13 +119,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		}
 		else
 		{
-			// assume das
-			_w.sampleTime.setVisible( true );
-			_w.sampleTime.setEnabled( true );
-			_w.acsisSampleTime.setVisible( false );
-			_w.acsisSampleTime.setEnabled( false );
-			_w.sampleTime.addWatcher( this );
-			_isAcsis = false;
+			// Using acsis setup
+			_w.sampleTime.setVisible( false );
+			_w.sampleTime.setEnabled( false );
+			_w.acsisSampleTime.setVisible( true );
+			_w.acsisSampleTime.setEnabled( true );
+			_w.acsisSampleTime.addWatcher( this );
+			_isAcsis = true;
 		}
 
 		_w.dx.addWatcher( this );
@@ -140,7 +138,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.rowReversal.addWatcher( this );
 		_w.scanSystem.addWatcher( this );
 		_w.scanAngle.addWatcher( this );
-//		_w.continuumMode.addWatcher( this );
 		_w.defaultButton.addWatcher( this );
 		_w.scanAngle.getEditor().getEditorComponent().addKeyListener( this );
 
@@ -202,7 +199,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
 		_w.switchingMode.setEnabled( false );
 		_w.rowReversal.setValue( _iterObs.getRowReversal() );
-//		_w.continuumMode.setValue( _iterObs.isContinuum() );
 		if( !_isAcsis )
 		{
 			_w.sampleTime.setValue( ( int ) _iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );
@@ -305,6 +301,24 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		}
 
+		if( tbwe == _w.acsisSampleTime )
+		{
+			String sampleTime = "0.6" ;
+			try
+			{
+				sampleTime = _w.acsisSampleTime.getValue() ;
+				Double conversionDouble = new Double( sampleTime ) ;
+				if( conversionDouble.doubleValue() > 0.6 )
+					sampleTime = conversionDouble.toString() ;
+				else
+					sampleTime = "0.6" ;
+			}
+			catch( NumberFormatException nfe ){}
+			catch( Exception e ){}
+			_iterObs.setSampleTime( sampleTime );
+			_w.noiseTextBox.setValue( calculateNoise() );
+		}
+		
 		super.textBoxKeyPress( tbwe );
 		updateTimes();
 		updateThermometer();
@@ -312,49 +326,55 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
 
-    public void dropDownListBoxAction(DropDownListBoxWidgetExt ddlbwe, int index, String val) {
-	_iterObs.getAvEditFSM().deleteObserver(this);
+    public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+	{
+		_iterObs.getAvEditFSM().deleteObserver( this );
 
-	if(ddlbwe == _w.scanSystem) {
-	    _iterObs.setScanSystem(SpJCMTConstants.SCAN_SYSTEMS[index]);
-	    return;  
+		if( ddlbwe == _w.scanSystem )
+		{
+			_iterObs.setScanSystem( SpJCMTConstants.SCAN_SYSTEMS[ index ] );
+			return;
+		}
+
+		if( ddlbwe == _w.scanAngle )
+		{
+			if( _w.scanAngle.getValue().equals( SCAN_PA_CHOICES[ 0 ] ) )
+			{
+				_w.scanAngle.setEditable( false );
+
+				_iterObs.setScanAngles( null );
+			}
+
+			if( _w.scanAngle.getValue().equals( SCAN_PA_CHOICES[ 1 ] ) )
+			{
+				_w.scanAngle.setEditable( true );
+				_w.scanAngle.setValue( "" );
+
+				_iterObs.setScanSystem( _w.scanSystem.getStringValue() );
+			}
+
+			return;
+		}
+
+		if( ddlbwe == _w.sampleTime )
+		{
+			_iterObs.setSampleTime( _w.sampleTime.getStringValue() );
+			_w.noiseTextBox.setValue( calculateNoise() );
+		}
+		
+		if( ddlbwe == _w.scanSystem )
+		{
+			_iterObs.setScanAngles( _w.scanSystem.getStringValue() );
+
+			return;
+		}
+
+		super.dropDownListBoxAction( ddlbwe , index , val );
+		updateTimes();
+		updateThermometer();
+
+		_iterObs.getAvEditFSM().addObserver( this );
 	}
-
-	if(ddlbwe == _w.scanAngle) {
-	    if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[0])) {
-		_w.scanAngle.setEditable(false);
-
-		_iterObs.setScanAngles(null);
-	    }
-      
-	    if(_w.scanAngle.getValue().equals(SCAN_PA_CHOICES[1])) {
-		_w.scanAngle.setEditable(true);
-		_w.scanAngle.setValue("");
-
-		_iterObs.setScanSystem(_w.scanSystem.getStringValue());
-	    }
-
-
-	    return;
-	}
-
-	if (ddlbwe == _w.sampleTime) {
-	    _iterObs.setSampleTime(_w.sampleTime.getStringValue());
-	    _w.noiseTextBox.setValue(calculateNoise());
-	}
-
-	if(ddlbwe == _w.scanSystem) {
-	    _iterObs.setScanAngles(_w.scanSystem.getStringValue());
-
-	    return;
-	}
-
-	super.dropDownListBoxAction(ddlbwe, index, val);
-        updateTimes();
-        updateThermometer();
-
-	_iterObs.getAvEditFSM().addObserver(this);
-    }
 
 
   public void keyPressed(java.awt.event.KeyEvent e)  { }
@@ -381,19 +401,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   	public void checkBoxAction( CheckBoxWidgetExt cbwe )
 	{
 		if( cbwe == _w.rowReversal )
-		{
 			_iterObs.setRowReversal( _w.rowReversal.getBooleanValue() );
-		}
-/*
-		else if( cbwe == _w.continuumMode && _iterObs != null )
-		{
-			_iterObs.setContinuumMode( _w.continuumMode.getBooleanValue() );
-		}
-		else
-		{
-			super.checkBoxAction( cbwe );
-		}
-*/
 	}
 
   public void commandButtonAction ( CommandButtonWidgetExt cbwe ) {
