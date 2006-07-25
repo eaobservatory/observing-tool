@@ -1188,7 +1188,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 	{
 
 		if( !_valuesInitialised )
-			throw new RuntimeException( "Hetrodyne not initialised" ) ;
+			throw new RuntimeException( "Heterodyne not initialised" ) ;
 		
 		String configXML = null;
 

@@ -330,7 +330,10 @@ public class OtFileIO
 
 		if( f == null )
 			return false;
+		
 		String dir = f.getParent();
+		if( !dir.endsWith( File.separator ) )
+			dir += File.separator ;
 
 		if( dir != null )
 			_lastDir = dir;
