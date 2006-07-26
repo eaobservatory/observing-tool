@@ -1159,10 +1159,11 @@ _updateCoadds()
 		{
 			( ( CardLayout ) ( _w.modePanel.getLayout() ) ).show( _w.modePanel , "imagingPanel" );
 
-			boolean polarimetry = _instUIST.isPolarimetry() ;
-			_w.imaging_and_polarimetry_posAngleLabel.setEnabled( polarimetry ) ;
-			_w.imaging_and_polarimetry_posAngle.setEnabled( polarimetry ) ;	
-			if( !polarimetry )
+//			 hard coded euuuwwww !
+			boolean enable = ( _instUIST.isPolarimetry() || _instUIST.getMask().equals( "coronograph" ) ) ;
+			_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable ) ;
+			_w.imaging_and_polarimetry_posAngle.setEnabled( enable ) ;	
+			if( !enable )
 				_instUIST.setPosAngleDegrees( 0.0 ) ;
 		}
 		else
