@@ -411,6 +411,10 @@ public Hashtable getConfigItems() {
   public IterationTracker createIterationTracker() {
     return new IterationTracker();
   }
-  
+ 
+  public boolean canUpdatePosAngle()
+  {
+	  return true ;
+  }  
 }
 

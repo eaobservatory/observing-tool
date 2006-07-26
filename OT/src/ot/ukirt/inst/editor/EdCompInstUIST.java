@@ -158,8 +158,7 @@ public EdCompInstUIST()
 			{
 				_instUIST.setMask( val );
 
-				// hard coded euuuwwww !
-				boolean enable = ( _instUIST.isPolarimetry() || val.equals( "coronograph" ) ) ;
+				boolean enable = _instUIST.canUpdatePosAngle() ;
 				_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable );
 				_w.imaging_and_polarimetry_posAngle.setEnabled( enable );
 				if( !enable )
@@ -1159,8 +1158,7 @@ _updateCoadds()
 		{
 			( ( CardLayout ) ( _w.modePanel.getLayout() ) ).show( _w.modePanel , "imagingPanel" );
 
-//			 hard coded euuuwwww !
-			boolean enable = ( _instUIST.isPolarimetry() || _instUIST.getMask().equals( "coronograph" ) ) ;
+			boolean enable = _instUIST.canUpdatePosAngle() ;
 			_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable ) ;
 			_w.imaging_and_polarimetry_posAngle.setEnabled( enable ) ;	
 			if( !enable )

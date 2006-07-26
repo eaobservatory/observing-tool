@@ -420,25 +420,26 @@ dragStart(FitsMouseEvent fme, FitsImageInfo fii)
    return _dragging;
 }
  
+
 /**
  * Drag to a new location.
  */
-public void drag(FitsMouseEvent fme)
+public void drag( FitsMouseEvent fme )
 {
-   // If the shape is circular then forget about dragging.
-   if(_sciArea.getShape() == TpeSciArea.CIRCULAR) {
-      return;
-   }
+	// If the shape is circular then forget about dragging.
+	if( _sciArea.getShape() == TpeSciArea.CIRCULAR )
+		return ;
 
-   if (_dragObject != null) {
-      _dragX = fme.xWidget;
-      _dragY = fme.yWidget;
+	if( _dragObject != null && _instItem.canUpdatePosAngle() )
+	{
+		_dragX = fme.xWidget;
+		_dragY = fme.yWidget;
 
-      double diff = _dragObject.nextAngleDiff(fme.xWidget, fme.yWidget);
-      _instItem.addPosAngleRadians(diff);
+		double diff = _dragObject.nextAngleDiff( fme.xWidget , fme.yWidget );
+		_instItem.addPosAngleRadians( diff );
 
-      _iw.repaint();
-   }
+		_iw.repaint();
+	}
 }
  
 /**

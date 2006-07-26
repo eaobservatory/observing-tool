@@ -998,8 +998,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 		double maxHeight = ra[ 1 ] * pixelScale;
 		if( isImaging() )
 		{
-			// hard coded euuuwwww !
-			if( isPolarimetry() || getMask().equals( "coronograph" ) )
+			if( canUpdatePosAngle() )
 			{
 				fov[ 1 ] = getMaskWidthPixels() * pixelScale;
 				fov[ 0 ] = getMaskHeightArcsec();
@@ -3924,4 +3923,11 @@ public double getAcqTime() {
 		return t;
 	}
 
+	  public boolean canUpdatePosAngle()
+	  {
+		  // hard coded euuuwwww !
+		  if( isImaging() )
+			  return ( isPolarimetry() || getMask().equals( "coronograph" ) ) ;
+		  return true ;
+	  }  
 }
