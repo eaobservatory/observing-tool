@@ -987,44 +987,55 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     }
   
     /**
-     * Return the science area based upon the current camera and waveform
-     */
-    public double[]
-    getScienceArea()
-    {
-         double fov[] = new double[2];
-         double pixelScale = getPixelScale();
-         int ra[] = getReadArea();
-         double maxWidth  = ra[0] * pixelScale;
-         double maxHeight = ra[1] * pixelScale;
-         if (isImaging()) {
-             if (isPolarimetry()) {
-                 fov[1] = getMaskWidthPixels() * pixelScale;;
-                 fov[0] = getMaskHeightArcsec();
-	     } else {
-	         fov[0] = maxWidth;
-                 fov[1] = maxHeight;
-	     }
-	 } else {
-	     // SdW - This fixes a display problem on the Position Editor
-	     // without affecting the XML.  The real fix is to change the
-	     // IFU-pickoff parameter in uist.cfg from 36.0 to 28.0, but
-	     // the affect downstream are unknown.  If this ever does get
-	     // updated then the isIFU() clause can be removed.
-	     if ( isIFU() ) {
-		 fov[0] = ( getMaskWidthPixels() - 8.0 ) * pixelScale;
-	     }
-	     else {
-                 fov[0] = getMaskWidthPixels() * pixelScale;;
-	     }
-             fov[1] = getMaskHeightArcsec();
-         }
-         // Adjust the height and width if vignetted by the readout area
-         if (fov[0] > maxWidth) fov[0] = maxWidth;
-         if (fov[1] > maxHeight) fov[1] = maxHeight;
+	 * Return the science area based upon the current camera and waveform
+	 */
+	public double[] getScienceArea()
+	{
+		double fov[] = new double[ 2 ];
+		double pixelScale = getPixelScale();
+		int ra[] = getReadArea();
+		double maxWidth = ra[ 0 ] * pixelScale;
+		double maxHeight = ra[ 1 ] * pixelScale;
+		if( isImaging() )
+		{
+			// hard coded euuuwwww !
+			if( isPolarimetry() || getMask().equals( "coronograph" ) )
+			{
+				fov[ 1 ] = getMaskWidthPixels() * pixelScale;
+				fov[ 0 ] = getMaskHeightArcsec();
+			}
+			else
+			{
+				fov[ 0 ] = maxWidth;
+				fov[ 1 ] = maxHeight;
+			}
+		}
+		else
+		{
+			// SdW - This fixes a display problem on the Position Editor
+			// without affecting the XML. The real fix is to change the
+			// IFU-pickoff parameter in uist.cfg from 36.0 to 28.0, but
+			// the affect downstream are unknown. If this ever does get
+			// updated then the isIFU() clause can be removed.
+			if( isIFU() )
+			{
+				fov[ 0 ] = ( getMaskWidthPixels() - 8.0 ) * pixelScale;
+			}
+			else
+			{
+				fov[ 0 ] = getMaskWidthPixels() * pixelScale;
+				;
+			}
+			fov[ 1 ] = getMaskHeightArcsec();
+		}
+		// Adjust the height and width if vignetted by the readout area
+		if( fov[ 0 ] > maxWidth )
+			fov[ 0 ] = maxWidth;
+		if( fov[ 1 ] > maxHeight )
+			fov[ 1 ] = maxHeight;
 
-         return fov;
-    }
+		return fov;
+	}
 
     /*
 	 * Get the science area as a string (also updates pixel field of view)
