@@ -34,6 +34,8 @@ import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 
+import orac.util.TelescopeUtil ;
+
 // MFO, June 06, 2002:
 // At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
 // has been commented out for now. I have not removed it completely from the code in case it is
@@ -510,7 +512,7 @@ public class TelescopeGUI extends JPanel
 		detailsPW.add( velFrameLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 10 , 5 ) , 0 , 0 ) );
 		detailsPW.add( velFrame , new GridBagConstraints( 1 , 1 , 2 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 10 , 20 ) , 0 , 0 ) );
 
-		if( OtCfg.telescopeUtil.supports( OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING ) )
+		if( OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_TARGET_INFO_TRACKING ) )
 		{
 			extrasFolder.add( detailsPW , "Radial Vel/Tracking" ) ;
 			extrasFolder.add( propMotionPW , "Proper Motion" ) ;
