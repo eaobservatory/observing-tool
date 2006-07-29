@@ -13,7 +13,6 @@ package orac.jcmt.inst;
 import gemini.sp.SpType;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
 
 import orac.jcmt.SpJCMTConstants;
 

@@ -368,7 +368,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 			return;
 		}
-
+		
 		super.dropDownListBoxAction( ddlbwe , index , val );
 		updateTimes();
 		updateThermometer();

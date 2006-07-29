@@ -15,15 +15,8 @@ import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 import gemini.sp.SpPosAngleObserver;
-import gemini.sp.SpObsData;
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
 import gemini.sp.iter.SpIterOffset;
-import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
 import gemini.util.Format;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpJCMTInstObsComp;
@@ -31,7 +24,6 @@ import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.SpMapItem;
 
-import java.util.Enumeration;
 import java.util.Vector;
 import java.util.StringTokenizer;
 
@@ -428,7 +420,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			int nWaveplates = 0;
 			double factor = 1.0;
 			// overhead does not appear to get used
-			double overhead = SCUBA_STARTUP_TIME + ( 8 * getIntegrations() );
+			double overhead = SCUBA_STARTUP_TIME + 8 ;
 
 			// Get information specified by user in the OT.
 			double mapWidth = getWidth();
@@ -458,7 +450,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 				factor = 1.0 + ( ( double ) nWaveplates - 1 ) / ( nWaveplates );
 
 			// Overhead is 50 percent for scan map.
-			return SCUBA_STARTUP_TIME * factor + getIntegrations() * ( ( 1. + calculatedOverhead ) * secsPerIntegration );
+			return SCUBA_STARTUP_TIME * factor * ( ( 1. + calculatedOverhead ) * secsPerIntegration );
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
@@ -470,7 +462,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			double timeOnRow = ( double ) samplesPerRow * getSampleTime();
 			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
 			double overheadFactor = 1.2;
-			return getIntegrations() * ( ( timeOnRow + timeOffRow ) * noOfRows * overheadFactor );
+			return ( ( timeOnRow + timeOffRow ) * noOfRows * overheadFactor ) ;
 		}
 		return 0.0;
 	}

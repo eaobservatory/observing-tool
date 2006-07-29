@@ -10,10 +10,6 @@
 
 package ot.jcmt.iter.editor;
 
-import javax.swing.*;
-import java.awt.*;
-import jsky.app.ot.gui.*;
-
 /**
  * Title:        <p>
  * Description:  <p>

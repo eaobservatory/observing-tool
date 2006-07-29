@@ -10,7 +10,9 @@
 package ot.jcmt.iter.editor;
 
 import javax.swing.*;
+
 import java.awt.*;
+
 import javax.swing.border.*;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt;
@@ -56,7 +58,10 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		acsisPanel.setLayout( gridBagLayout1 );
 		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel1.setForeground( Color.black );
-		jLabel1.setText( "Secs/Cycle" );
+		jLabel1.setText( "Secs per offset sample" );
+		
+		secsPerCycle.setColumns( 5 ) ;
+		
 		cycleReversal.setText( "Cycle Reversal" );
 		cycleReversal.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		continuousCal.setText( "Continuous Cal" );
@@ -70,6 +75,7 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		widePhotom.setText( "Wide Photometry" );
 		widePhotom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		widePhotom.setForeground( Color.black );
+		
 		this.add( starePanel , BorderLayout.CENTER );
 		starePanel.add( widePhotom , BorderLayout.NORTH );
 

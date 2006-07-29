@@ -1032,55 +1032,47 @@ print(String indentStr)
   }
 
   /**
-   * This method can be called by an external XML parser when an XML element is parsed.
-   *
-   * This methods is used when the XML contains a number of
-   * <tt>&lt;value&gt;text&lt;/value&gt;</tt> elements. These value elements are used as
-   * the XML representation of mulitple values of one {@link gemini.sp.SpAvTable} attribute.
-   * Each SpAvTable attribute can have multiple values each of which is stored at a certain
-   * position in a Vector.
-   * (see {@link gemini.sp.SpAvTable#get(java.lang.String,int)},
-   * {@link gemini.sp.SpAvTable#set(java.lang.String,java.lang.String,int)} etc.)
-   *
-   * Subclassed that read and write their individual XML format can override this method.
-   *
-   * @param name  XML element name
-   * @param value <tt><i>value</i></tt> in <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt>
-                  element number <i>pos</i>
-   * @param pos   Indicates which <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt>
-   *              element's value is returned. Corresponds to the position of
-   *              the value in side the Vector of the SpAvTable attribute <i>name</i>.
-   */
-  public void processXmlElementContent(String name, String value, int pos) {
-    //if((name == null) || (value == null) || (name.length() < 1) || (value.length() < 1)) {
-    if((name == null) || (name.length() < 1)) {
-      return;
-    }
+	 * This method can be called by an external XML parser when an XML element is parsed.
+	 * 
+	 * This methods is used when the XML contains a number of <tt>&lt;value&gt;text&lt;/value&gt;</tt> elements. These value elements are used as the XML representation of mulitple values of one {@link gemini.sp.SpAvTable} attribute. Each SpAvTable attribute can have multiple values each of which is stored at a certain position in a Vector. (see {@link gemini.sp.SpAvTable#get(java.lang.String,int)}, {@link gemini.sp.SpAvTable#set(java.lang.String,java.lang.String,int)} etc.)
+	 * 
+	 * Subclassed that read and write their individual XML format can override this method.
+	 * 
+	 * @param name
+	 *            XML element name
+	 * @param value
+	 *            <tt><i>value</i></tt> in <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt> element number <i>pos</i>
+	 * @param pos
+	 *            Indicates which <tt>&lt;value&gt;<i>value</i>&lt;/value&gt;</tt> element's value is returned. Corresponds to the position of the value in side the Vector of the SpAvTable attribute <i>name</i>.
+	 */
+	public void processXmlElementContent( String name , String value , int pos )
+	{
+		if( ( name == null ) || ( name.length() < 1 ) )
+			return ;
 
-    // Ignore chaining - no longer needed...
-    if ( name.equals(SpObs.ATTR_CHAINED_NEXT) || name.equals(SpObs.ATTR_CHAINED_PREV) ) {
-	return;
-    }
-    // Hacky fix for chnage in priority - try to work out a better fix later
-    if (name.equals("priority")) {
-	if (value.equals("High")) {
-	    value="1";
-	}
-	if (value.equals("Medium")) {
-	    value="49";
-	}
-	if (value.equals("Low")) {
-	    value="99";
-	}
-    }
+		// Ignore chaining - no longer needed...
+		if( name.equals( SpObs.ATTR_CHAINED_NEXT ) || name.equals( SpObs.ATTR_CHAINED_PREV ) )
+			return;
+		// Hacky fix for chnage in priority - try to work out a better fix later
+		if( name.equals( "priority" ) )
+		{
+			if( value.equals( "High" ) )
+				value = "1" ;
+			else if( value.equals( "Medium" ) )
+				value = "49" ;
+			if( value.equals( "Low" ) )
+				value = "99" ;
+		}
+		
+		// this is horrible
+		if( name.equals( "integrations" ) )
+			return ;
 
-    if(name.startsWith(XML_META_PREFIX)) {
-      _avTable.noNotifySet(name.substring(XML_META_PREFIX.length()).replace('_', '.'), value, pos);
-    }
-    else {
-      _avTable.noNotifySet(name, value, pos);
-    }
-  }
+		if( name.startsWith( XML_META_PREFIX ) )
+			_avTable.noNotifySet( name.substring( XML_META_PREFIX.length() ).replace( '_' , '.' ) , value , pos );
+		else
+			_avTable.noNotifySet( name , value , pos );
+	}
 
   /**
    * This method can be called by an external XML parser to indicate the end of an XML element.

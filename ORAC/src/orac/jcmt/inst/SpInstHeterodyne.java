@@ -225,7 +225,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   /** Radial velocity definition: "redshift", "optical", "radio". */
   public static final String ATTR_VELOCITY_DEFINITION = "velocityDefinition";
 
-    public static final String ATTR_VELOCITY_FRAME = "velocityFrame";
+  public static final String ATTR_VELOCITY_FRAME = "velocityFrame";
 
 
 
@@ -532,25 +532,97 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
   /**
-   * Set band mode: 1-system, 2-system etc.
-   */
-  public void setBandMode(String value) {
-    _avTable.set(ATTR_BAND_MODE, value);
-    /*
-    _avTable.noNotifyRm(ATTR_CENTRE_FREQUENCY);
-    _avTable.noNotifyRm(ATTR_BANDWIDTH);
-    _avTable.noNotifyRm(ATTR_OVERLAP);
-    _avTable.noNotifyRm(ATTR_HYBRID_SUBBANDS);
-    _avTable.noNotifyRm(ATTR_CHANNELS);
-    _avTable.noNotifyRm(ATTR_MOLECULE);
-    _avTable.noNotifyRm(ATTR_TRANSITION);
-    _avTable.noNotifyRm(ATTR_REST_FREQUENCY);
-    */
-  }
+	 * Set band mode: 1-system, 2-system etc.
+	 */
+	public void setBandMode( String value )
+	{
+		_avTable.set( ATTR_BAND_MODE , value );
+	}
 
+	/**
+	 * Get velocity definition.
+	 */
+	public String getVelocityDefinition()
+	{
+		return _avTable.get( ATTR_VELOCITY_DEFINITION );
+	}
+
+	/**
+	 * Set velocity definition.
+	 */
+	public void setVelocityDefinition( String value )
+	{
+		_avTable.set( ATTR_VELOCITY_DEFINITION , value );
+	}
+
+	public void setVelocityFrame( String value )
+	{
+		_avTable.set( ATTR_VELOCITY_FRAME , value );
+	}
+
+	public String getVelocityFrame()
+	{
+		return _avTable.get( ATTR_VELOCITY_FRAME );
+	}
+
+	/**
+	 * Get velocity (optical definition).
+	 */
+	public double getVelocity()
+	{
+		return _avTable.getDouble( ATTR_VELOCITY , 0.0 );
+	}
+
+	/**
+	 * Set velocity (optical definition).
+	 */
+	public void setVelocity( double value )
+	{
+		_avTable.set( ATTR_VELOCITY , value );
+	}
+	
+	/**
+	 * Set velocity (optical definition).
+	 */
+	public void setVelocity( String value )
+	{
+		setVelocity( Format.toDouble( value ) );
+	}
+
+	public double getRedshift()
+	{
+		return getVelocity() / LIGHTSPEED;
+	}
+
+	public void setVelocityFromRedshift( double redshift )
+	{
+		setVelocity( convertRedshiftTo( RADIAL_VELOCITY_OPTICAL , redshift ) );
+	}
+	
     /**
-     * Get the mixer mode
-     */
+	 * Set the reference frame velocity
+	 */
+	public void setRefFrameVelocity( double value )
+	{
+		_avTable.set( ATTR_RF_VELOCITY , value );
+	}
+
+	/**
+	 * Set the reference frame velocity
+	 */
+	public void setRefFrameVelocity( String value )
+	{
+		setRefFrameVelocity( Format.toDouble( value ) );
+	}
+
+	public double getRefFrameVelocity()
+	{
+		return _avTable.getDouble( ATTR_RF_VELOCITY , 0.0 );
+	}
+	
+    /**
+	 * Get the mixer mode
+	 */
     public String getMixer() {
 	return _avTable.get(ATTR_MIXER);
     }

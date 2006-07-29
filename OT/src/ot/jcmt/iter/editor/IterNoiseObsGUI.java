@@ -13,6 +13,7 @@ package ot.jcmt.iter.editor;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
+
 import jsky.app.ot.gui.*;
 
 /**
@@ -39,14 +40,15 @@ public class IterNoiseObsGUI extends IterJCMTGenericGUI {
     }
   }
 
-  private void jbInit() throws Exception {
-    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-    Border titleBorder = BorderFactory.createTitledBorder( bevelBorder, "Noise setup");
-    noisePanel.setBorder( titleBorder );
-    noisePanel.setLayout(flowLayout1);
-    secsPerCycle.setColumns(8);
-    noiseSourceComboBox.setFont(new java.awt.Font("Dialog", 0, 12));
-    this.add(noisePanel, BorderLayout.CENTER);
-    noisePanel.add(noiseSourceComboBox, null);
-  }
+  	private void jbInit() throws Exception
+	{
+		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
+		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Noise setup" );
+		noisePanel.setBorder( titleBorder );
+		noisePanel.setLayout( flowLayout1 );
+		secsPerCycle.setColumns( 8 );
+		noiseSourceComboBox.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		this.add( noisePanel , BorderLayout.CENTER );
+		noisePanel.add( noiseSourceComboBox , null );
+	}
 }

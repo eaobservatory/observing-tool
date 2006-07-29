@@ -60,74 +60,88 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     _avTable.noNotifySet(ATTR_JIGGLE_SYSTEM, JIGGLE_SYSTEMS[0], 0);
   }
 
-  public double getElapsedTime() {
-    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+	public double getElapsedTime()
+	{
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
 
-    if(instrument == null) {
-      return 0.0;
-    }
+		if( instrument == null )
+			return 0.0;
 
-    if(instrument instanceof SpInstSCUBA) {
-      String jigglePattern = getJigglePattern();
-      int    steps    = 0;
-      double overhead = 0.0;
-      
-      // Actual integration time on source
-      double totalIntegrationTime = 0.0;
+		if( instrument instanceof SpInstSCUBA )
+		{
+			String jigglePattern = getJigglePattern();
+			int steps = 0;
+			double overhead = 0.0;
 
-      if((jigglePattern != null) && (jigglePattern.toLowerCase().indexOf('x') > -1)) {
-        StringTokenizer st = new StringTokenizer(jigglePattern.toLowerCase(), "x ");   
-        steps = Integer.parseInt( st.nextToken() );
-      }
+			// Actual integration time on source
+			double totalIntegrationTime = 0.0;
 
-      // Calculate overheads      
-      switch(steps) {
-	// 3X3 jigle map
-	case 3: overhead =  9 * getIntegrations(); break;
+			if( ( jigglePattern != null ) && ( jigglePattern.toLowerCase().indexOf( 'x' ) > -1 ) )
+			{
+				StringTokenizer st = new StringTokenizer( jigglePattern.toLowerCase() , "x " );
+				steps = Integer.parseInt( st.nextToken() );
+			}
 
-	// 5X5 jigle map
-	case 5: overhead = 18 * getIntegrations(); break;
+			// Calculate overheads
+			switch( steps )
+			{
+				// 3X3 jigle map
+				case 3 :
+					overhead = 9;
+					break;
 
-	// 7X7 jigle map
-	case 7: overhead = 27 * getIntegrations(); break;
+				// 5X5 jigle map
+				case 5 :
+					overhead = 18;
+					break;
 
-	// 9X9 jigle map
-	case 9: overhead = 36 * getIntegrations(); break;
+				// 7X7 jigle map
+				case 7 :
+					overhead = 27;
+					break;
 
-	// JIG16 (LONG or SHORT) or JIG64 (LONG and SHORT)
-	default:
-	  if(isJIG64((SpInstSCUBA)instrument)) {
-	    overhead = 36 * getIntegrations();
-	  }
-	  else {
-	    overhead =  9 * getIntegrations();
-	  }
-      }
+				// 9X9 jigle map
+				case 9 :
+					overhead = 36;
+					break;
 
-      // Add SCUBA startup time.
-      overhead += SCUBA_STARTUP_TIME;
+				// JIG16 (LONG or SHORT) or JIG64 (LONG and SHORT)
+				default :
+					if( isJIG64( ( SpInstSCUBA ) instrument ) )
+					{
+						overhead = 36;
+					}
+					else
+					{
+						overhead = 9;
+					}
+			}
 
-      // Calculate total integration time
-      if(steps > 0) {
-        totalIntegrationTime = steps * steps * 2 * getIntegrations();
-      }
-      else {
-        if(isJIG64((SpInstSCUBA)instrument)) {
-          totalIntegrationTime = 64 * 2 * getIntegrations();
+			// Add SCUBA startup time.
+			overhead += SCUBA_STARTUP_TIME;
+
+			// Calculate total integration time
+			if( steps > 0 )
+			{
+				totalIntegrationTime = steps * steps * 2;
+			}
+			else
+			{
+				if( isJIG64( ( SpInstSCUBA ) instrument ) )
+				{
+					totalIntegrationTime = 64 * 2;
+				}
+				else
+				{
+					totalIntegrationTime = 16 * 2;
+				}
+			}
+
+			return totalIntegrationTime + overhead;
+		}
+
+		return 0.0;
 	}
-	else {
-          totalIntegrationTime = 16 * 2 * getIntegrations();
-        }
-      }
-
-      return totalIntegrationTime + overhead;
-    }
-//   else {
-     // Heterodyne
-//   }
-
-    return 0.0;
-  }
 
   public String getJigglePattern() {
     return _avTable.get(ATTR_JIGGLE_PATTERN);

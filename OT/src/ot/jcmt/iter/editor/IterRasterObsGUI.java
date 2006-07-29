@@ -178,6 +178,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		jLabel17.setForeground( Color.black );
 		jLabel17.setText( "(degrees)" );
 		scanAngle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+				
 		this.add( rasterPanel , BorderLayout.CENTER );
 		rasterPanel.add( scubaAcsisPanel , BorderLayout.WEST );
 		scubaAcsisPanel.add( areaPanel , BorderLayout.CENTER );

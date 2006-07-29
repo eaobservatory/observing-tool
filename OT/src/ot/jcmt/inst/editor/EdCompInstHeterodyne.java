@@ -57,6 +57,13 @@ import edfreq.Transition ;
 import edfreq.SelectionList ;
 import edfreq.LineDetails ;
 import jsky.app.ot.editor.OtItemEditor;
+import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.CheckBoxWidgetWatcher ;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
+import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
+import jsky.app.ot.gui.TextBoxWidgetExt;
+
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.xml.sax.InputSource;
@@ -134,158 +141,261 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   // Information related to each possible spectral region
   Vector [] _regionInfo = new Vector[Integer.parseInt(HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1])];
 
-  public EdCompInstHeterodyne() {
-      _title       ="JCMT Heterodyne";
-      _presSource  = _w = new HeterodyneGUI();
-      _description ="The Heterodyne instrument is configured with this component.";
+  boolean defaultToRadialVelocity = true ;
+  
+  	public EdCompInstHeterodyne()
+	{
+		_title = "JCMT Heterodyne";
+		_presSource = _w = new HeterodyneGUI();
+		_description = "The Heterodyne instrument is configured with this component.";
 
-      try {
-  	  _lineCatalog = LineCatalog.getInstance();
-      }
-      catch (Exception e) {};
+		try
+		{
+			_lineCatalog = LineCatalog.getInstance();
+		}
+		catch( Exception e )
+		{
+		}
+		;
 
-      if(_frequencyEditor == null) {
-         _frequencyEditor = new SideBandDisplay(this);
-      }
-      _frequencyEditor.addComponentListener ( new ComponentAdapter () {
-		 public void componentHidden( ComponentEvent e ) {
-		     // If the user has deliberately closed the window
-		     // without using the hide button, this will
-		     // do the same except we won't get the latest
-		     // configuration
-		     if ( !_hidingFrequencyEditor ) {
-		         enableNamedWidgets(true);
-		         _updateWidgets();
-		     }
-		 }
-      });
+		if( _frequencyEditor == null )
+		{
+			_frequencyEditor = new SideBandDisplay( this );
+		}
+		_frequencyEditor.addComponentListener( new ComponentAdapter()
+		{
+			public void componentHidden( ComponentEvent e )
+			{
+				// If the user has deliberately closed the window
+				// without using the hide button, this will
+				// do the same except we won't get the latest
+				// configuration
+				if( !_hidingFrequencyEditor )
+				{
+					enableNamedWidgets( true );
+					_updateWidgets();
+				}
+			}
+		} );
 
-      // Add listeners to stuff on the front end
-      // configuration panel
-      for (int i=0; i<_w.feSelector.getComponentCount(); i++) {
-	  if ( _w.feSelector.getComponent(i) instanceof JRadioButton ) {
-	      ((JRadioButton)_w.feSelector.getComponent(i)).addActionListener ( new ActionListener () {
-										public void actionPerformed (ActionEvent e) {
-										feAction(e);
-										}
-										});
-	     feWidgetNames.put ( _w.feSelector.getComponent(i).getName(),
-		     new Integer(i) );
-	  }
-      }
+		// Add listeners to stuff on the front end
+		// configuration panel
+		for( int i = 0 ; i < _w.feSelector.getComponentCount() ; i++ )
+		{
+			if( _w.feSelector.getComponent( i ) instanceof JRadioButton )
+			{
+				( ( JRadioButton ) _w.feSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				{
+					public void actionPerformed( ActionEvent e )
+					{
+						feAction( e );
+					}
+				} );
+				feWidgetNames.put( _w.feSelector.getComponent( i ).getName() , new Integer( i ) );
+			}
+		}
 
-      for (int i=0; i<_w.modeSelector.getComponentCount(); i++ ) {
-	  if ( _w.modeSelector.getComponent(i) instanceof JRadioButton ) {
-	      ((JRadioButton)_w.modeSelector.getComponent(i)).addActionListener ( new ActionListener() {
-										      public void actionPerformed (ActionEvent e) {
-										      modeAction(e);
-										      }
-										      });
-	      modeWidgetNames.put ( _w.modeSelector.getComponent(i).getName(),
-		      new Integer(i) );
-	  }
-      }
+		for( int i = 0 ; i < _w.modeSelector.getComponentCount() ; i++ )
+		{
+			if( _w.modeSelector.getComponent( i ) instanceof JRadioButton )
+			{
+				( ( JRadioButton ) _w.modeSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				{
+					public void actionPerformed( ActionEvent e )
+					{
+						modeAction( e );
+					}
+				} );
+				modeWidgetNames.put( _w.modeSelector.getComponent( i ).getName() , new Integer( i ) );
+			}
+		}
 
-      for ( int i=0; i<_w.regionSelector.getComponentCount(); i++ ) {
-	  if ( _w.regionSelector.getComponent(i) instanceof JRadioButton ) {
-	      ((JRadioButton)_w.regionSelector.getComponent(i)).addActionListener ( new ActionListener() {
-										       public void actionPerformed(ActionEvent e) {
-										       regionAction(e);
-										       }
-										       });
-	      regionWidgetNames.put ( _w.regionSelector.getComponent(i).getName(),
-		      new Integer(i) );
-	  }
-      }
+		for( int i = 0 ; i < _w.regionSelector.getComponentCount() ; i++ )
+		{
+			if( _w.regionSelector.getComponent( i ) instanceof JRadioButton )
+			{
+				( ( JRadioButton ) _w.regionSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				{
+					public void actionPerformed( ActionEvent e )
+					{
+						regionAction( e );
+					}
+				} );
+				regionWidgetNames.put( _w.regionSelector.getComponent( i ).getName() , new Integer( i ) );
+			}
+		}
 
-      for ( int i=0; i<_w.mixerSelector.getComponentCount(); i++) {
-	  if ( _w.mixerSelector.getComponent(i) instanceof JRadioButton ) {
-	      ((JRadioButton)_w.mixerSelector.getComponent(i)).addActionListener ( new ActionListener () {
-										   public void actionPerformed (ActionEvent e) {
-										   mixerAction(e);
-										   }
-										   });
-	      mixerWidgetNames.put (  _w.mixerSelector.getComponent(i).getName(),
-		      new Integer(i) );
-	  }
-      }
+		for( int i = 0 ; i < _w.mixerSelector.getComponentCount() ; i++ )
+		{
+			if( _w.mixerSelector.getComponent( i ) instanceof JRadioButton )
+			{
+				( ( JRadioButton ) _w.mixerSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				{
+					public void actionPerformed( ActionEvent e )
+					{
+						mixerAction( e );
+					}
+				} );
+				mixerWidgetNames.put( _w.mixerSelector.getComponent( i ).getName() , new Integer( i ) );
+			}
+		}
 
-      for ( int i=0; i<_w.sbSelector.getComponentCount(); i++ ) {
-	  if ( _w.sbSelector.getComponent(i) instanceof JRadioButton ) {
-	      ((JRadioButton)_w.sbSelector.getComponent(i)).addActionListener ( new ActionListener() {
-										 public void actionPerformed(ActionEvent e) {
-										 sbSelectAction(e);
-										 }
-										 });
-	      sidebandWidgetNames.put (  (Object)_w.sbSelector.getComponent(i).getName(),
-		      new Integer(i) );
-	  }
-      }
+		for( int i = 0 ; i < _w.sbSelector.getComponentCount() ; i++ )
+		{
+			if( _w.sbSelector.getComponent( i ) instanceof JRadioButton )
+			{
+				( ( JRadioButton ) _w.sbSelector.getComponent( i ) ).addActionListener( new ActionListener()
+				{
+					public void actionPerformed( ActionEvent e )
+					{
+						sbSelectAction( e );
+					}
+				} );
+				sidebandWidgetNames.put( ( Object ) _w.sbSelector.getComponent( i ).getName() , new Integer( i ) );
+			}
+		}
 
-      // Add other listeners to the components
-      // of the frequency and button
-      // panels.  We don't need to add anything to the
-      // velocity panel since it is for show only.
-      _w.bandwidths.addActionListener(this);
-      for ( int i=0; i<_w.fPanel.getComponentCount(); i++) {
-	  // The fPanel contains a mix of JCombBoxes
-	  // buttons and textfields.  We only register
-	  // interest in the first two.
-	  if ( _w.fPanel.getComponent(i) instanceof AbstractButton ) {
-	      ((AbstractButton)_w.fPanel.getComponent(i)).addActionListener(this);
-	      freqPanelWidgetNames.put ( _w.fPanel.getComponent(i).getName(), new Integer(i) );
-	  }
-	  else if ( _w.fPanel.getComponent(i) instanceof JComboBox ) {
-	      ((JComboBox)_w.fPanel.getComponent(i)).addActionListener(this);
-	      freqPanelWidgetNames.put ( _w.fPanel.getComponent(i).getName(), new Integer(i) );
-	  }
-	  else if ( _w.fPanel.getComponent(i) instanceof JTextField ) {
-	      ((JTextField)_w.fPanel.getComponent(i)).addKeyListener( new KeyAdapter() {
-								      public void keyTyped(KeyEvent ke) {
-								      freqAction();
-								      }
-								      });
-	      freqPanelWidgetNames.put ( _w.fPanel.getComponent(i).getName(), new Integer(i) );
-	  }
-      }
+		// Add other listeners to the components
+		// of the frequency and button
+		// panels. We don't need to add anything to the
+		// velocity panel since it is for show only.
+		_w.bandwidths.addActionListener( this );
+		for( int i = 0 ; i < _w.fPanel.getComponentCount() ; i++ )
+		{
+			// The fPanel contains a mix of JCombBoxes
+			// buttons and textfields. We only register
+			// interest in the first two.
+			if( _w.fPanel.getComponent( i ) instanceof AbstractButton )
+			{
+				( ( AbstractButton ) _w.fPanel.getComponent( i ) ).addActionListener( this );
+				freqPanelWidgetNames.put( _w.fPanel.getComponent( i ).getName() , new Integer( i ) );
+			}
+			else if( _w.fPanel.getComponent( i ) instanceof JComboBox )
+			{
+				( ( JComboBox ) _w.fPanel.getComponent( i ) ).addActionListener( this );
+				freqPanelWidgetNames.put( _w.fPanel.getComponent( i ).getName() , new Integer( i ) );
+			}
+			else if( _w.fPanel.getComponent( i ) instanceof JTextField )
+			{
+				( ( JTextField ) _w.fPanel.getComponent( i ) ).addKeyListener( new KeyAdapter()
+				{
+					public void keyTyped( KeyEvent ke )
+					{
+						freqAction();
+					}
+				} );
+				freqPanelWidgetNames.put( _w.fPanel.getComponent( i ).getName() , new Integer( i ) );
+			}
+		}
 
-      _w.specialConfigs.setModel( getSpecialConfigsModel() );
-      _w.specialConfigs.addActionListener(this);
+		_w.specialConfigs.setModel( getSpecialConfigsModel() );
+		_w.specialConfigs.addActionListener( this );
 
-      for ( int i=0; i<_w.vPanel.getComponentCount(); i++ ) {
-	  String name = _w.vPanel.getComponent(i).getName();
-	  if ( name != null ) {
-	      vPanelWidgetNames.put( name, new Integer(i) );
-	  }
-      }
-      // Initially disable the accept button
-      toggleEnabled(_w.fPanel, "Accept", false);
+		for( int i = 0 ; i < _w.vPanel.getComponentCount() ; i++ )
+		{
+			String name = _w.vPanel.getComponent( i ).getName();
+			if( name != null )
+			{
+				vPanelWidgetNames.put( name , new Integer( i ) );
+			}
+		}
+		// Initially disable the accept button
+		toggleEnabled( _w.fPanel , "Accept" , false );
 
+		for( int i = 0 ; i < _w.bPanel.getComponentCount() ; i++ )
+		{
+			// The button panel only contains buttons, so
+			// just add action listeners
+			( ( AbstractButton ) _w.bPanel.getComponent( i ) ).addActionListener( this );
+		}
 
-      for ( int i=0; i<_w.bPanel.getComponentCount(); i++ ) {
-	  // The button panel only contains buttons, so 
-	  // just add action listeners
-	  ((AbstractButton)_w.bPanel.getComponent(i)).addActionListener(this);
-      }
+		// Disable the hide button...It should only be enabled when
+		// the frequency editor is visible
+		toggleEnabled( _w.bPanel , "hide" , false );
 
-      // Disable the hide button...It should only be enabled when 
-      // the frequency editor is visible
-      toggleEnabled( _w.bPanel, "hide", false);
+		// Add an ancestor listener. This will be invoked
+		// when a user changes to another component, and
+		// will force the accept button to be pressed.
+		_w.addAncestorListener( new AncestorListener()
+		{
+			public void ancestorAdded( AncestorEvent e ){}
 
-      // Add an ancestor listener.  This will be invoked
-      // when a user changes to another component, and
-      // will force the accept button to be pressed.
-      _w.addAncestorListener ( new AncestorListener() {
-	      public void ancestorAdded(AncestorEvent e) {};
-	      public void ancestorMoved(AncestorEvent e) {};
-	      public void ancestorRemoved( AncestorEvent e) {
-	      clickButton (_w.fPanel, "Accept");
-	      }
-	      });
+			public void ancestorMoved( AncestorEvent e ){}
 
-      _w.table.setDefaultRenderer(Object.class, new TableRowRenderer());
+			public void ancestorRemoved( AncestorEvent e )
+			{
+				clickButton( _w.fPanel , "Accept" );
+			}
+		} );
 
-   }
+		_w.velocity.addWatcher( new TextBoxWidgetWatcher() 
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_inst.setVelocity( tbwe.getText() ) ;
+				toggleEnabled( _w.fPanel , "Accept", true ) ;
+			}
+			public void textBoxAction( TextBoxWidgetExt tbwe ){}
+		} ) ;
+		
+		_w.vDef.setChoices( TelescopeUtil.TCS_RV_DEFINITIONS );
+		_w.vDef.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
+			{
+				_inst.setVelocityDefinition( newTag ) ;
+				moreSetUp() ;
+				update() ;
+			}
+		} );
+
+		_w.vFrame.setChoices( TelescopeUtil.TCS_RV_FRAMES );
+		_w.vFrame.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
+			{
+				_inst.setVelocityFrame( newTag ) ;
+				update() ;
+			}
+		} );
+		
+		_w.defaultToRadial.addWatcher( new CheckBoxWidgetWatcher() 
+		{
+			public void checkBoxAction( CheckBoxWidgetExt cbwe )
+			{
+				defaultToRadialVelocity = cbwe.getBooleanValue() ;
+				_w.velLabel.setEnabled( !defaultToRadialVelocity ) ;
+				_w.velocity.setEnabled( !defaultToRadialVelocity ) ;
+				_w.vdLabel.setEnabled( !defaultToRadialVelocity ) ;
+				_w.vDef.setEnabled( !defaultToRadialVelocity ) ;
+				_w.vfLabel.setEnabled( !defaultToRadialVelocity ) ;
+				_w.vFrame.setEnabled( !defaultToRadialVelocity ) ;
+				moreSetUp() ;
+				update() ;
+				
+				if( defaultToRadialVelocity )
+				{
+					_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
+					_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
+					_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+				}
+				else
+				{
+					_inst.setVelocity( _w.velocity.getText() ) ;
+					_inst.setVelocityDefinition( _w.vDef.getStringValue() ) ;
+					_inst.setVelocityFrame( _w.vFrame.getStringValue() ) ;
+				}
+			}			
+		} ) ;
+		
+
+		_w.table.setDefaultRenderer( Object.class , new TableRowRenderer() );
+
+	}
 
    /** Initialises the default values in SpInstHeterodyne. */
 	private void _initialiseInstHeterodyne()
@@ -342,253 +452,299 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   /**
 	 * Override setup to store away a reference to the SpInst item.
 	 */
-  public void setup(SpItem spItem) {
-    _inst = (SpInstHeterodyne)spItem;
-    super.setup(spItem);
-    setAvailableModes();
-    setAvailableMixers();
-    setAvailableRegions();
-    setAvailableMolecules();
-    setAvailableTransitions();
-    setAvailableSidebands();
-  }
+	public void setup( SpItem spItem )
+	{
+		_inst = ( SpInstHeterodyne ) spItem;
+		super.setup( spItem );
+		moreSetUp();
+	}
 
+  private void moreSetUp()
+  {
+	    setAvailableModes();
+	    setAvailableMixers();
+	    setAvailableRegions();
+	    setAvailableMolecules();
+	    setAvailableTransitions();
+	    setAvailableSidebands();
+  }
 
   /**
    * Implements the _updateWidgets method from OtItemEditor in order to
    * setup the widgets to show the current values of the item.
    */
-  protected void _updateWidgets() {
-      if ( !_inst.valuesInitialised() ) {
-	  _initialiseInstHeterodyne();
-	  // Make sure we click the front end button to 
-	  // set things up correctly
-	  clickButton( _w.feSelector, _inst.getFrontEnd() );
-	  _initialiseRegionInfo();
-      }
+  protected void _updateWidgets()
+	{
+		if( !_inst.valuesInitialised() )
+		{
+			_initialiseInstHeterodyne();
+			// Make sure we click the front end button to
+			// set things up correctly
+			clickButton( _w.feSelector , _inst.getFrontEnd() );
+			_initialiseRegionInfo();
+		}
 
-      _receiver = (Receiver)_cfg.receivers.get(_inst.getFrontEnd());
+		_receiver = ( Receiver ) _cfg.receivers.get( _inst.getFrontEnd() );
 
-      // Update the front end panel
-      ((AbstractButton) _w.feSelector.getComponent ( ((Integer)feWidgetNames.get(_inst.getFrontEnd())).intValue() )).setSelected(true);
-      ((AbstractButton) _w.modeSelector.getComponent ( ((Integer)modeWidgetNames.get(_inst.getMode())).intValue() )).setSelected(true);
-      ((AbstractButton) _w.regionSelector.getComponent ( ((Integer)regionWidgetNames.get(_inst.getBandMode())).intValue() )).setSelected(true);
-      ((AbstractButton) _w.mixerSelector.getComponent ( ((Integer)mixerWidgetNames.get(_inst.getMixer())).intValue() )).setSelected(true);
-      ((AbstractButton) _w.sbSelector.getComponent ( ((Integer)sidebandWidgetNames.get(_inst.getBand())).intValue() )).setSelected(true);
+		// Update the front end panel
+		( ( AbstractButton ) _w.feSelector.getComponent( ( ( Integer ) feWidgetNames.get( _inst.getFrontEnd() ) ).intValue() ) ).setSelected( true );
+		( ( AbstractButton ) _w.modeSelector.getComponent( ( ( Integer ) modeWidgetNames.get( _inst.getMode() ) ).intValue() ) ).setSelected( true );
+		( ( AbstractButton ) _w.regionSelector.getComponent( ( ( Integer ) regionWidgetNames.get( _inst.getBandMode() ) ).intValue() ) ).setSelected( true );
+		( ( AbstractButton ) _w.mixerSelector.getComponent( ( ( Integer ) mixerWidgetNames.get( _inst.getMixer() ) ).intValue() ) ).setSelected( true );
+		( ( AbstractButton ) _w.sbSelector.getComponent( ( ( Integer ) sidebandWidgetNames.get( _inst.getBand() ) ).intValue() ) ).setSelected( true );
 
-      // Update the bandwidth
-      _updateBandwidths();
+		// Update the bandwidth
+		_updateBandwidths();
 
-      // Update the special configs
-      if ( _inst.getNamedConfiguration() != null ) {
-          _w.specialConfigs.setSelectedItem(_inst.getNamedConfiguration());
-      }
+		// Update the special configs
+		if( _inst.getNamedConfiguration() != null )
+		{
+			_w.specialConfigs.setSelectedItem( _inst.getNamedConfiguration() );
+		}
 
-      // Update the summary panel
-      for (int i=0; i<_w.summaryPanel.getComponentCount(); i++) {
-	  Component c = _w.summaryPanel.getComponent(i);
-	  String name = c.getName();
-	  if ( name != null ) {
-	      if ( name.equals ("LowFreqLimit") ) {
-		  ((JLabel)c).setText ("" + (int) (_receiver.loMin*1.0E-9) );
-	      }
-	      if ( name.equals("HighFreqLimit") ) {
-		  ((JLabel)c).setText ("" + (int) (_receiver.loMax*1.0E-9) );
-	      }
-	      if ( name.equals("resolution") ) {
-		  double resolution = (_inst.getBandWidth(0) * 1.0E-3)/_inst.getChannels(0);
-		  try {
-		      resolution = Integer.parseInt(_inst.getMixer()) * resolution;
-		  }
-		  catch (NumberFormatException nfe) {
-		      // Assume one mixer
-		  }
-		  ((JLabel)c).setText("" + (int)Math.rint(resolution));
-	      }
-	      if ( name.equals("overlap") ) {
-		  ((JLabel)c).setText("" + (_inst.getOverlap(0)*1.0E-6));
-	      }
-	      if ( name.equals("channel") ) {
-		  ((JLabel)c).setText("" + _inst.getChannels(0));
-	      }
-	  }
-      }
+		// Update the summary panel
+		for( int i = 0 ; i < _w.summaryPanel.getComponentCount() ; i++ )
+		{
+			Component c = _w.summaryPanel.getComponent( i );
+			String name = c.getName();
+			if( name != null )
+			{
+				if( name.equals( "LowFreqLimit" ) )
+				{
+					( ( JLabel ) c ).setText( "" + ( int ) ( _receiver.loMin * 1.0E-9 ) );
+				}
+				if( name.equals( "HighFreqLimit" ) )
+				{
+					( ( JLabel ) c ).setText( "" + ( int ) ( _receiver.loMax * 1.0E-9 ) );
+				}
+				if( name.equals( "resolution" ) )
+				{
+					double resolution = ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 );
+					try
+					{
+						resolution = Integer.parseInt( _inst.getMixer() ) * resolution;
+					}
+					catch( NumberFormatException nfe )
+					{
+						// Assume one mixer
+					}
+					( ( JLabel ) c ).setText( "" + ( int ) Math.rint( resolution ) );
+				}
+				if( name.equals( "overlap" ) )
+				{
+					( ( JLabel ) c ).setText( "" + ( _inst.getOverlap( 0 ) * 1.0E-6 ) );
+				}
+				if( name.equals( "channel" ) )
+				{
+					( ( JLabel ) c ).setText( "" + _inst.getChannels( 0 ) );
+				}
+			}
+		}
+		
+		// Update the velocity field
+		// First we need to see if we can find a target component
+		// somewhere in scope
+		SpTelescopeObsComp target = SpTreeMan.findTargetList( _inst );
+		String rv;
+		String rvDefn;
+		String rvFrame;
+		if( target != null && defaultToRadialVelocity )
+		{
+			SpTelescopePos tp = ( SpTelescopePos ) target.getPosList().getBasePosition();
+			rv = tp.getTrackingRadialVelocity();
+			rvDefn = tp.getTrackingRadialVelocityDefn();
+			rvFrame = tp.getTrackingRadialVelocityFrame();
+		}
+		else
+		{
+			rv = "" + _inst.getVelocity() ;
+			rvDefn = _inst.getVelocityDefinition() ;
+			rvFrame = _inst.getVelocityFrame() ;
+		}
 
-      // Update the velocity field
-      // First we need to see if we can find a target component
-      // somewhere in scope
-      SpTelescopeObsComp target = SpTreeMan.findTargetList(_inst);
-      String rv;
-      String rvDefn;
-      String rvFrame;
-      if ( target != null ) {
-	  SpTelescopePos tp = (SpTelescopePos)target.getPosList().getBasePosition();
-	  rv      = tp.getTrackingRadialVelocity();
-	  rvDefn  = tp.getTrackingRadialVelocityDefn();
-	  rvFrame = tp.getTrackingRadialVelocityFrame();
-      }
-      else {
-	  rv      = "unset";
-	  rvDefn  = "unset";
-	  rvFrame = "unset";
-      }
+		// Now get the components on the velocity panel
+		// and set them to the new values
+		for( int i = 0 ; i < _w.vPanel.getComponentCount() ; i++ )
+		{
+			Component c = _w.vPanel.getComponent( i ) ;
+			String name = c.getName();
+			if( name != null )
+			{
+				if( name.equals( "velocity" ) )
+				{
+					( ( JTextField ) c ).setText( rv ) ;
+				}
+				else if( name.equals( "definition" ) )
+				{
+					if( rvDefn != null )
+						_w.vDef.setSelectedItem( rvDefn ) ;
+				}
+				else if( name.equals( "frame" ) )
+				{
+					if( rvFrame != null )
+						_w.vFrame.setSelectedItem( rvFrame ) ;
+				}
+			}
+		}
 
-      // Now get the components on the velocity panel
-      // and set them to the new values
-      for ( int i=0; i<_w.vPanel.getComponentCount(); i++) {
-	  Component c = _w.vPanel.getComponent(i);
-	  String name = c.getName();
-	  if ( name != null ) {
-	      if ( name.equals("velocity") ) {
-		  ((JLabel)c).setText(rv);
-	      }
-	      if ( name.equals("definition") ) {
-		  ((JLabel)c).setText(rvDefn);
-	      }
-	      if ( name.equals("frame") ) {
-		  ((JLabel)c).setText(rvFrame);
-	      }
-	  }
-      }
+		// Make sure the molecule is accessible
+		try
+		{
+			_doVelocityChecks();
+		}
+		catch( Exception e )
+		{
+			// The veolcity is invalid, so set the text appropriately
+			Component vWidget;
+			Iterator iter = vPanelWidgetNames.keySet().iterator();
+			while( iter.hasNext() )
+			{
+				vWidget = _w.vPanel.getComponent( ( ( Integer ) vPanelWidgetNames.get( iter.next() ) ).intValue() );
+				if( vWidget instanceof JTextField )					
+					( ( JTextField )vWidget).setText( "Invalid" ) ;
+				else if( vWidget instanceof JLabel )					
+					( ( JLabel )vWidget).setText( "Invalid" ) ;
+			}
+		}
 
-      // Make sure the molecule is accessible
-      try {
-          _doVelocityChecks();
-      }
-      catch (Exception e) {
-	  // The veolcity is invalid, so set the text appropriately
-	  JLabel vWidget;
-	  Iterator iter = vPanelWidgetNames.keySet().iterator();
-	  while ( iter.hasNext() ) {
-	      vWidget = (JLabel)_w.vPanel.getComponent( ((Integer)vPanelWidgetNames.get(iter.next())).intValue() );
-	      vWidget.setText("Invalid");
-	  }
-      }
+		_updateMoleculeChoice();
+		_updateTransitionChoice();
 
-      _updateMoleculeChoice();
-      _updateTransitionChoice();
+		_updateRegionInfo();
 
-      _updateRegionInfo();
-
-      _updateTable();
-  }
-
-
-   public void actionPerformed ( ActionEvent ae )
-   {
-       if ( ae.getSource() == _w.bandwidths ) {
-	   // Set the bandwidth for each subsystem/spectral region
-	   for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
-	       _inst.setBandWidth( 
-		       Double.parseDouble (
-		           (String)_w.bandwidths.getSelectedItem()
-		           ) * 1.0E6,
-		       i );
-               setAvailableRegions();
-	   }
-           _updateRegionInfo();
-       }
-       else if ( ae.getSource() == _w.specialConfigs ) {
-           // If the user has selected None
-           if ( _w.specialConfigs.getSelectedIndex() == 0) {
-               _inst.removeNamedConfiguration();
-               configureFrequencyEditor( );
-           }
-           else {
-               _inst.setNamedConfiguration( (String)_w.specialConfigs.getSelectedItem() );
-               ConfigurationInformation ci = getConfigFor((String)_w.specialConfigs.getSelectedItem());
-               if ( ci == null ) return;
-               
-               clickButton(_w.feSelector, ci.$feName);
-               clickButton(_w.sbSelector, ci.$sideBand.toLowerCase());
-               clickButton(_w.mixerSelector, "" + ci.$mixers);
-               clickButton(_w.modeSelector, ci.$mode.toLowerCase());
-               clickButton(_w.regionSelector, "" + ci.$subSystems);
-               _w.bandwidths.setSelectedItem(ci.$bandWidth);
-               // Set the rest frequency text...
-               int compNum = ((Integer)freqPanelWidgetNames.get("frequency")).intValue();
-               JTextField tf = (JTextField) _w.fPanel.getComponent(compNum);
-               tf.setText(ci.$freq.toString());
-               freqAction();
-               clickButton(_w.fPanel, "Accept");
-               configureFrequencyEditor( ci.$shifts );
-               _freqEditorConfigured = true;
-           }
-           _updateWidgets();
-           return;
-       }
-
-       try {
-           if ( ((Component)ae.getSource()).getName().equals("molecule") ) {
-	       // Set the current molecule and update the transitions
-               _inst.setCentreFrequency(_receiver.feIF, 0);
-	       _inst.setMolecule ( ((JComboBox)ae.getSource()).getSelectedItem().toString(), 0 );
-	       _updateTransitionChoice();
-               _initialiseRegionInfo();
-	   }
-
-	   else if ( ((Component)ae.getSource()).getName().equals("transition") ) {
-	       // Set the current transition
-               _inst.setCentreFrequency(_receiver.feIF, 0);
-	       _inst.setTransition ( ((JComboBox)ae.getSource()).getSelectedItem().toString(), 0 );
-	       // Update the frequency information
-	       Object t = ((JComboBox)ae.getSource()).getSelectedItem();
-	       if ( t instanceof Transition ) {
-		   _updateFrequencyText ( ((Transition)t).frequency /1.0E9 );
-	       }
-               _initialiseRegionInfo();
-	   }
+		_updateTable();
+	}
 
 
-	   else if ( ((Component)ae.getSource()).getName().equals("Accept") ) {
-	       // Set the current Rest Frequency
-	       // Get the text field widget
-	       int compNum = ((Integer)freqPanelWidgetNames.get("frequency")).intValue();
-	       JTextField tf = (JTextField) _w.fPanel.getComponent(compNum);
-	       try {
-		   double f = Double.parseDouble(tf.getText());
-		   _inst.setRestFrequency ( f*1.0E9, 0 );
-		   _inst.setSkyFrequency( _inst.getRestFrequency(0) / (1.0+getRedshift()) );
-		   // Set the molecule and trasition to NO_LINE
-		   _inst.setMolecule( NO_LINE, 0 );
-		   _inst.setTransition( NO_LINE, 0 );
-		   _updateMoleculeChoice();
-                   _initialiseRegionInfo();
-	       }
-	       catch (Exception e) {
-	       }
-	       toggleEnabled (_w.fPanel, "Accept", false);
-	   }
-	   else if ( ((Component)ae.getSource()).getName().equals("show") ) {
-               if ( !_freqEditorConfigured) {
-                   configureFrequencyEditor();
-               }
-	       enableNamedWidgets(false);
-	       _frequencyEditor.show();
-	   }
-	   else if ( ((Component)ae.getSource()).getName().equals("hide") ) {
-	       _hidingFrequencyEditor = true;
-	       getFrequencyEditorConfiguration();
-	       enableNamedWidgets(true);
-               _updateRegionInfo();
-	       _frequencyEditor.hide();
-	       _hidingFrequencyEditor = false;
-               _updateTable();
-               return;
-	   }
+   public void actionPerformed( ActionEvent ae )
+	{
+		if( ae.getSource() == _w.bandwidths )
+		{
+			// Set the bandwidth for each subsystem/spectral region
+			for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
+			{
+				_inst.setBandWidth( Double.parseDouble( ( String ) _w.bandwidths.getSelectedItem() ) * 1.0E6 , i );
+				setAvailableRegions();
+			}
+			_updateRegionInfo();
+		}
+		else if( ae.getSource() == _w.specialConfigs )
+		{
+			// If the user has selected None
+			if( _w.specialConfigs.getSelectedIndex() == 0 )
+			{
+				_inst.removeNamedConfiguration();
+				configureFrequencyEditor();
+			}
+			else
+			{
+				_inst.setNamedConfiguration( ( String ) _w.specialConfigs.getSelectedItem() );
+				ConfigurationInformation ci = getConfigFor( ( String ) _w.specialConfigs.getSelectedItem() );
+				if( ci == null )
+					return;
 
-	   else {
-	       System.out.println("Unknown source for action: " + ((Component)ae.getSource()).getName() );
-	   }
+				clickButton( _w.feSelector , ci.$feName );
+				clickButton( _w.sbSelector , ci.$sideBand.toLowerCase() );
+				clickButton( _w.mixerSelector , "" + ci.$mixers );
+				clickButton( _w.modeSelector , ci.$mode.toLowerCase() );
+				clickButton( _w.regionSelector , "" + ci.$subSystems );
+				_w.bandwidths.setSelectedItem( ci.$bandWidth );
+				// Set the rest frequency text...
+				int compNum = ( ( Integer ) freqPanelWidgetNames.get( "frequency" ) ).intValue();
+				JTextField tf = ( JTextField ) _w.fPanel.getComponent( compNum );
+				tf.setText( ci.$freq.toString() );
+				freqAction();
+				clickButton( _w.fPanel , "Accept" );
+				configureFrequencyEditor( ci.$shifts );
+				_freqEditorConfigured = true;
+			}
+			_updateWidgets();
+			return;
+		}
 
-       }
-       catch (Exception e) {
-	   // Ignore for now
-       };
+		try
+		{
+			if( ( ( Component ) ae.getSource() ).getName().equals( "molecule" ) )
+			{
+				// Set the current molecule and update the transitions
+				_inst.setCentreFrequency( _receiver.feIF , 0 );
+				_inst.setMolecule( ( ( JComboBox ) ae.getSource() ).getSelectedItem().toString() , 0 );
+				_updateTransitionChoice();
+				_initialiseRegionInfo();
+			}
 
-       _updateWidgets();
-       _freqEditorConfigured = false;
-   }
+			else if( ( ( Component ) ae.getSource() ).getName().equals( "transition" ) )
+			{
+				// Set the current transition
+				_inst.setCentreFrequency( _receiver.feIF , 0 );
+				_inst.setTransition( ( ( JComboBox ) ae.getSource() ).getSelectedItem().toString() , 0 );
+				// Update the frequency information
+				Object t = ( ( JComboBox ) ae.getSource() ).getSelectedItem();
+				if( t instanceof Transition )
+				{
+					_updateFrequencyText( ( ( Transition ) t ).frequency / 1.0E9 );
+				}
+				_initialiseRegionInfo();
+			}
+
+			else if( ( ( Component ) ae.getSource() ).getName().equals( "Accept" ) )
+			{
+				// Set the current Rest Frequency
+				// Get the text field widget
+				int compNum = ( ( Integer ) freqPanelWidgetNames.get( "frequency" ) ).intValue();
+				JTextField tf = ( JTextField ) _w.fPanel.getComponent( compNum );
+				try
+				{
+					double f = Double.parseDouble( tf.getText() );
+					_inst.setRestFrequency( f * 1.0E9 , 0 );
+					_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
+					// Set the molecule and trasition to NO_LINE
+					// _inst.setMolecule( NO_LINE, 0 );
+					// _inst.setTransition( NO_LINE, 0 );
+					_updateMoleculeChoice();
+					_initialiseRegionInfo();
+				}
+				catch( Exception e )
+				{
+				}
+				toggleEnabled( _w.fPanel , "Accept" , false );
+			}
+			else if( ( ( Component ) ae.getSource() ).getName().equals( "show" ) )
+			{
+				if( !_freqEditorConfigured )
+				{
+					configureFrequencyEditor();
+				}
+				enableNamedWidgets( false );
+				_frequencyEditor.show();
+			}
+			else if( ( ( Component ) ae.getSource() ).getName().equals( "hide" ) )
+			{
+				_hidingFrequencyEditor = true;
+				getFrequencyEditorConfiguration();
+				enableNamedWidgets( true );
+				_updateRegionInfo();
+				_frequencyEditor.hide();
+				_hidingFrequencyEditor = false;
+				_updateTable();
+				return;
+			}
+
+			else
+			{
+				System.out.println( "Unknown source for action: " + ( ( Component ) ae.getSource() ).getName() );
+			}
+
+		}
+		catch( Exception e )
+		{
+			// Ignore for now
+		}
+		;
+
+		_updateWidgets();
+		_freqEditorConfigured = false;
+	}
 
 
 
@@ -1026,41 +1182,53 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   public void updateLO1(double lo1) {
   }
 
-  public double getRedshift() {
-      double velocity = 0.0;
+  	public double getRedshift()
+	{
+		double velocity = 0.0;
 
-      // Get the veolcity information
-      String vText = ((JLabel)_w.vPanel.getComponent( ((Integer)vPanelWidgetNames.get("velocity")).intValue() )).getText();
-      try {
-	  velocity = Double.parseDouble(vText);
-      }
-      catch ( NumberFormatException nfe ) {
-	  return 0.0;
-      }
+		Component component =  _w.vPanel.getComponent( ( ( Integer ) vPanelWidgetNames.get( "velocity" ) ).intValue() ) ;
+		// Get the velocity information
+		String vText = "0.0" ;
+		if( component instanceof JTextField )
+			vText = ( ( JTextField )component).getText();
+		try
+		{
+			velocity = Double.parseDouble( vText );
+		}
+		catch( NumberFormatException nfe )
+		{
+			return 0.0;
+		}
 
-      double c = SpInstHeterodyne.LIGHTSPEED;
+		double c = SpInstHeterodyne.LIGHTSPEED;
 
+		component = _w.vPanel.getComponent( ( ( Integer ) vPanelWidgetNames.get( "definition" ) ).intValue() ) ; 
+		String vDefn = "" ;
+		if( component instanceof DropDownListBoxWidgetExt )
+			vDefn = ( ( DropDownListBoxWidgetExt )component).getStringValue() ;
 
-      String vDefn = ((JLabel)_w.vPanel.getComponent( ((Integer)vPanelWidgetNames.get("definition")).intValue() )).getText();
+		if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 0 ] ) )
+		{
+			// Radio
+			velocity = ( c / ( c - velocity ) ) - 1.0;
+		}
+		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
+		{
+			// optical
+			velocity = velocity / c;
+		}
+		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
+		{
+			// relativistic
+			velocity = Math.sqrt( ( c - velocity ) / ( c + velocity ) ) - 1.0;
+		}
+		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
+		{
+			// redshift
+		}
 
-      if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[0]) ) {
-	  // Radio
-	  velocity = ( c / (c - velocity) ) -1.0;
-      }
-      else if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1]) ) {
-	  // optical
-	  velocity = velocity / c;
-      }
-      else if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1]) ) {
-	  // relativistic
-	  velocity = Math.sqrt ( (c - velocity)/(c + velocity) ) -1.0;
-      }
-      else if ( vDefn.equals(TelescopeUtil.TCS_RV_DEFINITIONS[1]) ) {
-	  // redshift
-      }
-
-      return velocity;
-  }
+		return velocity;
+	}
 
     public double getCurrentBandwidth ( int subsystem) {
        return _inst.getBandWidth(subsystem);
@@ -1580,26 +1748,21 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        }
    }
 
-   private void _doVelocityChecks() throws Exception {
-       double obsmin = _receiver.loMin - _receiver.feIF -
-	   ( _receiver.bandWidth * 0.5 );
-       obsmin *= ( 1.0 + getRedshift() );
-       double obsmax = _receiver.loMin + _receiver.feIF +
-	   ( _receiver.bandWidth * 0.5 );
-       obsmax *= ( 1.0 + getRedshift() );
+   	private void _doVelocityChecks() throws Exception
+	{
+		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 );
+		obsmin *= ( 1.0 + getRedshift() );
+		double obsmax = _receiver.loMin + _receiver.feIF + ( _receiver.bandWidth * 0.5 );
+		obsmax *= ( 1.0 + getRedshift() );
 
-       if ( ((Vector)_lineCatalog.returnSpecies(obsmin, obsmax)).size() < 1 ) {
-	   String message = "Specified velocity results in frequency range that exceeds the line catalog, " +
-	       "\nEither change the front end or change the velocity of the target";
+		if( ( ( Vector ) _lineCatalog.returnSpecies( obsmin , obsmax ) ).size() < 1 )
+		{
+			String message = "Specified velocity results in frequency range that exceeds the line catalog, " + "\nEither change the front end or change the velocity of the target";
 
-	   JOptionPane.showMessageDialog (
-		   _w,
-		   message,
-		   "Invalid Velocity!",
-		   JOptionPane.ERROR_MESSAGE);
-	   throw new Exception ("Invalid velocity");
-       }
-   }
+			JOptionPane.showMessageDialog( _w , message , "Invalid Velocity!" , JOptionPane.ERROR_MESSAGE );
+			throw new Exception( "Invalid velocity" );
+		}
+	}
 
 
     class ConfigurationInformation {

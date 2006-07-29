@@ -10,19 +10,9 @@
 
 package ot.jcmt.iter.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.CardLayout;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-
-import jsky.app.ot.editor.OtItemEditor;
-
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 
-import gemini.sp.SpAvTable;
 import gemini.sp.SpItem;
 import gemini.sp.obsComp.SpInstObsComp;
 import orac.jcmt.iter.SpIterFocusObs;

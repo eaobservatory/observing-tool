@@ -34,9 +34,6 @@ import gemini.sp.SpMSB;
  */
 public interface SpJCMTConstants {
 
-   /** Number of integrations. */
-   public static final String ATTR_INTEGRATIONS    = "integrations";
-
    /**
     * This attribute records the estimated duration of the Observe ("Eye").
     *
@@ -141,7 +138,6 @@ public interface SpJCMTConstants {
 
 
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";
-//    public static final String ATTR_NO_OF_CYCLES        = "noOfCycles";
    public static final String ATTR_CYCLE_REVERSAL      = "cycleReversal";
    public static final String ATTR_SAMPLE_TIME         = "sampleTime";
    public static final String ATTR_AUTOMATIC_TARGET    = "autoTarget";

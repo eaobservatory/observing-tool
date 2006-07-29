@@ -321,78 +321,69 @@ public class HeterodyneNoise {
         return value;
     }
 
-    private static double getNoise( SpIterJCMTObs    obs,
-			     SpInstHeterodyne inst,
-			     double tSys ) {
+    private static double getNoise( SpIterJCMTObs obs , SpInstHeterodyne inst , double tSys )
+	{
 
-	double time;
-	int    noOfRows      = 1;
-	int    samplesPerRow = 1;
+		double time;
+		int noOfRows = 1;
+		int samplesPerRow = 1;
 
+		if( obs instanceof SpIterRasterObs )
+		{
+			// Make this the total time to do the map
+			double width = ( ( SpIterRasterObs ) obs ).getWidth();
+			double height = ( ( SpIterRasterObs ) obs ).getHeight();
+			double sampleDx = ( ( SpIterRasterObs ) obs ).getScanDx();
+			double sampleDy = ( ( SpIterRasterObs ) obs ).getScanDy();
+			double sampleTime = ( ( SpIterRasterObs ) obs ).getSampleTime();
+			samplesPerRow = ( int ) ( Math.ceil( width / sampleDx ) );
+			if( samplesPerRow % 2 == 0 )
+				samplesPerRow++;
+			noOfRows = ( int ) Math.ceil( height / sampleDy );
+			double timeOnRow = ( double ) samplesPerRow * sampleTime;
+			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * sampleTime;
+			time = ( timeOnRow + timeOffRow ) * noOfRows;
+		}
+		else
+		{
+			time = ( double ) obs.getSecsPerCycle();
+		}
 
-	if (obs instanceof SpIterRasterObs ) {
-	    // Make this the total time to do the map
-	    double width      = ((SpIterRasterObs)obs).getWidth();
-	    double height     = ((SpIterRasterObs)obs).getHeight();
-	    double sampleDx   = ((SpIterRasterObs)obs).getScanDx();
-	    double sampleDy   = ((SpIterRasterObs)obs).getScanDy();
-	    double sampleTime = ((SpIterRasterObs)obs).getSampleTime();
-	    samplesPerRow = (int)(Math.ceil(width/sampleDx));
-	    if (samplesPerRow%2 == 0) samplesPerRow++;
-	    noOfRows = (int) Math.ceil( height/sampleDy );
-	    double timeOnRow  = (double)samplesPerRow * sampleTime;
-	    double timeOffRow = Math.sqrt((double)samplesPerRow) * sampleTime;
-	    time = (timeOnRow + timeOffRow) * noOfRows;
-// 	    System.out.println("Calculating RASTER time based on:");
-// 	    System.out.println("\tWidth       : "+width);
-// 	    System.out.println("\tHeight      : "+height);
-// 	    System.out.println("\tdx          : "+sampleDx);
-// 	    System.out.println("\tdy          : "+sampleDy);
-// 	    System.out.println("\tSample Time : "+sampleTime);
+		// Scale by number of obervations
+		time = time / ( noOfRows * samplesPerRow );
 
+		// There seems to be a bug in the overlap in the OT, so for now get the bandwidth
+		// and use the overlap values fro, Hitec
+		// double overlap = inst.getOverlap(0);
+		int bandwidth = ( int ) ( inst.getBandWidth( 0 ) / 1.e6 );
+		double overlap = ( ( Double ) dasModes.get( new Integer( bandwidth ) ) ).doubleValue();
+
+		// Multiply by the number of mixers
+		if( inst.getMixer().startsWith( "Dual" ) )
+		{
+			time = 2. * time;
+			overlap = 2 * overlap;
+		}
+
+		// Handle the different types of obervation...
+		if( obs instanceof SpIterRasterObs )
+		{
+			time = 2. * time / ( 1. + 1. / Math.sqrt( samplesPerRow ) );
+		}
+		else
+		{
+			// Get the switching mode
+			if( obs.getSwitchingMode().equalsIgnoreCase( "Position" ) || obs.getSwitchingMode().equalsIgnoreCase( "Beam" ) )
+			{
+				time = time / 2.0;
+			}
+			else if( obs.getSwitchingMode().startsWith( "Frequency" ) ){}
+			else{}
+		}
+
+		double rmsNoise = Math.sqrt( 1. / ( overlap * time ) ) * tSys * kappa;
+		return rmsNoise;
 	}
-	else {
-	    time = (double)obs.getSecsPerCycle();
-	}
-
-	// Scale by number of obervations
-	time = time/(noOfRows*samplesPerRow);
-
-	// Multiply this time by the number of integrations to give a total time
-	time = time*obs.getIntegrations();
-
-	// There seems to be a bug in the overlap in the OT, so for now get the bandwidth
-	// and use the overlap values fro, Hitec
-// 	double overlap = inst.getOverlap(0);
-	int bandwidth = (int) (inst.getBandWidth(0)/1.e6);
-	double overlap = ( (Double)dasModes.get(new Integer(bandwidth))).doubleValue();
-	
-	
-	// Multiply by the number of mixers
-	if (inst.getMixer().startsWith("Dual")) {
-	    time = 2.*time;
-	    overlap = 2*overlap;
-	}
-	
-	// Handle the different types of obervation...
-	if (obs instanceof SpIterRasterObs) {
- 	    time = 2.*time/(1.+1./Math.sqrt(samplesPerRow));
-	}
-	else {
-	    // Get the switching mode
-	    if (obs.getSwitchingMode().equalsIgnoreCase("Position") ||
-		obs.getSwitchingMode().equalsIgnoreCase("Beam")) {
-		time = time/2.0;
-	    }
-	    else if (obs.getSwitchingMode().startsWith("Frequency")) {
-	    }
-	    else {
-	    }
-	}
-	
-	double rmsNoise = Math.sqrt(1./(overlap*time)) * tSys * kappa;
-	return rmsNoise;
-    }
 
     public static double getHeterodyneNoise (SpIterJCMTObs    obs, 
 					     SpInstHeterodyne instrument,

@@ -23,6 +23,7 @@ import orac.jcmt.util.HeterodyneNoise;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
+import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 
 /**
  * This is the editor for the Stare Observe Mode iterator component (ACSIS).
@@ -83,22 +84,20 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     return ScubaNoise.noise_level(integrations, wavelength, "PHOT", nefd, status);
   }
 
-    protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
-	double tSys = HeterodyneNoise.getTsys(inst.getFrontEnd(),
-					      tau,
-					      airmass,
-					      inst.getRestFrequency(0)/1.0e9,
-					      inst.getMode().equalsIgnoreCase("ssb"));
+    protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	{
+		double tSys = HeterodyneNoise.getTsys( inst.getFrontEnd() , tau , airmass , inst.getRestFrequency( 0 ) / 1.0e9 , inst.getMode().equalsIgnoreCase( "ssb" ) );
 
-	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
-	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
-        if ( "das".equalsIgnoreCase( inst.getBackEnd()) ) {
-            return HeterodyneNoise.getHeterodyneNoise((SpIterStareObs)_iterObs, inst, tau, airmass);
-        }
-        else {
-            return -999.9;
-        }
-    }
+		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
+		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
+		{
+			return HeterodyneNoise.getHeterodyneNoise( ( SpIterStareObs ) _iterObs , inst , tau , airmass );
+		}
+		else
+		{
+			return -999.9;
+		}
+	}
 
     public void actionPerformed (ActionEvent e) {
 	((SpIterStareObs)_iterObs).setWidePhotom ( _w.widePhotom.isSelected() );

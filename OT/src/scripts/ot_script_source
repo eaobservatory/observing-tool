@@ -12,8 +12,8 @@ set TELESCOPE_LIST = "ukirt jcmt"
 
 set TELESCOPE = "" 
 set INTERNAL_FRAMES = -nointernalframes 
-#set EDFREQ_CFG = "edfreq/acsisCfg.xml"
-set EDFREQ_CFG = "edfreq/dasCfg.xml"
+set EDFREQ_CFG = "edfreq/acsisCfg.xml"
+#set EDFREQ_CFG = "edfreq/dasCfg.xml"
 set DISALLOW_MULTI_BW_PROP = ""
 set USAGE = "Usage: $0 [-h] [-[no]internalframes] <telescope>\n  where <telescope> is one of: ${TELESCOPE_LIST}\n"
 set XMLFILES = ""

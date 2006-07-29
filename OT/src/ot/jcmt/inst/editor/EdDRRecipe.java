@@ -65,15 +65,11 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		_description = "Enter the Data Reduction recipe to be used"; // for each observation type";
 		_resizable = true;
 
-		_dataReductionScreen.windowType.setChoices( SpDRRecipe.WINDOW_TYPES );
-
 		_w.projection.setChoices( SpDRRecipe.PROJECTION_TYPES );
 		_w.gridFunction.setChoices( SpDRRecipe.GRID_FUNCTION_TYPES );
 
 		_w.tabbedPaneHet.add( _dataReductionScreen , "ACSIS DR" , 0 );
 		_w.tabbedPaneHet.setEnabledAt( 1 , false );
-
-		_dataReductionScreen.windowType.addWatcher( this );
 
 		_w.projection.addWatcher( this );
 		_w.gridFunction.addWatcher( this );
@@ -328,8 +324,6 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 	protected void _updateWidgets()
 	{
 		_updateRecipeWidgets();
-
-		_dataReductionScreen.windowType.setValue( _spDRRecipe.getWindowType() ) ;
 	}
 
 	/**
@@ -425,16 +419,8 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 	public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
 	{
-		if( dd == _dataReductionScreen.windowType )
-		{
-			_spDRRecipe.setWindowType( val );
-			return;
-		}
-
 		if( dd == _w.projection )
-		{
-			return;
-		}
+			return ;
 	}
 
 	public void actionPerformed( ActionEvent e ){}

@@ -182,9 +182,7 @@ public class OtFileIO
 		{
 			String path = dir;
 			if( !dir.endsWith( File.separator ) )
-			{
 				path += File.separator;
-			}
 			path += filename;
 			JOptionPane.showMessageDialog( null , "The file '" + path + "' was not found." , "Error" , JOptionPane.ERROR_MESSAGE );
 			return null;
@@ -208,7 +206,7 @@ public class OtFileIO
 	{
 		try
 		{
-			return ( SpRootItem ) ( new SpInputXML() ).xmlToSpItem( rdr );
+			return ( SpRootItem )( new SpInputXML() ).xmlToSpItem( rdr ) ;
 		}
 		catch( Exception e )
 		{
@@ -230,16 +228,14 @@ public class OtFileIO
 
 		fd.showOpenDialog( null );
 		if( fd.getSelectedFile() == null )
-		{
 			return;
-		}
 
 		String dir = fd.getSelectedFile().getParent();
+		if( !dir.endsWith( File.separator ) )
+			dir += File.separator;
 		String filename = fd.getSelectedFile().getName();
 		if( filename == null )
-		{
 			return;
-		}
 
 		if( dir != null )
 			_lastDir = dir;

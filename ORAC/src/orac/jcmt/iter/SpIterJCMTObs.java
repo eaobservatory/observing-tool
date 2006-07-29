@@ -10,24 +10,14 @@
 
 package orac.jcmt.iter;
 
-import gemini.sp.SpItem;
-import gemini.sp.SpFactory;
 import gemini.sp.SpType;
-import gemini.sp.SpTreeMan;
 
 import gemini.sp.iter.SpIterEnumeration;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterStep;
 import gemini.sp.iter.SpIterValue;
 
-import gemini.sp.obsComp.SpInstConstants;
-import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
-
-import gemini.util.CoordSys;
 import gemini.util.Format;
-
-import java.util.Enumeration;
 
 import orac.jcmt.SpJCMTConstants;
 
@@ -104,18 +94,8 @@ public SpIterJCMTObs(SpType spType)
    // is the number of iterations, ATTR_INTEGRATIONS.
    _avTable.noNotifyRm(ATTR_COUNT);
 
-   _avTable.noNotifySet(ATTR_INTEGRATIONS, "1", 0);
    _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
 }
-
-/** Get the number of desired integrations. */
-public int getIntegrations() { return _avTable.getInt(ATTR_INTEGRATIONS, 1); }
-
-/** Set the number of integrations. */
-public void setIntegrations(int    i)	{ _avTable.set(ATTR_INTEGRATIONS, i); }
-
-/** Set the number of integrations from a string. */
-public void setIntegrations(String s)	{ _avTable.set(ATTR_INTEGRATIONS, s); }
 
 /**
  * Calculates the estimated duration of this Observe ("Eye").
@@ -132,15 +112,10 @@ public double getElapsedTime()
 /**
  * Override getTitle to return the observe count.
  */
-public String
-getTitle()
-{
-//   if (getTitleAttr() != null) {
-//      return super.getTitle();
-//   }
-
-   return type().getReadable() + " (" + getIntegrations() + ")";
-}
+	public String getTitle()
+	{
+		return type().getReadable() ;
+	}
 
 
 /** Not supported by JCMT OT. */
@@ -272,16 +247,6 @@ public void rmFrequencyOffsetValues() {
   public void setSecsPerCycle(String value) {
     _avTable.set(ATTR_SECS_PER_CYCLE, value);
   }
-
-/*
-  public int getNoOfCycles() {
-    return _avTable.getInt(ATTR_NO_OF_CYCLES, 0);
-  }
-
-  public void setNoOfCycles(String value) {
-    _avTable.set(ATTR_NO_OF_CYCLES, value);
-  }
-*/
 
   public boolean getCycleReversal() {
     return _avTable.getBool(ATTR_CYCLE_REVERSAL);

@@ -103,31 +103,24 @@ public class SpIterFocusObs extends SpIterJCMTObs {
     }
   }
 
-    public double getElapsedTime() {
-	SpInstObsComp instrument = SpTreeMan.findInstrument(this);
-	double time = 0.0;
-	if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
-	    time = 22.4*getIntegrations()*getFocusPoints() + SCUBA_STARTUP_TIME;
+    public double getElapsedTime()
+	{
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		double time = 0.0 ;
+		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+			time = 22.4 * getFocusPoints() + SCUBA_STARTUP_TIME;
+		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+			time = 150.0 ;
+		return time ;
 	}
-	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-	    time = 150.0; // * getIntegrations() * getFocusPoints();
+
+    public void setupForHeterodyne(){}
+
+	public void setupForSCUBA()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
 	}
-	return time;
-    }
-
-    public void setupForHeterodyne() {
-//	_avTable.noNotifySet(ATTR_SWITCHING_MODE, "Beam", 0);
-//	_avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
-// 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
-// 	_avTable.set(ATTR_CYCLE_REVERSAL, true);
-    }
-
-    public void setupForSCUBA() {
-	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
-	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
-// 	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
-// 	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
-    }
 
     public String [] getSwitchingModeOptions() {
         return new String [] {

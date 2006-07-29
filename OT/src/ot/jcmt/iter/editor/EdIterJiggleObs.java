@@ -50,34 +50,33 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
   /**
    * The constructor initializes the title, description, and presentation source.
    */
-  public EdIterJiggleObs() {
-    super(new IterJiggleObsGUI());
+  public EdIterJiggleObs()
+	{
+		super( new IterJiggleObsGUI() );
 
-    _title       ="Jiggle";
-    _presSource  = _w = (IterJiggleObsGUI)super._w;
-    _description ="Jiggle Observation Mode";
+		_title = "Jiggle";
+		_presSource = _w = ( IterJiggleObsGUI ) super._w;
+		_description = "Jiggle Observation Mode";
 
-    //_w.jigglePattern.setChoices(SpIterJiggleObs.JIGGLE_PATTERNS);
+		_w.coordSys.setChoices( SpIterJiggleObs.JIGGLE_SYSTEMS );
 
-    _w.coordSys.setChoices(SpIterJiggleObs.JIGGLE_SYSTEMS);
-
-    _w.jigglePattern.addWatcher(this);
-    _w.scaleFactor.addWatcher(this);
-    _w.contModeCB.addWatcher(this);
-    _w.defaultButton.addWatcher(this);
-    _w.paTextBox.addWatcher(this);
-    _w.coordSys.addWatcher(this);
-  }
+		_w.jigglePattern.addWatcher( this );
+		_w.scaleFactor.addWatcher( this );
+		_w.contModeCB.addWatcher( this );
+		_w.defaultButton.addWatcher( this );
+		_w.paTextBox.addWatcher( this );
+		_w.coordSys.addWatcher( this );
+	}
 
   /**
-   * Override setup to store away a reference to the Focus Iterator.
-   */
+	 * Override setup to store away a reference to the Focus Iterator.
+	 */
   public void setup(SpItem spItem) {
     _iterObs = (SpIterJiggleObs) spItem;
     super.setup(spItem);
   }
 
-  protected void _updateWidgets()
+  	protected void _updateWidgets()
 	{
 		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
 
@@ -145,8 +144,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
     super.textBoxKeyPress(tbwe);
   }
 
-
-  public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
+  	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
 		if( ddlbwe == _w.jigglePattern )
 		{
@@ -154,12 +152,12 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 			if( SpTreeMan.findInstrument( _iterObs ) instanceof SpInstHeterodyne )
 			{
-				boolean isHarp = false ;
+				boolean isHarp = false;
 				if( val != null )
-					isHarp = val.startsWith( "HARP" ) ;
-				_w.scaleFactor.setEnabled( !isHarp ) ;
+					isHarp = val.startsWith( "HARP" );
+				_w.scaleFactor.setEnabled( !isHarp );
 			}
-			
+
 			return;
 		}
 
@@ -167,7 +165,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		{
 			_iterObs.setCoordSys( val );
 			return;
-		}		
+		}
 		
 		super.dropDownListBoxAction( ddlbwe , index , val );
 	}

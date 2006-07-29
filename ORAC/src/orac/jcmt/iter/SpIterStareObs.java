@@ -63,67 +63,67 @@ public SpIterStareObs()
 	return isSet;
     }
 
-public double getElapsedTime() {
-    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
-    double overhead = 0.0;
-    double totalIntegrationTime = 0.0;
+	public double getElapsedTime()
+	{
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		double overhead = 0.0;
+		double totalIntegrationTime = 0.0;
 
-    if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
-	// Go through all of this items parents to see if any are SpIterPOLs
-	boolean polPhot = false;
-	SpItem parent = parent();
-	while (parent != null) {
-	    if (parent instanceof SpIterPOL) {
-		polPhot = true;
-		break;
-	    }
-	    parent = parent.parent();
+		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		{
+			// Go through all of this items parents to see if any are SpIterPOLs
+			boolean polPhot = false;
+			SpItem parent = parent();
+			while( parent != null )
+			{
+				if( parent instanceof SpIterPOL )
+				{
+					polPhot = true;
+					break;
+				}
+				parent = parent.parent();
+			}
+			overhead = SCUBA_STARTUP_TIME + 8 ;
+			if( polPhot )
+			{
+				// 8 seconds per integration
+				totalIntegrationTime = 8 ;
+			}
+			else
+			{
+				// 18 seconds per integration
+				if( getWidePhotom() )
+				{
+					totalIntegrationTime = 24 ;
+				}
+				else
+				{
+					totalIntegrationTime = 18 ;
+				}
+			}
+		}
+		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
+		{
+			double overheadFactor = 1.2;
+			totalIntegrationTime = getSecsPerCycle() * overheadFactor;
+		}
+		return ( overhead + totalIntegrationTime );
 	}
-	overhead = SCUBA_STARTUP_TIME + (8 * getIntegrations());
-	if ( polPhot ) {
-	    // 8 seconds per integration
-	    totalIntegrationTime = 8 *  getIntegrations();
-	}
-	else {
-	    // 18 seconds per integration
-	    if ( getWidePhotom() ) {
-		totalIntegrationTime = 24*getIntegrations();
-	    }
-	    else {
-		totalIntegrationTime = 18 * getIntegrations();
-	    }
-	}
-    }
-    else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-	double overheadFactor = 1.2;
-	totalIntegrationTime = getIntegrations() * getSecsPerCycle() * overheadFactor;
-    }
-   return (overhead + totalIntegrationTime);
-}
 
-    public void setupForHeterodyne() {
-	if (_avTable.get(ATTR_SWITCHING_MODE) == null ||
-	    _avTable.get(ATTR_SWITCHING_MODE).equals(""))
-	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, SWITCHING_MODE_CHOP, 0);
-	if (_avTable.get(ATTR_SECS_PER_CYCLE) == null ||
-	    _avTable.get(ATTR_SECS_PER_CYCLE).equals(""))
-	    _avTable.noNotifySet(ATTR_SECS_PER_CYCLE, "60", 0);
-// 	_avTable.noNotifySet(ATTR_NO_OF_CYCLES, "0", 0);
-//	if (_avTable.get(ATTR_CONT_CAL) == null ||
-//	    _avTable.get(ATTR_CONT_CAL).equals(""))
-//	    _avTable.set(ATTR_CONT_CAL, true);
-// 	if (_avTable.get(ATTR_CYCLE_REVERSAL) == null ||
-// 	    _avTable.get(ATTR_CYCLE_REVERSAL).equals(""))
-// 	    _avTable.set(ATTR_CYCLE_REVERSAL, true);
-    }
+	public void setupForHeterodyne()
+	{
+		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_CHOP , 0 );
+		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "60" , 0 );
+	}
 
-    public void setupForSCUBA() {
-	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
-	_avTable.noNotifyRm(ATTR_SECS_PER_CYCLE);
-// 	_avTable.noNotifyRm(ATTR_NO_OF_CYCLES);
-	_avTable.noNotifyRm(ATTR_CONT_CAL);
-// 	_avTable.noNotifyRm(ATTR_CYCLE_REVERSAL);
-    }
+	public void setupForSCUBA()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_CONT_CAL );
+	}
 
     public String [] getSwitchingModeOptions() {
         return new String [] {

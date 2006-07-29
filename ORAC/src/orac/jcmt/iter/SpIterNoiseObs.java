@@ -37,14 +37,15 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
 
 
   /**
-   * Default constructor.
-   */
-  public SpIterNoiseObs() {
-    super(SP_TYPE);
+	 * Default constructor.
+	 */
+	public SpIterNoiseObs()
+	{
+		super( SP_TYPE );
 
-    _avTable.noNotifySet(ATTR_NOISE_SOURCE, NOISE_SOURCES[0], 0);
-    _avTable.noNotifySet(ATTR_INTEGRATIONS, String.valueOf(NOISE_INTEGRATIONS_DEF), 0);
-  }
+		_avTable.noNotifySet( ATTR_NOISE_SOURCE , NOISE_SOURCES[ 0 ] , 0 );
+//		_avTable.noNotifySet( ATTR_INTEGRATIONS , String.valueOf( NOISE_INTEGRATIONS_DEF ) , 0 );
+	}
 
   /** Get the noise source. */
   public String getNoiseSource() {
@@ -66,16 +67,17 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
     }
   }
 
-    public double getElapsedTime() {
-	SpInstObsComp instrument = SpTreeMan.findInstrument(this);
-	double time = 0.0;
-	if (instrument instanceof orac.jcmt.inst.SpInstSCUBA) {
-	    time = 1.1*getIntegrations() + SCUBA_STARTUP_TIME;
+    public double getElapsedTime()
+	{
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
+		double time = 0.0;
+		if( instrument instanceof orac.jcmt.inst.SpInstSCUBA )
+		{
+			time = 1.1 + SCUBA_STARTUP_TIME ;
+		}
+		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne ){}
+		return time;
 	}
-	else if (instrument instanceof orac.jcmt.inst.SpInstHeterodyne) {
-	}
-	return time;
-    }
 
     public void setupForHeterodyne() {
 	_avTable.noNotifySet(ATTR_SWITCHING_MODE, SWITCHING_MODE_CHOP, 0);

@@ -65,177 +65,114 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
     }
   }
 
-  private void jbInit() throws Exception {
-    JPanel jigglePanel = new JPanel();
-    jigglePanel.setLayout( new BorderLayout() );
-    titledBorder1 = new TitledBorder("");
-    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-    Border titleBorder = BorderFactory.createTitledBorder(bevelBorder, "Jiggle setup");
-    jigglePanel.setBorder( titleBorder );
-    acsisPanel.setLayout(gridBagLayout1);
-    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel2.setForeground(Color.black);
-    jLabel2.setText("Scale Factor");
-    jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel3.setForeground(Color.black);
-    jLabel3.setText("Sample Time");
-    jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel4.setForeground(Color.black);
-    jLabel4.setText("Jiggles/Cycle");
-    jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel5.setForeground(Color.black);
-    jLabel5.setText("No of Cycles");
-    jLabel6.setFont(new java.awt.Font("Dialog", Font.ITALIC, 12));
-    jLabel6.setForeground(Color.black);
-    jLabel6.setText("(arcsec)");
-    scaleFactor.setColumns(6);
-    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel7.setForeground(Color.black);
-    jLabel7.setText("(msec)");
-    sampleTime.setColumns(6);
-    jigglesPerCycle.setColumns(6);
-    noOfCycles.setColumns(6);
-    jiggleAtReference.setText("Jiggle at Reference");
-    jiggleAtReference.setFont(new java.awt.Font("Dialog", 0, 12));
-    cycleReversal.setText("Cycle Reversal");
-    cycleReversal.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel8.setForeground(Color.black);
-    jLabel8.setText("secs/jig posn");
-    jLabel9.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel9.setForeground(Color.black);
-    jLabel9.setText("secs/jiggle");
-    jLabel10.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel10.setForeground(Color.black);
-    jLabel10.setText("secs/obs");
-    secsPerJiggle.setEditable(false);
-    secsPerJiggle.setColumns(10);
-    secsPerCycle.setEditable(true);
-    secsPerCycle.setColumns(5);
-    defaultButton.setText("Default");
-    secsPerObs.setEditable(false);
-    jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel1.setForeground(Color.black);
-    jLabel1.setText("Jiggle Pattern");
-    jigglePattern.setFont(new java.awt.Font("Dialog", 0, 12));
-    jPanel1.setLayout(gridBagLayout2);
-    jPanel2.setBorder(new TitledBorder(BorderFactory.createLineBorder(new Color(153, 153, 153),2),"Map"));
-    jPanel2.setLayout(gridBagLayout3);
-    jLabel11.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel11.setForeground(Color.black);
-    jLabel11.setText("PA");
-    paTextBox.setColumns(5);
-    jLabel12.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel12.setForeground(Color.black);
-    jLabel12.setText("(degrees)");
-    jLabel13.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel13.setForeground(Color.black);
-    jLabel13.setText("System");
-    contModeCB.setText ("Continuum Mode");
-    contModeCB.setFont(new java.awt.Font("Dialog", 0, 12));
-    contModeCB.setForeground(Color.black);
-    contModeCB.setHorizontalTextPosition ( SwingConstants.LEFT );
-    
-    coordSys.setFont(new java.awt.Font("Dialog", 0, 12));
-    coordSys.setForeground(Color.black);
+  private void jbInit() throws Exception
+	{
+		JPanel jigglePanel = new JPanel();
+		jigglePanel.setLayout( new BorderLayout() );
+		titledBorder1 = new TitledBorder( "" );
+		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
+		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Jiggle setup" );
+		jigglePanel.setBorder( titleBorder );
+		acsisPanel.setLayout( gridBagLayout1 );
+		jLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel2.setForeground( Color.black );
+		jLabel2.setText( "Scale Factor" );
+		jLabel3.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel3.setForeground( Color.black );
+		jLabel3.setText( "Sample Time" );
+		jLabel4.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel4.setForeground( Color.black );
+		jLabel4.setText( "Jiggles/Cycle" );
+		jLabel5.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel5.setForeground( Color.black );
+		jLabel5.setText( "No of Cycles" );
+		jLabel6.setFont( new java.awt.Font( "Dialog" , Font.ITALIC , 12 ) );
+		jLabel6.setForeground( Color.black );
+		jLabel6.setText( "(arcsec)" );
+		scaleFactor.setColumns( 6 );
+		jLabel7.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel7.setForeground( Color.black );
+		jLabel7.setText( "(msec)" );
+		sampleTime.setColumns( 6 );
+		jigglesPerCycle.setColumns( 6 );
+		noOfCycles.setColumns( 6 );
+		jiggleAtReference.setText( "Jiggle at Reference" );
+		jiggleAtReference.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		cycleReversal.setText( "Cycle Reversal" );
+		cycleReversal.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel8.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel8.setForeground( Color.black );
+		jLabel8.setText( "secs/jig posn" );
+		jLabel9.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel9.setForeground( Color.black );
+		jLabel9.setText( "secs/jiggle" );
+		jLabel10.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel10.setForeground( Color.black );
+		jLabel10.setText( "secs/obs" );
+		secsPerJiggle.setEditable( false );
+		secsPerJiggle.setColumns( 10 );
+		secsPerCycle.setEditable( true );
+		secsPerCycle.setColumns( 5 );
+		defaultButton.setText( "Default" );
+		secsPerObs.setEditable( false );
+		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel1.setForeground( Color.black );
+		jLabel1.setText( "Jiggle Pattern" );
+		jigglePattern.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jPanel1.setLayout( gridBagLayout2 );
+		jPanel2.setBorder( new TitledBorder( BorderFactory.createLineBorder( new Color( 153 , 153 , 153 ) , 2 ) , "Map" ) );
+		jPanel2.setLayout( gridBagLayout3 );
+		jLabel11.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel11.setForeground( Color.black );
+		jLabel11.setText( "PA" );
+		paTextBox.setColumns( 5 );
+		jLabel12.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel12.setForeground( Color.black );
+		jLabel12.setText( "(degrees)" );
+		jLabel13.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel13.setForeground( Color.black );
+		jLabel13.setText( "System" );
+		contModeCB.setText( "Continuum Mode" );
+		contModeCB.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		contModeCB.setForeground( Color.black );
+		contModeCB.setHorizontalTextPosition( SwingConstants.LEFT );
 
-    this.add(jigglePanel, BorderLayout.CENTER );
-//     this.add(acsisPanel, BorderLayout.SOUTH);
-    jigglePanel.add(acsisPanel, BorderLayout.SOUTH);
-    // Add Scale Factor
-    acsisPanel.add(jLabel2, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(scaleFactor, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(jLabel6, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		coordSys.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		coordSys.setForeground( Color.black );
+		
+		this.add( jigglePanel , BorderLayout.CENTER );
+		jigglePanel.add( acsisPanel , BorderLayout.SOUTH );
+		// Add Scale Factor
+		acsisPanel.add( jLabel2 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( scaleFactor , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		acsisPanel.add( jLabel6 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-    // Add secs/cycle
-    acsisPanel.add(jLabel8, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
+		// Add secs/cycle
+		acsisPanel.add( jLabel8 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( secsPerCycle , new GridBagConstraints( 1 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
-    // Add Jiggles/cycle
-    /*
-    acsisPanel.add(jLabel4, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(jigglesPerCycle, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-            */
+		// Add a coninuum mode checkbox
+		acsisPanel.add( contModeCB , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-    // Add a coninuum mode checkbox
-    acsisPanel.add(contModeCB, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		// Add the default button
+		acsisPanel.add( defaultButton , new GridBagConstraints( 1 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-    // Add secs/jiggle
-    /*
-    acsisPanel.add(jLabel9, new GridBagConstraints(3, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
-    acsisPanel.add(secsPerJiggle, new GridBagConstraints(4, 1, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-            */
+		// Add the Map panel to the acsis panel
+		acsisPanel.add( jPanel2 , new GridBagConstraints( 3 , 0 , 1 , 3 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 
-    // Add Secs/obs
-    /*
-    acsisPanel.add(jLabel10, new GridBagConstraints(3, 2, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 0, 0));
-    acsisPanel.add(secsPerObs, new GridBagConstraints(4, 2, 1, 1, 1.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-            */
+		// Add the PA info to the Map panel
+		jPanel2.add( jLabel11 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		jPanel2.add( paTextBox , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
+		jPanel2.add( jLabel12 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-    // Add the default button
-    acsisPanel.add(defaultButton, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		// Add the jiggle pattern box
+		jPanel2.add( jLabel13 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		jPanel2.add( coordSys , new GridBagConstraints( 1 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 
-    // Add the Map panel to the acsis panel
-    acsisPanel.add(jPanel2, new GridBagConstraints(3, 0, 1, 3, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+		// this.add(jPanel1, BorderLayout.CENTER);
+		jigglePanel.add( jPanel1 , BorderLayout.CENTER );
+		jPanel1.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		jPanel1.add( jigglePattern , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 
-    // Add the PA info to the Map panel
-    jPanel2.add(jLabel11, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 0), 0, 0));
-    jPanel2.add(paTextBox, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 5, 0), 0, 0));
-    jPanel2.add(jLabel12, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-
-    // Add the jiggle pattern box
-    jPanel2.add(jLabel13, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-    jPanel2.add(coordSys, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
-
-//     this.add(jPanel1, BorderLayout.CENTER);
-    jigglePanel.add(jPanel1, BorderLayout.CENTER);
-    jPanel1.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-    jPanel1.add(jigglePattern, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-
-
-    /**************************************
-      * Everything below here is junk left over from
-      * earlier development
-      *************************************/
-//    acsisPanel.add(jLabel3, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-//            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-//     acsisPanel.add(jLabel5, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-//    acsisPanel.add(sampleTime, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
-//            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-//    acsisPanel.add(jLabel7, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
-//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-//     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-//    acsisPanel.add(jiggleAtReference, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
-//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
-//    acsisPanel.add(cycleReversal, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0
-//            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 0), 0, 0));
-//    jPanel2.add(jLabel13, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-//            ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-//    jPanel2.add(dropDownListBoxWidgetExt1, new GridBagConstraints(1, 1, 2, 1, 0.0, 0.0
-//            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
-    
-  }
+	}
 }
