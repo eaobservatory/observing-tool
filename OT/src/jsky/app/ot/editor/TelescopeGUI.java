@@ -26,6 +26,8 @@ import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
+
+import jsky.app.ot.OtCfg;
 import jsky.app.ot.editor.TelescopePosTableWidget;
 import jsky.app.ot.gui.TextBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
@@ -508,8 +510,16 @@ public class TelescopeGUI extends JPanel
 		detailsPW.add( velFrameLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 10 , 5 ) , 0 , 0 ) );
 		detailsPW.add( velFrame , new GridBagConstraints( 1 , 1 , 2 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 10 , 20 ) , 0 , 0 ) );
 
-		extrasFolder.add( propMotionPW , "Proper Motion" );
-		extrasFolder.add( detailsPW , "Radial Vel/Tracking" );
+		if( OtCfg.telescopeUtil.supports( OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING ) )
+		{
+			extrasFolder.add( detailsPW , "Radial Vel/Tracking" ) ;
+			extrasFolder.add( propMotionPW , "Proper Motion" ) ;
+		}
+		else
+		{
+			extrasFolder.add( propMotionPW , "Proper Motion" ) ;
+			extrasFolder.add( detailsPW , "Radial Vel/Tracking" ) ;
+		}
 		extrasFolder.add( chopPW , "Chop Settings" );
 		this.add( jScrollPane1 , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 1.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
 		jScrollPane1.getViewport().add( positionTable , null );
