@@ -243,7 +243,6 @@ public class HeterodyneGUI extends JPanel {
 		
 		radialDefaultPanel = new JPanel( new GridBagLayout() ) ;
 	    defaultToRadial = new CheckBoxWidgetExt( "Default tuning velocity to target radial velocity" ) ;
-	    defaultToRadial.setValue( true ) ;
 	    radialDefaultPanel.add( defaultToRadial ) ;
 		
 		vPanel = new JPanel( new GridBagLayout() );

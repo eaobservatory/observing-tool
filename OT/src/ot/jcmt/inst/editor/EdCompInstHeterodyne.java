@@ -368,27 +368,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			public void checkBoxAction( CheckBoxWidgetExt cbwe )
 			{
 				defaultToRadialVelocity = cbwe.getBooleanValue() ;
-				_w.velLabel.setEnabled( !defaultToRadialVelocity ) ;
-				_w.velocity.setEnabled( !defaultToRadialVelocity ) ;
-				_w.vdLabel.setEnabled( !defaultToRadialVelocity ) ;
-				_w.vDef.setEnabled( !defaultToRadialVelocity ) ;
-				_w.vfLabel.setEnabled( !defaultToRadialVelocity ) ;
-				_w.vFrame.setEnabled( !defaultToRadialVelocity ) ;
+				doCheckBox() ;
 				moreSetUp() ;
 				update() ;
-				
-				if( defaultToRadialVelocity )
-				{
-					_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
-					_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
-					_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
-				}
-				else
-				{
-					_inst.setVelocity( _w.velocity.getText() ) ;
-					_inst.setVelocityDefinition( _w.vDef.getStringValue() ) ;
-					_inst.setVelocityFrame( _w.vFrame.getStringValue() ) ;
-				}
 			}			
 		} ) ;
 		
@@ -397,6 +379,29 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	}
 
+  	private void doCheckBox()
+  	{
+		_w.velLabel.setEnabled( !defaultToRadialVelocity ) ;
+		_w.velocity.setEnabled( !defaultToRadialVelocity ) ;
+		_w.vdLabel.setEnabled( !defaultToRadialVelocity ) ;
+		_w.vDef.setEnabled( !defaultToRadialVelocity ) ;
+		_w.vfLabel.setEnabled( !defaultToRadialVelocity ) ;
+		_w.vFrame.setEnabled( !defaultToRadialVelocity ) ;
+		
+		if( defaultToRadialVelocity )
+		{
+			_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
+			_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
+			_inst.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+		}
+		else
+		{
+			_inst.setVelocity( _w.velocity.getText() ) ;
+			_inst.setVelocityDefinition( _w.vDef.getStringValue() ) ;
+			_inst.setVelocityFrame( _w.vFrame.getStringValue() ) ;
+		}  		
+  	}
+  	
    /** Initialises the default values in SpInstHeterodyne. */
 	private void _initialiseInstHeterodyne()
 	{
@@ -484,6 +489,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			_initialiseRegionInfo();
 		}
 
+		defaultToRadialVelocity = !_inst.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) ;
+		_w.defaultToRadial.setValue( defaultToRadialVelocity ) ;
+		
 		_receiver = ( Receiver ) _cfg.receivers.get( _inst.getFrontEnd() );
 
 		// Update the front end panel
@@ -586,6 +594,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				}
 			}
 		}
+		
+		doCheckBox() ;
 
 		// Make sure the molecule is accessible
 		try
