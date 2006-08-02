@@ -110,7 +110,7 @@ Program Elements<br>
   <a href="#Administrative_components:_Scheduling"><img alt="*"
  src="msb_icon.png"
  style="border: 0px solid ; width: 18px; height: 19px;"> </a>&nbsp;Administrative
-components: Scheduling and Site Quality<br>
+components: Scheduling and Site Quality Components, and Priorities<br>
   <i> </i>
   <blockquote><a href="#Scheduling_constraints"><img alt="*"
  src="observation_icon.png"
@@ -122,8 +122,10 @@ quality constraints</i><br>
     <a href="#Using_inheritance_with_the"><img alt="*"
  src="observation_icon.png"
  style="border: 0px solid ; width: 19px; height: 19px;"> </a>&nbsp;<i>Using
-inheritance with administrative components</i><br>
-  </blockquote>
+inheritance with administrative components<br>
+    </i><a href="#Priority"><img alt="*" src="observation_icon.png"
+ style="border: 0px solid ; width: 19px; height: 19px;"></a> &nbsp;<i>Priorities<br>
+    </i> </blockquote>
   <a href="#Tour:_A_more_complete_science_programme"><img alt="*"
  src="msb_icon.png"
  style="border: 0px solid ; width: 18px; height: 19px;"> </a>&nbsp;
@@ -678,8 +680,9 @@ Observation).</u></b><br>
 </div>
 <div align="left"><br>
 <hr style="width: 100%; height: 2px;"><br>
-<h2 align="left"><a name="Administrative_components:_Scheduling"></a>Administrative
-components: Scheduling and Site Quality</h2>
+<h2 align="left"><a name="Administrative_components:_Scheduling"></a>Administrative:
+Scheduling and Site Quality Components, Priorities<br>
+</h2>
 <h2> </h2>
 </div>
 <h3><a name="Scheduling_constraints"></a>Scheduling constraints</h3>
@@ -785,6 +788,53 @@ Observation <span style="font-style: italic;">within an MSB</span>.
 These components apply to MSBs, not Observations within MSBs. If you
 break this rule, you will get a validation error.<br>
 <br>
+<h2><a name="Priority"></a>Priority</h2>
+Your project has been allocated a TAG priority which specifies its
+overall importance in the queue. However you can control the priority
+of individual MSBs within the programme by using the "Priority" number
+in the MSB top level window: <br>
+<br>
+<table style="width: 100%; text-align: left;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Setting
+priority on a given MSB. </span><br>
+      <br>
+Here the first MSB in the programme has been given just below medium
+priority (55).<br>
+      </td>
+      <td style="vertical-align: top; text-align: right;"><img alt=""
+ src="priority_setting1.png" style="width: 671px; height: 277px;"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+Note that if all your targets are up at the same time and all are
+consistent with the prevailing conditions, the priority setting will
+determine which is executed first. To automatically set priority on all
+MSBs in your programme, use the "Auto Prioritize" facility.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Setting
+priority on all MSBs: </span><br>
+      <br>
+Click the "Prioritize" button (top right of this image). This assigns a
+priority between 1 and 99 to all MSBs in the programme, working from
+the top down.<br>
+      </td>
+      <td style="vertical-align: top; text-align: right;"><img alt=""
+ src="priority_setting2.png" style="width: 376px; height: 237px;"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
 <hr style="width: 100%; height: 2px;"><br>
 <br>
 <h2 align="left"><a name="Tour:_A_more_complete_science_programme"></a><font
@@ -828,36 +878,54 @@ orbital elements<br>
  cellspacing="5">
   <tbody>
     <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Top:</span>
+Orbital elements as found, in
+this example, on the <br>
+      <a href="http://neo.jpl.nasa.gov/orbits/">NASA JPL NEO orbit
+diagrams page</a></td>
       <td style="text-align: center; vertical-align: middle;"><img
  alt="Orbital elements from the neo site" src="orbitelements1.png"
  style="width: 485px; height: 464px;"><br>
       </td>
     </tr>
     <tr>
+      <td style="vertical-align: top;"><span style="font-weight: bold;">Bottom:</span>
+Elements specified in the
+Target Component Elements tab. <br>
+Note the different format for Epoch and Time of Perihelion Passage, in
+particular.</td>
       <td style="text-align: center; vertical-align: middle;"><img
  alt="equivalent in the target component" src="orbitelements2.png"
  style="width: 655px; height: 162px;"><br>
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top; text-align: center;"><span
- style="font-weight: bold;">Top:</span> Orbital elements as found, in
-this example, on the <br>
-      <a href="http://neo.jpl.nasa.gov/orbits/">NASA JPL NEO orbit
-diagrams page</a><br>
+      <td style="vertical-align: top;"><br>
       </td>
-    </tr>
-    <tr>
-      <td style="vertical-align: top; text-align: center;"><span
- style="font-weight: bold;">Bottom:</span> Elements specified in the
-Target Component Elements tab. <br>
-Note the different format for Epoch and Time of Perihelion Passage, in
-particular.<br>
+      <td style="vertical-align: top;"><br>
       </td>
     </tr>
   </tbody>
 </table>
 </div>
+<br>
+The OT can use the Horizons database to resolve a given minor planet's
+name into elements. An example is given below.<br>
+<br>
+<table style="width: 100%; text-align: left;" border="0" cellpadding="2"
+ cellspacing="5">
+  <tbody>
+    <tr align="center">
+      <td style="vertical-align: top; text-align: left;"><span
+ style="font-weight: bold;">Name resolution for moving objects: </span>When
+"Orbital elements" is the selected Target Type, the "Resolve name"
+button queries the Horizons database for elements.</td>
+      <td style="vertical-align: top;"><img alt=""
+ src="target_elements1.png" style="width: 684px; height: 562px;"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
 <br>
 <br>
 <hr style="width: 100%; height: 2px;"><br>
@@ -2355,6 +2423,29 @@ to<br>
       <br>
 (note that this assumes you have <span style="font-weight: bold;">tcsh</span>
 installed).<br>
+      <br>
+      </td>
+    </tr>
+    <tr>
+      <td
+ style="vertical-align: middle; text-align: center; background-color: rgb(255, 0, 0);"><span
+ style="font-weight: bold;">NED catalogue service fails</span><br
+ style="font-weight: bold;">
+      <br>
+      <span style="color: rgb(255, 255, 255); font-weight: bold;">Added
+Jul-2006</span><br>
+      </td>
+      <td style="vertical-align: top;"><span
+ style="font-weight: bold; text-decoration: underline;"><br>
+Bug:</span> <br>
+      <br>
+NED as served by CADC fails. This applies to name resolution and
+catalogues and is not an OT bug.<br>
+      <br>
+      <span style="font-weight: bold; text-decoration: underline;">Workaround:</span>
+      <br>
+      <br>
+Use a different server (the ESO one). <br>
       <br>
       </td>
     </tr>
