@@ -2064,49 +2064,53 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     /**
 	 * Set the filter.
 	 */
-    public void
-    setFilter(String filter)
-    {
-        int findex;
-        String spectralCoverage;
-        double cwl;
-        int order = 0;
-	// Update dependent values
-        try {
-            _avTable.set(ATTR_FILTER, filter);
-            if (isImaging()) {
-                findex = FILTERS.indexInColumn(filter,0);
-                cwl = new Double((String) FILTERS.elementAt(findex,1)).doubleValue();
-                spectralCoverage = (String) FILTERS.elementAt(findex,2);
-	    } else {
-	        // filter is the CCS name of the filter
-	        // Need to get the OTFilter name to lookup the focus, cwl and order
-                int di = getDisperserIndex();
-                String OTFilter = (String) DISPERSERS.elementAt(di,2);
-                findex = SPECTFILTERS.indexInColumn(OTFilter, 0);
-                cwl = new Double((String) SPECTFILTERS.elementAt(findex,3)).doubleValue();
-                order = Integer.valueOf((String)SPECTFILTERS.elementAt(findex,2)).intValue();
-                spectralCoverage = 
-                    (String) SPECTFILTERS.elementAt(findex,4);
-	    }
-            setCentralWavelength(cwl);
-            setOrder(order);
-            setSpectralCoverage(spectralCoverage);
-            updateResolution();
-            String focus = getDefaultFocus();
-            setFocus(focus);
-	} catch  (ArrayIndexOutOfBoundsException ex) {
-	    System.out.println ("setFilter> Filter not recognised: " + filter + 
-                " in lut");
-	} catch (NoSuchElementException ex) {
-	    System.out.println ("setFilter> Filter not recognised: " + filter + 
-                " in lut");
+	public void setFilter( String filter )
+	{
+		int findex;
+		String spectralCoverage;
+		double cwl;
+		int order = 0;
+		// Update dependent values
+		try
+		{	
+			_avTable.set( ATTR_FILTER , filter );
+			if( isImaging() )
+			{
+				findex = FILTERS.indexInColumn( filter , 0 );
+				cwl = new Double( ( String ) FILTERS.elementAt( findex , 1 ) ).doubleValue();
+				spectralCoverage = ( String ) FILTERS.elementAt( findex , 2 );
+			}
+			else
+			{
+				// filter is the CCS name of the filter
+				// Need to get the OTFilter name to lookup the focus, cwl and order
+				int di = getDisperserIndex();
+				String OTFilter = ( String ) DISPERSERS.elementAt( di , 2 );
+				findex = SPECTFILTERS.indexInColumn( OTFilter , 0 );
+				cwl = new Double( ( String ) SPECTFILTERS.elementAt( findex , 3 ) ).doubleValue();
+				order = Integer.valueOf( ( String ) SPECTFILTERS.elementAt( findex , 2 ) ).intValue();
+				spectralCoverage = ( String ) SPECTFILTERS.elementAt( findex , 4 );
+			}
+			setCentralWavelength( cwl );
+			setOrder( order );
+			setSpectralCoverage( spectralCoverage );
+			updateResolution();
+			String focus = getDefaultFocus();
+			setFocus( focus );
+		}
+		catch( ArrayIndexOutOfBoundsException ex )
+		{
+			System.out.println( "setFilter> Filter not recognised: " + filter + " in lut" );
+		}
+		catch( NoSuchElementException ex )
+		{
+			System.out.println( "setFilter> Filter not recognised: " + filter + " in lut" );
+		}
 	}
-    }
 
     /**
-     * Get the filter number
-     */
+	 * Get the filter number
+	 */
     public int
     getFilterIndex()
     {
@@ -3877,7 +3881,10 @@ public double getAcqTime() {
 		t.put( "instPort" , getPort() );
 		t.put( "camera" , getCamera() );
 		t.put( "imager" , getImager() );
-		t.put( "filter" , getFilter() );
+		String filter = getFilter() ;
+		if( filter.equals( "Kshort" ) )
+			filter = "K_s_MK" ;
+		t.put( "filter" , filter );
 		t.put( "focus" , getFocus() );
 		t.put( "polarimetry" , ( isPolarimetry() ? "yes" : "no" ) );
 		t.put( "mask" , getMask() );

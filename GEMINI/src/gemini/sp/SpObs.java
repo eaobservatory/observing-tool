@@ -366,17 +366,7 @@ getIterFolder()
 		}
 
 		ConfigWriter confWriter = ConfigWriter.getNewInstance() ;
-		// Enjoy you're hack ... grr ...
-		if( instName.equals( "UIST" ) )
-		{
-			String filter = "filter" ;
-			String currentFilter = ( String )defaultsTable.get( filter ) ;
-			if( currentFilter.equals( "Kshort" ) )
-			{
-				defaultsTable.remove( filter ) ;
-				defaultsTable.put( filter , "K_s_MK" ) ;
-			}
-		}
+
 		try
 		{
 			confWriter.write( defaultsTable );
