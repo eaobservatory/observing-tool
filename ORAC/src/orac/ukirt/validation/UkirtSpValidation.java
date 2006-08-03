@@ -930,7 +930,7 @@ public class UkirtSpValidation extends SpValidation {
     if(!standardObsFound) {
       report.add(new ErrorMessage(ErrorMessage.WARNING,
 	                          spProg.getTitle(),
-	                          "No observation has been choosen as standard."));
+	                          "No observation has been chosen as standard."));
     }  
     
     // CGS4 checks
