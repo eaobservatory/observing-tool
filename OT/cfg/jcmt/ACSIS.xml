@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>acsis_lib_new.xml</meta_gui_filename>
-  <ot_version>20050829</ot_version>
+  <meta_gui_filename>library.xml</meta_gui_filename>
+  <ot_version>20060802</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -105,22 +105,15 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="2" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <estimatedDuration units="seconds">17.0</estimatedDuration>
         <standard>false</standard>
         <title>Science target</title>
@@ -168,12 +161,10 @@ Things that shouldn't appear in notes
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <title></title>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <continuousCal>true</continuousCal>
                 <cycleReversal>true</cycleReversal>
-                <integrations>1</integrations>
                 <noOfCycles>0</noOfCycles>
                 <secsPerCycle>10</secsPerCycle>
                 <switchingMode>Position</switchingMode>
@@ -191,7 +182,7 @@ Things that shouldn't appear in notes
       <estimatedDuration units="seconds">132.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>Beam switched sample (EXPERIMENTAL)</title>
+      <title>Beam switched sample</title>
       <totalDuration units="seconds">132.0</totalDuration>
       <SpNote observeInstruction="true" type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -281,19 +272,12 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="5" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -302,7 +286,7 @@ Things that shouldn't appear in notes
         <title>Science Target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
@@ -343,7 +327,7 @@ Things that shouldn't appear in notes
                 </CHOP>
               </SECONDARY>
               <SpIterStareObs type="ic" subtype="stareObs">
-                <integrations>1</integrations>
+                <meta_gui_collapsed>false</meta_gui_collapsed>
                 <secsPerCycle>60</secsPerCycle>
                 <switchingMode>Beam</switchingMode>
               </SpIterStareObs>
@@ -354,7 +338,7 @@ Things that shouldn't appear in notes
     </SpMSB>
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>grids</title>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -454,19 +438,12 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="8" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -517,12 +494,10 @@ Things that shouldn't appear in notes
                   <DC2>0.0</DC2>
                 </OFFSET>
               </obsArea>
-              <title></title>
               <SpIterStareObs type="ic" subtype="stareObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <continuousCal>true</continuousCal>
                 <cycleReversal>true</cycleReversal>
-                <integrations>1</integrations>
                 <noOfCycles>0</noOfCycles>
                 <secsPerCycle>10</secsPerCycle>
                 <switchingMode>Position</switchingMode>
@@ -534,7 +509,7 @@ Things that shouldn't appear in notes
     </SpMSB>
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>jiggle-chops</title>
     <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
@@ -634,19 +609,12 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="11" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -655,7 +623,7 @@ Things that shouldn't appear in notes
         <title>Science Target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
@@ -698,7 +666,6 @@ Things that shouldn't appear in notes
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <contiuumMode>false</contiuumMode>
-                <integrations>1</integrations>
                 <jigglePa>0.0</jigglePa>
                 <jigglePattern>5x5</jigglePattern>
                 <jigglePerCycle>1</jigglePerCycle>
@@ -714,10 +681,10 @@ Things that shouldn't appear in notes
     </SpMSB>
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>jiggle-freqsw</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <SpDRRecipeRef idref="14"/>
       <SpInstHeterodyneRef idref="12"/>
       <SpSiteQualityObsCompRef idref="13"/>
@@ -814,19 +781,12 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="14" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -835,7 +795,7 @@ Things that shouldn't appear in notes
         <title>Science Target</title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
@@ -872,7 +832,6 @@ Things that shouldn't appear in notes
               <continuumMode>false</continuumMode>
               <frequencyOffset.rate>0.1</frequencyOffset.rate>
               <frequencyOffset.throw>8.3</frequencyOffset.throw>
-              <integrations>1</integrations>
               <jigglePa>0.0</jigglePa>
               <jigglePattern>5x5</jigglePattern>
               <jigglePerCycle>1</jigglePerCycle>
@@ -987,19 +946,12 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="17" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -1051,7 +1003,6 @@ Things that shouldn't appear in notes
                 </SCAN_AREA>
               </obsArea>
               <contiuumMode>false</contiuumMode>
-              <integrations>1</integrations>
               <rowsPerCal>1</rowsPerCal>
               <rowsPerRef>1</rowsPerRef>
               <sampleTime>0.1</sampleTime>
@@ -1066,7 +1017,7 @@ Things that shouldn't appear in notes
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>pointings</title>
     <SpMSB remaining="1" type="og" subtype="msb">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <SpDRRecipeRef idref="20"/>
       <SpInstHeterodyneRef idref="18"/>
       <SpSiteQualityObsCompRef idref="19"/>
@@ -1163,25 +1114,18 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="20" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <estimatedDuration units="seconds">120.0</estimatedDuration>
         <standard>false</standard>
-        <title>Pointing Source</title>
+        <title></title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
@@ -1227,7 +1171,6 @@ Things that shouldn't appear in notes
               <SpIterPointingObs type="ic" subtype="pointingObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
                 <autoTarget>false</autoTarget>
-                <integrations>1</integrations>
                 <switchingMode>Beam</switchingMode>
               </SpIterPointingObs>
             </SpIterChop>
@@ -1337,28 +1280,21 @@ Things that shouldn't appear in notes
       <SpDRRecipe id="23" type="oc" subtype="DRRecipe">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <meta_unique>true</meta_unique>
+        <baseliningMethod>None</baseliningMethod>
         <channelBinning>1</channelBinning>
         <objectRecipe>DEFAULT</objectRecipe>
         <polynomialOrder>DEFAULT</polynomialOrder>
         <truncationChannels>0</truncationChannels>
-        <window_type>truncate</window_type>      
-
-      <!-- **************************** -->
-      <!-- Baseline selection for ACSIS -->
-      <!-- **************************** -->
-      <baseline>
-        <baseliningMethod>None</baseliningMethod>
-      </baseline>
-
+        <window_type>truncate</window_type>
       </SpDRRecipe>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
-        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <meta_gui_collapsed>false</meta_gui_collapsed>
         <estimatedDuration units="seconds">150.0</estimatedDuration>
         <standard>false</standard>
-        <title>w3(OH)</title>
+        <title></title>
         <SpTelescopeObsComp type="oc" subtype="targetList">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <meta_gui_selectedTelescopePos>REFERENCE</meta_gui_selectedTelescopePos>
+          <meta_gui_selectedTelescopePos>SCIENCE</meta_gui_selectedTelescopePos>
           <meta_unique>true</meta_unique>
           <BASE TYPE="REFERENCE">
             <target>
@@ -1395,7 +1331,6 @@ Things that shouldn't appear in notes
                 <autoTarget>false</autoTarget>
                 <axis>z</axis>
                 <focusPoints>7</focusPoints>
-                <integrations>1</integrations>
                 <steps>0.3</steps>
                 <switchingMode>Beam</switchingMode>
               </SpIterFocusObs>
