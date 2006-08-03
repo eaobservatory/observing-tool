@@ -8,6 +8,7 @@ import java.net.URL;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.TimeZone;
 import java.util.Vector;
 
 import gemini.sp.SpObsContextItem;
@@ -44,6 +45,9 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 
+import orac.util.OracUtilities ;
+import java.util.Date ;
+
 /**
  * Validation Tool.
  * 
@@ -56,94 +60,95 @@ import org.xml.sax.Locator;
  *
  * @author M.Folger@roe.ac.uk UKATC
  */
-public class SpValidation {
-  public void checkSciProgram(SpProg spProg, Vector report) {
-    if(report == null) {
-      report = new Vector();
-    }
+public class SpValidation
+{
+	public void checkSciProgram( SpProg spProg , Vector report )
+	{
+		if( report == null )
+			report = new Vector();
 
-    // Change the SpProg to a document, since this is more easily checked
-    String xmlStr = spProg.toXML();
-    DOMParser parser = new DOMParser();
-    Document doc = null;
-    try {
-	// Turn off validation
-	parser.setFeature("http://xml.org/sax/features/validation", false);
-	parser.parse(new InputSource (new StringReader(xmlStr)));
-	doc = parser.getDocument();
-    }
-    catch (IOException e) {
-	System.out.println("Unable to read string");
-    }
-    catch (SAXException e) {
-	System.out.println("Unable to create document: "+e.getMessage());
-    }
+		// Change the SpProg to a document, since this is more easily checked
+		String xmlStr = spProg.toXML();
+		DOMParser parser = new DOMParser();
+		Document doc = null;
+		try
+		{
+			// Turn off validation
+			parser.setFeature( "http://xml.org/sax/features/validation" , false );
+			parser.parse( new InputSource( new StringReader( xmlStr ) ) );
+			doc = parser.getDocument();
+		}
+		catch( IOException e )
+		{
+			System.out.println( "Unable to read string" );
+		}
+		catch( SAXException e )
+		{
+			System.out.println( "Unable to create document: " + e.getMessage() );
+		}
 
-    checkSciProgramRecursively(spProg, report);
-    checkSurveyContainer(spProg, report);
+		checkSciProgramRecursively( spProg , report );
+		checkSurveyContainer( spProg , report );
+		
+		if( doc != null )
+		{
+			// I use one method for each 'rule'
+			// Rule 1: Each SpObs and MSB must either contain the following
+			// or inherit it from higher up:
+			// SpInst...
+			// SpSiteQualityObsComp
+			// SptelescopeObsComp
+			checkInheritedComponents( doc , "SpMSB" , "SpSiteQualityObsComp" , "Site Quality" , report );
+			checkInheritedComponents( doc , "SpMSB" , "SpInst" , "Instrument" , report );
+			checkInheritedComponents( doc , "SpObs" , "SpSiteQualityObsComp" , "Site Quality" , report );
+			checkInheritedComponents( doc , "SpObs" , "SpInst" , "Instrument" , report );
 
-    if (doc != null) {
-	// I use one method for each 'rule'
-	// Rule 1: Each SpObs and MSB must either contain the following
-	//         or inherit it from higher up:
-	//         SpInst...
-        //         SpSiteQualityObsComp
-        //         SptelescopeObsComp
- 	//checkInheritedComponents(doc, "SpMSB", "SpTelescopeObsComp", "Target Information", report);
-	checkInheritedComponents(doc, "SpMSB", "SpSiteQualityObsComp", "Site Quality", report);
-	checkInheritedComponents(doc, "SpMSB", "SpInst", "Instrument", report);
-	//checkInheritedComponents(doc, "SpObs", "SpTelescopeObsComp", "Target Information", report);
-	checkInheritedComponents(doc, "SpObs", "SpSiteQualityObsComp", "Site Quality", report);
-	checkInheritedComponents(doc, "SpObs", "SpInst", "Instrument", report);
+			// Rule2: Each iterator must contain either another iterator or an observe eye
+			// Exception: For UKIRT, the offset iterator does not have this requirement
+			checkIterator( doc , "SpIterFolder" , "Sequence Iterator" , report );
+			checkIterator( doc , "SpIterChop" , "Chop Iterator" , report );
+			checkIterator( doc , "SpIterPOL" , "POL Iterator" , report );
+			checkIterator( doc , "SpIterRepeat" , "Repeat Iterator" , report );
+			if( System.getProperty( "ot.cfgdir" ).indexOf( "ukirt" ) == -1 )
+				checkIterator( doc , "SpIterOffset" , "Offset Iterator" , report );
+			checkIterator( doc , "SpIterFrequency" , "Frequency Iterator" , report );
 
-	// Rule2: Each iterator must contain either another iterator or an observe eye
-	//        Exception: For UKIRT, the offset iterator does not have this requirement
-	checkIterator(doc, "SpIterFolder", "Sequence Iterator",report);
-	checkIterator(doc, "SpIterChop", "Chop Iterator", report);
-	checkIterator(doc, "SpIterPOL", "POL Iterator", report);
-        checkIterator(doc, "SpIterRepeat", "Repeat Iterator", report);
-	if (System.getProperty("ot.cfgdir").indexOf("ukirt") == -1) {
-	    checkIterator(doc, "SpIterOffset", "Offset Iterator",report);
+			// Other rules:
+			// SpAND must contain an SpObs or SpMSB but NOT and SpOR
+			// SpOR must contain and SpObs, SpMSB or SpOR
+			// SpMSB must contain an SpObs
+			// SpObs must contain only 1 sequence
+			Vector mandatoryChildren = new Vector();
+			Vector excludedChildren = new Vector();
+			mandatoryChildren.add( "SpObs" );
+			mandatoryChildren.add( "SpMSB" );
+			excludedChildren.add( "SpOR" );
+			excludedChildren.add( "SpAND" );
+			checkForChildren( doc , "SpAND" , mandatoryChildren , excludedChildren , report );
+			mandatoryChildren.add( "SpAND" );
+			excludedChildren.clear();
+			excludedChildren.add( "SpOR" );
+			checkForChildren( doc , "SpOR" , mandatoryChildren , excludedChildren , report );
+		}
 	}
-	checkIterator(doc, "SpIterFrequency", "Frequency Iterator", report);
 
-	// Other rules:
-	//    SpAND must contain an SpObs or SpMSB but NOT and SpOR
-	//    SpOR must contain and SpObs, SpMSB or SpOR
-	//    SpMSB must contain an SpObs
-	//    SpObs must contain only 1 sequence
-	Vector mandatoryChildren = new Vector();
-	Vector excludedChildren  = new Vector();
-	mandatoryChildren.add("SpObs");
-	mandatoryChildren.add("SpMSB");
-	excludedChildren.add("SpOR");
-	excludedChildren.add("SpAND");
-	checkForChildren(doc, "SpAND", mandatoryChildren, excludedChildren, report);
-	mandatoryChildren.add("SpAND");
-	excludedChildren.clear();
-	excludedChildren.add("SpOR");
-	checkForChildren(doc, "SpOR", mandatoryChildren, excludedChildren, report);
-// 	mandatoryChildren.clear();
-// 	mandatoryChildren.add("SpObs");
-// 	checkForChildren(doc, "SpMSB", mandatoryChildren, null, report);
-    }
-  }
+	protected void checkSciProgramRecursively( SpItem spItem , Vector report )
+	{
+		Enumeration children = spItem.children();
+		SpItem child;
 
-  protected void checkSciProgramRecursively(SpItem spItem, Vector report) {
-    Enumeration children = spItem.children();
-    SpItem child;
+		while( children.hasMoreElements() )
+		{
+			child = ( SpItem ) children.nextElement();
 
-    while(children.hasMoreElements()) {
-      child = (SpItem)children.nextElement();
-
-      if(child instanceof SpMSB) {
-        checkMSB((SpMSB)child, report);
-      }
-      else {
-        checkSciProgramRecursively(child, report);
-      }
-    }
-  }
+			if( child instanceof SpMSB )
+				checkMSB( ( SpMSB ) child , report ) ;
+			else if( child instanceof SpSchedConstObsComp )
+				checkStartEndTimes( ( SpSchedConstObsComp )child , report ) ;
+			else
+				checkSciProgramRecursively( child , report );
+		}
+	}
 
   public void checkMSB(SpMSB spMSB,  Vector report) {
 
@@ -838,5 +843,15 @@ public class SpValidation {
   		return null;
   	}
 
+  	public void checkStartEndTimes( SpSchedConstObsComp schedule , Vector report )
+  	{
+  		String earliest = schedule.getEarliest() ;
+  		String latest = schedule.getLatest() ;
+  		Date before = OracUtilities.parseISO8601( earliest ) ;
+  		Date after = OracUtilities.parseISO8601( latest ) ;
+  		if( before.after( after ) )
+  			report.add( new ErrorMessage( ErrorMessage.WARNING , "The earliest scheduled start time is after the latest scheduled end time" , "" ) ) ;
+  	}
+  	
 }
 
