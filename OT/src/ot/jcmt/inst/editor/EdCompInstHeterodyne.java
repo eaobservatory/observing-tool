@@ -142,6 +142,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   Vector [] _regionInfo = new Vector[Integer.parseInt(HeterodyneGUI.SUBSYSTEMS[HeterodyneGUI.SUBSYSTEMS.length - 1])];
 
   boolean defaultToRadialVelocity = true ;
+  String currentFrequency = "" ;
   
   	public EdCompInstHeterodyne()
 	{
@@ -492,6 +493,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		defaultToRadialVelocity = !_inst.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) ;
 		_w.defaultToRadial.setValue( defaultToRadialVelocity ) ;
 		
+		int compNum = ( ( Integer ) freqPanelWidgetNames.get( "frequency" ) ).intValue();
+		JTextField tf = ( JTextField ) _w.fPanel.getComponent( compNum ) ;
+		currentFrequency = tf.getText() ;
+		
 		_receiver = ( Receiver ) _cfg.receivers.get( _inst.getFrontEnd() );
 
 		// Update the front end panel
@@ -703,20 +708,24 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				// Get the text field widget
 				int compNum = ( ( Integer ) freqPanelWidgetNames.get( "frequency" ) ).intValue();
 				JTextField tf = ( JTextField ) _w.fPanel.getComponent( compNum );
+				String frequency = tf.getText() ;
+				boolean changed = !currentFrequency.equals( frequency ) ;
 				try
 				{
-					double f = Double.parseDouble( tf.getText() );
-					_inst.setRestFrequency( f * 1.0E9 , 0 );
-					_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
-					// Set the molecule and trasition to NO_LINE
-					// _inst.setMolecule( NO_LINE, 0 );
-					// _inst.setTransition( NO_LINE, 0 );
+					if( changed )
+					{
+						double f = Double.parseDouble( frequency );
+						_inst.setRestFrequency( f * 1.0E9 , 0 );
+						_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
+						// Set the molecule and trasition to NO_LINE
+						_inst.setMolecule( NO_LINE, 0 );
+						_inst.setTransition( NO_LINE, 0 );
+					}
 					_updateMoleculeChoice();
 					_initialiseRegionInfo();
 				}
-				catch( Exception e )
-				{
-				}
+				catch( Exception e ){}
+				tf.setForeground( Color.BLACK ) ;
 				toggleEnabled( _w.fPanel , "Accept" , false );
 			}
 			else if( ( ( Component ) ae.getSource() ).getName().equals( "show" ) )
@@ -837,10 +846,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        _updateWidgets();
    }
 
-   private void freqAction() {
-       // Called when user changes the frequency manually
-       toggleEnabled( _w.fPanel, "Accept", true );
-   }
+	private void freqAction()
+	{
+		// Called when user changes the frequency manually
+		toggleEnabled( _w.fPanel , "Accept" , true ) ;
+		int compNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue();
+		JTextField tf = ( JTextField )_w.fPanel.getComponent( compNum ) ;
+		tf.setForeground( Color.RED ) ;
+	}
 
    public void bandWidthChoiceAction ( ActionEvent ae ) {
    }

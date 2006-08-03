@@ -318,7 +318,7 @@ public class HeterodyneGUI extends JPanel {
 		hideButton.setName( "hide" );
 
 		JTextField freqText = new JTextField();
-		freqText.setForeground( Color.RED );
+		freqText.setForeground( Color.BLACK );
 		freqText.setFont( new Font( "dialog" , 0 , 12 ) );
 		freqText.setName( "frequency" );
 
