@@ -199,40 +199,42 @@ public double getTotalTime()
   return elapsedTime;
 }
 
-/**
- * Calculates the duration of this Science Program.
- */
-public double getElapsedTime()
-{
-  double elapsedTime = 0.0;
-  Enumeration children = children();
-  SpItem spItem = null;
+	/**
+	 * Calculates the duration of this Science Program.
+	 */
+	public double getElapsedTime()
+	{
+		double elapsedTime = 0.0;
+		Enumeration children = children();
+		SpItem spItem = null;
 
-  while(children.hasMoreElements()) {
-    spItem = (SpItem)children.nextElement();
+		while( children.hasMoreElements() )
+		{
+			spItem = ( SpItem ) children.nextElement();
 
-    if(spItem instanceof SpMSB) {
-	if ( ((SpMSB)spItem).getNumberRemaining() >= 0 ) {
-	    elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
+			if( spItem instanceof SpMSB )
+			{
+				if( ( ( SpMSB ) spItem ).getNumberRemaining() >= 0 )
+				{
+					elapsedTime += ( ( ( SpMSB ) spItem ).getElapsedTime() * ( ( SpMSB ) spItem ).getNumberRemaining() );
+				}
+			}
+			else if( spItem instanceof SpAND )
+			{
+				elapsedTime += ( ( SpAND ) spItem ).getElapsedTime();
+			}
+			else if( spItem instanceof SpOR )
+			{
+				elapsedTime += ( ( SpOR ) spItem ).getElapsedTime();
+			}
+			else if( spItem instanceof SpSurveyContainer )
+			{
+				elapsedTime += ( ( SpSurveyContainer ) spItem ).getElapsedTime();
+			}
+		}
+
+		return elapsedTime;
 	}
-    }
-
-
-    if(spItem instanceof SpAND) {
-      elapsedTime += ((SpAND)spItem).getElapsedTime();
-    }
-
-    if(spItem instanceof SpOR) {
-      elapsedTime += ((SpOR)spItem).getElapsedTime();
-    }
-
-    if ( spItem instanceof SpSurveyContainer ) {
-        elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
-    }
-  }
-
-  return elapsedTime;
-}
 
 public void processXmlElementContent (String element, String value) {
     if ( element.equals (ATTR_OT_VERSION) ) {

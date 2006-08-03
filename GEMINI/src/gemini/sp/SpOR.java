@@ -97,38 +97,44 @@ public class SpOR extends SpObsContextItem {
    *
    * @see #getNumberOfItems()
    */
-  public double getElapsedTime() {
-    double elapsedTime = 0.0;
+	public double getElapsedTime()
+	{
+		double elapsedTime = 0.0;
 
-    // Records the number of children that have a duration, i.e. SpAND and
-    // SpMSB (and its subclass SpObs).
-    int n = 0;
+		// Records the number of children that have a duration, i.e. SpAND and
+		// SpMSB (and its subclass SpObs).
+		int n = 0;
 
-    Enumeration children = children();
-    SpItem spItem = null;
+		Enumeration children = children();
+		SpItem spItem = null;
 
-    while(children.hasMoreElements()) {
-      spItem = (SpItem)children.nextElement();
+		while( children.hasMoreElements() )
+		{
+			spItem = ( SpItem ) children.nextElement();
 
-      if(spItem instanceof SpMSB) {
-	if ( ((SpMSB)spItem).getNumberRemaining() > 0 ) {
-            elapsedTime += (((SpMSB)spItem).getElapsedTime() * ((SpMSB)spItem).getNumberRemaining());
-            n++;
-        }
-      }
+			if( spItem instanceof SpMSB )
+			{
+				if( ( ( SpMSB ) spItem ).getNumberRemaining() > 0 )
+				{
+					elapsedTime += ( ( ( SpMSB ) spItem ).getElapsedTime() * ( ( SpMSB ) spItem ).getNumberRemaining() );
+					n++;
+				}
+			}
+			else if( spItem instanceof SpAND )
+			{
+				elapsedTime += ( ( SpAND ) spItem ).getElapsedTime();
+				n++;
+			}
+			else if( spItem instanceof SpSurveyContainer )
+			{
+				elapsedTime += ( ( SpSurveyContainer ) spItem ).getElapsedTime();
+				n++;
+			}
+		}
 
-      if(spItem instanceof SpAND) {
-        elapsedTime += ((SpAND)spItem).getElapsedTime();
-        n++;
-      }
-
-      if ( spItem instanceof SpSurveyContainer ) {
-          elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
-          n++;
-      }
-    }
-
-    return (elapsedTime / n) * getNumberOfItems();
-  }
+		if( elapsedTime != 0. )
+			elapsedTime = ( elapsedTime / n ) * getNumberOfItems() ;
+		return elapsedTime ;
+	}
 }
 
