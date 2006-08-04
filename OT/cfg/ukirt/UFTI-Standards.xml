@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>ufit_JHK.lib.xml</meta_gui_filename>
-  <ot_version>20060606</ot_version>
+  <meta_gui_filename>UFTI-Standards_3Aug06.xml</meta_gui_filename>
+  <ot_version>20060803</ot_version>
   <telescope>ukirt</telescope>
   <title>UFTI IZJHK photometric standards</title>
   <SpNote type="no" subtype="none">
@@ -2209,7 +2209,7 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <SpDRRecipeRef idref="50"/>
       <SpInstUFTIRef idref="49"/>
       <SpTelescopeObsCompRef idref="48"/>
@@ -2298,8 +2298,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <SpIterDarkObs type="ic" subtype="darkObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <coadds>1</coadds>
-          <exposureTime>5.0</exposureTime>
+          <coadds>3</coadds>
+          <exposureTime>1.0</exposureTime>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
