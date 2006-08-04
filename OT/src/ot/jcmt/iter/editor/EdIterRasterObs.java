@@ -43,6 +43,8 @@ import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
 
+import gemini.util.MathUtil ; 
+
 /**
  * This is the editor for the Raster Observe Mode iterator component (ACSIS).
  *
@@ -430,29 +432,22 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
     _updateWidgets();
   }
 
-  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
+  	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
+	{
+		return ScubaNoise.noise_level( integrations , wavelength , "SCAN" , nefd , status , _iterObs.getHeight() , _iterObs.getWidth() );
+	}
 
-    return ScubaNoise.noise_level(integrations, wavelength, "SCAN", nefd, status,
-				  _iterObs.getHeight(), _iterObs.getWidth());
-  }
+    protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	{
+		// System.out.println("Calculating Raster specific heterodyne noise");
+		double tSys = HeterodyneNoise.getTsys( inst.getFrontEnd() , tau , airmass , inst.getRestFrequency( 0 ) / 1.0e9 , inst.getMode().equalsIgnoreCase( "ssb" ) );
 
-    protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
-// 	System.out.println("Calculating Raster specific heterodyne noise");
-	double tSys = HeterodyneNoise.getTsys(inst.getFrontEnd(),
-					      tau,
-					      airmass,
-					      inst.getRestFrequency(0)/1.0e9,
-					      inst.getMode().equalsIgnoreCase("ssb"));
-
-	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
-	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
-        if ( "das".equalsIgnoreCase(inst.getBackEnd()) ) {
-            return HeterodyneNoise.getHeterodyneNoise(_iterObs, inst, tau, airmass);
-        }
-        else {
-            return -999.9;
-        }
-    }
+		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
+		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
+			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
+		else
+			return -999.9;
+	}
 
     /**
 	 * This updates the time fields on heterodyne setups. It can only be used for heterodyne and just updates the non-editable widgets. For ease of display, the fractional part is truncated to 2 decimal places.

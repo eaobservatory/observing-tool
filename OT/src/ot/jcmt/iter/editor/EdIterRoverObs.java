@@ -20,6 +20,8 @@ import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
 import ot.util.DialogUtil;
 
+import gemini.util.MathUtil ;
+
 /**
  * This is the editor for the Rover Observe Mode iterator component (ACSIS).
  *
@@ -98,21 +100,17 @@ public final class EdIterRoverObs extends EdIterJCMTGeneric { // implements Acti
   }
 
 
-  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
+  	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
+	{
+		return ScubaNoise.noise_level( integrations , wavelength , "PHOT" , nefd , status );
+	}
 
-    return ScubaNoise.noise_level(integrations, wavelength, "PHOT", nefd, status);
-  }
+	protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	{
+		double tSys = HeterodyneNoise.getTsys( inst.getFrontEnd() , tau , airmass , inst.getRestFrequency( 0 ) / 1.0e9 , inst.getMode().equalsIgnoreCase( "ssb" ) );
 
-    protected double calculateNoise(SpInstHeterodyne inst, double airmass, double tau) {
-	double tSys = HeterodyneNoise.getTsys(inst.getFrontEnd(),
-					      tau,
-					      airmass,
-					      inst.getRestFrequency(0)/1.0e9,
-					      inst.getMode().equalsIgnoreCase("ssb"));
-
-	_noiseToolTip = "airmass = "      + (Math.rint(airmass  * 10) / 10) +
-	    ", Tsys = " + (Math.rint(tSys  * 10) / 10);
-	return HeterodyneNoise.getHeterodyneNoise((SpIterRoverObs)_iterObs, inst, tau, airmass);
-    }
+		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
+		return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( ( SpIterRoverObs ) _iterObs , inst , tau , airmass ) , 3 ) ;
+	}
 }
 

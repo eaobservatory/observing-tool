@@ -205,16 +205,14 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
     }
   }
 
-  protected double calculateNoise(int integrations, double wavelength, double nefd, int [] status) {
+  	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
+	{
+		String mode = "JIG16";
 
-    String mode       = "JIG16";
-
-    SpJCMTInstObsComp instObsComp       = (SpJCMTInstObsComp)SpTreeMan.findInstrument(_iterObs);
-    if((instObsComp != null) && (_iterObs.isJIG64((SpInstSCUBA)instObsComp))) {
-      mode = "JIG64";
-    }
-
-    return ScubaNoise.noise_level(integrations, wavelength, mode, nefd, status);
-  }
+		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
+		if( ( instObsComp != null ) && ( _iterObs.isJIG64( ( SpInstSCUBA ) instObsComp ) ) )
+			mode = "JIG64";
+		return ScubaNoise.noise_level( integrations , wavelength , mode , nefd , status );
+	}
 }
 
