@@ -112,42 +112,52 @@ public class HeterodyneNoise {
 
 
 
-    public static double getTrx(String fe, double freq) {
-	double trx = 0.0;
-	int index;
+    public static double getTrx( String fe , double freq )
+	{
+		double trx = 0.0;
+		int index;
 
-	/* Now see if this is in our available list of front ends */
-	if ( (index = feNames.indexOf(fe)) >= 0) {
-	    // There is a match, now extract the appropriate tree map
-// 	    System.out.println("Front end "+fe+" is at vector location "+index);
-// 	    System.out.println("trxValues has "+trxValues.size()+" element");
-	    TreeMap thisMap = (TreeMap) trxValues.elementAt(index);
-	    int nextTrxFrequency = 0;
-	    int lastTrxFrequency = 0;
-	    if (thisMap.size() > 1 ) {
-		// We are going to do a linear interpolation between the 
-		// surrounding frequency values, so we need to find the 
-		// values at the appropriate keys
-		Iterator iter = ((Set) thisMap.keySet()).iterator();
-		while (iter.hasNext()) {
-		    int trxFrequency = ((Integer)iter.next()).intValue();
-		    lastTrxFrequency = nextTrxFrequency;
-		    nextTrxFrequency = trxFrequency;
-		    if (freq < nextTrxFrequency && freq >= lastTrxFrequency) break; // We have the info we need
+		/* Now see if this is in our available list of front ends */
+		if( ( index = feNames.indexOf( fe ) ) >= 0 )
+		{
+			// There is a match, now extract the appropriate tree map
+			TreeMap thisMap = ( TreeMap ) trxValues.elementAt( index );
+			int nextTrxFrequency = 0;
+			int lastTrxFrequency = 0;
+			if( thisMap.size() > 1 )
+			{
+				// We are going to do a linear interpolation between the
+				// surrounding frequency values, so we need to find the
+				// values at the appropriate keys
+				Iterator iter = ( ( Set ) thisMap.keySet() ).iterator();
+				while( iter.hasNext() )
+				{
+					int trxFrequency = ( ( Integer ) iter.next() ).intValue();
+					lastTrxFrequency = nextTrxFrequency;
+					nextTrxFrequency = trxFrequency;
+					if( freq < nextTrxFrequency && freq >= lastTrxFrequency )
+						break; // We have the info we need
+				}
+				try
+				{
+					// Now get the corresponding Trx values
+					int lastTrxValue = ( ( Integer ) thisMap.get( new Integer( lastTrxFrequency ) ) ).intValue();
+					int nextTrxValue = ( ( Integer ) thisMap.get( new Integer( nextTrxFrequency ) ) ).intValue();
+					// Now interpolate...
+					trx = linterp( lastTrxFrequency , lastTrxValue , nextTrxFrequency , nextTrxValue , freq );
+				}
+				catch( NullPointerException npe )
+				{
+					throw new RuntimeException( "Heterodyne not initialised" ) ;
+				}
+			}
+			else
+			{
+				trx = ( ( Integer ) thisMap.get( thisMap.firstKey() ) ).intValue();
+			}
 		}
-		// Now get the corresponding Trx values
-		int lastTrxValue = ( (Integer)thisMap.get(new Integer(lastTrxFrequency)) ).intValue();
-		int nextTrxValue = ( (Integer)thisMap.get(new Integer(nextTrxFrequency)) ).intValue();
-		// Now interpolate...
-                trx = linterp( lastTrxFrequency, lastTrxValue, nextTrxFrequency, nextTrxValue, freq);
-	    }
-	    else {
-		trx = ( (Integer)thisMap.get(thisMap.firstKey()) ).intValue();
-	    }
+		return trx;
 	}
-// 	System.out.println("TRX = "+trx);
-	return trx;
-    }
 
     public static double getTsys( String fe , // The front end name
 	double tau , // The noise calculation tau
