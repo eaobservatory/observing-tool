@@ -335,6 +335,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				_inst.setVelocity( tbwe.getText() ) ;
 				toggleEnabled( _w.fPanel , "Accept", true ) ;
+				_w.velocity.setForeground( Color.RED ) ;
 			}
 			public void textBoxAction( TextBoxWidgetExt tbwe ){}
 		} ) ;
@@ -726,6 +727,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				}
 				catch( Exception e ){}
 				tf.setForeground( Color.BLACK ) ;
+				_w.velocity.setForeground( Color.BLACK ) ;
 				toggleEnabled( _w.fPanel , "Accept" , false );
 			}
 			else if( ( ( Component ) ae.getSource() ).getName().equals( "show" ) )
