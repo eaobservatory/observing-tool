@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>UFTI-Standards_3Aug06.xml</meta_gui_filename>
+  <meta_gui_filename>UFTI-Standards_4Aug06.xml</meta_gui_filename>
   <ot_version>20060803</ot_version>
   <telescope>ukirt</telescope>
   <title>UFTI IZJHK photometric standards</title>
@@ -2209,7 +2209,7 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
       </SpIterFolder>
     </SpObs>
     <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
-      <meta_gui_collapsed>false</meta_gui_collapsed>
+      <meta_gui_collapsed>true</meta_gui_collapsed>
       <SpDRRecipeRef idref="50"/>
       <SpInstUFTIRef idref="49"/>
       <SpTelescopeObsCompRef idref="48"/>
@@ -6803,8 +6803,8 @@ Also note that in the expectation that a full JHK set will be done repeat darks 
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <SpIterDarkObs type="ic" subtype="darkObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <coadds>1</coadds>
-          <exposureTime>5.0</exposureTime>
+          <coadds>2</coadds>
+          <exposureTime>2.0</exposureTime>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
@@ -21858,7 +21858,7 @@ guide star is available.</note>
       <SpDRRecipeRef idref="482"/>
       <SpInstUFTIRef idref="481"/>
       <SpTelescopeObsCompRef idref="480"/>
-      <estimatedDuration units="seconds">98.0</estimatedDuration>
+      <estimatedDuration units="seconds">96.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <standard>true</standard>
@@ -21939,7 +21939,7 @@ guide star is available.</note>
         <SpIterDarkObs type="ic" subtype="darkObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>2</coadds>
-          <exposureTime>3.0</exposureTime>
+          <exposureTime>2.0</exposureTime>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
@@ -36982,7 +36982,7 @@ guide star is available.</note>
       <SpDRRecipeRef idref="815"/>
       <SpInstUFTIRef idref="814"/>
       <SpTelescopeObsCompRef idref="813"/>
-      <estimatedDuration units="seconds">91.0</estimatedDuration>
+      <estimatedDuration units="seconds">84.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <standard>true</standard>
@@ -37063,7 +37063,7 @@ guide star is available.</note>
         <SpIterDarkObs type="ic" subtype="darkObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>1</coadds>
-          <exposureTime>10.0</exposureTime>
+          <exposureTime>3.0</exposureTime>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
@@ -45579,7 +45579,7 @@ guide star is available.</note>
     </SpObs>
   </SpLibraryFolder>
   <SpLibraryFolder type="lf" subtype="none">
-    <meta_gui_collapsed>true</meta_gui_collapsed>
+    <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>IZ photometric standards with UFTI</title>
     <SpNote type="no" subtype="none">
       <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -48775,7 +48775,7 @@ guide star is available.</note>
       <SpDRRecipeRef idref="1073"/>
       <SpInstUFTIRef idref="1072"/>
       <SpTelescopeObsCompRef idref="1071"/>
-      <estimatedDuration units="seconds">171.0</estimatedDuration>
+      <estimatedDuration units="seconds">156.0</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <standard>true</standard>
@@ -48856,7 +48856,7 @@ guide star is available.</note>
         <SpIterDarkObs type="ic" subtype="darkObs">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <coadds>1</coadds>
-          <exposureTime>30.0</exposureTime>
+          <exposureTime>15.0</exposureTime>
           <repeatCount>1</repeatCount>
         </SpIterDarkObs>
         <SpIterRepeat type="ic" subtype="repeat">
