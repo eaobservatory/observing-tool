@@ -60,7 +60,6 @@ $(BIN_DIR):
 # The following rule copies the cfg directories into LOCAL_INSTALL_ROOT
 # regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
-	rm -rf $@/*
 	@chmod -R g+w ../cfg/*
 	rsync -Cav ../cfg $(LOCAL_INSTALL_ROOT)
 	@chmod -R g+w $(LOCAL_INSTALL_ROOT)/*
