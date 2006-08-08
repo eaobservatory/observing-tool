@@ -63,7 +63,7 @@ $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	if `chmod -R g+w ../cfg/*`; then\
 		echo "Permissions changed";\
 	fi;
-	rsync -Cv --delete ../cfg $(LOCAL_INSTALL_ROOT)
+	rsync -Cv ../cfg $(LOCAL_INSTALL_ROOT)
 	if `chmod -R g+w $(LOCAL_INSTALL_ROOT)/*`; then\
 		echo "Permissions changed";\
 	fi;
