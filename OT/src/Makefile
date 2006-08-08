@@ -60,14 +60,15 @@ $(BIN_DIR):
 # The following rule copies the cfg directories into LOCAL_INSTALL_ROOT
 # regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
-	if `chmod -R g+w ../cfg/*`; then\
-		echo "Permissions changed";\
-	fi;
-	rsync -vrgc --chmod=og=rws ../cfg $(LOCAL_INSTALL_ROOT)/
+	rm -rf $@/*
+	# chmod -R g+w ../cfg/
+	umask 2
+	-cp -r ../cfg/ $(LOCAL_INSTALL_ROOT)
+	chmod -R g+w $(LOCAL_INSTALL_ROOT)/cfg/
 # Hacky solution to adding scema locations to the config files...
-	@ echo "" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
+	@ echo "" >> $(shell (cd $(LOCAL_INSTALL_ROOT);pwd))/cfg/jcmt/ot.cfg
 	@ echo "schemaBase: JAC/JCMT/JCMT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
-	@ echo "" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
+	@ echo "" >> $(shell (cd $(LOCAL_INSTALL_ROOT);pwd))/cfg/ukirt/ot.cfg
 	@ echo "schemaBase: JAC/UKIRT/UKIRT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/ukirt/ot.cfg
 
 FORCE:
@@ -95,10 +96,8 @@ $(CLASSES_DIR)/%.gif: %.gif
 	cp $< $@
 
 $(LOCAL_INSTALL_ROOT)/cfg/%: ../cfg/%
-	# if $< != ../cfg/CVS
-	rsync -rgvc --chmod=og=rws $< $@
-	# if -e $@/ot.cfg
-	#@ echo "schemaBase: JAC/UKIRT/UKIRT.xsd" >> $@/ot.cfg
+	rm -rf $@
+	cp -r $< $@
 
 
 # Bundle everything into jar file
@@ -115,7 +114,6 @@ doc:
 
 $(BIN_DIR)/ot: scripts/ot_script_source $(CONF_HOME)/make.conf Makefile
 	@mkdir -p $(BIN_DIR)
-	@rm -f $@
 	@cat scripts/ot_script_source >> $@
 	@printf \
 	"#!/bin/csh -f\
@@ -153,13 +151,11 @@ endif
 
 $(BIN_DIR)/ompvalidate: scripts/ompvalidate
 	@mkdir -p $(BIN_DIR)
-	@rm -f $@
 	@cat $? >> $@
 	@chmod 775 $@
 
 $(BIN_DIR)/ot.bat: scripts/ot_bat_local_source
 	@mkdir -p $(BIN_DIR)
-	@rm -f $@
 	@cp $< $@
 	@echo Creating $@
 
