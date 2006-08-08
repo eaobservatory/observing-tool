@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JLabel;
 
 import jsky.app.ot.gui.OptionWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -18,7 +17,6 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher;
 
 import orac.util.OracUtilities;
 
-import gemini.sp.SpItem;
 import gemini.sp.SpProg;
 
 /**
@@ -74,35 +72,35 @@ public final class EdProgram extends OtItemEditor
 
 
     /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-	String val;
+	 * Implements the _updateWidgets method from OtItemEditor in order to setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		String val;
 
-	// Title
-	TextBoxWidgetExt tbwe = _w.titleBox;
-	val  = _spItem.getTitleAttr();
-	if (val == null) {
-	    tbwe.setText("");
-	} else {
-	    tbwe.setText(val);
+		// Title
+		TextBoxWidgetExt tbwe = _w.titleBox;
+		val = _spItem.getTitleAttr();
+		if( val == null )
+			tbwe.setText( "" );
+		else
+			tbwe.setText( val );
+
+		// PI (changed for OMP by MFO, 7 August 2001)
+		_w.piBox.setText( ( ( SpProg ) _spItem ).getPI() );
+
+		// Country (changed for OMP by MFO, 7 August 2001)
+		_w.countryBox.setText( ( ( SpProg ) _spItem ).getCountry() );
+
+		// Project ID (added for OMP by MFO, 7 August 2001)
+		_w.projectIdBox.setText( ( ( SpProg ) _spItem ).getProjectID() );
+
+		_showPropKind( _avTab.get( KIND ) );
+
+		double time = ( ( SpProg )_spItem ).getElapsedTime() ;
+		_w.estimatedTime.setText( OracUtilities.secsToHHMMSS( time , 1 ) );
+		_w.totalTime.setText( OracUtilities.secsToHHMMSS( ( ( SpProg ) _spItem ).getTotalTime() , 1 ) );
 	}
-
-	// PI (changed for OMP by MFO, 7 August 2001)
-	_w.piBox.setText(((SpProg)_spItem).getPI());
-
-	// Country (changed for OMP by MFO, 7 August 2001)
-	_w.countryBox.setText(((SpProg)_spItem).getCountry());
-
-	// Project ID (added for OMP by MFO, 7 August 2001)
-	_w.projectIdBox.setText(((SpProg)_spItem).getProjectID());	
-
-	_showPropKind(_avTab.get(KIND));
-
-	_w.estimatedTime.setText(OracUtilities.secsToHHMMSS(((SpProg)_spItem).getElapsedTime(), 1));
-	_w.totalTime.setText(OracUtilities.secsToHHMMSS( ((SpProg)_spItem).getTotalTime(), 1));
-    }
 
     /**
      * Set the Prop. Kind option widget.
