@@ -10,25 +10,14 @@
 
 package orac.jcmt.iter;
 
-import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
-
-import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
 
 import gemini.util.Format;
 
-import java.util.Enumeration;
-
-import orac.jcmt.SpJCMTConstants;
 
 
 /**

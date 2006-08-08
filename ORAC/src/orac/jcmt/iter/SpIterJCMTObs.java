@@ -388,7 +388,7 @@ public void getTimings()
 		if( vector == null )
 		{
 			String configurationDirectory = System.getProperty( "ot.cfgdir" ) ;
-			URL baseURL = new URL( "file://" + configurationDirectory ) ;
+			URL baseURL = new URL( configurationDirectory ) ;
 			InstCfgReader instCfgReader = new InstCfgReader( baseURL , "timings.cfg" ) ;
 			String block ;
 			vector = new Vector() ;
