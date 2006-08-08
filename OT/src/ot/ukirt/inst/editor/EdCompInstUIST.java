@@ -162,7 +162,7 @@ public EdCompInstUIST()
 				_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable );
 				_w.imaging_and_polarimetry_posAngle.setEnabled( enable );
 				if( !enable )
-					_instUIST.setPosAngleDegrees( 0.0 ) ;
+					_instUIST.setPosAngleDegrees( -90.0 ) ;
 				
 				_instUIST.useDefaultResolution();
 				_instUIST.useDefaultAcquisition();
@@ -437,13 +437,9 @@ public EdCompInstUIST()
 				double pa = Double.parseDouble( pas );
 				_instUIST.getAvEditFSM().deleteObserver( EdCompInstUIST.this );
 				if( ( pa > 0.00001 ) || pa < -0.00001 )
-				{
 					_instUIST.setPosAngleDegrees( pa );
-				}
 				else
-				{
 					_instUIST.setPosAngleDegrees( 0.0 );
-				}
 				_instUIST.getAvEditFSM().addObserver( EdCompInstUIST.this );
 			}
 
@@ -1162,7 +1158,7 @@ _updateCoadds()
 			_w.imaging_and_polarimetry_posAngleLabel.setEnabled( enable ) ;
 			_w.imaging_and_polarimetry_posAngle.setEnabled( enable ) ;	
 			if( !enable )
-				_instUIST.setPosAngleDegrees( 0.0 ) ;
+				_instUIST.setPosAngleDegrees( -90.0 ) ;
 		}
 		else
 		{
