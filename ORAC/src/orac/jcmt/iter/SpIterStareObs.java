@@ -15,16 +15,7 @@ import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
-
-import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
-import gemini.sp.obsComp.SpStareCapability;
-
-import java.util.Enumeration;
 
 
 /**
@@ -42,6 +33,10 @@ static {
    SpFactory.registerPrototype(new SpIterStareObs());
 }
 
+double T_bcal ;
+double T_oref ;
+double T_startend ;
+double T_ocal ;
 
 /**
  * Default constructor.
@@ -104,8 +99,14 @@ public SpIterStareObs()
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-			double overheadFactor = 1.2;
-			totalIntegrationTime = getSecsPerCycle() * overheadFactor;
+			double T_ref = getSecsPerCycle() ;
+			double T_on = getSecsPerCycle() ;
+			
+			double n_refs = Math.ceil( T_on / T_bcal ) ;
+			double T_nocals = ( getSecsPerCycle() + T_ref ) + ( T_oref * n_refs ) ;
+			double n_cals = Math.floor( T_nocals / T_bcal ) ;
+			double T_total = T_startend + T_nocals + ( T_ocal * n_cals ) ;
+			totalIntegrationTime = T_total ;
 		}
 		return ( overhead + totalIntegrationTime );
 	}

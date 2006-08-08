@@ -8,7 +8,6 @@ import java.net.URL;
 
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.TimeZone;
 import java.util.Vector;
 
 import gemini.sp.SpObsContextItem;

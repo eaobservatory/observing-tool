@@ -1312,76 +1312,96 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 	}
 
 
-  public void processXmlElementStart(String name) {
-    _valuesInitialised = true;
+  public void processXmlElementStart( String name )
+	{
+		_valuesInitialised = true;
 
-    if(name.equals(XML_ELEMENT_ACSIS_CONFIGURATION) || name.equals(XML_ELEMENT_ACSIS_SUBSYSTEMS) ) {
-      _processingAcsisConfigurationXml = true;
-      _subSystemCount = 0;
-      return;
-    }
-    if ( name.equals(XML_ELEMENT_ACSIS_SUBSYSTEM) || name.equals(XML_ELEMENT_ACSIS_LINE) ) {
-	return;
-    }
+		if( name.equals( XML_ELEMENT_ACSIS_CONFIGURATION ) || name.equals( XML_ELEMENT_ACSIS_SUBSYSTEMS ) )
+		{
+			_processingAcsisConfigurationXml = true;
+			_subSystemCount = 0;
+			return;
+		}
+		if( name.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) || name.equals( XML_ELEMENT_ACSIS_LINE ) )
+		{
+			return;
+		}
 
-    super.processXmlElementStart(name);
-  }
-
-  public void processXmlElementEnd(String name) {
-    if(name.equals(XML_ELEMENT_ACSIS_CONFIGURATION) || name.equals(XML_ELEMENT_ACSIS_SUBSYSTEMS) ) {
-      _processingAcsisConfigurationXml = false;
-    }
-    if ( name.equals(XML_ELEMENT_ACSIS_SUBSYSTEM) ) _subSystemCount++;
-
-    super.processXmlElementEnd(name);
-  }
-
-  public void processXmlAttribute(String elementName, String attributeName, String value) {
-    if(!_processingAcsisConfigurationXml) {
-      super.processXmlAttribute(elementName, attributeName, value);
-    }
-    else {
-	if ( elementName.equals(XML_ELEMENT_ACSIS_SUBSYSTEM) ) {
-	    if ( attributeName.equals("if") ) {
-		_avTable.set(ATTR_CENTRE_FREQUENCY, value, _subSystemCount);
-	    }
-	    else if ( attributeName.equals("bw") ) {
-		_avTable.set(ATTR_BANDWIDTH, value, _subSystemCount);
-	    }
-	    else if ( attributeName.equals(ATTR_CHANNELS) ) {
-		_avTable.set(ATTR_CHANNELS, value, _subSystemCount);
-	    }
-	    else if ( attributeName.equals(ATTR_OVERLAP) ) {
-		_avTable.set(ATTR_OVERLAP, value, _subSystemCount);
-	    }
+		super.processXmlElementStart( name );
 	}
-	else if ( elementName.equals(XML_ELEMENT_ACSIS_LINE) ) {
-	    if ( attributeName.equals("rest_freq") ) {
-		_avTable.set(ATTR_REST_FREQUENCY, value, _subSystemCount );
-	    }
-	    else if ( attributeName.equals("species") ) {
-		_avTable.set(ATTR_MOLECULE, value, _subSystemCount );
-	    }
-	    else if ( attributeName.equals("transition") ) {
-		_avTable.set(ATTR_TRANSITION, value, _subSystemCount);
-	    }
+
+	public void processXmlElementEnd( String name )
+	{
+		if( name.equals( XML_ELEMENT_ACSIS_CONFIGURATION ) || name.equals( XML_ELEMENT_ACSIS_SUBSYSTEMS ) )
+		{
+			_processingAcsisConfigurationXml = false;
+		}
+		if( name.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) )
+			_subSystemCount++;
+
+		super.processXmlElementEnd( name );
 	}
-    }
-  }
 
-  public void processXmlElementContent(String name, String value) {
-    if(!_processingAcsisConfigurationXml) {
-//	System.out.println( "processing content of element " + name + ", value=" + value);
-      super.processXmlElementContent(name, value);
-    }
-  }
+	public void processXmlAttribute( String elementName , String attributeName , String value )
+	{
+		if( !_processingAcsisConfigurationXml )
+		{
+			super.processXmlAttribute( elementName , attributeName , value );
+		}
+		else
+		{
+			if( elementName.equals( XML_ELEMENT_ACSIS_SUBSYSTEM ) )
+			{
+				if( attributeName.equals( "if" ) )
+				{
+					_avTable.set( ATTR_CENTRE_FREQUENCY , value , _subSystemCount );
+				}
+				else if( attributeName.equals( "bw" ) )
+				{
+					_avTable.set( ATTR_BANDWIDTH , value , _subSystemCount );
+				}
+				else if( attributeName.equals( ATTR_CHANNELS ) )
+				{
+					_avTable.set( ATTR_CHANNELS , value , _subSystemCount );
+				}
+				else if( attributeName.equals( ATTR_OVERLAP ) )
+				{
+					_avTable.set( ATTR_OVERLAP , value , _subSystemCount );
+				}
+			}
+			else if( elementName.equals( XML_ELEMENT_ACSIS_LINE ) )
+			{
+				if( attributeName.equals( "rest_freq" ) )
+				{
+					_avTable.set( ATTR_REST_FREQUENCY , value , _subSystemCount );
+				}
+				else if( attributeName.equals( "species" ) )
+				{
+					_avTable.set( ATTR_MOLECULE , value , _subSystemCount );
+				}
+				else if( attributeName.equals( "transition" ) )
+				{
+					_avTable.set( ATTR_TRANSITION , value , _subSystemCount );
+				}
+			}
+		}
+	}
 
-  public void processXmlElementContent(String name, String value, int pos) {
-    if(!_processingAcsisConfigurationXml) {
-//	System.out.println( "processing content of element " + name + ", value=" + value + ", posn=" + pos);
-      super.processXmlElementContent(name, value, pos);
-    }
-  }
+	public void processXmlElementContent( String name , String value )
+	{
+		if( !_processingAcsisConfigurationXml )
+		{
+			super.processXmlElementContent( name , value );
+		}
+	}
+
+	public void processXmlElementContent( String name , String value , int pos )
+	{
+		if( !_processingAcsisConfigurationXml )
+		{
+			super.processXmlElementContent( name , value , pos );
+		}
+	}
 }
 
 

@@ -45,39 +45,37 @@ public class OracUtilities {
     return hhStr + ":" + mmStr + ":" + remainderStr;
   }
 
-  public static String secsToHHMMSS(double seconds, int decimalPlaces) {
-    String fullString       = secsToHHMMSS(seconds);
+	public static String secsToHHMMSS( double seconds , int decimalPlaces )
+	{
+		String fullString = secsToHHMMSS( seconds );
 
-    if(fullString.lastIndexOf('.') < 0) {
-      fullString += ".0";
-    }
+		if( fullString.lastIndexOf( '.' ) < 0 )
+			fullString += ".0";
 
-    String result           = fullString.substring(0, fullString.lastIndexOf('.'));
-    String decimalPlacesStr = fullString.substring(fullString.lastIndexOf('.'));
+		String result = fullString.substring( 0 , fullString.lastIndexOf( '.' ) );
+		String decimalPlacesStr = fullString.substring( fullString.lastIndexOf( '.' ) );
 
-    if(decimalPlaces < 1) {
-      return result;
-    }
+		if( decimalPlaces < 1 )
+			return result;
 
-    int i;
-    for(i = 0; i < decimalPlacesStr.length(); i++) {
-      if(i > decimalPlaces) {
-        break;
-      }
+		int i;
+		for( i = 0 ; i < decimalPlacesStr.length() ; i++ )
+		{
+			if( i > decimalPlaces )
+				break;
 
-      result += decimalPlacesStr.charAt(i);
-    }
+			result += decimalPlacesStr.charAt( i );
+		}
 
-    for(; i < decimalPlaces; i++) {
-      result += "0";
-    }
+		for( ; i < decimalPlaces ; i++ )
+			result += "0";
 
-    return result;
-  }
+		return result;
+	}
 
   /**
-   * Converts java.util.Date to date string (ISO8601 format).
-   */
+	 * Converts java.util.Date to date string (ISO8601 format).
+	 */
   public static String toISO8601(Date date) {
     StringBuffer result = new StringBuffer();
     Calendar calendar = Calendar.getInstance();

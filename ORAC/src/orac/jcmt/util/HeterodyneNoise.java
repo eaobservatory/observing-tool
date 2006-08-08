@@ -14,6 +14,8 @@ import orac.jcmt.iter.SpIterJCMTObs;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.inst.SpInstHeterodyne;
 
+import gemini.util.MathUtil ;
+
 /**
  * Class for caalculation of the system noise of the heterodyne recievers.
  * This class is based on the perl model JCMT::HITEC which is comprised of
@@ -30,65 +32,66 @@ public class HeterodyneNoise {
     static final String cfgDir = System.getProperty("ot.cfgdir");
     private static final String receiverFile = "receiver.info";
     private static boolean initialised = false;
+    
+    private static int SUBSYSTEM = 0 ;
 
 
-    private static void init() {
-	String inputLine;
+    private static void init()
+	{
+		String inputLine;
 
-	if (feNames.size() != 0) return;
+		if( feNames.size() != 0 )
+			return;
 
-	// Initialise the DAS modes -  this is needed sine at the moment the OT
-	// occassionally reports the wrong overlap.  Pity since if ity didn't it would
-	// save some space
-	dasModes.put(new Integer(125), new Double (95e3/2.) );
-	dasModes.put(new Integer(250), new Double (189e3/2.) );
-	dasModes.put(new Integer(500), new Double (378e3/2.) );
-	dasModes.put(new Integer(760), new Double (756e3/2.) );
-	dasModes.put(new Integer(920), new Double (756e3/2.) );
-	dasModes.put(new Integer(1840), new Double (1513e3/2.) );
-
-	// Read the reciever file - first get its directory and add the file name
-	String fileName = cfgDir + "/" + receiverFile;
-	// Open the file ready for reading
-	File rvrFile = new File (fileName);
-	try {
-	    BufferedReader in = new BufferedReader( new FileReader(rvrFile) );
-	    // Read the front end names
-	    while ( (inputLine = in.readLine()) != null) {
-		if (inputLine.equals("") ) break;
-		feNames.add(inputLine);
-	    }
-	    // Now loop through the rest of the file and get the receiver temperature
-	    int index;
-	    while ( (inputLine = in.readLine()) != null) {
-		if ( (index = feNames.indexOf(inputLine)) != -1) {
-		    // Start reading the data
-		    TreeMap currentMap = new TreeMap();
-		    int nLines = Integer.valueOf(in.readLine()).intValue();
-		    for (int i=0; i<nLines; i++) {
-			String values = in.readLine();
-			StringTokenizer st = new StringTokenizer(values);
-			Double ftmp = new Double(st.nextToken());
-			int ftmpi   = (int) ftmp.doubleValue();
-			Integer frequency = new Integer(ftmpi);
-			Integer trx = new Integer(st.nextToken());
-			currentMap.put(frequency, trx);
-		    }
-		    trxValues.add(index, currentMap);
-		    Double nu = new Double(in.readLine());
-		    nu_tel.add(index, nu);
+		// Read the reciever file - first get its directory and add the file name
+		String fileName = cfgDir + "/" + receiverFile;
+		// Open the file ready for reading
+		File rvrFile = new File( fileName );
+		try
+		{
+			BufferedReader in = new BufferedReader( new FileReader( rvrFile ) );
+			// Read the front end names
+			while( ( inputLine = in.readLine() ) != null )
+			{
+				if( inputLine.equals( "" ) )
+					break;
+				feNames.add( inputLine );
+			}
+			// Now loop through the rest of the file and get the receiver temperature
+			int index;
+			while( ( inputLine = in.readLine() ) != null )
+			{
+				if( ( index = feNames.indexOf( inputLine ) ) != -1 )
+				{
+					// Start reading the data
+					TreeMap currentMap = new TreeMap();
+					int nLines = Integer.valueOf( in.readLine() ).intValue();
+					for( int i = 0 ; i < nLines ; i++ )
+					{
+						String values = in.readLine();
+						StringTokenizer st = new StringTokenizer( values );
+						Double ftmp = new Double( st.nextToken() );
+						int ftmpi = ( int ) ftmp.doubleValue();
+						Integer frequency = new Integer( ftmpi );
+						Integer trx = new Integer( st.nextToken() );
+						currentMap.put( frequency , trx );
+					}
+					trxValues.add( index , currentMap );
+					Double nu = new Double( in.readLine() );
+					nu_tel.add( index , nu );
+				}
+			}
 		}
-	    }
-	}
-	catch (Exception e) {
-	    System.out.println("Error reading receiver info file");
-	    e.printStackTrace();
-	}
+		catch( Exception e )
+		{
+			System.out.println( "Error reading receiver info file" );
+			e.printStackTrace();
+		}
 
-        getAvailableTau();
+		getAvailableTau();
 
-	initialised = true;
-    }
+		initialised = true;
+	}
 
     private static void getAvailableTau() {
         File dir = new File(cfgDir);
@@ -362,17 +365,15 @@ public class HeterodyneNoise {
 		// Scale by number of obervations
 		time = time / ( noOfRows * samplesPerRow );
 
-		// There seems to be a bug in the overlap in the OT, so for now get the bandwidth
-		// and use the overlap values fro, Hitec
-		// double overlap = inst.getOverlap(0);
-		int bandwidth = ( int ) ( inst.getBandWidth( 0 ) / 1.e6 );
-		double overlap = ( ( Double ) dasModes.get( new Integer( bandwidth ) ) ).doubleValue();
+		double bandwidth = inst.getBandWidth( SUBSYSTEM ) ;
+		int channels = inst.getChannels( SUBSYSTEM ) ;
+		int resolution = ( int )Math.rint( ( bandwidth ) / channels ) ;
 
 		// Multiply by the number of mixers
 		if( inst.getMixer().startsWith( "Dual" ) )
 		{
 			time = 2. * time;
-			overlap = 2 * overlap;
+			resolution = 2 * resolution ;
 		}
 
 		// Handle the different types of obervation...
@@ -391,8 +392,8 @@ public class HeterodyneNoise {
 			else{}
 		}
 
-		double rmsNoise = Math.sqrt( 1. / ( overlap * time ) ) * tSys * kappa;
-		return rmsNoise;
+		double rmsNoise = Math.sqrt( 1. / ( resolution * time ) ) * tSys * kappa;
+		return MathUtil.round( rmsNoise , 3 ) ;
 	}
 
     public static double getHeterodyneNoise (SpIterJCMTObs    obs, 

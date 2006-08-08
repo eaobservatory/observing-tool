@@ -527,11 +527,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				{
 					( ( JLabel ) c ).setText( "" + ( int ) ( _receiver.loMin * 1.0E-9 ) );
 				}
-				if( name.equals( "HighFreqLimit" ) )
+				else if( name.equals( "HighFreqLimit" ) )
 				{
 					( ( JLabel ) c ).setText( "" + ( int ) ( _receiver.loMax * 1.0E-9 ) );
 				}
-				if( name.equals( "resolution" ) )
+				else if( name.equals( "resolution" ) )
 				{
 					double resolution = ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 );
 					try
@@ -544,11 +544,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					}
 					( ( JLabel ) c ).setText( "" + ( int ) Math.rint( resolution ) );
 				}
-				if( name.equals( "overlap" ) )
+				else if( name.equals( "overlap" ) )
 				{
 					( ( JLabel ) c ).setText( "" + ( _inst.getOverlap( 0 ) * 1.0E-6 ) );
 				}
-				if( name.equals( "channel" ) )
+				else if( name.equals( "channel" ) )
 				{
 					( ( JLabel ) c ).setText( "" + _inst.getChannels( 0 ) );
 				}

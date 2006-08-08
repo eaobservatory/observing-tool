@@ -1,6 +1,6 @@
 /*==============================================================*/
 /*                                                              */
-/*                UK Astronomy Technology Centre                */
+	/*                UK Astronomy Technology Centre                */
 /*                 Royal Observatory, Edinburgh                 */
 /*                 Joint Astronomy Centre, Hilo                 */
 /*                   Copyright (c) PPARC 2001                   */
@@ -9,6 +9,9 @@
 // $Id$
 
 package orac.jcmt.iter;
+
+import java.net.URL;
+import java.net.MalformedURLException ;
 
 import gemini.sp.SpType;
 
@@ -21,6 +24,10 @@ import gemini.util.Format;
 
 import orac.jcmt.SpJCMTConstants;
 
+import orac.util.InstCfgReader ;
+import java.io.IOException ;
+import java.lang.reflect.Field ;
+import java.util.Vector ;
 
 /**
  * Enumerater for the elements of the JCMT Observe iterator.
@@ -80,7 +87,7 @@ _thisNextElement()
  */
 public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 {
-
+	
 /**
  * Default constructor.
  */
@@ -95,6 +102,8 @@ public SpIterJCMTObs(SpType spType)
    _avTable.noNotifyRm(ATTR_COUNT);
 
    _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
+   
+   getTimings() ;
 }
 
 /**
@@ -370,5 +379,54 @@ public String [] getSwitchingModeOptions() {
     SWITCHING_MODE_NONE
   };
 }
+
+static Vector vector ;
+public void getTimings()
+{
+	try
+	{
+		if( vector == null )
+		{
+			String configurationDirectory = System.getProperty( "ot.cfgdir" ) ;
+			URL baseURL = new URL( "file://" + configurationDirectory ) ;
+			InstCfgReader instCfgReader = new InstCfgReader( baseURL , "timings.cfg" ) ;
+			String block ;
+			vector = new Vector() ;
+			while( ( block = instCfgReader.readBlock() ) != null )
+				vector.add( block ) ;
+		}
+		String[] split ;
+		Class klass = this.getClass() ;
+		Field[] fields = klass.getDeclaredFields() ;
+		int size = vector.size() ;
+		for( int index = 0 ; index < size ; index++ )
+		{
+			Object tmp = vector.get( index ) ;
+			if( !( tmp instanceof String ) )
+				continue ;
+			split = ( ( String )tmp).split( "=" ) ;
+			if( split.length == 2 )
+			{
+				for( int i = 0 ; i < fields.length ; i++ )
+				{
+					Field field = fields[ i ] ;
+					String name = field.getName() ;
+					if( name.equals( split[ 0 ] ) )
+					{
+						try
+						{
+							field.setDouble( ( Object )this , Double.parseDouble( split[ 1 ] ) ) ;
+						}
+						catch( NumberFormatException nfe ){}
+						catch( IllegalAccessException iae ){}
+					}
+				}
+			}
+		}
+	}
+	catch( MalformedURLException mue ){}
+	catch( IOException ioe ){}
+}
+
 }
 
