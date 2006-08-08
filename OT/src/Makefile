@@ -60,9 +60,13 @@ $(BIN_DIR):
 # The following rule copies the cfg directories into LOCAL_INSTALL_ROOT
 # regardless of whether $(LOCAL_INSTALL_ROOT)/cfg is to be used as CFG_DIRS.
 $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
-	@chmod -R g+w ../cfg/*
-	rsync -Cav --delete ../cfg $(LOCAL_INSTALL_ROOT)
-	@chmod -R g+w $(LOCAL_INSTALL_ROOT)/*
+	if `chmod -R g+w ../cfg/*`; then\
+		echo "Permissions changed";\
+	fi;
+	rsync -Ca --delete ../cfg $(LOCAL_INSTALL_ROOT)
+	if `chmod -R g+w $(LOCAL_INSTALL_ROOT)/*`; then\
+		echo "Permissions changed";\
+	fi;
 # Hacky solution to adding scema locations to the config files...
 	@ echo "" >> $(shell (cd $(LOCAL_INSTALL_ROOT);pwd))/cfg/jcmt/ot.cfg
 	@ echo "schemaBase: JAC/JCMT/JCMT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
