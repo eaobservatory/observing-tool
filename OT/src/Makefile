@@ -63,7 +63,7 @@ $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	if `chmod -R g+w ../cfg/*`; then\
 		echo "Permissions changed";\
 	fi;
-	rsync -vrgc --chmod=ug=rws ../cfg $(LOCAL_INSTALL_ROOT)/
+	rsync -vrgc --chmod=og=rws ../cfg $(LOCAL_INSTALL_ROOT)/
 # Hacky solution to adding scema locations to the config files...
 	@ echo "" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
 	@ echo "schemaBase: JAC/JCMT/JCMT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
@@ -96,7 +96,7 @@ $(CLASSES_DIR)/%.gif: %.gif
 
 $(LOCAL_INSTALL_ROOT)/cfg/%: ../cfg/%
 	# if $< != ../cfg/CVS
-	rsync -rgvc --chmod=ug=rws $< $@
+	rsync -rgvc --chmod=og=rws $< $@
 	# if -e $@/ot.cfg
 	#@ echo "schemaBase: JAC/UKIRT/UKIRT.xsd" >> $@/ot.cfg
 
