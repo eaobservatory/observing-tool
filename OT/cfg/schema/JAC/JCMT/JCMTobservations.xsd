@@ -87,7 +87,6 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="positions"       type="xsd:nonNegativeInteger"/>
       <xsd:element name="startPosition"   type="toml:skydipStartPosList"/>
       <xsd:element name="useCurrentAz"    type="xsd:boolean"/>
@@ -102,7 +101,6 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
       <xsd:element name="useCurrentAz"   type="xsd:boolean" minOccurs="0"/>
     </xsd:sequence>
@@ -118,7 +116,6 @@
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
       <xsd:element name="axis"            type="toml:axisList"/>
       <xsd:element name="focusPoints"     type="xsd:positiveInteger"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="steps"           type="xsd:double"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
@@ -130,7 +127,6 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="noiseSource"     type="toml:noiseSourceList"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
@@ -146,7 +142,6 @@
       <xsd:element name="cycleReversal"   type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="frequencyOffset.rate"    type="toml:nonNegativeDecimal"               minOccurs="0"/>
       <xsd:element name="frequencyOffset.throw"   type="toml:nonNegativeDecimal"               minOccurs="0"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="noOfCycles"      type="xsd:nonNegativeInteger"     minOccurs="0"/>
       <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"    minOccurs="0"/>
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
@@ -165,14 +160,12 @@
       <xsd:choice> 
         <!-- SCUBA -->
         <xsd:sequence>
-          <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
           <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
           <xsd:element name="useCurrentAz"    type="xsd:boolean"              minOccurs="0"/>
         </xsd:sequence>
         <!-- ACSIS -->
         <xsd:sequence>
           <xsd:element name="continuumMode"   type="xsd:boolean"/>
-          <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
           <xsd:element name="jigglePa"        type="xsd:double"/>
           <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
           <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
@@ -194,7 +187,6 @@
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="obsArea"         type="toml:rasterObsAreaType"/>
       <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
-      <xsd:element name="integrations"    type="xsd:nonNegativeInteger"/>
       <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="sampleTime"      type="xsd:positiveInteger"       minOccurs="0"/>
