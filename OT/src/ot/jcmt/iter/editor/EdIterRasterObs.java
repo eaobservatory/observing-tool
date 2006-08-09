@@ -202,22 +202,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.switchingMode.setEnabled( false );
 		_w.rowReversal.setValue( _iterObs.getRowReversal() );
 		if( !_isAcsis )
-		{
 			_w.sampleTime.setValue( ( int ) _iterObs.getSampleTime() - SAMPLE_TIME_CHOICES.length );
-		}
 		else
-		{
 			_w.acsisSampleTime.setValue( _iterObs.getSampleTime() );
-		}
 
 		if( SpIterRasterObs.RASTER_MODE_ALONG_ROW.equals( _iterObs.getRasterMode() ) )
-		{
 			_w.alongRow.setSelected( true );
-		}
 		else
-		{
 			_w.interleaved.setSelected( true );
-		}
 
 		updateTimes();
 		updateThermometer();
@@ -305,15 +297,15 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		if( tbwe == _w.acsisSampleTime )
 		{
-			String sampleTime = "0.6" ;
+			String sampleTime = "0.1" ;
 			try
 			{
 				sampleTime = _w.acsisSampleTime.getValue() ;
 				Double conversionDouble = new Double( sampleTime ) ;
-				if( conversionDouble.doubleValue() > 0.6 )
+				if( conversionDouble.doubleValue() > 0.1 )
 					sampleTime = conversionDouble.toString() ;
 				else
-					sampleTime = "0.6" ;
+					sampleTime = "0.1" ;
 			}
 			catch( NumberFormatException nfe ){}
 			catch( Exception e ){}
