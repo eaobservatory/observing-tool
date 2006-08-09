@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
-  <ot_version>20040618</ot_version>
+  <meta_gui_filename>UIST-Template</meta_gui_filename>
+  <ot_version>20060808</ot_version>
+  <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
     <title>UIST</title>
@@ -73,6 +74,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -191,6 +193,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -314,6 +318,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -432,6 +437,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -571,6 +578,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -689,6 +697,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -828,6 +838,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -946,6 +957,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -1085,6 +1098,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1203,6 +1217,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -1342,6 +1358,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1461,6 +1478,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -1600,6 +1619,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1719,6 +1739,8 @@ in the thermal.</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>NOD_SELF_FLAT_NO_MASK</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -1860,6 +1882,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -1979,6 +2002,8 @@ and requires sky and object to have the recipe selected</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>NOD_SKY_FLAT_THERMAL</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -2184,6 +2209,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -2304,6 +2330,8 @@ as opposed to a self-flat then use BRIGHT_POINT_SOURCE.</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>JITTER_SELF_FLAT</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -2429,6 +2457,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -2551,6 +2580,8 @@ as opposed to a self-flat then use BRIGHT_POINT_SOURCE.</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>JITTER_SELF_FLAT</ObjectRecipe>
             <SkyInGroup>false</SkyInGroup>
@@ -2693,6 +2724,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -2762,6 +2794,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>JITTER_SELF_FLAT_NCOLOUR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -2920,6 +2954,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -3041,6 +3076,8 @@ If you need to use a more complete recipe then select QUADRANT_JITTER or QUADRAN
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>QUADRANT_JITTER</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -3180,6 +3217,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -3299,6 +3337,8 @@ reset!</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>EXTENDED_3x3</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -3487,6 +3527,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -3606,6 +3647,8 @@ reset!</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>EXTENDED_5x5</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -3872,6 +3915,320 @@ Changing the total number of offsets will break the data-reduction recipe.</note
           </SpIterFolder>
         </SpObs>
       </SpMSB>
+      <SpMSB checksum="b9ac6ac4e9a8b64655db5e8e42763bd6A" remaining="99" type="og" subtype="msb">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">660.41988</estimatedDuration>
+        <library_version>$Revision$</library_version>
+        <priority>99</priority>
+        <title>Coronographic Imaging</title>
+        <totalDuration units="seconds">660.41988</totalDuration>
+        <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+          <meta_gui_collapsed>true</meta_gui_collapsed>
+          <estimatedDuration units="seconds">660.41988</estimatedDuration>
+          <standard>false</standard>
+          <title>0.7 arcsec wire/19-point offsets</title>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>Basic Idea:
+=======
+
+With Coronographic imaging, the user may use either a 6-pixel (0.7arcsec) or an 11-pixel (1.3 arcsec) wire.  These are suspended 1/4 and 3/4 of the way along a 120"x20" rectangular aperture (needed for coronographic polarimetry).  The posn angle can be used to orientate the source so that extended objects are perpendicular to the wire; e.g. a disk orientated E-W should use a Posn-angle of 0 degs, while a disk orientated N-S should use a posn angle of -90 degs.  Any angle between -90 and +90 degrees can be used.
+
+By default the acquisition process described below will put the source behind the 6-pixel wire.  If the wider occultor is required, all offsets should have a p value of -62.6 arcsec (this being the distance between the two wires); note, offsets in q are along the wire, which is ~20" in length..
+
+Imaging acquisition:
+============
+
+In the UIST component below, set the instrument for coronographic imaging (coron mask, filter, full array, NDSTARE, etc.) but SELECT A SHORT EXPOSURE TIME for imaging acquisition (1sec for bright stars/point sources, maybe with a few coadds).  The exposure time to be used for the actual coronographic imaging will be set in the "UIST Imaging" iterator further down the sequence.
+
+At the telescope UIST will be set for coronographic observations with your chosen posn angles BUT it will have a short exposure time.  At the break in the sequence, the observer runs Movie, acquires the target as if he/she were doing spectroscopy (i.e. using Gaia - pick object and UPICK on the TCS) , then continues the sequence.  Immediately after acquisition a short-exposure frame will be taken on the target (so you can see that its behind the wire) before the exposure time/coadds are increased for the actual coronagraphic observations.</note>
+            <title>HOW TO DO CORONOGRAPHIC IMAGING</title>
+          </SpNote>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target
+
+When you have done so you can use the "position editor" to  select a guide star, to fine tune the co-ordinate based on a sky-survey picture, examine offset locations on the field etc.
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+            <title>Target information</title>
+          </SpNote>
+          <SpTelescopeObsComp type="oc" subtype="targetList">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+            <meta_unique>true</meta_unique>
+            <BASE TYPE="Base">
+              <target>
+                <targetName>Object Name</targetName>
+                <spherSystem SYSTEM="J2000">
+                  <c1>0:00:00</c1>
+                  <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
+                </spherSystem>
+              </target>
+            </BASE>
+          </SpTelescopeObsComp>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>Make sure the coronograph is selected and the exposure time is short (1sec usually) for IMAGING ACQUISITION.</note>
+            <title>UIST component</title>
+          </SpNote>
+          <SpInstUIST type="oc" subtype="inst.UIST">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <meta_version>3</meta_version>
+            <DAConf>ND1</DAConf>
+            <DAConfMinExpT>0.81</DAConfMinExpT>
+            <arrayAngle>0.54</arrayAngle>
+            <biasDutyCycle>0.507</biasDutyCycle>
+            <biasIdlePeriod>0.0022</biasIdlePeriod>
+            <biasMustIdles>100</biasMustIdles>
+            <biasNResets>2</biasNResets>
+            <biasObsTime>9.468</biasObsTime>
+            <biasReadArea>1024x1024</biasReadArea>
+            <biasRefPixelX>512.5</biasRefPixelX>
+            <biasRefPixelY>512.5</biasRefPixelY>
+            <biasWaveform>uist_starev11</biasWaveform>
+            <camera>imaging</camera>
+            <centralWavelength>2.2</centralWavelength>
+            <chopDelay>0.0</chopDelay>
+            <chopFrequency>0.0</chopFrequency>
+            <coadds>1</coadds>
+            <configType>Normal</configType>
+            <darkFilter>black_blank</darkFilter>
+            <disperser>open</disperser>
+            <dispersion>0.0</dispersion>
+            <dutyCycle>0.31847539459101387</dutyCycle>
+            <expTimeOT>1.0</expTimeOT>
+            <exposureTime>1.0</exposureTime>
+            <filter>K98</filter>
+            <filterCategory>broad</filterCategory>
+            <focus>2.61</focus>
+            <idlePeriod>0.0022</idlePeriod>
+            <imager>0.12</imager>
+            <instAper>
+              <value>27.93</value>
+              <value>-1.11</value>
+              <value>0.00</value>
+              <value>2.00</value>
+            </instAper>
+            <instPntgOffset>
+              <value>17.24</value>
+              <value>8.2076</value>
+            </instPntgOffset>
+            <instPort>South</instPort>
+            <mask>coronograph</mask>
+            <maskHeight>20.0</maskHeight>
+            <maskWidth>1024.0</maskWidth>
+            <mode>NDSTARE</mode>
+            <mustIdles>100</mustIdles>
+            <nreads>2</nreads>
+            <nresets>1</nresets>
+            <nullCycles>0</nullCycles>
+            <nullExposures>0</nullExposures>
+            <nullReads>1</nullReads>
+            <obsTimeOT>10.0</obsTimeOT>
+            <observationTime>3.1399600000000003</observationTime>
+            <order>0</order>
+            <pixelFOV>0.1205 x 0.1205</pixelFOV>
+            <pixelScale>0.12</pixelScale>
+            <polarimetry>no</polarimetry>
+            <posAngle>-90.0</posAngle>
+            <pupil_imaging>no</pupil_imaging>
+            <readArea>1024x1024</readArea>
+            <readInterval>1.0</readInterval>
+            <readMode>NDSTARE</readMode>
+            <readout>NDSTARE</readout>
+            <readoutOT>NDSTARE 1024x1024</readoutOT>
+            <refPixelL>512.5</refPixelL>
+            <refPixelS>480.5</refPixelS>
+            <refPixelX>480.5</refPixelX>
+            <refPixelY>480.5</refPixelY>
+            <resetDelay>0.11</resetDelay>
+            <resolution>0.0</resolution>
+            <scienceArea>20.0 x 122.88 arcsec</scienceArea>
+            <source_mag>10-11</source_mag>
+            <spectralCoverage>2.030um-2.370um</spectralCoverage>
+            <waveform>uist_starev11</waveform>
+          </SpInstUIST>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>At the time of writing there was no dedicated pipeline recipe for coronographic imaging.  Please see the UIST web pages, or contact your support scientist, for updates.</note>
+            <title>DR Recipe selection</title>
+          </SpNote>
+          <SpDRRecipe type="oc" subtype="DRRecipe">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_unique>true</meta_unique>
+            <ArcInGroup>false</ArcInGroup>
+            <ArcRecipe>REDUCE_ARC</ArcRecipe>
+            <BiasInGroup>false</BiasInGroup>
+            <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+            <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+            <DarkInGroup>false</DarkInGroup>
+            <DarkRecipe>REDUCE_DARK</DarkRecipe>
+            <FlatInGroup>false</FlatInGroup>
+            <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+            <ObjectInGroup>true</ObjectInGroup>
+            <ObjectRecipe>QUICK_LOOK</ObjectRecipe>
+            <SkyInGroup>true</SkyInGroup>
+            <SkyRecipe>QUICK_LOOK</SkyRecipe>
+            <title>QUICK_LOOK</title>
+          </SpDRRecipe>
+          <SpIterFolder type="if" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>The 0,0 offset and observe below are used for acquisition only.  You will acquire the target at the break "before" this observe, then continue and take the short-exposure frame to check that the source is behind the wire.</note>
+              <title>Offset/Observe for acquisition only</title>
+            </SpNote>
+            <SpIterOffset type="ic" subtype="offset">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+              <obsArea>
+                <PA>-90.0</PA>
+                <OFFSET>
+                  <DC1>0.0</DC1>
+                  <DC2>0.0</DC2>
+                </OFFSET>
+              </obsArea>
+              <title>For acquisition only</title>
+            </SpIterOffset>
+            <SpIterObserve type="ic" subtype="observe">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>The darks below flush the array and also provide a frame for dark-subtraction.  They should have the same exposure time as used below for the coronographic imaging, so DON'T click on "set default"</note>
+              <title>Darks</title>
+            </SpNote>
+            <SpIterDarkObs type="ic" subtype="darkObs">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <coadds>1</coadds>
+              <exposureTime>20.0</exposureTime>
+              <repeatCount>3</repeatCount>
+            </SpIterDarkObs>
+            <SpNote type="no" subtype="none">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <note>The iterator below sets the exposure time for the coronographic imaging.  These will be longer than the 1 or 2 secs used for the acquisition process above. 10-20 secs are recomended for 7-9th mag point sources and moderate seeing (0.6-0.7 arcsec).</note>
+              <title>UIST iterator</title>
+            </SpNote>
+            <SpIterUISTImaging type="ic" subtype="instUISTImaging">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <coaddsIter>1</coaddsIter>
+              <exposureTimeIter>20.0</exposureTimeIter>
+              <iterConfigList>
+                <value>exposureTimeIter</value>
+                <value>coaddsIter</value>
+              </iterConfigList>
+              <SpIterRepeat type="ic" subtype="repeat">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
+                <title>Repeat 1X</title>
+                <SpNote type="no" subtype="none">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <note>These offsets nod the source between the wire and postions behind the mask or off the array.  The latter are used as "sky frames"; they are used to construct a flat-field.  The object is also nudged slightly up and down the wire to correct for bad pixels. 
+
+19 frames in all give 10 on sky and 9 with the source behind the wire. Fewer offsets could also be used, e.g. 6 on sky and 5 on source.  In both cases, the seqeunce starts and end on sky.
+
+NOTE: Offsets in q move move along the wire, regardless of posn angle.  An offset of q= +24 would put the target midway between the two rectangular apertures in the coronographic mask. An offset of q= +48 would put the star in the top aperture;  for bright sources this is obviously NOT recommended.</note>
+                  <title>offsets</title>
+                </SpNote>
+                <SpIterOffset type="ic" subtype="offset">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                  <obsArea>
+                    <PA>-90.0</PA>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>-24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>-1.2</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>-10.0</DC1>
+                      <DC2>24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>1.2</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>-10.0</DC1>
+                      <DC2>-24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>-0.6</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>10.0</DC1>
+                      <DC2>24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.6</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>10.0</DC1>
+                      <DC2>-24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>-0.9</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>5.0</DC1>
+                      <DC2>24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.9</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>5.0</DC1>
+                      <DC2>-24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>-0.3</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>-5.0</DC1>
+                      <DC2>24.0</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>0.0</DC1>
+                      <DC2>0.3</DC2>
+                    </OFFSET>
+                    <OFFSET>
+                      <DC1>-5.0</DC1>
+                      <DC2>-24.0</DC2>
+                    </OFFSET>
+                  </obsArea>
+                  <title>19-point offset pattern</title>
+                  <SpIterObserve type="ic" subtype="observe">
+                    <meta_gui_collapsed>false</meta_gui_collapsed>
+                    <repeatCount>1</repeatCount>
+                  </SpIterObserve>
+                </SpIterOffset>
+              </SpIterRepeat>
+            </SpIterUISTImaging>
+          </SpIterFolder>
+        </SpObs>
+      </SpMSB>
       <SpObs msb="true" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpDRRecipeRef idref="23"/>
@@ -3907,6 +4264,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4013,6 +4371,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <DarkRecipe>REDUCE_DARK</DarkRecipe>
           <FlatInGroup>false</FlatInGroup>
           <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
           <ObjectInGroup>true</ObjectInGroup>
           <ObjectRecipe>SKY_FLAT_MASKED</ObjectRecipe>
           <SkyInGroup>true</SkyInGroup>
@@ -4090,19 +4450,24 @@ N.B.: The data-reduction recipe will not work unless you have a dark with the ri
       <title>Spectroscopy</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>Observing Poiint Sources
-================
+        <note>Observing Point Sources
+==============
 
 There are two MSBs for observing Point Sources;  one assumes that the science target is a bright point source which the DR can "find" in the reduced spectral image and display.  The second assumes that the science target is faint.  In this case, the DR will find the rows containing the standard star and assume that the science target lies on the same rows.  These rows will be extracted and displayed. Please bear this in mind when acquiring targets - the standard star and science target should be positioned on the same row AND column (same x-y pixel in imaging acquisition) if the science target is faint.
 
 In both cases, the source is nodded up and down the slit (offset +6" then -6").
 
 Observing Extended Sources
-==================
+=================
 
 "Extended sources nod to sky" is the default for observing large extended objects. Here, the slit is nodded completely off source so that the target is only on the slit in 50% of the frames.
 
-If, however, the science target is only marginally extended then consider using one of the "extended source slide along slit" MSBs, which are essentially the same as the point source MSB, except that a much larger slide (and a different DR recipe) is used.   Slides of up to +30" and -30" are possible.</note>
+If, however, the science target is only marginally extended then consider using one of the "extended source slide along slit" MSBs, which are essentially the same as the point source MSB, except that a much larger slide (and a different DR recipe) is used.   Slides of up to +30" and -30" are possible.
+
+Slitless Spectroscopy
+=============
+
+This mode is also now available, although we have very little experience with this type of spectroscopy.  In the UIST component, under slit mask, users should select "small field".  This will give a 60x60 arcsec aperture on the sky.  The image plane can be rotated so that dispersed spectra do not overlap on the array (using the Pos. angle). See the UIST web pages for further details, or contact Chris Davis (c.davis@jach.hawaii.edu).</note>
         <title>Which MSB should I use??</title>
       </SpNote>
       <SpNote type="no" subtype="none">
@@ -4121,16 +4486,26 @@ with the 4 pixel slit:
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>The default slit PA is -90 so that it matches the UIST imaging orientation (it makes imaging acquisition a bit simpler!), though any angle, between -90 and +90 (measured E of N) can be used.</note>
-        <title>Slit position angle</title>
-      </SpNote>
-      <SpNote type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>All targets (bright standards and faint sources) are now acquired in imaging mode.  Simply make sure that each observation contains an acquisition Eyeball
 (see the examples below).
 
 Note: use short exposures and coadds for faint sources, rather than one very long exposure.  This is to avoid (1) saturating on the sky, and (2) residual signal in spectra from the bright sky background encountered during acquisition.</note>
         <title>Acquisition</title>
+      </SpNote>
+      <SpNote type="no" subtype="none">
+        <meta_gui_collapsed>false</meta_gui_collapsed>
+        <note>WHICH SLIT SHOULD I USE?
+----------------------
+Because of internal focus limitations, we have had to install seperate slits for IJ and JH grism spectroscopy.  You should find that you can ONLY use the 2_pix_wide_120s and 4_pix_wide_120s slits with the IJ and JH grisms.  The other slits (1_pix_wide_120, 2_pix_wide_120 and 4_pix_wide_120) should be used with ALL OTHER grisms.   
+
+Bottom line - the OT will NOT allow you to make an incorrect selection.
+
+Note that the wider 5-pixel and 7-pixel slits can be used with ALL grisms (IJ, JH, HK, short-J, long-J, etc...)
+
+POSITION ANGLES
+----------------
+The default slit PA is -90 so that it matches the UIST imaging orientation (it makes imaging acquisition a bit simpler!), though any angle, between -90 and +90 (measured E of N) can be used.</note>
+        <title>Important info. about SLITS</title>
       </SpNote>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4145,11 +4520,11 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="25"/>
         <SpTelescopeObsCompRef idref="24"/>
-        <estimatedDuration units="seconds">5108.13996</estimatedDuration>
+        <estimatedDuration units="seconds">5168.13996</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Point source slide along slit</title>
-        <totalDuration units="seconds">5241.559840000001</totalDuration>
+        <totalDuration units="seconds">5301.559840000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -4169,6 +4544,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4284,6 +4660,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -4376,6 +4754,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -4445,7 +4825,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">4928.13996</estimatedDuration>
+          <estimatedDuration units="seconds">4988.13996</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -4467,6 +4847,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -4476,6 +4857,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -4492,6 +4874,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>POINT_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -4588,11 +4972,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="27"/>
         <SpTelescopeObsCompRef idref="26"/>
-        <estimatedDuration units="seconds">5122.41988</estimatedDuration>
+        <estimatedDuration units="seconds">5182.41988</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Faint point source slide along slit</title>
-        <totalDuration units="seconds">5255.839760000001</totalDuration>
+        <totalDuration units="seconds">5315.839760000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -4612,6 +4996,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4727,6 +5112,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -4819,6 +5206,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -4888,7 +5277,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">4942.41988</estimatedDuration>
+          <estimatedDuration units="seconds">5002.41988</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -4910,6 +5299,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -4919,6 +5309,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -4935,6 +5326,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>FAINT_POINT_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5031,11 +5424,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="29"/>
         <SpTelescopeObsCompRef idref="28"/>
-        <estimatedDuration units="seconds">5303.119680000001</estimatedDuration>
+        <estimatedDuration units="seconds">5363.119680000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source slide 24" along slit</title>
-        <totalDuration units="seconds">5436.539560000001</totalDuration>
+        <totalDuration units="seconds">5496.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -5055,6 +5448,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5170,6 +5564,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5262,6 +5658,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5331,7 +5729,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5123.119680000001</estimatedDuration>
+          <estimatedDuration units="seconds">5183.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -5353,6 +5751,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -5362,6 +5761,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -5378,6 +5778,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>EXTENDED_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5493,11 +5895,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="31"/>
         <SpTelescopeObsCompRef idref="30"/>
-        <estimatedDuration units="seconds">5303.119680000001</estimatedDuration>
+        <estimatedDuration units="seconds">5363.119680000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source slide 60" along slit</title>
-        <totalDuration units="seconds">5436.539560000001</totalDuration>
+        <totalDuration units="seconds">5496.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -5517,6 +5919,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5632,6 +6035,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5724,6 +6129,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5793,7 +6200,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5123.119680000001</estimatedDuration>
+          <estimatedDuration units="seconds">5183.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -5815,6 +6222,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -5824,6 +6232,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -5840,6 +6249,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>EXTENDED_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -5955,11 +6366,11 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="33"/>
         <SpTelescopeObsCompRef idref="32"/>
-        <estimatedDuration units="seconds">5303.119680000001</estimatedDuration>
+        <estimatedDuration units="seconds">5363.119680000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Extended source nod to sky</title>
-        <totalDuration units="seconds">5436.539560000001</totalDuration>
+        <totalDuration units="seconds">5496.539560000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -5979,6 +6390,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -6094,6 +6506,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -6186,6 +6600,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -6255,7 +6671,7 @@ Chances are, the bright standard will be too bright for imaging acquisition (it 
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5123.119680000001</estimatedDuration>
+          <estimatedDuration units="seconds">5183.119680000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target</title>
           <SpNote type="no" subtype="none">
@@ -6277,6 +6693,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -6286,6 +6703,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -6302,6 +6720,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>EXTENDED_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -6473,11 +6893,11 @@ Otherwise the flat and arc observation WON'T pick up the change!!!</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="35"/>
         <SpTelescopeObsCompRef idref="34"/>
-        <estimatedDuration units="seconds">5288.819480000001</estimatedDuration>
+        <estimatedDuration units="seconds">5348.819480000001</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, nod to blank sky</title>
-        <totalDuration units="seconds">5591.219080000001</totalDuration>
+        <totalDuration units="seconds">5651.219080000001</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -6497,6 +6917,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -6612,6 +7033,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -6704,6 +7127,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -6814,7 +7239,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5108.819480000001</estimatedDuration>
+          <estimatedDuration units="seconds">5168.819480000001</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky</title>
           <SpNote type="no" subtype="none">
@@ -6836,6 +7261,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -6845,6 +7271,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -6861,6 +7288,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>EXTENDED_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -7001,11 +7430,11 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="37"/>
         <SpTelescopeObsCompRef idref="36"/>
-        <estimatedDuration units="seconds">10223.11968</estimatedDuration>
+        <estimatedDuration units="seconds">10283.11968</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, nod to blank sky with jitters</title>
-        <totalDuration units="seconds">10525.51928</totalDuration>
+        <totalDuration units="seconds">10585.51928</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -7025,6 +7454,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -7140,6 +7570,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -7232,6 +7664,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -7342,7 +7776,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">10043.11968</estimatedDuration>
+          <estimatedDuration units="seconds">10103.11968</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky with jitter</title>
           <SpNote type="no" subtype="none">
@@ -7364,6 +7798,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -7373,6 +7808,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -7389,6 +7825,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>MAP_EXTENDED_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -7531,11 +7969,11 @@ Note that this mode uses the MAP_EXTENDED_SOURCE recipe to reduce the data, rath
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <SpInstUISTRef idref="39"/>
         <SpTelescopeObsCompRef idref="38"/>
-        <estimatedDuration units="seconds">10223.11968</estimatedDuration>
+        <estimatedDuration units="seconds">10283.11968</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>IFU, map extended source</title>
-        <totalDuration units="seconds">10525.51928</totalDuration>
+        <totalDuration units="seconds">10585.51928</totalDuration>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your  STANDARD STAR co-ordinates below (this is so that the flat and arc are executed at the location of the standard).  
@@ -7555,6 +7993,7 @@ Note - for the standard, you don't need to specify a guide star;  the telescope 
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
+                <rv defn="radio" frame="LSR">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -7670,6 +8109,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>REDUCE_SINGLE_FRAME</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -7762,6 +8203,8 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>STANDARD_STAR</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
@@ -7872,7 +8315,7 @@ Note:  p and q are perpendicular to and along the IFU long axis.</note>
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <estimatedDuration units="seconds">10043.11968</estimatedDuration>
+          <estimatedDuration units="seconds">10103.11968</estimatedDuration>
           <standard>false</standard>
           <title>Science target --  nod to blank sky</title>
           <SpNote type="no" subtype="none">
@@ -7894,6 +8337,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00</c1>
                   <c2>0:00:00</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -7903,6 +8347,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 <spherSystem SYSTEM="J2000">
                   <c1>0:00:00.0</c1>
                   <c2>0:00:00.0</c2>
+                  <rv defn="radio" frame="LSR">0.0</rv>
                 </spherSystem>
               </target>
             </BASE>
@@ -7919,6 +8364,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <DarkRecipe>REDUCE_DARK</DarkRecipe>
             <FlatInGroup>false</FlatInGroup>
             <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+            <FocusInGroup>false</FocusInGroup>
+            <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
             <ObjectInGroup>true</ObjectInGroup>
             <ObjectRecipe>MAP_EXTENDED_SOURCE</ObjectRecipe>
             <SkyInGroup>true</SkyInGroup>
