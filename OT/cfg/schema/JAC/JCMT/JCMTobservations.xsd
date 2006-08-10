@@ -189,7 +189,7 @@
       <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
       <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>
-      <xsd:element name="sampleTime"      type="xsd:nonNegativeDecimal"       minOccurs="0"/>
+      <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"       minOccurs="0"/>
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
