@@ -665,7 +665,7 @@ Things that shouldn't appear in notes
               </SECONDARY>
               <SpIterJiggleObs type="ic" subtype="jiggleObs">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <contiuumMode>false</contiuumMode>
+                <continuumMode>false</continuumMode>
                 <jigglePa>0.0</jigglePa>
                 <jigglePattern>5x5</jigglePattern>
                 <jigglePerCycle>1</jigglePerCycle>
@@ -1002,7 +1002,7 @@ Things that shouldn't appear in notes
                   </SCAN>
                 </SCAN_AREA>
               </obsArea>
-              <contiuumMode>false</contiuumMode>
+              <continuumMode>false</continuumMode>
               <rowsPerCal>1</rowsPerCal>
               <rowsPerRef>1</rowsPerRef>
               <sampleTime>0.1</sampleTime>
