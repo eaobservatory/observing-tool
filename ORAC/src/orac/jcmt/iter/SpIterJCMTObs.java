@@ -29,6 +29,8 @@ import java.io.IOException ;
 import java.lang.reflect.Field ;
 import java.util.Vector ;
 
+import java.io.File ;
+
 /**
  * Enumerater for the elements of the JCMT Observe iterator.
  *
@@ -289,9 +291,10 @@ public void rmFrequencyOffsetValues() {
     _avTable.set(ATTR_JIGGLES_PER_CYCLE, value);
   }
 
-  public double getSampleTime() {
-    return _avTable.getDouble(ATTR_SAMPLE_TIME, 4.0);
-  }
+  	public double getSampleTime()
+	{
+		return _avTable.getDouble( ATTR_SAMPLE_TIME , 4.0 );
+	}
 
   public void setSampleTime(String value) {
     _avTable.set(ATTR_SAMPLE_TIME, value);
@@ -388,7 +391,10 @@ public void getTimings()
 		if( vector == null )
 		{
 			String configurationDirectory = System.getProperty( "ot.cfgdir" ) ;
-			URL baseURL = new URL( configurationDirectory ) ;
+			URL baseURL = null ;
+			File file = new File( configurationDirectory ) ;
+			if( file.exists() && file.canRead() )
+				baseURL = file.toURL() ;
 			InstCfgReader instCfgReader = new InstCfgReader( baseURL , "timings.cfg" ) ;
 			String block ;
 			vector = new Vector() ;
