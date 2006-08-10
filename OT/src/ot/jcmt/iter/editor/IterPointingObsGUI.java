@@ -52,100 +52,64 @@ public class IterPointingObsGUI extends IterJCMTGenericGUI {
     }
   }
 
-  private void jbInit() throws Exception {
-    JPanel pointingPanel = new JPanel();
-    Border bevelBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
-    Border titleBorder = BorderFactory.createTitledBorder(bevelBorder, "Pointing setup");
-    pointingPanel.setBorder(titleBorder);
-    pointingPanel.setLayout(new BorderLayout() );
-    acsisPanel.setLayout(gridBagLayout1);
-    jLabel1.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel1.setForeground(Color.black);
-    jLabel1.setText("Pointing Method");
-    jLabel2.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel2.setForeground(Color.black);
-    jLabel2.setText("Step Size");
-    jLabel3.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel3.setForeground(Color.black);
-    jLabel3.setText("(arc sec)");
-    stepSize.setColumns(6);
-    jiggleAtReference.setText("Jiggle at Reference");
-    jiggleAtReference.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel4.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel4.setForeground(Color.black);
-    jLabel4.setText("Secs/Cycle");
-//     jLabel5.setFont(new java.awt.Font("Dialog", 0, 12));
-//     jLabel5.setForeground(Color.black);
-//     jLabel5.setText("No of Cycles");
-    jLabel6.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel6.setForeground(Color.black);
-    jLabel6.setText("Secs/Cycle");
-    jLabel7.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel7.setForeground(Color.black);
-    jLabel7.setText("Secs/Observation");
-    continuum.setText("Continuum");
-    continuum.setFont(new java.awt.Font("Dialog", 0, 12));
-    spectralLine.setText("Spectral Line");
-    spectralLine.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel8.setFont(new java.awt.Font("Dialog", 0, 12));
-    jLabel8.setForeground(Color.black);
-    jLabel8.setText("Pointing Pixel");
-    pointingPixelButton.setText("Automatic");
-    secsPerCycle.setEditable(true);
-    secsPerCycle.setColumns(2);
-    secsPerObservation.setEditable(false);
-    secsPerObservation.setColumns(2);
-//     noOfCycles.setColumns(2);
-    pointingMethod.setFont(new java.awt.Font("Dialog", 0, 12));
-    automaticTarget.setPreferredSize(new Dimension(190, 50));
-    automaticTarget.setText("Automatic target");
-    automaticTarget.setHorizontalAlignment(SwingConstants.CENTER);
-    automaticTarget.setFont(new java.awt.Font("Dialog", 0, 12));
-    automaticTarget.setVerticalAlignment(SwingConstants.TOP);
-    this.add(pointingPanel);
-//    this.add(acsisPanel, BorderLayout.CENTER);
-//    pointingPanel.add(acsisPanel, BorderLayout.CENTER);
-    acsisPanel.add(jLabel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-//     acsisPanel.add(jLabel2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(pointingMethod, new GridBagConstraints(1, 0, 2, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-//     acsisPanel.add(stepSize, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-//     acsisPanel.add(jLabel3, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-//     acsisPanel.add(jiggleAtReference, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0
-//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(jLabel4, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-//     acsisPanel.add(jLabel5, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-//     acsisPanel.add(jLabel6, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-    acsisPanel.add(jLabel7, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 0, 0));
-//     acsisPanel.add(jigglesPerCycle, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-//     acsisPanel.add(noOfCycles, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-//     acsisPanel.add(secsPerCycle, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(secsPerObservation, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 5), 0, 0));
-    acsisPanel.add(continuum, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
-    acsisPanel.add(spectralLine, new GridBagConstraints(2, 4, 1, 1, 0.0, 0.0
-            ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
-//     acsisPanel.add(jLabel8, new GridBagConstraints(2, 5, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.SOUTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
-//     acsisPanel.add(pointingPixelButton, new GridBagConstraints(2, 6, 1, 1, 0.0, 0.0
-//             ,GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, new Insets(0, 40, 0, 0), 0, 0));
-//     this.add(automaticTarget, BorderLayout.SOUTH);
-    pointingPanel.add(automaticTarget, BorderLayout.SOUTH);
-//     this.add(automaticTarget, BorderLayout.SOUTH);
-  }
+  private void jbInit() throws Exception
+	{
+		JPanel pointingPanel = new JPanel();
+		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
+		Border titleBorder = BorderFactory.createTitledBorder( bevelBorder , "Pointing setup" );
+		pointingPanel.setBorder( titleBorder );
+		pointingPanel.setLayout( new BorderLayout() );
+		acsisPanel.setLayout( gridBagLayout1 );
+		jLabel1.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel1.setForeground( Color.black );
+		jLabel1.setText( "Pointing Method" );
+		jLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel2.setForeground( Color.black );
+		jLabel2.setText( "Step Size" );
+		jLabel3.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel3.setForeground( Color.black );
+		jLabel3.setText( "(arc sec)" );
+		stepSize.setColumns( 6 );
+		jiggleAtReference.setText( "Jiggle at Reference" );
+		jiggleAtReference.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel4.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel4.setForeground( Color.black );
+		jLabel4.setText( "Secs/Cycle" );
+		jLabel6.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel6.setForeground( Color.black );
+		jLabel6.setText( "Secs/Cycle" );
+		jLabel7.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel7.setForeground( Color.black );
+		jLabel7.setText( "Secs/Observation" );
+		continuum.setText( "Continuum" );
+		continuum.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		spectralLine.setText( "Spectral Line" );
+		spectralLine.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel8.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		jLabel8.setForeground( Color.black );
+		jLabel8.setText( "Pointing Pixel" );
+		pointingPixelButton.setText( "Automatic" );
+		pointingPixelButton.setSelected( true );
+		secsPerCycle.setEditable( true );
+		secsPerCycle.setColumns( 2 );
+		secsPerObservation.setEditable( false );
+		secsPerObservation.setColumns( 2 );
+		pointingMethod.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		automaticTarget.setPreferredSize( new Dimension( 190 , 50 ) );
+		automaticTarget.setText( "Automatic target" );
+		automaticTarget.setHorizontalAlignment( SwingConstants.CENTER );
+		automaticTarget.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		automaticTarget.setVerticalAlignment( SwingConstants.TOP );
+		this.add( pointingPanel );
+		acsisPanel.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( pointingMethod , new GridBagConstraints( 1 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		acsisPanel.add( jLabel4 , new GridBagConstraints( 0 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( jLabel7 , new GridBagConstraints( 0 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( secsPerCycle , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		acsisPanel.add( secsPerObservation , new GridBagConstraints( 1 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+		acsisPanel.add( continuum , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTHWEST , GridBagConstraints.NONE , new Insets( 0 , 40 , 0 , 0 ) , 0 , 0 ) );
+		acsisPanel.add( spectralLine , new GridBagConstraints( 2 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 40 , 0 , 0 ) , 0 , 0 ) );
+		pointingPanel.add( automaticTarget , BorderLayout.SOUTH );
+	}
 
 }

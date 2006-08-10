@@ -78,6 +78,7 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
 		axis.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		automaticTarget.setText( "Automatic focus/align target" );
 		automaticTarget.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		automaticTarget.setSelected( true ) ;
 		this.add( scubaAcsisPanel , BorderLayout.CENTER );
 		scubaAcsisPanel.add( jLabel3 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		scubaAcsisPanel.add( axis , new GridBagConstraints( 1 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
