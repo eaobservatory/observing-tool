@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>Polarimetery</meta_gui_filename>
-  <ot_version>20060808</ot_version>
+  <meta_gui_filename>polar</meta_gui_filename>
+  <ot_version>20060810</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6208,11 +6208,11 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <DC2>0.0</DC2>
               </OFFSET>
             </obsArea>
+            <SpIterObserve type="ic" subtype="observe">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <repeatCount>1</repeatCount>
+            </SpIterObserve>
           </SpIterOffset>
-          <SpIterObserve type="ic" subtype="observe">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <repeatCount>1</repeatCount>
-          </SpIterObserve>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>The darks below flush the array and also provide a frame for dark-subtraction.  They should have the same exposure time as used below for the coronographic imaging, so DON'T click on "set default"</note>

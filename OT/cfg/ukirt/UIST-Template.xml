@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>UIST-Template</meta_gui_filename>
-  <ot_version>20060808</ot_version>
+  <meta_gui_filename>uist</meta_gui_filename>
+  <ot_version>20060810</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4094,11 +4094,11 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 </OFFSET>
               </obsArea>
               <title>For acquisition only</title>
+              <SpIterObserve type="ic" subtype="observe">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <repeatCount>1</repeatCount>
+              </SpIterObserve>
             </SpIterOffset>
-            <SpIterObserve type="ic" subtype="observe">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-            </SpIterObserve>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <note>The darks below flush the array and also provide a frame for dark-subtraction.  They should have the same exposure time as used below for the coronographic imaging, so DON'T click on "set default"</note>
