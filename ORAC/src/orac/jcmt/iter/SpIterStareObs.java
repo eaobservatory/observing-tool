@@ -37,6 +37,7 @@ double T_bcal ;
 double T_oref ;
 double T_startend ;
 double T_ocal ;
+double T_bref ;
 
 /**
  * Default constructor.
@@ -102,7 +103,7 @@ public SpIterStareObs()
 			double T_ref = getSecsPerCycle() ;
 			double T_on = getSecsPerCycle() ;
 			
-			double n_refs = Math.ceil( T_on / T_bcal ) ;
+			double n_refs = Math.ceil( T_on / T_bref ) ;
 			double T_nocals = ( getSecsPerCycle() + T_ref ) + ( T_oref * n_refs ) ;
 			double n_cals = Math.floor( T_nocals / T_bcal ) ;
 			double T_total = T_startend + T_nocals + ( T_ocal * n_cals ) ;
