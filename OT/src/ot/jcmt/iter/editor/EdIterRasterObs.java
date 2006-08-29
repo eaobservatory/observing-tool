@@ -404,21 +404,26 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
       }
       _updateWidgets();
   }
-  public void setInstrument(SpInstObsComp spInstObsComp) {
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-      _w.heterodynePanel.setVisible(true);
-      _w.scanSystem.setValue(SpJCMTConstants.SCAN_SYSTEMS[0]);
-      _w.scanSystem.setEnabled(false);
-      _w.scanPanel.setVisible(true);
-    }
-    else {
-      _w.heterodynePanel.setVisible(false);
-      _w.scanSystem.setEnabled(true);
-      _w.scanPanel.setVisible(true);
-    }
+  public void setInstrument( SpInstObsComp spInstObsComp )
+	{
+		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
+		{
+			_w.heterodynePanel.setVisible( true );
+			String defaultScanSystem = SpJCMTConstants.SCAN_SYSTEMS[ 0 ] ;
+			_w.scanSystem.setValue( defaultScanSystem );
+			_iterObs.setScanSystem( defaultScanSystem ) ;
+			_w.scanSystem.setEnabled( true );
+			_w.scanPanel.setVisible( true );
+		}
+		else
+		{
+			_w.heterodynePanel.setVisible( false );
+			_w.scanSystem.setEnabled( true );
+			_w.scanPanel.setVisible( true );
+		}
 
-    super.setInstrument(spInstObsComp);
-  }
+		super.setInstrument( spInstObsComp );
+	}
 
   public void update(Observable o, Object arg) {
     _updateWidgets();
