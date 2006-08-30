@@ -181,6 +181,8 @@
 
 <xsd:simpleType name="uistMaskList">
   <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="4_pix_wide_120s"/>
+    <xsd:enumeration value="2_pix_wide_120s"/>
     <xsd:enumeration value="5_pix_wide_20"/>
     <xsd:enumeration value="7_pix_wide_20"/>
     <xsd:enumeration value="3_pix_wide_20"/>
@@ -194,6 +196,7 @@
     <xsd:enumeration value="large_pinhole"/>
     <xsd:enumeration value="small_field"/>
     <xsd:enumeration value="large_field"/>
+    <xsd:enumeration value="coronograph"/>
     <xsd:enumeration value="pol_mask_image"/>
     <xsd:enumeration value="pol_mask_spec_2"/>
     <xsd:enumeration value="pol_mask_spec_5"/>
