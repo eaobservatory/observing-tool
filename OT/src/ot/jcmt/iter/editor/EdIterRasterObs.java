@@ -158,6 +158,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	protected void _updateWidgets()
 	{
+		super._updateWidgets();
 		try
 		{
 			_w.dx.setValue( _iterObs.getScanDx() );
@@ -167,7 +168,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		{
 			DialogUtil.message( _w , "Warning:\n" + e.getMessage() );
 		}
-		super._updateWidgets();
 
 		_w.dx.setValue( _iterObs.getScanDx() );
 		_w.dx.setCaretPosition( 0 );
@@ -223,28 +223,20 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		{
 			_iterObs.setScanDx( _w.dx.getValue() );
 			if( !( _w.dx.getValue().equals( "" ) ) )
-			{
 				_w.noiseTextBox.setValue( calculateNoise() );
-			}
 		}
-
-		if( tbwe == _w.dy )
+		else if( tbwe == _w.dy )
 		{
 			_iterObs.setScanDy( _w.dy.getValue() );
 			if( !( _w.dy.getValue().equals( "" ) ) )
-			{
 				_w.noiseTextBox.setValue( calculateNoise() );
-			}
 		}
-
-		if( tbwe == _w.width )
+		else if( tbwe == _w.width )
 		{
 			_iterObs.setWidth( _w.width.getValue() );
 
 			if( !( _w.width.getValue().equals( "" ) ) )
-			{
 				_w.noiseTextBox.setValue( calculateNoise() );
-			}
 
 			// Probably implemented in a different way in Gemini ot-2000B.12.
 			try
@@ -257,15 +249,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			}
 
 		}
-
-		if( tbwe == _w.height )
+		else if( tbwe == _w.height )
 		{
 			_iterObs.setHeight( _w.height.getValue() );
 
 			if( !( _w.height.getValue().equals( "" ) ) )
-			{
 				_w.noiseTextBox.setValue( calculateNoise() );
-			}
 
 			// Probably implemented in a different way in Gemini ot-2000B.12.
 			try
@@ -278,8 +267,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			}
 
 		}
-
-		if( tbwe == _w.posAngle )
+		else if( tbwe == _w.posAngle )
 		{
 			_iterObs.setPosAngle( _w.posAngle.getValue() );
 
@@ -294,8 +282,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			}
 
 		}
-
-		if( tbwe == _w.acsisSampleTime )
+		else if( tbwe == _w.acsisSampleTime )
 		{
 			String sampleTime = "0.1" ;
 			try
