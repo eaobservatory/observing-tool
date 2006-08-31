@@ -396,8 +396,6 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
 		{
 			_w.heterodynePanel.setVisible( true );
-			String defaultScanSystem = ( String )_w.scanSystem.getValue() ;
-			_iterObs.setScanSystem( defaultScanSystem ) ;
 			_w.scanSystem.setEnabled( true );
 			_w.scanPanel.setVisible( true );
 		}
