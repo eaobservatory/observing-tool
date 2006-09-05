@@ -93,488 +93,595 @@ public class EdCompTargetList extends OtItemEditor
     /**
      * The constructor initializes the title, description, and presentation source.
      */
-    public EdCompTargetList() {
-	_title       = "Target Information";
-	_presSource  = _w = new TelescopeGUI();
-	_description = "Use this editor to enter the target information.";
+    public EdCompTargetList()
+	{
+		_title = "Target Information";
+		_presSource = _w = new TelescopeGUI();
+		_description = "Use this editor to enter the target information.";
 
-        // Init name resolver drop down (MFO, May29, 2001)
-	String [] catalogs = OtCfg.getNameResolvers();
+		// Init name resolver drop down (MFO, May29, 2001)
+		String[] catalogs = OtCfg.getNameResolvers();
 
-	// Adding catalogs as follows:
-	//   available   catalog 1
-	//   available   catalog 2
-	//   ...
-	//   ---------------------
-	//   unavailable catalog 1
-	//   unavailable catalog 2
-	//   ...
-	if(catalogs != null) { 
-	  for(int i = 0; i < catalogs.length; i++) {
-            if(NameResolver.isAvailableAsCatalog(catalogs[i])) {
-	      _w.nameResolversDDLBW.addItem(catalogs[i]);
-	    }
-	  }
-	}
-
-        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION)) {
-	    _w.extrasFolder.setEnabledAt(0, false);
-	    // Disable the contents as well
-	    JPanel jp = (JPanel)_w.extrasFolder.getComponentAt(0);
-	    for (int i=0; i<jp.getComponentCount(); i++) {
-		if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
-		    ( (TextBoxWidgetExt)jp.getComponent(i) ).setEditable(false);
-		}
-		else {
-		    jp.getComponent(i).setEnabled(false);
-		}
-	    }
-          _w.extrasFolder.setSelectedIndex(1);
-        }
-
-        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_TRACKING)) {
-          _w.extrasFolder.setEnabledAt(1, false);
-	    // Disable the contents as well
-	    JPanel jp = (JPanel)_w.extrasFolder.getComponentAt(1);
-	    for (int i=0; i<jp.getComponentCount(); i++) {
-		if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
-		    ( (TextBoxWidgetExt)jp.getComponent(i) ).setEditable(false);
-		}
-		else {
-		    jp.getComponent(i).setEnabled(false);
-		}
-	    }
-          _w.extrasFolder.setSelectedIndex(2);
-        }
-
-        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_TARGET_INFO_CHOP)) {
-          _w.extrasFolder.setEnabledAt(2, false);
-	    // Disable the contents as well
-	    JPanel jp = (JPanel)_w.extrasFolder.getComponentAt(2);
-	    for (int i=0; i<jp.getComponentCount(); i++) {
-		if (jp.getComponent(i) instanceof TextBoxWidgetExt) {
-		    ( (TextBoxWidgetExt)jp.getComponent(i) ).setEditable(false);
-		}
-		else {
-		    jp.getComponent(i).setEnabled(false);
-		}
-	    }
-          _w.extrasFolder.setSelectedIndex(0);
-        }
-
-	_w.setBaseButton.setText("Set " + SpTelescopePos.BASE_TAG + " To Image Centre");
-
-	if(_w.setBaseButton.getText().length() > 24) {
-	  _w.setBaseButton.setFont(new java.awt.Font("Dialog", 0, 10));
-	}
-
-        // UKIRT does not need the chopSystem choice and JCMT does not use the
-	// Chop Settings tab. (MFO, 21 January 2002)
-	_w.chopSystemLabel.setVisible(false);
-	_w.chopSystem.setVisible(false);
-
-        // Set Tool Tip text.
-	_w.anode.setToolTipText("Longitude of the ascending node");
-        _w.aorq.setToolTipText("Mean distance (a) or perihelion distance (q)");
-        _w.e.setToolTipText("Orbital Eccentricity");
-        _w.perih.setToolTipText("Argument or Longitude of perihelion");
-        _w.orbinc.setToolTipText("Inclination of the orbit ");
-        _w.epoch.setToolTipText("Epoch of the orbital elements");
-        _w.epochPerih.setToolTipText("Time of perihelion passage");
-        _w.l_or_m.setToolTipText("Longitude or mean anomaly");
-        _w.dm.setToolTipText("Daily motion");
-
-        _w.conicSystemType.setChoices(SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION);
-	_w.namedTarget.setChoices(OtCfg.getNamedTargets());
-	_w.namedTarget.addChoice(SELECT_TARGET);
-
-	// *** buttons
-	_w.newButton.addActionListener(this);
-	_w.removeButton.addActionListener(this);
-	_w.plotButton.addActionListener(this);
-	_w.setBaseButton.addActionListener(this);
-	_w.resolveButton.addActionListener(this);
-
-        // chop mode tab added by MFO (3 August 2001)
-	_w.chopping.addActionListener(this);
-	_w.offsetCheckBox.addActionListener(this);
-
-        //
-	_w.targetSystemsTabbedPane.addChangeListener(this);
-
-        _w.epoch.addWatcher(this);
-        _w.epochPerih.addWatcher(this);
-        _w.orbinc.addWatcher(this);
-        _w.anode.addWatcher(this);
-        _w.perih.addWatcher(this);
-        _w.aorq.addWatcher(this);
-        _w.e.addWatcher(this);
-        _w.l_or_m.addWatcher(this);
-        _w.dm.addWatcher(this);
-        _w.conicSystemType.addWatcher(this);
-        _w.namedTarget.addWatcher(this);
-
-	_w.resolveOrbitalElementButton.addActionListener( this );
-
-	_type = _w.targetTypeDDList;
-	for (int i=0; i<_w.targetSystemsTabbedPane.getTabCount(); i++) {
-	    _type.addChoice(_w.targetSystemsTabbedPane.getTitleAt(i));
-	}
-	_type.addWatcher(new DropDownListBoxWidgetWatcher() {
-		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-		    for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
-			if (tab == i) {
-			    _w.targetSystemsTabbedPane.setEnabledAt(tab, true);
-			    _w.targetSystemsTabbedPane.setSelectedIndex(tab);
-			    Component [] component = ((JPanel)_w.targetSystemsTabbedPane.getComponentAt(tab)).getComponents();
-			    for (int count = 0; count < component.length; count++ ) {
-				component[count].setEnabled(true);
-			    }
+		// Adding catalogs as follows:
+		// available catalog 1
+		// available catalog 2
+		// ...
+		// ---------------------
+		// unavailable catalog 1
+		// unavailable catalog 2
+		// ...
+		if( catalogs != null )
+		{
+			for( int i = 0 ; i < catalogs.length ; i++ )
+			{
+				if( NameResolver.isAvailableAsCatalog( catalogs[ i ] ) )
+				{
+					_w.nameResolversDDLBW.addItem( catalogs[ i ] );
+				}
 			}
-			else {
-			    _w.targetSystemsTabbedPane.setEnabledAt(tab, false);
-			}
-		    }
 		}
-		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
-		    for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
-			if (tab == i) {
-			    _w.targetSystemsTabbedPane.setEnabledAt(tab, true);
-			    _w.targetSystemsTabbedPane.setSelectedIndex(tab);
-			    Component [] component = ((JPanel)_w.targetSystemsTabbedPane.getComponentAt(tab)).getComponents();
-			    for (int count = 0; count < component.length; count++ ) {
-				component[count].setEnabled(true);
-			    }
-			}
-			else {
-			    _w.targetSystemsTabbedPane.setEnabledAt(tab, false);
-			}
-		    }
-		}
-	    });
-
-	// Get a reference to the "Tag" drop down, and initialize its choices
-	_tag   = _w.tagDDLBW;
-	_tag.addChoice(SpTelescopePos.BASE_TAG);
-
-	_guideTags = SpTelescopePos.getGuideStarTags();
-
-        if ( _guideTags != null && _guideTags.length > 0 ) {
-            _w.newButton.removeActionListener(this);
-            _w.newButton.setModel(new DefaultComboBoxModel(_guideTags));
-            _w.newButton.addActionListener(this);
-        }
-
-
-	// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
-
-	_tag.addWatcher(new DropDownListBoxWidgetWatcher() {
-		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {}
-
-		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
-		    _changeTag(newTag);
-		}
-	    });
-
-	_name = _w.nameTBW;
-	_name.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setName( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-
-
-	_xaxis  = _w.xaxisTBW;
-	_xaxis.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-
-		    if( (_curPos.isOffsetPosition() && !_curPos.isBasePosition()) || 
-                        ((_curPos.getCoordSys() != CoordSys.FK5) &&
-                         (_curPos.getCoordSys() != CoordSys.FK4) &&
-                         (_curPos.getCoordSys() != CoordSys.HADEC))) {
-		      double xAxis = 0.0;
-		      double yAxis = 0.0;
-
-		      try {
-		        xAxis = Double.parseDouble(_xaxis.getText());
-		      }
-		      catch(Exception e) {
-		        System.out.println("Could not parse x axis: " + _xaxis.getText());
-		      }
-
-		      try {
-			yAxis = Double.parseDouble(_yaxis.getText());
-		      }
-		      catch(Exception e) {
-		        System.out.println("Could not parse y axis: " + _yaxis.getText());
-		      }
-
-		      _curPos.setXY(xAxis, yAxis);
-		    }
-		    else {
-                        // Make sure it matches the pattern D:DD:DD.DDD
-                        String pattern = "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
-                        if ( tbwe.getText().matches(pattern) ) 
-                        {
-                        	String currentXString = _curPos.getXaxisAsString() ;
-                        	String newXString = tbwe.getText() ;
-                        	if( !newXString.equals( currentXString ) )
-                        		_curPos.setXYFromString( newXString , null ) ; 
-                        }
-                        else {
-                            // Show an error if the field is not blank and does not end in a :
-                            if ( tbwe.getText().length() > 0 ) {
-                                JOptionPane.showMessageDialog(_w,
-                                        "x-axis must only contain numbers and fields must be : separated",
-                                        "Bad format",
-                                        JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-		    }
-
-		    _curPos.addWatcher(EdCompTargetList.this);
-
-		    _resetPositionEditor();
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) { }
-	    });
-
-	_yaxis  = _w.yaxisTBW;
-	_yaxis.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-
-		    if( (_curPos.isOffsetPosition() && !_curPos.isBasePosition() ) || 
-                        ((_curPos.getCoordSys() != CoordSys.FK5) &&
-                         (_curPos.getCoordSys() != CoordSys.FK4) &&
-                         (_curPos.getCoordSys() != CoordSys.HADEC))) {
-		      double xAxis = 0.0;
-		      double yAxis = 0.0;
-
-		      try {
-		        xAxis = Double.parseDouble(_xaxis.getText());
-		      }
-		      catch(Exception e) { 
-		        System.out.println("Could not parse x axis: " + _xaxis.getText());
-		      }
-
-		      try {
-			yAxis = Double.parseDouble(_yaxis.getText());
-		      }
-		      catch(Exception e) { 
-		        System.out.println("Could not parse y axis :" + _yaxis.getText());
-		      }
-
-		      _curPos.setXY(xAxis, yAxis);
-
-		    }
-		    else {
-                        // Make sure it matches the pattern D:DD:DD.DDD
-                        String pattern = "^(\\+|-)?\\d{1,2}((:| )\\d{0,2}((:| )\\d{0,2}(\\.\\d*)?)?)?";
-                        if ( tbwe.getText().matches(pattern) ) {
-                            _curPos.setXYFromString( null , tbwe.getText() ) ;
-                        }
-                        else {
-                            // Show an error if the field is not blank and does not end in a :
-                            if ( tbwe.getText().length() > 0 ) {
-                                JOptionPane.showMessageDialog(_w,
-                                        "y-axis must only contain numbers and fields must be : separated",
-                                        "Bad format",
-                                        JOptionPane.ERROR_MESSAGE);
-                            }
-                        }
-		    }
-
-		    _curPos.addWatcher(EdCompTargetList.this);
-		    
-		    _resetPositionEditor();
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) { }
-	    });
-
-	_system = _w.systemDDLBW;
-	_system.setChoices(OtCfg.telescopeUtil.getCoordSys());
-	_system.addWatcher( new DropDownListBoxWidgetWatcher() {
-		public void
-		    dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-		}
-		public void
-		    dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String val) {
-
-                    _w.RA_Az_STW.setText(CoordSys.X_AXIS_LABEL[i]);
-                    _w.Dec_El_STW.setText(CoordSys.Y_AXIS_LABEL[i]);
-
-		    _updateCoordSystem();
-
-		    // The call _curPos.setXY() triggers a base position observer
-		    // notification so that the position editor gets updated
-		    // and it causes the String representation in the SpAvTable
-		    // of _curPos to be reformatted depending on the coordinate system
-		    // and whether _curPos is an offset position.
-		    _curPos.setXY(_curPos.getXaxis(), _curPos.getYaxis());
-
-		    _updateXYUnitsLabels();
-
-		    _resetPositionEditor();
-		}
-	    });
-
-	_w.velDefn.setChoices ( TelescopeUtil.TCS_RV_DEFINITIONS );
-	_w.velDefn.addWatcher ( new DropDownListBoxWidgetWatcher() {
-		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-		}
-		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
-		    _curPos.setTrackingRadialVelocityDefn ( newTag );
-		}
-	    });
-
-	_w.velFrame.setChoices ( TelescopeUtil.TCS_RV_FRAMES );
-	_w.velFrame.addWatcher ( new DropDownListBoxWidgetWatcher() {
-		public void dropDownListBoxSelect(DropDownListBoxWidgetExt dd, int i, String val) {
-		}
-		public void dropDownListBoxAction(DropDownListBoxWidgetExt dd, int i, String newTag) {
-		    _curPos.setTrackingRadialVelocityFrame ( newTag );
-		}
-	    });
 		
-
-
-
-	JTabbedPane              fwe;
-	CommandButtonWidgetExt   cbwe;
-	DropDownListBoxWidgetExt ddlbwe;
-	TextBoxWidgetExt         tbwe;
-
-	// *** The "extras" folder
-	fwe = _w.extrasFolder;
-
-	// --- Proper Motion Page
-	tbwe = _w.propMotionRATBW;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setPropMotionRA( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
+		if( !OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_TARGET_INFO_PROP_MOTION ) )
+		{
+			_w.extrasFolder.setEnabledAt( 0 , false );
+			// Disable the contents as well
+			JPanel jp = ( JPanel ) _w.extrasFolder.getComponentAt( 0 );
+			for( int i = 0 ; i < jp.getComponentCount() ; i++ )
+			{
+				if( jp.getComponent( i ) instanceof TextBoxWidgetExt )
+				{
+					( ( TextBoxWidgetExt ) jp.getComponent( i ) ).setEditable( false );
+				}
+				else
+				{
+					jp.getComponent( i ).setEnabled( false );
+				}
+			}
+			_w.extrasFolder.setSelectedIndex( 1 );
 		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
-	tbwe = _w.propMotionDecTBW;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setPropMotionDec( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
 
-	// --- Tracking Details Page
+		if( !OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_TARGET_INFO_TRACKING ) )
+		{
+			_w.extrasFolder.setEnabledAt( 1 , false );
+			// Disable the contents as well
+			JPanel jp = ( JPanel ) _w.extrasFolder.getComponentAt( 1 );
+			for( int i = 0 ; i < jp.getComponentCount() ; i++ )
+			{
+				if( jp.getComponent( i ) instanceof TextBoxWidgetExt )
+				{
+					( ( TextBoxWidgetExt ) jp.getComponent( i ) ).setEditable( false );
+				}
+				else
+				{
+					jp.getComponent( i ).setEnabled( false );
+				}
+			}
+			_w.extrasFolder.setSelectedIndex( 2 );
+		}
 
-	tbwe = _w.detailsEpochTBW;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setTrackingEpoch( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
+		if( !OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_TARGET_INFO_CHOP ) )
+		{
+			_w.extrasFolder.setEnabledAt( 2 , false );
+			// Disable the contents as well
+			JPanel jp = ( JPanel ) _w.extrasFolder.getComponentAt( 2 );
+			for( int i = 0 ; i < jp.getComponentCount() ; i++ )
+			{
+				if( jp.getComponent( i ) instanceof TextBoxWidgetExt )
+				{
+					( ( TextBoxWidgetExt ) jp.getComponent( i ) ).setEditable( false );
+				}
+				else
+				{
+					jp.getComponent( i ).setEnabled( false );
+				}
+			}
+			_w.extrasFolder.setSelectedIndex( 0 );
 		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
-	tbwe = _w.detailsParallaxTBW;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setTrackingParallax( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
-	tbwe = _w.velValue;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setTrackingRadialVelocity( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
-	tbwe = _w.baseXOff;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setBaseXOffset( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-   
-	tbwe = _w.baseYOff;
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		    _curPos.setBaseYOffset( tbwe.getText() );
-		    _curPos.deleteWatcher(EdCompTargetList.this);
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
 
-	// *** Position Table
-	_tpTable = _w.positionTable;
+		_w.setBaseButton.setText( "Set " + SpTelescopePos.BASE_TAG + " To Image Centre" );
 
-        // If there are more then 2 systems (FK5/FK4) then display the system of a target
-	// in a separate column in the target list table.
-	if((OtCfg.telescopeUtil.getCoordSys() != null) && (OtCfg.telescopeUtil.getCoordSys().length > 2)) {
-	    _tpTable.setColumnHeaders(new String[]{"Tag", "Name", "X Axis", "Y Axis", "System"});
-	    _tpTable.setColumnWidths(new int[]{45, 85, 90, 90, 90});
+		if( _w.setBaseButton.getText().length() > 24 )
+		{
+			_w.setBaseButton.setFont( new java.awt.Font( "Dialog" , 0 , 10 ) );
+		}
+
+		// UKIRT does not need the chopSystem choice and JCMT does not use the
+		// Chop Settings tab. (MFO, 21 January 2002)
+		_w.chopSystemLabel.setVisible( false );
+		_w.chopSystem.setVisible( false );
+
+		// Set Tool Tip text.
+		_w.anode.setToolTipText( "Longitude of the ascending node" );
+		_w.aorq.setToolTipText( "Mean distance (a) or perihelion distance (q)" );
+		_w.e.setToolTipText( "Orbital Eccentricity" );
+		_w.perih.setToolTipText( "Argument or Longitude of perihelion" );
+		_w.orbinc.setToolTipText( "Inclination of the orbit " );
+		_w.epoch.setToolTipText( "Epoch of the orbital elements" );
+		_w.epochPerih.setToolTipText( "Time of perihelion passage" );
+		_w.l_or_m.setToolTipText( "Longitude or mean anomaly" );
+		_w.dm.setToolTipText( "Daily motion" );
+
+		_w.conicSystemType.setChoices( SpTelescopePos.CONIC_SYSTEM_TYPES_DESCRIPTION );
+		_w.namedTarget.setChoices( OtCfg.getNamedTargets() );
+		_w.namedTarget.addChoice( SELECT_TARGET );
+
+		// *** buttons
+		_w.newButton.addActionListener( this );
+		_w.removeButton.addActionListener( this );
+		_w.plotButton.addActionListener( this );
+		_w.setBaseButton.addActionListener( this );
+		_w.resolveButton.addActionListener( this );
+
+		// chop mode tab added by MFO (3 August 2001)
+		_w.chopping.addActionListener( this );
+		_w.offsetCheckBox.addActionListener( this );
+
+		//
+		_w.targetSystemsTabbedPane.addChangeListener( this );
+
+		_w.epoch.addWatcher( this );
+		_w.epochPerih.addWatcher( this );
+		_w.orbinc.addWatcher( this );
+		_w.anode.addWatcher( this );
+		_w.perih.addWatcher( this );
+		_w.aorq.addWatcher( this );
+		_w.e.addWatcher( this );
+		_w.l_or_m.addWatcher( this );
+		_w.dm.addWatcher( this );
+		_w.conicSystemType.addWatcher( this );
+		_w.namedTarget.addWatcher( this );
+
+		_w.resolveOrbitalElementButton.addActionListener( this );
+
+		_type = _w.targetTypeDDList;
+		for( int i = 0 ; i < _w.targetSystemsTabbedPane.getTabCount() ; i++ )
+		{
+			_type.addChoice( _w.targetSystemsTabbedPane.getTitleAt( i ) );
+		}
+		_type.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+				for( int tab = 0 ; tab < _w.targetSystemsTabbedPane.getTabCount() ; tab++ )
+				{
+					if( tab == i )
+					{
+						_w.targetSystemsTabbedPane.setEnabledAt( tab , true );
+						_w.targetSystemsTabbedPane.setSelectedIndex( tab );
+						Component[] component = ( ( JPanel ) _w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
+						for( int count = 0 ; count < component.length ; count++ )
+						{
+							component[ count ].setEnabled( true );
+						}
+					}
+					else
+					{
+						_w.targetSystemsTabbedPane.setEnabledAt( tab , false );
+					}
+				}
+			}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
+			{
+				for( int tab = 0 ; tab < _w.targetSystemsTabbedPane.getTabCount() ; tab++ )
+				{
+					if( tab == i )
+					{
+						_w.targetSystemsTabbedPane.setEnabledAt( tab , true );
+						_w.targetSystemsTabbedPane.setSelectedIndex( tab );
+						Component[] component = ( ( JPanel ) _w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
+						for( int count = 0 ; count < component.length ; count++ )
+						{
+							component[ count ].setEnabled( true );
+						}
+					}
+					else
+					{
+						_w.targetSystemsTabbedPane.setEnabledAt( tab , false );
+					}
+				}
+			}
+		} );
+
+		// Get a reference to the "Tag" drop down, and initialize its choices
+		_tag = _w.tagDDLBW;
+		_tag.addChoice( SpTelescopePos.BASE_TAG );
+
+		_guideTags = SpTelescopePos.getGuideStarTags();
+
+		if( _guideTags != null && _guideTags.length > 0 )
+		{
+			_w.newButton.removeActionListener( this );
+			_w.newButton.setModel( new DefaultComboBoxModel( _guideTags ) );
+			_w.newButton.addActionListener( this );
+		}
+
+		// User tags are not used at the moment. (MFO, 19 Decemtber 2001)
+
+		_tag.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+			}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
+			{
+				_changeTag( newTag );
+			}
+		} );
+
+		_name = _w.nameTBW;
+		_name.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setName( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		_xaxis = _w.xaxisTBW;
+		_xaxis.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+
+				if( ( _curPos.isOffsetPosition() && !_curPos.isBasePosition() ) || ( ( _curPos.getCoordSys() != CoordSys.FK5 ) && ( _curPos.getCoordSys() != CoordSys.FK4 ) && ( _curPos.getCoordSys() != CoordSys.HADEC ) ) )
+				{
+					double xAxis = 0.0;
+					double yAxis = 0.0;
+
+					try
+					{
+						xAxis = Double.parseDouble( _xaxis.getText() );
+					}
+					catch( Exception e )
+					{
+						System.out.println( "Could not parse x axis: " + _xaxis.getText() );
+					}
+
+					try
+					{
+						yAxis = Double.parseDouble( _yaxis.getText() );
+					}
+					catch( Exception e )
+					{
+						System.out.println( "Could not parse y axis: " + _yaxis.getText() );
+					}
+
+					_curPos.setXY( xAxis , yAxis );
+				}
+				else
+				{
+					// Make sure it matches the pattern D:DD:DD.DDD
+					String pattern = "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
+					if( tbwe.getText().matches( pattern ) )
+					{
+						String currentXString = _curPos.getXaxisAsString();
+						String newXString = tbwe.getText();
+						if( !newXString.equals( currentXString ) )
+							_curPos.setXYFromString( newXString , null );
+					}
+					else
+					{
+						// Show an error if the field is not blank and does not end in a :
+						if( tbwe.getText().length() > 0 )
+						{
+							JOptionPane.showMessageDialog( _w , "x-axis must only contain numbers and fields must be : separated" , "Bad format" , JOptionPane.ERROR_MESSAGE );
+						}
+					}
+				}
+
+				_curPos.addWatcher( EdCompTargetList.this );
+
+				_resetPositionEditor();
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		_yaxis = _w.yaxisTBW;
+		_yaxis.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+
+				if( ( _curPos.isOffsetPosition() && !_curPos.isBasePosition() ) || ( ( _curPos.getCoordSys() != CoordSys.FK5 ) && ( _curPos.getCoordSys() != CoordSys.FK4 ) && ( _curPos.getCoordSys() != CoordSys.HADEC ) ) )
+				{
+					double xAxis = 0.0;
+					double yAxis = 0.0;
+
+					try
+					{
+						xAxis = Double.parseDouble( _xaxis.getText() );
+					}
+					catch( Exception e )
+					{
+						System.out.println( "Could not parse x axis: " + _xaxis.getText() );
+					}
+
+					try
+					{
+						yAxis = Double.parseDouble( _yaxis.getText() );
+					}
+					catch( Exception e )
+					{
+						System.out.println( "Could not parse y axis :" + _yaxis.getText() );
+					}
+
+					_curPos.setXY( xAxis , yAxis );
+
+				}
+				else
+				{
+					// Make sure it matches the pattern D:DD:DD.DDD
+					String pattern = "^(\\+|-)?\\d{1,2}((:| )\\d{0,2}((:| )\\d{0,2}(\\.\\d*)?)?)?";
+					if( tbwe.getText().matches( pattern ) )
+					{
+						_curPos.setXYFromString( null , tbwe.getText() );
+					}
+					else
+					{
+						// Show an error if the field is not blank and does not end in a :
+						if( tbwe.getText().length() > 0 )
+						{
+							JOptionPane.showMessageDialog( _w , "y-axis must only contain numbers and fields must be : separated" , "Bad format" , JOptionPane.ERROR_MESSAGE );
+						}
+					}
+				}
+
+				_curPos.addWatcher( EdCompTargetList.this );
+
+				_resetPositionEditor();
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		_system = _w.systemDDLBW;
+		_system.setChoices( OtCfg.telescopeUtil.getCoordSys() );
+		_system.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+			}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+
+				_w.RA_Az_STW.setText( CoordSys.X_AXIS_LABEL[ i ] );
+				_w.Dec_El_STW.setText( CoordSys.Y_AXIS_LABEL[ i ] );
+
+				_updateCoordSystem();
+
+				// The call _curPos.setXY() triggers a base position observer
+				// notification so that the position editor gets updated
+				// and it causes the String representation in the SpAvTable
+				// of _curPos to be reformatted depending on the coordinate system
+				// and whether _curPos is an offset position.
+				_curPos.setXY( _curPos.getXaxis() , _curPos.getYaxis() );
+
+				_updateXYUnitsLabels();
+
+				_resetPositionEditor();
+			}
+		} );
+
+		_w.velDefn.setChoices( TelescopeUtil.TCS_RV_DEFINITIONS );
+		_w.velDefn.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+			}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
+			{
+				_curPos.setTrackingRadialVelocityDefn( newTag );
+			}
+		} );
+
+		_w.velFrame.setChoices( TelescopeUtil.TCS_RV_FRAMES );
+		_w.velFrame.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+			}
+
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
+			{
+				_curPos.setTrackingRadialVelocityFrame( newTag );
+			}
+		} );
+
+		JTabbedPane fwe;
+		TextBoxWidgetExt tbwe;
+
+		// *** The "extras" folder
+		fwe = _w.extrasFolder;
+
+		// --- Proper Motion Page
+		tbwe = _w.propMotionRATBW;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setPropMotionRA( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		tbwe = _w.propMotionDecTBW;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setPropMotionDec( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		// --- Tracking Details Page
+
+		tbwe = _w.detailsEpochTBW;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setTrackingEpoch( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		tbwe = _w.detailsParallaxTBW;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setTrackingParallax( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		tbwe = _w.velValue;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setTrackingRadialVelocity( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		tbwe = _w.baseXOff;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setBaseXOffset( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		tbwe = _w.baseYOff;
+		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_curPos.deleteWatcher( EdCompTargetList.this );
+				_curPos.setBaseYOffset( tbwe.getText() );
+				_curPos.deleteWatcher( EdCompTargetList.this );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		// *** Position Table
+		_tpTable = _w.positionTable;
+
+		// If there are more then 2 systems (FK5/FK4) then display the system of a target
+		// in a separate column in the target list table.
+		if( ( OtCfg.telescopeUtil.getCoordSys() != null ) && ( OtCfg.telescopeUtil.getCoordSys().length > 2 ) )
+		{
+			_tpTable.setColumnHeaders( new String[]
+			{ "Tag" , "Name" , "X Axis" , "Y Axis" , "System" } );
+			_tpTable.setColumnWidths( new int[]
+			{ 45 , 85 , 90 , 90 , 90 } );
+		}
+		else
+		{
+			_tpTable.setColumnHeaders( new String[]
+			{ "Tag" , "Name" , "X Axis" , "Y Axis" } );
+			_tpTable.setColumnWidths( new int[]
+			{ 45 , 85 , 90 , 90 } );
+		}
+		_tpTable.setRowSelectionAllowed( true );
+		_tpTable.setColumnSelectionAllowed( false );
+		_tpTable.addWatcher( this );
+
+		// chop mode tab added by MFO (3 August 2001)
+		_w.chopThrow.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				// MFO TODO: see TODO in SpTelescopeObsComp.
+				( ( SpTelescopeObsComp ) _spItem ).setChopThrow( _w.chopThrow.getText() );
+				// MFO TODO: see TODO in SpTelescopeObsComp. Check whether deleteWatcher or addWatcher
+				// is needed. deleteWatcher is used twice in all the cases but that is probably a bug.
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
+
+		_w.chopAngle.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				// MFO TODO: see TODO in SpTelescopeObsComp.
+
+				// chop angle range is checked here rather than in
+				// gemini.sp.obsComp.SpTelescopeObsComp.setChopAngle() because it is telescope specific.
+				// SpTelescopeObsComp however is generic and does not contain telescope specific code.
+				// EdCompTargetList on the other hand contains telescope specific code already.
+				( ( SpTelescopeObsComp ) _spItem ).setChopAngle( validateChopAngle( _w.chopAngle.getText() ) );
+
+				// MFO TODO: see TODO in SpTelescopeObsComp.
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe )
+			{
+			}
+		} );
 	}
-	else {
-	    _tpTable.setColumnHeaders(new String[]{"Tag", "Name", "X Axis", "Y Axis"});
-	    _tpTable.setColumnWidths(new int[]{45, 85, 90, 90});
-	}
-	_tpTable.setRowSelectionAllowed(true);
-	_tpTable.setColumnSelectionAllowed(false);
-	_tpTable.addWatcher(this);
-    
-    
-        // chop mode tab added by MFO (3 August 2001)
-	_w.chopThrow.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    // MFO TODO: see TODO in SpTelescopeObsComp.
-		    ((SpTelescopeObsComp)_spItem).setChopThrow( _w.chopThrow.getText() );
-		    // MFO TODO: see TODO in SpTelescopeObsComp. Check whether deleteWatcher or addWatcher
-		    // is needed. deleteWatcher is used twice in all the cases but that is probably a bug.
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-
-	_w.chopAngle.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    // MFO TODO: see TODO in SpTelescopeObsComp.
-
-		    // chop angle range is checked here rather than in
-		    // gemini.sp.obsComp.SpTelescopeObsComp.setChopAngle() because it is telescope specific.
-		    // SpTelescopeObsComp however is generic and does not contain telescope specific code.
-		    // EdCompTargetList on the other hand contains telescope specific code already.
-		    ((SpTelescopeObsComp)_spItem).setChopAngle(validateChopAngle(_w.chopAngle.getText()));
-
-		    // MFO TODO: see TODO in SpTelescopeObsComp.
-		}
-		public void textBoxAction(TextBoxWidgetExt tbwe) {}
-	    });
-    }
 
 
     /**
-     * Show the given SpTelescopePos.
-     */
+	 * Show the given SpTelescopePos.
+	 */
     public void showPos( SpTelescopePos tp ) {
 	if (tp.getTag().startsWith(SpTelescopePos.USER_TAG)) {
 	    _tag.setValue( SpTelescopePos.USER_TAG );
@@ -618,8 +725,6 @@ public class EdCompTargetList extends OtItemEditor
 	}
 
 	// *** The "extras" folder
-	JTabbedPane fwe = _w.extrasFolder;
-	DropDownListBoxWidgetExt ddlbwe;
 	TextBoxWidgetExt         tbwe;
 
 	// --- Proper Motion Page
