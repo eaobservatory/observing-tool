@@ -66,6 +66,12 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     SpFactory.registerPrototype(new SpIterRasterObs());
   }
 
+  // dynamically associated variables
+  double T_bref ;
+  double T_oref ;
+  double T_bcal ;
+  double T_startend ;
+  double T_cal ;
 
   /**
    * Default constructor.
@@ -454,15 +460,30 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-			int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );
-			if( ( samplesPerRow & 1 ) == 0 )
+			int samplesPerRow = ( int )( Math.floor( getWidth() / getScanDx() ) ) + 1;
+			if( ( samplesPerRow & 1 ) != 0 )
 				samplesPerRow++;
-			double noOfRows = Math.ceil( getHeight() / getScanDy() );
+			
+			double t_row = ( double )samplesPerRow * getSampleTime();
+			
+			double n_rows_bref = Math.ceil( T_bref / t_row ) ;
+			
+			double n_rows = Math.floor( getHeight() / getScanDy() ) + 1. ;
+			
+			double n_refs = Math.ceil( n_rows / n_rows_bref ) ;
+			
+			double t_ref = Math.sqrt( n_rows_bref * t_row ) ;
+			
+			double t_on = ( ( n_rows * t_row ) + ( n_refs * t_ref ) ) + t_ref + T_oref ;
 
-			double timeOnRow = ( double ) samplesPerRow * getSampleTime();
+			double n_cals = Math.ceil( t_on / T_bcal ) ;
+			
+			return t_on + T_startend + ( n_cals * T_cal ) ; // + overhead 
+/*			
 			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
 			double overheadFactor = 1.2;
 			return ( ( timeOnRow + timeOffRow ) * noOfRows * overheadFactor ) ;
+*/
 		}
 		return 0.0;
 	}
