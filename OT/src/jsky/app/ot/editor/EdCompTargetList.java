@@ -589,13 +589,7 @@ public class EdCompTargetList extends OtItemEditor
 
 		if( OtCfg.telescopeUtil instanceof orac.jcmt.util.JcmtUtil )
 		{
-			_w.baseXOffLabel.setEnabled( false ) ;
-			_w.baseXOff.setEnabled( false ) ;
-			_w.baseXOffUnits.setEnabled( false ) ;
-			
-			_w.baseYOffLabel.setEnabled( false ) ;
-			_w.baseYOff.setEnabled( false ) ;
-			_w.baseYOffUnits.setEnabled( false ) ;
+			_w.XYOffsetPanel.setVisible( false ) ;
 		}
 		else
 		{
