@@ -16,7 +16,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-import jsky.app.ot.gui.CommandButtonWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetExt;
 import jsky.app.ot.gui.DropDownListBoxWidgetWatcher;
 import jsky.app.ot.gui.TableWidgetExt;
@@ -588,35 +587,48 @@ public class EdCompTargetList extends OtItemEditor
 			}
 		} );
 
-		tbwe = _w.baseXOff;
-		tbwe.addWatcher( new TextBoxWidgetWatcher()
+		if( OtCfg.telescopeUtil instanceof orac.jcmt.util.JcmtUtil )
 		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
-			{
-				_curPos.deleteWatcher( EdCompTargetList.this );
-				_curPos.setBaseXOffset( tbwe.getText() );
-				_curPos.deleteWatcher( EdCompTargetList.this );
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbwe )
-			{
-			}
-		} );
-
-		tbwe = _w.baseYOff;
-		tbwe.addWatcher( new TextBoxWidgetWatcher()
+			_w.baseXOffLabel.setEnabled( false ) ;
+			_w.baseXOff.setEnabled( false ) ;
+			_w.baseXOffUnits.setEnabled( false ) ;
+			
+			_w.baseYOffLabel.setEnabled( false ) ;
+			_w.baseYOff.setEnabled( false ) ;
+			_w.baseYOffUnits.setEnabled( false ) ;
+		}
+		else
 		{
-			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			tbwe = _w.baseXOff;
+			tbwe.addWatcher( new TextBoxWidgetWatcher()
 			{
-				_curPos.deleteWatcher( EdCompTargetList.this );
-				_curPos.setBaseYOffset( tbwe.getText() );
-				_curPos.deleteWatcher( EdCompTargetList.this );
-			}
-
-			public void textBoxAction( TextBoxWidgetExt tbwe )
+				public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+				{
+					_curPos.deleteWatcher( EdCompTargetList.this );
+					_curPos.setBaseXOffset( tbwe.getText() );
+					_curPos.deleteWatcher( EdCompTargetList.this );
+				}
+	
+				public void textBoxAction( TextBoxWidgetExt tbwe )
+				{
+				}
+			} );
+	
+			tbwe = _w.baseYOff;
+			tbwe.addWatcher( new TextBoxWidgetWatcher()
 			{
-			}
-		} );
+				public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+				{
+					_curPos.deleteWatcher( EdCompTargetList.this );
+					_curPos.setBaseYOffset( tbwe.getText() );
+					_curPos.deleteWatcher( EdCompTargetList.this );
+				}
+	
+				public void textBoxAction( TextBoxWidgetExt tbwe )
+				{
+				}
+			} );
+		}
 
 		// *** Position Table
 		_tpTable = _w.positionTable;
