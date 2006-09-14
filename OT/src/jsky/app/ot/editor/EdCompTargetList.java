@@ -1262,7 +1262,6 @@ public class EdCompTargetList extends OtItemEditor
 				return;
 			}
 
-			//String nextTag = _nextTag();
 			String nextTag = ( String ) _w.newButton.getSelectedItem();
 
 			/*
@@ -1280,11 +1279,6 @@ public class EdCompTargetList extends OtItemEditor
 				}
 				nextTag = nextTag + index;
 			}
-
-			// This should not happen since _w.newButton should be disabled if there are no more tags.
-			//             if(nextTag == null) {
-			//               return;
-			//             }
 
 			SpTelescopePos tp = _tpl.createPosition( nextTag , base.getXaxis() , base.getYaxis() );
 
