@@ -89,6 +89,8 @@ public class EdCompTargetList extends OtItemEditor
 
     private boolean _resolving = false ;
     
+    private boolean jcmtot = false ;
+    
     /**
      * The constructor initializes the title, description, and presentation source.
      */
@@ -97,6 +99,8 @@ public class EdCompTargetList extends OtItemEditor
 		_title = "Target Information";
 		_presSource = _w = new TelescopeGUI();
 		_description = "Use this editor to enter the target information.";
+		
+		jcmtot = OtCfg.telescopeUtil instanceof orac.jcmt.util.JcmtUtil ;
 
 		// Init name resolver drop down (MFO, May29, 2001)
 		String[] catalogs = OtCfg.getNameResolvers();
@@ -487,6 +491,12 @@ public class EdCompTargetList extends OtItemEditor
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_curPos.setTrackingRadialVelocityDefn( newTag );
+				if( jcmtot )
+				{
+					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
+					if( refPos != null )
+						refPos.setTrackingRadialVelocityDefn( newTag ) ;
+				}
 			}
 		} );
 
@@ -500,6 +510,12 @@ public class EdCompTargetList extends OtItemEditor
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_curPos.setTrackingRadialVelocityFrame( newTag );
+				if( jcmtot )
+				{
+					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
+					if( refPos != null )
+						refPos.setTrackingRadialVelocityFrame( newTag ) ;
+				}
 			}
 		} );
 
@@ -578,7 +594,14 @@ public class EdCompTargetList extends OtItemEditor
 			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 			{
 				_curPos.deleteWatcher( EdCompTargetList.this );
+				String newValue = tbwe.getText() ;
 				_curPos.setTrackingRadialVelocity( tbwe.getText() );
+				if( jcmtot )
+				{
+					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
+					if( refPos != null )
+						refPos.setTrackingRadialVelocity( newValue ) ;
+				}
 				_curPos.deleteWatcher( EdCompTargetList.this );
 			}
 
@@ -587,7 +610,7 @@ public class EdCompTargetList extends OtItemEditor
 			}
 		} );
 
-		if( OtCfg.telescopeUtil instanceof orac.jcmt.util.JcmtUtil )
+		if( jcmtot )
 		{
 			_w.XYOffsetPanel.setVisible( false ) ;
 		}
@@ -862,95 +885,108 @@ public class EdCompTargetList extends OtItemEditor
     }
 
     /**
-     * Watch TableWidget row selections to make the selected row the currently
-     * displayed position.
-     *
-     * @see TableWidgetWatcher
-     */
-    public void tableRowSelected(TableWidgetExt twe, int rowIndex) {
-	if (twe != _tpTable) {
-	    return;		// shouldn't happen
+	 * Watch TableWidget row selections to make the selected row the currently displayed position.
+	 * 
+	 * @see TableWidgetWatcher
+	 */
+	public void tableRowSelected( TableWidgetExt twe , int rowIndex )
+	{
+		if( twe != _tpTable )
+		{
+			return; // shouldn't happen
+		}
+
+		// Show the selected position
+		if( _curPos != null )
+			_curPos.deleteWatcher( this );
+		
+		_curPos = _tpTable.getSelectedPos();
+		
+		if( _curPos != _tpl.getBasePosition() )
+		{
+			if( jcmtot )
+			{
+				_w.velDefn.setEnabled( false ) ;
+				_w.velValue.setEnabled( false ) ;
+				_w.velFrame.setEnabled( false ) ;	
+			}
+			else
+			{
+				_w.baseXOffLabel.setVisible( false );
+				_w.baseYOffLabel.setVisible( false );
+				_w.baseXOff.setVisible( false );
+				_w.baseYOff.setVisible( false );
+				_w.baseXOffUnits.setVisible( false );
+				_w.baseYOffUnits.setVisible( false );
+			}
+		}
+		else
+		{
+			if( jcmtot )
+			{
+				_w.velDefn.setEnabled( true ) ;
+				_w.velValue.setEnabled( true ) ;
+				_w.velFrame.setEnabled( true ) ;
+			}
+			else
+			{
+				_w.baseXOffLabel.setVisible( true );
+				_w.baseYOffLabel.setVisible( true );
+				_w.baseXOff.setVisible( true );
+				_w.baseYOff.setVisible( true );
+				_w.baseXOffUnits.setVisible( true );
+				_w.baseYOffUnits.setVisible( true );
+			}
+		}
+		
+		_curPos.addWatcher( this );
+		showPos( _curPos );
+		_selectTargetSystemTab( _curPos );
+		_updateTargetSystemPane( _curPos );
+		_avTab.set( ".gui.selectedTelescopePos" , _curPos.getTag() );
+
+		if( OtCfg.telescopeUtil.isOffsetTarget( _curPos.getTag() ) && !_curPos.isBasePosition() )
+		{
+			_w.offsetCheckBox.setValue( _curPos.isOffsetPosition() );
+			_w.offsetCheckBox.setVisible( true );
+		}
+		else
+		{
+			_w.offsetCheckBox.setVisible( false );
+		}
+
+		_updateXYUnitsLabels();
+
+		if( _curPos.getTag().equals( SpTelescopePos.BASE_TAG ) )
+			_w.removeButton.setEnabled( false );
+		else
+			_w.removeButton.setEnabled( true );
+
+		// Make sure the tag selection is disabled while the base position is selected.
+		// The base position tag cannot be changed.
+		if( _tag.getValue().equals( SpTelescopePos.BASE_TAG ) || _nextTag() == null )
+			_tag.setEnabled( false );
+		else
+			_tag.setEnabled( true );
+
+		String nextTag = _nextTag();
+
+		// Make sure the tag selection and newButton are disabled when all possible tags
+		// have been added.
+		if( nextTag != null )
+			_w.newButton.setEnabled( true );
+		else
+			_w.newButton.setEnabled( false );
+
+		if( _tpl.size() < 2 )
+			_w.removeButton.setEnabled( false );
 	}
-
-	// Show the selected position
-	if (_curPos != null) {
-	    _curPos.deleteWatcher(this);
-	}
-	_curPos = _tpTable.getSelectedPos();
-        if ( _curPos != _tpl.getBasePosition() ) {
-            _w.baseXOffLabel.setVisible(false);
-            _w.baseYOffLabel.setVisible(false);
-            _w.baseXOff.setVisible(false);
-            _w.baseYOff.setVisible(false);
-            _w.baseXOffUnits.setVisible(false);
-            _w.baseYOffUnits.setVisible(false);
-        }
-        else {
-            _w.baseXOffLabel.setVisible(true);
-            _w.baseYOffLabel.setVisible(true);
-            _w.baseXOff.setVisible(true);
-            _w.baseYOff.setVisible(true);
-            _w.baseXOffUnits.setVisible(true);
-            _w.baseYOffUnits.setVisible(true);
-        }
-	_curPos.addWatcher(this);
-	showPos(_curPos);
-	_selectTargetSystemTab(_curPos);
-        _updateTargetSystemPane(_curPos);
-	_avTab.set(".gui.selectedTelescopePos", _curPos.getTag());
-
-        if(OtCfg.telescopeUtil.isOffsetTarget(_curPos.getTag()) && !_curPos.isBasePosition() ) {
-	  _w.offsetCheckBox.setValue(_curPos.isOffsetPosition());
-          _w.offsetCheckBox.setVisible(true);
-        }
-	else {
-          _w.offsetCheckBox.setVisible(false);
-	}
-
-	_updateXYUnitsLabels();
-
-	if(_curPos.getTag().equals(SpTelescopePos.BASE_TAG)) {
-	  _w.removeButton.setEnabled(false);
-	}
-	else {
-	  _w.removeButton.setEnabled(true);
-	}
-
-
-	// Make sure the tag selection is disabled while the base position is selected.
-	// The base position tag cannot be changed.
-	if(_tag.getValue().equals(SpTelescopePos.BASE_TAG) || _nextTag() == null) {
-	  _tag.setEnabled(false);
-	}
-	else {
-	  _tag.setEnabled(true);
-	}
-
-
-        String nextTag = _nextTag();
-
-        // Make sure the tag selection and newButton are disabled when all possible tags
-        // have been added.
-        if(nextTag != null) {
-          _w.newButton.setEnabled(true);
-          //_w.newButton.setText("Add " + nextTag);
-        }
-        else {
-          _w.newButton.setEnabled(false);
-        }
-
-
-        if(_tpl.size() < 2) {
-          _w.removeButton.setEnabled(false);
-        }
-    }
 
     /**
-     * As part of the TableWidgetWatcher interface, we must watch table
-     * actions, though not interested in them.
-     *
-     * @see TableWidgetWatcher
-     */
+	 * As part of the TableWidgetWatcher interface, we must watch table actions, though not interested in them.
+	 * 
+	 * @see TableWidgetWatcher
+	 */
     public void	tableAction(TableWidgetExt twe, int colIndex, int rowIndex) {}
 
 
@@ -1251,6 +1287,15 @@ public class EdCompTargetList extends OtItemEditor
 			//             }
 
 			SpTelescopePos tp = _tpl.createPosition( nextTag , base.getXaxis() , base.getYaxis() );
+
+			if( jcmtot )
+			{
+				SpTelescopePos basePos = _tpl.getBasePosition() ;
+				tp.setTrackingRadialVelocity( basePos.getTrackingRadialVelocity() ) ;
+				tp.setTrackingRadialVelocityDefn( basePos.getTrackingRadialVelocityDefn() ) ;
+				tp.setTrackingRadialVelocityFrame( basePos.getTrackingRadialVelocityFrame() ) ;
+			}
+
 			if( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR )
 			{
 				tp.setName( base.getName() );
