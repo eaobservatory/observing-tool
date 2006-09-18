@@ -213,8 +213,29 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 		updateTimes();
 		updateThermometer();
+		updateSizeOfPixels() ;
 	}
 
+	private void updateSizeOfPixels()
+	{
+		double sizeOfXPixelAsDouble = ( _iterObs.getWidth() / _iterObs.getScanDx() ) + 1.5 ;
+		double sizeOfYPixelAsDouble = ( _iterObs.getHeight() / _iterObs.getScanDy() ) + 1.5 ;
+		double sizeOfXPixel = Math.floor( sizeOfXPixelAsDouble ) ;
+		double sizeOfYPixel = Math.floor( sizeOfYPixelAsDouble ) ;
+		_w.sizeOfXPixel.setText( "" + sizeOfXPixelAsDouble ) ;
+		_w.sizeOfYPixel.setText( "" + sizeOfYPixelAsDouble ) ;
+		
+		if( sizeOfXPixelAsDouble - sizeOfXPixel != 0. )
+			_w.sizeOfXPixelLabel.setForeground( Color.red ) ;
+		else
+			_w.sizeOfXPixelLabel.setForeground( Color.black ) ;
+		
+		if( sizeOfYPixelAsDouble - sizeOfYPixel != 0. )
+			_w.sizeOfYPixelLabel.setForeground( Color.red ) ;
+		else
+			_w.sizeOfYPixelLabel.setForeground( Color.black ) ;
+	}
+	
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
 		_iterObs.getAvEditFSM().deleteObserver( this );
@@ -224,12 +245,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_iterObs.setScanDx( _w.dx.getValue() );
 			if( !( _w.dx.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
+			updateSizeOfPixels() ;
 		}
 		else if( tbwe == _w.dy )
 		{
 			_iterObs.setScanDy( _w.dy.getValue() );
 			if( !( _w.dy.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
+			updateSizeOfPixels() ;
 		}
 		else if( tbwe == _w.width )
 		{
@@ -237,6 +260,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 			if( !( _w.width.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
+			updateSizeOfPixels() ;
 
 			// Probably implemented in a different way in Gemini ot-2000B.12.
 			try
@@ -255,6 +279,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 			if( !( _w.height.getValue().equals( "" ) ) )
 				_w.noiseTextBox.setValue( calculateNoise() );
+			updateSizeOfPixels() ;
 
 			// Probably implemented in a different way in Gemini ot-2000B.12.
 			try

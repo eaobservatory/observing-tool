@@ -83,6 +83,11 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	JLabel jLabel17 = new JLabel() ;
 	JThermometer thermometer = new JThermometer();
 	JLabel estimationLabel = new JLabel();
+	
+	TextBoxWidgetExt sizeOfXPixel = new TextBoxWidgetExt() ;
+	TextBoxWidgetExt sizeOfYPixel = new TextBoxWidgetExt() ;
+	JLabel sizeOfXPixelLabel = new JLabel() ;
+	JLabel sizeOfYPixelLabel = new JLabel() ;
 
 	public IterRasterObsGUI()
 	{
@@ -178,6 +183,16 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		jLabel17.setForeground( Color.black );
 		jLabel17.setText( "(degrees)" );
 		scanAngle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		
+		sizeOfXPixel.setEnabled( false ) ;
+		sizeOfYPixel.setEnabled( false ) ;
+
+		sizeOfXPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		sizeOfXPixelLabel.setForeground( Color.black );
+		sizeOfXPixelLabel.setText( "Width of pixels" ) ;
+		sizeOfYPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		sizeOfYPixelLabel.setForeground( Color.black );
+		sizeOfYPixelLabel.setText( "Height of pixels" ) ;
 				
 		this.add( rasterPanel , BorderLayout.CENTER );
 		rasterPanel.add( scubaAcsisPanel , BorderLayout.WEST );
@@ -188,6 +203,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		scanPanel.add( jLabel16 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 1.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 5 , 0 ) , 0 , 0 ) );
 		scanPanel.add( scanAngle , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.SOUTH , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		scanPanel.add( jLabel17 , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
 		areaPanel.add( jLabel1 , new GridBagConstraints( 0 , 2 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( jLabel2 , new GridBagConstraints( 0 , 4 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( jLabel3 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
@@ -203,6 +219,13 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( posAngle , new GridBagConstraints( 1 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( jLabel23 , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( jLabel14 , new GridBagConstraints( 0 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+
+		areaPanel.add( sizeOfXPixel, new GridBagConstraints( 1 , 8 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( sizeOfYPixel, new GridBagConstraints( 1 , 10 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+
+		areaPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 7 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 9 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		
 		rasterPanel.add( heterodynePanel , BorderLayout.CENTER );
 		heterodynePanel.add( jLabel8 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 		heterodynePanel.add( sampleTime , new GridBagConstraints( 1 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
