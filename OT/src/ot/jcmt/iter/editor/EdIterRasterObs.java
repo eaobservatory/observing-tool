@@ -218,22 +218,36 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	private void updateSizeOfPixels()
 	{
-		double sizeOfXPixelAsDouble = ( _iterObs.getWidth() / _iterObs.getScanDx() ) + 1.5 ;
-		double sizeOfYPixelAsDouble = ( _iterObs.getHeight() / _iterObs.getScanDy() ) + 1.5 ;
-		double sizeOfXPixel = Math.floor( sizeOfXPixelAsDouble ) ;
-		double sizeOfYPixel = Math.floor( sizeOfYPixelAsDouble ) ;
-		_w.sizeOfXPixel.setText( "" + sizeOfXPixelAsDouble ) ;
-		_w.sizeOfYPixel.setText( "" + sizeOfYPixelAsDouble ) ;
+		boolean displayWarning = false ;
+		double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
+		double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
+		int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 ) ;
+		int correctedSizeOfYPixel = ( int )Math.floor( sizeOfYPixel + 1.5 ) ;
+
+		_w.sizeOfXPixel.setText( Integer.toString( correctedSizeOfXPixel ) ) ;
+		_w.sizeOfYPixel.setText( Integer.toString( correctedSizeOfYPixel ) ) ;
 		
-		if( sizeOfXPixelAsDouble - sizeOfXPixel != 0. )
+		if( sizeOfXPixel - Math.floor( sizeOfXPixel ) != 0. )
+		{
 			_w.sizeOfXPixelLabel.setForeground( Color.red ) ;
+			displayWarning = true ;
+		}
 		else
+		{
 			_w.sizeOfXPixelLabel.setForeground( Color.black ) ;
+		}
 		
-		if( sizeOfYPixelAsDouble - sizeOfYPixel != 0. )
+		if( sizeOfYPixel - Math.floor( sizeOfYPixel ) != 0. )
+		{
 			_w.sizeOfYPixelLabel.setForeground( Color.red ) ;
+			displayWarning = true ;
+		}
 		else
+		{
 			_w.sizeOfYPixelLabel.setForeground( Color.black ) ;
+		}
+		
+		_w.dimensionWarningText.setVisible( displayWarning ) ;
 	}
 	
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
