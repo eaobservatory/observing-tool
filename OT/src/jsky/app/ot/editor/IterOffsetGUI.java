@@ -166,7 +166,7 @@ public class IterOffsetGUI extends JPanel
 		
 		buttonGroup.add( overwrite ) ;
 		buttonGroup.add( append ) ;
-		append.setSelected( true ) ;
+		overwrite.setSelected( true ) ;
 		
 		this.add( pqItem , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		this.add( jLabel1 , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 10 , 5 , 5 , 5 ) , 0 , 0 ) );
@@ -206,8 +206,8 @@ public class IterOffsetGUI extends JPanel
 		gridGBW.add( centreOnBaseButton , new GridBagConstraints( 2 , 5 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		gridGBW.add( setSpacingButton , new GridBagConstraints( 2 , 6 , 5 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 5 ) , 0 , 0 ) );
 
-		gridGBW.add( append , new GridBagConstraints( 6 , 6 , 5 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		gridGBW.add( overwrite , new GridBagConstraints( 6 , 7 , 5 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		gridGBW.add( append , new GridBagConstraints( 6 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		gridGBW.add( overwrite , new GridBagConstraints( 5 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		
 		this.add( bottomButton , new GridBagConstraints( 3 , 7 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		this.add( paTextBox , new GridBagConstraints( 1 , 8 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
