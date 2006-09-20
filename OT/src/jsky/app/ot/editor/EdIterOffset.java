@@ -39,6 +39,8 @@ import gemini.util.TelescopePosWatcher;
 import gemini.util.RADecMath;
 import orac.jcmt.iter.SpIterRasterObs;
 
+import orac.util.TelescopeUtil ;
+
 /**
  * This is the editor for Offset Iterator component.  It allows a list of
  * offset positions to be entered and ordered.
@@ -66,42 +68,44 @@ public final class EdIterOffset extends OtItemEditor
     private double TO_DEGREES = 1.0/TO_RADIANS;
 
     /**
-     * The constructor initializes the title, description, and presentation source.
-     */
-    public EdIterOffset() {
-	_title       ="Offset Iterator";
-	_presSource  = _w = new IterOffsetGUI();
-	_description ="Construct offset based patterns with this iterator.";
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdIterOffset()
+	{
+		_title = "Offset Iterator";
+		_presSource = _w = new IterOffsetGUI();
+		_description = "Construct offset based patterns with this iterator.";
 
-	// JBuilder has some problems with image buttons...
-	ClassLoader cl = ClassLoader.getSystemClassLoader();
-        _w.topButton.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/top.gif")));
-        _w.upButton.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/up.gif")));
-        _w.bottomButton.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/bottom.gif")));
-        _w.downButton.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/down.gif")));
-	_w.pqItem.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/pq.gif")));
+		// JBuilder has some problems with image buttons...
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		_w.topButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/top.gif" ) ) );
+		_w.upButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/up.gif" ) ) );
+		_w.bottomButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/bottom.gif" ) ) );
+		_w.downButton.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/down.gif" ) ) );
+		_w.pqItem.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/pq.gif" ) ) );
 
-        if(!OtCfg.telescopeUtil.supports(OtCfg.telescopeUtil.FEATURE_OFFSET_GRID_PA)) {
-          _w.paLabel.setVisible(false);
-	  _w.paTextBox.setVisible(false);
-	  _w.displayRotatedOffsets.setVisible(false);
-	  _w.setSpacingButton.setVisible(false);
+		if( !OtCfg.telescopeUtil.supports( TelescopeUtil.FEATURE_OFFSET_GRID_PA ) )
+		{
+			_w.paLabel.setVisible( false );
+			_w.paTextBox.setVisible( false );
+			_w.displayRotatedOffsets.setVisible( false );
+			_w.setSpacingButton.setVisible( false );
+		}
+
+		_w.newButton.addActionListener( this );
+		_w.removeAllButton.addActionListener( this );
+		_w.removeButton.addActionListener( this );
+		_w.topButton.addActionListener( this );
+		_w.upButton.addActionListener( this );
+		_w.downButton.addActionListener( this );
+		_w.bottomButton.addActionListener( this );
+		_w.createGridButton.addActionListener( this );
+		_w.centreOnBaseButton.addActionListener( this );
+		_w.displayRotatedOffsets.addMouseListener( this );
+
+		_w.paTextBox.addWatcher( this );
+		_w.setSpacingButton.addActionListener( this );
 	}
-
-	_w.newButton.addActionListener(this);
-	_w.removeAllButton.addActionListener(this);
-	_w.removeButton.addActionListener(this);
-	_w.topButton.addActionListener(this);
-	_w.upButton.addActionListener(this);
-	_w.downButton.addActionListener(this);
-	_w.bottomButton.addActionListener(this);
-	_w.createGridButton.addActionListener(this);
-	_w.centreOnBaseButton.addActionListener(this);
-	_w.displayRotatedOffsets.addMouseListener(this);
-
-        _w.paTextBox.addWatcher(this);
-	_w.setSpacingButton.addActionListener(this);
-    }
 
 
     /**
@@ -136,47 +140,39 @@ public final class EdIterOffset extends OtItemEditor
     }
 
     /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
+	 * Implements the _updateWidgets method from OtItemEditor in order to setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		TextBoxWidgetExt tbwe;
+		SpIterOffset sio = ( SpIterOffset ) _spItem;
 
-	TextBoxWidgetExt tbwe;
-	SpIterOffset sio = (SpIterOffset) _spItem;
+		// Get the title
+		tbwe = _w.titleTBW;
+		tbwe.setText( sio.getTitleAttr() );
 
-	// Get the title
-	tbwe = _w.titleTBW;
-	tbwe.setText( sio.getTitleAttr() );
+		// Get the current offset list and fill in the table widget
+		_opl = sio.getPosList();
+		_offTW.reinit( _opl );
 
-	// Get the current offset list and fill in the table widget
-	_opl = sio.getPosList();
-	_offTW.reinit(_opl);
+		/*
+		* Select the position that was previously selected.
+		* This has probably never worked (neither Freebongo nor Swing OT)
+		* because the table seems to be reset somehow after _updateWidgets().
+		* And ".gui.selectedOffsetPos" seems to be set to _curPos.getTag()
+		* rather then to the selectedRow. (MFO, 6 December 2001)
+		*/
+		int selIndex = _avTab.getInt( ".gui.selectedOffsetPos" , 0 );
+		_offTW.selectPos( selIndex );
 
-	// Select the position that was previously selected.
-	// This has probably never worked (neither Freebongo nor Swing OT)
-	// because the table seems to be reset somehow after _updateWidgets().
-	// And ".gui.selectedOffsetPos" seems to be set to _curPos.getTag()
-	// rather then to the selectedRow. (MFO, 6 December 2001)
-	int selIndex = _avTab.getInt(".gui.selectedOffsetPos", 0);
-	_offTW.selectPos(selIndex);
+		_w.paTextBox.setValue( sio.getPosAngle() );
 
-        _w.paTextBox.setValue(sio.getPosAngle());
+		// Added by SDW - Sept. 2004.
+		createSkyOffsets();
 
-        // added by MFO (19 February 2002)
-//	if(containsScanMap(sio)) {
-//            _w.createScanMosaicButton.setEnabled(true);
-//	}
-//	else {
-//            _w.createScanMosaicButton.setEnabled(false);
-//	}
-
-        // Added by SDW - Sept. 2004.
-        createSkyOffsets();
-
-
-        // Try to create offset positions around the guide as well...
-        createGuideOffsets();
-    }
+		// Try to create offset positions around the guide as well...
+		createGuideOffsets();
+	}
 
     private void createGuideOffsets()
 	{
@@ -207,60 +203,63 @@ public final class EdIterOffset extends OtItemEditor
     /**
 	 * Create sky offsets. See if we have any sky eyes amongst the children, and check if they are following the base offset. If they are, get the obsComp and calculate the offset from base of the sky offsets.
 	 */
-    private void createSkyOffsets() {
+    private void createSkyOffsets()
+	{
 
-        _opl.resetSkyPositions();
+		_opl.resetSkyPositions();
 
-        // See if we can get the obsComp.  If not, just return since
-        // we can't do anything without it.
-        SpTelescopeObsComp obsComp = SpTreeMan.findTargetList(_spItem);
-        if ( obsComp == null ) return;
-        
-        Vector children = new Vector();
-        getOffsetSkyChildren((SpIterOffset)_spItem, children);
-        //System.out.println("child items found = " + children);
-        // Loop through all the children
-        for ( int i=0; i<children.size(); i++ ) {
-            SpIterSky sky = (SpIterSky)children.get(i);
+		// See if we can get the obsComp. If not, just return since
+		// we can't do anything without it.
+		SpTelescopeObsComp obsComp = SpTreeMan.findTargetList( _spItem );
+		if( obsComp == null )
+			return;
 
-            // Get the associated scale factor
-            double scale = sky.getScaleFactor();
+		Vector children = new Vector();
+		getOffsetSkyChildren( ( SpIterOffset ) _spItem , children );
+		// Loop through all the children
+		for( int i = 0 ; i < children.size() ; i++ )
+		{
+			SpIterSky sky = ( SpIterSky ) children.get( i );
 
-            // Get the corrsponding position entry from the obsComp
-            SpTelescopePos tp = (SpTelescopePos) obsComp.getPosList().getPosition( sky.getSky() );
+			// Get the associated scale factor
+			double scale = sky.getScaleFactor();
 
-            // See if the sky position is specified as an offset or absolute
-            double [] childOffset;
-            if ( !tp.isOffsetPosition() ) {
-                // To simplify things, we convert this to an offset position internally
-                SpTelescopePos base = (SpTelescopePos) obsComp.getPosList().getBasePosition();
-                childOffset = RADecMath.getOffset( tp.getXaxis(), tp.getYaxis(),
-                                                   base.getXaxis(), base.getYaxis(),
-                                                   _opl.getPosAngle() );
-                childOffset[0] = childOffset[0] * Math.cos( Math.toRadians(base.getYaxis()) );
-            }
-            else {
-                childOffset = new double[2];
-                childOffset[0] = tp.getXaxis();
-                childOffset[1] = tp.getYaxis();
-            }
+			// Get the corrsponding position entry from the obsComp
+			SpTelescopePos tp = ( SpTelescopePos ) obsComp.getPosList().getPosition( sky.getSky() );
 
-            // Loop over all the current offset positions
-            for ( int count=0; count < _opl.size(); count++ ) {
-                double [] skyOffset = new double[2];
-                // Get the current position and its coordinates
-                SpOffsetPos currPos = (SpOffsetPos)_opl.getPositionAt(count);
-                skyOffset[0] = childOffset[0] + scale*currPos.getXaxis();
-                skyOffset[1] = childOffset[1] + scale*currPos.getYaxis();
-                // Now create the sky offset position
-                _opl.createSkyPosition( skyOffset[0], skyOffset[1] );
-            }
-        } 
-    }
+			// See if the sky position is specified as an offset or absolute
+			double[] childOffset;
+			if( !tp.isOffsetPosition() )
+			{
+				// To simplify things, we convert this to an offset position internally
+				SpTelescopePos base = ( SpTelescopePos ) obsComp.getPosList().getBasePosition();
+				childOffset = RADecMath.getOffset( tp.getXaxis() , tp.getYaxis() , base.getXaxis() , base.getYaxis() , _opl.getPosAngle() );
+				childOffset[ 0 ] = childOffset[ 0 ] * Math.cos( Math.toRadians( base.getYaxis() ) );
+			}
+			else
+			{
+				childOffset = new double[ 2 ];
+				childOffset[ 0 ] = tp.getXaxis();
+				childOffset[ 1 ] = tp.getYaxis();
+			}
+
+			// Loop over all the current offset positions
+			for( int count = 0 ; count < _opl.size() ; count++ )
+			{
+				double[] skyOffset = new double[ 2 ];
+				// Get the current position and its coordinates
+				SpOffsetPos currPos = ( SpOffsetPos ) _opl.getPositionAt( count );
+				skyOffset[ 0 ] = childOffset[ 0 ] + scale * currPos.getXaxis();
+				skyOffset[ 1 ] = childOffset[ 1 ] + scale * currPos.getYaxis();
+				// Now create the sky offset position
+				_opl.createSkyPosition( skyOffset[ 0 ] , skyOffset[ 1 ] );
+			}
+		}
+	}
 
     /**
-      * Get all the sky children that are following offset.
-      */
+	 * Get all the sky children that are following offset.
+	 */
     private void getOffsetSkyChildren( SpItem parent, Vector offsetSkys) {
         Enumeration children = parent.children();
         while ( children.hasMoreElements() ) {
@@ -398,46 +397,52 @@ public final class EdIterOffset extends OtItemEditor
     }
 
 
-    //
-    // Add offset positions in a grid pattern, according to the specifications
-    // int the "Create Grid" group box.
-    //
-    private void _createGrid() {
-// 	_opl.deleteWatcher(_offTW);
-// 	_opl.removeAllPositions();
+    /*
+	* Add offset positions in a grid pattern, according to the specifications
+	* int the "Create Grid" group box.
+	*/
+	private void _createGrid()
+	{
 
-	double xOff = _getGridXOffset();
-	double yOff = _getGridYOffset();
+		if( _w.overwrite.isSelected() )
+			_opl.removeAllPositions() ;
+		
+		double xOff = _getGridXOffset();
+		double yOff = _getGridYOffset();
 
-	double xSpace = _getGridXSpacing();
-	double ySpace = _getGridYSpacing();
+		double xSpace = _getGridXSpacing();
+		double ySpace = _getGridYSpacing();
 
-	int rows = _getGridRows();
-	int cols = _getGridCols();
+		int rows = _getGridRows();
+		int cols = _getGridCols();
 
-	int sign = -1;
-	for (int y=0; y<rows; ++y) {
-	    for (int x=0; x<cols; ++x) {
-		_opl.createPosition(xOff, yOff);
-		xOff = xOff + ((sign == -1) ? -xSpace : xSpace);
-	    }
-	    sign = -sign;
-	    xOff  = xOff + ((sign == -1) ? -xSpace : xSpace);
-	    yOff -= ySpace;
+		int sign = -1;
+		for( int y = 0 ; y < rows ; ++y )
+		{
+			for( int x = 0 ; x < cols ; ++x )
+			{
+				_opl.createPosition( xOff , yOff );
+				xOff = xOff + ( ( sign == -1 ) ? -xSpace : xSpace );
+			}
+			sign = -sign;
+			xOff = xOff + ( ( sign == -1 ) ? -xSpace : xSpace );
+			yOff -= ySpace;
+		}
+
+		_offTW.reinit( _opl );
+		_offTW.selectRowAt( 0 );
+
+		// Added by MFO, 7 December 2001
+		// I think this is implemented in a different way in Gemini ot-2000B.12.
+		try
+		{
+			TpeManager.get( _spItem ).reset( _spItem );
+		}
+		catch( NullPointerException e )
+		{
+			// ignore
+		}
 	}
-
-	_offTW.reinit(_opl);
-	_offTW.selectRowAt(0);
-
-	// Added by MFO, 7 December 2001
-	// I think this is implemented in a different way in Gemini ot-2000B.12.
-	try {
-	  TpeManager.get(_spItem).reset(_spItem);
-	}
-	catch(NullPointerException e) {
-	  // ignore
-	}
-    }
 
     /**
      * Get the selected position.
