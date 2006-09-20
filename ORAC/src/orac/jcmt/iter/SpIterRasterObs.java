@@ -69,9 +69,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   // dynamically associated variables
   double T_bref ;
   double T_oref ;
-  double T_bcal ;
-  double T_startend ;
-  double T_cal ;
 
   /**
    * Default constructor.
@@ -475,10 +472,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			double t_ref = Math.sqrt( n_rows_bref * t_row ) ;
 			
 			double t_on = ( ( n_rows * t_row ) + ( n_refs * t_ref ) ) + t_ref + T_oref ;
-
-			double n_cals = Math.ceil( t_on / T_bcal ) ;
 			
-			return t_on + T_startend + ( n_cals * T_cal ) ; // + overhead 
+			return calculateTotalPlusOverheadForElapsedTime( t_on ) ; // + overhead 
 /*			
 			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
 			double overheadFactor = 1.2;
@@ -488,6 +483,19 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		return 0.0;
 	}
 
+//	 dynamically allocated variables
+	double T_startend ;
+	double T_bcal ;
+	double T_cal ;
+	double T_ocal ;
+
+	public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
+	{
+		double n_cals = Math.max( 1. , Math.floor( integrationTime / T_bcal ) ) ;
+		double T_total = T_startend + integrationTime + ( ( T_cal + T_ocal ) * n_cals ) ;
+		return T_total ;	
+	}
+	
   /** Creates JAC TCS XML. */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
     // ATTR_SCANAREA_HEIGHT is an AV attribute that occurs once in a SpIterOffset's AV table

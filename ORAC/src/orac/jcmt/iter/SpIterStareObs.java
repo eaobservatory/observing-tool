@@ -34,10 +34,7 @@ static {
 }
 
 // dynamically associated variables
-double T_bcal ;
 double T_oref ;
-double T_startend ;
-double T_ocal ;
 double T_bref ;
 
 /**
@@ -106,13 +103,24 @@ public SpIterStareObs()
 			
 			double n_refs = Math.ceil( T_on / T_bref ) ;
 			double T_nocals = ( getSecsPerCycle() + T_ref ) + ( T_oref * n_refs ) ;
-			double n_cals = Math.floor( T_nocals / T_bcal ) ;
-			double T_total = T_startend + T_nocals + ( T_ocal * n_cals ) ;
-			totalIntegrationTime = T_total ;
+			totalIntegrationTime = calculateTotalPlusOverheadForElapsedTime( T_nocals ) ;
 		}
 		return ( overhead + totalIntegrationTime );
 	}
 
+//	 dynamically allocated variables
+	double T_startend ;
+	double T_bcal ;
+	double T_cal ;
+	double T_ocal ;
+
+	public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
+	{
+		double n_cals = Math.max( 1. , Math.floor( integrationTime / T_bcal ) ) ;
+		double T_total = T_startend + integrationTime + ( ( T_cal + T_ocal ) * n_cals ) ;
+		return T_total ;	
+	}
+	
 	public void setupForHeterodyne()
 	{
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )

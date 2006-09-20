@@ -27,9 +27,10 @@ import orac.jcmt.SpJCMTConstants;
 import orac.util.InstCfgReader ;
 import java.io.IOException ;
 import java.lang.reflect.Field ;
-import java.util.Vector ;
 
 import java.io.File ;
+
+import java.util.TreeMap ;
 
 /**
  * Enumerater for the elements of the JCMT Observe iterator.
@@ -116,7 +117,12 @@ public SpIterJCMTObs(SpType spType)
  */
 public double getElapsedTime()
 {
-   return 0.0;
+	return 0. ;
+}
+
+public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
+{
+	return integrationTime ;	
 }
 
 
@@ -383,12 +389,12 @@ public String [] getSwitchingModeOptions() {
   };
 }
 
-static Vector vector ;
+static TreeMap treeMap ;
 public void getTimings()
 {
 	try
 	{
-		if( vector == null )
+		if( treeMap == null )
 		{
 			String configurationDirectory = System.getProperty( "ot.cfgdir" ) ;
 			URL baseURL = null ;
@@ -397,39 +403,33 @@ public void getTimings()
 				baseURL = file.toURL() ;
 			InstCfgReader instCfgReader = new InstCfgReader( baseURL , "timings.cfg" ) ;
 			String block ;
-			vector = new Vector() ;
+			treeMap = new TreeMap() ;
 			while( ( block = instCfgReader.readBlock() ) != null )
-				vector.add( block ) ;
+			{
+				String[] split = block.split( "=" ) ;
+				if( split.length == 2 )
+					treeMap.put( split[ 0 ] , split[ 1 ] ) ;
+			}	
 		}
-		String[] split ;
 		Class klass = this.getClass() ;
 		Field[] fields = klass.getDeclaredFields() ;
-		int size = vector.size() ;
-		for( int index = 0 ; index < size ; index++ )
+		for( int i = 0 ; i < fields.length ; i++ )
 		{
-			Object tmp = vector.get( index ) ;
-			if( !( tmp instanceof String ) )
-				continue ;
-			split = ( ( String )tmp).split( "=" ) ;
-			if( split.length == 2 )
+			Field field = fields[ i ] ;
+			String name = field.getName() ;
+			if( treeMap.containsKey( name ) )
 			{
-				for( int i = 0 ; i < fields.length ; i++ )
+				try
 				{
-					Field field = fields[ i ] ;
-					String name = field.getName() ;
-					if( name.equals( split[ 0 ] ) )
-					{
-						try
-						{
-							field.setDouble( ( Object )this , Double.parseDouble( split[ 1 ] ) ) ;
-						}
-						catch( NumberFormatException nfe ){}
-						catch( IllegalAccessException iae ){}
-					}
+					Object temp = treeMap.get( name ) ;
+					if( temp != null )
+						field.setDouble( ( Object )this , Double.parseDouble( temp.toString() ) ) ;
 				}
+				catch( NumberFormatException nfe ){}
+				catch( IllegalAccessException iae ){}
 			}
 		}
-	}
+}
 	catch( MalformedURLException mue ){}
 	catch( IOException ioe ){}
 }

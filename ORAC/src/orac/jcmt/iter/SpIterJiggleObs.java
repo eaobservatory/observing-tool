@@ -10,23 +10,14 @@
 
 package orac.jcmt.iter;
 
-import gemini.sp.SpItem;
 import gemini.sp.SpFactory;
 import gemini.sp.SpType;
 import gemini.sp.SpTreeMan;
 
-import gemini.sp.iter.SpIterEnumeration;
-import gemini.sp.iter.SpIterObserveBase;
-import gemini.sp.iter.SpIterStep;
-import gemini.sp.iter.SpIterValue;
-
-import gemini.sp.obsComp.SpInstConstants;
 import gemini.sp.obsComp.SpInstObsComp;
 
 import gemini.util.Format;
 import orac.jcmt.inst.SpInstSCUBA;
-
-import java.util.StringTokenizer;
 
 
 /**
@@ -49,6 +40,11 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     SpFactory.registerPrototype(new SpIterJiggleObs());
   }
 
+  // dynamically associated variables
+  double max_time_between_chops ;
+  double max_time_between_nods ;
+  double step_time ;
+  double T_onod ;
 
   /**
    * Default constructor.
@@ -64,85 +60,135 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 	{
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
 
-		if( instrument == null )
-			return 0.0;
-
-		if( instrument instanceof SpInstSCUBA )
-		{
-			String jigglePattern = getJigglePattern();
-			int steps = 0;
-			double overhead = 0.0;
-
-			// Actual integration time on source
-			double totalIntegrationTime = 0.0;
-
-			if( ( jigglePattern != null ) && ( jigglePattern.toLowerCase().indexOf( 'x' ) > -1 ) )
+		// Actual integration time on source
+		double totalIntegrationTime = 0. ;
+		
+		if( instrument != null )
+		{	
+			String jigglePattern = getJigglePattern() ;
+			if( jigglePattern != null )
 			{
-				StringTokenizer st = new StringTokenizer( jigglePattern.toLowerCase() , "x " );
-				steps = Integer.parseInt( st.nextToken() );
-			}
-
-			// Calculate overheads
-			switch( steps )
-			{
-				// 3X3 jigle map
-				case 3 :
-					overhead = 9;
-					break;
-
-				// 5X5 jigle map
-				case 5 :
-					overhead = 18;
-					break;
-
-				// 7X7 jigle map
-				case 7 :
-					overhead = 27;
-					break;
-
-				// 9X9 jigle map
-				case 9 :
-					overhead = 36;
-					break;
-
-				// JIG16 (LONG or SHORT) or JIG64 (LONG and SHORT)
-				default :
-					if( isJIG64( ( SpInstSCUBA ) instrument ) )
-					{
-						overhead = 36;
-					}
-					else
-					{
-						overhead = 9;
-					}
-			}
-
-			// Add SCUBA startup time.
-			overhead += SCUBA_STARTUP_TIME;
-
-			// Calculate total integration time
-			if( steps > 0 )
-			{
-				totalIntegrationTime = steps * steps * 2;
-			}
-			else
-			{
-				if( isJIG64( ( SpInstSCUBA ) instrument ) )
+				jigglePattern = jigglePattern.toLowerCase() ;
+		
+				int steps = 0 ;
+				if( jigglePattern.matches( "\\d+x\\d+" ) )
 				{
-					totalIntegrationTime = 64 * 2;
+					String[] split = jigglePattern.split( "x" ) ;
+					steps = Integer.parseInt( split[ 0 ] ) ;
+				}
+				// number of points
+				int npts = 0 ;
+		
+				switch( steps )
+				{
+					// 3X3 jigle map
+					case 3 :
+						npts = 9 ;
+						break;
+					// 5X5 jigle map
+					case 5 :
+						npts = 25 ;
+						break;
+					// 7X7 jigle map
+					case 7 :
+						npts = 49 ;
+						break;
+					// 9X9 jigle map
+					case 9 :
+						npts = 81 ;
+						break;
+					// default
+					default :
+						break ;
+				}
+				int maxSteps = ( int )( max_time_between_chops / step_time ) ;
+				int chopsPerJig = 0 ;
+				int njigs = 0 ;
+				if( maxSteps == 0 )
+				{
+					return 0. ;
+				}
+				else if( maxSteps == 1 )
+				{
+					chopsPerJig = 1 ;
 				}
 				else
 				{
-					totalIntegrationTime = 16 * 2;
+					if( npts < maxSteps )
+					{
+						njigs = npts ;
+					}
+					else
+					{
+						njigs = maxSteps ;
+						while( npts % njigs != 0 )
+							njigs-- ;
+					}
 				}
+				int nJigsOn = njigs ;
+				int nCycOff = ( int )( ( Math.sqrt( njigs ) / 2 ) + .5 ) ;
+
+				int nJigChunks = 1 ;
+				int nSteps = 0 ;
+				if( nJigsOn != 0 )
+				{
+					nJigChunks = npts / nJigsOn ;
+					nSteps = nJigChunks * ( nJigsOn + ( 2 * nCycOff ) ) ;
+				}
+				else if( chopsPerJig != 0 )
+				{
+					nSteps = npts * 2 ;
+				}
+				else
+				{
+					return 0. ;
+				}
+				
+				double timePerJiggle = nSteps * step_time ; 
+				int nRepeats = ( int )Math.ceil( getSecsPerCycle() / step_time ) ;
+				int totalJOSMult = ( int )Math.ceil( ( double )nRepeats / 4. ) ;
+				int maxJOSMult = ( int )Math.max( 1. , ( max_time_between_nods / timePerJiggle ) ) ;
+				int nNodSets ;
+				int JOSMult ;
+				
+				if( totalJOSMult < maxJOSMult )
+				{
+					nNodSets = 1 ;
+					JOSMult = totalJOSMult ;
+				}
+				else
+				{
+					nNodSets = totalJOSMult / maxJOSMult ;
+					JOSMult = maxJOSMult ;					
+				}
+				
+			    System.out.print( "\tDuration of single jiggle pattern: " + timePerJiggle + " sec\n" ) ;
+			    System.out.print( "\tRequested integration time per pixel: " + getSecsPerCycle() + " sec\n" ) ;
+			    System.out.print( "\tN repeats of whole jiggle pattern required: " + nRepeats + "\n" ) ;
+			    System.out.print( "\tRequired total JOS_MULT: " + totalJOSMult + "\n" ) ;
+			    System.out.print( "\tMax allowed JOS_MULT : " + maxJOSMult + "\n" ) ;
+			    System.out.print( "\tNumber of nod sets: " + nNodSets + " in groups of " + JOSMult + " jiggle repeats\n" ) ;
+
+			    // the 2 in the following equation is n_nods ( 4 ) / 2, this will change
+			    totalIntegrationTime = ( ( ( timePerJiggle * totalJOSMult ) + ( 2 * T_onod ) ) * 4 ) * nNodSets ;			    
 			}
-
-			return totalIntegrationTime + overhead;
 		}
-
-		return 0.0;
+		return calculateTotalPlusOverheadForElapsedTime( totalIntegrationTime ) ;
 	}
 
+//	 dynamically allocated variables
+	double T_startend ;
+	double T_bcal ;
+	double T_cal ;
+	double T_ocal ;
+
+	public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
+	{
+		double n_cals = Math.max( 1. , Math.floor( integrationTime / T_bcal ) ) ;
+		double T_total = T_startend + integrationTime + ( ( T_cal + T_ocal ) * n_cals ) ;
+		return T_total ;	
+	}
+	
   public String getJigglePattern() {
     return _avTable.get(ATTR_JIGGLE_PATTERN);
   }
