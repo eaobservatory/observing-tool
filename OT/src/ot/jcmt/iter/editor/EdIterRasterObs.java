@@ -247,7 +247,8 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.sizeOfYPixelLabel.setForeground( Color.black ) ;
 		}
 		
-		_w.dimensionWarningText.setVisible( displayWarning ) ;
+		_w.dimensionWarningTextTop.setVisible( displayWarning ) ;
+		_w.dimensionWarningTextBottom.setVisible( displayWarning ) ;
 	}
 	
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )

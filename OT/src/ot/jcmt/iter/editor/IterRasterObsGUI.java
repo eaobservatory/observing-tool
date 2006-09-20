@@ -88,7 +88,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	TextBoxWidgetExt sizeOfYPixel = new TextBoxWidgetExt() ;
 	JLabel sizeOfXPixelLabel = new JLabel() ;
 	JLabel sizeOfYPixelLabel = new JLabel() ;
-	JLabel dimensionWarningText = new JLabel() ;
+	JLabel dimensionWarningTextTop = new JLabel() ;
+	JLabel dimensionWarningTextBottom = new JLabel() ;
 
 	public IterRasterObsGUI()
 	{
@@ -194,11 +195,16 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		sizeOfYPixelLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		sizeOfYPixelLabel.setForeground( Color.black ) ;
 		sizeOfYPixelLabel.setText( "Nr of scans/pixels" ) ;
-		dimensionWarningText.setFont( new java.awt.Font( "Dialog" , 0 , 8 ) ) ;
-		dimensionWarningText.setForeground( Color.black ) ;
-		dimensionWarningText.setText( "Dimension must be equally divisible by spacing" ) ;
-		dimensionWarningText.setVisible( false ) ;
-				
+		
+		dimensionWarningTextTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		dimensionWarningTextBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		dimensionWarningTextTop.setForeground( Color.red ) ;
+		dimensionWarningTextBottom.setForeground( Color.red ) ;
+		dimensionWarningTextTop.setText( "Dimension must be equally" ) ;
+		dimensionWarningTextBottom.setText( "divisible by spacing" ) ;
+		dimensionWarningTextTop.setVisible( false ) ;		
+		dimensionWarningTextBottom.setVisible( false ) ;
+		
 		this.add( rasterPanel , BorderLayout.CENTER );
 		rasterPanel.add( scubaAcsisPanel , BorderLayout.WEST );
 		scubaAcsisPanel.add( areaPanel , BorderLayout.CENTER );
@@ -231,7 +237,8 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 7 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		areaPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 9 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 
-		areaPanel.add( dimensionWarningText , new GridBagConstraints( 0 , 11 , 3 , 2 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.VERTICAL , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 11 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 12 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		
 		rasterPanel.add( heterodynePanel , BorderLayout.CENTER );
 		heterodynePanel.add( jLabel8 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
