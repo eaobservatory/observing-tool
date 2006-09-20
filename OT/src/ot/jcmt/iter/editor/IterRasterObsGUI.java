@@ -90,6 +90,7 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 	JLabel sizeOfYPixelLabel = new JLabel() ;
 	JLabel dimensionWarningTextTop = new JLabel() ;
 	JLabel dimensionWarningTextBottom = new JLabel() ;
+	JLabel spacingLabel = new JLabel() ;
 
 	public IterRasterObsGUI()
 	{
@@ -185,6 +186,10 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		jLabel17.setForeground( Color.black );
 		jLabel17.setText( "(degrees)" );
 		scanAngle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+
+		spacingLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		spacingLabel.setForeground( Color.black ) ;
+		spacingLabel.setText( " " ) ;
 		
 		sizeOfXPixel.setEnabled( false ) ;
 		sizeOfYPixel.setEnabled( false ) ;
@@ -231,14 +236,13 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( jLabel23 , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		areaPanel.add( jLabel14 , new GridBagConstraints( 0 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( sizeOfXPixel, new GridBagConstraints( 1 , 8 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		areaPanel.add( sizeOfYPixel, new GridBagConstraints( 1 , 10 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-
-		areaPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 7 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		areaPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 9 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-
-		areaPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 11 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		areaPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 12 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( spacingLabel , new GridBagConstraints( 0 , 7 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 8 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( sizeOfXPixel, new GridBagConstraints( 1 , 9 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( sizeOfYPixelLabel , new GridBagConstraints( 0 , 10 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( sizeOfYPixel, new GridBagConstraints( 1 , 11 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( dimensionWarningTextTop , new GridBagConstraints( 0 , 12 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		areaPanel.add( dimensionWarningTextBottom , new GridBagConstraints( 0 , 13 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		
 		rasterPanel.add( heterodynePanel , BorderLayout.CENTER );
 		heterodynePanel.add( jLabel8 , new GridBagConstraints( 0 , 4 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
