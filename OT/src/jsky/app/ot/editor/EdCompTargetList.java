@@ -1012,19 +1012,21 @@ public class EdCompTargetList extends OtItemEditor
 	showPos(_curPos);
     }
  
-    //
-    // Update the state based upon the current coordinate system.
-    //
-    private void _updateCoordSystem() {
-	String coordSys = _system.getStringValue();
+    /*
+	*  Update the state based upon the current coordinate system.
+	*/
+	private void _updateCoordSystem()
+	{
+		String coordSys = _system.getStringValue();
 
-	int sysInt = CoordSys.getSystem(coordSys);
-	Assert.notFalse(sysInt != -1);
+		int sysInt = CoordSys.getSystem( coordSys );
+		Assert.notFalse( sysInt != -1 );
 
-	_curPos.setCoordSys( sysInt );
+		_curPos.setCoordSys( sysInt );
+		_curPos.setXY( 0. , 0. ) ;
 
-	showPos(_curPos);
-    }
+		showPos( _curPos );
+	}
 
     /**
      * Set the labels for the x and y coordinate text boxes.
