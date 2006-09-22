@@ -11,7 +11,21 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
-+++ May 2006 
++++ October 2006 
+
+  - Numerous changes to facilitate ACSIS Heterodyne observing.
+
+  - The Raster eye now gives a guide to how large pixels are.
+
+  - Tuning velocities can be specified separately from target radial velocities.
+
+  - Grid patterns for Offset Iterators can append or overwrite positions.
+
+  - All references to number of integerations have been removed.
+
+  - When changing between coordinate systems, positions get reset as they are currently not converted.
+
+  - Removal of SCUBA and DAS.
 
 +++ May 2006
 

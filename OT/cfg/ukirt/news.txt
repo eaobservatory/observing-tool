@@ -13,6 +13,16 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ October 2006
+
+  - Tiling WFCAM observations gives hints in the Telescope Position Editor as to where autoguider will be.
+
+  - Brackett Gamma filter has been removed and replaced with a specialised filter ( narrow-band J. )
+
+  - Grid patterns for Offset Iterators can append or overwrite positions.
+
+  - When changing between coordinate systems, positions get reset as they are currently not converted.
+
 +++ May 2006
 
   - Fix for Guidestar Offsets in the Position Editor.
