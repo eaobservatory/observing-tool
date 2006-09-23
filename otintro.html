@@ -11,20 +11,14 @@ ff0000">
         <h1>The JCMT OT primer</h1>
 
 
-    This document is a primer on how to use the JCMT Observing Tool
-    (JCMT OT) to prepare and submit observations for semester 2004A
-    (see <a href="faq.html#why">Why do I have to do this?</a>. It
+    <p>This document is a primer on how to use the JCMT Observing Tool
+    (JCMT OT) to prepare and submit observations for semester 2006B
+    (see <a href="faq.html#why">Why do I have to do this?</a>). It
     assumes that you have already downloaded and installed the
     software (see our <a href="download.html">download page</a> - make
     sure you have downloaded the latest version!). Of course if you
     are using a JAC, UKIRT or JCMT machine, the software is already
-    installed. It also assumes that you understand the basic SCUBA or
-    heterodyne observing techniques. If you don't, you are not ready
-    for this! Consult the <a
-    href="http://www.jach.hawaii.edu/JCMT/continuum/"> continuum </a>
-    or <a href="http://www.jach.hawaii.edu/JCMT/spectral_line/">
-    heterodyne
-    </a> documentation first. <p>
+    installed. You will also need the OMP password for your project in order to be able to <p>
 
 If you are viewing this document through the JCMT-OT Help menu, there
 may be a more up-to-date version on our web site at <a
@@ -33,13 +27,9 @@ href="http://www.jach.hawaii.edu/software/jcmtot/">http://www.jach.hawaii.edu/so
 <p>
       
       If, after reading this guide you have any questions about
-      preparing your observations, email <a
-      href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>
+      preparing your observations, please consult with your "Friend of the Project" (see <a href="http://www.jach.hawaii.edu/JCMT/allocations">http://www.jach.hawaii.edu/JCMT/allocations</a>), or email <a
+      href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.
 
- Heap praise or abuse on the authors of this
-      document at <a
-      href="mailto:v.barnard@jach.hawaii.edu">v.barnard@jach.hawaii.edu</a> (SCUBA primer) or <a
-      href="mailto:j.leech@jach.hawaii.edu">j.leech@jach.hawaii.edu</a> (Heterodyne primer).
 
 
 <h2>Contents</h2>
@@ -56,43 +46,35 @@ href="http://www.jach.hawaii.edu/software/jcmtot/">http://www.jach.hawaii.edu/so
       <li><a href="#syp">Saving your progress</a>
       <li><a href="#ggtm">Getting going: The MSB</a> <p>
 
-      <li><a href="scuba_example.html"> <b>SCUBA Example</b></a> 
+      <li><a href="het_example.html"> <b>Heterodyne MSBs</b></a> 
 <ul>
-      <li><a href="scuba_example.html#oe">Our example: preparing an 850/450 jiggle map</a>
-      <li><a href="scuba_example.html#ria">Really Important Aside - or is it Inside? </a>
-      <li><a href="scuba_example.html#etmc">Editing the MSB  component</a>
-      <li><a href="scuba_example.html#eoam">Elements of an MSB</a>
-      <li><a href="scuba_example.html#tsqc">The Site Quality component</a>
-      <li><a href="scuba_example.html#tsc">The SCUBA component</a>
-      <li><a href="scuba_example.html#tfoc">The first observation: Calibration</a>
-      <li><a href="scuba_example.html#ts">The sequence</a>
-      <li><a href="scuba_example.html#thingies">Components, Iterators And All That</a>
-      <li><a href="scuba_example.html#eyes">The Eyes have it</a>
-      <li><a href="scuba_example.html#tci">The chop iterator</a>
-      <li><a href="scuba_example.html#tje">The Jiggle eye</a>
-      <li><a href="scuba_example.html#tso">The science observation</a>
-      <li><a href="scuba_example.html#tcc">The target component</a>
-      <li><a href="scuba_example.html#tpe">The position editor</a>
-      <li><a href="scuba_example.html#time">The repeat iterator and integration time in general</a>
-      <li><a href="scuba_example.html#notes">The only good observer is an informed observer</a> <p>
-</ul>
-      <li><a href="het_example.html"> <b>Heterodyne Example</b></a> 
-<ul>
-<li><a href="het_example.html#het_anat"> Anatomy of a beam-switched MSB </a> 
+<li>A Guided Tour of an Example MSB (Beam-Switched <i>Sample</i>)
+ <ul>
+ <li><a href="het_example.html#het_anat"> Anatomy of a beam-switched MSB </a> 
  <li><a href="het_example.html#ria">Really Important Aside - or is it Inside? </a>
-<li><a href="het_example.html#het_eoam">Elements of an MSB</a>
+ <li><a href="het_example.html#het_eoam">Elements of an MSB</a>
  <li><a href="het_example.html#het_thsc">The Het Setup component</a>
-<li><a href="het_example.html#het_tsc">The Site Quality component</a>
+ <li><a href="het_example.html#het_tsc">Rarely Used Components: Site Quality</a>
+ <li><a href="het_example.html#het_tsched">Rarely Used Components: Scheduling Constraints</a>
  <li><a href="het_example.html#het_tfoc">The observation: Science Target</a>
-   <li><a href="het_example.html#het_tcc">The target component</a>
-<li><a href="het_example.html#het_tpe">The position editor</a>
+ <li><a href="het_example.html#het_tcc">The target component</a>
+ <li><a href="het_example.html#het_tpe">The position editor</a>
  <li><a href="het_example.html#het_tci">The chop iterator</a>
-<li><a href="het_example.html#het_sample">The photom/sample eye</a>
+ <li><a href="het_example.html#het_sample">The photom/sample eye</a>
  <li><a href="het_example.html#het_time">The repeat iterator and integration time in general</a>
-<li> <a href="het_example.html#het_note">Adding  a note</a>
-<li><a href="het_example.html#het_summary">Summary: Making your heterodyne MSB.</a>
+ <li> <a href="het_example.html#het_note">Adding  a note</a>
+ <li><a href="het_example.html#het_summary">Summary: Making your heterodyne MSB.</a>
+ <li><a href="het_example.html#het_freq_ed"> The frequency editor</a> <p>
+ </ul>
 <li><a href="het_example.html#het_msblib">The Heterodyne MSB library</a>
-<li><a href="het_example.html#het_freq_ed"> The frequency editor</a> <p>
+
+ <ul>
+ <li><a href="het_example.html#het_sam_folder">Samples</a>
+ <li><a href="het_example.html#het_grid_folder">Grid Maps</a>
+ <li><a href="het_example.html#het_jig_folder">Jiggle Maps</a>
+ <li><a href="het_example.html#het_rast_folder">Raster Maps</a>
+ </ul>
+
 
 </ul>
 
@@ -247,23 +229,29 @@ observations yet.
     entirety</em>. For more information see <a href="faq.html#msb">What makes
     a good MSB?</a> but for the moment bear in mind that the most
     efficient MSB consists of a 0.5 to 2 hour observation on a single
-    science target and any necessary calibrations.<p>
+    science target and any necessary calibrations.
 
-      Since SCUBA or the heterodyne instruments are best used in a few
-      well-understood ways, we have prepared for you librararies of
-      MSBs that you can add to your Science Program and modify to your
-      requirements. If you want to prepare a SCUBA observation go to
-      the <a href="scuba_example.html"> 850/450 jiggle map tutorial</a>; if
-      you want to prepare a heterodyne observation, go to the <a
-      href="het_example.html"> heterodyne tutorial </a>.
+      
+<p>Now that you've seen the basics of creating an observing program,
+      and know what an MSB is, you will want to start creating your
+      own.  We've created a library of MSBs for the most commonly used
+      observing modes which are currently supported.  For a
+      description of each, and help in creating your own program,
+      please consult the <a href="het_example.html">heterodyne
+	tutorial</a>.
 
+    <h2><a name="ggtm">Uploading your program to the Observing Database</a></h2>
 
+<p>Once you've created your MSBs and validated that they are correct,
+      you will need to upload the program to our observing database so
+      that the observations can be carried out.  Check <a
+	href="recap.html#database">submitting MSBs</a> for
+      instructions on how to do so.
 
 
 
 
     <hr>
-    <address><a href="mailto:v.barnard@jach.hawaii.edu">Vicki Barnard</a>
-and  <a href="mailto:j.leech@jach.hawaii.edu">Jamie Leech</a></address>
+   
   </body>
 </html>
