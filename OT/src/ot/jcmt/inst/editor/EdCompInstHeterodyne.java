@@ -1527,79 +1527,94 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        catch (Exception e) {};
    }
 
+   boolean initialisedRegion = false ;
    /*
-    * This routine initialises the region info.
-    * It assumes that the zeroth component is set
-    * and it just copies the zeroth values for now.
-    * The vector contains the following elements related
-    * to each spectral region:
-    * 1. Molecule
-    * 2. Transition
-    * 3. Rest Frequency
-    * 4. Central Frequency
-    * 5. Band width
-    * 6. Resolution
-    * 7. number of channels
-    */
-   private void _initialiseRegionInfo() {
-       for ( int i=0; i<_regionInfo.length; i++ ) {
-	  if ( _regionInfo[i] == null ) _regionInfo[i] = new Vector();
-	  _regionInfo[i].add(_inst.getMolecule(0));
-	  _inst.setMolecule ( _inst.getMolecule(0), i );
-	  _regionInfo[i].add(_inst.getTransition(0));
-	  _inst.setTransition ( _inst.getTransition(0), i );
-	  _regionInfo[i].add(new Double( _inst.getRestFrequency(0)/1.0E9 ));
-	  _inst.setRestFrequency ( _inst.getRestFrequency(0), i );
-	  _inst.setSkyFrequency ( _inst.getRestFrequency(0) / (1.0 + getRedshift()) );
-	  _regionInfo[i].add(new Double( _inst.getCentreFrequency(0) ));
-	  _inst.setCentreFrequency ( _inst.getCentreFrequency(0), i );
-	  _regionInfo[i].add(new Double( _inst.getBandWidth(0) ));
-	  _inst.setBandWidth ( _inst.getBandWidth(0), i );
-	  int resolution = (int)Math.rint( (_inst.getBandWidth(0) * 1.0E-3)/_inst.getChannels(0) );
-	  _regionInfo[i].add(new Integer( resolution ) ); // Need to add resolution here
-	  _regionInfo[i].add(new Integer( _inst.getChannels(0) ));
-	  _inst.setChannels ( _inst.getChannels(0), i );
-       }
-   }
+	* This routine initialises the region info. 
+	* It assumes that the zeroth component is set and it just copies the zeroth values for now. 
+	* The vector contains the following elements related to each spectral region: 
+	* 1. Molecule 
+	* 2. Transition 
+	* 3. Rest Frequency 
+	* 4. Central Frequency 
+	* 5. Band width 
+	* 6. Resolution 
+	* 7. number of channels
+	*/
+	private void _initialiseRegionInfo()
+	{
+		for( int i = 0 ; i < _regionInfo.length ; i++ )
+		{
+			if( _regionInfo[ i ] == null )
+				_regionInfo[ i ] = new Vector();
+			_regionInfo[ i ].add( _inst.getMolecule( 0 ) );
+			_inst.setMolecule( _inst.getMolecule( 0 ) , i );
+			_regionInfo[ i ].add( _inst.getTransition( 0 ) );
+			_inst.setTransition( _inst.getTransition( 0 ) , i );
+			_regionInfo[ i ].add( new Double( _inst.getRestFrequency( 0 ) / 1.0E9 ) );
+			_inst.setRestFrequency( _inst.getRestFrequency( 0 ) , i );
+			_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
+			_regionInfo[ i ].add( new Double( _inst.getCentreFrequency( 0 ) ) );
+			_inst.setCentreFrequency( _inst.getCentreFrequency( 0 ) , i );
+			_regionInfo[ i ].add( new Double( _inst.getBandWidth( 0 ) ) );
+			_inst.setBandWidth( _inst.getBandWidth( 0 ) , i );
+			int resolution = ( int ) Math.rint( ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 ) );
+			_regionInfo[ i ].add( new Integer( resolution ) ); // Need to add resolution here
+			_regionInfo[ i ].add( new Integer( _inst.getChannels( 0 ) ) );
+			_inst.setChannels( _inst.getChannels( 0 ) , i );
+		}
+		initialisedRegion = true ;
+	}
 
-   private void _updateRegionInfo() {
-       Vector bandSpecs = _receiver.bandspecs;
-       BandSpec currentBandSpec = null;
+	private void _updateRegionInfo()
+	{
+		if( !initialisedRegion )
+			_initialiseRegionInfo() ;
+		
+		Vector bandSpecs = _receiver.bandspecs;
+		BandSpec currentBandSpec = null;
 
-       for ( int i=0; i<bandSpecs.size(); i++) {
-	   if ( ((BandSpec)bandSpecs.get(i)).toString().equals(_inst.getBandMode()) ) {
-	       currentBandSpec = (BandSpec)bandSpecs.get(i);
-	       break;
-	   }
-       }
-       if ( currentBandSpec == null ) currentBandSpec = (BandSpec)bandSpecs.get(0);
-       double [] availableBandWidths = currentBandSpec.getDefaultOverlapBandWidths();
+		for( int i = 0 ; i < bandSpecs.size() ; i++ )
+		{
+			if( ( ( BandSpec ) bandSpecs.get( i ) ).toString().equals( _inst.getBandMode() ) )
+			{
+				currentBandSpec = ( BandSpec ) bandSpecs.get( i );
+				break;
+			}
+		}
+		if( currentBandSpec == null )
+			currentBandSpec = ( BandSpec ) bandSpecs.get( 0 );
+		double[] availableBandWidths = currentBandSpec.getDefaultOverlapBandWidths();
 
-       for ( int i=0; i<_regionInfo.length; i++ ) {
-	   if ( _regionInfo[i] == null ) _regionInfo[i] = new Vector();
-	  _regionInfo[i].clear();
-	  _regionInfo[i].add(_inst.getMolecule(i));
-	  _regionInfo[i].add(_inst.getTransition(i));
-	  _regionInfo[i].add(new Double( _inst.getRestFrequency(i)/1.0E9 ));
-	  _regionInfo[i].add(new Double( _inst.getCentreFrequency(i) ));
-	  _regionInfo[i].add(new Double( _inst.getBandWidth(i) ));
-	  // Get the overlap and overlap based on the current b/w
-	  for ( int j=0; j<availableBandWidths.length; j++) {
-	      if ( availableBandWidths[j] == _inst.getBandWidth(i) ) {
-		  double overlap = currentBandSpec.defaultOverlaps[j];
-		  int channels = currentBandSpec.getDefaultOverlapChannels()[j];
-	          int resolution = (int) Math.rint( (_inst.getBandWidth(i) * 1.0E-3)/channels );
-		  _regionInfo[i].add(new Integer(resolution));
-		  _regionInfo[i].add(new Double( currentBandSpec.defaultOverlaps[j] *1.0E-6 ));
-		  _regionInfo[i].add(new Integer(channels));
-		  _inst.setOverlap( overlap, i );
-		  _inst.setChannels( channels, i );
-		  break;
-	      }
-	  }
-	  _regionInfo[i].add(new Integer( _inst.getChannels(i) ));
-       }
-   }
+		for( int i = 0 ; i < _regionInfo.length ; i++ )
+		{
+			if( _regionInfo[ i ] == null )
+				_regionInfo[ i ] = new Vector();
+			else
+				_regionInfo[ i ].clear();
+			_regionInfo[ i ].add( _inst.getMolecule( i ) );
+			_regionInfo[ i ].add( _inst.getTransition( i ) );
+			_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.0E9 ) );
+			_regionInfo[ i ].add( new Double( _inst.getCentreFrequency( i ) ) );
+			_regionInfo[ i ].add( new Double( _inst.getBandWidth( i ) ) );
+			// Get the overlap and overlap based on the current b/w
+			for( int j = 0 ; j < availableBandWidths.length ; j++ )
+			{
+				if( availableBandWidths[ j ] == _inst.getBandWidth( i ) )
+				{
+					double overlap = currentBandSpec.defaultOverlaps[ j ];
+					int channels = currentBandSpec.getDefaultOverlapChannels()[ j ];
+					int resolution = ( int ) Math.rint( ( _inst.getBandWidth( i ) * 1.0E-3 ) / channels );
+					_regionInfo[ i ].add( new Integer( resolution ) );
+					_regionInfo[ i ].add( new Double( currentBandSpec.defaultOverlaps[ j ] * 1.0E-6 ) );
+					_regionInfo[ i ].add( new Integer( channels ) );
+					_inst.setOverlap( overlap , i );
+					_inst.setChannels( channels , i );
+					break;
+				}
+			}
+			_regionInfo[ i ].add( new Integer( _inst.getChannels( i ) ) );
+		}
+	}
 
    private void configureFrequencyEditor() {
        configureFrequencyEditor(new Vector());
