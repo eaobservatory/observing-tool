@@ -966,50 +966,6 @@ For all sample modes, the <i>total</i> integration time per sample is
  an "offset" iterator. This iterator enables the user to specify the
  required pointings for the observation. <p>
 
- Suppose the user requires three pointings along the long axis of a
- galaxy, at a half beam width spacing of 10 arcseconds. Let us assume the long axis of the
- galaxy has a position angle of 30 degrees on the sky. First enter the
- position angle in the "P.A." field. The rotated frame has axes
- labeled p and q, so in order to obtain the required pointings along
- our galaxy we require (p,q) offsets of (0,-10), (0,0) and (0,10). One
- adds a new pointing by clicking on the "new" button. One then modifies
- the offsets via the p and q boxes directly above the "new"
- button. The highlighted pointing can be removed using the "remove"
- button. The "Rm. all" button removes all of the user-added
- pointings. The arrow buttons to the right of the box displaying the
- pointings allow the pointings to be re-ordered. The highlight pointing
- can be advanced one position up or down the pointing list, or to the
- top or bottom of the list by clicking on these arrow buttons. For our
- example, the completed offset iterator will appear as shown below. <p>
-
- <img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
-
-  If you want to see what the rotated offsets are in the sky
-  frame (which will be the co-ordinate frame specified in the "target
-  information" element), click and hold the "Display Rotated Offsets"
-  button.<p> 
-
-  The offset iterator has the ability to automatically generate
-  regularly spaced grids without the need to enter each pointing
-  individually. The "Grid Pattern" section of the "Offset iterator"
-  allows the user to specify the offset of the map centre (relative to
-  the co-ordinate in the Target information box), the grid point
-  spacing and the dimensions of the grid, in grid points. To create a
-  3x3 grid, with a ten arcsecond spacing, one would fill in the fields
-  of the grid pattern section as ilustrated below, and then click on
-  either "Create" or "Create/Centre on Base" button. The pointings
-  generated then appear in the pointing list box above. Notice that
-  "Create" created a grid where the (0,0) point is at the top left
-  hand corner of the map, whereas  "Create/Centre on Base" chooses the
-  point the geometrical centre of the grid for the (0,0) position. This will only
-  correspond to a pointing position for grids with odd p and q dimensions. The
-  screenshot below show the result of clicking on the  "Create/Centre
-  on Base position" - nine points with the (0,0) position corresponding
-  to the map centre. <p>
-
-<img src="het_images/het_offset2.gif" alt="The Offset Iterator(2)"
-	      ><p>
-
 <h3> <a name="het_jig_folder">Jiggle Mapping</a> </h3>
 
 <i>{This section needs to be written.}</i>
