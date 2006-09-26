@@ -162,13 +162,6 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 					JOSMult = maxJOSMult ;					
 				}
 				
-			    System.out.print( "\tDuration of single jiggle pattern: " + timePerJiggle + " sec\n" ) ;
-			    System.out.print( "\tRequested integration time per pixel: " + getSecsPerCycle() + " sec\n" ) ;
-			    System.out.print( "\tN repeats of whole jiggle pattern required: " + nRepeats + "\n" ) ;
-			    System.out.print( "\tRequired total JOS_MULT: " + totalJOSMult + "\n" ) ;
-			    System.out.print( "\tMax allowed JOS_MULT : " + maxJOSMult + "\n" ) ;
-			    System.out.print( "\tNumber of nod sets: " + nNodSets + " in groups of " + JOSMult + " jiggle repeats\n" ) ;
-
 			    // the 2 in the following equation is n_nods ( 4 ) / 2, this will change
 			    totalIntegrationTime = ( ( ( timePerJiggle * totalJOSMult ) + ( 2 * T_onod ) ) * 4 ) * nNodSets ;			    
 			}
