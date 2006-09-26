@@ -24,8 +24,8 @@ ff0000">
  <li><a href="#het_tfoc">The observation: Science Target</a>
  <li><a href="#het_tcc">The target component</a>
  <li><a href="#het_tpe">The position editor</a>
- <li><a href="#het_toi">The offset iterator</a>
  <li><a href="#het_tci">The chop iterator</a>
+ <li><a href="#het_offset">The offset iterator</a>
  <li><a href="#het_sample">The photom/sample eye</a>
  <li><a href="#het_time">The repeat iterator and integration time in general</a>
  <li> <a href="#het_note">Adding  a note</a>
@@ -223,9 +223,7 @@ will take (which is not yet functional).
  causes the molecule and transition menus take on values of "No
  Line", even if the frequency does in fact correspond to a known
  transition. Look-up occurs from molecule/transition to frequency only -
- no look-up is done in the opposite direction. After manually entering a frequency
- one has to click on accept (next to the frequency which will change from red to
- black)
+ no look-up is done in the opposite direction.
 
  <p>The <i>Frequency Setup</i> configuration also includes a
 	      "Frequency Editor" tool. This 
@@ -236,11 +234,11 @@ will take (which is not yet functional).
 	      the observed (or sideband) frequency.  This section will
 	    be updated when ACSIS special configurations become supported.<p>
 
-<p>If the source has a very high velocity (which might
-		put the line into the band of another receiver), 
-	    one can
-		choose the rest frequency and put the redshift in the
-		target component.
+<p><i>Question:  If the source has a very high velocity (which might
+		put the line into another band), does one still need
+		to specify the redshifted velocity, or can one now
+		choose the rest velocity, put the redshift in the
+		target component, and let the software figure it out?</i>
 
  
 
@@ -520,62 +518,8 @@ run down. <p>
       You can also click on the target component and use Drag to
       change your science co-ordinates if you wish. 
 <!-- ############################################################################ -->
-    <h2><a name="het_toi">The offset iterator</a></h2>
 
- <p> This iterator enables the user to specify the
- required pointings for the observation. <p>
-
-<p>
- Suppose the user requires three pointings along the long axis of a
- galaxy, at a half beam width spacing of 10 arcseconds. Let us assume the long 
- axis of the
- galaxy has a position angle of 30 degrees on the sky. First enter the
- position angle in the "P.A." field. The rotated frame has axes
- labeled p and q, so in order to obtain the required pointings along
- our galaxy we require (p,q) offsets of (0,-10), (0,0) and (0,10). One
- adds a new pointing by clicking on the "new" button. One then modifies
- the offsets via the p and q boxes directly above the "new"
- button. The highlighted pointing can be removed using the "remove"
- button. The "Rm. all" button removes all of the user-added
- pointings. The arrow buttons to the right of the box displaying the
- pointings allow the pointings to be re-ordered. The highlight pointing
- can be advanced one position up or down the pointing list, or to the
- top or bottom of the list by clicking on these arrow buttons. For our
- example, the completed offset iterator will appear as shown below. <p>
-
- <img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
-
-  If you want to see what the rotated offsets are in the sky
-  frame (which will be the co-ordinate frame specified in the "target
-  information" element), click and hold the "Display Rotated Offsets"
-  button.<p> 
-
-  The offset iterator has the ability to automatically generate
-  regularly spaced grids without the need to enter each pointing
-  individually. The "Grid Pattern" section of the "Offset iterator"
-  allows the user to specify the offset of the map centre (relative to
-  the co-ordinate in the Target information box), the grid point
-  spacing and the dimensions of the grid, in grid points. To create a
-  3x3 grid, with a ten arcsecond spacing, one would fill in the fields
-  of the grid pattern section as ilustrated below, and then click on
-  either "Create" or "Create/Centre on Base" button. The pointings
-  generated then appear in the pointing list box above. Notice that
-  "Create" created a grid where the (0,0) point is at the top left
-  hand corner of the map, whereas  "Create/Centre on Base" chooses the
-  point the geometrical centre of the grid for the (0,0) position. This will only
-  correspond to a pointing position for grids with odd p and q dimensions. The
-  screenshot below show the result of clicking on the  "Create/Centre
-  on Base position" - nine points with the (0,0) position corresponding
-  to the map centre. When creating such a grid one has the option of 
-  Overwriting an existing one or Append to existing grids already created by
-  checking the appropriate box. 
- <p>
-
-<img src="het_images/het_offset2.gif" alt="The Offset Iterator(2)"><p>
-
- <p>All offsets used at the JCMT are in Gnomonic projection<p> 
-
-   <h2><a name="het_tci">The chop iterator</a></h2>
+    <h2><a name="het_tci">The chop iterator</a></h2>
 
     Click on the chop iterator:<p>
 
@@ -594,6 +538,50 @@ run down. <p>
       extended, one might want to increase the chop throw, or if the
       source was elongated in one direction on the sky, chop relative
       to the RA/DEC frame. Maximum recommended chop throw is 180 arcsec.<p>
+
+<!-- ############################################################################ -->
+
+    <h2><a name="het_offset">The offset iterator</a></h2>
+
+<p>It's often very useful to be able to specify a position with the <a
+	    href="#het_tcc">Target component</a>, but to take an
+	  observation at a position offset from that specified.  That
+	  can be done with the "offset" iterator.  In addition, with
+	  <a href="#het_grid_folder">Grid maps</a>, a whole series of
+	  offsets can be specified in either a regular or irregular
+	  spacing.
+
+<p> <img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" >
+
+<p>If an offset iterator is not already specified in the MSB, one can
+	  insert it below the Sequence iterator <img
+	    src="images/icon_iterator.gif" alt="*">, usually just
+	  above the photom/sample "eye"-con <img
+	    src="images/icon_eye.gif" alt="*">.  Click on the iterator
+	  below which the offset iterator is to be inserted (the
+	  'chop' iterator in the image above), then click on the
+	  iterator menu on the left-hand panel of the OT window and
+	  select the offset iterator.  Be sure to "drag" the
+	  photom/sample eye-con to the right, so that it is indented
+	  with respect to the offset iterator (see figure above).
+
+<p>The offset is specified in arcseconds in the 'p' and 'q' boxes.
+	  Note the orientation of these axes to the left of the
+	  'Title' box.  In an unrotated frame, 'p' is in the positive
+	  r.a. direction (i.e. east) while 'q' is in the declination
+	  direction (i.e. north).  If a rotated frame is required,
+	  enter the position angle (measured east of north) in the
+	  'PA' box.  If you then click on the 'Display Rotated
+	  Offsets' button, the specified offsets in the unrotated
+	  frame will be briefly displayed in the table above.
+
+<p>To add more offsets, click the 'New' button, and enter the offset
+	  in the 'p' and 'q' boxes as above.  Repeat for as many
+	  positions as required.
+
+<p>A regular grid can also be specified using the 'Grid Pattern'
+	  section of the window.  See the section on <a
+	    href="#het_grid_folder">Grid Maps</a> for a description.
 
 <!-- ############################################################################ -->
  <h2><a name="het_sample">The photom/sample eye</a></h2>
@@ -971,6 +959,50 @@ For all sample modes, the <i>total</i> integration time per sample is
  shows they are similar to the sample MSBs except for the addition of
  an "offset" iterator. This iterator enables the user to specify the
  required pointings for the observation. <p>
+
+ Suppose the user requires three pointings along the long axis of a
+ galaxy, at a half beam width spacing of 10 arcseconds. Let us assume the long axis of the
+ galaxy has a position angle of 30 degrees on the sky. First enter the
+ position angle in the "P.A." field. The rotated frame has axes
+ labeled p and q, so in order to obtain the required pointings along
+ our galaxy we require (p,q) offsets of (0,-10), (0,0) and (0,10). One
+ adds a new pointing by clicking on the "new" button. One then modifies
+ the offsets via the p and q boxes directly above the "new"
+ button. The highlighted pointing can be removed using the "remove"
+ button. The "Rm. all" button removes all of the user-added
+ pointings. The arrow buttons to the right of the box displaying the
+ pointings allow the pointings to be re-ordered. The highlight pointing
+ can be advanced one position up or down the pointing list, or to the
+ top or bottom of the list by clicking on these arrow buttons. For our
+ example, the completed offset iterator will appear as shown below. <p>
+
+ <img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
+
+  If you want to see what the rotated offsets are in the sky
+  frame (which will be the co-ordinate frame specified in the "target
+  information" element), click and hold the "Display Rotated Offsets"
+  button.<p> 
+
+  The offset iterator has the ability to automatically generate
+  regularly spaced grids without the need to enter each pointing
+  individually. The "Grid Pattern" section of the "Offset iterator"
+  allows the user to specify the offset of the map centre (relative to
+  the co-ordinate in the Target information box), the grid point
+  spacing and the dimensions of the grid, in grid points. To create a
+  3x3 grid, with a ten arcsecond spacing, one would fill in the fields
+  of the grid pattern section as ilustrated below, and then click on
+  either "Create" or "Create/Centre on Base" button. The pointings
+  generated then appear in the pointing list box above. Notice that
+  "Create" created a grid where the (0,0) point is at the top left
+  hand corner of the map, whereas  "Create/Centre on Base" chooses the
+  point the geometrical centre of the grid for the (0,0) position. This will only
+  correspond to a pointing position for grids with odd p and q dimensions. The
+  screenshot below show the result of clicking on the  "Create/Centre
+  on Base position" - nine points with the (0,0) position corresponding
+  to the map centre. <p>
+
+<img src="het_images/het_offset2.gif" alt="The Offset Iterator(2)"
+	      ><p>
 
 <h3> <a name="het_jig_folder">Jiggle Mapping</a> </h3>
 
