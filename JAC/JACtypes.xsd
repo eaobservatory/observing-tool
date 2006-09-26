@@ -155,6 +155,7 @@
     <xsd:element ref="toml:SpTelescopeObsComp"/>
     <xsd:element ref="toml:SpSchedConstObsComp"/>
     <xsd:group   ref="toml:instrumentGroup"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
   </xsd:choice>
 </xsd:group>
 
