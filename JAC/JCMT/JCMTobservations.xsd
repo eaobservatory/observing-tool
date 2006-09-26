@@ -35,8 +35,12 @@
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="DEFAULT"/>
     <xsd:enumeration value="3x3"/>
+    <xsd:enumeration value="4x4"/>
     <xsd:enumeration value="5x5"/>
+    <xsd:enumeration value="7x7"/>
     <xsd:enumeration value="9x9"/>
+    <xsd:enumeration value="HARP4"/>
+    <xsd:enumeration value="HARP5"/>
   </xsd:restriction>
 </xsd:simpleType>
 
@@ -170,6 +174,7 @@
           <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
           <xsd:element name="jigglePerCycle"  type="xsd:positiveInteger"/>
           <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
+          <xsd:element name="scaleFactor"     type="toml:positiveDecimal" minOccurs="0"/>
           <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
           <xsd:element name="stepSize"        type="toml:nonNegativeDecimal"/>
           <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
