@@ -10,6 +10,7 @@
   <xsd:choice>
     <xsd:group ref="toml:MSBContents"/>
     <xsd:group ref="toml:instrumentGroup"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
   </xsd:choice>
 </xsd:group>
 
