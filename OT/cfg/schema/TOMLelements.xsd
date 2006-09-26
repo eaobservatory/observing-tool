@@ -160,7 +160,7 @@
 <xsd:element name="rv">
   <xsd:complexType>
     <xsd:simpleContent>
-      <xsd:extension base="toml:nonNegativeDecimal">
+      <xsd:extension base="xsd:double">
         <xsd:attribute name="defn"  type="toml:rvDefinitionList"/>
         <xsd:attribute name="frame" type="toml:rvFrameList"/>
       </xsd:extension>
