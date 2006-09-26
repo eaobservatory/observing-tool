@@ -107,6 +107,7 @@
       <xsd:element name="autoTarget"      type="xsd:boolean"/>
       <xsd:element name="pointingPixel"   type="toml:pointingPixelList" minOccurs="0"/>
       <xsd:element name="useCurrentAz"   type="xsd:boolean" minOccurs="0"/>
+      <xsd:element name="switchingMode"  type="toml:jcmtSwitchingModeList" minOccurs="0">
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="pointingObs"/>
