@@ -176,7 +176,6 @@
           <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
           <xsd:element name="scaleFactor"     type="toml:positiveDecimal" minOccurs="0"/>
           <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
-          <xsd:element name="stepSize"        type="toml:nonNegativeDecimal"/>
           <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
         </xsd:sequence>
       </xsd:choice>
