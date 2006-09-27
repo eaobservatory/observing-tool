@@ -52,9 +52,6 @@ public class HeterodyneGUI extends JPanel {
     /** Subsytems available */
     public static final String [] SUBSYSTEMS = {"1", "2", "4"};
 
-    /** Number of mixers */
-    public static final String [] MIXERS = {"1", "2"};
-
     /** Sideband choices */
     public static final String [] SIDEBAND_SELECTIONS = {"best", "usb", "lsb"};
 
@@ -66,7 +63,6 @@ public class HeterodyneGUI extends JPanel {
     JPanel feSelector;
     JPanel modeSelector;
     JPanel regionSelector;
-    JPanel mixerSelector;
     JPanel sbSelector;
     JPanel vPanel;
     JPanel fPanel;
@@ -126,12 +122,6 @@ public class HeterodyneGUI extends JPanel {
 
 		regionSelector = makeSubsystemGroup();
 
-		JLabel mixerLabel = new JLabel( "Mixers:" );
-		mixerLabel.setForeground( Color.BLACK );
-		mixerLabel.setFont( new Font( "dialog" , 0 , 12 ) );
-
-		mixerSelector = makeMixerGroup();
-
 		JLabel sbLabel = new JLabel( "Sideband:" );
 		sbLabel.setForeground( Color.BLACK );
 		sbLabel.setFont( new Font( "dialog" , 0 , 12 ) );
@@ -160,14 +150,12 @@ public class HeterodyneGUI extends JPanel {
 		fePanel.add( regionSelector , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( specialConfigLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( specialConfigs , new GridBagConstraints( 4 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) );
-		fePanel.add( mixerLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( mixerSelector , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( bwLabel , new GridBagConstraints( 3 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( bandwidths , new GridBagConstraints( 4 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) );
-		fePanel.add( modeLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( modeSelector , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( sbLabel , new GridBagConstraints( 0 , 4 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( sbSelector , new GridBagConstraints( 1 , 4 , 3 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( modeLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( modeSelector , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( sbLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
+		fePanel.add( sbSelector , new GridBagConstraints( 1 , 3 , 3 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 
 		// Front End summary panel
 		summaryPanel = new JPanel();
@@ -415,25 +403,6 @@ public class HeterodyneGUI extends JPanel {
 	    b.setForeground(Color.BLACK);
 	    b.setFont (new Font ("Dialog", 0, 10));
 	    b.setName(SUBSYSTEMS[i]);
-	    bg.add(b);
-	    jPanel.add(b);
-	}
-	return jPanel;
-      }
-
-      private JPanel makeMixerGroup() {
-	JPanel jPanel = new JPanel();
-	jPanel.setBorder (BorderFactory.createTitledBorder (
-		    BorderFactory.createEtchedBorder()));
-	jPanel.setLayout (new GridLayout(1, 0));
-
-	ButtonGroup bg = new ButtonGroup();
-
-	for ( int i=0; i < MIXERS.length; i++ ) {
-	    JRadioButton b = new JRadioButton(MIXERS[i]);
-	    b.setForeground(Color.BLACK);
-	    b.setFont (new Font ("Dialog", 0, 10));
-	    b.setName(MIXERS[i]);
 	    bg.add(b);
 	    jPanel.add(b);
 	}

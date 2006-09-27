@@ -225,22 +225,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				regionWidgetNames.put( _w.regionSelector.getComponent( i ).getName() , new Integer( i ) );
 			}
 		}
-
-		for( int i = 0 ; i < _w.mixerSelector.getComponentCount() ; i++ )
-		{
-			if( _w.mixerSelector.getComponent( i ) instanceof JRadioButton )
-			{
-				( ( JRadioButton ) _w.mixerSelector.getComponent( i ) ).addActionListener( new ActionListener()
-				{
-					public void actionPerformed( ActionEvent e )
-					{
-						mixerAction( e );
-					}
-				} );
-				mixerWidgetNames.put( _w.mixerSelector.getComponent( i ).getName() , new Integer( i ) );
-			}
-		}
-
+		
 		for( int i = 0 ; i < _w.sbSelector.getComponentCount() ; i++ )
 		{
 			if( _w.sbSelector.getComponent( i ) instanceof JRadioButton )
@@ -469,7 +454,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   private void moreSetUp()
   {
 	    setAvailableModes();
-	    setAvailableMixers();
 	    setAvailableRegions();
 	    setAvailableMolecules();
 	    setAvailableTransitions();
@@ -504,7 +488,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		( ( AbstractButton ) _w.feSelector.getComponent( ( ( Integer ) feWidgetNames.get( _inst.getFrontEnd() ) ).intValue() ) ).setSelected( true );
 		( ( AbstractButton ) _w.modeSelector.getComponent( ( ( Integer ) modeWidgetNames.get( _inst.getMode() ) ).intValue() ) ).setSelected( true );
 		( ( AbstractButton ) _w.regionSelector.getComponent( ( ( Integer ) regionWidgetNames.get( _inst.getBandMode() ) ).intValue() ) ).setSelected( true );
-		( ( AbstractButton ) _w.mixerSelector.getComponent( ( ( Integer ) mixerWidgetNames.get( _inst.getMixer() ) ).intValue() ) ).setSelected( true );
 		( ( AbstractButton ) _w.sbSelector.getComponent( ( ( Integer ) sidebandWidgetNames.get( _inst.getBand() ) ).intValue() ) ).setSelected( true );
 
 		// Update the bandwidth
@@ -661,7 +644,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 				clickButton( _w.feSelector , ci.$feName );
 				clickButton( _w.sbSelector , ci.$sideBand.toLowerCase() );
-				clickButton( _w.mixerSelector , "" + ci.$mixers );
 				clickButton( _w.modeSelector , ci.$mode.toLowerCase() );
 				clickButton( _w.regionSelector , "" + ci.$subSystems );
 				_w.bandwidths.setSelectedItem( ci.$bandWidth );
@@ -767,37 +749,30 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_freqEditorConfigured = false;
 	}
 
-
-
-
-   public void feAction ( ActionEvent ae ) {
-       if ( ae != null ) {
-	   // This has been called as a response
-	   // to a user action
-	   String feSelected = ((JRadioButton)ae.getSource()).getText();
-	   _receiver = (Receiver)_cfg.receivers.get (feSelected);
-	   _inst.setFrontEnd(feSelected);
-	   _inst.setCentreFrequency(_receiver.feIF, 0);
-	   _inst.setFeBandWidth( _receiver.bandWidth );
-	   setAvailableModes();
-	   setAvailableMixers();
-	   setAvailableRegions();
-	   setAvailableMolecules();
-	   setAvailableTransitions();
-	   setAvailableSidebands();
-       }
-       else {
-	   // This has been called as a result
-	   // of a call from another action event
-       }
-       _updateWidgets();
-   }
-
-   public void mixerAction (ActionEvent ae) {
-       String mixer = ((JRadioButton)ae.getSource()).getText();
-       _inst.setMixer(mixer);
-       _updateWidgets();
-   }
+	public void feAction( ActionEvent ae )
+	{
+		if( ae != null )
+		{
+			// This has been called as a response
+			// to a user action
+			String feSelected = ( ( JRadioButton ) ae.getSource() ).getText();
+			_receiver = ( Receiver ) _cfg.receivers.get( feSelected );
+			_inst.setFrontEnd( feSelected );
+			_inst.setCentreFrequency( _receiver.feIF , 0 );
+			_inst.setFeBandWidth( _receiver.bandWidth );
+			setAvailableModes();
+			setAvailableRegions();
+			setAvailableMolecules();
+			setAvailableTransitions();
+			setAvailableSidebands();
+		}
+		else
+		{
+			// This has been called as a result
+			// of a call from another action event
+		}
+		_updateWidgets();
+	}
 
    public void modeAction ( ActionEvent ae ) {
        if ( ae != null ) {
@@ -1303,57 +1278,65 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	return model;
     }
 
-    private ConfigurationInformation getConfigFor (String name) {
-        if ( doc == null ) return null;
+    private ConfigurationInformation getConfigFor( String name )
+	{
+		if( doc == null )
+			return null;
 
-        ConfigurationInformation ci = new ConfigurationInformation();
-        // Get the correct config item from the document
-        Node nodeToUse = null;
-        NodeList nl = doc.getElementsByTagName("configuration");
-        for ( int i=0; i< nl.getLength(); i++ ) {
-            nodeToUse = nl.item(i);
-            // Get the name associated with this
-            NodeList children = nodeToUse.getChildNodes();
-            String nodeName = "none";
-            for ( int j=0; j< children.getLength(); j++) {
-                Node child = children.item(j);
-                if ( child.getNodeName().equals("name") ) {
-                    nodeName = child.getFirstChild().getNodeValue().trim();
-                    break;
-                }
-            }
-            if ( nodeName.equals(name)) {
-                break;
-            }
-        }
-	// We now have the correct node hopefully, so fill in the ci structure
-        ci.$shifts.clear();
-        if ( nodeToUse != null) {
-            NodeList children = nodeToUse.getChildNodes();
-            for (int i=0; i<children.getLength(); i++) {
-                String childName = children.item(i).getNodeName();
-                if ( childName.equals("name") )
-                    ci.$name = children.item(i).getFirstChild().getNodeValue().trim();
-                if ( childName.equals("frontEnd") )
-                    ci.$feName = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
-		if ( childName.equals("sideband") )
-		    ci.$sideBand = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
-		if ( childName.equals("mode") )
-		    ci.$mode = children.item(i).getFirstChild().getNodeValue().trim().toUpperCase();
-		if ( childName.equals("frequency") )
-		    ci.$freq = new Double ( children.item(i).getFirstChild().getNodeValue().trim() );
-		if ( childName.equals("mixers") )
-		    ci.$mixers = new Integer( children.item(i).getFirstChild().getNodeValue().trim() );
-		if ( childName.equals("systems") )
-		    ci.$subSystems = new Integer (children.item(i).getFirstChild().getNodeValue().trim() );
-		if ( childName.equals("bandwidth") )
-		    ci.$bandWidth = children.item(i).getFirstChild().getNodeValue().trim();
-		if ( childName.equals("shift") )
-		    ci.$shifts.add( new Double ( children.item(i).getFirstChild().getNodeValue().trim() ) );
-	    }
+		ConfigurationInformation ci = new ConfigurationInformation();
+		// Get the correct config item from the document
+		Node nodeToUse = null;
+		NodeList nl = doc.getElementsByTagName( "configuration" );
+		for( int i = 0 ; i < nl.getLength() ; i++ )
+		{
+			nodeToUse = nl.item( i );
+			// Get the name associated with this
+			NodeList children = nodeToUse.getChildNodes();
+			String nodeName = "none";
+			for( int j = 0 ; j < children.getLength() ; j++ )
+			{
+				Node child = children.item( j );
+				if( child.getNodeName().equals( "name" ) )
+				{
+					nodeName = child.getFirstChild().getNodeValue().trim();
+					break;
+				}
+			}
+			if( nodeName.equals( name ) )
+			{
+				break;
+			}
+		}
+		// We now have the correct node hopefully, so fill in the ci structure
+		ci.$shifts.clear();
+		if( nodeToUse != null )
+		{
+			NodeList children = nodeToUse.getChildNodes();
+			for( int i = 0 ; i < children.getLength() ; i++ )
+			{
+				String childName = children.item( i ).getNodeName();
+				if( childName.equals( "name" ) )
+					ci.$name = children.item( i ).getFirstChild().getNodeValue().trim();
+				if( childName.equals( "frontEnd" ) )
+					ci.$feName = children.item( i ).getFirstChild().getNodeValue().trim().toUpperCase();
+				if( childName.equals( "sideband" ) )
+					ci.$sideBand = children.item( i ).getFirstChild().getNodeValue().trim().toUpperCase();
+				if( childName.equals( "mode" ) )
+					ci.$mode = children.item( i ).getFirstChild().getNodeValue().trim().toUpperCase();
+				if( childName.equals( "frequency" ) )
+					ci.$freq = new Double( children.item( i ).getFirstChild().getNodeValue().trim() );
+				if( childName.equals( "mixers" ) )
+					ci.$mixers = new Integer( children.item( i ).getFirstChild().getNodeValue().trim() );
+				if( childName.equals( "systems" ) )
+					ci.$subSystems = new Integer( children.item( i ).getFirstChild().getNodeValue().trim() );
+				if( childName.equals( "bandwidth" ) )
+					ci.$bandWidth = children.item( i ).getFirstChild().getNodeValue().trim();
+				if( childName.equals( "shift" ) )
+					ci.$shifts.add( new Double( children.item( i ).getFirstChild().getNodeValue().trim() ) );
+			}
+		}
+		return ci;
 	}
-	return ci;
-    }
 
     private void setAvailableModes() {
 	List availableModes = Arrays.asList( ( String [] ) _cfg.frontEndTable.get(_inst.getFrontEnd()) );
@@ -1385,37 +1368,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	if ( changeMode ) {
 	    _inst.setMode( (String)availableModes.get(0) );
 	}
-    }
-
-    private void setAvailableMixers() {
-	List available= Arrays.asList( ( String [] ) _cfg.frontEndMixers.get(_inst.getFrontEnd()) );
-	String current= _inst.getMixer();
-	boolean change = false;
-	Iterator iter = mixerWidgetNames.keySet().iterator();
-
-	while ( iter.hasNext() ) {
-	    String str = (String)iter.next();
-	    if ( available.contains( str ) ) {
-		// Make sure the widget is enabled
-		toggleEnabled(_w.mixerSelector, 
-			str,
-			true); 
-	    }
-	    else {
-		// disable the widget and optionally chnage
-		// the current mode
-		if ( current != null && current.equalsIgnoreCase( str ) ) {
-		    change = true;
-		}
-		toggleEnabled(_w.mixerSelector, 
-			str,
-			false); 
-	    }
-	}
-	if ( change ) {
-	    _inst.setMixer( (String)available.get(0) );
-	}
- 
     }
 	
     private void setAvailableRegions() {
@@ -1620,70 +1572,64 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        configureFrequencyEditor(new Vector());
    }
 
-   private void configureFrequencyEditor(Vector shifts) {
-       // First get the current bandspec from the mode selection
-       Vector bandSpecs = _receiver.bandspecs;
-       BandSpec currentBandSpec = (BandSpec)bandSpecs.get(0);
-       for ( int i=0; i<bandSpecs.size(); i++ ) {
-	   if ( ((BandSpec)bandSpecs.get(i)).toString().equals(_inst.getBandMode()) ) {
-	       currentBandSpec = (BandSpec)bandSpecs.get(i);
-	       break;
-	   }
-       }
+   private void configureFrequencyEditor( Vector shifts )
+	{
+		// First get the current bandspec from the mode selection
+		Vector bandSpecs = _receiver.bandspecs;
+		BandSpec currentBandSpec = ( BandSpec ) bandSpecs.get( 0 );
+		for( int i = 0 ; i < bandSpecs.size() ; i++ )
+		{
+			if( ( ( BandSpec ) bandSpecs.get( i ) ).toString().equals( _inst.getBandMode() ) )
+			{
+				currentBandSpec = ( BandSpec ) bandSpecs.get( i );
+				break;
+			}
+		}
 
-       //int subbandCount = currentBandSpec.numBands;
-       int subbandCount = Integer.parseInt(_inst.getBandMode());
-       int mixerCount = 1;
-       try {
-          mixerCount = Integer.parseInt( _inst.getMixer() );
-       }
-       catch ( NumberFormatException nfe ) {
-       }
+		// int subbandCount = currentBandSpec.numBands;
+		int subbandCount = Integer.parseInt( _inst.getBandMode() );
+		int mixerCount = 1;
+		try
+		{
+			mixerCount = Integer.parseInt( _inst.getMixer() );
+		}
+		catch( NumberFormatException nfe )
+		{
+		}
 
-       _frequencyEditor.updateDisplay (
-	       _inst.getFrontEnd(),
-	       _receiver.loMin,
-	       _receiver.loMax,
-               _receiver.feIF,
-	       _receiver.bandWidth,
-	       mixerCount,
-	       getRedshift(),
-	       currentBandSpec.getDefaultOverlapBandWidths(),
-	       currentBandSpec.getDefaultOverlapChannels(),
-	       subbandCount
-	       );
+		_frequencyEditor.updateDisplay( _inst.getFrontEnd() , _receiver.loMin , _receiver.loMax , _receiver.feIF , _receiver.bandWidth , mixerCount , getRedshift() , currentBandSpec.getDefaultOverlapBandWidths() , currentBandSpec.getDefaultOverlapChannels() , subbandCount );
 
+		for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
+		{
+			// Set the centre frequencies
+			_frequencyEditor.setCentreFrequency( _inst.getCentreFrequency( i ) , i );
+			_frequencyEditor.setBandWidth( _inst.getBandWidth( i ) , i );
+			_frequencyEditor.setLineText( _inst.getMolecule( i ) + " " + _inst.getTransition( i ) + " " + ( _inst.getRestFrequency( i ) / 1.0E6 ) , i );
+		}
 
-       for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
-	   // Set the centre frequencies
-	   _frequencyEditor.setCentreFrequency( _inst.getCentreFrequency(i), i);
-	   _frequencyEditor.setBandWidth( _inst.getBandWidth(i), i );
-	   _frequencyEditor.setLineText( _inst.getMolecule(i) +
-		   " " + _inst.getTransition(i) +
-		   " " + (_inst.getRestFrequency(i)/1.0E6), i);
-       }
-	   
-       // Configure the frequency editor
-       _frequencyEditor.resetModeAndBand( _inst.getMode(), _inst.getBand() );
+		// Configure the frequency editor
+		_frequencyEditor.resetModeAndBand( _inst.getMode() , _inst.getBand() );
 
-       // Need to deal with LO1...
-       double obsFreq = _inst.getRestFrequency(0) / ( 1.0 + getRedshift() );
-       String band = _inst.getBand();
-       if ( "best".equals(band) || "usb".equals(band) ) {
-	   _frequencyEditor.setLO1( obsFreq - _frequencyEditor.getTopSubSystemCentreFrequency() );
-       }
-       else {
-	   _frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
-       }
-       _frequencyEditor.setMainLine ( _inst.getRestFrequency(0) );
+		// Need to deal with LO1...
+		double obsFreq = _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() );
+		String band = _inst.getBand();
+		if( "best".equals( band ) || "usb".equals( band ) )
+		{
+			_frequencyEditor.setLO1( obsFreq - _frequencyEditor.getTopSubSystemCentreFrequency() );
+		}
+		else
+		{
+			_frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
+		}
+		_frequencyEditor.setMainLine( _inst.getRestFrequency( 0 ) );
 
-       for ( int i=0; i<shifts.size(); i++ ) {
-           _frequencyEditor.moveSlider(
-                   _inst.getBand(),
-                   4.0e9 + ( ((Double)shifts.elementAt(i)).doubleValue() * 1.0e9), i);
-           if ( i > 0 ) _frequencyEditor.setLineText( "No Line", i);
-       }
-    }
+		for( int i = 0 ; i < shifts.size() ; i++ )
+		{
+			_frequencyEditor.moveSlider( _inst.getBand() , 4.0e9 + ( ( ( Double ) shifts.elementAt( i ) ).doubleValue() * 1.0e9 ) , i );
+			if( i > 0 )
+				_frequencyEditor.setLineText( "No Line" , i );
+		}
+	}
 
    private void getFrequencyEditorConfiguration() {
        Vector [] configs = _frequencyEditor.getCurrentConfiguration();
@@ -1699,66 +1645,74 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    }
 
 
-   private void enableNamedWidgets(boolean enabled) {
-       // Disable all named widgets except the hide button on the bPanel
-       Iterator iter;
+   private void enableNamedWidgets( boolean enabled )
+	{
+		// Disable all named widgets except the hide button on the bPanel
+		Iterator iter;
 
-       iter = feWidgetNames.keySet().iterator();
-       while ( iter.hasNext() ) {
-	   toggleEnabled( _w.feSelector, (String)iter.next(), enabled);
-       }
-       iter = modeWidgetNames.keySet().iterator();
-       while ( iter.hasNext() ) {
-	   toggleEnabled( _w.modeSelector, (String)iter.next(), enabled);
-       }
-       iter = regionWidgetNames.keySet().iterator();
-       while ( iter.hasNext() ) {
-	   toggleEnabled( _w.regionSelector, (String)iter.next(), enabled);
-       }
-       iter = mixerWidgetNames.keySet().iterator();
-       while ( iter.hasNext() ) {
-	   toggleEnabled( _w.mixerSelector, (String)iter.next(), enabled);
-       }
-       iter = sidebandWidgetNames.keySet().iterator();
-       while ( iter.hasNext() ) {
-	   toggleEnabled( _w.sbSelector, (String)iter.next(), enabled);
-       }
+		iter = feWidgetNames.keySet().iterator();
+		while( iter.hasNext() )
+		{
+			toggleEnabled( _w.feSelector , ( String ) iter.next() , enabled );
+		}
+		iter = modeWidgetNames.keySet().iterator();
+		while( iter.hasNext() )
+		{
+			toggleEnabled( _w.modeSelector , ( String ) iter.next() , enabled );
+		}
+		iter = regionWidgetNames.keySet().iterator();
+		while( iter.hasNext() )
+		{
+			toggleEnabled( _w.regionSelector , ( String ) iter.next() , enabled );
+		}
+		iter = sidebandWidgetNames.keySet().iterator();
+		while( iter.hasNext() )
+		{
+			toggleEnabled( _w.sbSelector , ( String ) iter.next() , enabled );
+		}
 
-       iter = freqPanelWidgetNames.keySet().iterator();
-       while ( iter.hasNext() ) {
-	   // Keep the Accept button disabled...
-	   String widget = (String) iter.next();
-	   if ( widget.equalsIgnoreCase("accept") && enabled ) {
-	       // Do nothing since we don't want to enable it
-	   }
-	   else {
-	       toggleEnabled( _w.fPanel, widget, enabled );
-	   }
-       }
+		iter = freqPanelWidgetNames.keySet().iterator();
+		while( iter.hasNext() )
+		{
+			// Keep the Accept button disabled...
+			String widget = ( String ) iter.next();
+			if( widget.equalsIgnoreCase( "accept" ) && enabled )
+			{
+				// Do nothing since we don't want to enable it
+			}
+			else
+			{
+				toggleEnabled( _w.fPanel , widget , enabled );
+			}
+		}
 
-       _w.bandwidths.setEnabled(enabled);
-       _w.specialConfigs.setEnabled(enabled);
+		_w.bandwidths.setEnabled( enabled );
+		_w.specialConfigs.setEnabled( enabled );
 
-       // Finally deal with the show and hide buttons
-       for ( int i=0; i<_w.bPanel.getComponentCount(); i++ ) {
-	   String widget = _w.bPanel.getComponent(i).getName();
-	   if ( widget != null ) {
-	       if ( widget.equals("show") ) toggleEnabled( _w.bPanel, widget, enabled );
-	       if ( widget.equals("hide") ) toggleEnabled( _w.bPanel, widget, (!enabled) );
-	   }
-       }
+		// Finally deal with the show and hide buttons
+		for( int i = 0 ; i < _w.bPanel.getComponentCount() ; i++ )
+		{
+			String widget = _w.bPanel.getComponent( i ).getName();
+			if( widget != null )
+			{
+				if( widget.equals( "show" ) )
+					toggleEnabled( _w.bPanel , widget , enabled );
+				if( widget.equals( "hide" ) )
+					toggleEnabled( _w.bPanel , widget , ( !enabled ) );
+			}
+		}
 
-       if ( enabled ) {
-	   // Disable anything that should not be available
-	   setAvailableModes();
-	   setAvailableMixers();
-	   setAvailableRegions();
-	   setAvailableMolecules();
-	   setAvailableTransitions();
-	   setAvailableSidebands();
-       }
+		if( enabled )
+		{
+			// Disable anything that should not be available
+			setAvailableModes();
+			setAvailableRegions();
+			setAvailableMolecules();
+			setAvailableTransitions();
+			setAvailableSidebands();
+		}
 
-   }
+	}
 
    private void checkSideband( ) {
        double freq = _inst.getRestFrequency(0);
