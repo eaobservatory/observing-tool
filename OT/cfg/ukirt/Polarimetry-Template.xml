@@ -79,7 +79,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -307,7 +307,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -472,7 +472,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -667,7 +667,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -892,7 +892,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1057,7 +1057,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1250,7 +1250,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1475,7 +1475,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1640,7 +1640,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1889,7 +1889,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2114,7 +2114,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2279,7 +2279,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2725,7 +2725,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -2996,7 +2996,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3216,7 +3216,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3461,7 +3461,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3732,7 +3732,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -3952,7 +3952,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4197,7 +4197,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4468,7 +4468,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4688,7 +4688,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -4995,7 +4995,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5266,7 +5266,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5486,7 +5486,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -5793,7 +5793,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:0:0</c1>
                 <c2>0:0:0</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -6063,7 +6063,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>20:27:26.7</c1>
                 <c2>37:22:48</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -6073,7 +6073,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>20:27:22.16</c1>
                 <c2>37:22:57.39</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -6346,7 +6346,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
-              <rv defn="radio" frame="LSR">0.0</rv>
+              <rv defn="radio" frame="LSRK">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -6818,7 +6818,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -7131,7 +7131,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
-              <rv defn="radio" frame="LSR">0.0</rv>
+              <rv defn="radio" frame="LSRK">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -7603,7 +7603,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8009,7 +8009,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8266,7 +8266,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8534,7 +8534,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8715,7 +8715,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -8904,7 +8904,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -9109,7 +9109,7 @@ are unlikely to apply to more than a small minority of programmes.</note>
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -9333,7 +9333,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
-              <rv defn="radio" frame="LSR">0.0</rv>
+              <rv defn="radio" frame="LSRK">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -9612,7 +9612,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>00:00:00</c1>
               <c2>0:00:00</c2>
-              <rv defn="radio" frame="LSR">0.0</rv>
+              <rv defn="radio" frame="LSRK">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -9852,7 +9852,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>0:00:00</c1>
               <c2>0:00:00</c2>
-              <rv defn="radio" frame="LSR">0.0</rv>
+              <rv defn="radio" frame="LSRK">0.0</rv>
             </spherSystem>
           </target>
         </BASE>
@@ -10185,7 +10185,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <spherSystem SYSTEM="J2000">
               <c1>00:00:00</c1>
               <c2>0:00:00</c2>
-              <rv defn="radio" frame="LSR">0.0</rv>
+              <rv defn="radio" frame="LSRK">0.0</rv>
             </spherSystem>
           </target>
         </BASE>

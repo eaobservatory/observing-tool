@@ -67,7 +67,7 @@
     </ArrayOf-java.lang.String>
   </java.util.Hashtable>
   <ArrayOf-java.lang.String alias-ID="45" obj-name="velocityFrames" length="3">
-    <java.lang.String alias-ID="46" valueOf="LSR"/>
+    <java.lang.String alias-ID="46" valueOf="LSRK"/>
     <java.lang.String alias-ID="47" valueOf="Geocentric"/>
     <java.lang.String alias-ID="48" valueOf="Heliocentric"/>
   </ArrayOf-java.lang.String>

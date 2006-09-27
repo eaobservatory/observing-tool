@@ -127,7 +127,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -141,7 +141,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -294,7 +294,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -308,7 +308,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -460,7 +460,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -474,7 +474,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -631,7 +631,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -645,7 +645,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -803,7 +803,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -817,7 +817,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -968,7 +968,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -982,7 +982,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -1136,7 +1136,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
             <OFFSET SYSTEM="J2000">
@@ -1150,7 +1150,7 @@ Things that shouldn't appear in notes
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>

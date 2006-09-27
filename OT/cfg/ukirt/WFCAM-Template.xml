@@ -55,7 +55,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
               <spherSystem SYSTEM="J2000">
                 <c1>00:00:00</c1>
                 <c2>00:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -226,7 +226,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -412,7 +412,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>
@@ -662,7 +662,7 @@ This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in th
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                           <OFFSET SYSTEM="J2000">
@@ -682,7 +682,7 @@ This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in th
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                           <OFFSET SYSTEM="J2000">
@@ -702,7 +702,7 @@ This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in th
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                           <OFFSET SYSTEM="J2000">
@@ -722,7 +722,7 @@ This MSB does a 5 point 3.2 arcsec jitter. You can replace the Observation in th
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                           <OFFSET SYSTEM="J2000">
@@ -901,7 +901,7 @@ Note. If you want to survey a small area in several filters, create seperate MSB
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1053,7 +1053,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1221,7 +1221,7 @@ This pattern should allways be able to use fast offsetting.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1405,7 +1405,7 @@ This pattern should allways be able to use fast offsetting.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1716,7 +1716,7 @@ This pattern should allways be able to use fast offsetting.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -1918,7 +1918,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -2120,7 +2120,7 @@ In general, we advocate sticking to 5s or 10s exposures for J, H, K.</note>
                                             <spherSystem SYSTEM="J2000">
                                               <c1>0:00:00</c1>
                                               <c2>0:00:00</c2>
-                                              <rv defn="radio" frame="LSR">0.0</rv>
+                                              <rv defn="radio" frame="LSRK">0.0</rv>
                                             </spherSystem>
                                           </target>
                                         </BASE>
@@ -2287,7 +2287,7 @@ The centres of the arrays are offset from the centre of the wfcam focal plane by
               <spherSystem SYSTEM="J2000">
                 <c1>0:00:00</c1>
                 <c2>0:00:00</c2>
-                <rv defn="radio" frame="LSR">0.0</rv>
+                <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
           </BASE>

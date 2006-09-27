@@ -64,7 +64,7 @@
 
 <xsd:simpleType name="velocityFrameReferenceType">
   <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="LSR"/>
+    <xsd:enumeration value="LSRK"/>
     <xsd:enumeration value="Geocentric"/>
     <xsd:enumeration value="Heliocentric"/>
   </xsd:restriction>

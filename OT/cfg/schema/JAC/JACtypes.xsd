@@ -34,7 +34,7 @@
 
 <xsd:simpleType name="rvFrameList">
   <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="LSR"/>
+    <xsd:enumeration value="LSRK"/>
     <xsd:enumeration value="GEOCENTRIC"/>
     <xsd:enumeration value="HELIOCENTRIC"/>
   </xsd:restriction>
