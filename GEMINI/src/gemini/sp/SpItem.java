@@ -1068,6 +1068,10 @@ print(String indentStr)
 		if( name.equals( "integrations" ) )
 			return ;
 
+		// also horrid
+		if( name.equals( "velocityFrame" ) && value.equals( "LSR" ) )
+			value = "LSRK" ;
+		
 		if( name.startsWith( XML_META_PREFIX ) )
 			_avTable.noNotifySet( name.substring( XML_META_PREFIX.length() ).replace( '_' , '.' ) , value , pos );
 		else

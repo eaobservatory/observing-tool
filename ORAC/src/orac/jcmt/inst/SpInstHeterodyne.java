@@ -281,7 +281,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   public static final String RADIAL_VELOCITY_RADIO    = "radio";
 
     /** Velocity frames */
-    public static final String LSR_VELOCITY_FRAME          = "LSR";
+    public static final String LSRK_VELOCITY_FRAME          = "LSRK";
     public static final String GEOCENTRIC_VELOCITY_FRAME   = "Geocentric";
     public static final String HELIOCENTRIC_VELOCITY_FRAME = "Heliocentric";
 
@@ -655,9 +655,11 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @param subsystem Number of subsystem (starting at 0).
    * @return  The name of the molecule species currently set for the specified subsystem
    */
-  public String getMolecule(int subsystem) {
-    return _avTable.get(ATTR_MOLECULE, subsystem);
-  }
+  	public String getMolecule( int subsystem )
+	{
+  		String returnString = _avTable.get( ATTR_MOLECULE , subsystem ) ;
+		return returnString ;
+	}
 
   /**
    * Set molecule of specified subsystem.

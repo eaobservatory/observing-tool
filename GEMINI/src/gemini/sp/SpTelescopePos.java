@@ -1053,16 +1053,16 @@ setTrackingRadialVelocityDefn(String val)
    _notifyOfGenericUpdate();
 }
 
-/**
-* Get the tracking radial velocity frame
-*/
-public String getTrackingRadialVelocityFrame() {
-    String res = _avTab.get( _tag, TRACKING_RV_FRAME );
-    if ( res == null || res.equals("") ) {
-      res="LSR";
-    }
-    return res;
-}
+	/**
+	 * Get the tracking radial velocity frame
+	 */
+	public String getTrackingRadialVelocityFrame()
+	{
+		String res = _avTab.get( _tag , TRACKING_RV_FRAME );
+		if( res == null || res.equals( "" ) )
+			res = "LSRK";
+		return res;
+	}
 
 /**
  * Set the tracking radial velocity frame.

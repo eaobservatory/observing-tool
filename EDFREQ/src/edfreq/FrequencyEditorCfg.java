@@ -4,13 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import java.io.InputStream;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 
 import orac.util.InstCfg;
 import orac.util.InstCfgReader;
@@ -69,7 +64,7 @@ public class FrequencyEditorCfg {
   public String[] frontEnds;
   public Hashtable frontEndTable  = new Hashtable();
   public Hashtable frontEndMixers = new Hashtable();
-  public String [] velocityFrames = { "LSR", "Geocentric", "Heliocentric" };
+  public String [] velocityFrames = { "LSRK", "Geocentric", "Heliocentric" };
   public boolean centreFrequenciesAdjustable;
   public Hashtable receivers;
 
@@ -99,156 +94,99 @@ public class FrequencyEditorCfg {
   }
 
   /**
-    * Returns a FrequencyEditorCfg based on the value of the system poperty
-    * FREQ_EDITOR_CFG_PROPERTY, which should point ot the cfg file.
-    */
-  public static FrequencyEditorCfg getConfiguration() {
-    if(_frequencyEditorCfg == null) {
-        String acsisCfgFile = System.getProperty("ot.cfgdir") + File.separator + "acsis.cfg";
-        _frequencyEditorCfg = getConfiguration(acsisCfgFile);
-//       String freqEditorCfgFile = System.getProperty(FREQ_EDITOR_CFG_PROPERTY);
-//       URL freqEditorCfgUrl = null;
-// 
-//       if(freqEditorCfgFile != null) {
-//         freqEditorCfgUrl = ClassLoader.getSystemClassLoader().getResource(freqEditorCfgFile);
-//       }
-// 
-//       if(freqEditorCfgUrl != null) {
-//         try {
-//           _frequencyEditorCfg = getConfiguration(freqEditorCfgUrl.openStream());
-//         }
-//         catch(IOException e) {
-//           System.out.println("Using default FrequencyEditorCfg object.");
-//           _frequencyEditorCfg = new FrequencyEditorCfg();
-//         }
-//       }
-//       else {
-//         System.out.println("Using default FrequencyEditorCfg object.");
-//         _frequencyEditorCfg = new FrequencyEditorCfg();
-//       }
-    }
-
+	 * Returns a FrequencyEditorCfg based on the value of the system poperty FREQ_EDITOR_CFG_PROPERTY, which should point ot the cfg file.
+	 */
+	public static FrequencyEditorCfg getConfiguration()
+	{
+		if( _frequencyEditorCfg == null )
+		{
+			String acsisCfgFile = System.getProperty( "ot.cfgdir" ) + File.separator + "acsis.cfg";
+			_frequencyEditorCfg = getConfiguration( acsisCfgFile );
+		}
     return _frequencyEditorCfg;
   }
 
-//   public static FrequencyEditorCfg getConfiguration(InputStream inputStream) {
-//     try {
-//       ObjIn objIn = new ObjIn(inputStream);
-//       return (FrequencyEditorCfg)objIn.readObject();
-//     }
-//     catch(Exception e) {
-//       System.out.println("Could not create a FrequencyEditorCfg object from the input stream provided.");
-//       e.printStackTrace();
-//       
-//       return new FrequencyEditorCfg();
-//     }
-//   }
+	public static FrequencyEditorCfg getConfiguration( String fileName )
+	{
 
-  public static FrequencyEditorCfg getConfiguration( String fileName ) {
+		InstCfgReader rdr = new InstCfgReader( fileName );
+		InstCfg instInfo = null;
+		String block = null;
 
-      InstCfgReader rdr = new InstCfgReader (fileName);
-      InstCfg instInfo = null;
-      String block = null;
+		String[] myFrontEnds = null;
+		Hashtable myReceivers = null;
 
-      String [] myFrontEnds = null;
-      Hashtable myReceivers = null;
+		if( _frequencyEditorCfg == null )
+		{
+			_frequencyEditorCfg = new FrequencyEditorCfg();
+		}
 
-      if ( _frequencyEditorCfg == null )  {
-          _frequencyEditorCfg = new FrequencyEditorCfg();
-      }
-
-      try {
-          while ((block = rdr.readBlock()) != null) {
-              instInfo = new InstCfg (block);
-              if ( InstCfg.matchAttr (instInfo, "receivers") ) {
-                  String [][] recList = instInfo.getValueAs2DArray();
-                  myFrontEnds = new String [recList.length];
-                  myReceivers = new Hashtable(recList.length);
-                  try {
-                      for ( int i=0; i<recList.length; i++ ) {
-                          myFrontEnds[i] = recList[i][0];
-                          double loMin = Double.parseDouble(recList[i][1]);
-                          double loMax = Double.parseDouble(recList[i][2]);
-                          double feIF  = Double.parseDouble(recList[i][3]);
-                          double bw    = Double.parseDouble(recList[i][4]);
-                          myReceivers.put( recList[i][0], new Receiver(myFrontEnds[i], loMin, loMax, feIF, bw) );
-                      }
-                      _frequencyEditorCfg.receivers = myReceivers;
-                      _frequencyEditorCfg.frontEnds = myFrontEnds;
-                  }
-                  catch (Exception e) {
-                      e.printStackTrace();
-                  }
-              }
-              else if ( InstCfg.matchAttr (instInfo, "modes") ) {
-//                   String [] modes = instInfo.getValueAsArray();
-//                   Hashtable myFrontEndTable = new Hashtable(modes.length);
-//                   for ( int i=0; i<modes.length; i++ ) {
-//                       System.out.println("Setting frontEndTable key="+myFrontEnds[i] + ", value=" + modes[i]);
-//                       myFrontEndTable.put( myFrontEnds[i], modes[i].split("\\s+"));
-//                   }
-                  String [][] modes = instInfo.getValueAs2DArray();
-                  Hashtable myFrontEndTable = new Hashtable(modes.length);
-                  for (int i=0; i<modes.length; i++ ) {
-                      myFrontEndTable.put( myFrontEnds[i], modes[i]);
-                  }
-                  _frequencyEditorCfg.frontEndTable = myFrontEndTable;
-              }
-              else if ( InstCfg.matchAttr (instInfo, "mixers") ) {
-                  String [][] mixers = instInfo.getValueAs2DArray();
-                  Hashtable myFrontEndMixers = new Hashtable(mixers.length);
-                  for ( int i=0; i<mixers.length; i++ ) {
-                      myFrontEndMixers.put( myFrontEnds[i], mixers[i]);
-                  }
-                  _frequencyEditorCfg.frontEndMixers = myFrontEndMixers;
-              }
-              else if ( InstCfg.matchAttr (instInfo, "velocity_frames") ) {
-                  String [] myVelocityFrames = instInfo.getValueAsArray();
-              }
-              else if ( InstCfg.likeAttr ( instInfo, "bandspecs" ) ) {
-                  String [][] specs    = instInfo.getValueAs2DArray();
-                  _decodeBandSpecs(instInfo, specs);
-                  /*
-                  double [] bandWidths = new double[specs.length];
-                  double [] overlaps   = new double[specs.length];
-                  int [] channels      = new int[specs.length];
-                  int [] hybSubbands   = new int[specs.length];
-                  try {
-                      for ( int i=0; i<specs.length; i++ ) {
-                          bandWidths[i]  = Double.parseDouble(specs[i][0]);
-                          overlaps[i]    = Double.parseDouble(specs[i][1]);
-                          channels[i]    = Integer.parseInt(specs[i][2]);
-                          hybSubbands[i] = Integer.parseInt(specs[i][3]);
-                      }
-                      BandSpec bs = null;
-                      boolean foundMatch = false;
-                      for ( int i=0; i<myFrontEnds.length; i++ ) {
-                          if ( InstCfg.likeAttr (instInfo, myFrontEnds[i].replaceAll("[^a-zA-Z0-9]", "")) ) {
-                              foundMatch = true;
-                              bs = new BandSpec("1", specs.length, bandWidths, overlaps, channels, hybSubbands);
-                              Vector bsVector = new Vector();
-                              bsVector.add(bs);
-                              ((Receiver)_frequencyEditorCfg.receivers.get(myFrontEnds[i])).setBandSpecs(bsVector);
-                              break;
-                          }
-                      }
-                      if (!foundMatch) {
-                          System.out.println("Failed to find match for keyword " + instInfo.getKeyword());
-                      }
-                  }
-                  catch (Exception e) {
-                      e.printStackTrace();
-                  }
-                  */
-              }
-          }
-      }
-      catch (IOException ioe) {
-          ioe.printStackTrace();
-      }
-
-      return _frequencyEditorCfg;
-  }
+		try
+		{
+			while( ( block = rdr.readBlock() ) != null )
+			{
+				instInfo = new InstCfg( block );
+				if( InstCfg.matchAttr( instInfo , "receivers" ) )
+				{
+					String[][] recList = instInfo.getValueAs2DArray();
+					myFrontEnds = new String[ recList.length ];
+					myReceivers = new Hashtable( recList.length );
+					try
+					{
+						for( int i = 0 ; i < recList.length ; i++ )
+						{
+							myFrontEnds[ i ] = recList[ i ][ 0 ];
+							double loMin = Double.parseDouble( recList[ i ][ 1 ] );
+							double loMax = Double.parseDouble( recList[ i ][ 2 ] );
+							double feIF = Double.parseDouble( recList[ i ][ 3 ] );
+							double bw = Double.parseDouble( recList[ i ][ 4 ] );
+							myReceivers.put( recList[ i ][ 0 ] , new Receiver( myFrontEnds[ i ] , loMin , loMax , feIF , bw ) );
+						}
+						_frequencyEditorCfg.receivers = myReceivers;
+						_frequencyEditorCfg.frontEnds = myFrontEnds;
+					}
+					catch( Exception e )
+					{
+						e.printStackTrace();
+					}
+				}
+				else if( InstCfg.matchAttr( instInfo , "modes" ) )
+				{
+					String[][] modes = instInfo.getValueAs2DArray();
+					Hashtable myFrontEndTable = new Hashtable( modes.length );
+					for( int i = 0 ; i < modes.length ; i++ )
+					{
+						myFrontEndTable.put( myFrontEnds[ i ] , modes[ i ] );
+					}
+					_frequencyEditorCfg.frontEndTable = myFrontEndTable;
+				}
+				else if( InstCfg.matchAttr( instInfo , "mixers" ) )
+				{
+					String[][] mixers = instInfo.getValueAs2DArray();
+					Hashtable myFrontEndMixers = new Hashtable( mixers.length );
+					for( int i = 0 ; i < mixers.length ; i++ )
+					{
+						myFrontEndMixers.put( myFrontEnds[ i ] , mixers[ i ] );
+					}
+					_frequencyEditorCfg.frontEndMixers = myFrontEndMixers;
+				}
+				else if( InstCfg.matchAttr( instInfo , "velocity_frames" ) )
+				{
+					String[] myVelocityFrames = instInfo.getValueAsArray();
+				}
+				else if( InstCfg.likeAttr( instInfo , "bandspecs" ) )
+				{
+					String[][] specs = instInfo.getValueAs2DArray();
+					_decodeBandSpecs( instInfo , specs );
+				}
+			}
+		}
+		catch( IOException ioe )
+		{
+			ioe.printStackTrace();
+		}
+		return _frequencyEditorCfg;
+	}
 
   private static void _decodeBandSpecs(InstCfg instInfo, String [][] specs ) {
       String name = "";

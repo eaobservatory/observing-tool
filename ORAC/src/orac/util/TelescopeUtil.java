@@ -66,8 +66,8 @@ public interface TelescopeUtil {
       "radio", "optical", "relativistic", "redshift" };
 
   /** TCS radial velocity frames */
-  public static final String [] TCS_RV_FRAMES = {
-      "LSR", "HELIOCENTRIC", "BARYCENTRIC", "GEOCENTRIC", "TOPOCENTRIC" };
+	public static final String[] TCS_RV_FRAMES =
+	{ "LSRK" , "HELIOCENTRIC" , "BARYCENTRIC" , "GEOCENTRIC" , "TOPOCENTRIC" };
 
   public SpValidation getValidationTool();
 
