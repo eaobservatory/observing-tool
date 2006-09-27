@@ -225,6 +225,26 @@ will take (which is not yet functional).
  transition. Look-up occurs from molecule/transition to frequency only -
  no look-up is done in the opposite direction.
 
+<p>If your source has a very large radial velocity, there are two ways
+	  to deal with this.  One way is to specify the <b>rest</b>
+	  frequency of the source in the <i>Het Setup</i> component
+	  and enter the radial velocity of the source in the <a
+	    href="het_tcc">Target Information</a> component, as
+	  normal.  The observing system will calculate the correct
+	  frequency and will select the correct receiver (e.g. RxA if
+	  you're observing CO 3-2 at a redshift of 0.5).  
+
+<p>Beware, however, that the spectral line, after the Doppler shift,
+	  may now lie in a region of very low atmospheric transition,
+	  or may indeed fall outside of the tuning range of our
+	  receivers.  Instead, you may wish to calculate the observed
+	  frequency yourself, and enter that frequency into the <i>Het
+	    Setup</i> component, setting the radial velocity to zero.
+	  The OT will immediately tell you if the frequency falls
+	  outside of the tuning range, and you can check the
+	  <i>Frequency Editor</i> tool to see if the atmospheric
+	  transmission is acceptable.
+
  <p>The <i>Frequency Setup</i> configuration also includes a
 	      "Frequency Editor" tool. This 
  can be useful in setting choosing your observing frequencies and
@@ -233,12 +253,6 @@ will take (which is not yet functional).
 	      configurations, or to check the atmospheric opacity at
 	      the observed (or sideband) frequency.  This section will
 	    be updated when ACSIS special configurations become supported.<p>
-
-<p><i>Question:  If the source has a very high velocity (which might
-		put the line into another band), does one still need
-		to specify the redshifted velocity, or can one now
-		choose the rest velocity, put the redshift in the
-		target component, and let the software figure it out?</i>
 
  
 
@@ -401,8 +415,6 @@ run down. <p>
 	      position, but by unchecking the "Offset" button, you can
 	      enter an absolute position for the reference.  
 
-<p>If you don't have or know of a reference position, then <i>{This
-		  bit needs to be completed...}</i>
       
 <p>Instead of entering the source coordinates manually, if you are using
       a machine with an Internet connection you can try  entering the name
@@ -504,7 +516,7 @@ run down. <p>
       <img src="het_images/het_tracking_chop.gif" alt="Chop and the Position Editor"><p>
 	   
  Now back in the position editor, click on the Drag button on the
- upper left side of the window. The click on the centre of one of the
+ upper left side of the window. Then click on the centre of one of the
 	   chop beams in the display and drag it away from the emission:<p>
 
       <img src="het_images/het_tracking_chop2.gif" alt="Dragging the Chop"><p>
@@ -512,7 +524,7 @@ run down. <p>
       You will note that the values in the chop iterator have
       automatically changed to reflect the new chop throw and angle
       values. Neat, eh? Remember that by default, any calibrations for
-      you observations will be preformed with the same chop as the
+      your observations will be performed with the same chop as the
       science observation. <p>
 
       You can also click on the target component and use Drag to
@@ -531,8 +543,8 @@ run down. <p>
 	      specified by a throw, 
       an angle, and co-ordinate frame of the angle. In this example
       the frame is AZEL (Azimuth Elevation) but other common options
-      are TRACKING (RA & Dec) or FPLANE (Focal Plane, i.e. Nasmyth for
-      SCUBA). A 60 arcsecond chop with an angle of 90 degrees AZEL
+      are TRACKING (RA & Dec) or FPLANE (Focal Plane). A 60 arcsecond
+	  chop with an angle of 90 degrees AZEL  
       (i.e. 60 arcsec in the azimuth direction) is typical for
       beamswitched observations of compact sources. If the source is
       extended, one might want to increase the chop throw, or if the
