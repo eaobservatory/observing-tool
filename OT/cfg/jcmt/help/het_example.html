@@ -100,7 +100,7 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
       internal priority of your MSBs - not the priority allocated to
       your entire project by your TAG. So if you had two different
       MSBs that rose to the top of the scheduling queue and one had
-      priority "1" and the other "99", the one marked "High" will
+      priority "1" and the other "99", the one marked "1" will
       normally get done first. If all your MSBs are of equal interest
       to you, just don't bother changing the default.
 
@@ -118,13 +118,14 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
     </ul>
 
 There is also a display of the OT's estimate of how long the MSB
-will take (which is not yet functional). 
+will take. 
 
 <!-- ############################################################################ -->
 <h2><a name="het_eoam">Elements of an MSB</a></h2>
 
     Click on the push lever to open up your MSB. Inside you will find
-    a Het Setup component, a Site Quality component and an observation
+    a Het Setup component, a Site Quality component, a DRRecipe
+	component and an observation 
     component which is labelled "Science Target" at the moment:<p>
 
 <img src="het_images/het_elements.gif" alt="Inside an MSB" ><p>
@@ -135,21 +136,21 @@ will take (which is not yet functional).
 
 <p> If you click on the "Het Setup" component, the properties of that
  component are shown in the right hand side of the science program
- window, as shown below. The purpose of this component is to enable
- the set up of the required heterodyne instrument and ACSIS prior to an
- observation. </p>
+ window (i.e. in the editor panel), as shown below. The purpose of
+	  this component is to enable the set up of the required
+	  heterodyne instrument and ACSIS prior to 
+	  an observation. </p>
  
 
 <img src="het_images/het_het_setup.gif" alt="Het Setup component" ><p>
-<p> Four boxes are displayed on the right side of the window, two of
-	      which are editable. 
+<p> Four boxes are displayed in the editor panel. 
 
 <h3>Front End Configuration</h3>
 <ul>
 <li> The first item in the Het Setup component enables the user to
 		choose the required receiver. Choose from A3 or B3.
 		(W(C) has been retired, and W(D) and 
-		HARP are not yet supported in the OT. Note the tuning
+		HARP are not yet supported in the OT.) Note the tuning
 		range, i.e. the frequency range over which the
 		selected receiver can be tuned, displayed in the
 		top-right corner. 
