@@ -103,107 +103,109 @@ public class SpInputXML extends DefaultHandler {
 
     private String _characterBuffer = null;
 
-    public void startElement(String namespaceURI,
-            String localName,
-            String qName,
-            Attributes atts) throws SAXException {
+    public void startElement( String namespaceURI , String localName , String qName , Attributes atts ) throws SAXException
+	{
 
-        _firstCharacters = true;
+		_firstCharacters = true;
 
-        if(_currentSpItem != null) {
-            _currentSpItem.processXmlElementStart(qName);
-        }
+		if( _currentSpItem != null )
+			_currentSpItem.processXmlElementStart( qName );
 
-        // Check whether the element represents an SpItem.
-        if(qName.startsWith("Sp") &&
-                (atts.getValue(SpItem.XML_ATTR_TYPE) != null) &&
-                (atts.getValue(SpItem.XML_ATTR_SUBTYPE) != null)) {
+		// Check whether the element represents an SpItem.
+		if( qName.startsWith( "Sp" ) && ( atts.getValue( SpItem.XML_ATTR_TYPE ) != null ) && ( atts.getValue( SpItem.XML_ATTR_SUBTYPE ) != null ) )
+		{
 
-            if ( qName.equals("SpSurveyContainer" ) ) {
-                ignoreObsComp = true;
-            }
+			if( qName.equals( "SpSurveyContainer" ) )
+				ignoreObsComp = true;
 
-            _ignoreCharacters = true;
+			_ignoreCharacters = true;
 
-            if ( ignoreObsComp && qName.equals("SpTelescopeObsComp") ) return;
-            SpItem spItem = SpFactory.createShallow(SpType.get(atts.getValue(XML_ATTR_TYPE), atts.getValue(XML_ATTR_SUBTYPE)));
+			if( ignoreObsComp && qName.equals( "SpTelescopeObsComp" ) )
+				return;
+			SpItem spItem = SpFactory.createShallow( SpType.get( atts.getValue( XML_ATTR_TYPE ) , atts.getValue( XML_ATTR_SUBTYPE ) ) );
 
-            // Add the new element to the tree (unless it is the root item).
-            if(_currentSpItem != null) {
-                SpInsertData spID;
-                if(_currentSpItem.childCount() < 1) {
-                    spID = SpTreeMan.evalInsertInside(spItem, _currentSpItem);
+			// Add the new element to the tree (unless it is the root item).
+			if( _currentSpItem != null )
+			{
+				SpInsertData spID;
+				if( _currentSpItem.childCount() < 1 )
+				{
+					spID = SpTreeMan.evalInsertInside( spItem , _currentSpItem );
 
-                    if (spID == null) {
-                        System.out.println("Could not insert " + spItem + " into " + _currentSpItem);
-                    }
-                }
-                else {
-                    spID = SpTreeMan.evalInsertAfter(spItem, _currentSpItem.lastChild());
+					if( spID == null )
+						System.out.println( "Could not insert " + spItem + " into " + _currentSpItem );
+				}
+				else
+				{
+					spID = SpTreeMan.evalInsertAfter( spItem , _currentSpItem.lastChild() );
 
-                    if (spID == null) {
-                        System.out.println("Could not insert " + spItem + " after " + _currentSpItem.lastChild());
-                    }
-                }
+					if( spID == null )
+						System.out.println( "Could not insert " + spItem + " after " + _currentSpItem.lastChild() );
+				}
 
-                if (spID != null) {
-                    SpTreeMan.insert(spID);
-                }
-            }
+				if( spID != null )
+					SpTreeMan.insert( spID );
+			}
 
-            _currentSpItem     = spItem;
-        }
-        else {
-            _ignoreCharacters = false;
-        }
+			_currentSpItem = spItem;
+		}
+		else
+		{
+			_ignoreCharacters = false;
+		}
 
-        if(qName.equals("value")) {
-            if(_valueArrayElement != null) {
-                _valueArrayPos++;
-            }
-            else {
-                _valueArrayPos = 0;
-                _valueArrayElement = _currentElement;
-            }
-        }
+		if( qName.equals( "value" ) )
+		{
+			if( _valueArrayElement != null )
+			{
+				_valueArrayPos++;
+			}
+			else
+			{
+				_valueArrayPos = 0;
+				_valueArrayElement = _currentElement;
+			}
+		}
 
-        _currentElement = qName;
+		_currentElement = qName;
 
+		// Deal with attributes of XML element.
+		for( int i = 0 ; i < atts.getLength() ; i++ )
+			_currentSpItem.processXmlAttribute( qName , atts.getQName( i ) , atts.getValue( i ) );
+	}
 
-        // Deal with attributes of XML element.
-        for(int i = 0; i < atts.getLength(); i++) {
-            _currentSpItem.processXmlAttribute(qName, atts.getQName(i), atts.getValue(i));
-        }
-    }
+	public void endElement( String uri , String localName , String qName )
+	{
+		if( qName.equals( _valueArrayElement ) )
+			_valueArrayElement = null;
 
-    public void endElement(String uri, String localName, String qName) {
-        if(qName.equals(_valueArrayElement)) {
-            _valueArrayElement = null;
-        }
+		if( _characterBuffer != null )
+		{
+			if( _valueArrayElement != null )
+			{
+				_currentSpItem.processXmlElementContent( _valueArrayElement , new String( _characterBuffer.trim() ) , _valueArrayPos );
+				_characterBuffer = null;
+			}
+			else if( ( _currentElement != null ) && ( _characterBuffer.trim().length() != 0 ) )
+			{
+				_currentSpItem.processXmlElementContent( _currentElement , new String( _characterBuffer.trim() ) );
+				_characterBuffer = null;
+			}
+		}
 
-        if ( _characterBuffer != null ) {
-            if(_valueArrayElement != null) {
-                _currentSpItem.processXmlElementContent(_valueArrayElement, new String(_characterBuffer.trim()), _valueArrayPos);
-                _characterBuffer = null;
-            }
-            else if ( (_currentElement != null) && (_characterBuffer.trim().length() != 0) ) {
-                _currentSpItem.processXmlElementContent(_currentElement, new String(_characterBuffer.trim()));
-                _characterBuffer = null;
-            }
-        }
+		_currentSpItem.processXmlElementEnd( qName );
 
-        _currentSpItem.processXmlElementEnd(qName);
+		if( qName.equals( _currentSpItem.getXmlElementName() ) )
+		{
+			if( _currentSpItem.parent() != null )
+				_currentSpItem = _currentSpItem.parent();
+		}
 
-        if(qName.equals(_currentSpItem.getXmlElementName())) {
-            if(_currentSpItem.parent() != null) {
-                _currentSpItem = _currentSpItem.parent();
-            }
-        }
-         
-        if ( qName.equals("SpSurveyContainer") ) ignoreObsComp = false;
+		if( qName.equals( "SpSurveyContainer" ) )
+			ignoreObsComp = false;
 
-        _currentElement = null;
-    }
+		_currentElement = null;
+	}
 
 
     public void characters(char[] ch, int start, int length) {
@@ -224,7 +226,7 @@ public class SpInputXML extends DefaultHandler {
         }
 
 
-	// There was a conflict during a update of the JAC_ACSIS branch.  I have uncommented what I believe 
+	// There was a conflict during a update of the JAC_ACSIS branch. I have uncommented what I believe
 	// to be correct, but left the other in as a comment
 	// < SpInputXML.java
         //if((_currentElement != null) && (value.trim().length() > 0)){

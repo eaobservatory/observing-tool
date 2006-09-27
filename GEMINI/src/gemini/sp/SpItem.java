@@ -1098,25 +1098,24 @@ print(String indentStr)
    * @param attributeName   XML attribute name
    * @param value       value of the XML attribute
    */
-  public void processXmlAttribute(String elementName, String attributeName, String value) {
-    if((attributeName == null) || (value == null) || (attributeName.length() < 1) || (value.length() < 1)) {
-      return;
-    }
+	public void processXmlAttribute( String elementName , String attributeName , String value )
+	{
+		if( ( attributeName == null ) || ( value == null ) || ( attributeName.length() < 1 ) || ( value.length() < 1 ) )
+			return;
+		
+		if( attributeName.equals( XML_ATTR_TYPE ) || attributeName.equals( XML_ATTR_SUBTYPE ) )
+			return;
 
-    if(attributeName.equals(XML_ATTR_TYPE) || attributeName.equals(XML_ATTR_SUBTYPE)) {
-      return;
-    }
-
-    // If the elementName is the class name, i.e. it is an XML attribute of the <SpItem> XML element,
-    // then the av attribute is ":attributeName".
-    if(_className.equals(elementName)) {
-      _avTable.noNotifySet(":" + attributeName, value, 0);
-    }
-    // Otherwise the av attribute is "elementName:attributeName".
-    else {
-      _avTable.noNotifySet(elementName + ":" + attributeName, value, 0);
-    }
-  }
+		/*
+		* If the elementName is the class name, i.e. it is an XML attribute of the <SpItem> XML element,
+		* then the av attribute is ":attributeName".
+		* Otherwise the av attribute is "elementName:attributeName".
+		*/
+		if( _className.equals( elementName ) )
+			_avTable.noNotifySet( ":" + attributeName , value , 0 );
+		else
+			_avTable.noNotifySet( elementName + ":" + attributeName , value , 0 );
+	}
 
   /**
    * Convenience method.

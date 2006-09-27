@@ -1064,15 +1064,16 @@ setTrackingRadialVelocityDefn(String val)
 		return res;
 	}
 
-/**
- * Set the tracking radial velocity frame.
- */
-public void
-setTrackingRadialVelocityFrame(String val)
-{
-   _avTab.set(_tag, val, TRACKING_RV_FRAME );
-   _notifyOfGenericUpdate();
-}
+	/**
+	 * Set the tracking radial velocity frame.
+	 */
+	public void setTrackingRadialVelocityFrame( String val )
+	{
+		if( "LSR".equals( val ) )
+			val = "LSRK";
+		_avTab.set( _tag , val , TRACKING_RV_FRAME );
+		_notifyOfGenericUpdate();
+	}
 
 /**
   * Get the current velocity as a redshift

@@ -1020,13 +1020,9 @@ processXmlAttribute(String elementName, String attributeName, String value)
 		   return ;
 
 	   if( attributeName.equals( TX_RV_DEFN ) )
-	   {
 		   _currentPosition.setTrackingRadialVelocityDefn( value ) ;
-	   }
 	   else if( attributeName.equals( TX_RV_FRAME ) )
-	   {
 		   _currentPosition.setTrackingRadialVelocityFrame( value ) ;
-	   }
 	   return ;
    }
 
