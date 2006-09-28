@@ -62,8 +62,8 @@ public final class EdIterOffset extends OtItemEditor
 
     private IterOffsetGUI        _w;             // the GUI layout panel
 
-    private String BUTTON_TEXT_ROTATION_FALSE = "Display Rotated Offsets";
-    private String BUTTON_TEXT_ROTATION_TRUE  = "Offsets Rotated";
+    private String BUTTON_TEXT_ROTATION_FALSE = "Display Derotated Offsets";
+    private String BUTTON_TEXT_ROTATION_TRUE  = "Offsets Derotated";
     private double TO_RADIANS = Math.PI/180.0;
     private double TO_DEGREES = 1.0/TO_RADIANS;
 

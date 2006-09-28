@@ -161,7 +161,7 @@ public class IterOffsetGUI extends JPanel
 		paLabel.setFont( new java.awt.Font( "Dialog" , 2 , 12 ) );
 		paLabel.setForeground( Color.black );
 		paLabel.setText( "PA" );
-		displayRotatedOffsets.setText( "Display Rotated Offsets" );
+		displayRotatedOffsets.setText( "Display Derotated Offsets" );
 		setSpacingButton.setText( "Set Spacing from Scan Area" );
 		
 		buttonGroup.add( overwrite ) ;
