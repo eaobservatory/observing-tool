@@ -160,30 +160,6 @@ Four boxes are displayed in the editor panel.
 		selected receiver can be tuned, displayed in the
 		top-right corner.
 
-<li> The next item in the list allows one to specify the number of
-		spectral regions.  When fully implemented, this will
-		allow one to use the <a href="het_freq_ed">frequency
-		  editor</a> to observe up to four different
-		frequencies within the passband.  Currently, only one
-		spectral region is supported.
-
-<li> When fully implemented, "Special Configurations" will allow one
-		to observe two or more commonly observed spectral
-		lines simultaneously, such as certain close pairs of
-		formaldehyde lines, or 13CO & C18O J=3-2.  
-
-<li> The next item allows the user to choose between a single or
-		a dual mixer observation. For receiver A, there is
-		only one mixer, so only "single mixer" will be
-		allowed. Receivers B3 and W have two mixers, sensitive
-		to orthogonal polarisations of the incoming
-		radiation. Typically, observations use both mixers
-		simultaneously, and the outputs from each mixer are
-		averaged together to increase the signal-to-noise for
-		a given integration time.  With ACSIS (and unlike with
-		the DAS), choosing one or two mixers has no effect on
-		the resolution of the spectra.
-
 <li> The Bandwidth menu item allows the user to select the required
 		bandwidth (in MHz). The resulting spectral resolution
 		(in kHz) is shown automatically updated in the "res"
@@ -202,9 +178,8 @@ Four boxes are displayed in the editor panel.
 		in the SSB receivers, so the user should avoid, if
 		possible, the situation where the unwanted sideband
 		corresponds to a frequency where the zenith opacity or
-		receiver noise is high. If either sideband is okay,
-		choose "best" and the TSS will use his or her
-		discretion when making the observation.
+		receiver noise is high. In most cases, however, you
+	    should simply select "Best".
 
 </ul>
 
@@ -213,45 +188,72 @@ Four boxes are displayed in the editor panel.
 
  <p>In order to indicate receiver tuning, the user needs to indicate
 	      the rest frequency of the spectral line observation.
-	      In addition, one <i>may</i> indicate the source velocity
-	      and frame in the Frequency Setup box, but the default 
-practice is now to specify these values with the other source information 
-in
-	    the <a href="#het_tcc">Target Information</a> component.
-	    (In fact, specifying the source velocity in the <i>Frequency
-	      Setup</i> box is also not yet supported.  Currently you
-	    <i>must</i> specify source velocity in the <a
-	      href="#het_tcc">Target Information</a> component.)
-	    The rest frequency of
- the line can be set by choosing the required molecule and transition from 
-the
- pull-down menus, or by entering the frequency manually, in GHz, in the
- frequency field. Note
-  that manually entering frequency values in the rest frequency field
- causes the molecule and transition menus take on values of "No
- Line", even if the frequency does in fact correspond to a known
- transition. Look-up occurs from molecule/transition to frequency only -
- no look-up is done in the opposite direction.
+	      The rest frequency of the line can be set by choosing
+	  the required molecule and transition from the pull-down
+	  menus, or by entering the frequency manually, in GHz, in the
+	  frequency field. Note that manually entering frequency
+	  values in the rest frequency field causes the molecule and
+	  transition menus take on values of "No Line", even if the
+	  frequency does in fact correspond to a known
+	  transition. Look-up occurs from molecule/transition to
+	  frequency only - no look-up is done in the opposite
+	  direction.
+
+<p>When entering the observing frequency manually, it is important to
+	  note that the frequency will appear in <font
+	    color=red><b>RED</b></font>.  You <b>MUST</b> then click
+	  the <b>accept</b> button to the right of the frequency field,
+	  for the changes to be implemented.
+
+<p>In addition to indicating the rest frequency of the line, you will
+	  need to tell the OT the radial velocity to which the
+	  receiver must be tuned.  You have two choices of how to do
+	  that:  it can be specified here in the Het. Setup component,
+	  or the velocity can be specified in the <a
+	    href="#het_tcc">Target Information</a> component.  To
+	  specify the velocity in the Het. Setup component, uncheck
+	  the "Default tuning velocity to target radial velocity"
+	  button (top of the Frequency Setup box in the Het. Setup
+	  editor panel), enter the velocity in the Velocity field,
+	  select the required Velocity definition and frame from the two
+	  pull-down menues, and click the "Accept" button (to the
+	  right of the frequency field).  (Note that the velocity will
+	  appear in <font color=red><b>RED</b></font> until you click
+	  on the Accept button.  Failure to click on the Accept button
+	  will mean the velocity you entered will be lost.)  
+
+	    
 
 <p>If your source has a very large radial velocity, there are two ways
-	  to deal with this.  One way is to specify the <b>rest</b>
+	  to deal with this.  The preferred way is to specify the <b>rest</b>
 	  frequency of the source in the <i>Het Setup</i> component
-	  and enter the radial velocity of the source in the <a
+	  and enter the radial velocity of the source in the
+	  Het. Setup or the <a
 	    href="het_tcc">Target Information</a> component, as
 	  normal.  The observing system will calculate the correct
-	  frequency and will select the correct receiver (e.g. RxA if
-	  you're observing CO 3-2 at a redshift of 0.5).
+	  frequency.  A large redshift might shift the observed
+	  frequency out of the tuning range of the receiver, or even
+	  into the tuning range of another receiver.  For example,
+	  select RxB, CO 3-2, and a redshift of 0.5, and click
+	  Accept.  The OT will complain that this is outside of the
+	  tuning range.  You can then select RxA, and the correct
+	  line, rest frequency and redshift will appear. (Beware! If the
+	  redshifted line falls outside of the tuning range of any
+	  receiver, the OT will change the rest frequency to something
+	  that can fit!)  Clicking on
+	  the Frequency Editor button will also show you the
+	  atmospheric opacity at the observed frequency.  It's wise to
+	  check this since even a minor change in radial velocity can
+	  shift the observed frequency into a region of very large
+	  atmospheric opacity.
 
-<p>Beware, however, that the spectral line, after the Doppler shift,
-	  may now lie in a region of very low atmospheric transition,
-	  or may indeed fall outside of the tuning range of our
-	  receivers.  Instead, you may wish to calculate the observed
-	  frequency yourself, and enter that frequency into the <i>Het
-	    Setup</i> component, setting the radial velocity to zero.
-	  The OT will immediately tell you if the frequency falls
-	  outside of the tuning range, and you can check the
-	  <i>Frequency Editor</i> tool to see if the atmospheric
-	  transmission is acceptable.
+<p>	  Alternatively, you can calculate the observed frequency
+	  yourself, and enter that frequency (with a radial velocity
+	  set to zero) in the frequency field.  Remember to click the
+	  Accept button after entering the frequency.  However, this
+	  method is risky unless you <i>really</i> know what you're doing.
+
+
 
  <p>The <i>Frequency Setup</i> configuration also includes a
 	      "Frequency Editor" tool. This
@@ -797,43 +799,40 @@ for your observation.
 <li> Set up the site quality component, normally this means simply leaving 
 the "allocated" button checked.
 
-<li> Enter the target information for your target. This step can be as
-simple as entering the RA/DEC and epoch. Don't forget there are the
-useful tools of the Name resolver and the position
-editor to help you out here.
+<li> Enter the target information for your target. This step can be as 
+simple as entering the RA/DEC and epoch. Don't forget there are the useful 
+tools of the Name resolver and the position editor to help you out here.
 
 <li> Set up the chop iterator. Again this can simply mean entering the
 chop throw angle and reference frame, or this iterator can be set up
 via the position editor.
 
-<li> Set up the photom/sample eye. Remember the one-to-one
-correspondence between the duration you set up here and the integration
-time per GSD file produced.
+<li> Set up the photom/sample eye. Remember to enter the total
+	    on-source integration time per sample.
 
-<li> Set up the repeat counter to give the number of repeats of the
-time set up in the photom/sample eye to get your total required
-integration time. If you want a total integration of one hour, you should
-set up an integration time of 10 minutes in the photom/sample eye and
-set the repeat counter to six. When observing, you can then monitor
-the observation by inspecting the GSD file produced every ten minutes,
-and co-add the spectra as you go along. In general, if you want to
-build up long integrations, you will want the basic sample length to
-be around 10 minutes for RxW and RxB and around 15-20 minutes for RxA.
+<li> Set up the repeat counter to give the number of repeats of the time 
+set up in the photom/sample eye to get your total required integration 
+time. If you want a total integration of one hour on-source, you
+	    should set up an  
+integration time of 5 minutes in the photom/sample eye and set the repeat 
+counter to twelve. When observing, you can then monitor the observation by 
+inspecting the data file produced every ten minutes, and co-add the spectra 
+as you go along. In general, if you want to build up long integrations, 
+you will want the basic sample length to be around 10 minutes for RxW and 
+RxB and around 15-20 minutes for RxA.
 
-<li> Add at least one "show to observer" note. This should contain additional
-information on the overall aims of your science program, details of
-required calibrations and any other special notices you want the
-observer and TSS to act upon when the observation is made.
+<li> Add at least one "show to observer" note. This should contain 
+additional information on the overall aims of your science program, 
+details of required calibrations and any other special notices you want 
+the observer and TSS to act upon when the observation is made.
 
-<li> Click on the outermost level of the MSB. In the right hand panel
-you should give the MSB a meaningful name. Below the name field, there
-is pull down menu labeled "Observe". This counter allows you to
-control how many times you want the whole MSB observed. If you want it
-done just once, leave this as (1x). You can set the relative priority
-of the MSB within your science program using the "Priority" pull down
-menu. Set this between 1 and 99, with 1 signifying the highest
-priority.
-</ul>
+<li> Click on the outermost level of the MSB. In the right hand panel you 
+should give the MSB a meaningful name. Below the name field, there is pull 
+down menu labeled "Observe". This counter allows you to control how many 
+times you want the whole MSB observed. If you want it done just once, 
+leave this as (1x). You can set the relative priority of the MSB within 
+your science program using the "Priority" pull down menu. Set this between 
+1 and 99, with 1 signifying the highest priority. </ul>
 
  That's pretty much all you need to know to start preparing your
  MSB. The remainder of this primer covers the rest of the Heterodyne
