@@ -572,9 +572,15 @@ Chop"><p>
       (i.e. 60 arcsec in the azimuth direction) is typical for
       beamswitched observations of compact sources. If the source is
       extended, one might want to increase the chop throw, or if the
-      source was elongated in one direction on the sky, chop relative
-      to the RA/DEC frame. Maximum recommended chop throw is 180 
-arcsec.<p>
+      source was elongated in one direction on the sky, chop in a rotated
+      direction relative 
+      to the RA/DEC frame. The maximum recommended chop throw is 180 arcsec.
+      There is a software limit of 240 arcsec. Chopping with large throws
+      is less efficient than using small throws and also there will be
+      a slight distortion of the beam due to observing off-axis. 
+      Clicking on Add one can add chop configurations. Each configuration
+      will result in a separate observation (and data file). 
+      <p>
 
 <!-- 
 ############################################################################ 
@@ -630,14 +636,19 @@ arcsec.<p>
   The science observation itself is represented within the MSB by the
  photom/sample eye. Click on it to display the details of the
  observation. The pull down menu near the top of the right hand frame
- allows the user to choose from beam switching, position switching,
- fast or slow frequency switching, or none.  In this example we are
+ allows the user to choose from beam switching or position switching.
+ In this example we are
 	    beam-switching, and the chop throw was set with the <a
 	      href="#het_tci">chop iterator</a>.  In the "Secs per offset
-	    sample" box, enter the total on-source integration time
-	    required in seconds. (Note this is different from how it's
-	    been done in the past.) The estimated RMS noise per
-	    channel is shown in the "Noise" box.<p>
+	    sample" box, enter the <b>total on-source integration time</b>
+	    per sample position in seconds. 
+           (Note this is different from how it's
+	    been done in the past when we specified the on+off time.) 
+            The estimated RMS noise per channel is shown in the "Noise" box.
+            Typical recommended on source integration times per sample are 5 to
+            10 minutes. We advise to use no observing times >15 minutes, at
+            the risk of loosing observations when something goes wrong. 
+<p>
 
  <img src="het_images/het_eye.gif" alt="The photom/sample eye" ><p>
 
@@ -656,11 +667,13 @@ general</a></h2>
       <strong>inside</strong> the repeat iterator (i.e. indented under
       it) in turn. So if you set it to 2, your science observation
       consist of two spectral line samples i.e you will end up with
-      precisely two GSD files. If you require a long integration of a
+      precisely two spectral line observations. If you require a long 
+      integration of a
       source, it makes sense to break the observation down into
       shorter integrations of around ten minutes or so, so that data
       quality can be assessed as the observation progresses. In
-      practice, you set up the integration time required per GSD file
+      practice, you set up the integration time required per spectral line
+      observation
       using the photom/sample eye and then use the repeat iterator to
       define a sufficient number of repeats to give the total required
       integration time.<p>
@@ -680,14 +693,14 @@ general</a></h2>
 
       <li><img src="images/icon_component.gif" alt="*">The observation
       component shows you the estimated time of the sequence it
-      contains. (Not yet fully implemented.)<p>
+      contains.<p>
 
       <li><img src="images/icon_msb.gif" alt="*">The MSB component
       will give you the estimated time of the observations inside
       it. For the heterodyne OT, you only need to define MSBs for
       your science observations. Obviously, before the observation,
-      the TSS will tune the receiver and focus the telescope, and
-      perform a spectral line fivepoint. Specific calibration
+      the TSS will tune the receiver (when necessary), focus the telescope, 
+      and do a pointing observation. Specific calibration
       instructions, for example, the observation of a spectral line
       standard and/or a planet should be described in the note attached
       to the MSB. Be sure to remember to click the show-to-observer
@@ -695,8 +708,7 @@ general</a></h2>
 only includes
       observations of the science target - one should remember there
       will be instrument set up and calibration overheads on top of
-      this when planning your observing program. <i>{Is this still 
-true?}</i><p>
+      this when planning your observing program.<p>
 
       <li><img src="images/sci_prog.gif" alt="*">The Science Program will 
 give you the estimated time of all
@@ -704,12 +716,12 @@ give you the estimated time of all
       1hr MSB (as in this example) and you set the MSB counter to 2,
       your MSB estimated time will be 1hr and your Science Program
       time will show 2hrs.
-
+      Remember that different MSBs may be observed on different nights, 
+      whereas observations within a single MSB will be observed within a
+      aingle night. 
 </ul>
 
-    I hope that makes sense. <!-- 
-############################################################################ 
---> <h2> <a name="het_note">Adding information in "Note" elements 
+<h2> <a name="het_note">Adding information in "Note" elements 
 </a></h2>
 
 
@@ -781,40 +793,43 @@ for your observation.
 <li> Set up the site quality component, normally this means simply leaving 
 the "allocated" button checked.
 
-<li> Enter the target information for your target. This step can be as 
-simple as entering the RA/DEC and epoch. Don't forget there are the useful 
-tools of the Name resolver and the position editor to help you out here.
+<li> Enter the target information for your target. This step can be as
+simple as entering the RA/DEC and epoch. Don't forget there are the
+useful tools of the Name resolver and the position
+editor to help you out here.
 
-<li> Set up the chop component. Again this can simply mean entering the 
-chop throw angle and reference frame, or this component can be set up via 
-the position editor.
+<li> Set up the chop iterator. Again this can simply mean entering the
+chop throw angle and reference frame, or this iterator can be set up
+via the position editor.
 
-<li> Set up the photom/sample eye. Remember the one-to-one correspondence 
-between the duration you set up here and the integration time per GSD file 
-produced.
+<li> Set up the photom/sample eye. Remember the one-to-one
+correspondence between the duration you set up here and the integration
+time per GSD file produced.
 
-<li> Set up the repeat counter to give the number of repeats of the time 
-set up in the photom/sample eye to get your total required integration 
-time. If you want a total integration of one hour, you should set up an 
-integration time of 10 minutes in the photom/sample eye and set the repeat 
-counter to six. When observing, you can then monitor the observation by 
-inspecting the GSD file produced every ten minutes, and co-add the spectra 
-as you go along. In general, if you want to build up long integrations, 
-you will want the basic sample length to be around 10 minutes for RxW and 
-RxB and around 15-20 minutes for RxA.
+<li> Set up the repeat counter to give the number of repeats of the
+time set up in the photom/sample eye to get your total required
+integration time. If you want a total integration of one hour, you should
+set up an integration time of 10 minutes in the photom/sample eye and
+set the repeat counter to six. When observing, you can then monitor
+the observation by inspecting the GSD file produced every ten minutes,
+and co-add the spectra as you go along. In general, if you want to
+build up long integrations, you will want the basic sample length to
+be around 10 minutes for RxW and RxB and around 15-20 minutes for RxA.
 
-<li> Add at least one "show to observer" note. This should contain 
-additional information on the overall aims of your science program, 
-details of required calibrations and any other special notices you want 
-the observer and TSS to act upon when the observation is made.
+<li> Add at least one "show to observer" note. This should contain additional
+information on the overall aims of your science program, details of
+required calibrations and any other special notices you want the
+observer and TSS to act upon when the observation is made.
 
-<li> Click on the outermost level of the MSB. In the right hand panel you 
-should give the MSB a meaningful name. Below the name field, there is pull 
-down menu labeled "Observe". This counter allows you to control how many 
-times you want the whole MSB observed. If you want it done just once, 
-leave this as (1x). You can set the relative priority of the MSB within 
-your science program using the "Priority" pull down menu. Set this between 
-1 and 99, with 1 signifying the highest priority. </ul>
+<li> Click on the outermost level of the MSB. In the right hand panel
+you should give the MSB a meaningful name. Below the name field, there
+is pull down menu labeled "Observe". This counter allows you to
+control how many times you want the whole MSB observed. If you want it
+done just once, leave this as (1x). You can set the relative priority
+of the MSB within your science program using the "Priority" pull down
+menu. Set this between 1 and 99, with 1 signifying the highest
+priority.
+</ul>
 
  That's pretty much all you need to know to start preparing your
  MSB. The remainder of this primer covers the rest of the Heterodyne
