@@ -19,11 +19,11 @@ alink="# ff0000">
  <li><a href="#het_anat"> Anatomy of a beam-switched MSB </a>
  <li><a href="#ria">Really Important Aside - or is it Inside? </a>
  <li><a href="#het_eoam">Elements of an MSB</a>
+ <li><a href="#thingies">Components, Iterators And All That</a>
  <li><a href="#het_thsc">The Het Setup component</a>
  <li><a href="#het_tsc">Site Quality</a>
  <li><a href="#het_tsched">Scheduling Constraints</a>
  <li><a href="#het_tfoc">The Observation component</a>
- <li><a href="#thingies">Components, Iterators And All That</a>
  <li><a href="#het_tcc">The target component</a>
  <li><a href="#het_tpe">The position editor</a>
  <li><a href="#het_tci">The chop iterator</a>
@@ -136,7 +136,44 @@ take.
 
 <img src="het_images/het_elements.gif" alt="Inside an MSB" ><p>
 
-     We'll now go through these individually. <!-- 
+<h2><a name="thingies">Components, Iterators And All That</a></h2>
+
+<ul>
+
+      <li> <img src="images/icon_msb.gif" alt="*">MSBs
+      are individually schedulable blocks and
+      contain one or more fully specified science
+      observation and any calibrations. For heterodyne observations,
+      calibrations will be described in a show-to-observer note.<p>
+
+      <li><img src="images/icon_observation.gif" alt="*">Observations
+      are observations of a single astronomical
+	target and contain components and a sequence.<p>
+
+      <li><img src="images/icon_component.gif" alt="*">Components
+      are configurators for the JCMT systems such as
+      the instrument (het setup component), the telescope (Target
+      component) and the scheduler (Site Quality component). <p>
+
+      <li><img src="images/icon_iterator.gif" alt="*">Iterators
+      are potentially multiple actions and
+      contain other iterators and one or more
+      eyes.<p>
+
+      <li><img src="images/icon_eye.gif" alt="*">Eyes
+      are actions that results in the actual taking
+      of data - a single data file per eye to be precise.<p>
+
+
+      <li><img src="images/icon_note.gif" alt="*">Notes
+      are a repository of useful information and can
+      go anywhere.<p>
+
+</ul> 
+
+<p>     We'll now go through these individually. </p>
+
+<!-- 
 ############################################################################ 
 -->
     <h2><a name="het_thsc">The Het Setup component</a></h2>
@@ -365,40 +402,7 @@ will be displayed as a hierarchy, as shown below.<p>
       execute the observation (er . . calibration) if a suitable
       calibration has recently been done already.
 
-<h2><a name="thingies">Components, Iterators And All That</a></h2>
-
-<ul>
-
-      <li> <img src="images/icon_msb.gif" alt="*">MSBs
-      are individually schedulable blocks and
-      contain one or more fully specified science
-      observation and any calibrations. For heterodyne observations,
-      calibrations will be described in a show-to-observer note.<p>
-
-      <li><img src="images/icon_observation.gif" alt="*">Observations
-      are observations of a single astronomical
-	target and contain components and a sequence.<p>
-
-      <li><img src="images/icon_component.gif" alt="*">Components
-      are configurators for the JCMT systems such as
-      the instrument (het setup component), the telescope (Target
-      component) and the scheduler (Site Quality component). <p>
-
-      <li><img src="images/icon_iterator.gif" alt="*">Iterators
-      are potentially multiple actions and
-      contain other iterators and one or more
-      eyes.<p>
-
-      <li><img src="images/icon_eye.gif" alt="*">Eyes
-      are actions that results in the actual taking
-      of data - a single data file per eye to be precise.<p>
-
-
-      <li><img src="images/icon_note.gif" alt="*">Notes
-      are a repository of useful information and can
-      go anywhere.<p>
-
-</ul> <!-- 
+<!-- 
 ############################################################################ 
 -->
     <h2><a name="het_tcc">The target component</a></h2>
