@@ -254,7 +254,7 @@ public class OtTreeToolBar extends GenericToolBar {
 	if (surveyButton == null) 
 	    surveyButton = makeButton("Create a Survey Container.", editor.getSurveyFolderAction(), false);
 	
-	updateButton(surveyButton, "Survey Folder", new ImageIcon(ClassLoader.getSystemClassLoader().getResource("ot/images/surveyContainer.gif")));
+	updateButton(surveyButton, "Survey Container", new ImageIcon(ClassLoader.getSystemClassLoader().getResource("ot/images/surveyContainer.gif")));
 	return surveyButton;
     }
 
