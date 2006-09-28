@@ -43,6 +43,8 @@ import java.util.TreeMap ;
 import java.util.Vector ;
 import ot.ReportBox ; 
 
+import java.awt.Color ;
+
 
 // MFO, June 06, 2002:
 //   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -364,20 +366,19 @@ public class EdCompTargetList extends OtItemEditor
 				{
 					// Make sure it matches the pattern D:DD:DD.DDD
 					String pattern = "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?";
-					if( tbwe.getText().matches( pattern ) )
+					String newXString = tbwe.getText();
+					if( newXString.matches( pattern ) )
 					{
 						String currentXString = _curPos.getXaxisAsString();
-						String newXString = tbwe.getText();
 						if( !newXString.equals( currentXString ) )
 							_curPos.setXYFromString( newXString , null );
+						_w.RA_Az_STW.setForeground( Color.BLACK ) ;
 					}
 					else
 					{
 						// Show an error if the field is not blank and does not end in a :
 						if( tbwe.getText().length() > 0 )
-						{
-							JOptionPane.showMessageDialog( _w , "x-axis must only contain numbers and fields must be : separated" , "Bad format" , JOptionPane.ERROR_MESSAGE );
-						}
+							_w.RA_Az_STW.setForeground( Color.RED ) ;
 					}
 				}
 
@@ -428,17 +429,19 @@ public class EdCompTargetList extends OtItemEditor
 				{
 					// Make sure it matches the pattern D:DD:DD.DDD
 					String pattern = "^(\\+|-)?\\d{1,2}((:| )\\d{0,2}((:| )\\d{0,2}(\\.\\d*)?)?)?";
-					if( tbwe.getText().matches( pattern ) )
+					String newYString = tbwe.getText();
+					if( newYString.matches( pattern ) )
 					{
-						_curPos.setXYFromString( null , tbwe.getText() );
+						String currentYString = _curPos.getYaxisAsString();
+						if( !newYString.equals( currentYString ) )
+							_curPos.setXYFromString( null , newYString );
+						_w.Dec_El_STW.setForeground( Color.BLACK ) ;
 					}
 					else
 					{
 						// Show an error if the field is not blank and does not end in a :
 						if( tbwe.getText().length() > 0 )
-						{
-							JOptionPane.showMessageDialog( _w , "y-axis must only contain numbers and fields must be : separated" , "Bad format" , JOptionPane.ERROR_MESSAGE );
-						}
+							_w.Dec_El_STW.setForeground( Color.RED ) ;
 					}
 				}
 
