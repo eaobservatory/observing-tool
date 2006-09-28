@@ -1104,106 +1104,65 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
 
   /**
-   * Creates parts of ACSIS configuration file.
-   */
-  public String toConfigXML(String indent) {
-    String sidebandString  = getBand();
+	 * Creates parts of ACSIS configuration file.
+	 */
+	public String toConfigXML( String indent )
+	{
+		String sidebandString = getBand();
 
-    int sideband = 1; // usb
+		int sideband = 1; // usb
 
-    if(sidebandString != null && sidebandString.equals("lsb")) {
-      sideband = -1;
-    }
+		if( sidebandString != null && sidebandString.equals( "lsb" ) )
+			sideband = -1;
 
+		// ------------------- Front end configuration ------------------------------------
+		StringBuffer xmlBuffer = new StringBuffer();
+		xmlBuffer.append( indent + "<" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" + indent + "  <frontend_configure>\n" + indent + "    <rest_frequency units=\"GHz\" value=\"" + ( getRestFrequency( 0 ) * 1.0E6 ) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
+		indent + "    <if_centre_freq units=\"GHz\" value=\"" + getFeIF() + "\"/>\n" + indent + "    <sideband value=\"" + sideband + "\"/>\n" + indent + "    <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" + indent + "    <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" + indent + "    <doppler_tracking value=\"ON\"/>\n" + // Options are ON | OFF. Default to ON for now.
+		indent + "    <optimize value=\"DISABLE\"/>\n" // Options are ENABLE | DISABLE. Default to DIABLE for now.
+		);
 
-    // ------------------- Front end configuration ------------------------------------
-    StringBuffer xmlBuffer = new StringBuffer();
-    xmlBuffer.append( 
-        indent + "<" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" +
-        indent + "  <frontend_configure>\n" +
-        indent + "    <rest_frequency units=\"GHz\" value=\"" +
-                 (getRestFrequency(0) * 1.0E6) + "\"/>\n" + // TODO: Check whether * 1.0E6 has been done before
-        indent + "    <if_centre_freq units=\"GHz\" value=\"" + getFeIF() + "\"/>\n" +
-        indent + "    <sideband value=\"" + sideband + "\"/>\n" +
-        indent + "    <sb_mode value=\"" + getMode().toUpperCase() + "\"/>\n" +
-        indent + "    <freq_offset_scale units=\"MHz\" value=\"???\"/>\n" +
-        indent + "    <doppler_tracking value=\"ON\"/>\n" +	// Options are ON | OFF. Default to ON for now.
-        indent + "    <optimize value=\"DISABLE\"/>\n"		// Options are ENABLE | DISABLE. Default to DIABLE for now.
-    );
+		if( getFrontEnd().equals( "HARP" ) )
+		{
+			xmlBuffer.append( indent + "    <channel_mask>\n" + // Array of (OFF | ON | NEED). Use Pixeltool to switch pixels ON/OFF. NEED???
+			indent + "      <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"01\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"02\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"03\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"04\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"05\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"06\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"07\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"08\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"09\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"10\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"11\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"12\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"13\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"14\" VALUE=\"ON\"/>\n" + indent + "      <CHAN_MASK_VALUE CHAN=\"15\" VALUE=\"ON\"/>\n" + indent + "    </channel_mask>\n" );
+		}
 
-    if(getFrontEnd().equals("HARP-B")) {
-      xmlBuffer.append(
-        indent + "    <channel_mask>\n" + // Array of (OFF | ON | NEED). Use Pixeltool to switch pixels ON/OFF. NEED???
-        indent + "      <CHAN_MASK_VALUE CHAN=\"00\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"01\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"02\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"03\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"04\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"05\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"06\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"07\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"08\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"09\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"10\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"11\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"12\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"13\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"14\" VALUE=\"ON\"/>\n" +
-        indent + "      <CHAN_MASK_VALUE CHAN=\"15\" VALUE=\"ON\"/>\n" +
-        indent + "    </channel_mask>\n"
-      );
-    }
+		xmlBuffer.append( indent + "  </frontend_configure>\n\n" );
 
-    xmlBuffer.append(
-        indent + "  </frontend_configure>\n\n"
-    );
+		// ------------------- ACSIS configuration ----------------------------------------
 
-    
-    // ------------------- ACSIS configuration ----------------------------------------
+		// Line list
+		String[] restFreqRefs = new String[ getNumSubSystems() ];
+		String transition = null;
 
-    // Line list
-    String [] restFreqRefs = new String[getNumSubSystems()];
-    String transition  = null;
+		xmlBuffer.append( indent + "  <line_list>\n" );
 
-    xmlBuffer.append(indent + "  <line_list>\n");
+		for( int i = 0 ; i < getNumSubSystems() ; i++ )
+		{
+			transition = getTransition( i );
 
-    for(int i = 0; i < getNumSubSystems(); i++) {
-      transition = getTransition(i);
+			if( ( transition != null ) && ( transition.trim().length() > 0 ) )
+				restFreqRefs[ i ] = "" + getMolecule( i ) + " " + transition;
+			else
+				restFreqRefs[ i ] = "restFrequency" + i;
 
-      if((transition != null) && (transition.trim().length() > 0)) {
-        restFreqRefs[i] = "" + getMolecule(i) + " " + transition;
-      }
-      else {
-        restFreqRefs[i] = "restFrequency" + i;
-      }
+			xmlBuffer.append( indent + "    <rest_frequency id=\"" + restFreqRefs[ i ] + "\" units=\"GHz\">" + getRestFrequency( i ) + "</rest_frequency>\n" );
+		}
 
-      xmlBuffer.append(indent + "    <rest_frequency id=\"" + restFreqRefs[i] + "\" units=\"GHz\">" +
-                       getRestFrequency(i) + "</rest_frequency>\n");
-    }
-    
-    xmlBuffer.append(indent + "  </line_list>\n\n");
+		xmlBuffer.append( indent + "  </line_list>\n\n" );
 
-    // Acsis spectral windows list
-    xmlBuffer.append(
-      indent + "  <acsis_spw_list>\n" +
-      indent + "    <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" +
-      indent + "    <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\"/>\n" +
-      indent + "    <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\"/>\n"
-    );
+		// Acsis spectral windows list
+		xmlBuffer.append( indent + "  <acsis_spw_list>\n" + indent + "    <doppler_field ref=\"TCS.RV.DOPPLER???\"/>\n" + indent + "    <spectral_window_id_field ref=\"SPECTRAL_WINDOW_ID???\"/>\n" + indent + "    <front_end_lo_freq_field ref=\"FE.STATE.LO_FREQ\"/>\n" );
 
-    // Spectral windows
-    for(int i = 0; i < getNumSubSystems(); i++) {
-       xmlBuffer.append(spectralWindowToXML(restFreqRefs[i], sideband,
-      "  <!-- <base_line_fit> etc. not implemented yet. -->", indent + "    ", i) + "\n");
-    }
+		// Spectral windows
+		for( int i = 0 ; i < getNumSubSystems() ; i++ )
+			xmlBuffer.append( spectralWindowToXML( restFreqRefs[ i ] , sideband , "  <!-- <base_line_fit> etc. not implemented yet. -->" , indent + "    " , i ) + "\n" );
 
-    xmlBuffer.append(
-      indent + "  </acsis_spw_list>\n" +
-      indent + "</" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n"
-    );
+		xmlBuffer.append( indent + "  </acsis_spw_list>\n" + indent + "</" + XML_ELEMENT_ACSIS_CONFIGURATION + ">\n" );
 
-    return xmlBuffer.toString();
-  }
+		return xmlBuffer.toString();
+	}
 
 
   public String spectralWindowToXML(String restFrequencyId,
