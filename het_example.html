@@ -1,38 +1,40 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> <html>
   <head>
     <title>Preparing heterodyne observation files (MSBs)</title>
   </head>
 
-<body text="#000000" bgcolor="#bbcccc" link="#003300" vlink="#005500" alink="#
-ff0000">
+<body text="#000000" bgcolor="#bbcccc" link="#003300" vlink="#005500" 
+alink="# ff0000">
 
-<h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
+<h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> 
+</h4>
 
-<h1>Preparing Heterodyne observations </h1>
-<!-- ############################################################################ --> 
+<h1>Preparing Heterodyne observations </h1> <!-- 
+############################################################################ 
+-->
 
-<h2>Contents</h2>
-<li>A Guided Tour of an Example MSB (Beam-Switched <i>Sample</i>)
+<h2>Contents</h2> <li>A Guided Tour of an Example MSB (Beam-Switched 
+<i>Sample</i>)
  <ul>
- <li><a href="#het_anat"> Anatomy of a beam-switched MSB </a> 
+ <li><a href="#het_anat"> Anatomy of a beam-switched MSB </a>
  <li><a href="#ria">Really Important Aside - or is it Inside? </a>
  <li><a href="#het_eoam">Elements of an MSB</a>
  <li><a href="#het_thsc">The Het Setup component</a>
  <li><a href="#het_tsc">Site Quality</a>
  <li><a href="#het_tsched">Scheduling Constraints</a>
  <li><a href="#het_tfoc">The Observation component</a>
+ <li><a href="#thingies">Components, Iterators And All That</a>
  <li><a href="#het_tcc">The target component</a>
  <li><a href="#het_tpe">The position editor</a>
  <li><a href="#het_tci">The chop iterator</a>
  <li><a href="#het_offset">The offset iterator</a>
  <li><a href="#het_sample">The photom/sample eye</a>
- <li><a href="#het_time">The repeat iterator and integration time in general</a>
- <li> <a href="#het_note">Adding  a note</a>
+ <li><a href="#het_time">The repeat iterator and integration time in 
+general</a>
+ <li> <a href="#het_note">Adding a note</a>
  <li><a href="#het_summary">Summary: Making your heterodyne MSB.</a>
  <li><a href="#het_freq_ed"> The frequency editor</a> <p>
- </ul>
-<li><a href="#het_msblib">The Heterodyne MSB library</a>
+ </ul> <li><a href="#het_msblib">The Heterodyne MSB library</a>
 
  <ul>
  <li><a href="#het_sam_folder">Samples</a>
@@ -45,9 +47,11 @@ ff0000">
 </ul>
 
 
-<h2><a name="het_anat">Guided Tour of an Example MSB (Beam-Switched Sample) </a> </h2>
+<h2><a name="het_anat">Guided Tour of an Example MSB (Beam-Switched 
+Sample) </a> </h2>
 
-    Go to the JCMT root window, and open the ACSIS library by clicking on :<p>
+    Go to the JCMT root window, and open the ACSIS library by clicking on 
+:<p>
 
    <img src="het_images/het_library.gif" alt="Contents of the
 		heterodyne library"><p>
@@ -55,7 +59,8 @@ ff0000">
        A window will pop up containing a list of folders. The
     little switch on the left of the folder icons is an open/close
     toggle switch. Push open the folder titled "Samples" and then
-    select the MSB labeled "Beam-switch sample(1X) " and click "Copy" on the toolbar.<p>
+    select the MSB labeled "Beam-switch sample(1X) " and click "Copy" on 
+the toolbar.<p>
 
     <img src="het_images/het_copy.gif" alt="Copying an MSB" ><p>
 
@@ -63,26 +68,27 @@ ff0000">
       "Paste". The MSB will be dropped into your science
       program. Congratulations! You're now well underway. Now is a
       good time to save your progress, so use the File->Save option in
-      your Science Program window and carry on.
-<!-- ############################################################################ -->
+      your Science Program window and carry on. <!-- 
+############################################################################ 
+-->
 
     <h2><a name="ria">Really Important Aside - or is it Inside? </a></h2>
 
-Do you see how the icon for the MSB is not directly below the icon for
-the Science Program but indented to the right? That's because the MSB
-is <em>inside</em> the Science Program. This is a classic way of
-representing a hierarchical structure, and many of you will be
-familiar with it from other applications, such as the "Manage
-Bookmarks" screen in the Netscape and Mozilla browsers.
+Do you see how the icon for the MSB is not directly below the icon for the 
+Science Program but indented to the right? That's because the MSB is 
+<em>inside</em> the Science Program. This is a classic way of representing 
+a hierarchical structure, and many of you will be familiar with it from 
+other applications, such as the "Manage Bookmarks" screen in the Netscape 
+and Mozilla browsers.
 
 
-    <h2><a name="het_etmc">Editing the MSB  component</a></h2>
+    <h2><a name="het_etmc">Editing the MSB component</a></h2>
 
     <p> Click on the title of the MSB. This will activate the MSB
     editor panel on the right section of your window.<p>
 
 
-      The properties of an MSB are very simple. 
+      The properties of an MSB are very simple.
 
       <ul>
 
@@ -117,43 +123,44 @@ Bookmarks" screen in the Netscape and Mozilla browsers.
 
     </ul>
 
-There is also a display of the OT's estimate of how long the MSB
-will take. 
+There is also a display of the OT's estimate of how long the MSB will 
+take.
 
-<!-- ############################################################################ -->
-<h2><a name="het_eoam">Elements of an MSB</a></h2>
+<!-- 
+############################################################################ 
+--> <h2><a name="het_eoam">Elements of an MSB</a></h2>
 
     Click on the push lever to open up your MSB. Inside you will find
     a Het Setup component, a Site Quality component, a DRRecipe
-	component and an observation 
+	component and an observation
     component which is labelled "Science Target" at the moment:<p>
 
 <img src="het_images/het_elements.gif" alt="Inside an MSB" ><p>
 
-     We'll now go through these individually.
-<!-- ############################################################################ -->
+     We'll now go through these individually. <!-- 
+############################################################################ 
+-->
     <h2><a name="het_thsc">The Het Setup component</a></h2>
 
 <p> If you click on the "Het Setup" component, the properties of that
  component are shown in the right hand side of the science program
  window (i.e. in the editor panel), as shown below. The purpose of
 	  this component is to enable the set up of the required
-	  heterodyne instrument and ACSIS prior to 
+	  heterodyne instrument and ACSIS prior to
 	  an observation. </p>
  
 
-<img src="het_images/het_het_setup.gif" alt="Het Setup component" ><p>
-<p> Four boxes are displayed in the editor panel. 
+<img src="het_images/het_het_setup.gif" alt="Het Setup component" ><p> <p> 
+Four boxes are displayed in the editor panel.
 
-<h3>Front End Configuration</h3>
-<ul>
-<li> The first item in the Het Setup component enables the user to
+<h3>Front End Configuration</h3> <ul> <li> The first item in the Het Setup 
+component enables the user to
 		choose the required receiver. Choose from A3 or B3.
-		(W(C) has been retired, and W(D) and 
+		(W(C) has been retired, and W(D) and
 		HARP are not yet supported in the OT.) Note the tuning
 		range, i.e. the frequency range over which the
 		selected receiver can be tuned, displayed in the
-		top-right corner. 
+		top-right corner.
 
 <li> The next item in the list allows one to specify the number of
 		spectral regions.  When fully implemented, this will
@@ -168,7 +175,7 @@ will take.
 		formaldehyde lines, or 13CO & C18O J=3-2.  Currently
 		not supported.
 
-<li> The next  item allows the user to choose between a single or
+<li> The next item allows the user to choose between a single or
 		a dual mixer observation. For receiver A, there is
 		only one mixer, so only "single mixer" will be
 		allowed. Receivers B3 and W have two mixers, sensitive
@@ -184,14 +191,14 @@ will take.
 		bandwidth (in MHz). The resulting spectral resolution
 		(in kHz) is shown automatically updated in the "res"
 		entry in the Frequency Configuration table at the
-		bottom of the Het Setup menu. 
+		bottom of the Het Setup menu.
 
 
 
 <li> The next item allows the user to choose between double sideband
 		(dsb) and single sideband (ssb) operation. Note
 		receiver A has no single sideband capabilities, so
-		"dsb" is the only allowed option. 
+		"dsb" is the only allowed option.
  
 <li> The next menu allows the user to request which sideband is used
 		to observe with. Sideband suppression is not absolute
@@ -200,7 +207,7 @@ will take.
 		corresponds to a frequency where the zenith opacity or
 		receiver noise is high. If either sideband is okay,
 		choose "best" and the TSS will use his or her
-		discretion when making the observation. 
+		discretion when making the observation.
 
 </ul>
 
@@ -208,16 +215,19 @@ will take.
 
 
  <p>In order to indicate receiver tuning, the user needs to indicate
-	      the  rest frequency of the spectral line observation.
+	      the rest frequency of the spectral line observation.
 	      In addition, one <i>may</i> indicate the source velocity
-	      and frame in the Frequency Setup box, but the default practice is now to specify these values with the other source information in
+	      and frame in the Frequency Setup box, but the default 
+practice is now to specify these values with the other source information 
+in
 	    the <a href="#het_tcc">Target Information</a> component.
 	    (In fact, specifying the source velocity in the <i>Frequency
 	      Setup</i> box is also not yet supported.  Currently you
 	    <i>must</i> specify source velocity in the <a
-	      href="#het_tcc">Target Information</a> component.) 
-	    The rest frequency of 
- the line can be set by choosing the required molecule and transition from the
+	      href="#het_tcc">Target Information</a> component.)
+	    The rest frequency of
+ the line can be set by choosing the required molecule and transition from 
+the
  pull-down menus, or by entering the frequency manually, in GHz, in the
  frequency field. Note
   that manually entering frequency values in the rest frequency field
@@ -233,7 +243,7 @@ will take.
 	    href="het_tcc">Target Information</a> component, as
 	  normal.  The observing system will calculate the correct
 	  frequency and will select the correct receiver (e.g. RxA if
-	  you're observing CO 3-2 at a redshift of 0.5).  
+	  you're observing CO 3-2 at a redshift of 0.5).
 
 <p>Beware, however, that the spectral line, after the Doppler shift,
 	  may now lie in a region of very low atmospheric transition,
@@ -247,57 +257,55 @@ will take.
 	  transmission is acceptable.
 
  <p>The <i>Frequency Setup</i> configuration also includes a
-	      "Frequency Editor" tool. This 
+	      "Frequency Editor" tool. This
  can be useful in setting choosing your observing frequencies and
  bandwidths, particularly where you might want to observe several
  lines at once with DSB receivers, when using special ACSIS
 	      configurations, or to check the atmospheric opacity at
 	      the observed (or sideband) frequency.  This section will
-	    be updated when ACSIS special configurations become supported.<p>
+	    be updated when ACSIS special configurations become 
+supported.<p>
 
  
 
-<!-- ############################################################################ -->
-    <h2><a name="het_tsc">Rarely Used Components: Site Quality</a></h2>
+<!-- 
+############################################################################ 
+-->
+    <h2><a name="het_tsc">Site Quality</a></h2>
  
     The Site Quality component specifies any weather-related
     scheduling requirements for an MSB. Click on the Site Quality
     component to get the Site Quality panel:<p>
 
-    <img src="het_images/het_site_quality.gif" alt="Site Quality Component" ><p>
+    <img src="het_images/het_site_quality.gif" alt="Site Quality 
+Component" ><p>
 
-     You probably don't need to change anything here, except if your
-program is using different receivers (where you don't want an RxW
-project done in grade 5 weather or an RxA project in grade 2
-weather). The default value of tau of "Allocated" means that your MSB
-can be scheduled when the tau is in the range that was specified by
-your TAG for your project. The default value of the sub-millimetre
-seeing is "Don't Care".
-
-<p>If you think you need to change these values, click
-     on the note entitled "Note: Site Quality" which contains a
-     lengthy explanation, but don't get bogged down in this for
-     now. DO NOT request a tau value outside your TAG allocation.
-Your MSB will never be carried out if you do, since
-the scheduling software requires firstly, that the current tau  
-is within your TAG allocation and then, only once this condition 
-has been met, that the current tau is within your range of personal
-	      preference.<p>
+     Your TAG normally allocates your program a certain range of tau 
+(opacity), so you probably don't need to change anything here unless your 
+program is using multiple receivers and the TAG-allocated tau range is not 
+sufficiently specific for this MSB. You should specify an appropriate 
+range of tau to match the demands of the receiver to be used. But beware: 
+the resulting range of tau in which the MSB can be observed is then the 
+intersect of the TAG allocation and your input: make sure this is not an 
+empty set ! <p> The default value of the sub-millimetre seeing is "Don't 
+Care".
 
 
-<!-- ############################################################################ -->
-    <h2><a name="het_tsched">Rarely Used Components: Scheduling Constraints</a></h2>
+
+<!-- 
+############################################################################ 
+-->
+    <h2><a name="het_tsched">Scheduling Constraints</a></h2>
  
-<p>    The Scheduling Constraints component allows one to restrict or
+<p> The Scheduling Constraints component allows one to restrict or
 	    broaden the time over which an MSB will be selected. To
 	    insert this component, click on the <i>Component</i>
 	    button on the left side near the bottom of the OT window,
 	    and select the "Sched. Constraints".  <p>
 
     <img src="het_images/het_sched_constraints.gif" alt="Scheduling
-		Constraints Component" >
-<p>
-The main reason you might want to insert this component is if your
+		Constraints Component" > <p> The main reason you might 
+want to insert this component is if your
 	      science targets have a very low (i.e. &delta; &lt; ~-35
 	      deg) or very high (i.e. &delta; &gt; ~+80 deg)
 	      declination.  By default, MSBs are only selected when
@@ -306,21 +314,23 @@ The main reason you might want to insert this component is if your
 	      you specify a lower minimum elevation.  Similarly,
 	      sources at ~19deg declination transit almost directly
 	      overhead, and you may wish to restrict such sources to
-	      be selected when they're not so high.
+	      be selected when they're not at extremely high elevations.
 
 <p>Another reason to insert this component is if your observations are
 	      time-critical, i.e. they must not be done before a
 	      certain date or after a certain date.  This can be
 	      specified by changing the Earliest and/or Latest
-	      Schedule Date.  
+	      Schedule Date.
 
 <p>You may also need to use this component if you have a project which
 	      requires periodic observations, for example if you were
 	      monitoring a variable source.  In that case, you can
 	      specify the repeat time in the "Reschedule every..." box.
+              The MSB will be reactivated at the appropriate time.
 
-
-<!-- ############################################################################ -->
+<!-- 
+############################################################################ 
+-->
     <h2><a name="het_drrecipe">DRRecipe Component</a></h2>
 
 <p>When fully implemented, this component will allow you to specify
@@ -328,29 +338,42 @@ The main reason you might want to insert this component is if your
 	      For now, just ignore it (but don't remove it!).
 
 
-<!-- ############################################################################ -->
+<!-- 
+############################################################################ 
+-->
     <h2><a name="het_tfoc">The Observation component</a></h2>
 
-    Now click on the science target to bring up its panel. If you recursively open all of the toggle switches, the individual components of the science target will be displayed as a hierarchy, as shown below.<p>
+    Now click on the science target to bring up its panel. If you 
+recursively open all of the toggle switches, the individual components of 
+the science target will be displayed as a hierarchy, as shown below.<p>
  
-    <img src="het_images/sci_tar.gif" alt="Science target" ><p>
+    <img src="het_images/obs_comp.gif" alt="Observation component" ><p>
 
- The first element inside the Science target is the "Target
-      information" component. We will discuss this shortly. Next there
-      is a sequence iterator which contains a repeat iterator, a chop
-      iterator and a single "eye". The sequence iterator doesn't do
-      anything per se, so you can ignore it for the moment, but it is
+ The first element inside the Observation component is the "Target
+      information" component, although it is possible to construct an
+      MSB to perform multiple observations on a single target: in
+      which case you might put the Target component outside of (and
+      therefore containing) multiple Observation components. Further
+      details on this issue of component nesting may be found in the
+      section on <a href="./advanced.html">advanced topics</a>.
+      Following the Target component is a sequence iterator which
+      contains a repeat iterator, then (depending upon the observation
+      type) perhaps a chop iterator or an offset iterator - a
+      position-switched raster centred on the Target, as in this example,
+      needs neither - and then, finally, a single (action) "eye".
+      The sequence iterator doesn't do anything <i>per se</i>, but it is
       important to note that it represents the sequence of events at
       the telescope. The repeat iterator allows the user to control
       the number of repeats carried out for a certain observation. The
-      "eye" icon represents the observation itself. Before explaining
-      the function of each of these elements, the nomenclature of the
-      elements of a general MSB will be reviewed. <p>
+      "eye"-con represents the observation itself. 
+<p>
+      The "Flag as calibration" button should be toggled ON if, indeed,
+      this observation is intended as a calibration for others.
+      This fact is then made known to the TSS who may decide not to 
+      execute the observation (er . . calibration) if a suitable
+      calibration has recently been done already.
 
 <h2><a name="thingies">Components, Iterators And All That</a></h2>
-
-We've talked about several things so far, so it's time to have a quick
-run down. <p>
 
 <ul>
 
@@ -383,8 +406,9 @@ run down. <p>
       <strong>are</strong> a repository of useful information and can
       go anywhere.<p>
 
-</ul>
-<!-- ############################################################################ -->
+</ul> <!-- 
+############################################################################ 
+-->
     <h2><a name="het_tcc">The target component</a></h2>
 
     Click on the target component to bring up its panel:<p>
@@ -393,12 +417,12 @@ run down. <p>
 
 <p>In this component you will enter the coordinates and velocity of
 	      the source, and the coordinates of the reference
-	      position (for position-switched observations).  
+	      position (for position-switched observations).
 
 <p>The "Target Type" is a pull-down menu that allows you to select
 	      RA/Dec (most common), Orbital Elements (for comets,
 	      etc.), or a Named Planet.  The window changes for each
-	      selection. 
+	      selection.
 
 <p>For RA/Dec targets, enter the R.A. and Dec. in the appropriate
 	      boxes, using colons as separators.  One of several
@@ -409,16 +433,16 @@ run down. <p>
 
 <p>It is now necessary to specify the radial velocity of the source in
 	      the target component, either as a radio, optical, or
-	      relativistic velocity, or redshift (z).  
+	      relativistic velocity, or redshift (z).
 
 <p>To specify a reference position, click on "REFERENCE".  The default
 	      is to enter the offset (in arcseconds) from the source
 	      position, but by unchecking the "Offset" button, you can
-	      enter an absolute position for the reference.  
+	      enter an absolute position for the reference.
 
       
 <p>Instead of entering the source coordinates manually, if you are using
-      a machine with an Internet connection you can try  entering the name
+      a machine with an Internet connection you can try entering the name
       of your target (in our example the IRAS source 18592+0108),
 	      select the on-line catalogue to search (i.e. SIMBAD or
 	      NED) from the pull-down menu, and
@@ -430,16 +454,18 @@ run down. <p>
       "Resolve Name" button.  And of course, double check that the
       co-ordinates are those you intend to observe.<p>
        
-<!--      N.B. Not all ACSII characters are allowed in the target name -
+<!-- N.B. Not all ACSII characters are allowed in the target name -
       make sure your target name is built up of only the following
       characters A-Z, a-z 0-9,+,- and _. -->
 
 
-      But wait - that's not all.<p>
-<!-- ############################################################################ -->
+      But wait - that's not all.<p> <!-- 
+############################################################################ 
+-->
     <h2><a name="het_tpe">The position editor</a></h2>
 
-    You can <a href="#het_tci">skip</a> this section if you want because you don't have to do
+    You can <a href="#het_tci">skip</a> this section if you want because 
+you don't have to do
     anything, but it's kind of cool and can be very useful in picking
     a good chop position. Click on the plot button at the bottom left
     of the target panel:<p>
@@ -455,7 +481,11 @@ run down. <p>
       It's now full of stars. The display application, by the way, is
       is based on JSky, for those familiar with it. <p>
 
-      If you're having problems with the position editor, the most likely explanation is that your version(s) of JRE, JAI and/or java may not be sufficiently up-to-date; check the <a href="download.html">download page</a> for more information.  If you are behind a firewall, you may need to check your <a href="advanced.html#proxy">proxy server settings</a>.<p>
+      If you're having problems with the position editor, the most likely 
+explanation is that your version(s) of JRE, JAI and/or java may not be 
+sufficiently up-to-date; check the <a href="download.html">download 
+page</a> for more information.  If you are behind a firewall, you may need 
+to check your <a href="advanced.html#proxy">proxy server settings</a>.<p>
 
       The DSS may not be the most useful survey for planning
       sub-millimetre observations, but you can read in any FITS image
@@ -466,7 +496,8 @@ run down. <p>
       scan map of W48 <em>(image courtesy Tim Jenness)</em>. If you
       have an Internet connection, go to the File menu, select "Open
       URL...:" and type in the following URL: <a
-      href="http://www.jach.hawaii.edu/software/jcmtot/w48.fits">http://www.jach.hawaii.edu/software/jcmtot/w48.fits</a>
+      
+href="http://www.jach.hawaii.edu/software/jcmtot/w48.fits">http://www.jach.hawaii.edu/software/jcmtot/w48.fits</a>
       or download the image by clicking on the link and and use
       File-&gt;Open to read it in. Notice that the RA/DEC position
       fields of the target component must be set reasonably near to
@@ -479,16 +510,19 @@ run down. <p>
       image.<p>
 
       <blockquote>
-      <small>A short technical note if you are planning on generating your own
+      <small>A short technical note if you are planning on generating your 
+own
       image for import: if you want to import a SCUBA map in NDF format,
       convert it to FITS by using the <a
       href="http://www.starlink.ac.uk">Starlink</a> <a
-      href="http://www.starlink.rl.ac.uk/star/docs/sun55.htx/sun55.html"><tt>convert</tt></a>
+      
+href="http://www.starlink.rl.ac.uk/star/docs/sun55.htx/sun55.html"><tt>convert</tt></a>
       utility with the following arguments:
 
 <pre>ndf2fits encoding=FITS-IRAF bitpix=32 comp=D</pre>
 
-    If you have difficulty despite doing this, let us know.</small></blockquote>
+    If you have difficulty despite doing this, let us 
+know.</small></blockquote>
 
 
     <p>As I mentioned before, the green cross-hair is the position of
@@ -501,7 +535,7 @@ run down. <p>
     window and click on your chop iterator that is inside your science
     observation. Now look at the position editor. The chop beams and
     the area in which they will rotate during integration are
-    drawn. Well, that's no good - we're chopping onto bright stuff! 
+    drawn. Well, that's no good - we're chopping onto bright stuff!
     <p>
 
  <img src="het_images/het_bright_chop.gif" alt="bright stuff"><p>
@@ -514,13 +548,16 @@ run down. <p>
     disappeared, since we will always chop in the same position in the
     sky:<p>
 
-      <img src="het_images/het_tracking_chop.gif" alt="Chop and the Position Editor"><p>
+      <img src="het_images/het_tracking_chop.gif" alt="Chop and the 
+Position Editor"><p>
 	   
  Now back in the position editor, click on the Drag button on the
  upper left side of the window. Then click on the centre of one of the
-	   chop beams in the display and drag it away from the emission:<p>
+	   chop beams in the display and drag it away from the 
+emission:<p>
 
-      <img src="het_images/het_tracking_chop2.gif" alt="Dragging the Chop"><p>
+      <img src="het_images/het_tracking_chop2.gif" alt="Dragging the 
+Chop"><p>
 
       You will note that the values in the chop iterator have
       automatically changed to reflect the new chop throw and angle
@@ -529,8 +566,9 @@ run down. <p>
       science observation. <p>
 
       You can also click on the target component and use Drag to
-      change your science co-ordinates if you wish. 
-<!-- ############################################################################ -->
+      change your science co-ordinates if you wish. <!-- 
+############################################################################ 
+-->
 
     <h2><a name="het_tci">The chop iterator</a></h2>
 
@@ -541,18 +579,21 @@ run down. <p>
 
       The chop iterator has a list of chop configurations (in this
       example only one 60 arcsecond chop). Each chop needs to be
-	      specified by a throw, 
+	      specified by a throw,
       an angle, and co-ordinate frame of the angle. In this example
       the frame is AZEL (Azimuth Elevation) but other common options
       are TRACKING (RA & Dec) or FPLANE (Focal Plane). A 60 arcsecond
-	  chop with an angle of 90 degrees AZEL  
+	  chop with an angle of 90 degrees AZEL
       (i.e. 60 arcsec in the azimuth direction) is typical for
       beamswitched observations of compact sources. If the source is
       extended, one might want to increase the chop throw, or if the
       source was elongated in one direction on the sky, chop relative
-      to the RA/DEC frame. Maximum recommended chop throw is 180 arcsec.<p>
+      to the RA/DEC frame. Maximum recommended chop throw is 180 
+arcsec.<p>
 
-<!-- ############################################################################ -->
+<!-- 
+############################################################################ 
+-->
 
     <h2><a name="het_offset">The offset iterator</a></h2>
 
@@ -596,7 +637,9 @@ run down. <p>
 	  section of the window.  See the section on <a
 	    href="#het_grid_folder">Grid Maps</a> for a description.
 
-<!-- ############################################################################ -->
+<!-- 
+############################################################################ 
+-->
  <h2><a name="het_sample">The photom/sample eye</a></h2>
 
   The science observation itself is represented within the MSB by the
@@ -613,9 +656,11 @@ run down. <p>
 
  <img src="het_images/het_eye.gif" alt="The photom/sample eye" ><p>
 
-<p>  
-<!-- ############################################################################ -->
-    <h2><a name="het_time">The repeat iterator and integration time in general</a></h2>
+<p> <!-- 
+############################################################################ 
+-->
+    <h2><a name="het_time">The repeat iterator and integration time in 
+general</a></h2>
 
     Back to your Science Program window now. Click on the Repeat
     iterator. It's only property is a repeat counter:<p>
@@ -640,7 +685,7 @@ run down. <p>
 
 <ul>
       <li><img src="images/icon_eye.gif" alt="*"> The photom/sample
-      eye  is set to an on-source integration time (and shows you the
+      eye is set to an on-source integration time (and shows you the
       estimated RMS noise) which will end up in a single file.<p>
 
       <li><img src="images/icon_iterator.gif" alt="*">The Repeat
@@ -661,12 +706,15 @@ run down. <p>
       instructions, for example, the observation of a spectral line
       standard and/or a planet should be described in the note attached
       to the MSB. Be sure to remember to click the show-to-observer
-      tick box for the note. In conclusion, the estimated time for an MSB only includes
+      tick box for the note. In conclusion, the estimated time for an MSB 
+only includes
       observations of the science target - one should remember there
       will be instrument set up and calibration overheads on top of
-      this when planning your observing program. <i>{Is this still true?}</i><p>
+      this when planning your observing program. <i>{Is this still 
+true?}</i><p>
 
-      <li><img src="images/sci_prog.gif" alt="*">The Science Program will give you the estimated time of all
+      <li><img src="images/sci_prog.gif" alt="*">The Science Program will 
+give you the estimated time of all
       MSBs inside it including the number of repeats. So if you have a
       1hr MSB (as in this example) and you set the MSB counter to 2,
       your MSB estimated time will be 1hr and your Science Program
@@ -674,9 +722,10 @@ run down. <p>
 
 </ul>
 
-    I hope that makes sense.
-<!-- ############################################################################ -->
-<h2> <a name="het_note">Adding information in "Note" elements </a></h2>
+    I hope that makes sense. <!-- 
+############################################################################ 
+--> <h2> <a name="het_note">Adding information in "Note" elements 
+</a></h2>
 
 
   By default, the heterodyne library MSBs contain one note element at
@@ -708,16 +757,18 @@ run down. <p>
  Parameter" should include a value for the total
  expired time, or a required signals-to-noise or RMS noise value. The
  assumed bin size, either in km/s or MHz, should be entered in the
- "Binning" field. The above screenshot shows an example of a typical "Show to
+ "Binning" field. The above screenshot shows an example of a typical "Show 
+to
  observer"  for an extragalactic spectral line observation.<p>
 
  Additional notes can be inserted at any point in the MSB from the
  icon menu and you may have more than one "show to observer" notes in
  an MSB. For example, you could choose to insert a "show to observer"
  note above the "chop" element to clarify the use of an unusual
- chopping scheme.<p>  
+ chopping scheme.<p>
 
-    Finally, there is no need to repeat information in notes that is already included
+    Finally, there is no need to repeat information in notes that is 
+already included
    in other components of the MSB. This might include receiver tunings,
    chop throws, offset positions and science targets. All of these
    should be set up in the appropriate MSB components. If they are
@@ -726,82 +777,85 @@ run down. <p>
    between the notes and the MSB components resulting in confusion at
    the telescope.<p>
  
-<!-- ############################################################################ -->
-<h2><a name="het_summary">Summary: Making your heterodyne MSB</a></h2>
+<!-- 
+############################################################################ 
+--> <h2><a name="het_summary">Summary: Making your heterodyne MSB</a></h2>
 
  So far, I have described, the various elements of the MSB. I'd like
  to summarise the general procedure for making your own.<p>
 
 <ul>
 
-<li> Choose the corresponding MSB template from the heterodyne library
-and copy/paste it to your science program.  Each of these is described
+<li> Choose the corresponding MSB template from the heterodyne library and 
+copy/paste it to your science program.  Each of these is described
 		briefly <a href="#het_supported">below</a>.
 
-<li> Fill out the het setup component with the frontend/backend
-details for your observation.
+<li> Fill out the het setup component with the frontend/backend details 
+for your observation.
 
-<li> Set up the site quality component, normally this means simply
-leaving the "allocated" button checked. 
+<li> Set up the site quality component, normally this means simply leaving 
+the "allocated" button checked.
 
-<li> Enter the target information for your target. This step can be as
-simple as entering the RA/DEC and epoch. Don't forget there are the
-useful tools of the Name resolver and the position
-editor to help you out here.
+<li> Enter the target information for your target. This step can be as 
+simple as entering the RA/DEC and epoch. Don't forget there are the useful 
+tools of the Name resolver and the position editor to help you out here.
 
-<li> Set up the chop component. Again this can simply mean entering the
-chop throw angle and reference frame, or this component can be set up
-via the position editor.
+<li> Set up the chop component. Again this can simply mean entering the 
+chop throw angle and reference frame, or this component can be set up via 
+the position editor.
 
-<li> Set up the photom/sample eye. Remember the one-to-one
-correspondence between the duration you set up here and the integration
-time per GSD file produced.
+<li> Set up the photom/sample eye. Remember the one-to-one correspondence 
+between the duration you set up here and the integration time per GSD file 
+produced.
 
-<li> Set up the repeat counter to give the number of repeats of the
-time set up in the photom/sample eye to get your total required
-integration time. If you want a total integration of one hour, you should
-set up an integration time of 10 minutes in the photom/sample eye and
-set the repeat counter to six. When observing, you can then monitor
-the observation by inspecting the GSD file produced every ten minutes,
-and co-add the spectra as you go along. In general, if you want to
-build up long integrations, you will want the basic sample length to
-be around 10 minutes for RxW and RxB and around 15-20 minutes for RxA.
+<li> Set up the repeat counter to give the number of repeats of the time 
+set up in the photom/sample eye to get your total required integration 
+time. If you want a total integration of one hour, you should set up an 
+integration time of 10 minutes in the photom/sample eye and set the repeat 
+counter to six. When observing, you can then monitor the observation by 
+inspecting the GSD file produced every ten minutes, and co-add the spectra 
+as you go along. In general, if you want to build up long integrations, 
+you will want the basic sample length to be around 10 minutes for RxW and 
+RxB and around 15-20 minutes for RxA.
 
-<li> Add at least one "show to observer" note. This should contain additional
-information on the overall aims of your science program, details of
-required calibrations and any other special notices you want the
-observer and TSS to act upon when the observation is made.
+<li> Add at least one "show to observer" note. This should contain 
+additional information on the overall aims of your science program, 
+details of required calibrations and any other special notices you want 
+the observer and TSS to act upon when the observation is made.
 
-<li> Click on the outermost level of the MSB. In the right hand panel
-you should give the MSB a meaningful name. Below the name field, there
-is pull down menu labeled "Observe". This counter allows you to
-control how many times you want the whole MSB observed. If you want it
-done just once, leave this as (1x). You can set the relative priority
-of the MSB within your science program using the "Priority" pull down
-menu. Set this between 1 and 99, with 1 signifying the highest
-priority.
-</ul>
+<li> Click on the outermost level of the MSB. In the right hand panel you 
+should give the MSB a meaningful name. Below the name field, there is pull 
+down menu labeled "Observe". This counter allows you to control how many 
+times you want the whole MSB observed. If you want it done just once, 
+leave this as (1x). You can set the relative priority of the MSB within 
+your science program using the "Priority" pull down menu. Set this between 
+1 and 99, with 1 signifying the highest priority. </ul>
 
  That's pretty much all you need to know to start preparing your
  MSB. The remainder of this primer covers the rest of the Heterodyne
  MSB library and the frequency editor tool in the heterodyne setup
- component. 
-<!-- ############################################################################ -->
+ component. <!-- 
+############################################################################ 
+-->
 
-<!-- ############################################################################ -->
- <h2><a name="het_freq_ed"> The frequency editor</a></h2>    
+<!-- 
+############################################################################ 
+-->
+ <h2><a name="het_freq_ed"> The frequency editor</a></h2>
 
 <i>{This section is out of date.}</i>
 
  <p>While many users will simply complete the Het-setup component quite
- adequately following the procedure outlined above, the het-setup component includes the
+ adequately following the procedure outlined above, the het-setup 
+component includes the
  "frequency editor" tool which will prove useful to some observers -
  particularly those observing multiple spectral lines in a single
  program. To activate the tool simply, click on the "Show frequency
  Editor" button in the het-setup component.<p>
 
 
-<img src="het_images/het_freq_ed.gif" alt="The frequency editor" width="100%"><p>
+<img src="het_images/het_freq_ed.gif" alt="The frequency editor" 
+width="100%"><p>
 
 
  Starting at the top of the window we see a rectangle labelled LSB on
@@ -809,7 +863,8 @@ priority.
  two rectangle we have indication of the receiver IF frequency, the
  currently selected bandwidth and the resolution. Below these items there
  is a frequency scale and vertical lines indicating the position of
- astronomical spectral lines. Below this frequency scale is a plot indicating the
+ astronomical spectral lines. Below this frequency scale is a plot 
+indicating the
  atmospheric transmission as a function of frequency. Below this is a
  frequency scale labelled "FE frequency" and below this is a scale and
  slider labelled "LO1".<p>
@@ -829,7 +884,8 @@ priority.
   line you selected before opening the frequency editor tool. Now select a
   bandwidth of 920 MHz. The band, indicated by the textured lilac
   rectangle, can be seen to encompass several other spectral lines. If
-  you click and hold the right mouse button near the spectral lines, a menu will 
+  you click and hold the right mouse button near the spectral lines, a 
+menu will
  appear. Moving down the menu, still keeping the right mouse button
   held down, highlights the name of a spectral line on the menu and
   causes the corresponding spectral line to be highlighted in green on
@@ -865,7 +921,8 @@ priority.
      receivers operating in double sideband mode, where two differing
      sky frequencies end up with the same IF frequency. In this case,
      identifying spectral lines can be tricky since one does not know,
-     <em> a priori</em>, which sideband they are from. Choose RxA, which has no
+     <em> a priori</em>, which sideband they are from. Choose RxA, which 
+has no
      sideband suppression capabilities, from the pull-down menu on the
      het-setup component. Notice that neither LSB nor USB rectangles
      are greyed out, indicating that lines from both sidebands may be
@@ -883,7 +940,8 @@ priority.
      The frequency editor tool is also useful when using non-standard
      DAS configurations. As an example, choose NS_COHCN_125AB from the
      non-standard configuration menu. This mode is designed to allow
-     the user to observe the CO(3-2) and HCN(4-3) lines simulataneously using the
+     the user to observe the CO(3-2) and HCN(4-3) lines simulataneously 
+using the
      highest resolution 125 MHZ DAS mode. This is achieved by
      adjusting both the frontend LO frequency (to move the lines
      closer together) and the DAS LO frequency (to centre the
@@ -901,10 +959,13 @@ priority.
      configuration enables the simultanaeous observation of the H2CO
      lines at 218.22 GHz and 218.48 GHz with the highest DAS frequency
      resolution.  Please consult this <a
-     href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
+     
+href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
      list </a> of non-standard modes DAS modes, and the <a href
-     ="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/DAS_guide/das-guide.html">
-     DAS USER guide </a> for further information when planning your observation.
+     
+="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/DAS_guide/das-guide.html">
+     DAS USER guide </a> for further information when planning your 
+observation.
 
 <h2><a name="het_msblib">The Heterodyne MSB library</a></h2>
 
@@ -919,23 +980,21 @@ priority.
  allow position switching. The similarities and differences of the
  heterodyne library MSBs will be discussed below.
 
-<ul>
-<li><a href="#het_sam_folder">Single-spectrum samples</a>
+<ul> <li><a href="#het_sam_folder">Single-spectrum samples</a>
   <ul><li>An old, familiar observing mode, where a single spectrum is
-		    obtained  toward a single position.     </ul>
-<li><a href="#het_grid_folder">Grid maps</a>
+		    obtained toward a single position.  </ul> <li><a 
+href="#het_grid_folder">Grid maps</a>
   <ul><li>Another familiar observing mode, grid mapping are used where
 		  relatively small maps are required with longer
-		  integration times per point.</ul>
-<li><a href="#het_jig_folder">Jiggle maps</a>
+		  integration times per point.</ul> <li><a 
+href="#het_jig_folder">Jiggle maps</a>
   <ul><li>This mode is new to heterodyne observing at the JCMT, and
 		  specifically designed for HARP although useful for
 		  single "pixel" receivers as well.  This mode makes a
 	      small map where the secondary mirror "jiggles" rapidly
-		  over all the points in the map.</ul>
-<li><a href="#het_rast_folder">Raster maps</a>
-  <ul><li>This mode is useful for making large maps rapidly.</ul>
-</ul>
+		  over all the points in the map.</ul> <li><a 
+href="#het_rast_folder">Raster maps</a>
+  <ul><li>This mode is useful for making large maps rapidly.</ul> </ul>
 
 
 <h3><a name="het_sam_folder"> Samples</a> </h3>
@@ -961,8 +1020,7 @@ priority.
 For all sample modes, the <i>total</i> integration time per sample is
 	    indicated in the "Photom/Sample" eye.
 
-<p> 
-<h3> <a name="het_grid_folder">Grid Maps</a> </h3>
+<p> <h3> <a name="het_grid_folder">Grid Maps</a> </h3>
 
  Observations of a single science target, at multiple positions are
  generically referred to as Grid observations. Note that the user
@@ -974,7 +1032,8 @@ For all sample modes, the <i>total</i> integration time per sample is
  required pointings for the observation. <p>
 
  Suppose the user requires three pointings along the long axis of a
- galaxy, at a half beam width spacing of 10 arcseconds. Let us assume the long axis of the
+ galaxy, at a half beam width spacing of 10 arcseconds. Let us assume the 
+long axis of the
  galaxy has a position angle of 30 degrees on the sky. First enter the
  position angle in the "P.A." field. The rotated frame has axes
  labeled p and q, so in order to obtain the required pointings along
@@ -994,7 +1053,7 @@ For all sample modes, the <i>total</i> integration time per sample is
   If you want to see what the rotated offsets are in the sky
   frame (which will be the co-ordinate frame specified in the "target
   information" element), click and hold the "Display Rotated Offsets"
-  button.<p> 
+  button.<p>
 
   The offset iterator has the ability to automatically generate
   regularly spaced grids without the need to enter each pointing
@@ -1007,10 +1066,12 @@ For all sample modes, the <i>total</i> integration time per sample is
   either "Create" or "Create/Centre on Base" button. The pointings
   generated then appear in the pointing list box above. Notice that
   "Create" created a grid where the (0,0) point is at the top left
-  hand corner of the map, whereas  "Create/Centre on Base" chooses the
-  point the geometrical centre of the grid for the (0,0) position. This will only
-  correspond to a pointing position for grids with odd p and q dimensions. The
-  screenshot below show the result of clicking on the  "Create/Centre
+  hand corner of the map, whereas "Create/Centre on Base" chooses the
+  point the geometrical centre of the grid for the (0,0) position. This 
+will only
+  correspond to a pointing position for grids with odd p and q dimensions. 
+The
+  screenshot below show the result of clicking on the "Create/Centre
   on Base position" - nine points with the (0,0) position corresponding
   to the map centre. <p>
 
@@ -1044,13 +1105,12 @@ For all sample modes, the <i>total</i> integration time per sample is
  time data is taken for for each map "point" as the receiver is
  scanned across the sky.  The RMS noise per channel of the final
 	    co-added map is also indicated, as is the estimated time
-	    to complete each row and the complete map.  
+	    to complete each row and the complete map.
 
 <p>It is possible to set the scanning direction, but for most purposes
 	    this should be left to the default values.
 
 
-    <hr>
-<h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
-  </body>
-</html>
+    <hr> <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main 
+Page</em></a> </h4>
+  </body> </html>
