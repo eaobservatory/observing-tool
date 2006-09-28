@@ -47,11 +47,8 @@
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="A3"/>
     <xsd:enumeration value="B3"/>
-    <xsd:enumeration value="W(C)"/>
     <xsd:enumeration value="W(D)"/>
-<!-- For future use
-    <xsd:enumeration value="HARP-B"/>
--->
+    <xsd:enumeration value="HARP"/>
   </xsd:restriction>
 </xsd:simpleType>
 
