@@ -111,15 +111,9 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 		}
 
 		if( _inst instanceof SpInstHeterodyne )
-		{
 			_instStr = INST_STR_HETERODYNE;
-		}
 		else
-		{
 			_instStr = INST_STR_SCUBA;
-		}
-
-		// System.out.println ("Inst is "+_instStr);
 
 		// MFO: inst.type().getReadable() is hard-wired in DRRecipeGUI (as constraint strings of the
 		// respective panels managed my the CardLayout of DRRecipeGUI).
@@ -128,6 +122,7 @@ public final class EdDRRecipe extends OtItemEditor implements KeyPressWatcher , 
 
 		if( _instStr.equalsIgnoreCase( INST_STR_HETERODYNE ) )
 		{
+			DialogUtil.error( _w , "DRRecipe is not currently supported, please remove this component from your program." );
 			return;
 		}
 
