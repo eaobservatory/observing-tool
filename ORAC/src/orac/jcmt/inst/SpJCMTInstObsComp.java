@@ -91,9 +91,11 @@ public abstract class SpJCMTInstObsComp extends SpInstObsComp implements SpJCMTC
 
 
   /**
-   * Returns a time estimate in seconds for slewing the telescope (JCMT): 60 seconds.
-   */
-  public double getSlewTime() {
-    return 60.0;
-  }
+	 * Returns a time estimate in seconds for slewing the telescope (JCMT): 60 seconds.
+	 */
+	public double getSlewTime()
+	{
+		//return 60.0;
+		return 0. ;
+	}
 }
