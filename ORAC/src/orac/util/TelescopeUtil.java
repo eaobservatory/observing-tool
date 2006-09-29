@@ -62,8 +62,7 @@ public interface TelescopeUtil {
   public static final String CHOP = "chop";
 
   /** TCS radial velocity definitions */
-  public static final String [] TCS_RV_DEFINITIONS = {
-      "radio", "optical", "relativistic", "redshift" };
+  public static final String [] TCS_RV_DEFINITIONS = { "radio", "optical", "redshift" };
 
   /** TCS radial velocity frames */
 	public static final String[] TCS_RV_FRAMES =

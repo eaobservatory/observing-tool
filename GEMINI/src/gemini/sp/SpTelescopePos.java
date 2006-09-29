@@ -1075,32 +1075,26 @@ setTrackingRadialVelocityDefn(String val)
 		_notifyOfGenericUpdate();
 	}
 
-/**
-  * Get the current velocity as a redshift
-  */
-public double getRedshift() {
-    double redshift = 0.0;
-    double c = 2.99792458E5;
+	/**
+	 * Get the current velocity as a redshift
+	 */
+	public double getRedshift()
+	{
+		double redshift = 0.0;
+		double c = 2.99792458E5;
 
-    String vDef   = getTrackingRadialVelocityDefn();
-    String vFrame = getTrackingRadialVelocityFrame();
-    double v      = Double.parseDouble( getTrackingRadialVelocity() );
+		String vDef = getTrackingRadialVelocityDefn();
+		double v = Double.parseDouble( getTrackingRadialVelocity() );
 
-    if ( vDef.equalsIgnoreCase("radio") ) {
-	redshift = ( c / (c - v) ) - 1.0;
-    }
-    else if ( vDef.equalsIgnoreCase("optical") ) {
-	redshift = v/c;
-    }
-    else if ( vDef.equalsIgnoreCase("relativistic") ) {
-	redshift = Math.sqrt ( (c - v)/(c + v) ) - 1.0;
-    }
-    else {
-	redshift = v;
-    }
+		if( vDef.equalsIgnoreCase( "radio" ) )
+			redshift = ( c / ( c - v ) ) - 1.0;
+		else if( vDef.equalsIgnoreCase( "optical" ) )
+			redshift = v / c;
+		else
+			redshift = v;
 
-    return redshift;
-}
+		return redshift;
+	}
 
 /**
  * Get the tracking effective wavelength.

@@ -1217,15 +1217,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// optical
 			velocity = velocity / c;
 		}
-		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
-		{
-			// relativistic
-			velocity = Math.sqrt( ( c - velocity ) / ( c + velocity ) ) - 1.0;
-		}
-		else if( vDefn.equals( TelescopeUtil.TCS_RV_DEFINITIONS[ 1 ] ) )
-		{
-			// redshift
-		}
 
 		return velocity;
 	}
