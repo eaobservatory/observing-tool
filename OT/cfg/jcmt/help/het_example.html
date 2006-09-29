@@ -131,7 +131,9 @@ take.
 --> <h2><a name="het_eoam">Elements of an MSB</a></h2>
 
     Click on the push lever to open up your MSB. Inside you will find
-    a Het Setup component, a Site Quality component, and an observation 
+    a Het Setup component, a Target Info. component, a Site Quality
+	component, a DRRecipe 
+	component, and an observation 
     component which is labelled "Observation":<p>
 
 <img src="het_images/het_elements.gif" alt="Inside an MSB" ><p>
@@ -261,39 +263,37 @@ Four boxes are displayed in the editor panel.
 
 	    
 
-<p>If your source has a very large radial velocity, there are two ways
-	  to deal with this.  The preferred way is to specify the <b>rest</b>
-	  frequency of the source in the <i>Het Setup</i> component
-	  and enter the radial velocity of the source in the
-	  Het. Setup or the <a
-	    href="het_tcc">Target Information</a> component, as
-	  normal.  The observing system will calculate the correct
-	  frequency.  A large redshift might shift the observed
-	  frequency out of the tuning range of the receiver, or even
-	  into the tuning range of another receiver.  For example,
-	  select RxB, CO 3-2, and a redshift of 0.5, and click
-	  Accept.  The OT will complain that this is outside of the
-	  tuning range.  You can then select RxA, and the correct
-	  line, rest frequency and redshift will appear. 
-          (<blink>Beware</blink>! If the
-	  redshifted line falls outside of the tuning range of any
-	  receiver, the OT will change the rest frequency to something
-	  that can fit!)  Clicking on
-	  the Frequency Editor button will also show you the
+<p>If your source has a very large radial velocity, you should:
+<ul><li> First select the receiver within whose tuning range the
+	    redshifted line will fall.  E.g. The CO J=3-2 line
+	    (345GHz) at a redshift of 0.4 will fall into the RxA
+	    tuning range.
+<li> Next specify the radial velocity of the source either in the
+	    <i>Het. Setup</i> velocity field, or in the <i>Target
+	      Info.</i> velocity field.  (If you choose the latter,
+	    make sure the Target Info. component is on the same level
+	    as the Het. Setup component, and not embedded in the
+	    observation sequence.)  If you enter the velocity in the
+	    <i>Het. Setup</i> 
+	    component, be sure to click the Accept button before proceeding.
+<li> You should notice that the OT now displays a list of spectral
+	    lines that fit into the tuning range of the receiver,
+	    after red-shifting the line.
+	    Select the molecule and transition you wish to observe
+	    from the pull-down menu, or enter the <b>rest</b> frequency of the
+	    spectral line.
+</ul>
+
+<p>Clicking on
+	  the Frequency Editor button will show you the
 	  atmospheric opacity at the observed frequency.  It's wise to
 	  check this since even a minor change in radial velocity can
 	  shift the observed frequency into a region of very large
 	  atmospheric opacity.
 
-<p>	  Alternatively, you can calculate the observed frequency
-	  yourself, and enter that frequency (with a radial velocity
-	  set to zero) in the frequency field.  Remember to click the
-	  Accept button after entering the frequency.  However, this
-	  method is risky unless you <i>really</i> know what you're doing.
 
 
-
- <p>The <i>Frequency Setup</i> configuration also includes a
+ <p>As mentioned, the <i>Frequency Setup</i> configuration also includes a
 	      "Frequency Editor" tool. This
  can be useful in setting, choosing your observing frequencies and
  bandwidths, particularly where you might want to observe several
@@ -304,6 +304,13 @@ Four boxes are displayed in the editor panel.
 supported.<p>
 
  
+
+<!-- 
+############################################################################ 
+-->
+    <h2><a name="het_drrecipe">DRRecipe Component</a></h2>
+
+<p>This component is not yet used, but should not be removed.
 
 <!-- 
 ############################################################################ 
