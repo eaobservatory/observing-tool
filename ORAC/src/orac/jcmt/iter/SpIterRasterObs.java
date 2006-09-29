@@ -73,18 +73,15 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
   /**
    * Default constructor.
    */
-  public SpIterRasterObs() {
-    super(SP_TYPE);
-    
-    _avTable.noNotifySet(ATTR_SCANAREA_WIDTH,  "180.0", 0);
-    _avTable.noNotifySet(ATTR_SCANAREA_HEIGHT, "180.0", 0);
+	public SpIterRasterObs()
+	{
+		super( SP_TYPE );
 
-    /*
-    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
-    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,       "0.0", 0);
-    */
-    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SCAN_SYSTEMS[3], 0);
-  }
+		_avTable.noNotifySet( ATTR_SCANAREA_WIDTH , "180.0" , 0 );
+		_avTable.noNotifySet( ATTR_SCANAREA_HEIGHT , "180.0" , 0 );
+
+		_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SCAN_SYSTEMS[ 0 ] , 0 );
+	}
 
   /** Get area width (map width). */
   public double getWidth() {
