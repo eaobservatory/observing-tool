@@ -122,6 +122,7 @@ public class SpInputXML extends DefaultHandler {
 
 			if( ignoreObsComp && qName.equals( "SpTelescopeObsComp" ) )
 				return;
+
 			SpItem spItem = SpFactory.createShallow( SpType.get( atts.getValue( XML_ATTR_TYPE ) , atts.getValue( XML_ATTR_SUBTYPE ) ) );
 
 			// Add the new element to the tree (unless it is the root item).
