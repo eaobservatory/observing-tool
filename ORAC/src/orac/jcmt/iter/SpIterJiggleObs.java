@@ -62,9 +62,47 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 
 		// Actual integration time on source
 		double totalIntegrationTime = 0. ;
+		if( instrument != null )
+		{
+			String jigglePattern = getJigglePattern() ;
+			if( jigglePattern != null )
+			{
+				jigglePattern = jigglePattern.toLowerCase() ;
 		
-		if( instrument != null )	
-			    totalIntegrationTime = 2.12 * getSecsPerCycle() ;			    
+				int steps = 0 ;
+				if( jigglePattern.matches( "\\d+x\\d+" ) )
+				{
+					String[] split = jigglePattern.split( "x" ) ;
+					steps = Integer.parseInt( split[ 0 ] ) ;
+				}
+				// number of points
+				int npts = 0 ;
+		
+				switch( steps )
+				{
+					// 3X3 jigle map
+					case 3 :
+						npts = 9 ;
+						break;
+					// 5X5 jigle map
+					case 5 :
+						npts = 25 ;
+						break;
+					// 7X7 jigle map
+					case 7 :
+						npts = 49 ;
+						break;
+					// 9X9 jigle map
+					case 9 :
+						npts = 81 ;
+						break;
+					// default
+					default :
+						break ;
+				}					
+				totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
+			}
+		}
 		return totalIntegrationTime ;
 	}
 	
