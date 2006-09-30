@@ -144,6 +144,7 @@ printSummary()
 
 		int nPol = 0;
 		boolean photomSample = false ;
+		boolean jiggle = false ;
 		for( int i = 0 ; i < iterStepVector.size() ; i++ )
 		{
 			iterStepSubVector = ( Vector ) iterStepVector.get( i );
@@ -155,6 +156,8 @@ printSummary()
 					nPol++;
 				if(  spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
 					photomSample = true ;
+				if(  spIterStep.item.getClass().getName().endsWith( "SpIterJiggleObs" ) )
+					jiggle = true ;
 					
 				iterationTracker.update( spIterStep );
 
@@ -178,6 +181,9 @@ printSummary()
 
 		if( photomSample )
 			elapsedTime += 82. ;
+		
+		if( jiggle )
+			elapsedTime += 30. ;
 		
 		if( nPol > 1 )
 		{
