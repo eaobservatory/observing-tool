@@ -127,55 +127,69 @@ printSummary()
    }
 }
 
-  public double getElapsedTime() {
-    SpInstObsComp instrument = SpTreeMan.findInstrument(this);
+	public double getElapsedTime()
+	{
+		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
 
-    if(instrument == null) {
-      return 0.0;
-    }
+		if( instrument == null )
+		{
+			return 0.0;
+		}
 
-    Vector iterStepVector    = compile();
-    Vector iterStepSubVector = null;
-    SpIterStep spIterStep    = null;
-    IterationTracker iterationTracker = instrument.createIterationTracker();
-    double elapsedTime = 0.0;
+		Vector iterStepVector = compile();
+		Vector iterStepSubVector = null;
+		SpIterStep spIterStep = null;
+		IterationTracker iterationTracker = instrument.createIterationTracker();
+		double elapsedTime = 0.0;
 
-    int nPol = 0;
-    for(int i = 0; i < iterStepVector.size(); i++) {
-      iterStepSubVector = (Vector)iterStepVector.get(i);
+		int nPol = 0;
+		boolean photomSample = false ;
+		for( int i = 0 ; i < iterStepVector.size() ; i++ )
+		{
+			iterStepSubVector = ( Vector ) iterStepVector.get( i );
 
-      for(int j = 0; j < iterStepSubVector.size(); j++) {
-        spIterStep = (SpIterStep)iterStepSubVector.get(j);
-	if (spIterStep.item.getClass().getName().endsWith("SpIterPOL")) nPol++;
-        iterationTracker.update(spIterStep);
+			for( int j = 0 ; j < iterStepSubVector.size() ; j++ )
+			{
+				spIterStep = ( SpIterStep ) iterStepSubVector.get( j );
+				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )
+					nPol++;
+				if(  spIterStep.item.getClass().getName().endsWith( "SpIterStareObs" ) )
+					photomSample = true ;
+					
+				iterationTracker.update( spIterStep );
 
-        if(spIterStep.item instanceof SpIterObserveBase) {
-          elapsedTime += iterationTracker.getObserveStepTime();
-// 	  System.out.println("Adding "+iterationTracker.getObserveStepTime()+" from "+spIterStep.item );
-        }  
+				if( spIterStep.item instanceof SpIterObserveBase )
+					elapsedTime += iterationTracker.getObserveStepTime();
 
-        if ( instrument.getClass().getName().indexOf("WFCAM") == -1 ) {
-            if(spIterStep.item instanceof SpIterOffset) {
-                if((OFFSET_TIME - instrument.getExposureOverhead()) > 0.0) {
-                    // If for each OFFSET_TIME added an exposure overhead can be
-                    // subtracted since this is done while the telescope moves.
-                    elapsedTime += (OFFSET_TIME - instrument.getExposureOverhead());
-                    // 	    System.out.println( "Adding "+(OFFSET_TIME - instrument.getExposureOverhead())+" from offset iterator");
-                }
-            }
-        }
-      }
-    }
-    if (nPol > 1) {
-	if (instrument.getClass().getName().endsWith("SCUBA")) {
-	    // Take off some of the extra overhead
-	    elapsedTime -= (nPol-1)*40.0;
+				if( instrument.getClass().getName().indexOf( "WFCAM" ) == -1 )
+				{
+					if( spIterStep.item instanceof SpIterOffset )
+					{						
+						if( ( OFFSET_TIME - instrument.getExposureOverhead() ) > 0.0 )
+						{
+							// If for each OFFSET_TIME added an exposure overhead can be
+							// subtracted since this is done while the telescope moves.
+							elapsedTime += ( OFFSET_TIME - instrument.getExposureOverhead() );
+						}
+					}
+				}
+			}
+		}
+
+		if( photomSample )
+			elapsedTime += 82. ;
+		
+		if( nPol > 1 )
+		{
+			if( instrument.getClass().getName().endsWith( "SCUBA" ) )
+			{
+				// Take off some of the extra overhead
+				elapsedTime -= ( nPol - 1 ) * 40.0;
+			}
+		}
+
+		return elapsedTime;
 	}
-    }
-
-  
-    return elapsedTime;
-  }
 
 public void translate(Vector v) throws SpTranslationNotSupportedException {
     Enumeration e = this.children();

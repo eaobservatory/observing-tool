@@ -98,35 +98,14 @@ public SpIterStareObs()
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-
-			double T_on = getSecsPerCycle() ;
-/*			
- 			double T_ref = getSecsPerCycle() ;
-
-			double n_refs = Math.ceil( T_on / T_bref ) ;
-			double T_nocals = ( getSecsPerCycle() + T_ref ) + ( T_oref * n_refs ) ;
-			totalIntegrationTime = calculateTotalPlusOverheadForElapsedTime( T_nocals ) ;
-*/
 			/*
 			* Based on real timing data 
 			* http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
 			*/
-			totalIntegrationTime = ( 2.31 * T_on ) + 82. ;
+			double T_on = getSecsPerCycle() ;
+			totalIntegrationTime = 2.31 * T_on ;
 		}
 		return ( overhead + totalIntegrationTime );
-	}
-
-//	 dynamically allocated variables
-	double T_startend ;
-	double T_bcal ;
-	double T_cal ;
-	double T_ocal ;
-
-	public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
-	{
-		double n_cals = Math.max( 1. , Math.floor( integrationTime / T_bcal ) ) ;
-		double T_total = T_startend + integrationTime + ( ( T_cal + T_ocal ) * n_cals ) ;
-		return T_total ;	
 	}
 	
 	public void setupForHeterodyne()

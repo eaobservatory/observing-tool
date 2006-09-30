@@ -120,12 +120,6 @@ public double getElapsedTime()
 	return 0. ;
 }
 
-public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
-{
-	return integrationTime ;	
-}
-
-
 /**
  * Override getTitle to return the observe count.
  */

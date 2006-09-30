@@ -454,52 +454,18 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-
-			int samplesPerRow = ( int )( Math.floor( getWidth() / getScanDx() ) ) + 1;
-			if( ( samplesPerRow & 1 ) != 0 )
-				samplesPerRow++;
-/*			
-			double t_row = ( double )samplesPerRow * getSampleTime();
-			
-			double n_rows_bref = Math.ceil( T_bref / t_row ) ;
-			
-			double n_rows = Math.floor( getHeight() / getScanDy() ) + 1. ;
-			
-			double n_refs = Math.ceil( n_rows / n_rows_bref ) ;
-			
-			double t_ref = Math.sqrt( n_rows_bref * t_row ) ;
-			
-			double t_on = ( ( n_rows * t_row ) + ( n_refs * t_ref ) ) + t_ref + T_oref ;
-			
-			return calculateTotalPlusOverheadForElapsedTime( t_on ) ; // + overhead 
-*/
-/*			
-			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
-			double overheadFactor = 1.2;
-			return ( ( timeOnRow + timeOffRow ) * noOfRows * overheadFactor ) ;
-*/
 			/*
 			* Based on real timing data 
 			* http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
 			*/
+			int samplesPerRow = ( int )( Math.floor( getWidth() / getScanDx() ) ) + 1;
+			if( ( samplesPerRow & 1 ) != 0 )
+				samplesPerRow++;
 			double overhead = ( ( double )samplesPerRow + Math.sqrt( samplesPerRow ) ) * getSampleTime() * ( Math.floor( getHeight() / getScanDy() ) + 1. ) ;
 			double time =  ( 1.38 * overhead ) + 131.5 ;
 			return time ;
 		}
 		return 0.0;
-	}
-
-//	 dynamically allocated variables
-	double T_startend ;
-	double T_bcal ;
-	double T_cal ;
-	double T_ocal ;
-
-	public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
-	{
-		double n_cals = Math.max( 1. , Math.floor( integrationTime / T_bcal ) ) ;
-		double T_total = T_startend + integrationTime + ( ( T_cal + T_ocal ) * n_cals ) ;
-		return T_total ;	
 	}
 	
   /** Creates JAC TCS XML. */
