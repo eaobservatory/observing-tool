@@ -232,13 +232,8 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 	
     }
 
-    public String [] getSwitchingModeOptions() {
-        return new String [] {
-            SWITCHING_MODE_BEAM,
-            //SWITCHING_MODE_NOD,       // Not for day 1 version.
-            SWITCHING_MODE_FREQUENCY_S,
-            SWITCHING_MODE_FREQUENCY_F
-            //SWITCHING_MODE_NONE       // Not for day 1 version.
-        };
-    }
+    public String[] getSwitchingModeOptions()
+	{
+		return new String[]{ SWITCHING_MODE_BEAM } ;
+	}
 }

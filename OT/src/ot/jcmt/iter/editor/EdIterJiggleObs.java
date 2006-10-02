@@ -41,15 +41,11 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
   // Over-ride the switching modes since only beam and 
   // frequency will initially be offered by ACSIS
-  protected static String [] SWITCHING_MODES = {
-      SpJCMTConstants.SWITCHING_MODE_BEAM,
-      SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S,
-      SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F,
-      SpJCMTConstants.SWITCHING_MODE_NONE };
+  protected static String[] SWITCHING_MODES = { SpJCMTConstants.SWITCHING_MODE_BEAM , SpJCMTConstants.SWITCHING_MODE_NONE };
 
   /**
-   * The constructor initializes the title, description, and presentation source.
-   */
+	 * The constructor initializes the title, description, and presentation source.
+	 */
   public EdIterJiggleObs()
 	{
 		super( new IterJiggleObsGUI() );

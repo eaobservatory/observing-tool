@@ -111,36 +111,8 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	{
 		if( ddlbwe == _w.switchingMode )
 		{
-			if( val.equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )
-			{
-				_w.frequencyPanel.setVisible( true );
-				_w.frequencyOffset_rate.setEnabled( false );
-				if( _iterObs.getSecsPerCycle() != 0 )
-				{
-					NumberFormat nf = NumberFormat.getInstance();
-					nf.setMaximumFractionDigits( 5 );
-					_w.frequencyOffset_rate.setValue( nf.format( 1.0 / _iterObs.getSecsPerCycle() ) );
-				}
-				else
-				{
-					_w.frequencyOffset_rate.setValue( 0.0 );
-				}
-				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
-				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() );
-			}
-			else if( val.equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) )
-			{
-				_w.frequencyPanel.setVisible( true );
-				_w.frequencyOffset_rate.setEnabled( false );
-				_w.frequencyOffset_rate.setValue( 0.5 );
-				_iterObs.setFrequencyOffsetRate( _w.frequencyOffset_rate.getValue() );
-				_iterObs.setFrequencyOffsetThrow( _w.frequencyOffset_throw.getValue() );
-			}
-			else
-			{
-				_w.frequencyPanel.setVisible( false );
-				_iterObs.rmFrequencyOffsetValues();
-			}
+			_w.frequencyPanel.setVisible( false );
+			_iterObs.rmFrequencyOffsetValues();
 			_iterObs.setSwitchingMode( val );
 
 			return;
@@ -228,22 +200,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		setInstrument( SpTreeMan.findInstrument( _spItem ) );
 
 		_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
-		if( ( _iterObs.getSwitchingMode() != null ) && ( _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) || _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F ) ) )
-		{
-			_w.frequencyPanel.setVisible( true );
-			if( _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )
-			{
-				_w.frequencyOffset_rate.setEnabled( false );
-			}
-			else
-			{
-				_w.frequencyOffset_rate.setEnabled( false );
-			}
-		}
-		else
-		{
-			_w.frequencyPanel.setVisible( false );
-		}
+
+		_w.frequencyPanel.setVisible( false );
+
 		_w.frequencyOffset_throw.setValue( _iterObs.getFrequencyOffsetThrow() );
 		_w.frequencyOffset_rate.setValue( _iterObs.getFrequencyOffsetRate() );
 		_w.secsPerCycle.setValue( _iterObs.getSecsPerCycle() );
@@ -259,31 +218,25 @@ public class EdIterJCMTGeneric extends OtItemEditor
 	}
 
     /**
-     * This method should be overridden by subclasses representing iterators whose appearance
-     * is different for different instruments.
-     */
-    public void setInstrument(SpInstObsComp spInstObsComp) {
-	if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-	    _w.switchingMode.setVisible(true);
-	    _w.switchingModeLabel.setVisible(true);
-	    _w.jLabel2.setText("K");
-
-	    if(_w.switchingMode.getValue() != null && 
-	       (_w.switchingMode.getValue().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S) ||
-	       _w.switchingMode.getValue().equals(SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F))) {
-		_w.frequencyPanel.setVisible(true);
-	    }
-	    else {
-		_w.frequencyPanel.setVisible(false);
-	    }
+	 * This method should be overridden by subclasses representing iterators whose appearance is different for different instruments.
+	 */
+	public void setInstrument( SpInstObsComp spInstObsComp )
+	{
+		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
+		{
+			_w.switchingMode.setVisible( true );
+			_w.switchingModeLabel.setVisible( true );
+			_w.jLabel2.setText( "K" );
+			_w.frequencyPanel.setVisible( false );
+		}
+		else
+		{
+			_w.jLabel2.setText( "mJy" );
+			_w.switchingMode.setVisible( false );
+			_w.switchingModeLabel.setVisible( false );
+			_w.frequencyPanel.setVisible( false );
+		}
 	}
-	else {
-	    _w.jLabel2.setText("mJy");
-	    _w.switchingMode.setVisible(false);
-	    _w.switchingModeLabel.setVisible(false);
-	    _w.frequencyPanel.setVisible(false);    
-	}
-    }
 
     /**
 	 * Returns noise information.

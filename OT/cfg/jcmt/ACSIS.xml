@@ -838,7 +838,7 @@ Things that shouldn't appear in notes
               <jiggleSystem>TRACKING</jiggleSystem>
               <secsPerCycle>10</secsPerCycle>
               <stepSize>10.0</stepSize>
-              <switchingMode>Frequency-Slow</switchingMode>
+              <switchingMode>Beam</switchingMode>
             </SpIterJiggleObs>
           </SpIterRepeat>
         </SpIterFolder>

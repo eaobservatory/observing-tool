@@ -367,21 +367,15 @@ public void setupForHeterodyne() {
 public void setupForSCUBA() {
 }
 
-/**
- * Returns the switching modes.
- *
- * Subclasses can overridde this method to return only the switching modes that are used with
- * their observe modes. The default switching modes should be the first element of the array.
- */
-public String [] getSwitchingModeOptions() {
-  return new String [] {
-    SWITCHING_MODE_BEAM,
-    SWITCHING_MODE_POSITION,
-    SWITCHING_MODE_FREQUENCY_S,
-    SWITCHING_MODE_FREQUENCY_F,
-    SWITCHING_MODE_NONE
-  };
-}
+	/**
+	 * Returns the switching modes.
+	 * 
+	 * Subclasses can overridde this method to return only the switching modes that are used with their observe modes. The default switching modes should be the first element of the array.
+	 */
+	public String[] getSwitchingModeOptions()
+	{
+		return new String[]{ SWITCHING_MODE_BEAM , SWITCHING_MODE_POSITION , SWITCHING_MODE_NONE };
+	}
 
 static TreeMap treeMap ;
 public void getTimings()
