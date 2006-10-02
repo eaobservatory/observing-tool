@@ -374,7 +374,7 @@ public void setupForSCUBA() {
 	 */
 	public String[] getSwitchingModeOptions()
 	{
-		return new String[]{ SWITCHING_MODE_BEAM , SWITCHING_MODE_POSITION , SWITCHING_MODE_NONE };
+		return new String[]{ SWITCHING_MODE_BEAM , SWITCHING_MODE_POSITION };
 	}
 
 static TreeMap treeMap ;

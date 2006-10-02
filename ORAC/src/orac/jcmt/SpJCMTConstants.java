@@ -257,5 +257,4 @@ public interface SpJCMTConstants {
    public static final String SWITCHING_MODE_NOD         = "Nod";
    public static final String SWITCHING_MODE_BEAM = "Beam";
    public static final String SWITCHING_MODE_POSITION = "Position";
-   public static final String SWITCHING_MODE_NONE        = "None";
 }

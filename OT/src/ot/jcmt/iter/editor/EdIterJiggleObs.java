@@ -41,7 +41,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
   // Over-ride the switching modes since only beam and 
   // frequency will initially be offered by ACSIS
-  protected static String[] SWITCHING_MODES = { SpJCMTConstants.SWITCHING_MODE_BEAM , SpJCMTConstants.SWITCHING_MODE_NONE };
+  protected static String[] SWITCHING_MODES = { SpJCMTConstants.SWITCHING_MODE_BEAM };
 
   /**
 	 * The constructor initializes the title, description, and presentation source.
@@ -106,9 +106,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			if( instObsComp instanceof SpInstHeterodyne )
 			{
 				if( _iterObs.getSwitchingMode() == null )
-				{
-					_iterObs.setSwitchingMode( SpJCMTConstants.SWITCHING_MODE_NONE );
-				}
+					_iterObs.setSwitchingMode( SpJCMTConstants.SWITCHING_MODE_BEAM );
 				_w.contModeCB.setSelected( _iterObs.isContinuum() );
 				_w.scaleFactor.setValue( _iterObs.getScaleFactor() );
 			}

@@ -426,7 +426,6 @@
     <xsd:restriction base="xsd:string">
       <xsd:enumeration value="Beam"/>
       <xsd:enumeration value="Position"/>
-      <xsd:enumeration value="None"/>
     </xsd:restriction>
   </xsd:simpleType>
 </xsd:element>
