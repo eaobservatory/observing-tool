@@ -43,12 +43,11 @@ public class ResolutionDisplay extends JLabel implements SamplerWatcher
       repaint ();
    }
 
-   public void updateSamplerValues ( double centre, double width,
-     int channels )
-   {
-      this.width = width;
-      this.channels = channels;
-      resolution = nMixers*((int) ( 1.0E-3 * width / (double)channels ));
-      setText ( String.valueOf ( resolution ) );
-   }
+	public void updateSamplerValues( double centre , double width , int channels )
+	{
+		this.width = width;
+		this.channels = channels;
+		resolution = ( int )Math.rint( nMixers * ( ( width * 1.0E-3 ) / ( double ) channels ) );
+		setText( String.valueOf( resolution ) );
+	}
 }
