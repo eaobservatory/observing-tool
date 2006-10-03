@@ -17,6 +17,8 @@ import gemini.sp.SpTreeMan;
 
 import gemini.sp.obsComp.SpInstObsComp;
 
+import gemini.sp.iter.SpIterChop ;
+
 
 /**
  * Stare Iterator for JCMT.
@@ -106,8 +108,11 @@ public SpIterStareObs()
 	
 	public void setupForHeterodyne()
 	{
+	   SpItem parent = this._parent ;
+	   if( parent instanceof SpIterChop )
+		   _avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_POSITION , 0 );
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
-			_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_CHOP , 0 );
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , "60" , 0 );
 	}
