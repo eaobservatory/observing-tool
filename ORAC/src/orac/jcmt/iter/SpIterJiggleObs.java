@@ -40,12 +40,6 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
     SpFactory.registerPrototype(new SpIterJiggleObs());
   }
 
-  // dynamically associated variables
-  double max_time_between_chops ;
-  double max_time_between_nods ;
-  double step_time ;
-  double T_onod ;
-
   /**
    * Default constructor.
    */

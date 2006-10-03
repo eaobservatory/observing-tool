@@ -33,10 +33,6 @@ static {
    SpFactory.registerPrototype(new SpIterStareObs());
 }
 
-// dynamically associated variables
-double T_oref ;
-double T_bref ;
-
 /**
  * Default constructor.
  */

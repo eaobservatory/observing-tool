@@ -66,10 +66,6 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
     SpFactory.registerPrototype(new SpIterRasterObs());
   }
 
-  // dynamically associated variables
-  double T_bref ;
-  double T_oref ;
-
   /**
    * Default constructor.
    */

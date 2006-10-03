@@ -105,8 +105,6 @@ public SpIterJCMTObs(SpType spType)
    _avTable.noNotifyRm(ATTR_COUNT);
 
    _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
-   
-   getTimings() ;
 }
 
 /**
@@ -376,51 +374,6 @@ public void setupForSCUBA() {
 	{
 		return new String[]{ SWITCHING_MODE_BEAM , SWITCHING_MODE_POSITION };
 	}
-
-static TreeMap treeMap ;
-public void getTimings()
-{
-	try
-	{
-		if( treeMap == null )
-		{
-			String configurationDirectory = System.getProperty( "ot.cfgdir" ) ;
-			URL baseURL = null ;
-			File file = new File( configurationDirectory ) ;
-			if( file.exists() && file.canRead() )
-				baseURL = file.toURL() ;
-			InstCfgReader instCfgReader = new InstCfgReader( baseURL , "timings.cfg" ) ;
-			String block ;
-			treeMap = new TreeMap() ;
-			while( ( block = instCfgReader.readBlock() ) != null )
-			{
-				String[] split = block.split( "=" ) ;
-				if( split.length == 2 )
-					treeMap.put( split[ 0 ] , split[ 1 ] ) ;
-			}	
-		}
-		Class klass = this.getClass() ;
-		Field[] fields = klass.getDeclaredFields() ;
-		for( int i = 0 ; i < fields.length ; i++ )
-		{
-			Field field = fields[ i ] ;
-			String name = field.getName() ;
-			if( treeMap.containsKey( name ) )
-			{
-				try
-				{
-					Object temp = treeMap.get( name ) ;
-					if( temp != null )
-						field.setDouble( ( Object )this , Double.parseDouble( temp.toString() ) ) ;
-				}
-				catch( NumberFormatException nfe ){}
-				catch( IllegalAccessException iae ){}
-			}
-		}
-}
-	catch( MalformedURLException mue ){}
-	catch( IOException ioe ){}
-}
 
 }
 
