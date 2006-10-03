@@ -32,6 +32,7 @@ import gemini.util.CoordSys;
 import gemini.util.TelescopePos;
 import gemini.util.TelescopePosWatcher;
 import jsky.util.gui.ProgressException;
+import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.TelescopeUtil;
 import ot.util.DialogUtil;
 import ot.OtConstants;
@@ -499,6 +500,13 @@ public class EdCompTargetList extends OtItemEditor
 					SpTelescopePos refPos = ( SpTelescopePos )_tpl.getPosition( "REFERENCE" ) ;
 					if( refPos != null )
 						refPos.setTrackingRadialVelocityDefn( newTag ) ;
+					
+					if( SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT.equals( newTag ) )
+						_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.BARYCENTRIC_VELOCITY_FRAME ) ;
+					else if( SpInstHeterodyne.RADIAL_VELOCITY_RADIO.equals( newTag ) )
+							_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.LSRK_VELOCITY_FRAME ) ;
+					else if( SpInstHeterodyne.RADIAL_VELOCITY_OPTICAL.equals( newTag ) )
+							_curPos.setTrackingRadialVelocityFrame( SpInstHeterodyne.HELIOCENTRIC_VELOCITY_FRAME ) ;
 				}
 			}
 		} );

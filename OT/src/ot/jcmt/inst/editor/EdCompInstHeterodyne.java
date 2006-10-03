@@ -333,10 +333,20 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String newTag )
 			{
 				_inst.setVelocityDefinition( newTag ) ;
-				if( "redshift".equals( newTag ) )
+				if( SpInstHeterodyne.RADIAL_VELOCITY_REDSHIFT.equals( newTag ) )
+				{
 					_w.velLabel.setText( "Velocity / Redshift" ) ;
+					_inst.setVelocityFrame( SpInstHeterodyne.BARYCENTRIC_VELOCITY_FRAME ) ;
+				}
 				else
+				{
 					_w.velLabel.setText( "Velocity" ) ;
+					
+					if( SpInstHeterodyne.RADIAL_VELOCITY_RADIO.equals( newTag ) )
+						_inst.setVelocityFrame( SpInstHeterodyne.LSRK_VELOCITY_FRAME ) ;
+					else if( SpInstHeterodyne.RADIAL_VELOCITY_OPTICAL.equals( newTag ) )
+						_inst.setVelocityFrame( SpInstHeterodyne.HELIOCENTRIC_VELOCITY_FRAME ) ;
+				}
 				moreSetUp() ;
 				update() ;
 			}

@@ -282,8 +282,11 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 
     /** Velocity frames */
     public static final String LSRK_VELOCITY_FRAME          = "LSRK";
-    public static final String GEOCENTRIC_VELOCITY_FRAME   = "Geocentric";
-    public static final String HELIOCENTRIC_VELOCITY_FRAME = "Heliocentric";
+    public static final String GEOCENTRIC_VELOCITY_FRAME   = "GEOCENTRIC";
+    public static final String HELIOCENTRIC_VELOCITY_FRAME = "HELIOCENTRIC";
+    public static final String BARYCENTRIC_VELOCITY_FRAME = "BARYCENTRIC";
+    public static final String TOPOCENTRIC_VELOCITY_FRAME = "TOPOCENTRIC";
+    
 
     /** Resolution (kHz) */
     public static final String ATTR_RESOLUTION = "resolution";
