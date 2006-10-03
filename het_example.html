@@ -666,20 +666,34 @@ Chop"><p>
  photom/sample eye. Click on it to display the details of the
  observation. The pull down menu near the top of the right hand frame
  allows the user to choose from beam switching or position switching.
- In this example we are
-	    beam-switching, and the chop throw was set with the <a
-	      href="#het_tci">chop iterator</a>.  In the "Secs per offset
-	    sample" box, enter the <b>total on-source integration time</b>
-	    per sample position in seconds. 
-           (Note this is different from how it's
-	    been done in the past when we specified the on+off time.) 
-            The estimated RMS noise per channel is shown in the "Noise" box.
-            Typical recommended on source integration times per sample are 5 to
-            10 minutes. We advise to use no observing times >15 minutes, at
-            the risk of loosing observations when something goes wrong. 
- The Continuum Mode box can be checked if you want to observe a continuum
- source (e.g. planet) and then the SMU will chop faster (4 Hz instead of
- 1 Hz) in order to more accurately subtract the sky background
+
+ In this example we are beam-switching, and the chop throw was set
+ with the <a href="#het_tci">chop iterator</a>.  In the "Secs per
+ offset sample" box, enter the <b>total on-source integration time</b>
+ per sample position in seconds. Note this is different from how it's
+ been done in the past when we specified the on+off time.) The
+ estimated RMS noise per channel is shown in the "Noise" box.  Typical
+ recommended on-source integration times per sample are 5 to 10
+ minutes. We advise to use no observing times >15 minutes, at the risk
+ of loosing observations when something goes wrong.
+
+ <p>
+ The Continuum Mode box can be checked if you need an accurate
+ measurement of the continuum level. Typically this only makes sense
+ when doing a BMSW observation, because the switching time for PSSW
+ observations are too long for a reliable determination of the
+ continuum. For BMSW observations, the effect of checking 'Continuum
+ mode' is to run the chopper much faster. This will result in higher
+ overheads which can significantly increase the time it takes for the
+ observation to complete. Hence, this mode should only be used when
+ really needed. As a concrete example: the maximum time between chops
+ typically allows for the completion of a full 9x9 jiggle with 0.1sec
+ step, i.e. 8.1 secs. The chopper will then spent 3 secs in the
+ off-position, resulting in a 11-sec cycle plus some overhead. In
+ continuum mode the chopper will move to the reference every 0.1secs
+ and spend equal times in the 'on' and 'ref' position. A 9x9 jiggle will
+ thus take 16.2 secs plus significantly more overheads due to transit
+ times of the chopper.
 <p>
 
  <img src="het_images/het_eye.gif" alt="The photom/sample eye" ><p>
@@ -765,30 +779,38 @@ give you the estimated time of all
  name of the note and the main text body of the note. The
  "Show to observer" check-box should be checked if you want the
  note to be visible for the observer/TSS at the time of
- observation. It is strongly recommended that each of your MSBs
+ observation. It is <em>strongly</em> recommended that each of your MSBs
  contains at least one "Show to observer" note. All of the information
  about the observation not covered by other elements of the MSB should
  be included in "show to observer" notes. This would be much of the
  material which would have previously gone into the "Overall Strategy"
  and "Observing Cookbook" sections of heterodyne observing
  templates. It is important to note that calibration details are
- not explicitly included in heterodyne MSBs as they are for SCUBA MSBs, so
- the heterodyne observer should spell out the required calibration
- observations in a "show to observer" note.<p>
-
+ not explicitly included in heterodyne MSBs, so the observer should spell 
+ out the required calibration observations in a "show to observer" note.<p>
+ 
  <img src="het_images/het_note.gif" alt="A note example" ><p>
 
 
- Setting the "Show to observer" tick box brings up a "Completion
- Parameter" and "binning" field. These should contain information which
- enables the observer and TSS to decide when to consider your
- observation to be complete. The "Completion
- Parameter" should include a value for the total
- expired time, or a required signals-to-noise or RMS noise value. The
- assumed bin size, either in km/s or MHz, should be entered in the
- "Binning" field. The above screenshot shows an example of a typical "Show 
-to
- observer"  for an extragalactic spectral line observation.<p>
+Setting the "Show to observer" tick box brings up a "Completion
+Parameter" and "binning" field. These should contain information which
+help the observer and TSS to decide when to consider your observation
+to be complete. By default, your program will be executed with exactly
+the number of integration and number of repeats as specified. However,
+where possible, an attempt will be made to optimize the process using
+the specified Completion Parameters. The detailed logistics of the
+scheduling may prevent this, but when possible this may save your
+project time or guarantee the results. For instance you may want to
+allow for more time than the MSBs nominally take to allow for the
+addition of extra repeats in order to ensure the requested
+rms. Setting a S/N target may save unnecassary repeats. Etc.
+The "Completion Parameter" should include a value for the total
+expired time, and/or a required signals-to-noise, and/or RMS noise
+value. Best is to provide all three and whichever one is reached first
+determines the completion. The assumed bin size, either in km/s or
+MHz, should be entered in the "Binning" field. The above screenshot
+shows an example of a possible "Show to observer" for an extragalactic
+spectral line observation.<p>
 
  Additional notes can be inserted at any point in the MSB from the
  icon menu and you may have more than one "show to observer" notes in
@@ -796,15 +818,14 @@ to
  note above the "chop" element to clarify the use of an unusual
  chopping scheme.<p>
 
-    Finally, there is no need to repeat information in notes that is 
-already included
-   in other components of the MSB. This might include receiver tunings,
-   chop throws, offset positions and science targets. All of these
-   should be set up in the appropriate MSB components. If they are
-   reproduced in notes, there is a risk that changes made to main body
-   of the MSB will not be reflected in the notes, leading to conflicts
-   between the notes and the MSB components resulting in confusion at
-   the telescope.<p>
+ Finally, there is no need to repeat information in notes that is
+ already included in other components of the MSB. This might include
+ receiver tunings, chop throws, offset positions and science
+ targets. All of these should be set up in the appropriate MSB
+ components. If they are reproduced in notes, there is a risk that
+ changes made to main body of the MSB will not be reflected in the
+ notes, leading to conflicts between the notes and the MSB components
+ resulting in confusion at the telescope.<p>
  
 <!-- 
 ############################################################################ 
@@ -890,256 +911,335 @@ width="100%"><p>
  Starting at the top of the window we see a rectangle labelled LSB on
  the left and a rectangle labelled USB on the right. In between these
  two rectangle we have indication of the receiver IF frequency, the
- currently selected bandwidth and the resolution. Below these items there
- is a frequency scale and vertical lines indicating the position of
- astronomical spectral lines. Below this frequency scale is a plot 
-indicating the
- atmospheric transmission as a function of frequency. Below this is a
- frequency scale labelled "FE frequency" and below this is a scale and
- slider labelled "LO1".<p>
+ currently selected bandwidth and the resolution. Below these items
+ there is a frequency scale and vertical lines indicating the position
+ of astronomical spectral lines. Below this frequency scale is a plot
+ indicating the atmospheric transmission as a function of
+ frequency. Below this is a frequency scale labelled "FE frequency" and
+ below this is a scale and slider labelled "LO1".<p>
 
-  The chief idea of the frequency editor is to give a visual
-  representation of the observing band selected for the receiver,
-  together with an indication of the spectral lines visible in that
-  band. To begin with, use the het-setup component to select RxB3, the
-  CO(3-2) transition, and ssb operation observing with the lower
-  sideband (lsb). Enter a velocity of 0 km/s. The frequency editor
-  will now show USB rectangle greyed out, and the LSB rectangle
-  highlighted. Try changing the bandwidth using the "BW" pull-down
-  menu. Notice that the textured lilac rectangle in the middle of the LSB
-  rectangle changes size, indicating the extent of the band on the
-  frequency scale directly below. Notice also that a spectral line is
-  highlighted in red at the centre of the band. This is the CO(3-2)
-  line you selected before opening the frequency editor tool. Now select a
-  bandwidth of 920 MHz. The band, indicated by the textured lilac
-  rectangle, can be seen to encompass several other spectral lines. If
-  you click and hold the right mouse button near the spectral lines, a 
-menu will
- appear. Moving down the menu, still keeping the right mouse button
-  held down, highlights the name of a spectral line on the menu and
-  causes the corresponding spectral line to be highlighted in green on
-  the frequency scale. This enables the identification of the spectral
-  lines which may be visible in your chosen receiver passband.<p>
+ The chief idea of the frequency editor is to give a visual
+ representation of the observing band selected for the receiver,
+ together with an indication of the spectral lines visible in that
+ band. To begin with, use the het-setup component to select RxB3, the
+ CO(3-2) transition, and ssb operation observing with the lower
+ sideband (lsb). Enter a velocity of 0 km/s. The frequency editor will
+ now show USB rectangle greyed out, and the LSB rectangle
+ highlighted. Try changing the bandwidth using the "BW" pull-down
+ menu. Notice that the textured lilac rectangle in the middle of the
+ LSB rectangle changes size, indicating the extent of the band on the
+ frequency scale directly below. Notice also that a spectral line is
+ highlighted in red at the centre of the band. This is the CO(3-2) line
+ you selected before opening the frequency editor tool. Now select a
+ bandwidth of 920 MHz. The band, indicated by the textured lilac
+ rectangle, can be seen to encompass several other spectral lines. If
+ you click and hold the right mouse button near the spectral lines, a
+ menu will appear. Moving down the menu, still keeping the right mouse
+ button held down, highlights the name of a spectral line on the menu
+ and causes the corresponding spectral line to be highlighted in green
+ on the frequency scale. This enables the identification of the
+ spectral lines which may be visible in your chosen receiver
+ passband.<p>
 
-    The frequency scale at the bottom of the window, labelled "FE
-   freq", corresponds to the observing frequency in the rest frame of
-   the receiver. This is just the LO frequency plus/minus the IF
-   frequency for the upper and lower sideband, respectively. The
-   frequency scale immediately below the spectral lines is the "FE
-   freq" doppler shifted by the velocity value and definition entered
-   in the het-setup component. You will notice this scale will shift
-   if you enter a non-zero velocity, and will also shift if you cahnge
-   the velocity definition, e.g. from radio to optical. Note the
-   frequency of the upper scale, lower scale and LO are only
-   approximate because the correction from the receiver rest frame to
-   the chosen rest frame cannot be made, since the time when the
-   observation will be made is unknown. In fact, if you really enjoy
-   working backwards, you can move the LO slider by dragging it while
-   pressing the left and right mouse buttons simultaneously. As you
-   might expect, this changes both frequency scales and the line rest
-   frequency. Moving the LO slider can be a convenient means of choosing
-   a band centre frequency such that particular spectral lines are
-   included or excluded from your passband. Remember, for making the
-   observation, the important parameters are the rest frequency,
-   velocity, rest frame and velocity definition. These will be used to
-   calculate the actual LO tuning at the time of observation, which
-   will depend on the relative velocities of the receiver and the
-   chosen rest frame at that time.<p>
+ The frequency scale at the bottom of the window, labelled "FE freq",
+ corresponds to the observing frequency in the rest frame of the
+ receiver. This is just the LO frequency plus/minus the IF frequency
+ for the upper and lower sideband, respectively. The frequency scale
+ immediately below the spectral lines is the "FE freq" doppler shifted
+ by the velocity value and definition entered in the het-setup
+ component. You will notice this scale will shift if you enter a
+ non-zero velocity, and will also shift if you cahnge the velocity
+ definition, e.g. from radio to optical. Note the frequency of the
+ upper scale, lower scale and LO are only approximate because the
+ correction from the receiver rest frame to the chosen rest frame
+ cannot be made, since the time when the observation will be made is
+ unknown. In fact, if you really enjoy working backwards, you can move
+ the LO slider by dragging it while pressing the left and right mouse
+ buttons simultaneously. As you might expect, this changes both
+ frequency scales and the line rest frequency. Moving the LO slider can
+ be a convenient means of choosing a band centre frequency such that
+ particular spectral lines are included or excluded from your
+ passband. Remember, for making the observation, the important
+ parameters are the rest frequency, velocity, rest frame and velocity
+ definition. These will be used to calculate the actual LO tuning at
+ the time of observation, which will depend on the relative velocities
+ of the receiver and the chosen rest frame at that time.<p>
 
-     The frequency editor tool is particular useful when it comes to
-     receivers operating in double sideband mode, where two differing
-     sky frequencies end up with the same IF frequency. In this case,
-     identifying spectral lines can be tricky since one does not know,
-     <em> a priori</em>, which sideband they are from. Choose RxA, which 
-has no
-     sideband suppression capabilities, from the pull-down menu on the
-     het-setup component. Notice that neither LSB nor USB rectangles
-     are greyed out, indicating that lines from both sidebands may be
-     visible in the IF passband. The apparent position of lines from
-     the image sideband are a function both of the rest frequency and
-     source velocity of the line chosen to be at the centre of the
-     signal sideband. The frequency editor gives a useful graphical
-     reperesentation of this effect, allowing one to either choose
-     observing frequencies to avoid contamination, or identify unknown
-     lines in the passband. The fact that the sky transmission and
-     receiver noise are shown in the frequency editor tool allows the
-     user to reliably choose between upper and lower sidebands when
-     observing in SSB mode.<p>
+ The frequency editor tool is particular useful when it comes to
+ receivers operating in double sideband mode, where two differing sky
+ frequencies end up with the same IF frequency. In this case,
+ identifying spectral lines can be tricky since one does not know, <em>
+ a priori</em>, which sideband they are from. Choose RxA, which has no
+ sideband suppression capabilities, from the pull-down menu on the
+ het-setup component. Notice that neither LSB nor USB rectangles are
+ greyed out, indicating that lines from both sidebands may be visible
+ in the IF passband. The apparent position of lines from the image
+ sideband are a function both of the rest frequency and source velocity
+ of the line chosen to be at the centre of the signal sideband. The
+ frequency editor gives a useful graphical reperesentation of this
+ effect, allowing one to either choose observing frequencies to avoid
+ contamination, or identify unknown lines in the passband. The fact
+ that the sky transmission and receiver noise are shown in the
+ frequency editor tool allows the user to reliably choose between upper
+ and lower sidebands when observing in SSB mode.<p>
 
-     The frequency editor tool is also useful when using non-standard
-     DAS configurations. As an example, choose NS_COHCN_125AB from the
-     non-standard configuration menu. This mode is designed to allow
-     the user to observe the CO(3-2) and HCN(4-3) lines simulataneously 
-using the
-     highest resolution 125 MHZ DAS mode. This is achieved by
-     adjusting both the frontend LO frequency (to move the lines
-     closer together) and the DAS LO frequency (to centre the
-     subsystem on the two lines). In the frequency editor this is
-     represented by a shifting of the bands covered within the LSB and
-     USB sliders. You can use the spectral line identification menu to
-     confirm that CO(3-2) appears in the lower sideband and upper
-     sideband. Some DAS modes, e.g. NS_H2CO_125X4, use the different
-     sub-bands of the DAS independently to provide a coverage useful
-     for measuring two closely spaced lines accurately. If you choose
-     one of these modes from the pull down menu, you will see that the
-     coverage of the DAS subbands is represented by multiple LSB and
-     USB sliders. If you select NS_H2CO_125X4, you should be able to
-     confirm, using the line identification menu, that this
-     configuration enables the simultanaeous observation of the H2CO
-     lines at 218.22 GHz and 218.48 GHz with the highest DAS frequency
-     resolution.  Please consult this <a
-     
-href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
-     list </a> of non-standard modes DAS modes, and the <a href
-     
-="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/DAS_guide/das-guide.html">
-     DAS USER guide </a> for further information when planning your 
-observation.
+ The frequency editor tool is also useful when using non-standard DAS
+ configurations. As an example, choose NS_COHCN_125AB from the
+ non-standard configuration menu. This mode is designed to allow the
+ user to observe the CO(3-2) and HCN(4-3) lines simulataneously using
+ the highest resolution 125 MHZ DAS mode. This is achieved by adjusting
+ both the frontend LO frequency (to move the lines closer together) and
+ the DAS LO frequency (to centre the subsystem on the two lines). In
+ the frequency editor this is represented by a shifting of the bands
+ covered within the LSB and USB sliders. You can use the spectral line
+ identification menu to confirm that CO(3-2) appears in the lower
+ sideband and upper sideband. Some DAS modes, e.g. NS_H2CO_125X4, use
+ the different sub-bands of the DAS independently to provide a coverage
+ useful for measuring two closely spaced lines accurately. If you
+ choose one of these modes from the pull down menu, you will see that
+ the coverage of the DAS subbands is represented by multiple LSB and
+ USB sliders. If you select NS_H2CO_125X4, you should be able to
+ confirm, using the line identification menu, that this configuration
+ enables the simultanaeous observation of the H2CO lines at 218.22 GHz
+ and 218.48 GHz with the highest DAS frequency resolution.  Please
+ consult this 
+
+<a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
+ list </a> of non-standard modes DAS modes, and the 
+
+<a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/DAS_guide/das-guide.html">
+ DAS USER guide </a> for further information when planning your 
+ observation.
 
 <h2><a name="het_msblib">The Heterodyne MSB library</a></h2>
 
-<p> The heterodyne library groups the MSB templates according to whether
- the observation is to be a sample, a grid, a raster, or a jiggle
-	    map.  This last mode is new to heterodyne observing, but
-	    should be familiar to SCUBA observers. For samples
- and grids, the user can choose beam switching, position switching or
- fast or slow frequency switching.  Jiggle mapping uses beam-switching
-	    or frequency switching (although the latter has not yet
-	    been tested), and raster observations only
- allow position switching. The similarities and differences of the
- heterodyne library MSBs will be discussed below.
+The heterodyne library groups the MSB templates according to
+whether the observation is to be a Sample, a Grid-Pssw, a Raster-Pssw,
+or a Jiggle-Chop:<p>
 
-<ul> <li><a href="#het_sam_folder">Single-spectrum samples</a>
-  <ul><li>An old, familiar observing mode, where a single spectrum is
-		    obtained toward a single position.  </ul> <li><a 
-href="#het_grid_folder">Grid maps</a>
-  <ul><li>Another familiar observing mode, grid mapping are used where
-		  relatively small maps are required with longer
-		  integration times per point.</ul> <li><a 
-href="#het_jig_folder">Jiggle maps</a>
-  <ul><li>This mode is new to heterodyne observing at the JCMT, and
-		  specifically designed for HARP although useful for
-		  single "pixel" receivers as well.  This mode makes a
-	      small map where the secondary mirror "jiggles" rapidly
-		  over all the points in the map.</ul> <li><a 
-href="#het_rast_folder">Raster maps</a>
-  <ul><li>This mode is useful for making large maps rapidly.</ul> </ul>
+<ul>
+<li><a href="#het_sam_folder">Single-spectrum samples:</a>
+this is the most fundamental mode, in being a single spectrum observed
+toward at a single position. The sample can either use a position
+switch (<em>Sample-PSSW</em>) or a beam switch (<em>Sample-BMSW</em>).
+PSSW observations typically spend of order 30 secs on the source
+before going to the reference position for 30 secs, but they can
+accommodate large switches exceeding several degrees.  BMSW
+observations by contrast offer a better sky cancellation by switching
+much faster between the source and reference (up to several Hertz in
+'continuum mode'), but are restricted to a switch of maximally
+180". Also, the telescope will <em>nod</em>: half the time will be
+spend chopping on one side of the source, half on the other side,
+requiring both sky positions to be free of emission.<p>
 
+The offset iterator can be used to observe at a position offset from
+the one specified in the <a href="#het_tcc">Target Component</a>.
+If you specify multiple targets these modes will be equivalent to a
+Grid-PSSW or a Jiggle-Chop, although the detailed execution will be
+different in case of the latter (see below).</li><p>
 
-<h3><a name="het_sam_folder"> Samples</a> </h3>
+<li><a href="#het_grid_folder">Grid-PSSW:</a> this mode actually is
+the same as a Sample-PSSW switch carried out at multiple offsets,
+either in a regular grid or as a series of explicit offsets. (Better
+said: a Sample-PSSW formally is a Grid-PSSW with only a single
+offset). Grid-PSSW mapp are used where relatively small maps are
+required with longish integration times per point.</li><p>
 
- A sample denotes an observation consisting of one pointing per science
- target, and can be beam switched, position switched, fast frequency
- switched or slow frequency switched. If you open up the position
- switched sample MSB in the heterodyne library, you will see that it
- contains the same elements as the beam-switched MSB, with the
- exception of the "chop" component. Opening the "Target Information"
- component, however, reveals two rows in the bottom right hand
- window, a SCIENCE and a REFERENCE row. Clicking on one of them allows
- the user to specify the co-ordinates of either the SCIENCE, or "on"
- position, or the REFERENCE or "off" position. The REFERENCE position
- can either be specified as a co-ordinate offset from the SCIENCE
- position, by checking the "offset" tick-box, or as an absolute
- co-ordinate, by leaving the "offset" tick-box unchecked.<p>
+<li><a href="#het_jig_folder">Jiggle-Chop:</a> this mode makes a small
+map where the secondary mirror "jiggles" rapidly over all the points
+in the map and is similar to Sample-BMSW observations on a regular,
+pre-defined grid, such as a 5x5 pattern.  There is an important
+distinction: rather than fully completing each position before going
+to the next, as would happen with an offset iterator over a
+Sample-BMSW, Jiggle-Chop will combine sequences of short integrations
+at each position covering the whole jiggle pattern many times. As in
+Raster-PSSW it will typically observe multiple source positions before
+going to the reference position for a relatively longer time.<p> 
 
- For the Fast and slow frequency switching MSBs, one does not specify
- a chop or offset position, rather one specifies a frequency throw
-	    within the modified "Photom/Sample" eye.  <p>
+Jiggle-Chop is new to heterodyne observing at the JCMT, and
+specifically designed for HARP although useful for single "pixel"
+receivers as well.</li><p>
 
-For all sample modes, the <i>total</i> integration time per sample is
-	    indicated in the "Photom/Sample" eye.
+<li><a href="#het_rast_folder">Raster-PSSW:</a> This mode is useful
+for making large maps rapidly. The telescope continuously takes data
+while scanning across the source in e.g. a back-and-forth pattern. It
+will typically go to the reference between rows and an interpolation
+of the references on either side of the row will be used for each of
+the samples in the row. This mode is much more efficient to map large
+regions than Grid-Pssw.</li>
+</ul>
 
-<p> <h3> <a name="het_grid_folder">Grid Maps</a> </h3>
+<h3><a name="het_sam_folder">Samples</a> </h3>
 
- Observations of a single science target, at multiple positions are
- generically referred to as Grid observations. Note that the user
- can define exactly the position offsets required from the map centre,
- and there is no requirement that the pointings form a regularly
- shaped grid. Opening the various grid MSBs in the heterodyne library
- shows they are similar to the sample MSBs except for the addition of
- an "offset" iterator. This iterator enables the user to specify the
- required pointings for the observation. <p>
+A sample denotes an observation consisting of one pointing per science
+target, and can be beam switched (BMSW) or position switched (PSSW).  
+<!-- fast frequency switched or slow frequency switched.--> 
 
- Suppose the user requires three pointings along the long axis of a
- galaxy, at a half beam width spacing of 10 arcseconds. Let us assume the 
-long axis of the
- galaxy has a position angle of 30 degrees on the sky. First enter the
- position angle in the "P.A." field. The rotated frame has axes
- labeled p and q, so in order to obtain the required pointings along
- our galaxy we require (p,q) offsets of (0,-10), (0,0) and (0,10). One
- adds a new pointing by clicking on the "new" button. One then modifies
- the offsets via the p and q boxes directly above the "new"
- button. The highlighted pointing can be removed using the "remove"
- button. The "Rm. all" button removes all of the user-added
- pointings. The arrow buttons to the right of the box displaying the
- pointings allow the pointings to be re-ordered. The highlight pointing
- can be advanced one position up or down the pointing list, or to the
- top or bottom of the list by clicking on these arrow buttons. For our
- example, the completed offset iterator will appear as shown below. <p>
+If you open up the PSSW sample MSB in the heterodyne library, you will
+see that it contains the same elements as the BMSW MSB, with the
+exception of the "chop" component. Opening the "Target Component"
+component, however, reveals two rows in the bottom right hand window,
+a SCIENCE and a REFERENCE row. Clicking on one of them allows the user
+to specify the co-ordinates of either the SCIENCE, or "on" position,
+or the REFERENCE or "off" position. The REFERENCE position can either
+be specified as a co-ordinate offset from the SCIENCE position, by
+checking the "offset" tick-box, or as an absolute co-ordinate, by
+leaving the "offset" tick-box unchecked.<p>
 
- <img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
+<!--
+For the Fast and slow frequency switching MSBs, one does not specify a
+chop or offset position, rather one specifies a frequency throw within
+the modified "Photom/Sample" eye.  <p>
+-->
 
-  If you want to see what the rotated offsets are in the sky
-  frame (which will be the co-ordinate frame specified in the "target
-  information" element), click and hold the "Display Rotated Offsets"
-  button.<p>
+For all sample modes, the <i>total</i> "on" integration time per
+sample is indicated in the "Photom/Sample" eye. <blink>Note</blink>
+that integration time no longer is the "on+off" time, only the "on"
+time.
 
-  The offset iterator has the ability to automatically generate
-  regularly spaced grids without the need to enter each pointing
-  individually. The "Grid Pattern" section of the "Offset iterator"
-  allows the user to specify the offset of the map centre (relative to
-  the co-ordinate in the Target information box), the grid point
-  spacing and the dimensions of the grid, in grid points. To create a
-  3x3 grid, with a ten arcsecond spacing, one would fill in the fields
-  of the grid pattern section as ilustrated below, and then click on
-  either "Create" or "Create/Centre on Base" button. The pointings
-  generated then appear in the pointing list box above. Notice that
-  "Create" created a grid where the (0,0) point is at the top left
-  hand corner of the map, whereas "Create/Centre on Base" chooses the
-  point the geometrical centre of the grid for the (0,0) position. This 
-will only
-  correspond to a pointing position for grids with odd p and q dimensions. 
-The
-  screenshot below show the result of clicking on the "Create/Centre
-  on Base position" - nine points with the (0,0) position corresponding
-  to the map centre. <p>
+<h3> <a name="het_grid_folder">Grid-PSSW Maps</a> </h3>
 
-<img src="het_images/het_offset2.gif" alt="The Offset Iterator(2)"
-	      ><p>
+Observations of a single science target, at multiple positions are
+generically referred to as Grid observations. Note that the user can
+define exactly the position offsets required from the map centre, and
+there is no requirement that the pointings form a regularly shaped
+grid. Opening the various grid MSBs in the heterodyne library shows
+they are similar to the Sample-PSSW MSBs except for the addition of an
+<a href="#het_offset">Offset Iterator</a>. This iterator enables
+the user to specify the required pointings for the observation.<p>
+
+Suppose the user requires three pointings along the long axis of a
+galaxy, at a half beam width spacing of 10 arcseconds. Let us assume
+the long axis of the galaxy has a position angle of 30 degrees on the
+sky. First enter the position angle in the "P.A." field. The rotated
+frame has axes labeled p and q, so in order to obtain the required
+pointings along our galaxy we require (p,q) offsets of (0,-10), (0,0)
+and (0,10). One adds a new pointing by clicking on the "New"
+button. One then modifies the offsets via the p and q boxes directly
+above the "New" button. The highlighted pointing can be removed using
+the "Remove" button. The "Rm. all" button removes all of the
+user-added pointings. The arrow buttons to the right of the box
+displaying the pointings allow the pointings to be re-ordered. The
+highlight pointing can be advanced one position up or down the
+pointing list, or to the top or bottom of the list by clicking on
+these arrow buttons. For our example, the completed Offset Iterator
+will appear as shown below. <p>
+
+<img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
+
+If you want to see what the offsets are in the sky frame (which will
+be the co-ordinate frame specified in the "target information"
+element), click and hold the "Display De-Rotated Offsets" button.<p>
+
+The Offset Iterator has the ability to automatically generate
+regularly spaced grids without the need to enter each pointing
+individually. The "Grid Pattern" section of the "Offset iterator"
+allows the user to specify the offset of the map centre (relative to
+the co-ordinate in the Target information box), the grid point spacing
+and the dimensions of the grid, in grid points. To create a 3x3 grid,
+with a ten arcsecond spacing, one would fill in the fields of the grid
+pattern section as illustrated below, and then click on either
+"Create/Centre on Base" button (or, rarely, the "Create on Corner"
+button). The pointings generated then appear in the pointing list box
+above. Notice that "Create/Centre on Base" chooses the the geometrical
+centre of the grid for the (0,0) position.  This will only correspond
+to an exact pixel in the output map <em>only</em> in case of odd p and
+q dimensions.  "Create on Corner" creates a grid where the (0,0) point
+is at the top left hand corner of the map. The screenshot below show
+the result of clicking on the "Create/Centre on Base position" - nine
+points with the (0,0) position corresponding to the map centre.<p>
+
+<img src="het_images/het_offset2.gif" alt="The Offset Iterator (2)">
 
 <h3> <a name="het_jig_folder">Jiggle Mapping</a> </h3>
 
-<i>{This section needs to be written.}</i>
+Jiggle-Chop observations, like Grid-PSSW, map a region around a
+source.  This mode is primarily intended for array instruments with
+widely spaced receptors for which 'jiggling' is needed in order to
+achieve a Nyquist sampling. Nevertheless it is available for
+single-pixels receivers as well.
+
+<p>
+As opposed to Grid-PSSW, the chopping secondary is used to move over
+the chosen jiggle pattern. This allows for a fast switching of the
+position and makes it possible to observe e.g. the whole jiggle
+pattern before going to the reference position. This is a
+beam-switched observation: the distance to the reference can be no
+more than 180" and half the time the reference will be on one side,
+half the time on the other side of the base position.
+
+<p>
+Opening the various chop MSBs in the heterodyne library shows they are
+similar to the Sample-BMSW example above except that there is a "jiggle
+eye" instead of the <a href="#het_sample">"photom/sample eye"</a>.  It
+offers various jiggle patterns: 3x3 through 5x5 plus HARP specific
+jiggles. The latter automatically set the spacing to ensure Nyquist
+sampling with HARP. For the others, the "Jiggle Spacing" needs to be
+defined by the user: typically 0.5 or 1 beam-spacing in arcsecs. The 
+PA and System should be left at "0.0" and "Tracking" for the typical user.
+Finally, the integration time for each jiggle position can be specified
+as "secs/jig posn". As for the "photom/sample" eye, the estimated RMS
+noise per channel is shown in the "Noise" box.
+
+<p>
+"Continuum mode" can be selected as is explained for the <a
+href="#het_sample">"photom/sample eye"</a>. Due to the resulting
+increase of the time needed to complete the observation, only check
+this if you really need the measurement of the continuum level.
+<p>
 
 <h3> <a name="het_rast_folder">Rasters</a> </h3>
 
- The format of the position switched raster MSB is similar to the
-    sample MSB, except that the "photom/sample" eye is replaced by the
-    "scan/raster" eye. If you click on the "scan/raster" eye, you will
-    be presented with options which enable you to set up your
-    raster map. The "Area" panel on the left has a number of fields
-    which allow you control the size and sampling of the raster
-    map. The width and height of the map are set through the "width"
-    and "height" records. The sample spacing and grid spacing and the
-    postion angle of the map on the sky can also be set up by making
-    entries in the appropriate records. Suppose, for example, that you
-	  want to use RxA to make a 35x5 pixel map with cell size
-	  7"x7".  Set the sample spacing and the scan spacing to be
-	  7", then specify a map width of 238 arcsec and height of
-	  28".  <p>
+The format of the position switched raster MSB is similar to the
+sample MSB, except that the "photom/sample" eye is replaced by the
+"scan/raster" eye. If you click on the "scan/raster" eye, you will be
+presented with options which enable you to set up your raster map. The
+"Area" panel on the left has a number of fields which allow you
+control the size and sampling of the raster map. The width and height
+of the map are set through the "width" and "height" records. The
+"sample spacing" and "scan spacing" and the postion angle of the map
+on the sky can also be set up by making entries in the appropriate
+records. The resulting Nr. of samples/pixels and Nr. of scans/pixels
+in each dimension is shown. The total required integration time per sample
+point can be specified in the "Sample time" box.  The system will 
+automatically break up the observations into multiple passes over the map.
+
+<p>
+The meaning of the entries somewhat depends on whether the receiver is
+an array receiver or not.
+<ul>
+<li><em>Non-array receivers:</em> The "sample spacing" will be the
+pixel-size along scan direction of the telescope. The "scan spacing"
+will be the pixel-size in the cross-scan direction i.e. between the
+scanned rows. Be aware that there only will be a pixel centered on the
+base position if the number of pixels in each direction is odd. The size
+of the map <em>must</em> be a multiple of the pixel-size in each 
+direction and is the defined as the distance between the centers of the
+outmost pixels!
+<li><em>Array receivers:</em> The "sample spacing" will be the size of
+the square pixels in the final map as well as the spacing of the
+samples along scan direction of the telescope. The "scan spacing" will
+distance between the scanned rows, e.g. 1/2 the array size.
+</ul>
+
+<p>
+Suppose, for example, that you want to use RxA to make a 180"x100"
+map. A sample spacing of 5" and scan spacing of 10" will result in a 
+pixel map of 61x11. 
+
+
 
 <img src="het_images/het_raster.gif" alt="Rasters" ><p>
 
-  The sample time box allows the user to set the amount of
- time data is taken for for each map "point" as the receiver is
- scanned across the sky.  The RMS noise per channel of the final
-	    co-added map is also indicated, as is the estimated time
-	    to complete each row and the complete map.
+The sample time box allows the user to set the amount of time data
+is taken for for each map "point" as the receiver is scanned across
+the sky.  The RMS noise per channel of the final co-added map is
+also indicated, as is the estimated time to complete each row and
+the complete map.<p>
 
-<p>It is possible to set the scanning direction, but for most purposes
-	    this should be left to the default values.
+It is possible to set the scanning direction, but for most purposes
+this should be left to the default values.
 
-
-    <hr> <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main 
-Page</em></a> </h4>
-  </body> </html>
+<hr> 
+<h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
+</body> </html>
