@@ -1,6 +1,9 @@
 package orac.jcmt.validation;
 
 import java.util.Vector;
+
+import edfreq.FrequencyEditorCfg;
+import edfreq.Receiver ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpMSB ;
@@ -38,18 +41,23 @@ public class JcmtSpValidation extends SpValidation
 		SpInstObsComp obsComp = SpTreeMan.findInstrument( spObs );
 		SpTelescopeObsComp target = SpTreeMan.findTargetList( spObs );
 		Vector observes = SpTreeMan.findAllInstances( spObs , "orac.jcmt.iter.SpIterJCMTObs" );
-		// Give a warning for heterodyne if integration times > 40 seconds
-		// and frequency > 400 GHz
 		for( int count = 0 ; count < observes.size() ; count++ )
 		{
 			SpIterJCMTObs thisObs = ( SpIterJCMTObs ) observes.elementAt( count );
 			if( obsComp != null && obsComp instanceof SpInstHeterodyne )
 			{
 				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
+				
+				Receiver receiver = ( Receiver )FrequencyEditorCfg.getConfiguration().receivers.get( spInstHeterodyne.getFrontEnd() ) ;
+				double skyFrequency = spInstHeterodyne.getSkyFrequency() ;
+				if( receiver.loMin > skyFrequency )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + receiver.loMin ) );
+				if( receiver.loMax < skyFrequency )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + receiver.loMax ) );
+					
+				// Give a warning for heterodyne if integration times > 40 seconds and frequency > 400 GHz
 				if( spInstHeterodyne.getSkyFrequency() > 4.0E11 && thisObs.getSecsPerCycle() > 40.0 )
-				{
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Observations > 4GHz should be done with < 40 secs/cycle" ) );
-				}
 				
 				if( thisObs instanceof SpIterJiggleObs )
 				{
@@ -57,14 +65,10 @@ public class JcmtSpValidation extends SpValidation
 					String frontEnd = spInstHeterodyne.getFrontEnd() ;
 					String jigglePattern = spIterJiggleObs.getJigglePattern() ;
 					if( jigglePattern.startsWith( "HARP" ) && !frontEnd.startsWith( "HARP" ) )
-					{
 						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use " + jigglePattern + " jiggle pattern without HARP-B frontend" ) );
-					}
 				}
 				if( thisObs instanceof SpIterNoiseObs )
-				{
 					report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Cannot use Noise observations with Hetrodyne" ) );
-				}
 			}
 			// Also check the switching mode.  If we are in beam switch, we need a chop iterator,
 			// in position we need a reference in the target
@@ -75,16 +79,12 @@ public class JcmtSpValidation extends SpValidation
 				{
 					Vector chops = SpTreeMan.findAllInstances( spObs , "gemini.sp.iter.SpIterChop" );
 					if( chops == null || chops.size() == 0 )
-					{
 						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Chop iterator required for beam switch mode" ) );
-					}
 				}
 				else if( switchingMode.equals( SpJCMTConstants.SWITCHING_MODE_POSITION ) )
 				{
-					if( !( target.getPosList().exists( "REFERENCE" ) ) )
-					{
+					if( target != null && !( target.getPosList().exists( "REFERENCE" ) ) )
 						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Position switched observation requires a REFERENCE target" ) );
-					}
 				}
 			}
 			else
