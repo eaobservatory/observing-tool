@@ -34,7 +34,117 @@ href="http://www.jach.hawaii.edu/software/jcmtot/">http://www.jach.hawaii.edu/so
       preparing your observations, please consult with your "Friend of the Project" (see <a href="http://www.jach.hawaii.edu/JCMT/allocations">http://www.jach.hawaii.edu/JCMT/allocations</a>), or email <a
       href="mailto:jcmtot@jach.hawaii.edu">jcmtot@jach.hawaii.edu</a>.
 
+<p>
+<div align=center>
+<table width=600>
+<tr><td>
+<center>
+<h2>Read This: Interim ACSIS version Oct 2006!</h2>
+Remo Tilanus, Head of JCMT Operations
+</center>
 
+<p>
+This version of the <em><b>JCMT OT</b></em> is an interim release that
+enables users to build their science program for heterodyne
+observations with ACSIS. A new <a href="het_example.html#het_msblib">
+templates library<a> has been provided that covers the four basic
+observing modes offered <em>Sample, Grid-PSSW, Jiggle-Chop,</em> and
+<em>Raster</em>. Investigators are urged to carefully inspect the
+example for a beam-switched observation below and to read the more
+extensive explanation and instructions offered for each observing
+mode. While the components will look familiar to experienced JCMT
+observers most will have changed, sometimes in fairly subtle manner.
+
+<p>
+While specification of <b>calibration observations</b> will be part of
+future release, it had to be omitted from the present one due to
+technical complications and lack of effort. As was the case with the
+previous heterodyne OT, the telescope operators (TSS) will insert
+calibrations, pointings, foci, etc. into the observing sequence as
+apprpriate. Please specify special instructions and wishes regarding
+calibrations in the 'Note to Observer'. Another change to watch out
+for is that <b>integration times</b> are now <em>"on"-source</em> time
+only, instead of <em>"on+off"</em> as before. A subtle change to watch
+out for is the interaction between the Heterodyne and Target
+component, as explained in the <a
+href="advanced.html#advanced">Advanced topics</a>.  Observers with
+programs that involve many MSBs are urged to read the advanced
+information on <a href="advanced.html#andor">AND and OR Folders</a>
+and the new <a href="advanced.html#survey">Survey Container</a>, which
+may significantly simplify their work. A number of more advanced
+configurations are not available in this release: e.g. multiple
+spectral windows, special ACSIS configurations and galactic
+coordinates.
+
+<p>
+Above all: realize that the JCMT OT is a work in progress and
+carefully check the setup. Observing times are approximate and
+estimates of overheads are based on limited tests. Carefully check the
+validation messages and notify us of problems: except for some aspects
+that are hardcoded, validation can be updated dynamically without
+having to release the OT. Validation automatically runs the most
+up-to-date version on an active internet connection.
+
+<p>
+<em><b>General information:</b></em><br>
+Starting from August 2006 observing at the JCMT has entered a new
+era. For the forseeable future, the emphasis of the programme at the
+telescope will be on wide-field astronomy and the large-scale surveys
+from the Legacy Programme. Interferometric observations are undertaken
+as part of the <a href="/JCMT/eSMA">eSMA</a>. Still, a large fraction
+of the time is reserved for PI projects who will need to prepare their
+observations at the start of each observing semester. All observing at
+the JCMT is <i>flexibly scheduled</i> and managed through the <a
+href="http://omp.jach.hawaii.edu">OMP</a> in a <i>craddle-to-grave</i>
+fashion. An interim version of the observation preparation tool, <a
+href="/software/jcmtot">JCMTOT</a>, has been released for support of
+the new heterodyne backend 
+<!-- (update with better link!) -->
+<a href="http://www.jach.hawaii.edu/JCMT/future/ACSIS/acsis.html">ACSIS</a>.
+
+
+<p>
+Those familar with JCMT will notice major changes, especially to
+heterodyne observing. Gone are the days of small sdf <i>gsd</i> files
+and <i>SPECX</i>. The ACSIS data rate with HARP can be such that it
+requires massive parallel handling and delivers files of 100s of Mb in
+size. All observations result in <i>data cubes</i>, albeit those may
+have spatial dimensions of 1x1. The JCMT actually offers several data
+products.  The 
+<a href="http://www.oracdr.org/">oracdr</a>
+pipeline running 
+<!-- (add link!) -->
+<a href="...link here...">SMURF</a> data
+reduction software delivers gridded, baselined, and coadded cubes both
+in <a href="http://star-www.rl.ac.uk/star/docs/sun33.htx/sun33.html">NDF</a> and 
+<a href="http://fits.gsfc.nasa.gov">FITS</a> 
+format. All spectra that fall on the same pixel are
+automatically coadded. It is expected that observers in general will
+use these gridded data cubes as the starting point for a more extended
+data reduction. A more basic data product are the <i>Spectra</i> cubes
+(NDF format) containing a time-series of all spectra obtained in an
+observation, calibrated, but ungridded.
+
+<p>
+Observations can be inspected <a
+href="http://star-www.dur.ac.uk/~pdraper/gaia/gaia.html">Gaia</a> and
+<a href="http://star-www.dur.ac.uk/~pdraper/splat/splat.html">Splat</a>. 
+Whilst these utilities also offer a range of data reduction functions
+(e.g. baselining and statistics) in general they are not intended for
+a full-scale reduction of large-volume observations. The SMURF
+routines together with <a
+href="http://star-www.rl.ac.uk/">Starlink</a> packages such as. <a
+href="http://www.starlink.ac.uk/~dsb/kappa/kappa.html">Kappa</a> and
+<a href="http://www.starlink.rl.ac.uk/star/docs/sun237.htx/sun237.html">
+Datacube</a> offer a full suite of data reduction tasks. These
+packages have been upgraded with rigorous support of the
+<a href="http://fits.gsfc.nasa.gov/fits_wcs.html">World Coordinate System
+(WCS)</a> as well as spectral conventions and concepts as they apply
+to submm telescopes.
+
+</td></tr>
+</table>
+</div>
 
 <h2>Contents</h2>
 
