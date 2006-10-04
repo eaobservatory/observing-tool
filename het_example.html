@@ -389,30 +389,32 @@ will be displayed as a hierarchy, as shown below.<p>
  
     <img src="het_images/obs_comp.gif" alt="Observation component" ><p>
 
- The first element inside the Observation component is the "Target
-      information" component. Note, however, that it is possible to 
-      construct an
-      MSB to perform multiple observations on a single target. In
-      such a case you would put the Target component outside of, and
-      therefore containing, multiple Observation components. Further
-      details on this issue of component nesting may be found in the
-      section on <a href="./advanced.html">advanced topics</a>.
-      Following the Target component is a sequence iterator which
-      contains a repeat iterator, then (depending upon the observation
-      type) perhaps a chop iterator or an offset iterator - a
-      position-switched raster centred on the Target, as in this example,
-      needs neither - and then, finally, a single (action) "eye".
-      The sequence iterator doesn't do anything <i>per se</i>, but it is
-      important to note that it represents the sequence of events at
-      the telescope. The repeat iterator allows the user to control
-      the number of repeats carried out for a certain observation. The
-      "eye"-con represents the observation itself. 
+The first element inside the Observation component can be the "Target
+information" component. Note, however, that in the templates the
+target component is outside the Observation component. This allows one
+to onstruct an MSB to perform multiple observations on a single
+target: such MSBs would therefore contain, multiple Observation
+components. More importantly for heterodyne observations it allows the
+Het. Component to access velocity information that may need to be
+obtained from the Target Component.  Further details on this issue of
+component nesting may be found in the section on <a
+href="./advanced.html">advanced topics</a>.  Following the Target
+component in the example is a sequence iterator which contains a
+repeat iterator, then (depending upon the observation type) perhaps a
+chop iterator or an offset iterator - a position-switched raster
+centred on the Target, as in this example, needs neither - and then,
+finally, a single (action) "eye".  The sequence iterator doesn't do
+anything <i>per se</i>, but it is important to note that it represents
+the sequence of events at the telescope. The repeat iterator allows
+the user to control the number of repeats carried out for a certain
+observation. The "eye"-con represents the observation itself.
+
 <p>
-      The "Flag as calibration" button should be toggled ON if, indeed,
-      this observation is intended as a calibration for others.
-      This fact is then made known to the TSS who may decide not to 
-      execute the observation (er . . calibration) if a suitable
-      calibration has recently been done already.
+The "Flag as calibration" button should be toggled ON if, indeed,
+this observation is intended as a calibration for others.
+This fact is then made known to the TSS who may decide not to 
+execute the observation (er . . calibration) if a suitable
+calibration has recently been done already.
 
 <!-- 
 ############################################################################ 
@@ -447,24 +449,22 @@ will be displayed as a hierarchy, as shown below.<p>
 	      enter an absolute position for the reference.
 
       
-<p>Instead of entering the source coordinates manually, you can download 
-it from the Web ! If you are using
-      a machine with an Internet connection you can enter the name
-      of your target,
-	      select the on-line catalogue to search (i.e. SIMBAD or
-	      NED) from the pull-down menu, and
-      hit "Resolve Name". After a brief pause the RA and DEC co-ordinate 
-      fields should become
-      populated with the SIMBAD/NED co-ordinates for the source. The
-      SIMBAD/NED name for the source will also be indicated next to the
-      "Resolve Name" button. <p>
+<p>Instead of entering the source coordinates manually, you can
+download it from the Web ! If you are using a machine with an Internet
+connection you can enter the name of your target, select the on-line
+catalogue to search (i.e. SIMBAD or NED) from the pull-down menu, and
+hit "Resolve Name". After a brief pause the RA and DEC co-ordinate
+fields should become populated with the SIMBAD/NED co-ordinates for
+the source. The SIMBAD/NED name for the source will also be indicated
+next to the "Resolve Name" button. <p>
        
-<p><blink>WARNING</blink>: Positions of astronomical objects are often 
-   wavelength dependent.
-   The catalogues you may be using will have defined the astrometric 
-   positions therein on the basis of optical- or infrared- or radio- 
-   observations. You should check that the positions now showing 
-   are valid for your submillimetre studies.<p>
+<p><blink><font color=red>WARNING</red></font></blink>: Positions of
+astronomical objects are often wavelength dependent e.g. as for
+IRAS16293-2224 for which the SIMBAD coordinates as many acrmins
+different from the JCMT coordinates.  The catalogues you may be using
+will have defined the astrometric positions therein on the basis of
+optical- or infrared- or radio- observations. You should check that
+the positions now showing are valid for your submillimetre studies.<p>
 
 <!-- N.B. Not all ACSII characters are allowed in the target name -
       make sure your target name is built up of only the following
@@ -837,49 +837,62 @@ spectral line observation.<p>
 <ul>
 
 <li> Choose the corresponding MSB template from the heterodyne library and 
-copy/paste it to your science program.  Each of these is described
+     copy/paste it to your science program.  Each of these is described
 		briefly <a href="#het_supported">below</a>.
 
 <li> Fill out the het setup component with the frontend/backend details 
-for your observation.
+     for your observation.
 
 <li> Set up the site quality component, normally this means simply leaving 
-the "allocated" button checked.
+     the "allocated" button checked.
 
 <li> Enter the target information for your target. This step can be as 
-simple as entering the RA/DEC and epoch. Don't forget there are the useful 
-tools of the Name resolver and the position editor to help you out here.
+     simple as entering the RA/DEC and epoch. Don't forget there are
+     the useful tools of the Name resolver and the position editor to
+     help you out here.
 
 <li> Set up the chop iterator. Again this can simply mean entering the
-chop throw angle and reference frame, or this iterator can be set up
-via the position editor.
+     chop throw angle and reference frame, or this iterator can be set up
+     via the position editor.
 
 <li> Set up the photom/sample eye. Remember to enter the total
-	    on-source integration time per sample.
+     on-source integration time per sample.
 
-<li> Set up the repeat counter to give the number of repeats of the time 
-set up in the photom/sample eye to get your total required integration 
-time. If you want a total integration of one hour on-source, you
-	    should set up an  
-integration time of 5 minutes in the photom/sample eye and set the repeat 
-counter to twelve. When observing, you can then monitor the observation by 
-inspecting the data file produced every ten minutes, and co-add the spectra 
-as you go along. In general, if you want to build up long integrations, 
-you will want the basic sample length to be around 10 minutes for RxW and 
-RxB and around 15-20 minutes for RxA.
+<li> Set up the repeat counter to give the number of repeats of the
+     time set up in the photom/sample eye to get your total required
+     integration time. If you want a total integration of 30 minutes
+     on-source, you should set up an integration time of 5 minutes in
+     the photom/sample eye and set the repeat counter to 6. When
+     observing, you can then monitor the observation by inspecting the
+     data file produced every ~13 minutes, and co-add the spectra as
+     you go along. In general, if you want to build up long
+     integrations, you will want the duration of the basic observation
+     to be of the order 10-15 minutes <em>("on+off+overheads")</em>.
 
 <li> Add at least one "show to observer" note. This should contain 
-additional information on the overall aims of your science program, 
-details of required calibrations and any other special notices you want 
-the observer and TSS to act upon when the observation is made.
+     additional information on the overall aims of your science
+     program, details of required calibrations and any other special
+     notices you want the observer and TSS to act upon when the
+     observation is made.
 
 <li> Click on the outermost level of the MSB. In the right hand panel you 
-should give the MSB a meaningful name. Below the name field, there is pull 
-down menu labeled "Observe". This counter allows you to control how many 
-times you want the whole MSB observed. If you want it done just once, 
-leave this as (1x). You can set the relative priority of the MSB within 
-your science program using the "Priority" pull down menu. Set this between 
-1 and 99, with 1 signifying the highest priority. </ul>
+     should give the MSB a meaningful name. Be aware that observers and operator 
+     typically will see only the start of that line in the browsing tool, hence
+     put the most significant information at the start. E.g.<br>
+       'IRC+10216 spectral line survey, CO molecule, transition 230.538'<br>
+       'IRC+10216 spectral line survey, CO molecule, transition 220.399'<br>
+     will look similar without expanding the name field in the browser. Instead<br>
+       'IRC+10216 230.538, spectral line survey, CO molecule'<br>
+       'IRC+10216 220.399, spectral line survey, CO molecule'<br>
+     would be a better compromise.
+
+     Below the name field, there is pull down menu labeled
+     "Observe". This counter allows you to control how many times you
+     want the whole MSB observed. If you want it done just once, leave
+     this as (1x). You can set the relative priority of the MSB within
+     your science program using the "Priority" pull down menu. Set
+     this between 1 and 99, with 1 signifying the highest
+     priority. </ul>
 
  That's pretty much all you need to know to start preparing your
  MSB. The remainder of this primer covers the rest of the Heterodyne
@@ -893,7 +906,7 @@ your science program using the "Priority" pull down menu. Set this between
 -->
  <h2><a name="het_freq_ed"> The frequency editor</a></h2>
 
-<i>{This section is out of date.}</i>
+<i>{This section will be updated at a later time.}</i>
 
  <p>While many users will simply complete the Het-setup component quite
  adequately following the procedure outlined above, the het-setup 
@@ -1029,7 +1042,7 @@ observations by contrast offer a better sky cancellation by switching
 much faster between the source and reference (up to several Hertz in
 'continuum mode'), but are restricted to a switch of maximally
 180". Also, the telescope will <em>nod</em>: half the time will be
-spend chopping on one side of the source, half on the other side,
+spend chopping to one side of the source, half to the other side,
 requiring both sky positions to be free of emission.<p>
 
 The offset iterator can be used to observe at a position offset from
@@ -1042,19 +1055,19 @@ different in case of the latter (see below).</li><p>
 the same as a Sample-PSSW switch carried out at multiple offsets,
 either in a regular grid or as a series of explicit offsets. (Better
 said: a Sample-PSSW formally is a Grid-PSSW with only a single
-offset). Grid-PSSW mapp are used where relatively small maps are
+offset). Grid-PSSW maps are used where relatively small maps are
 required with longish integration times per point.</li><p>
 
 <li><a href="#het_jig_folder">Jiggle-Chop:</a> this mode makes a small
-map where the secondary mirror "jiggles" rapidly over all the points
-in the map and is similar to Sample-BMSW observations on a regular,
+map by "jiggling" the secondary mirror rapidly over all the points in
+the map and is similar to Sample-BMSW observations on a regular,
 pre-defined grid, such as a 5x5 pattern.  There is an important
 distinction: rather than fully completing each position before going
-to the next, as would happen with an offset iterator over a
-Sample-BMSW, Jiggle-Chop will combine sequences of short integrations
-at each position covering the whole jiggle pattern many times. As in
+to the next, as would happen with an Sample-BMSW inside an Offset
+Iterator, Jiggle-Chop will combine sequences of short integrations at
+each position covering the whole jiggle pattern many times. As in
 Raster-PSSW it will typically observe multiple source positions before
-going to the reference position for a relatively longer time.<p> 
+going to the reference position for a relatively longer time.<p>
 
 Jiggle-Chop is new to heterodyne observing at the JCMT, and
 specifically designed for HARP although useful for single "pixel"
@@ -1072,7 +1085,7 @@ regions than Grid-Pssw.</li>
 <h3><a name="het_sam_folder">Samples</a> </h3>
 
 A sample denotes an observation consisting of one pointing per science
-target, and can be beam switched (BMSW) or position switched (PSSW).  
+target. It can be beam switched (BMSW) or position switched (PSSW).  
 <!-- fast frequency switched or slow frequency switched.--> 
 
 If you open up the PSSW sample MSB in the heterodyne library, you will
@@ -1099,7 +1112,7 @@ time.
 
 <h3> <a name="het_grid_folder">Grid-PSSW Maps</a> </h3>
 
-Observations of a single science target, at multiple positions are
+Observations of a single science target at multiple positions are
 generically referred to as Grid observations. Note that the user can
 define exactly the position offsets required from the map centre, and
 there is no requirement that the pointings form a regularly shaped
@@ -1125,7 +1138,7 @@ pointing list, or to the top or bottom of the list by clicking on
 these arrow buttons. For our example, the completed Offset Iterator
 will appear as shown below. <p>
 
-<img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
+<img src="het_images/het_offset2.gif" alt="The Offset Iterator (2)" ><p>
 
 If you want to see what the offsets are in the sky frame (which will
 be the co-ordinate frame specified in the "target information"
@@ -1149,7 +1162,7 @@ is at the top left hand corner of the map. The screenshot below show
 the result of clicking on the "Create/Centre on Base position" - nine
 points with the (0,0) position corresponding to the map centre.<p>
 
-<img src="het_images/het_offset2.gif" alt="The Offset Iterator (2)">
+<img src="het_images/het_offset3.gif" alt="The Offset Iterator (3)">
 
 <h3> <a name="het_jig_folder">Jiggle Mapping</a> </h3>
 
@@ -1180,6 +1193,9 @@ PA and System should be left at "0.0" and "Tracking" for the typical user.
 Finally, the integration time for each jiggle position can be specified
 as "secs/jig posn". As for the "photom/sample" eye, the estimated RMS
 noise per channel is shown in the "Noise" box.
+
+<p>
+<img src="het_images/het_jiggle.gif" alt="Jiggle-Chop">
 
 <p>
 "Continuum mode" can be selected as is explained for the <a
