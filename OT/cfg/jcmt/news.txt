@@ -21,13 +21,19 @@ Council All Rights. Reserved.
 
   - Grid patterns for Offset Iterators can append or overwrite positions.
 
+  - Flat and Skydip eyes are no longer available.
+
+  - Frequency and POL iterators are no longer available.
+
+  - Relevatistic velocity frames are no longer available.
+
+  - Frequency-Slow/Fast and None switching modes are no longer available.
+
   - All references to number of integerations have been removed.
 
   - When changing between coordinate systems, positions get reset as they are currently not converted.
 
   - Removal of SCUBA and DAS.
-
-+++ May 2006
 
   - Fix for Guidestar Offsets in the Position Editor.
 
@@ -35,7 +41,7 @@ Council All Rights. Reserved.
 
   - Fix some IO flushing problems.
 
-  - Added name reolution for Orbital Elements via Horizons.
+  - Added name resolution for Orbital Elements via Horizons.
 
   - Line numbers added to Schema Validation.
 

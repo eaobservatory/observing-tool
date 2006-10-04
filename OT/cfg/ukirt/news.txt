@@ -31,7 +31,7 @@ Council All Rights. Reserved.
 
   - Fix some IO flushing problems.
 
-  - Added name reolution for Orbital Elements via Horizons.
+  - Added name resolution for Orbital Elements via Horizons.
 
   - Line numbers added to Schema Validation.
 
