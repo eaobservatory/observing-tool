@@ -2,8 +2,10 @@ package orac.jcmt.validation;
 
 import java.util.Vector;
 
+/*
 import edfreq.FrequencyEditorCfg;
 import edfreq.Receiver ;
+*/
 import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpMSB ;
@@ -47,14 +49,14 @@ public class JcmtSpValidation extends SpValidation
 			if( obsComp != null && obsComp instanceof SpInstHeterodyne )
 			{
 				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
-				
+/*				
 				Receiver receiver = ( Receiver )FrequencyEditorCfg.getConfiguration().receivers.get( spInstHeterodyne.getFrontEnd() ) ;
 				double skyFrequency = spInstHeterodyne.getSkyFrequency() ;
 				if( receiver.loMin > skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + receiver.loMin ) );
 				if( receiver.loMax < skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + receiver.loMax ) );
-					
+*/					
 				// Give a warning for heterodyne if integration times > 40 seconds and frequency > 400 GHz
 				if( spInstHeterodyne.getSkyFrequency() > 4.0E11 && thisObs.getSecsPerCycle() > 40.0 )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Observations > 4GHz should be done with < 40 secs/cycle" ) );
