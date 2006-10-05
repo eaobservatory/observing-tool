@@ -78,23 +78,10 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-			totalIntegrationTime = calculateTotalPlusOverheadForElapsedTime( 120.0 ) ;
+			totalIntegrationTime = 120.0 ;
 		}
 		return ( overhead + totalIntegrationTime );
 	}
-
-//  dynamically allocated variables
-    double T_startend ;
-    double T_bcal ;
-    double T_cal ;
-    double T_ocal ;
-
-    public double calculateTotalPlusOverheadForElapsedTime( double integrationTime )
-    {
-    	double n_cals = Math.max( 1. , Math.floor( integrationTime / T_bcal ) ) ;
-    	double T_total = T_startend + integrationTime + ( ( T_cal + T_ocal ) * n_cals ) ;
-    	return T_total ;	
-    }
     
 	public void setupForHeterodyne(){}
 
