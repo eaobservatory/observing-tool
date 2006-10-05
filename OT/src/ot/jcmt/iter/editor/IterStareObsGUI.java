@@ -35,6 +35,11 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 	JCheckBox widePhotom = new JCheckBox();
 	CheckBoxWidgetExt contModeCB = new CheckBoxWidgetExt();
 	
+	JLabel informationLabelTop = new JLabel() ;
+	JLabel informationLabelMiddle = new JLabel() ;
+	JLabel informationLabelBottom = new JLabel() ;
+	JPanel informationPanel = new JPanel() ;
+	
 	public IterStareObsGUI()
 	{
 		try
@@ -75,6 +80,18 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		widePhotom.setText( "Wide Photometry" );
 		widePhotom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		widePhotom.setForeground( Color.black );
+
+		informationLabelTop.setText( "Warning: Switching on this mode will significantly increase the duration of the observation." ) ;
+		informationLabelTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		informationLabelTop.setForeground( Color.black ) ;
+		informationLabelMiddle.setText( "Continuum mode should only be used if an accurate measure of the continuum emission" ) ;
+		informationLabelMiddle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		informationLabelMiddle.setForeground( Color.black ) ;
+		informationLabelBottom.setText( "from the source is a requirement." ) ;
+		informationLabelBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		informationLabelBottom.setForeground( Color.black ) ;
+		
+		informationPanel.setLayout( new GridLayout( 3 , 1 ) ) ;
 		
 		this.add( starePanel , BorderLayout.CENTER );
 		starePanel.add( widePhotom , BorderLayout.NORTH );
@@ -85,6 +102,11 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 
 		// Add a coninuum mode checkbox
 		acsisPanel.add( contModeCB , new GridBagConstraints( 0 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+
+		this.add( informationPanel , BorderLayout.SOUTH ) ;
+		informationPanel.add( informationLabelTop ) ;
+		informationPanel.add( informationLabelMiddle ) ;
+		informationPanel.add( informationLabelBottom ) ;
 	}
 
 }
