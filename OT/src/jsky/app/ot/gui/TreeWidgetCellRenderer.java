@@ -31,13 +31,31 @@ public class TreeWidgetCellRenderer extends DefaultTreeCellRenderer
 			{
 				ImageIcon imageIcon = node.getExpandIcon() ;
 				if( imageIcon != null )
-					setIcon( imageIcon );
+				{
+					try
+					{
+						setIcon( imageIcon ) ;
+					}
+					catch( ClassCastException cce )
+					{
+						System.out.println( cce ) ;
+					}
+				}
 			}
 			else
 			{
 				ImageIcon imageIcon = node.getIcon() ;
 				if( imageIcon != null )
-					setIcon( imageIcon );
+				{
+					try
+					{
+						setIcon( imageIcon ) ;
+					}
+					catch( ClassCastException cce )
+					{
+						System.out.println( cce ) ;
+					}
+				}
 			}
 			setFont( node.getFont() );
 			setText( node.getText() );
