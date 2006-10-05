@@ -22,6 +22,10 @@ import orac.validation.ErrorMessage;
 import orac.jcmt.iter.SpIterJiggleObs;
 import orac.jcmt.iter.SpIterNoiseObs ;
 
+import java.lang.reflect.Method ;
+import java.lang.reflect.InvocationTargetException ;
+import java.lang.reflect.Field ;
+
 /**
  * Validation Tool for JCMT.
  * 
@@ -49,14 +53,66 @@ public class JcmtSpValidation extends SpValidation
 			if( obsComp != null && obsComp instanceof SpInstHeterodyne )
 			{
 				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
-/*				
-				Receiver receiver = ( Receiver )FrequencyEditorCfg.getConfiguration().receivers.get( spInstHeterodyne.getFrontEnd() ) ;
+				double loMin = 0. ; 
+				double loMax = 0. ;
+
+				/*
+				 * We cannot use anything in edfreq here as it causes a build problem
+				 * So we have to load dynamically
+				 *  
+				 * Abandon hope all ye who enter here !
+				 * 
+				 */
+				try
+				{
+					Class frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" ) ;
+					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , null ) ;
+					Object frequencyEditor = frequencyEditorClass.newInstance() ;
+					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , null ) ;
+					Field receiverField = requencyEditorCfg.getClass().getDeclaredField( "receivers" ) ;
+					Object receivers = receiverField.get( requencyEditorCfg ) ;
+					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[]{ Object.class } ) ;
+					Object receiver = get.invoke( receivers , new Object[]{ spInstHeterodyne.getFrontEnd() } ) ;
+					Field loMinField = receiver.getClass().getDeclaredField( "loMin" ) ;
+					Field loMaxField = receiver.getClass().getDeclaredField( "loMax" ) ;
+					Object loMinObject = loMinField.get( receiver ) ;
+					Object loMaxObject = loMaxField.get( receiver ) ;
+					if( loMinObject instanceof Double )
+						loMin = ( ( Double )loMinObject).doubleValue() ;
+					if( loMaxObject instanceof Double )
+						loMax = ( ( Double )loMaxObject).doubleValue() ;					
+				}
+				catch( ClassNotFoundException cnfe )
+				{
+					System.out.println( "Could not find class " + cnfe ) ;
+				}
+				catch( InstantiationException ie )
+				{
+					System.out.println( "Could not instantiate " + ie ) ;
+				}
+				catch( IllegalAccessException iae )
+				{
+					System.out.println( "Could not access " + iae ) ;					
+				}
+				catch( NoSuchMethodException nsme )
+				{
+					System.out.println( "Could not find method " + nsme ) ;
+				}
+				catch( InvocationTargetException ite )
+				{
+					System.out.println( "Could not invoke method " + ite ) ;
+				}
+				catch( NoSuchFieldException nsfe )
+				{
+					System.out.println( "Could not find field " + nsfe ) ;
+				}
+
 				double skyFrequency = spInstHeterodyne.getSkyFrequency() ;
-				if( receiver.loMin > skyFrequency )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + receiver.loMin ) );
-				if( receiver.loMax < skyFrequency )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + receiver.loMax ) );
-*/					
+				if( loMin > skyFrequency )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + loMin ) );
+				if( loMax < skyFrequency )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) );
+					
 				// Give a warning for heterodyne if integration times > 40 seconds and frequency > 400 GHz
 				if( spInstHeterodyne.getSkyFrequency() > 4.0E11 && thisObs.getSecsPerCycle() > 40.0 )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Observations > 4GHz should be done with < 40 secs/cycle" ) );
