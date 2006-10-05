@@ -14,38 +14,40 @@ import javax.swing.tree.*;
 /**
  * Controls the appearance of OT tree nodes.
  */
-public class TreeWidgetCellRenderer extends DefaultTreeCellRenderer {
+public class TreeWidgetCellRenderer extends DefaultTreeCellRenderer
+{
 
-    public Component getTreeCellRendererComponent(JTree tree,
-						  Object value,
-						  boolean sel,
-						  boolean expanded,
-						  boolean leaf,
-						  int row,
-						  boolean hasFocus) {
+	public Component getTreeCellRendererComponent( JTree tree , Object value , boolean sel , boolean expanded , boolean leaf , int row , boolean hasFocus )
+	{
 
-	super.getTreeCellRendererComponent(tree, value, sel,
-					   expanded, leaf, row,
-					   hasFocus);
+		super.getTreeCellRendererComponent( tree , value , sel , expanded , leaf , row , hasFocus );
 
-	setBackgroundNonSelectionColor(tree.getBackground());
-	if (this instanceof JLabel && value instanceof TreeNodeWidgetExt) {
-	    TreeNodeWidgetExt node = (TreeNodeWidgetExt)value;
-	    //System.out.println("XXX TreeWidgetCellRenderer: node = " + node);
-	    if (expanded) {
-		setIcon(node.getExpandIcon());
-	    }
-	    else {
-		setIcon(node.getIcon());
-	    }
-	    setFont(node.getFont());
-	    setText(node.getText());
+		setBackgroundNonSelectionColor( tree.getBackground() );
+		if( this instanceof JLabel && value instanceof TreeNodeWidgetExt )
+		{
+			TreeNodeWidgetExt node = ( TreeNodeWidgetExt ) value;
+			//System.out.println("XXX TreeWidgetCellRenderer: node = " + node);
+			if( expanded )
+			{
+				ImageIcon imageIcon = node.getExpandIcon() ;
+				if( imageIcon != null )
+					setIcon( imageIcon );
+			}
+			else
+			{
+				ImageIcon imageIcon = node.getIcon() ;
+				if( imageIcon != null )
+					setIcon( imageIcon );
+			}
+			setFont( node.getFont() );
+			setText( node.getText() );
+		}
+		else
+		{
+			System.out.println( "XXX TreeWidgetCellRenderer: ERROR" );
+		}
+
+		return this;
 	}
-	else {
-	    System.out.println("XXX TreeWidgetCellRenderer: ERROR");
-	}
-	
-	return this;
-    }
 }
 

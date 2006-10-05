@@ -676,26 +676,32 @@ attributes(final String prefix)
    };
 }
 
-/**
- * Make a copy of the table.
- */
-public SpAvTable
-copy()
-{
-   // Shallow copy the table structure.
-   TreeMap htCopy = (TreeMap) _avTable.clone();
+	/**
+	 * Make a copy of the table.
+	 */
+	public SpAvTable copy()
+	{
+		// Shallow copy the table structure.
+		TreeMap htCopy = ( TreeMap ) _avTable.clone();
 
-   // Make a copy of the values.
-   Iterator keys = _avTable.keySet().iterator();
-   while (keys.hasNext()) {
-      String key = (String) keys.next();
-      SpAttr   a = (SpAttr) _avTable.get(key);
-      Vector   v = (Vector) a.getValues().clone();
-      htCopy.put(key, new SpAttr(a.getDescription(), v) );
-   }
+		// Make a copy of the values.
+		Iterator keys = _avTable.keySet().iterator();
+		while( keys.hasNext() )
+		{
+			String key = ( String ) keys.next();
+			SpAttr a = ( SpAttr ) _avTable.get( key );
+			Vector v = new Vector() ;
+			if( a != null )
+				v = a.getValues() ;
+			if( v != null )
+				v = ( Vector )v.clone() ;
+			else
+				v = new Vector() ;
+			htCopy.put( key , new SpAttr( a.getDescription() , v ) );
+		}
 
-   return new SpAvTable( htCopy );
-}
+		return new SpAvTable( htCopy );
+	}
 
 //
 // Does the work for the public setSize method.
