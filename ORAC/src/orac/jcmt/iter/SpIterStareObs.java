@@ -108,9 +108,16 @@ public SpIterStareObs()
 	
 	public void setupForHeterodyne()
 	{
-	   SpItem parent = this._parent ;
-	   if( parent instanceof SpIterChop )
-		   _avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_POSITION , 0 );
+		SpItem parent = this.parent() ;
+		while( parent != null )
+		{
+			if( parent instanceof SpIterChop )
+			{
+				_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_BEAM , 0 );
+				break ;
+			}
+			parent = parent.parent() ;
+		}
 		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
 			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
 		if( _avTable.get( ATTR_SECS_PER_CYCLE ) == null || _avTable.get( ATTR_SECS_PER_CYCLE ).equals( "" ) )
