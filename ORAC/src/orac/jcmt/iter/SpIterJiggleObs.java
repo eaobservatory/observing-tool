@@ -95,6 +95,8 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 						break ;
 				}					
 				totalIntegrationTime = 2.12 * ( npts * getSecsPerCycle() ) ;
+				if( getSwitchingMode().equals( SWITCHING_MODE_BEAM ) && isContinuum() )
+					totalIntegrationTime *= 1.7 ;
 			}
 		}
 		return totalIntegrationTime ;

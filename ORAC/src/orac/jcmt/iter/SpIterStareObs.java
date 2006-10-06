@@ -102,6 +102,8 @@ public SpIterStareObs()
 			*/
 			double T_on = getSecsPerCycle() ;
 			totalIntegrationTime = 2.31 * T_on ;
+			if( getSwitchingMode().equals( SWITCHING_MODE_BEAM ) && isContinuum() )
+				totalIntegrationTime *= 1.7 ;
 		}
 		return ( overhead + totalIntegrationTime );
 	}
