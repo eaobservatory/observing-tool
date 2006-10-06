@@ -50,7 +50,7 @@ public class HeterodyneGUI extends JPanel {
     public static final String [] SIDEBAND_MODES= {"ssb", "dsb"};
 
     /** Subsytems available */
-    public static final String [] SUBSYSTEMS = {"1", "2", "4"};
+	public static final String[] SUBSYSTEMS = { "1" } ; // , "2" , "4" };
 
     /** Sideband choices */
     public static final String [] SIDEBAND_SELECTIONS = {"best", "usb", "lsb"};
