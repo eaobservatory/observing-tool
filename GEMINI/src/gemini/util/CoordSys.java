@@ -34,7 +34,7 @@ public class CoordSys
 		"FK5 (J2000)" , 
 		"FK4 (B1950)" , 
 		"Az/El" , 
-		"Galactic" , 
+//		"Galactic" , 
 		"HADEC" 
 	};
 
