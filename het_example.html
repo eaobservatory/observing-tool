@@ -187,7 +187,7 @@ take.
 	  an observation. </p>
  
 
-<img src="het_images/het_het_setup.gif" alt="Het Setup component" ><p> <p> 
+<img src="het_images/het_het_setup.gif" alt="Het Setup component" ><p>
 Four boxes are displayed in the editor panel.
 
 <h3>Front End Configuration</h3>
@@ -353,19 +353,20 @@ Care".
 	    and select the "Sched. Constraints".  <p>
 
     <img src="het_images/het_sched_constraints.gif" alt="Scheduling
-		Constraints Component" > <p> The main reason you might 
-want to insert this component is if your
-	      science targets have a very low or very high declination
-              (i.e. &delta; &lt; ~-35<sup>o</sup> or &delta; &gt; 
-              ~+80<sup>o</sup>). By default, MSBs are only selected when
-	      the sources are above about 30<sup>o</sup> elevation, so 
-              low- and
-	      high- declination sources may never be selected unless
-	      you specify a lower minimum elevation.  Similarly,
-	      sources at ~19<sup>o</sup> declination transit almost 
-              directly
-	      overhead, and you may wish to restrict such sources to
-	      be selected when they're not at extremely high elevations.
+		Constraints Component" > <p> 
+
+              The main reason you might want to insert this component
+              is if your science targets have a very low or very high
+              declination (i.e. &delta; &lt; ~-35<sup>o</sup> or
+              &delta; &gt; ~+80<sup>o</sup>). By default, MSBs are
+              only selected when the sources are above about
+              30<sup>o</sup> elevation, so low- and high- declination
+              sources may never be selected unless you specify a lower
+              minimum elevation.  Similarly, sources at
+              ~19<sup>o</sup> declination transit almost directly
+              overhead, and you may wish to restrict such sources to
+              be selected when they're not at extremely high
+              elevations.
 
 <p>Another reason to insert this component is if your observations are
 	      time-critical, i.e. they must not be done before a
@@ -612,56 +613,54 @@ Chop"><p>
 ############################################################################ 
 -->
 
-    <h2><a name="het_offset">The offset iterator</a></h2>
+<h2><a name="het_offset">The offset iterator</a></h2>
 
 <p>It's often very useful to be able to specify a position with the <a
-	    href="#het_tcc">Target component</a>, but to take an
-	  observation at a position offset from that specified.  That
-	  can be done with the "offset" iterator.  In addition, with
-	  <a href="#het_grid_folder">Grid maps</a>, a whole series of
-	  offsets can be specified in either a regular or irregular
-	  spacing.
+href="#het_tcc">Target component</a>, but to take an observation at a
+position offset from that specified.  That can be done with the
+"offset" iterator.  In addition, with <a href="#het_grid_folder">Grid
+maps</a>, a whole series of offsets can be specified in either a
+regular or irregular spacing.<p>
 
-<p> <img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" >
+<img src="het_images/het_offset1.gif" alt="The Offset Iterator (1)" ><p>
 
-<p>If an offset iterator is not already specified in the MSB, one can
-	  insert it below the Sequence iterator <img
-	    src="images/icon_iterator.gif" alt="*">, usually just
-	  above the photom/sample "eye"-con <img
-	    src="images/icon_eye.gif" alt="*">.  Click on the iterator
-	  below which the offset iterator is to be inserted (the
-	  'chop' iterator in the image above), then click on the
-	  iterator menu on the left-hand panel of the OT window and
-	  select the offset iterator.  Be sure to "drag" the
-	  photom/sample eye-con to the right, so that it is indented
-	  with respect to the offset iterator (see figure above).
+If an offset iterator is not already specified in the MSB, one can
+insert it below the Sequence iterator <img
+src="images/icon_iterator.gif" alt="*">, usually just above the
+photom/sample "eye"-con <img src="images/icon_eye.gif" alt="*">.
+Click on the iterator below which the offset iterator is to be
+inserted (the 'chop' iterator in the image above), then click on
+the iterator menu on the left-hand panel of the OT window and
+select the offset iterator.  Be sure to "drag" the photom/sample
+eye-con to the right, so that it is indented with respect to the
+offset iterator (see figure above).<p>
 
-<p>The offset is specified in arcseconds in the 'p' and 'q' boxes.
-	  Note the orientation of these axes to the left of the
-	  'Title' box.  In an unrotated frame, 'p' is in the positive
-	  r.a. direction (i.e. east) while 'q' is in the declination
-	  direction (i.e. north).  If a rotated frame is required,
-	  enter the position angle (measured east of north) in the
-	  'PA' box.  If you then click on the 'Display Rotated
-	  Offsets' button, the specified offsets in the unrotated
-	  frame will be briefly displayed in the table above.
+The offset is specified in arcseconds in the 'p' and 'q' boxes.
+Note the orientation of these axes to the left of the 'Title' box.
+In an unrotated frame, 'p' is in the positive r.a. direction
+(i.e. east) while 'q' is in the declination direction (i.e. north).
+If a rotated frame is required, enter the position angle (measured
+east of north) in the 'PA' box.  If you then click on the 'Display
+Rotated Offsets' button, the specified offsets in the unrotated
+frame will be briefly displayed in the table above.<p>
 
-<p>To add more offsets, click the 'New' button, and enter the offset
-	  in the 'p' and 'q' boxes as above.  Repeat for as many
-	  positions as required.
+To add more offsets, click the 'New' button, and enter the offset
+in the 'p' and 'q' boxes as above.  Repeat for as many positions as
+required.<p>
 
-<p>A regular grid can also be specified using the 'Grid Pattern'
-	  section of the window.  See the section on <a
-	    href="#het_grid_folder">Grid Maps</a> for a description.
-          Note that all offsets at the JCMT are defined in the Gnomonic
-          (TAN) projection.
+A regular grid can also be specified using the 'Grid Pattern'
+section of the window.  See the section on <a
+href="#het_grid_folder">Grid Maps</a> for a description.  Note that
+all offsets at the JCMT are defined in the Gnomonic (TAN)
+projection.
 
 <!-- 
 ############################################################################ 
 -->
- <h2><a name="het_sample">The photom/sample eye</a></h2>
 
-  The science observation itself is represented within the MSB by the
+<h2><a name="het_sample">The photom/sample eye</a></h2>
+
+ The science observation itself is represented within the MSB by the
  photom/sample eye. Click on it to display the details of the
  observation. The pull down menu near the top of the right hand frame
  allows the user to choose from beam switching or position switching.
@@ -687,12 +686,14 @@ Chop"><p>
  observation to complete. Hence, this mode should only be used when
  really needed. As a concrete example: the maximum time between chops
  typically allows for the completion of a full 9x9 jiggle with 0.1sec
- step, i.e. 8.1 secs. The chopper will then spent 3 secs in the
- off-position, resulting in a 11-sec cycle plus some overhead. In
+ step, i.e. 8.1 secs. The chopper will then spend ~3 secs in the
+ off-position, resulting in an 11-sec cycle plus some overhead. In
  continuum mode the chopper will move to the reference every 0.1secs
  and spend equal times in the 'on' and 'ref' position. A 9x9 jiggle will
  thus take 16.2 secs plus significantly more overheads due to transit
- times of the chopper.
+ times of the chopper. Limited testing sofar suggests that the typical
+ penalty for using continuum mode is an increase of the observing time
+ by a factor of 1.7.
 <p>
 
  <img src="het_images/het_eye.gif" alt="The photom/sample eye" ><p>
@@ -770,7 +771,7 @@ give you the estimated time of all
 </a></h2>
 
 
-  By default, the heterodyne library MSBs contain one note element at
+ By default, the heterodyne library MSBs contain one note element at
  the beginning of the MSB. This consists of a text window where you
  can include textual information, with the option of showing the note
  to the observer and TSS at the time the observation is made. If you
@@ -1098,6 +1099,11 @@ be specified as a co-ordinate offset from the SCIENCE position, by
 checking the "offset" tick-box, or as an absolute co-ordinate, by
 leaving the "offset" tick-box unchecked.<p>
 
+<em>Important</em>: If you put or leave a REFERENCE position in the
+Target Component of a chopped observation (Sample-BMSW, Jiggle-Chop)
+that position will be used when doing a three-load calibration
+(hot-cold-sky).
+
 <!--
 For the Fast and slow frequency switching MSBs, one does not specify a
 chop or offset position, rather one specifies a frequency throw within
@@ -1141,7 +1147,7 @@ will appear as shown below. <p>
 
 If you want to see what the offsets are in the sky frame (which will
 be the co-ordinate frame specified in the "target information"
-element), click and hold the "Display De-Rotated Offsets" button.<p>
+element), click and hold the "Display Derotated Offsets" button.<p>
 
 The Offset Iterator has the ability to automatically generate
 regularly spaced grids without the need to enter each pointing
@@ -1151,7 +1157,7 @@ the co-ordinate in the Target information box), the grid point spacing
 and the dimensions of the grid, in grid points. To create a 3x3 grid,
 with a ten arcsecond spacing, one would fill in the fields of the grid
 pattern section as illustrated below, and then click on either
-"Create/Centre on Base" button (or, rarely, the "Create on Corner"
+"Create/Centre on Base" button (or, rarely, the "Create" i.e. on corner
 button). The pointings generated then appear in the pointing list box
 above. Notice that "Create/Centre on Base" chooses the the geometrical
 centre of the grid for the (0,0) position.  This will only correspond
@@ -1161,7 +1167,7 @@ is at the top left hand corner of the map. The screenshot below show
 the result of clicking on the "Create/Centre on Base position" - nine
 points with the (0,0) position corresponding to the map centre.<p>
 
-<img src="het_images/het_offset3.gif" alt="The Offset Iterator (3)">
+<img src="het_images/het_offset3.gif" alt="The Offset Iterator (3)"><p>
 
 <h3> <a name="het_jig_folder">Jiggle Mapping</a> </h3>
 
@@ -1169,18 +1175,16 @@ Jiggle-Chop observations, like Grid-PSSW, map a region around a
 source.  This mode is primarily intended for array instruments with
 widely spaced receptors for which 'jiggling' is needed in order to
 achieve a Nyquist sampling. Nevertheless it is available for
-single-pixels receivers as well.
+single-pixels receivers as well.<p>
 
-<p>
 As opposed to Grid-PSSW, the chopping secondary is used to move over
 the chosen jiggle pattern. This allows for a fast switching of the
 position and makes it possible to observe e.g. the whole jiggle
 pattern before going to the reference position. This is a
 beam-switched observation: the distance to the reference can be no
 more than 180" and half the time the reference will be on one side,
-half the time on the other side of the base position.
+half the time on the other side of the base position.<p>
 
-<p>
 Opening the various chop MSBs in the heterodyne library shows they are
 similar to the Sample-BMSW example above except that there is a "jiggle
 eye" instead of the <a href="#het_sample">"photom/sample eye"</a>.  It
@@ -1191,33 +1195,33 @@ defined by the user: typically 0.5 or 1 beam-spacing in arcsecs. The
 PA and System should be left at "0.0" and "Tracking" for the typical user.
 Finally, the integration time for each jiggle position can be specified
 as "secs/jig posn". As for the "photom/sample" eye, the estimated RMS
-noise per channel is shown in the "Noise" box.
+noise per channel is shown in the "Noise" box.<p>
 
-<p>
-<img src="het_images/het_jiggle.gif" alt="Jiggle-Chop">
 
-<p>
+<img src="het_images/het_jiggle.gif" alt="Jiggle-Chop"><p>
+
 "Continuum mode" can be selected as is explained for the <a
 href="#het_sample">"photom/sample eye"</a>. Due to the resulting
-increase of the time needed to complete the observation, only check
-this if you really need the measurement of the continuum level.
-<p>
+increase of the time needed to complete the observation, by a factor
+of approximately 1.7, only check this if you really need the
+measurement of the continuum level.<p>
+
+<em>Important</em>: If you put or leave a REFERENCE position in the
+Target Component of a chopped observation (Sample-BMSW, Jiggle-Chop)
+that position will be used when doing a three-load calibration
+(hot-cold-sky).<p>
+
 
 <h3> <a name="het_rast_folder">Rasters</a> </h3>
 
 The format of the position switched raster MSB is similar to the
 sample MSB, except that the "photom/sample" eye is replaced by the
-"scan/raster" eye. If you click on the "scan/raster" eye, you will be
-presented with options which enable you to set up your raster map. The
-"Area" panel on the left has a number of fields which allow you
-control the size and sampling of the raster map. The width and height
-of the map are set through the "width" and "height" records. The
-"sample spacing" and "scan spacing" and the postion angle of the map
-on the sky can also be set up by making entries in the appropriate
-records. The resulting Nr. of samples/pixels and Nr. of scans/pixels
-in each dimension is shown. The total required integration time per sample
-point can be specified in the "Sample time" box.  The system will 
-automatically break up the observations into multiple passes over the map.
+"scan/raster" eye. The fields in the "Area" panel allow you control
+the size and sampling of the raster map. The resulting Nr. of
+samples/pixels and Nr. of scans/pixels in each dimension is shown. The
+total required integration time per sample point can be specified in
+the "Sample time" box.  The system will automatically break up the
+observations into multiple passes over the map.
 
 <p>
 The meaning of the entries somewhat depends on whether the receiver is
@@ -1227,22 +1231,21 @@ an array receiver or not.
 pixel-size along scan direction of the telescope. The "scan spacing"
 will be the pixel-size in the cross-scan direction i.e. between the
 scanned rows. Be aware that there only will be a pixel centered on the
-base position if the number of pixels in each direction is odd. The size
-of the map <em>must</em> be a multiple of the pixel-size in each 
-direction and is the defined as the distance between the centers of the
-outmost pixels!
+base position if the number of pixels in each direction is odd. The
+size of the map <em>must</em> be a multiple of the pixel-size in each
+direction and is the defined as the distance between the
+<em>centers</em> of the outmost pixels!
 <li><em>Array receivers:</em> The "sample spacing" will be the size of
 the square pixels in the final map as well as the spacing of the
 samples along scan direction of the telescope. The "scan spacing" will
 distance between the scanned rows, e.g. 1/2 the array size.
-</ul>
+</ul><p>
 
-<p>
-Suppose, for example, that you want to use RxA to make a 180"x100"
-map. A sample spacing of 5" and scan spacing of 10" will result in a 
-pixel map of 61x11. 
-
-
+Suppose, for example, that you want to use RxA to make a 238"x28"
+map. A sample spacing of 7" and scan spacing of 7" will result in a 
+pixel map of 35x5. Note that it is customary to oversample the 
+scan-direction to counter-act smearing, although this often requires a
+regridding of the final map the recover the intended rms/pixel.<p>
 
 <img src="het_images/het_raster.gif" alt="Rasters" ><p>
 
