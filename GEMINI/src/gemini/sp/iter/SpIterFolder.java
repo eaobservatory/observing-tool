@@ -188,7 +188,7 @@ printSummary()
 			{
 				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
 				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , null ) ;
-				Object spIterStareObs = spIterStareObsClass.newInstance() ;
+				Object spIterStareObs = spIterStep.item ;
 				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , null ) ;
 				Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
 				Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
@@ -200,10 +200,6 @@ printSummary()
 			catch( ClassNotFoundException cnfe )
 			{
 				System.out.println( "Could not find class " + cnfe ) ;
-			}
-			catch( InstantiationException ie )
-			{
-				System.out.println( "Could not instantiate " + ie ) ;
 			}
 			catch( IllegalAccessException iae )
 			{
@@ -222,10 +218,7 @@ printSummary()
 				System.out.println( "Could not find field " + nsfe ) ;
 			}
 		}
-/*		
-		if( photomSample )
-			elapsedTime += 82. ;
-*/	
+	
 		if( jiggle )
 			elapsedTime += 30. ;
 		
