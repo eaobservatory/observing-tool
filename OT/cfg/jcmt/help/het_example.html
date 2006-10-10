@@ -135,7 +135,7 @@ take.
 	component, and an observation 
     component which is labelled "Observation":<p>
 
-<img src="het_images/het_elements.gif" alt="Inside an MSB" ><p>
+<img src="het_images/het_elementsgif" alt="Inside an MSB" ><p>
 
 <h2><a name="thingies">Components, Iterators And All That</a></h2>
 
@@ -312,13 +312,6 @@ supported.<p>
 <!-- 
 ############################################################################ 
 -->
-    <h2><a name="het_drrecipe">DRRecipe Component</a></h2>
-
-<p>This component is not used, and should be removed. 
-
-<!-- 
-############################################################################ 
--->
     <h2><a name="het_tsc">Site Quality</a></h2>
  
     The Site Quality component specifies any weather-related
@@ -336,7 +329,13 @@ range of tau to match the demands of the receiver to be used. But
 <blink>beware</blink>: 
 the resulting range of tau in which the MSB can be observed is then the 
 intersect of the TAG allocation and your input: make sure this is not an 
-empty set ! <p> The default value of the sub-millimetre seeing is "Don't 
+empty set ! For example, if the TAG allocation for your project is
+	  weather band 4 (tau(225GHz) between 0.12 and 0.2) and you
+	  request a tau range between 0.1 and 0.12, then your project
+	  will be picked up for observation ONLY if the tau is EXACTLY
+	  0.12.
+
+<p> The default value of the sub-millimetre seeing is "Don't 
 Care".
 
 
@@ -392,8 +391,8 @@ will be displayed as a hierarchy, as shown below.<p>
 The first element inside the Observation component can be the "Target
 information" component. Note, however, that in the templates the
 target component is outside the Observation component. This allows one
-to onstruct an MSB to perform multiple observations on a single
-target: such MSBs would therefore contain, multiple Observation
+to construct an MSB to perform multiple observations on a single
+target: such MSBs would therefore contain multiple Observation
 components. More importantly for heterodyne observations it allows the
 Het. Component to access velocity information that may need to be
 obtained from the Target Component.  Further details on this issue of
@@ -441,7 +440,9 @@ calibration has recently been done already.
 
 <p>It is now necessary to specify the radial velocity of the source in
 	      the target component, either as a radio, optical, or
-	      relativistic velocity, or redshift (z).
+	      relativistic velocity, or redshift (z).  Note that if
+	  the velocity was specified in the <a href="#het_thsc">Het. Setup</a>
+	  component, it may not be necessary to specify the velocity here.
 
 <p>To specify a reference position, click on "REFERENCE".  The default
 	      is to enter the offset (in arcseconds) from the source
@@ -450,7 +451,7 @@ calibration has recently been done already.
 
       
 <p>Instead of entering the source coordinates manually, you can
-download it from the Web ! If you are using a machine with an Internet
+download it from the Web. If you are using a machine with an Internet
 connection you can enter the name of your target, select the on-line
 catalogue to search (i.e. SIMBAD or NED) from the pull-down menu, and
 hit "Resolve Name". After a brief pause the RA and DEC co-ordinate
@@ -459,8 +460,9 @@ the source. The SIMBAD/NED name for the source will also be indicated
 next to the "Resolve Name" button. <p>
        
 <p><blink><font color=red>WARNING</red></font></blink>: Positions of
-astronomical objects are often wavelength dependent e.g. as for
-IRAS16293-2224 for which the SIMBAD coordinates as many acrmins
+astronomical objects are often wavelength dependent. For example, the 
+SIMBAD coordinates for 
+IRAS16293-2224 are many arcminutes
 different from the JCMT coordinates.  The catalogues you may be using
 will have defined the astrometric positions therein on the basis of
 optical- or infrared- or radio- observations. You should check that
@@ -641,7 +643,7 @@ In an unrotated frame, 'p' is in the positive r.a. direction
 (i.e. east) while 'q' is in the declination direction (i.e. north).
 If a rotated frame is required, enter the position angle (measured
 east of north) in the 'PA' box.  If you then click on the 'Display
-Rotated Offsets' button, the specified offsets in the unrotated
+Derotated Offsets' button, the specified offsets in the unrotated
 frame will be briefly displayed in the table above.<p>
 
 To add more offsets, click the 'New' button, and enter the offset
@@ -668,7 +670,7 @@ projection.
  In this example we are beam-switching, and the chop throw was set
  with the <a href="#het_tci">chop iterator</a>.  In the "Secs per
  offset sample" box, enter the <b>total on-source integration time</b>
- per sample position in seconds. Note this is different from how it's
+ per sample position in seconds. (Note this is different from how it's
  been done in the past when we specified the on+off time.) The
  estimated RMS noise per channel is shown in the "Noise" box.  Typical
  recommended on-source integration times per sample are 5 to 10
@@ -691,7 +693,7 @@ projection.
  continuum mode the chopper will move to the reference every 0.1secs
  and spend equal times in the 'on' and 'ref' position. A 9x9 jiggle will
  thus take 16.2 secs plus significantly more overheads due to transit
- times of the chopper. Limited testing sofar suggests that the typical
+ times of the chopper. Limited testing so far suggests that the typical
  penalty for using continuum mode is an increase of the observing time
  by a factor of 1.7.
 <p>
@@ -712,7 +714,7 @@ general</a></h2>
       The repeat iterator acts on things that are
       <strong>inside</strong> the repeat iterator (i.e. indented under
       it) in turn. So if you set it to 2, your science observation
-      consist of two spectral line samples i.e you will end up with
+      consist of two spectral line samples; i.e you will end up with
       precisely two spectral line observations. If you require a long 
       integration of a
       source, it makes sense to break the observation down into
@@ -786,7 +788,7 @@ give you the estimated time of all
  material which would have previously gone into the "Overall Strategy"
  and "Observing Cookbook" sections of heterodyne observing
  templates. It is important to note that calibration details are
- not explicitly included in heterodyne MSBs, so the observer should spell 
+ not yet explicitly included in heterodyne MSBs, so the observer should spell 
  out the required calibration observations in a "show to observer" note.<p>
  
  <img src="het_images/het_note.gif" alt="A note example" ><p>
@@ -799,18 +801,23 @@ to be complete. By default, your program will be executed with exactly
 the number of integration and number of repeats as specified. However,
 where possible, an attempt will be made to optimize the process using
 the specified Completion Parameters. The detailed logistics of the
-scheduling may prevent this, but when possible this may save your
-project time or guarantee the results. For instance you may want to
+scheduling may prevent this, but when possible this may save time for your
+project or guarantee the results. For instance you may want to
 allow for more time than the MSBs nominally take to allow for the
 addition of extra repeats in order to ensure the requested
-rms. Setting a S/N target may save unnecassary repeats. Etc.
+rms. Setting a S/N target may save unnecassary repeats, etc.
 The "Completion Parameter" should include a value for the total
 expired time, and/or a required signals-to-noise, and/or RMS noise
 value. Best is to provide all three and whichever one is reached first
 determines the completion. The assumed bin size, either in km/s or
 MHz, should be entered in the "Binning" field. The above screenshot
 shows an example of a possible "Show to observer" for an extragalactic
-spectral line observation.<p>
+spectral line observation.  Be aware, however, that ultimately it is up to
+	  <b>YOU</b>, the PI, to determine when the data have
+	  sufficient S/N, by downloading and analyzing 
+	  your data soon after they are
+	  acquired and updating your MSBs as required.
+<p>
 
  Additional notes can be inserted at any point in the MSB from the
  icon menu and you may have more than one "show to observer" notes in
