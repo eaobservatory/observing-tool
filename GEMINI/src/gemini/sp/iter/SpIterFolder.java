@@ -6,6 +6,9 @@
 //
 package gemini.sp.iter;
  
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -180,8 +183,49 @@ printSummary()
 		}
 
 		if( photomSample )
+		{
+			try
+			{
+				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
+				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , null ) ;
+				Object spIterStareObs = spIterStareObsClass.newInstance() ;
+				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , null ) ;
+				Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
+				Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
+				if( switchingMode.equals( beamSwitch ) )
+					elapsedTime += 30. ;
+				else
+					elapsedTime += 82. ;
+			}
+			catch( ClassNotFoundException cnfe )
+			{
+				System.out.println( "Could not find class " + cnfe ) ;
+			}
+			catch( InstantiationException ie )
+			{
+				System.out.println( "Could not instantiate " + ie ) ;
+			}
+			catch( IllegalAccessException iae )
+			{
+				System.out.println( "Could not access " + iae ) ;					
+			}
+			catch( NoSuchMethodException nsme )
+			{
+				System.out.println( "Could not find method " + nsme ) ;
+			}
+			catch( InvocationTargetException ite )
+			{
+				System.out.println( "Could not invoke method " + ite ) ;
+			}
+			catch( NoSuchFieldException nsfe )
+			{
+				System.out.println( "Could not find field " + nsfe ) ;
+			}
+		}
+/*		
+		if( photomSample )
 			elapsedTime += 82. ;
-		
+*/	
 		if( jiggle )
 			elapsedTime += 30. ;
 		

@@ -449,7 +449,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			return SCUBA_STARTUP_TIME * factor * ( ( 1. + calculatedOverhead ) * secsPerIntegration );
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
-		{
+		{			
 			/*
 			* Based on real timing data 
 			* http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
@@ -457,8 +457,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			int samplesPerRow = ( int )( Math.floor( getWidth() / getScanDx() ) ) + 1;
 			if( ( samplesPerRow & 1 ) != 0 )
 				samplesPerRow++;
-			double overhead = ( ( double )samplesPerRow + Math.sqrt( samplesPerRow ) ) * getSampleTime() * ( Math.floor( getHeight() / getScanDy() ) + 1. ) ;
-			double time =  ( 1.38 * overhead ) + 131.5 ;
+			double overhead = ( ( double )samplesPerRow + Math.sqrt( samplesPerRow ) ) * getSampleTime() * ( ( Math.floor( getHeight() / getScanDy() ) + 1. ) ) ;
+			double time =  ( 1.2 * overhead ) + 110 ;
 			return time ;
 		}
 		return 0.0;

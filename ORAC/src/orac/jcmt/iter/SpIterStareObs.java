@@ -101,7 +101,11 @@ public SpIterStareObs()
 			* http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
 			*/
 			double T_on = getSecsPerCycle() ;
-			totalIntegrationTime = 2.31 * T_on ;
+			String switchingMode = getSwitchingMode() ;
+			if( SWITCHING_MODE_POSITION.equals( switchingMode ) )
+				totalIntegrationTime = 2.31 * T_on ;
+			else
+				totalIntegrationTime = 2.12 * T_on ;
 			if( isContinuum() )
 				totalIntegrationTime *= 1.7 ;
 		}
