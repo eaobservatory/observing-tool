@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>polar</meta_gui_filename>
-  <ot_version>20060810</ot_version>
+  <meta_gui_filename>Polarimetry-Template.xml</meta_gui_filename>
+  <ot_version>20061010</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -5738,28 +5738,28 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterFolder>
       </SpObs>
     </SpMSB>
-    <SpMSB checksum="bf02b357609a6f233f6e0df3d786d7b0A" remaining="99" type="og" subtype="msb">
+    <SpMSB remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">737.63896</estimatedDuration>
+      <estimatedDuration units="seconds">733.4990000000001</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
-      <title>Coronographic Imaging Pol (UIST - imaging)</title>
-      <totalDuration units="seconds">1361.63896</totalDuration>
+      <title>Coronagraphic Imaging Pol (UIST - imaging)</title>
+      <totalDuration units="seconds">1357.4990000000003</totalDuration>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
         <note>Basic Idea:
 =======
 
-With Coronographic imaging polarimetry, the user may use either a 6-pixel (0.7arcsec) or an 11-pixel (1.3 arcsec) wire.  These are suspended 1/4 and 3/4 of the way along a 120"x20" rectangular aperture in the bottom/western half of the array.  A similar-sized aperture in the top half of the array will be used for sky-subtraction (see UKIRT-IRPOL web-page for details). The posn angle can be used to orientate the source so that extended objects are perpendicular to the wire; e.g. a disk orientated E-W should use a Posn-angle of 0 degs, while a disk orientated N-S should use a posn angle of -90 degs.  Any angle between -90 and +90 degrees can be used.
+With Coronographic imaging polarimetry, the user may use either a 6-pixel (0.7arcsec) or an 11-pixel (1.3 arcsec) wire.  These are suspended 1/4 and 3/4 of the way along a 120"x20" rectangular aperture in the bottom/western half of the array.  A similar-sized aperture in the top half of the array will be used for sky-subtraction (see UKIRT-IRPOL web-page for details). The posn angle can be used to orientate the source so that extended objects are perpendicular to the wire; e.g. a disk orientated E-W should use a Posn-angle of 0 degs, while a disk orientated N-S should use a posn angle of -90 degs.  Any angle between -90 and +90 degrees can be used, though angles between -90 and 0 degrees make acquisition a little easier.  If you don't care about the angle, PLEASE USE -90 DEGREES.
 
 By default the acquisition process described below will put the source behind the 6-pixel wire.  If the wider occultor is required, all offsets should have a p value of -62.6 arcsec (this being the distance between the two wires); note, offsets in q are along the wire, which is ~20" in length..
 
 Imaging acquisition:
 ============
 
-In the UIST component in the "Coronographic Pol" observation (below), set the instrument for coronographic imaging (coron mask, filter, full array, NDSTARE, etc.) but SELECT A SHORT EXPOSURE TIME for imaging acquisition (1sec for bright stars/point sources, maybe with a few coadds).  The exposure time to be used for the actual coronographic imaging will be set in the "UIST Imaging" iterator further down the sequence.
+In the UIST component in the "Coronagraphic Pol" observation (below), set the instrument for coronographic imaging (coron mask, filter, full array, NDSTARE, etc.) but SELECT A SHORT EXPOSURE TIME for imaging acquisition (1sec for bright stars/point sources).  The exposure time to be used for the actual coronographic imaging will be set in the "UIST Imaging" iterator further down the sequence.
 
-At the telescope UIST will be set for coronographic observations with your chosen posn angles BUT it will have a short exposure time.  At the break in the sequence, the observer runs Movie, acquires the target as if he/she were doing spectroscopy (i.e. using Gaia - pick object and UPICK on the TCS) , then continues the sequence.  Immediately after acquisition a short-exposure frame will be taken on the target (so you can see that its behind the wire) before the exposure time/coadds are increased for the actual coronagraphic observations.</note>
+At the telescope UIST will be set for coronographic observations with your chosen posn angles BUT it will have a short exposure time.  At the break in the sequence, the observer runs Movie, acquires the target as if he/she were doing spectroscopy (i.e. using Gaia - pick object and UPICK on the TCS) , then continues the sequence.  Immediately after acquisition the exposure time/coadds are increased for the actual coronagraphic observations.</note>
         <title>How to do Coron imaging polarimetry</title>
       </SpNote>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
@@ -6041,9 +6041,9 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
       </SpObs>
       <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">737.63896</estimatedDuration>
+        <estimatedDuration units="seconds">733.4990000000001</estimatedDuration>
         <standard>false</standard>
-        <title>Coronographic Pol</title>
+        <title>Coronagraphic Pol</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target.
@@ -6059,20 +6059,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
-              <targetName>S106-IR</targetName>
+              <targetName>Science target</targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>20:27:26.7</c1>
-                <c2>37:22:48</c2>
-                <rv defn="radio" frame="LSRK">0.0</rv>
-              </spherSystem>
-            </target>
-          </BASE>
-          <BASE TYPE="GUIDE">
-            <target>
-              <targetName></targetName>
-              <spherSystem SYSTEM="J2000">
-                <c1>20:27:22.16</c1>
-                <c2>37:22:57.39</c2>
+                <c1>00:00:00.0</c1>
+                <c2>00:00:00</c2>
                 <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
@@ -6083,7 +6073,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <note>Make sure polarimetry is ticked, the coronograph is selected, and the exposure time is short (1sec usually) for IMAGING ACQUISITION.
 
 A posn angle of -90 gives the default orientation for UIST imaging, i.e. N left and E up.
-This is the default angle used with ordinary imaging polarimetry, though any angle between -90 and +90 can be used with the coronographic mask.</note>
+This is the default angle used with ordinary imaging polarimetry.  Although any angle between -90 and +90 can be used with the coronographic mask, an angle between -90 and 0 will make imaging acquisition a little easier.  
+
+IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
           <title>UIST component</title>
         </SpNote>
         <SpInstUIST type="oc" subtype="inst.UIST">
@@ -6195,8 +6187,8 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The 0,0 offset and observe below are used for acquisition only.  You will acquire the target at the break "before" this observe, then continue and take the short-exposure frame to check that the source is behind the wire.</note>
-            <title>Offset/Observe for acquisition only</title>
+            <note>The 0,0 offset below is a trick we use to set-up imaging acquisition.  You will acquire the target at the break immediately after this "offset".</note>
+            <title>Dummy offset for acquisition</title>
           </SpNote>
           <SpIterOffset type="ic" subtype="offset">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6208,14 +6200,10 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
                 <DC2>0.0</DC2>
               </OFFSET>
             </obsArea>
-            <SpIterObserve type="ic" subtype="observe">
-              <meta_gui_collapsed>false</meta_gui_collapsed>
-              <repeatCount>1</repeatCount>
-            </SpIterObserve>
           </SpIterOffset>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The darks below flush the array and also provide a frame for dark-subtraction.  They should have the same exposure time as used below for the coronographic imaging, so DON'T click on "set default"</note>
+            <note>The dark below provides a frame for dark-subtraction.  It should have the same exposure time as used in the "UIST Imaging" iterator below, so DON'T click on "set default"</note>
             <title>Darks</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">

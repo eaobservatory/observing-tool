@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>uist</meta_gui_filename>
-  <ot_version>20061006</ot_version>
+  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
+  <ot_version>20061010</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -2159,7 +2159,7 @@ and requires sky and object to have the recipe selected</note>
       </SpMSB>
     </SpLibraryFolder>
     <SpLibraryFolder type="lf" subtype="none">
-      <meta_gui_collapsed>true</meta_gui_collapsed>
+      <meta_gui_collapsed>false</meta_gui_collapsed>
       <title>Non-Thermal imaging</title>
       <SpNote type="no" subtype="none">
         <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -3915,16 +3915,16 @@ Changing the total number of offsets will break the data-reduction recipe.</note
           </SpIterFolder>
         </SpObs>
       </SpMSB>
-      <SpMSB checksum="b9ac6ac4e9a8b64655db5e8e42763bd6A" remaining="99" type="og" subtype="msb">
+      <SpMSB checksum="b9ac6ac4e9a8b64655db5e8e42763bd6A" remaining="1" type="og" subtype="msb">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">660.41988</estimatedDuration>
+        <estimatedDuration units="seconds">1885.3184799999995</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
-        <title>Coronographic Imaging</title>
-        <totalDuration units="seconds">660.41988</totalDuration>
+        <title>Coronagraphic Imaging</title>
+        <totalDuration units="seconds">1885.3184799999995</totalDuration>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">660.41988</estimatedDuration>
+          <estimatedDuration units="seconds">1885.3184799999995</estimatedDuration>
           <standard>false</standard>
           <title>0.7 arcsec wire/19-point offsets</title>
           <SpNote type="no" subtype="none">
@@ -3932,17 +3932,17 @@ Changing the total number of offsets will break the data-reduction recipe.</note
             <note>Basic Idea:
 =======
 
-With Coronographic imaging, the user may use either a 6-pixel (0.7arcsec) or an 11-pixel (1.3 arcsec) wire.  These are suspended 1/4 and 3/4 of the way along a 120"x20" rectangular aperture (needed for coronographic polarimetry).  The posn angle can be used to orientate the source so that extended objects are perpendicular to the wire; e.g. a disk orientated E-W should use a Posn-angle of 0 degs, while a disk orientated N-S should use a posn angle of -90 degs.  Any angle between -90 and +90 degrees can be used.
+With Coronographic imaging, the user may use either a 6-pixel (0.7arcsec) or an 11-pixel (1.3 arcsec) wire.  These are suspended 1/4 and 3/4 of the way along a 120"x20" rectangular aperture (needed for coronagraphic polarimetry).  The posn angle can be used to orientate the source so that extended objects are perpendicular to the wire; e.g. a disk orientated E-W should use a Posn-angle of 0 degs, while a disk orientated N-S should use a posn angle of -90 degs.  Any angle between -90 and +90 degrees can be used, although angles between -90 and 0 degrees make acquisition a little easier.  If you don't care about the angle, PLEASE USE -90 DEGREES.
 
 By default the acquisition process described below will put the source behind the 6-pixel wire.  If the wider occultor is required, all offsets should have a p value of -62.6 arcsec (this being the distance between the two wires); note, offsets in q are along the wire, which is ~20" in length..
 
 Imaging acquisition:
 ============
 
-In the UIST component below, set the instrument for coronographic imaging (coron mask, filter, full array, NDSTARE, etc.) but SELECT A SHORT EXPOSURE TIME for imaging acquisition (1sec for bright stars/point sources, maybe with a few coadds).  The exposure time to be used for the actual coronographic imaging will be set in the "UIST Imaging" iterator further down the sequence.
+In the UIST component below, set the instrument for coronagraphic imaging (coron mask, filter, full array, NDSTARE, etc.) but SELECT A SHORT EXPOSURE TIME for imaging acquisition (1sec for bright stars/point sources).  The exposure time to be used for the actual coronagraphic imaging will be set in the "UIST Imaging" iterator further down the sequence.
 
-At the telescope UIST will be set for coronographic observations with your chosen posn angles BUT it will have a short exposure time.  At the break in the sequence, the observer runs Movie, acquires the target as if he/she were doing spectroscopy (i.e. using Gaia - pick object and UPICK on the TCS) , then continues the sequence.  Immediately after acquisition a short-exposure frame will be taken on the target (so you can see that its behind the wire) before the exposure time/coadds are increased for the actual coronagraphic observations.</note>
-            <title>HOW TO DO CORONOGRAPHIC IMAGING</title>
+At the telescope UIST will be set for coronagraphic observations with your chosen posn angles BUT it will have a short exposure time.  At the break in the sequence, the observer runs Movie, acquires the target as if he/she were doing spectroscopy (i.e. using Gaia - pick object and UPICK on the TCS) , then continues the sequence.  Immediately after acquisition the exposure time/coadds are increased for the actual coronagraphic observations.</note>
+            <title>HOW TO DO CORONAGRAPHIC IMAGING</title>
           </SpNote>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4080,8 +4080,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>The 0,0 offset and observe below are used for acquisition only.  You will acquire the target at the break "before" this observe, then continue and take the short-exposure frame to check that the source is behind the wire.</note>
-              <title>Offset/Observe for acquisition only</title>
+              <note>The 0,0 offset below is a trick we use to set-up imaging acquisition.  You will acquire the target at the break immediately after this "offset".</note>
+              <title>Dummy offset for acquisition</title>
             </SpNote>
             <SpIterOffset type="ic" subtype="offset">
               <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4094,30 +4094,26 @@ For a step-by-step guide to how to use the position editor use "help".</note>
                 </OFFSET>
               </obsArea>
               <title>For acquisition only</title>
-              <SpIterObserve type="ic" subtype="observe">
-                <meta_gui_collapsed>false</meta_gui_collapsed>
-                <repeatCount>1</repeatCount>
-              </SpIterObserve>
             </SpIterOffset>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>The darks below flush the array and also provide a frame for dark-subtraction.  They should have the same exposure time as used below for the coronographic imaging, so DON'T click on "set default"</note>
+              <note>The dark below provides a frame for dark-subtraction.  It should have the same exposure time as used in the "UIST Imaging" iterator below, so DON'T click on "set default"</note>
               <title>Darks</title>
             </SpNote>
             <SpIterDarkObs type="ic" subtype="darkObs">
               <meta_gui_collapsed>false</meta_gui_collapsed>
               <coadds>1</coadds>
               <exposureTime>20.0</exposureTime>
-              <repeatCount>3</repeatCount>
+              <repeatCount>1</repeatCount>
             </SpIterDarkObs>
             <SpNote type="no" subtype="none">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <note>The iterator below sets the exposure time for the coronographic imaging.  These will be longer than the 1 or 2 secs used for the acquisition process above. 10-20 secs are recomended for 7-9th mag point sources and moderate seeing (0.6-0.7 arcsec).</note>
+              <note>The iterator below sets the exposure time for the coronagraphic imaging.  These will be longer than the 1 or 2 secs used for the acquisition process above. 10-20 secs are recomended for 7-9th mag point sources and moderate seeing (0.6-0.7 arcsec).</note>
               <title>UIST iterator</title>
             </SpNote>
             <SpIterUISTImaging type="ic" subtype="instUISTImaging">
               <meta_gui_collapsed>false</meta_gui_collapsed>
-              <coaddsIter>1</coaddsIter>
+              <coaddsIter>2</coaddsIter>
               <exposureTimeIter>20.0</exposureTimeIter>
               <iterConfigList>
                 <value>exposureTimeIter</value>
@@ -4125,8 +4121,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
               </iterConfigList>
               <SpIterRepeat type="ic" subtype="repeat">
                 <meta_gui_collapsed>false</meta_gui_collapsed>
-                <repeatCount>1</repeatCount>
-                <title>Repeat 1X</title>
+                <repeatCount>2</repeatCount>
+                <title>Repeat 2X</title>
                 <SpNote type="no" subtype="none">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
                   <note>These offsets nod the source between the wire and postions behind the mask or off the array.  The latter are used as "sky frames"; they are used to construct a flat-field.  The object is also nudged slightly up and down the wire to correct for bad pixels. 
