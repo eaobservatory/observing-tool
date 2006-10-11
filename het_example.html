@@ -338,6 +338,13 @@ empty set ! For example, if the TAG allocation for your project is
 <p> The default value of the sub-millimetre seeing is "Don't 
 Care".
 
+<p>It is useful to set the "&tau; for noise calculation" value,
+	  however, to the <i>average</i> or <i>expected</i> value of
+	  tau during which your observations are expected to be
+	  obtained.  (Note that the OT <i>does not know</i> what &tau;
+	  range was allocated for your project.)  The OT uses the
+	  value in this field to calculate the estimated RMS of the
+	  observation specified in the phot/sam etc. "eye"-cons.
 
 
 <!-- 
@@ -1199,13 +1206,14 @@ half the time on the other side of the base position.<p>
 Opening the various chop MSBs in the heterodyne library shows they are
 similar to the Sample-BMSW example above except that there is a "jiggle
 eye" instead of the <a href="#het_sample">"photom/sample eye"</a>.  It
-offers various jiggle patterns: 3x3 through 5x5 plus HARP specific
+offers various jiggle patterns: 3x3 through 9x9 plus HARP specific
 jiggles. The latter automatically set the spacing to ensure Nyquist
 sampling with HARP. For the others, the "Jiggle Spacing" needs to be
 defined by the user: typically 0.5 or 1 beam-spacing in arcsecs. The 
 PA and System should be left at "0.0" and "Tracking" for the typical user.
 Finally, the integration time for each jiggle position can be specified
-as "secs/jig posn". As for the "photom/sample" eye, the estimated RMS
+as "secs/jig posn". (Note that this is the total "on-source" time per
+	  position.)  As for the "photom/sample" eye, the estimated RMS
 noise per channel is shown in the "Noise" box.<p>
 
 
@@ -1230,7 +1238,7 @@ sample MSB, except that the "photom/sample" eye is replaced by the
 "scan/raster" eye. The fields in the "Area" panel allow you control
 the size and sampling of the raster map. The resulting Nr. of
 samples/pixels and Nr. of scans/pixels in each dimension is shown. The
-total required integration time per sample point can be specified in
+total required on-source integration time per sample point can be specified in
 the "Sample time" box.  The system will automatically break up the
 observations into multiple passes over the map.
 
@@ -1244,11 +1252,12 @@ will be the pixel-size in the cross-scan direction i.e. between the
 scanned rows. Be aware that there only will be a pixel centered on the
 base position if the number of pixels in each direction is odd. The
 size of the map <em>must</em> be a multiple of the pixel-size in each
-direction and is the defined as the distance between the
+direction and is  defined as the distance between the
 <em>centers</em> of the outmost pixels!
 <li><em>Array receivers:</em> The "sample spacing" will be the size of
 the square pixels in the final map as well as the spacing of the
 samples along scan direction of the telescope. The "scan spacing" will
+	    be the 
 distance between the scanned rows, e.g. 1/2 the array size.
 </ul><p>
 
@@ -1256,7 +1265,7 @@ Suppose, for example, that you want to use RxA to make a 238"x28"
 map. A sample spacing of 7" and scan spacing of 7" will result in a 
 pixel map of 35x5. Note that it is customary to oversample the 
 scan-direction to counter-act smearing, although this often requires a
-regridding of the final map the recover the intended rms/pixel.<p>
+regridding of the final map to recover the intended rms/pixel.<p>
 
 <img src="het_images/het_raster.gif" alt="Rasters" ><p>
 
