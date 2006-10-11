@@ -57,7 +57,7 @@ were specified in the Heterodyne Component while the source
 coordinates needed to be entered in the Target Component. Half of our
 observers were very happy with this, since they prefered to observe
 all their sources with the same receiver setup. The other half of the
-observers bitterly complained since they wanted to be able to read in
+observers complained bitterly since they wanted to be able to read in
 the sources <em>and</em> velocities from a catalog and center the
 bandpass for each.<p>
 
@@ -70,8 +70,9 @@ Setup component</a> should have made it clear that it uses the
 velocity to compute the approximate sky frequency as a check whether
 the line falls within the tuning range, to show the setup in the
 frequency editor etc. However, it can <em><b>only</b></em> do that if
-it has access to the velocity information. In case the velocity information
-has been put in the Target Component, this <em>requires</em> to components
+it has access to the velocity information. In the case where the
+      velocity information 
+has been put in the Target Component, this <em>requires</em> the components
 to be at the same level of indentation. If this is not the case, the 
 Het. Component will assume a velocity of 0 km/s.<p>
 
@@ -81,10 +82,10 @@ each observation the appropriate Het Setup and Target Component are
 paired up.</em><p>
 
 In general, this is not a problem for Galactic sources since the
-overall parameters of the observation of some molecular line (center
+overall parameters of the observation of a molecular line (center
 frequency, atmospheric transparency, receiver characteritics) don't
 significantly differ from source to source. That of course may not be
-the case for extra-galactic and high-z sources: vary the velocity of
+the case for extra-galactic and high-z sources: vary the velocity or
 red-shift enough and the line may shift completely out of the band or
 into an atmospheric absorption line for some of the sources (it has
 happened!). The Het. Component will notify you of (un)available
@@ -142,7 +143,7 @@ service at our site - you need an internet connection to do this.<p>
 Start with a science program which contains the template MSB that you
 wish to use for the replication, but <em>LEAVE THE NAME AND
 COORDINATES IN THE TARGET COMPONENT BLANK</em> (for example, a
-template MSB you have retrieved from the SCUBA library). Your catalog
+template MSB you have retrieved from the ACSIS library). Your catalog
 file should be of the format:
 
 <pre>
@@ -154,7 +155,7 @@ PKS0438         04 40 17.180 - 43 33 08.60 RJ
 
 The catalog format is not blank space sensitive - sourceplot and JCMT
 catalog files will work as is, provided they do not contain planets or
-objects with orbital elements.<p>
+objects with orbital elements. <p>
 
 Under the edit menu, there is an option called "Replicate from
 catalog". Choose this action:<p>
@@ -172,7 +173,8 @@ catalog.<p>
 
 Of course you may have to tweak the MSBs further, such as giving them
 more informative titles and tweaking the number of integrations on
-each source.<p>
+each source.  It is also not yet possible for the source replicator to
+    insert source velocities from the catalog into the MSBs.<p>
 
 
 <h3><a name="constraints">Additional Scheduling Constraints</a></h3>
@@ -193,7 +195,7 @@ The scheduling constraints component allows you to:
 
 <ul>
 <li> specify a specific time window in which you want your
-observations to be taken. Needless to say setting this to narrowly
+observations to be taken. Needless to say setting this too narrowly
 will reduce your chances of being scheduled, so only do this if there
 is a valid scientific reason<p>
 
@@ -204,7 +206,8 @@ you may wish to ask us for more information on how this works. <p>
 
 <li> by default, a target is considered observable if it is between 30
 and 88 degrees of elevation for the entire duration of its MSB. If you
-wish to specify a lower elevation criterion (eg. for a very low
+wish to specify a lower elevation criterion (eg. for a very low or
+	very high
 declination source) you may do so here.<p>
 
 <li> restrict a target to being observed only before or after
