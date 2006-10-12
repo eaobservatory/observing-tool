@@ -10,19 +10,15 @@
     <h1>Downloading the JCMT Observing Tool</h1>
 
 <h3>Note:  The ACSIS-ready version of the JCMT Observing Tool
-	has not yet been released.  All earlier versions of the OT are
+	has been released. All earlier versions of the OT are
 	redundant and <blink>MUST NOT</blink> be used to submit MSBs for
-	semester 06B.  When the new OT has been released, all PIs (and
-	the community through the jcmt_users email exploder) will be
-	alerted by email, and this message will be
-	removed.</h3>
+	semester 06B. The current release is 20061011.</h3>
 
 <p><i>{This page needs to be updated.}</i>
 
-<p>    <em>Existing users note: The current version is 20050208. If you are
-    submitting observations for 05B you need to get this, or a newer,
-    version of the OT. You may also need a newer version of Java (JRE).
-    Note that this OT is not ACSIS enabled.<p></em>
+<p>    <em>Existing users note: The current version is 20061011. 
+You may also need a newer version of Java (JRE) and the Java Advanced 
+Imaging (JAI).<p></em>
 
     <p>
       The JCMT Observing tool is a Java application and has been
@@ -45,12 +41,9 @@
 
     <ol>
       <li> The Java Runtime environment (JRE) version 1.4 or newer
-      <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
+      <li> The Java Advanced Imaging extension (JAI) version 1.2 or newer
       <li> The JCMT-OT itself
 </ol>
-
-If you are running java off the Starlink summer 2003 CD you already
-have the first two, so skip to step 3 (JCMT-OT). 
 
     <h3>JRE</h3>
 
@@ -115,7 +108,7 @@ which it is in this example..
 If it is not, you can get it directly from <a
 href="http://java.sun.com/products/java-media/jai/index.jsp">Sun's JAI site</a>. Some compatibility
 problems exist between the position editor and the latest JAI release. We recommend using JAI
-1.1.1_01, rather than the latest version.
+1.2.
 
 <h3>JCMT-OT</h3>
 
@@ -173,7 +166,7 @@ set JAVA = /star/java/jre/bin/java
 
     <ol>
       <li> The Java Runtime environment (JRE) version 1.4 or newer
-      <li> The Java Advanced Imaging extension (JAI) version 1.1.1 or newer
+      <li> The Java Advanced Imaging extension (JAI) version 1.2 or newer
       <li> The JCMT-OT itself
 </ol>
 
@@ -192,7 +185,7 @@ href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/j2re-1_4_1_06-windows-i586.exe"
 If you have not installed the JCMT-OT before chances are you won't
 have JAI. You can get an appropriate version from our FTP site by
 retrieving <a
-href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jai-1_1_1_01-lib-windows-i586-jre.exe">jai-1_1_1_01-lib-windows-i586-jre.exe</a>
+href="http://www.jach.hawaii.edu/pub/ukirt/ukirtot/jai-1_1_2_01-lib-windows-i586-jre.exe">jai-1_1_2_01-lib-windows-i586-jre.exe
 </a>.
 
 
@@ -218,32 +211,24 @@ and <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jcmtot_latest.tar.gz">.t
 
 <h2><a name="macos">MacOS X</a></h2>
 
-    <P><strong>Update 2004-01-13: If you downloaded the Mac OS X OT prior to
-        today, your version will not work properly for heterodyne programs.
-        Please download a new version.</strong></p>
-
     <p>The most recent version of the JCMT OT is always available from the JCMT-OT
-      FTP area as <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jcmt_ot_latest.sit">jcmt_ot_latest.sit</a>.
-      The first step is to simply download it and expand it (upon downloading
-       the expansion will probably be done for you). The OT application is
-       named JCMT-OT and can be started by double-clicking the icon.
-       You may copy this application to any location you desire, and it is
-       not necessary to download and install the JAI as these libraries are
-       included in the application package.</p>
-
-     <p>Note for OS X 10.3 (Panther) users: On upgrading from 10.2 to 10.3,
+      FTP area as <a 
+href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/JCMT-OT.dmg">JCMT-OT.dmg</a>.
+Clicking the link will download a disk image containing two files: the 
+JCMT-OT and a README. To run the OT you can double-click the JCMT-OT 
+icon. You may copy this application to any location you desire, and it 
+is not necessary to download and install the JAI for MacOSX 10.4 ( Tiger 
+) users, as these libraries are included with the OS. Users of MacOSX 
+10.3.1 - 10.3.9 should manually download and install JAI from Apple. 
+Information can be found at Apple's website <a 
+href="http://www.apple.com/downloads/macosx/apple/java3dandjavaadvancedimagingupdate.html">here</a>.</p>
+     <p>Note for OS X 10.3 (Panther) users: On upgrading 
+from 10.2 to 10.3,
        some users have found that their Java installation is incomplete. This
        is evidenced by Java applications hanging, and the error message
        "HotSpot not at correct virtual address" appearing in the Console. If
        this is happening to you when attempting to run the OT, follow the
        instructions listed in <a href="http://developer.apple.com/technotes/tn2002/tn2099.html">Technical
        Note TN2099</a>.<p>
-
-    <hr>
-    <address><a href="mailto:frossie@jach.hawaii.edu">Frossie</a>, <a href="mailto:b.cavanagh@jach.hawaii.edu">Brad Cavanagh</a></address>
-<!-- Created: Sat Jul  6 21:49:36 HST 2002 -->
-<!-- hhmts start -->
-Last modified: Tue Sep 26 16:12:12 HST 2006
-<!-- hhmts end -->
   </body>
 </html>
