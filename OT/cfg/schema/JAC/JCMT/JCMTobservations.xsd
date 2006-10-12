@@ -48,6 +48,8 @@
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="Beam"/>
     <xsd:enumeration value="Position"/>
+    <xsd:enumeration value="Frequency-Fast"/>
+    <xsd:enumeration value="Frequency-Slow"/>
   </xsd:restriction>
 </xsd:simpleType>
 
