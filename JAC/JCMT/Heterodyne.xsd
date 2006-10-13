@@ -248,6 +248,9 @@
           <xsd:element name="mixers"                  type="toml:hetMixerList"/>
           <xsd:element name="mode"                    type="toml:hetModeList"/>
           <xsd:element name="skyFrequency"            type="xsd:double"  minOccurs="0"/>
+	  <xsd:element name="velocity"                type="xsd:double"/>
+	  <xsd:element name="velocityDefinition"      type="toml:rvDefinitionList"/>
+          <xsd:element name="velocityFrame"           type="toml:rvFrameList"/>
           <xsd:element name="subsystems"    minOccurs="1"   maxOccurs="1">
             <xsd:complexType>
               <xsd:sequence>
