@@ -1,7 +1,7 @@
 #!/bin/csh -f
 
-# Simple startup script for the JCMT-OT. Just runs the actual
-# OT script with the correct options of "-omp jcmt"
+# Simple startup script for the UKIRT-OT. Just runs the actual
+# OT script with the correct options of "ukirt"
 
 
 # Find out where we are
@@ -9,4 +9,4 @@
 set mydir=`dirname $0` 
 
 # Now run the ot
-${mydir}/ot -nointernalframes ukirt $*
+${mydir}/ot ukirt $*
