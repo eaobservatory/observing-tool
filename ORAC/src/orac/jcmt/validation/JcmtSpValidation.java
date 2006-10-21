@@ -108,9 +108,9 @@ public class JcmtSpValidation extends SpValidation
 				}
 
 				double skyFrequency = spInstHeterodyne.getSkyFrequency() ;
-				if( loMin != 0. && loMin > skyFrequency )
+				if( loMin != 0. && ( loMin - spInstHeterodyne.getFeIF() ) > skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is lower than receiver minimum " + loMin ) );
-				if( loMax != 0. && loMax < skyFrequency )
+				if( loMax != 0. && ( loMax + spInstHeterodyne.getFeIF() ) < skyFrequency )
 					report.add( new ErrorMessage( ErrorMessage.WARNING , spObs.getTitle() , "Rest frequency of " + skyFrequency + " is greater than receiver maximum " + loMax ) );
 					
 				// Give a warning for heterodyne if integration times > 40 seconds and frequency > 400 GHz
