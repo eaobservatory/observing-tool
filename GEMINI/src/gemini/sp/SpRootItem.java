@@ -81,11 +81,14 @@ printDocument(OutputStream os)
   * Set the telescope name - based on input TELESCOPE
   */
 
-public void setTelescope() {
-    String name="";
-    name = System.getProperty("TELESCOPE");
-    _avTable.set(ATTR_TELESCOPE, name);
-}
+	public void setTelescope()
+	{
+		String name = "";
+		name = System.getProperty( "TELESCOPE" );
+		if( name == null || name.equals( "" ) )
+			name = System.getProperty( "telescope" );
+		_avTable.set( ATTR_TELESCOPE , name );
+	}
 
 	public void setOTVersion()
 	{
