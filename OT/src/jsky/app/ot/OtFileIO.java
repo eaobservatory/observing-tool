@@ -166,24 +166,26 @@ public class OtFileIO
 	{
 		// Get a File object from the directory and filename ;
 		File f = new File( dir , filename );
+		return fetchSp( f ) ;
+	}
 
+	public static SpRootItem fetchSp( File file )
+	{
 		FileReader fr;
 		try
 		{
-			fr = new FileReader( f );
+			fr = new FileReader( file );
 		}
 		catch( SecurityException se )
 		{
-			JOptionPane.showMessageDialog( null , "The Observing Tool does not have access to the '" + dir + "' directory." , "Error" , JOptionPane.ERROR_MESSAGE );
+			String path = file.getParent() ;
+			JOptionPane.showMessageDialog( null , "The Observing Tool does not have access to the '" + path + "' directory." , "Error" , JOptionPane.ERROR_MESSAGE );
 			return null;
 
 		}
 		catch( FileNotFoundException fnfe )
 		{
-			String path = dir;
-			if( !dir.endsWith( File.separator ) )
-				path += File.separator;
-			path += filename;
+			String path = file.getAbsolutePath() ;
 			JOptionPane.showMessageDialog( null , "The file '" + path + "' was not found." , "Error" , JOptionPane.ERROR_MESSAGE );
 			return null;
 
