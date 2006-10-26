@@ -23,8 +23,7 @@
     <xsd:enumeration value="2x2 small 3"/>
     <xsd:enumeration value="2x2 medium"/>
     <xsd:enumeration value="2x2 large"/>
-    <xsd:enumeration value="3x3 small 1"/>
-    <xsd:enumeration value="3x3 small 2"/>
+    <xsd:enumeration value="3x3 small"/>
     <xsd:enumeration value="3x3 med"/>
     <xsd:enumeration value="3x3 large"/>
   </xsd:restriction>
