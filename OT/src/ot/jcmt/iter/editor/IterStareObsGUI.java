@@ -81,7 +81,7 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		widePhotom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		widePhotom.setForeground( Color.black );
 
-		informationLabelTop.setText( "Warning: Switching on this mode will significantly increase the duration of the observation." ) ;
+		informationLabelTop.setText( "Warning: Using continuum mode will significantly increase the duration of the observation." ) ;
 		informationLabelTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
 		informationLabelTop.setForeground( Color.black ) ;
 		informationLabelMiddle.setText( "Continuum mode should only be used if an accurate measure of the continuum emission" ) ;
