@@ -501,7 +501,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		// Update the front end panel
 		( ( AbstractButton ) _w.feSelector.getComponent( ( ( Integer ) feWidgetNames.get( _inst.getFrontEnd() ) ).intValue() ) ).setSelected( true );
 		( ( AbstractButton ) _w.modeSelector.getComponent( ( ( Integer ) modeWidgetNames.get( _inst.getMode() ) ).intValue() ) ).setSelected( true );
-		( ( AbstractButton ) _w.regionSelector.getComponent( ( ( Integer ) regionWidgetNames.get( _inst.getBandMode() ) ).intValue() ) ).setSelected( true );
+		int integer = 0 ;
+		String band = _inst.getBandMode() ;
+		if( band != null && !band.equals( "" ) )
+		{	
+			Object bandMode = regionWidgetNames.get( band ) ;
+			if( bandMode != null )
+				integer = (( Integer )bandMode).intValue() ;
+		}
+		( ( AbstractButton ) _w.regionSelector.getComponent( integer ) ).setSelected( true ) ;
+
 		( ( AbstractButton ) _w.sbSelector.getComponent( ( ( Integer ) sidebandWidgetNames.get( _inst.getBand() ) ).intValue() ) ).setSelected( true );
 
 		// Update the bandwidth
@@ -949,194 +958,191 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        _w.bandwidths.addActionListener(this);
    }
 
-   private void _updateMoleculeChoice() {
-       JComboBox molBox = null;
-       // First get the molecule checkbox from fPanel
-       for ( int i=0; i<_w.fPanel.getComponentCount(); i++) {
-	  if ( "molecule".equals(_w.fPanel.getComponent(i).getName())) {
-	      molBox = (JComboBox) _w.fPanel.getComponent(i);
-	      break;
-	  }
-       }
-       if ( molBox == null ) return;
+	private void _updateMoleculeChoice()
+	{
+		JComboBox molBox = null;
+		// First get the molecule checkbox from fPanel
+		for( int i = 0 ; i < _w.fPanel.getComponentCount() ; i++ )
+		{
+			if( "molecule".equals( _w.fPanel.getComponent( i ).getName() ) )
+			{
+				molBox = ( JComboBox ) _w.fPanel.getComponent( i );
+				break;
+			}
+		}
+		if( molBox == null )
+			return;
 
-       // Remove the current actionlistener
-       molBox.removeActionListener(this);
-       double obsmin = _receiver.loMin -
-	   _receiver.feIF - ( _receiver.bandWidth*0.5);
-       double obsmax = _receiver.loMax +
-	   _receiver.feIF + ( _receiver.bandWidth*0.5);
-       Object   currentSelection = getObject( molBox, _inst.getMolecule(0) );
-       String   currentSpecies = null;
+		// Remove the current actionlistener
+		molBox.removeActionListener( this );
+		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 );
+		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 );
+		Object currentSelection = getObject( molBox , _inst.getMolecule( 0 ) );
+		String currentSpecies = null;
 
-       if ( currentSelection != null ) {
-	   currentSpecies = currentSelection.toString();
-       }
-       else {
-	   currentSpecies = _inst.getMolecule(0);
-       }
+		if( currentSelection != null )
+			currentSpecies = currentSelection.toString();
+		else
+			currentSpecies = _inst.getMolecule( 0 );
 
-       // Get a new model to add to the molBox
-       molBox.setModel ( new DefaultComboBoxModel (
-		   _lineCatalog.returnSpecies (
-		       obsmin * ( 1.0 + getRedshift() ),
-		       obsmax * ( 1.0 + getRedshift() )
-		       )
-		   )
-	       );
-       // Add a"NO LINE option if one does not already exist
-       if ( ((DefaultComboBoxModel)molBox.getModel()).getIndexOf(NO_LINE) == -1) {
-	   molBox.addItem ( NO_LINE );
-       }
+		// Get a new model to add to the molBox
+		molBox.setModel( new DefaultComboBoxModel( _lineCatalog.returnSpecies( obsmin * ( 1.0 + getRedshift() ) , obsmax * ( 1.0 + getRedshift() ) ) ) );
+		// Add a"NO LINE option if one does not already exist
+		if( ( ( DefaultComboBoxModel ) molBox.getModel() ).getIndexOf( NO_LINE ) == -1 )
+			molBox.addItem( NO_LINE );
 
-       // Go through the new model and see if:
-       // (a) the same combination of species/transition is available or
-       // (b) the same species is available.
-       // In addition, we will actually set things up on the box
-       // instead of leaving it to update widgets, since it means
-       // we do not need to get the species list again
-       DefaultComboBoxModel specModel = (DefaultComboBoxModel)molBox.getModel();
-       if ( currentSelection != null &&
-	    specModel.getIndexOf (currentSelection) >= 0 ) {
-           molBox.setSelectedIndex( specModel.getIndexOf (currentSelection) );
-       }
-       else if ( currentSpecies.equals(NO_LINE) ) {
-           molBox.setSelectedItem(NO_LINE);
-       }
-       else {
-	   boolean match = false;
-	   // See if the current species is available;
-	   // don't use the last element of the model since
-	   // this is just the no-line option
-	   if ( currentSpecies != null ) {
-	       for ( int i=0; i<specModel.getSize()-1; i++ ) {
-		   if ( ((SelectionList)specModel.getElementAt(i)).toString().equals(currentSpecies) ) {
-		       match = true;
-	               molBox.setSelectedIndex( i );
-		       break;
-		   }
-	       }
-	   }
-	   if ( !match ) {
-	       // Set the molecule to the first available one
-	       JOptionPane.showMessageDialog (
-		       _w,
-		       "Selecting new species; old selection (" + currentSpecies +") out of range",
-		       "Molecule changed",
-		       JOptionPane.WARNING_MESSAGE);
-               for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
-                   _inst.setMolecule( ((SelectionList)specModel.getElementAt(0)).toString(), i );
-               }
-	       molBox.setSelectedIndex(0);
-	   }
-       }
+		// Go through the new model and see if:
+		// (a) the same combination of species/transition is available or
+		// (b) the same species is available.
+		// In addition, we will actually set things up on the box
+		// instead of leaving it to update widgets, since it means
+		// we do not need to get the species list again
+		DefaultComboBoxModel specModel = ( DefaultComboBoxModel ) molBox.getModel();
+		if( currentSelection != null && specModel.getIndexOf( currentSelection ) >= 0 )
+		{
+			molBox.setSelectedIndex( specModel.getIndexOf( currentSelection ) );
+		}
+		else if( NO_LINE.equals( currentSpecies ) )
+		{
+			molBox.setSelectedItem( NO_LINE );
+		}
+		else
+		{
+			boolean match = false;
+			// See if the current species is available;
+			// don't use the last element of the model since
+			// this is just the no-line option
+			if( currentSpecies != null )
+			{
+				for( int i = 0 ; i < specModel.getSize() - 1 ; i++ )
+				{
+					if( ( ( SelectionList ) specModel.getElementAt( i ) ).toString().equals( currentSpecies ) )
+					{
+						match = true;
+						molBox.setSelectedIndex( i );
+						break;
+					}
+				}
+			}
+			if( !match )
+			{
+				// Set the molecule to the first available one
+				JOptionPane.showMessageDialog( _w , "Selecting new species; old selection (" + currentSpecies + ") out of range" , "Molecule changed" , JOptionPane.WARNING_MESSAGE );
+				int integer = 0 ;
+				try
+				{
+					integer = Integer.parseInt( _inst.getBandMode() ) ;
+				}
+				catch( NumberFormatException nfe ){}
+				for( int i = 0 ; i < integer ; i++ )
+					_inst.setMolecule( ( ( SelectionList ) specModel.getElementAt( 0 ) ).toString() , i );
+				molBox.setSelectedIndex( 0 );
+			}
+		}
 
-       molBox.addActionListener(this);
-       _updateTransitionChoice();
-   } // End of method
+		molBox.addActionListener( this );
+		_updateTransitionChoice();
+	} // End of method
 	   
 
-   private void _updateTransitionChoice() {
-       JComboBox transBox = null;
-       // First get the molecule checkbox from fPanel
-       for ( int i=0; i<_w.fPanel.getComponentCount(); i++) {
-	  if ( "transition".equals(_w.fPanel.getComponent(i).getName())) {
-	      transBox = (JComboBox) _w.fPanel.getComponent(i);
-	      break;
-	  }
-       }
-       if ( transBox == null ) return;
+	private void _updateTransitionChoice()
+	{
+		JComboBox transBox = null;
+		// First get the molecule checkbox from fPanel
+		for( int i = 0 ; i < _w.fPanel.getComponentCount() ; i++ )
+		{
+			if( "transition".equals( _w.fPanel.getComponent( i ).getName() ) )
+			{
+				transBox = ( JComboBox ) _w.fPanel.getComponent( i );
+				break;
+			}
+		}
+		if( transBox == null )
+			return;
 
-       // Remove the current actionlistener
-       transBox.removeActionListener(this);
+		// Remove the current actionlistener
+		transBox.removeActionListener( this );
 
-       String currentTransition = _inst.getTransition(0).trim();
-       String currentMolecule = _inst.getMolecule(0);
-       if ( currentMolecule == null ) {
-	   transBox.addActionListener(this);
-	   return;
-       }
+		String currentTransition = _inst.getTransition( 0 );
+		if( currentTransition != null )
+			currentTransition = currentTransition.trim();
+		String currentMolecule = _inst.getMolecule( 0 );
+		if( currentMolecule == null )
+		{
+			transBox.addActionListener( this );
+			return;
+		}
 
-       // Add a space to the end of the the name of the
-       // transition
-       if ( currentTransition != null ) {
-	   //currentTransition += " ";
-       }
+		// We need to get the current SelectionList based
+		// on the molecule.
+		// First get all the available species
+		double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 );
+		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 );
 
-       // We need to get the current SelectionList based
-       // on the molecule.
-       // First get all the available species
-       double obsmin = _receiver.loMin -
-	   _receiver.feIF - ( _receiver.bandWidth*0.5);
-       double obsmax = _receiver.loMax +
-	   _receiver.feIF + ( _receiver.bandWidth*0.5);
-       
-       //  Get the new model
-       Vector speciesList = _lineCatalog.returnSpecies (
-	       obsmin * ( 1.0 + getRedshift() ),
-	       obsmax * ( 1.0 + getRedshift() )
-	       );
-       // Loop through this list to get the element
-       // corresponding to the current molecule
-       SelectionList currentSpecies = null;
-       for ( int i=0; i<speciesList.size();i++ ) {
-	   if ( ((SelectionList)speciesList.get(i)).toString().equals(currentMolecule) ) {
-	       currentSpecies = (SelectionList)speciesList.get(i);
-	       break;
-	   }
-       }
+		// Get the new model
+		Vector speciesList = _lineCatalog.returnSpecies( obsmin * ( 1.0 + getRedshift() ) , obsmax * ( 1.0 + getRedshift() ) );
+		// Loop through this list to get the element
+		// corresponding to the current molecule
+		SelectionList currentSpecies = null;
+		for( int i = 0 ; i < speciesList.size() ; i++ )
+		{
+			if( ( ( SelectionList ) speciesList.get( i ) ).toString().equals( currentMolecule ) )
+			{
+				currentSpecies = ( SelectionList ) speciesList.get( i );
+				break;
+			}
+		}
 
-       if ( currentSpecies != null ) {
-	   transBox.setModel( new DefaultComboBoxModel (
-		       currentSpecies.objectList ) );
-       }
+		if( currentSpecies != null )
+			transBox.setModel( new DefaultComboBoxModel( currentSpecies.objectList ) );
 
-       // Add the no line option
-       if(((DefaultComboBoxModel)transBox.getModel()).getIndexOf(NO_LINE) == -1) {
-            transBox.addItem(NO_LINE + " ");
-       }
+		// Add the no line option
+		if( ( ( DefaultComboBoxModel ) transBox.getModel() ).getIndexOf( NO_LINE ) == -1 )
+			transBox.addItem( NO_LINE + " " );
 
-       // Check if the previous transition is still in range
-       boolean inRange = false;
-       if ( currentTransition != null ) {
-	   for ( int i=0; i<transBox.getItemCount(); i++ ) {
-	       if ( transBox.getItemAt(i).toString().trim().equals (currentTransition) ) {
-		   inRange = true;
-		   transBox.setSelectedIndex(i);
-		   break;
-	       }
-	   }
-       }
+		// Check if the previous transition is still in range
+		boolean inRange = false;
+		if( currentTransition != null )
+		{
+			for( int i = 0 ; i < transBox.getItemCount() ; i++ )
+			{
+				if( transBox.getItemAt( i ).toString().trim().equals( currentTransition ) )
+				{
+					inRange = true;
+					transBox.setSelectedIndex( i );
+					break;
+				}
+			}
+		}
 
-       boolean transChanged = false;
-       if ( inRange ) {
-	   // Do nothing
-       }
-       else {
-	   // We need to set the transition to the first available
-	   // for the current species
-	   JOptionPane.showMessageDialog (_w,
-		   "Transition Changed: " + currentTransition + " out of range.",
-		   "Transition Changed!",
-		   JOptionPane.PLAIN_MESSAGE);
-           for ( int i=0; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
-               _inst.setTransition( transBox.getItemAt(0).toString(), i);
-               transChanged = true;
-           }
-	   transBox.setSelectedIndex(0);
-       }
+		boolean transChanged = false;
+		if( inRange )
+		{
+			// Do nothing
+		}
+		else
+		{
+			// We need to set the transition to the first available
+			// for the current species
+			JOptionPane.showMessageDialog( _w , "Transition Changed: " + currentTransition + " out of range." , "Transition Changed!" , JOptionPane.PLAIN_MESSAGE );
+			for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
+			{
+				_inst.setTransition( transBox.getItemAt( 0 ).toString() , i );
+				transChanged = true;
+			}
+			transBox.setSelectedIndex( 0 );
+		}
 
-       if ( transBox.getSelectedItem() instanceof Transition ) {
-	   _updateFrequencyText( ((Transition)transBox.getSelectedItem()).frequency/1.0E9 );
-       }
-       else {
-	   _updateFrequencyText( _inst.getRestFrequency(0)/1.0E9 );
-       }
-       if ( transChanged ) {
-           _initialiseRegionInfo();
-       }
-       transBox.addActionListener(this);
-   } // End of method
+		if( transBox.getSelectedItem() instanceof Transition )
+			_updateFrequencyText( ( ( Transition ) transBox.getSelectedItem() ).frequency / 1.0E9 );
+		else
+			_updateFrequencyText( _inst.getRestFrequency( 0 ) / 1.0E9 );
+
+		if( transChanged )
+			_initialiseRegionInfo();
+
+		transBox.addActionListener( this );
+	} // End of method
 
 
    private void _updateFrequencyText(double f) {
