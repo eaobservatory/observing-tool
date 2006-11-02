@@ -119,29 +119,17 @@ public final class SpDRRecipe extends SpDRObsComp
 			{
 				instInfo = new InstCfg( block );
 				if( InstCfg.matchAttr( instInfo , "heterodyne" ) )
-				{
 					HETERODYNE = instInfo.getValueAsLUT();
-				}
 				else if( InstCfg.matchAttr( instInfo , "scuba" ) )
-				{
 					SCUBA = instInfo.getValueAsLUT();
-				}
 				else if( InstCfg.matchAttr( instInfo , WINDOW_TYPES_TAG ) )
-				{
 					WINDOW_TYPES = instInfo.getValueAsArray();
-				}
 				else if( InstCfg.matchAttr( instInfo , PROJECTION_TYPES_TAG ) )
-				{
 					PROJECTION_TYPES = instInfo.getValueAsArray();
-				}
 				else if( InstCfg.matchAttr( instInfo , GRID_FUNCTION_TYPES_TAG ) )
-				{
 					GRID_FUNCTION_TYPES = instInfo.getValueAsArray();
-				}
 				else if( InstCfg.matchAttr( instInfo , "DEFAULT_BASELINE_FRACTION" ) )
-				{
 					DEFAULT_BASELINE = Double.parseDouble( instInfo.getValue() );
-				}
 			}
 		}
 		catch( IOException e )

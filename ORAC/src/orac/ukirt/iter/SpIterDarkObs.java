@@ -131,9 +131,7 @@ elements()
 		// Get the instrument to allow us to get the config information
 		SpInstObsComp inst = SpTreeMan.findInstrument( this );
 		if( inst == null )
-		{
 			throw new SpTranslationNotSupportedException( "No instrument in scope" );
-		}
 
 		Hashtable defaultsTable = inst.getConfigItems();
 
@@ -155,30 +153,17 @@ elements()
 		// Set the number of dark exposures
 		defaultsTable.put( "darkNumExp" , "" + getCoadds() );
 		if( defaultsTable.containsKey( "coadds" ) )
-		{
 			defaultsTable.put( "coadds" , "" + getCoadds() );
-		}
 		if( defaultsTable.containsKey( "expTime" ) )
-		{
 			defaultsTable.put( "expTime" , "" + getExposureTime() );
-		}
 		if( defaultsTable.containsKey( "exposureTime" ) )
-		{
 			defaultsTable.put( "exposureTime" , "" + getExposureTime() );
-		}
 		if( defaultsTable.containsKey( "chopDelay" ) )
-		{
 			defaultsTable.put( "chopDelay" , "0.0" );
-		}
 		if( defaultsTable.containsKey( "type" ) )
 		{
 			if( "WFCAM".equalsIgnoreCase( ( String ) defaultsTable.get( "instrument" ) ) )
-			{
 				defaultsTable.put( "type" , "dark" );
-			}
-			else
-			{
-			}
 		}
 
 		// Delete things we dont't need
@@ -214,9 +199,7 @@ elements()
 			{
 				recipes = SpTreeMan.findAllItems( parent , "orac.ukirt.inst.SpDRRecipe" );
 				if( recipes != null && recipes.size() > 0 )
-				{
 					break;
-				}
 			}
 			parent = parent.parent();
 		}

@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Vector;
+import java.util.Vector; 
 
 /**
  * The observation item.  In addition to other attributes, the SpObs class
@@ -382,6 +382,7 @@ getIterFolder()
 		v.add( "define_inst " + instName + " " + ( String ) defaultsTable.get( "instAperX" ) + " " + ( String ) defaultsTable.get( "instAperY" ) + " " + ( String ) defaultsTable.get( "instAperZ" ) + " " + ( String ) defaultsTable.get( "instAperL" ) );
 		v.add( "-set_inst " + instName );
 		v.add( "setHeader STANDARD " + ( getIsStandard() ? "T" : "F" ) );
+		
 		if( obsComp != null )
 		{
 			try
@@ -395,18 +396,16 @@ getIterFolder()
 				System.out.println( "Unable to write TCS xml, even though a target component exists" );
 			}
 		}
+		
 		if( instName.equals( "UFTI" ) || instName.equals( "UIST" ) || instName.equals( "CGS4" ) )
-		{
 			v.add( "-SET_CHOPBEAM MIDDLE" );
-		}
 
 		if( obsComp != null )
 		{
 			// Add break to sequence only if instrument is not WFCAM - RDK 25 Aug 2005 //
 			if( !"WFCAM".equalsIgnoreCase( instName ) )
-			{
 				v.add( SpTranslationConstants.breakString );
-			}
+			
 			if( spherSys != SpTelescopePos.SYSTEM_SPHERICAL )
 			{
 				v.add( "-system APP ALL" );
@@ -443,166 +442,104 @@ getIterFolder()
 		{
 			v.add( "setrotator " + defaultsTable.get( "posAngle" ) );
 			if( "UIST".equals( instName ) )
-			{
 				v.add( "setrot_offset 0.0" );
-			}
 		}
 
 		if( instName.equals( "WFCAM" ) && obsComp != null )
 		{
 			if( obsComp.getPositionInTile() == SpTelescopeObsComp.NOT_IN_TILE )
-			{
 				v.add( "noTile" );
-			}
 			else
-			{
 				v.add( "startTile" );
-			}
 		}
+		
 		v.add( "startGroup" );
-		if( getTable().exists( "msbid" ) )
-		{
-			v.add( "setHeader MSBID " + getTable().get( "msbid" ) );
-		}
 
-		if( getTable().exists( "project" ) )
-		{
-			v.add( "setHeader PROJECT " + getTable().get( "project" ) );
-		}
+		SpAvTable spAvTable = getTable() ;
+		
+		if( spAvTable.exists( "msbid" ) )
+			v.add( "setHeader MSBID " + spAvTable.get( "msbid" ) );
+
+		if( spAvTable.exists( "project" ) )
+			v.add( "setHeader PROJECT " + spAvTable.get( "project" ) );
 
 		// Add schedulable info headers in case the pipeline wats to do QA (Frossie)
 
-		if( getTable().exists( "rq_minsb" ) )
-		{
-			v.add( "-setHeader RQ_MINSB " + getTable().get( "rq_minsb" ) );
-		}
+		if( spAvTable.exists( "rq_minsb" ) )
+			v.add( "-setHeader RQ_MINSB " + spAvTable.get( "rq_minsb" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MINSB UNDEF" );
-		}
 
-		if( getTable().exists( "rq_maxsb" ) )
-		{
-			v.add( "-setHeader RQ_MAXSB " + getTable().get( "rq_maxsb" ) );
-		}
+		if( spAvTable.exists( "rq_maxsb" ) )
+			v.add( "-setHeader RQ_MAXSB " + spAvTable.get( "rq_maxsb" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MAXSB UNDEF" );
-		}
 
-		if( getTable().exists( "rq_mnsee" ) )
-		{
-			v.add( "-setHeader RQ_MNSEE " + getTable().get( "rq_mnsee" ) );
-		}
+		if( spAvTable.exists( "rq_mnsee" ) )
+			v.add( "-setHeader RQ_MNSEE " + spAvTable.get( "rq_mnsee" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MNSEE UNDEF" );
-		}
 
-		if( getTable().exists( "rq_mxsee" ) )
-		{
-			v.add( "-setHeader RQ_MXSEE " + getTable().get( "rq_mxsee" ) );
-		}
+		if( spAvTable.exists( "rq_mxsee" ) )
+			v.add( "-setHeader RQ_MXSEE " + spAvTable.get( "rq_mxsee" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MXSEE UNDEF" );
-		}
 
-		if( getTable().exists( "rq_mincl" ) )
-		{
-			v.add( "-setHeader RQ_MINCL " + getTable().get( "rq_mincl" ) );
-		}
+		if( spAvTable.exists( "rq_mincl" ) )
+			v.add( "-setHeader RQ_MINCL " + spAvTable.get( "rq_mincl" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MINCL UNDEF" );
-		}
 
-		if( getTable().exists( "rq_maxcl" ) )
-		{
-			v.add( "-setHeader RQ_MAXCL " + getTable().get( "rq_maxcl" ) );
-		}
+		if( spAvTable.exists( "rq_maxcl" ) )
+			v.add( "-setHeader RQ_MAXCL " + spAvTable.get( "rq_maxcl" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MAXCL UNDEF" );
-		}
 
-		if( getTable().exists( "rq_mntau" ) )
-		{
-			v.add( "-setHeader RQ_MNTAU " + getTable().get( "rq_mntau" ) );
-		}
+		if( spAvTable.exists( "rq_mntau" ) )
+			v.add( "-setHeader RQ_MNTAU " + spAvTable.get( "rq_mntau" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MNTAU UNDEF" );
-		}
 
-		if( getTable().exists( "rq_mxtau" ) )
-		{
-			v.add( "-setHeader RQ_MXTAU " + getTable().get( "rq_mxtau" ) );
-		}
+		if( spAvTable.exists( "rq_mxtau" ) )
+			v.add( "-setHeader RQ_MXTAU " + spAvTable.get( "rq_mxtau" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MXTAU UNDEF" );
-		}
 
-		if( getTable().exists( "rq_minmn" ) )
-		{
-			v.add( "-setHeader RQ_MINMN " + getTable().get( "rq_minmn" ) );
-		}
+		if( spAvTable.exists( "rq_minmn" ) )
+			v.add( "-setHeader RQ_MINMN " + spAvTable.get( "rq_minmn" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MINMN UNDEF" );
-		}
 
-		if( getTable().exists( "rq_maxmn" ) )
-		{
-			v.add( "-setHeader RQ_MAXMN " + getTable().get( "rq_maxmn" ) );
-		}
+		if( spAvTable.exists( "rq_maxmn" ) )
+			v.add( "-setHeader RQ_MAXMN " + spAvTable.get( "rq_maxmn" ) );
 		else
-		{
 			v.add( "-setHeader RQ_MAXMN UNDEF" );
-		}
 
 		// eStar headers
 
 		if( isMSB() )
 		{
-			if( getTable().exists( "remote_trigger_src" ) )
-			{
-				v.add( "-setHeader RMTAGENT " + getTable().get( "remote_trigger_src" ) );
-			}
+			if( spAvTable.exists( "remote_trigger_src" ) )
+				v.add( "-setHeader RMTAGENT " + spAvTable.get( "remote_trigger_src" ) );
 			else
-			{
 				v.add( "-setHeader RMTAGENT UNDEF" );
-			}
-			if( getTable().exists( "remote_trigger_id" ) )
-			{
-				v.add( "-setHeader AGENTID " + getTable().get( "remote_trigger_id" ) );
-			}
+			
+			if( spAvTable.exists( "remote_trigger_id" ) )
+				v.add( "-setHeader AGENTID " + spAvTable.get( "remote_trigger_id" ) );
 			else
-			{
-				v.add( "-setHeader AGENTID UNDEF" );
-			}
-
+				v.add( "-setHeader AGENTID UNDEF" ) ;
 		}
 		else
 		{
 			if( parent().getTable().exists( "remote_trigger_src" ) )
-			{
 				v.add( "-setHeader RMTAGENT " + parent().getTable().get( "remote_trigger_src" ) );
-			}
 			else
-			{
 				v.add( "-setHeader RMTAGENT UNDEF" );
-			}
+			
 			if( parent().getTable().exists( "remote_trigger_id" ) )
-			{
 				v.add( "-setHeader AGENTID " + parent().getTable().get( "remote_trigger_id" ) );
-			}
 			else
-			{
 				v.add( "-setHeader AGENTID UNDEF" );
-			}
-
 		}
 
 		try
@@ -612,9 +549,7 @@ getIterFolder()
 			{
 				SpItem child = ( SpItem ) e.nextElement();
 				if( child instanceof SpTranslatable )
-				{
 					( ( SpTranslatable ) child ).translate( v );
-				}
 			}
 		}
 		catch( SpTranslationNotSupportedException e )
@@ -632,9 +567,7 @@ getIterFolder()
 
 		// Add breaks to sequence only if instrument is not WFCAM - RDK 25 Aug 2005 //
 		if( !"WFCAM".equalsIgnoreCase( instName ) )
-		{
 			addBreak( v );
-		}
 
 		// A couple of final tidy up operations
 		tidyNOffsets( v , inst );
@@ -650,9 +583,8 @@ getIterFolder()
 		{
 			FileWriter fw = new FileWriter( confWriter.getExecName() );
 			for( int i = 0 ; i < v.size() ; i++ )
-			{
 				fw.write( ( String ) v.get( i ) + "\n" );
-			}
+
 			fw.close();
 		}
 		catch( IOException ioe )
