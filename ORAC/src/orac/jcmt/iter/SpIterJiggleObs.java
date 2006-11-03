@@ -69,6 +69,11 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 					String[] split = jigglePattern.split( "x" ) ;
 					steps = Integer.parseInt( split[ 0 ] ) ;
 				}
+				else if( jigglePattern.matches( "harp\\d" ) )
+				{
+					String[] split = jigglePattern.split( "harp" ) ;
+					steps = Integer.parseInt( split[ 1 ] ) ;					
+				}
 				// number of points
 				int npts = 0 ;
 		
@@ -78,6 +83,10 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 					case 3 :
 						npts = 9 ;
 						break;
+					// 4x4 jiggle
+					case 4 : 
+						npts = 16 ;
+						break ;
 					// 5X5 jigle map
 					case 5 :
 						npts = 25 ;
