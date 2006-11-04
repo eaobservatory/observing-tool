@@ -11,7 +11,9 @@
 package ot.jcmt.iter.editor;
 
 import javax.swing.*;
+
 import java.awt.*;
+
 import jsky.app.ot.gui.*;
 import javax.swing.border.*;
 
@@ -55,6 +57,12 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
   CheckBoxWidgetExt contModeCB = new CheckBoxWidgetExt();
   TextBoxWidgetExt scaleFactor = new TextBoxWidgetExt();
   DropDownListBoxWidgetExt coordSys = new DropDownListBoxWidgetExt();
+  
+	JLabel informationLabelTop = new JLabel() ;
+	JLabel informationLabelMiddle = new JLabel() ;
+	JLabel informationLabelBottom = new JLabel() ;
+	JPanel informationPanel = new JPanel() ;
+	
 
   public IterJiggleObsGUI() {
     try {
@@ -173,6 +181,24 @@ public class IterJiggleObsGUI extends IterJCMTGenericGUI {
 		jigglePanel.add( jPanel1 , BorderLayout.CENTER );
 		jPanel1.add( jLabel1 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		jPanel1.add( jigglePattern , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
+
+		
+		informationLabelTop.setText( "Warning: Using continuum mode will significantly increase the duration of the observation." ) ;
+		informationLabelTop.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		informationLabelTop.setForeground( Color.black ) ;
+		informationLabelMiddle.setText( "Continuum mode should only be used if an accurate measure of the continuum emission" ) ;
+		informationLabelMiddle.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		informationLabelMiddle.setForeground( Color.black ) ;
+		informationLabelBottom.setText( "from the source is a requirement." ) ;
+		informationLabelBottom.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		informationLabelBottom.setForeground( Color.black ) ;
+		
+		informationPanel.setLayout( new GridLayout( 3 , 1 ) ) ;
+		
+		this.add( informationPanel , BorderLayout.SOUTH ) ;
+		informationPanel.add( informationLabelTop ) ;
+		informationPanel.add( informationLabelMiddle ) ;
+		informationPanel.add( informationLabelBottom ) ;
 
 	}
 }
