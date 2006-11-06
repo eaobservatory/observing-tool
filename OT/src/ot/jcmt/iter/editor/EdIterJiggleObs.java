@@ -103,16 +103,12 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			}
 
 			if( !jigglePatternSet )
-			{
 				_iterObs.setJigglePattern( ( String ) _w.jigglePattern.getValue() );
-			}
 
 			if( instObsComp instanceof SpInstHeterodyne )
 			{
 				if( _iterObs.getSwitchingMode() == null )
-				{
 					_iterObs.setSwitchingMode( SpJCMTConstants.SWITCHING_MODE_NONE );
-				}
 				_w.contModeCB.setSelected( _iterObs.isContinuum() );
 				_w.scaleFactor.setValue( _iterObs.getScaleFactor() );
 			}
@@ -125,24 +121,28 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 		_w.paTextBox.setValue( _iterObs.getPosAngle() );
 		_w.coordSys.setValue( _iterObs.getCoordSys() );
+		
+		_w.scaleFactor.setEnabled( !isHarp() ) ;
 
 		super._updateWidgets();
 	}
 
-  public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	{
 
-    if(tbwe == _w.paTextBox) {
-      _iterObs.setPosAngle(tbwe.getValue());
-      return;
-    }
+		if( tbwe == _w.paTextBox )
+		{
+			_iterObs.setPosAngle( tbwe.getValue() );
+			return;
+		}
+		else if( tbwe == _w.scaleFactor )
+		{
+			_iterObs.setScaleFactor( tbwe.getDoubleValue( 1.0 ) );
+			return;
+		}
 
-    if ( tbwe == _w.scaleFactor ) {
-	_iterObs.setScaleFactor( tbwe.getDoubleValue(1.0) );
-	return;
-    }
-
-    super.textBoxKeyPress(tbwe);
-  }
+		super.textBoxKeyPress( tbwe );
+	}
 
   	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
 	{
@@ -152,16 +152,22 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 			if( SpTreeMan.findInstrument( _iterObs ) instanceof SpInstHeterodyne )
 			{
-				boolean isHarp = false;
-				if( val != null )
-					isHarp = val.startsWith( "HARP" );
-				_w.scaleFactor.setEnabled( !isHarp );
+				if( isHarp() )
+				{
+					double scaleFactor = _iterObs.getScaleFactor() ;
+					String[] split = val.split( "HARP" ) ;
+					if( "4".equals( split[ 1 ] ) )
+						scaleFactor = 7.5 ;
+					else
+						scaleFactor = 6. ;
+					_w.scaleFactor.setValue( scaleFactor ) ;
+					_iterObs.setScaleFactor( scaleFactor ) ;
+				}
 			}
-
+			_updateWidgets() ;
 			return;
 		}
-
-		if( ddlbwe == _w.coordSys )
+		else if( ddlbwe == _w.coordSys )
 		{
 			_iterObs.setCoordSys( val );
 			return;
@@ -170,13 +176,22 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		super.dropDownListBoxAction( ddlbwe , index , val );
 	}
 
-  public void checkBoxAction ( CheckBoxWidgetExt cbwe ) {
-      if ( cbwe == _w.contModeCB ) {
-	  _iterObs.setContinuumMode ( _w.contModeCB.isSelected() );
-      }
+  	private boolean isHarp()
+  	{
+  		String pattern = _iterObs.getJigglePattern() ;
+		boolean isHarp = false ;
+		if( pattern != null )
+			isHarp = pattern.startsWith( "HARP" ) ;  
+		return isHarp ;
+  	}
+  	
+	public void checkBoxAction( CheckBoxWidgetExt cbwe )
+	{
+		if( cbwe == _w.contModeCB )
+			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
 
-      super.checkBoxAction( cbwe );
-  }
+		super.checkBoxAction( cbwe );
+	}
 
   public void commandButtonAction ( CommandButtonWidgetExt cbwe ) {
       if ( cbwe == _w.defaultButton ) {
@@ -186,24 +201,24 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
      _updateWidgets();
   }
 
-  public void setInstrument(SpInstObsComp spInstObsComp) {
-    super.setInstrument(spInstObsComp);
+	public void setInstrument( SpInstObsComp spInstObsComp )
+	{
+		super.setInstrument( spInstObsComp );
 
-    if((spInstObsComp != null) && (spInstObsComp instanceof SpInstHeterodyne)) {
-	_w.switchingMode.setChoices(SWITCHING_MODES);
-        if ( _iterObs == null ) {
-            _w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
-        }
-        else {
-            _w.switchingMode.setValue( _iterObs.getSwitchingMode() );
-        }
-        _w.acsisPanel.setVisible(true);
-    }
-    else {
-      //_w.switchingMode.setEnabled(true);
-      _w.acsisPanel.setVisible(false);
-    }
-  }
+		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
+		{
+			_w.switchingMode.setChoices( SWITCHING_MODES );
+			if( _iterObs == null )
+				_w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
+			else
+				_w.switchingMode.setValue( _iterObs.getSwitchingMode() );
+			_w.acsisPanel.setVisible( true );
+		}
+		else
+		{
+			_w.acsisPanel.setVisible( false );
+		}
+	}
 
   	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
 	{
