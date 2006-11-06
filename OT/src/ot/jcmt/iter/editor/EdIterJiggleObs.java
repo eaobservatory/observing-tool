@@ -50,7 +50,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
   /**
    * The constructor initializes the title, description, and presentation source.
    */
-  public EdIterJiggleObs()
+	public EdIterJiggleObs()
 	{
 		super( new IterJiggleObsGUI() );
 
@@ -71,10 +71,11 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
   /**
 	 * Override setup to store away a reference to the Focus Iterator.
 	 */
-  public void setup(SpItem spItem) {
-    _iterObs = (SpIterJiggleObs) spItem;
-    super.setup(spItem);
-  }
+	public void setup( SpItem spItem )
+	{
+		_iterObs = ( SpIterJiggleObs ) spItem;
+		super.setup( spItem );
+	}
 
   	protected void _updateWidgets()
 	{
@@ -93,8 +94,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 				{
 					break;
 				}
-
-				if( jigglePattern.equals( _w.jigglePattern.getItemAt( i ) ) )
+				else if( jigglePattern.equals( _w.jigglePattern.getItemAt( i ) ) )
 				{
 					_w.jigglePattern.setValue( _w.jigglePattern.getItemAt( i ) );
 					jigglePatternSet = true;
@@ -129,19 +129,12 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
-
 		if( tbwe == _w.paTextBox )
-		{
 			_iterObs.setPosAngle( tbwe.getValue() );
-			return;
-		}
 		else if( tbwe == _w.scaleFactor )
-		{
 			_iterObs.setScaleFactor( tbwe.getDoubleValue( 1.0 ) );
-			return;
-		}
-
-		super.textBoxKeyPress( tbwe );
+		else
+			super.textBoxKeyPress( tbwe );
 	}
 
   	public void dropDownListBoxAction( DropDownListBoxWidgetExt ddlbwe , int index , String val )
@@ -165,15 +158,15 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 				}
 			}
 			_updateWidgets() ;
-			return;
 		}
 		else if( ddlbwe == _w.coordSys )
 		{
 			_iterObs.setCoordSys( val );
-			return;
 		}
-		
-		super.dropDownListBoxAction( ddlbwe , index , val );
+		else
+		{
+			super.dropDownListBoxAction( ddlbwe , index , val );
+		}
 	}
 
   	private boolean isHarp()
@@ -193,13 +186,13 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		super.checkBoxAction( cbwe );
 	}
 
-  public void commandButtonAction ( CommandButtonWidgetExt cbwe ) {
-      if ( cbwe == _w.defaultButton ) {
-	  _iterObs.setAcsisDefaults ();
-      }
+	public void commandButtonAction( CommandButtonWidgetExt cbwe )
+	{
+		if( cbwe == _w.defaultButton )
+			_iterObs.setAcsisDefaults();
 
-     _updateWidgets();
-  }
+		_updateWidgets();
+	}
 
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
