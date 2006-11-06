@@ -218,7 +218,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		String mode = "JIG16";
 
 		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
-		if( ( instObsComp != null ) && ( _iterObs.isJIG64( ( SpInstSCUBA ) instObsComp ) ) )
+		if( ( instObsComp != null ) && ( SpIterJiggleObs.isJIG64( ( SpInstSCUBA ) instObsComp ) ) )
 			mode = "JIG64";
 		return ScubaNoise.noise_level( integrations , wavelength , mode , nefd , status );
 	}
