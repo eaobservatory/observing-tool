@@ -459,9 +459,7 @@ public class TelescopeGUI extends JPanel
 			targetSystemsTabbedPane.setEnabledAt( i , false );
 			Component[] component = ( ( JPanel ) targetSystemsTabbedPane.getComponentAt( i ) ).getComponents();
 			for( int j = 0 ; j < component.length ; j++ )
-			{
 				component[ j ].setEnabled( false );
-			}
 		}
 
 		// chop mode added by MFO (3 August 2001)
