@@ -39,17 +39,21 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
   private String [] _noJigglePatterns = { "No Instrument in scope." };
 
-  // Over-ride the switching modes since only beam and 
-  // frequency will initially be offered by ACSIS
-  protected static String [] SWITCHING_MODES = {
-      SpJCMTConstants.SWITCHING_MODE_BEAM,
-      SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S,
-      SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F,
-      SpJCMTConstants.SWITCHING_MODE_NONE };
+  /*
+   * Over-ride the switching modes since only beam and
+   * frequency will initially be offered by ACSIS 
+   */
+	protected static String[] SWITCHING_MODES =
+	{ 
+		SpJCMTConstants.SWITCHING_MODE_BEAM , 
+		SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S , 
+		SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F , 
+		SpJCMTConstants.SWITCHING_MODE_NONE 
+	} ;
 
   /**
-   * The constructor initializes the title, description, and presentation source.
-   */
+	 * The constructor initializes the title, description, and presentation source.
+	 */
 	public EdIterJiggleObs()
 	{
 		super( new IterJiggleObsGUI() );
@@ -79,7 +83,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
   	protected void _updateWidgets()
 	{
-		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp ) SpTreeMan.findInstrument( _iterObs );
+		SpJCMTInstObsComp instObsComp = ( SpJCMTInstObsComp )SpTreeMan.findInstrument( _iterObs );
 
 		if( instObsComp != null )
 		{
@@ -88,17 +92,16 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			// Select jiggle pattern.
 			boolean jigglePatternSet = false;
 			String jigglePattern = _iterObs.getJigglePattern();
-			for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
+			if( jigglePattern != null )
 			{
-				if( jigglePattern == null )
+				for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
 				{
-					break;
-				}
-				else if( jigglePattern.equals( _w.jigglePattern.getItemAt( i ) ) )
-				{
-					_w.jigglePattern.setValue( _w.jigglePattern.getItemAt( i ) );
-					jigglePatternSet = true;
-					break;
+					if( jigglePattern.equals( _w.jigglePattern.getItemAt( i ) ) )
+					{
+						_w.jigglePattern.setValue( _w.jigglePattern.getItemAt( i ) );
+						jigglePatternSet = true;
+						break;
+					}
 				}
 			}
 
@@ -189,8 +192,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 	public void commandButtonAction( CommandButtonWidgetExt cbwe )
 	{
 		if( cbwe == _w.defaultButton )
-			_iterObs.setAcsisDefaults();
-
+			_iterObs.setAcsisDefaults() ;
+		
 		_updateWidgets();
 	}
 
