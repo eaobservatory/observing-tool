@@ -192,8 +192,42 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 	public void commandButtonAction( CommandButtonWidgetExt cbwe )
 	{
 		if( cbwe == _w.defaultButton )
-			_iterObs.setAcsisDefaults() ;
-		
+		{
+			 SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs ) ;
+			 if( instrument instanceof SpInstHeterodyne )
+			 {
+				 String frontend = ( ( SpInstHeterodyne )instrument).getFrontEnd() ;
+				 if( frontend.equals( "HARP" ) && !isHarp() )
+				 {
+						for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
+						{
+							String jigglePattern = ( String )_w.jigglePattern.getItemAt( i ) ;
+							if( jigglePattern.startsWith( "HARP" ) )
+							{
+								_w.jigglePattern.setValue( jigglePattern ) ;
+								_iterObs.setJigglePattern( jigglePattern ) ;
+								dropDownListBoxAction( _w.jigglePattern , i , jigglePattern ) ;
+								break;
+							}
+						}
+				 }
+				 else
+				 {
+					for( int i = 0 ; i < _w.jigglePattern.getItemCount() ; i++ )
+					{
+						String jigglePattern = ( String )_w.jigglePattern.getItemAt( i ) ;
+						if( !jigglePattern.startsWith( "HARP" ) )
+						{
+							_w.jigglePattern.setValue( jigglePattern ) ;
+							_iterObs.setJigglePattern( jigglePattern ) ;
+							dropDownListBoxAction( _w.jigglePattern , i , jigglePattern ) ;
+							break;
+						}
+					}
+					 _iterObs.setAcsisDefaults() ; 
+				 }
+			 }
+		}
 		_updateWidgets();
 	}
 
