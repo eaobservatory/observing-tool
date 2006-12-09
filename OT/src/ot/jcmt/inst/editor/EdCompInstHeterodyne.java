@@ -1245,49 +1245,58 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        return _inst.getBandWidth(subsystem);
     }
 
-    private DefaultComboBoxModel getSpecialConfigsModel () {
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
-        // Default special config...
-        model.addElement("None");
+    private DefaultComboBoxModel getSpecialConfigsModel()
+	{
+		DefaultComboBoxModel model = new DefaultComboBoxModel();
+		// Default special config...
+		model.addElement( "None" );
 
-        // Try to open the special configs file
-        final String fileName = "/ACSISModes.xml";
-        File modesFile = new File (System.getProperty("ot.cfgdir")+fileName);
-        if ( modesFile.exists() ) {
-            try {
-                FileReader reader = new FileReader(modesFile);
-                char []    buffer = new char [(int)modesFile.length()];
-                reader.read(buffer);
-                String buffer_z = new String(buffer);
-                DOMParser parser = new DOMParser();
-                parser.setFeature("http://xml.org/sax/features/validation", false);
-                parser.setFeature("http://apache.org/xml/features/dom/include-ignorable-whitespace", false);
-                parser.parse(new InputSource(new StringReader(buffer_z)));
-                doc = parser.getDocument();
+		// Try to open the special configs file
+		final String fileName = File.separator + "ACSISModes.xml";
+		File modesFile = new File( System.getProperty( "ot.cfgdir" ) + fileName );
+		if( modesFile.exists() )
+		{
+			try
+			{
+				FileReader reader = new FileReader( modesFile );
+				char[] buffer = new char[ ( int ) modesFile.length() ];
+				reader.read( buffer );
+				String buffer_z = new String( buffer );
+				DOMParser parser = new DOMParser();
+				parser.setFeature( "http://xml.org/sax/features/validation" , false );
+				parser.setFeature( "http://apache.org/xml/features/dom/include-ignorable-whitespace" , false );
+				parser.parse( new InputSource( new StringReader( buffer_z ) ) );
+				doc = parser.getDocument();
 
-                if ( doc != null ) {
-                    NodeList nl = doc.getElementsByTagName("name");
-                    for ( int j=0; j<nl.getLength(); j++) {
-                        String name = nl.item(j).getFirstChild().getNodeValue().trim();
-                        model.addElement(name);
-                    }
-                }
-            }
-            catch ( SAXNotRecognizedException snre ) {
-                System.out.println ("Unable to ignore white-space text.");
-            }
-            catch ( SAXNotSupportedException snse ) {
-                System.out.println ("Unable to ignore white-space text.");
-            }
-            catch (SAXException sex) {
-                System.out.println ("SAX Exception on parse.");
-            }
-            catch (IOException ioe) {
-                System.out.println ("IO Exception on parse.");
-            }
-        }
-	return model;
-    }
+				if( doc != null )
+				{
+					NodeList nl = doc.getElementsByTagName( "name" );
+					for( int j = 0 ; j < nl.getLength() ; j++ )
+					{
+						String name = nl.item( j ).getFirstChild().getNodeValue().trim();
+						model.addElement( name );
+					}
+				}
+			}
+			catch( SAXNotRecognizedException snre )
+			{
+				System.out.println( "Unable to ignore white-space text." );
+			}
+			catch( SAXNotSupportedException snse )
+			{
+				System.out.println( "Unable to ignore white-space text." );
+			}
+			catch( SAXException sex )
+			{
+				System.out.println( "SAX Exception on parse." );
+			}
+			catch( IOException ioe )
+			{
+				System.out.println( "IO Exception on parse." );
+			}
+		}
+		return model;
+	}
 
     private ConfigurationInformation getConfigFor( String name )
 	{
@@ -1314,9 +1323,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				}
 			}
 			if( nodeName.equals( name ) )
-			{
 				break;
-			}
 		}
 		// We now have the correct node hopefully, so fill in the ci structure
 		ci.$shifts.clear();
@@ -1770,28 +1777,30 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	}
 
 
-    class ConfigurationInformation {
-	public String  $name;
-	public String  $feName;
-	public Double  $freq;
-	public String  $sideBand;
-	public String  $mode;
-	public Integer $mixers;
-	public Integer $subSystems;
-	public String  $bandWidth;
-	public Vector  $shifts = new Vector();
+    class ConfigurationInformation
+	{
+		public String $name;
+		public String $feName;
+		public Double $freq;
+		public String $sideBand;
+		public String $mode;
+		public Integer $mixers;
+		public Integer $subSystems;
+		public String $bandWidth;
+		public Vector $shifts = new Vector();
 
-	public void print() {
-	    System.out.println( "name       = "+$name);
-	    System.out.println( "feName     = "+$feName);
-	    System.out.println( "frequency  = "+$freq.doubleValue());
-	    System.out.println( "sideBand   = "+$sideBand);
-	    System.out.println( "mode       = "+$mode);
-	    System.out.println( "mixers     = "+$mixers);
-	    System.out.println( "subSystems = "+$subSystems);
-	    System.out.println( "bandwidth  = "+$subSystems);
+		public void print()
+		{
+			System.out.println( "name       = " + $name );
+			System.out.println( "feName     = " + $feName );
+			System.out.println( "frequency  = " + $freq.doubleValue() );
+			System.out.println( "sideBand   = " + $sideBand );
+			System.out.println( "mode       = " + $mode );
+			System.out.println( "mixers     = " + $mixers );
+			System.out.println( "subSystems = " + $subSystems );
+			System.out.println( "bandwidth  = " + $subSystems );
+		}
 	}
-    }
 
     class TableRowRenderer extends DefaultTableCellRenderer {
 
