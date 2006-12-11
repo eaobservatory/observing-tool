@@ -166,17 +166,21 @@ public class LineCatalog
 	return v;
     }
 
-    public static LineCatalog getInstance() throws Exception {
-	if ( lineCatalog == null ) {
-	    try {
-		lineCatalog = new LineCatalog();
-	    }
-	    catch ( Exception e ) {
-		throw e;
-	    }
+    public synchronized static LineCatalog getInstance() throws Exception
+	{
+		if( lineCatalog == null )
+		{
+			try
+			{
+				lineCatalog = new LineCatalog();
+			}
+			catch( Exception e )
+			{
+				throw e;
+			}
+		}
+		return lineCatalog;
 	}
-	return lineCatalog;
-    }
 
     static class LocalContentHandler implements ContentHandler {
 	String    currentSpecies = null;
