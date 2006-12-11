@@ -11,11 +11,25 @@
 package edfreq;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import java.awt.GridLayout ;
+import java.awt.Dimension ;
+import java.awt.Color ;
+import java.awt.event.ActionListener ;
+import java.awt.event.ActionEvent ;
+import java.awt.event.AdjustmentListener ;
+import java.awt.event.ItemListener ;
+import java.awt.event.AdjustmentEvent ;
+import java.awt.event.ItemEvent ;
+import java.awt.event.MouseListener ;
+import java.awt.event.MouseEvent ;
+import javax.swing.JButton ;
+import javax.swing.JPanel ;
+import javax.swing.JComboBox ;
+import javax.swing.JLabel ;
+import javax.swing.BoxLayout ;
+import javax.swing.SwingConstants ;
+import javax.swing.JScrollBar ;
+import javax.swing.SwingUtilities ;
 import javax.swing.plaf.metal.MetalScrollBarUI;
 
 import java.util.Vector;

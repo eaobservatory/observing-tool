@@ -11,13 +11,26 @@
 package edfreq;
 
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-import java.util.*;
-import java.io.*;
+import java.awt.Container ;
+import java.awt.BorderLayout ;
+import java.awt.Dimension ;
+import java.awt.Color ;
+import java.awt.event.MouseListener ;
+import java.awt.event.MouseEvent ;
+import java.awt.event.WindowAdapter ;
+import java.awt.event.WindowEvent ;
+import javax.swing.JFrame ;
+import javax.swing.JSlider ;
+import javax.swing.JPanel ;
+import javax.swing.Box ;
+import javax.swing.SwingConstants ;
+import javax.swing.JLabel ;
+import javax.swing.SwingUtilities ;
+import javax.swing.JOptionPane ;
+import javax.swing.event.ChangeListener ;
+import javax.swing.event.ChangeEvent ;
+import java.util.Hashtable ;
+import java.util.Vector ;
 
 /**
  * @author Dennis Kelly ( bdk@roe.ac.uk ), modified by Martin Folger (M.Folger@roe.ac.uk)

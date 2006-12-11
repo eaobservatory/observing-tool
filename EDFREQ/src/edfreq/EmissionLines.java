@@ -10,16 +10,19 @@
 
 package edfreq;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import java.io.*;
-import java.util.*;
-import java.beans.*;
-import java.awt.event.*;
+import javax.swing.JPanel ;
+import javax.swing.JPopupMenu ;
+import javax.swing.JMenuItem ;
+import javax.swing.JSlider ;
+import javax.swing.JFrame ;
+import javax.swing.event.ChangeListener ;
+import javax.swing.event.ChangeEvent ;
+import java.util.Hashtable ;
+import java.awt.event.MouseListener ;
+import java.awt.event.MouseEvent ;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 
 /**
