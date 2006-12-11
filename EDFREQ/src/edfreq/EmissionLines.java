@@ -284,27 +284,19 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
       }
    }
 
-   public void mouseClicked ( MouseEvent e )
-   {
-   }
-   public void mouseEntered ( MouseEvent e )
-   {
-   }
-   public void mouseExited ( MouseEvent e )
-   {
-   }
+   public void mouseClicked( MouseEvent e ){}
+   public void mouseEntered( MouseEvent e ){}
+   public void mouseExited( MouseEvent e ){}
    /** Clears the line information popup */
-   public void mouseReleased ( MouseEvent e )
-   {
-      if ( popup != null )
-      {
-         popup.setVisible ( false );
-      }
-   }
+	public void mouseReleased( MouseEvent e )
+	{
+		if( popup != null )
+			popup.setVisible( false );
+	}
 
    /**
-     * Updates line details in response to state change.
-     */
+	 * Updates line details in response to state change.
+	 */
    public void stateChanged ( ChangeEvent e )
    {
       if(e.getSource() instanceof JMenuItem) {
@@ -382,49 +374,43 @@ public class EmissionLines extends JPanel implements MouseListener, ChangeListen
 	 * @param frequency
 	 *            Frequency of main line in Hz.
 	 */
-   public void setMainLine ( double frequency )
-   {
-      mainLineFreq = frequency;
+	public void setMainLine( double frequency )
+	{
+		mainLineFreq = frequency;
 
-      if ( (( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit )) || _currentDisplayMode == VELOCITY_DISPLAY )
-      {
-          if ( _currentDisplayMode == FREQUENCY_DISPLAY ) {
-              mainLinePos = (int) ( ((double)xSize) * 
-                      ( mainLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
-          }
-          else {
-              mainLinePos = xSize/2;
-          }
-      }
-      else
-      {
-         mainLinePos = -1;
-      }
+		if( ( ( mainLineFreq > lowLimit ) && ( mainLineFreq < highLimit ) ) || _currentDisplayMode == VELOCITY_DISPLAY )
+		{
+			if( _currentDisplayMode == FREQUENCY_DISPLAY )
+				mainLinePos = ( int ) ( ( ( double ) xSize ) * ( mainLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+			else
+				mainLinePos = xSize / 2;
+		}
+		else
+		{
+			mainLinePos = -1;
+		}
 
-      repaint();
-   }
+		repaint();
+	}
 
    /**
-     * Sets the side line based on input from the Frequency Editor GUI.
-     * @param frequency  Frequency of side line in Hz.
-     */
-   public void setSideLine ( double frequency )
-   {
-      sideLineFreq = frequency;
+	 * Sets the side line based on input from the Frequency Editor GUI.
+	 * 
+	 * @param frequency
+	 *            Frequency of side line in Hz.
+	 */
+	public void setSideLine( double frequency )
+	{
+		sideLineFreq = frequency;
 
-      if ( ( sideLineFreq > lowLimit ) && ( sideLineFreq < highLimit ) )
-      {
-         sideLinePos = (int) ( ((double)xSize) * 
-           ( sideLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
-      }
-      else
-      {
-         sideLinePos = -1;
-      }
+		if( ( sideLineFreq > lowLimit ) && ( sideLineFreq < highLimit ) )
+			sideLinePos = ( int ) ( ( ( double ) xSize ) * ( sideLineFreq - lowLimit ) / ( highLimit - lowLimit ) );
+		else
+			sideLinePos = -1;
 
-      repaint();
+		repaint();
 
-   }
+	}
 
    public void setDisplayMode( int displayMode ) {
        if ( displayMode == _currentDisplayMode ) return;
