@@ -1040,41 +1040,39 @@ public class EdCompTargetList extends OtItemEditor
 	}
 
     /**
-     * Set the labels for the x and y coordinate text boxes.
-     *
-     * <pre><tt>
-     * Coordinate System FK5/FK4     : "" (no label)
-     * Other Coordinate Systems      : "(degrees)"
-     * Offset (any Coordinate System): "(arcsecs)"
-     * </tt></pre>
-     */
-    private void _updateXYUnitsLabels() {
-	if(_curPos.isOffsetPosition() && !_curPos.isBasePosition() ) {
-	    _w.xUnitsLabel.setText("(arcsecs)");
-	    _w.yUnitsLabel.setText("(arcsecs)");
+	 * Set the labels for the x and y coordinate text boxes.
+	 * 
+	 * <pre><tt>
+	 *  Coordinate System FK5/FK4     : &quot;&quot; (no label)
+	 *  Other Coordinate Systems      : &quot;(degrees)&quot;
+	 *  Offset (any Coordinate System): &quot;(arcsecs)&quot;
+	 * </tt></pre>
+	 */
+	private void _updateXYUnitsLabels()
+	{
+		String units = "" ;
+		if( _curPos.isOffsetPosition() && !_curPos.isBasePosition() )
+		{
+			units = "(arcsecs)" ;
+		}
+		else
+		{
+			int system = _curPos.getCoordSys() ;
+			if( ( system != CoordSys.FK5 ) && ( system != CoordSys.FK4 ) && ( system != CoordSys.HADEC ) )
+				units = "(degrees)" ;
+		}
+		_w.xUnitsLabel.setText( units ) ;
+		_w.yUnitsLabel.setText( units ) ;
 	}
-	else {
-	    if((_curPos.getCoordSys() != CoordSys.FK5) && (_curPos.getCoordSys() != CoordSys.FK4) && (_curPos.getCoordSys() != CoordSys.HADEC)) {
-	        _w.xUnitsLabel.setText("(degrees)");
-	        _w.yUnitsLabel.setText("(degrees)");
-	    }
-	    else {
-	        _w.xUnitsLabel.setText("");
-	        _w.yUnitsLabel.setText("");
-	    }
-	}
-    }
 
     /**
-     * Updates the labels of Orbital Elements on the Conic System Tab.
-     *
-     * The labels are updated according to the selected Conic System type
-     * (Major, Minor, Comet).
-     *
-     *  @param conicSystemType Use SpTelescopePos.TYPE_MAJOR,
-     *                             SpTelescopePos.TYPE_MINOR,
-     *                             SpTelescopePos.TYPE_COMET
-     */
+	 * Updates the labels of Orbital Elements on the Conic System Tab.
+	 * 
+	 * The labels are updated according to the selected Conic System type (Major, Minor, Comet).
+	 * 
+	 * @param conicSystemType
+	 *            Use SpTelescopePos.TYPE_MAJOR, SpTelescopePos.TYPE_MINOR, SpTelescopePos.TYPE_COMET
+	 */
     private void _setConicSystemType(int conicSystemType) {
 	// Reset all non displayed elements to 0
       switch(conicSystemType) {
