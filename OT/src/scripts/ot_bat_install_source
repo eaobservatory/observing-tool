@@ -71,7 +71,7 @@ set CFG_TELESCOPE_DIR=%CFG_DIRS%\%TELESCOPE%
 IF (%FREQ_EDITOR_CFG_RESOURCE%)==(edfreq\acsisCfg.xml) set DISALLOW_MULTI_BW_PROP=-DDISALLOW_MULTI_BW
 
 echo on
-%JAVA% -Xms5m -Xmx500m %DISALLOW_MULTI_BW_PROP% -DTELESCOPE=%TELESCOPE% -DFREQ_EDITOR_CFG=%FREQ_EDITOR_CFG_RESOURCE% -DSERVER=%SERVER% -Djsky.catalog.skycat.config=%CFG_TELESCOPE_DIR%\skycat.cfg -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
+%JAVA% -Xms5m -Xmx500m -DTELESCOPE=%TELESCOPE% -DSERVER=%SERVER% -Djsky.catalog.skycat.config=%CFG_TELESCOPE_DIR%\skycat.cfg -Dot.cfgdir=%CFG_TELESCOPE_DIR%\ -Dot.resource.cfgdir=.\ -classpath %CLASSPATH%;%CFG_TELESCOPE_DIR% jsky.app.ot.OT %INTERNAL_FRAMES%
 echo off
 
 GOTO END

@@ -68,7 +68,6 @@ public class HeterodyneGUI extends JPanel {
     JPanel fPanel;
     JPanel bPanel;
     JPanel summaryPanel;
-    JComboBox bandwidths;
     JComboBox specialConfigs;
     JTable table;
     
@@ -82,6 +81,13 @@ public class HeterodyneGUI extends JPanel {
     JPanel radialDefaultPanel ;
     JLabel radialDefaultLabel ;
     CheckBoxWidgetExt defaultToRadial ;
+    
+    JComboBox firstBandwidth ;
+    JComboBox secondBandwidth ;
+    JComboBox thirdBandwidth ;
+    JComboBox fourthBandwidth ;
+    JPanel bandwidthsPanel ;
+    JPanel summaryAndBandwidthPanel ;
 
     public HeterodyneGUI() {
 	try {
@@ -136,22 +142,12 @@ public class HeterodyneGUI extends JPanel {
 		specialConfigs.setForeground( Color.BLACK );
 		specialConfigs.setFont( new Font( "dialog" , 0 , 12 ) );
 
-		JLabel bwLabel = new JLabel( "Bandwidth:" );
-		bwLabel.setForeground( Color.BLACK );
-		bwLabel.setFont( new Font( "dialog" , 0 , 12 ) );
-
-		bandwidths = new JComboBox();
-		bandwidths.setForeground( Color.BLACK );
-		bandwidths.setFont( new Font( "dialog" , 0 , 12 ) );
-
 		fePanel.add( feLabel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( feSelector , new GridBagConstraints( 1 , 0 , 5 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 5 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( subsystemLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( regionSelector , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( specialConfigLabel , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( specialConfigs , new GridBagConstraints( 4 , 1 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) );
-		fePanel.add( bwLabel , new GridBagConstraints( 3 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 20 , 5 , 0 ) , 0 , 0 ) );
-		fePanel.add( bandwidths , new GridBagConstraints( 4 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 5 , 5 , 5 ) , 0 , 0 ) );
 		fePanel.add( modeLabel , new GridBagConstraints( 0 , 2 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( modeSelector , new GridBagConstraints( 1 , 2 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
 		fePanel.add( sbLabel , new GridBagConstraints( 0 , 3 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
@@ -344,10 +340,47 @@ public class HeterodyneGUI extends JPanel {
 		JScrollPane scrollPane = new JScrollPane( table );
 
 		tablePanel.add( scrollPane , BorderLayout.CENTER );
+		
+		bandwidthsPanel = new JPanel() ;
+		
+		bandwidthsPanel.setLayout( new GridLayout( 4 , 1 ) ) ;
+		bandwidthsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "Bandwidths" ) );
+		
+		firstBandwidth = new JComboBox() ;
+		firstBandwidth.setForeground( Color.BLACK ) ;
+		firstBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
+		firstBandwidth.setEnabled( true ) ;
+		
+		secondBandwidth = new JComboBox() ;
+		secondBandwidth.setForeground( Color.BLACK ) ;
+		secondBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
+		secondBandwidth.setEnabled( false ) ;
+		
+		thirdBandwidth = new JComboBox() ;
+		thirdBandwidth.setForeground( Color.BLACK ) ;
+		thirdBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
+		thirdBandwidth.setEnabled( false ) ;
+		
+		fourthBandwidth = new JComboBox() ;
+		fourthBandwidth.setForeground( Color.BLACK ) ;
+		fourthBandwidth.setFont( new Font( "dialog" , 0 , 12 ) ) ;
+		fourthBandwidth.setEnabled( false ) ;
 
+		bandwidthsPanel.add( firstBandwidth ) ;
+		bandwidthsPanel.add( secondBandwidth ) ;
+		bandwidthsPanel.add( thirdBandwidth ) ;
+		bandwidthsPanel.add( fourthBandwidth ) ;
+		
+		summaryAndBandwidthPanel = new JPanel() ;
+		summaryAndBandwidthPanel.setLayout( new GridBagLayout() ) ;
+		summaryAndBandwidthPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createBevelBorder( BevelBorder.LOWERED ) , "" ) );
+
+		summaryAndBandwidthPanel.add( summaryPanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) ) ;
+		summaryAndBandwidthPanel.add( bandwidthsPanel , new GridBagConstraints( 0 , 1 , 1 , 2 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) ) ;
+		
 		// Add all the panels to this object
 		add( fePanel , new GridBagConstraints( 0 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHWEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 0 ) , 0 , 0 ) );
-		add( summaryPanel , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
+		add( summaryAndBandwidthPanel , new GridBagConstraints( 1 , 0 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTHEAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
 		add( freqPanel , new GridBagConstraints( 0 , 1 , 2 , 1 , 1.0 , 0.0 , GridBagConstraints.NORTH , GridBagConstraints.HORIZONTAL , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
 		add( tablePanel , new GridBagConstraints( 0 , 2 , 2 , 2 , 1.0 , 1.0 , GridBagConstraints.NORTH , GridBagConstraints.BOTH , new Insets( 0 , 0 , 5 , 5 ) , 0 , 0 ) );
 	}
