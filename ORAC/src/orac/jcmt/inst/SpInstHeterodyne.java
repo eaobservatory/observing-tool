@@ -257,7 +257,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   public static final String ATTR_CENTRE_FREQUENCY = "centreFrequency";
 
   /** Bandwidth reduced by overlap * number of hybrid subbands. */
-  public static final String ATTR_BANDWIDTH = "bandWidth";
+  public static final String ATTR_BANDWIDTH = "bandWidth" ;
 
   /** Number of channels reduced by overlap * number of hybrid subbands. */
   public static final String ATTR_CHANNELS = "channels";
@@ -331,78 +331,60 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
   /**
-   * Initialises the values fo this item.
-   * 
-   * Most of the default values (or allowed values) for this item are specified in the
-   * configuration files EDFREQ/cfg/edfreq/acsisCfg.xml and EDFREQ/cfg/edfreq/dasCfg.xml
-   * The Heterodyne Editor class {@link jcmt.inst.editor.EdCompInstHeterodyne}.
-   * Wheb the {@link jcmt.inst.editor.EdCompInstHeterodyne#_updateWidgets()}
-   * method of is called for the first time then it can check whether the values of this
-   * SpInstHeterodyne item have been initialised (by calling {@link #valuesInitialised()}).
-   * If they have not then the initialiseValues() can be used to fill in the values
-   * from the above configuration files.<p>
-   */
-  public void initialiseValues(
-      String defaultBeName,
-      String defaultFeName,
-      String defaultMode,
-      String defaultBandMode,
-      String defaultMixer,
-      String defaultOverlap,
-      String defaultBand,
-      String defaultCentreFrequency,
-      String frontendBandwidth,
-      String defaultBandwidth,
-      String defaultMolecule,
-      String defaultTransition,
-      String defaultRestFrequency) {
+	 * Initialises the values fo this item.
+	 * 
+	 * Most of the default values (or allowed values) for this item are specified in the configuration files EDFREQ/cfg/edfreq/acsisCfg.xml and EDFREQ/cfg/edfreq/dasCfg.xml The Heterodyne Editor class {@link jcmt.inst.editor.EdCompInstHeterodyne}. Wheb the {@link jcmt.inst.editor.EdCompInstHeterodyne#_updateWidgets()} method of is called for the first time then it can check whether the values of this SpInstHeterodyne item have been initialised (by calling {@link #valuesInitialised()}). If they have not then the initialiseValues() can be used to fill in the values from the above configuration files.
+	 * <p>
+	 */
+	public void initialiseValues( String defaultBeName , String defaultFeName , String defaultMode , String defaultBandMode , String defaultMixer , String defaultOverlap , String defaultBand , String defaultCentreFrequency , String frontendBandwidth , String defaultBandwidth , String defaultMolecule , String defaultTransition , String defaultRestFrequency )
+	{
+/*
+       System.out.println("SpInstHeterodyne initial values:");
+       System.out.println("\tdefaultBeName="+defaultBeName);
+       System.out.println("\tdefaultFeName="+defaultFeName);
+       System.out.println("\tdefaultMode="+defaultMode);
+       System.out.println("\tdefaultBandMode="+defaultBandMode);
+       System.out.println("\tdefaultMixer="+defaultMixer);
+       System.out.println("\tdefaultOverlap="+defaultOverlap);
+       System.out.println("\tdefaultBand="+defaultBand);
+       System.out.println("\tdefaultCentreFrequency="+defaultCentreFrequency);
+       System.out.println("\tfrontendBandwidth="+frontendBandwidth);
+       System.out.println("\tdefaultBandwidth="+defaultBandwidth);
+       System.out.println("\tdefaultMolecule="+defaultMolecule);
+       System.out.println("\tdefaultTransition="+defaultTransition);
+       System.out.println("\tdefaultRestFrequency="+defaultRestFrequency);
+*/
+		_avTable.noNotifySet( ATTR_BE_NAME , defaultBeName , 0 );
+		_avTable.noNotifySet( ATTR_FE_NAME , defaultFeName , 0 );
+		_avTable.noNotifySet( ATTR_MODE , defaultMode , 0 );
+		_avTable.noNotifySet( ATTR_BAND_MODE , defaultBandMode , 0 );
+		_avTable.noNotifySet( ATTR_MIXER , defaultMixer , 0 );
+		// _avTable.noNotifySet(ATTR_HYBRID_SUBBANDS, defaultHybridSubBands, 0);
+		_avTable.noNotifySet( ATTR_OVERLAP , defaultOverlap , 0 );
+		_avTable.noNotifySet( ATTR_BAND , defaultBand , 0 );
+		_avTable.noNotifySet( ATTR_CENTRE_FREQUENCY , defaultCentreFrequency , 0 );
+		_avTable.noNotifySet( ATTR_FE_IF , defaultCentreFrequency , 0 );
+		_avTable.noNotifySet( ATTR_FE_BANDWIDTH , frontendBandwidth , 0 );
+		_avTable.noNotifySet( ATTR_BANDWIDTH , defaultBandwidth , 0 );
+		_avTable.noNotifySet( ATTR_MOLECULE , defaultMolecule , 0 );
+		_avTable.noNotifySet( ATTR_TRANSITION , defaultTransition , 0 );
+		_avTable.noNotifySet( ATTR_REST_FREQUENCY , defaultRestFrequency , 0 );
 
-//       System.out.println("SpInstHeterodyne initial values:");
-//       System.out.println("\tdefaultBeName="+defaultBeName);
-//       System.out.println("\tdefaultFeName="+defaultFeName);
-//       System.out.println("\tdefaultMode="+defaultMode);
-//       System.out.println("\tdefaultBandMode="+defaultBandMode);
-//       System.out.println("\tdefaultMixer="+defaultMixer);
-//       System.out.println("\tdefaultOverlap="+defaultOverlap);
-//       System.out.println("\tdefaultBand="+defaultBand);
-//       System.out.println("\tdefaultCentreFrequency="+defaultCentreFrequency);
-//       System.out.println("\tfrontendBandwidth="+frontendBandwidth);
-//       System.out.println("\tdefaultBandwidth="+defaultBandwidth);
-//       System.out.println("\tdefaultMolecule="+defaultMolecule);
-//       System.out.println("\tdefaultTransition="+defaultTransition);
-//       System.out.println("\tdefaultRestFrequency="+defaultRestFrequency);
-
-    _avTable.noNotifySet(ATTR_BE_NAME,             defaultBeName,             0);
-    _avTable.noNotifySet(ATTR_FE_NAME,             defaultFeName,             0);
-    _avTable.noNotifySet(ATTR_MODE,                defaultMode,               0);
-    _avTable.noNotifySet(ATTR_BAND_MODE,           defaultBandMode,           0);
-    _avTable.noNotifySet(ATTR_MIXER,               defaultMixer,              0);
-    //_avTable.noNotifySet(ATTR_HYBRID_SUBBANDS,     defaultHybridSubBands,     0);
-    _avTable.noNotifySet(ATTR_OVERLAP,             defaultOverlap,            0);
-    _avTable.noNotifySet(ATTR_BAND,                defaultBand,               0);
-    _avTable.noNotifySet(ATTR_CENTRE_FREQUENCY,    defaultCentreFrequency,    0);
-    _avTable.noNotifySet(ATTR_FE_IF,               defaultCentreFrequency,    0);
-    _avTable.noNotifySet(ATTR_FE_BANDWIDTH,        frontendBandwidth,         0);
-    _avTable.noNotifySet(ATTR_BANDWIDTH,           defaultBandwidth,          0);
-    _avTable.noNotifySet(ATTR_MOLECULE,            defaultMolecule,           0);
-    _avTable.noNotifySet(ATTR_TRANSITION,          defaultTransition,         0);
-    _avTable.noNotifySet(ATTR_REST_FREQUENCY,      defaultRestFrequency,      0);
-
-    _valuesInitialised = true;
-  }
+		_valuesInitialised = true;
+	}
 
   /**
-   * Indicates whether the method initialiseValues() has been called.
-   *
-   * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String, String, String, String)
-   */
+	 * Indicates whether the method initialiseValues() has been called.
+	 * 
+	 * @see #initialiseValues(String,String,String,String,String,String,String,String,String,String,String,String,String, String, String, String)
+	 */
   public boolean valuesInitialised() {
     return _valuesInitialised;
   }
   
   /**
-   * Appends front end name to title.
-   */
+	 * Appends front end name to title.
+	 */
   public String getTitle() {
 
     String frontEndName = getTable().get(ATTR_FE_NAME);
@@ -843,16 +825,19 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   }
 
   /**
-   * Get bandwidth of specified subsystem.
-   *
-   * @param Number of subsystems (starting at 0).
-   *
-   * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
-   * @param subsystem  Subsystem number (starting at 0).
-   */
-  public double getBandWidth(int subsystem) {
-    return _avTable.getDouble(ATTR_BANDWIDTH, subsystem, 0.0);
-  }
+	 * Get bandwidth of specified subsystem.
+	 * 
+	 * @param Number
+	 *            of subsystems (starting at 0).
+	 * 
+	 * @see <A HREF="#bandwidthAndChannels">Bandwidth and Channel methods</A>
+	 * @param subsystem
+	 *            Subsystem number (starting at 0).
+	 */
+	public double getBandWidth( int subsystem )
+	{
+		return _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0.0 );
+	}
 
   /**
 	 * Set bandwidth of specified subsystem.
