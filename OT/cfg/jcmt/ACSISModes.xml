@@ -1,0 +1,223 @@
+<!--
+<?xml version="1.0" encoding="ISO-8859-1"?>
+-->
+<!DOCTYPE specialConfigs [
+  <!ELEMENT specialConfigs (configuration*) >
+  <!ELEMENT configuration (name, frontEnd, frequency, sideband, mixers, mode, systems, bandwidth+, shift+) >
+  <!ELEMENT name (#PCDATA) >
+  <!ELEMENT frontEnd (#PCDATA) >
+  <!ELEMENT frequency (#PCDATA) >
+  <!ELEMENT sideband (#PCDATA) >
+  <!ELEMENT mixers (#PCDATA) >
+  <!ELEMENT mode (#PCDATA) >
+  <!ELEMENT systems (#PCDATA) >
+  <!ELEMENT bandwidth (#PCDATA)>
+  <!ELEMENT shift (#PCDATA)>
+]>
+
+
+<specialConfigs>
+<configuration>
+  <name>      H2CO_250X2      </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 218.34890       </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     0.12625         </shift>
+  <shift>     -0.12625        </shift>
+</configuration>
+
+<configuration>
+  <name>      H2CO_250X4      </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 218.49113       </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.26875        </shift>
+  <shift>     -0.015          </shift>
+  <shift>     0.26875         </shift>
+  <shift>     -0.26875        </shift>
+</configuration>
+
+<configuration>
+  <name>      13C18O_250X2    </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 219.9795        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     0.41875         </shift>
+  <shift>     -0.41875        </shift>
+</configuration>
+
+<configuration>
+  <name>      SOC18O_250X2    </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 219.7549        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      DSB             </mode>
+  <systems>   2               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     0.1945          </shift>
+  <shift>     -0.1945         </shift>
+</configuration>
+
+<configuration>
+  <name>      COH13CN_250     </name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 345.56790       </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   2               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.2275         </shift>
+  <shift>     0.2275          </shift>
+</configuration>
+
+<configuration>
+  <name>      H2DN2H_250X4    </name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 372.54690       </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    2               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.125          </shift>
+  <shift>     0.125           </shift>
+  <shift>     -0.125          </shift>
+  <shift>     0.125           </shift>
+</configuration>
+
+<configuration>
+  <name>      H2DN2H_250X2    </name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 372.54690       </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   2               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.125          </shift>
+  <shift>     0.125           </shift>
+</configuration>
+
+<configuration>
+  <name>      CNCN_250        </name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 340.1398        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    2               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.1075         </shift>
+  <shift>     0.1075          </shift>
+  <shift>     -0.1075         </shift>
+  <shift>     0.1075          </shift>
+</configuration>
+
+<configuration>
+  <name>      COPCOP_250      </name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 353.8778        </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    2               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.13625        </shift>
+  <shift>     0.13625         </shift>
+  <shift>     -0.13625        </shift>
+  <shift>     0.13625         </shift>
+</configuration>
+
+<configuration>
+  <name>      OCS_250         </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 218.828         </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   1               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.075          </shift>
+</configuration>
+
+<configuration>
+  <name>      SIOSO_250x2     </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 261.18085       </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   2               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.2025         </shift>
+  <shift>     0.2025          </shift>
+</configuration>
+
+<configuration>
+  <name>      JANW1_4x250USB  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 219.9795        </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.41875        </shift>
+  <shift>     -0.03           </shift>
+  <shift>     -0.03           </shift>
+  <shift>     0.41875         </shift>
+</configuration>
+
+<configuration>
+  <name>      JANW1_4x250LSB  </name>
+  <frontEnd>  A3              </frontEnd>
+  <frequency> 219.9795        </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   4               </systems>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     -0.41875        </shift>
+  <shift>     0.03            </shift>
+  <shift>     0.03            </shift>
+  <shift>     0.41875         </shift>
+</configuration>
+
+</specialConfigs>
+
