@@ -145,6 +145,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   String currentFrequency = "" ;
   
   Component[] components = null ;
+  boolean configured = false ;
   
   	public EdCompInstHeterodyne()
 	{
@@ -517,8 +518,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_updateBandwidths();
 
 		// Update the special configs
-		if( _inst.getNamedConfiguration() != null )
-			_w.specialConfigs.setSelectedItem( _inst.getNamedConfiguration() );
+		String namedConfig = _inst.getNamedConfiguration() ;
+		if( namedConfig != null && !"".equals( namedConfig ) )
+				_w.specialConfigs.setSelectedItem( namedConfig ) ;
 
 		// Update the summary panel
 		for( int i = 0 ; i < _w.summaryPanel.getComponentCount() ; i++ )
@@ -635,13 +637,33 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_updateTable();
 	}
 
+	private void _checkEditsWhenConfigured()
+	{
+		if( configured )
+		{
+			int option = JOptionPane.showConfirmDialog( _w , "Drop special configuration to allow editing ?" , "Drop special config ?" , JOptionPane.YES_NO_OPTION ) ;
+			if( option == 0 )
+			{
+				_inst.removeNamedConfiguration() ;
+				configureFrequencyEditor() ;
+				configured = false ;
+				_w.specialConfigs.setSelectedIndex( 0 ) ;
+			}
+		}
+	}
+	
 
 	public void actionPerformed( ActionEvent ae )
 	{
+		
+		_checkEditsWhenConfigured() ;
+		
+		Object source = ae.getSource() ;
+		
 		for( int componentIndex = 0 ; componentIndex < components.length ; componentIndex++ )
 		{
 			JComboBox component = ( JComboBox )components[ componentIndex ] ;
-			if( ae.getSource() == component )
+			if( source == component )
 			{
 				_inst.setBandWidth( Double.parseDouble( ( String )component.getSelectedItem() ) * 1.0E6 , componentIndex ) ;
 				setAvailableRegions() ;
@@ -651,18 +673,20 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}			
 		}		
 		
-		if( ae.getSource() == _w.specialConfigs )
+		if( source == _w.specialConfigs )
 		{
 			// If the user has selected None
 			if( _w.specialConfigs.getSelectedIndex() == 0 )
 			{
+				configured = false ;
 				_inst.removeNamedConfiguration();
 				configureFrequencyEditor();
 			}
 			else
 			{
-				_inst.setNamedConfiguration( ( String ) _w.specialConfigs.getSelectedItem() );
-				ConfigurationInformation ci = getConfigFor( ( String )_w.specialConfigs.getSelectedItem() );
+				String selectedConfig = ( String )_w.specialConfigs.getSelectedItem() ;
+				_inst.setNamedConfiguration( selectedConfig ) ;
+				ConfigurationInformation ci = getConfigFor( selectedConfig ) ;
 				if( ci == null )
 					return;
 
@@ -683,7 +707,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					}
 					else
 					{
-						component.setSelectedIndex( 0 ) ;
+						int index = component.getSelectedIndex() ;
+						if( index != 0 )
+							component.setSelectedIndex( 0 ) ;
 					}
 				}
 				// Set the rest frequency text...
@@ -692,8 +718,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				tf.setText( ci.$freq.toString() );
 				freqAction();
 				clickButton( _w.fPanel , "Accept" );
+				_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				configureFrequencyEditor( ci.$shifts );
 				_freqEditorConfigured = true;
+				configured = true ;
 			}
 			_updateWidgets();
 			return;
@@ -701,7 +729,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		try
 		{
-			if( ( ( Component ) ae.getSource() ).getName().equals( "molecule" ) )
+			if( ( ( Component )source).getName().equals( "molecule" ) )
 			{
 				// Set the current molecule and update the transitions
 				_inst.setCentreFrequency( _receiver.feIF , 0 );
@@ -709,7 +737,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_updateTransitionChoice();
 				_initialiseRegionInfo();
 			}
-			else if( ( ( Component )ae.getSource() ).getName().equals( "transition" ) )
+			else if( ( ( Component )source).getName().equals( "transition" ) )
 			{
 				// Set the current transition
 				_inst.setCentreFrequency( _receiver.feIF , 0 );
@@ -720,7 +748,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					_updateFrequencyText( ( ( Transition )t).frequency / 1.0E9 );
 				_initialiseRegionInfo();
 			}
-			else if( ( ( Component )ae.getSource() ).getName().equals( "Accept" ) )
+			else if( ( ( Component )source).getName().equals( "Accept" ) )
 			{
 				// Set the current Rest Frequency
 				// Get the text field widget
@@ -747,14 +775,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_w.velocity.setForeground( Color.BLACK );
 				toggleEnabled( _w.fPanel , "Accept" , false );
 			}
-			else if( ( ( Component ) ae.getSource() ).getName().equals( "show" ) )
+			else if( ( ( Component )source).getName().equals( "show" ) )
 			{
 				if( !_freqEditorConfigured )
 					configureFrequencyEditor();
 				enableNamedWidgets( false );
 				_frequencyEditor.show();
 			}
-			else if( ( ( Component ) ae.getSource() ).getName().equals( "hide" ) )
+			else if( ( ( Component )source).getName().equals( "hide" ) )
 			{
 				_hidingFrequencyEditor = true;
 				getFrequencyEditorConfiguration();
@@ -781,8 +809,24 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_freqEditorConfigured = false;
 	}
 
+	
+	private void _updateCentralFrequenciesFromShifts( Vector shifts )
+	{
+		for( int i = 0 ; i < shifts.size() ; i++ )
+		{
+			/*
+			 * is this 4.0e9 or _inst.getCentreFrequency( i ) ?
+			 * so far it seems correct with either
+			 */
+			double frequency = 4.0e9 + ( ( ( Double )shifts.elementAt( i ) ).doubleValue() * 1.0e9 ) ;
+			_inst.setCentreFrequency( "" + frequency , i ) ;
+		}
+	}
+	
 	public void feAction( ActionEvent ae )
 	{
+		_checkEditsWhenConfigured() ;
+		
 		if( ae != null )
 		{
 			// This has been called as a response to a user action
@@ -805,48 +849,62 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_updateWidgets();
 	}
 
-   public void modeAction ( ActionEvent ae ) {
-       if ( ae != null ) {
-	   // User action
-	   String mode = ((JRadioButton)ae.getSource()).getText();
-	   _inst.setMode(mode);
+	public void modeAction( ActionEvent ae )
+	{
+	   _checkEditsWhenConfigured() ;
+	   
+		if( ae != null )
+		{
+			// User action
+			String mode = ( ( JRadioButton ) ae.getSource() ).getText();
+			_inst.setMode( mode );
 
-	   // Update the band width choices
-       }
-       else {
-	   // System action
-       }
-       _updateWidgets();
-   }
+			// Update the band width choices
+		}
+		else
+		{
+			// System action
+		}
+		_updateWidgets();
+	}
 
-   public void sbSelectAction ( ActionEvent ae ) {
-       if ( ae != null ) {
-	   String sb = ((JRadioButton)ae.getSource()).getText();
+	public void sbSelectAction( ActionEvent ae )
+	{
+		_checkEditsWhenConfigured() ;
+		
+		if( ae != null )
+		{
+			String sb = ( ( JRadioButton )ae.getSource() ).getText();
 
-	   // If we are switching between upper and lower sidebands we
-	   // need to alter the centre frequency for higher level subsytems
-	   if ( Integer.parseInt(_inst.getBandMode()) > 1 ) {
-	       String currentBand = _inst.getBand();
-	       if ( currentBand.equals("best") && sb.equals("usb") ||
-		    currentBand.equals("usb") && sb.equals("best") ) {
-		   // Do nothing since 'best' is equivalent to 'usb' as far as
-		   // the OT is concerned
-	       }
-	       else {
-		   double topCentreFreq = _inst.getCentreFrequency(0);
-		   for ( int i=1; i<Integer.parseInt(_inst.getBandMode()); i++ ) {
-		       double diff = topCentreFreq - _inst.getCentreFrequency(i);
-		       _inst.setCentreFrequency( topCentreFreq + diff, i );
-		   }
-	       }
-	   }
-	   _inst.setBand(sb);
-       }
-       _updateWidgets();
-   }
+			// If we are switching between upper and lower sidebands we
+			// need to alter the centre frequency for higher level subsytems
+			if( Integer.parseInt( _inst.getBandMode() ) > 1 )
+			{
+				String currentBand = _inst.getBand();
+				if( currentBand.equals( "best" ) && sb.equals( "usb" ) || currentBand.equals( "usb" ) && sb.equals( "best" ) )
+				{
+					// Do nothing since 'best' is equivalent to 'usb' as far as
+					// the OT is concerned
+				}
+				else
+				{
+					double topCentreFreq = _inst.getCentreFrequency( 0 );
+					for( int i = 1 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
+					{
+						double diff = topCentreFreq - _inst.getCentreFrequency( i );
+						_inst.setCentreFrequency( topCentreFreq + diff , i );
+					}
+				}
+			}
+			_inst.setBand( sb );
+		}
+		_updateWidgets();
+	}
 
 	public void regionAction( ActionEvent ae )
 	{
+		_checkEditsWhenConfigured() ;
+		
 		if( ae != null )
 		{
 			String regions = ( ( JRadioButton )ae.getSource() ).getText();
@@ -865,6 +923,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void freqAction()
 	{
+		_checkEditsWhenConfigured() ;
+		
 		// Called when user changes the frequency manually
 		toggleEnabled( _w.fPanel , "Accept" , true ) ;
 		int compNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue();
@@ -1489,16 +1549,22 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	}
     }
 
-    private void clickButton(Container c, String name) {
-	for ( int i=0; i<c.getComponentCount(); i++ ) {
-	    if ( c.getComponent(i).getName() != null &&
-		 c.getComponent(i).getName().equals(name) &&
-		 c.getComponent(i) instanceof AbstractButton ) {
-		((AbstractButton)c.getComponent(i)).doClick();
-		break;
-	    }
-	};
-    }
+    private void clickButton( Container c , String name )
+	{
+		for( int i = 0 ; i < c.getComponentCount() ; i++ )
+		{
+			Component component = c.getComponent( i ) ;
+			String cName = component.getName() ;
+			boolean configuredState = configured ;
+			if( cName != null && cName.equals( name ) && component instanceof AbstractButton )
+			{
+				configured = false ;
+				( ( AbstractButton )c.getComponent( i ) ).doClick();
+				configured = configuredState ;
+				break;
+			}
+		}
+	}
 
    private Object getObject(JComboBox comboBox, String name) {
      for(int i = 0; i < comboBox.getItemCount(); i++) {
@@ -1666,13 +1732,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		else
 			_frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
 		_frequencyEditor.setMainLine( _inst.getRestFrequency( 0 ) );
-
+/*
 		for( int i = 0 ; i < shifts.size() ; i++ )
 		{
 			_frequencyEditor.moveSlider( _inst.getBand() , 4.0e9 + ( ( ( Double )shifts.elementAt( i ) ).doubleValue() * 1.0e9 ) , subbandCount - 1 );
 			if( i > 0 )
 				_frequencyEditor.setLineText( "No Line" , subbandCount - 1 );
 		}
+*/
 	}
 
    private void getFrequencyEditorConfiguration() {
