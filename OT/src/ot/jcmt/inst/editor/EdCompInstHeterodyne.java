@@ -426,7 +426,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int i = 0 ; i < moleculeVector.size() ; i++ )
 		{
 			if( moleculeVector.get( i ).toString().trim().equals( molecule ) )
-				transition = ( Transition ) ( ( SelectionList ) moleculeVector.get( i ) ).objectList.get( 0 );
+				transition = ( Transition )( ( SelectionList )moleculeVector.get( i )).objectList.get( 0 );
 		}
 
 		if( transition != null )
@@ -654,24 +654,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	
 
 	public void actionPerformed( ActionEvent ae )
-	{
-		
-		_checkEditsWhenConfigured() ;
-		
-		Object source = ae.getSource() ;
-		
-		for( int componentIndex = 0 ; componentIndex < components.length ; componentIndex++ )
-		{
-			JComboBox component = ( JComboBox )components[ componentIndex ] ;
-			if( source == component )
-			{
-				_inst.setBandWidth( Double.parseDouble( ( String )component.getSelectedItem() ) * 1.0E6 , componentIndex ) ;
-				setAvailableRegions() ;
-				_updateRegionInfo() ;
-				_updateWidgets();
-				return ;
-			}			
-		}		
+	{				
+		Object source = ae.getSource() ;		
 		
 		if( source == _w.specialConfigs )
 		{
@@ -700,10 +684,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					if( componentIndex < ci.$bandWidths.size() )
 					{
 						Object object = ci.$bandWidths.get( componentIndex ) ;
+						component.removeActionListener( this ) ;
 						if( object != null )
 							component.setSelectedItem( ci.$bandWidths.get( componentIndex ) ) ;
 						else
 							component.setSelectedIndex( 0 ) ;
+						component.addActionListener( this ) ;
 					}
 					else
 					{
@@ -712,11 +698,57 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 							component.setSelectedIndex( 0 ) ;
 					}
 				}
-				// Set the rest frequency text...
-				int compNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" ) ).intValue();
-				JTextField tf = ( JTextField )_w.fPanel.getComponent( compNum );
-				tf.setText( ci.$freq.toString() );
-				freqAction();
+	
+				if( ci.$species.size() > 0 )
+				{
+					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
+					{
+	 					String species = ( String )ci.$species.get( index ) ;
+						_inst.setMolecule( species , index ) ;
+						String speciesTransition = ( String )ci.$transition.get( index ) ;
+						_inst.setTransition( speciesTransition , index ) ;
+						_updateTransitionChoice() ;
+	
+						double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 );
+						double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 );
+	
+						Vector moleculeVector = _lineCatalog.returnSpecies( obsmin * ( 1.0 + getRedshift() ) , obsmax * ( 1.0 + getRedshift() ) );
+						
+						Transition transition = null;
+	
+						for( int i = 0 ; i < moleculeVector.size() ; i++ )
+						{
+							SelectionList selectionList = ( SelectionList )moleculeVector.get( i ) ;
+							if( selectionList.toString().trim().equals( species ) )
+							{
+								for( int j = 0 ; j < selectionList.objectList.size() ; j++ )
+								{
+									transition = ( Transition )selectionList.objectList.get( j ) ;
+									String transitionName = transition.name.trim() ;
+									if( transitionName.equals( speciesTransition ) )
+										break ;
+									transition = null ;
+								}
+								break ;
+							}
+						}
+	
+						if( transition != null )
+						{
+							double transitionFrequency = transition.frequency ;
+							_inst.setRestFrequency( transitionFrequency , index ) ;
+						}
+					}
+					_updateRegionInfo() ;
+				}
+				else
+				{
+					// Set the rest frequency text...
+					int freqCompNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" )).intValue();
+					JTextField tf = ( JTextField )_w.fPanel.getComponent( freqCompNum );
+					tf.setText( ci.$freq.toString() );
+					freqAction();
+				}
 				clickButton( _w.fPanel , "Accept" );
 				_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				configureFrequencyEditor( ci.$shifts );
@@ -726,6 +758,21 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			_updateWidgets();
 			return;
 		}
+		
+		_checkEditsWhenConfigured() ;
+		
+		for( int componentIndex = 0 ; componentIndex < components.length ; componentIndex++ )
+		{
+			JComboBox component = ( JComboBox )components[ componentIndex ] ;
+			if( source == component )
+			{
+				_inst.setBandWidth( Double.parseDouble( ( String )component.getSelectedItem() ) * 1.0E6 , componentIndex ) ;
+				setAvailableRegions() ;
+				_updateRegionInfo() ;
+				_updateWidgets();
+				return ;
+			}			
+		}
 
 		try
 		{
@@ -733,7 +780,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				// Set the current molecule and update the transitions
 				_inst.setCentreFrequency( _receiver.feIF , 0 );
-				_inst.setMolecule( ( ( JComboBox )ae.getSource() ).getSelectedItem().toString() , 0 );
+				_inst.setMolecule( ( ( JComboBox )ae.getSource()).getSelectedItem().toString() , 0 );
 				_updateTransitionChoice();
 				_initialiseRegionInfo();
 			}
@@ -741,9 +788,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				// Set the current transition
 				_inst.setCentreFrequency( _receiver.feIF , 0 );
-				_inst.setTransition( ( ( JComboBox )ae.getSource() ).getSelectedItem().toString() , 0 );
+				_inst.setTransition( ( ( JComboBox )ae.getSource()).getSelectedItem().toString() , 0 );
 				// Update the frequency information
-				Object t = ( ( JComboBox )ae.getSource() ).getSelectedItem();
+				Object t = ( ( JComboBox )ae.getSource()).getSelectedItem();
 				if( t instanceof Transition )
 					_updateFrequencyText( ( ( Transition )t).frequency / 1.0E9 );
 				_initialiseRegionInfo();
@@ -1175,9 +1222,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		SelectionList currentSpecies = null;
 		for( int i = 0 ; i < speciesList.size() ; i++ )
 		{
-			if( ( ( SelectionList ) speciesList.get( i ) ).toString().equals( currentMolecule ) )
+			if( ( ( SelectionList )speciesList.get( i )).toString().equals( currentMolecule ) )
 			{
-				currentSpecies = ( SelectionList ) speciesList.get( i );
+				currentSpecies = ( SelectionList )speciesList.get( i );
 				break;
 			}
 		}
@@ -1186,7 +1233,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			transBox.setModel( new DefaultComboBoxModel( currentSpecies.objectList ) );
 
 		// Add the no line option
-		if( ( ( DefaultComboBoxModel ) transBox.getModel() ).getIndexOf( NO_LINE ) == -1 )
+		if( ( ( DefaultComboBoxModel )transBox.getModel() ).getIndexOf( NO_LINE ) == -1 )
 			transBox.addItem( NO_LINE + " " );
 
 		// Check if the previous transition is still in range
@@ -1421,25 +1468,31 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			NodeList children = nodeToUse.getChildNodes();
 			for( int i = 0 ; i < children.getLength() ; i++ )
 			{
-				String childName = children.item( i ).getNodeName();
+				Node child = children.item( i ) ;
+				String childName = child.getNodeName();
+				String childValue = child.getFirstChild().getNodeValue().trim() ;
 				if( childName.equals( "name" ) )
-					ci.$name = children.item( i ).getFirstChild().getNodeValue().trim();
+					ci.$name = childValue ;
 				else if( childName.equals( "frontEnd" ) )
-					ci.$feName = children.item( i ).getFirstChild().getNodeValue().trim().toUpperCase();
+					ci.$feName = childValue.toUpperCase();
 				else if( childName.equals( "sideband" ) )
-					ci.$sideBand = children.item( i ).getFirstChild().getNodeValue().trim().toUpperCase();
+					ci.$sideBand = childValue.toUpperCase();
 				else if( childName.equals( "mode" ) )
-					ci.$mode = children.item( i ).getFirstChild().getNodeValue().trim().toUpperCase();
+					ci.$mode = childValue.toUpperCase();
 				else if( childName.equals( "frequency" ) )
-					ci.$freq = new Double( children.item( i ).getFirstChild().getNodeValue().trim() );
+					ci.$freq = new Double( childValue );
 				else if( childName.equals( "mixers" ) )
-					ci.$mixers = new Integer( children.item( i ).getFirstChild().getNodeValue().trim() );
+					ci.$mixers = new Integer( childValue );
 				else if( childName.equals( "systems" ) )
-					ci.$subSystems = new Integer( children.item( i ).getFirstChild().getNodeValue().trim() );
+					ci.$subSystems = new Integer( childValue );
+				else if( childName.equals( "species" ) )
+					ci.$species.add( childValue ) ;
+				else if( childName.equals( "transition" ) )
+					ci.$transition.add( childValue ) ;
 				else if( childName.equals( "bandwidth" ) )
-					ci.$bandWidths.add( children.item( i ).getFirstChild().getNodeValue().trim() ) ;
+					ci.$bandWidths.add( childValue ) ;
 				else if( childName.equals( "shift" ) )
-					ci.$shifts.add( new Double( children.item( i ).getFirstChild().getNodeValue().trim() ) );
+					ci.$shifts.add( new Double( childValue ) );
 			}
 		}
 		return ci;
@@ -1879,6 +1932,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		public String $mode;
 		public Integer $mixers;
 		public Integer $subSystems;
+		public Vector $species = new Vector() ;
+		public Vector $transition = new Vector() ;
 		public Vector $bandWidths = new Vector() ;
 		public Vector $shifts = new Vector();
 
@@ -1891,6 +1946,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			System.out.println( "mode       = " + $mode );
 			System.out.println( "mixers     = " + $mixers );
 			System.out.println( "subSystems = " + $subSystems );
+			System.out.println( "species    = " + $species ) ;
+			System.out.println( "transition = " + $transition ) ;
 			System.out.println( "bandwidth  = " + $subSystems );
 		}
 	}
