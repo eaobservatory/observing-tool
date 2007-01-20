@@ -516,6 +516,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		// Update the bandwidth
 		_updateBandwidths();
+		
+		int active = new Integer( band ).intValue() ;
+		for( int componentIndex = 0 ; componentIndex < components.length ; componentIndex++ )
+		{
+			JComboBox component = ( JComboBox )components[ componentIndex ] ;
+			component.setEnabled( componentIndex < active ) ;
+		}
 
 		// Update the special configs
 		String namedConfig = _inst.getNamedConfiguration() ;
