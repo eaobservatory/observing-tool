@@ -1670,22 +1670,69 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int i = 0 ; i < _regionInfo.length ; i++ )
 		{
 			if( _regionInfo[ i ] == null )
-				_regionInfo[ i ] = new Vector();
-			_regionInfo[ i ].add( _inst.getMolecule( 0 ) );
-			_inst.setMolecule( _inst.getMolecule( 0 ) , i );
-			_regionInfo[ i ].add( _inst.getTransition( 0 ) );
-			_inst.setTransition( _inst.getTransition( 0 ) , i );
-			_regionInfo[ i ].add( new Double( _inst.getRestFrequency( 0 ) / 1.0E9 ) );
-			_inst.setRestFrequency( _inst.getRestFrequency( 0 ) , i );
-			_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
-			_regionInfo[ i ].add( new Double( _inst.getCentreFrequency( 0 ) ) );
-			_inst.setCentreFrequency( _inst.getCentreFrequency( 0 ) , i );
-			_regionInfo[ i ].add( new Double( _inst.getBandWidth( 0 ) ) );
-			_inst.setBandWidth( _inst.getBandWidth( 0 ) , i );
-			int resolution = ( int ) Math.rint( ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 ) );
-			_regionInfo[ i ].add( new Integer( resolution ) ); // Need to add resolution here
-			_regionInfo[ i ].add( new Integer( _inst.getChannels( 0 ) ) );
-			_inst.setChannels( _inst.getChannels( 0 ) , i );
+				_regionInfo[ i ] = new Vector() ;
+			if( _inst.getMolecule( i ) == null )
+			{
+				String molecule0 = _inst.getMolecule( 0 ) ;
+				_regionInfo[ i ].add( molecule0 ) ;
+				_inst.setMolecule( molecule0 , i ) ;
+			}
+			else
+			{
+				_regionInfo[ i ].add( _inst.getMolecule( i ) ) ;
+			}
+			if( _inst.getTransition( i ) == null )
+			{
+				String transition0 = _inst.getTransition( 0 ) ;
+				_regionInfo[ i ].add( transition0 ) ;
+				_inst.setTransition( transition0 , i ) ;
+			}
+			else
+			{
+				_regionInfo[ i ].add( _inst.getTransition( i ) ) ;
+			}
+			if( _inst.getRestFrequency( i ) == 0. )
+			{
+				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( 0 ) / 1.0E9 ) ) ;
+				_inst.setRestFrequency( _inst.getRestFrequency( 0 ) , i ) ;
+				_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) ) ;
+			}
+			else
+			{
+				_regionInfo[ i ].add( new Double( _inst.getRestFrequency( i ) / 1.0E9 ) ) ;
+			}
+			if( _inst.getCentreFrequency( i ) == 0. )
+			{
+				_regionInfo[ i ].add( new Double( _inst.getCentreFrequency( 0 ) ) ) ;
+				_inst.setCentreFrequency( _inst.getCentreFrequency( 0 ) , i ) ;
+			}
+			else
+			{
+				_regionInfo[ i ].add( new Double( _inst.getCentreFrequency( i ) ) ) ;
+			}
+			if( _inst.getBandWidth( i ) == 0. )
+			{
+				_regionInfo[ i ].add( new Double( _inst.getBandWidth( 0 ) ) ) ;
+				_inst.setBandWidth( _inst.getBandWidth( 0 ) , i ) ;
+				int resolution = ( int )Math.rint( ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 ) );
+				_regionInfo[ i ].add( new Integer( resolution ) ); // Need to add resolution here
+			}
+			else
+			{
+				_regionInfo[ i ].add( new Double( _inst.getBandWidth( i ) ) ) ;
+				int resolution = ( int )Math.rint( ( _inst.getBandWidth( i ) * 1.0E-3 ) / _inst.getChannels( i ) ) ;
+				_regionInfo[ i ].add( new Integer( resolution ) ) ; // Need to add resolution here
+			}
+			if( _inst.getChannels( i ) == 0 )
+			{
+				// unlikely to happen
+				_regionInfo[ i ].add( new Integer( _inst.getChannels( 0 ) ) ) ;
+				_inst.setChannels( _inst.getChannels( 0 ) , i ) ;
+			}
+			else
+			{
+				_regionInfo[ i ].add( new Integer( _inst.getChannels( i ) ) ) ;
+			}
 		}
 		initialisedRegion = true ;
 	}
