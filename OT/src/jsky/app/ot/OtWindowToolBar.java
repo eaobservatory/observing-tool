@@ -168,6 +168,21 @@ public class OtWindowToolBar extends GenericToolBar {
 	updateButton(prioritizeButton, "Prioritize", null);
 	return prioritizeButton;
     }
+    
+    protected JButton makeForwardButton()
+    {
+    	JButton jButton = new JButton() ;
+    	jButton.setVisible( false ) ;
+    	return jButton ;
+    }
+    
+    protected JButton makeBackButton()
+    {
+    	JButton jButton = new JButton() ;
+    	jButton.setVisible( false ) ;
+    	return jButton ;
+    }
+    
     /**
      * Update the toolbar display using the current text/pictures options.
      * (redefined from the parent class).
