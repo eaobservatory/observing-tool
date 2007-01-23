@@ -75,8 +75,7 @@ public class FrequencyEditorCfg {
 	 */
 	public FrequencyEditorCfg()
 	{
-		frontEnds = new String[]
-		{ "A3" , "WB" , "WC" , "WD" , "HARP" };
+		frontEnds = new String[]{ "A3" , "WB" , "WC" , "WD" , "HARP" };
 
 		// Put the default mode (dsb or ssb) first in the array.
 		frontEndTable.put( "A3" , new String[]{ "dsb" } );
