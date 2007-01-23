@@ -3,7 +3,7 @@
  centreFrequenciesAdjustable="true">
   <ArrayOf-java.lang.String alias-ID="1" obj-name="frontEnds" length="5">
     <java.lang.String alias-ID="2" valueOf="A3"/>
-    <java.lang.String alias-ID="3" valueOf="B3"/>
+    <java.lang.String alias-ID="3" valueOf="W(B)"/>
     <java.lang.String alias-ID="4" valueOf="W(C)"/>
     <java.lang.String alias-ID="5" valueOf="W(D)"/>
     <java.lang.String alias-ID="6" valueOf="HARP-B"/>
@@ -14,7 +14,7 @@
       <java.lang.String alias-ID="10" valueOf="dsb"/>
     </ArrayOf-java.lang.String>
 
-    <java.lang.String alias-ID="11" valueOf="B3"/>
+    <java.lang.String alias-ID="11" valueOf="W(B)"/>
     <ArrayOf-java.lang.String alias-ID="12" length="2">
       <java.lang.String alias-ID="13" valueOf="ssb"/>
       <java.lang.String alias-ID="14" valueOf="dsb"/>
@@ -43,7 +43,7 @@
       <java.lang.String alias-ID="29" valueOf="1"/>
     </ArrayOf-java.lang.String>
 
-    <java.lang.String alias-ID="30" valueOf="B3"/>
+    <java.lang.String alias-ID="30" valueOf="W(B)"/>
     <ArrayOf-java.lang.String alias-ID="31" length="2">
       <java.lang.String alias-ID="32" valueOf="1"/>
       <java.lang.String alias-ID="33" valueOf="2"/>
@@ -107,13 +107,13 @@
       </java.util.Vector>
     </edfreq.Receiver>
 
-    <java.lang.String alias-ID="72" valueOf="B3"/>
+    <java.lang.String alias-ID="72" valueOf="W(B)"/>
     <edfreq.Receiver alias-ID="73"
      loMin="3.22E11"
      loMax="3.73E11"
      feIF="4.0E9"
      bandWidth="1.8E9">
-      <java.lang.String alias-ID="74" obj-name="name" valueOf="B3"/>
+      <java.lang.String alias-ID="74" obj-name="name" valueOf="W(B)"/>
       <java.util.Vector alias-ID="75" obj-name="bandspecs">
         <edfreq.BandSpec alias-ID="76"
          numBands="1">
