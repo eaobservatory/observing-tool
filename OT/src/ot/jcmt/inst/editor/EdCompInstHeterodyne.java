@@ -755,9 +755,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					JTextField tf = ( JTextField )_w.fPanel.getComponent( freqCompNum );
 					tf.setText( ci.$freq.toString() );
 					freqAction();
+					
+					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
+					{
+						double frequency = ( ( Double )ci.$freq.elementAt( index )).doubleValue() ;
+						_inst.setRestFrequency( frequency , index ) ;
+						_inst.setMolecule( NO_LINE , index ) ;
+						_inst.setTransition( NO_LINE , index ) ;
+					}					
+					_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				}
 				clickButton( _w.fPanel , "Accept" );
-				_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				configureFrequencyEditor( ci.$shifts );
 				_freqEditorConfigured = true;
 				configured = true ;
@@ -866,14 +874,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	
 	private void _updateCentralFrequenciesFromShifts( Vector shifts )
 	{
-		for( int i = 0 ; i < shifts.size() ; i++ )
+		for( int index = 0 ; index < shifts.size() ; index++ )
 		{
 			/*
 			 * is this 4.0e9 or _inst.getCentreFrequency( i ) ?
 			 * so far it seems correct with either
 			 */
-			double frequency = 4.0e9 + ( ( ( Double )shifts.elementAt( i ) ).doubleValue() * 1.0e9 ) ;
-			_inst.setCentreFrequency( "" + frequency , i ) ;
+			double frequency = 4.0e9 + ( ( ( Double )shifts.elementAt( index ) ).doubleValue() * 1.0e9 ) ;
+			if( frequency != 4.0e9 )
+				_inst.setCentreFrequency( "" + frequency , index ) ;
 		}
 	}
 	
@@ -1487,7 +1496,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				else if( childName.equals( "mode" ) )
 					ci.$mode = childValue.toUpperCase();
 				else if( childName.equals( "frequency" ) )
-					ci.$freq = new Double( childValue );
+					ci.$freq.add( new Double( childValue ) ) ;
 				else if( childName.equals( "mixers" ) )
 					ci.$mixers = new Integer( childValue );
 				else if( childName.equals( "systems" ) )
@@ -1981,7 +1990,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		public String $name;
 		public String $feName;
-		public Double $freq;
+		public Vector $freq = new Vector() ;
 		public String $sideBand;
 		public String $mode;
 		public Integer $mixers;
@@ -1995,7 +2004,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			System.out.println( "name       = " + $name );
 			System.out.println( "feName     = " + $feName );
-			System.out.println( "frequency  = " + $freq.doubleValue() );
+			System.out.println( "frequency  = " + $freq );
 			System.out.println( "sideBand   = " + $sideBand );
 			System.out.println( "mode       = " + $mode );
 			System.out.println( "mixers     = " + $mixers );
