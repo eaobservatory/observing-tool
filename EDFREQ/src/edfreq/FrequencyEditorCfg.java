@@ -71,25 +71,27 @@ public class FrequencyEditorCfg {
   private static FrequencyEditorCfg _frequencyEditorCfg = null;
 
   /**
-   * Constructor used if no xml configuration file is specified or found.
-   */
-  public FrequencyEditorCfg() {
-    frontEnds     = new String[] { "A3", "B3", "WC", "WD", "HARP" };
+	 * Constructor used if no xml configuration file is specified or found.
+	 */
+	public FrequencyEditorCfg()
+	{
+		frontEnds = new String[]
+		{ "A3" , "WB" , "WC" , "WD" , "HARP" };
 
-    // Put the default mode (dsb or ssb) first in the array.
-    frontEndTable.put("A3",     new String[]{ "dsb" });
-    frontEndTable.put("B3",     new String[]{ "ssb", "dsb" });
-    frontEndTable.put("WD",     new String[]{ "ssb", "dsb" });
-    frontEndTable.put("HARP", new String[]{ "ssb" });
+		// Put the default mode (dsb or ssb) first in the array.
+		frontEndTable.put( "A3" , new String[]{ "dsb" } );
+		frontEndTable.put( "WB" , new String[]{ "ssb" , "dsb" } );
+		frontEndTable.put( "WD" , new String[]{ "ssb" , "dsb" } );
+		frontEndTable.put( "HARP" , new String[]{ "ssb" } );
 
-    frontEndMixers.put("A3",     new String[]{ "Single Mixer" });
-    frontEndMixers.put("B3",     new String[]{ "Single Mixer", "Dual Mixer" });
-    frontEndMixers.put("WD",     new String[]{ "Single Mixer", "Dual Mixer" });
-    frontEndMixers.put("HARP", new String[]{ "Single Mixer" });
+		frontEndMixers.put( "A3" , new String[]{ "Single Mixer" } );
+		frontEndMixers.put( "WB" , new String[]{ "Single Mixer" , "Dual Mixer" } );
+		frontEndMixers.put( "WD" , new String[]{ "Single Mixer" , "Dual Mixer" } );
+		frontEndMixers.put( "HARP" , new String[]{ "Single Mixer" } );
 
-    centreFrequenciesAdjustable = true;
-    receivers = ReceiverList.getReceiverTable();
-  }
+		centreFrequenciesAdjustable = true;
+		receivers = ReceiverList.getReceiverTable();
+	}
 
   /**
 	 * Returns a FrequencyEditorCfg based on the value of the system poperty FREQ_EDITOR_CFG_PROPERTY, which should point ot the cfg file.

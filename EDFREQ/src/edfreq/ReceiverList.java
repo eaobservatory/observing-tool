@@ -49,7 +49,7 @@ public class ReceiverList
       receivers.put ( "A3", r );
 
 
-      r = new Receiver ( "B3", 322.0E9, 373.0E9, 4.0E9, 1.8E9 );
+      r = new Receiver ( "WB", 322.0E9, 373.0E9, 4.0E9, 1.8E9 );
 
       r.bandspecs.add ( new BandSpec ( "1-system", 1, new double[] { 1.0E9,  4.0E9 },
                                                       new double[] { 1.0E8,  4.0E8 },
@@ -58,7 +58,7 @@ public class ReceiverList
       r.bandspecs.add ( new BandSpec ( "4-system", 4, new double[] { 0.25E9, 1.0E9 }, new int[] {  8192, 2048 } ) );
       r.bandspecs.add ( new BandSpec ( "8-system", 8, new double[] { 0.25E9, 1.0E9 }, new int[] {  4096, 1024 } ) );
 
-      receivers.put ( "B3", r );
+      receivers.put ( "WB", r );
 
 
       r = new Receiver ( "WC", 430.0E9, 510.0E9, 4.0E9, 1.8E9 );
