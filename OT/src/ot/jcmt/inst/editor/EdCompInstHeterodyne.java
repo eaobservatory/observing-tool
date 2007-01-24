@@ -763,9 +763,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						_inst.setMolecule( NO_LINE , index ) ;
 						_inst.setTransition( NO_LINE , index ) ;
 					}					
-					_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				}
 				clickButton( _w.fPanel , "Accept" );
+				_updateCentralFrequenciesFromShifts( ci.$shifts ) ;
 				configureFrequencyEditor( ci.$shifts );
 				_freqEditorConfigured = true;
 				configured = true ;
@@ -1486,7 +1486,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				Node child = children.item( i ) ;
 				String childName = child.getNodeName();
-				String childValue = child.getFirstChild().getNodeValue().trim() ;
+				Node firstChild = child.getFirstChild() ;
+				if( firstChild == null )
+					continue ;
+				String childValue = firstChild.getNodeValue() ;
+				if( childValue == null || "".equals( childValue ) )
+					continue ;
+				childValue = childValue.trim() ;
 				if( childName.equals( "name" ) )
 					ci.$name = childValue ;
 				else if( childName.equals( "frontEnd" ) )
