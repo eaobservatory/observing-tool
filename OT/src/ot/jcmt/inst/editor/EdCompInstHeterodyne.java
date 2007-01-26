@@ -759,7 +759,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
 					{
 						double frequency = ( ( Double )ci.$freq.elementAt( index )).doubleValue() ;
-						_inst.setRestFrequency( frequency , index ) ;
+						_inst.setRestFrequency( frequency * 1.0E9 , index ) ;
 						_inst.setMolecule( NO_LINE , index ) ;
 						_inst.setTransition( NO_LINE , index ) ;
 					}					
