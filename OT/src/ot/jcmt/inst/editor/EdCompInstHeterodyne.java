@@ -482,6 +482,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
    */
 	protected void _updateWidgets()
 	{
+		boolean cachedConfigured = configured ;
+		configured = false ;
 		if( !_inst.valuesInitialised() )
 		{
 			_initialiseInstHeterodyne();
@@ -642,6 +644,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_updateRegionInfo();
 
 		_updateTable();
+		configured = cachedConfigured ;
 	}
 
 	private void _checkEditsWhenConfigured()
@@ -754,7 +757,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					int freqCompNum = ( ( Integer )freqPanelWidgetNames.get( "frequency" )).intValue();
 					JTextField tf = ( JTextField )_w.fPanel.getComponent( freqCompNum );
 					tf.setText( ci.$freq.toString() );
-					freqAction();
 					
 					for( int index = 0 ; index < ci.$subSystems.intValue() ; index++ )
 					{
