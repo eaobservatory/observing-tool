@@ -651,7 +651,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		if( configured )
 		{
-			int option = JOptionPane.showConfirmDialog( _w , "Drop special configuration to allow editing ?" , "Drop special config ?" , JOptionPane.YES_NO_OPTION ) ;
+			int option = JOptionPane.showConfirmDialog( _w , "Do you wish this configuration to be editable ?" , "Do you wish this configuration to be editable ?" , JOptionPane.YES_NO_OPTION ) ;
 			if( option == 0 )
 			{
 				_inst.removeNamedConfiguration() ;
