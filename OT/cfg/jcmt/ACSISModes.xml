@@ -70,254 +70,172 @@
 <configuration>
   <name>      13C18O_250X2    </name>
   <frontEnd>  A3              </frontEnd>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
   <mixers>    1               </mixers>
   <mode>      DSB             </mode>
   <systems>   2               </systems>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
+  <species>   13-CO           </species>
+  <species>   C-18-O          </species>
+  <transition>2  - 1          </transition>
+  <transition>2  - 1          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.41875         </shift>
-  <shift>     -0.41875        </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
   <name>      SOC18O_250X2    </name>
   <frontEnd>  A3              </frontEnd>
-  <frequency> 219.7549        </frequency>
-  <frequency> 219.7549        </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
   <mixers>    1               </mixers>
   <mode>      DSB             </mode>
   <systems>   2               </systems>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
+  <species>   C-18-O          </species>
+  <species>   SO              </species>
+  <transition>2  - 1          </transition>
+  <transition>5 6  - 4 5      </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.1945          </shift>
-  <shift>     -0.1945         </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
   <name>      COH13CN_250     </name>
   <frontEnd>  HARP            </frontEnd>
-  <frequency> 345.56790       </frequency>
-  <frequency> 345.56790       </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   2               </systems>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
+  <species>   CO              </species>
+  <species>   H-13-CN         </species>
+  <transition>3  - 2          </transition>
+  <transition>4  - 3          </transition>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.2275         </shift>
-  <shift>     0.2275          </shift>
-</configuration>
-
-<configuration>
-  <name>      H2DN2H_250X4    </name>
-  <frontEnd>  HARP            </frontEnd>
-  <frequency> 372.54690       </frequency>
-  <frequency> 372.54690       </frequency>
-  <frequency> 372.54690       </frequency>
-  <frequency> 372.54690       </frequency>
-  <sideband>  USB             </sideband>
-  <mixers>    2               </mixers>
-  <mode>      SSB             </mode>
-  <systems>   4               </systems>
-  <species></species>
-  <species></species>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.125          </shift>
-  <shift>     0.125           </shift>
-  <shift>     -0.125          </shift>
-  <shift>     0.125           </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
   <name>      H2DN2H_250X2    </name>
   <frontEnd>  HARP            </frontEnd>
-  <frequency> 372.54690       </frequency>
-  <frequency> 372.54690       </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   2               </systems>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
+  <species>   H2D+            </species>
+  <species>   N2H+            </species>
+  <transition>1 1 0 0  - 1 1 1 0</transition>
+  <transition>4  - 3          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.125          </shift>
-  <shift>     0.125           </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
-  <name>      CNCN_250        </name>
-  <frontEnd>  HARP            </frontEnd>
-  <frequency> 340.1398        </frequency>
-  <frequency> 340.1398        </frequency>
-  <frequency> 340.1398        </frequency>
-  <frequency> 340.1398        </frequency>
-  <sideband>  USB             </sideband>
-  <mixers>    2               </mixers>
-  <mode>      SSB             </mode>
-  <systems>   4               </systems>
-  <species></species>
-  <species></species>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.1075         </shift>
-  <shift>     0.1075          </shift>
-  <shift>     -0.1075         </shift>
-  <shift>     0.1075          </shift>
-</configuration>
-
-<configuration>
-  <name>      COPCOP_250      </name>
-  <frontEnd>  HARP            </frontEnd>
-  <frequency> 353.8778        </frequency>
-  <frequency> 353.8778        </frequency>
-  <frequency> 353.8778        </frequency>
-  <frequency> 353.8778        </frequency>
-  <sideband>  LSB             </sideband>
-  <mixers>    2               </mixers>
-  <mode>      SSB             </mode>
-  <systems>   4               </systems>
-  <species></species>
-  <species></species>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.13625        </shift>
-  <shift>     0.13625         </shift>
-  <shift>     -0.13625        </shift>
-  <shift>     0.13625         </shift>
-</configuration>
-
-<configuration>
-  <name>      OCS_250         </name>
-  <frontEnd>  A3              </frontEnd>
-  <frequency> 218.828         </frequency>
+  <name>      HARP_13CO       </name>
+  <frontEnd>  HARP              </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
-  <systems>   1               </systems>
-  <species></species>
-  <transition></transition>
+  <systems>   2               </systems>
+  <species>   C-18-O          </species>
+  <species>   13-CO           </species>
+  <transition>3  - 2          </transition>
+  <transition>3  - 2          </transition>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.075          </shift>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
   <name>      SIOSO_250x2     </name>
   <frontEnd>  A3              </frontEnd>
-  <frequency> 261.18085       </frequency>
-  <frequency> 261.18085       </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   2               </systems>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
+  <species>   SiO             </species>
+  <species>   SO              </species>
+  <transition>6  - 5          </transition>
+  <transition>4 3  - 3 4      </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.2025         </shift>
-  <shift>     0.2025          </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
   <name>      JANW1_4x250USB  </name>
   <frontEnd>  A3              </frontEnd>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  USB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   4               </systems>
-  <species></species>
-  <species></species>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
+  <species>   CH3OH           </species>
+  <species>   SiCC            </species>
+  <species>   SO              </species>
+  <species>   2  - 1          </species>
+  <transition>10 5 4  - 11 4 4</transition>
+  <transition>10 0 10  - 9 0 9</transition>
+  <transition>5 6  - 4 5      </transition>
+  <transition>2  - 1          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.41875        </shift>
-  <shift>     -0.03           </shift>
-  <shift>     -0.03           </shift>
-  <shift>     0.41875         </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
   <name>      JANW1_4x250LSB  </name>
   <frontEnd>  A3              </frontEnd>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
-  <frequency> 219.9795        </frequency>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   4               </systems>
-  <species></species>
-  <species></species>
-  <species></species>
-  <species></species>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
-  <transition></transition>
+  <species>   C-18-O          </species>
+  <species>   OCS             </species>
+  <species>   SO              </species>
+  <species>   CH3CN v8=0,1    </species>
+  <transition>2  - 1          </transition>
+  <transition>18  - 17        </transition>
+  <transition>5 6  - 4 5      </transition>
+  <transition>12 11 0 12  - 11 11 0 11</transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.41875        </shift>
-  <shift>     0.03            </shift>
-  <shift>     0.03            </shift>
-  <shift>     0.41875         </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 </specialConfigs>
