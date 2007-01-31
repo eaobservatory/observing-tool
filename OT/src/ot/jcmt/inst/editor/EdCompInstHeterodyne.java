@@ -1304,8 +1304,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		// Set the value in the instrument component
 		// Assume incoming frequency in GHz
 		int active = new Integer( _inst.getBandMode() ).intValue() ;
-		for( int i = 0 ; i < active ; i++ )
-			_inst.setRestFrequency( f * 1.0E9 , i );
+		_inst.setRestFrequency( f * 1.0E9 , 0 );
 		_inst.setSkyFrequency( ( f * 1.0E9 ) / ( 1.0 + getRedshift() ) );
 		// Get the component
 		JTextField freq = null;
@@ -1865,7 +1864,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 /*
 		for( int i = 0 ; i < shifts.size() ; i++ )
 		{
-			_frequencyEditor.moveSlider( _inst.getBand() , 4.0e9 + ( ( ( Double )shifts.elementAt( i ) ).doubleValue() * 1.0e9 ) , subbandCount - 1 );
+			_frequencyEditor.moveSlider( _inst.getBand() , _inst.getCentreFrequency( i ) , subbandCount - 1 );
 			if( i > 0 )
 				_frequencyEditor.setLineText( "No Line" , subbandCount - 1 );
 		}
