@@ -34,8 +34,8 @@
   <transition>3 1 3  - 2 1 2  </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.12625         </shift>
-  <shift>     -0.12625        </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
@@ -61,10 +61,10 @@
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     -0.26875        </shift>
-  <shift>     -0.015          </shift>
-  <shift>     0.26875         </shift>
-  <shift>     -0.26875        </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
+  <shift>     0.              </shift>
 </configuration>
 
 <configuration>
@@ -75,34 +75,23 @@
   <sideband>  USB             </sideband>
   <mixers>    1               </mixers>
   <mode>      DSB             </mode>
-  <systems>   2               </systems>
+  <systems>   4               </systems>
   <species>   13-CO           </species>
   <species>   C-18-O          </species>
-  <transition>2  - 1          </transition>
-  <transition>2  - 1          </transition>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
-</configuration>
-
-<configuration>
-  <name>      SOC18O_250X2    </name>
-  <frontEnd>  A3              </frontEnd>
-  <frequency> 0.              </frequency>
-  <frequency> 0.              </frequency>
-  <sideband>  USB             </sideband>
-  <mixers>    1               </mixers>
-  <mode>      DSB             </mode>
-  <systems>   2               </systems>
-  <species>   C-18-O          </species>
+  <species>   SO              </species>
   <species>   SO              </species>
   <transition>2  - 1          </transition>
+  <transition>2  - 1          </transition>
+  <transition>5 6  - 4 5      </transition>
   <transition>5 6  - 4 5      </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 1000.0          </bandwidth>
+  <shift>  4.344106699751862E9</shift>
+  <shift>  3.50578699975235E9 </shift>
+  <shift>  3.89487219975235E9 </shift>
+  <shift>  3.89487219975235E9 </shift>
 </configuration>
 
 <configuration>
@@ -119,8 +108,8 @@
   <transition>3  - 2          </transition>
   <transition>4  - 3          </transition>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <shift>     5.0E9           </shift>
+  <shift>     5.45623E9       </shift>
 </configuration>
 
 <configuration>
@@ -138,8 +127,8 @@
   <transition>4  - 3          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <shift>     5.0E9           </shift>
+  <shift>     5.251169E9      </shift>
 </configuration>
 
 <configuration>
@@ -157,8 +146,8 @@
   <transition>3  - 2          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <shift>  5.607009925558312E9</shift>
+  <shift>  4.349595125558289E9</shift>
 </configuration>
 
 <configuration>
@@ -176,8 +165,8 @@
   <transition>4 3  - 3 4      </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <shift> 3.2916253101736975E9</shift>
+  <shift> 3.3882514898273315E9</shift>
 </configuration>
 
 <configuration>
@@ -194,7 +183,7 @@
   <species>   CH3OH           </species>
   <species>   SiCC            </species>
   <species>   SO              </species>
-  <species>   2  - 1          </species>
+  <species>   C-18-O          </species>
   <transition>10 5 4  - 11 4 4</transition>
   <transition>10 0 10  - 9 0 9</transition>
   <transition>5 6  - 4 5      </transition>
@@ -203,10 +192,10 @@
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <shift> 4.295471464019852E9 </shift>
+  <shift> 4.66819466402005E9  </shift>
+  <shift> 3.84393486402005E9  </shift>
+  <shift> 3.45484966402005E9  </shift>
 </configuration>
 
 <configuration>
@@ -232,10 +221,10 @@
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
-  <shift>     0.              </shift>
+  <shift>     4.0E9           </shift>
+  <shift>     4.6570003E9     </shift>
+  <shift>     3.6109148E9     </shift>
+  <shift>     3.3257632E9     </shift>
 </configuration>
 
 </specialConfigs>
