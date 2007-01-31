@@ -19,6 +19,8 @@
 
 
 <specialConfigs>
+	
+<!--
 <configuration>
   <name>      H2CO_250X2      </name>
   <frontEnd>  A3              </frontEnd>
@@ -66,6 +68,7 @@
   <shift>     0.              </shift>
   <shift>     0.              </shift>
 </configuration>
+-->
 
 <configuration>
   <name>      13C18O_250X2    </name>
