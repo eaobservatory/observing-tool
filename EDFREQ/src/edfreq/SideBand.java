@@ -149,16 +149,19 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 
    public void updateSamplerValues( double centre , double width , int channels )
 	{
-		// If the SideBand is one of the top SideBands and the line should be clamped
-		// then adjust LO1 accordingly.
-		if( isTopSideBand() && !_lineClamped && ( width == subBandWidth ) )
+	   /*
+	    * If the SideBand is one of the top SideBands 
+	    * and the line should be clamped
+	    * then adjust LO1 accordingly. 
+		*/
+		if( isTopSideBand() && _lineClamped && ( width == subBandWidth ) )
 		{
 			String band;
 			if( hetEditor != null )
 				band = hetEditor.getFeBand();
 			else
 				band = "usb";
-
+					
 			if( band.equals( "lsb" ) )
 			{
 				if( highLimit < 0.0 )
