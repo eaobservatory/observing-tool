@@ -101,12 +101,13 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       return subBandCentre;
    }
 
-   public void setScaledCentre ( int v ) 
-   { 
-      setSubBandCentre ( (double)v/pixratio + 0.5 * subBandWidth );
+	public void setScaledCentre( int v )
+	{
+		double mySubBandCentre = (( double )v) / pixratio + ( 0.5 * subBandWidth ) ;
+		setSubBandCentre( mySubBandCentre ) ;
 
-      sampler.setCentreFrequency ( Math.abs ( subBandCentre ) );
-   }
+		sampler.setCentreFrequency( Math.abs( subBandCentre ) );
+	}
 
    public void updateCentreFrequency()
    {
@@ -146,83 +147,72 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       }
    }
 
-   public void updateSamplerValues ( double centre, double width,
-   int channels)
-   {
-      // If the SideBand is one of the top SideBands and the line should be clamped
-      // then adjust LO1 accordingly.
-      if(isTopSideBand() && _lineClamped && (width == subBandWidth)) {
-         String band;
-	 if(hetEditor != null) {
-            band = hetEditor.getFeBand();
-	 }
-	 else {
-            band = "usb";
-	 }
+   public void updateSamplerValues( double centre , double width , int channels )
+	{
+		// If the SideBand is one of the top SideBands and the line should be clamped
+		// then adjust LO1 accordingly.
+		if( isTopSideBand() && !_lineClamped && ( width == subBandWidth ) )
+		{
+			String band;
+			if( hetEditor != null )
+				band = hetEditor.getFeBand();
+			else
+				band = "usb";
 
-         if ( band.equals("lsb") )
-         {
-            if(highLimit < 0.0) {
-               sideBandDisplay.setLO1(sideBandDisplay.getLO1() + (subBandCentre + centre));
-            }
-            else {
-               sideBandDisplay.setLO1(sideBandDisplay.getLO1() - (subBandCentre - centre));
-            }
-         }   
-         else
-         {
-            if(highLimit < 0.0) {
-               sideBandDisplay.setLO1(sideBandDisplay.getLO1() - (subBandCentre + centre));
-            }
-            else {
-               sideBandDisplay.setLO1(sideBandDisplay.getLO1() + (subBandCentre - centre));
-            }
-         }
-      }	 
-      
-   
-      int sc;
-      int sw;
+			if( band.equals( "lsb" ) )
+			{
+				if( highLimit < 0.0 )
+					sideBandDisplay.setLO1( sideBandDisplay.getLO1() + ( subBandCentre + centre ) );
+				else
+					sideBandDisplay.setLO1( sideBandDisplay.getLO1() - ( subBandCentre - centre ) );
+			}
+			else
+			{
+				if( highLimit < 0.0 )
+					sideBandDisplay.setLO1( sideBandDisplay.getLO1() - ( subBandCentre + centre ) );
+				else
+					sideBandDisplay.setLO1( sideBandDisplay.getLO1() + ( subBandCentre - centre ) );
+			}
+		}
 
-      if ( highLimit < 0.0 )
-      {
-         subBandCentre = - centre;
-      }
-      else
-      {
-         subBandCentre = centre;
-      }
+		int sc;
 
-      subBandWidth = width;
+		if( highLimit < 0.0 )
+			subBandCentre = -centre;
+		else
+			subBandCentre = centre;
 
-      sideBandGui.removeAdjustmentListener ( this );
+		subBandWidth = width;
 
-      sw = getScaledWidth();
+		sideBandGui.removeAdjustmentListener( this );
 
-      if(sw >= (pixratio * (highLimit - lowLimit))) {
-         if(sideBandGui.isEnabled()) {
-            sideBandGui.setBackground(_scrollBarKnobColor);
-            _bandWidthExceedsRange = true;
-         }
-      }
-      else {
-         sideBandGui.setBackground(_scrollBarBackground);
-         _bandWidthExceedsRange = false;
-      }
+		int sw = getScaledWidth();
 
-      sc = getScaledCentre();
-      sideBandGui.setValues ( sc, sw, (int)(pixratio*lowLimit),
-        (int)(pixratio*highLimit));
+		if( ( sw >= ( pixratio * ( highLimit - lowLimit ) ) ) && sideBandGui.isEnabled() )
+		{
+			sideBandGui.setBackground( _scrollBarKnobColor ) ;
+			_bandWidthExceedsRange = true;
+		}
+		else
+		{
+			sideBandGui.setBackground( _scrollBarBackground ) ;
+			_bandWidthExceedsRange = false;
+		}
 
-      if(!FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-         _currentSideBandGuiValue   = sc;
-         _currentSideBandGuiExtend  = sw;
-         _currentSideBandGuiMinimum = (int)(pixratio*lowLimit);
-         _currentSideBandGuiMaximum = (int)(pixratio*highLimit);
-      }
+		sc = getScaledCentre() ;
+		int pixTimesLow = ( int )( pixratio * lowLimit ) ;
+		int pixTimesHigh = ( int )( pixratio * highLimit );
+		sideBandGui.setValues( sc , sw , pixTimesLow , pixTimesHigh );
 
-      sideBandGui.addAdjustmentListener ( this );
-   }
+		if( !FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable )
+		{
+			_currentSideBandGuiValue = sc;
+			_currentSideBandGuiExtend = sw;
+			_currentSideBandGuiMinimum = pixTimesLow ;
+			_currentSideBandGuiMaximum = pixTimesHigh ;
+		}
+		sideBandGui.addAdjustmentListener( this );
+	}
 
    protected void connectTopSideBand(SideBandDisplay sideBandDisplay, HeterodyneEditor hetEditor) {
       this.sideBandDisplay = sideBandDisplay;
