@@ -39,7 +39,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 {
 
    private double subBandWidth;
-   private int displayWidth = 800;
+   private int displayWidth = Values.DISPLAY_WIDTH ;
    private JSlider slider;
    private EmissionLines el;
    private GraphScale localScale;
@@ -93,210 +93,196 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
    }
 
-   public void updateDisplay ( String feName, 
-			       double lRangeLimit, double uRangeLimit, 
-			       double feIF, double feBandWidth, int nMixers,
-			       double redshift, 
-			       double [] bandWidths, int [] channels, 
-			       int samplerCount )
-   {
+	public void updateDisplay( String feName , 
+								double lRangeLimit , 
+									double uRangeLimit , 
+										double feIF , 
+											double feBandWidth , 
+												int nMixers , 
+													double redshift , 
+														double[] bandWidths , 
+															int[] channels , 
+																int samplerCount )
+	{
 
-      setTitle ( "Frequency editor: front end = " + feName );
-//       System.out.println("Updating sideband display with parametrs");
-//       System.out.println("feName = "+feName);
-//       System.out.println("lRangeLimit = "+lRangeLimit);
-//       System.out.println("uRangeLimit = "+uRangeLimit);
-//       System.out.println("feIF = "+feIF);
-//       System.out.println("feBandWidth = "+feBandWidth);
-//       System.out.println("nMixers = "+nMixers);
-//       System.out.println("redshift = "+redshift);
-//       Exception ex = new Exception ();
-//       ex.printStackTrace();
+		setTitle( "Frequency editor: front end = " + feName );
+		// System.out.println("Updating sideband display with parametrs");
+		// System.out.println("feName = "+feName);
+		// System.out.println("lRangeLimit = "+lRangeLimit);
+		// System.out.println("uRangeLimit = "+uRangeLimit);
+		// System.out.println("feIF = "+feIF);
+		// System.out.println("feBandWidth = "+feBandWidth);
+		// System.out.println("nMixers = "+nMixers);
+		// System.out.println("redshift = "+redshift);
+		// Exception ex = new Exception ();
+		// ex.printStackTrace();
 
-      int j;
+		int j;
 
-      this.redshift = redshift;
+		this.redshift = redshift;
 
-      _uRangeLimit = uRangeLimit;
-      _lRangeLimit = lRangeLimit;
+		_uRangeLimit = uRangeLimit;
+		_lRangeLimit = lRangeLimit;
 
-      contentPanel = Box.createHorizontalBox();
-      contentPanel.add ( Box.createHorizontalGlue() );
-      dataPanel = Box.createVerticalBox();
-      titlePanel = Box.createVerticalBox();
+		contentPanel = Box.createHorizontalBox();
+		contentPanel.add( Box.createHorizontalGlue() );
+		dataPanel = Box.createVerticalBox();
+		titlePanel = Box.createVerticalBox();
 
-      this.subBandWidth = bandWidths[0];
+		this.subBandWidth = bandWidths[ 0 ];
 
-      double mid = 0.5 * ( lRangeLimit + uRangeLimit );
-      double lowIF = mid - feIF - ( feBandWidth * 0.5 );
-      double highIF = mid + feIF + ( feBandWidth * 0.5 );
+		double mid = 0.5 * ( lRangeLimit + uRangeLimit );
+		double lowIF = mid - feIF - ( feBandWidth * 0.5 );
+		double highIF = mid + feIF + ( feBandWidth * 0.5 );
 
-//       System.out.println("SideBandDisplay: Getting emission lines with parameters:");
-//       System.out.println("\tlRangeLimit="+lRangeLimit);
-//       System.out.println("\tuRangeLimit="+uRangeLimit);
-//       System.out.println("\tfeIF="+feIF);
-//       System.out.println("\tfeBandWidth="+feBandWidth);
-//       System.out.println("\tlowIF="+lowIF);
-//       System.out.println("\thighIF="+highIF);
-//       System.out.println("\tredshift="+redshift);
-//       System.out.println("\tdisplayWidth="+displayWidth);
-//       System.out.println("\tsamplerCount="+samplerCount);
-      el = new EmissionLines ( lowIF, highIF, redshift, 
-        displayWidth, 20, samplerCount );
-      //System.out.println("el=" + el);
+		// System.out.println("SideBandDisplay: Getting emission lines with parameters:");
+		// System.out.println("\tlRangeLimit="+lRangeLimit);
+		// System.out.println("\tuRangeLimit="+uRangeLimit);
+		// System.out.println("\tfeIF="+feIF);
+		// System.out.println("\tfeBandWidth="+feBandWidth);
+		// System.out.println("\tlowIF="+lowIF);
+		// System.out.println("\thighIF="+highIF);
+		// System.out.println("\tredshift="+redshift);
+		// System.out.println("\tdisplayWidth="+displayWidth);
+		// System.out.println("\tsamplerCount="+samplerCount);
+		el = new EmissionLines( lowIF , highIF , redshift , displayWidth , 20 , samplerCount );
+		// System.out.println("el=" + el);
 
-      jt = new FrequencyTable ( feIF, feBandWidth,
-        bandWidths, channels,
-        samplerCount, displayWidth+6, this, hetEditor, el, nMixers);
+		jt = new FrequencyTable( feIF , feBandWidth , bandWidths , channels , samplerCount , displayWidth + 6 , this , hetEditor , el , nMixers );
 
-      dataPanel.add ( jt, BorderLayout.CENTER );
+		dataPanel.add( jt , BorderLayout.CENTER );
 
-      SkyTransmission st = null;
-      try {
-          st = new SkyTransmission ( feName, lowIF, highIF,  
-            displayWidth, 80 );
-      }
-      catch (Exception e) {
-	  //e.printStackTrace();
-      }
-      
-      double pixelsPerValue = 1.0E9 * 800.0 / ( uRangeLimit - lRangeLimit );
+		SkyTransmission st = null;
+		try
+		{
+			st = new SkyTransmission( feName , lowIF , highIF , displayWidth , 80 );
+		}
+		catch( Exception e )
+		{
+			// e.printStackTrace();
+		}
 
-      targetScale = new GraphScale ( lowIF, highIF, 
-        1.0E9, 0.1E9, redshift, 9, 800, JSlider.HORIZONTAL );
-      localScale = new GraphScale ( lowIF, highIF, 
-        1.0E9, 0.1E9, 0.0, 9, 800, JSlider.HORIZONTAL );
+		double pixelsPerValue = 1.0E9 * displayWidth / ( uRangeLimit - lRangeLimit );
 
-/* Create slider for Front-end local oscillator  */
+		targetScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , redshift , 9 , displayWidth , JSlider.HORIZONTAL );
+		localScale = new GraphScale( lowIF , highIF , 1.0E9 , 0.1E9 , 0.0 , 9 , displayWidth , JSlider.HORIZONTAL );
 
-      int centre = (int) ( mid / EdFreq.SLIDERSCALE );
-      int lslide = (int) ( lRangeLimit / EdFreq.SLIDERSCALE );
-      int uslide = (int) ( uRangeLimit / EdFreq.SLIDERSCALE );
-      slider = new JSlider ( JSlider.HORIZONTAL, lslide, uslide, 
-        centre );
-      slider.setMinorTickSpacing ( (int)( 1.0E9 / EdFreq.SLIDERSCALE ) );
-      slider.setMajorTickSpacing ( (int)( 10.0E9 / EdFreq.SLIDERSCALE ) );
-      slider.setPaintTicks ( true );
-      slider.setPaintLabels( true );
+		/* Create slider for Front-end local oscillator */
 
-/* Create labels for slider at 10GHz intervals */
+		int centre = ( int ) ( mid / EdFreq.SLIDERSCALE );
+		int lslide = ( int ) ( lRangeLimit / EdFreq.SLIDERSCALE );
+		int uslide = ( int ) ( uRangeLimit / EdFreq.SLIDERSCALE );
+		slider = new JSlider( JSlider.HORIZONTAL , lslide , uslide , centre );
+		slider.setMinorTickSpacing( ( int ) ( 1.0E9 / EdFreq.SLIDERSCALE ) );
+		slider.setMajorTickSpacing( ( int ) ( 10.0E9 / EdFreq.SLIDERSCALE ) );
+		slider.setPaintTicks( true );
+		slider.setPaintLabels( true );
 
-      Hashtable labels = new Hashtable();
-      for ( j=lslide; j<=uslide; j+=(int)( 10.0E9 / EdFreq.SLIDERSCALE ) ) 
-      {
-         labels.put ( new Integer ( j ), 
-           new JLabel ( "" + j / ( (int)( 1.0E9 / EdFreq.SLIDERSCALE ) ), 
-           SwingConstants.CENTER ) );
-      }
+		/* Create labels for slider at 10GHz intervals */
 
-      slider.setLabelTable ( labels );
+		Hashtable labels = new Hashtable();
+		for( j = lslide ; j <= uslide ; j += ( int ) ( 10.0E9 / EdFreq.SLIDERSCALE ) )
+		{
+			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int ) ( 1.0E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) );
+		}
 
-/* Make the graphics follow the slider */
+		slider.setLabelTable( labels );
 
-      slider.addChangeListener ( (ChangeListener)el );
-      if ( st != null ) {
-          slider.addChangeListener ( (ChangeListener)st );
-      }
-      slider.addChangeListener ( (ChangeListener)targetScale );
-      slider.addChangeListener ( (ChangeListener)localScale );
-      slider.addChangeListener   ( this );
+		/* Make the graphics follow the slider */
 
-      // LO1 slider will be activeted by pressing the right mouse. This is
-      // to prevent accidental LO1 adjustments caused by user clicking on
-      // the lower edge of the SideBandDisplay (frequency editor) in order
-      // to get it into the foreground. (The entire bottom section of the
-      // SideBandDisplay is the LO1 slider, i.e. each click there would
-      // result in an LO1 adjustment.)
-      slider.setEnabled(false);
-      slider.setToolTipText("To change LO1 press right mouse button and keep it pressed. " +
-                            "Then drag LO1 with left mouse button.");
-      slider.addMouseListener(this);
+		slider.addChangeListener( ( ChangeListener ) el );
+		if( st != null )
+		{
+			slider.addChangeListener( ( ChangeListener ) st );
+		}
+		slider.addChangeListener( ( ChangeListener ) targetScale );
+		slider.addChangeListener( ( ChangeListener ) localScale );
+		slider.addChangeListener( this );
 
-      targetPanel = Box.createVerticalBox();
-      targetPanel.add ( Box.createVerticalGlue() );
-      targetPanel.add ( el );
-      targetPanel.add ( targetScale );
+		// LO1 slider will be activeted by pressing the right mouse. This is
+		// to prevent accidental LO1 adjustments caused by user clicking on
+		// the lower edge of the SideBandDisplay (frequency editor) in order
+		// to get it into the foreground. (The entire bottom section of the
+		// SideBandDisplay is the LO1 slider, i.e. each click there would
+		// result in an LO1 adjustment.)
+		slider.setEnabled( false );
+		slider.setToolTipText( "To change LO1 press right mouse button and keep it pressed. " + "Then drag LO1 with left mouse button." );
+		slider.addMouseListener( this );
 
-      Box scales = Box.createVerticalBox();
-      scales.add ( Box.createVerticalGlue() );
-      scales.add ( localScale );
-      scales.add ( slider );
+		targetPanel = Box.createVerticalBox();
+		targetPanel.add( Box.createVerticalGlue() );
+		targetPanel.add( el );
+		targetPanel.add( targetScale );
 
-      Box plot = Box.createVerticalBox();
-      plot.add ( targetPanel );
-      if ( st != null ) {
-          plot.add ( st );
-      }
-      plot.add ( scales );
+		Box scales = Box.createVerticalBox();
+		scales.add( Box.createVerticalGlue() );
+		scales.add( localScale );
+		scales.add( slider );
 
+		Box plot = Box.createVerticalBox();
+		plot.add( targetPanel );
+		if( st != null )
+		{
+			plot.add( st );
+		}
+		plot.add( scales );
 
-      dataPanel.add ( plot );
+		dataPanel.add( plot );
 
-      area1 = new JPanel();
-      area2 = new JPanel();
-      area3 = new JPanel ( new BorderLayout() );
-      area4 = new JPanel ( new BorderLayout() );
+		area1 = new JPanel();
+		area2 = new JPanel();
+		area3 = new JPanel( new BorderLayout() );
+		area4 = new JPanel( new BorderLayout() );
 
+		JLabel label1 = new JLabel( "Subsystems" );
+		area1.add( label1 );
 
-      JLabel label1 = new JLabel ( "Subsystems" );
-      area1.add ( label1 );
+		area1.setPreferredSize( new Dimension( 100 , ( jt.getPreferredSize() ).height ) );
+		area1.setSize( new Dimension( 100 , ( jt.getPreferredSize() ).height ) );
+		titlePanel.add( area1 );
 
-      area1.setPreferredSize ( 
-        new Dimension ( 100, (jt.getPreferredSize()).height ) );
-      area1.setSize ( 
-        new Dimension ( 100, (jt.getPreferredSize()).height ) );
-      titlePanel.add ( area1 );
+		JLabel label2 = new JLabel( "Emission lines" );
+		area2.add( label2 );
+		area2.setPreferredSize( new Dimension( 100 , ( targetPanel.getPreferredSize() ).height ) );
+		area2.setSize( new Dimension( 100 , ( targetPanel.getPreferredSize() ).height ) );
+		titlePanel.add( area2 );
 
-      JLabel label2 = new JLabel ( "Emission lines" );
-      area2.add ( label2 );
-      area2.setPreferredSize ( 
-        new Dimension ( 100, (targetPanel.getPreferredSize()).height ) );
-      area2.setSize ( 
-        new Dimension ( 100, (targetPanel.getPreferredSize()).height ) );
-      titlePanel.add ( area2 );
+		JLabel label3 = new JLabel( "Atm. Transm." , SwingConstants.CENTER );
+		area3.add( label3 , BorderLayout.CENTER );
 
-      JLabel label3 = new JLabel ( "Atm. Transm.",
-        SwingConstants.CENTER );
-      area3.add ( label3, BorderLayout.CENTER );
+		JLabel trxLabel = new JLabel( "TRx" , SwingConstants.CENTER );
+		trxLabel.setForeground( Color.red );
+		if( st != null && st.trxAvailable() )
+		{
+			area3.add( trxLabel , BorderLayout.NORTH );
+		}
 
-      JLabel trxLabel = new JLabel ("TRx", SwingConstants.CENTER );
-      trxLabel.setForeground(Color.red);
-      if (st != null && st.trxAvailable()) {
-	  area3.add ( trxLabel, BorderLayout.NORTH );
-      }
+		if( st != null )
+		{
+			GraphScale gs = new GraphScale( 0.0 , 1.1 , 0.5 , 0.1 , 0.0 , 0 , ( st.getPreferredSize() ).height , JSlider.VERTICAL );
+			area3.add( gs , BorderLayout.EAST );
 
-      if ( st != null ) {
-          GraphScale gs = new GraphScale ( 0.0, 1.1, 0.5, 0.1, 0.0, 0, 
-             (st.getPreferredSize()).height, JSlider.VERTICAL );
-          area3.add ( gs, BorderLayout.EAST );
+			area3.setPreferredSize( new Dimension( 100 , ( st.getPreferredSize() ).height ) );
+			area3.setSize( new Dimension( 100 , ( st.getPreferredSize() ).height ) );
+			titlePanel.add( area3 );
+		}
 
-          area3.setPreferredSize ( 
-             new Dimension ( 100, (st.getPreferredSize()).height ) );
-          area3.setSize ( 
-             new Dimension ( 100, (st.getPreferredSize()).height ) );
-          titlePanel.add ( area3 );
-      }
+		JLabel label4 = new JLabel( "FE Freq" , SwingConstants.CENTER );
+		JLabel label5 = new JLabel( "LO1" , SwingConstants.CENTER );
+		area4.add( label4 , BorderLayout.NORTH );
+		area4.add( label5 , BorderLayout.CENTER );
+		area4.setPreferredSize( new Dimension( 100 , ( scales.getPreferredSize() ).height ) );
+		area4.setSize( new Dimension( 100 , ( scales.getPreferredSize() ).height ) );
+		titlePanel.add( area4 );
 
-      JLabel label4 = new JLabel ( "FE Freq",
-       SwingConstants.CENTER );
-      JLabel label5 = new JLabel ( "LO1", SwingConstants.CENTER  );
-      area4.add ( label4, BorderLayout.NORTH );
-      area4.add ( label5, BorderLayout.CENTER );
-      area4.setPreferredSize ( 
-        new Dimension ( 100, (scales.getPreferredSize()).height ) );
-      area4.setSize ( 
-        new Dimension ( 100, (scales.getPreferredSize()).height ) );
-      titlePanel.add ( area4 );
+		contentPanel.add( titlePanel );
+		contentPanel.add( dataPanel );
+		contentPane.removeAll();
+		contentPane.add( contentPanel , BorderLayout.CENTER );
 
-      contentPanel.add ( titlePanel );
-      contentPanel.add ( dataPanel );
-      contentPane.removeAll();
-      contentPane.add ( contentPanel, BorderLayout.CENTER );
+		pack();
 
-      pack();
-
-
-   }
+	}
 
 
    public void setLO1 ( double lo1 )
@@ -323,7 +309,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
    public double getLO1 ( )
    {
-      return _lo1; //(double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
+      return _lo1; // (double)slider.getValue ( ) * EdFreq.SLIDERSCALE;
    }
 
    public void setMainLine ( double frequency )

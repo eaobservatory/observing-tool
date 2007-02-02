@@ -22,6 +22,7 @@ import edfreq.EdFreq;
 import edfreq.EmissionLines;
 import edfreq.GraphScale;
 import edfreq.FrequencyEditorCfg;
+import edfreq.Values;
 
 /**
  * Like SideBandDisplay but without the sidebands themselves.
@@ -33,7 +34,6 @@ import edfreq.FrequencyEditorCfg;
  */
 public class LineDisplay extends JPanel implements Observer
 {
-   public static final int DEFAULT_DISPLAY_WIDTH = 800;
    private EmissionLines el;
    private GraphScale localScale;
    private GraphScale targetScale;
@@ -46,7 +46,7 @@ public class LineDisplay extends JPanel implements Observer
 
    private boolean _ignoreEvents = false;
 
-   private int _displayWidth = DEFAULT_DISPLAY_WIDTH;
+   private int _displayWidth = Values.DISPLAY_WIDTH ;
 
    public void updateDisplay (
      double lRangeLimit, double uRangeLimit, 

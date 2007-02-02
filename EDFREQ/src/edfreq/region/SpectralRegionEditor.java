@@ -37,6 +37,7 @@ import java.util.Vector;
 import java.util.HashMap;
 
 import edfreq.EdFreq;
+import edfreq.Values;
 
 /**
  * Tool for selecting baseline fit regions and line regions in a spectrum.
@@ -837,74 +838,49 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
         return result;
     }
 
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
+    public void actionPerformed( ActionEvent e )
+	{
+		Object source = e.getSource();
 
-        if(source == _addFitRegionButton) {
-            addBaselineFitRegion(false);
-        }
+		if( source == _addFitRegionButton )
+			addBaselineFitRegion( false );
 
-        if((source == _removeFitRegionButton) && (_fitRegionBars.size() > 0)) {
-            Object obj = _fitRegionBars.lastElement();
-            _fitRegionBars.remove(obj);
-            _allRegionBars.remove(obj);
-        }
+		if( ( source == _removeFitRegionButton ) && ( _fitRegionBars.size() > 0 ) )
+		{
+			Object obj = _fitRegionBars.lastElement();
+			_fitRegionBars.remove( obj );
+			_allRegionBars.remove( obj );
+		}
 
-        /*
-           if(source == _addLineRegionButton) {
-           addLineRegion(false);
-           }
+		if( source == _zoomOptions )
+		{
+			int zoom = Integer.parseInt( ( String ) _zoomOptions.getSelectedItem() );
 
-           if((source == _removeLineRegionButton) && (_lineRegionBars.size() > 0)) {
-           Object obj = _lineRegionBars.lastElement();
-           _lineRegionBars.remove(obj);
-           _allRegionBars.remove(obj);
-           }
+			_lineDisplay.setDisplayWidth( Values.DISPLAY_WIDTH * zoom );
 
-           if(source == _addCombinedRegionsButton) {
-           addLineRegion(false, true);
-           }
+			_feBandWidthPixels = ( int ) ( ( _feBandWidth / 1.0E9 ) * _lineDisplay.getPixelsPerValue() );
 
-           if((source == _removeCombinedRegionsButton) && (_combinedRegionBars.size() > 0)) {
-           Object obj = _combinedRegionBars.lastElement();
-           _combinedRegionBars.remove(obj);
-           _allRegionBars.remove(obj);
-           }
-         */
+			for( int i = 0 ; i < _allRegionBars.size() ; i++ )
+				( ( DoubleSideBandRangeBar ) _allRegionBars.get( i ) ).resetRangeBars( zoom );
 
-        if(source == _zoomOptions) {
-            int zoom = Integer.parseInt((String)_zoomOptions.getSelectedItem());
+			_usbViewPosition.move( _lineDisplay.getDisplayWidth() - 800 , 0 );
 
-            _lineDisplay.setDisplayWidth(LineDisplay.DEFAULT_DISPLAY_WIDTH * zoom);
+			if( _sideBand == EdFreq.SIDE_BAND_LSB )
+				_scrollPane.getViewport().setViewPosition( _lsbViewPosition );
+			else
+				_scrollPane.getViewport().setViewPosition( _usbViewPosition );
 
-            _feBandWidthPixels = (int)((_feBandWidth / 1.0E9) * _lineDisplay.getPixelsPerValue());
+			resetMainLine();
+		}
 
-            for(int i = 0; i < _allRegionBars.size(); i++) {
-                ((DoubleSideBandRangeBar)_allRegionBars.get(i)).resetRangeBars(zoom);
-            }
+		if( source == _viewLSB )
+			_scrollPane.getViewport().setViewPosition( _lsbViewPosition );
 
-            _usbViewPosition.move(_lineDisplay.getDisplayWidth() - 800, 0);
+		if( source == _viewUSB )
+			_scrollPane.getViewport().setViewPosition( _usbViewPosition );
 
-            if(_sideBand == EdFreq.SIDE_BAND_LSB) {
-                _scrollPane.getViewport().setViewPosition(_lsbViewPosition);
-            }
-            else {
-                _scrollPane.getViewport().setViewPosition(_usbViewPosition);
-            }
-
-            resetMainLine();
-        }
-
-        if(source == _viewLSB) {
-            _scrollPane.getViewport().setViewPosition(_lsbViewPosition);
-        }
-
-        if(source == _viewUSB) {
-            _scrollPane.getViewport().setViewPosition(_usbViewPosition);
-        }
-
-        resetLayout();
-    }
+		resetLayout();
+	}
 
     public int getNumRegions() {
         int numRegions = 0;
