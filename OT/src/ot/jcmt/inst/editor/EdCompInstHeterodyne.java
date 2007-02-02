@@ -526,11 +526,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			component.setEnabled( componentIndex < active ) ;
 		}
 
-		// Update the special configs
-		String namedConfig = _inst.getNamedConfiguration() ;
-		if( namedConfig != null && !"".equals( namedConfig ) )
-				_w.specialConfigs.setSelectedItem( namedConfig ) ;
-
 		// Update the summary panel
 		for( int i = 0 ; i < _w.summaryPanel.getComponentCount() ; i++ )
 		{
@@ -695,10 +690,18 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					{
 						Object object = ci.$bandWidths.get( componentIndex ) ;
 						component.removeActionListener( this ) ;
-						if( object != null )
-							component.setSelectedItem( ci.$bandWidths.get( componentIndex ) ) ;
+						if( object != null && ( object instanceof String ) )
+						{
+							String bandWidthString = ( String )object ;
+							component.setSelectedItem( bandWidthString ) ;
+							double bandwidth = new Double( bandWidthString ).doubleValue() ;
+							if( bandwidth != 0. )
+								_inst.setBandWidth( bandwidth / 1.0E-6 , componentIndex ) ;
+						}
 						else
+						{
 							component.setSelectedIndex( 0 ) ;
+						}
 						component.addActionListener( this ) ;
 					}
 					else
@@ -878,12 +881,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		for( int index = 0 ; index < shifts.size() ; index++ )
 		{
-			/*
-			 * is this 4.0e9 or _inst.getCentreFrequency( i ) ?
-			 * so far it seems correct with either
-			 */
-			double frequency = 4.0e9 + ( ( ( Double )shifts.elementAt( index ) ).doubleValue() * 1.0e9 ) ;
-			if( frequency != 4.0e9 )
+			double frequency = ( ( Double )shifts.elementAt( index )).doubleValue() ;
+			if( frequency != 0. )
 				_inst.setCentreFrequency( "" + frequency , index ) ;
 		}
 	}
@@ -1062,11 +1061,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			currentBandSpec = ( BandSpec )bandSpecs.get( 0 );
 
 		double[] values = currentBandSpec.getDefaultOverlapBandWidths();
-		
-		boolean showChangedMessage = false ;
 
-		// Index into the new list to allow us to make sure
-		// that it gets reselected if available
+		/*
+		 * Index into the new list to allow us to make sure 
+		 * that it gets reselected if available
+		 */
 		int index = -1;
 		double feOverlap = 0.0;
 
@@ -1076,6 +1075,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			JComboBox component = ( JComboBox )components[ componentIndex ] ;
 			component.removeActionListener( this ) ;
+			int originalIndex = component.getSelectedIndex() ;
 			
 			component.removeAllItems() ;
 			currentBandwidth = _inst.getBandWidth( componentIndex ) ;
@@ -1102,14 +1102,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_inst.setBandWidth( values[ 0 ] , componentIndex );
 				_inst.setOverlap( currentBandSpec.defaultOverlaps[ 0 ] , componentIndex );
 				_inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[ 0 ] , componentIndex );	
-				if( currentBandwidth != 0. )
-					showChangedMessage = true ;			
+				if( originalIndex != 0 && originalIndex != -1 && currentBandwidth != 0. )
+					JOptionPane.showMessageDialog( _w , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );			
 			}	
 			component.addActionListener( this ) ;
 			index = -1 ;
 		}
-		if( showChangedMessage )
-			JOptionPane.showMessageDialog( _w , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );
 	}
 
 	private void _updateMoleculeChoice()
