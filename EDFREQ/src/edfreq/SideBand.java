@@ -88,18 +88,14 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       this.subBandCentre = subBandCentre;
    }
 
-   public double getSubBandCentre() 
-   { 
-      if ( highLimit < 0.0 )
-      {
-         subBandCentre = - sampler.getCentreFrequency();
-      }
-      else
-      {
-         subBandCentre = sampler.getCentreFrequency();
-      }
-      return subBandCentre;
-   }
+	public double getSubBandCentre()
+	{
+		if( highLimit < 0.0 )
+			subBandCentre = -sampler.getCentreFrequency();
+		else
+			subBandCentre = sampler.getCentreFrequency();
+		return subBandCentre;
+	}
 
 	public void setScaledCentre( int v )
 	{
@@ -161,7 +157,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 				band = hetEditor.getFeBand();
 			else
 				band = "usb";
-					
+				
 			if( band.equals( "lsb" ) )
 			{
 				if( highLimit < 0.0 )
