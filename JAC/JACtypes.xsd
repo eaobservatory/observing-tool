@@ -37,6 +37,8 @@
     <xsd:enumeration value="LSRK"/>
     <xsd:enumeration value="GEOCENTRIC"/>
     <xsd:enumeration value="HELIOCENTRIC"/>
+    <xsd:enumeration value="TOPOCENTRIC"/>
+    <xsd:enumeration value="BARYCENTRIC"/>
   </xsd:restriction>
 </xsd:simpleType>
 
