@@ -544,14 +544,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				else if( name.equals( "resolution" ) )
 				{
 					double resolution = ( _inst.getBandWidth( 0 ) * 1.0E-3 ) / _inst.getChannels( 0 );
-					try
-					{
-						resolution = Integer.parseInt( _inst.getMixer() ) * resolution;
-					}
-					catch( NumberFormatException nfe )
-					{
-						// Assume one mixer
-					}
+					resolution = new Integer( _inst.getMixer() ).intValue() * resolution;
 					( ( JLabel ) c ).setText( "" + ( int ) Math.rint( resolution ) );
 				}
 				else if( name.equals( "overlap" ) )
@@ -595,19 +588,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( name != null )
 			{
 				if( name.equals( "velocity" ) )
-				{
 					( ( JTextField ) c ).setText( rv ) ;
-				}
-				else if( name.equals( "definition" ) )
-				{
-					if( rvDefn != null )
-						_w.vDef.setSelectedItem( rvDefn ) ;
-				}
-				else if( name.equals( "frame" ) )
-				{
-					if( rvFrame != null )
-						_w.vFrame.setSelectedItem( rvFrame ) ;
-				}
+				else if( name.equals( "definition" ) && rvDefn != null )
+					_w.vDef.setSelectedItem( rvDefn ) ;
+				else if( name.equals( "frame" ) && rvFrame != null )
+					_w.vFrame.setSelectedItem( rvFrame ) ;
 			}
 		}
 		
@@ -1813,7 +1798,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
        configureFrequencyEditor(new Vector());
    }
 
-   private void configureFrequencyEditor( Vector shifts )
+	private void configureFrequencyEditor( Vector shifts )
 	{
 		// First get the current bandspec from the mode selection
 		Vector bandSpecs = _receiver.bandspecs;
@@ -1859,14 +1844,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		else
 			_frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
 		_frequencyEditor.setMainLine( _inst.getRestFrequency( 0 ) );
-/*
+
 		for( int i = 0 ; i < shifts.size() ; i++ )
 		{
 			_frequencyEditor.moveSlider( _inst.getBand() , _inst.getCentreFrequency( i ) , subbandCount - 1 );
 			if( i > 0 )
 				_frequencyEditor.setLineText( "No Line" , subbandCount - 1 );
 		}
-*/
+
 	}
 
 	private void getFrequencyEditorConfiguration()

@@ -411,76 +411,75 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
     }
 
     /**
-    * Get the current frequency editor setup.  The following information
-    * is returned in each vector:
-    * 0: molecule name (String)
-    * 1: transition (String)
-    * 2: Rest Frequency (Double)
-    * 3: Centre Frequerncy (Double)
-    * 4: Bandwidth (Double)
-    * 5: Number of channels (Integer)
-    * 6: resolution
-    * One vector is returned for each susbsystem.  This method replaces other
-    * calls for setting things in the heterodyne editor.
-    */
-    public Vector [] getCurrentConfiguration() {
-        // Create the array
-	Vector [] results = new Vector [jt.getSamplers().length];
-	LineDetails details;
-	String text;
-	for ( int i=0; i < results.length; i++ ) {
-	    results[i] = new Vector();
-	    try {
-		details = jt.getLineDetails (i);
-		results[i].add( details.name );
-		results[i].add( details.transition );
-		results[i].add( new Double( details.frequency*1.0E6 ) );
-	    }
-	    catch (Exception e) {
-		text = jt.getLineText(i);
-		if ( text != null ) {
-		    // Parse the string
-		    // First see if it starts with "No Lone"
-		    if ( text.startsWith(HeterodyneEditor.NO_LINE ) ) {
-			results[i].add (HeterodyneEditor.NO_LINE);
-			results[i].add (HeterodyneEditor.NO_LINE);
-			double rf = EdFreq.getRestFrequency (
-				getLO1(),
-				jt.getSamplers()[i].getCentreFrequency(),
-				redshift,
-				hetEditor.getFeBand() );
-			results[i].add (new Double (rf));
-		    }
-		    else {
-		        // The molecule should be the first thing
-		        String molecule = text.substring( 0, text.indexOf(' ') ) ;
-		        results[i].add(molecule.trim());
-			// Get the transition
-			String transition = text.substring( text.indexOf(' ')+1, text.lastIndexOf(' ') );
-			results[i].add( transition );
-			double f = Double.parseDouble( text.substring( text.lastIndexOf(' ') ) );
-			results[i].add( new Double( f ) );
-		    }
+	 * Get the current frequency editor setup. 
+	 * The following information is returned in each vector: 
+	 * 0: molecule name (String) 
+	 * 1: transition (String) 
+	 * 2: Rest Frequency (Double) 
+	 * 3: Centre Frequerncy (Double) 
+	 * 4: Bandwidth (Double) 
+	 * 5: Number of channels (Integer) 
+	 * 6: resolution One vector is returned for each susbsystem. 
+	 * This method replaces other calls for setting things in the heterodyne editor.
+	 */
+	public Vector[] getCurrentConfiguration()
+	{
+		// Create the array
+		Vector[] results = new Vector[ jt.getSamplers().length ];
+		LineDetails details;
+		String text;
+		for( int i = 0 ; i < results.length ; i++ )
+		{
+			results[ i ] = new Vector();
+			try
+			{
+				details = jt.getLineDetails( i );
+				results[ i ].add( details.name );
+				results[ i ].add( details.transition );
+				results[ i ].add( new Double( details.frequency * 1.0E6 ) );
+			}
+			catch( Exception e )
+			{
+				text = jt.getLineText( i );
+				if( text != null )
+				{
+					// Parse the string
+					// First see if it starts with "No Lone"
+					if( text.startsWith( HeterodyneEditor.NO_LINE ) )
+					{
+						results[ i ].add( HeterodyneEditor.NO_LINE );
+						results[ i ].add( HeterodyneEditor.NO_LINE );
+						double rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() );
+						results[ i ].add( new Double( rf ) );
+					}
+					else
+					{
+						// The molecule should be the first thing
+						String molecule = text.substring( 0 , text.indexOf( ' ' ) );
+						results[ i ].add( molecule.trim() );
+						// Get the transition
+						String transition = text.substring( text.indexOf( ' ' ) + 1 , text.lastIndexOf( ' ' ) );
+						results[ i ].add( transition );
+						double f = Double.parseDouble( text.substring( text.lastIndexOf( ' ' ) ) ) * 1.0E6 ;
+						results[ i ].add( new Double( f ) );
+					}
+				}
+			}
+			double cf = jt.getSamplers()[ i ].getCentreFrequency();
+			results[ i ].add( new Double( cf ) );
+			double bw = jt.getSamplers()[ i ].getBandWidth();
+			results[ i ].add( new Double( bw ) );
+			int ch = jt.getSamplers()[ i ].getChannels();
+			results[ i ].add( new Integer( ch ) );
+			int res = jt.getSamplers()[ i ].getResolution();
+			results[ i ].add( new Integer( res ) );
+			/*
+			 * System.out.println ("Summary info for subsystem " + i ); for ( int j=0; j<results[i].size(); j++ ) { System.out.println("\t" + results[i].get(j)); }
+			 */
 		}
-	    }
-	    double cf = jt.getSamplers()[i].getCentreFrequency();
-	    results[i].add( new Double( cf ) );
-	    double bw = jt.getSamplers()[i].getBandWidth();
-	    results[i].add( new Double( bw ) );
-	    int ch = jt.getSamplers()[i].getChannels();
-	    results[i].add( new Integer( ch ) );
-	    int res = jt.getSamplers()[i].getResolution();
-	    results[i].add( new Integer(res) );
-	    /*
-	    System.out.println ("Summary info for subsystem " + i );
-	    for ( int j=0; j<results[i].size(); j++ ) {
-		System.out.println("\t" + results[i].get(j));
-	    }
-	    */
-	}
 
-        return results;
-    }
+		return results;
+	}
 
 
    public static void main(String args[]) 
