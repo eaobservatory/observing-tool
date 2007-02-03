@@ -135,8 +135,8 @@ public class FrequencyTable extends JPanel implements ActionListener
       gigToPix = ((double)displayWidth) / ( uHighLimit - lLowLimit );
       int lWidth = (int) ( gigToPix * ( lHighLimit - lLowLimit ) );
       int uWidth = (int) ( gigToPix * ( uHighLimit - uLowLimit ) );
-      int sWidth = 80;
-      int tWidth = 80;
+      int sWidth = ( int )displayWidth / 10 ;
+      int tWidth = ( int )displayWidth / 10 ;
       int sp1Width = ( displayWidth - lWidth - uWidth - sWidth - tWidth )
         / 2;
       int sp2Width = displayWidth - lWidth - uWidth - sWidth - tWidth
@@ -470,7 +470,7 @@ public class FrequencyTable extends JPanel implements ActionListener
 	    for (int i=0; i< listeners.length; i++) {
 		((SideBandScrollBar) highBars.elementAt(subsystem)).addAdjustmentListener( listeners[i] );
 	    }
-	}
+	} 
     }
 
    /**

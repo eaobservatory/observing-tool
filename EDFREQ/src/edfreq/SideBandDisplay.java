@@ -148,7 +148,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		el = new EmissionLines( lowIF , highIF , redshift , displayWidth , 20 , samplerCount );
 		// System.out.println("el=" + el);
 
-		jt = new FrequencyTable( feIF , feBandWidth , bandWidths , channels , samplerCount , displayWidth + 6 , this , hetEditor , el , nMixers );
+		jt = new FrequencyTable( feIF , feBandWidth , bandWidths , channels , samplerCount , displayWidth + 3 , this , hetEditor , el , nMixers );
 
 		dataPanel.add( jt , BorderLayout.CENTER );
 
@@ -182,9 +182,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 		Hashtable labels = new Hashtable();
 		for( j = lslide ; j <= uslide ; j += ( int ) ( 10.0E9 / EdFreq.SLIDERSCALE ) )
-		{
 			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int ) ( 1.0E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) );
-		}
 
 		slider.setLabelTable( labels );
 
@@ -192,9 +190,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 		slider.addChangeListener( ( ChangeListener ) el );
 		if( st != null )
-		{
 			slider.addChangeListener( ( ChangeListener ) st );
-		}
 		slider.addChangeListener( ( ChangeListener ) targetScale );
 		slider.addChangeListener( ( ChangeListener ) localScale );
 		slider.addChangeListener( this );
@@ -222,9 +218,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		Box plot = Box.createVerticalBox();
 		plot.add( targetPanel );
 		if( st != null )
-		{
 			plot.add( st );
-		}
 		plot.add( scales );
 
 		dataPanel.add( plot );
@@ -253,9 +247,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		JLabel trxLabel = new JLabel( "TRx" , SwingConstants.CENTER );
 		trxLabel.setForeground( Color.red );
 		if( st != null && st.trxAvailable() )
-		{
 			area3.add( trxLabel , BorderLayout.NORTH );
-		}
 
 		if( st != null )
 		{
@@ -281,7 +273,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		contentPane.add( contentPanel , BorderLayout.CENTER );
 
 		pack();
-
 	}
 
 
@@ -459,9 +450,6 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 			results[ i ].add( new Integer( ch ) );
 			int res = jt.getSamplers()[ i ].getResolution();
 			results[ i ].add( new Integer( res ) );
-			/*
-			 * System.out.println ("Summary info for subsystem " + i ); for ( int j=0; j<results[i].size(); j++ ) { System.out.println("\t" + results[i].get(j)); }
-			 */
 		}
 
 		return results;
