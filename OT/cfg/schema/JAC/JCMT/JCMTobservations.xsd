@@ -39,6 +39,7 @@
     <xsd:enumeration value="5x5"/>
     <xsd:enumeration value="7x7"/>
     <xsd:enumeration value="9x9"/>
+    <xsd:enumeration value="11x11"/>
     <xsd:enumeration value="HARP4"/>
     <xsd:enumeration value="HARP5"/>
   </xsd:restriction>

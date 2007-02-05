@@ -269,7 +269,7 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
   public static final String ATTR_HYBRID_SUBBANDS = "hybridSubBands";
 
 
-  public static String[] JIGGLE_PATTERNS = { "3x3" , "4x4" , "5x5" , "7x7" , "9x9" , "HARP4" , "HARP5" };
+  public static String[] JIGGLE_PATTERNS = { "3x3" , "4x4" , "5x5" , "7x7" , "9x9" , "11x11" , "HARP4" , "HARP5" };
 
   /** Radial velocity expressed as redshift. */
   public static final String RADIAL_VELOCITY_REDSHIFT = "redshift";
@@ -694,9 +694,11 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    *
    * @param subsystem  Subsystem number (starting at 0).
    */
-  public double getRestFrequency(int subsystem) {
-    return _avTable.getDouble(ATTR_REST_FREQUENCY, subsystem, 0.0);
-  }
+	public double getRestFrequency( int subsystem )
+	{
+		double restFreq = _avTable.getDouble( ATTR_REST_FREQUENCY , subsystem , 0.0 ) ; 
+		return restFreq ;
+	}
 
   /**
    * Set rest frequency for specified subsystem.
@@ -704,9 +706,10 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
    * @see #getRestFrequency(int)
    * @param subsystem  Subsystem number (starting at 0).
    */
-  public void setRestFrequency(double value, int subsystem) {
-    _avTable.set(ATTR_REST_FREQUENCY, value, subsystem);
-  }
+	public void setRestFrequency( double value , int subsystem )
+	{
+		_avTable.set( ATTR_REST_FREQUENCY , value , subsystem );
+	}
 
   /**
    * Set rest frequency for specified subsystem.
@@ -836,7 +839,8 @@ public class SpInstHeterodyne extends SpJCMTInstObsComp {
 	 */
 	public double getBandWidth( int subsystem )
 	{
-		return _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0.0 );
+		double bandwidth = _avTable.getDouble( ATTR_BANDWIDTH , subsystem , 0.0 ) ;
+		return bandwidth ;
 	}
 
   /**
