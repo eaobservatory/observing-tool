@@ -63,35 +63,29 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
    private boolean _ignoreEvents = false;
 
-   public SideBandDisplay (HeterodyneEditor hetEditor) {   
-      super ( "Frequency editor" );
-      setResizable ( false );
+   public SideBandDisplay( HeterodyneEditor hetEditor )
+	{
+		super( "Frequency editor" );
+		setResizable( false );
 
-      setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation( DO_NOTHING_ON_CLOSE );
 
-      contentPane = getContentPane();
-		  
-      this.hetEditor = hetEditor;
+		contentPane = getContentPane();
 
-      addWindowListener ( new WindowAdapter() {
-	      public void windowClosing (WindowEvent e) {
-	          int option = JOptionPane.showConfirmDialog (
-		          contentPane,
-			  "This will delete your changes." +
-			  "\nTo save, use the 'hide' button on the heterodyne editor." +
-			  "\nDo you want to save your changes?",
-			  "Changes will be deleted",
-			  JOptionPane.YES_NO_OPTION,
-			  JOptionPane.WARNING_MESSAGE
-		      );
+		this.hetEditor = hetEditor;
 
-		  if ( option == JOptionPane.NO_OPTION ) {
-		      hide();
-		  }
-              }
-	  });
+		addWindowListener( new WindowAdapter()
+		{
+			public void windowClosing( WindowEvent e )
+			{
+				int option = JOptionPane.showConfirmDialog( null , "This will delete your changes." + "\nTo save, use the 'hide' button on the heterodyne editor." + "\nDo you want to save your changes?" , "Changes will be deleted" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE );
 
-   }
+				if( option == JOptionPane.NO_OPTION )
+					hide();
+			}
+		} );
+
+	}
 
 	public void updateDisplay( String feName , 
 								double lRangeLimit , 

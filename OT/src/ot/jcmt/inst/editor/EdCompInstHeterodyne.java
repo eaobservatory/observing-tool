@@ -631,7 +631,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		if( configured )
 		{
-			int option = JOptionPane.showConfirmDialog( _w , "Do you wish this configuration to be editable ?" , "Do you wish this configuration to be editable ?" , JOptionPane.YES_NO_OPTION ) ;
+			int option = JOptionPane.showConfirmDialog( null , "Do you wish this configuration to be editable ?" , "Do you wish this configuration to be editable ?" , JOptionPane.YES_NO_OPTION ) ;
 			if( option == 0 )
 			{
 				_inst.removeNamedConfiguration() ;
@@ -1088,7 +1088,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_inst.setOverlap( currentBandSpec.defaultOverlaps[ 0 ] , componentIndex );
 				_inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[ 0 ] , componentIndex );	
 				if( originalIndex != 0 && originalIndex != -1 && currentBandwidth != 0. )
-					JOptionPane.showMessageDialog( _w , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );			
+					JOptionPane.showMessageDialog( null , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );			
 			}	
 			component.addActionListener( this ) ;
 			index = -1 ;
@@ -1261,7 +1261,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			// We need to set the transition to the first available
 			// for the current species
-			JOptionPane.showMessageDialog( _w , "Transition Changed: " + currentTransition + " out of range." , "Transition Changed!" , JOptionPane.PLAIN_MESSAGE );
+			JOptionPane.showMessageDialog( null , "Transition Changed: " + currentTransition + " out of range." , "Transition Changed!" , JOptionPane.PLAIN_MESSAGE );
 			for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
 			{
 				_inst.setTransition( transBox.getItemAt( 0 ).toString() , i );
@@ -1938,33 +1938,32 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	}
 
-   private void checkSideband( ) {
-       double freq = _inst.getRestFrequency(0);
-       
-       // Convert to sky frequency
-       freq = freq / (1.0 + getRedshift() );
+	private void checkSideband()
+	{
+		double freq = _inst.getRestFrequency( 0 );
 
-       String sideband = _inst.getBand();
+		// Convert to sky frequency
+		freq = freq / ( 1.0 + getRedshift() );
 
-       if ( "lsb".equals(sideband) ) {
-	   if ( (freq + _frequencyEditor.getTopSubSystemCentreFrequency()) > _receiver.loMax ) {
-	       JOptionPane.showMessageDialog( _w,
-		       "Using upper sideband in order to reach line.",
-		       "Changing Sideband!",
-		       JOptionPane.WARNING_MESSAGE);
-	       _inst.setBand("usb");
-	   }
-       }
-       else {
-	   if ( (freq - _frequencyEditor.getTopSubSystemCentreFrequency()) < _receiver.loMin ) {
-	       JOptionPane.showMessageDialog( _w,
-		       "Using lower sideband in order to reach line.",
-		       "Changing Sideband!",
-		       JOptionPane.WARNING_MESSAGE);
-	       _inst.setBand("lsb");
-	   }
-       }
-   }
+		String sideband = _inst.getBand();
+
+		if( "lsb".equals( sideband ) )
+		{
+			if( ( freq + _frequencyEditor.getTopSubSystemCentreFrequency() ) > _receiver.loMax )
+			{
+				JOptionPane.showMessageDialog( null , "Using upper sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
+				_inst.setBand( "usb" );
+			}
+		}
+		else
+		{
+			if( ( freq - _frequencyEditor.getTopSubSystemCentreFrequency() ) < _receiver.loMin )
+			{
+				JOptionPane.showMessageDialog( null , "Using lower sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
+				_inst.setBand( "lsb" );
+			}
+		}
+	}
 
    	private void _doVelocityChecks() throws Exception
 	{
@@ -1977,7 +1976,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			String message = "Specified velocity results in frequency range that exceeds the line catalog, " + "\nEither change the front end or change the velocity of the target";
 
-			JOptionPane.showMessageDialog( _w , message , "Invalid Velocity!" , JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null , message , "Invalid Velocity!" , JOptionPane.ERROR_MESSAGE );
 			throw new Exception( "Invalid velocity" );
 		}
 	}
