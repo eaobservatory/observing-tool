@@ -139,7 +139,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		// System.out.println("\tredshift="+redshift);
 		// System.out.println("\tdisplayWidth="+displayWidth);
 		// System.out.println("\tsamplerCount="+samplerCount);
-		el = new EmissionLines( lowIF , highIF , redshift , displayWidth , 20 , samplerCount );
+		el = new EmissionLines( lowIF , highIF , redshift , displayWidth + 6 , 20 , samplerCount );
 		// System.out.println("el=" + el);
 
 		jt = new FrequencyTable( feIF , feBandWidth , bandWidths , channels , samplerCount , displayWidth + 6 , this , hetEditor , el , nMixers );
