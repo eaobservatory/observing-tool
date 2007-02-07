@@ -116,10 +116,10 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
       return (int)( ( getSubBandCentre() - 0.5 * subBandWidth ) * pixratio );
    }
 
-   public int getScaledWidth() 
-   { 
-      return (int)( pixratio * subBandWidth );
-   }
+	public int getScaledWidth()
+	{
+		return ( int ) Math.round( pixratio * subBandWidth );
+	}
 
    public void setSubBandWidth ( double subBandWidth ) 
    {
@@ -157,7 +157,7 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 				band = hetEditor.getFeBand();
 			else
 				band = "usb";
-				
+							
 			if( band.equals( "lsb" ) )
 			{
 				if( highLimit < 0.0 )
@@ -199,8 +199,8 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 		}
 
 		sc = getScaledCentre() ;
-		int pixTimesLow = ( int )( pixratio * lowLimit ) ;
-		int pixTimesHigh = ( int )( pixratio * highLimit );
+		int pixTimesLow = ( int )Math.round( pixratio * lowLimit ) ;
+		int pixTimesHigh = ( int )Math.round( pixratio * highLimit );
 		sideBandGui.setValues( sc , sw , pixTimesLow , pixTimesHigh );
 
 		if( !FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable )
