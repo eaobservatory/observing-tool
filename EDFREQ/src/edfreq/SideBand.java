@@ -107,18 +107,18 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 
    public void updateCentreFrequency()
    {
-      sampler.setCentreFrequency ( Math.abs ( subBandCentre ) );
+      sampler.setCentreFrequency( Math.abs( subBandCentre ) );
    }
 
 
-   public int getScaledCentre() 
-   { 
-      return (int)( ( getSubBandCentre() - 0.5 * subBandWidth ) * pixratio );
-   }
+	public int getScaledCentre()
+	{
+		return ( int ) Math.round( ( getSubBandCentre() - 0.5 * subBandWidth ) * pixratio );
+	}
 
 	public int getScaledWidth()
 	{
-		return ( int ) Math.round( pixratio * subBandWidth );
+		return ( int )Math.round( pixratio * subBandWidth );
 	}
 
    public void setSubBandWidth ( double subBandWidth ) 
