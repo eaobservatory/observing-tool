@@ -21,6 +21,8 @@ public class EdFreq
    public static double LIGHTSPEED = 2.99792458E5;
    public final static int SIDE_BAND_USB = 0;
    public final static int SIDE_BAND_LSB = 1;
+   
+   public static final int DISPLAY_WIDTH = 800 ;
 
    /**
     * Calculates the rest frequency based on observe frequency and redshift.
