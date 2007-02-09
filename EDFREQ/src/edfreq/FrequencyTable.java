@@ -149,17 +149,17 @@ public class FrequencyTable extends JPanel implements ActionListener
 		/* Set column sizes */
 
 		columns[ 0 ].setPreferredSize( new Dimension( lWidth , h ) );
-		columns[ 0 ].setMaximumSize( new Dimension( lWidth , h ) );
+		columns[ 0 ].setMinimumSize( new Dimension( lWidth , h ) );
 		columns[ 1 ].setPreferredSize( new Dimension( sp1Width , h ) );
-		columns[ 1 ].setMaximumSize( new Dimension( sp1Width , h ) );
+		columns[ 1 ].setMinimumSize( new Dimension( sp1Width , h ) );
 		columns[ 2 ].setPreferredSize( new Dimension( tWidth , h ) );
-		columns[ 2 ].setMaximumSize( new Dimension( tWidth , h ) );
+		columns[ 2 ].setMinimumSize( new Dimension( tWidth , h ) );
 		columns[ 3 ].setPreferredSize( new Dimension( sWidth , h ) );
-		columns[ 3 ].setMaximumSize( new Dimension( sWidth , h ) );
+		columns[ 3 ].setMinimumSize( new Dimension( sWidth , h ) );
 		columns[ 4 ].setPreferredSize( new Dimension( sp2Width , h ) );
-		columns[ 4 ].setMaximumSize( new Dimension( sp2Width , h ) );
+		columns[ 4 ].setMinimumSize( new Dimension( sp2Width , h ) );
 		columns[ 5 ].setPreferredSize( new Dimension( uWidth , h ) );
-		columns[ 5 ].setMaximumSize( new Dimension( uWidth , h ) );
+		columns[ 5 ].setMinimumSize( new Dimension( uWidth , h ) );
 
 		/* Create the samplers and sidebands and their associated displays */
 
