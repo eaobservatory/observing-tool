@@ -298,31 +298,31 @@ public class DoubleSideBandRangeBar extends JPanel implements Observer {
     }
 
     /** Test method. */
-    public static void main(String [] args) {
-        boolean dsb = true;
-        int sideBand = EdFreq.SIDE_BAND_USB;
+	public static void main( String[] args )
+	{
+		boolean dsb = true;
+		int sideBand = EdFreq.SIDE_BAND_USB;
 
-        if(args.length == 1) {
-            dsb = false;
+		if( args.length == 1 )
+		{
+			dsb = false;
 
-            if(args[0].equalsIgnoreCase("usb")) {
-                sideBand = EdFreq.SIDE_BAND_USB;
-            }
+			if( args[ 0 ].equalsIgnoreCase( "usb" ) )
+				sideBand = EdFreq.SIDE_BAND_USB;
 
-            if(args[0].equalsIgnoreCase("lsb")) {
-                sideBand = EdFreq.SIDE_BAND_LSB;
-            }
-        }
+			if( args[ 0 ].equalsIgnoreCase( "lsb" ) )
+				sideBand = EdFreq.SIDE_BAND_LSB;
+		}
 
-        DoubleSideBandRangeBar doubleSideBandRangeBar = new DoubleSideBandRangeBar(1);
-        int [] range = {10, 160};
-        doubleSideBandRangeBar.resetRangeBars(180, 800, range, sideBand, dsb);
+		DoubleSideBandRangeBar doubleSideBandRangeBar = new DoubleSideBandRangeBar( 1 );
+		int[] range = { 10 , 160 };
+		doubleSideBandRangeBar.resetRangeBars( 180 , EdFreq.DISPLAY_WIDTH , range , sideBand , dsb );
 
-        JFrame frame = new JFrame("DoubleSideBandRangeBar");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(doubleSideBandRangeBar);
-        frame.setLocation(100, 100);
-        frame.pack();
-        frame.setVisible(true);
-    }
+		JFrame frame = new JFrame( "DoubleSideBandRangeBar" );
+		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		frame.getContentPane().add( doubleSideBandRangeBar );
+		frame.setLocation( 100 , 100 );
+		frame.pack();
+		frame.setVisible( true );
+	}
 }

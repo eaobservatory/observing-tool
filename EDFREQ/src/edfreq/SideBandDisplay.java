@@ -39,7 +39,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 {
 
    private double subBandWidth;
-   private int displayWidth = Values.DISPLAY_WIDTH ;
+   private int displayWidth = EdFreq.DISPLAY_WIDTH ;
    private JSlider slider;
    private EmissionLines el;
    private GraphScale localScale;
@@ -163,30 +163,30 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 
 		/* Create slider for Front-end local oscillator */
 
-		int centre = ( int ) ( mid / EdFreq.SLIDERSCALE );
-		int lslide = ( int ) ( lRangeLimit / EdFreq.SLIDERSCALE );
-		int uslide = ( int ) ( uRangeLimit / EdFreq.SLIDERSCALE );
+		int centre = ( int )Math.rint( mid / EdFreq.SLIDERSCALE );
+		int lslide = ( int )Math.rint( lRangeLimit / EdFreq.SLIDERSCALE );
+		int uslide = ( int )Math.rint( uRangeLimit / EdFreq.SLIDERSCALE );
 		slider = new JSlider( JSlider.HORIZONTAL , lslide , uslide , centre );
-		slider.setMinorTickSpacing( ( int ) ( 1.0E9 / EdFreq.SLIDERSCALE ) );
-		slider.setMajorTickSpacing( ( int ) ( 10.0E9 / EdFreq.SLIDERSCALE ) );
+		slider.setMinorTickSpacing( ( int )Math.rint( 1.0E9 / EdFreq.SLIDERSCALE ) );
+		slider.setMajorTickSpacing( ( int )Math.rint( 10.0E9 / EdFreq.SLIDERSCALE ) );
 		slider.setPaintTicks( true );
 		slider.setPaintLabels( true );
 
 		/* Create labels for slider at 10GHz intervals */
 
 		Hashtable labels = new Hashtable();
-		for( j = lslide ; j <= uslide ; j += ( int ) ( 10.0E9 / EdFreq.SLIDERSCALE ) )
-			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int ) ( 1.0E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) );
+		for( j = lslide ; j <= uslide ; j += ( int )Math.rint( 10.0E9 / EdFreq.SLIDERSCALE ) )
+			labels.put( new Integer( j ) , new JLabel( "" + j / ( ( int )Math.rint( 1.0E9 / EdFreq.SLIDERSCALE ) ) , SwingConstants.CENTER ) );
 
 		slider.setLabelTable( labels );
 
 		/* Make the graphics follow the slider */
 
-		slider.addChangeListener( ( ChangeListener ) el );
+		slider.addChangeListener( ( ChangeListener )el );
 		if( st != null )
 			slider.addChangeListener( ( ChangeListener ) st );
-		slider.addChangeListener( ( ChangeListener ) targetScale );
-		slider.addChangeListener( ( ChangeListener ) localScale );
+		slider.addChangeListener( ( ChangeListener )targetScale );
+		slider.addChangeListener( ( ChangeListener )localScale );
 		slider.addChangeListener( this );
 
 		// LO1 slider will be activeted by pressing the right mouse. This is
@@ -269,28 +269,26 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 		pack();
 	}
 
+	public void setLO1( double lo1 )
+	{
+		_lo1 = lo1;
 
-   public void setLO1 ( double lo1 )
-   {
-      _lo1 = lo1;
+		if( _lo1 < _lRangeLimit )
+			_lo1 = _lRangeLimit;
 
-      if(_lo1 < _lRangeLimit) {
-         _lo1 = _lRangeLimit;
-      }
+		if( _lo1 > _uRangeLimit )
+			_lo1 = _uRangeLimit;
 
-      if(_lo1 > _uRangeLimit) {
-         _lo1 = _uRangeLimit;
-      }
+		_ignoreEvents = true;
 
-      _ignoreEvents = true;
+		if( slider != null )
+		{
+			int centre = ( int )Math.rint( _lo1 / EdFreq.SLIDERSCALE ) ;
+			slider.setValue( centre );
+		}
 
-      if(slider != null) {
-         int centre = Math.round ( (float)(_lo1 / EdFreq.SLIDERSCALE) );
-         slider.setValue ( centre );
-      }
-
-      _ignoreEvents = false;
-   }
+		_ignoreEvents = false;
+	}
 
    public double getLO1 ( )
    {

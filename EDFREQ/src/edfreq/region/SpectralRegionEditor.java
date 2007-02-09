@@ -37,7 +37,6 @@ import java.util.Vector;
 import java.util.HashMap;
 
 import edfreq.EdFreq;
-import edfreq.Values;
 
 /**
  * Tool for selecting baseline fit regions and line regions in a spectrum.
@@ -856,7 +855,7 @@ public class SpectralRegionEditor extends JPanel implements ActionListener {
 		{
 			int zoom = Integer.parseInt( ( String ) _zoomOptions.getSelectedItem() );
 
-			_lineDisplay.setDisplayWidth( Values.DISPLAY_WIDTH * zoom );
+			_lineDisplay.setDisplayWidth( EdFreq.DISPLAY_WIDTH * zoom );
 
 			_feBandWidthPixels = ( int ) ( ( _feBandWidth / 1.0E9 ) * _lineDisplay.getPixelsPerValue() );
 
