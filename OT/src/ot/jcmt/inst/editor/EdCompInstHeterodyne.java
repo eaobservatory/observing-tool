@@ -635,9 +635,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( option == 0 )
 			{
 				_inst.removeNamedConfiguration() ;
-				configureFrequencyEditor() ;
 				configured = false ;
 				_w.specialConfigs.setSelectedIndex( 0 ) ;
+			}
+			else
+			{
+				configureFrequencyEditor() ;
 			}
 		}
 	}
