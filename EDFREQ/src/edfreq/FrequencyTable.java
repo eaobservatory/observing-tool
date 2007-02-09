@@ -61,223 +61,206 @@ public class FrequencyTable extends JPanel implements ActionListener
     Vector highBars = new Vector();
 
     /**
-      * Constructor to create frequency table for the Frequency Editor.
-      * @param feIF     Frontend IF mixer frequency (Hz)
-      * @param feBandWidth      Frontend bandwidth (Hz)
-      * @param bandWidths       Bandwidths for each subsystem (Hz)
-      * @param channels         Number of channels for each subsystem
-      * @param samplerCount     Number of samplers
-      * @param displayWidth     Width if display on Frequency Editor
-      * @param sideBandDisplay  The side band display of the Frequency Editor widget
-      * @param hetEditor        The heterodyne editor
-      * @param emissionLines    Emissions lines to display
-      * @param nMixers          Number of mixers
-      */
-   public FrequencyTable ( double feIF, double feBandWidth,
-			   double [] bandWidths, int [] channels, 
-			   int samplerCount, int displayWidth,
-			   SideBandDisplay sideBandDisplay,
-			   HeterodyneEditor hetEditor,
-			   EmissionLines emissionLines,
-			   int nMixers)
-   {
+	 * Constructor to create frequency table for the Frequency Editor.
+	 * 
+	 * @param feIF
+	 *            Frontend IF mixer frequency (Hz)
+	 * @param feBandWidth
+	 *            Frontend bandwidth (Hz)
+	 * @param bandWidths
+	 *            Bandwidths for each subsystem (Hz)
+	 * @param channels
+	 *            Number of channels for each subsystem
+	 * @param samplerCount
+	 *            Number of samplers
+	 * @param displayWidth
+	 *            Width if display on Frequency Editor
+	 * @param sideBandDisplay
+	 *            The side band display of the Frequency Editor widget
+	 * @param hetEditor
+	 *            The heterodyne editor
+	 * @param emissionLines
+	 *            Emissions lines to display
+	 * @param nMixers
+	 *            Number of mixers
+	 */
+	public FrequencyTable( double feIF , double feBandWidth , double[] bandWidths , int[] channels , int samplerCount , int displayWidth , SideBandDisplay sideBandDisplay , HeterodyneEditor hetEditor , EmissionLines emissionLines , int nMixers )
+	{
 
-      super ( );
+		super();
 
-      this.sideBandDisplay = sideBandDisplay;
-      this.hetEditor         = hetEditor;
-      this.emissionLines   = emissionLines;
+		this.sideBandDisplay = sideBandDisplay;
+		this.hetEditor = hetEditor;
+		this.emissionLines = emissionLines;
 
-      JPanel[] columns = new JPanel[6];
+		JPanel[] columns = new JPanel[ 6 ];
 
-      int j;
-      int i;
-      JComboBox widthChoice;
-      SamplerDisplay samplerDisplay;
-      ResolutionDisplay resolutionDisplay;
-      SideBandScrollBar lowBar;
-      SideBandScrollBar highBar;
+		int j;
+		int i;
+		JComboBox widthChoice;
+		SamplerDisplay samplerDisplay;
+		ResolutionDisplay resolutionDisplay;
+		SideBandScrollBar lowBar;
+		SideBandScrollBar highBar;
 
+		lLowLimit = -feIF - ( feBandWidth * 0.5 );
+		lHighLimit = -feIF + ( feBandWidth * 0.5 );
+		uLowLimit = feIF - ( feBandWidth * 0.5 );
+		uHighLimit = feIF + ( feBandWidth * 0.5 );
 
-      lLowLimit = -feIF - ( feBandWidth * 0.5 );
-      lHighLimit = -feIF + ( feBandWidth * 0.5 );
-      uLowLimit = feIF - ( feBandWidth * 0.5 );
-      uHighLimit = feIF + ( feBandWidth * 0.5 );
+		/* Create basic pattern of columns */
 
-/* Create basic pattern of columns */
+		setLayout( new BoxLayout( this , BoxLayout.X_AXIS ) );
 
-      setLayout ( new BoxLayout ( this, BoxLayout.X_AXIS ) );
+		JLabel lsbTitle = new JLabel( "LSB" , SwingConstants.CENTER );
+		JLabel lineTitle = new JLabel( " Line" , SwingConstants.CENTER );
+		JLabel loTitle = new JLabel( "IF" , SwingConstants.CENTER );
+		JLabel bwTitle = new JLabel( "BW" , SwingConstants.CENTER );
+		JLabel resTitle = new JLabel( "Res (KHz)" , SwingConstants.CENTER );
+		JLabel usbTitle = new JLabel( "USB" , SwingConstants.CENTER );
 
-      JLabel lsbTitle = new JLabel ( "LSB", SwingConstants.CENTER );
-      JLabel lineTitle = new JLabel(" Line", SwingConstants.CENTER);
-      JLabel loTitle = new JLabel ( "IF", SwingConstants.CENTER );
-      JLabel bwTitle = new JLabel ( "BW", SwingConstants.CENTER );
-      JLabel resTitle = new JLabel ( "Res (KHz)", SwingConstants.CENTER );
-      JLabel usbTitle = new JLabel ( "USB", SwingConstants.CENTER );
+		for( i = 0 ; i < 6 ; i++ )
+		{
+			columns[ i ] = new JPanel();
+			columns[ i ].setLayout( new GridLayout( samplerCount + 1 , 1 ) );
+			add( columns[ i ] );
+		}
 
-      for ( i=0; i<6; i++ )
-      {
-         columns[i] = new JPanel();
-         columns[i].setLayout ( new GridLayout ( samplerCount+1, 1 ) );
-         add ( columns[i] );
-      }
+		columns[ 0 ].add( lsbTitle );
+		columns[ 1 ].add( lineTitle );
+		columns[ 2 ].add( loTitle );
+		columns[ 3 ].add( bwTitle );
+		columns[ 4 ].add( resTitle );
+		columns[ 5 ].add( usbTitle );
 
-      columns[0].add ( lsbTitle );
-      columns[1].add ( lineTitle );
-      columns[2].add ( loTitle );
-      columns[3].add ( bwTitle );
-      columns[4].add ( resTitle );
-      columns[5].add ( usbTitle );
+		/*
+		 * Calculate scale factors such that lLowLimit to uHighLimit maps to displayWidth graphics pixels
+		 */
 
-/* Calculate scale factors such that lLowLimit to uHighLimit maps to 
-   displayWidth graphics pixels */
+		gigToPix = ( ( double )displayWidth ) / ( uHighLimit - lLowLimit );
+		int lWidth = ( int )Math.rint( gigToPix * ( lHighLimit - lLowLimit ) );
+		int uWidth = ( int )Math.rint( gigToPix * ( uHighLimit - uLowLimit ) );
+		int sWidth = displayWidth / 10;
+		int tWidth = displayWidth / 10;
+		int sp1Width = ( displayWidth - lWidth - uWidth - sWidth - tWidth ) / 2;
+		int sp2Width = displayWidth - lWidth - uWidth - sWidth - tWidth - sp1Width;
+		int h = 20 * ( 1 + samplerCount );
 
-      gigToPix = ((double)displayWidth) / ( uHighLimit - lLowLimit );
-      int lWidth = (int) ( gigToPix * ( lHighLimit - lLowLimit ) );
-      int uWidth = (int) ( gigToPix * ( uHighLimit - uLowLimit ) );
-      int sWidth = ( int )displayWidth / 10 ;
-      int tWidth = ( int )displayWidth / 10 ;
-      int sp1Width = ( displayWidth - lWidth - uWidth - sWidth - tWidth )
-        / 2;
-      int sp2Width = displayWidth - lWidth - uWidth - sWidth - tWidth
-        - sp1Width;
-      int h = 20 * ( 1 + samplerCount );
+		/* Set column sizes */
 
-/* Set column sizes */
+		columns[ 0 ].setPreferredSize( new Dimension( lWidth , h ) );
+		columns[ 0 ].setMaximumSize( new Dimension( lWidth , h ) );
+		columns[ 1 ].setPreferredSize( new Dimension( sp1Width , h ) );
+		columns[ 1 ].setMaximumSize( new Dimension( sp1Width , h ) );
+		columns[ 2 ].setPreferredSize( new Dimension( tWidth , h ) );
+		columns[ 2 ].setMaximumSize( new Dimension( tWidth , h ) );
+		columns[ 3 ].setPreferredSize( new Dimension( sWidth , h ) );
+		columns[ 3 ].setMaximumSize( new Dimension( sWidth , h ) );
+		columns[ 4 ].setPreferredSize( new Dimension( sp2Width , h ) );
+		columns[ 4 ].setMaximumSize( new Dimension( sp2Width , h ) );
+		columns[ 5 ].setPreferredSize( new Dimension( uWidth , h ) );
+		columns[ 5 ].setMaximumSize( new Dimension( uWidth , h ) );
 
-      columns[0].setPreferredSize ( new Dimension ( lWidth, h ) );
-      columns[0].setMaximumSize ( new Dimension ( lWidth, h ) );
-      columns[1].setPreferredSize ( new Dimension ( sp1Width, h ) );
-      columns[1].setMaximumSize ( new Dimension ( sp1Width, h ) );
-      columns[2].setPreferredSize ( new Dimension ( tWidth, h ) );
-      columns[2].setMaximumSize ( new Dimension ( tWidth, h ) );
-      columns[3].setPreferredSize ( new Dimension ( sWidth, h ) );
-      columns[3].setMaximumSize ( new Dimension ( sWidth, h ) );
-      columns[4].setPreferredSize ( new Dimension ( sp2Width, h ) );
-      columns[4].setMaximumSize ( new Dimension ( sp2Width, h ) );
-      columns[5].setPreferredSize ( new Dimension ( uWidth, h ) );
-      columns[5].setMaximumSize ( new Dimension ( uWidth, h ) );
+		/* Create the samplers and sidebands and their associated displays */
 
-/* Create the samplers and sidebands and their associated displays */
+		data = new Object[ samplerCount ][ 3 ];
+		samplers = new Sampler[ samplerCount ];
 
-      data = new Object [samplerCount][3];
-      samplers = new Sampler [samplerCount];
+		lineButtons = new JButton[ samplerCount ];
+		lineDetails = new LineDetails[ samplerCount ];
 
-      lineButtons = new JButton[samplerCount];
-      lineDetails = new LineDetails[samplerCount];
+		lowBars.clear();
+		highBars.clear();
+		for( j = 0 ; j < samplerCount ; j++ )
+		{
+			lowBar = new SideBandScrollBar( JScrollBar.HORIZONTAL , ( int )Math.rint( gigToPix * ( -feIF - 0.5 * bandWidths[ 0 ] ) ) , ( int )Math.rint( gigToPix * bandWidths[ 0 ] ) , ( int )Math.rint( gigToPix * lLowLimit ) , ( int )Math.rint( gigToPix * lHighLimit ) );
+			lowBar.setUnitIncrement( 1 );
+			lowBars.add( lowBar );
 
-      lowBars.clear();
-      highBars.clear();
-      for ( j=0; j<samplerCount; j++ )
-      {
-         lowBar = new SideBandScrollBar ( JScrollBar.HORIZONTAL, 
-           (int)( gigToPix * (-feIF-0.5*bandWidths[0]) ), 
-           (int)( gigToPix * bandWidths[0] ), 
-           (int)( gigToPix * lLowLimit ),
-           (int)( gigToPix * lHighLimit ));
-         lowBar.setUnitIncrement ( 1 );
-	 lowBars.add(lowBar);
+			highBar = new SideBandScrollBar( JScrollBar.HORIZONTAL , ( int )Math.rint( gigToPix * ( feIF - 0.5 * bandWidths[ 0 ] ) ) , ( int )Math.rint( gigToPix * bandWidths[ 0 ] ) , ( int )Math.rint( gigToPix * uLowLimit ) , ( int )Math.rint( gigToPix * uHighLimit ) );
+			highBar.setUnitIncrement( 1 );
+			highBars.add( highBar );
 
-         highBar = new SideBandScrollBar ( JScrollBar.HORIZONTAL,
-           (int)( gigToPix * (feIF-0.5*bandWidths[0]) ), 
-           (int)( gigToPix * bandWidths[0]), 
-           (int)( gigToPix * uLowLimit ),
-           (int)( gigToPix * uHighLimit ));
-         highBar.setUnitIncrement ( 1 );
-	 highBars.add(highBar);
+			// Line display added by MFO (October 16, 2002)
+			if( j == 0 )
+			{
+				lineButtons[ j ] = new JButton( "See Heterodyne Editor" );
+				lineButtons[ j ].setEnabled( false );
 
-         // Line display added by MFO (October 16, 2002)
-         if(j == 0) {
-            lineButtons[j] = new JButton("See Heterodyne Editor");
-            lineButtons[j].setEnabled(false);
+				if( FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable )
+				{
+					lowBar.setToolTipText( "Left mouse button drags line along. Right mouse button leaves line unchanged." );
+					highBar.setToolTipText( "Left mouse button drags line along. Right mouse button leaves line unchanged." );
+				}
+			}
+			else
+			{
+				lineButtons[ j ] = new JButton( HeterodyneEditor.NO_LINE );
+			}
 
-            if(FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable) {
-               lowBar.setToolTipText("Left mouse button drags line along. Right mouse button leaves line unchanged.");
-               highBar.setToolTipText("Left mouse button drags line along. Right mouse button leaves line unchanged.");
-            }
-	 }
-	 else {
-            lineButtons[j] = new JButton(HeterodyneEditor.NO_LINE);
-	 }
+			lineButtons[ j ].setForeground( Color.black );
+			lineButtons[ j ].setFont( new java.awt.Font( "Dialog" , 0 , 10 ) );
+			lineButtons[ j ].setActionCommand( "" + j );
+			lineButtons[ j ].addActionListener( this );
 
-	 lineButtons[j].setForeground(Color.black);
-         lineButtons[j].setFont(new java.awt.Font("Dialog", 0, 10));
-	 lineButtons[j].setActionCommand("" + j);
-	 lineButtons[j].addActionListener(this);
+			samplerDisplay = new SamplerDisplay( String.valueOf( feIF ) );
+			resolutionDisplay = new ResolutionDisplay( channels[ 0 ] , bandWidths[ 0 ] , nMixers );
 
+			Vector bandWidthItems = new Vector();
+			for( int k = 0 ; k < bandWidths.length ; k++ )
+				bandWidthItems.add( "" + ( Math.rint( bandWidths[ k ] * 1.0E-6 ) ) );
+			widthChoice = new JComboBox( bandWidthItems );
+			samplers[ j ] = new Sampler( feIF , feBandWidth , bandWidths , channels , widthChoice );
+			samplers[ j ].setBandWidth( hetEditor.getCurrentBandwidth( j ) );
 
-         samplerDisplay = new SamplerDisplay ( String.valueOf ( feIF ) );
-         resolutionDisplay = new ResolutionDisplay ( channels[0],
-           bandWidths[0], nMixers );
+			// If the DISALLOW_MULTI_BW system property is used then
+			// the widthChoice JComboBoxes are disabled.
+			// This is used because initially ACSIS will not support
+			// different bandWidths for different subsystems.
+			// So the bandwidth choice on the HeterodyneEditor panel is used
+			// to set the same bandwidths for all subsystems.
+			// The bandwidth choices of this FrequencyTable are still used to
+			// display the bandwidths.
+			if( System.getProperty( "DISALLOW_MULTI_BW" ) != null )
+				widthChoice.setEnabled( false );
 
-	 Vector bandWidthItems = new Vector();
-	 for(int k = 0; k < bandWidths.length; k++) {
-            bandWidthItems.add("" + (Math.rint(bandWidths[k] * 1.0E-6) ));
-	 }
-         widthChoice = new JComboBox ( bandWidthItems );
-         samplers[j] = new Sampler ( feIF, feBandWidth, bandWidths, channels, widthChoice );
-	 samplers[j].setBandWidth(hetEditor.getCurrentBandwidth(j));
+			widthChoice.addItemListener( new NumberedBandWidthListener( j ) );
 
-	 // If the DISALLOW_MULTI_BW system property is used then
-	 // the widthChoice JComboBoxes are disabled.
-	 // This is used because initially ACSIS will not support
-	 // different bandWidths for different subsystems.
-	 // So the bandwidth choice on the HeterodyneEditor panel is used
-	 // to set the same bandwidths for all subsystems.
-	 // The bandwidth choices of this FrequencyTable are still used to
-	 // display the bandwidths.
-	 if(System.getProperty("DISALLOW_MULTI_BW") != null) {
-	   widthChoice.setEnabled(false);
-	 }
+			data[ j ][ 0 ] = new SideBand( lLowLimit , lHighLimit , bandWidths[ 0 ] , -feIF , ( Sampler )samplers[ j ] , lowBar , gigToPix , emissionLines );
+			data[ j ][ 1 ] = samplers[ j ];
+			data[ j ][ 2 ] = new SideBand( uLowLimit , uHighLimit , bandWidths[ 0 ] , feIF , ( Sampler )samplers[ j ] , highBar , gigToPix , emissionLines );
+			( ( Sampler ) samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher ) data[ j ][ 0 ] );
 
-	 widthChoice.addItemListener(new NumberedBandWidthListener(j));
+			( ( Sampler ) samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher ) samplerDisplay );
+			( ( Sampler ) samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher ) resolutionDisplay );
+			( ( Sampler ) samplers[ j ] ).addSamplerWatcher( ( SamplerWatcher ) data[ j ][ 2 ] );
 
-         data[j][0] = new SideBand ( lLowLimit, lHighLimit, 
-           bandWidths[0], -feIF, (Sampler)samplers[j], 
-           lowBar, gigToPix, emissionLines );
-         data[j][1] = samplers[j];
-         data[j][2] = new SideBand ( uLowLimit, uHighLimit, 
-           bandWidths[0], feIF, (Sampler)samplers[j],
-            highBar, gigToPix, emissionLines );
-         ((Sampler)samplers[j]).addSamplerWatcher ( 
-           (SamplerWatcher)data[j][0] );
+			NumberedSideBandListener numberedSideBandListener = new NumberedSideBandListener( j );
+			lowBar.addMouseListener( numberedSideBandListener );
+			highBar.addMouseListener( numberedSideBandListener );
+			( ( SideBand ) data[ j ][ 0 ] ).addAdjustmentListener( numberedSideBandListener );
 
+			columns[ 0 ].add( lowBar );
+			columns[ 1 ].add( lineButtons[ j ] );
+			columns[ 2 ].add( samplerDisplay );
+			columns[ 3 ].add( widthChoice );
+			columns[ 4 ].add( resolutionDisplay );
+			columns[ 5 ].add( highBar );
+		}
 
-         ((Sampler)samplers[j]).addSamplerWatcher ( 
-           (SamplerWatcher)samplerDisplay );
-         ((Sampler)samplers[j]).addSamplerWatcher ( 
-           (SamplerWatcher)resolutionDisplay );
-         ((Sampler)samplers[j]).addSamplerWatcher ( 
-           (SamplerWatcher)data[j][2] );
-
-         NumberedSideBandListener numberedSideBandListener = new NumberedSideBandListener(j);
-	 lowBar.addMouseListener(numberedSideBandListener);
-	 highBar.addMouseListener(numberedSideBandListener);
-	 ((SideBand)data[j][0]).addAdjustmentListener(numberedSideBandListener);
-	 
-
-         columns[0].add ( lowBar );
-         columns[1].add ( lineButtons[j] );
-         columns[2].add ( samplerDisplay );
-         columns[3].add ( widthChoice );
-         columns[4].add ( resolutionDisplay );
-         columns[5].add ( highBar );
-      }
-
-
-      // Added by MFO (8 January 2002)
-      // Only the top pair of SideBands need to have references of
-      // SideBandDisplay and HeterodyneEditor because when one of them is changed
-      // the LO1 needs adjusting, depending on whether "usb" or "lsb"
-      // has been selected.
-      ((SideBand)data[0][0]).connectTopSideBand(sideBandDisplay, hetEditor);
-      ((SideBand)data[0][2]).connectTopSideBand(sideBandDisplay, hetEditor);
-   }
+		// Added by MFO (8 January 2002)
+		// Only the top pair of SideBands need to have references of
+		// SideBandDisplay and HeterodyneEditor because when one of them is changed
+		// the LO1 needs adjusting, depending on whether "usb" or "lsb"
+		// has been selected.
+		( ( SideBand ) data[ 0 ][ 0 ] ).connectTopSideBand( sideBandDisplay , hetEditor );
+		( ( SideBand ) data[ 0 ][ 2 ] ).connectTopSideBand( sideBandDisplay , hetEditor );
+	}
 
 
    /**
-     * Get all of the Samplers in the current configuration.
-     */
+	 * Get all of the Samplers in the current configuration.
+	 */
    public Sampler [] getSamplers()
    {
       return samplers;   
@@ -285,8 +268,8 @@ public class FrequencyTable extends JPanel implements ActionListener
 
 
    /**
-     * Set the line text on the frequency editor GUI
-     */
+	 * Set the line text on the frequency editor GUI
+	 */
    public void setLineText(String lineText, int subsystem) {
       lineButtons[subsystem].setText(lineText);
       lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
