@@ -113,12 +113,12 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 
 	public int getScaledCentre()
 	{
-		return ( int ) Math.round( ( getSubBandCentre() - 0.5 * subBandWidth ) * pixratio );
+		return ( int )Math.rint( ( getSubBandCentre() - ( 0.5 * subBandWidth ) ) * pixratio );
 	}
 
 	public int getScaledWidth()
 	{
-		return ( int )Math.round( pixratio * subBandWidth );
+		return ( int )Math.rint( pixratio * subBandWidth );
 	}
 
    public void setSubBandWidth ( double subBandWidth ) 
@@ -199,9 +199,9 @@ public class SideBand implements AdjustmentListener,  SamplerWatcher, MouseListe
 		}
 
 		sc = getScaledCentre() ;
-		int pixTimesLow = ( int )Math.round( pixratio * lowLimit ) ;
-		int pixTimesHigh = ( int )Math.round( pixratio * highLimit );
-		sideBandGui.setValues( sc , sw , pixTimesLow , pixTimesHigh );
+		int pixTimesLow = ( int )Math.rint( pixratio * lowLimit ) ;
+		int pixTimesHigh = ( int )Math.rint( pixratio * highLimit );
+		sideBandGui.setValues( sc , sw , pixTimesLow , pixTimesHigh );		
 
 		if( !FrequencyEditorCfg.getConfiguration().centreFrequenciesAdjustable )
 		{
