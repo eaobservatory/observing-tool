@@ -147,19 +147,35 @@ public class FrequencyTable extends JPanel implements ActionListener
 		int h = 20 * ( 1 + samplerCount );
 
 		/* Set column sizes */
-
-		columns[ 0 ].setPreferredSize( new Dimension( lWidth , h ) );
-		columns[ 0 ].setMinimumSize( new Dimension( lWidth , h ) );
-		columns[ 1 ].setPreferredSize( new Dimension( sp1Width , h ) );
-		columns[ 1 ].setMinimumSize( new Dimension( sp1Width , h ) );
-		columns[ 2 ].setPreferredSize( new Dimension( tWidth , h ) );
-		columns[ 2 ].setMinimumSize( new Dimension( tWidth , h ) );
-		columns[ 3 ].setPreferredSize( new Dimension( sWidth , h ) );
-		columns[ 3 ].setMinimumSize( new Dimension( sWidth , h ) );
-		columns[ 4 ].setPreferredSize( new Dimension( sp2Width , h ) );
-		columns[ 4 ].setMinimumSize( new Dimension( sp2Width , h ) );
-		columns[ 5 ].setPreferredSize( new Dimension( uWidth , h ) );
-		columns[ 5 ].setMinimumSize( new Dimension( uWidth , h ) );
+		Dimension dimension = new Dimension( lWidth , h ) ;
+		columns[ 0 ].setPreferredSize( dimension );
+		columns[ 0 ].setMinimumSize( dimension );
+		columns[ 0 ].setMaximumSize( dimension );
+		
+		dimension = new Dimension( sp1Width , h ) ;
+		columns[ 1 ].setPreferredSize( dimension );
+		columns[ 1 ].setMinimumSize( dimension );
+		columns[ 1 ].setMaximumSize( dimension );
+		
+		dimension = new Dimension( tWidth , h ) ;
+		columns[ 2 ].setPreferredSize( dimension );
+		columns[ 2 ].setMinimumSize( dimension );
+		columns[ 2 ].setMaximumSize( dimension );
+		
+		dimension = new Dimension( sWidth , h ) ;
+		columns[ 3 ].setPreferredSize( dimension );
+		columns[ 3 ].setMinimumSize( dimension );
+		columns[ 3 ].setMaximumSize( dimension );
+		
+		dimension = new Dimension( sp2Width , h ) ;
+		columns[ 4 ].setPreferredSize( dimension );
+		columns[ 4 ].setMinimumSize( dimension );
+		columns[ 4 ].setMaximumSize( dimension );
+		
+		dimension = new Dimension( uWidth , h ) ;
+		columns[ 5 ].setPreferredSize( dimension );
+		columns[ 5 ].setMinimumSize( dimension );
+		columns[ 5 ].setMaximumSize( dimension );
 
 		/* Create the samplers and sidebands and their associated displays */
 
