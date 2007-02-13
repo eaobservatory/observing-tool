@@ -1032,20 +1032,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void _updateBandwidths()
 	{
-		// We need to get the current bandspec
-		// from the region selector
+		/*
+		 *  We need to get the current bandspec
+		 *  from the region selector
+		 */
 		Vector bandSpecs = _receiver.bandspecs;
 		BandSpec currentBandSpec = null;
-		for( int i = 0 ; i < bandSpecs.size() ; i++ )
-		{
-			if( ( ( BandSpec )bandSpecs.get( i ) ).toString().equals( _inst.getBandMode() ) )
-			{
-				currentBandSpec = ( BandSpec )bandSpecs.get( i );
-				break;
-			}
-		}
+		String bandMode = _inst.getBandMode() ;
+		int active = new Integer( _inst.getBandMode() ).intValue() ;
 
-		if( currentBandSpec == null )
+		currentBandSpec = ( BandSpec )bandSpecs.get( active - 1 ) ;
+		if( !currentBandSpec.toString().equals( bandMode ) )
 			currentBandSpec = ( BandSpec )bandSpecs.get( 0 );
 
 		double[] values = currentBandSpec.getDefaultOverlapBandWidths();
@@ -1061,6 +1058,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		for( int componentIndex = 0 ; componentIndex < components.length ; componentIndex++ )
 		{
+			// hack
+			if( active == 3 )
+			{
+				BandSpec otherBandSpec = ( BandSpec )bandSpecs.get( 3 ) ;
+				if( otherBandSpec != null && componentIndex < 2 )
+					values = otherBandSpec.getDefaultOverlapBandWidths() ;
+				else
+					values = currentBandSpec.getDefaultOverlapBandWidths() ;
+			}
+			
 			JComboBox component = ( JComboBox )components[ componentIndex ] ;
 			component.removeActionListener( this ) ;
 			int originalIndex = component.getSelectedIndex() ;
@@ -1289,7 +1296,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	{
 		// Set the value in the instrument component
 		// Assume incoming frequency in GHz
-		int active = new Integer( _inst.getBandMode() ).intValue() ;
 		_inst.setRestFrequency( f * 1.0E9 , 0 );
 		_inst.setSkyFrequency( ( f * 1.0E9 ) / ( 1.0 + getRedshift() ) );
 		// Get the component
