@@ -99,6 +99,9 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 					case 9 :
 						npts = 81 ;
 						break;
+					case 11 :
+						npts = 121 ;
+						break ;
 					// default
 					default :
 						break ;
