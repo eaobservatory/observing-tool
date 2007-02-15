@@ -1253,15 +1253,39 @@ scanned rows. Be aware that there only will be a pixel centered on the
 base position if the number of pixels in each direction is odd. The
 size of the map <em>must</em> be a multiple of the pixel-size in each
 direction and is  defined as the distance between the
-<em>centers</em> of the outmost pixels!
+<em>centers</em> of the outmost pixels!  See below the <a
+	      href="#rxa_rast_example">example</a> of a raster map
+	    setup with RxA.
 <li><em>Array receivers:</em> The "sample spacing" will be the size of
 the square pixels in the final map as well as the spacing of the
 samples along scan direction of the telescope. The "scan spacing" will
 	    be the 
-distance between the scanned rows, e.g. 1/2 the array size.
+distance between the scanned rows, e.g. 1/2 the array size.  The
+	    K-mirror rotates the HARP array so that it's at a 14.04
+	    deg angle from the scan direction in
+	    order to produce a fully sampled map:
+<pre>
+                        [B]  .   .   .  [D]
+
+                         .               .
+
+                         .               .
+                                              _  ->
+                         .           _   * -
+                             _   -
+                        [A]  .   .   .  [C]
+</pre>
+ Receptor A scans with an angle of 14 deg such that it hits * which is
+    1/4 the distance between the receptors or 7.5" above C. Likewise the
+    receptor left of A will hit the point mid-way between C and D etc.
+    resulting in a fully sampled map, with 7.5" pixels.  Note that
+	    this puts constraints on the pixel sizes.  See the <a
+	      href="#harp_rast_example">example</a> below.
 </ul><p>
 
-Suppose, for example, that you want to use RxA to make a 238"x28"
+<a name="rxa_rast_example"></a><h4>Example of an RxA Raster Map</h4>
+
+<p>Suppose, for example, that you want to use RxA to make a 238"x28"
 map. A sample spacing of 7" and scan spacing of 7" will result in a 
 pixel map of 35x5. Note that it is customary to oversample the 
 scan-direction to counter-act smearing, although this often requires a
@@ -1277,6 +1301,10 @@ the complete map.<p>
 
 It is possible to set the scanning direction, but for most purposes
 this should be left to the default values.
+
+<p><a name="harp_rast_example"></a><h4>Example of a Raster Map with HARP</h4>
+
+<p>
 
 <hr> 
 <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
