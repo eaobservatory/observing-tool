@@ -1189,32 +1189,53 @@ centre of the grid for the (0,0) position, and ignores the contents of
 
 <h3> <a name="het_jig_folder">Jiggle Mapping</a> </h3>
 
-Jiggle-Chop observations, like Grid-PSSW, map a region around a
-source.  This mode is primarily intended for array instruments with
-widely spaced receptors for which 'jiggling' is needed in order to
-achieve a Nyquist sampling. Nevertheless it is available for
-single-pixels receivers as well.<p>
+<p>Jiggle-Chop observations, like Grid-PSSW, map a region around a
+	  source. This mode is primarily intended for array
+	  instruments with widely spaced receptors for which
+	  'jiggling' is needed in order to achieve a Nyquist
+	  sampling. Nevertheless it is available for single-pixels
+	  receivers as well. 
 
-As opposed to Grid-PSSW, the chopping secondary is used to move over
-the chosen jiggle pattern. This allows for a fast switching of the
-position and makes it possible to observe e.g. the whole jiggle
-pattern before going to the reference position. This is a
-beam-switched observation: the distance to the reference can be no
-more than 180" and half the time the reference will be on one side,
-half the time on the other side of the base position.<p>
+<p>As opposed to Grid-PSSW, the chopping secondary is used to move
+	  over the chosen jiggle pattern. This allows for a fast
+	  switching of the position and makes it possible to observe
+	  e.g. the whole jiggle pattern before going to the reference
+	  position.  (In "continuum mode", however, where the chop
+	  frequency is much higher, half the time is spent at the
+	  reference position.) Jiggle-chops are <b>beam-switched
+	    observations</b>, and hence the distance to the reference
+	  can be no more than 180".  Note also that Jiggle-chops are
+	  <em>array centered</em>, i.e. the center of the jiggle
+	  pattern is the center of the array. 
 
-Opening the various chop MSBs in the heterodyne library shows they are
-similar to the Sample-BMSW example above except that there is a "jiggle
-eye" instead of the <a href="#het_sample">"photom/sample eye"</a>.  It
-offers various jiggle patterns: 3x3 through 9x9 plus HARP specific
-jiggles. The latter automatically set the spacing to ensure Nyquist
-sampling with HARP. For the others, the "Jiggle Spacing" needs to be
-defined by the user: typically 0.5 or 1 beam-spacing in arcsecs. The 
-PA and System should be left at "0.0" and "Tracking" for the typical user.
-Finally, the integration time for each jiggle position can be specified
-as "secs/jig posn". (Note that this is the total "on-source" time per
-	  position.)  As for the "photom/sample" eye, the estimated RMS
-noise per channel is shown in the "Noise" box.<p>
+<p>Opening the various chop MSBs in the heterodyne library shows they
+	  are similar to the Sample-BMSW example above except that
+	  there is a "jiggle eye" instead of the "photom/sample
+	  eye". It offers various jiggle patterns: 3x3 through 11x11
+	  plus HARP specific jiggles (HARP4 and HARP5). HARP4 is a 4x4
+	  pattern with 7.5" pixels designed to fill in the footprint,
+	  but slightly under Nyquist sampled, and HARP5 is a 5x5
+	  pattern with 6" pixels, i.e. slightly better than Nyquist
+	  sampled.  For the others, the "Jiggle Spacing" needs to be
+	  defined by the user: typically 0.5 or 1 beam-spacing in
+	  arcsecs. The PA and System should be left at "0.0" and
+	  "Tracking" for the typical user. Finally, the integration
+	  time for each jiggle position can be specified as "secs/jig
+	  posn". (Note that this is the total "on-source" time per
+	  position.) As for the "photom/sample" eye, the estimated RMS
+	  noise per channel is shown in the "Noise" box. 
+
+<p>Note that currently (February 2007) there are 3 dead receptors in
+	  the bottom row of the HARP array. The orientation of the
+	  array can not be pre-determined due to a 90-degree
+	  uncertainty caused by the K-mirror rotation.  Thus the
+	  effective area that could be fully sampled is 1.5x1.5
+	  arcmins in one foot print. It is expected that two receptors
+	  will be fixed by the end of March 2007. Before then special
+	  techniques are required to make mosaic jiggle maps.  Please
+	  contact your <a
+	    href="http://www.jach.hawaii.edu/JCMT/allocations/">Friend
+	    of the Project</a> for details about this. 
 
 
 <img src="het_images/het_jiggle.gif" alt="Jiggle-Chop"><p>
@@ -1314,12 +1335,12 @@ this should be left to the default values.
 
 <p>Effectively the largest single map one can make is one square
 	  degree.  Of course for larger maps the integration time per
-	  pixel (<em>sample time</em>) should set to the minimum
+	  pixel (<em>sample time</em>) should be set to the minimum
 	  value, 0.1 seconds per pixel.  Larger maps can be made, but
 	  they should be broken up into smaller pieces, one piece per
 	  MSB, with an offset iterator for each piece.  Note that
 	  mosaicing such large maps will likely tax most computing
-	  systems beyond their capabilities.
+	  systems beyond their capacities.
 
 <p>If the raster map is to be repeated, a useful technique is to
 	  "basket weave" the rasters, i.e. make a raster by scanning
