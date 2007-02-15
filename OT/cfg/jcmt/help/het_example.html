@@ -1242,48 +1242,28 @@ total required on-source integration time per sample point can be specified in
 the "Sample time" box.  The system will automatically break up the
 observations into multiple passes over the map.
 
+<p>Setting up raster maps is significantly different when using a <a
+	    href="#rxa_rast_example">non-array receiver</a> (i.e. RxA
+	  or RxW), or an <a href="#harp_rast_example">array
+	    receiver</a> (i.e. HARP).  Read the example below for
+	  setting up MSBs for an <a href="#rxa_rast_example">RxA/RxW
+	    Raster Map</a>, and for a <a
+	    href="#harp_rast_example">HARP Raster Map</a>.  
+
 <p>
-The meaning of the entries somewhat depends on whether the receiver is
-an array receiver or not.
-<ul>
-<li><em>Non-array receivers:</em> The "sample spacing" will be the
+
+<a name="rxa_rast_example"></a><h4>Making a Raster Map With a
+	  Non-Array Receiver (RxA/RxW)</h4>
+
+<p>When using a single-pixel receiver such as RxA or RxW, the "sample
+	  spacing" will be the 
 pixel-size along scan direction of the telescope. The "scan spacing"
 will be the pixel-size in the cross-scan direction i.e. between the
-scanned rows. Be aware that there only will be a pixel centered on the
-base position if the number of pixels in each direction is odd. The
+scanned rows. Be aware that there will be a pixel centered on the
+base position only if the number of pixels in each direction is odd. The
 size of the map <em>must</em> be a multiple of the pixel-size in each
-direction and is  defined as the distance between the
-<em>centers</em> of the outmost pixels!  See below the <a
-	      href="#rxa_rast_example">example</a> of a raster map
-	    setup with RxA.
-<li><em>Array receivers:</em> The "sample spacing" will be the size of
-the square pixels in the final map as well as the spacing of the
-samples along scan direction of the telescope. The "scan spacing" will
-	    be the 
-distance between the scanned rows, e.g. 1/2 the array size.  The
-	    K-mirror rotates the HARP array so that it's at a 14.04
-	    deg angle from the scan direction in
-	    order to produce a fully sampled map:
-<pre>
-                        [B]  .   .   .  [D]
-
-                         .               .
-
-                         .               .
-                                              _  ->
-                         .           _   * -
-                             _   -
-                        [A]  .   .   .  [C]
-</pre>
- Receptor A scans with an angle of 14 deg such that it hits * which is
-    1/4 the distance between the receptors or 7.5" above C. Likewise the
-    receptor left of A will hit the point mid-way between C and D etc.
-    resulting in a fully sampled map, with 7.5" pixels.  Note that
-	    this puts constraints on the pixel sizes.  See the <a
-	      href="#harp_rast_example">example</a> below.
-</ul><p>
-
-<a name="rxa_rast_example"></a><h4>Example of an RxA Raster Map</h4>
+direction, and is  defined as the distance between the
+<em>centers</em> of the outmost pixels!
 
 <p>Suppose, for example, that you want to use RxA to make a 238"x28"
 map. A sample spacing of 7" and scan spacing of 7" will result in a 
@@ -1302,9 +1282,62 @@ the complete map.<p>
 It is possible to set the scanning direction, but for most purposes
 this should be left to the default values.
 
-<p><a name="harp_rast_example"></a><h4>Example of a Raster Map with HARP</h4>
+<p><a name="harp_rast_example"></a><h4>Making a Raster Map With an
+	  Array Receiver (i.e. HARP).</h4>
 
-<p>
+<p>HARP is a 4x4 square array of receptors, which are separated by
+	  30".  To make a raster map, the 
+	  telescope scans continuously along (by default) the longest
+	  axis of the 
+	  map (defined by the <em>width</em> and <em>height</em> of
+	  the map).  The  
+	  array is rotated by 14.04&ordm; to the direction of the
+	  scan.  This results in a fully sampled map, with 7.5"
+	  pixels.  Thus the <b>sample spacing</b> must be set to
+	  7.5".  At the end of a scan, the array is shifted up by the
+	  <em>scan spacing</em> and the telescope makes another scan
+	  across the area to be mapped.  Normally the <em>scan
+	    spacing</em> should be set to 1/2 the array size (58"
+	  (i.e. 60"*cos(14&ordm;))) so that each pixel is covered
+	  twice by the array, or set the <em>scan spacing</em> to the
+	  full array size (87" (i.e. 90"*cos(14&ordm;))) so that
+	  there's no overlap.  
+
+<p>(CAVEAT:  Currently (Feb 2007) three of the receptors are not
+	  working, effectively making a 3x4 array.  Two of the
+	  non-functioning pixels are expected to be repaired in March
+	  2007.  Until they are repaired, it is recommended that you
+	  use a <em>scan spacing</em> of 44" to assure complete
+	  coverage of your map.)
+
+<img src="het_images/harp_raster.gif" alt="HARP Raster" ><p>
+
+<p>Effectively the largest single map one can make is one square
+	  degree.  Of course for larger maps the integration time per
+	  pixel (<em>sample time</em>) should set to the minimum
+	  value, 0.1 seconds per pixel.  Larger maps can be made, but
+	  they should be broken up into smaller pieces, one piece per
+	  MSB, with an offset iterator for each piece.  Note that
+	  mosaicing such large maps will likely tax most computing
+	  systems beyond their capabilities.
+
+<p>If the raster map is to be repeated, a useful technique is to
+	  "basket weave" the rasters, i.e. make a raster by scanning
+	  along one axis of the map, and then repeat by scanning along
+	  the other axis.  This minimizes striping in the resultant
+	  map. One way to do this is to edit a science observation for a
+	  raster map, set the parameters as required, then copy
+	  the entire science observation and paste the copy below
+	  the original.  In the original raster "eye"-con, set the
+	  <em>SCAN PA</em> (lower left panel) to <em>user def</em>,
+	  and type in '0'.  Do the same in the copy raster "eye"-con,
+	  but set the <em>SCAN PA</em> to '90'.
+
+<p><em>Sample Time</em>:  The <em>sample time</em> is the total
+	  integration time <i>per pixel</i> in the completed map.  The
+	  minimum time is 0.1 seconds.  There is no maximum time,
+	  except that you should make sure the MSB takes no more than
+	  1.5 to 2 hours at most.
 
 <hr> 
 <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
