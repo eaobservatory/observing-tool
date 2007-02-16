@@ -784,15 +784,23 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		try
 		{
-			if( ( ( Component )source).getName().equals( "molecule" ) )
+			String name = ( ( Component )source).getName() ;
+			if( name.equals( "molecule" ) )
 			{
 				// Set the current molecule and update the transitions
-				_inst.setCentreFrequency( _receiver.feIF , 0 );
-				_inst.setMolecule( ( ( JComboBox )ae.getSource()).getSelectedItem().toString() , 0 );
+				int available = new Integer( _inst.getBandMode() ).intValue() ;
+				for( int index = 0 ; index < available ; index++ )
+				{
+					_inst.setCentreFrequency( _receiver.feIF , index );
+					_inst.setMolecule( ( ( JComboBox )ae.getSource()).getSelectedItem().toString() , index ) ;
+				}
 				_updateTransitionChoice();
+				double restFreq = _inst.getRestFrequency( 0 ) ;
+				for( int index = 0 ; index < available ; index++ )
+					_inst.setRestFrequency( restFreq , index ) ;
 				_initialiseRegionInfo();
 			}
-			else if( ( ( Component )source).getName().equals( "transition" ) )
+			else if( name.equals( "transition" ) )
 			{
 				// Set the current transition
 				_inst.setCentreFrequency( _receiver.feIF , 0 );
@@ -803,7 +811,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					_updateFrequencyText( ( ( Transition )t).frequency / 1.0E9 );
 				_initialiseRegionInfo();
 			}
-			else if( ( ( Component )source).getName().equals( "Accept" ) )
+			else if( name.equals( "Accept" ) )
 			{
 				// Set the current Rest Frequency
 				// Get the text field widget
@@ -830,13 +838,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_w.velocity.setForeground( Color.BLACK );
 				toggleEnabled( _w.fPanel , "Accept" , false );
 			}
-			else if( ( ( Component )source).getName().equals( "show" ) )
+			else if( name.equals( "show" ) )
 			{
 				configureFrequencyEditor();
 				enableNamedWidgets( false );
 				_frequencyEditor.show();
 			}
-			else if( ( ( Component )source).getName().equals( "hide" ) )
+			else if( name.equals( "hide" ) )
 			{
 				_hidingFrequencyEditor = true;
 				getFrequencyEditorConfiguration();
@@ -849,7 +857,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 			else
 			{
-				System.out.println( "Unknown source for action: " + ( ( Component ) ae.getSource() ).getName() );
+				System.out.println( "Unknown source for action: " + name );
 			}
 
 		}
@@ -863,6 +871,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_freqEditorConfigured = false;
 	}
 
+	private void _adjustCentralFrequencies()
+	{
+		double mainline = _inst.getRestFrequency( 0 ) ;
+		double centre = _inst.getCentreFrequency( 0 ) ;
+		int available = new Integer( _inst.getBandMode() ).intValue() ;
+		for( int index = 1 ; index < available ; index ++ )
+		{
+			double line = _inst.getRestFrequency( index ) ;
+			line = centre - ( mainline - line ) ;
+			_inst.setCentreFrequency( line , index ) ;
+		}
+		
+	}
 	
 	private void _updateCentralFrequenciesFromShifts( Vector shifts )
 	{
@@ -1271,11 +1292,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// We need to set the transition to the first available
 			// for the current species
 			JOptionPane.showMessageDialog( null , "Transition Changed: " + currentTransition + " out of range." , "Transition Changed!" , JOptionPane.PLAIN_MESSAGE );
-			for( int i = 0 ; i < Integer.parseInt( _inst.getBandMode() ) ; i++ )
-			{
-				_inst.setTransition( transBox.getItemAt( 0 ).toString() , i );
-				transChanged = true;
-			}
+			int available = new Integer( _inst.getBandMode() ).intValue() ;
+			for( int index = 0 ; index < available ; index++ )
+				_inst.setTransition( transBox.getItemAt( 0 ).toString() , index );
+			transChanged = true;
 			transBox.setSelectedIndex( 0 );
 		}
 
