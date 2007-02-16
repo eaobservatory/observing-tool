@@ -95,7 +95,7 @@
 </configuration>
 
 <configuration>
-  <name>      RxA_13C18O_250X2</name>
+  <name>      RxA_13C18O_250X4</name>
   <frontEnd>  A3              </frontEnd>
   <frequency> 0.              </frequency>
   <frequency> 0.              </frequency>
@@ -119,62 +119,6 @@
   <shift>  3.5057869997518616E9 </shift>
   <shift>  3.8948721997518616E9 </shift>
   <shift>  3.8948721997518616E9 </shift>
-</configuration>
-
-<configuration>
-  <name>      HARP_COH13CN_250</name>
-  <frontEnd>  HARP            </frontEnd>
-  <frequency> 0.              </frequency>
-  <frequency> 0.              </frequency>
-  <sideband>  LSB             </sideband>
-  <mixers>    1               </mixers>
-  <mode>      SSB             </mode>
-  <systems>   2               </systems>
-  <species>   CO              </species>
-  <species>   H-13-CN         </species>
-  <transition>3  - 2          </transition>
-  <transition>4  - 3          </transition>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>     5.0E9           </shift>
-  <shift>     5.45623E9       </shift>
-</configuration>
-
-<configuration>
-  <name>      HARP_H2DN2H_250X2</name>
-  <frontEnd>  HARP            </frontEnd>
-  <frequency> 0.              </frequency>
-  <frequency> 0.              </frequency>
-  <sideband>  USB             </sideband>
-  <mixers>    1               </mixers>
-  <mode>      SSB             </mode>
-  <systems>   2               </systems>
-  <species>   H2D+            </species>
-  <species>   N2H+            </species>
-  <transition>1 1 0 0  - 1 1 1 0</transition>
-  <transition>4  - 3          </transition>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>     5.0E9           </shift>
-  <shift>     5.251169E9      </shift>
-</configuration>
-
-<configuration>
-  <name>      HARP_13CO       </name>
-  <frontEnd>  HARP            </frontEnd>
-  <frequency> 0.              </frequency>
-  <frequency> 0.              </frequency>
-  <sideband>  LSB             </sideband>
-  <mixers>    1               </mixers>
-  <mode>      SSB             </mode>
-  <systems>   2               </systems>
-  <species>   C-18-O          </species>
-  <species>   13-CO           </species>
-  <transition>3  - 2          </transition>
-  <transition>3  - 2          </transition>
-  <bandwidth> 250.0           </bandwidth>
-  <bandwidth> 250.0           </bandwidth>
-  <shift>  5.607009925558312E9</shift>
-  <shift>  4.349595125558289E9</shift>
 </configuration>
 
 <configuration>
@@ -253,6 +197,64 @@
   <shift>     3.6109148E9     </shift>
   <shift>     3.3257632E9     </shift>
 </configuration>
+
+<configuration>
+  <name>      HARP_COH13CN_250</name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   2               </systems>
+  <species>   CO              </species>
+  <species>   H-13-CN         </species>
+  <transition>3  - 2          </transition>
+  <transition>4  - 3          </transition>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     5.0E9           </shift>
+  <shift>     5.45623E9       </shift>
+</configuration>
+
+<configuration>
+  <name>      HARP_H2DN2H_250X2</name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  USB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   2               </systems>
+  <species>   H2D+            </species>
+  <species>   N2H+            </species>
+  <transition>1 1 0 0  - 1 1 1 0</transition>
+  <transition>4  - 3          </transition>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>     5.0E9           </shift>
+  <shift>     5.251169E9      </shift>
+</configuration>
+
+<configuration>
+  <name>      HARP_13C18O_250x2</name>
+  <frontEnd>  HARP            </frontEnd>
+  <frequency> 0.              </frequency>
+  <frequency> 0.              </frequency>
+  <sideband>  LSB             </sideband>
+  <mixers>    1               </mixers>
+  <mode>      SSB             </mode>
+  <systems>   2               </systems>
+  <species>   C-18-O          </species>
+  <species>   13-CO           </species>
+  <transition>3  - 2          </transition>
+  <transition>3  - 2          </transition>
+  <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
+  <shift>  5.607009925558312E9</shift>
+  <shift>  4.349595125558289E9</shift>
+</configuration>
+
+
 
 </specialConfigs>
 
