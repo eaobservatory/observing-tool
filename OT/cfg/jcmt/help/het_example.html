@@ -178,13 +178,12 @@ take.
 ############################################################################ 
 -->
     <h2><a name="het_thsc">The Het Setup component</a></h2>
-
-<p> If you click on the "Het Setup" component, the properties of that
- component are shown in the right hand side of the science program
- window (i.e. in the editor panel), as shown below. The purpose of
-	  this component is to enable the set up of the required
-	  heterodyne instrument and ACSIS prior to
-	  an observation. </p>
+ 
+<p> If you click on the "Het Setup" component you will see the 
+    window below. The purpose of
+	  this component is to enable the configuration of the required
+	  heterodyne instrument (the Front End) and ACSIS (the 'back 
+          end') prior to an observation. </p>
  
 
 <img src="het_images/het_het_setup.gif" alt="Het Setup component" ><p>
@@ -192,83 +191,87 @@ Four boxes are displayed in the editor panel.
 
 <h3>Front End Configuration</h3>
 <ul>
-<li> The first item in the Het Setup component enables the user to
-		choose the required receiver. Note the tuning
-		range, i.e. the frequency range over which the
-		selected receiver can be tuned, displayed in the
-		top-right corner.
 
-<li> The Bandwidth menu item allows the user to select the required
-		bandwidth (in MHz). The resulting spectral resolution
+
+
+
+
+<li> The first item in the Het Setup component enables the user to
+		choose the required receiver or <b>Front End</b>. The 
+                tuning/frequency range over which the
+		selected receiver can be tuned is displayed in the
+		<b>Front End Summary</b> box in the top-right corner.
+
+<li> The <b>Sp.(ectral) regions</b> box allows the selection of multiple 
+     spectral windows. These may be selected from among a list of
+     favourite combinations in the <b>Special Config(uration)s</b>
+     pull-down menu to the right, or defined interactively using
+     the <b>Frequency Editor</b> (see below). The Frequency editor tool is
+     shown and hidden using the buttons further down the window.  
+
+<li> The <b>Bandwidths</b> menu item allows the selection of the 
+     required bandwidth (in MHz) for each Spectral Region. The resulting 
+     spectral resolution
 		(in kHz) is shown automatically updated in the "res"
 		entry in the Frequency Configuration table at the
 		bottom of the Het Setup menu.
 
 
 
-<li> The next item allows the user to choose between double sideband
-		(dsb) and single sideband (ssb) operation. Note
+<li> The <b>Mode</b> box allows a choice between double sideband
+		(dsb) and single sideband (ssb) operation. Note that
 		receiver A has no single sideband capabilities, so
 		"dsb" is the only allowed option.
  
-<li> The next menu allows the user to request which sideband is used
-		to observe with. Sideband suppression is not absolute
+<li> The <b>Sideband</b> menu allows the choice of sideband. 
+		Sideband suppression is not absolute
 		in the SSB receivers, so the user should avoid, if
 		possible, the situation where the unwanted sideband
 		corresponds to a frequency where the zenith opacity or
 		receiver noise is high. In most cases, however, you
-	    should simply select "Best".
+	    could simply select "Best".
 
 </ul>
 
 <h3>Frequency Setup</h3>
 
+<p>Tuning of the receiver requires a rest frequency and a velocity.
+   If the aim is to observe a specific molecular transition the 
+   user may use the pull-down lists of <b>molecules</b> and 
+   <b>transitions</b> to generate the frequency. The example above shows 
+   the <b>CO J=2-1</b> combination (230.538 GHz).
+   Alternately, the tuning frequency may be specified explicitly
+   in GHz. The frequency will appear in 
+   <font color=red><b>RED</b></font> until the <b>Accept</b> button 
+   is clicked. <i>This is essential to ensure acceptance of the input</i>. 
+   This method will also result in the phrase 'No line' appearing in the 
+   molecule and transition fields, even if the frequency does in fact 
+   correspond to a 
+   known transition. (Look-up occurs from molecule/transition to
+   frequency only - no look-up is done in the opposite direction).
 
- <p>In order to indicate receiver tuning, the user needs to indicate
-	      the rest frequency of the spectral line observation.
-	      The rest frequency of the line can be set by choosing
-	  the required molecule and transition from the pull-down
-	  menus, or by entering the frequency manually, in GHz, in the
-	  frequency field. Note that manually entering frequency
-	  values in the rest frequency field causes the molecule and
-	  transition menus take on values of "No Line", even if the
-	  frequency does in fact correspond to a known
-	  transition. Look-up occurs from molecule/transition to
-	  frequency only - no look-up is done in the opposite
-	  direction.
-
-<p>When entering the observing frequency manually, it is important to
-	  note that the frequency will appear in <font
-	    color=red><b>RED</b></font>.  You <b>MUST</b> then click
-	  the <b>accept</b> button to the right of the frequency field,
-	  for the changes to be implemented.
-
-<p>In addition to indicating the rest frequency of the line, you will
-	  need to tell the OT the radial velocity to which the
-	  receiver must be tuned.  You have two choices of how to do
-	  that:  it can be specified here in the Het. Setup component,
-	  or the velocity can be specified in the <a
-	    href="#het_tcc">Target Information</a> component.  To
-	  specify the velocity in the Het. Setup component, uncheck
-	  the "Default tuning velocity to target radial velocity"
-	  button (top of the Frequency Setup box in the Het. Setup
-	  editor panel), enter the velocity in the Velocity field,
-	  select the required Velocity definition and frame from the two
-	  pull-down menues, and click the "Accept" button (to the
-	  right of the frequency field).  (Note that the velocity will
-	  appear in <font color=red><b>RED</b></font> until you click
-	  on the Accept button.  Failure to click on the Accept button
-	  will mean the velocity you entered will be lost.)  
+<p>The velocity of the target may be entered either here or in the 
+   <a href="#het_tcc">Target Information</a> component; this second option 
+   is activated by ticking the box marked 
+   <b>Default tuning velocity to target velocity</b>.
+   If entering the velocity here you must also specify the  
+   <b>Velocity Definition</b> and <b>Velocity Frame</b> from the two 
+pull-down menus, 
+   and click the "Accept" button (to the right of the frequency field).
+  (Note that the velocity will appear in 
+   <font color=red><b>RED</b></font> until you click on the Accept button.  
+   Failure to click on the Accept button will mean the velocity you 
+   entered will be lost.)  
 
 	    
-
-<p>If your source has a very large radial velocity, you should:
-<ul><li> First select the receiver within whose tuning range the
-	    redshifted line will fall.  For example, at a redshift of
+<p><ul>
+   <li>If your source has a very large radial velocity, you should:
+<ul><li> Select the receiver within whose tuning range the
+	    (redshifted) line will fall.  For example, at a redshift of
 	    2.0, the neutral carbon [CI]
 	    J=2-1 line, whose rest frequency is 809 GHz, will fall
 	    into the tuning range of RxA. 
-<li> Next specify the radial velocity of the source either in the
+<li> Specify the radial velocity of the source, as above, either in the
 	    <i>Het. Setup</i> velocity field, or in the <i>Target
 	      Info.</i> velocity field.  (If you choose the latter,
 	    make sure the Target Info. component is on the same level
@@ -276,10 +279,9 @@ Four boxes are displayed in the editor panel.
 	    observation sequence.)  If you enter the velocity in the
 	    <i>Het. Setup</i> 
 	    component, be sure to click the Accept button before proceeding.
-<li> You should notice that the OT now displays a list of spectral
-	    lines that fit into the tuning range of the receiver,
-	    after red-shifting the line.
-	    Select the molecule and transition you wish to observe
+<li> The OT now corrects its lookup table of transitions for the 
+            entered velocity.
+	    Select a molecule and transition
 	    from the pull-down menu, or enter the <b>rest</b> frequency of the
 	    spectral line (and click the Accept button).  Beware,
 	    however, that if you enter a   
@@ -287,27 +289,121 @@ Four boxes are displayed in the editor panel.
 	    check to see if the redshifted line is in the tuning range
 	    of the receiver you selected.  
 </ul>
+</ul>
 
-<p>Clicking on
-	  the Frequency Editor button will show you the
-	  atmospheric opacity at the observed frequency.  It's wise to
+<p>
+<h3><a name="het_freq_ed"></a>Frequency Editor</h3>
+
+
+<p>Clicking on the Frequency Editor button will show you something 
+like this:
+<p>
+<img src="het_images/het_frequency_editor.gif" alt="Het Freq Editor">
+<p>
+<p>
+ The frequency editor tool is particular useful when it comes to receivers 
+operating in double sideband mode, where two differing sky frequencies end 
+up with the same IF frequency. In this case, identifying spectral lines 
+can be tricky since one does not know,  a priori, which sideband they are 
+from.
+ This tool now handles multi-spectral window selections and 
+ can be used interactively in choosing observing frequencies 
+ and bandwidths, particularly where you might want to observe several
+ lines at once in one window with DSB receivers, or when using 
+ <a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
+ special ACSIS configurations</a>, 
+ or simply to check the atmospheric opacity at
+ the observed (or sideband) frequency.  
+ 
+<p>
+Working roughly from top to bottom, left to right, in the example above 
+showing only one Spectral Subsystem we see:
+<br>
+<ul>
+<li>the observing and image side-bands, marked as <b>LSB</b> and 
+    <b>USB</b>
+<li>their locations within the respective LO2 ranges and their widths 
+<li>the identification of the selected emission line, marked <b>Line</b>
+<li>the <b>IF</b> (Intermediate Frequency), sometimes in Hz sometimes GHz
+<li>the bandwidth, in MHz
+<li>the <b>Res</b>olution that the selected bandwidth produces, in kHz
+<li>the molecular transitions in this vicinity, marked by vertical bars,
+     on a line labelled <b>Emission Lines</b>
+<li>the frequency scale immediately below Emission Lines is the FE 
+frequency, doppler shifted by the velocity value and definition entered in 
+the het-setup component. You will notice this scale will shift if you enter a 
+non-zero velocity, and will also shift if you change the velocity 
+definition.
+<li>the line selected is shown in <font color=red>red</font> 
+<li>the receiver temperature (<font color=red>TRx</font>) is plotted as 
+    the >font color=red>red</font> line (although there 
+     is no scale currently). It's wise to
 	  check this since even a minor change in radial velocity can
 	  shift the observed frequency into a region of very large
 	  atmospheric opacity.
+<li>the <b>FE Freq</b>uency scale, shown below the plot of TRx
+    is the observing frequency in the rest frame of the receiver
+<li>the Local Oscillator frequency, shown as <b>LO1</b>, located within 
+the full tuning range of the receiver.
+<ul>
+<li>Note the upper frequency scale, lower frequency scale and LO1 are only 
+approximate because the correction from the receiver rest frame to the 
+chosen rest frame requires the Doppler correction for the Earth's 
+motion, which varies with time.
+</ul>
+</ul>
+Among the dynamic functions, we find that
+<ul>
+<li>the positions of the windows can be changed by 
+clicking on the window sliders and dragging . . . Note how the LO1 
+and LO2 (ie the IF) both change
+<li>the bandwidth can be changed by clicking on the pull-down menu
+<li>clicking anywhere along the 'Emission lines' level will identify 
+the nearby lines.
+<li>keeping the mouse button depressed while scrolling 
+down through the menu makes the line appear in 
+<font color=green>green</font>
+<li>The LO1 frequency can be changed by right-clicking on the slider and 
+dragging. This changes both frequency scales and the line rest frequency. 
+Moving the LO slider can be a convenient means of choosing a band centre 
+frequency such that particular spectral lines are included or excluded 
+from your passband. 
+</ul> 
+<p> 
+To generate a multi-line, multi-Subsystem configuration: 
+<ul>
+<li>In the Front-End configuration window, select a value of Sp.(ectral) 
+regions greater than 1.
+ The Frequency Configuration block at the bottom of the screen will show 
+ the appropriate number of 'Region's, although initially they
+ are populated with default values. 
+<li>Select the first line (for Region 0) as above. 
+<li>Press the Frequency Editor button to generate a Frequency Editor 
+    window with the appropriate number of Subsystems. The pre-selected 
+    line is in <font color=red>red</font>.
+<li><b>Click</b> at the level of 'Emission Lines' in the general vicinity
+    (frequency space) of the next desired line
+<li>keep the button pressed and scroll down until the line is met,
+    and shown in <font color=green>green</font>
+<li>click on the sideband window and drag the window over the 
+    green line
+<li>click on the 'Line' box appropriate for that subsystem to transfer the
+    line identity
+<li>Repeat (from <b>Click</b>) for further lines if necessary
+<li>Press the Hide Frequency Editor button to transfer these data to the
+    Heterodyne Setup window
+</ul>
 
+Note that the movement of the sliders will make for 
+configurations that may not be easily repeatable.
+If you have a multi-line configuration that you consider 
+astrophysically important - and which may be useful for either
+yourself or others later on - please contact the JCMT staff
+and request that it become one of the available 'Special 
+Config(uration)s'. Our (<a href="http://cadcwww.hia.nrc.ca/">CADC</a>) 
+database will then be a lot simpler to manage and search if everyone
+using this combination of lines uses precisely the same configuration.
 
-
- <p>As mentioned, the <i>Frequency Setup</i> configuration also includes a
-	      "Frequency Editor" tool. This
- can be useful in setting, choosing your observing frequencies and
- bandwidths, particularly where you might want to observe several
- lines at once with DSB receivers, when using special ACSIS
-	      configurations, or to check the atmospheric opacity at
-	      the observed (or sideband) frequency.  This section will
-	    be updated when ACSIS special configurations become 
-supported.<p>
-
- 
 
 <!-- 
 ############################################################################ 
@@ -909,134 +1005,12 @@ spectral line observation.  Be aware, however, that ultimately it is up to
      priority. </ul>
 
  That's pretty much all you need to know to start preparing your
- MSB. The remainder of this primer covers the rest of the Heterodyne
- MSB library and the frequency editor tool in the heterodyne setup
- component. <!-- 
+ MSB. The remainder of this primer covers the Heterodyne
+ MSB library. <!-- 
 ############################################################################ 
 -->
 
-<!-- 
-############################################################################ 
--->
- <h2><a name="het_freq_ed"> The frequency editor</a></h2>
 
-<i>{This section will be updated at a later time.}</i>
-
- <p>While many users will simply complete the Het-setup component quite
- adequately following the procedure outlined above, the het-setup 
-component includes the
- "frequency editor" tool which will prove useful to some observers -
- particularly those observing multiple spectral lines in a single
- program. To activate the tool simply, click on the "Show frequency
- Editor" button in the het-setup component.<p>
-
-
-<img src="het_images/het_freq_ed.gif" alt="The frequency editor" 
-width="100%"><p>
-
-
- Starting at the top of the window we see a rectangle labelled LSB on
- the left and a rectangle labelled USB on the right. In between these
- two rectangle we have indication of the receiver IF frequency, the
- currently selected bandwidth and the resolution. Below these items
- there is a frequency scale and vertical lines indicating the position
- of astronomical spectral lines. Below this frequency scale is a plot
- indicating the atmospheric transmission as a function of
- frequency. Below this is a frequency scale labelled "FE frequency" and
- below this is a scale and slider labelled "LO1".<p>
-
- The chief idea of the frequency editor is to give a visual
- representation of the observing band selected for the receiver,
- together with an indication of the spectral lines visible in that
- band. To begin with, use the het-setup component to select RxB3, the
- CO(3-2) transition, and ssb operation observing with the lower
- sideband (lsb). Enter a velocity of 0 km/s. The frequency editor will
- now show USB rectangle greyed out, and the LSB rectangle
- highlighted. Try changing the bandwidth using the "BW" pull-down
- menu. Notice that the textured lilac rectangle in the middle of the
- LSB rectangle changes size, indicating the extent of the band on the
- frequency scale directly below. Notice also that a spectral line is
- highlighted in red at the centre of the band. This is the CO(3-2) line
- you selected before opening the frequency editor tool. Now select a
- bandwidth of 920 MHz. The band, indicated by the textured lilac
- rectangle, can be seen to encompass several other spectral lines. If
- you click and hold the right mouse button near the spectral lines, a
- menu will appear. Moving down the menu, still keeping the right mouse
- button held down, highlights the name of a spectral line on the menu
- and causes the corresponding spectral line to be highlighted in green
- on the frequency scale. This enables the identification of the
- spectral lines which may be visible in your chosen receiver
- passband.<p>
-
- The frequency scale at the bottom of the window, labelled "FE freq",
- corresponds to the observing frequency in the rest frame of the
- receiver. This is just the LO frequency plus/minus the IF frequency
- for the upper and lower sideband, respectively. The frequency scale
- immediately below the spectral lines is the "FE freq" doppler shifted
- by the velocity value and definition entered in the het-setup
- component. You will notice this scale will shift if you enter a
- non-zero velocity, and will also shift if you cahnge the velocity
- definition, e.g. from radio to optical. Note the frequency of the
- upper scale, lower scale and LO are only approximate because the
- correction from the receiver rest frame to the chosen rest frame
- cannot be made, since the time when the observation will be made is
- unknown. In fact, if you really enjoy working backwards, you can move
- the LO slider by dragging it while pressing the left and right mouse
- buttons simultaneously. As you might expect, this changes both
- frequency scales and the line rest frequency. Moving the LO slider can
- be a convenient means of choosing a band centre frequency such that
- particular spectral lines are included or excluded from your
- passband. Remember, for making the observation, the important
- parameters are the rest frequency, velocity, rest frame and velocity
- definition. These will be used to calculate the actual LO tuning at
- the time of observation, which will depend on the relative velocities
- of the receiver and the chosen rest frame at that time.<p>
-
- The frequency editor tool is particular useful when it comes to
- receivers operating in double sideband mode, where two differing sky
- frequencies end up with the same IF frequency. In this case,
- identifying spectral lines can be tricky since one does not know, <em>
- a priori</em>, which sideband they are from. Choose RxA, which has no
- sideband suppression capabilities, from the pull-down menu on the
- het-setup component. Notice that neither LSB nor USB rectangles are
- greyed out, indicating that lines from both sidebands may be visible
- in the IF passband. The apparent position of lines from the image
- sideband are a function both of the rest frequency and source velocity
- of the line chosen to be at the centre of the signal sideband. The
- frequency editor gives a useful graphical reperesentation of this
- effect, allowing one to either choose observing frequencies to avoid
- contamination, or identify unknown lines in the passband. The fact
- that the sky transmission and receiver noise are shown in the
- frequency editor tool allows the user to reliably choose between upper
- and lower sidebands when observing in SSB mode.<p>
-
- The frequency editor tool is also useful when using non-standard DAS
- configurations. As an example, choose NS_COHCN_125AB from the
- non-standard configuration menu. This mode is designed to allow the
- user to observe the CO(3-2) and HCN(4-3) lines simulataneously using
- the highest resolution 125 MHZ DAS mode. This is achieved by adjusting
- both the frontend LO frequency (to move the lines closer together) and
- the DAS LO frequency (to centre the subsystem on the two lines). In
- the frequency editor this is represented by a shifting of the bands
- covered within the LSB and USB sliders. You can use the spectral line
- identification menu to confirm that CO(3-2) appears in the lower
- sideband and upper sideband. Some DAS modes, e.g. NS_H2CO_125X4, use
- the different sub-bands of the DAS independently to provide a coverage
- useful for measuring two closely spaced lines accurately. If you
- choose one of these modes from the pull down menu, you will see that
- the coverage of the DAS subbands is represented by multiple LSB and
- USB sliders. If you select NS_H2CO_125X4, you should be able to
- confirm, using the line identification menu, that this configuration
- enables the simultanaeous observation of the H2CO lines at 218.22 GHz
- and 218.48 GHz with the highest DAS frequency resolution.  Please
- consult this 
-
-<a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
- list </a> of non-standard modes DAS modes, and the 
-
-<a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/DAS_guide/das-guide.html">
- DAS USER guide </a> for further information when planning your 
- observation.
 
 <h2><a name="het_msblib">The Heterodyne MSB library</a></h2>
 
