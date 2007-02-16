@@ -218,6 +218,10 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
 	private void updateSizeOfPixels()
 	{
+		boolean harp = false ;
+		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs ) ;
+		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst).getFrontEnd().equals( "HARP" ) ) ;
+		
 		boolean displayWarning = false ;
 		double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
 		double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
@@ -227,7 +231,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.sizeOfXPixel.setText( Integer.toString( correctedSizeOfXPixel ) ) ;
 		_w.sizeOfYPixel.setText( Integer.toString( correctedSizeOfYPixel ) ) ;
 		
-		if( sizeOfXPixel - Math.floor( sizeOfXPixel ) != 0. )
+		if( !harp && sizeOfXPixel - Math.floor( sizeOfXPixel ) != 0. )
 		{
 			_w.sizeOfXPixelLabel.setForeground( Color.red ) ;
 			displayWarning = true ;
@@ -237,7 +241,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			_w.sizeOfXPixelLabel.setForeground( Color.black ) ;
 		}
 		
-		if( sizeOfYPixel - Math.floor( sizeOfYPixel ) != 0. )
+		if( !harp && sizeOfYPixel - Math.floor( sizeOfYPixel ) != 0. )
 		{
 			_w.sizeOfYPixelLabel.setForeground( Color.red ) ;
 			displayWarning = true ;
@@ -489,32 +493,20 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			// We must be using a heterodyne
 			double secsPerRow = _iterObs.getSecsPerRow();
 			if( secsPerRow <= DEFAULT_SECS_ROW )
-			{
 				_w.secsPerRow.setForeground( safeColor );
-			}
 			else if( secsPerRow < 2 * DEFAULT_SECS_ROW )
-			{
 				_w.secsPerRow.setForeground( warnColor );
-			}
 			else
-			{
 				_w.secsPerRow.setForeground( errColor );
-			}
 			_w.secsPerRow.setValue( formatter.format( secsPerRow ) );
 
 			double obsTime = _iterObs.getElapsedTime();
 			if( obsTime <= DEFAULT_SECS_MAP )
-			{
 				_w.secsPerObservation.setForeground( safeColor );
-			}
 			else if( obsTime < 2 * DEFAULT_SECS_MAP )
-			{
 				_w.secsPerObservation.setForeground( warnColor );
-			}
 			else
-			{
 				_w.secsPerObservation.setForeground( errColor );
-			}
 			_w.secsPerObservation.setValue( formatter.format( obsTime ) );
 		}
 	}
@@ -530,18 +522,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 			// Get the instrument
 			SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs );
 			if( inst == null | !( inst instanceof SpInstHeterodyne ) )
-			{
 				return;
-			}
 
 			// Get the number of channels
 			int maxChannels = 0;
 			for( int i = 0 ; i < ( ( SpInstHeterodyne ) inst ).getNumSubSystems() ; i++ )
 			{
 				if( ( ( SpInstHeterodyne ) inst ).getChannels( i ) > maxChannels )
-				{
 					maxChannels = ( ( SpInstHeterodyne ) inst ).getChannels( i );
-				}
 			}
 
 			// See if we can get the DR recipe component which will allow us
