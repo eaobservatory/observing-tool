@@ -832,8 +832,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 			else if( ( ( Component )source).getName().equals( "show" ) )
 			{
-				if( !_freqEditorConfigured )
-					configureFrequencyEditor();
+				configureFrequencyEditor();
 				enableNamedWidgets( false );
 				_frequencyEditor.show();
 			}
