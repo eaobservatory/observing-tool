@@ -15,9 +15,9 @@ import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.Observer;
 import java.util.Observable;
+import java.util.TreeMap;
 import java.util.Vector;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
 
 import jsky.util.gui.DialogUtil;
@@ -71,7 +71,12 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 
   // Global flag indicating whether we are using acsis or das
   boolean _isAcsis = true ;
+  
+  TreeMap harpMap = new TreeMap() ;
+private final String[] HARP_RASTER_NAMES = { "1 array (116.4" , "1/2 array (58.2" , "1/4 array (29.1" , "1/8 array (14.6" , "1 sample (7.28" , "3/4 array (87.3" } ;
+private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.5521 , 7.2761 , 87.3128 } ;
 
+	boolean harp = false ;
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -84,18 +89,14 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_presSource = _w = ( IterRasterObsGUI ) super._w;
 		_description = "Scan/Raster Map";
 
-		ButtonGroup grp = new ButtonGroup();
-		grp.add( _w.alongRow );
-		grp.add( _w.interleaved );
-
-		_w.alongRow.setActionCommand( SpIterRasterObs.RASTER_MODE_ALONG_ROW );
-		_w.interleaved.setActionCommand( SpIterRasterObs.RASTER_MODE_INTERLEAVED );
-
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES );
 		_w.scanSystem.setChoices( SpJCMTConstants.SCAN_SYSTEMS );
 		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES ) ;
 		_w.thermometer.setMaximum( _maxFileSize );
 
+		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
+			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + "\")" ) ;		
+		
 		if( System.getProperty( "FREQ_EDITOR_CFG" ) != null )
 		{
 			if( System.getProperty( "FREQ_EDITOR_CFG" ).indexOf( "acsis" ) != -1 )
@@ -135,13 +136,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		_w.width.addWatcher( this );
 		_w.height.addWatcher( this );
 		_w.posAngle.addWatcher( this );
-		_w.alongRow.addWatcher( this );
-		_w.interleaved.addWatcher( this );
 		_w.rowReversal.addWatcher( this );
 		_w.scanSystem.addWatcher( this );
 		_w.scanAngle.addWatcher( this );
 		_w.defaultButton.addWatcher( this );
 		_w.scanAngle.getEditor().getEditorComponent().addKeyListener( this );
+		
+		_w.harpRasters.addWatcher( this ) ;
 
 		_w.frequencyPanel.setVisible( false );
 	}
@@ -149,16 +150,55 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   /**
 	 * Override setup to store away a reference to the Raster Iterator.
 	 */
-  public void setup(SpItem spItem) {
-    _iterObs = (SpIterRasterObs) spItem;
+	public void setup( SpItem spItem )
+	{
+		_iterObs = ( SpIterRasterObs ) spItem;
+		
+		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs ) ;
+		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst).getFrontEnd().equals( "HARP" ) ) ;
+		if( harp )
+			_harpSetup() ;
+		super.setup( spItem );
+		_iterObs.getAvEditFSM().addObserver( this );
+	}
 
-    super.setup(spItem);
-    _iterObs.getAvEditFSM().addObserver(this);
-  }
-
+	private void _harpSetup()
+	{
+		_iterObs.setScanDx( 7.2761 ) ;
+		double dy = _iterObs.getScanDy() ;
+		boolean found = false ;
+		for( int index = 0 ; index < HARP_RASTER_VALUES.length ; index++ )
+		{
+			if( dy == HARP_RASTER_VALUES[ index ] )
+			{
+				_w.harpRasters.deleteWatcher( this ) ;
+				_w.harpRasters.setSelectedIndex( index ) ;
+				_w.harpRasters.addWatcher( this ) ;
+				found = true ;
+				break ;
+			}
+		}
+		if( !found )
+		{
+			_iterObs.setScanDy( HARP_RASTER_VALUES[ 0 ] ) ;
+			_w.harpRasters.deleteWatcher( this ) ;
+			_w.harpRasters.setSelectedIndex( 0 ) ;
+			_w.harpRasters.addWatcher( this ) ;
+		}
+	}
+	
 	protected void _updateWidgets()
 	{
 		super._updateWidgets();
+		
+		if( harp )
+			_w.addHarpPanel() ;
+		else
+			_w.addNonHarpPanel() ;
+		
+		_w.dx.setEnabled( !harp ) ;
+		_w.dy.setEnabled( !harp ) ;
+		
 		try
 		{
 			_w.dx.setValue( _iterObs.getScanDx() );
@@ -206,22 +246,13 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		else
 			_w.acsisSampleTime.setValue( _iterObs.getSampleTime() );
 
-		if( SpIterRasterObs.RASTER_MODE_ALONG_ROW.equals( _iterObs.getRasterMode() ) )
-			_w.alongRow.setSelected( true );
-		else
-			_w.interleaved.setSelected( true );
-
 		updateTimes();
 		updateThermometer();
 		updateSizeOfPixels() ;
 	}
 
 	private void updateSizeOfPixels()
-	{
-		boolean harp = false ;
-		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs ) ;
-		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst).getFrontEnd().equals( "HARP" ) ) ;
-		
+	{		
 		boolean displayWarning = false ;
 		double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
 		double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
@@ -358,45 +389,41 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
 		if( ddlbwe == _w.scanSystem )
 		{
 			_iterObs.setScanSystem( SpJCMTConstants.SCAN_SYSTEMS[ index ] );
-			return;
 		}
-
-		if( ddlbwe == _w.scanAngle )
+		else if( ddlbwe == _w.scanAngle )
 		{
-			if( _w.scanAngle.getValue().equals( SCAN_PA_CHOICES[ 0 ] ) )
+			Object value = _w.scanAngle.getValue() ;
+			if( value.equals( SCAN_PA_CHOICES[ 0 ] ) )
 			{
 				_w.scanAngle.setEditable( false );
-
 				_iterObs.setScanAngles( null );
 			}
-
-			if( _w.scanAngle.getValue().equals( SCAN_PA_CHOICES[ 1 ] ) )
+			else if( value.equals( SCAN_PA_CHOICES[ 1 ] ) )
 			{
 				_w.scanAngle.setEditable( true );
 				_w.scanAngle.setValue( "" );
 
 				_iterObs.setScanSystem( _w.scanSystem.getStringValue() );
 			}
-
-			return;
 		}
-
-		if( ddlbwe == _w.sampleTime )
+		else if( ddlbwe == _w.sampleTime )
 		{
 			_iterObs.setSampleTime( _w.sampleTime.getStringValue() );
 			_w.noiseTextBox.setValue( calculateNoise() );
 		}
-		
-		if( ddlbwe == _w.scanSystem )
+		else if( ddlbwe == _w.scanSystem )
 		{
 			_iterObs.setScanAngles( _w.scanSystem.getStringValue() );
-
-			return;
+		}		
+		else if( ddlbwe == _w.harpRasters )
+		{
+			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ] ;
+			_iterObs.setScanDy( value ) ;
 		}
-		
 		super.dropDownListBoxAction( ddlbwe , index , val );
 		updateTimes();
 		updateThermometer();
+		_updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
