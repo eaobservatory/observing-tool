@@ -1290,23 +1290,16 @@ this should be left to the default values.
 	  map (defined by the <em>width</em> and <em>height</em> of
 	  the map).  The  
 	  array is rotated by 14.04&ordm; to the direction of the
-	  scan.  This results in a fully sampled map, with 7.5"
-	  pixels.  Thus the <b>sample spacing</b> must be set to
-	  7.5".  At the end of a scan, the array is shifted up by the
+	  scan.  This results in a fully sampled map, with 7.3"
+	  pixels.  Thus the HARP <b>sample spacing</b> is set by the OT to
+	  7.2761".  At the end of a scan, the array is shifted up by the
 	  <em>scan spacing</em> and the telescope makes another scan
-	  across the area to be mapped.  Normally the <em>scan
-	    spacing</em> should be set to 1/2 the array size (58"
-	  (i.e. 60"*cos(14&ordm;))) so that each pixel is covered
-	  twice by the array, or set the <em>scan spacing</em> to the
-	  full array size (87" (i.e. 90"*cos(14&ordm;))) so that
-	  there's no overlap.  
+	  across the area to be mapped.  A pull-down menu allows one
+	  to set the <em>scan spacing</em>, so that one can step by
+	  the full array (i.e. no overlap of pixels during subsequent
+	  scans), by 3/4 array, 1/2 array, 1/4 array, or by a single
+	  pixel (i.e. a shift of 7.28").
 
-<p>(CAVEAT:  Currently (Feb 2007) three of the receptors are not
-	  working, effectively making a 3x4 array.  Two of the
-	  non-functioning pixels are expected to be repaired in March
-	  2007.  Until they are repaired, it is recommended that you
-	  use a <em>scan spacing</em> of 44" to assure complete
-	  coverage of your map.)
 
 <img src="het_images/harp_raster.gif" alt="HARP Raster" ><p>
 
@@ -1329,7 +1322,10 @@ this should be left to the default values.
 	  the original.  In the original raster "eye"-con, set the
 	  <em>SCAN PA</em> (lower left panel) to <em>user def</em>,
 	  and type in '0'.  Do the same in the copy raster "eye"-con,
-	  but set the <em>SCAN PA</em> to '90'.
+	  but set the <em>SCAN PA</em> to '90'.  (Alternatively, if
+	  the raster takes a half hour or less, one can put a copy of
+	  the observation within the same MSB and change the <em>SCAN
+	    PA</em> in each observation.)
 
 <p><em>Sample Time</em>:  The <em>sample time</em> is the total
 	  integration time <i>per pixel</i> in the completed map.  The
