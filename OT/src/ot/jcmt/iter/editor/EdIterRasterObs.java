@@ -229,9 +229,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		{
 			String scanAngleString = "";
 			for( int i = 0 ; i < _iterObs.getScanAngles().size() ; i++ )
-			{
 				scanAngleString += ", " + _iterObs.getScanAngle( i );
-			}
 
 			_w.scanAngle.setEditable( true );
 			_w.scanAngle.setValue( scanAngleString.substring( 2 ) );

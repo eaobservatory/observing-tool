@@ -234,18 +234,18 @@ public class IterRasterObsGUI extends IterJCMTGenericGUI
 		areaPanel.add( height , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
 		areaPanel.add( arcSecsLabel2 , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( sampleSpacingLabel , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( dx , new GridBagConstraints( 2 , 3 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( arcSecsLabel3 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( posAngleLabel1 , new GridBagConstraints( 0 , 3 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( posAngle , new GridBagConstraints( 2 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( degreesLabel2 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		
+		areaPanel.add( sampleSpacingLabel , new GridBagConstraints( 0 , 5 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( dx , new GridBagConstraints( 2 , 5 , 1 , 1 , 1.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( arcSecsLabel3 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
-		areaPanel.add( scanSpacingLabel , new GridBagConstraints( 0 , 5 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( dy , new GridBagConstraints( 2 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( arcSecsLabel4 , new GridBagConstraints( 3 , 5 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		
-		areaPanel.add( posAngleLabel1 , new GridBagConstraints( 0 , 6 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 5 , 0 , 0 ) , 0 , 0 ) );
-		areaPanel.add( posAngle , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
-		areaPanel.add( degreesLabel2 , new GridBagConstraints( 3 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
-		
+		areaPanel.add( scanSpacingLabel , new GridBagConstraints( 0 , 6 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 10 , 5 , 0 , 0 ) , 0 , 0 ) );
+		areaPanel.add( dy , new GridBagConstraints( 2 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 2 , 2 , 2 , 2 ) , 0 , 0 ) );
+		areaPanel.add( arcSecsLabel4 , new GridBagConstraints( 3 , 6 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+				
 		nonHarpPanel.setLayout( new GridBagLayout() ) ;
 		nonHarpPanel.add( spacingLabel , new GridBagConstraints( 0 , 0 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		nonHarpPanel.add( sizeOfXPixelLabel , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.BOTH , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
