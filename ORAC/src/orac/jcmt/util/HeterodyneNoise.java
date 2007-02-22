@@ -44,7 +44,7 @@ public class HeterodyneNoise {
 			return;
 
 		// Read the reciever file - first get its directory and add the file name
-		String fileName = cfgDir + "/" + receiverFile;
+		String fileName = cfgDir + File.separator + receiverFile;
 		// Open the file ready for reading
 		File rvrFile = new File( fileName );
 		try
@@ -124,7 +124,7 @@ public class HeterodyneNoise {
 		if( ( index = feNames.indexOf( fe ) ) >= 0 )
 		{
 			// There is a match, now extract the appropriate tree map
-			TreeMap thisMap = ( TreeMap ) trxValues.elementAt( index );
+			TreeMap thisMap = ( TreeMap )trxValues.elementAt( index );
 			int nextTrxFrequency = 0;
 			int lastTrxFrequency = 0;
 			if( thisMap.size() > 1 )
@@ -173,9 +173,7 @@ public class HeterodyneNoise {
 		double tSys = 0.0;
 
 		if( !initialised )
-		{
 			init();
-		}
 
 		// Find which tau range contains the required tau, and the
 		// next tau range nearest
@@ -188,31 +186,27 @@ public class HeterodyneNoise {
 		{
 			if( firstLoop )
 			{
-				current = ( ( Double ) iter.next() ).doubleValue();
-				next = ( ( Double ) iter.next() ).doubleValue();
+				current = ( ( Double )iter.next() ).doubleValue();
+				next = ( ( Double )iter.next() ).doubleValue();
 				if( tau <= current )
 					break;
 				firstLoop = false;
 				continue;
 			}
 			current = next;
-			next = ( ( Double ) iter.next() ).doubleValue();
+			next = ( ( Double )iter.next() ).doubleValue();
 			if( tau >= current && tau < next )
-			{
 				break;
-			}
 		}
-		tauFile0 = ( String ) _availableBands.get( new Double( current ) );
-		tauFile1 = ( String ) _availableBands.get( new Double( next ) );
+		tauFile0 = ( String )_availableBands.get( new Double( current ) );
+		tauFile1 = ( String )_availableBands.get( new Double( next ) );
 
 		double tranmission0 = getTransmission( tauFile0 , freq );
 		double tranmission1 = getTransmission( tauFile1 , freq );
 		double t = linterp( current , tranmission0 , next , tranmission1 , tau );
 
 		if( ( index = feNames.indexOf( fe ) ) != -1 )
-		{
-			nuTel = ( ( Double ) nu_tel.elementAt( index ) ).doubleValue();
-		}
+			nuTel = ( ( Double )nu_tel.elementAt( index )).doubleValue();
 
 		// Nowe find Tsys
 		double nuSky = Math.exp( -t * airmass );
@@ -220,13 +214,9 @@ public class HeterodyneNoise {
 		double tTel = 265.0 - nuTel * 265.0;
 
 		if( ssb )
-		{
 			tSys = ( 2.0 * getTrx( fe , freq ) + nuTel * tSky + tTel + 35 ) / ( nuSky * nuTel );
-		}
 		else
-		{
 			tSys = 2 * ( getTrx( fe , freq ) + nuTel * tSky + tTel ) / ( nuSky * nuTel );
-		}
 
 		return tSys;
 	}
