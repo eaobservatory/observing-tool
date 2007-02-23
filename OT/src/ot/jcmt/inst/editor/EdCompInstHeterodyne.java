@@ -895,7 +895,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			String feSelected = ( ( JRadioButton )ae.getSource() ).getText();
 			_receiver = ( Receiver )_cfg.receivers.get( feSelected );
 			_inst.setFrontEnd( feSelected );
-			_inst.setCentreFrequency( _receiver.feIF , 0 );
+			for( int index = 0 ; index < _regionInfo.length ; index++ )
+				_inst.setCentreFrequency( _receiver.feIF , index );
 			_inst.setFeBandWidth( _receiver.bandWidth );
 			setAvailableModes();
 			setAvailableRegions();
@@ -1315,7 +1316,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( "frequency".equals( name ) )
 			{
 				// This is the component we want
-				freq = ( JTextField ) _w.fPanel.getComponent( ( ( Integer ) freqPanelWidgetNames.get( name ) ).intValue() );
+				freq = ( JTextField ) _w.fPanel.getComponent( ( ( Integer )freqPanelWidgetNames.get( name ) ).intValue() );
 				break;
 			}
 		}
