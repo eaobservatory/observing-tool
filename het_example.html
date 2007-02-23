@@ -196,10 +196,6 @@ Four boxes are displayed in the editor panel.
 <h3>Front End Configuration</h3>
 <ul>
 
-
-
-
-
 <li> The first item in the Het Setup component enables the user to
 		choose the required receiver or <b>Front End</b>. The 
                 tuning/frequency range over which the
@@ -324,29 +320,33 @@ like this:
 <img src="het_images/het_frequency_editor.gif" alt="Het Freq Editor">
 <p>
 <p>
- The frequency editor tool is particular useful when it comes to receivers 
+The frequency editor tool is particular useful when trying to configure the
+backend for multiple lines, multiple resolution windows, or for receivers 
 operating in double sideband mode, where two differing sky frequencies end 
-up with the same IF frequency. In this case, identifying spectral lines 
-can be tricky since one does not know,  a priori, which sideband they are 
-from.
- This tool now handles multi-spectral window selections and 
- can be used interactively in choosing observing frequencies 
- and bandwidths, particularly where you might want to observe several
- lines at once in one window with DSB receivers, or when using 
+up with the same IF frequency. In each of these cases finding the correct 
+values for the setup of each window is tricky and the visual presentation
+from the frequency editor is indispensable, if only to verify the setup.
+The tool now handles multi-spectral window selection and can be used 
+interactively in choosing observing frequencies and bandwidths for each
+window or in combination with
  <a href="http://www.jach.hawaii.edu/JCMT/spectral_line/Backends/DAS/das_nonstandard.txt">
  special ACSIS configurations</a>, 
- or simply to check the atmospheric opacity at
- the observed (or sideband) frequency.  
+or simply to check the atmospheric opacity at the observed (or sideband) 
+frequency. Before clicking the 'Show Frequency Editor' button, please make
+sure to select the desired number of spectral windows under 'Sp. Regions' 
+(See above). Once inside the frequency editor, the frequencies and bandwidths 
+can be selected or adjusted.
  
 <p>
 Working roughly from top to bottom, left to right, in the example above 
-showing only one Spectral Subsystem we see:
+showing only one Spectral Subsystem (USB) with two spectral windows,
+we see:
 <br>
 <ul>
 <li>the observing and image side-bands, marked as <b>LSB</b> and 
     <b>USB</b>
 <li>their locations within the respective LO2 ranges and their widths 
-<li>the identification of the selected emission line, marked <b>Line</b>
+<li>the identification of the selected emission line associated with a window, marked <b>Line</b>
 <li>the <b>IF</b> (Intermediate Frequency), sometimes in Hz sometimes GHz
 <li>the bandwidth, in MHz
 <li>the <b>Res</b>olution that the selected bandwidth produces, in kHz
@@ -392,8 +392,21 @@ Moving the LO slider can be a convenient means of choosing a band centre
 frequency such that particular spectral lines are included or excluded 
 from your passband. 
 </ul> 
+<p>
+&nbsp;
+<p>
+<img src="het_images/het_frequency_editor2.gif" alt="Het Freq Editor2">
 <p> 
-To generate a multi-line, multi-Subsystem configuration: 
+The above example shows a setup with three 250 MHz windows and one, lower 
+resolution, 1000 MHz window for receiver A (for HARP only two windows are 
+possible). Of the 250 MHz windows, one is centered on a line in the LSB, two 
+on lines in the USB. The line-id for the top window is 'greyed' because it
+corresponds to the observing frequency specified in the main Het. Setup
+component and it 'anchors' all windows. Moving the slider of the top window 
+will also slide all other windows. By contrast the remaining three windows
+can be moved independently from one another within the IF band.
+<p>
+To generate such a multi-line, multi-Subsystem configuration: 
 <ul>
 <li>In the Front-End configuration window, select a value of Sp.(ectral) 
 regions greater than 1.
@@ -408,22 +421,29 @@ regions greater than 1.
     (frequency space) of the next desired line
 <li>keep the button pressed and scroll down until the line is met,
     and shown in <font color=green>green</font>
-<li>click on the 'Line' box appropriate for that subsystem to transfer the
-    line identity
+<li>click on the 'Line' box appropriate for that subsystem to center the
+    spectral window and identify it with the selected line.
 <li>Repeat (from <b>Click</b>) for further lines if necessary
 <li>Press the Hide Frequency Editor button to transfer these data to the
     Heterodyne Setup window
 </ul>
 
 Note that the movement of the sliders will make for 
-configurations that may not be easily repeatable.
+configurations that may not be easily repeatable and that use of
+the <i>'Special Configurations'</i> is desirable.
 If you have a multi-line configuration that you consider 
 astrophysically important - and which may be useful for either
 yourself or others later on - please contact the JCMT staff
 and request that it become one of the available 'Special 
-Config(uration)s'. Our (<a href="http://cadcwww.hia.nrc.ca/">CADC</a>) 
+Configs'. Our (<a href="http://cadcwww.hia.nrc.ca/">CADC</a>) 
 database will then be a lot simpler to manage and search if everyone
 using this combination of lines uses precisely the same configuration.
+
+<p>
+<font color=red>Note:</font> Please make sure that the window is
+anchored on a line if it is intended to be centered on that
+line. While the observation will proceed with a <i>'no line'</i>
+label, the line identification is important for archival purpose.
 
 
 <!-- 
