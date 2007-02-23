@@ -1225,19 +1225,22 @@ centre of the grid for the (0,0) position, and ignores the contents of
 	  frequency is much higher, half the time is spent at the
 	  reference position.) Jiggle-chops are <b>beam-switched
 	    observations</b>, and hence the distance to the reference
-	  can be no more than 180".  Note also that Jiggle-chops are
-	  <em>array centered</em>, i.e. the center of the jiggle
-	  pattern is the center of the array. 
+	  can be no more than 180".  
 
 <p>Opening the various chop MSBs in the heterodyne library shows they
 	  are similar to the Sample-BMSW example above except that
 	  there is a "jiggle eye" instead of the "photom/sample
 	  eye". It offers various jiggle patterns: 3x3 through 11x11
-	  plus HARP specific jiggles (HARP4 and HARP5). HARP4 is a 4x4
+	  plus HARP-specific jiggles (HARP4 and HARP5). HARP4 is a 4x4
 	  pattern with 7.5" pixels designed to fill in the footprint,
 	  but slightly under Nyquist sampled, and HARP5 is a 5x5
 	  pattern with 6" pixels, i.e. slightly better than Nyquist
-	  sampled.  For the others, the "Jiggle Spacing" needs to be
+	  sampled.  These two HARP-specific patterns (HARP4 and HARP5)
+	  are <em>array-centered</em>, i.e. these will give you
+	  fully-sampled maps with the specified position (i.e. target
+	  position plus any specified offset) in the center of the
+	  image.  For the others (which are "receptor-centered"), the
+	  "Jiggle Spacing" needs to be 
 	  defined by the user: typically 0.5 or 1 beam-spacing in
 	  arcsecs. The PA and System should be left at "0.0" and
 	  "Tracking" for the typical user. Finally, the integration
