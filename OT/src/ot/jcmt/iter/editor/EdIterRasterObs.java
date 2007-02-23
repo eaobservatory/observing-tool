@@ -73,7 +73,7 @@ public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer
   boolean _isAcsis = true ;
   
   TreeMap harpMap = new TreeMap() ;
-private final String[] HARP_RASTER_NAMES = { "1 array (116.4" , "1/2 array (58.2" , "1/4 array (29.1" , "1/8 array (14.6" , "1 sample (7.28" , "3/4 array (87.3" } ;
+private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 array" , "1/8 array" , "1 sample" , "3/4 array" } ;
 private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.5521 , 7.2761 , 87.3128 } ;
 
 	boolean harp = false ;
@@ -95,7 +95,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		_w.thermometer.setMaximum( _maxFileSize );
 
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
-			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + "\")" ) ;		
+			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + MathUtil.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" ) ;		
 		
 		if( System.getProperty( "FREQ_EDITOR_CFG" ) != null )
 		{
