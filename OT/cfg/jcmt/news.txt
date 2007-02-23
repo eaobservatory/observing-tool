@@ -11,6 +11,23 @@ jcmtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
+
++++ March 2007
+
+  - Numerous changes to facilitate HARP observing.
+
+  - Multi-subsystems are now available.
+
+  - Special configurations for RxA and HARP have been added.
+
+  - Changes to the Frequency Editor for multi-subsystems, it is now possible to lock to emmision lines for systems > 1.
+
+  - Fixes to drawing in the Frequency Editor for better accuracy.
+
+  - Changes to rasters for HARP, Sample spacing is fixed and Scan spacing options are reduced to a subset.
+
+  - When changing between coordinate systems, positions get reset as they are currently not converted.
+
 +++ October 2006 
 
   - Numerous changes to facilitate ACSIS Heterodyne observing.
