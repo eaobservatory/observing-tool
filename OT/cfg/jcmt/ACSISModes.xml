@@ -212,6 +212,7 @@
   <transition>3  - 2          </transition>
   <transition>4  - 3          </transition>
   <bandwidth> 250.0           </bandwidth>
+  <bandwidth> 250.0           </bandwidth>
   <shift>     5.0E9           </shift>
   <shift>     5.45623E9       </shift>
 </configuration>
