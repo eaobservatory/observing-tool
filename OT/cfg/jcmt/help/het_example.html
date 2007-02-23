@@ -352,11 +352,9 @@ we see:
 <li>the <b>Res</b>olution that the selected bandwidth produces, in kHz
 <li>the molecular transitions in this vicinity, marked by vertical bars,
      on a line labelled <b>Emission Lines</b>
-<li>the frequency scale immediately below Emission Lines is the FE 
-frequency, doppler shifted by the velocity value and definition entered in 
-the het-setup component. You will notice this scale will shift if you enter a 
-non-zero velocity, and will also shift if you change the velocity 
-definition.
+<li>the frequency scale immediately below Emission Lines is the frequency 
+in the rest frame of the source i.e. the emission lines show at their
+nominal laboratory frequency regardless of the doppler shift. 
 <li>the line selected is shown in <font color=red>red</font> 
 <li>the receiver temperature (<font color=red>TRx</font>) is plotted as 
     the <font color=red>red</font> line (although there 
@@ -365,7 +363,11 @@ definition.
 	  shift the observed frequency into a region of very large
 	  atmospheric opacity.
 <li>the <b>FE Freq</b>uency scale, shown below the plot of TRx
-    is the observing frequency in the rest frame of the receiver
+    is the observing frequency in the rest frame of the receiver i.e.
+    the tuning frequency at the telescope.
+    You will notice this scale will shift if you enter a non-zero
+    velocity, and will also shift if you change the velocity
+    definition.
 <li>the Local Oscillator frequency, shown as <b>LO1</b>, located within 
 the full tuning range of the receiver.
 <ul>
