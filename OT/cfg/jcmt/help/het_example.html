@@ -1349,9 +1349,7 @@ this should be left to the default values.
 <img src="het_images/harp_raster.gif" alt="HARP Raster" ><p>
 
 <p>Effectively the largest single map one can make is one square
-	  degree.  (Of course for large maps the integration time per
-	  pixel (<em>sample time</em>) should be set to the minimum
-	  value, 0.1 seconds per pixel.)  Larger maps can be made, but
+	  degree.  Larger maps can be made, but  
 	  they should be broken up into smaller pieces, one piece per
 	  MSB, with an offset iterator for each piece.  Note that
 	  mosaicing such large maps will likely tax most computing
@@ -1373,7 +1371,11 @@ this should be left to the default values.
 	  integration time <i>per pixel</i> in the completed map.  The
 	  minimum time is 0.1 seconds.  There is no maximum time,
 	  except that you should make sure the MSB takes no more than
-	  1.5 to 2 hours at most.
+	  1.5 to 2 hours at most.  For large maps the integration time per
+	  pixel (<em>sample time</em>) should be set to a small value
+	  value, e.g. 0.1 seconds per
+	  pixel, and then repeat the MSB to build up integration
+	  time.
 
 <hr> 
 <h4> <a href="otintro.html"> <em>Back to JCMT OT Primer Main Page</em></a> </h4>
