@@ -630,18 +630,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 	private void _checkEditsWhenConfigured()
 	{
 		if( configured )
-		{/*
-			int option = JOptionPane.showConfirmDialog( null , "Do you wish this configuration to be editable ?" , "Do you wish this configuration to be editable ?" , JOptionPane.YES_NO_OPTION ) ;
-			if( option == 0 )
-			{*/
+		{
 				_inst.removeNamedConfiguration() ;
-				configured = false ;/*
-				_w.specialConfigs.setSelectedIndex( 0 ) ;
-			}
-			else
-			{
-				configureFrequencyEditor() ;
-			}*/
+				configured = false ;
 		}
 	}
 	
@@ -788,15 +779,14 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( name.equals( "molecule" ) )
 			{
 				// Set the current molecule and update the transitions
-				int available = new Integer( _inst.getBandMode() ).intValue() ;
-				for( int index = 0 ; index < available ; index++ )
+				for( int index = 0 ; index < _regionInfo.length ; index++ )
 				{
 					_inst.setCentreFrequency( _receiver.feIF , index );
 					_inst.setMolecule( ( ( JComboBox )ae.getSource()).getSelectedItem().toString() , index ) ;
 				}
 				_updateTransitionChoice();
 				double restFreq = _inst.getRestFrequency( 0 ) ;
-				for( int index = 0 ; index < available ; index++ )
+				for( int index = 0 ; index < _regionInfo.length ; index++ )
 					_inst.setRestFrequency( restFreq , index ) ;
 				_initialiseRegionInfo();
 			}
@@ -1292,8 +1282,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// We need to set the transition to the first available
 			// for the current species
 			JOptionPane.showMessageDialog( null , "Transition Changed: " + currentTransition + " out of range." , "Transition Changed!" , JOptionPane.PLAIN_MESSAGE );
-			int available = new Integer( _inst.getBandMode() ).intValue() ;
-			for( int index = 0 ; index < available ; index++ )
+			for( int index = 0 ; index < _regionInfo.length ; index++ )
 				_inst.setTransition( transBox.getItemAt( 0 ).toString() , index );
 			transChanged = true;
 			transBox.setSelectedIndex( 0 );
