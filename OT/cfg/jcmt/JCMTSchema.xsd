@@ -1245,10 +1245,10 @@
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:enumeration value="A3"/>
-            <xsd:enumeration value="W(B)"/>
-            <xsd:enumeration value="W(C)"/>
-            <xsd:enumeration value="W(D)"/>
-            <xsd:enumeration value="HARP-B"/>
+            <xsd:enumeration value="WB"/>
+            <xsd:enumeration value="WC"/>
+            <xsd:enumeration value="WD"/>
+            <xsd:enumeration value="HARP"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
