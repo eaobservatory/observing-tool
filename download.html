@@ -12,11 +12,11 @@
 <h3>Note:  The ACSIS-ready version of the JCMT Observing Tool
 	has been released. All earlier versions of the OT are
 	redundant and <blink>MUST NOT</blink> be used to submit MSBs for
-	semester 06B. The current release is 20061011.</h3>
+	semester 06B. The current release is 20070223.</h3>
 
 <p><i>{This page needs to be updated.}</i>
 
-<p>    <em>Existing users note: The current version is 20061011. 
+<p>    <em>Existing users note: The current version is 20070223. 
 You may also need a newer version of Java (JRE) and the Java Advanced 
 Imaging (JAI).<p></em>
 
@@ -40,7 +40,7 @@ Imaging (JAI).<p></em>
     You need three things to run the JCMT-OT:
 
     <ol>
-      <li> The Java Runtime environment (JRE) version 1.4 or newer
+      <li> The Java Runtime environment (JRE) version 1.5 or newer
       <li> The Java Advanced Imaging extension (JAI) version 1.1.2 or newer
       <li> The JCMT-OT itself
 </ol>
@@ -54,39 +54,38 @@ Imaging (JAI).<p></em>
  % java -version
 </pre>
     <p>
-If the answer is 1.4.0, 1.4.1-05 or later you know you are ok as far as JRE is
-concerned. Versions of 1.4.1 earlier than 05 have a bug which causes JAI to crash on some FITS images (note - currently Starlink ships with 1.4.1-02, which means it can not be used with the JCMT OT).  If you have a suitable version, skip to the next step (JAI). 
+If the answer is 1.5 or later you know you are ok as far as JRE is
+concerned.
 
 If you get an older version or "command not found" you need to install
 JRE and JAI. To simplify the hassle of installing both the JRE and JAI
 we distribute tar files containing the combined JRE and JAI
 packages. Versions are available for both <a
-href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk1_4_ix86_Linux.tar.gz">Linux</a>
+href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-linux-i586.bin.gz">Linux</a>
 and <a
-href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk1_4_sun4_Solaris.tar.gz">Solaris</a>
+href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-solaris-sparcv9.sh.gz">Solaris</a>
 from the <a href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot">OT FTP
 area</a>.If you wish to use a proper FTP client (rather than going through a web browser) you can download the OT from the anonymous FTP area at ftp.jach.hawaii.edu/pub/ukirt/ukirtot. </p>
 	<p>This distribution can be installed simply by gunzipping and
 	  untarring it. On Solaris:</p>
 
 	<pre>
- % gunzip -c jdk1_4_sun4_Solaris.tar.gz | tar xvf -
+ % gunzip jdk-1_5_0_11-solaris-sparcv9.sh.gz
 	</pre>
 
 	<p>or on Linux:</p>
 
 	<pre>
- % tar zxvf jdk1_4_ix86_Linux.tar.gz
+ % gunzip jdk-1_5_0_11-linux-i586.bin.gz
 	</pre>
 
-	<p>This will create a directory <tt>jdk</tt> in the current
-	directory. This is all that is required to install it. You can
-	now skip to step 3 (JCMT-OT)</p>
+	<p>This will extract the relevant installer in the current directory, this will need to be run, to install on your system.
+	You can now skip to step 3 (JCMT-OT)</p>
     <p>
 
       <h3>JAI</h3>
 
-If you have determined you have java 1.4 installed and want to check
+If you have determined you have java 1.5 installed and want to check
 if you have JAI, you have to look for a file called <tt>jai_core.jar</tt>. This
 file will be in the java installation directory under the subdirectory
 <tt>lib/ext</tt>
@@ -94,13 +93,13 @@ file will be in the java installation directory under the subdirectory
 Here's an example of how to do it:
 <pre>
  % which java
- /star/java/jre-1.4.1_02/bin/java
+ /star/java/jdk/bin/java
 </pre>
 This tells us that the java installation directory is
-<tt>/star/java/jre-1.4.1_02/</tt>. So we would expect JAI to be in:
+<tt>/star/java/jdk/</tt>. So we would expect JAI to be in:
 <pre>
- % ls /star/java/jre-1.4.1_02/lib/ext/jai_core.jar
- /star/java/jre-1.4.1_02/lib/ext/jai_core.jar
+ % ls /star/java/jdk/jre/lib/ext/jai_core.jar
+ /star/java/jdk/jre/lib/ext/jai_core.jar
 </pre>
 which it is in this example.. 
     <p>
@@ -117,7 +116,7 @@ problems exist between the position editor and the latest JAI release. We recomm
     FTP area as <a
     href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jcmtot_latest.tar.gz">jcmtot_latest.tar.gz</a>. The
     first step is simply to download it and untar the distribution [it will
-    take up 17MB of disk space, but this distribution also includes the
+    take up 18.5MB of disk space, but this distribution also includes the
     UKIRT-OT]. It can be untarred using:</p>
 
 <pre>
@@ -165,7 +164,7 @@ set JAVA = /star/java/jre/bin/java
     You need three things to run the JCMT-OT:
 
     <ol>
-      <li> The Java Runtime environment (JRE) version 1.4 or newer
+      <li> The Java Runtime environment (JRE) version 1.5 or newer
       <li> The Java Advanced Imaging extension (JAI) version 1.1.2 or newer
       <li> The JCMT-OT itself
 </ol>
@@ -177,8 +176,7 @@ doing <tt>Start->Run->Command</tt> and then typing <tt>java
 -version</tt> at the MS-DOS prompt. If it is 1.4 or newer you are
 done. If not you can get an appropriate version from our FTP site by
 retrieving <a
-href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/j2re-1_4_1_06-windows-i586.exe">j2re-1_4_1_06-windows-i586.exe
-</a>. 
+href="http://www.jach.hawaii.edu/pub/jcmt/jcmtot/jdk-1_5_0_11-windows-i586-p.exe">jdk-1_5_0_11-windows-i586-p.exe</a>.
 
 <h3>JAI</h3>
 
