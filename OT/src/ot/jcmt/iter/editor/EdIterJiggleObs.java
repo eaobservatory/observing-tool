@@ -19,11 +19,13 @@ import jsky.app.ot.gui.CommandButtonWidgetWatcher;
 import gemini.sp.SpItem;
 import gemini.sp.SpTreeMan;
 import gemini.sp.obsComp.SpInstObsComp;
+import gemini.util.MathUtil;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.inst.SpInstSCUBA;
 import orac.jcmt.iter.SpIterJiggleObs;
+import orac.jcmt.util.HeterodyneNoise;
 import orac.jcmt.util.ScubaNoise;
 
 /**
@@ -259,5 +261,18 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 			mode = "JIG64";
 		return ScubaNoise.noise_level( integrations , wavelength , mode , nefd , status );
 	}
+  	
+    protected double calculateNoise( SpInstHeterodyne inst , double airmass , double tau )
+	{
+		// System.out.println("Calculating Raster specific heterodyne noise");
+		double tSys = HeterodyneNoise.getTsys( inst.getFrontEnd() , tau , airmass , inst.getRestFrequency( 0 ) / 1.0e9 , inst.getMode().equalsIgnoreCase( "ssb" ) );
+
+		_noiseToolTip = "airmass = " + ( Math.rint( airmass * 10 ) / 10 ) + ", Tsys = " + ( Math.rint( tSys * 10 ) / 10 );
+		if( "acsis".equalsIgnoreCase( inst.getBackEnd() ) )
+			return MathUtil.round( HeterodyneNoise.getHeterodyneNoise( _iterObs , inst , tau , airmass ) , 3 ) ;
+		else
+			return -999.9;
+	}
+  	
 }
 
