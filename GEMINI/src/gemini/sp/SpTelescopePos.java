@@ -327,44 +327,50 @@ getBaseTag()
  * Create a SpTelescopePos object, bound to an attribute with the same name
  * as its tag.  SpTelescopePos objects are created by the SpTelescopePosList.
  */
-protected SpTelescopePos(SpItem spItem, SpAvTable avTab,
-                         String tag,    SpTelescopePosList list)
+protected SpTelescopePos( SpItem spItem , SpAvTable avTab , String tag , SpTelescopePosList list )
 {
-   super(tag, list);
-   _spItem = spItem;
-   _avTab  = avTab;
+	super( tag , list );
+	_spItem = spItem;
+	_avTab = avTab;
 
-   if ( tag.startsWith("SKY") ) {
-       SKY_TAGS.add(tag);
-   }
+	if( tag.startsWith( "SKY" ) )
+		SKY_TAGS.add( tag );
 
-   if (avTab.exists(tag)) {
-      _name = avTab.get(tag, NAME_INDEX);
+	if( avTab.exists( tag ) )
+	{
+		_name = avTab.get( tag , NAME_INDEX );
 
-      String system = avTab.get(tag, COORD_SYS_INDEX);
-      if (system == null) {
-         system = CoordSys.COORD_SYS[CoordSys.FK5];
-      }
-      _coordSys = CoordSys.getSystem(system);
+		String system = avTab.get( tag , COORD_SYS_INDEX );
+		if( system == null )
+			system = CoordSys.COORD_SYS[ CoordSys.FK5 ];
+		_coordSys = CoordSys.getSystem( system );
 
-      String xaxisStr = avTab.get(tag, XAXIS_INDEX);
-      String yaxisStr = avTab.get(tag, YAXIS_INDEX);
-      _updateXYFromString(xaxisStr, yaxisStr);
+		String xaxisStr = avTab.get( tag , XAXIS_INDEX );
+		String yaxisStr = avTab.get( tag , YAXIS_INDEX );
+		_updateXYFromString( xaxisStr , yaxisStr );
+		
+		if( avTab.getBool( tag, OFFSET_POSITION ) )
+		{
+			_xoff = _avTab.getDouble( tag , BASE_XOFF , 0. ) ;
+			_yoff = _avTab.getDouble( tag , BASE_YOFF , 0. ) ;
+			_avTab.noNotifySet( _tag , "true" , OFFSET_POSITION ) ;
+		}
+	}
+	else
+	{
+		// Create a new (blank) position and a new attribute
+		_name = "";
+		_xaxis = 0.0;
+		_yaxis = 0.0;
+		_coordSys = CoordSys.FK5;
+		_isValid = false;
 
-   } else {
-      // Create a new (blank) position and a new attribute
-      _name     = "";
-      _xaxis    = 0.0;
-      _yaxis    = 0.0;
-      _coordSys = CoordSys.FK5;
-      _isValid  = false;
-
-      avTab.set(tag, tag, TAG_INDEX);
-      avTab.set(tag, "",  NAME_INDEX);
-      avTab.set(tag, "",  XAXIS_INDEX);
-      avTab.set(tag, "",  YAXIS_INDEX);
-      avTab.set(tag, CoordSys.COORD_SYS[_coordSys], COORD_SYS_INDEX);
-   }
+		avTab.set( tag , tag , TAG_INDEX );
+		avTab.set( tag , "" , NAME_INDEX );
+		avTab.set( tag , "" , XAXIS_INDEX );
+		avTab.set( tag , "" , YAXIS_INDEX );
+		avTab.set( tag , CoordSys.COORD_SYS[ _coordSys ] , COORD_SYS_INDEX );
+	}
 }
 
 /**
@@ -558,48 +564,52 @@ noNotifySetXY(double xaxis, double yaxis)
 // Set the x and y axes from a string, without notifying observers or
 // modifying any attributes.
 //
-private synchronized void
-_updateXYFromString(String xaxisStr, String yaxisStr)
-{
-   // Convert from whatever coordinate system to degrees
-   try {
-      double[] pos = null;
-    
-      if(isOffsetPosition() || ((getCoordSys() != CoordSys.FK5) && (getCoordSys() != CoordSys.FK4))) {
-         pos = new double[] { 0.0, 0.0 };
-	 
-	 try {
-	    pos[0] = Double.parseDouble(xaxisStr);
-	 }   
-	 catch(Exception e) {
-            pos[0] = 0.0;
-	 }
+	private synchronized void _updateXYFromString( String xaxisStr , String yaxisStr )
+	{
+		// Convert from whatever coordinate system to degrees
+		try
+		{
+			double[] pos = null;
 
-	 try {
-	    pos[1] = Double.parseDouble(yaxisStr);
-	 }   
-	 catch(Exception e) {
-            pos[1] = 0.0;
-	 }
-      }
-      else {
-         pos = RADecMath.string2Degrees(xaxisStr, yaxisStr, _coordSys);
+			if( isOffsetPosition() || ( ( getCoordSys() != CoordSys.FK5 ) && ( getCoordSys() != CoordSys.FK4 ) ) )
+			{
+				if( xaxisStr.matches( "\\d+:\\d+:\\d+" ) )
+					_xaxis = HHMMSS.valueOf( xaxisStr ) ;
+				else if( xaxisStr.matches( "\\d*.{1}\\d*" ) )
+					_xaxis = new Double( xaxisStr ).doubleValue() ;
+				else
+					_xaxis = 0. ;
+				if( yaxisStr.matches( "\\d+:\\d+:\\d+" ) )
+					_yaxis = DDMMSS.valueOf( yaxisStr ) ;
+				else if( yaxisStr.matches( "\\d*.{1}\\d*" ) )
+					_yaxis = new Double( yaxisStr ).doubleValue() ;
+				else
+					_yaxis = 0. ;
+			}
+			else
+			{
+				pos = RADecMath.string2Degrees( xaxisStr , yaxisStr , _coordSys );
 
-         if (pos == null) {
-            _xaxis   = 0.0;
-            _yaxis   = 0.0;
-            _isValid = false;
-         }
-         else {
-           _xaxis   = pos[0];
-           _yaxis   = pos[1];
-           _isValid = true;
-         }
-      }  
-   }
-   catch (IllegalArgumentException e) { System.out.println("IllegalArumentException: xaxisStr = \"" + xaxisStr + "\", yaxisStr = \"" + yaxisStr + "\""); }
+				if( pos == null )
+				{
+					_xaxis = 0.0;
+					_yaxis = 0.0;
+					_isValid = false;
+				}
+				else
+				{
+					_xaxis = pos[ 0 ];
+					_yaxis = pos[ 1 ];
+					_isValid = true;
+				}
+			}
+		}
+		catch( IllegalArgumentException e )
+		{
+			System.out.println( "IllegalArumentException: xaxisStr = \"" + xaxisStr + "\", yaxisStr = \"" + yaxisStr + "\"" );
+		}
 
-}
+	}
 
 /**
  * Allow setting x and y axes without notifying observers.
