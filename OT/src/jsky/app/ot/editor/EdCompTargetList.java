@@ -856,44 +856,53 @@ public class EdCompTargetList extends OtItemEditor
 
 
     /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-        if(!_targetSystemsChange) {
-	   _tpl = ((SpTelescopeObsComp) _spItem).getPosList();
-	   _tpTable.reinit(_tpl);
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		if( !_targetSystemsChange )
+		{
+			_tpl = ( ( SpTelescopeObsComp )_spItem ).getPosList();
+			_tpTable.reinit( _tpl );
 
-	   String seltag = _avTab.get(".gui.selectedTelescopePos");
-	   _tpTable.selectPos(seltag);
+			String seltag = _avTab.get( ".gui.selectedTelescopePos" );
+			_tpTable.selectPos( seltag );
 
-           _selectTargetSystemTab(_curPos);
+			_selectTargetSystemTab( _curPos );
+		}
+
+		if( _curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL )
+		{
+			_w.offsetCheckBox.setValue( _curPos.isOffsetPosition() );
+		}
+		else
+		{
+			// update the conic or named system widgets depending on selection.
+			_updateTargetSystemPane( _curPos );
+		}
+
+		TelescopePosEditor tpe = TpeManager.get( _spItem );
+		if( tpe != null )
+			tpe.reset( _spItem );
+
+		// chop mode tab added by MFO (3 August 2001)
+		_w.chopping.setSelected( ( ( SpTelescopeObsComp )_spItem ).isChopping() );
+		_w.chopThrow.setValue( ( ( SpTelescopeObsComp )_spItem ).getChopThrowAsString() );
+		_w.chopAngle.setValue( ( ( SpTelescopeObsComp )_spItem ).getChopAngleAsString() );
+		_w.chopThrow.setEnabled( _w.chopping.isSelected() );
+		_w.chopAngle.setEnabled( _w.chopping.isSelected() );
+
+		_w.xaxisTBW.setText( _curPos.getRealXaxisAsString() ) ;
+		_w.yaxisTBW.setText( _curPos.getRealYaxisAsString() ) ;
+		_w.baseXOff.setText( "" + _curPos.getBaseXOffset() ) ;
+		_w.baseYOff.setText( "" + _curPos.getBaseYOffset() ) ;
+		
+		_updateXYUnitsLabels();
+
+		// Set the type based on the current contents of the component
+		_type.setSelectedIndex( _curPos.getSystemType() );
 	}
-
-        if(_curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) {
-          _w.offsetCheckBox.setValue(_curPos.isOffsetPosition());
-	}
-	else {
-          // update the conic or named system widgets depending on selection.
-	  _updateTargetSystemPane(_curPos);
-	}
-
-	TelescopePosEditor tpe = TpeManager.get(_spItem);
-	if (tpe != null) tpe.reset(_spItem);
-
-
-        // chop mode tab added by MFO (3 August 2001)
-	_w.chopping.setSelected( ((SpTelescopeObsComp)_spItem).isChopping() );
-	_w.chopThrow.setValue(   ((SpTelescopeObsComp)_spItem).getChopThrowAsString() );
-	_w.chopAngle.setValue(   ((SpTelescopeObsComp)_spItem).getChopAngleAsString() );
-	_w.chopThrow.setEnabled(_w.chopping.isSelected());
-	_w.chopAngle.setEnabled(_w.chopping.isSelected());
-
-	_updateXYUnitsLabels();
-
-	// Set the type based on the current contents of the component
-	_type.setSelectedIndex ( _curPos.getSystemType() );
-    }
 
     /**
 	 * Watch TableWidget row selections to make the selected row the currently displayed position.
