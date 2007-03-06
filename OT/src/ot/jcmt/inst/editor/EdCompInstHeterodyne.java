@@ -899,8 +899,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			String feSelected = ( ( JRadioButton )ae.getSource() ).getText();
 			_receiver = ( Receiver )_cfg.receivers.get( feSelected );
 			_inst.setFrontEnd( feSelected );
-			_adjustCentralFrequencies() ;
 			_inst.setFeIF( _receiver.feIF ) ;
+			_inst.setCentreFrequency( _receiver.feIF , 0 ) ;
+			_adjustCentralFrequencies() ;
 			_inst.setFeBandWidth( _receiver.bandWidth );
 			setAvailableModes();
 			setAvailableRegions();
