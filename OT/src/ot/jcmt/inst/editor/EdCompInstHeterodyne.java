@@ -816,6 +816,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						double f = Double.parseDouble( frequency );
 						_inst.setRestFrequency( f * 1.0E9 , 0 );
 						_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
+						_inst.setCentreFrequency( _receiver.feIF , 0 );
+						_adjustCentralFrequencies() ;
 						// Set the molecule and trasition to NO_LINE
 						_inst.setMolecule( NO_LINE , 0 );
 						_inst.setTransition( NO_LINE , 0 );
@@ -869,10 +871,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		for( int index = 1 ; index < available ; index ++ )
 		{
 			double line = _inst.getRestFrequency( index ) ;
-			line = centre - ( mainline - line ) ;
+			if( "usb".equals( _inst.getBand() ) )
+				line = centre - ( mainline - line ) ;
+			else
+				line = centre + ( mainline - line ) ;
 			_inst.setCentreFrequency( line , index ) ;
-		}
-		
+		}		
 	}
 	
 	private void _updateCentralFrequenciesFromShifts( Vector shifts )
@@ -895,8 +899,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			String feSelected = ( ( JRadioButton )ae.getSource() ).getText();
 			_receiver = ( Receiver )_cfg.receivers.get( feSelected );
 			_inst.setFrontEnd( feSelected );
-			for( int index = 0 ; index < _regionInfo.length ; index++ )
-				_inst.setCentreFrequency( _receiver.feIF , index );
+			_adjustCentralFrequencies() ;
+			_inst.setFeIF( _receiver.feIF ) ;
 			_inst.setFeBandWidth( _receiver.bandWidth );
 			setAvailableModes();
 			setAvailableRegions();
