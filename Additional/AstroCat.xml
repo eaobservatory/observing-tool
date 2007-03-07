@@ -15,6 +15,8 @@
 
 <!-- Include references to some of the Skycat catalogs (Should be defined in the skycat.cfg file) -->
 
+  <catalog name="2MASS Catalog at UKIRT"/>
+  <catalog name="2MASS Catalog at CDS"/>
   <catalog name="ABELL at CADC"/>
   <catalog name="Guide Star Catalog at CADC"/>
   <catalog name="Guide Star Catalog at ESO"/>
