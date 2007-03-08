@@ -632,6 +632,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		if( configured )
 		{
 				_inst.removeNamedConfiguration() ;
+				_w.specialConfigs.removeActionListener( this ) ;
+				_w.specialConfigs.setSelectedIndex( 0 ) ;
+				_w.specialConfigs.addActionListener( this ) ;
 				configured = false ;
 		}
 	}
