@@ -801,7 +801,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				// Update the frequency information
 				Object t = ( ( JComboBox )ae.getSource()).getSelectedItem();
 				if( t instanceof Transition )
-					_updateFrequencyText( ( ( Transition )t).frequency / 1.0E9 );
+				{
+					double frequency = ( ( Transition )t).frequency / 1.0E9 ;
+					_inst.setSkyFrequency( ( frequency * 1.0E9 ) / ( 1.0 + getRedshift() ) );
+					_inst.setRestFrequency( frequency * 1.0E9 , 0 );
+					_updateFrequencyText( frequency );
+				}
 				_initialiseRegionInfo();
 			}
 			else if( name.equals( "Accept" ) )
@@ -1057,14 +1062,19 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		 */
 		Vector bandSpecs = _receiver.bandspecs;
 		BandSpec currentBandSpec = null;
+		BandSpec activeBandSpec = null;
 		String bandMode = _inst.getBandMode() ;
 		int active = new Integer( _inst.getBandMode() ).intValue() ;
 
 		currentBandSpec = ( BandSpec )bandSpecs.get( active - 1 ) ;
 		if( !currentBandSpec.toString().equals( bandMode ) )
 			currentBandSpec = ( BandSpec )bandSpecs.get( 0 );
+		
+		BandSpec otherBandSpec = null ; 
+		if( active == 3 )
+			otherBandSpec = ( BandSpec )bandSpecs.get( 3 ) ;
 
-		double[] values = currentBandSpec.getDefaultOverlapBandWidths();
+		double[] values = null ;
 
 		/*
 		 * Index into the new list to allow us to make sure 
@@ -1080,12 +1090,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// hack
 			if( active == 3 )
 			{
-				BandSpec otherBandSpec = ( BandSpec )bandSpecs.get( 3 ) ;
 				if( otherBandSpec != null && componentIndex < 2 )
-					values = otherBandSpec.getDefaultOverlapBandWidths() ;
+					activeBandSpec = otherBandSpec ;
 				else
-					values = currentBandSpec.getDefaultOverlapBandWidths() ;
+					activeBandSpec = currentBandSpec ;
 			}
+			else
+			{
+				if( componentIndex == 0 )
+					activeBandSpec = currentBandSpec ;
+			}
+			values = activeBandSpec.getDefaultOverlapBandWidths() ;
 			
 			JComboBox component = ( JComboBox )components[ componentIndex ] ;
 			component.removeActionListener( this ) ;
@@ -1100,9 +1115,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				if( values[ i ] == currentBandwidth )
 				{
 					index = i;
-					feOverlap = currentBandSpec.defaultOverlaps[ i ];
+					feOverlap = activeBandSpec.defaultOverlaps[ i ];
 					_inst.setOverlap( feOverlap , componentIndex );
-					_inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[ i ] , componentIndex );
+					_inst.setChannels( activeBandSpec.getDefaultOverlapChannels()[ i ] , componentIndex );
 				}
 				component.addItem( "" + value ) ;
 			}
@@ -1114,8 +1129,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				component.setSelectedIndex( 0 ) ;
 				_inst.setBandWidth( values[ 0 ] , componentIndex );
-				_inst.setOverlap( currentBandSpec.defaultOverlaps[ 0 ] , componentIndex );
-				_inst.setChannels( currentBandSpec.getDefaultOverlapChannels()[ 0 ] , componentIndex );	
+				_inst.setOverlap( activeBandSpec.defaultOverlaps[ 0 ] , componentIndex );
+				_inst.setChannels( activeBandSpec.getDefaultOverlapChannels()[ 0 ] , componentIndex );	
 				if( originalIndex != 0 && originalIndex != -1 && currentBandwidth != 0. )
 					JOptionPane.showMessageDialog( null , "Previous bandwidth not available with new settings;\n resetting to default" , "Bandwidth Reset" , JOptionPane.WARNING_MESSAGE );			
 			}	
@@ -1336,7 +1351,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		freq.setText( "" + f );
 	}
-
    // See edfreq.HeterodyneEditor for documentation
    public double getRestFrequency(int subsystem) {
        return 0.0;
@@ -1777,20 +1791,37 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		BandSpec currentBandSpec = null;
 
 		String bandMode = _inst.getBandMode() ;
-		for( int i = 0 ; i < bandSpecs.size() ; i++ )
-		{
-			if( ( ( BandSpec )bandSpecs.get( i ) ).toString().equals( bandMode ) )
-			{
-				currentBandSpec = ( BandSpec )bandSpecs.get( i );
-				break;
-			}
-		}
-		if( currentBandSpec == null )
-			currentBandSpec = ( BandSpec )bandSpecs.get( 0 ) ;
-		double[] availableBandWidths = currentBandSpec.getDefaultOverlapBandWidths();
+		int active = new Integer( _inst.getBandMode() ).intValue() ;
+		
+		currentBandSpec = ( BandSpec )bandSpecs.get( active - 1 ) ;
+		if( !currentBandSpec.toString().equals( bandMode ) )
+			currentBandSpec = ( BandSpec )bandSpecs.get( 0 );
+
+		BandSpec otherBandSpec = null ;
+		if( active == 3 )
+			otherBandSpec = ( BandSpec )bandSpecs.get( 3 ) ;
+		
+		BandSpec activeBandSpec = null ;
+		
+		double[] availableBandWidths = null ;
 
 		for( int i = 0 ; i < _regionInfo.length ; i++ )
 		{
+			if( active == 3 )
+			{
+				if( i < 2 )
+					activeBandSpec = otherBandSpec ;
+				else
+					activeBandSpec = currentBandSpec ;
+				availableBandWidths = activeBandSpec.getDefaultOverlapBandWidths();
+			}
+			else
+			{
+				activeBandSpec = currentBandSpec ;
+				if( i == 0 )
+					availableBandWidths = activeBandSpec.getDefaultOverlapBandWidths();
+			}
+			
 			if( _regionInfo[ i ] == null )
 				_regionInfo[ i ] = new Vector();
 			else
@@ -1805,11 +1836,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				if( availableBandWidths[ j ] == _inst.getBandWidth( i ) )
 				{
-					double overlap = currentBandSpec.defaultOverlaps[ j ];
-					int channels = currentBandSpec.getDefaultOverlapChannels()[ j ];
+					double overlap = activeBandSpec.defaultOverlaps[ j ];
+					int channels = activeBandSpec.getDefaultOverlapChannels()[ j ];
 					int resolution = ( int ) Math.rint( ( _inst.getBandWidth( i ) * 1.0E-3 ) / channels );
 					_regionInfo[ i ].add( new Integer( resolution ) );
-					_regionInfo[ i ].add( new Double( currentBandSpec.defaultOverlaps[ j ] * 1.0E-6 ) );
+					_regionInfo[ i ].add( new Double( activeBandSpec.defaultOverlaps[ j ] * 1.0E-6 ) );
 					_regionInfo[ i ].add( new Integer( channels ) );
 					_inst.setOverlap( overlap , i );
 					_inst.setChannels( channels , i );
