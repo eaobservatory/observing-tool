@@ -82,25 +82,15 @@ public class CoordSys
 		coordSysString = coordSysString.toUpperCase();
 
 		if( coordSysString.indexOf( "FK5" ) != -1 )
-		{
 			return FK5;
-		}
 		else if( coordSysString.indexOf( "FK4" ) != -1 )
-		{
 			return FK4;
-		}
 		else if( coordSysString.indexOf( "AZ" ) != -1 )
-		{
 			return AZ_EL;
-		}
 		else if( coordSysString.indexOf( "GAL" ) != -1 )
-		{
 			return GAL;
-		}
 		else if( coordSysString.indexOf( "HA" ) != -1 )
-		{
 			return HADEC;
-		}
 
 /*
 		for( int i=0 ; i < QUICK_COORD_LOOKUP.length ; ++i ) 
@@ -121,9 +111,7 @@ public class CoordSys
 	public static String getSystem( int coordSysInt )
 	{
 		if( ( coordSysInt < 0 ) || ( coordSysInt >= COORD_SYS.length ) )
-		{
 			return null;
-		}
 		return COORD_SYS[ coordSysInt ];
 	}
 
