@@ -881,21 +881,24 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		double mainline = _inst.getRestFrequency( 0 ) ;
 		double centre = _inst.getCentreFrequency( 0 ) ;
 		// Check if it is correctly located
-		double halfReceverBandwidth = _receiver.bandWidth * 0.5 ;
-		double obsmin = _receiver.loMin - _receiver.feIF - halfReceverBandwidth ;
-		double obsmax = _receiver.loMax + _receiver.feIF + halfReceverBandwidth ;
-		String band = _inst.getBand() ;
-		if( LSB.equals( band ) && mainline < obsmin + halfReceverBandwidth  )
+		if( centre == _receiver.feIF )
 		{
-			double currentPosition = obsmin + ( _receiver.bandWidth * 0.5 ) ;
-			centre = centre - ( mainline - currentPosition ) ;
-			_inst.setCentreFrequency( centre , 0 ) ;
-		}
-		else if( USB.equals( band ) && mainline > obsmax - halfReceverBandwidth  )
-		{
-			double currentPosition = obsmax - ( _receiver.bandWidth * 0.5 ) ;
-			centre = centre + ( mainline - currentPosition ) ;
-			_inst.setCentreFrequency( centre , 0 ) ;
+			double halfReceverBandwidth = _receiver.bandWidth * 0.5 ;
+			double obsmin = _receiver.loMin - _receiver.feIF - halfReceverBandwidth ;
+			double obsmax = _receiver.loMax + _receiver.feIF + halfReceverBandwidth ;
+			String band = _inst.getBand() ;
+			if( LSB.equals( band ) && mainline < obsmin + halfReceverBandwidth  )
+			{
+				double currentPosition = obsmin + ( _receiver.bandWidth * 0.5 ) ;
+				centre = centre - ( mainline - currentPosition ) ;
+				_inst.setCentreFrequency( centre , 0 ) ;
+			}
+			else if( USB.equals( band ) && mainline > obsmax - halfReceverBandwidth  )
+			{
+				double currentPosition = obsmax - ( _receiver.bandWidth * 0.5 ) ;
+				centre = centre + ( mainline - currentPosition ) ;
+				_inst.setCentreFrequency( centre , 0 ) ;
+			}
 		}
 		// Adjust remaining systems accordingly
 		int available = new Integer( _inst.getBandMode() ).intValue() ;
