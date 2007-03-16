@@ -147,6 +147,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
   Component[] components = null ;
   boolean configured = false ;
   
+  static String LSB = "lsb" ;
+  static String USB = "usb" ;
+  static String BEST = "best" ;
+  
   	public EdCompInstHeterodyne()
 	{
 		_title = "JCMT Heterodyne";
@@ -446,7 +450,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		bandSpec.toString() , // band mode
 		( ( String[] ) _cfg.frontEndMixers.get( frontEndName ) )[ 0 ] , // mixer
 		"" + bandSpec.defaultOverlaps[ 0 ] , // overlap
-		"best" , // band
+		BEST , // band
 		"" + _receiver.feIF , // centre frequency
 		"" + _receiver.feIF , // centre frequency
 		"" + bandSpec.getDefaultOverlapBandWidths()[ 0 ] , // bandwidth
@@ -619,6 +623,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 
 		_updateMoleculeChoice();
+		_adjustCentralFrequencies() ;
 
 		_updateRegionInfo();
 
@@ -825,7 +830,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						_inst.setRestFrequency( f * 1.0E9 , 0 );
 						_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
 						_inst.setCentreFrequency( _receiver.feIF , 0 );
-						_adjustCentralFrequencies() ;
 						// Set the molecule and trasition to NO_LINE
 						_inst.setMolecule( NO_LINE , 0 );
 						_inst.setTransition( NO_LINE , 0 );
@@ -854,7 +858,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				_frequencyEditor.hide();
 				_hidingFrequencyEditor = false;
 				_updateTable();
-				return;
 			}
 			else
 			{
@@ -874,13 +877,32 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 	private void _adjustCentralFrequencies()
 	{
+		// Get current space of first system
 		double mainline = _inst.getRestFrequency( 0 ) ;
 		double centre = _inst.getCentreFrequency( 0 ) ;
+		// Check if it is correctly located
+		double halfReceverBandwidth = _receiver.bandWidth * 0.5 ;
+		double obsmin = _receiver.loMin - _receiver.feIF - halfReceverBandwidth ;
+		double obsmax = _receiver.loMax + _receiver.feIF + halfReceverBandwidth ;
+		String band = _inst.getBand() ;
+		if( LSB.equals( band ) && mainline < obsmin + halfReceverBandwidth  )
+		{
+			double currentPosition = obsmin + ( _receiver.bandWidth * 0.5 ) ;
+			centre = centre - ( mainline - currentPosition ) ;
+			_inst.setCentreFrequency( centre , 0 ) ;
+		}
+		else if( USB.equals( band ) && mainline > obsmax - halfReceverBandwidth  )
+		{
+			double currentPosition = obsmax - ( _receiver.bandWidth * 0.5 ) ;
+			centre = centre + ( mainline - currentPosition ) ;
+			_inst.setCentreFrequency( centre , 0 ) ;
+		}
+		// Adjust remaining systems accordingly
 		int available = new Integer( _inst.getBandMode() ).intValue() ;
 		for( int index = 1 ; index < available ; index ++ )
 		{
 			double line = _inst.getRestFrequency( index ) ;
-			if( "usb".equals( _inst.getBand() ) )
+			if( USB.equals( _inst.getBand() ) )
 				line = centre - ( mainline - line ) ;
 			else
 				line = centre + ( mainline - line ) ;
@@ -910,7 +932,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			_inst.setFrontEnd( feSelected );
 			_inst.setFeIF( _receiver.feIF ) ;
 			_inst.setCentreFrequency( _receiver.feIF , 0 ) ;
-			_adjustCentralFrequencies() ;
 			_inst.setFeBandWidth( _receiver.bandWidth );
 			setAvailableModes();
 			setAvailableRegions();
@@ -958,7 +979,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( Integer.parseInt( _inst.getBandMode() ) > 1 )
 			{
 				String currentBand = _inst.getBand();
-				if( currentBand.equals( "best" ) && sb.equals( "usb" ) || currentBand.equals( "usb" ) && sb.equals( "best" ) )
+				if( currentBand.equals( BEST ) && sb.equals( USB ) || currentBand.equals( USB ) && sb.equals( BEST ) )
 				{
 					// Do nothing since 'best' is equivalent to 'usb' as far as
 					// the OT is concerned
@@ -1905,7 +1926,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		// Need to deal with LO1...
 		double obsFreq = _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() );
 		String band = _inst.getBand();
-		if( "best".equals( band ) || "usb".equals( band ) )
+		if( BEST.equals( band ) || USB.equals( band ) )
 			_frequencyEditor.setLO1( obsFreq - _frequencyEditor.getTopSubSystemCentreFrequency() );
 		else
 			_frequencyEditor.setLO1( obsFreq + _frequencyEditor.getTopSubSystemCentreFrequency() );
@@ -2013,12 +2034,12 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		String sideband = _inst.getBand();
 
-		if( "lsb".equals( sideband ) )
+		if( LSB.equals( sideband ) )
 		{
 			if( ( freq + _frequencyEditor.getTopSubSystemCentreFrequency() ) > _receiver.loMax )
 			{
 				JOptionPane.showMessageDialog( null , "Using upper sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
-				clickButton( _w.sbSelector , "usb" ) ;
+				clickButton( _w.sbSelector , USB ) ;
 			}
 		}
 		else
@@ -2026,7 +2047,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			if( ( freq - _frequencyEditor.getTopSubSystemCentreFrequency() ) < _receiver.loMin )
 			{
 				JOptionPane.showMessageDialog( null , "Using lower sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
-				clickButton( _w.sbSelector , "lsb" ) ;
+				clickButton( _w.sbSelector , LSB ) ;
 			}
 		}
 	}
