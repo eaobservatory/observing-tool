@@ -909,6 +909,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				line = centre - ( mainline - line ) ;
 			else
 				line = centre + ( mainline - line ) ;
+			if( line < 0. )
+				line = -line ;
 			_inst.setCentreFrequency( line , index ) ;
 		}		
 	}
