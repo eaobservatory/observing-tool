@@ -672,10 +672,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				for( int componentIndex = 0 ; componentIndex < components.length ; componentIndex++ )
 				{
 					JComboBox component = ( JComboBox )components[ componentIndex ] ;
+					component.removeActionListener( this ) ;
 					if( componentIndex < ci.$bandWidths.size() )
 					{
 						Object object = ci.$bandWidths.get( componentIndex ) ;
-						component.removeActionListener( this ) ;
 						if( object != null && ( object instanceof String ) )
 						{
 							String bandWidthString = ( String )object ;
@@ -688,7 +688,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						{
 							component.setSelectedIndex( 0 ) ;
 						}
-						component.addActionListener( this ) ;
 					}
 					else
 					{
@@ -696,6 +695,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 						if( index != 0 )
 							component.setSelectedIndex( 0 ) ;
 					}
+					component.addActionListener( this ) ;
 				}
 	
 				if( ci.$species.size() > 0 )
