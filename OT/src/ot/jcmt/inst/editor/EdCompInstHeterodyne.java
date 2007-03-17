@@ -936,7 +936,6 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			_receiver = ( Receiver )_cfg.receivers.get( feSelected );
 			_inst.setFrontEnd( feSelected );
 			_inst.setFeIF( _receiver.feIF ) ;
-			_inst.setCentreFrequency( _receiver.feIF , 0 ) ;
 			_inst.setFeBandWidth( _receiver.bandWidth );
 			setAvailableModes();
 			setAvailableRegions();
