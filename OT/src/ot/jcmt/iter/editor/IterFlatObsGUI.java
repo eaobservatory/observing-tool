@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
 /**
@@ -19,18 +18,20 @@ package ot.jcmt.iter.editor;
  * @version$
  */
 
+public class IterFlatObsGUI extends IterJCMTGenericGUI
+{
 
-public class IterFlatObsGUI extends IterJCMTGenericGUI {
+	public IterFlatObsGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-  public IterFlatObsGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  private void jbInit() throws Exception {
-  }
+	private void jbInit() throws Exception{}
 }
