@@ -372,8 +372,10 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 			{
 				if( obsComp instanceof SpInstHeterodyne )
 					( ( SpIterJCMTObs )newItem ).setupForHeterodyne();
-				else
+				else if( obsComp instanceof SpInstSCUBA )
 					( ( SpIterJCMTObs )newItem ).setupForSCUBA();
+				else if( obsComp instanceof SpInstSCUBA2 )
+					( ( SpIterJCMTObs )newItem ).setupForSCUBA2();
 			}
 		}
 		// END OF ADDITIONAL CODE
@@ -467,26 +469,9 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 			}
 		}
 
-		// Make a special case - we can not add a skydip for a ACSIS
-		// heterodyne observation
-		if( !canAddSkydip( destItem , newItems ) )
-		{
-			DialogUtil.error( this , "Can not add a Skydip to an ACSIS heterodyne observation" );
-			return null;
-		}
-
-		// make another
-		if( !canAddNoise( destItem , newItems ) )
-		{
-			DialogUtil.error( this , "Can not add a Noise to an ACSIS heterodyne observation" );
-			return null;
-		}
-		
-		if( !canAddFlat( destItem , newItems ) )
-		{
-			DialogUtil.error( this , "Can not add a Noise to a SCUBA-2 observation" );
-			return null;
-		}
+		// Make special cases for a ACSIS heterodyne observations
+		if( !canAddEyeToNonACSIS( destItem , newItems ) )
+			return null ;	
 
 		// First see if we can insert the items inside the selected node
 		SpInsertData spID;
@@ -1197,25 +1182,25 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 	}
     }
 
-    private boolean canAddSkydip( SpItem target , SpItem[] items )
-	{
-    	Class[] tabooClasses = new Class[]{ SpInstHeterodyne.class } ;
-		return canAddEyeToNonACSIS( target , items ,  "skydipObs" , tabooClasses ) ;
-	}  
-
-	private boolean canAddNoise( SpItem target , SpItem[] items )
-	{
-		Class[] tabooClasses = new Class[]{ SpInstHeterodyne.class } ;
-		return canAddEyeToNonACSIS( target , items ,  "noiseObs" , tabooClasses ) ;
-	}    
-
-	private boolean canAddFlat( SpItem target , SpItem[] items )
-	{
-		Class[] tabooClasses = new Class[]{ SpInstHeterodyne.class } ;
-		return canAddEyeToNonACSIS( target , items , "flatObs" , tabooClasses ) ;
-	} 
+    private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
+    {
+    	String[] eyes = { "skydip" , "noise" , "flat" , "dream" } ;
+    	Class[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
+    	for( int index = 0 ; index < eyes.length ; index++ )
+    	{
+    		String eye = eyes[ index ] ;
+    		if( !canAddEye( target , items ,  eye + "Obs" , tabooClass ) )
+    		{
+    			String firstLetter = eye.substring( 0 , 1 ) ;
+    			eye = firstLetter.toUpperCase() + eye.substring( 1 , eye.length() ) ;
+    			DialogUtil.error( this , "Can not add a " + eye + " to an ACSIS heterodyne observation" ) ;
+    			return false ;
+    		}
+    	}
+    	return true ;
+    }
 	
-	private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items , String eye , Class[] tabooClasses )
+	private boolean canAddEye( SpItem target , SpItem[] items , String eye , Class[] tabooClasses )
 	{
 		SpInstObsComp inst = SpTreeMan.findInstrument( target );
 		for( int j = 0 ; j < tabooClasses.length ; j++ )

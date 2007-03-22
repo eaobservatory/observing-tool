@@ -358,12 +358,12 @@ public void setCoadds(String coadds) {
    throw new UnsupportedOperationException("public double SpIterObserveBase.setCoadds() not supported by JCMT OT.");
 }
 
-// Setp things up for heterodyne observations
-public void setupForHeterodyne() { 
-}
+	// Setp things up for heterodyne observations
+	public void setupForHeterodyne(){}
 
-public void setupForSCUBA() {
-}
+	public void setupForSCUBA(){}
+
+	public void setupForSCUBA2(){}
 
 	/**
 	 * Returns the switching modes.
