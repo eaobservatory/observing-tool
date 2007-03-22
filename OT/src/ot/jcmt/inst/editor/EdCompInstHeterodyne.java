@@ -1277,12 +1277,22 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			transBox.addActionListener( this );
 			return;
 		}
-
+		
+		if( NO_LINE.equals( currentTransition ) )
+		{
+			if( ( ( DefaultComboBoxModel )transBox.getModel() ).getIndexOf( NO_LINE ) == -1 )
+				transBox.addItem( NO_LINE ) ;
+			transBox.setSelectedItem( NO_LINE ) ;
+			transBox.addActionListener( this ) ;
+			return ;
+		}
+		
 		// We need to get the current SelectionList based
 		// on the molecule.
 		// First get all the available species
 		// Get the new model
 		Vector speciesList = getSpecies();
+		
 		// Loop through this list to get the element
 		// corresponding to the current molecule
 		SelectionList currentSpecies = null;
@@ -1331,12 +1341,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			{
 				_inst.setMolecule( currentMolecule , index ) ;
 				Transition transition = ( Transition )transBox.getItemAt( 0 ) ;
-				_inst.setTransition( transition.toString() , index );
-				_inst.setRestFrequency( transition.frequency , index ) ;
-				_inst.setCentreFrequency( _receiver.feIF , index ) ;
+				if( transition != null )
+				{
+					_inst.setTransition( transition.toString() , index );
+					_inst.setRestFrequency( transition.frequency , index ) ;
+					_inst.setCentreFrequency( _receiver.feIF , index ) ;
+					transBox.setSelectedIndex( 0 ) ;
+				}
 			}
 			transChanged = true;
-			transBox.setSelectedIndex( 0 );
 		}
 
 		double frequency = 0. ;
