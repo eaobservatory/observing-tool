@@ -469,6 +469,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_inst = ( SpInstHeterodyne ) spItem;
 		super.setup( spItem );
 		moreSetUp();
+		initialisedRegion = false ;
 	}
 
   private void moreSetUp()
@@ -799,17 +800,20 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 			else if( name.equals( "transition" ) )
 			{
-				// Set the current transition
-				_inst.setCentreFrequency( _receiver.feIF , 0 );
-				_inst.setTransition( ( ( JComboBox )ae.getSource()).getSelectedItem().toString() , 0 );
 				// Update the frequency information
-				Object t = ( ( JComboBox )ae.getSource()).getSelectedItem();
-				if( t instanceof Transition )
+				Object transition = ( ( JComboBox )ae.getSource()).getSelectedItem();
+				if( transition instanceof Transition )
 				{
-					double frequency = ( ( Transition )t).frequency / 1.0E9 ;
-					_inst.setSkyFrequency( ( frequency * 1.0E9 ) / ( 1.0 + getRedshift() ) );
-					_inst.setRestFrequency( frequency * 1.0E9 , 0 );
-					_updateFrequencyText( frequency );
+					double frequency = ( ( Transition )transition).frequency ;
+					_inst.setSkyFrequency( frequency / ( 1.0 + getRedshift() ) );
+					for( int index = 0 ; index < _regionInfo.length ; index++ )
+					{
+						// Set the current transition
+						_inst.setCentreFrequency( _receiver.feIF , index );
+						_inst.setTransition( transition.toString() , index );
+						_inst.setRestFrequency( frequency , index );
+					}
+					_updateFrequencyText( frequency / 1.0E9 );
 					checkSideband();
 				}
 				_updateRegionInfo();
@@ -826,13 +830,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				{
 					if( changed )
 					{
-						double f = Double.parseDouble( frequency );
-						_inst.setRestFrequency( f * 1.0E9 , 0 );
-						_inst.setSkyFrequency( _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() ) );
-						_inst.setCentreFrequency( _receiver.feIF , 0 );
-						// Set the molecule and trasition to NO_LINE
-						_inst.setMolecule( NO_LINE , 0 );
-						_inst.setTransition( NO_LINE , 0 );
+						double f = Double.parseDouble( frequency ) ;
+						_inst.setSkyFrequency( f * 1.0E9 / ( 1.0 + getRedshift() ) ) ;
+						for( int index = 0 ; index < _regionInfo.length ; index++ )
+						{
+							_inst.setRestFrequency( f * 1.0E9 , index ) ;
+							_inst.setCentreFrequency( _receiver.feIF , index ) ;
+							// Set the molecule and trasition to NO_LINE
+							_inst.setMolecule( NO_LINE , index ) ;
+							_inst.setTransition( NO_LINE , index ) ;
+						}
 						checkSideband();
 					}
 					_updateMoleculeChoice();
@@ -1278,19 +1285,22 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			return;
 		}
 		
-		if( NO_LINE.equals( currentTransition ) )
+		if( NO_LINE.equals( currentMolecule ) )
 		{
 			if( ( ( DefaultComboBoxModel )transBox.getModel() ).getIndexOf( NO_LINE ) == -1 )
 				transBox.addItem( NO_LINE ) ;
 			transBox.setSelectedItem( NO_LINE ) ;
 			transBox.addActionListener( this ) ;
+			for( int index = 0 ; index < _regionInfo.length ; index++ )
+				_inst.setTransition( NO_LINE , index ) ;
 			return ;
 		}
-		
-		// We need to get the current SelectionList based
-		// on the molecule.
-		// First get all the available species
-		// Get the new model
+	
+		/*
+		 * We need to get the current SelectionList based on the molecule.
+		 * First get all the available species
+		 * Get the new model
+		 */
 		Vector speciesList = getSpecies();
 		
 		// Loop through this list to get the element
@@ -1313,7 +1323,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 			// Add the no line option
 			if( specModel.getIndexOf( NO_LINE ) == -1 )
-				transBox.addItem( NO_LINE + " " );
+				transBox.addItem( NO_LINE ) ;
 		}
 
 		// Check if the previous transition is still in range
@@ -1343,7 +1353,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				Transition transition = ( Transition )transBox.getItemAt( 0 ) ;
 				if( transition != null )
 				{
-					_inst.setTransition( transition.toString() , index );
+					_inst.setTransition( transition.toString() , index ) ;
 					_inst.setRestFrequency( transition.frequency , index ) ;
 					_inst.setCentreFrequency( _receiver.feIF , index ) ;
 					transBox.setSelectedIndex( 0 ) ;
@@ -1761,6 +1771,8 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			if( _regionInfo[ i ] == null )
 				_regionInfo[ i ] = new Vector() ;
+			else
+				_regionInfo[ i ].clear();
 			if( _inst.getMolecule( i ) == null )
 			{
 				_inst.setMolecule( _inst.getMolecule( 0 ) , i ) ;
