@@ -45,7 +45,10 @@ public class SpIterFlatObs extends SpIterJCMTObs
 
 	public void setupForSCUBA(){}
 	
-	public void setupForSCUBA2(){}
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+	}
 }
 
 
