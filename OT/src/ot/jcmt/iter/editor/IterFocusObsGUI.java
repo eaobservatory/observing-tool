@@ -7,7 +7,6 @@
 /*                                                              */
 /*==============================================================*/
 // $Id$
-
 package ot.jcmt.iter.editor;
 
 import javax.swing.*;
@@ -24,32 +23,35 @@ import jsky.app.ot.gui.*;
  * @version 1.0
  */
 
+public class IterFocusObsGUI extends IterJCMTGenericGUI
+{
+	JPanel scubaAcsisPanel = new JPanel();
+	GridBagLayout gridBagLayout1 = new GridBagLayout();
+	JLabel jLabel3 = new JLabel();
+	DropDownListBoxWidgetExt axis = new DropDownListBoxWidgetExt();
+	JLabel stepsLabel = new JLabel();
+	TextBoxWidgetExt steps = new TextBoxWidgetExt();
+	JLabel mmLabel = new JLabel();
+	JLabel jLabel6 = new JLabel();
+	TextBoxWidgetExt focusPoints = new TextBoxWidgetExt();
+	GridBagLayout gridBagLayout2 = new GridBagLayout();
+	JPanel acsisPanel = new JPanel();
+	JLabel jLabel2 = new JLabel();
+	JLabel jLabel1 = new JLabel();
 
-public class IterFocusObsGUI extends IterJCMTGenericGUI {
-  JPanel scubaAcsisPanel = new JPanel();
-  GridBagLayout gridBagLayout1 = new GridBagLayout();
-  JLabel jLabel3 = new JLabel();
-  DropDownListBoxWidgetExt axis = new DropDownListBoxWidgetExt();
-  JLabel jLabel4 = new JLabel();
-  TextBoxWidgetExt steps = new TextBoxWidgetExt();
-  JLabel jLabel5 = new JLabel();
-  JLabel jLabel6 = new JLabel();
-  TextBoxWidgetExt focusPoints = new TextBoxWidgetExt();
-  GridBagLayout gridBagLayout2 = new GridBagLayout();
-  JPanel acsisPanel = new JPanel();
-  JLabel jLabel2 = new JLabel();
-  JLabel jLabel1 = new JLabel();
+	public IterFocusObsGUI()
+	{
+		try
+		{
+			jbInit();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}
+	}
 
-  public IterFocusObsGUI() {
-    try {
-      jbInit();
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  	private void jbInit() throws Exception
+	private void jbInit() throws Exception
 	{
 		scubaAcsisPanel.setLayout( gridBagLayout1 );
 		Border bevelBorder = BorderFactory.createBevelBorder( BevelBorder.LOWERED );
@@ -58,13 +60,13 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
 		jLabel3.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel3.setForeground( Color.black );
 		jLabel3.setText( "Axis" );
-		jLabel4.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		jLabel4.setForeground( Color.black );
-		jLabel4.setText( "Steps" );
+		stepsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		stepsLabel.setForeground( Color.black );
+		stepsLabel.setText( "Steps" );
 		steps.setColumns( 8 );
-		jLabel5.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		jLabel5.setForeground( Color.black );
-		jLabel5.setText( "(mm)" );
+		mmLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		mmLabel.setForeground( Color.black );
+		mmLabel.setText( "(mm)" );
 		jLabel6.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel6.setForeground( Color.black );
 		jLabel6.setText( "No of Focus Points" );
@@ -78,13 +80,13 @@ public class IterFocusObsGUI extends IterJCMTGenericGUI {
 		axis.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		automaticTarget.setText( "Automatic focus/align target" );
 		automaticTarget.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		automaticTarget.setSelected( true ) ;
+		automaticTarget.setSelected( true );
 		this.add( scubaAcsisPanel , BorderLayout.CENTER );
 		scubaAcsisPanel.add( jLabel3 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		scubaAcsisPanel.add( axis , new GridBagConstraints( 1 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		scubaAcsisPanel.add( jLabel4 , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
+		scubaAcsisPanel.add( stepsLabel , new GridBagConstraints( 0 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
 		scubaAcsisPanel.add( steps , new GridBagConstraints( 1 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
-		scubaAcsisPanel.add( jLabel5 , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
+		scubaAcsisPanel.add( mmLabel , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		scubaAcsisPanel.add( jLabel6 , new GridBagConstraints( 0 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.EAST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		scubaAcsisPanel.add( focusPoints , new GridBagConstraints( 1 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.HORIZONTAL , new Insets( 5 , 5 , 5 , 5 ) , 0 , 0 ) );
 		scubaAcsisPanel.add( automaticTarget , new GridBagConstraints( 0 , 4 , 3 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 20 , 0 , 0 , 0 ) , 0 , 0 ) );
