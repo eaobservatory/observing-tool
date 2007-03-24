@@ -24,9 +24,4 @@ public class SpIterDREAMObs extends SpIterJCMTObs
 	{
 		return 0. ;
 	}
-
-	public void setupForSCUBA2()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-	}
 }

@@ -40,15 +40,6 @@ public class SpIterFlatObs extends SpIterJCMTObs
 	{
 		return 0.0;
 	}
-
-	public void setupForHeterodyne(){}
-
-	public void setupForSCUBA(){}
-	
-	public void setupForSCUBA2()
-	{
-		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
-	}
 }
 
 

@@ -363,7 +363,10 @@ public void setCoadds(String coadds) {
 
 	public void setupForSCUBA(){}
 
-	public void setupForSCUBA2(){}
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+	}
 
 	/**
 	 * Returns the switching modes.

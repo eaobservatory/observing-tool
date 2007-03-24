@@ -100,6 +100,14 @@ public class SpIterSkydipObs extends SpIterJCMTObs {
 	_avTable.noNotifyRm(ATTR_POSITIONS);
 	_avTable.noNotifyRm(ATTR_START_POSITION);
     }
+    
+    // mimicks SCUBA
+    public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_POSITIONS ) ;
+		_avTable.noNotifyRm( ATTR_START_POSITION ) ;
+	}
 }
 
 
