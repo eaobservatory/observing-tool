@@ -421,7 +421,6 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		super.dropDownListBoxAction( ddlbwe , index , val );
 		updateTimes();
 		updateThermometer();
-		_updateWidgets() ;
 
 		_iterObs.getAvEditFSM().addObserver( this );
 	}
