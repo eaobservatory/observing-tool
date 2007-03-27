@@ -629,6 +629,9 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		_updateRegionInfo();
 
 		_updateTable();
+		
+		_updateFrequencyText() ;
+		
 		configured = cachedConfigured ;
 	}
 
@@ -1385,6 +1388,11 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 ) ;
 		Vector molecules =  _lineCatalog.returnSpecies( obsmin * ( 1.0 + getRedshift() ) , obsmax * ( 1.0 + getRedshift() ) ) ;
 		return molecules ;
+	}
+
+	private void _updateFrequencyText()
+	{
+		_updateFrequencyText( _inst.getRestFrequency( 0 ) / 1.0E9 ) ;
 	}
 	
 	private void _updateFrequencyText( double f )
