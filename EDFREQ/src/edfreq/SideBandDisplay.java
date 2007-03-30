@@ -412,13 +412,15 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 				text = jt.getLineText( i );
 				if( text != null )
 				{
-					// Parse the string
-					// First see if it starts with "No Lone"
+					/* 
+					 * Parse the string
+					 * First see if it starts with "No Line"
+					 */
 					if( text.startsWith( HeterodyneEditor.NO_LINE ) )
 					{
 						results[ i ].add( HeterodyneEditor.NO_LINE );
 						results[ i ].add( HeterodyneEditor.NO_LINE );
-						double rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() );
+						double rf = Double.parseDouble( text.substring( text.lastIndexOf( ' ' ) ) ) * 1.0E6 ;
 						results[ i ].add( new Double( rf ) );
 					}
 					else
