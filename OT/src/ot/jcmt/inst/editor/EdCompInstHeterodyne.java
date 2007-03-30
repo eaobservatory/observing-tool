@@ -921,6 +921,13 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 				line = centre + ( mainline - line ) ;
 			if( line < 0. )
 				line = -line ;
+			
+			double halfBandwidth = 0.5 * ( _receiver.bandWidth - _inst.getBandWidth( index ) ) ;
+	        if( line > ( _receiver.feIF + halfBandwidth ) )
+	        	line = ( _receiver.feIF + halfBandwidth ) ;
+	        else if( line < ( _receiver.feIF - halfBandwidth ) )
+	        	line = ( _receiver.feIF - halfBandwidth ) ;
+			
 			_inst.setCentreFrequency( line , index ) ;
 		}		
 	}
