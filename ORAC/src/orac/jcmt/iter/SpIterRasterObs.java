@@ -454,14 +454,45 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			* Based on real timing data 
 			* http://wiki.jach.hawaii.edu/staff_wiki-bin/wiki/20060925_jcmtfco
 			*/
-			int samplesPerRow = ( int )( Math.floor( getWidth() / getScanDx() ) ) + 1;
+			int samplesPerRow = 0 ;
+			
+			double samplesPerRowAsDouble = ( Math.floor( getWidth() / getScanDx() ) ) + 1. ;
+			double samplesPerColumnAsDouble = ( Math.floor( getHeight() / getScanDy() ) ) + 1.  ;
+			
+			// if AUTOMATIC else USER DEF
+			if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
+			{
+				// if height > width 
+				if( samplesPerColumnAsDouble > samplesPerRowAsDouble )
+				{
+					samplesPerRow = ( int )samplesPerColumnAsDouble ;
+					samplesPerColumnAsDouble = samplesPerRowAsDouble ;
+				}
+				else
+				{
+					samplesPerRow = ( int )samplesPerRowAsDouble ;
+				}
+			}
+			else
+			{
+				if( ( getScanAngle( 0 ) == 0. ) || ( samplesPerColumnAsDouble > samplesPerRowAsDouble ) )
+				{
+					samplesPerRow = ( int )samplesPerColumnAsDouble ;
+					samplesPerColumnAsDouble = samplesPerRowAsDouble ;
+				}
+				else if( ( getScanAngle( 0 ) == 90. ) || ( samplesPerColumnAsDouble <= samplesPerRowAsDouble ) )
+				{
+					samplesPerRow = ( int )samplesPerRowAsDouble ;
+				}
+			}
+			
 			if( ( samplesPerRow & 1 ) != 0 )
 				samplesPerRow++;
-			double overhead = ( ( double )samplesPerRow + Math.sqrt( samplesPerRow ) ) * getSampleTime() * ( ( Math.floor( getHeight() / getScanDy() ) + 1. ) ) ;
+			double overhead = ( ( double )samplesPerRow + Math.sqrt( samplesPerRow ) ) * getSampleTime() * samplesPerColumnAsDouble ;
 			double time =  ( 1.2 * overhead ) + 110 ;
 			return time ;
 		}
-		return 0.0;
+		return 0. ;
 	}
 	
   /** Creates JAC TCS XML. */
