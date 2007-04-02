@@ -397,11 +397,37 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
 		{
-			int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );
-			if( ( samplesPerRow & 1 ) == 0 )
+			//int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );			
+			//int samplesPerRow = 0 ;
+			
+			double samplesPerRow = ( Math.floor( getWidth() / getScanDx() ) ) + 1. ;
+			double samplesPerColumn = ( Math.floor( getHeight() / getScanDy() ) ) + 1.  ;
+			
+			// if AUTOMATIC else USER DEF
+			if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
+			{
+				// if height > width 
+				if( samplesPerColumn > samplesPerRow )
+				{
+					double temp = samplesPerRow ;
+					samplesPerRow = samplesPerColumn ;
+					samplesPerColumn = temp ;
+				}
+			}
+			else
+			{
+				if( ( getScanAngle( 0 ) == 0. ) || ( samplesPerColumn > samplesPerRow ) )
+				{
+					double temp = samplesPerRow ;
+					samplesPerRow = samplesPerColumn ;
+					samplesPerColumn = temp ;
+				}
+			}
+			
+			if( ( (( int )samplesPerRow) & 1 ) == 0 )
 				samplesPerRow++;
-			double timeOnRow = ( double ) samplesPerRow * getSampleTime();
-			double timeOffRow = Math.sqrt( ( double ) samplesPerRow ) * getSampleTime();
+			double timeOnRow = samplesPerRow * getSampleTime();
+			double timeOffRow = Math.sqrt( samplesPerRow ) * getSampleTime();
 			return timeOnRow + timeOffRow;
 		}
 		return 0.0;
