@@ -601,6 +601,16 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 		}
 		
+		String selectedConfig = ( String )_w.specialConfigs.getSelectedItem() ;
+		String namedConfig = _inst.getNamedConfiguration() ;
+		if( namedConfig != null && !namedConfig.equals( selectedConfig ) )
+		{
+			_w.specialConfigs.removeActionListener( this ) ;
+			_w.specialConfigs.setSelectedItem( namedConfig ) ;
+			_w.specialConfigs.addActionListener( this ) ;
+			cachedConfigured = true ;
+		}
+		
 		doCheckBox() ;
 
 		// Make sure the molecule is accessible
