@@ -373,16 +373,18 @@ protected SpTelescopePos( SpItem spItem , SpAvTable avTab , String tag , SpTeles
 	}
 }
 
-/**
- * Get the system type: spherical, conic, named.
- *
- * Do not confuse with the coord system.
- *
- * @return One of {@link #SYSTEM_SPHERICAL}, {@link #SYSTEM_CONIC}, {@link #SYSTEM_NAMED}
- */
-public int getSystemType() {
-   return _avTab.getInt(_tag, SYSTEM_TYPE, SYSTEM_SPHERICAL);
-}
+	/**
+	 * Get the system type: spherical, conic, named.
+	 *
+	 * Do not confuse with the coord system.
+	 *
+	 * @return One of {@link #SYSTEM_SPHERICAL}, {@link #SYSTEM_CONIC}, {@link #SYSTEM_NAMED}
+	 */
+	public int getSystemType()
+	{
+		int system = _avTab.getInt( _tag , SYSTEM_TYPE , SYSTEM_SPHERICAL ) ; 
+		return system ;
+	}
 
 /**
  * Set the system type: spherical, conic, named.
@@ -573,13 +575,13 @@ noNotifySetXY(double xaxis, double yaxis)
 
 			if( isOffsetPosition() || ( ( getCoordSys() != CoordSys.FK5 ) && ( getCoordSys() != CoordSys.FK4 ) ) )
 			{
-				if( xaxisStr.matches( "\\d+:\\d+:\\d+" ) )
+				if( xaxisStr.matches( "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?" ) )
 					_xaxis = HHMMSS.valueOf( xaxisStr ) ;
 				else if( xaxisStr.matches( "\\d*.{1}\\d*" ) )
 					_xaxis = new Double( xaxisStr ).doubleValue() ;
 				else
 					_xaxis = 0. ;
-				if( yaxisStr.matches( "\\d+:\\d+:\\d+" ) )
+				if( yaxisStr.matches( "\\d{1,2}(:\\d{0,2}(:\\d{0,2}(\\.\\d*)?)?)?" ) )
 					_yaxis = DDMMSS.valueOf( yaxisStr ) ;
 				else if( yaxisStr.matches( "\\d*.{1}\\d*" ) )
 					_yaxis = new Double( yaxisStr ).doubleValue() ;
