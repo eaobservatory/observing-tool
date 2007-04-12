@@ -400,8 +400,8 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			//int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );			
 			//int samplesPerRow = 0 ;
 			
-			double samplesPerRow = ( Math.floor( getWidth() / getScanDx() ) ) + 1. ;
-			double samplesPerColumn = ( Math.floor( getHeight() / getScanDy() ) ) + 1.  ;
+			double samplesPerRow = getWidth() ; // ( Math.floor( getWidth() / getScanDx() ) ) + 1. ;
+			double samplesPerColumn = getHeight() ; //( Math.floor( getHeight() / getScanDy() ) ) + 1.  ;
 			
 			// if AUTOMATIC else USER DEF
 			if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
@@ -423,6 +423,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 					samplesPerColumn = temp ;
 				}
 			}
+			
+			samplesPerRow = ( Math.floor( samplesPerRow / getScanDx() ) ) + 1. ;
+			samplesPerColumn = ( Math.floor( samplesPerColumn / getScanDy() ) ) + 1.  ;
 			
 			if( ( (( int )samplesPerRow) & 1 ) == 0 )
 				samplesPerRow++;
