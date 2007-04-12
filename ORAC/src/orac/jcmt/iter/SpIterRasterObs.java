@@ -396,12 +396,9 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			return mapWidth / scanRate;
 		}
 		else if( instrument instanceof orac.jcmt.inst.SpInstHeterodyne )
-		{
-			//int samplesPerRow = ( int ) ( Math.ceil( getWidth() / getScanDx() ) );			
-			//int samplesPerRow = 0 ;
-			
-			double samplesPerRow = getWidth() ; // ( Math.floor( getWidth() / getScanDx() ) ) + 1. ;
-			double samplesPerColumn = getHeight() ; //( Math.floor( getHeight() / getScanDy() ) ) + 1.  ;
+		{			
+			double samplesPerRow = getWidth() ; 
+			double samplesPerColumn = getHeight() ; 
 			
 			// if AUTOMATIC else USER DEF
 			if( ( getScanAngles() == null ) || ( getScanAngles().size() == 0 ) )
