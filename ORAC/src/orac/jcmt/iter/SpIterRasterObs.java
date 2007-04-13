@@ -413,7 +413,7 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 			}
 			else
 			{
-				if( ( getScanAngle( 0 ) == 0. ) || ( samplesPerColumn > samplesPerRow ) )
+				if( ( getScanAngle( 0 ) != 90. ) && ( ( getScanAngle( 0 ) == 0. ) || ( samplesPerColumn > samplesPerRow ) ) )
 				{
 					double temp = samplesPerRow ;
 					samplesPerRow = samplesPerColumn ;
