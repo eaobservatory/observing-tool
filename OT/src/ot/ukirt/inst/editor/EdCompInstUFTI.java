@@ -12,7 +12,7 @@ package ot.ukirt.inst.editor;
 import orac.util.LookUpTable;
 import orac.ukirt.inst.SpInstUFTI;
 
-import gemini.sp.*;
+import gemini.sp.SpItem ;
 import jsky.app.ot.gui.TableWidgetExt;
 import jsky.app.ot.gui.TableWidgetWatcher;
 import jsky.app.ot.gui.TextBoxWidgetExt;
@@ -31,6 +31,7 @@ import jsky.app.ot.tpe.TelescopePosEditor;
 import jsky.app.ot.tpe.TpeManager;
 
 import javax.swing.ButtonGroup;
+import java.awt.Color ;
 
 /**
  * This is the editor for the UFTI instrument.
@@ -48,128 +49,130 @@ public final class EdCompInstUFTI extends EdCompInstBase
     * action events caused by initializing widgets.
     */
    private boolean _ignoreActionEvents = false;
-
-/**
- * The constructor initializes the title, description, and presentation source.
- */
-   public EdCompInstUFTI() {
-      _title       = "UKIRT Fast Track Imager";
-      _presSource  = _w = new UftiGUI();
-      _description = "The UFTI instrument is configured with this component.";
-
-      _edStareCapability = new EdStareCapability();
-
-      ButtonGroup grp = new ButtonGroup();
-      grp.add(_w.filterBroadBand);
-      grp.add(_w.filterNarrowBand);
-      grp.add(_w.filterSpecial);
-
-      _w.filterBroadBand.addActionListener(this);
-      _w.filterNarrowBand.addActionListener(this);
-      _w.filterSpecial.addActionListener(this);
-      _w.acqMode.addActionListener(this);
-      _w.readoutArea.addActionListener(this);
-
-
-      _ignoreActionEvents = true;
    
-      DropDownListBoxWidgetExt ddlbw;
+   private boolean validExposureTime = true ;
 
-      ddlbw = (DropDownListBoxWidgetExt) _w.acqMode;
-      ddlbw.setChoices( SpInstUFTI.MODES );
+	/**
+	 * The constructor initializes the title, description, and presentation source.
+	 */
+	public EdCompInstUFTI()
+	{
+		_title = "UKIRT Fast Track Imager";
+		_presSource = _w = new UftiGUI();
+		_description = "The UFTI instrument is configured with this component.";
 
-      ddlbw = (DropDownListBoxWidgetExt) _w.readoutArea;
-      ddlbw.setChoices( SpInstUFTI.READAREAS.getColumn( 0 ) );
+		_edStareCapability = new EdStareCapability();
 
-      TableWidgetExt twe;
-      twe = (TableWidgetExt) _w.filterTable;
-      twe.setBackground(_w.getBackground());
-      twe.setColumnHeaders(new String[]{"Filter", "Wavel.(um)"});      
-      twe.addWatcher( this );
+		ButtonGroup grp = new ButtonGroup();
+		grp.add( _w.filterBroadBand );
+		grp.add( _w.filterNarrowBand );
+		grp.add( _w.filterSpecial );
 
-//
-// Polariser
-//
-      ddlbw = (DropDownListBoxWidgetExt) _w.polariser;
-      ddlbw.setChoices( SpInstUFTI.POLARISERS.getColumn( 0 ) );
+		_w.filterBroadBand.addActionListener( this );
+		_w.filterNarrowBand.addActionListener( this );
+		_w.filterSpecial.addActionListener( this );
+		_w.acqMode.addActionListener( this );
+		_w.readoutArea.addActionListener( this );
 
-      ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
-        public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd,
-                                           int i, String val ) {}
+		_ignoreActionEvents = true;
 
-        public void dropDownListBoxAction( DropDownListBoxWidgetExt dd,
-                                           int i, String val ) {
-                                             _instUFTI.setPolariser( val );
-                                             _updateWidgets();
-                                           }
-      } );
+		DropDownListBoxWidgetExt ddlbw;
 
-//
-// Source magnitude
-//
-      ddlbw = (DropDownListBoxWidgetExt) _w.sourceMag;
-      ddlbw.setChoices( SpInstUFTI.SRCMAGS );
+		ddlbw = ( DropDownListBoxWidgetExt )_w.acqMode;
+		ddlbw.setChoices( SpInstUFTI.MODES );
 
-      ddlbw.addWatcher( new DropDownListBoxWidgetWatcher() {
-        public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd,
-                                           int i, String val) {}
+		ddlbw = ( DropDownListBoxWidgetExt )_w.readoutArea;
+		ddlbw.setChoices( SpInstUFTI.READAREAS.getColumn( 0 ) );
 
-        public void dropDownListBoxAction( DropDownListBoxWidgetExt dd,
-                                           int i, String val) {
-//      System.out.println ( "SM Watcher called" );
+		TableWidgetExt twe;
+		twe = ( TableWidgetExt )_w.filterTable;
+		twe.setBackground( _w.getBackground() );
+		twe.setColumnHeaders( new String[] { "Filter" , "Wavel.(um)" } );
+		twe.addWatcher( this );
 
-                                             _instUFTI.setSourceMagnitude( val );
-                                             _instUFTI.useDefaultAcquisition();
-                                             _updateExpWidgets();
-                                             _updateExpInfo();
-                                           }
-      } );
+		/*
+		*  Polariser
+		*/
+		ddlbw = ( DropDownListBoxWidgetExt )_w.polariser;
+		ddlbw.setChoices( SpInstUFTI.POLARISERS.getColumn( 0 ) );
 
-      TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.exposureTime;
-      tbw.addWatcher( new TextBoxWidgetWatcher() {
-        public void textBoxKeyPress( TextBoxWidgetExt tbw ) {
-           _instUFTI.setExpTime( tbw.getText() );
-        }
+		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
-        public void textBoxAction(TextBoxWidgetExt tbw) {}
-      } );
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+				_instUFTI.setPolariser( val );
+				_updateWidgets();
+			}
+		} );
 
-//   _edStareCapability._init(gw, this );
-      _w.coadds.addWatcher( new TextBoxWidgetWatcher() {
-        public void textBoxKeyPress( TextBoxWidgetExt tbw ) {
-          _instUFTI.setNoCoadds(tbw.getText() );
-        }
+		/*
+		*  Source magnitude
+		*/
+		ddlbw = ( DropDownListBoxWidgetExt )_w.sourceMag;
+		ddlbw.setChoices( SpInstUFTI.SRCMAGS );
 
-        public void textBoxAction(TextBoxWidgetExt tbw) {}
-      } );
+		ddlbw.addWatcher( new DropDownListBoxWidgetWatcher()
+		{
+			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val ){}
 
+			public void dropDownListBoxAction( DropDownListBoxWidgetExt dd , int i , String val )
+			{
+				_instUFTI.setSourceMagnitude( val );
+				_instUFTI.useDefaultAcquisition();
+				_updateExpWidgets();
+				_updateExpInfo();
+			}
+		} );
 
-      CommandButtonWidgetExt cbwe = (CommandButtonWidgetExt) _w.defaultAcquisition;
-      cbwe.addWatcher( new CommandButtonWidgetWatcher() {
-        public void commandButtonAction(CommandButtonWidgetExt cbwe) {
-//       System.out.println ( "DEF Watcher called" );
-          _instUFTI.useDefaultAcquisition();
-          _updateExpWidgets();
-          _updateExpInfo();
-        }
-      } );
-   
-//   cbw = (CheckBoxWidget) _w.useShutter;
-//   if (cbw != null) cbw.setDisabled(true );
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime;
+		tbw.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbw )
+			{
+				validExposureTime = checkExposureTimes( tbw.getText() ) ;
+				_updateExpWidgets( false ) ;
+			}
 
-      // MFO: Watcher is now added here rather than in _edStareCapability._init
-      // gw = (GroupWidget) _w.stareControlGroup;
-      //_edStareCapability._init( gw, this );
-      _w.coadds.addWatcher( new TextBoxWidgetWatcher() {
-	public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-	  _instUFTI.setNoCoadds(tbwe.getText());
+			public void textBoxAction( TextBoxWidgetExt tbw ){}
+		} );
+
+		_w.coadds.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbw )
+			{
+				_instUFTI.setNoCoadds( tbw.getText() );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbw ){}
+		} );
+
+		CommandButtonWidgetExt cbwe = ( CommandButtonWidgetExt )_w.defaultAcquisition;
+		cbwe.addWatcher( new CommandButtonWidgetWatcher()
+		{
+			public void commandButtonAction( CommandButtonWidgetExt cbwe )
+			{
+				//       System.out.println ( "DEF Watcher called" );
+				_instUFTI.useDefaultAcquisition();
+				_updateExpWidgets();
+				_updateExpInfo();
+			}
+		} );
+
+		// MFO: Watcher is now added here rather than in _edStareCapability._init
+		_w.coadds.addWatcher( new TextBoxWidgetWatcher()
+		{
+			public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+			{
+				_instUFTI.setNoCoadds( tbwe.getText() );
+			}
+
+			public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
+		} );
+
+		_ignoreActionEvents = false;
 	}
-
-	public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-      });
-
-      _ignoreActionEvents = false;
-   }
 
 /**
  * Initialize the Filter table widget according to the selected
@@ -298,24 +301,35 @@ public final class EdCompInstUFTI extends EdCompInstBase
       _ignoreActionEvents = false;
    }
 
-//
-// Update the exposure-time and coadds widgets.
-//
-   private void _updateExpWidgets() {
-      _ignoreActionEvents = true;
-
-      TextBoxWidgetExt tbw = (TextBoxWidgetExt) _w.exposureTime;
-      double d = _instUFTI.getExpTime();
-      String e = Double.toString( d );
-//   _instUFTI.setExpTime( e );
-      tbw.setText( e );
-
-      int coadds = _instUFTI.getNoCoadds();
-// _instUFTI.setNoCoadds( coadds );
-      _w.coadds.setText( Integer.toString( coadds ) );
-
-      _ignoreActionEvents = false;
+	/*
+	*  Update the exposure-time and coadds widgets.
+	*/
+   private void _updateExpWidgets()
+   {
+	   _updateExpWidgets( true ) ;
    }
+   
+	private void _updateExpWidgets( boolean setText )
+	{
+		_ignoreActionEvents = true;
+
+		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime;
+		double d = _instUFTI.getExpTime();
+		String e = Double.toString( d );
+
+		if( setText )
+			tbw.setText( e );
+
+		int coadds = _instUFTI.getNoCoadds();
+		_w.coadds.setText( Integer.toString( coadds ) );
+
+	if( validExposureTime )
+		_w.exposureTimeLabel.setForeground( Color.black ) ;
+	else
+		_w.exposureTimeLabel.setForeground( Color.red ) ;
+		
+		_ignoreActionEvents = false;
+	}
 
 //
 // Update the exposure-time and coadds attributes.
@@ -394,52 +408,47 @@ public final class EdCompInstUFTI extends EdCompInstBase
 
 
 /**
- *
- */
-   public void actionPerformed(ActionEvent evt) {
-      if(_ignoreActionEvents) {
-        return;
-      }
+	 *
+	 */
+	public void actionPerformed( ActionEvent evt )
+	{
+		if( _ignoreActionEvents )
+			return;
 
-      //if ((evt.id != Event.ACTION_EVENT) || !(evt.target instanceof Widget)) {
-      //if ( !( evt.target instanceof Widget ) ) {
-      //   return false;
-      //}
+		Object w = evt.getSource();
 
-      Object w  = evt.getSource();
-
-      if (w == _w.acqMode) {
-         DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-         _instUFTI.setAcqMode( ddlbw.getStringValue() );
-
-         return;
-      }
-
-      if (_w.readoutArea == w) {
-         DropDownListBoxWidgetExt ddlbw = (DropDownListBoxWidgetExt) w;
-         _instUFTI.setReadoutArea( ddlbw.getStringValue() );
-         _updateScienceFOV();
-         TelescopePosEditor tpe = TpeManager.get(_instUFTI );
-         if ( tpe != null ) tpe.repaint();
-
-         return;
-      }
-
-      if (_w.filterBroadBand == w) {
-         _selectFilterType( SpInstUFTI.BROAD_BAND_FILTERS );
-         return;
-
-      } else if (_w.filterNarrowBand == w) {
-         _selectFilterType( SpInstUFTI.NARROW_BAND_FILTERS );
-         return;
-
-      } else if (_w.filterSpecial == w) {
-         _selectFilterType( SpInstUFTI.SPECIAL_FILTERS );
-         return;
-      }
-
-      return;
-   }
+		if( w == _w.acqMode )
+		{
+			DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+			_instUFTI.setAcqMode( ddlbw.getStringValue() );
+			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() ) ;
+			_updateExpWidgets() ;
+		}
+		else if( _w.readoutArea == w )
+		{
+			DropDownListBoxWidgetExt ddlbw = ( DropDownListBoxWidgetExt )w;
+			_instUFTI.setReadoutArea( ddlbw.getStringValue() );
+			_updateScienceFOV();
+			TelescopePosEditor tpe = TpeManager.get( _instUFTI );
+			if( tpe != null )
+				tpe.repaint();
+			
+			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() ) ;
+			_updateExpWidgets() ;
+		}
+		else if( _w.filterBroadBand == w )
+		{
+			_selectFilterType( SpInstUFTI.BROAD_BAND_FILTERS );
+		}
+		else if( _w.filterNarrowBand == w )
+		{
+			_selectFilterType( SpInstUFTI.NARROW_BAND_FILTERS );
+		}
+		else if( _w.filterSpecial == w )
+		{
+			_selectFilterType( SpInstUFTI.SPECIAL_FILTERS );
+		}
+	}
 
    /** Return the position angle text box */
    public TextBoxWidgetExt getPosAngleTextBox() {
@@ -457,4 +466,48 @@ public final class EdCompInstUFTI extends EdCompInstBase
      return _w.coadds;
    }
 
+   private boolean checkExposureTimes( String candidate )
+   {
+	   String[][] exposureTimeLimits = SpInstUFTI.EXPTIME_LIMITS ;
+	   int readout = 0 ;
+	   int acquisition = 1 ;
+	   int min = 2 ;
+	   int max = 3 ;
+	   boolean found = false ;
+	   double minExposure = 0. ;
+	   double maxExposure = 0. ;
+	   boolean returnValue = false ;
+	   // only along one dimension for no apparent reason
+	   for( int i = 0 ; i < exposureTimeLimits.length ; i++ )
+	   {
+		   String[] current = exposureTimeLimits[ i ] ;
+		   if( current[ readout ].equals( _instUFTI.getReadoutArea() ) )
+		   {
+			   if( current[ acquisition ].equals( _instUFTI.getAcqMode() ) )
+			   {
+				   minExposure = new Double( current[ min ] ).doubleValue() ;
+				   maxExposure = new Double( current[ max ] ).doubleValue() ;
+				   found = true ;
+				   break ;
+			   }
+		   }
+	   }
+	   if( found )
+	   {
+		   double candidateDouble = new Double( candidate ).doubleValue() ;
+		   if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
+		   {
+			   _instUFTI.setExpTime( Double.toString( candidateDouble ) ) ;
+			   returnValue = true ;
+		   }
+		   else
+		   {
+			   if( minExposure > candidateDouble )
+				   _instUFTI.setExpTime( Double.toString( minExposure ) ) ;
+			   else
+				   _instUFTI.setExpTime( Double.toString( maxExposure ) ) ; 
+		   }
+	   }		   
+	   return returnValue ;
+   }
 }
