@@ -313,13 +313,14 @@ public final class EdCompInstUFTI extends EdCompInstBase
 	{
 		_ignoreActionEvents = true;
 
-		TextBoxWidgetExt tbw = ( TextBoxWidgetExt )_w.exposureTime;
-		double d = _instUFTI.getExpTime();
-		String e = Double.toString( d );
-
 		if( setText )
+		{
+			TextBoxWidgetExt tbw = _w.exposureTime ;
+			double d = _instUFTI.getExpTime() ;
+			String e = Double.toString( d ) ;
 			tbw.setText( e );
-
+		}
+		
 		int coadds = _instUFTI.getNoCoadds();
 		_w.coadds.setText( Integer.toString( coadds ) );
 
@@ -468,46 +469,43 @@ public final class EdCompInstUFTI extends EdCompInstBase
 
    private boolean checkExposureTimes( String candidate )
    {
-	   String[][] exposureTimeLimits = SpInstUFTI.EXPTIME_LIMITS ;
-	   int readout = 0 ;
-	   int acquisition = 1 ;
-	   int min = 2 ;
-	   int max = 3 ;
-	   boolean found = false ;
-	   double minExposure = 0. ;
-	   double maxExposure = 0. ;
 	   boolean returnValue = false ;
-	   // only along one dimension for no apparent reason
-	   for( int i = 0 ; i < exposureTimeLimits.length ; i++ )
-	   {
-		   String[] current = exposureTimeLimits[ i ] ;
-		   if( current[ readout ].equals( _instUFTI.getReadoutArea() ) )
+	   if( candidate.matches( "\\d*\\.?\\d*" ) && !candidate.equals( "" ) )
+	   {		   
+		   String[][] exposureTimeLimits = SpInstUFTI.EXPTIME_LIMITS ;
+		   int readout = 0 ;
+		   int acquisition = 1 ;
+		   int min = 2 ;
+		   int max = 3 ;
+		   boolean found = false ;
+		   double minExposure = 0. ;
+		   double maxExposure = 0. ;
+		   // only along one dimension for no apparent reason
+		   for( int i = 0 ; i < exposureTimeLimits.length ; i++ )
 		   {
-			   if( current[ acquisition ].equals( _instUFTI.getAcqMode() ) )
+			   String[] current = exposureTimeLimits[ i ] ;
+			   if( current[ readout ].equals( _instUFTI.getReadoutArea() ) )
 			   {
-				   minExposure = new Double( current[ min ] ).doubleValue() ;
-				   maxExposure = new Double( current[ max ] ).doubleValue() ;
-				   found = true ;
-				   break ;
+				   if( current[ acquisition ].equals( _instUFTI.getAcqMode() ) )
+				   {
+					   minExposure = new Double( current[ min ] ).doubleValue() ;
+					   maxExposure = new Double( current[ max ] ).doubleValue() ;
+					   found = true ;
+					   break ;
+				   }
 			   }
 		   }
+		   if( found )
+		   {
+			   double candidateDouble = new Double( candidate ).doubleValue() ;
+			   if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
+			   {
+				   // the following setExpTime is redundant BUT may com in useful later
+				   _instUFTI.setExpTime( Double.toString( candidateDouble ) ) ;
+				   returnValue = true ;
+			   }
+		   }	
 	   }
-	   if( found )
-	   {
-		   double candidateDouble = new Double( candidate ).doubleValue() ;
-		   if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
-		   {
-			   _instUFTI.setExpTime( Double.toString( candidateDouble ) ) ;
-			   returnValue = true ;
-		   }
-		   else
-		   {
-			   if( minExposure > candidateDouble )
-				   _instUFTI.setExpTime( Double.toString( minExposure ) ) ;
-			   else
-				   _instUFTI.setExpTime( Double.toString( maxExposure ) ) ; 
-		   }
-	   }		   
 	   return returnValue ;
    }
 }

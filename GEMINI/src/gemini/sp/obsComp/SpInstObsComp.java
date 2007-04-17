@@ -125,14 +125,14 @@ setExposureTime(double seconds)
    setExposureTime(Double.toString(seconds));
 }
 
-/**
- * Set the exposure time.
- */
-public final void
-setExposureTime(String seconds)
-{
-   _avTable.set(ATTR_EXPOSURE_TIME, seconds);
-}
+	/**
+	 * Set the exposure time.
+	 */
+	public final void setExposureTime( String seconds )
+	{
+		if( seconds.matches( "\\d*\\.?\\d*" ) && !seconds.equals( "" )  )
+			_avTable.set( ATTR_EXPOSURE_TIME , new Double( seconds ).toString() ) ;
+	}
 
 /**
  * Get the exposure time.
