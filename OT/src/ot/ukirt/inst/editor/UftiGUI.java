@@ -138,7 +138,7 @@ public class UftiGUI extends JPanel {
 		filter.setBorder( BorderFactory.createLoweredBevelBorder() );
 		polariser.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		this.add( jLabel1 , new GridBagConstraints( 0 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 0 , 0 , 0 ) , 0 , 0 ) );
-		this.add( exposureTimeLabel , new GridBagConstraints( 2 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 5 , 20 , 0 , 0 ) , 0 , 0 ) );
+		this.add( exposureTimeLabel , new GridBagConstraints( 2 , 0 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 5 , 20 , 0 , 0 ) , 0 , 0 ) );
 		this.add( readoutArea , new GridBagConstraints( 0 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		this.add( exposureTime , new GridBagConstraints( 2 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.HORIZONTAL , new Insets( 0 , 20 , 0 , 0 ) , 0 , 0 ) );
 		this.add( jLabel3 , new GridBagConstraints( 3 , 1 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.WEST , GridBagConstraints.NONE , new Insets( 0 , 3 , 0 , 0 ) , 0 , 0 ) );
