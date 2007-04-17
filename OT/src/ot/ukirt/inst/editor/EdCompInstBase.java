@@ -24,40 +24,49 @@ public abstract class EdCompInstBase extends OtItemEditor implements Observer {
     private boolean _initialised = false;
 
     /**
-     * This method initializes the widgets in the presentation to reflect the
-     * current values of the items attributes.
-     */
-    protected void _init() {
-	if(_initialised) {
-	    return;
+	 * This method initializes the widgets in the presentation to reflect the
+	 * current values of the items attributes.
+	 */
+	protected void _init()
+	{
+		if( _initialised )
+			return;
+
+		TextBoxWidgetExt tbwe;
+		tbwe = getPosAngleTextBox();
+		if( tbwe != null )
+		{
+			tbwe.addWatcher( new TextBoxWidgetWatcher()
+			{
+				public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+				{
+					SpItem spItem = getCurrentSpItem();
+					spItem.getAvEditFSM().deleteObserver( EdCompInstBase.this );
+					( ( SpInstObsComp )spItem ).setPosAngleDegreesStr( tbwe.getText() );
+					spItem.getAvEditFSM().addObserver( EdCompInstBase.this );
+				}
+	
+				public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
+			} );
+		}
+
+		tbwe = getExposureTimeTextBox();
+		if( tbwe != null )
+		{
+			tbwe.addWatcher( new TextBoxWidgetWatcher()
+			{	
+				public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+				{
+					SpItem spItem = getCurrentSpItem();
+					( ( SpInstObsComp )spItem ).setExposureTime( tbwe.getText() );
+				}
+	
+				public void textBoxAction( TextBoxWidgetExt tbwe ){} // ignore
+			} );
+		}
+
+		_initialised = true;
 	}
-
-	TextBoxWidgetExt tbwe;
-	tbwe = getPosAngleTextBox();
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    SpItem spItem = getCurrentSpItem();
-		    spItem.getAvEditFSM().deleteObserver(EdCompInstBase.this);
-		    ((SpInstObsComp) spItem).setPosAngleDegreesStr(tbwe.getText());
-		    spItem.getAvEditFSM().addObserver(EdCompInstBase.this);
-		}
-
-		public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-	    });
-
-	tbwe = getExposureTimeTextBox();
-	tbwe.addWatcher( new TextBoxWidgetWatcher() {
-
-		public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-		    SpItem spItem = getCurrentSpItem();
-		    ((SpInstObsComp) spItem).setExposureTime(tbwe.getText());
-		}
-
-		public void textBoxAction(TextBoxWidgetExt tbwe) {} // ignore
-	    });
-
-	_initialised = true;
-    }
 
 
     /**
@@ -85,17 +94,20 @@ public abstract class EdCompInstBase extends OtItemEditor implements Observer {
 
 
     /**
-     * Implements the _updateWidgets method from OtItemEditor in order to
-     * setup the widgets to show the current values of the item.
-     */
-    protected void _updateWidgets() {
-	TextBoxWidgetExt tbwe;
-	tbwe = getPosAngleTextBox();
-	tbwe.setText( ((SpInstObsComp) _spItem).getPosAngleDegreesStr() );
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
+		TextBoxWidgetExt tbwe;
+		tbwe = getPosAngleTextBox();
+		if( tbwe != null )
+			tbwe.setText( ( ( SpInstObsComp )_spItem ).getPosAngleDegreesStr() );
 
-	tbwe = getExposureTimeTextBox();
-	tbwe.setText( ((SpInstObsComp) _spItem).getExposureTimeAsString() );
-    }
+		tbwe = getExposureTimeTextBox();
+		if( tbwe != null )
+			tbwe.setText( ( ( SpInstObsComp )_spItem ).getExposureTimeAsString() );
+	}
 
     /**
      * Observes the associated SpItem attribute table for changes to the

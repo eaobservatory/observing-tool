@@ -319,15 +319,22 @@ public final class EdCompInstUFTI extends EdCompInstBase
 			double d = _instUFTI.getExpTime() ;
 			String e = Double.toString( d ) ;
 			tbw.setText( e );
+			validExposureTime = checkExposureTimes( _instUFTI.getExposureTimeAsString() ) ;
 		}
 		
 		int coadds = _instUFTI.getNoCoadds();
 		_w.coadds.setText( Integer.toString( coadds ) );
 
-	if( validExposureTime )
-		_w.exposureTimeLabel.setForeground( Color.black ) ;
-	else
-		_w.exposureTimeLabel.setForeground( Color.red ) ;
+		if( validExposureTime )
+		{
+			_w.exposureTimeLabel.setText( "Exposure Time" ) ;
+			_w.exposureTimeLabel.setForeground( Color.black ) ;
+		}
+		else
+		{
+			_w.exposureTimeLabel.setText( "Exposure Time Invalid" ) ;
+			_w.exposureTimeLabel.setForeground( Color.red ) ;
+		}
 		
 		_ignoreActionEvents = false;
 	}
@@ -458,9 +465,10 @@ public final class EdCompInstUFTI extends EdCompInstBase
    }
 
    /** Return the exposure time text box */
-   public TextBoxWidgetExt getExposureTimeTextBox() {
-     return _w.exposureTime;
-   }
+	public TextBoxWidgetExt getExposureTimeTextBox()
+	{
+		return null ; // _w.exposureTime;
+	}
 
    /** Return the coadds text box, or null if not available. */
    public TextBoxWidgetExt getCoaddsTextBox() {
@@ -501,8 +509,15 @@ public final class EdCompInstUFTI extends EdCompInstBase
 			   if( minExposure <= candidateDouble && candidateDouble <= maxExposure )
 			   {
 				   // the following setExpTime is redundant BUT may com in useful later
-				   _instUFTI.setExpTime( Double.toString( candidateDouble ) ) ;
+				   _instUFTI.setExposureTime( candidateDouble ) ;
 				   returnValue = true ;
+			   }
+			   else
+			   {
+				   if( minExposure > candidateDouble )
+					   _instUFTI.setExposureTime( minExposure ) ;
+				   else
+					   _instUFTI.setExposureTime( maxExposure ) ;
 			   }
 		   }	
 	   }
