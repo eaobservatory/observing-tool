@@ -13,6 +13,14 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ April 2007
+
+  - New filter for UFTI, Y_MK.
+
+  - New filters for UIST, Y_MK and K_s_MK which replaces kshort.
+
+  - New blocker for UIST, IJH_blocker which replaces PK50 and is the default blocker for IJ and JH grisms. 
+
 +++ October 2006
 
   - Tiling WFCAM observations gives hints in the Telescope Position Editor as to where autoguider will be.
