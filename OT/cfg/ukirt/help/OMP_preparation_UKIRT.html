@@ -1893,7 +1893,7 @@ site - so you need an internet connection to do this.
 <p> Start with a science program which contains a template MSB with a
 blank
 target component (for example, a template MSB you have retrieved from
-the SCUBA library). Your catalog file should be of the format: </p>
+the UFTI library). Your catalog file should be of the format: </p>
 <blockquote>
   <pre>PKS0106         01 08 38.771 + 01 35 00.32 RJ<br>3C84            03 19 48.160 + 41 30 42.10 RJ<br>3C120           04 33 11.096 + 05 21 15.62 RJ<br>PKS0438         04 40 17.180 - 43 33 08.60 RJ</pre>
 </blockquote>
@@ -2329,38 +2329,6 @@ around:</span><br>
 This can be worked around
 by closing the position editor, switching to another target component
 and back again, and relaunching the editor.<br>
-      <br>
-      </td>
-    </tr>
-    <tr>
-      <td
- style="background-color: rgb(255, 0, 0); text-align: center; font-weight: bold; vertical-align: middle;">Name
-Resolution<br>
-      </td>
-      <td style="vertical-align: middle;"><br>
-      <span style="font-weight: bold; text-decoration: underline;">Bug:</span><br>
-      <br>
-(i) Occasionally fails to
-resolve
-a source - this is not&nbsp; reproducible. If this happens, select
-another name
-resolver from the list.<br>
-      <br>
-(ii) In some circumstances, the OT may hang if you try to resolve a
-target name in the target component while the position editor is also
-open. The hang requires you to ctrl-c out of the OT and no error
-message is generated. <br>
-      <br>
-      <span style="font-weight: bold; text-decoration: underline;">Work
-around for (ii):</span><br>
-      <br>
-Make sure your position
-editor is closed before hitting the "Resolve Name" button in the target
-component. This bug has been verified to occur on White Box Linux
-running gnome, and depends on the details of the programme (number of
-sources etc.). In the 06A release of the OT, name resolution is
-disabled while the position editor is open (a prompt to close it will
-ensue).<br>
       <br>
       </td>
     </tr>
