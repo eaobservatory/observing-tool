@@ -21,6 +21,8 @@ Council All Rights. Reserved.
 
   - New blocker for UIST, IJH_blocker which replaces PK50 and is the default blocker for IJ and JH grisms. 
 
+  - New Data Reduction Recipes, BRIGHT_POINT_SOURCE_NCOLOUR for UFTI and POL_JITTER_CORON, STANDARD_STAR_NOARC, POINT_SOURCE_NOARC, EXTENDED_SOURCE_NOARC, POINT_SOURCE_POL, EXTENDED_SOURCE and EXTENDED_SOURCE_NOSTD for UIST. 
+
 +++ October 2006
 
   - Tiling WFCAM observations gives hints in the Telescope Position Editor as to where autoguider will be.
