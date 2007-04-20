@@ -16,6 +16,7 @@ import java.awt.*;
 import javax.swing.border.*;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetExt;
 
 /**
  * Title:        <p>
@@ -39,6 +40,12 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 	JLabel informationLabelMiddle = new JLabel() ;
 	JLabel informationLabelBottom = new JLabel() ;
 	JPanel informationPanel = new JPanel() ;
+
+	JPanel scuba2Panel = new JPanel() ;
+	JLabel integrationTimeLabel = new JLabel() ;
+	TextBoxWidgetExt integrationTime = new TextBoxWidgetExt() ;
+	JLabel integrationTimeSeconds = new JLabel() ;
+	
 	
 	public IterStareObsGUI()
 	{
@@ -107,6 +114,22 @@ public class IterStareObsGUI extends IterJCMTGenericGUI
 		informationPanel.add( informationLabelTop ) ;
 		informationPanel.add( informationLabelMiddle ) ;
 		informationPanel.add( informationLabelBottom ) ;
+		
+		scuba2Panel.setLayout( new GridLayout( 1 , 3 ) ) ;
+		
+		integrationTimeLabel.setText( "Integration Time" ) ;
+		integrationTimeLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		integrationTimeLabel.setForeground( Color.black ) ;
+		scuba2Panel.add( integrationTimeLabel ) ;
+				
+		scuba2Panel.add( integrationTime ) ;
+		
+		integrationTimeSeconds.setText( "Seconds" ) ;
+		integrationTimeSeconds.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) ) ;
+		integrationTimeSeconds.setForeground( Color.black ) ;
+		scuba2Panel.add( integrationTimeSeconds ) ;
+		
+		starePanel.add( scuba2Panel , BorderLayout.NORTH ) ;
 	}
 
 }

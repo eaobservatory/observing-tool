@@ -27,8 +27,7 @@ import gemini.sp.iter.SpIterChop ;
  */
 public class SpIterStareObs extends SpIterJCMTObs
 {
-   public static final SpType SP_TYPE =
-        SpType.create(SpType.ITERATOR_COMPONENT_TYPE, "stareObs", "Photom/Sample");
+   public static final SpType SP_TYPE = SpType.create( SpType.ITERATOR_COMPONENT_TYPE , "stareObs" , "Photom/Stare" );
 
 // Register the prototype.
 static {
@@ -137,15 +136,25 @@ public SpIterStareObs()
 		_avTable.noNotifyRm( ATTR_CONT_CAL );
 	}
 
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE ) ;
+		_avTable.noNotifyRm( ATTR_CONT_CAL ) ;
+		_avTable.noNotifyRm( ATTR_WIDE_PHOTOMETRY ) ;
+		if( _avTable.get( ATTR_SAMPLE_TIME ) == null || _avTable.get( ATTR_SAMPLE_TIME ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4.0" , 0 ) ;
+	}
+	
     public String[] getSwitchingModeOptions()
 	{
 		return new String[]
 		{ 
 			SWITCHING_MODE_BEAM , 
-			SWITCHING_MODE_POSITION ,
+			SWITCHING_MODE_POSITION /*,
 			SWITCHING_MODE_FREQUENCY_S ,
 			SWITCHING_MODE_FREQUENCY_F , 
-			SWITCHING_MODE_NONE
+			SWITCHING_MODE_NONE*/
 		} ;
 	}
 }
