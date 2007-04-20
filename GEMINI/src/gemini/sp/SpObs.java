@@ -923,7 +923,7 @@ private void tidyInstDefns(Vector v) {
 		int offsetIndex;
 		for( offsetIndex = 0 ; offsetIndex < v.size() ; offsetIndex++ )
 		{
-			if( ( ( String ) v.get( offsetIndex ) ).startsWith( "offset" ) )
+			if( ( ( String )v.get( offsetIndex ) ).startsWith( "offset" ) )
 			{
 				offsetFound = true;
 				break;
@@ -938,39 +938,31 @@ private void tidyInstDefns(Vector v) {
 		String defaultConfig = "";
 		for( int i = 0 ; i < v.size() ; i++ )
 		{
-			defaultConfig = ( String ) v.get( i );
+			defaultConfig = ( String )v.get( i );
 			if( defaultConfig.matches( defaultConfigPattern ) )
-			{
 				break;
-			}
 		}
 
 		if( !offsetFound )
 		{
 			// If there are no SKYs, make sure we have a break after 1st "set OBEJCT"
-			if( skyIndex == -1 )
+			if( skyIndex == -1 && !( SpTranslationConstants.breakString.equals( v.get( objectIndex + 1 ) ) ) )
 			{
-				if( !( SpTranslationConstants.breakString.equals( v.get( objectIndex + 1 ) ) ) )
-				{
 					v.add( objectIndex + 1 , SpTranslationConstants.breakString );
-				}
 			}
 			else
 			{
 				// If object index < sky index, make sure we have a break after 1st "set OBEJCT"
-				if( objectIndex < skyIndex )
+				if( objectIndex < skyIndex &&  !( SpTranslationConstants.breakString.equals( v.get( objectIndex + 1 ) ) ) )
 				{
-					if( !( SpTranslationConstants.breakString.equals( v.get( objectIndex + 1 ) ) ) )
-					{
 						v.add( objectIndex + 1 , SpTranslationConstants.breakString );
-					}
 				}
 				else
 				{
 					// Insert a "set OBJECT/break" before the previous slew command - if any
 					for( int i = skyIndex ; i >= 0 ; i-- )
 					{
-						if( ( ( String ) v.get( i ) ).startsWith( "slew MAIN" ) || ( ( String ) v.get( i ) ).startsWith( "offset" ) )
+						if( ( ( String )v.get( i ) ).startsWith( "slew MAIN" ) || ( ( String )v.get( i ) ).startsWith( "offset" ) )
 						{
 							v.add( i - 1 , SpTranslationConstants.breakString );
 							v.add( i - 1 , SpTranslationConstants.objectString );
@@ -991,12 +983,12 @@ private void tidyInstDefns(Vector v) {
 		String observePattern = "do \\d+ _observe";
 		for( int i = objectIndex ; i >= 0 ; i-- )
 		{
-			if( ( ( String ) v.get( i ) ).startsWith( "loadConfig" ) )
+			if( ( ( String )v.get( i ) ).startsWith( "loadConfig" ) )
 			{
 				// No need to do anything
 				break;
 			}
-			else if( ( ( String ) v.get( i ) ).matches( observePattern ) )
+			else if( ( ( String )v.get( i ) ).matches( observePattern ) )
 			{
 				// We need to put the default config before the set OBJECT
 				v.add( objectIndex , defaultConfig );
@@ -1004,18 +996,16 @@ private void tidyInstDefns(Vector v) {
 			}
 		}
 	}
-
+/*
 	private void addWFCAMBreak( Vector v )
 	{
 
 		// Just make sure there is a break after the first set OBJECT
 		int index = v.indexOf( SpTranslationConstants.objectString );
 		if( index != -1 )
-		{
 			v.add( index + 1 , SpTranslationConstants.breakString );
-		}
 	}
-
+*/
 	private void addGuideCommands( Vector v )
 	{
 		for( int i = 0 ; i < v.size() ; i++ )
