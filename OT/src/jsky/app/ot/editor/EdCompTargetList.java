@@ -187,9 +187,7 @@ public class EdCompTargetList extends OtItemEditor
 		_w.setBaseButton.setText( "Set " + SpTelescopePos.BASE_TAG + " To Image Centre" );
 
 		if( _w.setBaseButton.getText().length() > 24 )
-		{
 			_w.setBaseButton.setFont( new java.awt.Font( "Dialog" , 0 , 10 ) );
-		}
 
 		// UKIRT does not need the chopSystem choice and JCMT does not use the
 		// Chop Settings tab. (MFO, 21 January 2002)
@@ -241,9 +239,7 @@ public class EdCompTargetList extends OtItemEditor
 
 		_type = _w.targetTypeDDList;
 		for( int i = 0 ; i < _w.targetSystemsTabbedPane.getTabCount() ; i++ )
-		{
 			_type.addChoice( _w.targetSystemsTabbedPane.getTitleAt( i ) );
-		}
 		_type.addWatcher( new DropDownListBoxWidgetWatcher()
 		{
 			public void dropDownListBoxSelect( DropDownListBoxWidgetExt dd , int i , String val )
@@ -256,9 +252,7 @@ public class EdCompTargetList extends OtItemEditor
 						_w.targetSystemsTabbedPane.setSelectedIndex( tab );
 						Component[] component = ( ( JPanel ) _w.targetSystemsTabbedPane.getComponentAt( tab ) ).getComponents();
 						for( int count = 0 ; count < component.length ; count++ )
-						{
 							component[ count ].setEnabled( true );
-						}
 					}
 					else
 					{
@@ -665,17 +659,13 @@ public class EdCompTargetList extends OtItemEditor
 		// in a separate column in the target list table.
 		if( ( OtCfg.telescopeUtil.getCoordSys() != null ) && ( OtCfg.telescopeUtil.getCoordSys().length > 2 ) )
 		{
-			_tpTable.setColumnHeaders( new String[]
-			{ "Tag" , "Name" , "X Axis" , "Y Axis" , "System" } );
-			_tpTable.setColumnWidths( new int[]
-			{ 45 , 85 , 90 , 90 , 90 } );
+			_tpTable.setColumnHeaders( new String[]{ "Tag" , "Name" , "X Axis" , "Y Axis" , "System" } );
+			_tpTable.setColumnWidths( new int[]{ 45 , 85 , 90 , 90 , 90 } );
 		}
 		else
 		{
-			_tpTable.setColumnHeaders( new String[]
-			{ "Tag" , "Name" , "X Axis" , "Y Axis" } );
-			_tpTable.setColumnWidths( new int[]
-			{ 45 , 85 , 90 , 90 } );
+			_tpTable.setColumnHeaders( new String[]{ "Tag" , "Name" , "X Axis" , "Y Axis" } );
+			_tpTable.setColumnWidths( new int[]{ 45 , 85 , 90 , 90 } );
 		}
 		_tpTable.setRowSelectionAllowed( true );
 		_tpTable.setColumnSelectionAllowed( false );
@@ -1204,55 +1194,60 @@ public class EdCompTargetList extends OtItemEditor
     }
 
     /**
-     * Updates the target system pane selection
-     * depending on the target system of the selected target.
-     */
-    private void _selectTargetSystemTab(SpTelescopePos tp) {
-      _w.targetSystemsTabbedPane.removeChangeListener(this);
+	 * Updates the target system pane selection
+	 * depending on the target system of the selected target.
+	 */
+	private void _selectTargetSystemTab( SpTelescopePos tp )
+	{
+		_w.targetSystemsTabbedPane.removeChangeListener( this );
 
-      // Added by SdW 
-      // When base is a named system or orbital elements, and the user selects
-      // REFERENCE - then we need to to display the RA/DEC tab, but with the
-      // offset checkbox selected and disabled to stop users putting in
-      // absolute positions
-      SpTelescopePos base = null;
-      if ( _tpl != null ) {
-	  base = _tpl.getBasePosition();
-      }
-      if ( tp.getTag().equals("REFERENCE") &&
-	   base.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL ) {
-	   tp.setOffsetPosition(true);
-	   _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
-	   _w.targetTypeDDList.setSelectedIndex(0);
-	   _w.offsetCheckBox.setEnabled(false);
-           _w.targetSystemsTabbedPane.addChangeListener(this);
-	   _w.offsetCheckBox.setValue(true);
-	   return;
-      }
-      else {
-	  _w.offsetCheckBox.setEnabled(true);
-      }
-      
-      switch(tp.getSystemType()) {
-        case SpTelescopePos.SYSTEM_CONIC:
-          _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
-	  _w.targetTypeDDList.setSelectedIndex(1);
-	  break;
+		// Added by SdW 
+		// When base is a named system or orbital elements, and the user selects
+		// REFERENCE - then we need to to display the RA/DEC tab, but with the
+		// offset checkbox selected and disabled to stop users putting in
+		// absolute positions
+		SpTelescopePos base = null;
+		if( _tpl != null )
+			base = _tpl.getBasePosition();
 
-        case SpTelescopePos.SYSTEM_NAMED:
-          _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
-	  _w.targetTypeDDList.setSelectedIndex(2);
-	  break;
+		if( !tp.isBasePosition() && base.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL )
+		{
+			tp.setOffsetPosition( true );
+			_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW );
+			_w.targetTypeDDList.setSelectedIndex( 0 );
+			_w.offsetCheckBox.setEnabled( false );
+			_w.targetTypeDDList.setEnabled( false ) ;
+			_w.targetSystemsTabbedPane.addChangeListener( this );
+			_w.offsetCheckBox.setValue( true );
+			return;
+		}
+		else
+		{
+			_w.offsetCheckBox.setEnabled( true );
+			_w.targetTypeDDList.setEnabled( true ) ;
+		}
 
-        // SpTelescopePos.SYSTEM_SPHERICAL:
-	default:
-          _w.targetSystemsTabbedPane.setSelectedComponent(_w.objectGBW);
-	  _w.targetTypeDDList.setSelectedIndex(0);
-	  break;
-      }
+		switch( tp.getSystemType() )
+		{
+			case SpTelescopePos.SYSTEM_CONIC :
+				_w.targetSystemsTabbedPane.setSelectedComponent( _w.conicSystemPanel );
+				_w.targetTypeDDList.setSelectedIndex( 1 );
+				break;
 
-      _w.targetSystemsTabbedPane.addChangeListener(this);
-    }
+			case SpTelescopePos.SYSTEM_NAMED :
+				_w.targetSystemsTabbedPane.setSelectedComponent( _w.namedSystemPanel );
+				_w.targetTypeDDList.setSelectedIndex( 2 );
+				break;
+
+			// SpTelescopePos.SYSTEM_SPHERICAL:
+			default :
+				_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW );
+				_w.targetTypeDDList.setSelectedIndex( 0 );
+				break;
+		}
+
+		_w.targetSystemsTabbedPane.addChangeListener( this );
+	}
 
 
     private void _resetPositionEditor() {
@@ -1278,9 +1273,7 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			SpTelescopePos base = _tpl.getBasePosition();
 			if( base == null )
-			{
 				return;
-			}
 
 			String nextTag = ( String ) _w.newButton.getSelectedItem();
 
@@ -1311,9 +1304,7 @@ public class EdCompTargetList extends OtItemEditor
 			}
 
 			if( tp.getSystemType() == SpTelescopePos.TYPE_MAJOR )
-			{
 				tp.setName( base.getName() );
-			}
 			_w.removeButton.setEnabled( true );
 
 			if( OtCfg.telescopeUtil.isOffsetTarget( tp.getTag() ) )
@@ -1374,9 +1365,7 @@ public class EdCompTargetList extends OtItemEditor
 
 			SpTelescopePos base = _tpl.getBasePosition();
 			if( base == null )
-			{
 				return;
-			}
 
 			base.setXY( raDec[ 0 ] , raDec[ 1 ] );
 			return;
@@ -1406,13 +1395,9 @@ public class EdCompTargetList extends OtItemEditor
 		else if( w == _w.offsetCheckBox )
 		{
 			if( _w.offsetCheckBox.getBooleanValue() )
-			{
 				_curPos.setOffsetPosition( true );
-			}
 			else
-			{
 				_curPos.setOffsetPosition( false );
-			}
 
 			_curPos.setXY( 0.0 , 0.0 );
 
@@ -1532,52 +1517,27 @@ public class EdCompTargetList extends OtItemEditor
       }
     }
 
-    public void textBoxKeyPress(TextBoxWidgetExt tbwe) {
-      if(tbwe == _w.epoch) {
-        _curPos.setConicSystemEpoch(_w.epoch.getValue());
-        return;
-      }
-
-      if(tbwe == _w.epochPerih) {
-        _curPos.setConicSystemEpochPerih(_w.epochPerih.getValue());
-        return;
-      }
-
-      if(tbwe == _w.orbinc) {
-        _curPos.setConicSystemInclination(_w.orbinc.getValue());
-        return;
-      }
-
-      if(tbwe == _w.anode) {
-        _curPos.setConicSystemAnode(_w.anode.getValue());
-        return;
-      }
-
-      if(tbwe == _w.perih) {
-        _curPos.setConicSystemPerihelion(_w.perih.getValue());
-        return;
-      }
-
-      if(tbwe == _w.aorq) {
-        _curPos.setConicSystemAorQ(_w.aorq.getValue());
-        return;
-      }
-
-      if(tbwe == _w.e) {
-        _curPos.setConicSystemE(_w.e.getValue());
-        return;
-      }
-
-      if(tbwe == _w.l_or_m) {
-        _curPos.setConicSystemLorM(_w.l_or_m.getValue());
-        return;
-      }
-
-      if(tbwe == _w.dm) {
-        _curPos.setConicSystemDailyMotion(_w.dm.getValue());
-        return;
-      }
-    }
+    public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	{
+		if( tbwe == _w.epoch )
+			_curPos.setConicSystemEpoch( _w.epoch.getValue() );
+		else if( tbwe == _w.epochPerih )
+			_curPos.setConicSystemEpochPerih( _w.epochPerih.getValue() );
+		else if( tbwe == _w.orbinc )
+			_curPos.setConicSystemInclination( _w.orbinc.getValue() );
+		else if( tbwe == _w.anode )
+			_curPos.setConicSystemAnode( _w.anode.getValue() );
+		else if( tbwe == _w.perih )
+			_curPos.setConicSystemPerihelion( _w.perih.getValue() );
+		else if( tbwe == _w.aorq )
+			_curPos.setConicSystemAorQ( _w.aorq.getValue() );
+		else if( tbwe == _w.e )
+			_curPos.setConicSystemE( _w.e.getValue() );
+		else if( tbwe == _w.l_or_m )
+			_curPos.setConicSystemLorM( _w.l_or_m.getValue() );
+		else if( tbwe == _w.dm )
+			_curPos.setConicSystemDailyMotion( _w.dm.getValue() );
+	}
 
     public void textBoxAction(TextBoxWidgetExt tbwe) { }
 
