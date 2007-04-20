@@ -187,15 +187,18 @@ printSummary()
 			try
 			{
 				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
-				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , null ) ;
+				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[]{} ) ;
 				Object spIterStareObs = spIterStep.item ;
-				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , null ) ;
-				Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
-				Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
-				if( switchingMode.equals( beamSwitch ) )
-					elapsedTime += 30. ;
-				else
-					elapsedTime += 82. ;
+				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[]{} ) ;
+				if( switchingMode != null )
+				{
+					Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
+					Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
+					if( switchingMode.equals( beamSwitch ) )
+						elapsedTime += 30. ;
+					else
+						elapsedTime += 82. ;
+				}
 			}
 			catch( ClassNotFoundException cnfe )
 			{
