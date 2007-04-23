@@ -131,20 +131,16 @@
 <configuration>
   <name>      HARP_13C18O_250x2</name>
   <frontEnd>  HARP            </frontEnd>
-  <frequency> 0.              </frequency>
-  <frequency> 0.              </frequency>
+  <frequency> 329.3305453     </frequency>
+  <frequency> 330.56058427819965</frequency>
   <sideband>  LSB             </sideband>
   <mixers>    1               </mixers>
   <mode>      SSB             </mode>
   <systems>   2               </systems>
-  <species>   C-18-O          </species>
-  <species>   13-CO           </species>
-  <transition>3  - 2          </transition>
-  <transition>3  - 2          </transition>
   <bandwidth> 250.0           </bandwidth>
   <bandwidth> 250.0           </bandwidth>
-  <shift>  5.607009925558312E9</shift>
-  <shift>  4.349595125558289E9</shift>
+  <shift>  5.365E9            </shift>
+  <shift>  4.134961021800354E9</shift>
 </configuration>
 
 
