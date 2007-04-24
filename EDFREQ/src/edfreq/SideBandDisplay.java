@@ -426,7 +426,7 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 						if( frequency.matches( "\\d*.??\\d*" ) )
 							rf = Double.parseDouble( frequency ) * 1.0E6 ;
 						else
-						rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() ) ;
+							rf = EdFreq.getRestFrequency( getLO1() , jt.getSamplers()[ i ].getCentreFrequency() , redshift , hetEditor.getFeBand() ) ;
 						results[ i ].add( new Double( rf ) );
 					}
 					else
