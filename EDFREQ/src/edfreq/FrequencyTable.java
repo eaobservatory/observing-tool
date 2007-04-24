@@ -348,68 +348,66 @@ public class FrequencyTable extends JPanel implements ActionListener
       resetLineDetails(lineDetails, subsystem);
    }
 
-   protected void resetLineDetails(LineDetails lineDetails, int subsystem)
-   {
-      if(lineDetails != null) {
+	protected void resetLineDetails( LineDetails lineDetails , int subsystem )
+	{
+		if( lineDetails != null )
+		{
 
-         double obsFrequency = (lineDetails.frequency * 1.0E6) / 
-              ( 1.0 + hetEditor.getRedshift() );
+			double obsFrequency = ( lineDetails.frequency * 1.0E6 ) / ( 1.0 + hetEditor.getRedshift() );
 
-         double centreFrequencyDerivedFromLine = Math.abs(obsFrequency - sideBandDisplay.getLO1());
+			double centreFrequencyDerivedFromLine = Math.abs( obsFrequency - sideBandDisplay.getLO1() );
 
-         samplers[subsystem].setCentreFrequency(centreFrequencyDerivedFromLine);
+			samplers[ subsystem ].setCentreFrequency( centreFrequencyDerivedFromLine );
 
-         // Check whether the line is in the band by comparing centreFrequencyDerivedFromLine as calculated above
-         // and the actual centre frequency of the sampler. Note the sampler[i].setCentreFrequency
-         // adjusts the centre frequency if the sideband would be out of the allowed range otherwise.
+			/*
+			 * Check whether the line is in the band by comparing centreFrequencyDerivedFromLine as calculated above
+			 * and the actual centre frequency of the sampler. Note the sampler[i].setCentreFrequency
+			 * adjusts the centre frequency if the sideband would be out of the allowed range otherwise.
+			 */
+			
+			// ssb vs dsb
+			String mode = hetEditor.getMode();
 
-	 // ssb vs dsb
-	 String mode = hetEditor.getMode();
+			// lsb vs usb
+			String band = hetEditor.getFeBand();
 
-	 // lsb vs usb
-	 String band = hetEditor.getFeBand();
+			boolean lineInBand = true;
 
-         boolean lineInBand = true;
+			double centreFrequencyAdjusted = Math.abs( samplers[ subsystem ].getCentreFrequency() - centreFrequencyDerivedFromLine ) ;
+			if( centreFrequencyAdjusted != 0. )
+				lineInBand = false ;
+			
+			/*
+			 * If the instrument is in single side band mode (ssb) then
+			 * the line also has to be in the correct sideband.
+			 */
+			if( mode.equalsIgnoreCase( "ssb" ) )
+			{
+				if( ( band.equalsIgnoreCase( "usb" ) || band.equalsIgnoreCase( "best" ) ) && ( obsFrequency < sideBandDisplay.getLO1() ) )
+					lineInBand = false;
+				else if( band.equalsIgnoreCase( "lsb" ) && ( obsFrequency > sideBandDisplay.getLO1() ) )
+					lineInBand = false;
+			}
 
-         if(Math.abs(samplers[subsystem].getCentreFrequency() - centreFrequencyDerivedFromLine) >
-	   (samplers[subsystem].getBandWidth() / 2.0))
-         {
-            lineInBand = false;
-         }
+			if( lineInBand )
+			{
+				lineButtons[ subsystem ].setText( lineDetails.name + "  " + lineDetails.transition + "  " + lineDetails.frequency );
+				this.lineDetails[ subsystem ] = lineDetails ;
+			}
+			else
+			{
+				lineButtons[ subsystem ].setText( HeterodyneEditor.NO_LINE );
+				hetEditor.updateLineDetails( null , subsystem );
+			}
 
-         // If the instrument is in single side band mode (ssb) then
-         // the line also has to be in the correct sideband.
-         if(mode.equalsIgnoreCase("ssb")) {
-            if( (band.equalsIgnoreCase("usb") || band.equalsIgnoreCase("best") ) && 
-		(obsFrequency < sideBandDisplay.getLO1())) {
-               lineInBand = false;
-	    }
+			lineButtons[ subsystem ].setToolTipText( lineButtons[ subsystem ].getText() );
+		}
 
-            if(band.equalsIgnoreCase("lsb") && (obsFrequency > sideBandDisplay.getLO1())) {
-               lineInBand = false;
-	    }
-	 }
+		hetEditor.updateLineDetails( lineDetails , subsystem );
+		hetEditor.updateCentreFrequency( samplers[ subsystem ].getCentreFrequency() , subsystem );
 
-	 if(lineInBand) {
-            lineButtons[subsystem].setText( lineDetails.name       + "  " +
-                                    lineDetails.transition + "  " +
-                                    lineDetails.frequency);
-	 }
-         else {
-            lineButtons[subsystem].setText(HeterodyneEditor.NO_LINE);
-            hetEditor.updateLineDetails(null, subsystem);
-         }
-
-         lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
-      }
-
-      this.lineDetails[subsystem] = lineDetails;
-
-      hetEditor.updateLineDetails(lineDetails, subsystem);
-      hetEditor.updateCentreFrequency(samplers[subsystem].getCentreFrequency(), subsystem);
-
-      lineButtons[subsystem].setToolTipText(lineButtons[subsystem].getText());
-   }
+		lineButtons[ subsystem ].setToolTipText( lineButtons[ subsystem ].getText() );
+	}
 
 
    protected void lo1Changed() {
