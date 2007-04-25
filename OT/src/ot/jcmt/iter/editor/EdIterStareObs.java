@@ -62,6 +62,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     		if( SpTreeMan.findInstrument( _iterObs ) instanceof SpInstHeterodyne )
     			_w.contModeCB.setSelected( _iterObs.isContinuum() ) ;
     		_w.integrationTime.setText( "" + _iterObs.getSampleTime() ) ;
+    		_w.secsPerCycle.setText( "" + _iterObs.getSecsPerCycle() ) ;
     	}
 		super._updateWidgets();
 	}
@@ -127,13 +128,17 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     
     public void textBoxAction( TextBoxWidgetExt tbwe )
     {
-    	if( tbwe == _w.integrationTime )
+    	if( tbwe == _w.secsPerCycle )
+    		_iterObs.setSecsPerCycle( _w.secsPerCycle.getText() ) ;
+    	else if( tbwe == _w.integrationTime )
     		_iterObs.setSampleTime( _w.integrationTime.getText() ) ;
     }
     
     public void textBoxKeyPress( TextBoxWidgetExt tbwe )
     {
-    	if( tbwe == _w.integrationTime )
+    	if( tbwe == _w.secsPerCycle )
+    		_iterObs.setSecsPerCycle( _w.secsPerCycle.getText() ) ;
+    	else if( tbwe == _w.integrationTime )
     		_iterObs.setSampleTime( _w.integrationTime.getText() ) ;    	
     }
 }
