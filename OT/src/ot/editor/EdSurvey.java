@@ -16,14 +16,12 @@ package ot.editor;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.Arrays;
 import java.util.Vector;
 import java.util.Observer;
 import java.util.Observable;
@@ -31,6 +29,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableColumn ;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableModel;
@@ -265,45 +264,53 @@ implements ListSelectionListener, KeyListener, Observer {
         _updateFieldTable(_surveyObsComp.getSelectedTelObsComp());
     }
 
-    private void _updateFieldTable(int selectedRow) {
-        _ignoreEvents = true;
+    private void _updateFieldTable( int selectedRow )
+	{
+		_ignoreEvents = true;
 
-        String [][] data = new String[_surveyObsComp.size()][];
+		String[][] data = new String[ _surveyObsComp.size() ][];
 
-        for(int i = 0; i < data.length; i++) {
-            data[i] = _getRowData(_surveyObsComp.getSpTelescopeObsComp(i).getPosList().getBasePosition(), i);
-        }
+		for( int i = 0 ; i < data.length ; i++ )
+			data[ i ] = _getRowData( _surveyObsComp.getSpTelescopeObsComp( i ).getPosList().getBasePosition() , i );
 
-        ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setDataVector(data, COLUMN_NAMES);
+		( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setDataVector( data , COLUMN_NAMES );
 
-        if(_surveyGUI.fieldTable.getColumnModel().getColumn(4).getCellRenderer() == null) {
-            _surveyGUI.fieldTable.getColumnModel().getColumn(4).setCellRenderer(new DefaultTableCellRenderer());
-        }
+		TableColumnModel tableColumnModel = _surveyGUI.fieldTable.getColumnModel() ;
+		TableColumn columnFour = tableColumnModel.getColumn( 4 ) ;
+		DefaultTableCellRenderer columnFourCellRenderer = ( DefaultTableCellRenderer )columnFour.getCellRenderer() ;
+		if( columnFourCellRenderer == null )
+		{
+			columnFourCellRenderer = new DefaultTableCellRenderer() ;
+			columnFour.setCellRenderer( columnFourCellRenderer ) ;
+		}
 
-        if(_surveyGUI.fieldTable.getColumnModel().getColumn(5).getCellRenderer() == null) {
-            _surveyGUI.fieldTable.getColumnModel().getColumn(5).setCellRenderer(new DefaultTableCellRenderer());
-        }
+		TableColumn columnFive = tableColumnModel.getColumn( 5 ) ;
+		DefaultTableCellRenderer columnFiveCellRenderer = ( DefaultTableCellRenderer )columnFive.getCellRenderer() ;
+		if( columnFive.getCellRenderer() == null )
+		{
+			columnFiveCellRenderer = new DefaultTableCellRenderer() ;
+			columnFive.setCellRenderer( new DefaultTableCellRenderer() ) ;
+		}
 
-        ((DefaultTableCellRenderer)_surveyGUI.fieldTable.getColumnModel().getColumn(4).getCellRenderer()).setBackground(_w.getBackground());
-        ((DefaultTableCellRenderer)_surveyGUI.fieldTable.getColumnModel().getColumn(4).getCellRenderer()).setForeground(Color.gray);
-        ((DefaultTableCellRenderer)_surveyGUI.fieldTable.getColumnModel().getColumn(5).getCellRenderer()).setBackground(_w.getBackground());
-        ((DefaultTableCellRenderer)_surveyGUI.fieldTable.getColumnModel().getColumn(5).getCellRenderer()).setForeground(Color.gray);
+		columnFourCellRenderer.setBackground( _w.getBackground() );
+		columnFourCellRenderer.setForeground( Color.gray );
+		columnFiveCellRenderer.setBackground( _w.getBackground() );
+		columnFiveCellRenderer.setForeground( Color.gray );
 
-        if(selectedRow < 0) {
-            _surveyGUI.fieldTable.setRowSelectionInterval(0, 0);
-        }
-        else {
-            if(selectedRow >= _surveyGUI.fieldTable.getRowCount()) {
-                _surveyGUI.fieldTable.setRowSelectionInterval(_surveyGUI.fieldTable.getRowCount() - 1,
-                        _surveyGUI.fieldTable.getRowCount() - 1);
-            }
-            else {
-                _surveyGUI.fieldTable.setRowSelectionInterval(selectedRow, selectedRow);
-            }
-        }
+		if( selectedRow < 0 )
+		{
+			_surveyGUI.fieldTable.setRowSelectionInterval( 0 , 0 );
+		}
+		else
+		{
+			if( selectedRow >= _surveyGUI.fieldTable.getRowCount() )
+				_surveyGUI.fieldTable.setRowSelectionInterval( _surveyGUI.fieldTable.getRowCount() - 1 , _surveyGUI.fieldTable.getRowCount() - 1 );
+			else
+				_surveyGUI.fieldTable.setRowSelectionInterval( selectedRow , selectedRow );
+		}
 
-        _ignoreEvents = false;
-    }
+		_ignoreEvents = false;
+	}
 
     private void _sortByColumn( int column, boolean ascending ) {
         //boolean swapped = false;
@@ -525,18 +532,17 @@ implements ListSelectionListener, KeyListener, Observer {
 		return result;
 	}
 
-    private String [] _getRowData(SpTelescopePos tp, int index) {
-        String [] result = _getRowData(tp);
-        if ( _surveyObsComp.getRemaining(index) < 0 ) {
-            result[4] = "REMOVED";
-        }
-        else {
-            result[4] = "" + _surveyObsComp.getRemaining(index);
-        }
-        result[5] = "" + _surveyObsComp.getPriority(index);
+    private String[] _getRowData( SpTelescopePos tp , int index )
+	{
+		String[] result = _getRowData( tp );
+		if( _surveyObsComp.getRemaining( index ) < 0 )
+			result[ 4 ] = "REMOVED";
+		else
+			result[ 4 ] = "" + _surveyObsComp.getRemaining( index );
+		result[ 5 ] = "" + _surveyObsComp.getPriority( index );
 
-        return result;
-    }
+		return result;
+	}
 
 
     public void valueChanged(ListSelectionEvent e) {
@@ -547,163 +553,159 @@ implements ListSelectionListener, KeyListener, Observer {
         _surveyTargetSelectionChanged();
     }
 
-    private void _surveyTargetSelectionChanged() {
-        _telescopeObsComp = _surveyObsComp.getSpTelescopeObsComp(_surveyGUI.fieldTable.getSelectedRow());
-        //    _surveyObsComp.setTable(_telescopeObsComp.getTable());
-        _telescopeObsComp.getAvEditFSM().addObserver(this);
+    private void _surveyTargetSelectionChanged()
+	{
+		_telescopeObsComp = _surveyObsComp.getSpTelescopeObsComp( _surveyGUI.fieldTable.getSelectedRow() );
+		_telescopeObsComp.getAvEditFSM().addObserver( this );
 
-        // If the GUI is changed such that the list of survey targets and the
-        // target information editor are displayed side by side (rather than
-        // using a JTabbedPane) then all occurrances of _doNotUpdateSurveyWidgets
-        // should be uncommented in the code and all occurrances of _doNotUpdateWidgets
-        // should be commented out.
-        _doNotUpdateWidgets = true;
-        //    _doNotUpdateSurveyWidgets = true;
-        super.setup(_telescopeObsComp);
+		/*
+		 * If the GUI is changed such that the list of survey targets and the
+		 * target information editor are displayed side by side (rather than using a JTabbedPane) 
+		 * then all occurrances of _doNotUpdateSurveyWidgets should be uncommented in the code 
+		 * and all occurrances of _doNotUpdateWidgets should be commented out.
+		 */
+		_doNotUpdateWidgets = true;
+		super.setup( _telescopeObsComp );
 
-        TelescopePosEditor tpe = TpeManager.get(_telescopeObsComp);
-        if (tpe != null) tpe.reset(_telescopeObsComp);
+		TelescopePosEditor tpe = TpeManager.get( _telescopeObsComp );
+		if( tpe != null )
+			tpe.reset( _telescopeObsComp );
 
-        //    _doNotUpdateSurveyWidgets = false;
-        _doNotUpdateWidgets = false;
+		_doNotUpdateWidgets = false;
 
-        _surveyObsComp.setSelectedTelObsComp(_surveyGUI.fieldTable.getSelectedRow());
+		int selectedRowIndex = _surveyGUI.fieldTable.getSelectedRow() ;
+		_surveyObsComp.setSelectedTelObsComp( selectedRowIndex );
 
-        if ( _surveyObsComp.getRemaining(_surveyGUI.fieldTable.getSelectedRow()) < 0 ) {
-            _surveyGUI.remaining.setSelectedIndex( _surveyGUI.remaining.getItemCount() - 1 );
-        }
-        else {
-            _surveyGUI.remaining.setSelectedIndex(_surveyObsComp.getRemaining(_surveyGUI.fieldTable.getSelectedRow()));
-        }
-        _surveyGUI.priority.setSelectedIndex( _surveyObsComp.getPriority( _surveyGUI.fieldTable.getSelectedRow()));
-    }
-
-
-    public void actionPerformed(ActionEvent e) {
-        if(_ignoreEvents) {
-            return;
-        }
+		if( _surveyObsComp.getRemaining( selectedRowIndex ) < 0 )
+			_surveyGUI.remaining.setSelectedIndex( _surveyGUI.remaining.getItemCount() - 1 );
+		else
+			_surveyGUI.remaining.setSelectedIndex( _surveyObsComp.getRemaining( selectedRowIndex ) );
+		_surveyGUI.priority.setSelectedIndex( _surveyObsComp.getPriority( selectedRowIndex ) );
+	}
 
 
-        if(e.getSource() == _surveyGUI.addButton) {
-            //_ignoreEvents = true;
-            ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).addRow(
-                                                                         _getRowData(_surveyObsComp.addSpTelescopeObsComp().getPosList().getBasePosition()));
+    public void actionPerformed( ActionEvent e )
+	{
+		if( _ignoreEvents )
+			return;
 
-            _surveyObsComp.setRemaining(1, _surveyGUI.fieldTable.getRowCount() - 1);
-            _surveyObsComp.setPriority( 0, _surveyGUI.fieldTable.getRowCount() - 1);
+		Object source = e.getSource() ;
+		if( source == _surveyGUI.addButton )
+		{
+			//_ignoreEvents = true;
+			( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).addRow( _getRowData( _surveyObsComp.addSpTelescopeObsComp().getPosList().getBasePosition() ) );
 
-            _surveyGUI.selectLabel.setText("from " + _surveyGUI.fieldTable.getRowCount() );
-            _surveyGUI.selectLabel.repaint();
+			_surveyObsComp.setRemaining( 1 , _surveyGUI.fieldTable.getRowCount() - 1 );
+			_surveyObsComp.setPriority( 0 , _surveyGUI.fieldTable.getRowCount() - 1 );
 
-            _updateFieldTable();
-            //_ignoreEvents = false;
+			_surveyGUI.selectLabel.setText( "from " + _surveyGUI.fieldTable.getRowCount() );
+			_surveyGUI.selectLabel.repaint();
 
-            return;
-        }
+			_updateFieldTable();
+			//_ignoreEvents = false;
 
-        if(e.getSource() == _surveyGUI.removeButton) {
+			return;
+		}
+		else if( source == _surveyGUI.removeButton )
+		{
+			if( _surveyObsComp.isChoice() )
+			{
+				if( ( _surveyObsComp.getChoose() + 1 ) == _surveyObsComp.size() )
+				{
+					int cont = JOptionPane.showConfirmDialog( _surveyGUI , "Removing another item will disable the choose option.\n" + "Do you want to continue?" , "Disable Choice?" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE );
+					if( cont == JOptionPane.NO_OPTION )
+						return;
+					else
+						_surveyGUI.chooseButton.doClick();
+				}
+			}
+			_surveyObsComp.removeSpTelescopeObsComp( _surveyGUI.fieldTable.getSelectedRow() );
 
-            if ( _surveyObsComp.isChoice() ) {
-                if ( (_surveyObsComp.getChoose() + 1) ==  _surveyObsComp.size() ) {
-                    int cont = JOptionPane.showConfirmDialog( _surveyGUI,
-                            "Removing another item will disable the choose option.\n" +
-                            "Do you want to continue?",
-                            "Disable Choice?",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE);
-                    if (cont == JOptionPane.NO_OPTION ) {
-                        return;
-                    }
-                    else {
-                        _surveyGUI.chooseButton.doClick();
-                    }
-                }
-            }
-            _surveyObsComp.removeSpTelescopeObsComp(_surveyGUI.fieldTable.getSelectedRow());
+			_updateFieldTable();
+			
+			_surveyTargetSelectionChanged();
+			
+			_surveyGUI.selectLabel.setText( "from " + _surveyGUI.fieldTable.getRowCount() );
+			_surveyGUI.selectLabel.repaint();
 
-            _updateFieldTable();
+			return;
+		}
+		else if( source == _surveyGUI.removeAllButton )
+		{
+			_surveyObsComp.removeAllSpTelescopeObsComponents();
+			_updateFieldTable( 0 );
 
-            _surveyTargetSelectionChanged();
+			_surveyGUI.selectLabel.setText( "from " + _surveyGUI.fieldTable.getRowCount() );
+			_surveyGUI.selectLabel.repaint();
 
-            _surveyGUI.selectLabel.setText("from " + _surveyGUI.fieldTable.getRowCount() );
-            _surveyGUI.selectLabel.repaint();
+			return;
+		}
+		else if( e.getSource() == _surveyGUI.loadButton )
+		{
+			_loadFields();
+			return;
+		}
+		else if( source == _surveyGUI.remaining )
+		{
+			if( _surveyGUI.remaining.getSelectedIndex() == _surveyGUI.remaining.getItemCount() - 1 )
+			{
+				int newRemaining = -1 * _surveyObsComp.getRemaining( _surveyGUI.fieldTable.getSelectedRow() );
+				_surveyObsComp.setRemaining( newRemaining , _surveyGUI.fieldTable.getSelectedRow() );
+				if( newRemaining < 0 )
+				{
+					( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( "REMOVED" , _surveyGUI.fieldTable.getSelectedRow() , 4 );
+				}
+				else
+				{
+					( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( "" + newRemaining , _surveyGUI.fieldTable.getSelectedRow() , 4 );
+					_surveyGUI.remaining.setSelectedIndex( newRemaining );
+				}
+			}
+			else
+			{
+				_surveyObsComp.setRemaining( _surveyGUI.remaining.getSelectedIndex() , _surveyGUI.fieldTable.getSelectedRow() );
+				( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( "" + _surveyGUI.remaining.getSelectedIndex() , _surveyGUI.fieldTable.getSelectedRow() , 4 );
+			}
+			return;
+		}
+		else if( source == _surveyGUI.priority )
+		{
+			_surveyObsComp.setPriority( _surveyGUI.priority.getSelectedIndex() , _surveyGUI.fieldTable.getSelectedRow() );
+			( ( DefaultTableModel )_surveyGUI.fieldTable.getModel() ).setValueAt( "" + _surveyGUI.priority.getSelectedIndex() , _surveyGUI.fieldTable.getSelectedRow() , 5 );
+			return;
+		}
+		else if( source == _otItemEditorWindow.getUndoButton() )
+		{
+			_undo();
+			return;
+		}
+		else if( source == _otItemEditorWindow.getShowEditPencilButton() )
+		{
+			return;
+		}
+		else if( source == _surveyGUI.chooseButton )
+		{
+			if( _surveyGUI.chooseButton.isSelected() )
+			{
+				_surveyGUI.selectField.setEditable( true );
+				_surveyGUI.selectField.setEnabled( true );
+				if( _surveyGUI.selectField.getText().trim().length() == 0 )
+				{
+					_surveyGUI.selectField.setText( "" + _surveyGUI.fieldTable.getRowCount() );
+				}
+				_surveyObsComp.setChoose( _surveyGUI.selectField.getText().trim() );
+			}
+			else
+			{
+				_surveyGUI.selectField.setEditable( false );
+				_surveyGUI.selectField.setEnabled( false );
+				_surveyObsComp.setChoose( 0 );
+			}
+			_surveyGUI.selectField.repaint();
+		}
 
-            return;
-        }
-
-        if(e.getSource() == _surveyGUI.removeAllButton) {
-            _surveyObsComp.removeAllSpTelescopeObsComponents();
-            _updateFieldTable(0);
-
-            _surveyGUI.selectLabel.setText("from " + _surveyGUI.fieldTable.getRowCount() );
-            _surveyGUI.selectLabel.repaint();
-
-            return;
-        }
-
-        if(e.getSource() == _surveyGUI.loadButton) {
-            _loadFields();
-            return;
-        }
-
-        if(e.getSource() == _surveyGUI.remaining) {
-            if ( _surveyGUI.remaining.getSelectedIndex() == _surveyGUI.remaining.getItemCount() -1  ) {
-                int newRemaining = -1 *  _surveyObsComp.getRemaining(_surveyGUI.fieldTable.getSelectedRow());
-                _surveyObsComp.setRemaining( newRemaining, _surveyGUI.fieldTable.getSelectedRow() );
-                if ( newRemaining < 0 ) {
-                    ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt( "REMOVED",
-                                                                                      _surveyGUI.fieldTable.getSelectedRow(), 4);
-                }
-                else {
-                    ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt("" + newRemaining,
-                                                                                     _surveyGUI.fieldTable.getSelectedRow(), 4);
-                    _surveyGUI.remaining.setSelectedIndex(newRemaining);
-                }
-            }
-            else {
-                _surveyObsComp.setRemaining(_surveyGUI.remaining.getSelectedIndex()  , _surveyGUI.fieldTable.getSelectedRow());
-                ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt("" + _surveyGUI.remaining.getSelectedIndex(),
-                                                                                 _surveyGUI.fieldTable.getSelectedRow(), 4);
-            }
-            return;
-        }
-
-        if(e.getSource() == _surveyGUI.priority) {
-            _surveyObsComp.setPriority(_surveyGUI.priority.getSelectedIndex(), _surveyGUI.fieldTable.getSelectedRow());
-            ((DefaultTableModel)_surveyGUI.fieldTable.getModel()).setValueAt("" + _surveyGUI.priority.getSelectedIndex(),
-                                                                             _surveyGUI.fieldTable.getSelectedRow(), 5);
-            return;
-        }
-
-        if(e.getSource() == _otItemEditorWindow.getUndoButton()) {
-            _undo();
-            return;
-        }
-
-        if(e.getSource() == _otItemEditorWindow.getShowEditPencilButton()) {
-            return;
-        }
-
-        if ( e.getSource() == _surveyGUI.chooseButton ) {
-            if ( _surveyGUI.chooseButton.isSelected() ) {
-                _surveyGUI.selectField.setEditable(true);
-                _surveyGUI.selectField.setEnabled(true);
-                if (_surveyGUI.selectField.getText().trim().length() == 0 ) {
-                    _surveyGUI.selectField.setText( "" + _surveyGUI.fieldTable.getRowCount() );
-                }
-                _surveyObsComp.setChoose( _surveyGUI.selectField.getText().trim() );
-            }
-            else {
-                _surveyGUI.selectField.setEditable(false);
-                _surveyGUI.selectField.setEnabled(false);
-                _surveyObsComp.setChoose( 0 );
-            }
-            _surveyGUI.selectField.repaint();
-        }
-
-        super.actionPerformed(e);
-    }
+		super.actionPerformed( e );
+	}
 
     public void keyPressed( KeyEvent evt ) {}
     public void keyTyped( KeyEvent evt ) {}

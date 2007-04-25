@@ -101,6 +101,13 @@ public class SpSurveyContainer extends SpObsContextItem {
     _avTable.set(ATTR_REMAINING, remaining, telObsCompIndex);
   }
 
+  /**
+	 * Remove the remaining count for the SpTelescopeObsComp at the specified index.
+	 */
+	public void removeRemaining( int index )
+	{
+		_avTable.rm( ATTR_REMAINING , index );
+	}
 
   /**
    * Get the priority for the SpTelescopeObsComp at the specified index.
@@ -115,6 +122,14 @@ public class SpSurveyContainer extends SpObsContextItem {
   public void setPriority(int priority, int telObsCompIndex) {
     _avTable.set(ATTR_PRIORITY, priority, telObsCompIndex);
   }
+  
+  /**
+	 * Remove the priority for the SpTelescopeObsComp at the specified index.
+	 */
+	public void removePriority( int index )
+	{
+		_avTable.rm( ATTR_PRIORITY , index);
+	}
 
   public boolean isChoice() {
       return _avTable.exists(ATTR_CHOICE);
@@ -245,17 +260,19 @@ public class SpSurveyContainer extends SpObsContextItem {
 
   }
 
-  public void removeSpTelescopeObsComp(int index) {
-    _telescopeObsCompVector.remove(index);
+	public void removeSpTelescopeObsComp( int index )
+	{
+		_telescopeObsCompVector.remove( index ) ;
 
-    // Make sure that there is at least one SpTelescopeObsComp in the survey component.
-    if(size() < 1) {
-      addSpTelescopeObsComp();
-    }
-    else {
-      ((SpTelescopeObsComp)_telescopeObsCompVector.get(0)).getTable().edit();
-    }
-  }
+		removeRemaining( index ) ;
+		removePriority( index ) ;
+
+		// Make sure that there is at least one SpTelescopeObsComp in the survey component.
+		if( size() < 1 )
+			addSpTelescopeObsComp();
+		else
+			( ( SpTelescopeObsComp )_telescopeObsCompVector.get( 0 ) ).getTable().edit();
+	}
 
   public void removeAllSpTelescopeObsComponents() {
     _telescopeObsCompVector.removeAllElements();
