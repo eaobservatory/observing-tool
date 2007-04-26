@@ -74,6 +74,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import gemini.sp.SpAvEditState ;
 
 //------- NOTES -------------
 //
@@ -902,9 +903,17 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		double mainline = _inst.getRestFrequency( 0 ) ;
 		double centre = _inst.getCentreFrequency( 0 ) ;
 		// Check if it is correctly located
+		double halfReceverBandwidth = _receiver.bandWidth * 0.5 ;
+		if( centre <= _receiver.feIF - halfReceverBandwidth || centre >= _receiver.feIF + halfReceverBandwidth )
+		{
+			centre = _receiver.feIF ;
+			_inst.setCentreFrequency( centre , 0 ) ;
+			// Make an educated guess as to wether this program has been just been opened
+			if( _inst.getRootItem().getAvEditState() == SpAvEditState.UNEDITED )
+				JOptionPane.showMessageDialog( null , "The Central Frequency for this set up was invalid.\n It is advised that you save this program before use." , "Central Frequency Reset" , JOptionPane.WARNING_MESSAGE ) ;
+		}
 		if( centre == _receiver.feIF )
 		{
-			double halfReceverBandwidth = _receiver.bandWidth * 0.5 ;
 			double obsmin = _receiver.loMin - _receiver.feIF - halfReceverBandwidth ;
 			double obsmax = _receiver.loMax + _receiver.feIF + halfReceverBandwidth ;
 			if( LSB.equals( band ) && mainline < obsmin + halfReceverBandwidth  )
