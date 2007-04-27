@@ -859,15 +859,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 								_inst.setTransition( NO_LINE , index ) ;
 							}
 							checkSideband();
+							tf.setForeground( Color.BLACK );
+							_w.velocity.setForeground( Color.BLACK );
+							toggleEnabled( _w.fPanel , "Accept" , false );
 						}
 					}
 					_updateMoleculeChoice();
 					_updateRegionInfo();
 				}
 				catch( Exception e ){}
-				tf.setForeground( Color.BLACK );
-				_w.velocity.setForeground( Color.BLACK );
-				toggleEnabled( _w.fPanel , "Accept" , false );
 			}
 			else if( name.equals( "show" ) )
 			{
@@ -921,15 +921,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		{
 			double obsmin = _receiver.loMin - _receiver.feIF - halfReceverBandwidth ;
 			double obsmax = _receiver.loMax + _receiver.feIF + halfReceverBandwidth ;
-			if( LSB.equals( band ) && mainline < obsmin + halfReceverBandwidth  )
+			if( LSB.equals( band ) && mainline < obsmin + halfReceverBandwidth && !( mainline < obsmin ) )
 			{
-				double currentPosition = obsmin + ( _receiver.bandWidth * 0.5 ) ;
+				double currentPosition = obsmin + halfReceverBandwidth ;
 				centre = centre - ( mainline - currentPosition ) ;
 				_inst.setCentreFrequency( centre , 0 ) ;
 			}
-			else if( ( USB.equals( band ) || BEST.equals( band ) ) && mainline > obsmax - halfReceverBandwidth  )
+			else if( ( USB.equals( band ) || BEST.equals( band ) ) && mainline > obsmax - halfReceverBandwidth && !( mainline > obsmax ) )
 			{
-				double currentPosition = obsmax - ( _receiver.bandWidth * 0.5 ) ;
+				double currentPosition = obsmax - halfReceverBandwidth ;
 				centre = centre + ( mainline - currentPosition ) ;
 				_inst.setCentreFrequency( centre , 0 ) ;
 			}
