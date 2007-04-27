@@ -845,16 +845,21 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 					if( changed )
 					{
 						double f = Double.parseDouble( frequency ) ;
-						_inst.setSkyFrequency( f * 1.0E9 / ( 1.0 + getRedshift() ) ) ;
-						for( int index = 0 ; index < _regionInfo.length ; index++ )
-						{
-							_inst.setRestFrequency( f * 1.0E9 , index ) ;
-							_inst.setCentreFrequency( _receiver.feIF , index ) ;
-							// Set the molecule and trasition to NO_LINE
-							_inst.setMolecule( NO_LINE , index ) ;
-							_inst.setTransition( NO_LINE , index ) ;
+						double obsmin = _receiver.loMin - _receiver.feIF - ( _receiver.bandWidth * 0.5 ) ;
+						double obsmax = _receiver.loMax + _receiver.feIF + ( _receiver.bandWidth * 0.5 ) ;
+						if( f >= obsmin && f <= obsmax )
+						{	
+							_inst.setSkyFrequency( f * 1.0E9 / ( 1.0 + getRedshift() ) ) ;
+							for( int index = 0 ; index < _regionInfo.length ; index++ )
+							{
+								_inst.setRestFrequency( f * 1.0E9 , index ) ;
+								_inst.setCentreFrequency( _receiver.feIF , index ) ;
+								// Set the molecule and trasition to NO_LINE
+								_inst.setMolecule( NO_LINE , index ) ;
+								_inst.setTransition( NO_LINE , index ) ;
+							}
+							checkSideband();
 						}
-						checkSideband();
 					}
 					_updateMoleculeChoice();
 					_updateRegionInfo();
