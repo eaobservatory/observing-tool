@@ -859,15 +859,15 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 								_inst.setTransition( NO_LINE , index ) ;
 							}
 							checkSideband();
-							tf.setForeground( Color.BLACK );
-							_w.velocity.setForeground( Color.BLACK );
-							toggleEnabled( _w.fPanel , "Accept" , false );
 						}
 					}
 					_updateMoleculeChoice();
 					_updateRegionInfo();
 				}
 				catch( Exception e ){}
+				tf.setForeground( Color.BLACK );
+				_w.velocity.setForeground( Color.BLACK );
+				toggleEnabled( _w.fPanel , "Accept" , false );
 			}
 			else if( name.equals( "show" ) )
 			{
