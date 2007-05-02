@@ -71,32 +71,33 @@ _init()
 
 
 /**
- * Implements the _updateWidgets method from OtItemEditor in order to
- * setup the widgets to show the current values of the item.
- */
-protected void
-_updateWidgets()
-{
+	 * Implements the _updateWidgets method from OtItemEditor in order to
+	 * setup the widgets to show the current values of the item.
+	 */
+	protected void _updateWidgets()
+	{
 
-   ignoreActions = true;
+		ignoreActions = true;
 
-   SpIterMicroStep microStepIter = (SpIterMicroStep) _spItem;
+		SpIterMicroStep microStepIter = ( SpIterMicroStep )_spItem;
 
-   SpInstObsComp inst = microStepIter.getInstrumentItem();
+		SpInstObsComp inst = microStepIter.getInstrumentItem();
 
-   _patternVector.clear();
-   _patternVector.add(SpIterMicroStep.NO_PATTERN);
-   
-   if((inst != null) && (inst instanceof SpMicroStepUser)) {
-       TreeSet ts = new TreeSet( ((SpMicroStepUser)inst).getMicroStepPatterns().keySet() );
-     _patternVector.addAll(ts);
-   }
-   
-   _w.microStepPattern.setChoices(_patternVector);
-   _w.microStepPattern.setValue(microStepIter.getPattern());
+		_patternVector.clear();
 
-   ignoreActions = false;
-}
+		if( ( inst != null ) && ( inst instanceof SpMicroStepUser ) )
+		{
+			TreeSet ts = new TreeSet( ( ( SpMicroStepUser )inst ).getMicroStepPatterns().keySet() );
+			if( !ts.contains( SpIterMicroStep.NO_PATTERN ) )
+				_patternVector.add( SpIterMicroStep.NO_PATTERN ) ;
+			_patternVector.addAll( ts );
+		}
+
+		_w.microStepPattern.setChoices( _patternVector );
+		_w.microStepPattern.setValue( microStepIter.getPattern() );
+
+		ignoreActions = false;
+	}
 
 
 /**
