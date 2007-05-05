@@ -916,9 +916,7 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			if( jcmtot )
 			{
-				_w.velDefn.setEnabled( false ) ;
-				_w.velValue.setEnabled( false ) ;
-				_w.velFrame.setEnabled( false ) ;	
+				enableVelocitiesPanel( false ) ;	
 			}
 			else
 			{
@@ -934,9 +932,8 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			if( jcmtot )
 			{
-				_w.velDefn.setEnabled( true ) ;
-				_w.velValue.setEnabled( true ) ;
-				_w.velFrame.setEnabled( true ) ;
+				if( _curPos.getSystemType() == SpTelescopePos.SYSTEM_NAMED )
+					enableVelocitiesPanel( true ) ;
 			}
 			else
 			{
@@ -1201,11 +1198,13 @@ public class EdCompTargetList extends OtItemEditor
 	{
 		_w.targetSystemsTabbedPane.removeChangeListener( this );
 
-		// Added by SdW 
-		// When base is a named system or orbital elements, and the user selects
-		// REFERENCE - then we need to to display the RA/DEC tab, but with the
-		// offset checkbox selected and disabled to stop users putting in
-		// absolute positions
+		/*
+		 * Added by SdW 
+		 * When base is a named system or orbital elements, and the user selects
+		 * REFERENCE - then we need to to display the RA/DEC tab, but with the
+		 * offset checkbox selected and disabled to stop users putting in
+		 * absolute positions
+		 */
 		SpTelescopePos base = null;
 		if( _tpl != null )
 			base = _tpl.getBasePosition();
@@ -1216,7 +1215,7 @@ public class EdCompTargetList extends OtItemEditor
 			_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW );
 			_w.targetTypeDDList.setSelectedIndex( 0 );
 			_w.offsetCheckBox.setEnabled( false );
-			_w.targetTypeDDList.setEnabled( false ) ;
+			_w.targetTypeDDList.setEnabled( false );
 			_w.targetSystemsTabbedPane.addChangeListener( this );
 			_w.offsetCheckBox.setValue( true );
 			return;
@@ -1224,7 +1223,7 @@ public class EdCompTargetList extends OtItemEditor
 		else
 		{
 			_w.offsetCheckBox.setEnabled( true );
-			_w.targetTypeDDList.setEnabled( true ) ;
+			_w.targetTypeDDList.setEnabled( true );
 		}
 
 		switch( tp.getSystemType() )
@@ -1238,9 +1237,7 @@ public class EdCompTargetList extends OtItemEditor
 				_w.targetSystemsTabbedPane.setSelectedComponent( _w.namedSystemPanel );
 				_w.targetTypeDDList.setSelectedIndex( 2 );
 				break;
-
-			// SpTelescopePos.SYSTEM_SPHERICAL:
-			default :
+			default :// SpTelescopePos.SYSTEM_SPHERICAL
 				_w.targetSystemsTabbedPane.setSelectedComponent( _w.objectGBW );
 				_w.targetTypeDDList.setSelectedIndex( 0 );
 				break;
@@ -1412,110 +1409,137 @@ public class EdCompTargetList extends OtItemEditor
 		}
 	}
 
-    public void stateChanged(ChangeEvent e) {
+    public void stateChanged( ChangeEvent e )
+	{
 
-      if(e.getSource() == _w.targetSystemsTabbedPane) {
+		if( e.getSource() == _w.targetSystemsTabbedPane )
+		{
+			Component component = _w.targetSystemsTabbedPane.getSelectedComponent() ;
+			if( component == _w.objectGBW )
+			{
+				_curPos.setSystemType( SpTelescopePos.SYSTEM_SPHERICAL );
+				if( _curPos == _tpl.getBasePosition() )
+					enableVelocitiesPanel( true ) ;
+				/*
+				 * See if the user has entered the name of a planet.  
+				 * If so, warn them that spherical coordinates are probably not sensible.  
+				 * Pop up a warning box with cancel and continue options, and handle the response.
+				 */
+				String[] targetList = OtCfg.getNamedTargets();
+				for( int i = 0 ; i < targetList.length ; i++ )
+				{
+					if( _name.getValue().equalsIgnoreCase( targetList[ i ] ) )
+					{
+						// We have a winner!
+						int selected = JOptionPane.showConfirmDialog( null , "Do you REALLY want to specify the RA and DEC for this object?" , "Name is Planet/Moon/Sun" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE );
+						if( selected == JOptionPane.NO_OPTION )
+						{
+							// Which pane is the named SystemPanel anyway?
+							for( int tab = 0 ; tab < _w.targetSystemsTabbedPane.getTabCount() ; tab++ )
+							{
+								if( _w.targetSystemsTabbedPane.getComponentAt( tab ) == _w.namedSystemPanel )
+								{
+									_type.setValue( _w.targetSystemsTabbedPane.getTitleAt( tab ) );
+									break;
+								}
+							}
+						}
+						else
+						{
+							/*
+							 * Oh well, at least we warned the user.  
+							 * Maybe this will be validated somewhere down the line... ( ?! )
+							 */
+						}
+					}
+				}
+			}
+			else if( component == _w.conicSystemPanel )
+			{
+				_curPos.setSystemType( SpTelescopePos.SYSTEM_CONIC );
+				_curPos = _tpTable.getSelectedPos() ;
+				if( _curPos == _tpl.getBasePosition() )
+					enableVelocitiesPanel( true ) ;
+			}
+			else if( component == _w.namedSystemPanel )
+			{
+				_curPos.setSystemType( SpTelescopePos.SYSTEM_NAMED );
+				SpTelescopePos basePos = _tpl.getBasePosition() ;
+				if( basePos != null )
+				{
+					basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
+					_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
+					_w.velValue.setValue( 0. ) ;
+					enableVelocitiesPanel( false ) ;
+				}
+				/*
+				 * See if the name is one of the predefined ones.  If it is still empty, fine,
+				 * if it matches, set the choice appropriately, if it doesn't, warn the user and
+				 * clear the field if this is what they want to do.
+				 */
+				if( _name.getValue().equals( "" ) )
+				{
+					// OK, carry on
+				}
+				else
+				{
+					boolean targetFound = false;
+					String[] namedTargets = OtCfg.getNamedTargets();
+					for( int targetCount = 0 ; targetCount < namedTargets.length ; targetCount++ )
+					{
+						if( _name.getValue().equalsIgnoreCase( ( String )namedTargets[ targetCount ] ) )
+						{
+							// Another winner!
+							targetFound = true;
+							_w.namedTarget.setSelectedItem( namedTargets[ targetCount ] );
+							break;
+						}
+					}
+					if( targetFound == false )
+					{
+						/*
+						 * Oops, the name is not in the list.  
+						 * Warn the user and if they aborts, set the selected tab to conic 
+						 * since this is probably what they wanted to do anyway. ( ?! )
+						 */
+						int status = JOptionPane.showConfirmDialog( null , "Continuing will remove your named object.\nDo you REALLY want to do this?" , "Name does not match list" , JOptionPane.YES_NO_OPTION , JOptionPane.WARNING_MESSAGE );
+						if( status == JOptionPane.YES_OPTION )
+						{
+							// You were warned...
+							_curPos.setName( "" );
+							_name.setValue( "" );
+						}
+						else
+						{
+							// Which pane is the conicSystemPanel anyway?
+							for( int tab = 0 ; tab < _w.targetSystemsTabbedPane.getTabCount() ; tab++ )
+							{
+								if( _w.targetSystemsTabbedPane.getComponentAt( tab ) == _w.conicSystemPanel )
+								{
+									_type.setValue( _w.targetSystemsTabbedPane.getTitleAt( tab ) );
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
 
-        if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.objectGBW) {
-          _curPos.setSystemType(SpTelescopePos.SYSTEM_SPHERICAL);
-	  // See if the user has entered the name of a planet.  If so, warn him that
-	  // spherical coordinates are probably not sensible.  Pop up a warning box
-	  // with cancel and continue options, and handle the response.
-	  String [] targetList = OtCfg.getNamedTargets();
-	  for (int i=0; i<targetList.length; i++) {
-	      if (_name.getValue().equalsIgnoreCase(targetList[i])) {
-		  // We have a winner!
-		  int selected = JOptionPane.showConfirmDialog(null,
-							       "Do you REALLY want to specify the RA and DEC for this object?",
-							       "Name is Planet/Moon/Sun",
-							       JOptionPane.YES_NO_OPTION,
-							       JOptionPane.WARNING_MESSAGE);
-		  if (selected == JOptionPane.NO_OPTION) {
-// 		      _w.targetSystemsTabbedPane.setSelectedComponent(_w.namedSystemPanel);
-		      // Which pane is the named SystemPanel anyway?
-		      for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
-			  if (_w.targetSystemsTabbedPane.getComponentAt(tab) ==  _w.namedSystemPanel) {
-			      _type.setValue(_w.targetSystemsTabbedPane.getTitleAt(tab));
-			      break;
-			  }
-		      }
-		  }
-		  else {
-		      // Oh well, at least we warned the user.  
-		      // Maybe this will be validated somewhere down the line...
-		  }
-	      }
-	  }
+			_targetSystemsChange = true;
+			_updateWidgets();
+
+			_curPos.deleteWatcher( EdCompTargetList.this );
+
+			if( _curPos.getSystemType() == SpTelescopePos.SYSTEM_CONIC )
+				_curPos.setConicOrNamedType( SpTelescopePos.NAMED_SYSTEM_TYPES[ SpTelescopePos.TYPE_COMET ] );
+			else
+				_curPos.setConicOrNamedType( SpTelescopePos.NAMED_SYSTEM_TYPES[ SpTelescopePos.TYPE_MAJOR ] );
+
+			_curPos.addWatcher( EdCompTargetList.this );
+
+			_targetSystemsChange = false;
+		}
 	}
-
-        if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.conicSystemPanel) {
-          _curPos.setSystemType(SpTelescopePos.SYSTEM_CONIC);
-	}
-
-        if(_w.targetSystemsTabbedPane.getSelectedComponent() == _w.namedSystemPanel) {
-          _curPos.setSystemType(SpTelescopePos.SYSTEM_NAMED);
-	  // See if the name is one of the predefined ones.  If it is still empty, fine,
-	  // if it matches, set the choice appropriately, if it doesn't, warn the user and
-	  // clear the field if this is what they want to do.
-	  if (_name.getValue().equals("")) {
-	      // OK, carry on
-	  }
-	  else {
-	      boolean targetFound = false;
-	      String [] namedTargets = OtCfg.getNamedTargets();
-	      for (int targetCount=0; targetCount < namedTargets.length; targetCount++) {
-		  if (_name.getValue().equalsIgnoreCase((String)namedTargets[targetCount])) {
-		      // Another winner!
-		      targetFound = true;
-		      _w.namedTarget.setSelectedItem(namedTargets[targetCount]);
-		      break;
-		  }
-	      }
-	      if (targetFound == false) {
-		  // Oops, the name is not in the list.  Warn the user and if he aborts, set
-		  // the selected tab to conic since this is probably what he wanted to do
-		  // anyway.
-		  int status = JOptionPane.showConfirmDialog(null,
-							     "Continuing will remove your named object.\nDo you REALLY want to do this?",
-							     "Name does not match list",
-							     JOptionPane.YES_NO_OPTION,
-							     JOptionPane.WARNING_MESSAGE);
-		  if (status == JOptionPane.YES_OPTION) {
-		      // You were warned...
-		      _curPos.setName("");
-		      _name.setValue("");
-		  }
-		  else {
-// 		      _w.targetSystemsTabbedPane.setSelectedComponent(_w.conicSystemPanel);
-		      // Which pane is the conicSystemPanel anyway?
-		      for (int tab=0; tab<_w.targetSystemsTabbedPane.getTabCount(); tab++) {
-			  if (_w.targetSystemsTabbedPane.getComponentAt(tab) ==  _w.conicSystemPanel) {
-			      _type.setValue(_w.targetSystemsTabbedPane.getTitleAt(tab));
-			      break;
-			  }
-		      }
-		  }
-	      }
-	  }
-	}
-
-        _targetSystemsChange = true;
-        _updateWidgets();
-
-        _curPos.deleteWatcher(EdCompTargetList.this);
-        
-	if(_curPos.getSystemType() == SpTelescopePos.SYSTEM_CONIC) {
-	  _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_COMET]);
-	}
-	else {
-	  _curPos.setConicOrNamedType(SpTelescopePos.NAMED_SYSTEM_TYPES[SpTelescopePos.TYPE_MAJOR]);
-	}
-
-        _curPos.addWatcher(EdCompTargetList.this);
-
-	_targetSystemsChange = false;
-      }
-    }
 
     public void textBoxKeyPress( TextBoxWidgetExt tbwe )
 	{
@@ -1722,6 +1746,14 @@ e.printStackTrace();
       return null;
     }
    
+    public void enableVelocitiesPanel( boolean enable )
+    {    	
+		_w.velDefn.setEnabled( enable ) ;
+		_w.velValue.setEnabled( enable ) ;
+		_w.velFrame.setEnabled( enable ) ;
+			
+    }
+    
     /* 
      * Why are we bothering with a thread ? 
      * So that the OT does not become unresponsive 
