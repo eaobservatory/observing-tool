@@ -1465,7 +1465,7 @@ public class EdCompTargetList extends OtItemEditor
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_NAMED );
 				SpTelescopePos basePos = _tpl.getBasePosition() ;
-				if( basePos != null )
+				if( basePos != null && jcmtot )
 				{
 					basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
 					_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
