@@ -46,6 +46,9 @@ import ot.ReportBox ;
 
 import java.awt.Color ;
 
+import gemini.sp.SpTreeMan ;
+import gemini.sp.obsComp.SpInstObsComp ;
+
 
 // MFO, June 06, 2002:
 //   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -1471,6 +1474,14 @@ public class EdCompTargetList extends OtItemEditor
 					_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
 					_w.velValue.setValue( 0. ) ;
 					enableVelocitiesPanel( false ) ;
+					
+					SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem ) ;
+					if( instrument instanceof SpInstHeterodyne )
+					{
+						instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
+						instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
+						instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+					}
 				}
 				/*
 				 * See if the name is one of the predefined ones.  If it is still empty, fine,
