@@ -932,8 +932,8 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			if( jcmtot )
 			{
-				if( _curPos.getSystemType() == SpTelescopePos.SYSTEM_NAMED )
-					enableVelocitiesPanel( true ) ;
+				boolean enable = _curPos.getSystemType() != SpTelescopePos.SYSTEM_NAMED ;
+				enableVelocitiesPanel( enable ) ;
 			}
 			else
 			{
