@@ -935,7 +935,7 @@ public class EdCompTargetList extends OtItemEditor
 		{
 			if( jcmtot )
 			{
-				boolean enable = _curPos.getSystemType() != SpTelescopePos.SYSTEM_NAMED ;
+				boolean enable = _curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ;
 				enableVelocitiesPanel( enable ) ;
 			}
 			else
@@ -1461,32 +1461,12 @@ public class EdCompTargetList extends OtItemEditor
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_CONIC );
 				_curPos = _tpTable.getSelectedPos() ;
-				if( _curPos == _tpl.getBasePosition() )
-					enableVelocitiesPanel( true ) ;
+				overrideVelocityFrame() ;
 			}
 			else if( component == _w.namedSystemPanel )
 			{
 				_curPos.setSystemType( SpTelescopePos.SYSTEM_NAMED );
-				SpTelescopePos basePos = _tpl.getBasePosition() ;
-				if( basePos != null && jcmtot )
-				{
-					basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
-					_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
-					_w.velValue.setValue( 0. ) ;
-					enableVelocitiesPanel( false ) ;
-					
-					SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem ) ;
-					if( instrument instanceof SpInstHeterodyne && instrument.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) )
-					{
-						int status = JOptionPane.showConfirmDialog( _w , "Named Systems are only provided with a default Topocentric velocity frame\n that is currently being overridden in this targets Heterodyne setup.\n\n You will need to disable it.\n\n Would you like that done for you ?" , "Default velocity frame overidden" , JOptionPane.INFORMATION_MESSAGE );
-						if( status == JOptionPane.YES_OPTION )
-						{
-							instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
-							instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
-							instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
-						}
-					}
-				}
+				overrideVelocityFrame() ;
 				/*
 				 * See if the name is one of the predefined ones.  If it is still empty, fine,
 				 * if it matches, set the choice appropriately, if it doesn't, warn the user and
@@ -1767,6 +1747,30 @@ e.printStackTrace();
 		_w.velValue.setEnabled( enable ) ;
 		_w.velFrame.setEnabled( enable ) ;
 			
+    }
+    
+    public void overrideVelocityFrame()
+    {
+		SpTelescopePos basePos = _tpl.getBasePosition() ;
+		if( basePos != null && jcmtot )
+		{
+			basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
+			_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
+			_w.velValue.setValue( 0. ) ;
+			enableVelocitiesPanel( false ) ;
+			
+			SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem ) ;
+			if( instrument instanceof SpInstHeterodyne && instrument.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) )
+			{
+				int status = JOptionPane.showConfirmDialog( _w , "Named Systems and Orbital Elements are only provided with a default Topocentric velocity frame\n that is currently being overridden in this targets Heterodyne setup.\n\n You will need to disable it.\n\n Would you like that done for you ?" , "Default velocity frame overidden" , JOptionPane.INFORMATION_MESSAGE );
+				if( status == JOptionPane.YES_OPTION )
+				{
+					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
+					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
+					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+				}
+			}
+		}
     }
     
     /* 
