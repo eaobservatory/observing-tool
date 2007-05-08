@@ -1476,11 +1476,15 @@ public class EdCompTargetList extends OtItemEditor
 					enableVelocitiesPanel( false ) ;
 					
 					SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem ) ;
-					if( instrument instanceof SpInstHeterodyne )
+					if( instrument instanceof SpInstHeterodyne && instrument.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) )
 					{
-						instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
-						instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
-						instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+						int status = JOptionPane.showConfirmDialog( _w , "Named Systems are only provided with a default Topocentric velocity frame\n that is currently being overridden in this targets Heterodyne setup.\n\n You will need to disable it.\n\n Would you like that done for you ?" , "Default velocity frame overidden" , JOptionPane.INFORMATION_MESSAGE );
+						if( status == JOptionPane.YES_OPTION )
+						{
+							instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY ) ;
+							instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
+							instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
+						}
 					}
 				}
 				/*
