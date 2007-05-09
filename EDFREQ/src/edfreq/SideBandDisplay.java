@@ -432,10 +432,11 @@ public class SideBandDisplay extends JFrame implements ChangeListener, MouseList
 					else
 					{
 						// The molecule should be the first thing
-						String molecule = text.substring( 0 , text.indexOf( ' ' ) );
+						String molecule = text.substring( 0 , text.indexOf( "  " ) );
 						results[ i ].add( molecule.trim() );
 						// Get the transition
-						String transition = text.substring( text.indexOf( ' ' ) + 1 , text.lastIndexOf( ' ' ) );
+						String transition = text.substring( text.indexOf( "  " ) + 1 , text.lastIndexOf( "  " ) );
+						transition = transition.trim() + " " ;
 						results[ i ].add( transition );
 						double f = Double.parseDouble( text.substring( text.lastIndexOf( ' ' ) ) ) * 1.0E6 ;
 						results[ i ].add( new Double( f ) );

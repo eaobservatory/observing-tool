@@ -1985,7 +1985,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			// Set the centre frequencies
 			_frequencyEditor.setCentreFrequency( _inst.getCentreFrequency( i ) , i );
 			_frequencyEditor.setBandWidth( _inst.getBandWidth( i ) , i );
-			_frequencyEditor.setLineText( _inst.getMolecule( i ) + " " + _inst.getTransition( i ) + " " + ( _inst.getRestFrequency( i ) / 1.0E6 ) , i );
+			_frequencyEditor.setLineText( _inst.getMolecule( i ) + "  " + _inst.getTransition( i ) + "  " + ( _inst.getRestFrequency( i ) / 1.0E6 ) , i );
 		}
 
 		// Configure the frequency editor
