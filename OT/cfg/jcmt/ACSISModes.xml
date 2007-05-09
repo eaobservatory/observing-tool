@@ -147,7 +147,24 @@
 	<shift>  4.349595125558289E9</shift>
 </configuration>
 
-
+<configuration>
+	<name>      HARP_DCN_HNC_250x2</name>
+	<frontEnd>  HARP            </frontEnd>
+	<frequency> 0.              </frequency>
+	<frequency> 0.              </frequency>
+	<sideband>  BEST            </sideband>
+	<mixers>    1               </mixers>
+	<mode>      SSB             </mode>
+	<systems>   2               </systems>
+	<species>   DCN             </species>
+	<species>   HNC             </species>
+	<transition>5  - 4          </transition>
+	<transition>4  - 3          </transition>
+	<bandwidth> 250.0           </bandwidth>
+	<bandwidth> 250.0           </bandwidth>
+	<shift>  4.73E9             </shift>
+	<shift>  5.3138188E9</shift>
+</configuration>
 
 </specialConfigs>
 
