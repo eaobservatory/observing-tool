@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
-  <meta_gui_filename>UIST-Template.xml</meta_gui_filename>
-  <ot_version>20061010</ot_version>
+  <meta_gui_filename>OT-library-updates-may07.xml</meta_gui_filename>
+  <ot_version>20070510</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -4473,11 +4473,12 @@ This mode is also now available, although we have very little experience with th
 For faint targets the following exposures are recommended
 with the 4 pixel slit:
 
-  &gt;~300s for IJ, shortJ, longJ, shortH, longH, shortK  
-  240s for HK, longK
-  60s for shortL
-  20s for longL
-  6s for M</note>
+  240s for all grisms except -
+    60s for shortL
+    20s for longL
+    6s for M
+
+IMPORTANT - 240 sec is the maximum exposure time possible with UIST</note>
         <title>Exposure times</title>
       </SpNote>
       <SpNote type="no" subtype="none">
@@ -4559,7 +4560,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -5011,7 +5012,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -5463,7 +5464,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -5934,7 +5935,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -6405,7 +6406,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -6850,14 +6851,14 @@ If you're not sure about the best exposure time to use, select a source magnitud
         <note>For bright calibrators exposures of a few seconds work well.
 
 For faint targets the following exposures are recommended
-with the IFU+2-pixel slit:
+with the 4 pixel slit:
 
-  &gt;~300s for shortJ, longJ, shortH, longH, shortK, longK, HK
-  ~60s for shortL
-  ~20s for longL
-  ~6s   for M
+  240s for all grisms except -
+    60s for shortL
+    20s for longL
+    6s for M
 
-NOTE:  The focus with the IFU and IJ or JH grisms is very poor.  IFU spectroscopy with these grisms is not recommended.  Please see the UIST+IFU web pages for further details.</note>
+IMPORTANT - 240 sec is the maximum exposure time possible with UIST</note>
         <title>Exposure times</title>
       </SpNote>
       <SpNote type="no" subtype="none">
@@ -6929,7 +6930,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -7466,7 +7467,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -8043,7 +8044,7 @@ These parameters will be inherited by the flat/arc, the standard, and the scienc
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
