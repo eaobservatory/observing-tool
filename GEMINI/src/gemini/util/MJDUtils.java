@@ -19,9 +19,7 @@ public class MJDUtils
 			while( doubleDate < ( mjd * 3 ) )
 			{
 				if( dateIsDodgy( doubleDate ) )
-				{
 					System.out.print( doubleDate + " is dodgy " + "\r" ) ;
-				}
 				doubleDate += 0.25 ;
 			}
 		}
@@ -42,9 +40,7 @@ public class MJDUtils
 	{
 		String StringDate = convertMJD( epoch ) ;
 		double converted = convertMJD( StringDate ) ;
-		if( converted != epoch )
-			return true ;
-		return false ;
+		return converted != epoch ;
 	}
 	
 	public static double makeMJD( double mjdDays )
@@ -85,7 +81,7 @@ public class MJDUtils
 		remainder = Math.rint( remainder * 1E7 ) / 1E7;
 
 		GregorianCalendar calendar = new GregorianCalendar( MJD_0_YEAR , MJD_0_MONTH , MJD_0_DAY );
-		calendar.add( Calendar.DAY_OF_MONTH , ( int ) fullDays );
+		calendar.add( Calendar.DAY_OF_MONTH , ( int )fullDays );
 
 		return calendar.get( Calendar.YEAR ) + " " + MONTH_NAMES[ calendar.get( Calendar.MONTH ) ] + " " + calendar.get( Calendar.DAY_OF_MONTH ) + ( "" + remainder ).substring( 1 );
 	}
@@ -113,24 +109,18 @@ public class MJDUtils
 		double resultInDays = 0.0;
 
 		if( stringTokenizer.hasMoreTokens() )
-		{
 			year = Format.toInt( stringTokenizer.nextToken() );
-		}
 
 		if( stringTokenizer.hasMoreTokens() )
 		{
 			monthString = stringTokenizer.nextToken().toLowerCase();
 
 			while( !monthString.startsWith( MONTH_NAMES[ monthIndex ].toLowerCase() ) )
-			{
 				monthIndex++ ;
-			}
 		}
 
 		if( stringTokenizer.hasMoreTokens() )
-		{
 			day = Format.toDouble( stringTokenizer.nextToken() );
-		}
 
 		// Add the remaining 44 days of 1858 (November 18 - December 31 inclusive)
 		resultInDays += 44;
@@ -142,9 +132,7 @@ public class MJDUtils
 				resultInDays += 365;
 
 				if( calendar.isLeapYear( i ) )
-				{
 					resultInDays++;
-				}
 			}
 		}
 		else if( year <= MJD_0_YEAR )
@@ -154,9 +142,7 @@ public class MJDUtils
 				resultInDays -= 365;
 
 				if( calendar.isLeapYear( i ) )
-				{
 					resultInDays--;
-				}
 			}
 		}
 
@@ -189,9 +175,7 @@ public class MJDUtils
 		}
 		
 		if( ( calendar.isLeapYear( year ) ) && ( monthIndex > 1 ) )
-		{
 			resultInDays++;
-		}
 
 		resultInDays += day;
 
