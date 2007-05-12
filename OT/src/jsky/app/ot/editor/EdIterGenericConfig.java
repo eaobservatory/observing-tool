@@ -226,77 +226,90 @@ public class EdIterGenericConfig extends OtItemEditor
     protected CellSelectTableWidget _iterTab;
 	
     // Maps attribute names to IterConfigItems.
-    private Hashtable             _iterItems;
+    protected Hashtable             _iterItems;
 
     // The array of available items.
     private IterConfigItem[]      _iciA;
 
     // A ref to either _listBoxVE or _textBoxVE, depending upon the type of
     // attribute represented by the selected cell.
-    private ICValueEditor        _valueEditor;
-    private ICListBoxValueEditor _listBoxVE;
-    private ICTextBoxValueEditor _textBoxVE;
+    protected ICValueEditor        _valueEditor;
+    protected ICListBoxValueEditor _listBoxVE;
+    protected ICTextBoxValueEditor _textBoxVE;
 
     // The list box that contains the available items.
-    private ListBoxWidgetExt     _itemsLBW;
+    protected ListBoxWidgetExt     _itemsLBW ;
 
     // The GUI layout
-    MiniConfigIterGUI            _w;
+    protected MiniConfigIterGUI            _w;
 
     /** Default constructor */
-    public EdIterGenericConfig() {
-	_title       = "Configuration Iterator";
-	_presSource  = _w = new MiniConfigIterGUI();
-	_description = "Iterate over a configuration with this component.";
+	public EdIterGenericConfig()
+	{
+		_title = "Configuration Iterator";
+		_presSource = _w = new MiniConfigIterGUI();
+		_description = "Iterate over a configuration with this component.";
 
-	// add button action listeners
-	_w.deleteTest.addActionListener(this);
-	_w.addStep.addActionListener(this);
-	_w.deleteStep.addActionListener(this);
-	_w.top.addActionListener(this);
-	_w.up.addActionListener(this);
-	_w.down.addActionListener(this);
-	_w.bottom.addActionListener(this);
+		// add button action listeners
+		_w.deleteTest.addActionListener( this );
+		_w.addStep.addActionListener( this );
+		_w.deleteStep.addActionListener( this );
+		_w.top.addActionListener( this );
+		_w.up.addActionListener( this );
+		_w.down.addActionListener( this );
+		_w.bottom.addActionListener( this );
 
-	// JBuilder has some problems with image buttons...
-	ClassLoader cl = ClassLoader.getSystemClassLoader();
-        _w.top.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/top.gif")));
-        _w.up.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/up.gif")));
-        _w.bottom.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/bottom.gif")));
-        _w.down.setIcon(new ImageIcon(cl.getResource("jsky/app/ot/images/down.gif")));
+		// JBuilder has some problems with image buttons...
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		_w.top.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/top.gif" ) ) );
+		_w.up.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/up.gif" ) ) );
+		_w.bottom.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/bottom.gif" ) ) );
+		_w.down.setIcon( new ImageIcon( cl.getResource( "jsky/app/ot/images/down.gif" ) ) );
 
-	// --- XXX the code below was in _init() ---
+		// --- XXX the code below was in _init() ---
 
-	// Watch for selection of cells in the iterator table.
-	_iterTab   = _w.iterStepsTable;
-	_iterTab.addWatcher(this);
+		// Watch for selection of cells in the iterator table.
+		_iterTab = _w.iterStepsTable;
+		_iterTab.addWatcher( this );
 
-	// Watch for selection of available items.
-	_itemsLBW = _w.availableItems;
-	_itemsLBW.addWatcher(this);
+		// Watch for selection of available items.
+		_itemsLBW = _w.availableItems;
+		_itemsLBW.addWatcher( this );
 
-	JPanel gw;
-	JLabel stw;
+		JPanel gw;
+		JLabel stw;
 
-	// Initialize the ListBox value editor
-	gw  = _w.listBoxGroup;
-	stw = _w.listBoxTitle;
-	ListBoxWidgetExt lbw;
-	lbw = _w.availableChoices;
-	_listBoxVE = new ICListBoxValueEditor(this, gw, stw, lbw);
+		// Initialize the ListBox value editor
+		gw = _w.listBoxGroup;
+		stw = _w.listBoxTitle;
+		ListBoxWidgetExt lbw;
+		lbw = _w.availableChoices;
+		_listBoxVE = createICListBoxValueEditor( this , gw , stw , lbw );
 
-	// Initialize the TextBox value editor
-	gw = _w.textBoxGroup;
-	stw = _w.textBoxTitle;
-	TextBoxWidgetExt tbw;
-	tbw = _w.textBox;
-	_textBoxVE = new ICTextBoxValueEditor(this, gw, stw, tbw);
+		// Initialize the TextBox value editor
+		gw = _w.textBoxGroup;
+		stw = _w.textBoxTitle;
+		TextBoxWidgetExt tbw;
+		tbw = _w.textBox;
+		_textBoxVE = createICTextBoxValueEditor( this , gw , stw , tbw );
 
-	_valueEditor = _listBoxVE;
+		_valueEditor = _listBoxVE;
 
-	_iterItems = new Hashtable();
-    }
+		_iterItems = new Hashtable();
+	}
 
+	// helper methods for inheriting classes
+	protected ICListBoxValueEditor createICListBoxValueEditor( EdIterGenericConfig ci ,JPanel gw , JLabel stw , ListBoxWidgetExt lbw )
+	{
+		return new ICListBoxValueEditor( this , gw , stw , lbw ) ;
+	}
+	
+	// helper methods for inheriting classes
+	protected ICTextBoxValueEditor createICTextBoxValueEditor( EdIterGenericConfig ci , JPanel gw , JLabel stw , TextBoxWidgetExt tbw )
+	{
+		return new ICTextBoxValueEditor( this , gw , stw , tbw ) ;
+	}
+	
     /**
      * Perform any required one-time initialization.
      */

@@ -135,6 +135,7 @@ public final class EdIterMicroStep extends OtItemEditor implements ActionListene
 			 */
 			opl.createPosition( 0.0 , 0.0 );
 		}
+
 	}
 
 }

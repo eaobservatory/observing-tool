@@ -293,43 +293,47 @@ public class EdIterOffsetFeature extends TpeImageFeature
     }
 
     /**
-     * Start dragging an offset position.
-     *
-     * @see TpeDraggableFeature
-     */
-    public boolean dragStart(FitsMouseEvent fme, FitsImageInfo fii)  {
-	if (_opm == null) {
-	    return false;
+	 * Start dragging an offset position.
+	 *
+	 * @see TpeDraggableFeature
+	 */
+	public boolean dragStart( FitsMouseEvent fme , FitsImageInfo fii )
+	{
+		if( _opm == null )
+			return false;
+
+		_dragObject = _opm.locate( fme.xWidget , fme.yWidget );
+		return( _dragObject != null );
 	}
 
-	_dragObject = _opm.locate(fme.xWidget, fme.yWidget);
-	return (_dragObject != null);
-    }
-
-    /**
-     * Drag an offset position.
-     *
-     * @see TpeDraggableFeature
-     */
-    public void drag(FitsMouseEvent fme)  {
-	if (_dragObject != null) {
-	    _dragObject.screenPos.x = fme.xWidget;
-	    _dragObject.screenPos.y = fme.yWidget;
-	    _iw.repaint();
+	/**
+	 * Drag an offset position.
+	 *
+	 * @see TpeDraggableFeature
+	 */
+	public void drag( FitsMouseEvent fme )
+	{
+		if( _dragObject != null )
+		{
+			_dragObject.screenPos.x = fme.xWidget;
+			_dragObject.screenPos.y = fme.yWidget;
+			_iw.repaint();
+		}
 	}
-    }
 
-    /**
-     * Stop dragging an offset position.
-     *
-     * @see TpeDraggableFeature
-     */
-    public void dragStop(FitsMouseEvent fme) {
-	if (_dragObject != null) {
-	    _opm.updatePosition(_dragObject, fme);
-	    _dragObject = null;
+	/**
+	 * Stop dragging an offset position.
+	 *
+	 * @see TpeDraggableFeature
+	 */
+	public void dragStop( FitsMouseEvent fme )
+	{
+		if( _dragObject != null )
+		{
+			_opm.updatePosition( _dragObject , fme );
+			_dragObject = null;
+		}
 	}
-    }
 
     /**
      * If there is an offset position under the mouse, erase it and

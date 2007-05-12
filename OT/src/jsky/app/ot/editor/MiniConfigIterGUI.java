@@ -19,7 +19,7 @@ public class MiniConfigIterGUI extends JPanel {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JLabel jLabel2 = new JLabel();
     JScrollPane itemsScrollPane = new JScrollPane();
-    ListBoxWidgetExt availableItems = new ListBoxWidgetExt();
+    public ListBoxWidgetExt availableItems = new ListBoxWidgetExt();
     JLabel jLabel3 = new JLabel();
     JLabel tableInfo = new JLabel();
     JScrollPane configScrollPane = new JScrollPane();
@@ -27,25 +27,25 @@ public class MiniConfigIterGUI extends JPanel {
     JLabel jLabel6 = new JLabel();
     JPanel jPanel1 = new JPanel();
     GridBagLayout gridBagLayout2 = new GridBagLayout();
-    JButton deleteTest = new JButton();
-    JButton deleteStep = new JButton();
-    JButton addStep = new JButton();
-    JButton top = new JButton();
-    JButton up = new JButton();
-    JButton down = new JButton();
-    JButton bottom = new JButton();
-    CellSelectTableWidget iterStepsTable = new CellSelectTableWidget();
-    JLabel listBoxTitle = new JLabel();
-    JPanel listBoxGroup = new JPanel();
+    public JButton deleteTest = new JButton();
+    public JButton deleteStep = new JButton();
+    public JButton addStep = new JButton();
+    public JButton top = new JButton();
+    public JButton up = new JButton();
+    public JButton down = new JButton();
+    public JButton bottom = new JButton();
+    public CellSelectTableWidget iterStepsTable = new CellSelectTableWidget();
+    public JLabel listBoxTitle = new JLabel();
+    public JPanel listBoxGroup = new JPanel();
     GridBagLayout gridBagLayout4 = new GridBagLayout();
     JPanel choicePanel = new JPanel();
     GridBagLayout gridBagLayout3 = new GridBagLayout();
-    JPanel textBoxGroup = new JPanel();
+    public JPanel textBoxGroup = new JPanel();
     JScrollPane choicesScrollPane = new JScrollPane();
     BorderLayout borderLayout1 = new BorderLayout();
-    ListBoxWidgetExt availableChoices = new ListBoxWidgetExt();
-    JLabel textBoxTitle = new JLabel();
-    TextBoxWidgetExt textBox = new TextBoxWidgetExt();
+    public ListBoxWidgetExt availableChoices = new ListBoxWidgetExt();
+    public JLabel textBoxTitle = new JLabel();
+    public TextBoxWidgetExt textBox = new TextBoxWidgetExt();
 
     public MiniConfigIterGUI() {
         try {
