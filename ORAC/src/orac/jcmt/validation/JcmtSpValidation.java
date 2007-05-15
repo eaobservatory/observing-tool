@@ -6,6 +6,8 @@ import java.util.Vector;
 import edfreq.FrequencyEditorCfg;
 import edfreq.Receiver ;
 */
+import gemini.sp.SpTelescopePos;
+import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.SpObs ;
 import gemini.sp.SpMSB ;
@@ -15,6 +17,7 @@ import orac.jcmt.iter.SpIterJCMTObs ;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
 import gemini.sp.iter.SpIterChop;
+import gemini.util.TelescopePos;
 import orac.jcmt.SpJCMTConstants;
 import orac.validation.SpValidation;
 import orac.validation.ErrorMessage;
@@ -49,7 +52,7 @@ public class JcmtSpValidation extends SpValidation
 		Vector observes = SpTreeMan.findAllInstances( spObs , "orac.jcmt.iter.SpIterJCMTObs" );
 		for( int count = 0 ; count < observes.size() ; count++ )
 		{
-			SpIterJCMTObs thisObs = ( SpIterJCMTObs ) observes.elementAt( count );
+			SpIterJCMTObs thisObs = ( SpIterJCMTObs )observes.elementAt( count );
 			if( obsComp != null && obsComp instanceof SpInstHeterodyne )
 			{
 				SpInstHeterodyne spInstHeterodyne = ( SpInstHeterodyne )obsComp ;
@@ -66,9 +69,9 @@ public class JcmtSpValidation extends SpValidation
 				try
 				{
 					Class frequencyEditorClass = Class.forName( "edfreq.FrequencyEditorCfg" ) ;
-					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , null ) ;
+					Method getConfiguration = frequencyEditorClass.getDeclaredMethod( "getConfiguration" , new Class[]{} ) ;
 					Object frequencyEditor = frequencyEditorClass.newInstance() ;
-					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , null ) ;
+					Object requencyEditorCfg = getConfiguration.invoke( frequencyEditor , new Object[]{} ) ;
 					Field receiverField = requencyEditorCfg.getClass().getDeclaredField( "receivers" ) ;
 					Object receivers = receiverField.get( requencyEditorCfg ) ;
 					Method get = receivers.getClass().getDeclaredMethod( "get" , new Class[]{ Object.class } ) ;
@@ -195,5 +198,28 @@ public class JcmtSpValidation extends SpValidation
 			}
 		}
 		super.checkMSBgeneric( spMSB , report );
+	}
+	
+	protected void checkTargetList( SpTelescopeObsComp obsComp , Vector report )
+	{
+		if( obsComp != null )
+		{
+			SpTelescopePosList list = obsComp.getPosList();
+			TelescopePos[] position = list.getAllPositions();
+			SpInstObsComp instrument = SpTreeMan.findInstrument( obsComp );
+			boolean heterodyne = instrument instanceof SpInstHeterodyne ;
+	
+			if( heterodyne )
+			{
+				SpInstHeterodyne heterodyneInstrument = ( SpInstHeterodyne )instrument ;
+				for( int i = 0 ; i < position.length ; i++ )
+				{
+					SpTelescopePos pos = ( SpTelescopePos )position[ i ];
+					if( ( pos.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL ) && ( heterodyneInstrument.getVelocityFrame() != SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) )
+						report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "Named Systems or Orbital Elements require a Topocentric velocity frame." ) );
+				}
+			}
+		}
+		super.checkTargetList( obsComp , report ) ;
 	}
 }

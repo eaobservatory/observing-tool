@@ -481,27 +481,27 @@ public class SpValidation
 	}
     }
 
-    private void checkTargetList (SpTelescopeObsComp obsComp, Vector report) {
-	if ( obsComp == null ) {
-	    report.add ( new ErrorMessage (ErrorMessage.ERROR, "Observation has no target component", "") );
-	    return;
+    protected void checkTargetList( SpTelescopeObsComp obsComp , Vector report )
+	{
+		if( obsComp != null )
+		{
+			SpTelescopePosList list = obsComp.getPosList();
+			TelescopePos[] position = list.getAllPositions();
+			double[] values = null;
+			double deg , min , sec;
+	
+			for( int i = 0 ; i < position.length ; i++ )
+			{
+				SpTelescopePos pos = ( SpTelescopePos )position[ i ];
+				if( ( pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ) && ( pos.getXaxis() == 0 ) && ( pos.getYaxis() == 0 ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() , "Both Dec and RA are 0:00:00" ) );
+			}
+		}
+		else
+		{
+			report.add( new ErrorMessage( ErrorMessage.ERROR , "Observation has no target component" , "" ) );
+		}
 	}
-
-	SpTelescopePosList list = obsComp.getPosList();
-	TelescopePos [] position = list.getAllPositions();
-	double [] values = null;
-	double deg, min, sec;
-
-	for ( int i=0; i<position.length; i++ ) {
-	    SpTelescopePos pos = (SpTelescopePos)position[i];
-	    if ( (pos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL) && (pos.getXaxis() == 0) && (pos.getYaxis() == 0) ) {
-		report.add ( new ErrorMessage ( ErrorMessage.WARNING,
-			                       "Telescope target " + pos.getName(),
-			                       "Both Dec and RA are 0:00:00"));
-	    }
-	}
-	return;
-    }
 
     private void checkSurveyContainer( SpProg prog, Vector report ) {
         Vector containers = SpTreeMan.findAllInstances(prog, "gemini.sp.SpSurveyContainer");
