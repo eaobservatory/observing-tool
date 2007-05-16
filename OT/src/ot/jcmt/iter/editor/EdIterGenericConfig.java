@@ -17,10 +17,14 @@ import java.awt.event.ActionEvent ;
 
 import jsky.app.ot.gui.ListBoxWidgetExt;
 import jsky.app.ot.gui.TextBoxWidgetExt;
+import jsky.app.ot.gui.TextBoxWidgetWatcher ;
 
-public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig
+import orac.jcmt.iter.SpIterPOL ;
+
+public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig implements TextBoxWidgetWatcher
 {
 	MiniConfigIterGUI gui ;
+	String CONTINUOUS_SPIN = "continuousSpin" ;
 	
 	public EdIterGenericConfig()
 	{
@@ -80,6 +84,7 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig
 		
 		gui.continuousSpinCheckBox.addActionListener( this ) ;
 		gui.continuousSpinTextBox.setEnabled( false ) ;
+		gui.continuousSpinTextBox.addWatcher( this ) ;
 	}
 	
 	public void actionPerformed( ActionEvent event )
@@ -87,7 +92,59 @@ public class EdIterGenericConfig extends jsky.app.ot.editor.EdIterGenericConfig
 		if( event.getSource() == gui.continuousSpinCheckBox )
 		{
 			boolean enabled = gui.continuousSpinCheckBox.getBooleanValue() ;
-			gui.continuousSpinTextBox.setEnabled( enabled ) ;
+			setContinuousSpin( enabled ) ;
+			if( !enabled )
+				_updateWidgets() ;
 		}
+		else
+		{
+			super.actionPerformed( event ) ;
+		}
+	}
+	
+	private void setContinuousSpin( boolean enabled )
+	{
+		gui.continuousSpinTextBox.setEnabled( enabled ) ;
+		gui.enableParent( !enabled ) ;
+		_iterTab.setEnabled( !enabled ) ;
+		_itemsLBW.setEnabled( !enabled ) ;
+		if( enabled )
+		{
+			deleteSelectedColumn() ;
+			_spItem.getTable().rm( SpIterPOL.ATTR_ITER_ATTRIBUTES ) ;
+			_spItem.getTable().set( CONTINUOUS_SPIN , 0. ) ;
+		}
+		else
+		{
+			_spItem.getTable().rm( CONTINUOUS_SPIN ) ; 
+		}
+	}
+	
+	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
+	{
+		textBoxAction( tbwe ) ;
+	}
+
+	public void textBoxAction( TextBoxWidgetExt tbwe )
+	{
+		if( tbwe == gui.continuousSpinTextBox )
+		{
+			String spinValue = gui.continuousSpinTextBox.getText() ;
+			if( spinValue.matches( "\\d*.{1}\\d*" ) )
+			{
+				double parsed = new Double( spinValue ).doubleValue() ;
+				_spItem.getTable().set( CONTINUOUS_SPIN , parsed ) ;
+			}
+		}
+	}
+	
+	protected void  _updateWidgets()
+	{
+		super._updateWidgets() ;
+		String spin = _spItem.getTable().get( CONTINUOUS_SPIN ) ;
+		boolean usingSpin = spin != null ;
+		gui.continuousSpinCheckBox.setSelected( usingSpin ) ;
+		setContinuousSpin( usingSpin ) ;
+		gui.continuousSpinTextBox.setText( spin ) ;
 	}
 }
