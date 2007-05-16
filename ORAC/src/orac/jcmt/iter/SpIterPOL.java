@@ -15,8 +15,6 @@ import gemini.sp.SpType;
 import gemini.sp.iter.IterConfigItem;
 import gemini.sp.iter.SpIterConfigObs;
 
-import java.util.*;
-
 // This is basically a crude copy of the UKIRT IRPOL iterator.
 // The hard wired values might need changing. (Added by MFO, 11 January 2002)
 /**
