@@ -301,13 +301,13 @@ public class EdIterGenericConfig extends OtItemEditor
 	// helper methods for inheriting classes
 	protected ICListBoxValueEditor createICListBoxValueEditor( EdIterGenericConfig ci ,JPanel gw , JLabel stw , ListBoxWidgetExt lbw )
 	{
-		return new ICListBoxValueEditor( this , gw , stw , lbw ) ;
+		return new ICListBoxValueEditor( ci , gw , stw , lbw ) ;
 	}
 	
 	// helper methods for inheriting classes
 	protected ICTextBoxValueEditor createICTextBoxValueEditor( EdIterGenericConfig ci , JPanel gw , JLabel stw , TextBoxWidgetExt tbw )
 	{
-		return new ICTextBoxValueEditor( this , gw , stw , tbw ) ;
+		return new ICTextBoxValueEditor( ci , gw , stw , tbw ) ;
 	}
 	
     /**
