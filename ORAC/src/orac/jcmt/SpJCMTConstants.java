@@ -96,8 +96,23 @@ public interface SpJCMTConstants {
     * &lt;SCAN_AREA&gt;
     * </pre>
     */
-   public static final String [] SCAN_SYSTEMS = { "TRACKING", "AZEL", "MOUNT", "FPLANE" };
+   public static final String TRACKING = "TRACKING" ;
+   public static final String AZEL = "AZEL" ;
+   public static final String MOUNT = "MOUNT" ;
+   public static final String FPLANE = "FPLANE" ;
+   public static final String [] SCAN_SYSTEMS = { TRACKING , AZEL , MOUNT , FPLANE } ;
 
+   /**
+    * Scan Strategies.
+    *
+    * "Boustrophedon" , "Pong".
+    *
+    */
+   public static final String ATTR_SCAN_STRATEGY = "scanPattern" ;
+   public static final String SCAN_PATTERN_BOUS = "Boustrophedon" ;
+   public static final String SCAN_PATTERN_PONG = "Pong" ;
+   public static final String [] SCAN_STRATAGIES = { SCAN_PATTERN_BOUS , SCAN_PATTERN_PONG } ;
+   
    /**
     * Systems for chopping.
     *
@@ -113,7 +128,7 @@ public interface SpJCMTConstants {
     * &lt;/CHOP&gt;
     * </pre>
     */
-   public static final String [] CHOP_SYSTEMS     = { "TRACKING", "AZEL", "MOUNT", "FPLANE", "SCAN" };
+   public static final String [] CHOP_SYSTEMS     = { TRACKING , AZEL , MOUNT , FPLANE , "SCAN" } ;
 
    /**
     * Index for {@link #CHOP_SYSTEMS}.
@@ -134,7 +149,7 @@ public interface SpJCMTConstants {
     * &lt;/JIGGLE&gt;
     * </pre>
     */
-   public static final String [] JIGGLE_SYSTEMS     = { "TRACKING", "AZEL", "MOUNT", "FPLANE" };
+   public static final String [] JIGGLE_SYSTEMS     = { TRACKING , AZEL , MOUNT , FPLANE } ;
 
 
    public static final String ATTR_SECS_PER_CYCLE      = "secsPerCycle";

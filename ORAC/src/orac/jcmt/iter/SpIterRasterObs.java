@@ -21,6 +21,7 @@ import gemini.util.Format;
 import orac.jcmt.SpJCMTConstants;
 import orac.jcmt.inst.SpJCMTInstObsComp;
 import orac.jcmt.inst.SpInstSCUBA;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.inst.SpInstHeterodyne;
 import orac.util.SpMapItem;
 
@@ -210,30 +211,32 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 
 
   /**
-   * Get scan dx.
-   *
-   * Calculates scan dx in an instrument specific way.
-   *
-   * @throws java.lang.UnsupportedOperationException No instrument in scope.
-   */
-  public double getScanDx() throws UnsupportedOperationException {
-    SpInstObsComp inst = SpTreeMan.findInstrument(this);
-    if(inst == null) {
-      throw new UnsupportedOperationException("Could not find instrument in scope.\n" +
-                                               "Needed for calculation of sample spacing.");
-    }
-    else {
-      if(inst instanceof SpInstSCUBA) {
-        return getScanVelocity() / ((SpInstSCUBA)inst).getChopFrequency();
-      }
+	 * Get scan dx.
+	 *
+	 * Calculates scan dx in an instrument specific way.
+	 *
+	 * @throws java.lang.UnsupportedOperationException No instrument in scope.
+	 */
+	public double getScanDx() throws UnsupportedOperationException
+	{
+		SpInstObsComp inst = SpTreeMan.findInstrument( this );
+		if( inst == null )
+		{
+			throw new UnsupportedOperationException( "Could not find instrument in scope.\n" + "Needed for calculation of sample spacing." );
+		}
+		else
+		{
+			double dx = 0. ;
+			if( inst instanceof SpInstSCUBA )
+				dx = getScanVelocity() / ( ( SpInstSCUBA )inst ).getChopFrequency();
+			else if( inst instanceof SpInstHeterodyne )
+				dx = getScanVelocity() * getSampleTime();
+			else if( inst instanceof SpInstSCUBA2 )
+				dx = getScanVelocity() ;
 
-      if(inst instanceof SpInstHeterodyne) {
- 	  return getScanVelocity()*getSampleTime();
-      }
-
-      return 0.0;
-    }
-  }
+			return dx ;
+		}
+	}
 
   /**
    * Set scan dx.
@@ -491,6 +494,19 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
 		}
 		return 0. ;
 	}
+
+	public void setScanStrategy( String strategy )
+	{
+		if( _avTable.exists( ATTR_SCAN_STRATEGY ) )
+		{
+			_avTable.set( SpJCMTConstants.ATTR_SCAN_STRATEGY , strategy , 0 ) ;
+		}
+	}
+	
+	public String getScanStrategy()
+	{
+		return _avTable.get( SpJCMTConstants.ATTR_SCAN_STRATEGY , 0 ) ;
+	}
 	
   /** Creates JAC TCS XML. */
   protected void processAvAttribute(String avAttr, String indent, StringBuffer xmlBuffer) {
@@ -637,57 +653,64 @@ public class SpIterRasterObs extends SpIterJCMTObs implements SpPosAngleObserver
       setRowsPerCal( "" + iRowsPerRef);
   }
 
-    public void setupForHeterodyne() {
-	if (_avTable.get(ATTR_SWITCHING_MODE) == null ||
-	    _avTable.get(ATTR_SWITCHING_MODE).equals(""))
-	    _avTable.noNotifySet(ATTR_SWITCHING_MODE, "Position", 0);
+    public void setupForHeterodyne()
+	{
+		if( _avTable.get( ATTR_SWITCHING_MODE ) == null || _avTable.get( ATTR_SWITCHING_MODE ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , "Position" , 0 );
+
+		if( _avTable.get( ATTR_ROWS_PER_CAL ) == null || _avTable.get( ATTR_ROWS_PER_CAL ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_ROWS_PER_CAL , ROWS_PER_CAL_DEFAULT , 0 );
+
+		if( _avTable.get( ATTR_ROWS_PER_REF ) == null || _avTable.get( ATTR_ROWS_PER_REF ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_ROWS_PER_REF , ROWS_PER_REF_DEFAULT , 0 );
+
+		if( _avTable.get( ATTR_SAMPLE_TIME ) == null || _avTable.get( ATTR_SAMPLE_TIME ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SAMPLE_TIME , "4" , 0 );
+
+		if( _avTable.get( ATTR_CONTINUUM_MODE ) == null || _avTable.get( ATTR_CONTINUUM_MODE ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 );
+
+		if( _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ) == null || _avTable.get( ATTR_SCANAREA_SCAN_SYSTEM ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , SpJCMTConstants.SCAN_SYSTEMS[ 0 ] , 0 );
+
+		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "0.0" , 0 );
+
+		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "10.0" , 0 );
+		
+		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
+	}
+
+	public void setupForSCUBA()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL );
+		_avTable.noNotifyRm( ATTR_ROWS_PER_REF );
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME );
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
+		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
+		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
+		_avTable.noNotifyRm( ATTR_SCAN_STRATEGY ) ;
+	}
+
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_ROWS_PER_CAL );
+		_avTable.noNotifyRm( ATTR_ROWS_PER_REF );
+		_avTable.noNotifyRm( ATTR_SAMPLE_TIME );
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
+		if( _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_VELOCITY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_VELOCITY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanVelocity() , 0 );
+		if( _avTable.get( ATTR_SCAN_STRATEGY ) == null || _avTable.get( ATTR_SCAN_STRATEGY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCAN_STRATEGY , SpJCMTConstants.SCAN_STRATAGIES[ 0 ] , 0 );
+		if( _avTable.get( ATTR_SCANAREA_SCAN_DY ) == null || _avTable.get( ATTR_SCANAREA_SCAN_DY ).equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCANAREA_SCAN_DY , "" + ( ( SpJCMTInstObsComp )SpTreeMan.findInstrument( this ) ).getDefaultScanDy() , 0 );
+	}
 	
-	if (_avTable.get(ATTR_ROWS_PER_CAL) == null ||
-	    _avTable.get(ATTR_ROWS_PER_CAL).equals(""))
-	    _avTable.noNotifySet(ATTR_ROWS_PER_CAL, ROWS_PER_CAL_DEFAULT, 0);
-	
-	if (_avTable.get(ATTR_ROWS_PER_REF) == null ||
-	    _avTable.get(ATTR_ROWS_PER_REF).equals(""))
-	    _avTable.noNotifySet(ATTR_ROWS_PER_REF, ROWS_PER_REF_DEFAULT, 0);
-
-	if (_avTable.get(ATTR_SAMPLE_TIME) == null ||
-	    _avTable.get(ATTR_SAMPLE_TIME).equals("")) {
-	   _avTable.noNotifySet(ATTR_SAMPLE_TIME, "4", 0);
-        }
-
-	if (_avTable.get(ATTR_CONTINUUM_MODE) == null ||
-	    _avTable.get(ATTR_CONTINUUM_MODE).equals(""))
-	    _avTable.noNotifySet(ATTR_CONTINUUM_MODE, "false", 0);
-
-	if (_avTable.get(ATTR_SCANAREA_SCAN_SYSTEM) == null ||
-	    _avTable.get(ATTR_SCANAREA_SCAN_SYSTEM).equals(""))
-	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_SYSTEM, SpJCMTConstants.SCAN_SYSTEMS[0], 0);
-	
-	if (_avTable.get(ATTR_SCANAREA_SCAN_VELOCITY) == null ||
-	    _avTable.get(ATTR_SCANAREA_SCAN_VELOCITY).equals(""))
-	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, "0.0", 0);
-
-	if (_avTable.get(ATTR_SCANAREA_SCAN_DY) == null ||
-	    _avTable.get(ATTR_SCANAREA_SCAN_DY).equals(""))
-	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY, "10.0", 0);
-    }
-
-    public void setupForSCUBA() {
-	_avTable.noNotifyRm(ATTR_SWITCHING_MODE);
-	_avTable.noNotifyRm(ATTR_ROWS_PER_CAL);
-	_avTable.noNotifyRm(ATTR_ROWS_PER_REF);
-	_avTable.noNotifyRm(ATTR_SAMPLE_TIME);
-	_avTable.noNotifyRm(ATTR_CONTINUUM_MODE);
-	if (_avTable.get(ATTR_SCANAREA_SCAN_VELOCITY) == null ||
-	    _avTable.get(ATTR_SCANAREA_SCAN_VELOCITY).equals(""))
-	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_VELOCITY, 
-				 ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanVelocity(), 0);
-	if (_avTable.get(ATTR_SCANAREA_SCAN_DY) == null ||
-	    _avTable.get(ATTR_SCANAREA_SCAN_DY).equals(""))
-	    _avTable.noNotifySet(ATTR_SCANAREA_SCAN_DY,
-				 ""+((SpJCMTInstObsComp)SpTreeMan.findInstrument(this)).getDefaultScanDy(), 0);
-    }
-
     public String [] getSwitchingModeOptions() {
         return new String [] {
             SWITCHING_MODE_POSITION

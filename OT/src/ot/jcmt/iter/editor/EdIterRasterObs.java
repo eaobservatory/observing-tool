@@ -42,6 +42,7 @@ import orac.jcmt.inst.SpInstHeterodyne;
 import orac.jcmt.iter.SpIterRasterObs;
 import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 
 import gemini.util.MathUtil ; 
 
@@ -50,8 +51,8 @@ import gemini.util.MathUtil ;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer, OptionWidgetWatcher,
-    KeyListener,  CommandButtonWidgetWatcher {
+public final class EdIterRasterObs extends EdIterJCMTGeneric implements Observer , OptionWidgetWatcher , KeyListener , CommandButtonWidgetWatcher , SpJCMTConstants
+{
 
   private IterRasterObsGUI _w;       // the GUI layout panel
 
@@ -77,6 +78,7 @@ private final String[] HARP_RASTER_NAMES = { "1 array" , "1/2 array" , "1/4 arra
 private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.5521 , 7.2761 , 87.3128 } ;
 
 	boolean harp = false ;
+	boolean scuba2 = false ;
 
   /**
    * The constructor initializes the title, description, and presentation source.
@@ -86,13 +88,15 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		super( new IterRasterObsGUI() );
 
 		_title = "Scan/Raster";
-		_presSource = _w = ( IterRasterObsGUI ) super._w;
+		_presSource = _w = ( IterRasterObsGUI )super._w;
 		_description = "Scan/Raster Map";
 
 		_w.scanAngle.setChoices( SCAN_PA_CHOICES );
-		_w.scanSystem.setChoices( SpJCMTConstants.SCAN_SYSTEMS );
+		_w.scanSystem.setChoices( SCAN_SYSTEMS );
 		_w.sampleTime.setChoices( SAMPLE_TIME_CHOICES ) ;
 		_w.thermometer.setMaximum( _maxFileSize );
+		
+		_w.scanningStrategies.setChoices( SCAN_STRATAGIES ) ;
 
 		for( int index = 0 ; index < HARP_RASTER_NAMES.length ; index++ )
 			_w.harpRasters.addChoice( "step " + HARP_RASTER_NAMES[ index ] + " (" + MathUtil.round( HARP_RASTER_VALUES[ index ] , 1 ) + "\")" ) ;		
@@ -142,6 +146,8 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		_w.defaultButton.addWatcher( this );
 		_w.scanAngle.getEditor().getEditorComponent().addKeyListener( this );
 		
+		_w.scanningStrategies.addWatcher( this ) ;
+		
 		_w.harpRasters.addWatcher( this ) ;
 
 		_w.frequencyPanel.setVisible( false );
@@ -152,9 +158,10 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 	 */
 	public void setup( SpItem spItem )
 	{
-		_iterObs = ( SpIterRasterObs ) spItem;
+		_iterObs = ( SpIterRasterObs )spItem;
 		
 		SpInstObsComp inst = SpTreeMan.findInstrument( _iterObs ) ;
+		scuba2 = inst instanceof SpInstSCUBA2 ;
 		harp = ( inst instanceof SpInstHeterodyne && ( ( SpInstHeterodyne )inst).getFrontEnd().equals( "HARP" ) ) ;
 		if( harp )
 			_harpSetup() ;
@@ -186,6 +193,47 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 			_w.harpRasters.addWatcher( this ) ;
 		}
 	}
+
+	private void scuba2Setup()
+	{
+		if( scuba2 )
+			_w.addScuba2Panel() ;
+		else
+			_w.addNonScuba2Panel() ;
+		
+		boolean visible = ( !scuba2 || _iterObs.getScanStrategy().equals( SCAN_PATTERN_PONG ) ) ;
+		
+		_w.dy.setVisible( visible ) ;
+		_w.scanSpacingLabel.setVisible( visible ) ;
+		_w.arcSecsLabel4.setVisible( visible ) ;
+		
+		_w.sizeOfXPixel.setVisible( !scuba2 ) ;
+		_w.sizeOfYPixel.setVisible( !scuba2 ) ;
+		_w.sizeOfXPixelLabel.setVisible( !scuba2 ) ;
+		_w.sizeOfYPixelLabel.setVisible( !scuba2 ) ;
+		_w.dimensionWarningTextTop.setVisible( !scuba2 ) ;
+		_w.spacingLabel.setVisible( !scuba2 ) ;
+		
+		if( !visible )
+		{
+			boolean bous = _iterObs.getScanStrategy().equals( SCAN_PATTERN_BOUS ) ;
+			if( bous )
+			{
+				_iterObs.getTable().noNotifySet( ATTR_SCANAREA_SCAN_SYSTEM , FPLANE , 0 ) ;
+				_w.scanSystem.deleteWatcher( this ) ;
+				_w.scanSystem.setSelectedItem( FPLANE ) ;
+				_w.scanSystem.addWatcher( this ) ;
+				_iterObs.getTable().noNotifyRm( ATTR_SCANAREA_SCAN_PA ) ;
+				_w.scanAngle.deleteWatcher( this ) ;
+				_w.scanAngle.setSelectedItem( SCAN_PA_CHOICES[ 0 ] ) ;
+				_w.scanAngle.setEditable( false ) ;
+				_w.scanAngle.addWatcher( this ) ;
+			}
+		}
+		
+		_w.scanAngle.setEnabled( visible ) ;
+		_w.scanSystem.setEnabled( visible ) ;
+	}
 	
 	protected void _updateWidgets()
 	{
@@ -198,6 +246,8 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		
 		_w.dx.setEnabled( !harp ) ;
 		_w.dy.setEnabled( !harp ) ;
+		
+		scuba2Setup() ;
 		
 		try
 		{
@@ -236,7 +286,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		}
 
 		_w.scanSystem.setValue( _iterObs.getScanSystem() );
-		_w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
+		_w.switchingMode.setValue( SWITCHING_MODE_BEAM );
 		_w.switchingMode.setEnabled( false );
 		_w.rowReversal.setValue( _iterObs.getRowReversal() );
 		if( !_isAcsis )
@@ -251,37 +301,40 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 
 	private void updateSizeOfPixels()
 	{		
-		boolean displayWarning = false ;
-		double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
-		double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
-		int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 ) ;
-		int correctedSizeOfYPixel = ( int )Math.floor( sizeOfYPixel + 1.5 ) ;
-
-		_w.sizeOfXPixel.setText( Integer.toString( correctedSizeOfXPixel ) ) ;
-		_w.sizeOfYPixel.setText( Integer.toString( correctedSizeOfYPixel ) ) ;
-		
-		if( !harp && sizeOfXPixel - Math.floor( sizeOfXPixel ) != 0. )
+		if( !scuba2 )
 		{
-			_w.sizeOfXPixelLabel.setForeground( Color.red ) ;
-			displayWarning = true ;
+			boolean displayWarning = false ;
+			double sizeOfXPixel = ( _iterObs.getWidth() / _iterObs.getScanDx() ) ;
+			double sizeOfYPixel = ( _iterObs.getHeight() / _iterObs.getScanDy() ) ;
+			int correctedSizeOfXPixel = ( int )Math.floor( sizeOfXPixel + 1.5 ) ;
+			int correctedSizeOfYPixel = ( int )Math.floor( sizeOfYPixel + 1.5 ) ;
+	
+			_w.sizeOfXPixel.setText( Integer.toString( correctedSizeOfXPixel ) ) ;
+			_w.sizeOfYPixel.setText( Integer.toString( correctedSizeOfYPixel ) ) ;
+			
+			if( !harp && sizeOfXPixel - Math.floor( sizeOfXPixel ) != 0. )
+			{
+				_w.sizeOfXPixelLabel.setForeground( Color.red ) ;
+				displayWarning = true ;
+			}
+			else
+			{
+				_w.sizeOfXPixelLabel.setForeground( Color.black ) ;
+			}
+			
+			if( !harp && sizeOfYPixel - Math.floor( sizeOfYPixel ) != 0. )
+			{
+				_w.sizeOfYPixelLabel.setForeground( Color.red ) ;
+				displayWarning = true ;
+			}
+			else
+			{
+				_w.sizeOfYPixelLabel.setForeground( Color.black ) ;
+			}
+			
+			_w.dimensionWarningTextTop.setVisible( displayWarning ) ;
+			_w.dimensionWarningTextBottom.setVisible( displayWarning ) ;
 		}
-		else
-		{
-			_w.sizeOfXPixelLabel.setForeground( Color.black ) ;
-		}
-		
-		if( !harp && sizeOfYPixel - Math.floor( sizeOfYPixel ) != 0. )
-		{
-			_w.sizeOfYPixelLabel.setForeground( Color.red ) ;
-			displayWarning = true ;
-		}
-		else
-		{
-			_w.sizeOfYPixelLabel.setForeground( Color.black ) ;
-		}
-		
-		_w.dimensionWarningTextTop.setVisible( displayWarning ) ;
-		_w.dimensionWarningTextBottom.setVisible( displayWarning ) ;
 	}
 	
 	public void textBoxKeyPress( TextBoxWidgetExt tbwe )
@@ -386,7 +439,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 
 		if( ddlbwe == _w.scanSystem )
 		{
-			_iterObs.setScanSystem( SpJCMTConstants.SCAN_SYSTEMS[ index ] );
+			_iterObs.setScanSystem( SCAN_SYSTEMS[ index ] );
 		}
 		else if( ddlbwe == _w.scanAngle )
 		{
@@ -417,6 +470,12 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
 		{
 			double value = HARP_RASTER_VALUES[ _w.harpRasters.getSelectedIndex() ] ;
 			_iterObs.setScanDy( value ) ;
+		}
+		else if( ddlbwe == _w.scanningStrategies )
+		{
+			String value = SCAN_STRATAGIES[ _w.scanningStrategies.getSelectedIndex() ] ;
+			_iterObs.setScanStrategy( value ) ;
+			scuba2Setup() ;
 		}
 		super.dropDownListBoxAction( ddlbwe , index , val );
 		updateTimes();
@@ -459,6 +518,7 @@ private final double[] HARP_RASTER_VALUES = { 116.4171 , 58.2086 , 29.1043 , 14.
       }
       _updateWidgets();
   }
+  
 	public void setInstrument( SpInstObsComp spInstObsComp )
 	{
 		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
