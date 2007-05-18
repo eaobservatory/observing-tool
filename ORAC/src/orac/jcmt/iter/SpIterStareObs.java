@@ -157,6 +157,21 @@ public SpIterStareObs()
 			SWITCHING_MODE_NONE*/
 		} ;
 	}
+    
+    public void setArrayCentred( boolean enable )
+    {
+    	_avTable.set( ATTR_ARRAY_CENTERED , enable ) ;
+    }
+    
+    public boolean isArrayCentred()
+    {
+    	return _avTable.getBool( ATTR_ARRAY_CENTERED ) ;
+    }
+    
+    public void rmArrayCentred()
+    {
+    	_avTable.noNotifyRm( ATTR_ARRAY_CENTERED ) ;
+    }
 }
 
 

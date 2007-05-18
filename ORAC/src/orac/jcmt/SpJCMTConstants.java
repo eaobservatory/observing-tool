@@ -275,4 +275,6 @@ public interface SpJCMTConstants {
    public static final String SWITCHING_MODE_FREQUENCY_S = "Frequency-Slow";
    public static final String SWITCHING_MODE_FREQUENCY_F = "Frequency-Fast";
    public static final String SWITCHING_MODE_NONE        = "None";
+   
+   public static final String ATTR_ARRAY_CENTERED		= "arrayCentered" ;
 }

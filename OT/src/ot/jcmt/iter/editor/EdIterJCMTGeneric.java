@@ -142,8 +142,7 @@ public class EdIterJCMTGeneric extends OtItemEditor
 				_iterObs.rmFrequencyOffsetValues();
 			}
 			_iterObs.setSwitchingMode( val );
-
-			return;
+			_updateWidgets() ;
 		}
 	}
 
@@ -232,13 +231,9 @@ public class EdIterJCMTGeneric extends OtItemEditor
 		{
 			_w.frequencyPanel.setVisible( true );
 			if( _iterObs.getSwitchingMode().equals( SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S ) )
-			{
 				_w.frequencyOffset_rate.setEnabled( false );
-			}
 			else
-			{
 				_w.frequencyOffset_rate.setEnabled( false );
-			}
 		}
 		else
 		{

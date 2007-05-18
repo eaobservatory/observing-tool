@@ -20,6 +20,7 @@ import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterStareObs;
 import orac.jcmt.util.ScubaNoise;
 import orac.jcmt.util.HeterodyneNoise;
+import orac.jcmt.SpJCMTConstants ;
 
 import jsky.app.ot.gui.CheckBoxWidgetExt;
 import jsky.app.ot.gui.CheckBoxWidgetWatcher;
@@ -34,7 +35,7 @@ import jsky.app.ot.gui.TextBoxWidgetWatcher ;
  *
  * @author modified for JCMT by Martin Folger ( M.Folger@roe.ac.uk )
  */
-public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener , CheckBoxWidgetWatcher , TextBoxWidgetWatcher
+public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionListener , CheckBoxWidgetWatcher , TextBoxWidgetWatcher , SpJCMTConstants
 {
 
   private IterStareObsGUI _w;       // the GUI layout panel
@@ -52,6 +53,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_w.widePhotom.addActionListener( this );
 		_w.contModeCB.addWatcher( this ) ;
 		_w.integrationTime.addWatcher( this ) ;
+		
+		super._w.arrayCentred.addWatcher( this ) ;
 	}
 
     protected void _updateWidgets()
@@ -59,8 +62,21 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     	if( _iterObs != null )
     	{
     		_w.widePhotom.setSelected( (( SpIterStareObs )_iterObs).getWidePhotom() ) ;
-    		if( SpTreeMan.findInstrument( _iterObs ) instanceof SpInstHeterodyne )
+    		SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs ) ;
+    		if( instrument instanceof SpInstHeterodyne )
+    		{
     			_w.contModeCB.setSelected( _iterObs.isContinuum() ) ;
+    			
+    			SpInstHeterodyne heterodyne = ( SpInstHeterodyne )instrument ;
+    			SpIterStareObs _iterStareObs = ( SpIterStareObs )_iterObs ;
+    			boolean criteria = heterodyne.getFrontEnd().equals( "HARP" ) && _iterObs.getSwitchingMode() == SWITCHING_MODE_POSITION ;
+    			super._w.arrayCentredLabel.setVisible( criteria ) ;
+    			super._w.arrayCentred.setVisible( criteria ) ;
+    			if( criteria )
+    				super._w.arrayCentred.setSelected( _iterStareObs.isArrayCentred() ) ;
+    			else
+    				_iterStareObs.rmArrayCentred() ;
+    		}
     		_w.integrationTime.setText( "" + _iterObs.getSampleTime() ) ;
     		_w.secsPerCycle.setText( "" + _iterObs.getSecsPerCycle() ) ;
     	}
@@ -123,6 +139,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 	{
 		if( cbwe == _w.contModeCB )
 			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
+		else if( cbwe == super._w.arrayCentred )
+			( ( SpIterStareObs )_iterObs).setArrayCentred( super._w.arrayCentred.isSelected() ) ;
 		super.checkBoxAction( cbwe );
 	}
     
