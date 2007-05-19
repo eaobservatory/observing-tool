@@ -7,6 +7,9 @@
 
 <xsd:element name="SpInstSCUBA2">
   <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group  ref="toml:jac_meta_group"/>
+    </xsd:sequence>
     <xsd:attribute name='id' type='xsd:nonNegativeInteger' use='optional'/>
     <xsd:attribute name='type' type='xsd:string' use='required'/>
     <xsd:attribute name='subtype' type='xsd:string' use='required'/>
