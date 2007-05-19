@@ -214,6 +214,7 @@
   </xsd:complexType>
 </xsd:element>
 
+<!--
 <xsd:element name="SpIterDREAMObs">
   <xsd:complexType>
     <xsd:sequence>
@@ -222,5 +223,6 @@
     </xsd:sequence>
   </xsd:complexType>
 </xsd:element>
+-->
 
 </xsd:schema>
