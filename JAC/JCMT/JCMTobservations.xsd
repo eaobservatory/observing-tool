@@ -214,4 +214,13 @@
   </xsd:complexType>
 </xsd:element>
 
+<xsd:element name="SpIterRasterObs">
+  <xsd:complexType>
+    <xsd:sequence>
+      <xsd:group ref="toml:jac_meta_group"/>
+      <xsd:element name="sampleTime"      type="xsd:nonNegativeDecimal" minOccurs="0" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:element>
+
 </xsd:schema>
