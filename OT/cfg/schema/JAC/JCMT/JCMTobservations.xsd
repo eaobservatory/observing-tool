@@ -56,8 +56,8 @@
 
 <xsd:simpleType name="scubaScanPatterns">
   <xsd:restriction base="xsd:string">
-    <xsd:enumeration value="Boustrophedon">
-    <xsd:enumeration value="Pong">
+    <xsd:enumeration value="Boustrophedon" />
+    <xsd:enumeration value="Pong" />
   </xsd:restriction>
 </xsd:simpleType>
 
