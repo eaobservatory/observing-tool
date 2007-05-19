@@ -5,6 +5,7 @@
 
 <xsd:include schemaLocation="SCUBA.xsd"/>
 <xsd:include schemaLocation="Heterodyne.xsd"/>
+<xsd:include schemaLocation="SCUBA2.xsd"/>
 
 <xsd:group name="instrumentGroup">
   <xsd:choice>
