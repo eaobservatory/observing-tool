@@ -54,6 +54,13 @@
   </xsd:restriction>
 </xsd:simpleType>
 
+<xsd:simpleType name="scubaScanPatterns">
+  <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="Boustrophedon">
+    <xsd:enumeration value="Pong">
+  </xsd:restriction>
+</xsd:simpleType>
+
 <!-- Complex types -->
 
 <xsd:complexType name="rasterObsAreaType">
@@ -92,8 +99,8 @@
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="positions"       type="xsd:nonNegativeInteger"/>
-      <xsd:element name="startPosition"   type="toml:skydipStartPosList"/>
+      <xsd:element name="positions"       type="xsd:nonNegativeInteger" minOccurs="0" />
+      <xsd:element name="startPosition"   type="toml:skydipStartPosList" minOccurs="0" />
       <xsd:element name="useCurrentAz"    type="xsd:boolean"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
@@ -194,6 +201,7 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:element name="obsArea"         type="toml:rasterObsAreaType"/>
+      <xsd:element name="scanPattern"     type="toml:scubaScanPatterns" minOccurs="0"/>
       <xsd:element name="continuumMode"   type="xsd:boolean"  minOccurs="0"/>
       <xsd:element name="rowsPerCal"      type="xsd:positiveInteger"       minOccurs="0"/>
       <xsd:element name="rowsPerRef"      type="xsd:positiveInteger"       minOccurs="0"/>
