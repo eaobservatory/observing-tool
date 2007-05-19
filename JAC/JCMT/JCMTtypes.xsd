@@ -25,7 +25,7 @@
     <xsd:element ref="toml:SpIterStareObs"/>
     <xsd:element ref="toml:SpIterJiggleObs"/>
     <xsd:element ref="toml:SpIterRasterObs"/>
-    <xsd:element ref="toml:SpIterDREAMObs"/>
+<!--    <xsd:element ref="toml:SpIterDREAMObs"/> --> 
   </xsd:choice>
 </xsd:group>
 
