@@ -214,7 +214,7 @@
   </xsd:complexType>
 </xsd:element>
 
-<xsd:element name="SpIterRasterObs">
+<xsd:element name="SpIterDREAMObs">
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
