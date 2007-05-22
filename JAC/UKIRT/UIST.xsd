@@ -54,6 +54,7 @@
 <xsd:simpleType name="uistFilterList">
   <xsd:restriction base="xsd:string">
     <xsd:enumeration value="open"/>
+    <xsd:enumeration value="IJH_blocker"/>
     <xsd:enumeration value="J_spectral"/>
     <xsd:enumeration value="H_spectral"/>
     <xsd:enumeration value="HK_spectral"/>
