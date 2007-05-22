@@ -162,9 +162,7 @@
       <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0"/>
       <xsd:element name="useCurrentAz"    type="xsd:boolean"                minOccurs="0"/>
       <xsd:element name="widePhotometry"  type="xsd:boolean"                minOccurs="0"/>
-<!--
-      <xsd:element name="sampleTime"      type="xsd:nonNegativeDecimal"     minOccurs="0"/>
--->
+      <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal"    minOccurs="0"/>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="stareObs"/>
@@ -216,15 +214,15 @@
   </xsd:complexType>
 </xsd:element>
 
-<!--
 <xsd:element name="SpIterDREAMObs">
   <xsd:complexType>
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
-      <xsd:element name="sampleTime"      type="xsd:nonNegativeDecimal" minOccurs="0" />
+      <xsd:element name="sampleTime"      type="toml:nonNegativeDecimal" minOccurs="0" />
     </xsd:sequence>
+  <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+  <xsd:attribute name="subtype" type="xsd:string" fixed="dreamObs"/>
   </xsd:complexType>
 </xsd:element>
--->
 
 </xsd:schema>
