@@ -2,10 +2,6 @@ package orac.jcmt.validation;
 
 import java.util.Vector;
 
-/*
-import edfreq.FrequencyEditorCfg;
-import edfreq.Receiver ;
-*/
 import gemini.sp.SpTelescopePos;
 import gemini.sp.SpTelescopePosList;
 import gemini.sp.SpTreeMan ;
@@ -13,6 +9,7 @@ import gemini.sp.SpObs ;
 import gemini.sp.SpMSB ;
 import orac.jcmt.inst.SpInstHeterodyne ;
 import orac.jcmt.inst.SpInstSCUBA ;
+import orac.jcmt.inst.SpInstSCUBA2 ;
 import orac.jcmt.iter.SpIterJCMTObs ;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
@@ -148,7 +145,7 @@ public class JcmtSpValidation extends SpValidation
 						report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "Position switched observation requires a REFERENCE target" ) );
 				}
 			}
-			else
+			else if( obsComp != null && !( obsComp instanceof SpInstSCUBA2 ) )
 			{
 				report.add( new ErrorMessage( ErrorMessage.ERROR , spObs.getTitle() , "No switching mode set" ) );
 			}
