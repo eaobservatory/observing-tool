@@ -225,4 +225,14 @@
   </xsd:complexType>
 </xsd:element>
 
+<xsd:element name="SpIterFlatObs">
+	<xsd:complexType>
+		<xsd:sequence>
+			<xsd:group ref="toml:jac_meta_group"/>
+		</xsd:sequence>
+		<xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
+		<xsd:attribute name="subtype" type="xsd:string" fixed="flatObs"/>
+	</xsd:complexType>
+</xsd:element>
+
 </xsd:schema>
