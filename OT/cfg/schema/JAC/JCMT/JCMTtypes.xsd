@@ -27,6 +27,7 @@
     <xsd:element ref="toml:SpIterRasterObs"/>
     <xsd:element ref="toml:SpIterMicroStep"/>
     <xsd:element ref="toml:SpIterDREAMObs"/> 
+    <xsd:element ref="toml:SpIterFlatObs"/>
   </xsd:choice>
 </xsd:group>
 
