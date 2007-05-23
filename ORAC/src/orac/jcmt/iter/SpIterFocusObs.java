@@ -103,14 +103,18 @@ public class SpIterFocusObs extends SpIterJCMTObs {
 		return time ;
 	}
 
-    public void setupForHeterodyne(){}
-
 	public void setupForSCUBA()
 	{
 		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
 		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
 	}
 
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
+	}
+	
     public String [] getSwitchingModeOptions() {
         return new String [] {
             SWITCHING_MODE_BEAM

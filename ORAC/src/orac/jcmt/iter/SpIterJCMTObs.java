@@ -10,9 +10,6 @@
 
 package orac.jcmt.iter;
 
-import java.net.URL;
-import java.net.MalformedURLException ;
-
 import gemini.sp.SpType;
 
 import gemini.sp.iter.SpIterEnumeration;
@@ -23,14 +20,6 @@ import gemini.sp.iter.SpIterValue;
 import gemini.util.Format;
 
 import orac.jcmt.SpJCMTConstants;
-
-import orac.util.InstCfgReader ;
-import java.io.IOException ;
-import java.lang.reflect.Field ;
-
-import java.io.File ;
-
-import java.util.TreeMap ;
 
 /**
  * Enumerater for the elements of the JCMT Observe iterator.
@@ -91,21 +80,24 @@ _thisNextElement()
 public class SpIterJCMTObs extends SpIterObserveBase implements SpJCMTConstants
 {
 	
-/**
- * Default constructor.
- */
-public SpIterJCMTObs(SpType spType)
-{
-   super(spType);
 
-   // JCMT Observe "iterators" are not repeated.
-   // The number that can be specified on each JCMT observe iterator and that
-   // is appended to the name of the iterator in the Science Prrogram tree
-   // is the number of iterations, ATTR_INTEGRATIONS.
-   _avTable.noNotifyRm(ATTR_COUNT);
+	/**
+	 * Default constructor.
+	 */
+	public SpIterJCMTObs( SpType spType )
+	{
+		super( spType );
 
-   _avTable.noNotifySet(ATTR_SWITCHING_MODE, getSwitchingModeOptions()[0], 0);
-}
+		/*
+		 * JCMT Observe "iterators" are not repeated.
+		 * The number that can be specified on each JCMT observe iterator and that
+		 * is appended to the name of the iterator in the Science Prrogram tree
+		 * is the number of iterations, ATTR_INTEGRATIONS.
+		 */
+		_avTable.noNotifyRm( ATTR_COUNT );
+
+//		_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 );
+	}
 
 /**
  * Calculates the estimated duration of this Observe ("Eye").
@@ -359,7 +351,11 @@ public void setCoadds(String coadds) {
 }
 
 	// Setp things up for heterodyne observations
-	public void setupForHeterodyne(){}
+	public void setupForHeterodyne()
+	{
+		if( !_avTable.exists( ATTR_SWITCHING_MODE ) )
+			_avTable.noNotifySet( ATTR_SWITCHING_MODE , getSwitchingModeOptions()[ 0 ] , 0 ) ;
+	}
 
 	public void setupForSCUBA(){}
 

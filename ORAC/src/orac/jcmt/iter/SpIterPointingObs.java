@@ -82,8 +82,6 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 		}
 		return ( overhead + totalIntegrationTime );
 	}
-    
-	public void setupForHeterodyne(){}
 
 	public void setupForSCUBA()
 	{
@@ -93,6 +91,14 @@ public class SpIterPointingObs extends SpIterJCMTObs {
 		_avTable.noNotifyRm( ATTR_SPECTRAL_MODE );
 	}
 
+	public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SWITCHING_MODE );
+		_avTable.noNotifyRm( ATTR_POINTING_METHOD );
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_SPECTRAL_MODE );
+	}
+	
     public String [] getSwitchingModeOptions() {
         return new String [] {
             SWITCHING_MODE_BEAM
