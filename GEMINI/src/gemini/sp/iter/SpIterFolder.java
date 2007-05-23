@@ -146,10 +146,11 @@ printSummary()
 		double elapsedTime = 0.0;
 
 		int nPol = 0;
-		boolean photomSample = false ;
-		boolean jiggle = false ;
+
 		for( int i = 0 ; i < iterStepVector.size() ; i++ )
 		{
+			boolean photomSample = false ;
+			boolean jiggle = false ;
 			iterStepSubVector = ( Vector ) iterStepVector.get( i );
 
 			for( int j = 0 ; j < iterStepSubVector.size() ; j++ )
@@ -180,60 +181,60 @@ printSummary()
 					}
 				}
 			}
-		}
 
-		if( photomSample )
-		{
-			try
+			if( photomSample )
 			{
-				Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
-				Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[]{} ) ;
-				Object spIterStareObs = spIterStep.item ;
-				Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[]{} ) ;
-				if( switchingMode != null )
+				try
 				{
-					Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
-					Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
-					if( switchingMode.equals( beamSwitch ) )
-						elapsedTime += 30. ;
-					else
-						elapsedTime += 82. ;
+					Class spIterStareObsClass = Class.forName( "orac.jcmt.iter.SpIterStareObs" ) ;
+					Method getSwitchingMode = spIterStareObsClass.getMethod( "getSwitchingMode" , new Class[]{} ) ;
+					Object spIterStareObs = spIterStep.item ;
+					Object switchingMode = getSwitchingMode.invoke( spIterStareObs , new Object[]{} ) ;
+					if( switchingMode != null )
+					{
+						Field beamSwitchField = spIterStareObsClass.getField( "SWITCHING_MODE_BEAM" ) ;
+						Object beamSwitch = beamSwitchField.get( spIterStareObs ) ;
+						if( switchingMode.equals( beamSwitch ) )
+							elapsedTime += 30. ;
+						else
+							elapsedTime += 82. ;
+					}
+				}
+				catch( ClassNotFoundException cnfe )
+				{
+					System.out.println( "Could not find class " + cnfe ) ;
+				}
+				catch( IllegalAccessException iae )
+				{
+					System.out.println( "Could not access " + iae ) ;					
+				}
+				catch( NoSuchMethodException nsme )
+				{
+					System.out.println( "Could not find method " + nsme ) ;
+				}
+				catch( InvocationTargetException ite )
+				{
+					System.out.println( "Could not invoke method " + ite ) ;
+				}
+				catch( NoSuchFieldException nsfe )
+				{
+					System.out.println( "Could not find field " + nsfe ) ;
 				}
 			}
-			catch( ClassNotFoundException cnfe )
-			{
-				System.out.println( "Could not find class " + cnfe ) ;
-			}
-			catch( IllegalAccessException iae )
-			{
-				System.out.println( "Could not access " + iae ) ;					
-			}
-			catch( NoSuchMethodException nsme )
-			{
-				System.out.println( "Could not find method " + nsme ) ;
-			}
-			catch( InvocationTargetException ite )
-			{
-				System.out.println( "Could not invoke method " + ite ) ;
-			}
-			catch( NoSuchFieldException nsfe )
-			{
-				System.out.println( "Could not find field " + nsfe ) ;
-			}
-		}
-	
-		if( jiggle )
-			elapsedTime += 30. ;
 		
-		if( nPol > 1 )
-		{
-			if( instrument.getClass().getName().endsWith( "SCUBA" ) )
+			if( jiggle )
+				elapsedTime += 30. ;
+			
+			if( nPol > 1 )
 			{
-				// Take off some of the extra overhead
-				elapsedTime -= ( nPol - 1 ) * 40.0;
+				if( instrument.getClass().getName().endsWith( "SCUBA" ) )
+				{
+					// Take off some of the extra overhead
+					elapsedTime -= ( nPol - 1 ) * 40.0;
+				}
 			}
-		}
 
+		}
 		return elapsedTime;
 	}
 
