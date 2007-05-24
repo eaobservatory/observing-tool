@@ -196,54 +196,63 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
       setJigglesPerCycle( JIGGLES_PER_CYCLE_DEFAULT );
   }
 
-    public void setupForHeterodyne() {
-	String value;
+    public void setupForHeterodyne()
+	{
+		String value;
 
-	// Scale Factor
-	value = _avTable.get( ATTR_SCALE_FACTOR );
-	if ( value == null || value.equals("") ) {
-	    _avTable.noNotifySet( ATTR_SCALE_FACTOR, JIGGLE_SCALE_DEFAULT, 0);
+		// Scale Factor
+		value = _avTable.get( ATTR_SCALE_FACTOR );
+		if( value == null || value.equals( "" ) )
+			_avTable.noNotifySet( ATTR_SCALE_FACTOR , JIGGLE_SCALE_DEFAULT , 0 );
+
+		// Jiggles/Cyle
+		value = _avTable.get( ATTR_JIGGLES_PER_CYCLE );
+		if( value == null || value.equals( "" ) )
+			_avTable.noNotifySet( ATTR_JIGGLES_PER_CYCLE , JIGGLES_PER_CYCLE_DEFAULT , 0 );
+
+		// continuum mode
+		value = _avTable.get( ATTR_CONTINUUM_MODE );
+		if( value == null || value.equals( "" ) )
+			_avTable.noNotifySet( ATTR_CONTINUUM_MODE , "false" , 0 );
+
+		// Seconds per cycle
+		value = _avTable.get( ATTR_SECS_PER_CYCLE );
+		if( value == null || value.equals( "" ) )
+			_avTable.noNotifySet( ATTR_SECS_PER_CYCLE , SECS_PER_CYCLE_DEFAULT , 0 );
+
+		// Jiggle PA
+		value = _avTable.get( ATTR_JIGGLE_PA );
+		if( value == null || value.equals( "" ) )
+			_avTable.noNotifySet( ATTR_JIGGLE_PA , "0.0" , 0 );
+
+		super.setupForHeterodyne() ;
 	}
 
-	// Jiggles/Cyle
-	value = _avTable.get( ATTR_JIGGLES_PER_CYCLE );
-	if ( value == null || value.equals("") ) {
-	    _avTable.noNotifySet ( ATTR_JIGGLES_PER_CYCLE, JIGGLES_PER_CYCLE_DEFAULT, 0 );
+    public void setupForSCUBA()
+	{
+		_avTable.noNotifyRm( ATTR_SCALE_FACTOR );
+		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_JIGGLE_PA );
+		super.setupForSCUBA() ;
 	}
 
-        // continuum mode
-	value = _avTable.get( ATTR_CONTINUUM_MODE );
-	if ( value ==  null || value.equals("") ) {
-	    _avTable.noNotifySet(ATTR_CONTINUUM_MODE, "false", 0);
+    public void setupForSCUBA2()
+	{
+		_avTable.noNotifyRm( ATTR_SCALE_FACTOR );
+		_avTable.noNotifyRm( ATTR_JIGGLES_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_CONTINUUM_MODE );
+		_avTable.noNotifyRm( ATTR_SECS_PER_CYCLE );
+		_avTable.noNotifyRm( ATTR_JIGGLE_PA );
+		super.setupForSCUBA2();
 	}
-
-	// Seconds per cycle
-	value = _avTable.get( ATTR_SECS_PER_CYCLE );
-	if ( value == null || value.equals("") ) {
-	     _avTable.noNotifySet(ATTR_SECS_PER_CYCLE, SECS_PER_CYCLE_DEFAULT, 0);
-	}
-
-	// Jiggle PA
-	value = _avTable.get( ATTR_JIGGLE_PA );
-	if ( value == null || value.equals("") ) {
-	     _avTable.noNotifySet(ATTR_JIGGLE_PA, "0.0", 0);
-	}
-
-    }
-
-    public void setupForSCUBA() {
-	_avTable.noNotifyRm ( ATTR_SCALE_FACTOR );
-	_avTable.noNotifyRm ( ATTR_JIGGLES_PER_CYCLE );
-	_avTable.noNotifyRm ( ATTR_CONTINUUM_MODE );
-	_avTable.noNotifyRm ( ATTR_SECS_PER_CYCLE );
-	_avTable.noNotifyRm ( ATTR_JIGGLE_PA );
-	
-    }
-
+    
     public String[] getSwitchingModeOptions()
 	{
 		return new String[]
 		{ 
+			SWITCHING_MODE_POSITION ,
 			SWITCHING_MODE_BEAM , 
 			SWITCHING_MODE_FREQUENCY_S , 
 			SWITCHING_MODE_FREQUENCY_F 
