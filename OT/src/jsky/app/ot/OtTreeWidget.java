@@ -1184,7 +1184,7 @@ public final class OtTreeWidget extends MultiSelTreeWidget
 
     private boolean canAddEyeToNonACSIS( SpItem target , SpItem[] items )
     {
-    	String[] eyes = { "skydip" , "noise" , "flat" , "dream" } ;
+    	String[] eyes = { "dream" } ;
     	Class[] tabooClass = new Class[]{ SpInstHeterodyne.class } ;
     	for( int index = 0 ; index < eyes.length ; index++ )
     	{
