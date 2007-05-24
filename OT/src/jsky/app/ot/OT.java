@@ -629,8 +629,12 @@ showNews()
 		{
 			File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
 			BufferedReader br = new BufferedReader( new FileReader( versionFile ) );
-			version = br.readLine().trim();
+			String fullVersion = br.readLine().trim() ;
+			if( fullVersion.matches( "\\d{8} \\[\\w*\\]" ) )
+				version = fullVersion.substring( 0 , 8 ) ;				
 			System.setProperty( "ot.version" , version );
+			System.setProperty( "ot.fullversion" , fullVersion );
+			br.close() ;
 		}
 		catch( Exception e )
 		{

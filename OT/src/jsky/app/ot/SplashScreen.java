@@ -37,57 +37,71 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
     }
 
     //
-    // Read the welcome text from the specified URL.
-    //
-    private void _readWelcome(URL url) {
-	final String versionString = "JAC OMP OT Release version ";
-	RichTextBoxWidgetExt rt;
-	rt = messageRTBW;
-	//rt.clear();
-
-	// Get the updated version date...
-	BufferedReader br = null;
-	String version = System.getProperty( "ot.version" ) ;
-	if( version == null  )
+	// Read the welcome text from the specified URL.
+	//
+	private void _readWelcome( URL url )
 	{
+		final String versionString = "JAC OMP OT Release version ";
+		RichTextBoxWidgetExt rt;
+		rt = messageRTBW;
+
+		// Get the updated version date...
+		BufferedReader br = null;
+		String fullVersion = System.getProperty( "ot.fullversion" );
+		if( fullVersion == null )
+		{
+			try
+			{
+				File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
+				br = new BufferedReader( new FileReader( versionFile ) );
+				fullVersion = br.readLine().trim();
+				String version = "Unknown" ;
+				if( fullVersion.matches( "\\d{8} \\[\\w*\\]" ) )
+					version = fullVersion.substring( 0 , 8 );
+				System.setProperty( "ot.version" , version );
+				System.setProperty( "ot.fullversion" , fullVersion );
+				br.close();
+			}
+			catch( Exception e )
+			{
+				fullVersion = "Unknown";
+				e.printStackTrace();
+			}
+		}
+
+		br = null;
 		try
 		{
-			File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
-			br = new BufferedReader( new FileReader( versionFile ) );
-			version = br.readLine().trim();
-			System.setProperty( "ot.version" , version );
+			br = new BufferedReader( new InputStreamReader( url.openStream() ) );
+			String line;
+			while (( line = br.readLine() ) != null)
+			{
+				line = line.trim();
+				if( line.equals( "" ) )
+					rt.append( "\n\n" );
+				else if( line.startsWith( versionString ) )
+					rt.append( versionString + fullVersion + " " );
+				else
+					rt.append( line + " " );
+			}
 		}
-		catch( Exception e )
+		catch( IOException ex )
 		{
-			version = "Unknown" ;
-			e.printStackTrace();
+			_warning( "Couldn't read the welcome text!" );
+			System.out.println( ex );
+		}
+		finally
+		{
+			try
+			{
+				if( br != null )
+					br.close();
+			}
+			catch( Exception ex )
+			{
+			}
 		}
 	}
-
-	br = null;
-	try {
-	    br = new BufferedReader(new InputStreamReader(url.openStream()));
-	    String line;
-	    while ((line = br.readLine()) != null) {
-		line = line.trim();
-		if (line.equals("")) {
-		    rt.append("\n\n");
-		} 
-		else if (line.startsWith(versionString)) {
-		    line = versionString + version;
-		    rt.append(line + " ");
-		}
-		else {
-		    rt.append(line + " ");
-		}
-	    }
-	} catch (IOException ex) {
-	    _warning("Couldn't read the welcome text!");
-	    System.out.println(ex);
-	} finally {
-	    try { if (br != null) br.close(); } catch (Exception ex) {}
-	}
-    }
 
 
     //

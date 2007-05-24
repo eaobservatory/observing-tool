@@ -103,6 +103,7 @@ printDocument(OutputStream os)
 				if( fullVersion.matches( "\\d{8} \\[\\w*\\]" ) )
 					version = fullVersion.substring( 0 , 8 ) ;				
 				System.setProperty( "ot.version" , version );
+				System.setProperty( "ot.fullversion" , fullVersion );
 				br.close() ;
 			}
 			catch( Exception e )
