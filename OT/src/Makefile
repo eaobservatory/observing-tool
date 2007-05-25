@@ -63,11 +63,22 @@ $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	if `chmod -R g+w ../cfg/*`; then\
 		echo "Permissions changed";\
 	fi;
+# Subversion installs it's .svn directories readonly :P
+	if `chmod -R g+w ../.svn/*`; then\
+		echo "Permissions changed";\
+	fi;
+
 	umask 2
+
 	-cp -r ../cfg/ $(LOCAL_INSTALL_ROOT)
 	if `chmod -R g+w $(LOCAL_INSTALL_ROOT)/cfg/*`; then\
 		echo "Permissions changed";\
 	fi;
+# Subversion installs it's .svn directories readonly :P
+	if `chmod -R g+w $(LOCAL_INSTALL_ROOT)/.svn/*`; then\
+		echo "Permissions changed";\
+	fi;
+
 # Hacky solution to adding scema locations to the config files...
 	@ echo "" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
 	@ echo "schemaBase: JAC/JCMT/JCMT.xsd" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
