@@ -63,10 +63,6 @@ $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 	if `chmod -R g+w ../cfg/*`; then\
 		echo "Permissions changed";\
 	fi;
-# Subversion installs it's .svn directories readonly :P
-	if `chmod -R g+w ../.svn/*`; then\
-		echo "Permissions changed";\
-	fi;
 
 	umask 2
 
