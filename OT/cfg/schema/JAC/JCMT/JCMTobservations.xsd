@@ -42,6 +42,7 @@
     <xsd:enumeration value="11x11"/>
     <xsd:enumeration value="HARP4"/>
     <xsd:enumeration value="HARP5"/>
+    <xsd:enumeration value="DREAM"/>
   </xsd:restriction>
 </xsd:simpleType>
 
