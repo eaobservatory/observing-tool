@@ -130,7 +130,7 @@
       <xsd:element name="axis"            type="toml:axisList"/>
       <xsd:element name="focusPoints"     type="xsd:positiveInteger"/>
       <xsd:element name="steps"           type="xsd:double"/>
-      <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" />
+      <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList" minOccurs="0" />
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
   <xsd:attribute name="subtype" type="xsd:string" fixed="focusObs"/>
