@@ -191,6 +191,11 @@
           <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
           <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
         </xsd:sequence>
+	<!-- SCUBA-2 -->
+	<xsd:sequence>
+		<xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
+		<xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
+        </xsd:sequence>
       </xsd:choice>
     </xsd:sequence>
   <xsd:attribute name="type"    type="toml:SpType" fixed="ic"/>
