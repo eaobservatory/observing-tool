@@ -81,8 +81,7 @@ public class SpIterNoiseObs extends SpIterJCMTObs {
 
     public void setupForHeterodyne()
 	{
-    	if( !_avTable.exists( ATTR_SWITCHING_MODE ) )
-    		_avTable.noNotifySet( ATTR_SWITCHING_MODE , SWITCHING_MODE_CHOP , 0 );
+    	_avTable.noNotifyRm( ATTR_SWITCHING_MODE ) ;
 	}
 
     public void setupForSCUBA() {
