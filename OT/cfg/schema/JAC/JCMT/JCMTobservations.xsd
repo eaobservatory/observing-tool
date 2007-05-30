@@ -175,10 +175,10 @@
     <xsd:sequence>
       <xsd:group ref="toml:jac_meta_group"/>
       <xsd:choice> 
-        <!-- SCUBA -->
+        <!-- SCUBA-2 -->
         <xsd:sequence>
           <xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
-          <xsd:element name="useCurrentAz"    type="xsd:boolean"              minOccurs="0"/>
+          <xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
         </xsd:sequence>
         <!-- ACSIS -->
         <xsd:sequence>
@@ -190,11 +190,6 @@
           <xsd:element name="scaleFactor"     type="toml:positiveDecimal" minOccurs="0"/>
           <xsd:element name="secsPerCycle"    type="toml:nonNegativeDecimal"/>
           <xsd:element name="switchingMode"   type="toml:jcmtSwitchingModeList"/>
-        </xsd:sequence>
-	<!-- SCUBA-2 -->
-	<xsd:sequence>
-		<xsd:element name="jiggleSystem"    type="toml:jcmtSystemList"/>
-		<xsd:element name="jigglePattern"   type="toml:jigglePatternList"/>
         </xsd:sequence>
       </xsd:choice>
     </xsd:sequence>
