@@ -135,9 +135,7 @@ printSummary()
 		SpInstObsComp instrument = SpTreeMan.findInstrument( this );
 
 		if( instrument == null )
-		{
 			return 0.0;
-		}
 
 		Vector iterStepVector = compile();
 		Vector iterStepSubVector = null;
@@ -146,14 +144,22 @@ printSummary()
 		double elapsedTime = 0.0;
 
 		int nPol = 0;
+		
+		int iterStepVectorSize = 0 ;
+		if( iterStepVector != null )
+			iterStepVectorSize = iterStepVector.size() ;
 
-		for( int i = 0 ; i < iterStepVector.size() ; i++ )
+		for( int i = 0 ; i < iterStepVectorSize ; i++ )
 		{
 			boolean photomSample = false ;
 			boolean jiggle = false ;
-			iterStepSubVector = ( Vector ) iterStepVector.get( i );
-
-			for( int j = 0 ; j < iterStepSubVector.size() ; j++ )
+			iterStepSubVector = ( Vector )iterStepVector.get( i ) ;
+			
+			int iterStepSubVectorSize =  0 ; 
+			if( iterStepSubVector != null )
+				iterStepSubVectorSize = iterStepSubVector.size() ;
+			
+			for( int j = 0 ; j < iterStepSubVectorSize ; j++ )
 			{
 				spIterStep = ( SpIterStep ) iterStepSubVector.get( j );
 				if( spIterStep.item.getClass().getName().endsWith( "SpIterPOL" ) )

@@ -51,16 +51,12 @@ _thisFirstElement()
    return _thisNextElement();
 }
 
-protected SpIterStep
-_thisNextElement()
-{
-   SpOffsetPos   op   = (SpOffsetPos) _positions[_curIndex];
-   SpIterValue[] sivA = {
-      new SpIterValue("p", String.valueOf(op.getXaxis())),
-      new SpIterValue("q", String.valueOf(op.getYaxis()))
-   };
-   return new SpIterStep(((SpIterOffset)_iterComp).title_offset(), _curIndex++, _iterComp, sivA);
-}
+	protected SpIterStep _thisNextElement()
+	{
+		SpOffsetPos op = ( SpOffsetPos )_positions[ _curIndex ];
+		SpIterValue[] sivA = { new SpIterValue( "p" , String.valueOf( op.getXaxis() ) ) , new SpIterValue( "q" , String.valueOf( op.getYaxis() ) ) };
+		return new SpIterStep( ( ( SpIterOffset )_iterComp ).title_offset() , _curIndex++ , _iterComp , sivA );
+	}
  
 }
 

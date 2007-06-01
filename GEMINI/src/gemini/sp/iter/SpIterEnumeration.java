@@ -254,67 +254,69 @@ hasCleanup()
    return _thisHasCleanup();
 }
 
-/**
- * Return a Vector of SpIterStep.  Each call produces the next change
- * prescribed by this iterator and any iterators nested inside of it.
- * Please see the discussion of this class for more information.
- */
-public Object
-nextElement()
-{
-   Vector v;
+	/**
+	 * Return a Vector of SpIterStep.  Each call produces the next change
+	 * prescribed by this iterator and any iterators nested inside of it.
+	 * Please see the discussion of this class for more information.
+	 */
+	public Object nextElement()
+	{
+		Vector v;
 
-   //   System.out.println ("In sie next element");
+		//   System.out.println ("In sie next element");
 
-   if (_firstTime) {
-      _firstTime = false;
-      _curElement = _thisFirstElement();
-   }
+		if( _firstTime )
+		{
+			_firstTime = false;
+			_curElement = _thisFirstElement();
+		}
 
-   // Base case: an iterComp without children
-   if ( (_childEnum == null) /*|| !(_childEnum.hasMoreElements())*/ ) {
+		// Base case: an iterComp without children
+		if( ( _childEnum == null ) || ( _childEnum != null && !(_childEnum.hasMoreElements() ) ) ) 
+		{
 
-      if (_curElement == null) {
-         _curElement = _thisNextElement();
-      }
-      v = new Vector();
-      v.insertElementAt(_curElement, 0);
-      _curElement = null;
+			if( _curElement == null )
+				_curElement = _thisNextElement();
+			v = new Vector();
+			v.insertElementAt( _curElement , 0 );
+			_curElement = null;
 
-      return v;
-   }
+			return v;
+		}
 
-   // The iterComp had children
+		// The iterComp had children
 
-   if (_childEnum.hasMoreElements()) {
-      v = (Vector) _childEnum.nextElement();
+		if( _childEnum.hasMoreElements() )
+		{
+			v = ( Vector )_childEnum.nextElement();
 
-      if (_curElement != null) {
-         // This is the first time through, so include my step in the
-         // vector of steps.
-         v.insertElementAt(_curElement, 0);
+			if( _curElement != null )
+			{
+				// This is the first time through, so include my step in the
+				// vector of steps.
+				v.insertElementAt( _curElement , 0 );
 
-         // Set _curElement to null so that the next time through my
-         // step won't be added again (it will have already been executed).
-         _curElement = null;
-      }
-      return v;
+				// Set _curElement to null so that the next time through my
+				// step won't be added again (it will have already been executed).
+				_curElement = null;
+			}
+			return v;
 
-   } 
-   else if (_childEnum.hasCleanup()) {
-      v = new Vector();
-      v.addElement(_childEnum.cleanup());
-      return v;
+		}
+		else if( _childEnum.hasCleanup() )
+		{
+			v = new Vector();
+			v.addElement( _childEnum.cleanup() );
+			return v;
+		}
 
-   }
+		// Reached the end of the child's values, move to the next element
+		_children.reinit();
+		_childEnum = ( SpIterEnumeration )_children.nextElement();
 
-   // Reached the end of the child's values, move to the next element
-   _children.reinit();
-   _childEnum  = (SpIterEnumeration) _children.nextElement();
-
-   _curElement = _thisNextElement();
-   return nextElement();
-}
+		_curElement = _thisNextElement();
+		return nextElement();
+	}
 
 /**
  * This method is not currently used.
