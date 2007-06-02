@@ -71,7 +71,9 @@ $(LOCAL_INSTALL_ROOT)/cfg: ../cfg FORCE
 		echo "Permissions changed";\
 	fi;
 # Subversion installs it's .svn directories readonly :P
-	find $(LOCAL_INSTALL_ROOT) -name ".svn" -exec rm -rf {} \;
+	if `chmod -R g+w $(LOCAL_INSTALL_ROOT)/.svn/*`; then\
+		echo "Permissions changed";\
+	fi;
 
 # Hacky solution to adding scema locations to the config files...
 	@ echo "" >> $(LOCAL_INSTALL_ROOT)/cfg/jcmt/ot.cfg
