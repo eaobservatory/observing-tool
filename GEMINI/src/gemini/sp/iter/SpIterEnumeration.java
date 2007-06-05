@@ -264,7 +264,7 @@ hasCleanup()
 		Vector v;
 
 		//   System.out.println ("In sie next element");
-
+		
 		if( _firstTime )
 		{
 			_firstTime = false;
@@ -272,7 +272,7 @@ hasCleanup()
 		}
 
 		// Base case: an iterComp without children
-		if( ( _childEnum == null ) || ( _childEnum != null && !(_childEnum.hasMoreElements() ) ) ) 
+		if( _childEnum == null ) 
 		{
 
 			if( _curElement == null )
@@ -292,12 +292,13 @@ hasCleanup()
 
 			if( _curElement != null )
 			{
-				// This is the first time through, so include my step in the
-				// vector of steps.
+				// This is the first time through, so include my step in the vector of steps.
 				v.insertElementAt( _curElement , 0 );
 
-				// Set _curElement to null so that the next time through my
-				// step won't be added again (it will have already been executed).
+				/*
+				 *  Set _curElement to null so that the next time through my
+				 *  step won't be added again (it will have already been executed).
+				 */
 				_curElement = null;
 			}
 			return v;
