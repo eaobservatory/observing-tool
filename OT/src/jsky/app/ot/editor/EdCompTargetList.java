@@ -97,6 +97,8 @@ public class EdCompTargetList extends OtItemEditor
     
     private boolean jcmtot = false ;
     
+    private boolean overrideDialogShown = false ;
+    
     /**
      * The constructor initializes the title, description, and presentation source.
      */
@@ -715,72 +717,73 @@ public class EdCompTargetList extends OtItemEditor
     /**
 	 * Show the given SpTelescopePos.
 	 */
-    public void showPos( SpTelescopePos tp ) {
-	if (tp.getTag().startsWith(SpTelescopePos.USER_TAG)) {
-	    _tag.setValue( SpTelescopePos.USER_TAG );
-	} else {
-	    _tag.setValue( tp.getTag() );
+	public void showPos( SpTelescopePos tp )
+	{
+		if( tp.getTag().startsWith( SpTelescopePos.USER_TAG ) )
+			_tag.setValue( SpTelescopePos.USER_TAG );
+		else
+			_tag.setValue( tp.getTag() );
+
+		_name.setValue( tp.getName() );
+
+		if( tp.isOffsetPosition() )
+		{
+			if( tp.isBasePosition() )
+			{
+				_xaxis.setValue( tp.getRealXaxisAsString() );
+				_yaxis.setValue( tp.getRealYaxisAsString() );
+			}
+			else
+			{
+				System.out.println( "Setting xaxis to " + tp.getXaxisAsString() );
+				_xaxis.setValue( tp.getXaxisAsString() );
+				_yaxis.setValue( tp.getYaxisAsString() );
+			}
+		}
+		else
+		{
+			_xaxis.setValue( tp.getXaxisAsString() );
+			_yaxis.setValue( tp.getYaxisAsString() );
+		}
+
+		if( tp.isBasePosition() )
+		{
+			_w.baseXOff.setValue( "" + tp.getBaseXOffset() );
+			_w.baseYOff.setValue( "" + tp.getBaseYOffset() );
+		}
+
+		if( !tp.isBasePosition() )
+			_w.offsetCheckBox.setValue( tp.isOffsetPosition() );
+
+		_setCoordSys( tp );
+
+		if( tp.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL )
+			return;
+
+		// *** The "extras" folder
+		TextBoxWidgetExt tbwe;
+
+		// --- Proper Motion Page
+		tbwe = _w.propMotionRATBW;
+		tbwe.setValue( tp.getPropMotionRA() );
+
+		tbwe = _w.propMotionDecTBW;
+		tbwe.setValue( tp.getPropMotionDec() );
+
+		// --- Tracking Page
+		tbwe = _w.detailsEpochTBW;
+		tbwe.setValue( tp.getTrackingEpoch() );
+
+		tbwe = _w.detailsParallaxTBW;
+		tbwe.setValue( tp.getTrackingParallax() );
+
+		tbwe = _w.velValue;
+		tbwe.setValue( tp.getTrackingRadialVelocity() );
+
+		_w.velDefn.setValue( tp.getTrackingRadialVelocityDefn() );
+		_w.velFrame.setValue( tp.getTrackingRadialVelocityFrame() );
+
 	}
-
-
-	_name.setValue(   tp.getName()          );
-
-	if(tp.isOffsetPosition()) {
-            if ( tp.isBasePosition() ) {
-                _xaxis.setValue(tp.getRealXaxisAsString());
-                _yaxis.setValue(tp.getRealYaxisAsString());
-            }
-            else {
-                System.out.println("Setting xaxis to " + tp.getXaxisAsString() );
-                _xaxis.setValue(tp.getXaxisAsString());
-                _yaxis.setValue(tp.getYaxisAsString());
-            }
-	}
-	else {
-	  _xaxis.setValue(tp.getXaxisAsString());
-	  _yaxis.setValue(tp.getYaxisAsString());
-	}
-
-        if ( tp.isBasePosition() ) {
-            _w.baseXOff.setValue(""+tp.getBaseXOffset());
-            _w.baseYOff.setValue(""+tp.getBaseYOffset());
-        }
-
-        if ( !tp.isBasePosition() ) {
-            _w.offsetCheckBox.setValue(tp.isOffsetPosition());
-        }
-
-	//_configureWidgets(tp);
-	_setCoordSys(tp);
-
-	if(tp.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL) {
-          return;
-	}
-
-	// *** The "extras" folder
-	TextBoxWidgetExt         tbwe;
-
-	// --- Proper Motion Page
-	tbwe = _w.propMotionRATBW;
-	tbwe.setValue( tp.getPropMotionRA() );
-
-	tbwe = _w.propMotionDecTBW;
-	tbwe.setValue( tp.getPropMotionDec() );
-
-	// --- Tracking Page
-	tbwe = _w.detailsEpochTBW;
-	tbwe.setValue( tp.getTrackingEpoch() );
-
-	tbwe = _w.detailsParallaxTBW;
-	tbwe.setValue( tp.getTrackingParallax() );
-
-	tbwe = _w.velValue;
-	tbwe.setValue( tp.getTrackingRadialVelocity() );
-	
-	_w.velDefn.setValue ( tp.getTrackingRadialVelocityDefn() );
-	_w.velFrame.setValue ( tp.getTrackingRadialVelocityFrame() );
-
-    }
 
     //
     // Configure the text prompts on the x and y axis boxes.
@@ -937,6 +940,8 @@ public class EdCompTargetList extends OtItemEditor
 			{
 				boolean enable = _curPos.getSystemType() == SpTelescopePos.SYSTEM_SPHERICAL ;
 				enableVelocitiesPanel( enable ) ;
+				if( !enable )
+					overrideVelocityFrame() ;
 			}
 			else
 			{
@@ -1157,41 +1162,40 @@ public class EdCompTargetList extends OtItemEditor
 
 
     /**
-     * Updates the the conic or named system widgets
-     * depending on the target system of the selected target.
-     */
-    private void _updateTargetSystemPane(SpTelescopePos tp) {
-      switch(tp.getSystemType()) {
-        case SpTelescopePos.SYSTEM_CONIC:
-          _w.epoch.setValue(tp.getConicSystemEpochAsString());
-	  _w.epoch.setCaretPosition(0);
-          _w.epochPerih.setValue(tp.getConicSystemEpochPerihAsString());
-	  _w.epochPerih.setCaretPosition(0);
-          _w.orbinc.setValue(tp.getConicSystemInclination());
-          _w.anode.setValue(tp.getConicSystemAnode());
-          _w.perih.setValue(tp.getConicSystemPerihelion());
-          _w.aorq.setValue(tp.getConicSystemAorQ());
-          _w.e.setValue(tp.getConicSystemE());
-          _w.l_or_m.setValue(tp.getConicSystemLorM());
-          _w.dm.setValue(tp.getConicSystemDailyMotion());
-          _w.conicSystemType.setValue(tp.getConicOrNamedTypeDescription());
+	 * Updates the the conic or named system widgets
+	 * depending on the target system of the selected target.
+	 */
+	private void _updateTargetSystemPane( SpTelescopePos tp )
+	{
+		switch( tp.getSystemType() )
+		{
+			case SpTelescopePos.SYSTEM_CONIC :
+				_w.epoch.setValue( tp.getConicSystemEpochAsString() );
+				_w.epoch.setCaretPosition( 0 );
+				_w.epochPerih.setValue( tp.getConicSystemEpochPerihAsString() );
+				_w.epochPerih.setCaretPosition( 0 );
+				_w.orbinc.setValue( tp.getConicSystemInclination() );
+				_w.anode.setValue( tp.getConicSystemAnode() );
+				_w.perih.setValue( tp.getConicSystemPerihelion() );
+				_w.aorq.setValue( tp.getConicSystemAorQ() );
+				_w.e.setValue( tp.getConicSystemE() );
+				_w.l_or_m.setValue( tp.getConicSystemLorM() );
+				_w.dm.setValue( tp.getConicSystemDailyMotion() );
+				_w.conicSystemType.setValue( tp.getConicOrNamedTypeDescription() );
 
-	  _setConicSystemType(_w.conicSystemType.getIntegerValue());
-	  break;
+				_setConicSystemType( _w.conicSystemType.getIntegerValue() );
+				
+				break;
 
-        case SpTelescopePos.SYSTEM_NAMED:
-          //_w.namedSystemType.setValue(tp.getConicOrNamedTypeDescription());
-
-	  if(Arrays.asList(OtCfg.getNamedTargets()).contains(tp.getName())) {
-	    _w.namedTarget.setValue(tp.getName());
-	  }
-	  else {
-	    _w.namedTarget.setValue(SELECT_TARGET);
-	  }
-
-	  break;
-      }
-    }
+			case SpTelescopePos.SYSTEM_NAMED :
+				if( Arrays.asList( OtCfg.getNamedTargets() ).contains( tp.getName() ) )
+					_w.namedTarget.setValue( tp.getName() );
+				else
+					_w.namedTarget.setValue( SELECT_TARGET );
+				
+				break;
+		}
+	}
 
     /**
 	 * Updates the target system pane selection
@@ -1414,7 +1418,7 @@ public class EdCompTargetList extends OtItemEditor
 
     public void stateChanged( ChangeEvent e )
 	{
-
+    	overrideDialogShown = false ;
 		if( e.getSource() == _w.targetSystemsTabbedPane )
 		{
 			Component component = _w.targetSystemsTabbedPane.getSelectedComponent() ;
@@ -1745,14 +1749,13 @@ e.printStackTrace();
     {    	
 		_w.velDefn.setEnabled( enable ) ;
 		_w.velValue.setEnabled( enable ) ;
-		_w.velFrame.setEnabled( enable ) ;
-			
+		_w.velFrame.setEnabled( enable ) ;			
     }
     
     public void overrideVelocityFrame()
     {
 		SpTelescopePos basePos = _tpl.getBasePosition() ;
-		if( basePos != null && jcmtot )
+		if( basePos != null && jcmtot && basePos.getSystemType() != SpTelescopePos.SYSTEM_SPHERICAL )
 		{
 			basePos.setTrackingRadialVelocityFrame( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
 			_w.velFrame.setSelectedItem( SpInstHeterodyne.TOPOCENTRIC_VELOCITY_FRAME ) ;
@@ -1760,7 +1763,7 @@ e.printStackTrace();
 			enableVelocitiesPanel( false ) ;
 			
 			SpInstObsComp instrument = SpTreeMan.findInstrument( _spItem ) ;
-			if( instrument instanceof SpInstHeterodyne && instrument.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) )
+			if( !overrideDialogShown && instrument instanceof SpInstHeterodyne && instrument.getTable().exists( SpInstHeterodyne.ATTR_VELOCITY ) )
 			{
 				int status = JOptionPane.showConfirmDialog( _w , "Named Systems and Orbital Elements are only provided with a default Topocentric velocity frame\n that is currently being overridden in this targets Heterodyne setup.\n\n You will need to disable it.\n\n Would you like that done for you ?" , "Default velocity frame overidden" , JOptionPane.INFORMATION_MESSAGE );
 				if( status == JOptionPane.YES_OPTION )
@@ -1769,6 +1772,7 @@ e.printStackTrace();
 					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_DEFINITION ) ;
 					instrument.getTable().rm( SpInstHeterodyne.ATTR_VELOCITY_FRAME ) ;
 				}
+				overrideDialogShown = true ;
 			}
 		}
     }
