@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>ACSIS.xml</meta_gui_filename>
-  <ot_version>20061010</ot_version>
+  <ot_version>20070605</ot_version>
   <telescope>jcmt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -128,8 +128,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -295,8 +294,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -485,8 +483,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -559,11 +556,11 @@ Normally the TSS will search for a nearby pointing source.  If you have a specif
         <SpInstHeterodyneRef idref="10"/>
         <SpSiteQualityObsCompRef idref="11"/>
         <SpTelescopeObsCompRef idref="9"/>
-        <estimatedDuration units="seconds">5.0</estimatedDuration>
+        <estimatedDuration units="seconds">162.2</estimatedDuration>
         <library_version>$Revision$</library_version>
         <priority>99</priority>
         <title>Beam-switch grid</title>
-        <totalDuration units="seconds">275.0</totalDuration>
+        <totalDuration units="seconds">432.2</totalDuration>
         <SpNote observeInstruction="true" type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>A note about notes
@@ -663,8 +660,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -704,7 +700,7 @@ Normally the TSS will search for a nearby pointing source.  If you have a specif
         </SpObs>
         <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
           <meta_gui_collapsed>true</meta_gui_collapsed>
-          <estimatedDuration units="seconds">5.0</estimatedDuration>
+          <estimatedDuration units="seconds">162.2</estimatedDuration>
           <standard>false</standard>
           <title>Science Observation</title>
           <SpIterFolder type="if" subtype="none">
@@ -724,6 +720,12 @@ Normally the TSS will search for a nearby pointing source.  If you have a specif
                 </obsArea>
                 <SpIterChop type="ic" subtype="chop">
                   <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <SECONDARY>
+                    <CHOP SYSTEM="AZEL">
+                      <THROW>60.0</THROW>
+                      <PA>90.0</PA>
+                    </CHOP>
+                  </SECONDARY>
                   <SpIterStareObs type="ic" subtype="stareObs">
                     <meta_gui_collapsed>false</meta_gui_collapsed>
                     <secsPerCycle>60</secsPerCycle>
@@ -848,8 +850,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -1030,8 +1031,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -1236,8 +1236,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
@@ -1424,8 +1423,7 @@ Things to include in your notes
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <note>A pointing (and focus) will be done if necessary, or will be deferred if not necessary.  
 
-Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.
-</note>
+Normally the TSS will search for a nearby pointing source.  If you have a specific pointing source in mind, insert a "Target Information" component here, and un-check the "automatic target" buttons in the Pointing and Focus eyes.</note>
             <title>Pointing and focus help</title>
           </SpNote>
           <SpIterFolder type="if" subtype="none">
