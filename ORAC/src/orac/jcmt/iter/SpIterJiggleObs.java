@@ -258,4 +258,20 @@ public class SpIterJiggleObs extends SpIterJCMTObs {
 			SWITCHING_MODE_FREQUENCY_F 
 		} ;
 	}
+    
+    public void setSeperateOffs( boolean enable )
+    {
+    	_avTable.set( SEPERATE_OFFS , enable ) ;
+    }
+    
+    public boolean hasSeperateOffs()
+    {
+    	return _avTable.getBool( SEPERATE_OFFS ) ;
+    }
+    
+    public void rmSeperateOffs()
+    {
+    	_avTable.noNotifyRm( SEPERATE_OFFS ) ;
+    }
+    
 }

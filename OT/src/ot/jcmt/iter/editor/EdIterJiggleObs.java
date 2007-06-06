@@ -41,18 +41,6 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
   private String [] _noJigglePatterns = { "No Instrument in scope." };
 
-  /*
-   * Over-ride the switching modes since only beam and
-   * frequency will initially be offered by ACSIS 
-   */
-	protected static String[] SWITCHING_MODES =
-	{ 
-		SpJCMTConstants.SWITCHING_MODE_BEAM , 
-		SpJCMTConstants.SWITCHING_MODE_FREQUENCY_S , 
-		SpJCMTConstants.SWITCHING_MODE_FREQUENCY_F , 
-		SpJCMTConstants.SWITCHING_MODE_NONE 
-	} ;
-
   /**
 	 * The constructor initializes the title, description, and presentation source.
 	 */
@@ -72,6 +60,10 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		_w.defaultButton.addWatcher( this );
 		_w.paTextBox.addWatcher( this );
 		_w.coordSys.addWatcher( this );
+		
+		super._w.seperateOffs.addWatcher( this ) ;
+		super._w.seperateOffsLabel.setVisible( true ) ;
+		super._w.seperateOffs.setVisible( true ) ;
 	}
 
   /**
@@ -128,6 +120,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		_w.coordSys.setValue( _iterObs.getCoordSys() );
 		
 		_w.scaleFactor.setEnabled( !isHarp() ) ;
+		
+		super._w.seperateOffs.setSelected( _iterObs.hasSeperateOffs() ) ;
 
 		super._updateWidgets();
 	}
@@ -187,6 +181,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 	{
 		if( cbwe == _w.contModeCB )
 			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
+		else if( cbwe == super._w.seperateOffs )
+			_iterObs.setSeperateOffs( super._w.seperateOffs.isSelected() ) ;
 
 		super.checkBoxAction( cbwe );
 	}
@@ -239,7 +235,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 
 		if( ( spInstObsComp != null ) && ( spInstObsComp instanceof SpInstHeterodyne ) )
 		{
-			_w.switchingMode.setChoices( SWITCHING_MODES );
+			_w.switchingMode.setChoices( _iterObs.getSwitchingModeOptions() );
 			if( _iterObs == null )
 				_w.switchingMode.setValue( SpJCMTConstants.SWITCHING_MODE_BEAM );
 			else

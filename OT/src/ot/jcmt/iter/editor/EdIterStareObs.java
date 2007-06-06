@@ -55,6 +55,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_w.integrationTime.addWatcher( this ) ;
 		
 		super._w.arrayCentred.addWatcher( this ) ;
+		super._w.seperateOffs.addWatcher( this ) ;
 	}
 
     protected void _updateWidgets()
@@ -63,20 +64,29 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     	{
     		_w.widePhotom.setSelected( (( SpIterStareObs )_iterObs).getWidePhotom() ) ;
     		SpInstObsComp instrument = SpTreeMan.findInstrument( _iterObs ) ;
+    		SpIterStareObs _iterStareObs = ( SpIterStareObs )_iterObs ;
     		if( instrument instanceof SpInstHeterodyne )
     		{
     			_w.contModeCB.setSelected( _iterObs.isContinuum() ) ;
     			
     			SpInstHeterodyne heterodyne = ( SpInstHeterodyne )instrument ;
-    			SpIterStareObs _iterStareObs = ( SpIterStareObs )_iterObs ;
-    			boolean criteria = heterodyne.getFrontEnd().equals( "HARP" ) && _iterObs.getSwitchingMode() == SWITCHING_MODE_POSITION ;
-    			super._w.arrayCentredLabel.setVisible( criteria ) ;
-    			super._w.arrayCentred.setVisible( criteria ) ;
-    			if( criteria )
+    			boolean arrayCentredCriteria = heterodyne.getFrontEnd().equals( "HARP" ) && SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) ;
+    			super._w.arrayCentredLabel.setVisible( arrayCentredCriteria ) ;
+    			super._w.arrayCentred.setVisible( arrayCentredCriteria ) ;
+    			if( arrayCentredCriteria )
     				super._w.arrayCentred.setSelected( _iterStareObs.isArrayCentred() ) ;
     			else
     				_iterStareObs.rmArrayCentred() ;
     		}
+    		
+			boolean seperateOffsCriteria = SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) ;
+			super._w.seperateOffsLabel.setVisible( seperateOffsCriteria ) ;
+			super._w.seperateOffs.setVisible( seperateOffsCriteria ) ;
+			if( seperateOffsCriteria )
+				super._w.seperateOffs.setSelected( _iterStareObs.hasSeperateOffs() ) ;
+			else
+				_iterStareObs.rmSeperateOffs() ;
+    		
     		_w.integrationTime.setText( "" + _iterObs.getSampleTime() ) ;
     		_w.secsPerCycle.setText( "" + _iterObs.getSecsPerCycle() ) ;
     	}
@@ -86,24 +96,24 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 
     public void setInstrument( SpInstObsComp spInstObsComp )
 	{
-    	if( spInstObsComp == null )
-    		return ;
+		if( spInstObsComp == null )
+			return;
 		if( spInstObsComp instanceof SpInstHeterodyne )
 		{
 			_w.acsisPanel.setVisible( true );
-			_w.scuba2Panel.setVisible( false ) ;
+			_w.scuba2Panel.setVisible( false );
 			_w.widePhotom.setVisible( false );
 			_w.widePhotom.setSelected( false );
-			_iterObs.setupForHeterodyne() ;
+			_iterObs.setupForHeterodyne();
 		}
 		else if( spInstObsComp instanceof SpInstSCUBA2 )
 		{
-			_w.informationPanel.setVisible( false ) ;
-			_w.acsisPanel.setVisible( false ) ;
-			_w.scuba2Panel.setVisible( true ) ;
-			_w.widePhotom.setVisible( false ) ;
-			_w.widePhotom.setSelected( false ) ;
-			_iterObs.setupForSCUBA2() ;
+			_w.informationPanel.setVisible( false );
+			_w.acsisPanel.setVisible( false );
+			_w.scuba2Panel.setVisible( true );
+			_w.widePhotom.setVisible( false );
+			_w.widePhotom.setSelected( false );
+			_iterObs.setupForSCUBA2();
 		}
 		else
 		{
@@ -111,8 +121,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_w.widePhotom.setVisible( true );
 		}
 
-    super.setInstrument(spInstObsComp);
-  }
+		super.setInstrument( spInstObsComp );
+	}
 
   	protected double calculateNoise( int integrations , double wavelength , double nefd , int[] status )
 	{
@@ -141,6 +151,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
 		else if( cbwe == super._w.arrayCentred )
 			( ( SpIterStareObs )_iterObs).setArrayCentred( super._w.arrayCentred.isSelected() ) ;
+		else if( cbwe == super._w.seperateOffs )
+			( ( SpIterStareObs )_iterObs).setSeperateOffs( super._w.seperateOffs.isSelected() ) ;
 		super.checkBoxAction( cbwe );
 	}
     

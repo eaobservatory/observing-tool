@@ -160,17 +160,32 @@ public SpIterStareObs()
     
     public void setArrayCentred( boolean enable )
     {
-    	_avTable.set( ATTR_ARRAY_CENTERED , enable ) ;
+    	_avTable.set( ATTR_ARRAY_CENTRED , enable ) ;
     }
     
     public boolean isArrayCentred()
     {
-    	return _avTable.getBool( ATTR_ARRAY_CENTERED ) ;
+    	return _avTable.getBool( ATTR_ARRAY_CENTRED ) ;
     }
     
     public void rmArrayCentred()
     {
-    	_avTable.noNotifyRm( ATTR_ARRAY_CENTERED ) ;
+    	_avTable.noNotifyRm( ATTR_ARRAY_CENTRED ) ;
+    }
+    
+    public void setSeperateOffs( boolean enable )
+    {
+    	_avTable.set( SEPERATE_OFFS , enable ) ;
+    }
+    
+    public boolean hasSeperateOffs()
+    {
+    	return _avTable.getBool( SEPERATE_OFFS ) ;
+    }
+    
+    public void rmSeperateOffs()
+    {
+    	_avTable.noNotifyRm( SEPERATE_OFFS ) ;
     }
 }
 

@@ -270,11 +270,12 @@ public interface SpJCMTConstants {
 
    public static final String SWITCHING_MODE_CHOP        = "Chop";
    public static final String SWITCHING_MODE_NOD         = "Nod";
-   public static final String SWITCHING_MODE_BEAM = "Beam";
+   public static final String SWITCHING_MODE_BEAM		= "Beam";
    public static final String SWITCHING_MODE_POSITION = "Position";
    public static final String SWITCHING_MODE_FREQUENCY_S = "Frequency-Slow";
    public static final String SWITCHING_MODE_FREQUENCY_F = "Frequency-Fast";
    public static final String SWITCHING_MODE_NONE        = "None";
    
-   public static final String ATTR_ARRAY_CENTERED		= "arrayCentered" ;
+   public static final String ATTR_ARRAY_CENTRED		= "arrayCentred" ;
+   public static final String SEPERATE_OFFS				= "seperateOffs" ;
 }
