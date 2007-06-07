@@ -51,9 +51,9 @@ public class IterJCMTGenericGUI extends JPanel {
   JLabel arrayCentredLabel = new JLabel() ;
   JPanel arrayCentredPanel = new JPanel() ;
   
-  CheckBoxWidgetExt seperateOffs = new CheckBoxWidgetExt() ;
-  JLabel seperateOffsLabel = new JLabel() ;
-  JPanel seperateOffsPanel = new JPanel() ;
+  CheckBoxWidgetExt separateOffs = new CheckBoxWidgetExt() ;
+  JLabel separateOffsLabel = new JLabel() ;
+  JPanel separateOffsPanel = new JPanel() ;
 
   public IterJCMTGenericGUI() {
     try {
@@ -113,15 +113,15 @@ public class IterJCMTGenericGUI extends JPanel {
 		arrayCentredLabel.setVisible( false ) ;
 		arrayCentred.setVisible( false ) ;
 		
-		seperateOffsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
-		seperateOffsLabel.setForeground( Color.black );
-		seperateOffsLabel.setText( "Seperate Offs" );
+		separateOffsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
+		separateOffsLabel.setForeground( Color.black );
+		separateOffsLabel.setText( "Seperate Offs" );
 		
-		seperateOffsPanel.setLayout(  new GridLayout( 1 , 2 ) ) ;
-		seperateOffsPanel.add( seperateOffsLabel ) ;
-		seperateOffsPanel.add( seperateOffs ) ;
-		seperateOffsLabel.setVisible( false ) ;
-		seperateOffs.setVisible( false ) ;
+		separateOffsPanel.setLayout(  new GridLayout( 1 , 2 ) ) ;
+		separateOffsPanel.add( separateOffsLabel ) ;
+		separateOffsPanel.add( separateOffs ) ;
+		separateOffsLabel.setVisible( false ) ;
+		separateOffs.setVisible( false ) ;
 
 		jLabel2.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		jLabel2.setForeground( Color.black );
@@ -136,7 +136,7 @@ public class IterJCMTGenericGUI extends JPanel {
 		jPanel1.add( jLabel2 , new GridBagConstraints( 3 , 3 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 
 		jPanel1.add( arrayCentredPanel , new GridBagConstraints( 2 , 1 , 2 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
-		jPanel1.add( seperateOffsPanel , new GridBagConstraints( 4 , 1 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
+		jPanel1.add( separateOffsPanel , new GridBagConstraints( 4 , 1 , 4 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) ) ;
 		
 		frequencyPanel.add( jLabel8 , new GridBagConstraints( 0 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 0 , 0 , 0 , 0 ) , 0 , 0 ) );
 		frequencyPanel.add( frequencyOffset_throw , new GridBagConstraints( 1 , 0 , 1 , 1 , 0.0 , 0.0 , GridBagConstraints.CENTER , GridBagConstraints.NONE , new Insets( 1 , 1 , 1 , 1 ) , 0 , 0 ) );

@@ -175,17 +175,17 @@ public SpIterStareObs()
     
     public void setSeperateOffs( boolean enable )
     {
-    	_avTable.set( SEPERATE_OFFS , enable ) ;
+    	_avTable.set( SEPARATE_OFFS , enable ) ;
     }
     
     public boolean hasSeperateOffs()
     {
-    	return _avTable.getBool( SEPERATE_OFFS ) ;
+    	return _avTable.getBool( SEPARATE_OFFS ) ;
     }
     
     public void rmSeperateOffs()
     {
-    	_avTable.noNotifyRm( SEPERATE_OFFS ) ;
+    	_avTable.noNotifyRm( SEPARATE_OFFS ) ;
     }
 }
 

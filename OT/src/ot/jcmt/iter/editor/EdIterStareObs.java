@@ -55,7 +55,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		_w.integrationTime.addWatcher( this ) ;
 		
 		super._w.arrayCentred.addWatcher( this ) ;
-		super._w.seperateOffs.addWatcher( this ) ;
+		super._w.separateOffs.addWatcher( this ) ;
 	}
 
     protected void _updateWidgets()
@@ -80,10 +80,10 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     		}
     		
 			boolean seperateOffsCriteria = SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) ;
-			super._w.seperateOffsLabel.setVisible( seperateOffsCriteria ) ;
-			super._w.seperateOffs.setVisible( seperateOffsCriteria ) ;
+			super._w.separateOffsLabel.setVisible( seperateOffsCriteria ) ;
+			super._w.separateOffs.setVisible( seperateOffsCriteria ) ;
 			if( seperateOffsCriteria )
-				super._w.seperateOffs.setSelected( _iterStareObs.hasSeperateOffs() ) ;
+				super._w.separateOffs.setSelected( _iterStareObs.hasSeperateOffs() ) ;
 			else
 				_iterStareObs.rmSeperateOffs() ;
     		
@@ -151,8 +151,8 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
 		else if( cbwe == super._w.arrayCentred )
 			( ( SpIterStareObs )_iterObs).setArrayCentred( super._w.arrayCentred.isSelected() ) ;
-		else if( cbwe == super._w.seperateOffs )
-			( ( SpIterStareObs )_iterObs).setSeperateOffs( super._w.seperateOffs.isSelected() ) ;
+		else if( cbwe == super._w.separateOffs )
+			( ( SpIterStareObs )_iterObs).setSeperateOffs( super._w.separateOffs.isSelected() ) ;
 		super.checkBoxAction( cbwe );
 	}
     

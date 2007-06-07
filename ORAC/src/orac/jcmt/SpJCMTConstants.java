@@ -277,5 +277,5 @@ public interface SpJCMTConstants {
    public static final String SWITCHING_MODE_NONE        = "None";
    
    public static final String ATTR_ARRAY_CENTRED		= "arrayCentred" ;
-   public static final String SEPERATE_OFFS				= "seperateOffs" ;
+   public static final String SEPARATE_OFFS				= "seperateOffs" ;
 }

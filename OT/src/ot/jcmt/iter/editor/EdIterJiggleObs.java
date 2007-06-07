@@ -61,9 +61,9 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		_w.paTextBox.addWatcher( this );
 		_w.coordSys.addWatcher( this );
 		
-		super._w.seperateOffs.addWatcher( this ) ;
-		super._w.seperateOffsLabel.setVisible( true ) ;
-		super._w.seperateOffs.setVisible( true ) ;
+		super._w.separateOffs.addWatcher( this ) ;
+		super._w.separateOffsLabel.setVisible( true ) ;
+		super._w.separateOffs.setVisible( true ) ;
 	}
 
   /**
@@ -121,7 +121,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		
 		_w.scaleFactor.setEnabled( !isHarp() ) ;
 		
-		super._w.seperateOffs.setSelected( _iterObs.hasSeperateOffs() ) ;
+		super._w.separateOffs.setSelected( _iterObs.hasSeperateOffs() ) ;
 
 		super._updateWidgets();
 	}
@@ -181,8 +181,8 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 	{
 		if( cbwe == _w.contModeCB )
 			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
-		else if( cbwe == super._w.seperateOffs )
-			_iterObs.setSeperateOffs( super._w.seperateOffs.isSelected() ) ;
+		else if( cbwe == super._w.separateOffs )
+			_iterObs.setSeperateOffs( super._w.separateOffs.isSelected() ) ;
 
 		super.checkBoxAction( cbwe );
 	}
