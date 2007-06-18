@@ -2,7 +2,7 @@
 <SpLibrary type="lb" subtype="none">
   <meta_gui_collapsed>false</meta_gui_collapsed>
   <meta_gui_filename>Polarimetry-Template.xml</meta_gui_filename>
-  <ot_version>20061010</ot_version>
+  <ot_version>20070606</ot_version>
   <telescope>ukirt</telescope>
   <SpLibraryFolder type="lf" subtype="none">
     <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -5738,34 +5738,17 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
         </SpIterFolder>
       </SpObs>
     </SpMSB>
-    <SpMSB remaining="1" type="og" subtype="msb">
+    <SpMSB checksum="39f12cf35b038e2e4833ee01e99d3990A" observed="1" remaining="1" type="og" subtype="msb">
       <meta_gui_collapsed>true</meta_gui_collapsed>
-      <estimatedDuration units="seconds">733.4990000000001</estimatedDuration>
+      <estimatedDuration units="seconds">1308.7789199999997</estimatedDuration>
       <library_version>$Revision$</library_version>
       <priority>99</priority>
       <title>Coronagraphic Imaging Pol (UIST - imaging)</title>
-      <totalDuration units="seconds">1357.4990000000003</totalDuration>
-      <SpNote type="no" subtype="none">
-        <meta_gui_collapsed>false</meta_gui_collapsed>
-        <note>Basic Idea:
-=======
-
-With Coronographic imaging polarimetry, the user may use either a 6-pixel (0.7arcsec) or an 11-pixel (1.3 arcsec) wire.  These are suspended 1/4 and 3/4 of the way along a 120"x20" rectangular aperture in the bottom/western half of the array.  A similar-sized aperture in the top half of the array will be used for sky-subtraction (see UKIRT-IRPOL web-page for details). The posn angle can be used to orientate the source so that extended objects are perpendicular to the wire; e.g. a disk orientated E-W should use a Posn-angle of 0 degs, while a disk orientated N-S should use a posn angle of -90 degs.  Any angle between -90 and +90 degrees can be used, though angles between -90 and 0 degrees make acquisition a little easier.  If you don't care about the angle, PLEASE USE -90 DEGREES.
-
-By default the acquisition process described below will put the source behind the 6-pixel wire.  If the wider occultor is required, all offsets should have a p value of -62.6 arcsec (this being the distance between the two wires); note, offsets in q are along the wire, which is ~20" in length..
-
-Imaging acquisition:
-============
-
-In the UIST component in the "Coronagraphic Pol" observation (below), set the instrument for coronographic imaging (coron mask, filter, full array, NDSTARE, etc.) but SELECT A SHORT EXPOSURE TIME for imaging acquisition (1sec for bright stars/point sources).  The exposure time to be used for the actual coronographic imaging will be set in the "UIST Imaging" iterator further down the sequence.
-
-At the telescope UIST will be set for coronographic observations with your chosen posn angles BUT it will have a short exposure time.  At the break in the sequence, the observer runs Movie, acquires the target as if he/she were doing spectroscopy (i.e. using Gaia - pick object and UPICK on the TCS) , then continues the sequence.  Immediately after acquisition the exposure time/coadds are increased for the actual coronagraphic observations.</note>
-        <title>How to do Coron imaging polarimetry</title>
-      </SpNote>
+      <totalDuration units="seconds">2344.0045599999994</totalDuration>
       <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
         <meta_gui_selected>false</meta_gui_selected>
-        <estimatedDuration units="seconds">624.0</estimatedDuration>
+        <estimatedDuration units="seconds">714.27992</estimatedDuration>
         <standard>true</standard>
         <title>make_skyflat for Pol (Imaging)</title>
         <SpNote type="no" subtype="none">
@@ -5791,8 +5774,8 @@ For a step-by-step guide to how to use the position editor use "help".</note>
             <target>
               <targetName>Sky Flat</targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>0:0:0</c1>
-                <c2>0:0:0</c2>
+                <c1>19:0:0</c1>
+                <c2>-10:0:0</c2>
                 <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
@@ -5800,7 +5783,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Sent for long, K-band exposures for a good flat-field.   Make sure the polarimetry box is ticked.</note>
+          <note>Set for long exposures for a good flat-field.   Make sure the polarimetry box is ticked and "coronograph" is selected.</note>
           <title>UIST component</title>
         </SpNote>
         <SpInstUIST type="oc" subtype="inst.UIST">
@@ -5808,7 +5791,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <DAConfMinExpTime>0.81</DAConfMinExpTime>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
@@ -5821,7 +5804,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <biasRefPixelY>512.5</biasRefPixelY>
           <biasWaveform>uist_starev11</biasWaveform>
           <camera>imaging</camera>
-          <centralWavelength>2.2</centralWavelength>
+          <centralWavelength>1.64</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
           <coadds>1</coadds>
@@ -5832,9 +5815,9 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <dutyCycle>0.9655622565576161</dutyCycle>
           <expTimeOT>60.0</expTimeOT>
           <exposureTime>60.0</exposureTime>
-          <filter>K98</filter>
+          <filter>H98</filter>
           <filterCategory>broad</filterCategory>
-          <focus>3.28</focus>
+          <focus>2.63</focus>
           <idlePeriod>0.0022</idlePeriod>
           <imager>0.12</imager>
           <instAper>
@@ -5879,7 +5862,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <resolution>0.0</resolution>
           <scienceArea>20.0 x 122.88 arcsec</scienceArea>
           <source_mag>&gt;15</source_mag>
-          <spectralCoverage>2.030um-2.370um</spectralCoverage>
+          <spectralCoverage>1.490um-1.780um</spectralCoverage>
           <target_acq>no</target_acq>
           <waveform>uist_starev11</waveform>
         </SpInstUIST>
@@ -5887,7 +5870,7 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Recipe requires at least two frames at each of the 4 waveplate positions (0, 45, 22.5 and 67.5 degrees).  All frames should be at different positions on blank sky.  All frames are median averaged, regardless of the waveplate angle,  to make a "master-pol-flat".
 
-N.B.: A Dark MUST be obtained first.  If you need separate flats for each waveplate position, select observation "make_skyflat for each WP angle" instead (see bottom of this library).</note>
+N.B.: A Dark MUST be obtained first.  If you need separate flats for each waveplate position, use the observation "make_skyflat for each WP angle" instead (see bottom of this library).</note>
           <title>Pol recipe</title>
         </SpNote>
         <SpDRRecipe type="oc" subtype="DRRecipe">
@@ -5918,7 +5901,7 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>1</coadds>
             <exposureTime>60.0</exposureTime>
-            <repeatCount>1</repeatCount>
+            <repeatCount>2</repeatCount>
           </SpIterDarkObs>
           <SpIterIRPOL type="ic" subtype="instIRPOL">
             <meta_gui_collapsed>false</meta_gui_collapsed>
@@ -6016,34 +5999,13 @@ N.B.: A Dark MUST be obtained first.  If you need separate flats for each wavepl
               </SpIterObserve>
             </SpIterOffset>
           </SpIterIRPOL>
-          <SpNote type="no" subtype="none">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Return waveplate to 0 degrees and the telescope offsets to 0,0.</note>
-            <title>Back to zero</title>
-          </SpNote>
-          <SpIterOffset type="ic" subtype="offset">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
-            <obsArea>
-              <PA>-90.0</PA>
-              <OFFSET>
-                <DC1>0.0</DC1>
-                <DC2>0.0</DC2>
-              </OFFSET>
-            </obsArea>
-          </SpIterOffset>
-          <SpIterIRPOL type="ic" subtype="instIRPOL">
-            <meta_gui_collapsed>false</meta_gui_collapsed>
-            <IRPOLIter>0</IRPOLIter>
-            <iterConfigList>IRPOLIter</iterConfigList>
-          </SpIterIRPOL>
         </SpIterFolder>
       </SpObs>
-      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+      <SpObs msb="false" optional="true" remaining="1" type="ob" subtype="none">
         <meta_gui_collapsed>true</meta_gui_collapsed>
-        <estimatedDuration units="seconds">733.4990000000001</estimatedDuration>
+        <estimatedDuration units="seconds">320.94572</estimatedDuration>
         <standard>false</standard>
-        <title>Coronagraphic Pol</title>
+        <title>Pol Standard</title>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
           <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target.
@@ -6059,10 +6021,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
           <meta_unique>true</meta_unique>
           <BASE TYPE="Base">
             <target>
-              <targetName>Science target</targetName>
+              <targetName>Cyg OB2 #3</targetName>
               <spherSystem SYSTEM="J2000">
-                <c1>00:00:00.0</c1>
-                <c2>00:00:00</c2>
+                <c1>20:31:37.50</c1>
+                <c2>+41:13:21.05</c2>
                 <rv defn="radio" frame="LSRK">0.0</rv>
               </spherSystem>
             </target>
@@ -6070,10 +6032,10 @@ For a step-by-step guide to how to use the position editor use "help".</note>
         </SpTelescopeObsComp>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>Make sure polarimetry is ticked, the coronograph is selected, and the exposure time is short (1sec usually) for IMAGING ACQUISITION.
+          <note>Make sure polarimetry is ticked, the coronagraph is selected, and the exposure time is short (1sec usually).  With the standard the same exposure time will be used for acquisition and for the actual pol imaging observations.  
 
 A posn angle of -90 gives the default orientation for UIST imaging, i.e. N left and E up.
-This is the default angle used with ordinary imaging polarimetry.  Although any angle between -90 and +90 can be used with the coronographic mask, an angle between -90 and 0 will make imaging acquisition a little easier.  
+This is the default angle used with ordinary imaging polarimetry.  Although any angle between -90 and +90 can be used with the coronagraphic mask, an angle between -90 and 0 will make imaging acquisition a little easier.  
 
 IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
           <title>UIST component</title>
@@ -6083,7 +6045,7 @@ IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
           <meta_unique>true</meta_unique>
           <meta_version>3</meta_version>
           <DAConf>ND1</DAConf>
-          <DAConfMinExpT>0.81</DAConfMinExpT>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
           <arrayAngle>0.54</arrayAngle>
           <biasDutyCycle>0.507</biasDutyCycle>
           <biasIdlePeriod>0.0022</biasIdlePeriod>
@@ -6095,25 +6057,25 @@ IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
           <biasRefPixelY>512.5</biasRefPixelY>
           <biasWaveform>uist_starev11</biasWaveform>
           <camera>imaging</camera>
-          <centralWavelength>2.2</centralWavelength>
+          <centralWavelength>1.64</centralWavelength>
           <chopDelay>0.0</chopDelay>
           <chopFrequency>0.0</chopFrequency>
-          <coadds>1</coadds>
+          <coadds>5</coadds>
           <configType>Normal</configType>
           <darkFilter>black_blank</darkFilter>
           <disperser>wollaston</disperser>
           <dispersion>0.0</dispersion>
-          <dutyCycle>0.31847539459101387</dutyCycle>
+          <dutyCycle>0.337386469453029</dutyCycle>
           <expTimeOT>1.0</expTimeOT>
           <exposureTime>1.0</exposureTime>
-          <filter>K98</filter>
+          <filter>H98</filter>
           <filterCategory>broad</filterCategory>
-          <focus>3.28</focus>
+          <focus>2.63</focus>
           <idlePeriod>0.0022</idlePeriod>
           <imager>0.12</imager>
           <instAper>
-            <value>27.93</value>
-            <value>-1.11</value>
+            <value>-23.0</value>
+            <value>30.0</value>
             <value>0.00</value>
             <value>2.00</value>
           </instAper>
@@ -6133,7 +6095,7 @@ IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
           <nullExposures>0</nullExposures>
           <nullReads>1</nullReads>
           <obsTimeOT>10.0</obsTimeOT>
-          <observationTime>3.1399600000000003</observationTime>
+          <observationTime>14.8198</observationTime>
           <order>0</order>
           <pixelFOV>0.1205 x 0.1205</pixelFOV>
           <pixelScale>0.12</pixelScale>
@@ -6152,13 +6114,13 @@ IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
           <resetDelay>0.11</resetDelay>
           <resolution>0.0</resolution>
           <scienceArea>20.0 x 122.88 arcsec</scienceArea>
-          <source_mag>11-12</source_mag>
-          <spectralCoverage>2.030um-2.370um</spectralCoverage>
+          <source_mag>6-7</source_mag>
+          <spectralCoverage>1.490um-1.780um</spectralCoverage>
           <waveform>uist_starev11</waveform>
         </SpInstUIST>
         <SpNote type="no" subtype="none">
           <meta_gui_collapsed>false</meta_gui_collapsed>
-          <note>POL_JITTER_CORON expects an 3-point jitter at each of the four waveplate angles (0, 45, 22.5, and 67.5 degrees).   With the coronograph the jitter positions are slight offsets along the wire.  All offset positions are observed BEFORE the waveplate is moved.
+          <note>POL_JITTER_CORON expects an 3-point jitter at each of the four waveplate angles (0, 45, 22.5, and 67.5 degrees).   All offset positions are observed BEFORE the waveplate is moved.
 
 N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
           <title>Pol recipe selection</title>
@@ -6203,24 +6165,263 @@ N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyfla
           </SpIterOffset>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>The dark below provides a frame for dark-subtraction.  It should have the same exposure time as used in the "UIST Imaging" iterator below, so DON'T click on "set default"</note>
+            <note>The first dark below is a flush; the second dark provides a frame for dark-subtraction.  Click "set default" in the dark to make sure it has the same exposure time and coadds as your observations of the standard.</note>
+            <title>Darks</title>
+          </SpNote>
+          <SpIterDarkObs type="ic" subtype="darkObs">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <coadds>5</coadds>
+            <exposureTime>1.0</exposureTime>
+            <repeatCount>2</repeatCount>
+          </SpIterDarkObs>
+          <SpIterRepeat type="ic" subtype="repeat">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <repeatCount>1</repeatCount>
+            <title>Repeat 1X</title>
+            <SpIterIRPOL type="ic" subtype="instIRPOL">
+              <meta_gui_collapsed>false</meta_gui_collapsed>
+              <IRPOLIter>
+                <value>0</value>
+                <value>45</value>
+                <value>22.5</value>
+                <value>67.5</value>
+              </IRPOLIter>
+              <iterConfigList>IRPOLIter</iterConfigList>
+              <SpNote type="no" subtype="none">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <note>To observe the standard OFF the wire, use offsets in "p" below.
+The offsets will be repeated for each of the four nominal waveplate angles.</note>
+                <title>Offsets along wire at each WP angle</title>
+              </SpNote>
+              <SpIterOffset type="ic" subtype="offset">
+                <meta_gui_collapsed>false</meta_gui_collapsed>
+                <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+                <obsArea>
+                  <PA>-90.0</PA>
+                  <OFFSET>
+                    <DC1>-10.0</DC1>
+                    <DC2>0.24</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-15.0</DC1>
+                    <DC2>-0.24</DC2>
+                  </OFFSET>
+                  <OFFSET>
+                    <DC1>-20.0</DC1>
+                    <DC2>0.0</DC2>
+                  </OFFSET>
+                </obsArea>
+                <SpIterObserve type="ic" subtype="observe">
+                  <meta_gui_collapsed>false</meta_gui_collapsed>
+                  <repeatCount>1</repeatCount>
+                </SpIterObserve>
+              </SpIterOffset>
+            </SpIterIRPOL>
+          </SpIterRepeat>
+        </SpIterFolder>
+      </SpObs>
+      <SpObs msb="false" optional="false" remaining="1" type="ob" subtype="none">
+        <meta_gui_collapsed>true</meta_gui_collapsed>
+        <estimatedDuration units="seconds">1308.7789199999997</estimatedDuration>
+        <standard>false</standard>
+        <title>Coronagraphic Pol</title>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Enter your target co-ordinates into the target list below.  Note that although this is called a "target list" it really only allows you to specify ONE astronomical target.
+
+When you have done so you can use the "position editor" to  select a guide star (avoiding the waveplate holder), to fine tune the co-ordinate based on a sky survey picture, examine offset locations on the field etc.
+
+For a step-by-step guide to how to use the position editor use "help".</note>
+          <title>Target information</title>
+        </SpNote>
+        <SpTelescopeObsComp type="oc" subtype="targetList">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_gui_selectedTelescopePos>Base</meta_gui_selectedTelescopePos>
+          <meta_unique>true</meta_unique>
+          <BASE TYPE="Base">
+            <target>
+              <targetName>SH 2-106 IR</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>20:27:25.75</c1>
+                <c2>+37:22:47.7</c2>
+                <rv defn="radio" frame="LSRK">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+          <BASE TYPE="GUIDE">
+            <target>
+              <targetName>BD+36 4078</targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>20:27:22.105</c1>
+                <c2>+37:22:57.2</c2>
+                <rv defn="radio" frame="LSRK">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+          <BASE TYPE="GUIDE2">
+            <target>
+              <targetName></targetName>
+              <spherSystem SYSTEM="J2000">
+                <c1>20:27:22.523</c1>
+                <c2>37:26:04.35</c2>
+                <rv defn="radio" frame="LSRK">0.0</rv>
+              </spherSystem>
+            </target>
+          </BASE>
+        </SpTelescopeObsComp>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>Make sure polarimetry is ticked, the coronograph is selected, and the exposure time is short (1sec usually) for IMAGING ACQUISITION.  The exposure time for the actual observations is set later.
+
+A posn angle of -90 gives the default orientation for UIST imaging, i.e. N left and E up.
+This is the default angle used with ordinary imaging polarimetry.  Although any angle between -90 and +90 can be used with the coronographic mask, an angle between -90 and 0 will make imaging acquisition a little easier.  
+
+IF YOU DON'T CARE ABOUT THE ANGLE, USE -90 DEGREES !!!.</note>
+          <title>UIST component</title>
+        </SpNote>
+        <SpInstUIST type="oc" subtype="inst.UIST">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <meta_version>3</meta_version>
+          <DAConf>ND1</DAConf>
+          <DAConfMinExpT>1.0</DAConfMinExpT>
+          <arrayAngle>0.54</arrayAngle>
+          <biasDutyCycle>0.507</biasDutyCycle>
+          <biasIdlePeriod>0.0022</biasIdlePeriod>
+          <biasMustIdles>100</biasMustIdles>
+          <biasNResets>2</biasNResets>
+          <biasObsTime>9.468</biasObsTime>
+          <biasReadArea>1024x1024</biasReadArea>
+          <biasRefPixelX>512.5</biasRefPixelX>
+          <biasRefPixelY>512.5</biasRefPixelY>
+          <biasWaveform>uist_starev11</biasWaveform>
+          <camera>imaging</camera>
+          <centralWavelength>1.64</centralWavelength>
+          <chopDelay>0.0</chopDelay>
+          <chopFrequency>0.0</chopFrequency>
+          <coadds>1</coadds>
+          <configType>Normal</configType>
+          <darkFilter>black_blank</darkFilter>
+          <disperser>wollaston</disperser>
+          <dispersion>0.0</dispersion>
+          <dutyCycle>0.31847539459101387</dutyCycle>
+          <expTimeOT>1.0</expTimeOT>
+          <exposureTime>1.0</exposureTime>
+          <filter>H98</filter>
+          <filterCategory>broad</filterCategory>
+          <focus>2.63</focus>
+          <idlePeriod>0.0022</idlePeriod>
+          <imager>0.12</imager>
+          <instAper>
+            <value>27.93</value>
+            <value>-1.11</value>
+            <value>0.00</value>
+            <value>2.00</value>
+          </instAper>
+          <instPntgOffset>
+            <value>17.24</value>
+            <value>8.2076</value>
+          </instPntgOffset>
+          <instPort>South</instPort>
+          <mask>coronograph</mask>
+          <maskHeight>20.0</maskHeight>
+          <maskWidth>1024.0</maskWidth>
+          <mode>NDSTARE</mode>
+          <mustIdles>100</mustIdles>
+          <nreads>2</nreads>
+          <nresets>1</nresets>
+          <nullCycles>0</nullCycles>
+          <nullExposures>0</nullExposures>
+          <nullReads>1</nullReads>
+          <obsTimeOT>10.0</obsTimeOT>
+          <observationTime>3.1399600000000003</observationTime>
+          <order>0</order>
+          <pixelFOV>0.1205 x 0.1205</pixelFOV>
+          <pixelScale>0.12</pixelScale>
+          <polarimetry>yes</polarimetry>
+          <posAngle>-90.0</posAngle>
+          <pupil_imaging>no</pupil_imaging>
+          <readArea>1024x1024</readArea>
+          <readInterval>1.0</readInterval>
+          <readMode>NDSTARE</readMode>
+          <readout>NDSTARE</readout>
+          <readoutOT>NDSTARE 1024x1024</readoutOT>
+          <refPixelL>512.5</refPixelL>
+          <refPixelS>480.5</refPixelS>
+          <refPixelX>480.5</refPixelX>
+          <refPixelY>480.5</refPixelY>
+          <resetDelay>0.11</resetDelay>
+          <resolution>0.0</resolution>
+          <scienceArea>20.0 x 122.88 arcsec</scienceArea>
+          <source_mag>11-12</source_mag>
+          <spectralCoverage>1.490um-1.780um</spectralCoverage>
+          <waveform>uist_starev11</waveform>
+        </SpInstUIST>
+        <SpNote type="no" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <note>POL_JITTER_CORON expects an 3-point jitter at each of the four waveplate angles (0, 45, 22.5, and 67.5 degrees).   With the coronagraph the jitter positions are slight offsets along the wire.  All offset positions are observed BEFORE the waveplate is moved.
+
+N.B.: A flat field MUST be filed before this recipe is run (using a "make_skyflat..." observation).  An appropriate dark must also be obtained.</note>
+          <title>Pol recipe selection</title>
+        </SpNote>
+        <SpDRRecipe type="oc" subtype="DRRecipe">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <meta_unique>true</meta_unique>
+          <ArcInGroup>false</ArcInGroup>
+          <ArcRecipe>REDUCE_ARC</ArcRecipe>
+          <BiasInGroup>false</BiasInGroup>
+          <BiasRecipe>REDUCE_BIAS</BiasRecipe>
+          <DRRecipe>JITTER_SELF_FLAT</DRRecipe>
+          <DarkInGroup>false</DarkInGroup>
+          <DarkRecipe>REDUCE_DARK</DarkRecipe>
+          <FlatInGroup>false</FlatInGroup>
+          <FlatRecipe>REDUCE_FLAT</FlatRecipe>
+          <FocusInGroup>false</FocusInGroup>
+          <FocusRecipe>REDUCE_FOCUS</FocusRecipe>
+          <ObjectInGroup>true</ObjectInGroup>
+          <ObjectRecipe>POL_JITTER_CORON</ObjectRecipe>
+          <SkyInGroup>true</SkyInGroup>
+          <SkyRecipe>POL_JITTER_CORON</SkyRecipe>
+          <title>POL_JITTER_CORON</title>
+        </SpDRRecipe>
+        <SpIterFolder type="if" subtype="none">
+          <meta_gui_collapsed>false</meta_gui_collapsed>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>The 0,0 offset below is a trick we use to set-up imaging acquisition.  You will acquire the target at the break immediately after this "offset".</note>
+            <title>Dummy offset for acquisition</title>
+          </SpNote>
+          <SpIterOffset type="ic" subtype="offset">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <meta_gui_selectedOffsetPos>Offset0</meta_gui_selectedOffsetPos>
+            <obsArea>
+              <PA>-90.0</PA>
+              <OFFSET>
+                <DC1>0.0</DC1>
+                <DC2>0.0</DC2>
+              </OFFSET>
+            </obsArea>
+          </SpIterOffset>
+          <SpNote type="no" subtype="none">
+            <meta_gui_collapsed>false</meta_gui_collapsed>
+            <note>The first dark below is a flush; the second dark provides a frame for dark-subtraction.  It should have the same exposure time as used in the "UIST Imaging" iterator below, so in this case DON'T click on "set default"</note>
             <title>Darks</title>
           </SpNote>
           <SpIterDarkObs type="ic" subtype="darkObs">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <coadds>2</coadds>
-            <exposureTime>10.0</exposureTime>
-            <repeatCount>1</repeatCount>
+            <exposureTime>20.0</exposureTime>
+            <repeatCount>2</repeatCount>
           </SpIterDarkObs>
           <SpNote type="no" subtype="none">
             <meta_gui_collapsed>false</meta_gui_collapsed>
-            <note>Use the iterator below to set the exposure time (and coadds) needed for the actual coronographic imaging.  These will be longer than the 1 or 2 secs used for the acquisition process above. 10-20 secs are recomended for 7-9th mag point sources and moderate seeing (0.6-0.7 arcsec).</note>
+            <note>Use the iterator below to set the exposure time (and coadds) needed for the actual coronagraphic imaging.  These will be longer than the 1 or 2 secs used for the acquisition process above. 10-20 secs are recomended for 6-9th mag point sources and moderate seeing (0.6-0.7 arcsec).</note>
             <title>Uist iterator below</title>
           </SpNote>
           <SpIterUISTImaging type="ic" subtype="instUISTImaging">
             <meta_gui_collapsed>false</meta_gui_collapsed>
             <coaddsIter>2</coaddsIter>
-            <exposureTimeIter>10.0</exposureTimeIter>
+            <exposureTimeIter>20</exposureTimeIter>
             <iterConfigList>
               <value>exposureTimeIter</value>
               <value>coaddsIter</value>
@@ -6355,7 +6556,7 @@ NOTE:  If you change ANYTHING in the UIST component, open the "flat and arc " ob
         <meta_unique>true</meta_unique>
         <meta_version>3</meta_version>
         <DAConf>ND1</DAConf>
-        <DAConfMinExpT>0.81</DAConfMinExpT>
+        <DAConfMinExpT>1.0</DAConfMinExpT>
         <DAConfMinExpTime>0.81</DAConfMinExpTime>
         <arrayAngle>0.54</arrayAngle>
         <biasDutyCycle>0.507</biasDutyCycle>
@@ -7140,7 +7341,7 @@ NOTE:  If you change ANYTHING in the UIST component, open the "flat and arc " ob
         <meta_unique>true</meta_unique>
         <meta_version>3</meta_version>
         <DAConf>ND1</DAConf>
-        <DAConfMinExpT>0.81</DAConfMinExpT>
+        <DAConfMinExpT>1.0</DAConfMinExpT>
         <DAConfMinExpTime>0.81</DAConfMinExpTime>
         <arrayAngle>0.54</arrayAngle>
         <biasDutyCycle>0.507</biasDutyCycle>
