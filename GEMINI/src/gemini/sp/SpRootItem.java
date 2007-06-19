@@ -100,7 +100,7 @@ printDocument(OutputStream os)
 				File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
 				BufferedReader br = new BufferedReader( new FileReader( versionFile ) );
 				String fullVersion = br.readLine().trim() ;
-				if( fullVersion.matches( "\\d{8} \\[\\w*\\]" ) )
+				if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
 					version = fullVersion.substring( 0 , 8 ) ;				
 				System.setProperty( "ot.version" , version );
 				System.setProperty( "ot.fullversion" , fullVersion );

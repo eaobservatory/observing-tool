@@ -56,7 +56,7 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 				br = new BufferedReader( new FileReader( versionFile ) );
 				fullVersion = br.readLine().trim();
 				String version = "Unknown" ;
-				if( fullVersion.matches( "\\d{8} \\[\\w*\\]" ) )
+				if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
 					version = fullVersion.substring( 0 , 8 );
 				System.setProperty( "ot.version" , version );
 				System.setProperty( "ot.fullversion" , fullVersion );
