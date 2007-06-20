@@ -1,6 +1,4 @@
 
-// $Id$
-
 package gemini.util ;
 
 import java.io.File ;
