@@ -8,19 +8,17 @@ package jsky.app.ot;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Event;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import jsky.app.ot.gui.RichTextBoxWidgetExt;
+import gemini.util.Version ;
 
 
 public final class SplashScreen extends SplashGUI implements ActionListener {
@@ -47,27 +45,7 @@ public final class SplashScreen extends SplashGUI implements ActionListener {
 
 		// Get the updated version date...
 		BufferedReader br = null;
-		String fullVersion = System.getProperty( "ot.fullversion" );
-		if( fullVersion == null )
-		{
-			try
-			{
-				File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
-				br = new BufferedReader( new FileReader( versionFile ) );
-				fullVersion = br.readLine().trim();
-				String version = "Unknown" ;
-				if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
-					version = fullVersion.substring( 0 , 8 );
-				System.setProperty( "ot.version" , version );
-				System.setProperty( "ot.fullversion" , fullVersion );
-				br.close();
-			}
-			catch( Exception e )
-			{
-				fullVersion = "Unknown";
-				e.printStackTrace();
-			}
-		}
+		String fullVersion = Version.getInstance().getFullVersion() ;
 
 		br = null;
 		try

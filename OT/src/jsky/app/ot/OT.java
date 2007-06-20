@@ -622,27 +622,6 @@ showNews()
 	    menuFrame.setVisible(true);
 	}
 
-	String version = System.getProperty( "ot.version" ) ;
-	if( version == null  )
-	{
-		try
-		{
-			File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
-			BufferedReader br = new BufferedReader( new FileReader( versionFile ) );
-			String fullVersion = br.readLine().trim() ;
-			if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
-				version = fullVersion.substring( 0 , 8 ) ;				
-			System.setProperty( "ot.version" , version );
-			System.setProperty( "ot.fullversion" , fullVersion );
-			br.close() ;
-		}
-		catch( Exception e )
-		{
-			version = "Unknown" ;
-			e.printStackTrace();
-		}
-	}
-	
 	if( filenames != null )
 	{
 		while( filenames.size() != 0 )

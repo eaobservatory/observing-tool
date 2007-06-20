@@ -7,9 +7,7 @@
 package gemini.sp;
 
 import java.io.OutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import gemini.util.Version ;
 
 /**
  * A root of the program hierarchy.
@@ -92,25 +90,7 @@ printDocument(OutputStream os)
 
 	public void setOTVersion()
 	{
-		String version = System.getProperty( "ot.version" ) ;
-		if( version == null  )
-		{
-			try
-			{
-				File versionFile = new File( System.getProperty( "ot.cfgdir" , "ot/cfg/" ) + "versionFile" );
-				BufferedReader br = new BufferedReader( new FileReader( versionFile ) );
-				String fullVersion = br.readLine().trim() ;
-				if( fullVersion.matches( "\\d{8} \\[\\w*:?\\w*\\]" ) )
-					version = fullVersion.substring( 0 , 8 ) ;				
-				System.setProperty( "ot.version" , version );
-				System.setProperty( "ot.fullversion" , fullVersion );
-				br.close() ;
-			}
-			catch( Exception e )
-			{
-				version = "unknown" ;
-			}
-		}
+		String version = Version.getInstance().getVersion() ;
 		_avTable.set( ATTR_OT_VERSION , version );
 	}
 
