@@ -874,6 +874,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 			}
 			else if( name.equals( "show" ) )
 			{
+				checkSideband() ;
 				configureFrequencyEditor();
 				enableNamedWidgets( false );
 				_frequencyEditor.show();
@@ -1996,6 +1997,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		// Need to deal with LO1...
 		double obsFreq = _inst.getRestFrequency( 0 ) / ( 1.0 + getRedshift() );
+
 		String band = _inst.getBand();
 		if( BEST.equals( band ) || USB.equals( band ) )
 			_frequencyEditor.setLO1( obsFreq - _frequencyEditor.getTopSubSystemCentreFrequency() );
@@ -2107,7 +2109,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 
 		if( LSB.equals( sideband ) )
 		{
-			if( ( freq + _frequencyEditor.getTopSubSystemCentreFrequency() ) > _receiver.loMax )
+			if( ( freq + _inst.getCentreFrequency( 0 ) ) > _receiver.loMax )
 			{
 				JOptionPane.showMessageDialog( null , "Using upper sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
 				clickButton( _w.sbSelector , USB ) ;
@@ -2115,7 +2117,7 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		}
 		else
 		{
-			if( ( freq - _frequencyEditor.getTopSubSystemCentreFrequency() ) < _receiver.loMin )
+			if( ( freq - _inst.getCentreFrequency( 0 ) ) < _receiver.loMin )
 			{
 				JOptionPane.showMessageDialog( null , "Using lower sideband in order to reach line." , "Changing Sideband!" , JOptionPane.WARNING_MESSAGE );
 				clickButton( _w.sbSelector , LSB ) ;
