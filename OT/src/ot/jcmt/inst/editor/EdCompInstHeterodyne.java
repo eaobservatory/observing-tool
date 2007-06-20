@@ -604,7 +604,10 @@ public class EdCompInstHeterodyne extends OtItemEditor implements ActionListener
 		
 		String selectedConfig = ( String )_w.specialConfigs.getSelectedItem() ;
 		String namedConfig = _inst.getNamedConfiguration() ;
-		if( namedConfig != null && !namedConfig.equals( selectedConfig ) )
+		// if null set to first item which *should* be "None" 
+		if( namedConfig == null )
+			namedConfig = ( String )_w.specialConfigs.getItemAt( 0 ) ;
+		if( !selectedConfig.equals( namedConfig ) )
 		{
 			_w.specialConfigs.removeActionListener( this ) ;
 			_w.specialConfigs.setSelectedItem( namedConfig ) ;
