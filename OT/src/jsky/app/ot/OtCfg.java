@@ -89,33 +89,52 @@ public final class OtCfg
      * Configure the OT.  This method should be called once at startup.
      *
      */
-    public static synchronized void init() throws Exception {
-	// Only call this method once, at startup.
-	if (_otCfgInfo != null) {
-	    return;
+    public static synchronized void init() throws Exception
+	{
+		// Only call this method once, at startup.
+		if( _otCfgInfo != null )
+			return;
+
+		// Get cfg directory relative to classpath / code base.
+		StringBuffer buffer = new StringBuffer() ;
+		buffer.append( "jsky" ) ;
+		buffer.append(  File.separator ) ;
+		buffer.append( "app" ) ;
+		buffer.append(  File.separator ) ;
+		buffer.append( "ot" ) ;
+		buffer.append(  File.separator ) ;
+		buffer.append( "cfg" ) ;
+		buffer.append(  File.separator ) ;
+		String alternativePath = buffer.toString() ;
+		String baseDir = System.getProperty( "ot.resource.cfgdir" , alternativePath );
+
+		// Read the configuration information from the "ot.cfg" file.
+		buffer.delete( 0 , buffer.length() ) ;
+		buffer.append( baseDir ) ;
+		if( !baseDir.endsWith( File.separator ) )
+			buffer.append( File.separator ) ;
+		// if there is an alternative configuration file use that otherwise use the default
+		buffer.append( System.getProperty( "ot.cfg.file" , "ot.cfg" ) ) ;
+		String configurationFile = buffer.toString() ;
+		_otCfgInfo = OtCfgReader.load( configurationFile ) ;
+
+		/*
+		 * Initialize telescope specific features. Has to be done before SpTelescopePos.setBaeTag().
+		 *  _initTelescope() must be called BEFORE _initStandardSpItems().
+		 */
+		_initTelescope( _otCfgInfo );
+
+		_initStandardSpItems();
+
+		// Guide Stars
+		SpTelescopePos.setGuideStarTags( _otCfgInfo.guideTags );
+
+		// TpeImageFeature add-ons
+		_initTpeImageFeatures( _otCfgInfo );
+
+		// SpItem add-ons
+		_initSpItems( _otCfgInfo );
 	}
-
-	// Get cfg directory relative to classpath / code base.
-	String baseDir = System.getProperty("ot.resource.cfgdir", "jsky/app/ot/cfg/");
-
-	// Read the configuration information from the "ot.cfg" file.
-	_otCfgInfo = OtCfgReader.load(baseDir + "ot.cfg");
-
-        // Initialize telescope specific features. Has to be done before SpTelescopePos.setBaeTag().
-	// _initTelescope() must be called BEFORE _initStandardSpItems().
-        _initTelescope(_otCfgInfo);
-
-	_initStandardSpItems();
-
-	// Guide Stars
-	SpTelescopePos.setGuideStarTags(_otCfgInfo.guideTags);
-
-	// TpeImageFeature add-ons
-	_initTpeImageFeatures(_otCfgInfo);
-
-	// SpItem add-ons
-	_initSpItems(_otCfgInfo);
-    }
 
     public static String[] getLibraries() {
       return _otCfgInfo.libraryTags;
@@ -154,30 +173,50 @@ public final class OtCfg
     }
 
     // Added by SdW. Sept 2002
-    /**
-     * Get the location of the schema.
-     * @return  The fully qualified file name for the installed schema file
-     */
-    public static String getSchemaLocation() {
-	// See if we can use a URL version of the schema
-	//String schemaBase = _otCfgInfo.schemaBase;
-	//String schema = "http://www.jach.hawaii.edu/JACpublic/JAC/software/omp/schema/"+schemaBase;
-	String schema = _otCfgInfo.schemaLocation + "/" + _otCfgInfo.schemaBase;
-	try {
-	    URL url = new URL (schema);
-	    url.getContent();
+	/**
+	 * Get the location of the schema.
+	 * @return  The fully qualified file name for the installed schema file
+	 */
+	public static String getSchemaLocation()
+	{
+		/*
+		 *  See if we can use a URL version of the schema
+		 *  schemaBase = _otCfgInfo.schemaBase
+		 *  schema = "http://www.jach.hawaii.edu/JACpublic/JAC/software/omp/schema/" + schemaBase
+		 */
+		StringBuffer buffer = new StringBuffer() ;
+		buffer.append( _otCfgInfo.schemaLocation ) ;
+		buffer.append( File.separator ) ;
+		buffer.append( _otCfgInfo.schemaBase ) ;
+		String schema = buffer.toString() ;
+		try
+		{
+			URL url = new URL( schema );
+			url.getContent();
+		}
+		catch( Exception e )
+		{
+			System.out.println( "No web connection available or file moved from server" );
+			System.out.println( "Trying local version..." );
+			buffer.delete( 0 , buffer.length() ) ;
+			buffer.append( System.getProperty( "ot.cfgdir" ) ) ;
+			buffer.append( File.separator ) ;
+			buffer.append( ".." ) ;
+			buffer.append( File.separator ) ;
+			buffer.append( "schema" ) ;
+			buffer.append( File.separator ) ;
+			buffer.append( "TOML" ) ;
+			buffer.append( File.separator ) ;
+			buffer.append( "JAC" ) ;
+			buffer.append( File.separator ) ;
+			buffer.append( _otCfgInfo.schemaBase ) ;
+			schema = buffer.toString() ;
+			File file = new File( schema );
+			if( !file.exists() )
+				schema = null;
+		}
+		return schema;
 	}
-	catch (Exception e) {
-	    System.out.println("No web connection available or file moved from server");
-	    System.out.println("Trying local version...");
-	    schema = System.getProperty("ot.cfgdir") + "/../schema/TOML/JAC/" + _otCfgInfo.schemaBase;
-	    File file = new File (schema);
-	    if ( !file.exists()) {
-		schema = null;
-	    }
-	}
-	return schema;
-    }
 
     public static String getSchemaURL() {
 	return _otCfgInfo.schemaLocation;
