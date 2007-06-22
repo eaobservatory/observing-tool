@@ -173,7 +173,7 @@ public SpIterStareObs()
     	_avTable.noNotifyRm( ATTR_ARRAY_CENTRED ) ;
     }
     
-    public void setSeperateOffs( boolean enable )
+    public void setSeparateOffs( boolean enable )
     {
     	_avTable.set( SEPARATE_OFFS , enable ) ;
     }

@@ -152,7 +152,7 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
 		else if( cbwe == super._w.arrayCentred )
 			( ( SpIterStareObs )_iterObs).setArrayCentred( super._w.arrayCentred.isSelected() ) ;
 		else if( cbwe == super._w.separateOffs )
-			( ( SpIterStareObs )_iterObs).setSeperateOffs( super._w.separateOffs.isSelected() ) ;
+			( ( SpIterStareObs )_iterObs).setSeparateOffs( super._w.separateOffs.isSelected() ) ;
 		super.checkBoxAction( cbwe );
 	}
     

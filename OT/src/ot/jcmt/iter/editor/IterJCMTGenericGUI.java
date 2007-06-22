@@ -115,7 +115,7 @@ public class IterJCMTGenericGUI extends JPanel {
 		
 		separateOffsLabel.setFont( new java.awt.Font( "Dialog" , 0 , 12 ) );
 		separateOffsLabel.setForeground( Color.black );
-		separateOffsLabel.setText( "Seperate Offs" );
+		separateOffsLabel.setText( "Separate Offs" );
 		
 		separateOffsPanel.setLayout(  new GridLayout( 1 , 2 ) ) ;
 		separateOffsPanel.add( separateOffsLabel ) ;

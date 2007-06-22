@@ -121,7 +121,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		
 		_w.scaleFactor.setEnabled( !isHarp() ) ;
 		
-		super._w.separateOffs.setSelected( _iterObs.hasSeperateOffs() ) ;
+		super._w.separateOffs.setSelected( _iterObs.hasSeparateOffs() ) ;
 
 		super._updateWidgets();
 	}
@@ -182,7 +182,7 @@ public final class EdIterJiggleObs extends EdIterJCMTGeneric implements CommandB
 		if( cbwe == _w.contModeCB )
 			_iterObs.setContinuumMode( _w.contModeCB.isSelected() );
 		else if( cbwe == super._w.separateOffs )
-			_iterObs.setSeperateOffs( super._w.separateOffs.isSelected() ) ;
+			_iterObs.setSeparateOffs( super._w.separateOffs.isSelected() ) ;
 
 		super.checkBoxAction( cbwe );
 	}
