@@ -79,13 +79,13 @@ public final class EdIterStareObs extends EdIterJCMTGeneric implements ActionLis
     				_iterStareObs.rmArrayCentred() ;
     		}
     		
-			boolean seperateOffsCriteria = SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) ;
-			super._w.separateOffsLabel.setVisible( seperateOffsCriteria ) ;
-			super._w.separateOffs.setVisible( seperateOffsCriteria ) ;
-			if( seperateOffsCriteria )
-				super._w.separateOffs.setSelected( _iterStareObs.hasSeperateOffs() ) ;
+			boolean separateOffsCriteria = SWITCHING_MODE_POSITION.equals( _iterStareObs.getSwitchingMode() ) ;
+			super._w.separateOffsLabel.setVisible( separateOffsCriteria ) ;
+			super._w.separateOffs.setVisible( separateOffsCriteria ) ;
+			if( separateOffsCriteria )
+				super._w.separateOffs.setSelected( _iterStareObs.hasSeparateOffs() ) ;
 			else
-				_iterStareObs.rmSeperateOffs() ;
+				_iterStareObs.rmSeparateOffs() ;
     		
     		_w.integrationTime.setText( "" + _iterObs.getSampleTime() ) ;
     		_w.secsPerCycle.setText( "" + _iterObs.getSecsPerCycle() ) ;

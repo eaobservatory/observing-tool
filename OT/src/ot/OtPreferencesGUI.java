@@ -87,7 +87,7 @@ public class OtPreferencesGUI extends JPanel {
     proxyLabel2.setText("Port:");
     proxyTextArea2.setBackground(new Color(204, 204, 204));
     proxyTextArea2.setEditable(false);
-    proxyTextArea2.setText("The value below can be a list of hosts, each seperated by a |. " +
+    proxyTextArea2.setText("The value below can be a list of hosts, each separated by a |. " +
 		       "In addition, a wildcard character (*) can be used for matching. For " +
 		       "example: *.foo.com|localhost :");
     proxyTextArea2.setLineWrap(true);

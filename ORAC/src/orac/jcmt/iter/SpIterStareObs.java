@@ -178,12 +178,12 @@ public SpIterStareObs()
     	_avTable.set( SEPARATE_OFFS , enable ) ;
     }
     
-    public boolean hasSeperateOffs()
+    public boolean hasSeparateOffs()
     {
     	return _avTable.getBool( SEPARATE_OFFS ) ;
     }
     
-    public void rmSeperateOffs()
+    public void rmSeparateOffs()
     {
     	_avTable.noNotifyRm( SEPARATE_OFFS ) ;
     }
