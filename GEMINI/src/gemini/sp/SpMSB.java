@@ -274,52 +274,58 @@ public double getTotalTime()
   return elapsedTime;
 }
 
-/**
- * Calculates the duration of this MSB.
- *
- * Note that this method does <B>not</B> return ATTR_ELAPSED_TIME.
- * The return value is re-calculated whenever the method is called.
- * This method does not include times for calibration and optional
- * observations
- */
-public double getElapsedTime()
-{
-  double elapsedTime = 0.0;
-  Enumeration children = children();
-  SpItem spItem = null;
+	/**
+	 * Calculates the duration of this MSB.
+	 *
+	 * Note that this method does <B>not</B> return ATTR_ELAPSED_TIME.
+	 * The return value is re-calculated whenever the method is called.
+	 * This method does not include times for calibration and optional
+	 * observations
+	 */
 
-  while(children.hasMoreElements()) {
-    spItem = (SpItem)children.nextElement();
+	protected static boolean isUKIRT = false ;
+	protected static boolean cachedTelescope = false ;
 
-    if(spItem instanceof SpObs) {
-	if ( !(((SpObs)spItem).isOptional()) ) {
-	    elapsedTime += ((SpObs)spItem).getElapsedTime();
+	public double getElapsedTime()
+	{
+		double elapsedTime = 0.0;
+		Enumeration children = children();
+		SpItem spItem = null;
+
+		if( !cachedTelescope )
+		{
+			isUKIRT = "UKIRT".equalsIgnoreCase( System.getProperty( "TELESCOPE" ) ) ;
+			cachedTelescope = true ;
+		}
+		
+		while (children.hasMoreElements())
+		{
+			spItem = ( SpItem )children.nextElement();
+
+			if( spItem instanceof SpObs && ( !( ( ( SpObs )spItem ).isOptional() ) || isUKIRT ) )
+					elapsedTime += ( ( SpObs )spItem ).getElapsedTime();
+			else if( spItem instanceof SpSurveyContainer )
+				elapsedTime += ( ( SpSurveyContainer )spItem ).getElapsedTime();
+		}
+
+		SpInstObsComp spInstObsComp = SpTreeMan.findInstrument( this );
+
+		/*
+		 * The targetCount is set assuming that there is either a target list
+		 * or a survey component in the scope but not both.
+		 */
+		int targetCount = 1;
+
+		SpSurveyObsComp surveyObsComp = SpTreeMan.findSurveyComp( this );
+
+		if( surveyObsComp != null )
+			targetCount = surveyObsComp.size();
+
+		if( spInstObsComp != null )
+			return ( elapsedTime + spInstObsComp.getSlewTime() ) * targetCount;
+		else
+			return elapsedTime * targetCount;
 	}
-    }
-    else if ( spItem instanceof SpSurveyContainer ) {
-        elapsedTime += ((SpSurveyContainer)spItem).getElapsedTime();
-    }
-  }
-
-  SpInstObsComp spInstObsComp = SpTreeMan.findInstrument(this);
-
-  // The targetCount is set assuming that there is either a target list
-  // or a survey component in the scope but not both.
-  int targetCount = 1;
-
-  SpSurveyObsComp surveyObsComp = SpTreeMan.findSurveyComp(this);
-
-  if(surveyObsComp != null) {
-    targetCount = surveyObsComp.size();
-  }
-
-  if(spInstObsComp != null) {
-    return (elapsedTime + spInstObsComp.getSlewTime()) * targetCount;
-  }
-  else {
-    return elapsedTime * targetCount;
-  }  
-}
 
 /**
  * Sets the ATTR_TOTAL_TIME attribute.
