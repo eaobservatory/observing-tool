@@ -1297,57 +1297,57 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 	super.processXmlElementContent(name, value);
     }
 
-    public Hashtable getConfigItems() {
-        Hashtable t = new Hashtable();
+    public Hashtable getConfigItems()
+	{
+		Hashtable t = new Hashtable();
 
-        t.put("instrument", "CGS4");
-        t.put("version", "TBD");
-        t.put("name", "TBD");
-        t.put("readMode", getMode());
-        t.put("expTime", ""+getExpTime());
-        t.put("objNumExp", ""+getCoadds());
-        t.put("savedInt", "1");
-        t.put("filter", getFilter());
-        t.put("neutralDensity", Boolean.toString(getNdFilter()));
-        t.put("sampling", getSampling());
-        t.put("posAngle", getPosAngleDegreesStr());
-        t.put("slitWidth", ""+getMaskWidth());
-        t.put("disperser", getDisperser());
-        t.put("polariser", getPolariser());
-        t.put("centralWavelength", ""+getCentralWavelength());
-        t.put("order", "" + getOrder());
-        t.put("cvfWavelength", ""+getCvfOffset());
-        t.put("calibLamp", "off");
-        t.put("tunHalLevel", "97");
-        t.put("lampEffAp", "10");
-        t.put("flatSampling", "1x1");
-        t.put( "flatCalLamp", "1.3" );
-        t.put("flatReadMode", getMode());
-        t.put("flatFilter", getFilter());
-        t.put("flatExpTime", ""+getExpTime());
-        t.put("flatNeutralDensity", Boolean.toString(getNdFilter()));
-        t.put("flatSavedInt", "1");
-        t.put("flatNumExp", ""+getCoadds());
-        t.put("darkNumExp", ""+getCoadds());
-        t.put("darkSavedInt", "1");
-        t.put("biasExpTime", ""+getExpTime());
-        t.put("biasNumExp", ""+getCoadds());
-        t.put("biasSavedInt", "3");
-        t.put("arcCalLamp", "argon");
-        t.put("arcFilter", getFilter());
-        t.put("arcCvfWavelength", ""+getCvfOffset());
-        t.put("arcExpTime", ""+getExpTime());
-        t.put("arcNumExp", ""+getCoadds());
-        t.put("arcReadMode", getMode());
-        t.put("arcSavedInt", "1");
-        setInstAper();
-        t.put("instAperX", ""+getInstApX());
-        t.put("instAperY", ""+getInstApY());
-        t.put("instAperZ", ""+getInstApZ());
-        t.put("instAperL", ""+getInstApL());
+		t.put( "instrument" , "CGS4" );
+		t.put( "version" , "TBD" );
+		t.put( "name" , "TBD" );
+		t.put( "readMode" , getMode() );
+		t.put( "expTime" , "" + getExpTime() );
+		t.put( "objNumExp" , "" + getCoadds() );
+		t.put( "savedInt" , "1" );
+		t.put( "filter" , getFilter() );
+		t.put( "neutralDensity" , Boolean.toString( getNdFilter() ) );
+		t.put( "sampling" , getSampling() );
+		t.put( "posAngle" , getPosAngleDegreesStr() );
+		t.put( "slitWidth" , "" + getMaskWidth() );
+		t.put( "disperser" , getDisperser() );
+		t.put( "polariser" , getPolariser() );
+		t.put( "order" , "" + getOrder() );
+		t.put( "cvfWavelength" , "" + getCvfOffset() );
+		t.put( "calibLamp" , "off" );
+		t.put( "tunHalLevel" , "97" );
+		t.put( "lampEffAp" , "10" );
+		t.put( "flatSampling" , "1x1" );
+		t.put( "flatCalLamp" , "1.3" );
+		t.put( "flatReadMode" , getMode() );
+		t.put( "flatFilter" , getFilter() );
+		t.put( "flatExpTime" , "" + getExpTime() );
+		t.put( "flatNeutralDensity" , Boolean.toString( getNdFilter() ) );
+		t.put( "flatSavedInt" , "1" );
+		t.put( "flatNumExp" , "" + getCoadds() );
+		t.put( "darkNumExp" , "" + getCoadds() );
+		t.put( "darkSavedInt" , "1" );
+		t.put( "biasExpTime" , "" + getExpTime() );
+		t.put( "biasNumExp" , "" + getCoadds() );
+		t.put( "biasSavedInt" , "3" );
+		t.put( "arcCalLamp" , "argon" );
+		t.put( "arcFilter" , getFilter() );
+		t.put( "arcCvfWavelength" , "" + getCvfOffset() );
+		t.put( "arcExpTime" , "" + getExpTime() );
+		t.put( "arcNumExp" , "" + getCoadds() );
+		t.put( "arcReadMode" , getMode() );
+		t.put( "arcSavedInt" , "1" );
+		setInstAper();
+		t.put( "instAperX" , "" + getInstApX() );
+		t.put( "instAperY" , "" + getInstApY() );
+		t.put( "instAperZ" , "" + getInstApZ() );
+		t.put( "instAperL" , "" + getInstApL() );
 
-        return t;
-    }
+		return t;
+	}
 
 
   /**
