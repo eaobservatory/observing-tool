@@ -111,36 +111,20 @@ setConfigStep(String attribute, String value, int index)
 }
 
 
-/**
- * Get the array containing the IterConfigItems offered by CGS4.
- */
-public IterConfigItem[]
-getAvailableItems()
-{
+	/**
+	 * Get the array containing the IterConfigItems offered by CGS4.
+	 */
+	public IterConfigItem[] getAvailableItems()
+	{
 
-   IterConfigItem iciMode = new IterConfigItem(
-	"Mode",
-	SpInstCGS4.ATTR_MODE + "Iter",
-	SpInstCGS4.MODES);
+		IterConfigItem iciMode = new IterConfigItem( "Mode" , SpInstCGS4.ATTR_MODE + "Iter" , SpInstCGS4.MODES );
 
-   IterConfigItem iciCentWavelength = new IterConfigItem(
-	"Central Wavelen.",
-	SpInstCGS4.ATTR_CENTRAL_WAVELENGTH + "Iter",
-	null);
+		iciInstAperL = new IterConfigItem( "InstAperL" , SpInstCGS4.ATTR_INSTRUMENT_APER + "LIter" , null );
 
-   iciInstAperL = new IterConfigItem(
-	"InstAperL",
-	SpInstCGS4.ATTR_INSTRUMENT_APER + "LIter",
-	null);
- 
-   IterConfigItem[] iciA = {
-	iciMode,
-        getExposureTimeConfigItem(), getCoaddsConfigItem(),
-	iciCentWavelength, iciInstAperL
-   };
+		IterConfigItem[] iciA = { iciMode , getExposureTimeConfigItem() , getCoaddsConfigItem() , iciInstAperL };
 
-   return iciA;
-}
+		return iciA;
+	}
 
 public void translate( Vector v ) throws SpTranslationNotSupportedException{
     // Make sure we have a valid instrument
