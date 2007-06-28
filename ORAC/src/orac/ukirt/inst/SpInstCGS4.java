@@ -1315,6 +1315,7 @@ public final class SpInstCGS4 extends SpUKIRTInstObsComp
 		t.put( "slitWidth" , "" + getMaskWidth() );
 		t.put( "disperser" , getDisperser() );
 		t.put( "polariser" , getPolariser() );
+		t.put( "centralWavelength" , "" + getCentralWavelength() );
 		t.put( "order" , "" + getOrder() );
 		t.put( "cvfWavelength" , "" + getCvfOffset() );
 		t.put( "calibLamp" , "off" );
