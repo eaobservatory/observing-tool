@@ -167,6 +167,11 @@
     <xsd:element ref="toml:SpObs"/>
     <xsd:element ref="toml:SpNote"/>
     <xsd:element ref="toml:SpAND"/>
+    <xsd:element ref="toml:SpSiteQualityObsComp"/>
+    <xsd:element ref="toml:SpTelescopeObsComp"/>
+    <xsd:element ref="toml:SpSchedConstObsComp"/>
+    <xsd:group   ref="toml:instrumentGroup"/>
+    <xsd:element ref="toml:SpDRRecipe"/>
   </xsd:choice>
 </xsd:group>
 
