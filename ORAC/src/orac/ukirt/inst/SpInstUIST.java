@@ -2677,54 +2677,55 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 
 
     /**
-     * Set the minimum exposure time for the DAConf
-     */
-    public void
-    setDAConfMinExpT(String daconf)
-    {
-        LookUpTable RBig;
-        if (isImaging()) {
-            RBig = READOUTS_IM;
-	} else if (isIFU()) {
-            RBig = READOUTS_IFU;
-	} else {
-            RBig = READOUTS_SPEC;
+	 * Set the minimum exposure time for the DAConf
+	 */
+	public void setDAConfMinExpT( String daconf )
+	{
+		LookUpTable RBig;
+		if( isImaging() )
+			RBig = READOUTS_IM;
+		else if( isIFU() )
+			RBig = READOUTS_IFU;
+		else
+			RBig = READOUTS_SPEC;
+
+		// Find corresponding row in MODES lut
+		int ri = RBig.indexInColumn( daconf , 2 );
+
+		double et = Double.valueOf(( String )RBig.elementAt( ri , 0 )).doubleValue();
+
+		_avTable.set( ATTR_DACONF_MINEXPT , et );
 	}
-
-        // Find corresponding row in MODES lut
-        int ri = RBig.indexInColumn(daconf,2);
-
-        double et = Double.valueOf((String)RBig.elementAt(ri,0)).doubleValue();
-
-        _avTable.set(ATTR_DACONF_MINEXPT, et);
-    }
 
 
     /**
-     * Update the read mode
-     */
-    public void
-    updateReadMode()
-    {
-        String readMode = getReadMode();
-        double et = getExpTimeOT();
-        LookUpTable R = getReadoutLUT(et);
-        boolean currentModeOk = false;
-        for (int i = 0; i < R.getNumRows(); i++) {
-            String DAConf = (String)R.elementAt(i,2);
-            int ri = MODES_OT.indexInColumn(DAConf,0);
-            String mode = (String)MODES_OT.elementAt(ri,1);
-            if (readMode.equalsIgnoreCase(mode)) {
-                currentModeOk = true;
-            }
-        }
-        if (!currentModeOk) {
-            String DAConf = (String)R.elementAt(0,2);
-            int ri = MODES_OT.indexInColumn(DAConf,0);
-            readMode = (String)MODES_OT.elementAt(ri,1);
-        }
-        setReadMode(readMode);
-    }
+	 * Update the read mode
+	 */
+	public void updateReadMode()
+	{
+		String readMode = getReadMode();
+		double et = getExpTimeOT();
+		LookUpTable R = getReadoutLUT( et );
+		boolean currentModeOk = false;
+		for( int i = 0 ; i < R.getNumRows() ; i++ )
+		{
+			String DAConf = ( String )R.elementAt( i , 2 );
+			int ri = MODES_OT.indexInColumn( DAConf , 0 );
+			String mode = ( String )MODES_OT.elementAt( ri , 1 );
+			if( readMode.equalsIgnoreCase( mode ) )
+			{
+				currentModeOk = true;
+				break ;
+			}
+		}
+		if( !currentModeOk )
+		{
+			String DAConf = ( String )R.elementAt( 0 , 2 );
+			int ri = MODES_OT.indexInColumn( DAConf , 0 );
+			readMode = ( String )MODES_OT.elementAt( ri , 1 );
+		}
+		setReadMode( readMode );
+	}
 
     /**
      * Set the read mode
@@ -3360,24 +3361,24 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
     /**
 	 * Adjust exposure time OT as required
 	 */
-    public double
-    limitExpTimeOT(double et)
-    {
-        double let = et;
-        double minet;
-        if (let > TEXPMAX) let = TEXPMAX;
-        if (isImaging()) {
-            minet = EXPTIME_MIN_IM;
-	} else if (isIFU()) {
-            minet = EXPTIME_MIN_IFU;
-	} else {
-            minet = EXPTIME_MIN_SPEC;
+	public double limitExpTimeOT( double et )
+	{
+		double let = et;
+		double minet;
+		if( let > TEXPMAX )
+			let = TEXPMAX;
+		if( isImaging() )
+			minet = EXPTIME_MIN_IM;
+		else if( isIFU() )
+			minet = EXPTIME_MIN_IFU;
+		else
+			minet = EXPTIME_MIN_SPEC;
+		if( let < minet )
+			let = minet;
+		// Round to 8 figures
+		let = MathUtil.round( let , 8 );
+		return let;
 	}
-        if (let < minet) let = minet;
-        // Round to 8 figures
-        let = MathUtil.round(let,8);
-        return let;
-    }
 
     /**
      * Get the default exposure time
@@ -3492,9 +3493,7 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			int rows = Integer.valueOf( ( String ) MODES_OT.elementAt( ri , 3 ) ).intValue();
 			int cols = Integer.valueOf( ( String ) MODES_OT.elementAt( ri , 4 ) ).intValue();
 			if( readMode.equalsIgnoreCase( mode ) && ra[ 0 ] == rows && ra[ 1 ] == cols )
-			{
 				return DAConf;
-			}
 		}
 		return null;
 	}
@@ -3551,87 +3550,97 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 	 * Update the daconf for the given obsType
 	 */
 
-    // New version of updateDAConf added by RDK 
-    public void
-    updateDAConf(String obsType)
-    {
-        int ri; /* lookup row number */
-        W_chopFrequency = "0.0";
-        String daconf = null;
-        double expTime = 0.0;
+	// New version of updateDAConf added by RDK 
+	public void updateDAConf( String obsType )
+	{
+		int ri; /* lookup row number */
+		W_chopFrequency = "0.0";
+		String daconf = null;
+		double expTime = 0.0;
 
-        // Get appropriate exposure and observation times for this obsType
-        if (obsType.equalsIgnoreCase("OBJECT")) {
-            expTime = getExpTimeOT();
-            // Limit this to the allowed range
-            expTime = limitExpTimeOT(expTime);
-            //Get the number of coadds
-            W_coadds = getStareCapability().getCoadds();
-	} else if (obsType.equalsIgnoreCase("DARK")) {
-            // Exposure time must be same as for object
-            expTime = getExpTimeOT();
-            // Limit this to the allowed range
-            expTime = limitExpTimeOT(expTime);
-	} else if (obsType.equalsIgnoreCase("FLAT")) {
-            expTime = getFlatExpTime();
-// Added by RDK
-            //Get the number of coadds
-            W_coadds = getFlatCoadds();
-// End of added by RDK
-	} else if (obsType.equalsIgnoreCase("ARC")) {
-            expTime = getArcExpTime();
-// Added by RDK
-            //Get the number of coadds
-            W_coadds = getArcCoadds();
-// End of added by RDK
+		// Get appropriate exposure and observation times for this obsType
+		if( obsType.equalsIgnoreCase( "OBJECT" ) )
+		{
+			expTime = getExpTimeOT();
+			// Limit this to the allowed range
+			expTime = limitExpTimeOT( expTime );
+			//Get the number of coadds
+			W_coadds = getStareCapability().getCoadds();
+		}
+		else if( obsType.equalsIgnoreCase( "DARK" ) )
+		{
+			// Exposure time must be same as for object
+			expTime = getExpTimeOT();
+			// Limit this to the allowed range
+			expTime = limitExpTimeOT( expTime );
+		}
+		else if( obsType.equalsIgnoreCase( "FLAT" ) )
+		{
+			expTime = getFlatExpTime();
+			// Added by RDK
+			//Get the number of coadds
+			W_coadds = getFlatCoadds();
+			// End of added by RDK
+		}
+		else if( obsType.equalsIgnoreCase( "ARC" ) )
+		{
+			expTime = getArcExpTime();
+			// Added by RDK
+			//Get the number of coadds
+			W_coadds = getArcCoadds();
+			// End of added by RDK
+		}
+
+		// Perform DACONFS lookup
+		daconf = getDAConf( expTime );
+		if( daconf == null )
+		{
+			System.out.println( "Unexpected error: getDAConf returned null" );
+			return;
+		}
+
+		setDAConf( daconf );
+		setDAConfMinExpT( daconf );
+
+		// Find corresponding row in MODES lut
+		ri = MODES_OT.indexInColumn( daconf , 0 );
+
+		// Get the readout mode
+		W_mode = getReadMode();
+
+		// Deterimine if the readout mode is an ND mode
+		boolean ifND = W_mode.equalsIgnoreCase( "NDSTARE" ) || W_mode.equalsIgnoreCase( "THERMAL ND" );
+
+		// Get the readout interval
+		W_readInterval = Double.valueOf( ( String )MODES_OT.elementAt( ri , 5 ) ).doubleValue();
+
+		// Get the observation overhead
+		double obsOverhead = Double.valueOf( ( String )MODES_OT.elementAt( ri , 6 ) ).doubleValue();
+
+		// Get the readout overhead
+		double readoutOverhead = Double.valueOf( ( String )MODES_OT.elementAt( ri , 7 ) ).doubleValue();
+
+		// Compute actual exposure time
+		if( ifND )
+		{
+			// Compute number of reads in the exposure time (Minimum of 2)
+			W_nreads = ( int )Math.round( expTime / W_readInterval ) + 1;
+			if( W_nreads < 2 )
+				W_nreads = 2;
+			W_actExpTime = ( W_nreads - 1 ) * W_readInterval;
+		}
+		else
+		{
+			W_actExpTime = expTime;
+		}
+
+		// Compute the observation time
+		W_obsTime = obsOverhead + ( readoutOverhead + W_actExpTime ) * W_coadds;
+
+		// Compute duty cycle
+		double totalExposure = W_actExpTime * W_coadds;
+		W_dutyCycle = totalExposure / W_obsTime;
 	}
-
-        // Perform DACONFS lookup
-        daconf = getDAConf(expTime);
-        if (daconf == null) {
-            System.out.println("Unexpected error: getDAConf returned null");
-            return;
-        }
-
-        setDAConf(daconf);
-        setDAConfMinExpT(daconf);
-
-        // Find corresponding row in MODES lut
-        ri = MODES_OT.indexInColumn(daconf,0);
-
-        // Get the readout mode
-        W_mode = getReadout();
-
-        // Deterimine if the readout mode is an ND mode
-        boolean ifND = W_mode.equalsIgnoreCase("NDSTARE")
-            || W_mode.equalsIgnoreCase("NDCHOP");
-
-        // Get the readout interval
-        W_readInterval =  Double.valueOf((String)MODES_OT.elementAt(ri, 5)).doubleValue();
-
-        // Get the observation overhead
-        double obsOverhead =  Double.valueOf((String)MODES_OT.elementAt(ri, 6)).doubleValue();
-
-        // Get the readout overhead
-        double readoutOverhead =  Double.valueOf((String)MODES_OT.elementAt(ri, 7)).doubleValue();
-
-        // Compute actual exposure time
-        if (ifND) {
-            // Compute number of reads in the exposure time (Minimum of 2)
-            W_nreads = (int) Math.round(expTime/W_readInterval) + 1;
-            if (W_nreads < 2) W_nreads = 2;
-            W_actExpTime = (W_nreads - 1) * W_readInterval;
-        } else {
-            W_actExpTime = expTime;
-        }
-
-        // Compute the observation time
-        W_obsTime = obsOverhead + (readoutOverhead + W_actExpTime) * W_coadds;
-
-        // Compute duty cycle
-        double totalExposure = W_actExpTime * W_coadds;
-        W_dutyCycle = totalExposure/W_obsTime;
-}
 
     public double getExposureOverhead() {
 	double overhead = 0.0;
@@ -3702,14 +3711,15 @@ public final class SpInstUIST extends SpUKIRTInstObsComp
 			String DAConf = ( String ) R.elementAt( i , 2 );
 			int ri = MODES_OT.indexInColumn( DAConf , 0 );
 			String mode = ( String ) MODES_OT.elementAt( ri , 1 );
-			ra[ 0 ] = Integer.valueOf( ( String ) MODES_OT.elementAt( ri , 3 ) ).intValue();
-			ra[ 1 ] = Integer.valueOf( ( String ) MODES_OT.elementAt( ri , 4 ) ).intValue();
+			ra[ 0 ] = Integer.valueOf(( String )MODES_OT.elementAt( ri , 3 )).intValue();
+			ra[ 1 ] = Integer.valueOf(( String )MODES_OT.elementAt( ri , 4 )).intValue();
 			int areaDiff = Math.abs( ra[ 0 ] * ra[ 1 ] - readArea );
 			if( readMode.equalsIgnoreCase( mode ) && areaDiff < minAreaDiff )
 			{
 				minAreaDiff = areaDiff;
 				raSave[ 0 ] = ra[ 0 ];
 				raSave[ 1 ] = ra[ 1 ];
+				break ;
 			}
 		}
 		setReadArea( Integer.toString( raSave[ 0 ] ) , Integer.toString( raSave[ 1 ] ) );
