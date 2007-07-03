@@ -213,6 +213,8 @@
     <xsd:enumeration value="STARE"/>
     <xsd:enumeration value="THERMAL ND"/>
     <xsd:enumeration value="CDS"/>
+    <xsd:enumeration value="THERMAL CDS"/>
+    <xsd:enumeration value="IRPOL CDS"/>
   </xsd:restriction>
 </xsd:simpleType>
 
