@@ -125,38 +125,58 @@ public class HeterodyneNoise {
 		{
 			// There is a match, now extract the appropriate tree map
 			TreeMap thisMap = ( TreeMap )trxValues.elementAt( index );
-			int nextTrxFrequency = 0;
-			int lastTrxFrequency = 0;
 			if( thisMap.size() > 1 )
 			{
-				// We are going to do a linear interpolation between the
-				// surrounding frequency values, so we need to find the
-				// values at the appropriate keys
-				Iterator iter = ( ( Set ) thisMap.keySet() ).iterator();
-				while( iter.hasNext() )
+				// first make sure it is within range or short cicuit now
+				Integer nextTrxInteger = ( Integer )thisMap.firstKey() ;
+				double nextTrxFrequency = nextTrxInteger.doubleValue() ;
+				if( freq < nextTrxFrequency )
+					trx = (( Integer )thisMap.get( nextTrxInteger )).doubleValue() ;
+				
+				Integer lastTrxInteger = ( Integer )thisMap.lastKey() ;
+				double lastTrxFrequency = lastTrxInteger.doubleValue() ;
+				if( freq > lastTrxFrequency )
+					trx = (( Integer )thisMap.get( lastTrxInteger )).doubleValue() ;
+				
+				if( trx == 0 )
 				{
-					int trxFrequency = ( ( Integer ) iter.next() ).intValue();
-					lastTrxFrequency = nextTrxFrequency;
-					nextTrxFrequency = trxFrequency;
-					if( freq < nextTrxFrequency && freq >= lastTrxFrequency )
-						break; // We have the info we need
-				}
-				try
-				{
-					// Now get the corresponding Trx values
-					int lastTrxValue = ( ( Integer ) thisMap.get( new Integer( lastTrxFrequency ) ) ).intValue();
-					int nextTrxValue = ( ( Integer ) thisMap.get( new Integer( nextTrxFrequency ) ) ).intValue();
-					// Now interpolate...
-					trx = linterp( lastTrxFrequency , lastTrxValue , nextTrxFrequency , nextTrxValue , freq );
-				}
-				catch( NullPointerException npe )
-				{
-					throw new RuntimeException( "Heterodyne not initialised" ) ;
+					/*
+					 * We are going to do a linear interpolation between the
+					 * surrounding frequency values, so we need to find the
+					 * values at the appropriate keys
+					 */
+					Set set = thisMap.keySet() ;
+					Iterator iter = set.iterator();
+					while( iter.hasNext() )
+					{
+
+						lastTrxInteger = nextTrxInteger ;
+						nextTrxInteger = ( Integer )iter.next() ;
+						nextTrxFrequency = nextTrxInteger.doubleValue() ;
+						lastTrxFrequency = lastTrxInteger.doubleValue() ;
+						if( freq < nextTrxFrequency && freq >= lastTrxFrequency )
+							break; // We have the info we need
+					}
+					
+					try
+					{
+						// Now get the corresponding Trx values
+						lastTrxInteger = ( Integer )thisMap.get( lastTrxInteger ) ;
+						double lastTrxValue = lastTrxInteger.doubleValue() ;
+						nextTrxInteger = ( Integer )thisMap.get( nextTrxInteger ) ;
+						double nextTrxValue = nextTrxInteger.doubleValue() ;
+						// Now interpolate...
+						trx = linterp( lastTrxFrequency , lastTrxValue , nextTrxFrequency , nextTrxValue , freq );
+					}
+					catch( NullPointerException npe )
+					{
+						throw new RuntimeException( "Heterodyne not initialised" ) ;
+					}
 				}
 			}
 			else
 			{
-				trx = ( ( Integer ) thisMap.get( thisMap.firstKey() ) ).intValue();
+				trx = ( ( Integer )thisMap.get( thisMap.firstKey() ) ).intValue();
 			}
 		}
 		return trx;
