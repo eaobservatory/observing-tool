@@ -1132,4 +1132,7 @@ the end of the transition name - it makes the display nicer.
     <transition name="3  - 2 " frequency="261263.3101"/>
     <transition name="4  - 3 " frequency="348340.2695"/>
   </species>
+  <species name = "N2D+">
+    <transition name="3  - 2 " frequency="231321.6650"/>
+  </species>
 </LineCatalog>
