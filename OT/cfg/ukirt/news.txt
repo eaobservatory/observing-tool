@@ -13,6 +13,10 @@ ukirtot@jach.hawaii.edu
 OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
++++ July 2007
+
+  - Minor fixes for UIST and UFTI.
+
 +++ April 2007
 
   - New filter for UFTI, Y_MK.
