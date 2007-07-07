@@ -1060,12 +1060,15 @@ public class EdCompTargetList extends OtItemEditor
 			ra = raDec.ra ;
 			dec = raDec.dec ;
 		}
+		else
+		{
+			// Cannot do the conversion
+			ra = 0. ;
+			dec = 0. ;
+		}
 		
 		_curPos.setCoordSys( sysInt );
-		if( raDec == null )
-			_curPos.setXY( 0. , 0. ) ;
-		else
-			_curPos.setXY( ra , dec ) ;
+		_curPos.setXY( ra , dec ) ;
 
 		showPos( _curPos );
 	}
