@@ -25,17 +25,27 @@ public class CoordSys
 	public static final int GAL = 3;
 
 	public static final int HADEC = 4;
+	
+	public static final String FK5_STRING = "FK5 (J2000)" ;
+	
+	public static final String FK4_STRING = "FK4 (B1950)" ;
+		
+	public static final String AZ_EL_STRING = "Az/El" ;
 
+	public static final String GAL_STRING = "Galactic" ;
+		
+	public static final String HADEC_STRING = "HADEC" ;
+		
 	/**
 	 * Readable coordinate system strings.
 	 */
 	public static final String[] COORD_SYS = 
 	{ 
-		"FK5 (J2000)" , 
-		"FK4 (B1950)" , 
-		"Az/El" , 
-		"Galactic" , 
-		"HADEC" 
+		FK5_STRING , 
+		FK4_STRING , 
+		AZ_EL_STRING , 
+		GAL_STRING , 
+		HADEC_STRING 
 	};
 
 	// MFO (March 08, 2002)

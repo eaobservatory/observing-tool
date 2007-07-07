@@ -2,18 +2,36 @@ package orac.ukirt.validation;
 
 import java.util.Vector;
 import java.util.Enumeration;
-import java.util.StringTokenizer;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import gemini.sp.*;
-import orac.ukirt.util.*;
-import orac.ukirt.inst.*;
-import orac.ukirt.iter.*;
+import gemini.sp.SpTreeMan ;
+import gemini.sp.SpObs ;
+import gemini.sp.SpSurveyContainer ;
+import gemini.sp.SpProg ;
+import gemini.sp.SpMSB ;
+import orac.ukirt.inst.SpInstCGS4 ;
+import orac.ukirt.inst.SpInstMichelle ;
+import orac.ukirt.inst.SpInstUIST ;
+import orac.ukirt.inst.SpInstWFCAM ;
+import orac.ukirt.inst.SpInstIRCAM3 ;
+import orac.ukirt.inst.SpInstUFTI ;
+import orac.ukirt.inst.SpDRRecipe ;
+import orac.ukirt.iter.SpIterDarkObs ;
+import orac.ukirt.iter.SpIterFP ;
+import orac.ukirt.iter.SpIterIRPOL ;
+import orac.ukirt.iter.SpIterCGS4 ;
+import orac.ukirt.iter.SpIterMichelle ;
+import orac.ukirt.iter.SpIterUFTI ;
+import orac.ukirt.iter.SpIterWFCAM ;
+import orac.ukirt.iter.SpIterIRCAM3 ;
+import orac.ukirt.iter.SpIterCGS4CalUnit ;
+import orac.ukirt.iter.SpIterCGS4CalObs ;
+import orac.ukirt.iter.SpIterBiasObs ;
+import orac.ukirt.iter.SpIterNod ;
 import gemini.sp.obsComp.SpInstObsComp;
 import gemini.sp.obsComp.SpTelescopeObsComp;
-import gemini.sp.iter.SpIterConfigBase;
 import gemini.sp.iter.SpIterConfigObs;
 import gemini.sp.iter.SpIterObserveBase;
 import gemini.sp.iter.SpIterFolder;
@@ -28,8 +46,13 @@ import gemini.sp.iter.SpIterChop;
 import gemini.sp.obsComp.SpSiteQualityObsComp;
 import orac.ukirt.iter.SpIterObserve;
 import orac.ukirt.iter.SpIterSky;
-import orac.validation.*;
+import orac.validation.SpValidation ;
+import orac.validation.ErrorMessage ;
 import orac.util.SpInputXML ;
+
+import gemini.util.CoordSys ;
+import gemini.util.CoordConvert; 
+import gemini.util.RADec ;
 
 /**
  * Validation Tool.
@@ -550,179 +573,180 @@ public class UkirtSpValidation extends SpValidation {
   }
 
   /**
-   * Checks validity of target list.
-   * 
-   * @param telescopeObsComp    Target list to be checked.
-   * @param report              error messages and warnings are appended to report.
-   */
-  public void checkTargetList(SpTelescopeObsComp telescopeObsComp, Vector report) {
-    SpTelescopePosList list = telescopeObsComp.getPosList();
-    TelescopePos [] position = list.getAllPositions();
-    double [] values = null;
-    double deg;
-    double min;
-    double sec;
+	 * Checks validity of target list.
+	 * 
+	 * @param telescopeObsComp    Target list to be checked.
+	 * @param report              error messages and warnings are appended to report.
+	 */
+	public void checkTargetList( SpTelescopeObsComp telescopeObsComp , Vector report )
+	{
+		SpTelescopePosList list = telescopeObsComp.getPosList();
+		TelescopePos[] position = list.getAllPositions();
+		double[] values = null;
+		double deg;
+		double min;
+		double sec;
+
+		boolean hasGuideStar = false;
+
+		SpTelescopePos pos = null;
+		SpTelescopePos pos2 = null;
+		String trackingSystem = null;
+		String trackingSystem2 = null;
+		for( int i = 0 ; i < position.length ; i++ )
+		{
+			pos = ( SpTelescopePos )position[ i ];
+			if( !hasGuideStar )
+				hasGuideStar = pos.isGuidePosition();
+
+			try
+			{
+				trackingSystem = ( String )telescopeObsComp.getTable().getAll( pos.getTag() ).get( 4 );
+			}
+			catch( Exception e )
+			{
+				// catching possible NullPointerException or ArrayIndexOutOfBoundsException
+				e.printStackTrace();
+			}
+
+			/*
+			 * Checking RA aka x axis
+			 * Note that getXaxis() maps values in the range 0..24 h typed by the user to degrees 0..360.
+			 * It also works modulo 24. So 12:00:00.0 and 36:00:00.0 both yield 180.0.
+			 * getXaxis also treats things like 9h 16min as equivalent to 8h 76min etc.
+			 * 
+			 * But the user should not be allowed to type 36h instead of 12h etc so checking is based on the
+			 * original string.
+			 */
+
+			try
+			{
+				values = degreeString2doubles( pos.getXaxisAsString() );
+				deg = values[ 0 ];
+				min = values[ 1 ];
+				sec = values[ 2 ];
+
+				// Checking allowed ranges. Overall range allowded: 0 - 24 hours
+				if( deg < 0 || deg >= 24 || min < 0 || min >= 60 || sec < 0 || sec >= 60 )
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "RA" , "range 0:00:00 .. 24:00:00" , pos.getXaxisAsString() ) );
+			}
+			catch( NumberFormatException e )
+			{
+				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "RA" , "Format <hours>:<min>:<sec>" , pos.getXaxisAsString() ) );
+			}
+
+			try
+			{
+				values = degreeString2doubles( pos.getYaxisAsString() );
+				deg = values[ 0 ];
+				min = values[ 1 ];
+				sec = values[ 2 ];
+
+				// Checking allowed ranges. Overall range allowed: -40..60
+				if( deg < -40 || deg > 60 || min < 0 || min >= 60 || sec < 0 || sec >= 60 || ( deg >= 60 && min > 0 ) || ( deg >= 60 && sec > 0 ) || ( deg <= -40 && min > 0 ) || ( deg <= -40 && sec > 0 ) )
+					report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "Dec" , "range -40:00:00 .. 60:00:00" , pos.getYaxisAsString() ) );
+			}
+			catch( NumberFormatException e )
+			{
+				report.add( new ErrorMessage( ErrorMessage.ERROR , "Telescope target " + pos.getName() , "Dec" , "Format <deg>:<min>:<sec>" , pos.getYaxisAsString() ) );
+			}
+
+			// checking whether both RA and Dec are 0:00:00
+			if( pos.getXaxis() == 0 && pos.getYaxis() == 0 )
+				report.add( new ErrorMessage( ErrorMessage.WARNING , "Telescope target " + pos.getName() , "Both Dec and RA are 0:00:00" ) );
+
+			/*
+			 * Check whether the target list has a target coordinate for which the epoch is B1950, 
+			 * and a guide star coordinate for which the Ra and Dec values are identical 
+			 * and the epoch is J2000.
+			 */
+			for( int j = 0 ; j < position.length ; j++ )
+			{
+				pos2 = ( SpTelescopePos )position[ j ];
+
+				// Do not compare a position with itself
+				if( i != j )
+				{
+					if( ( pos.getXaxis() == pos2.getXaxis() ) && ( pos.getYaxis() == pos2.getYaxis() ) )
+					{
+						try
+						{
+							trackingSystem2 = ( String )telescopeObsComp.getTable().getAll( pos2.getTag() ).get( 4 );
+						}
+						catch( Exception e )
+						{
+							// catching possible NullPointerException or ArrayIndexOutOfBoundsException
+							e.printStackTrace();
+						}
+
+						boolean trackingGood = trackingSystem != null && trackingSystem2 != null ;
+						boolean guidesGood = pos.isGuidePosition() && !pos2.isGuidePosition() ;
+						boolean systemsDiffer = trackingSystem != trackingSystem2 ;
+						
+						
+						if( trackingGood && guidesGood && systemsDiffer )
+							report.add( new ErrorMessage( ErrorMessage.ERROR , telescopeObsComp.getTitle() , "Target and guide star with differing coordinate systems have identical values for Ra and Dec." ) );
+					}
+				}
+			}
+		}
+
+		// Make sure the guide star is within 210 arcsecs of the base
+		if( hasGuideStar )
+		{
+			SpTelescopePos basePos = list.getBasePosition();
+			SpTelescopePos guidePos = ( SpTelescopePos )list.getPosition( "GUIDE" );
+			
+			// shouldn't be null, after all it has a guide star
+			if( basePos != null && guidePos != null )
+			{			
+				String baseSystem = basePos.getCoordSysAsString() ;
+				String guideSystem = guidePos.getCoordSysAsString() ;
+				
+				double baseRA = basePos.getXaxis() ; 
+				double baseDec = basePos.getYaxis() ; 
+				double guideRA = guidePos.getXaxis() ; 
+				double guideDec = guidePos.getYaxis() ;
+				
+				if( !baseSystem.equals( guideSystem ) )
+				{
+					if( baseSystem.equals( CoordSys.FK4_STRING ) )
+					{
+						RADec raDec = CoordConvert.fk425( baseRA , baseDec ) ;
+						baseRA = raDec.ra ; 
+						baseDec = raDec.dec ;
+					}
+					else if( guideSystem.equals( CoordSys.FK4_STRING ) )
+					{
+						RADec raDec = CoordConvert.fk425( guideRA , guideDec ) ;
+						guideRA = raDec.ra ; 
+						guideDec = raDec.dec ;						
+					}
+				}
 	
-    boolean hasGuideStar = false;
-    
-    SpTelescopePos pos     = null;
-    SpTelescopePos pos2    = null;
-    String trackingSystem  = null;
-    String trackingSystem2 = null;
-    for(int i = 0; i < position.length; i++) {
-      pos = (SpTelescopePos)position[i];
-      if (!hasGuideStar) {
-          hasGuideStar = pos.isGuidePosition();
-      }
-
-      try {
-        trackingSystem  = (String)telescopeObsComp.getTable().getAll(pos.getTag() ).get(4);
-      }
-      catch(Exception e) {
-        // catching possible NullPointerException or ArrayIndexOutOfBoundsException
-        e.printStackTrace();
-      }
-
-        // Checking RA aka x axis
-        // Note that getXaxis() maps values in the range 0..24 h typed by the user to degrees 0..360.
-        // It also works modulo 24. So 12:00:00.0 and 36:00:00.0 both yield 180.0.
-	// getXaxis also treats things like 9h 16min as equivalent to 8h 76min etc.
-	
-        // But the user should not be allowed to type 36h instead of 12h etc so checking is based on the
-	// original string.
-        
-	try {
-          values = degreeString2doubles(pos.getXaxisAsString());
-	  deg = values[0];
-	  min = values[1];
-	  sec = values[2];
-	
-	
-          // Checking allowed ranges. Overall range allowded: 0 - 24 hours
-          if(deg < 0 || deg >= 24
-          || min < 0 || min >= 60
-          || sec < 0 || sec >= 60) {
-        
-  	    report.add(new ErrorMessage(ErrorMessage.ERROR,
-	                                "Telescope target " + pos.getName(),
-					"RA",
-				        "range 0:00:00 .. 24:00:00",
-				        pos.getXaxisAsString()));
-          }
-	}
-	catch(NumberFormatException e) {
-	  report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                      "Telescope target " + pos.getName(),
-				      "RA",
-				      "Format <hours>:<min>:<sec>",
-				      pos.getXaxisAsString()));
+				// Guides are never offsets for ukirt, so we need to work out the offsets
+				double[] offsets = RADecMath.getOffset( guideRA , guideDec , baseRA , baseDec );
+				for( int i = 0 ; i < offsets.length ; i++ )
+				{
+					if( Math.abs( offsets[ i ] ) > 210 )
+					{
+						report.add( new ErrorMessage( ErrorMessage.ERROR , basePos.getName() , "Guide star is more than 210 arcsecs from the base" ) );
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			report.add( new ErrorMessage( ErrorMessage.WARNING , telescopeObsComp.getTitle() , "No guide star specified." ) );
+		}
 	}
 
-	
-	try {
-          values = degreeString2doubles(pos.getYaxisAsString());
-	  deg = values[0];
-	  min = values[1];
-	  sec = values[2];
-
-          // Checking allowed ranges. Overall range allowed: -40..60
-          if(deg < -40 || deg >  60
-          || min < 0   || min >= 60
-          || sec < 0   || sec >= 60
-          || (deg >= 60  && min > 0)
-	  || (deg >= 60  && sec > 0)
-	  || (deg <= -40 && min > 0)
-	  || (deg <= -40 && sec > 0)) {
-        
-	    report.add(new ErrorMessage(ErrorMessage.ERROR,
-	                                "Telescope target " + pos.getName(),
-					"Dec",
-				        "range -40:00:00 .. 60:00:00",
-				        pos.getYaxisAsString()));
-          }
-	}
-	catch(NumberFormatException e) {
-	  report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                      "Telescope target " + pos.getName(),
-				      "Dec",
-				      "Format <deg>:<min>:<sec>",
-				      pos.getYaxisAsString()));
-	}
-
-	// checking whether both RA and Dec are 0:00:00
-	if(pos.getXaxis() == 0 && pos.getYaxis() == 0) {
-	  report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                      "Telescope target " + pos.getName(),
-				      "Both Dec and RA are 0:00:00"));
-	}
-
-        
-	// Check whether the target list has a target coordinate for which the epoch is B1950, 
-        // and a guide star coordinate for which the Ra and Dec values are identical 
-        // and the epoch is J2000.
-	for(int j = 0; j < position.length; j++) {
-          pos2 = (SpTelescopePos)position[j];
-
-          // Do not compare a position with itself
-	  if(i != j) {
-
-	    if((pos.getXaxis() == pos2.getXaxis()) &&
-	       (pos.getYaxis() == pos2.getYaxis())) {
-
-	      try {
-	        trackingSystem2 = (String)telescopeObsComp.getTable().getAll(pos2.getTag()).get(4);
-	      }
-	      catch(Exception e) {
-                // catching possible NullPointerException or ArrayIndexOutOfBoundsException
-	        e.printStackTrace();
-              }
-	    
-	      if(trackingSystem != null  && trackingSystem2 != null &&
-	           pos.isGuidePosition() && trackingSystem.equals( "FK5 (J2000)") &&
-	         !pos2.isGuidePosition() && trackingSystem2.equals("FK4 (B1950)")) {
-	      
-	        report.add(new ErrorMessage(ErrorMessage.ERROR,
-                                            telescopeObsComp.getTitle(),
-				            "Target coordinate with B1950 and guide star coordinate with J2000 have identical values for Ra and Dec."));
-	      }
-	    }
-	  }  
-	}  
-    }
-
-    // Make sure the guide star is within 210 arcsecs of the base
-    if ( hasGuideStar ) {
-        SpTelescopePos basePos = list.getBasePosition();
-        SpTelescopePos guidePos = (SpTelescopePos)list.getPosition("GUIDE");
-        if ( basePos != null && guidePos!= null ) {
-            // Guides are never offsets for ukirt, so we need to work out the offsets
-            double [] offsets = RADecMath.getOffset(guidePos.getXaxis(), guidePos.getYaxis(),
-                    basePos.getXaxis(), basePos.getYaxis());
-            for ( int i=0; i<offsets.length; i++ ) {
-                if ( Math.abs(offsets[i]) > 210 ) {
-                    report.add( new ErrorMessage( ErrorMessage.ERROR,
-                                basePos.getName(),
-                                "Guide star is more than 210 arcsecs from the base"));
-                    break;
-                }
-            }
-        }
-    }
-  
-    if(!hasGuideStar) {
-      report.add(new ErrorMessage(ErrorMessage.WARNING,
-                                  telescopeObsComp.getTitle(),
-				  "No guide star specified."));
-    }
-  }
-
-  public void checkDRRecipe( SpDRRecipe recipe , Vector report )
+	public void checkDRRecipe( SpDRRecipe recipe , Vector report )
 	{
 
 		if( !( recipe.getArcInGroup() || recipe.getBiasInGroup() || recipe.getDarkInGroup() || recipe.getFlatInGroup() || recipe.getObjectInGroup() || recipe.getSkyInGroup() ) )
-		{
 			report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe in " + recipe.parent().getTitle() , "No part included in group." ) );
-		}
 
 		SpInstObsComp inst = ( ( SpInstObsComp ) SpTreeMan.findInstrument( recipe ) );
 
@@ -832,28 +856,15 @@ public class UkirtSpValidation extends SpValidation {
 					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Object) for " + inst.subtypeStr() , recipe.getObjectRecipeName() + " not in the OT list." ) );	
 
 			}
-			if( flat )
-			{
-				if( !recipes.contains( recipe.getFlatRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Flat) for " + inst.subtypeStr() , recipe.getFlatRecipeName() + " not in the OT list." ) );
-			}
-			if( arc )
-			{
-				if( !recipes.contains( recipe.getArcRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Arc) for " + inst.subtypeStr() , recipe.getArcRecipeName() + " not in the OT list." ) );
-			}
-			if( bias )
-			{
-				if( !recipes.contains( recipe.getBiasRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Bias) for " + inst.subtypeStr() , recipe.getBiasRecipeName() + " not in the OT list." ) );				
-				
-			}
-			if( focus  )
-			{
-				if( !recipes.contains( recipe.getFocusRecipeName() ) )
-					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Focus) for " + inst.subtypeStr() , recipe.getFocusRecipeName() + " not in the OT list." ) );
-			}
 			
+			if( flat && !recipes.contains( recipe.getFlatRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Flat) for " + inst.subtypeStr() , recipe.getFlatRecipeName() + " not in the OT list." ) );
+			if( arc && !recipes.contains( recipe.getArcRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Arc) for " + inst.subtypeStr() , recipe.getArcRecipeName() + " not in the OT list." ) );
+			if( bias && !recipes.contains( recipe.getBiasRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Bias) for " + inst.subtypeStr() , recipe.getBiasRecipeName() + " not in the OT list." ) );								
+			if( focus && !recipes.contains( recipe.getFocusRecipeName() ) )
+					report.add( new ErrorMessage( ErrorMessage.WARNING , "DR Recipe (Focus) for " + inst.subtypeStr() , recipe.getFocusRecipeName() + " not in the OT list." ) );			
 		}
 	}
 
@@ -862,32 +873,35 @@ public class UkirtSpValidation extends SpValidation {
 	 * 
 	 * @see gemini.util.HHMMSS#valueOf
 	 */
-  public double [] degreeString2doubles(String s) throws NumberFormatException {
-    if (s == null) throw new NumberFormatException("null argument");
-    
-    if (s.length() < 1) throw new NumberFormatException("empty string");
+	public double[] degreeString2doubles( String s ) throws NumberFormatException
+	{
+		if( s == null )
+			throw new NumberFormatException( "null argument" );
 
-    // Determine the sign from the (trimmed) string
-    s = s.trim();
-    int sign = 1;
-    if(s.charAt(0) == '-') {
-      sign = -1;
-      s    = s.substring(1);
-    }
+		if( s.length() < 1 )
+			throw new NumberFormatException( "empty string" );
 
-    // Parse the string into values for hours, min, and sec
-    // Initialize with 0.0 but these default values should only beused if there is NO other value specified.
-    // If something invalid is specified an exception should be thrown.
-    double[] vals = {0.0, 0.0, 0.0};
-    StringTokenizer tok = new StringTokenizer(s, ": ");
-    for(int i=0; i<3 && tok.hasMoreTokens(); i++) {
-      vals[i] = Double.valueOf(tok.nextToken()).doubleValue();
-    }
+		// Determine the sign from the (trimmed) string
+		s = s.trim();
+		int sign = 1;
+		if( s.charAt( 0 ) == '-' )
+		{
+			sign = -1;
+			s = s.substring( 1 );
+		}
 
-    vals[0] *= sign;
+		// Parse the string into values for hours, min, and sec
+		// Initialize with 0.0 but these default values should only beused if there is NO other value specified.
+		// If something invalid is specified an exception should be thrown.
+		double[] vals = { 0.0 , 0.0 , 0.0 };
+		String[] split = s.split( ":" ) ;
+		for( int i = 0 ; i < 3 && i != split.length ; i++ )
+			vals[ i ] = Double.valueOf( split[ i ].trim() ).doubleValue();
 
-    return vals;
-  }
+		vals[ 0 ] *= sign;
+
+		return vals;
+	}
 
   /**
    * Checks validity of the whole SciProgram tree.
