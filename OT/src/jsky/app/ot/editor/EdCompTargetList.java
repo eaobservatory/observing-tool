@@ -49,6 +49,10 @@ import java.awt.Color ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
+import gemini.util.CoordConvert ;
+import gemini.util.RADec ;
+import gemini.util.HHMMSS ;
+import gemini.util.DDMMSS ;
 
 // MFO, June 06, 2002:
 //   At the moment the only supported type is MAJOR. So the DropDownListBoxWidgetExt namedSystemType
@@ -1037,8 +1041,31 @@ public class EdCompTargetList extends OtItemEditor
 		int sysInt = CoordSys.getSystem( coordSys );
 		Assert.notFalse( sysInt != -1 );
 
+		int current = _curPos.getCoordSys() ;
+		String currentSystem = CoordSys.COORD_SYS[ current ] ;
+		
+		double ra = HHMMSS.valueOf( _curPos.getXaxisAsString() ) ;
+		double dec = DDMMSS.valueOf( _curPos.getYaxisAsString() ) ;
+		RADec raDec = null ;
+		
+		if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
+		{
+			raDec = CoordConvert.fk524( ra , dec ) ;
+			ra = raDec.ra ;
+			dec = raDec.dec ;
+		}
+		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
+		{
+			raDec = CoordConvert.fk425( ra , dec ) ;
+			ra = raDec.ra ;
+			dec = raDec.dec ;
+		}
+		
 		_curPos.setCoordSys( sysInt );
-		_curPos.setXY( 0. , 0. ) ;
+		if( raDec == null )
+			_curPos.setXY( 0. , 0. ) ;
+		else
+			_curPos.setXY( ra , dec ) ;
 
 		showPos( _curPos );
 	}
