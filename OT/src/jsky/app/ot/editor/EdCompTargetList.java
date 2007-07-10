@@ -49,7 +49,7 @@ import java.awt.Color ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
-import ot.util.CoordConvert ;
+import orac.util.CoordConvert ;
 import gemini.util.RADec ;
 import gemini.util.HHMMSS ;
 import gemini.util.DDMMSS ;
