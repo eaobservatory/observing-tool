@@ -11,14 +11,8 @@ package gemini.util;
  */
 public class RADec
 {
-   /** FK5 (J2000) coordinate system.  */
-   public static final int FK5 = 0;
-
-   /** FK4 (B1950) coordinate system.  */
-   public static final int FK4 = 1;
-
    /** The coordinate system in which the RA and Dec are represented. */
-   public int coordSystem = FK5;
+   public int coordSystem = CoordSys.FK5;
 
    /** Right ascension in degrees. */
    public double ra = 0.0;
@@ -37,22 +31,23 @@ public class RADec
  */
 public RADec() {}
 
-/**
- * Construct with most of the fields.
- */
-public RADec(int sys, double ra, double dec)
-{
-   switch (sys) {
-      case FK5:
-      case FK4:
-         this.coordSystem = sys;
-         break;
-      default:
-         this.coordSystem = FK5;
-   }
-   this.ra  = ra;
-   this.dec = dec;
-}
+	/**
+	 * Construct with most of the fields.
+	 */
+	public RADec( int sys , double ra , double dec )
+	{
+		switch( sys )
+		{
+			case CoordSys.FK5 :
+			case CoordSys.FK4 :
+				this.coordSystem = sys;
+				break;
+			default :
+				this.coordSystem = CoordSys.FK5;
+		}
+		this.ra = ra;
+		this.dec = dec;
+	}
 
 /**
  * Construct with all of the fields.

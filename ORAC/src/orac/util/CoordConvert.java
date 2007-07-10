@@ -5,6 +5,7 @@ import uk.ac.starlink.pal.AngleDR ;
 import uk.ac.starlink.pal.Stardata ;
 
 import gemini.util.RADec ;
+import gemini.util.CoordSys ;
 
 public class CoordConvert
 {
@@ -20,12 +21,12 @@ public class CoordConvert
 		
 		AngleDR angleDR = new AngleDR( raInRadians , decInRadians ) ;
 		
-		if( targetSystem == RADec.FK4 )
+		if( targetSystem == CoordSys.FK4 )
 		{
 			Stardata stardata = pal.Fk54z( angleDR , 1950. ) ;
 			angleDR = stardata.getAngle() ;
 		}
-		else if( targetSystem == RADec.FK5 )
+		else if( targetSystem == CoordSys.FK5 )
 		{
 			angleDR = pal.Fk45z( angleDR , 1950. ) ; // 1950 matches coco's output
 		}
@@ -53,7 +54,7 @@ public class CoordConvert
 	 */
 	public static RADec Fk54z( double ra , double dec )
 	{
-		return FkXXz( ra , dec , RADec.FK4 ) ; 
+		return FkXXz( ra , dec , CoordSys.FK4 ) ; 
 	}
 
 	/**
@@ -64,7 +65,7 @@ public class CoordConvert
 	 */
 	public static RADec Fk45z( double ra , double dec )
 	{
-		return FkXXz( ra , dec , RADec.FK5 ) ; 
+		return FkXXz( ra , dec , CoordSys.FK5 ) ; 
 	}
 
 	public static double degreesToRadians( double degrees )
