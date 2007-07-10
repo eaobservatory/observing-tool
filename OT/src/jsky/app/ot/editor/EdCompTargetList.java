@@ -49,7 +49,7 @@ import java.awt.Color ;
 import gemini.sp.SpTreeMan ;
 import gemini.sp.obsComp.SpInstObsComp ;
 
-import gemini.util.CoordConvert ;
+import ot.util.CoordConvert ;
 import gemini.util.RADec ;
 import gemini.util.HHMMSS ;
 import gemini.util.DDMMSS ;
@@ -1050,13 +1050,13 @@ public class EdCompTargetList extends OtItemEditor
 		
 		if( currentSystem.equals( CoordSys.FK5_STRING ) && coordSys.equals( CoordSys.FK4_STRING ) )
 		{
-			raDec = CoordConvert.fk524( ra , dec ) ;
+			raDec = CoordConvert.Fk54z( ra , dec ) ;			
 			ra = raDec.ra ;
 			dec = raDec.dec ;
 		}
 		else if( currentSystem.equals( CoordSys.FK4_STRING ) && coordSys.equals( CoordSys.FK5_STRING ) )
 		{
-			raDec = CoordConvert.fk425( ra , dec ) ;
+			raDec = CoordConvert.Fk45z( ra , dec ) ;
 			ra = raDec.ra ;
 			dec = raDec.dec ;
 		}
