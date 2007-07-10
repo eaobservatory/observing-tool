@@ -51,7 +51,7 @@ import orac.validation.ErrorMessage ;
 import orac.util.SpInputXML ;
 
 import gemini.util.CoordSys ;
-import gemini.util.CoordConvert; 
+import orac.util.CoordConvert; 
 import gemini.util.RADec ;
 
 /**
@@ -712,13 +712,13 @@ public class UkirtSpValidation extends SpValidation {
 				{
 					if( baseSystem.equals( CoordSys.FK4_STRING ) )
 					{
-						RADec raDec = CoordConvert.fk425( baseRA , baseDec ) ;
+						RADec raDec = CoordConvert.Fk45z( baseRA , baseDec ) ;
 						baseRA = raDec.ra ; 
 						baseDec = raDec.dec ;
 					}
 					else if( guideSystem.equals( CoordSys.FK4_STRING ) )
 					{
-						RADec raDec = CoordConvert.fk425( guideRA , guideDec ) ;
+						RADec raDec = CoordConvert.Fk45z( guideRA , guideDec ) ;
 						guideRA = raDec.ra ; 
 						guideDec = raDec.dec ;						
 					}
