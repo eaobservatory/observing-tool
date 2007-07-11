@@ -14,7 +14,7 @@ Council All Rights. Reserved.
 
 +++ July 2007
 
-  - Conversion between B1950 and J2000 added.
+  - Conversion between B1950 and J2000 added to the Target Component.
 
   - Option of Array Centred observations in Stare eye w/HARP and Position Switch.
 

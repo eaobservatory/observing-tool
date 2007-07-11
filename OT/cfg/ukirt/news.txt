@@ -15,7 +15,7 @@ Council All Rights. Reserved.
 
 +++ July 2007
 
-  - Conversion between B1950 and J2000 added.
+  - Conversion between B1950 and J2000 added to the Target Component.
 
   - Minor fixes for UIST and UFTI.
 
