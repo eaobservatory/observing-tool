@@ -12,6 +12,16 @@ OMP modifications Copyright 2001-2003 Particle Physics and Astronomy Research
 Council All Rights. Reserved.
 
 
++++ July 2007
+
+  - Conversion between B1950 and J2000 added.
+
+  - Option of Array Centred observations in Stare eye w/HARP and Position Switch.
+
+  - Separate/Shared offs added to Stare w/Position Switch and Jiggle.
+
+  - Updates to switching modes allowing for Position Switches for Jiggle eye.
+
 +++ March 2007
 
   - Numerous changes to facilitate HARP observing.
